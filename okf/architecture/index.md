@@ -693,3 +693,5 @@ MenuDrawer의 상세 Accordion 그룹 분리와 유지 계약은 [Organisms 재�
 아이콘 파일은 public/images/icon 루트에 모으고 name에도 폴더 접두사를 사용하지 않는다.
 
 Font Awesome 아이콘은 공식 이름과 확인된 스타일을 사용한다. 대응표는 public/images/icon/README.md에 기록한다.
+
+[모달 퍼블리싱 가이드](routing.md#모달-퍼블리싱-가이드-2026-11-04)는 데스크탑·모바일 모달 예시와 코드 복사를 제공한다.

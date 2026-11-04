@@ -4598,3 +4598,43 @@ Icon 사용처와 가이드 복사 코드는 name → size → color 순서로 �
 사용자 확인에 따라 chevron-down은 Regular만 사용한다. Figma 296:11741의 18×18 원본을 chevron-down-regular.svg로 저장하고 기존 chevron-down 및 chevron-down-solid 파일·등록을 제거했다. 가이드 Solid 예시를 제거하고 실제 사용처·코드·README를 갱신했다. 이전 13×8 전용 도형의 높이 재정의는 제거해 size로 원본 비율을 유지한다. 다른 이름의 아이콘 스타일은 이번 범위에 포함하지 않는다. 출처: Icon.assets.ts, IconGuide.tsx, ProductListingPage.tsx 및 chevron-down 사용처.
 
 검증: 변경 파일 ESLint·Prettier, screen-files·OKF 검사 통과. 소스와 에셋 목록에서 이전 chevron-down 및 Solid 참조가 없음을 확인했다. Ego 가이드에서 Regular 카드 1개·Solid 예시 없음과 원본 표시를 확인했다. 전체 typecheck는 기존 .next/types 삭제 라우트 참조 오류만 남고 src 진단은 없다.
+
+
+## 모달 닫기 아이콘 Regular 적용 (2026-11-04)
+
+사용자 확인에 따라 공통 ModalDialog 헤더의 닫기 아이콘을 xmark-solid에서 xmark-regular로 변경했다. 크기 16px와 색상 상속, 버튼 접근성·닫기 동작은 유지한다. 출처: src/components/common/layouts/ModalDialog.tsx.
+
+
+## 2026-11-04 — 디자인팀 UI 아이콘 원본 등록
+
+Figma 디자인팀 UI 아이콘 5개 세트(296:25392, 296:25425, 298:25555, 298:25560, 298:25567)의 SVG 27개를 원본 그대로 등록했다. SVG 캔버스는 16×16이며 24px 버튼 프레임과 구분한다. 공통 모달 닫기에는 Action Buttons의 기본 xmark를 16px로 적용했다. 다른 화면과 상태 버튼은 사용 위치 확인 후 연결한다.
+
+
+장바구니 옵션 변경은 ModalDialog의 footerProps.desktopContentOffset으로 데스크탑 버튼을 오른쪽 콘텐츠 열에 맞춘다. 왼쪽 이미지 300px와 열 간격 32px를 전달하며 모바일은 기존 푸터 배치를 따른다. 출처: CartDialogs.tsx, ModalDialog.tsx, ModalGuide.tsx.
+
+
+장바구니 옵션 변경 및 모달 가이드의 확인 액션은 Figma 1985:76300 기준 데스크탑 180×48px, 버튼 간격 8px, 본문과 40px, 하단 24px를 적용한다. 공통 확인 액션의 buttonProps로 Tall 규격을 전달한다. 출처: CartDialogs.tsx, ModalDialog.tsx, ModalGuide.tsx.
+
+
+디자인팀 UI 아이콘 27개를 비교해 색상만 다른 14개를 제거하고 13개 SVG로 정리했다. 단색 액션·방향 아이콘은 Icon color로 색상을 지정한다. Echo 배너 화살표는 기본·호버 도형이 달라 각각 유지한다. 출처: public/images/icon/hoka-*.svg, Icon.assets.ts, IconGuide.tsx.
+
+
+흰색 방향 아이콘은 원과 방향 도형을 포함한 24px SVG 4종으로 등록했다. Icon이 이미지에 그림자를 자동 적용해 24px 바깥으로 표시한다. 출처: Icon.tsx, Icon.assets.ts, IconGuide.tsx.
+
+
+디자인팀 원형 방향 아이콘 이름을 circle로 변경하고 방향·액션·배너 35개 상태를 개별 복사 카드로 표시했다. 단색은 color, 원형 배경을 포함한 조합은 24px SVG로 표시한다. 출처: IconGuide.tsx, Icon.assets.ts.
+
+
+폼 상태 8개와 별점·쇼핑백·계정·장바구니 아이콘을 디자인팀 섹션에 배치하고 hoka- 등록 이름·파일명·호출부를 일치시켰다. 기존 SVG 도형을 유지하고 알림 수는 ShopShell의 배지 조합을 사용한다. 출처: IconGuide.tsx, Icon.assets.ts, ShopShell.tsx.
+
+
+디자인팀 xmark와 plus는 기존 Regular SVG와 도형을 대조해 hoka-action-xmark-regular·hoka-action-plus-regular로 명명했다. 원형 조합도 같은 접미사를 포함한다. 디자인팀 커스텀 또는 출처 스타일 미확인 도형에는 임의 접미사를 부여하지 않는다. 출처: Icon.assets.ts, IconGuide.tsx, ModalDialog.tsx 및 public/images/icon SVG.
+
+
+원형 배경이 포함된 디자인팀 아이콘은 이름 끝에 -circle을 붙인다. 방향·스타일·상태는 그 앞에 둔다. 예: hoka-nav-chevron-right-muted-circle, hoka-action-plus-regular-active-circle. 출처: Icon.assets.ts, IconGuide.tsx 및 SVG 파일.
+
+
+Dropdown과 FormField의 16px 정보 아이콘을 circle-info-regular로 통일했다. Solid 호출부를 확인한 뒤 미사용 SVG와 등록·가이드 항목을 정리했다. 출처: Dropdown.tsx, FormField.tsx, Icon.assets.ts, IconGuide.tsx.
+
+
+기본·상품 목록 하단 시트의 닫기 버튼과 아이콘은 24px로 표시한다. 출처: BottomSheet.tsx.

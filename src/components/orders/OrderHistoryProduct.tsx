@@ -90,7 +90,7 @@ export function OrderHistoryProduct({
               className={css({ alignSelf: 'flex-start' })}
             >
               <HStack gap="4px">
-                <Icon name="bag-shopping-regular" size={platform === 'mobile' ? '14px' : '18px'} />
+                <Icon name="hoka-bag-shopping-regular" size={platform === 'mobile' ? '14px' : '18px'} />
                 장바구니 담기
               </HStack>
             </Button>

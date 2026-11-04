@@ -1287,3 +1287,70 @@ Icon 사용처와 가이드 복사 코드는 name → size → color 순서로 �
 ## 아이콘 가이드 폼 상태 표시 순서 (2026-11-04)
 
 IconGuide의 폼 상태는 checkbox와 radio 각각 기본 → 선택 → 비활성 기본 → 비활성 선택 순서로 표시한다. 정적 예시 배열과 제목만 조정하며 실제 폼 동작은 변경하지 않는다. 출처: src/app/publishing-guide/_components/IconGuide.tsx.
+
+
+## 모달 퍼블리싱 가이드 (2026-11-04)
+
+/publishing-guide?tab=modal은 준비 중 안내 대신 ModalGuide를 표시한다. 기존 ModalDialog의 크기 3종, 액션, 스크롤, 오버레이, 모바일 표시 방식과 BottomSheet 2종을 12개 예시로 제공한다. 열기·닫기와 코드 복사만 로컬로 처리하며 서비스 요청은 없다. 가이드 전체의 화면 구분 문구를 데스크탑/모바일로 통일하고 web/mobile API 값과 아이콘 공식 이름은 유지한다. 출처: src/app/publishing-guide/page.tsx 및 _components/ModalGuide.tsx, IconGuide.tsx, ProductCardGuide.tsx, TypographyGuide.tsx.
+
+
+## 가이드 모바일 목차와 플로팅 이동 (2026-11-04)
+
+공통 GuideTimeline은 모바일 Grid에서 order -1로 본문 위에 표시하고 데스크탑의 우측 sticky 위치는 유지한다. 가이드 공통 맨 위로 링크는 양쪽 플랫폼 모두 우측 하단 fixed로 표시하며 safe-area와 본문 하단 여백을 확보한다. 모달보다 낮은 z-index 40을 사용한다. 출처: src/app/publishing-guide/_components/GuideTimeline.tsx, src/app/publishing-guide/page.tsx.
+
+
+모달 가이드 각 카드에는 소스에서 확인한 사용 화면·파일과 옵션 예시 여부를 표시한다. bottomSheet 기본 외형은 실제 화면에서 그대로 사용하지 않으며 OrderClaimRequest·PreviousTermsPicker·InquiryListContent가 전체 너비·상단 20px 모서리로 덮어쓴다. vertical 액션과 light 오버레이는 현재 서비스 사용처가 없는 옵션 예시다. 출처: ModalGuide.tsx 및 각 카드의 사용 파일, 2026-11-04 코드 검색.
+
+
+2026-11-04 보완: 하단 표시 가이드와 복사 코드에 실제 사용처의 모바일 전체 너비·상단 20px 모서리·흰색 헤더를 반영했다. 기본 직각 외형 대신 공통 커스텀 외형을 보여주며 본문·버튼·세부 여백은 화면별 차이가 있음을 표시한다. 공용 ModalDialog와 실제 화면은 변경하지 않았다.
+
+
+바텀시트형 모달은 독립 BottomSheet가 아닌 ModalDialog의 반응형 표시 방식이다. 가이드에 데스크탑 중앙 팝업과 모바일 하단 시트가 같은 본문·입력 상태·열기/닫기 소유권을 유지한다는 사용 이유를 명시했다. 출처: ModalGuide.tsx, 2026-11-04.
+
+
+장바구니 옵션 변경은 ModalDialog의 footerProps.desktopContentOffset으로 데스크탑 버튼을 오른쪽 콘텐츠 열에 맞춘다. 왼쪽 이미지 300px와 열 간격 32px를 전달하며 모바일은 기존 푸터 배치를 따른다. 출처: CartDialogs.tsx, ModalDialog.tsx, ModalGuide.tsx.
+
+
+장바구니 옵션 변경 및 모달 가이드의 확인 액션은 Figma 1985:76300 기준 데스크탑 180×48px, 버튼 간격 8px, 본문과 40px, 하단 24px를 적용한다. 공통 확인 액션의 buttonProps로 Tall 규격을 전달한다. 출처: CartDialogs.tsx, ModalDialog.tsx, ModalGuide.tsx.
+
+
+디자인팀 UI 아이콘 27개를 비교해 색상만 다른 14개를 제거하고 13개 SVG로 정리했다. 단색 액션·방향 아이콘은 Icon color로 색상을 지정한다. Echo 배너 화살표는 기본·호버 도형이 달라 각각 유지한다. 출처: public/images/icon/hoka-*.svg, Icon.assets.ts, IconGuide.tsx.
+
+
+Figma 296:25392의 흰색 방향 버튼은 24px 컨테이너, 반경 56px, 그림자 0 4px 8px 검정 16%와 방향별 16px SVG를 조합해 가이드에 표시한다. 출처: IconGuide.tsx.
+
+
+흰색 방향 아이콘은 원과 방향 도형을 포함한 24px SVG 4종으로 등록했다. Icon이 이미지에 그림자를 자동 적용해 24px 바깥으로 표시한다. 출처: Icon.tsx, Icon.assets.ts, IconGuide.tsx.
+
+
+디자인팀 원형 방향 아이콘 이름을 circle로 변경하고 방향·액션·배너 35개 상태를 개별 복사 카드로 표시했다. 단색은 color, 원형 배경을 포함한 조합은 24px SVG로 표시한다. 출처: IconGuide.tsx, Icon.assets.ts.
+
+
+아이콘 가이드에서 Echo 배너 화살표의 좌우 기본·호버 4종은 현재 사용 화면 없음으로 표시한다. 출처: 사용자 확인, IconGuide.tsx.
+
+
+폼 상태 8개와 별점·쇼핑백·계정·장바구니 아이콘을 디자인팀 섹션에 배치하고 hoka- 등록 이름·파일명·호출부를 일치시켰다. 기존 SVG 도형을 유지하고 알림 수는 ShopShell의 배지 조합을 사용한다. 출처: IconGuide.tsx, Icon.assets.ts, ShopShell.tsx.
+
+
+디자인팀 아이콘 섹션에 쇼핑백·계정·장바구니의 파란 알림 배지 조합 3종을 개별 복사 카드로 추가하고 눈 아이콘 2종을 이동했다. 출처: IconGuide.tsx, ShopShell.tsx.
+
+
+디자인팀 체크박스·라디오 아이콘 8종의 가이드 미리보기와 복사 코드를 원본 16px 크기로 맞췄다. 출처: IconGuide.tsx 및 hoka-checkbox·hoka-radio SVG.
+
+
+아이콘 가이드에서 확인된 실제 호출 크기로 미리보기·복사 코드를 맞추고 크기 사용법 예시도 실제 chevron-down 규격 13/14/16px로 수정했다. 출처: IconGuide.tsx 및 화면 호출부.
+
+
+아이콘 가이드의 체크박스·라디오 상태 설명에서 불필요한 Font Awesome 대응 미확인 문구를 제거했다. 출처: IconGuide.tsx.
+
+
+디자인팀 xmark와 plus는 기존 Regular SVG와 도형을 대조해 hoka-action-xmark-regular·hoka-action-plus-regular로 명명했다. 원형 조합도 같은 접미사를 포함한다. 디자인팀 커스텀 또는 출처 스타일 미확인 도형에는 임의 접미사를 부여하지 않는다. 출처: Icon.assets.ts, IconGuide.tsx, ModalDialog.tsx 및 public/images/icon SVG.
+
+
+원형 배경이 포함된 디자인팀 아이콘은 이름 끝에 -circle을 붙인다. 방향·스타일·상태는 그 앞에 둔다. 예: hoka-nav-chevron-right-muted-circle, hoka-action-plus-regular-active-circle. 출처: Icon.assets.ts, IconGuide.tsx 및 SVG 파일.
+
+
+Dropdown과 FormField의 16px 정보 아이콘을 circle-info-regular로 통일했다. Solid 호출부를 확인한 뒤 미사용 SVG와 등록·가이드 항목을 정리했다. 출처: Dropdown.tsx, FormField.tsx, Icon.assets.ts, IconGuide.tsx.
+
+
+주문 취소·반품 신청의 예정 금액 숫자는 데스크탑 heading10, 모바일 heading7을 사용한다. 출처: OrderClaimRequest.tsx.

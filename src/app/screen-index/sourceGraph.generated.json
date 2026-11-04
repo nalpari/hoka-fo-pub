@@ -762,6 +762,17 @@
       "src/components/common/atoms/Icon.tsx",
       "src/components/common/atoms/Typography.tsx"
     ],
+    "src/app/publishing-guide/_components/ModalGuide.tsx": [
+      "src/app/publishing-guide/_components/GuideCode.tsx",
+      "src/app/publishing-guide/_components/GuideCopyToast.tsx",
+      "src/app/publishing-guide/_components/GuideTimeline.tsx",
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/BottomSheet.tsx",
+      "src/components/common/layouts/ModalDialog.tsx",
+      "src/context/platform.tsx"
+    ],
     "src/app/publishing-guide/_components/ProductCardGuide.tsx": [
       "src/app/publishing-guide/_components/GuideCode.tsx",
       "src/app/publishing-guide/_components/GuideCopyToast.tsx",
@@ -792,6 +803,7 @@
       "src/app/publishing-guide/_components/FormGuide.tsx",
       "src/app/publishing-guide/_components/HelpTipsGuide.tsx",
       "src/app/publishing-guide/_components/IconGuide.tsx",
+      "src/app/publishing-guide/_components/ModalGuide.tsx",
       "src/app/publishing-guide/_components/ProductCardGuide.tsx",
       "src/app/publishing-guide/_components/TypographyGuide.tsx",
       "src/components/common/atoms/Button.tsx",

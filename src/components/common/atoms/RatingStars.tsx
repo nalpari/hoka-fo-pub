@@ -77,7 +77,7 @@ function RatingStarsControl({
           render={<button type="button" />}
         >
           <Icon
-            name={rating <= value ? 'star-solid' : 'star-regular'}
+            name={rating <= value ? 'hoka-star-solid' : 'hoka-star-regular'}
             size={size}
             aria-hidden="true"
           />
@@ -129,7 +129,7 @@ function toRatingValue(value: number): RatingStarsValue {
 }
 
 function HalfRatingStar({ size }: Pick<RatingStarsProps, 'size'>) {
-  return <Icon name="star-half-stroke" size={size} aria-hidden="true" />;
+  return <Icon name="hoka-star-half-stroke" size={size} aria-hidden="true" />;
 }
 
 /** 별점 표시와 선택 모드를 제공합니다 (Five-star rating display using Font Awesome stars and the Figma half-star SVG). */
@@ -182,7 +182,7 @@ export function RatingStars({
           return <HalfRatingStar key={index} size={resolvedSize} />;
         }
 
-        const icon = index < filledStars ? 'star-solid' : 'star-regular';
+        const icon = index < filledStars ? 'hoka-star-solid' : 'hoka-star-regular';
 
         return <Icon name={icon} size={resolvedSize} aria-hidden="true" key={index} />;
       })}

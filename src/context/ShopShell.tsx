@@ -154,12 +154,12 @@ function MenuDrawerHeader({ close, isLoggedIn, closeButtonRef }: MenuDrawerHeade
     >
       {isLoggedIn ? (
         <Link className={MenuDrawerHeaderStyles.auth} href="/mypage" onClick={close}>
-          <Icon name="user-regular" size="18px" aria-hidden="true" />
+          <Icon name="hoka-user-regular" size="18px" aria-hidden="true" />
           <Typography variant="body3">마이페이지</Typography>
         </Link>
       ) : (
         <HStack gap="3">
-          <Icon name="user-regular" size="18px" aria-hidden="true" />
+          <Icon name="hoka-user-regular" size="18px" aria-hidden="true" />
           <HeaderAuthLink onNavigate={close} />
         </HStack>
       )}
@@ -2064,8 +2064,8 @@ const notificationIcon = css({
   color: 'icon.default',
 });
 const notificationAssetByVariant = {
-  bag: 'bag-shopping-regular',
-  basket: 'basket-shopping-regular',
+  bag: 'hoka-bag-shopping-regular',
+  basket: 'hoka-basket-shopping-regular',
 } as const;
 type NotificationIconVariant = keyof typeof notificationAssetByVariant | 'user';
 type NotificationIconProps = Omit<HTMLAttributes<HTMLSpanElement>, 'color'> & {
@@ -2105,7 +2105,7 @@ function NotificationIcon({
       }
     >
       {variant === 'user' ? (
-        <Icon name="user-regular" size={size} aria-hidden="true" />
+        <Icon name="hoka-user-regular" size={size} aria-hidden="true" />
       ) : (
         <Icon name={notificationAssetByVariant[variant]} size={size} aria-hidden="true" />
       )}

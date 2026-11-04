@@ -15,7 +15,6 @@
 | `faChevronLeft` | [chevron-left-solid.svg](chevron-left-solid.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-24938) |
 | `faChevronRight` | [chevron-right-solid.svg](chevron-right-solid.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-13818) |
 | `faCircleCheck` | [circle-check-regular.svg](circle-check-regular.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-15696) |
-| `faCircleInfo` | [circle-info-solid.svg](circle-info-solid.svg) | 16 × 16 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-19693) |
 | `faClipboardList` | [clipboard-list-solid.svg](clipboard-list-solid.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-16323) |
 | `faComments` | [comments-solid.svg](comments-solid.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-12393) |
 | `faCopy` | [copy-regular.svg](copy-regular.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-17546) |
@@ -34,11 +33,11 @@
 | `faMinus` | [minus-solid.svg](minus-solid.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-24898) |
 | `faPlus` | [plus-solid.svg](plus-solid.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-16548) |
 | `faScrewdriverWrench` | [screwdriver-wrench-solid.svg](screwdriver-wrench-solid.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-23958) |
-| `faStarRegular` | [star-regular.svg](star-regular.svg) | 16 × 16 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-20271) |
-| `faStarSolid` | [star-solid.svg](star-solid.svg) | 16 × 16 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-20273) |
+| `faStarRegular` | [hoka-star-regular.svg](hoka-star-regular.svg) | 16 × 16 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-20271) |
+| `faStarSolid` | [hoka-star-solid.svg](hoka-star-solid.svg) | 16 × 16 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-20273) |
 | `faTriangleExclamation` | [triangle-exclamation-solid.svg](triangle-exclamation-solid.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-22653) |
 | `faTruckFast` | [truck-fast-solid.svg](truck-fast-solid.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-17248) |
-| `faUser` | [user-regular.svg](user-regular.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-10845) |
+| `faUser` | [hoka-user-regular.svg](hoka-user-regular.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-10845) |
 | `faUserSolid` | [user-solid.svg](user-solid.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-10843) |
 | `faXmark` | [xmark-solid.svg](xmark-solid.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-19868) |
 
@@ -60,7 +59,7 @@ Figma FontAwesome Icons 296:9192를 다시 조회해 공식 이름을 기준으�
 | `timer` | `timer-regular` · [timer-regular.svg](timer-regular.svg) | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-24866) |
 | `unlock-keyhole` | `unlock-keyhole-regular` · [unlock-keyhole-regular.svg](unlock-keyhole-regular.svg) | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-17751) |
 | `lock-keyhole` | `lock-keyhole-regular` · [lock-keyhole-regular.svg](lock-keyhole-regular.svg) | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-13031) |
-| `rating-star-half` | `star-half-stroke` · [star-half-stroke.svg](star-half-stroke.svg) | 공식 이름 확인 · 스타일 미확정 |
+| `rating-star-half` | `hoka-star-half-stroke` · [hoka-star-half-stroke.svg](hoka-star-half-stroke.svg) | 공식 이름 확인 · 스타일 미확정 |
 | `fa-minus` | `minus-solid` · [minus-solid.svg](minus-solid.svg) | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-24898) |
 | `fa-plus` | `plus-regular` · [plus-regular.svg](plus-regular.svg) | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-16546) |
 | `filter-collapsed` | `plus-regular` · [plus-regular.svg](plus-regular.svg) | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-16546) |
@@ -78,9 +77,9 @@ Figma FontAwesome Icons 296:9192를 다시 조회해 공식 이름을 기준으�
 | `m-menu` | `bars-regular` · [bars-regular.svg](bars-regular.svg) | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-23486) |
 | `wishlist-solid` | `heart-solid` · [heart-solid.svg](heart-solid.svg) | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-25333) |
 | `wishlist-regular` | `heart-regular` · [heart-regular.svg](heart-regular.svg) | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-25331) |
-| `bag-shopping` | `bag-shopping-regular` · [bag-shopping-regular.svg](bag-shopping-regular.svg) | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-12131) |
-| `notification-bag` | `bag-shopping-regular` · [bag-shopping-regular.svg](bag-shopping-regular.svg) | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-12131) |
-| `notification-basket` | `basket-shopping-regular` · [basket-shopping-regular.svg](basket-shopping-regular.svg) | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-13966) |
+| `bag-shopping` | `hoka-bag-shopping-regular` · [hoka-bag-shopping-regular.svg](hoka-bag-shopping-regular.svg) | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-12131) |
+| `notification-bag` | `hoka-bag-shopping-regular` · [hoka-bag-shopping-regular.svg](hoka-bag-shopping-regular.svg) | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-12131) |
+| `notification-basket` | `hoka-basket-shopping-regular` · [hoka-basket-shopping-regular.svg](hoka-basket-shopping-regular.svg) | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-13966) |
 | `info` | `circle-info-regular` · [circle-info-regular.svg](circle-info-regular.svg) | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-19691) |
 | `question` | `circle-question-regular` · [circle-question-regular.svg](circle-question-regular.svg) | 커스텀 / 기존 별칭 정리 |
 | `calendar` | `calendar-regular` · [calendar-regular.svg](calendar-regular.svg) | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-22886) |
@@ -96,3 +95,6 @@ Figma FontAwesome Icons 296:9192를 다시 조회해 공식 이름을 기준으�
 | `phone-call` | `phone` · [phone.svg](phone.svg) | 공식 이름 phone · 스타일 미확정 |
 
 2026-11-04: 사용자 지정에 따라 chevron-down은 Figma Regular 원본(296:11741)으로 통일했다. 기존 선 도형과 Solid 파일·등록·가이드 항목을 제거하고 모든 해당 호출을 chevron-down-regular로 변경했다.
+
+
+원형 배경이 포함된 디자인팀 아이콘은 이름 끝에 -circle을 붙인다. 방향·스타일·상태는 그 앞에 둔다. 예: hoka-nav-chevron-right-muted-circle, hoka-action-plus-regular-active-circle. 출처: Icon.assets.ts, IconGuide.tsx 및 SVG 파일.

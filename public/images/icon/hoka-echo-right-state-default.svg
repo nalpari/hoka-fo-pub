@@ -1,0 +1,14 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="Right Arrow Echo Banner Action Buttons">
+<g id="Vector">
+<use xlink:href="#stroke0_0_10" fill="white"/>
+<mask id="stroke1_0_10" fill="white">
+<use xlink:href="#stroke0_0_10"/>
+</mask>
+<path d="M11.9296 7.44616C12.2458 7.75271 12.2458 8.24841 11.9296 8.5517L6.54754 13.7729C6.23135 14.0794 5.72006 14.0794 5.40722 13.7729C5.09439 13.4663 5.09103 12.9706 5.40722 12.6673L10.2174 8.00382L5.40386 3.33704C5.08767 3.03049 5.08767 2.53479 5.40386 2.23149C5.72006 1.9282 6.23135 1.92494 6.54418 2.23149L11.9296 7.44616Z" stroke-width="2" stroke="white" mask="url(#stroke1_0_10)"/>
+</g>
+</g>
+<defs>
+<path id="stroke0_0_10" d="M11.9296 7.44616C12.2458 7.75271 12.2458 8.24841 11.9296 8.5517L6.54754 13.7729C6.23135 14.0794 5.72006 14.0794 5.40722 13.7729C5.09439 13.4663 5.09103 12.9706 5.40722 12.6673L10.2174 8.00382L5.40386 3.33704C5.08767 3.03049 5.08767 2.53479 5.40386 2.23149C5.72006 1.9282 6.23135 1.92494 6.54418 2.23149L11.9296 7.44616Z"/>
+</defs>
+</svg>

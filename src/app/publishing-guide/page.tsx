@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 import { css } from 'styled-system/css';
-import { Box, HStack, Stack } from 'styled-system/jsx';
+import { HStack, Stack } from 'styled-system/jsx';
 
 import { ButtonLink } from '@/components/common/atoms/Button';
 import { Typography } from '@/components/common/atoms/Typography';
@@ -13,6 +13,7 @@ import { ColorGuide } from './_components/ColorGuide';
 import { FormGuide } from './_components/FormGuide';
 import { HelpTipsGuide } from './_components/HelpTipsGuide';
 import { IconGuide } from './_components/IconGuide';
+import { ModalGuide } from './_components/ModalGuide';
 import { ProductCardGuide } from './_components/ProductCardGuide';
 import { TypographyGuide } from './_components/TypographyGuide';
 
@@ -23,17 +24,7 @@ const guideTabs: readonly SupportTab[] = [
   { value: 'button', label: '버튼', content: <ButtonGuide /> },
   { value: 'form', label: '폼', content: <FormGuide /> },
   { value: 'help-tips', label: '툴팁·토글팁', content: <HelpTipsGuide /> },
-  {
-    value: 'modal',
-    label: '모달',
-    content: (
-      <Box py="8">
-        <Typography as="p" variant="body4" tone="subtle">
-          모달 예시는 준비 중입니다.
-        </Typography>
-      </Box>
-    ),
-  },
+  { value: 'modal', label: '모달', content: <ModalGuide /> },
   { value: 'product-tiles', label: '상품 타일', content: <ProductCardGuide /> },
 ];
 
@@ -57,7 +48,7 @@ export default function PublishingGuidePage() {
       mx="auto"
       px={{ base: '6', _mobile: '4' }}
       pt={{ base: '6', _mobile: '4' }}
-      pb={{ base: '10', _mobile: '6' }}
+      pb={{ base: '24', _mobile: '24' }}
     >
       <Stack gap="1">
         <Typography as="p" variant="body5" tone="subtle">
@@ -77,8 +68,18 @@ export default function PublishingGuidePage() {
         variant="guide"
         syncQuery
       />
-      <HStack justifyContent="flex-end" pt="4">
-        <ButtonLink href="#top" variant="secondary" size="short">
+      <HStack
+        position="fixed"
+        right={{ base: '6', _mobile: '4' }}
+        bottom="calc(24px + env(safe-area-inset-bottom))"
+        zIndex="40"
+      >
+        <ButtonLink
+          href="#top"
+          variant="secondary"
+          size="short"
+          className={css({ bg: 'white.0', boxShadow: '0 2px 8px rgba(0, 0, 0, 0.12)' })}
+        >
           맨 위로
         </ButtonLink>
       </HStack>

@@ -78,7 +78,7 @@ const examples: readonly TileExample[] = [
   {
     id: 'tile-showcase',
     title: '메인 · 추천 상품',
-    description: 'PC 약 4:5 · 모바일 3:4 이미지',
+    description: '데스크탑 약 4:5 · 모바일 3:4 이미지',
     variant: 'showcase',
     options: [],
   },
@@ -246,7 +246,7 @@ function GuideExampleFrame({
     <Stack className={exampleCard} gap="4" _mobile={mobile ? undefined : { display: 'none' }}>
       <HStack justifyContent="space-between" alignItems="baseline" gap="2" flexWrap="wrap">
         <Typography variant="body4" weight="semibold">
-          {mobile ? 'Mobile' : 'PC'}
+          {mobile ? '모바일' : '데스크탑'}
         </Typography>
         <Typography variant="body5" tone="subtle">
           {width} 기준
@@ -270,7 +270,7 @@ function GuideExampleFrame({
           {renderGuideCode(code)}
         </Box>
         <Button
-          aria-label={`${title} ${mobile ? '모바일' : 'PC'} 코드 복사`}
+          aria-label={`${title} ${mobile ? '모바일' : '데스크탑'} 코드 복사`}
           title="코드 복사"
           type="button"
           variant="icon"
@@ -413,7 +413,7 @@ const [liked, setLiked] = useState(true);
   <Box pt="1.5">
     <Button variant="plain" size="sm">
       <HStack gap="1">
-        <Icon name="bag-shopping-regular" size={token.var('sizes.3.5')} />
+        <Icon name="hoka-bag-shopping-regular" size={token.var('sizes.3.5')} />
         장바구니 담기
       </HStack>
     </Button>
@@ -471,7 +471,7 @@ function FullDetailsPreview() {
       <Box pt="1.5">
         <Button variant="plain" size="sm">
           <HStack gap="1">
-            <Icon name="bag-shopping-regular" size={token.var('sizes.3.5')} />
+            <Icon name="hoka-bag-shopping-regular" size={token.var('sizes.3.5')} />
             장바구니 담기
           </HStack>
         </Button>
@@ -536,11 +536,11 @@ function VerticalProductExample({
 
 /**
  * [ 개발팀 바인딩 ] 가이드 소유자가 product·colorThumbnails·orderLine의 고정 표시 예시와 상품/행/옵션 ID를 제공합니다.
- * PC/MO 가격 차이와 할인율은 승인된 디자인의 fixture이며 실제 가격·재고 계산이 아닙니다.
+ * 데스크탑/모바일 가격 차이와 할인율은 승인된 디자인의 fixture이며 실제 가격·재고 계산이 아닙니다.
  * 관심상품은 각 예시의 로컬 liked/onLikedChange로, 색상 미리보기는 기존 ProductCard의 로컬 UI로 확인합니다.
  * 조회·저장 요청은 연결하지 않으며 실제 상품과 요청 상태 갱신은 목록 통합 소유자의 책임입니다.
  */
-/** Horizontal·Vertical 상품 타일을 PC·모바일 예시와 복사 가능한 코드로 보여줍니다. (Shows horizontal and vertical product tiles with desktop/mobile examples and copyable snippets.) */
+/** Horizontal·Vertical 상품 타일을 데스크탑·모바일 예시와 복사 가능한 코드로 보여줍니다. (Shows horizontal and vertical product tiles with desktop/mobile examples and copyable snippets.) */
 export function ProductCardGuide() {
   const [notice, setNotice] = useState<GuideCopyNotice | null>(null);
   const nextNoticeId = useRef(0);
@@ -573,17 +573,17 @@ export function ProductCardGuide() {
             Product Tiles
           </Typography>
           <Typography as="p" variant="body5" tone="subtle">
-            Figma 기준의 상품 타일을 비교하고 사용 코드를 복사합니다. PC에서는 두 플랫폼을 나란히,
-            모바일에서는 모바일 예시를 표시합니다.
+            Figma 기준의 상품 타일을 비교하고 사용 코드를 복사합니다. 데스크탑에서는 두 플랫폼을
+            나란히, 모바일에서는 모바일 예시를 표시합니다.
           </Typography>
           <Typography as="p" variant="body5" tone="subtle">
-            색상 옵션 12개로 캐러셀을 확인합니다. PC 목록은 마우스 또는 Tab으로 열고 좌우 버튼을,
-            모바일 목록은 가로 스크롤, history는 같은 좌우 NAV를 사용합니다. 색상을 선택하고
+            색상 옵션 12개로 캐러셀을 확인합니다. 데스크탑 목록은 마우스 또는 Tab으로 열고 좌우
+            버튼을, 모바일 목록은 가로 스크롤, history는 같은 좌우 NAV를 사용합니다. 색상을 선택하고
             Escape로 닫아 보세요. 하트는 예시 안에서만 변경됩니다.
           </Typography>
           <HStack gap="4" flexWrap="wrap">
             {[
-              ['PC 시안', '1722-8232'],
+              ['데스크탑 시안', '1722-8232'],
               ['모바일 시안', '1679-763'],
               ['컴포넌트 기준', '497-864'],
             ].map(([label, node]) => (
@@ -669,8 +669,8 @@ export function ProductCardGuide() {
                 </Stack>
               ))}
               <Typography variant="body5" tone="subtle">
-                하트만 로컬로 전환합니다. 옵션변경·장바구니 담기는 미연결 표시 버튼입니다. PC 시안이
-                없는 모바일 컴포넌트 예시입니다.
+                하트만 로컬로 전환합니다. 옵션변경·장바구니 담기는 미연결 표시 버튼입니다. 데스크탑
+                시안이 없는 모바일 컴포넌트 예시입니다.
               </Typography>
             </Stack>
           </Grid>

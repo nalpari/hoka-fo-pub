@@ -83,6 +83,52 @@
 - 런칭 캘린더 문서의 description 들여쓰기 오류를 바로잡았다. OKF frontmatter 28개 YAML 파싱, 새 로컬 링크 22개와 커밋 고정 링크 51개·원문 9개 존재, 기존 조사 기록·Git 인덱스 보존을 확인했다. 새 소유권 문서·아키텍처 인덱스 Prettier와 Markdown diff 공백 검사를 통과했다. 기존 문서의 전체 서식 경고는 남아 있으며 일괄 재서식하지 않았다.
 - 애플리케이션 코드는 변경하지 않았고 빌드·브라우저 검증·스테이징·커밋은 수행하지 않았다. 기록: codex/gpt-6, 2026-11-04T01:19:32.500Z.
 
+## 2026-11-04 — 라운드 방향 아이콘 등록
+
+흰색 방향 아이콘은 원과 방향 도형을 포함한 24px SVG 4종으로 등록했다. Icon이 이미지에 그림자를 자동 적용해 24px 바깥으로 표시한다. 출처: Icon.tsx, Icon.assets.ts, IconGuide.tsx.
+
+## 2026-11-04 — 흰색 방향 버튼 예시
+
+Figma 296:25392의 흰색 방향 버튼은 24px 컨테이너, 반경 56px, 그림자 0 4px 8px 검정 16%와 방향별 16px SVG를 조합해 가이드에 표시한다. 출처: IconGuide.tsx.
+
+## 2026-11-04 — 디자인팀 아이콘 색상 중복 제거
+
+디자인팀 UI 아이콘 27개를 비교해 색상만 다른 14개를 제거하고 13개 SVG로 정리했다. 단색 액션·방향 아이콘은 Icon color로 색상을 지정한다. Echo 배너 화살표는 기본·호버 도형이 달라 각각 유지한다. 출처: public/images/icon/hoka-*.svg, Icon.assets.ts, IconGuide.tsx.
+
+## 2026-11-04 — 장바구니 옵션 모달 푸터 정렬
+
+- 데스크탑 콘텐츠 열에 맞추는 모달 푸터 옵션을 추가하고 장바구니 옵션 변경과 가이드에 연결했다.
+
+## 2026-11-04 — 디자인팀 UI 아이콘 원본 등록
+
+Figma 디자인팀 UI 아이콘 5개 세트(296:25392, 296:25425, 298:25555, 298:25560, 298:25567)의 SVG 27개를 원본 그대로 등록했다. SVG 캔버스는 16×16이며 24px 버튼 프레임과 구분한다. 공통 모달 닫기에는 Action Buttons의 기본 xmark를 16px로 적용했다. 다른 화면과 상태 버튼은 사용 위치 확인 후 연결한다.
+
+## 2026-11-04 — 모달 닫기 아이콘 Regular 적용
+
+- 공통 ModalDialog 헤더의 16px 닫기 아이콘을 xmark-regular로 변경했다.
+
+## 2026-11-04 — 바텀시트형 모달 설명
+
+- 하단 표시 예시를 바텀시트형 모달로 명명하고 데스크탑·모바일에서 동일 ModalDialog를 유지하는 이유와 별도 BottomSheet의 차이를 설명했다.
+
+## 2026-11-04 — 하단 모달 가이드 실제 외형 반영
+
+- ModalGuide의 bottomSheet 예시와 복사 코드에 전체 너비·상단 20px 모서리·흰색 헤더를 반영하고 사용 안내를 수정했다.
+
+## 2026-11-04 — 모달 가이드 실제 사용처 구분
+
+- 12개 예시에 사용 화면·파일을 추가했다. 기본 하단 팝업과 실제 화면의 스타일 차이, 미사용 옵션(vertical/light)을 구분했다. 코드 참조를 확인했으며 서비스 화면의 디자인이나 동작은 변경하지 않았다.
+
+## 2026-11-04 — 가이드 목차·맨 위로 위치 수정
+
+- 모바일 타임라인을 본문 앞으로 배치하고 데스크탑·모바일 맨 위로 버튼을 우측 하단 플로팅으로 변경했다.
+
+## 2026-11-04 — 모달 가이드와 플랫폼 명칭 통일
+
+- 모달 탭에 기존 ModalDialog·BottomSheet를 사용하는 12개 예시, 코드 복사와 바로가기를 추가했다. 공용 모달 구현은 변경하지 않았다.
+- 퍼블리싱 가이드의 화면 구분 문구를 데스크탑/모바일로 통일했다.
+- 검증: ESLint·Prettier·Panda 생성 통과. 브라우저에서 데스크탑 sm/md/lg 너비 420/568/864px, Escape·취소 닫기와 포커스 복귀, 코드 복사, 확인 비활성, 모바일 375px 전체화면·하단 모달·시트 너비와 상품 목록 시트 모서리 24px를 확인했다. 긴 내용은 900px 높이에서 스크롤이 생기도록 16개에서 32개 문단으로 보강했으며 보강 후 브라우저 재검증은 미수행이다. 전체 타입 검사는 기존 .next/types 삭제 라우트 참조 21건만 남고 src 오류는 없다.
+
 ## 2026-11-04 — 아이콘 가이드 폼 상태 순서
 
 - checkbox와 radio 예시를 기본, 선택, 비활성 기본, 비활성 선택 순서로 정렬했다. 출처: IconGuide.tsx.
@@ -2063,3 +2109,29 @@ shared 내부를 src로 승격하고 components/common·components/features로 �
 ## 개발자 변경 내역 화면 정리 (2026-11-04)
 
 `/wh`의 저장소 정보, 날짜 선택, 변경 파일과 커밋 목록을 독립 개발 도구에 맞게 정리했다. 날짜 조회와 새로고침 동작은 유지한다. 출처: `src/app/wh/_components/WorkHistory.tsx` 작업 트리.
+
+장바구니 옵션 변경 및 모달 가이드의 확인 액션은 Figma 1985:76300 기준 데스크탑 180×48px, 버튼 간격 8px, 본문과 40px, 하단 24px를 적용한다. 공통 확인 액션의 buttonProps로 Tall 규격을 전달한다. 출처: CartDialogs.tsx, ModalDialog.tsx, ModalGuide.tsx.
+
+디자인팀 원형 방향 아이콘 이름을 circle로 변경하고 방향·액션·배너 35개 상태를 개별 복사 카드로 표시했다. 단색은 color, 원형 배경을 포함한 조합은 24px SVG로 표시한다. 출처: IconGuide.tsx, Icon.assets.ts.
+
+아이콘 가이드에서 Echo 배너 화살표의 좌우 기본·호버 4종은 현재 사용 화면 없음으로 표시한다. 출처: 사용자 확인, IconGuide.tsx.
+
+폼 상태 8개와 별점·쇼핑백·계정·장바구니 아이콘을 디자인팀 섹션에 배치하고 hoka- 등록 이름·파일명·호출부를 일치시켰다. 기존 SVG 도형을 유지하고 알림 수는 ShopShell의 배지 조합을 사용한다. 출처: IconGuide.tsx, Icon.assets.ts, ShopShell.tsx.
+
+디자인팀 아이콘 섹션에 쇼핑백·계정·장바구니의 파란 알림 배지 조합 3종을 개별 복사 카드로 추가하고 눈 아이콘 2종을 이동했다. 출처: IconGuide.tsx, ShopShell.tsx.
+
+디자인팀 체크박스·라디오 아이콘 8종의 가이드 미리보기와 복사 코드를 원본 16px 크기로 맞췄다. 출처: IconGuide.tsx 및 hoka-checkbox·hoka-radio SVG.
+
+아이콘 가이드에서 확인된 실제 호출 크기로 미리보기·복사 코드를 맞추고 크기 사용법 예시도 실제 chevron-down 규격 13/14/16px로 수정했다. 출처: IconGuide.tsx 및 화면 호출부.
+
+아이콘 가이드의 체크박스·라디오 상태 설명에서 불필요한 Font Awesome 대응 미확인 문구를 제거했다. 출처: IconGuide.tsx.
+
+디자인팀 xmark와 plus는 기존 Regular SVG와 도형을 대조해 hoka-action-xmark-regular·hoka-action-plus-regular로 명명했다. 원형 조합도 같은 접미사를 포함한다. 디자인팀 커스텀 또는 출처 스타일 미확인 도형에는 임의 접미사를 부여하지 않는다. 출처: Icon.assets.ts, IconGuide.tsx, ModalDialog.tsx 및 public/images/icon SVG.
+
+원형 배경이 포함된 디자인팀 아이콘은 이름 끝에 -circle을 붙인다. 방향·스타일·상태는 그 앞에 둔다. 예: hoka-nav-chevron-right-muted-circle, hoka-action-plus-regular-active-circle. 출처: Icon.assets.ts, IconGuide.tsx 및 SVG 파일.
+
+Dropdown과 FormField의 16px 정보 아이콘을 circle-info-regular로 통일했다. Solid 호출부를 확인한 뒤 미사용 SVG와 등록·가이드 항목을 정리했다. 출처: Dropdown.tsx, FormField.tsx, Icon.assets.ts, IconGuide.tsx.
+
+- 주문 취소·반품 신청의 데스크탑 예정 금액 타이포그래피를 heading10으로 변경했다.
+
+- 하단 시트 닫기 버튼과 아이콘을 24px로 맞췄다.

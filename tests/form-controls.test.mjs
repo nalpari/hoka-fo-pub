@@ -178,7 +178,7 @@ test('RatingStars display retains half stars without interactive controls', () =
   const html = renderToStaticMarkup(h(RatingStars, { value: 4.5 }));
   assert.match(html, /role="img"/);
   assert.match(html, /aria-label="4.5 out of 5 stars"/);
-  assert.match(html, /star-half-stroke/);
+  assert.match(html, /hoka-star-half-stroke/);
   assert.doesNotMatch(html, /role="radio/);
 });
 
@@ -189,8 +189,8 @@ test('RatingStars selection renders five icon radios with one selected value', (
   assert.match(html, /role="radiogroup"/);
   assert.equal((html.match(/role="radio"/g) ?? []).length, 5);
   assert.equal((html.match(/aria-checked="true"/g) ?? []).length, 1);
-  assert.equal((html.match(/<span\b[^>]*mask-image:url\([^)]*\/star-solid\.svg\)[^>]*>/g) ?? []).length, 3);
-  assert.equal((html.match(/<span\b[^>]*mask-image:url\([^)]*\/star-regular\.svg\)[^>]*>/g) ?? []).length, 2);
+  assert.equal((html.match(/<span\b[^>]*mask-image:url\([^)]*\/hoka-star-solid\.svg\)[^>]*>/g) ?? []).length, 3);
+  assert.equal((html.match(/<span\b[^>]*mask-image:url\([^)]*\/hoka-star-regular\.svg\)[^>]*>/g) ?? []).length, 2);
   assert.doesNotMatch(html, /★/);
 });
 

@@ -229,7 +229,7 @@ export function OrderClaimRequest({
               {returning ? '환불예정금액' : '취소예정금액'}
             </Typography>
             <HStack gap="2px" alignItems="baseline">
-              <Typography web="heading7" mo="heading7" weight="semibold">
+              <Typography web="heading10" mo="heading7" weight="semibold">
                 {returning && mobile ? '0' : '3,300,000'}
               </Typography>
               <Typography variant="body3" weight="medium">

@@ -57,7 +57,9 @@ function CartOptionsDialog({
         }),
       }}
       footerProps={{
+        desktopContentOffset: 300 + 32,
         css: css.raw({
+          pt: '6',
           _mobile: {
             borderTop: '1px solid var(--colors-black-20)',
             pt: '4',
@@ -65,30 +67,16 @@ function CartOptionsDialog({
           },
         }),
       }}
-      footer={
-        <HStack w="100%" gap="2" justifyContent="center">
-          <Button
-            variant="secondary"
-            size="tall"
-            density="wide"
-            fullWidth
-            className={css({ maxW: { base: '180px', _mobile: 'none' } })}
-            onClick={onClose}
-          >
-            취소
-          </Button>
-          <Button
-            variant="primary"
-            size="tall"
-            density="wide"
-            fullWidth
-            className={css({ maxW: { base: '180px', _mobile: 'none' } })}
-            onClick={onClose}
-          >
-            확인
-          </Button>
-        </HStack>
-      }
+      actions={{
+        kind: 'confirm',
+        onConfirm: onClose,
+        onCancel: onClose,
+        buttonProps: {
+          size: 'tall',
+          density: 'wide',
+          className: css({ maxW: { base: '180px', _mobile: 'none' } }),
+        },
+      }}
     >
       <Grid
         gridTemplateColumns={{ base: '300px minmax(0, 1fr)', _mobile: 'minmax(0, 1fr)' }}

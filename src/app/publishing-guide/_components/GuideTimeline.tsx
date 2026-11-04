@@ -11,7 +11,7 @@ const timeline = css({
   border: '1px solid token(colors.black.20)',
   borderRadius: '2',
   bg: 'surface.default',
-  _mobile: { position: 'static', top: 'auto' },
+  _mobile: { position: 'static', top: 'auto', order: -1 },
 });
 
 const timelineItems = css({

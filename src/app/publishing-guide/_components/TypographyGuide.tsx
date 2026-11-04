@@ -150,9 +150,11 @@ function variantMetrics(variant: TypographyVariant) {
   const fontSize =
     desktopFontSize === mobileFontSize
       ? desktopFontSize
-      : `PC ${desktopFontSize} / Mobile ${mobileFontSize}`;
+      : `데스크탑 ${desktopFontSize} / 모바일 ${mobileFontSize}`;
   const weight =
-    desktopWeight === mobileWeight ? desktopWeight : `PC ${desktopWeight} / Mobile ${mobileWeight}`;
+    desktopWeight === mobileWeight
+      ? desktopWeight
+      : `데스크탑 ${desktopWeight} / 모바일 ${mobileWeight}`;
 
   return `Font Size ${fontSize} · Line Height ${lineHeight} · Weight ${weight}`;
 }
@@ -197,7 +199,8 @@ export function TypographyGuide() {
             Typography
           </Typography>
           <Typography as="p" variant="body5" tone="subtle">
-            프로젝트에서 사용하는 실제 variant를 PC·모바일 반응형으로 확인하고 코드를 복사합니다.
+            프로젝트에서 사용하는 실제 variant를 데스크탑·모바일 반응형으로 확인하고 코드를
+            복사합니다.
           </Typography>
         </HStack>
         {groups.map((group) => (

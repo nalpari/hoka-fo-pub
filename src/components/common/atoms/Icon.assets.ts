@@ -184,36 +184,36 @@ export const iconAssets = {
     src: '/images/icon/calendar-regular.svg',
     mode: 'mask',
   },
-  'checkbox-checked': {
-    src: '/images/icon/checkbox-checked.svg',
+  'hoka-checkbox-checked': {
+    src: '/images/icon/hoka-checkbox-checked.svg',
     mode: 'image',
   },
-  'checkbox-disabled': {
-    src: '/images/icon/checkbox-disabled.svg',
+  'hoka-checkbox-disabled': {
+    src: '/images/icon/hoka-checkbox-disabled.svg',
     mode: 'image',
   },
-  'checkbox-disabled-checked': {
-    src: '/images/icon/checkbox-disabled-checked.svg',
+  'hoka-checkbox-disabled-checked': {
+    src: '/images/icon/hoka-checkbox-disabled-checked.svg',
     mode: 'image',
   },
-  'checkbox-unchecked': {
-    src: '/images/icon/checkbox-unchecked.svg',
+  'hoka-checkbox-unchecked': {
+    src: '/images/icon/hoka-checkbox-unchecked.svg',
     mode: 'image',
   },
-  'radio-checked': {
-    src: '/images/icon/radio-checked.svg',
+  'hoka-radio-checked': {
+    src: '/images/icon/hoka-radio-checked.svg',
     mode: 'image',
   },
-  'radio-disabled': {
-    src: '/images/icon/radio-disabled.svg',
+  'hoka-radio-disabled': {
+    src: '/images/icon/hoka-radio-disabled.svg',
     mode: 'image',
   },
-  'radio-disabled-checked': {
-    src: '/images/icon/radio-disabled-checked.svg',
+  'hoka-radio-disabled-checked': {
+    src: '/images/icon/hoka-radio-disabled-checked.svg',
     mode: 'image',
   },
-  'radio-unchecked': {
-    src: '/images/icon/radio-unchecked.svg',
+  'hoka-radio-unchecked': {
+    src: '/images/icon/hoka-radio-unchecked.svg',
     mode: 'image',
   },
   'sort-down-solid': {
@@ -272,12 +272,12 @@ export const iconAssets = {
     src: '/images/icon/circle-star-solid.svg',
     mode: 'mask',
   },
-  'bag-shopping-regular': {
-    src: '/images/icon/bag-shopping-regular.svg',
+  'hoka-bag-shopping-regular': {
+    src: '/images/icon/hoka-bag-shopping-regular.svg',
     mode: 'mask',
   },
-  'basket-shopping-regular': {
-    src: '/images/icon/basket-shopping-regular.svg',
+  'hoka-basket-shopping-regular': {
+    src: '/images/icon/hoka-basket-shopping-regular.svg',
     mode: 'mask',
   },
   'party-horn-regular': {
@@ -296,8 +296,8 @@ export const iconAssets = {
     src: '/images/icon/product-carousel-caret.svg',
     mode: 'image',
   },
-  'star-half-stroke': {
-    src: '/images/icon/star-half-stroke.svg',
+  'hoka-star-half-stroke': {
+    src: '/images/icon/hoka-star-half-stroke.svg',
     mode: 'mask',
   },
   facebook: {
@@ -372,10 +372,6 @@ export const iconAssets = {
     src: '/images/icon/circle-check-regular.svg',
     mode: 'mask',
   },
-  'circle-info-solid': {
-    src: '/images/icon/circle-info-solid.svg',
-    mode: 'mask',
-  },
   'clipboard-list-solid': {
     src: '/images/icon/clipboard-list-solid.svg',
     mode: 'mask',
@@ -444,12 +440,12 @@ export const iconAssets = {
     src: '/images/icon/screwdriver-wrench-solid.svg',
     mode: 'mask',
   },
-  'star-regular': {
-    src: '/images/icon/star-regular.svg',
+  'hoka-star-regular': {
+    src: '/images/icon/hoka-star-regular.svg',
     mode: 'mask',
   },
-  'star-solid': {
-    src: '/images/icon/star-solid.svg',
+  'hoka-star-solid': {
+    src: '/images/icon/hoka-star-solid.svg',
     mode: 'mask',
   },
   'triangle-exclamation-solid': {
@@ -460,8 +456,8 @@ export const iconAssets = {
     src: '/images/icon/truck-fast-solid.svg',
     mode: 'mask',
   },
-  'user-regular': {
-    src: '/images/icon/user-regular.svg',
+  'hoka-user-regular': {
+    src: '/images/icon/hoka-user-regular.svg',
     mode: 'mask',
   },
   'user-solid': {
@@ -499,6 +495,134 @@ export const iconAssets = {
   'heart-solid': {
     src: '/images/icon/heart-solid.svg',
     mode: 'mask',
+  },
+  'hoka-action-minus': {
+    src: '/images/icon/hoka-action-minus.svg',
+    mode: 'mask',
+  },
+  'hoka-action-plus-regular': {
+    src: '/images/icon/hoka-action-plus-regular.svg',
+    mode: 'mask',
+  },
+  'hoka-action-xmark-regular': {
+    src: '/images/icon/hoka-action-xmark-regular.svg',
+    mode: 'mask',
+  },
+  'hoka-echo-left-state-default': {
+    src: '/images/icon/hoka-echo-left-state-default.svg',
+    mode: 'image',
+  },
+  'hoka-echo-left-state-hover': {
+    src: '/images/icon/hoka-echo-left-state-hover.svg',
+    mode: 'image',
+  },
+  'hoka-echo-right-state-default': {
+    src: '/images/icon/hoka-echo-right-state-default.svg',
+    mode: 'image',
+  },
+  'hoka-echo-right-state-hover': {
+    src: '/images/icon/hoka-echo-right-state-hover.svg',
+    mode: 'image',
+  },
+  'hoka-nav-chevron-down': {
+    src: '/images/icon/hoka-nav-chevron-down.svg',
+    mode: 'mask',
+  },
+  'hoka-nav-chevron-left': {
+    src: '/images/icon/hoka-nav-chevron-left.svg',
+    mode: 'mask',
+  },
+  'hoka-nav-chevron-right': {
+    src: '/images/icon/hoka-nav-chevron-right.svg',
+    mode: 'mask',
+  },
+  'hoka-nav-chevron-up': {
+    src: '/images/icon/hoka-nav-chevron-up.svg',
+    mode: 'mask',
+  },
+  'hoka-action-angle-left': {
+    src: '/images/icon/hoka-action-angle-left.svg',
+    mode: 'mask',
+  },
+  'hoka-action-angle-right': {
+    src: '/images/icon/hoka-action-angle-right.svg',
+    mode: 'mask',
+  },
+  'hoka-nav-chevron-right-circle': {
+    src: '/images/icon/hoka-nav-chevron-right-circle.svg',
+    mode: 'image',
+    filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.16))',
+  },
+  'hoka-nav-chevron-left-circle': {
+    src: '/images/icon/hoka-nav-chevron-left-circle.svg',
+    mode: 'image',
+    filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.16))',
+  },
+  'hoka-nav-chevron-up-circle': {
+    src: '/images/icon/hoka-nav-chevron-up-circle.svg',
+    mode: 'image',
+    filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.16))',
+  },
+  'hoka-nav-chevron-down-circle': {
+    src: '/images/icon/hoka-nav-chevron-down-circle.svg',
+    mode: 'image',
+    filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.16))',
+  },
+  'hoka-nav-chevron-right-muted-circle': {
+    src: '/images/icon/hoka-nav-chevron-right-muted-circle.svg',
+    mode: 'image',
+    filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.16))',
+  },
+  'hoka-nav-chevron-left-muted-circle': {
+    src: '/images/icon/hoka-nav-chevron-left-muted-circle.svg',
+    mode: 'image',
+    filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.16))',
+  },
+  'hoka-nav-chevron-up-muted-circle': {
+    src: '/images/icon/hoka-nav-chevron-up-muted-circle.svg',
+    mode: 'image',
+    filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.16))',
+  },
+  'hoka-nav-chevron-down-muted-circle': {
+    src: '/images/icon/hoka-nav-chevron-down-muted-circle.svg',
+    mode: 'image',
+    filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.16))',
+  },
+  'hoka-action-plus-regular-circle': {
+    src: '/images/icon/hoka-action-plus-regular-circle.svg',
+    mode: 'image',
+  },
+  'hoka-action-minus-circle': {
+    src: '/images/icon/hoka-action-minus-circle.svg',
+    mode: 'image',
+  },
+  'hoka-action-xmark-regular-circle': {
+    src: '/images/icon/hoka-action-xmark-regular-circle.svg',
+    mode: 'image',
+  },
+  'hoka-action-angle-left-default-circle': {
+    src: '/images/icon/hoka-action-angle-left-default-circle.svg',
+    mode: 'image',
+  },
+  'hoka-action-angle-left-active-circle': {
+    src: '/images/icon/hoka-action-angle-left-active-circle.svg',
+    mode: 'image',
+  },
+  'hoka-action-angle-right-default-circle': {
+    src: '/images/icon/hoka-action-angle-right-default-circle.svg',
+    mode: 'image',
+  },
+  'hoka-action-angle-right-active-circle': {
+    src: '/images/icon/hoka-action-angle-right-active-circle.svg',
+    mode: 'image',
+  },
+  'hoka-action-plus-regular-default-circle': {
+    src: '/images/icon/hoka-action-plus-regular-default-circle.svg',
+    mode: 'image',
+  },
+  'hoka-action-plus-regular-active-circle': {
+    src: '/images/icon/hoka-action-plus-regular-active-circle.svg',
+    mode: 'image',
   },
 } as const;
 

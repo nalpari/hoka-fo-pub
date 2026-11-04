@@ -3,7 +3,7 @@
 import { type ReactNode, useCallback, useRef, useState } from 'react';
 
 import { css } from 'styled-system/css';
-import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
+import { Box, Circle, Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
 import { Icon } from '@/components/common/atoms/Icon';
@@ -27,6 +27,689 @@ type IconExample = {
 
 // 현재 사용처를 조사한 고정 가이드 목록입니다. 서비스 데이터나 자동 수집 결과가 아닙니다.
 const iconGroups: { id: string; title: string; description: string; items: IconExample[] }[] = [
+  {
+    id: 'icon-design-system',
+    title: '디자인팀 아이콘',
+    description:
+      '방향·액션·배너·폼 상태·별점·쇼핑 아이콘. 확인된 글리프는 이름에 Regular/Solid를 표기합니다.',
+    items: [
+      {
+        label: '오른쪽 기본',
+        registeredName: 'hoka-nav-chevron-right',
+
+        preview: <Icon name="hoka-nav-chevron-right" size={16} />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-nav-chevron-right" size={16} />`,
+        source: 'HOKA 디자인 시스템',
+        note: '16px',
+      },
+      {
+        label: '오른쪽 회색',
+        registeredName: 'hoka-nav-chevron-right',
+
+        preview: <Icon name="hoka-nav-chevron-right" size={16} color="black.40" />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-nav-chevron-right" size={16} color="black.40" />`,
+        source: 'HOKA 디자인 시스템',
+        note: '16px',
+      },
+      {
+        label: '오른쪽 원',
+        registeredName: 'hoka-nav-chevron-right-circle',
+
+        preview: <Icon name="hoka-nav-chevron-right-circle" size={24} />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-nav-chevron-right-circle" size={24} />`,
+        source: 'HOKA 디자인 시스템',
+        note: '24px',
+      },
+      {
+        label: '오른쪽 원 회색',
+        registeredName: 'hoka-nav-chevron-right-muted-circle',
+
+        preview: <Icon name="hoka-nav-chevron-right-muted-circle" size={24} />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-nav-chevron-right-muted-circle" size={24} />`,
+        source: 'HOKA 디자인 시스템',
+        note: '24px',
+      },
+      {
+        label: '왼쪽 기본',
+        registeredName: 'hoka-nav-chevron-left',
+
+        preview: <Icon name="hoka-nav-chevron-left" size={16} />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-nav-chevron-left" size={16} />`,
+        source: 'HOKA 디자인 시스템',
+        note: '16px',
+      },
+      {
+        label: '왼쪽 회색',
+        registeredName: 'hoka-nav-chevron-left',
+
+        preview: <Icon name="hoka-nav-chevron-left" size={16} color="black.40" />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-nav-chevron-left" size={16} color="black.40" />`,
+        source: 'HOKA 디자인 시스템',
+        note: '16px',
+      },
+      {
+        label: '왼쪽 원',
+        registeredName: 'hoka-nav-chevron-left-circle',
+
+        preview: <Icon name="hoka-nav-chevron-left-circle" size={24} />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-nav-chevron-left-circle" size={24} />`,
+        source: 'HOKA 디자인 시스템',
+        note: '24px',
+      },
+      {
+        label: '왼쪽 원 회색',
+        registeredName: 'hoka-nav-chevron-left-muted-circle',
+
+        preview: <Icon name="hoka-nav-chevron-left-muted-circle" size={24} />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-nav-chevron-left-muted-circle" size={24} />`,
+        source: 'HOKA 디자인 시스템',
+        note: '24px',
+      },
+      {
+        label: '위 기본',
+        registeredName: 'hoka-nav-chevron-up',
+
+        preview: <Icon name="hoka-nav-chevron-up" size={16} />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-nav-chevron-up" size={16} />`,
+        source: 'HOKA 디자인 시스템',
+        note: '16px',
+      },
+      {
+        label: '위 회색',
+        registeredName: 'hoka-nav-chevron-up',
+
+        preview: <Icon name="hoka-nav-chevron-up" size={16} color="black.40" />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-nav-chevron-up" size={16} color="black.40" />`,
+        source: 'HOKA 디자인 시스템',
+        note: '16px',
+      },
+      {
+        label: '위 원',
+        registeredName: 'hoka-nav-chevron-up-circle',
+
+        preview: <Icon name="hoka-nav-chevron-up-circle" size={24} />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-nav-chevron-up-circle" size={24} />`,
+        source: 'HOKA 디자인 시스템',
+        note: '24px',
+      },
+      {
+        label: '위 원 회색',
+        registeredName: 'hoka-nav-chevron-up-muted-circle',
+
+        preview: <Icon name="hoka-nav-chevron-up-muted-circle" size={24} />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-nav-chevron-up-muted-circle" size={24} />`,
+        source: 'HOKA 디자인 시스템',
+        note: '24px',
+      },
+      {
+        label: '아래 기본',
+        registeredName: 'hoka-nav-chevron-down',
+
+        preview: <Icon name="hoka-nav-chevron-down" size={16} />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-nav-chevron-down" size={16} />`,
+        source: 'HOKA 디자인 시스템',
+        note: '16px',
+      },
+      {
+        label: '아래 회색',
+        registeredName: 'hoka-nav-chevron-down',
+
+        preview: <Icon name="hoka-nav-chevron-down" size={16} color="black.40" />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-nav-chevron-down" size={16} color="black.40" />`,
+        source: 'HOKA 디자인 시스템',
+        note: '16px',
+      },
+      {
+        label: '아래 원',
+        registeredName: 'hoka-nav-chevron-down-circle',
+
+        preview: <Icon name="hoka-nav-chevron-down-circle" size={24} />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-nav-chevron-down-circle" size={24} />`,
+        source: 'HOKA 디자인 시스템',
+        note: '24px',
+      },
+      {
+        label: '아래 원 회색',
+        registeredName: 'hoka-nav-chevron-down-muted-circle',
+
+        preview: <Icon name="hoka-nav-chevron-down-muted-circle" size={24} />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-nav-chevron-down-muted-circle" size={24} />`,
+        source: 'HOKA 디자인 시스템',
+        note: '24px',
+      },
+      {
+        label: '더하기 기본',
+        registeredName: 'hoka-action-plus-regular',
+
+        preview: <Icon name="hoka-action-plus-regular" size={16} />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-action-plus-regular" size={16} />`,
+        source: 'HOKA 디자인 시스템',
+        note: '16px',
+      },
+      {
+        label: '더하기 회색',
+        registeredName: 'hoka-action-plus-regular',
+
+        preview: <Icon name="hoka-action-plus-regular" size={16} color="black.40" />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-action-plus-regular" size={16} color="black.40" />`,
+        source: 'HOKA 디자인 시스템',
+        note: '16px',
+      },
+      {
+        label: '더하기 원',
+        registeredName: 'hoka-action-plus-regular-circle',
+
+        preview: <Icon name="hoka-action-plus-regular-circle" size={24} />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-action-plus-regular-circle" size={24} />`,
+        source: 'HOKA 디자인 시스템',
+        note: '24px',
+      },
+      {
+        label: '빼기 기본',
+        registeredName: 'hoka-action-minus',
+
+        preview: <Icon name="hoka-action-minus" size={16} />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-action-minus" size={16} />`,
+        source: 'HOKA 디자인 시스템',
+        note: '16px',
+      },
+      {
+        label: '빼기 회색',
+        registeredName: 'hoka-action-minus',
+
+        preview: <Icon name="hoka-action-minus" size={16} color="black.40" />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-action-minus" size={16} color="black.40" />`,
+        source: 'HOKA 디자인 시스템',
+        note: '16px',
+      },
+      {
+        label: '빼기 원',
+        registeredName: 'hoka-action-minus-circle',
+
+        preview: <Icon name="hoka-action-minus-circle" size={24} />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-action-minus-circle" size={24} />`,
+        source: 'HOKA 디자인 시스템',
+        note: '24px',
+      },
+      {
+        label: '닫기 기본',
+        registeredName: 'hoka-action-xmark-regular',
+
+        preview: <Icon name="hoka-action-xmark-regular" size={20} />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-action-xmark-regular" size={20} />`,
+        source: 'HOKA 디자인 시스템',
+        note: '16px',
+      },
+      {
+        label: '닫기 회색',
+        registeredName: 'hoka-action-xmark-regular',
+
+        preview: <Icon name="hoka-action-xmark-regular" size={16} color="black.40" />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-action-xmark-regular" size={16} color="black.40" />`,
+        source: 'HOKA 디자인 시스템',
+        note: '16px',
+      },
+      {
+        label: '닫기 원',
+        registeredName: 'hoka-action-xmark-regular-circle',
+
+        preview: <Icon name="hoka-action-xmark-regular-circle" size={24} />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-action-xmark-regular-circle" size={24} />`,
+        source: 'HOKA 디자인 시스템',
+        note: '24px',
+      },
+      {
+        label: '배너 left default',
+        registeredName: 'hoka-echo-left-state-default',
+        previewBackground: 'black.60',
+        preview: <Icon name="hoka-echo-left-state-default" size={16} />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-echo-left-state-default" size={16} />`,
+        source: '현재 사용 화면 없음',
+        note: '16px',
+      },
+      {
+        label: '배너 left hover',
+        registeredName: 'hoka-echo-left-state-hover',
+        previewBackground: 'black.60',
+        preview: <Icon name="hoka-echo-left-state-hover" size={16} />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-echo-left-state-hover" size={16} />`,
+        source: '현재 사용 화면 없음',
+        note: '16px',
+      },
+      {
+        label: '배너 right default',
+        registeredName: 'hoka-echo-right-state-default',
+        previewBackground: 'black.60',
+        preview: <Icon name="hoka-echo-right-state-default" size={16} />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-echo-right-state-default" size={16} />`,
+        source: '현재 사용 화면 없음',
+        note: '16px',
+      },
+      {
+        label: '배너 right hover',
+        registeredName: 'hoka-echo-right-state-hover',
+        previewBackground: 'black.60',
+        preview: <Icon name="hoka-echo-right-state-hover" size={16} />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-echo-right-state-hover" size={16} />`,
+        source: '현재 사용 화면 없음',
+        note: '16px',
+      },
+      {
+        label: '원형 액션 left default',
+        registeredName: 'hoka-action-angle-left-default-circle',
+
+        preview: <Icon name="hoka-action-angle-left-default-circle" size={24} />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-action-angle-left-default-circle" size={24} />`,
+        source: 'HOKA 디자인 시스템',
+        note: '24px',
+      },
+      {
+        label: '원형 액션 left active',
+        registeredName: 'hoka-action-angle-left-active-circle',
+
+        preview: <Icon name="hoka-action-angle-left-active-circle" size={24} />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-action-angle-left-active-circle" size={24} />`,
+        source: 'HOKA 디자인 시스템',
+        note: '24px',
+      },
+      {
+        label: '원형 액션 right default',
+        registeredName: 'hoka-action-angle-right-default-circle',
+
+        preview: <Icon name="hoka-action-angle-right-default-circle" size={24} />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-action-angle-right-default-circle" size={24} />`,
+        source: 'HOKA 디자인 시스템',
+        note: '24px',
+      },
+      {
+        label: '원형 액션 right active',
+        registeredName: 'hoka-action-angle-right-active-circle',
+
+        preview: <Icon name="hoka-action-angle-right-active-circle" size={24} />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-action-angle-right-active-circle" size={24} />`,
+        source: 'HOKA 디자인 시스템',
+        note: '24px',
+      },
+      {
+        label: '원형 액션 plus default',
+        registeredName: 'hoka-action-plus-regular-default-circle',
+
+        preview: <Icon name="hoka-action-plus-regular-default-circle" size={24} />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-action-plus-regular-default-circle" size={24} />`,
+        source: 'HOKA 디자인 시스템',
+        note: '24px',
+      },
+      {
+        label: '원형 액션 plus active',
+        registeredName: 'hoka-action-plus-regular-active-circle',
+
+        preview: <Icon name="hoka-action-plus-regular-active-circle" size={24} />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-action-plus-regular-active-circle" size={24} />`,
+        source: 'HOKA 디자인 시스템',
+        note: '24px',
+      },
+      {
+        label: 'checkbox · 기본',
+        origin: {
+          label: '종류',
+          name: 'checkbox 상태 SVG',
+          detail: '폼 상태 조합',
+        },
+        preview: <Icon name="hoka-checkbox-unchecked" size={16} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="hoka-checkbox-unchecked" size={16} />',
+        source: 'Checkbox.tsx',
+        note: '상태 이미지 확인용 · 실제 폼에서는 Checkbox / Radio 사용',
+        registeredName: 'hoka-checkbox-unchecked',
+      },
+      {
+        label: 'checkbox · 선택',
+        origin: {
+          label: '종류',
+          name: 'checkbox 상태 SVG',
+          detail: '폼 상태 조합',
+        },
+        preview: <Icon name="hoka-checkbox-checked" size={16} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="hoka-checkbox-checked" size={16} />',
+        source: 'Checkbox.tsx',
+        note: '상태 이미지 확인용 · 실제 폼에서는 Checkbox / Radio 사용',
+        registeredName: 'hoka-checkbox-checked',
+      },
+      {
+        label: 'checkbox · 비활성 기본',
+        previewBackground: 'black.60',
+        origin: {
+          label: '종류',
+          name: 'checkbox 상태 SVG',
+          detail: '폼 상태 조합',
+        },
+        preview: <Icon name="hoka-checkbox-disabled" size={16} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="hoka-checkbox-disabled" size={16} />',
+        source: 'Checkbox.tsx',
+        note: '상태 이미지 확인용 · 실제 폼에서는 Checkbox / Radio 사용',
+        registeredName: 'hoka-checkbox-disabled',
+      },
+      {
+        label: 'checkbox · 비활성 선택',
+        previewBackground: 'black.60',
+        origin: {
+          label: '종류',
+          name: 'checkbox 상태 SVG',
+          detail: '폼 상태 조합',
+        },
+        preview: <Icon name="hoka-checkbox-disabled-checked" size={16} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="hoka-checkbox-disabled-checked" size={16} />',
+        source: 'Checkbox.tsx',
+        note: '상태 이미지 확인용 · 실제 폼에서는 Checkbox / Radio 사용',
+        registeredName: 'hoka-checkbox-disabled-checked',
+      },
+      {
+        label: 'radio · 기본',
+        origin: {
+          label: '종류',
+          name: 'radio 상태 SVG',
+          detail: '폼 상태 조합',
+        },
+        preview: <Icon name="hoka-radio-unchecked" size={16} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="hoka-radio-unchecked" size={16} />',
+        source: 'Radio.tsx',
+        note: '상태 이미지 확인용 · 실제 폼에서는 Checkbox / Radio 사용',
+        registeredName: 'hoka-radio-unchecked',
+      },
+      {
+        label: 'radio · 선택',
+        origin: {
+          label: '종류',
+          name: 'radio 상태 SVG',
+          detail: '폼 상태 조합',
+        },
+        preview: <Icon name="hoka-radio-checked" size={16} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="hoka-radio-checked" size={16} />',
+        source: 'Radio.tsx',
+        note: '상태 이미지 확인용 · 실제 폼에서는 Checkbox / Radio 사용',
+        registeredName: 'hoka-radio-checked',
+      },
+      {
+        label: 'radio · 비활성 기본',
+        previewBackground: 'black.60',
+        origin: {
+          label: '종류',
+          name: 'radio 상태 SVG',
+          detail: '폼 상태 조합',
+        },
+        preview: <Icon name="hoka-radio-disabled" size={16} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="hoka-radio-disabled" size={16} />',
+        source: 'Radio.tsx',
+        note: '상태 이미지 확인용 · 실제 폼에서는 Checkbox / Radio 사용',
+        registeredName: 'hoka-radio-disabled',
+      },
+      {
+        label: 'radio · 비활성 선택',
+        previewBackground: 'black.60',
+        origin: {
+          label: '종류',
+          name: 'radio 상태 SVG',
+          detail: '폼 상태 조합',
+        },
+        preview: <Icon name="hoka-radio-disabled-checked" size={16} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="hoka-radio-disabled-checked" size={16} />',
+        source: 'Radio.tsx',
+        note: '상태 이미지 확인용 · 실제 폼에서는 Checkbox / Radio 사용',
+        registeredName: 'hoka-radio-disabled-checked',
+      },
+      {
+        label: 'faStarRegular',
+        origin: { label: 'Font Awesome', name: 'star', detail: 'Regular' },
+        preview: <Icon name="hoka-star-regular" size={16} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="hoka-star-regular" size={16} />',
+        source: 'RatingStars.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'hoka-star-regular',
+      },
+      {
+        label: 'faStarSolid',
+        origin: { label: 'Font Awesome', name: 'star', detail: 'Solid' },
+        preview: <Icon name="hoka-star-solid" size={16} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="hoka-star-solid" size={16} />',
+        source: 'RatingStars.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'hoka-star-solid',
+      },
+      {
+        label: '별점 반 개',
+        origin: {
+          label: 'Font Awesome',
+          name: 'hoka-star-half-stroke',
+          detail: '스타일 구분 미확인',
+        },
+        preview: <Icon name="hoka-star-half-stroke" size={16} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="hoka-star-half-stroke" size={16} />',
+        source: 'RatingStars.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'hoka-star-half-stroke',
+      },
+      {
+        label: '장바구니 담기',
+        origin: { label: 'Font Awesome', name: 'bag-shopping', detail: 'Regular' },
+        preview: <Icon name="hoka-bag-shopping-regular" size={18} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="hoka-bag-shopping-regular" size={18} />\n\n<Icon name="hoka-bag-shopping-regular" size={22} />',
+        source: 'OrdersProducts.tsx, ShopShell.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'hoka-bag-shopping-regular',
+      },
+      {
+        label: '쇼핑백 · 알림 배지',
+        registeredName: 'hoka-bag-shopping-regular',
+        preview: (
+          <Box as="span" pos="relative" display="inline-flex">
+            <Icon name="hoka-bag-shopping-regular" size={22} />
+            <Circle pos="absolute" top="-.3rem" right="-4px" size="12px" bg="blue.100">
+              <Typography
+                variant="body5"
+                weight="medium"
+                tone="inverse"
+                className={css({ fontSize: '8px', lineHeight: '16px' })}
+              >
+                1
+              </Typography>
+            </Circle>
+          </Box>
+        ),
+        code: `import { css } from 'styled-system/css';
+import { Box, Circle } from 'styled-system/jsx';
+
+import { Icon } from '@/components/common/atoms/Icon';
+import { Typography } from '@/components/common/atoms/Typography';
+
+<Box as="span" pos="relative" display="inline-flex">
+  <Icon name="hoka-bag-shopping-regular" size={22} />
+  <Circle pos="absolute" top="-.3rem" right="-4px" size="12px" bg="blue.100">
+    <Typography variant="body5" weight="medium" tone="inverse" className={css({ fontSize: '8px', lineHeight: '16px' })}>
+      1
+    </Typography>
+  </Circle>
+</Box>`,
+        source: 'ShopShell.tsx',
+        note: '22px 아이콘 · 12px 파란 배지 · 알림 1건 예시',
+      },
+      {
+        label: '장바구니',
+        registeredName: 'hoka-basket-shopping-regular',
+        preview: <Icon name="hoka-basket-shopping-regular" size={16} />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-basket-shopping-regular" size={16} />`,
+        source: 'ShopShell.tsx',
+        note: '알림 건수는 화면에서 배지를 조합합니다.',
+      },
+      {
+        label: '장바구니 · 알림 배지',
+        registeredName: 'hoka-basket-shopping-regular',
+        preview: (
+          <Box as="span" pos="relative" display="inline-flex">
+            <Icon name="hoka-basket-shopping-regular" size={22} />
+            <Circle pos="absolute" top="-.3rem" right="-4px" size="12px" bg="blue.100">
+              <Typography
+                variant="body5"
+                weight="medium"
+                tone="inverse"
+                className={css({ fontSize: '8px', lineHeight: '16px' })}
+              >
+                1
+              </Typography>
+            </Circle>
+          </Box>
+        ),
+        code: `import { css } from 'styled-system/css';
+import { Box, Circle } from 'styled-system/jsx';
+
+import { Icon } from '@/components/common/atoms/Icon';
+import { Typography } from '@/components/common/atoms/Typography';
+
+<Box as="span" pos="relative" display="inline-flex">
+  <Icon name="hoka-basket-shopping-regular" size={22} />
+  <Circle pos="absolute" top="-.3rem" right="-4px" size="12px" bg="blue.100">
+    <Typography variant="body5" weight="medium" tone="inverse" className={css({ fontSize: '8px', lineHeight: '16px' })}>
+      1
+    </Typography>
+  </Circle>
+</Box>`,
+        source: 'ShopShell.tsx',
+        note: '22px 아이콘 · 12px 파란 배지 · 알림 1건 예시',
+      },
+      {
+        label: 'faUser',
+        origin: { label: 'Font Awesome', name: 'user', detail: 'Regular' },
+        preview: <Icon name="hoka-user-regular" size={18} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="hoka-user-regular" size={18} />',
+        source: 'ShopShell.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'hoka-user-regular',
+      },
+      {
+        label: '계정 · 알림 배지',
+        registeredName: 'hoka-user-regular',
+        preview: (
+          <Box as="span" pos="relative" display="inline-flex">
+            <Icon name="hoka-user-regular" size={22} />
+            <Circle pos="absolute" top="-.3rem" right="-4px" size="12px" bg="blue.100">
+              <Typography
+                variant="body5"
+                weight="medium"
+                tone="inverse"
+                className={css({ fontSize: '8px', lineHeight: '16px' })}
+              >
+                1
+              </Typography>
+            </Circle>
+          </Box>
+        ),
+        code: `import { css } from 'styled-system/css';
+import { Box, Circle } from 'styled-system/jsx';
+
+import { Icon } from '@/components/common/atoms/Icon';
+import { Typography } from '@/components/common/atoms/Typography';
+
+<Box as="span" pos="relative" display="inline-flex">
+  <Icon name="hoka-user-regular" size={22} />
+  <Circle pos="absolute" top="-.3rem" right="-4px" size="12px" bg="blue.100">
+    <Typography variant="body5" weight="medium" tone="inverse" className={css({ fontSize: '8px', lineHeight: '16px' })}>
+      1
+    </Typography>
+  </Circle>
+</Box>`,
+        source: 'ShopShell.tsx',
+        note: '22px 아이콘 · 12px 파란 배지 · 알림 1건 예시',
+      },
+      {
+        label: 'faEye',
+        origin: { label: 'Font Awesome', name: 'eye', detail: 'Regular' },
+        preview: <Icon name="eye-regular" size={24} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="eye-regular" size={24} />',
+        source: 'TextInput.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'eye-regular',
+      },
+      {
+        label: 'faEyeSlash',
+        origin: { label: 'Font Awesome', name: 'eye-slash', detail: 'Regular' },
+        preview: <Icon name="eye-slash-regular" size={24} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="eye-slash-regular" size={24} />',
+        source: 'TextInput.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'eye-slash-regular',
+      },
+    ],
+  },
   {
     id: 'icon-direction',
     title: '화살표·방향',
@@ -130,24 +813,6 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
         registeredName: 'copy-regular',
       },
       {
-        label: 'faEye',
-        origin: { label: 'Font Awesome', name: 'eye', detail: 'Regular' },
-        preview: <Icon name="eye-regular" size={24} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="eye-regular" size={24} />',
-        source: 'TextInput.tsx',
-        note: 'color로 색상 변경 가능',
-        registeredName: 'eye-regular',
-      },
-      {
-        label: 'faEyeSlash',
-        origin: { label: 'Font Awesome', name: 'eye-slash', detail: 'Regular' },
-        preview: <Icon name="eye-slash-regular" size={24} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="eye-slash-regular" size={24} />',
-        source: 'TextInput.tsx',
-        note: 'color로 색상 변경 가능',
-        registeredName: 'eye-slash-regular',
-      },
-      {
         label: '검색',
         origin: { label: 'Font Awesome', name: 'magnifying-glass', detail: 'Regular' },
         preview: <Icon name="magnifying-glass-regular" size={19} />,
@@ -159,8 +824,8 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
       {
         label: 'faMagnifyingGlass',
         origin: { label: 'Font Awesome', name: 'magnifying-glass', detail: 'Solid' },
-        preview: <Icon name="magnifying-glass-solid" size={24} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="magnifying-glass-solid" size={24} />',
+        preview: <Icon name="magnifying-glass-solid" size={16} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="magnifying-glass-solid" size={16} />',
         source: 'ProductDetailContent.tsx, SearchField.tsx',
         note: 'color로 색상 변경 가능',
         registeredName: 'magnifying-glass-solid',
@@ -223,8 +888,8 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
       {
         label: '선택 태그 삭제',
         origin: { label: 'Font Awesome', name: 'xmark', detail: 'Regular' },
-        preview: <Icon name="xmark-regular" size={16} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="xmark-regular" size={16} />',
+        preview: <Icon name="xmark-regular" size={24} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="xmark-regular" size={24} />',
         source: 'ProductListingPage.tsx, OrderTrackingDialog.tsx, BottomSheet.tsx',
         note: 'color로 색상 변경 가능',
         registeredName: 'xmark-regular',
@@ -260,7 +925,7 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
         previewBackground: 'black.60',
         origin: { label: 'Font Awesome', name: 'bell', detail: 'Regular' },
         preview: <Icon name="bell-regular" size={18} color="white" />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="bell-regular" size={18} color="white" />\n\n<Icon name="bell-regular" size={24} />',
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="bell-regular" size={18} color="white" />\n\n<Icon name="bell-regular" size={14} />',
         source: 'LaunchCalendarContent.tsx, SizeSelector.tsx',
         note: 'color로 색상 변경 가능',
 
@@ -279,8 +944,8 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
       {
         label: 'faCheck',
         origin: { label: 'Font Awesome', name: 'check', detail: 'Solid' },
-        preview: <Icon name="check-solid" size={24} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="check-solid" size={24} />',
+        preview: <Icon name="check-solid" size={12} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="check-solid" size={12} />',
         source: 'StepIndicator.tsx',
         note: 'color로 색상 변경 가능',
         registeredName: 'check-solid',
@@ -288,8 +953,8 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
       {
         label: 'faCircleCheck',
         origin: { label: 'Font Awesome', name: 'circle-check', detail: 'Regular' },
-        preview: <Icon name="circle-check-regular" size={24} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="circle-check-regular" size={24} />',
+        preview: <Icon name="circle-check-regular" size={18} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="circle-check-regular" size={18} />',
         source: 'CouponManagement.tsx',
         note: 'color로 색상 변경 가능',
         registeredName: 'circle-check-regular',
@@ -299,18 +964,9 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
         origin: { label: 'Font Awesome', name: 'circle-info', detail: 'Regular' },
         preview: <Icon name="circle-info-regular" size={16} />,
         code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="circle-info-regular" size={16} />',
-        source: 'HelpTips.tsx',
+        source: 'HelpTips.tsx, Dropdown.tsx, FormField.tsx',
         note: 'color로 색상 변경 가능',
         registeredName: 'circle-info-regular',
-      },
-      {
-        label: 'faCircleInfo',
-        origin: { label: 'Font Awesome', name: 'circle-info', detail: 'Solid' },
-        preview: <Icon name="circle-info-solid" size={24} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="circle-info-solid" size={24} />',
-        source: 'Dropdown.tsx, FormField.tsx',
-        note: 'color로 색상 변경 가능',
-        registeredName: 'circle-info-solid',
       },
       {
         label: '질문 도움말',
@@ -333,8 +989,8 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
       {
         label: 'faTriangleExclamation',
         origin: { label: 'Font Awesome', name: 'triangle-exclamation', detail: 'Solid' },
-        preview: <Icon name="triangle-exclamation-solid" size={24} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="triangle-exclamation-solid" size={24} />',
+        preview: <Icon name="triangle-exclamation-solid" size={48} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="triangle-exclamation-solid" size={48} />',
         source: 'SystemStatusPage.tsx',
         note: 'color로 색상 변경 가능',
         registeredName: 'triangle-exclamation-solid',
@@ -355,15 +1011,6 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
     title: '사물·기호',
     description: '장바구니·사용자·시간·별·하트',
     items: [
-      {
-        label: '장바구니 담기',
-        origin: { label: 'Font Awesome', name: 'bag-shopping', detail: 'Regular' },
-        preview: <Icon name="bag-shopping-regular" size={18} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="bag-shopping-regular" size={18} />\n\n<Icon name="bag-shopping-regular" size={22} />',
-        source: 'OrdersProducts.tsx, ShopShell.tsx',
-        note: 'color로 색상 변경 가능',
-        registeredName: 'bag-shopping-regular',
-      },
       {
         label: 'faBox',
         origin: { label: 'Font Awesome', name: 'box', detail: 'Solid' },
@@ -441,8 +1088,8 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
       {
         label: 'faCreditCard',
         origin: { label: 'Font Awesome', name: 'credit-card', detail: 'Solid' },
-        preview: <Icon name="credit-card-solid" size={24} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="credit-card-solid" size={24} />',
+        preview: <Icon name="credit-card-solid" size={16} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="credit-card-solid" size={16} />',
         source: 'CheckoutPayment.tsx',
         note: 'color로 색상 변경 가능',
         registeredName: 'credit-card-solid',
@@ -574,33 +1221,6 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
         registeredName: 'ruler-horizontal-regular',
       },
       {
-        label: 'faStarRegular',
-        origin: { label: 'Font Awesome', name: 'star', detail: 'Regular' },
-        preview: <Icon name="star-regular" size={24} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="star-regular" size={24} />',
-        source: 'RatingStars.tsx',
-        note: 'color로 색상 변경 가능',
-        registeredName: 'star-regular',
-      },
-      {
-        label: 'faStarSolid',
-        origin: { label: 'Font Awesome', name: 'star', detail: 'Solid' },
-        preview: <Icon name="star-solid" size={24} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="star-solid" size={24} />',
-        source: 'RatingStars.tsx',
-        note: 'color로 색상 변경 가능',
-        registeredName: 'star-solid',
-      },
-      {
-        label: '별점 반 개',
-        origin: { label: 'Font Awesome', name: 'star-half-stroke', detail: '스타일 구분 미확인' },
-        preview: <Icon name="star-half-stroke" size={16} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="star-half-stroke" size={16} />',
-        source: 'RatingStars.tsx',
-        note: 'color로 색상 변경 가능',
-        registeredName: 'star-half-stroke',
-      },
-      {
         label: '타이머',
         origin: { label: 'Font Awesome', name: 'timer', detail: 'Regular' },
         preview: <Icon name="timer-regular" size={18} />,
@@ -619,15 +1239,6 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
         registeredName: 'truck-fast-solid',
       },
       {
-        label: 'faUser',
-        origin: { label: 'Font Awesome', name: 'user', detail: 'Regular' },
-        preview: <Icon name="user-regular" size={24} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="user-regular" size={24} />',
-        source: 'ShopShell.tsx',
-        note: 'color로 색상 변경 가능',
-        registeredName: 'user-regular',
-      },
-      {
         label: 'faUserSolid',
         origin: { label: 'Font Awesome', name: 'user', detail: 'Solid' },
         preview: <Icon name="user-solid" size={24} />,
@@ -635,121 +1246,6 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
         source: 'ShopShell.tsx',
         note: 'color로 색상 변경 가능',
         registeredName: 'user-solid',
-      },
-    ],
-  },
-  {
-    id: 'icon-form',
-    title: '폼 상태',
-    description: '체크박스·라디오 선택과 비활성',
-    items: [
-      {
-        label: 'checkbox · 기본',
-        origin: {
-          label: '종류',
-          name: 'checkbox 상태 SVG',
-          detail: '폼 상태 조합 · 단일 Font Awesome 대응 미확인',
-        },
-        preview: <Icon name="checkbox-unchecked" size={20} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="checkbox-unchecked" size={20} />',
-        source: 'Checkbox.tsx',
-        note: '상태 이미지 확인용 · 실제 폼에서는 Checkbox / Radio 사용',
-        registeredName: 'checkbox-unchecked',
-      },
-      {
-        label: 'checkbox · 선택',
-        origin: {
-          label: '종류',
-          name: 'checkbox 상태 SVG',
-          detail: '폼 상태 조합 · 단일 Font Awesome 대응 미확인',
-        },
-        preview: <Icon name="checkbox-checked" size={20} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="checkbox-checked" size={20} />',
-        source: 'Checkbox.tsx',
-        note: '상태 이미지 확인용 · 실제 폼에서는 Checkbox / Radio 사용',
-        registeredName: 'checkbox-checked',
-      },
-      {
-        label: 'checkbox · 비활성 기본',
-        previewBackground: 'black.60',
-        origin: {
-          label: '종류',
-          name: 'checkbox 상태 SVG',
-          detail: '폼 상태 조합 · 단일 Font Awesome 대응 미확인',
-        },
-        preview: <Icon name="checkbox-disabled" size={20} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="checkbox-disabled" size={20} />',
-        source: 'Checkbox.tsx',
-        note: '상태 이미지 확인용 · 실제 폼에서는 Checkbox / Radio 사용',
-        registeredName: 'checkbox-disabled',
-      },
-      {
-        label: 'checkbox · 비활성 선택',
-        previewBackground: 'black.60',
-        origin: {
-          label: '종류',
-          name: 'checkbox 상태 SVG',
-          detail: '폼 상태 조합 · 단일 Font Awesome 대응 미확인',
-        },
-        preview: <Icon name="checkbox-disabled-checked" size={20} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="checkbox-disabled-checked" size={20} />',
-        source: 'Checkbox.tsx',
-        note: '상태 이미지 확인용 · 실제 폼에서는 Checkbox / Radio 사용',
-        registeredName: 'checkbox-disabled-checked',
-      },
-      {
-        label: 'radio · 기본',
-        origin: {
-          label: '종류',
-          name: 'radio 상태 SVG',
-          detail: '폼 상태 조합 · 단일 Font Awesome 대응 미확인',
-        },
-        preview: <Icon name="radio-unchecked" size={20} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="radio-unchecked" size={20} />',
-        source: 'Radio.tsx',
-        note: '상태 이미지 확인용 · 실제 폼에서는 Checkbox / Radio 사용',
-        registeredName: 'radio-unchecked',
-      },
-      {
-        label: 'radio · 선택',
-        origin: {
-          label: '종류',
-          name: 'radio 상태 SVG',
-          detail: '폼 상태 조합 · 단일 Font Awesome 대응 미확인',
-        },
-        preview: <Icon name="radio-checked" size={20} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="radio-checked" size={20} />',
-        source: 'Radio.tsx',
-        note: '상태 이미지 확인용 · 실제 폼에서는 Checkbox / Radio 사용',
-        registeredName: 'radio-checked',
-      },
-      {
-        label: 'radio · 비활성 기본',
-        previewBackground: 'black.60',
-        origin: {
-          label: '종류',
-          name: 'radio 상태 SVG',
-          detail: '폼 상태 조합 · 단일 Font Awesome 대응 미확인',
-        },
-        preview: <Icon name="radio-disabled" size={20} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="radio-disabled" size={20} />',
-        source: 'Radio.tsx',
-        note: '상태 이미지 확인용 · 실제 폼에서는 Checkbox / Radio 사용',
-        registeredName: 'radio-disabled',
-      },
-      {
-        label: 'radio · 비활성 선택',
-        previewBackground: 'black.60',
-        origin: {
-          label: '종류',
-          name: 'radio 상태 SVG',
-          detail: '폼 상태 조합 · 단일 Font Awesome 대응 미확인',
-        },
-        preview: <Icon name="radio-disabled-checked" size={20} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="radio-disabled-checked" size={20} />',
-        source: 'Radio.tsx',
-        note: '상태 이미지 확인용 · 실제 폼에서는 Checkbox / Radio 사용',
-        registeredName: 'radio-disabled-checked',
       },
     ],
   },
@@ -803,7 +1299,7 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
         origin: {
           label: '종류',
           name: '완료 표시 SVG',
-          detail: '원형·체크 조합 · 단일 Font Awesome 대응 미확인',
+          detail: '원형·체크 조합',
         },
         preview: <Icon name="join-check" size={48} />,
         code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="join-check" size={48} />',
@@ -1010,8 +1506,8 @@ export function IconGuide() {
             사용법
           </Typography>
           <Typography as="p" variant="body4">
-            공통 Icon을 사용합니다. size 기본값은 16px이며 숫자 또는 CSS 크기를 받습니다. PC·모바일
-            크기가 다르면 호출부에서 각각 지정합니다.
+            공통 Icon을 사용합니다. size 기본값은 16px이며 숫자 또는 CSS 크기를 받습니다.
+            데스크탑·모바일 크기가 다르면 호출부에서 각각 지정합니다.
           </Typography>
           <Typography as="p" variant="body4">
             모든 아이콘은 name으로 불러옵니다. 단색 아이콘은 color로 색상을 바꾸고, 다색·상태
@@ -1024,19 +1520,19 @@ export function IconGuide() {
           </Typography>
           <Typography as="p" variant="body5" tone="subtle">
             서비스 화면과 화면 목록·기존 가이드의 사용처를 기준으로 정리했습니다. 로고·국기·상품
-            이미지·배경 장식과 사용되지 않는 파일은 제외합니다. 카드의 크기는 예시이며 사용 화면의
-            PC·모바일 규격을 우선합니다.
+            이미지·배경 장식과 사용되지 않는 파일은 제외합니다. 사용처가 확인된 아이콘은 실제 호출
+            크기로 표시합니다. 화면별 크기가 다르면 해당 화면의 규격을 따릅니다.
           </Typography>
           <Grid columns={{ base: 3, _mobile: 1 }} gap="3">
             <IconExampleCard
               onCopy={copyCode}
               example={{
-                label: '크기 · 16 / 18 / 24px',
+                label: '크기 · 16 / 20 / 24px',
                 source: 'Icon.tsx',
                 note: 'size는 아이콘의 너비와 높이',
                 preview: (
                   <HStack gap="4">
-                    {[16, 18, 24].map((size) => (
+                    {[16, 20, 24].map((size) => (
                       <Stack key={size} gap="2" alignItems="center">
                         <Icon name="chevron-down-regular" size={size} />
                         <Typography variant="body5">{size}px</Typography>
@@ -1044,7 +1540,7 @@ export function IconGuide() {
                     ))}
                   </HStack>
                 ),
-                code: '<Icon name="chevron-down-regular" size={16} />\n<Icon name="chevron-down-regular" size={18} />\n<Icon name="chevron-down-regular" size={24} />',
+                code: '<Icon name="chevron-down-regular" size={16} />\n<Icon name="chevron-down-regular" size={20} />\n<Icon name="chevron-down-regular" size={24} />',
               }}
             />
             <IconExampleCard
@@ -1055,12 +1551,12 @@ export function IconGuide() {
                 note: 'color로 색상 변경 가능',
                 preview: (
                   <HStack gap="4">
-                    <Icon name="circle-info-solid" size={24} />
-                    <Icon name="circle-info-solid" size={24} color="black.40" />
-                    <Icon name="circle-info-solid" size={24} color="blue.100" />
+                    <Icon name="circle-info-regular" size={16} />
+                    <Icon name="circle-info-regular" size={16} color="black.40" />
+                    <Icon name="circle-info-regular" size={16} color="blue.100" />
                   </HStack>
                 ),
-                code: '<Icon name="circle-info-solid" size={24} />\n<Icon name="circle-info-solid" size={24} color="black.40" />\n<Icon name="circle-info-solid" size={24} color="blue.100" />',
+                code: '<Icon name="circle-info-regular" size={16} />\n<Icon name="circle-info-regular" size={16} color="black.40" />\n<Icon name="circle-info-regular" size={16} color="blue.100" />',
               }}
             />
             <IconExampleCard
@@ -1069,8 +1565,8 @@ export function IconGuide() {
                 label: '아이콘 색상 지정',
                 source: 'ShopShell.tsx',
                 note: 'color로 색상 변경 가능',
-                preview: <Icon name="magnifying-glass-regular" size={24} color="blue.100" />,
-                code: '<Icon name="magnifying-glass-regular" size={24} color="blue.100" />',
+                preview: <Icon name="magnifying-glass-regular" size={16} color="blue.100" />,
+                code: '<Icon name="magnifying-glass-regular" size={16} color="blue.100" />',
               }}
             />
           </Grid>
