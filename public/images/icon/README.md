@@ -15,7 +15,6 @@
 | `faChevronLeft` | [chevron-left-solid.svg](chevron-left-solid.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-24938) |
 | `faChevronRight` | [chevron-right-solid.svg](chevron-right-solid.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-13818) |
 | `faCircleCheck` | [circle-check-regular.svg](circle-check-regular.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-15696) |
-| `faCircleInfo` | [circle-info-solid.svg](circle-info-solid.svg) | 16 × 16 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-19693) |
 | `faClipboardList` | [clipboard-list-solid.svg](clipboard-list-solid.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-16323) |
 | `faComments` | [comments-solid.svg](comments-solid.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-12393) |
 | `faCopy` | [copy-regular.svg](copy-regular.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-17546) |

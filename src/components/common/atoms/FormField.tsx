@@ -146,7 +146,7 @@ function FormFieldRoot({
                 {info ? (
                   <span title={typeof info === 'string' ? info : undefined}>
                     {typeof info === 'string' ? (
-                      <Icon name="circle-info-solid" size="16px" />
+                      <Icon name="circle-info-regular" size="16px" />
                     ) : (
                       info
                     )}

@@ -212,7 +212,7 @@ export function Dropdown({
               {info ? (
                 <span title={typeof info === 'string' ? info : undefined}>
                   {typeof info === 'string' ? (
-                    <Icon name="circle-info-solid" size="16px" aria-label={info} />
+                    <Icon name="circle-info-regular" size="16px" aria-label={info} />
                   ) : (
                     info
                   )}

@@ -372,10 +372,6 @@ export const iconAssets = {
     src: '/images/icon/circle-check-regular.svg',
     mode: 'mask',
   },
-  'circle-info-solid': {
-    src: '/images/icon/circle-info-solid.svg',
-    mode: 'mask',
-  },
   'clipboard-list-solid': {
     src: '/images/icon/clipboard-list-solid.svg',
     mode: 'mask',

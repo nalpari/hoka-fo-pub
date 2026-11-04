@@ -964,18 +964,9 @@ import { Typography } from '@/components/common/atoms/Typography';
         origin: { label: 'Font Awesome', name: 'circle-info', detail: 'Regular' },
         preview: <Icon name="circle-info-regular" size={16} />,
         code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="circle-info-regular" size={16} />',
-        source: 'HelpTips.tsx',
+        source: 'HelpTips.tsx, Dropdown.tsx, FormField.tsx',
         note: 'color로 색상 변경 가능',
         registeredName: 'circle-info-regular',
-      },
-      {
-        label: 'faCircleInfo',
-        origin: { label: 'Font Awesome', name: 'circle-info', detail: 'Solid' },
-        preview: <Icon name="circle-info-solid" size={16} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="circle-info-solid" size={16} />',
-        source: 'Dropdown.tsx, FormField.tsx',
-        note: 'color로 색상 변경 가능',
-        registeredName: 'circle-info-solid',
       },
       {
         label: '질문 도움말',
@@ -1560,12 +1551,12 @@ export function IconGuide() {
                 note: 'color로 색상 변경 가능',
                 preview: (
                   <HStack gap="4">
-                    <Icon name="circle-info-solid" size={16} />
-                    <Icon name="circle-info-solid" size={16} color="black.40" />
-                    <Icon name="circle-info-solid" size={16} color="blue.100" />
+                    <Icon name="circle-info-regular" size={16} />
+                    <Icon name="circle-info-regular" size={16} color="black.40" />
+                    <Icon name="circle-info-regular" size={16} color="blue.100" />
                   </HStack>
                 ),
-                code: '<Icon name="circle-info-solid" size={16} />\n<Icon name="circle-info-solid" size={16} color="black.40" />\n<Icon name="circle-info-solid" size={16} color="blue.100" />',
+                code: '<Icon name="circle-info-regular" size={16} />\n<Icon name="circle-info-regular" size={16} color="black.40" />\n<Icon name="circle-info-regular" size={16} color="blue.100" />',
               }}
             />
             <IconExampleCard
