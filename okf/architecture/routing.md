@@ -10,6 +10,12 @@ generated:
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/wh/file-summary/route.ts
+  - src/app/wh/_components/FileSummary.tsx
+  - src/app/wh/loading.tsx
+  - src/app/wh/_components/WorkHistoryLoading.tsx
+  - src/app/wh/page.tsx
+  - src/app/wh/_components/WorkHistory.tsx
   - src/app/checkout/_components/CheckoutDiscountSummary.tsx
   - src/app/screen-index/screenProgress.ts
   - src/components/common/molecules/OrderProductSummary.tsx
@@ -318,6 +324,12 @@ sources:
 ---
 
 # 라우팅과 플랫폼
+
+`/wh`는 공통 쇼핑 셸 없이 GitHub main의 한국 시간 기준 선택 기간(오늘, 어제부터 오늘, 3일 전부터 오늘, 7일 전부터 오늘)의 커밋과 변경 파일을 조회하고 OpenRouter로 커밋 메시지를 요약한다. 서버 환경 변수 `GITHUB_TOKEN`과 `OPENROUTER_API_KEY`가 필요하며 GitHub 공개 저장소는 토큰 없이 조회할 수 있다.
+
+`/wh`는 한국 시간으로 7일 전부터 오늘까지의 커밋과 파일을 한 번 조회한다. 최초에는 오늘이 선택되고 날짜 버튼은 서버 재요청 없이 해당 날짜부터 오늘까지의 결과와 기간 전체의 요약을 표시한다. 오늘 버튼은 오늘 결과만 표시한다. 새로고침 버튼은 선택을 유지하며 원격 데이터를 다시 조회한다. 최초 조회와 새로고침 중에는 `/wh` 전용 도트 매트릭스 로딩을 표시한다. GitHub 요청 한도 초과 시 초기화 시각과 서버 토큰 설정 안내를 표시한다. `Merge commit` 및 `Merge pull request`로 시작하는 병합 커밋은 파일과 요약을 포함한 조회 결과에서 제외한다.
+
+`/wh`는 독립 개발자 도구 화면으로 저장소와 브랜치, 날짜별 변경 파일 및 커밋을 구분해 표시한다. 파일 경로와 짧은 커밋 해시는 고정폭 글꼴을 사용하며 좁은 화면에서는 목록을 한 열로 배치한다. 커밋마다 색상과 번호를 표시하고 각 파일에 해당 커밋의 색상과 번호를 모두 연결한다. 파일의 번호를 누르면 해당 커밋으로 이동한다. 커밋의 색상 배지를 선택하면 변경 파일 목록과 개수가 해당 커밋으로 필터링되며 커밋 제목의 필터 초기화로 전체 목록을 복원한다. 날짜 변경과 새로고침도 필터를 초기화한다. 각 파일의 변경 내용 요약을 펼치면 서버가 선택 기간 및 선택된 커밋의 GitHub diff를 조회해 OpenRouter로 요약한다. diff가 없거나 일부 생략된 경우 안내하며 실패 시 재시도할 수 있다. 파일 diff가 OpenRouter에 전송된다. 출처: `src/app/wh/_components/WorkHistory.tsx` 작업 트리.
 
 ## 상품상세 사이즈 추천 1차 제외 (2026-11-03)
 

@@ -1,0 +1,37 @@
+@keyframes whTripodHandoff {
+  0%,
+  100% {
+    opacity: var(--tripod-apex);
+  }
+  33.33% {
+    opacity: var(--tripod-left);
+  }
+  66.67% {
+    opacity: var(--tripod-right);
+  }
+}
+
+@keyframes whSoundBars {
+  0%,
+  100% {
+    clip-path: inset(80% 0 0);
+  }
+  15% {
+    clip-path: inset(40% 0 0);
+  }
+  30% {
+    clip-path: inset(0 0 0);
+  }
+  45% {
+    clip-path: inset(20% 0 0);
+  }
+  60% {
+    clip-path: inset(60% 0 0);
+  }
+  75% {
+    clip-path: inset(20% 0 0);
+  }
+  90% {
+    clip-path: inset(60% 0 0);
+  }
+}

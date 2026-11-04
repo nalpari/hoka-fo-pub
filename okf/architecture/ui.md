@@ -10,6 +10,11 @@ generated:
   at: '2026-11-03T06:11:12Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/app/wh/_components/work-history-animations.css
+  - src/app/wh/_components/FileSummary.tsx
+  - src/app/wh/loading.tsx
+  - src/app/wh/_components/WorkHistoryLoading.tsx
+  - src/app/wh/_components/WorkHistory.tsx
   - src/app/support/inquiries/new/order-products/_components/InquiryOrderLookup.tsx
   - src/app/mypage/orders/_components/OrderClaimRequest.tsx
   - src/app/mypage/orders/_components/OrdersPage.tsx
@@ -4408,3 +4413,18 @@ ProductIdentity는 기존 ProductDetailsIdentity를 공용 export로 전환한 �
 ## 런칭 캘린더 디자인 미확정 상태 반영 (2026-11-03)
 
 사용자 재확인으로 런칭 캘린더의 활성 IA 159~162(메인·Feed·Coming·In-stock)를 PC 디자인 수정예정(revision-planned), MO 디자인 미수급(missing), PC/MO 퍼블리싱 수정(revision)으로 변경했다. 앞서 PC 프레임 존재와 RUN Club 패턴 적용을 근거로 표시한 수급/완료 기록보다 이번 사용자 확정값을 우선한다. 기존 화면·상태 URL·파일 연결은 유지하며 삭제된 키즈 IA 163~165의 삭제 표시를 복구하지 않는다. getScreenProgress의 네 항목 반환값과 기존 상태 테스트 10개, 변경 파일 ESLint·서식을 확인했다. 브라우저 시각 검증은 재실행하지 않았다. 출처: 사용자 브라우저 댓글, src/app/screen-index/screenProgress.ts 작업 트리. 기록: codex/gpt-6, 2026-11-03.
+
+
+## 개발자 변경 이력 로딩 (2026-11-04)
+
+`/wh`의 최초 조회는 경로 전용 `loading.tsx`에서, 새로고침은 기존 화면 내부에서 도트 매트릭스 상태를 표시한다. 열별 도트 막대의 높이 변화는 Dot Matrix Sound Bars를 참고했으며 움직임 줄이기 환경에서는 정적이다. 공통 쇼핑 화면의 로딩 스타일은 변경하지 않았다. 출처: 위 세 작업 트리 파일과 `panda.config.ts`, [Dot Matrix](https://dotmatrix.zzzzshawn.cloud/). 기록: codex/gpt-6, 2026-11-04T00:39:56Z.
+
+
+## 파일 diff 요약 로딩 (2026-11-04)
+
+`/wh`의 파일 요약 콜아웃은 요청 중 Tripod Handoff 도트 로더와 분석 중 문구를 표시한다. 원본은 [Dot Matrix](https://dotmatrix.zzzzshawn.cloud/)이며 움직임 줄이기 설정에서는 정지한다. 작업 트리 출처: `src/app/wh/_components/FileSummary.tsx`, `panda.config.ts`. 기록: codex/gpt-6, 2026-11-04T01:01:23Z.
+
+
+## 변경 이력 로더 키프레임 분리 (2026-11-04)
+
+`/wh`의 Sound Bars와 파일 diff 요약 Tripod Handoff 키프레임은 `src/app/wh/_components/work-history-animations.css`에서 정의하고 각 컴포넌트가 불러온다. 그 외 컴포넌트 스타일은 Panda CSS를 유지한다. 기존 `panda.config.ts`에 추가했던 두 키프레임은 제거했다. 출처: 위 CSS와 `WorkHistoryLoading.tsx`, `FileSummary.tsx` 작업 트리. 기록: codex/gpt-6, 2026-11-04T01:20:43Z.

@@ -1209,6 +1209,15 @@
       "src/components/common/molecules/SupportTabs.tsx",
       "src/components/support/CustomerCenterLayout.tsx"
     ],
+    "src/app/wh/_components/FileSummary.tsx": [],
+    "src/app/wh/_components/WorkHistory.tsx": [
+      "src/app/wh/_components/FileSummary.tsx",
+      "src/app/wh/_components/WorkHistoryLoading.tsx"
+    ],
+    "src/app/wh/_components/WorkHistoryLoading.tsx": [],
+    "src/app/wh/file-summary/route.ts": [],
+    "src/app/wh/loading.tsx": ["src/app/wh/_components/WorkHistoryLoading.tsx"],
+    "src/app/wh/page.tsx": ["src/app/wh/_components/WorkHistory.tsx"],
     "src/components/care-guide/care.data.ts": [],
     "src/components/care-guide/CareInstructions.tsx": [
       "src/components/common/atoms/Typography.tsx",

@@ -2840,6 +2840,10 @@ export function ShopShell({
   readonly platform?: Platform;
   readonly children: ReactNode;
 }) {
+  const pathname = usePathname();
+
+  if (pathname === '/wh') return children;
+
   return (
     <PlatformProvider platform={platform}>
       <ShopFrame>

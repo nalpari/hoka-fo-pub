@@ -241,6 +241,8 @@ Typography의 화면 전용 variant를 표준 heading/body scale로 바꾼 변�
 
 # 공통 상태와 데모 데이터
 
+`/wh`는 공통 쇼핑 셸을 사용하지 않는다. 다른 경로의 플랫폼 및 쇼핑 상태 소유자는 그대로 유지한다.
+
 ## 주문서 저장 배송지 연락처 표시값 (2026-11-02)
 
 당시 `CheckoutContext.savedAddress`에 선택적 `otherPhone` 표시 필드를 추가했고 저장 배송지 FormData 전달용 hidden input을 사용했다. 현재 퍼블리싱 정리에서 주문 submit/FormData 전달을 제거했으며 `otherPhone`은 주소 카드의 표시 데이터로만 남는다. 주문서의 현재 범위는 아래 [주문서 퍼블리싱 상태 경량화](#주문서-퍼블리싱-상태-경량화-2026-11-02)를 따른다.

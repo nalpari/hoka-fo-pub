@@ -1,3 +1,39 @@
+## 2026-11-04 변경 이력 로더 키프레임 분리
+
+- `/wh`의 두 로더 키프레임을 해당 라우트 전용 CSS로 옮기고 Panda 설정의 추가분을 제거했다. 출처: `src/app/wh/_components/work-history-animations.css`, `WorkHistoryLoading.tsx`, `FileSummary.tsx` 작업 트리. 기록: codex/gpt-6, 2026-11-04T01:20:43Z.
+
+## 2026-11-04 파일 diff 요약 로딩
+
+- `/wh` 파일 요약 콜아웃의 분석 중 상태에 Tripod Handoff 도트 로더를 표시한다. 출처: `src/app/wh/_components/FileSummary.tsx`, `panda.config.ts` 작업 트리. 기록: codex/gpt-6, 2026-11-04T01:01:23Z.
+
+## 2026-11-04 변경 파일별 diff 요약
+
+- `/wh` 파일 목록에서 요청할 때만 관련 커밋의 diff를 가져와 OpenRouter로 요약한다. 선택된 커밋 필터를 반영하고 실패 재시도 및 diff 누락 안내를 제공한다. 모의 응답으로 정상 요약, diff 미제공, 잘못된 커밋 요청을 검증했고 실제 주문서 파일의 diff 요약을 브라우저에서 확인했다. 출처: `src/app/wh/file-summary/route.ts`, `src/app/wh/_components/FileSummary.tsx`, `src/app/wh/_components/WorkHistory.tsx` 작업 트리.
+
+## 2026-11-04 변경 이력 누적 기간 필터
+
+- `/wh`의 어제·3일 전·7일 전 선택은 해당 날짜부터 오늘까지의 커밋과 중복 제거된 파일, 해당 기간의 요약을 표시한다. 오늘은 오늘만 포함한다. 출처: `src/app/wh/page.tsx`, `src/app/wh/_components/WorkHistory.tsx` 작업 트리.
+
+## 2026-11-04 개발자 변경 이력 로더 변경
+
+- `/wh` 전용 도트 로더를 Sound Bars 형태로 변경했다. 최초 조회와 새로고침의 표시 위치 및 움직임 줄이기 대응을 유지한다. 출처: `src/app/wh/_components/WorkHistoryLoading.tsx`, `panda.config.ts` 작업 트리와 Dot Matrix.
+
+## 2026-11-04 개발자 변경 이력 로딩
+
+- `/wh` 최초 조회와 새로고침에 전용 도트 매트릭스 로딩을 적용했다. 출처: 관련 라우트 작업 트리와 `panda.config.ts`. 기록: codex/gpt-6, 2026-11-04T00:39:56Z.
+
+## 2026-11-04 병합 커밋 제외와 필터 초기화 위치 조정
+
+- `/wh` 조회에서 자동 병합 메시지를 제외하고 필터 초기화를 커밋 제목 옆에 배치한다. 출처: `src/app/wh/page.tsx`, `src/app/wh/_components/WorkHistory.tsx` 작업 트리.
+
+## 2026-11-04 커밋별 파일 필터
+
+- `/wh` 커밋 배지로 해당 커밋의 파일만 표시하고 필터 초기화, 날짜 변경과 새로고침 시 전체 목록으로 복원한다. 출처: `src/app/wh/_components/WorkHistory.tsx` 작업 트리.
+
+## 2026-11-04 변경 파일과 커밋 연결 표시
+
+- `/wh`에서 커밋별 색상과 번호를 표시하고 각 파일에 해당하는 커밋을 모두 연결한다. 출처: `src/app/wh/page.tsx`, `src/app/wh/_components/WorkHistory.tsx` 작업 트리.
+
 ## 2026-11-03 주문서 마일리지 안내 문구 제거
 
 - 할인·쿠폰 요약의 마일리지 사용 한도 및 최소 보유/사용 단위 안내 두 문구를 제거했다. 기존 쿠폰 선택·안내와 준비된 금액 표시는 유지한다.
@@ -307,6 +343,16 @@
 - `npm run screen-files`, Prettier, `npm run okf:check`, `git diff --check`는 통과했다. `npm run typecheck`에는 변경 Checkout 파일 오류가 없고, 기존 `.next/types`의 제거된 경로 참조 및 상품 목록 PageProps 오류가 남는다. 변경 파일 ESLint는 환경에 `eslint-plugin-perfectionist`가 없어 시작되지 않았다. Storybook 브라우저 검증과 실제 결제 동작 검증은 수행하지 않았다.
 
 # 지식 번들 변경 이력
+
+## 2026-11-04
+
+- **Update**: `/wh`에서 최근 기간의 데이터를 한 번 조회하고 날짜별 클라이언트 필터와 새로고침 버튼을 제공한다.
+
+- **Fix**: `/wh`의 GitHub 요청 한도 초과 안내와 재시도를 추가하고 날짜 링크의 사전 조회를 비활성화했다.
+
+- **Update**: `/wh`에 날짜 선택을 추가하고 공통 쇼핑 셸을 제외했다.
+
+- **Update**: 원격 main의 오늘 변경 파일과 OpenRouter 요약을 보여주는 `/wh` 경로를 추가했다.
 
 ## 2026-11-02 — 주문완료 PC·모바일 Figma 반영
 
@@ -1828,3 +1874,8 @@ shared 내부를 src로 승격하고 components/common·components/features로 �
 - 로컬 PC/MO 렌더링·빈 상태와 반품 상세 연결 확인. Panda 성공; tsc는 기존 생성 타입 오류, ESLint는 플러그인 누락으로 미통과. 관련 UI·라우팅 문서 갱신.
 
 - 커밋 범위 점검: DescriptionList 기본 설명색과 StepIndicator 모바일 라벨의 primary 색상 변경도 포함하고 UI 문서에 기록했다.
+
+
+## 개발자 변경 내역 화면 정리 (2026-11-04)
+
+`/wh`의 저장소 정보, 날짜 선택, 변경 파일과 커밋 목록을 독립 개발 도구에 맞게 정리했다. 날짜 조회와 새로고침 동작은 유지한다. 출처: `src/app/wh/_components/WorkHistory.tsx` 작업 트리.
