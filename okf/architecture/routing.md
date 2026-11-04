@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-03T08:55:05.769316+00:00'
+updated: '2026-11-04T02:27:53Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -318,6 +318,8 @@ sources:
 ---
 
 # 라우팅과 플랫폼
+
+2026-11-04 에러·빈 상태 가이드 반영은 기존 `/preview-not-found`, `/service-unavailable`, `/maintenance`, `/mypage/recent/preview-empty`, `/mypage/preview-no-orders` 표시만 수정한다. 신규 route·IA 연결이나 플랫폼 판정 변경은 없다. 마이페이지 route-private 소유자는 `src/app/mypage/_components/MyPageContent.tsx`를 유지한다. 적용값과 실제 확인은 [에러·빈 상태 가이드](error-empty-guide.md)를 참고한다.
 
 ## 상품상세 사이즈 추천 1차 제외 (2026-11-03)
 

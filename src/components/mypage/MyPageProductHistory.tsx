@@ -373,7 +373,7 @@ export function MyPageProductHistory({
       breadcrumbs={[{ label: '상품내역', href: '/mypage' }, { label: current.title }]}
     >
       <Stack
-        gap={restock ? '0' : '8'}
+        gap={restock || (kind === 'recent' && !items.length) ? '0' : '8'}
         mx={kind === 'wishlist' || kind === 'recent' ? { _mobile: '-16px' } : undefined}
         _mobile={
           kind === 'recent'
@@ -460,10 +460,23 @@ export function MyPageProductHistory({
           </ContentSection>
         ) : (
           <EmptyState
-            variant="plain"
+            variant={kind === 'recent' ? 'page' : 'plain'}
             title={`${current.empty}${kind === 'wishlist' ? '.' : ''}`}
-            titleProps={{ as: 'p', variant: 'body4', className: css({ color: 'black.60' }) }}
-            layoutProps={{ py: '240px', _mobile: { py: '24', px: '4' } }}
+            description={kind === 'recent' ? current.note.replace(/^\* /, '') : undefined}
+            titleProps={
+              kind === 'recent'
+                ? { as: 'p', web: 'heading7', mo: 'heading6' }
+                : { as: 'p', variant: 'body4', className: css({ color: 'black.60' }) }
+            }
+            descriptionProps={{ web: 'body4', mo: 'body5' }}
+            layoutProps={
+              kind === 'recent'
+                ? css.raw({
+                    // 50px promotion + 80px breadcrumbs - the existing 24px overlap.
+                    _mobile: { minH: 'calc(100svh - var(--layout-site-header-height) - 106px)' },
+                  })
+                : { py: '240px', _mobile: { py: '24', px: '4' } }
+            }
           />
         )}
 
@@ -497,7 +510,8 @@ export function MyPageProductHistory({
               {restockNote}
             </Typography>
           </Box>
-        ) : kind === 'wishlist' && items.length > 0 ? null : (
+        ) : (kind === 'wishlist' && items.length > 0) ||
+          (kind === 'recent' && items.length === 0) ? null : (
           <MyPageProductHistoryNote
             recent={kind === 'recent'}
             note={current.note}

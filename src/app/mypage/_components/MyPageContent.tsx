@@ -9,6 +9,7 @@ import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Button, ButtonLink } from '@/components/common/atoms/Button';
 import { Divider } from '@/components/common/atoms/Divider';
+import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { Icon } from '@/components/common/atoms/Icon';
 import { Typography } from '@/components/common/atoms/Typography';
 
@@ -250,19 +251,15 @@ function MyPageRecentOrders({ empty = false }: { empty?: boolean }) {
       }}
     >
       {items.length === 0 ? (
-        <Typography
-          web="body3"
-          mo="body4"
-          className={css({
-            textAlign: 'center',
-            py: '120px',
-            color: '#4D4D4D',
+        <EmptyState
+          variant="content"
+          title="주문 배송 내역이 없습니다."
+          titleProps={{ as: 'p', web: 'heading9', mo: 'heading7', weight: 'semibold' }}
+          layoutProps={{
             borderBottom: '1px solid var(--colors-black-20)',
-            _mobile: { py: '16' },
-          })}
-        >
-          주문 배송 내역이 없습니다.
-        </Typography>
+            _mobile: { px: '0' },
+          }}
+        />
       ) : platform !== 'mobile' ? (
         <Stack gap="0">
           <Grid

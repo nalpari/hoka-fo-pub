@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-03T08:40:13.269316+00:00'
+updated: '2026-11-04T02:27:53Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -984,6 +984,8 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+에러·최근 본 상품 빈 화면·마이페이지 주문 요약의 최신 가이드 적용값과 검증 범위는 [에러·빈 상태 가이드](error-empty-guide.md)에 기록한다. `EmptyState` page/content 옵션을 추가하며 기존 standard/minimal/plain 기본값은 유지한다. 작업 트리 출처: `src/components/common/atoms/EmptyState.tsx`, `src/components/common/organisms/SystemStatusPage.tsx`, `src/components/mypage/MyPageProductHistory.tsx`, `src/app/mypage/_components/MyPageContent.tsx` (2026-11-04).
 
 ## 장바구니 선택·품절 표시 (2026-11-02)
 
