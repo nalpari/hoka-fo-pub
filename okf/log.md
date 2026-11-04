@@ -2075,3 +2075,6 @@ Dropdown과 FormField의 16px 정보 아이콘을 circle-info-regular로 통일�
 
 
 - 주문 취소·반품 신청의 데스크탑 예정 금액 타이포그래피를 heading10으로 변경했다.
+
+
+- 하단 시트 닫기 버튼과 아이콘을 24px로 맞췄다.

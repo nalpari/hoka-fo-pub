@@ -98,11 +98,11 @@ function BottomSheetHeader({ appearance, action, onClose, title }: BottomSheetHe
           variant="icon"
           aria-label="닫기"
           onClick={onClose}
-          size={appearance === 'catalog' ? '24px' : '15px'}
+          size={appearance === 'catalog' ? '24px' : '24px'}
         >
           <Icon
             name={appearance === 'catalog' ? 'xmark-regular' : 'xmark-regular'}
-            size={appearance === 'catalog' ? '24px' : '15px'}
+            size={appearance === 'catalog' ? '24px' : '24px'}
           />
         </Button>
       )}

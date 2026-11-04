@@ -4576,3 +4576,6 @@ Figma 디자인팀 UI 아이콘 5개 세트(296:25392, 296:25425, 298:25555, 298
 
 
 Dropdown과 FormField의 16px 정보 아이콘을 circle-info-regular로 통일했다. Solid 호출부를 확인한 뒤 미사용 SVG와 등록·가이드 항목을 정리했다. 출처: Dropdown.tsx, FormField.tsx, Icon.assets.ts, IconGuide.tsx.
+
+
+기본·상품 목록 하단 시트의 닫기 버튼과 아이콘은 24px로 표시한다. 출처: BottomSheet.tsx.
