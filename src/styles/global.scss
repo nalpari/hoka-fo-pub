@@ -29,6 +29,7 @@ $soft: #f2f2f2;
     --line: #{$line};
     --soft: #{$soft};
     --content-width: 1140px;
+    --touch-target-min-size: var(--sizes-6);
 
     // WEB keeps a 1200px minimum canvas; large desktop sizing is scoped below.
     // Campaign media, section backgrounds, and carousel rails may extend beyond it.

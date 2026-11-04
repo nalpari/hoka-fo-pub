@@ -11,7 +11,7 @@ const root = fileURLToPath(new URL('../', import.meta.url));
 
 const modules = new Map();
 
-// These three registry modules are pure data; resolve the same aliases as the application.
+// Registry modules are pure data; resolve the same aliases as the application.
 function load(relative) {
   const file = path.resolve(root, relative);
   if (modules.has(file)) return modules.get(file).exports;
@@ -43,7 +43,163 @@ function load(relative) {
 
 const { screens } = load('src/data/screenRegistry.ts');
 
-const { getScreenConnection, isScreenDeleted } = load('src/app/screen-index/screenConnections.ts');
+const {
+  getAncestorScreenSourceFiles,
+  getRouteSourceFiles,
+  getScreenComponentFiles,
+  getScreenConnection,
+  getScreenStatePreviews,
+  getSiblingScreenSourceFiles,
+  getSharedStateSourceFiles,
+  isScreenDeleted,
+} = load('src/app/screen-index/screenConnections.ts');
+
+const { getScreenDeveloperNames, getScreenDevelopers, matchesScreenDeveloper } = load(
+  'src/app/screen-index/screenDevelopers.ts',
+);
+
+test('screenless parent groups own sibling files without moving them to a broader ancestor', () => {
+  const siblings = [178, 179, 180, 181].map((ia) =>
+    screens.find((screen) => screen.iaNumber === ia),
+  );
+  const groups = getSiblingScreenSourceFiles(siblings);
+  const ordersPath = siblings[0].depths.slice(0, 3).join('|');
+  const returnsPath = siblings[2].depths.slice(0, 3).join('|');
+  const file = 'src/app/mypage/orders/_components/OrdersPage.tsx';
+  assert.ok(groups.get(ordersPath).includes(file));
+  assert.ok(groups.get(returnsPath).includes(file));
+  assert.equal(groups.has(siblings[0].depths.slice(0, 2).join('|')), false);
+  assert.deepEqual(getSiblingScreenSourceFiles([siblings[0]]).get(ordersPath), []);
+  assert.ok([...groups.values()].flat().every((entry) => !/\/page\.[jt]sx?$/.test(entry)));
+});
+
+test('nested screens inherit displayed ancestor files and recover them when the ancestor is filtered out', () => {
+  const information = screens.find((screen) => screen.iaNumber === 237);
+  const additional = screens.find((screen) => screen.iaNumber === 255);
+  const marketing = screens.find((screen) => screen.iaNumber === 256);
+  const visible = [information, additional, marketing];
+  const file = 'src/app/signup/information/_components/RegistrationStatePreview.tsx';
+  assert.ok(getAncestorScreenSourceFiles(additional, visible).includes(file));
+  assert.ok(getAncestorScreenSourceFiles(marketing, visible).includes(file));
+  assert.deepEqual(getAncestorScreenSourceFiles(information, visible), []);
+  assert.deepEqual(getAncestorScreenSourceFiles(marketing, [marketing]), []);
+  const terms = screens.find((screen) => screen.iaNumber === 236);
+  assert.deepEqual(getAncestorScreenSourceFiles(marketing, [terms, marketing]), []);
+});
+
+test('shared state dependencies move to the owner without lifting entry pages or counting duplicate routes', () => {
+  const detail = getScreenConnection(
+    screens.find((screen) => screen.screenCode === 'eland_hca_02'),
+  );
+  const shared = getSharedStateSourceFiles([detail]);
+  assert.ok(shared.includes('src/app/products/[id]/productDetailPresentation.ts'));
+  assert.ok(shared.includes('src/app/products/[id]/productInquiries.ts'));
+  assert.ok(shared.includes('src/components/care-guide/care.data.ts'));
+  assert.ok(
+    shared.every((file) => !file.includes('/_components/') && !/\/page\.[jt]sx?$/.test(file)),
+  );
+  assert.deepEqual(getSharedStateSourceFiles([detail, detail]), shared);
+  const single = { ...detail, previewRoutes: [] };
+  assert.deepEqual(getSharedStateSourceFiles([single, single]), []);
+  const session = getScreenConnection(screens.find((screen) => screen.iaNumber === 259));
+  assert.ok(
+    !getSharedStateSourceFiles([session]).includes(
+      'src/app/running/running-session/[sessionId]/page.tsx',
+    ),
+  );
+});
+
+test('every linked screen has one default STATE and private files belong to its owner', () => {
+  for (const screen of screens) {
+    const connection = getScreenConnection(screen);
+    const states = getScreenStatePreviews(connection);
+    if (connection.route) {
+      assert.equal(states[0].label, '기본');
+      assert.equal(states.filter(({ href }) => href === connection.route).length, 1);
+    }
+    assert.equal(new Set(states.map(({ href }) => href)).size, states.length);
+  }
+  const mypage = getScreenConnection(screens.find((screen) => screen.iaNumber === 177));
+  const files = getScreenComponentFiles(mypage);
+  assert.ok(files.includes('src/app/mypage/_components/MyPageContent.tsx'));
+  assert.ok(files.every((file) => file.includes('/_components/')));
+  assert.equal(new Set(files).size, files.length);
+  const orders = getScreenConnection(screens.find((screen) => screen.iaNumber === 178));
+  const listing = getScreenConnection(screens.find((screen) => screen.iaNumber === 3));
+  assert.ok(
+    getScreenComponentFiles(listing, true).includes(
+      'src/components/catalog/ProductListingPage.tsx',
+    ),
+  );
+  assert.ok(
+    !getScreenComponentFiles(listing).includes('src/components/catalog/ProductListingPage.tsx'),
+  );
+  assert.ok(
+    getScreenComponentFiles(orders).includes('src/app/mypage/orders/_components/OrdersContent.tsx'),
+  );
+  assert.deepEqual(getScreenStatePreviews({ route: '/only', sourceFiles: [] }), [
+    { label: '기본', href: '/only' },
+  ]);
+  assert.deepEqual(
+    getScreenStatePreviews({
+      route: '/same',
+      previewRoutes: [{ label: '기존 상태', href: '/same' }],
+      sourceFiles: [],
+    }),
+    [{ label: '기본', href: '/same' }],
+  );
+});
+
+test('state files follow their own static, dynamic and query/hash routes', () => {
+  const detail = getScreenConnection(
+    screens.find((screen) => screen.screenCode === 'eland_hca_02'),
+  );
+  const base = getRouteSourceFiles(detail, detail.route);
+  const empty = getRouteSourceFiles(detail, '/products/preview-empty-inquiries#product-inquiries');
+  assert.ok(base.includes('src/app/products/[id]/page.tsx'));
+  assert.ok(!base.includes('src/app/products/preview-empty-inquiries/page.tsx'));
+  assert.ok(empty.includes('src/app/products/preview-empty-inquiries/page.tsx'));
+  assert.ok(!empty.includes('src/app/products/preview-restock/page.tsx'));
+  const inquiries = getScreenConnection(screens.find((screen) => screen.iaNumber === 189));
+  assert.ok(
+    getRouteSourceFiles(inquiries, '/support/inquiries/new/preview-order-selected').includes(
+      'src/app/support/inquiries/new/[preview]/page.tsx',
+    ),
+  );
+  const care = getScreenConnection(screens.find((screen) => screen.iaNumber === 217));
+  assert.deepEqual(
+    getRouteSourceFiles(care, '/support/care?tab=apparel'),
+    getRouteSourceFiles(care, '/support/care'),
+  );
+  for (const screen of screens.filter((screen) => !isScreenDeleted(screen))) {
+    const connection = getScreenConnection(screen);
+    for (const { href } of connection.previewRoutes ?? []) {
+      assert.ok(getRouteSourceFiles(connection, href).length, `IA ${screen.iaNumber}: ${href}`);
+    }
+  }
+});
+
+test('WBS ownership distinguishes product/search, shipping and unspecified screens', () => {
+  const screen = (ia) => screens.find((item) => item.iaNumber === ia);
+  assert.equal(getScreenDevelopers(screen(3))[0].name, '박혜리');
+  assert.equal(getScreenDevelopers(screen(4))[0].name, '박기홍');
+  assert.equal(getScreenDevelopers(screen(247))[0].name, '성인환');
+  assert.equal(getScreenDevelopers(screen(171), '/checkout/preview-shipping')[0].name, '김진영');
+  assert.ok(getScreenDevelopers(screen(171)).some(({ name }) => name === '전은주'));
+  assert.equal(getScreenDevelopers(screen(177)).length, 0);
+  assert.equal(getScreenDevelopers(screen(168)).length, 0);
+});
+
+test('developer filters match individual co-owners and distinguish unspecified from deleted', () => {
+  const screen = (ia) => screens.find((item) => item.iaNumber === ia);
+  assert.ok(getScreenDeveloperNames(screen(1)).includes('박혜리'));
+  assert.ok(matchesScreenDeveloper(screen(1), '조혜리'));
+  assert.ok(matchesScreenDeveloper(screen(3), '박혜리'));
+  assert.equal(matchesScreenDeveloper(screen(3), '성인환'), false);
+  assert.ok(matchesScreenDeveloper(screen(177), 'unassigned'));
+  assert.equal(matchesScreenDeveloper(screen(168), 'unassigned'), false);
+  assert.ok(matchesScreenDeveloper(screen(168), 'all'));
+});
 
 test('locale handoff is registered at Common D2 without inventing an original IA code', () => {
   const locale = screens.find(

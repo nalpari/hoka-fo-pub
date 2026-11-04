@@ -539,9 +539,9 @@ ShopShell은 기존 상태와 액션을 계속 소유하고 `ShopStateProvider`�
 
 ## 단일 부모 통합과 도메인 폴더 승격 (2026-10-28)
 
-ShopShell의 상태와 액션은 기존 소유권을 유지하고, 단일 부모 AppLayout·헤더·푸터·메뉴 구현을 같은 모듈의 로컬 함수로 옮겼다. 장바구니·주문서·계정의 UI 함수는 실제 페이지가 소유하며 Hooks를 렌더 함수 내부에 중첩하지 않았다. RoutePreview 컨텍스트는 기본값 null이고 기존 스토리 props·콜백을 페이지 내부 구성에 전달한다. 운영 상태의 데이터 흐름은 변경하지 않았다. [단일 부모 통합 기록](single-parent-consolidation-2026-10-28.md) 참고.
+ShopShell의 상태와 액션은 기존 소유권을 유지하고, 단일 부모 AppLayout·헤더·푸터·메뉴 구현을 같은 모듈의 로컬 함수로 옮겼다. 장바구니·주문서·계정의 UI 함수는 실제 페이지가 소유하며 Hooks를 렌더 함수 내부에 중첩하지 않았다. RoutePreview 컨텍스트는 기본값 null이고 기존 스토리 props·콜백을 페이지 내부 구성에 전달한다. 운영 상태의 데이터 흐름은 변경하지 않았다. [단일 부모 통합 기록](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/single-parent-consolidation-2026-10-28.md) 참고.
 
-검증: 폴더 승격 후 타입·Panda·Next/Storybook 빌드와 기존 테스트 62개를 통과했다. 이동 함수 409개·초기화 표현식 211개의 구조 비교, PC·모바일 주요 동작 및 스토리 확인 범위는 [통합 검증 기록](single-parent-consolidation-2026-10-28.md#검증)에 명시했다.
+검증: 폴더 승격 후 타입·Panda·Next/Storybook 빌드와 기존 테스트 62개를 통과했다. 이동 함수 409개·초기화 표현식 211개의 구조 비교, PC·모바일 주요 동작 및 스토리 확인 범위는 [통합 검증 기록](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/single-parent-consolidation-2026-10-28.md#검증)에 명시했다.
 
 ## Import 자동 정렬 (2026-10-28)
 
@@ -553,7 +553,7 @@ ShopShell·플랫폼·미리보기 컨텍스트와 계정·장바구니 모듈�
 
 ## 반응형 플랫폼과 상태 수명 (2026-10-28)
 
-Platform 타입은 src/context/platform.tsx로 이전했다. platform 미지정 Provider는 matchMedia를 구독하며 명시적 Storybook 값은 고정된다. ShopFrame의 클래스와 body/포털을 동기화하되 장바구니·로그인 상태 소유자는 유지한다. 로그인 입력과 장바구니 선택, 열린 모달·검색어의 리사이즈 유지 검증은 [현재 플랫폼 기록](responsive-platform-2026-10-28.md)에 명시했다. 이 절이 기존 UA 기반 플랫폼 설명을 대체한다. 작업 트리 출처: src/context/platform.tsx, src/context/ShopShell.tsx.
+Platform 타입은 src/context/platform.tsx로 이전했다. platform 미지정 Provider는 matchMedia를 구독하며 명시적 Storybook 값은 고정된다. ShopFrame의 클래스와 body/포털을 동기화하되 장바구니·로그인 상태 소유자는 유지한다. 로그인 입력과 장바구니 선택, 열린 모달·검색어의 리사이즈 유지 검증은 [현재 플랫폼 기록](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/responsive-platform-2026-10-28.md)에 명시했다. 이 절이 기존 UA 기반 플랫폼 설명을 대체한다. 작업 트리 출처: src/context/platform.tsx, src/context/ShopShell.tsx.
 
 ## 콘텐츠 이미지 렌더러 전환의 상태 영향 (2026-10-29)
 
@@ -567,7 +567,7 @@ ShopShell의 검색·메뉴·닫기 등 기존 IconButton 호출을 Button varia
 
 ## 보조 TS 모듈의 사용처별 배치 (2026-10-28)
 
-ShopShell의 헤더·푸터·메뉴·검색 데이터는 src/data, 최근 검색 훅은 src/hooks로 옮겼다. 문의·런클럽의 상태 주입 컨텍스트는 src/context, 주소 초기값 계약은 src/types로 옮겼다. Provider와 훅의 구현·초기값·저장 키·상태 수명은 유지하며 모든 소비자는 동일한 새 모듈을 참조한다. [이동 목록과 검증](ts-module-ownership-2026-10-28.md).
+ShopShell의 헤더·푸터·메뉴·검색 데이터는 src/data, 최근 검색 훅은 src/hooks로 옮겼다. 문의·런클럽의 상태 주입 컨텍스트는 src/context, 주소 초기값 계약은 src/types로 옮겼다. Provider와 훅의 구현·초기값·저장 키·상태 수명은 유지하며 모든 소비자는 동일한 새 모듈을 참조한다. [이동 목록과 검증](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/ts-module-ownership-2026-10-28.md).
 
 작성: codex/gpt-6, 2026-10-28T10:52:23.370Z. 이번 작업 트리 출처는 위 working_tree_sources이며 고정 source_revision의 과거 이력과 구분한다.
 
@@ -605,7 +605,7 @@ MyPageDataContext에 프로필·상품내역·쿠폰·요약/추천·결제수�
 
 ## 디자인에 필요한 선택·제출 상태 (2026-10-29)
 
-쿠폰 초안/확정 선택, 기본배송지 저장 의도, 신청 취소, 인증 약관 본문과 등급 진행률을 기존 컨텍스트 계약에 추가했다. 실제 서비스 성공을 기다린 뒤 모달을 닫고 실패 시 초안과 오류를 유지한다. 서버 목록 재필터와 실제 금액 재계산은 하지 않는다. [구현 범위·출처·검증](design-implementation-2026-10-29.md).
+쿠폰 초안/확정 선택, 기본배송지 저장 의도, 신청 취소, 인증 약관 본문과 등급 진행률을 기존 컨텍스트 계약에 추가했다. 실제 서비스 성공을 기다린 뒤 모달을 닫고 실패 시 초안과 오류를 유지한다. 서버 목록 재필터와 실제 금액 재계산은 하지 않는다. [구현 범위·출처·검증](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/design-implementation-2026-10-29.md).
 
 ## 러닝 세션 명칭과 IA 연결 정정 (2026-10-30)
 

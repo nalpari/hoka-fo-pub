@@ -1,14 +1,16 @@
 # 개발
 
+[main 변경 보고 스킬](../../.agents/skills/hoka-main-change-report/SKILL.md)은 수동 호출 시 지정 커밋을 포함하거나 마지막 성공 SHA 이후부터 최신 origin/main까지 최종 유효 변경을 분석해 IA 구조도의 날짜·담당자별 모달과 개발자 공유 보고서를 만든다. 담당자는 기존 IA 매핑을 사용한다.
+
 [파일 diff 요약 로딩](verification.md#파일-diff-요약-로딩-표시-2026-11-04)은 `/wh` 콜아웃의 로딩 상태와 검증 범위를 기록한다.
 
 [고정 상태 preview 검증](verification.md#퍼블리싱-고정-상태-preview-검증-2026-10-30)은 직접 URL·IA 링크와 PC/MO 122건의 확인 범위 및 남은 전체 린트 오류를 기록한다.
 
-[퍼블리싱 인계 스킬 통합](markup-handoff-skill.md)은 개인 `hoka-markup-handoff` 사용, 이전 저장소 스킬 제거와 역사적 출처 보존을 설명한다.
+[저장소 인계 스킬](../maintenance.md#문서-정리와-저장소-스킬-2026-11-04)은 팀 공유 경로와 이전 스킬 전환 이력을 설명한다.
 
 [IA 디자인 수급 조사 검증](../architecture/ia-design-audit.md#검증)은 상태 모델·필터 확인과 Figma 캡처 실패로 수행하지 못한 시각 비교를 구분한다.
 
-[보조 TS 모듈의 사용처별 배치](../architecture/ts-module-ownership-2026-10-28.md)는 라우트·데이터·훅·컨텍스트·타입 소유권에 따른 33개 이동과 참조·검증을 설명한다.
+[컴포넌트·모듈 소유권](../architecture/component-ownership.md)은 페이지 전용 UI·일반 TS 모듈의 배치와 재사용·반응형 기준을 설명한다.
 
 RatingStars 표시·선택 모드의 회귀 검사 범위는 [별점 통합 검사](verification.md#ratingstars-선택-모드-통합-검사-2026-10-19)를 참고한다.
 

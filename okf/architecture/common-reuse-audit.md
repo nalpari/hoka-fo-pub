@@ -56,6 +56,7 @@ working_tree_sources:
   - src/stories/components/common/atoms/StatusMessage/StatusMessage.stories.tsx
   - src/stories/components/common/layouts/OrderActionBar/OrderActionBar.stories.tsx
   - src/app/screen-index/sourceGraph.generated.json
+updated: '2026-11-04T01:19:32.500Z'
 ---
 
 # 기준 커밋 이후 공통 UI 전수 대조
@@ -334,3 +335,7 @@ PC 1440px·MO 375px에서 17개 URL/상태, 총 34개의 변경 전후 문구·�
 - `src/components/running-session/RunningSessionPage.tsx`
 
 검토: codex/gpt-6, 2026-11-02T06:36:38Z. 별도 작업의 스테이징은 보존했으며 측정과 치환 계획은 `C:/Users/stead/ego/hoka-token-colors-20261102`에 기록했다.
+
+## 이전 재사용 조사 정리 (2026-11-04)
+
+2026-10-21의 컴포넌트 재사용 재점검은 후속 구현과 이 문서의 2026-11-02 공통 UI 조사보다 앞선 완료 기록이므로 별도 파일을 제거했다. 당시 후보·Base UI 카탈로그 대조·적용 범위·검증 한계와 원래 generated/source_revision/sources는 [커밋 고정 원문](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/component-reusability-2026-10-21.md)에 보존한다. 현재 배치와 재사용 판단은 [컴포넌트·모듈 소유권](component-ownership.md), 최신 프로젝트 지침과 현재 소비처를 따른다. 이번 정리에서는 UI를 변경하거나 과거 브라우저 검증을 재실행하지 않았다.

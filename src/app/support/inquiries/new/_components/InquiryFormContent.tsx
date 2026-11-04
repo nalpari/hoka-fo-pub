@@ -181,6 +181,13 @@ type InquiryCategoryFieldsProps = {
   onCategoryChange: (value: string) => void;
   onDetailCategoryChange: (value: string) => void;
 };
+
+const inquiryDetailOptions = [
+  { value: '신청/취소 문의', label: '신청/취소 문의' },
+  { value: '진행 상황 문의', label: '진행 상황 문의' },
+  { value: '기타 문의', label: '기타 문의' },
+] as const;
+
 /** 문의 분류 선택 필드를 표시합니다. (Displays inquiry category fields.) */
 export function InquiryCategoryFields({
   category,
@@ -190,6 +197,7 @@ export function InquiryCategoryFields({
   onCategoryChange,
   onDetailCategoryChange,
 }: InquiryCategoryFieldsProps) {
+  // [ 개발팀 바인딩 ] 문의/상세 유형 값과 옵션은 이 필드 소유자와 기존 콜백을 사용합니다. 모바일은 문의 유형 선택 즉시 onCategoryChange(value)를 전달하고 같은 시트에서 상세 유형을 이어 선택합니다. 상세 선택 시 onDetailCategoryChange(value)를 전달하고 닫으며, 상세 선택 전 닫아도 이미 선택한 문의 유형은 유지합니다. PC는 두 필드를 각각 선택하며 제출·요청 계약은 변경하지 않습니다.
   return (
     <Stack gap="4">
       <Grid columns={2} gap="2" _mobile={{ gridTemplateColumns: '1fr', gap: '4' }}>
@@ -201,6 +209,12 @@ export function InquiryCategoryFields({
           placeholder="문의 분류를 선택해주세요"
           value={category}
           onValueChange={onCategoryChange}
+          mobileNextSelection={{
+            ariaLabel: '상세 유형',
+            options: inquiryDetailOptions,
+            value: detailCategory,
+            onValueChange: onDetailCategoryChange,
+          }}
           error={invalid && (fixedErrors || !category) ? '문의 분류를 선택해주세요.' : undefined}
           options={[
             { value: '주문/결제', label: '주문/결제' },
@@ -221,11 +235,7 @@ export function InquiryCategoryFields({
           error={
             invalid && (fixedErrors || !detailCategory) ? '상세 유형을 선택해주세요.' : undefined
           }
-          options={[
-            { value: '신청/취소 문의', label: '신청/취소 문의' },
-            { value: '진행 상황 문의', label: '진행 상황 문의' },
-            { value: '기타 문의', label: '기타 문의' },
-          ]}
+          options={inquiryDetailOptions}
         />
       </Grid>
     </Stack>

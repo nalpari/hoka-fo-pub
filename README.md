@@ -104,4 +104,4 @@ npm run build
 
 퍼블리싱 인계와 컴포넌트 구조·스타일 정리는 저장소에 포함된 [hoka-markup-handoff](.agents/skills/hoka-markup-handoff/SKILL.md) 스킬을 사용한다. 이 스킬은 서비스·시연 흐름 제거와 고정 상태 URL 인계, 래퍼·단일 부모 통합, 폼·Panda·반응형·Next.js 지침을 포함한다.
 
-스킬 본문과 참조 문서는 `.agents/skills/hoka-markup-handoff/`에 함께 버전 관리한다. 저장소를 최신화하면 팀원이 같은 스킬을 받을 수 있으며 별도 개인 폴더 설치가 필요하지 않다. 프로젝트 작업은 이 저장소 버전을 기준으로 사용한다. 이전 `component-reusability` 스킬은 제거한 상태를 유지한다. [전환 범위와 출처](okf/development/markup-handoff-skill.md)를 참고한다.
+스킬 본문과 참조 문서는 `.agents/skills/hoka-markup-handoff/`에 함께 버전 관리한다. 저장소를 최신화하면 팀원이 같은 스킬을 받을 수 있으며 별도 개인 폴더 설치가 필요하지 않다. 프로젝트 작업은 이 저장소 버전을 기준으로 사용한다. 이전 `component-reusability` 스킬은 제거한 상태를 유지한다. [전환 범위와 출처](okf/maintenance.md#문서-정리와-저장소-스킬-2026-11-04)를 참고한다.

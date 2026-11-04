@@ -49,12 +49,14 @@ export function SystemStatusPage({ status, maintenance }: SystemStatusPageProps)
       as="main"
       gap="8"
       alignItems="center"
-      pt="100px"
-      pb="32"
-      px="4"
+      minH="412px"
+      justifyContent="center"
+      py="16"
+      px="3"
       textAlign="center"
       color="black.100"
-      _mobile={{ minH: 'calc(100svh - var(--layout-site-header-height))', pt: '24' }}
+      // The existing promotion banner occupies 50px above the site header.
+      _mobile={{ minH: 'calc(100svh - var(--layout-site-header-height) - 50px)', py: '8' }}
       header={
         <>
           <Icon name="triangle-exclamation-solid" size={48} color="black.100" />
@@ -65,12 +67,14 @@ export function SystemStatusPage({ status, maintenance }: SystemStatusPageProps)
             titleProps={{ variant: 'bodyKr2', weight: 'semibold' }}
             description={message.description}
             descriptionProps={{ variant: 'bodyKr4' }}
+            w="100%"
+            maxW="520px"
           />
         </>
       }
       footer={
         status !== 'maintenance' ? (
-          <Box w="180px" _mobile={{ w: '100%' }}>
+          <Box w="100%" maxW="180px">
             <ButtonLink href="/" variant="primary" size="short" fullWidth>
               홈으로
             </ButtonLink>

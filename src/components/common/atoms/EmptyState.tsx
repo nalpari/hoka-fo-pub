@@ -8,7 +8,7 @@ type EmptyStateProps = {
   title: ReactNode;
   description?: ReactNode;
   action?: ReactNode;
-  variant?: 'standard' | 'minimal' | 'plain';
+  variant?: 'standard' | 'minimal' | 'plain' | 'page' | 'content';
   className?: string;
   as?: 'div' | 'section';
   role?: ComponentPropsWithoutRef<'div'>['role'];
@@ -73,6 +73,37 @@ function EmptyStateRoot({
     </Typography>
   ) : null;
   const actionContent = action ? <Box>{action}</Box> : null;
+
+  if (variant === 'page' || variant === 'content') {
+    return (
+      <Stack
+        as={as ?? 'section'}
+        className={className}
+        aria-label={label}
+        role={role}
+        alignItems="center"
+        justifyContent="center"
+        gap="4"
+        w="100%"
+        minH={variant === 'content' ? '267px' : undefined}
+        py={variant === 'page' ? '160px' : '0'}
+        px="3"
+        textAlign="center"
+        color="black.100"
+        {...layoutProps}
+        _mobile={{
+          ...(variant === 'content' ? { minH: '154px' } : { py: '8' }),
+          ...layoutProps?._mobile,
+        }}
+      >
+        <Stack gap="4" w="100%" maxW={variant === 'content' ? '320px' : '520px'}>
+          {titleContent}
+          {descriptionContent}
+        </Stack>
+        {actionContent}
+      </Stack>
+    );
+  }
 
   if (variant === 'plain') {
     return (

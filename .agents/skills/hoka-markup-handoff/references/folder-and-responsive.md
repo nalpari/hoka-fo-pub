@@ -19,4 +19,4 @@
 - 자동 PC는 1025~1199px에서 1200px canvas와 document 가로 scroll을 사용한다. 1200px 이상은 classic 세로 scrollbar 때문에 가로 넘침이 생기지 않아야 한다. fixed header와 콘텐츠 canvas를 정렬한다.
 - 1024/1025·1199/1200 및 대표 PC/MO에서 innerWidth, document clientWidth/scrollWidth, canvas width와 실제 platform을 함께 확인한다. viewport 숫자만으로 mode를 판단하지 않는다.
 - 입력·선택·overlay를 연 채 resize하고 keyboard/focus/portal을 확인한다. 명시적 web story의 좁은 viewport와 명시적 mobile story의 넓은 viewport는 자동 mode와 별도로 검증한다. 제거한 업무 계산을 테스트 목적으로 복구하지 않는다.
-- 현재 소스로 만든 preview에서 검증하고 실제 체크·예외를 OKF에 기록한다. 대표 조작만으로 전체 시각 회귀나 모든 play 통과를 주장하지 않는다. 현재 구현 이력은 저장소 `okf/architecture/responsive-platform-2026-10-28.md`를 참고한다.
+- 현재 소스로 만든 preview에서 검증하고 실제 체크·예외를 OKF에 기록한다. 대표 조작만으로 전체 시각 회귀나 모든 play 통과를 주장하지 않는다. 현재 구현 이력은 저장소 `okf/architecture/component-ownership.md`를 참고한다.

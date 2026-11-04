@@ -190,7 +190,7 @@ working_tree_sources:
 
 ## 쿠폰·신청 취소·인증 본문 연결 (2026-10-29)
 
-CheckoutContext의 상품별 쿠폰 그룹·선택·비동기 적용과 주문 payload, RunClubDataContext.cancelEntry, PhoneVerificationService.terms, OverviewView.tierProgress를 추가했다. 연결 소유자는 서버 처리와 목록/견적 갱신 뒤 resolve하며 reject 시 초안을 유지한다. 소스에 [ 개발팀 바인딩 ] 인계 주석을 기록한다. [구현 범위·출처·검증](design-implementation-2026-10-29.md).
+CheckoutContext의 상품별 쿠폰 그룹·선택·비동기 적용과 주문 payload, RunClubDataContext.cancelEntry, PhoneVerificationService.terms, OverviewView.tierProgress를 추가했다. 연결 소유자는 서버 처리와 목록/견적 갱신 뒤 resolve하며 reject 시 초안을 유지한다. 소스에 [ 개발팀 바인딩 ] 인계 주석을 기록한다. [구현 범위·출처·검증](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/design-implementation-2026-10-29.md).
 
 ## 고정 상태 preview의 연결 경계 (2026-10-30)
 

@@ -20,11 +20,12 @@ sources:
   - id: hoka-main
     resource: https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP?node-id=2536-2823
     title: 'Main / PLP / PDP — HOKA RUN CLUB'
+updated: '2026-11-04T01:19:32.500Z'
 ---
 
 # IA 디자인 수급 조사
 
-후속 사용자 첨부 6개 영역을 이용한 [디자인·소스 대조](design-source-comparison-2026-10-29.md)에서 최초 검색으로 누락한 PC/MO 프레임을 추가 확인하고 구체적인 미적용 항목을 퍼블리싱 수정으로 반영했다. 아래 수급 수치·발견 목록·재판정 불가 기록은 최초 Figma 조사 시점의 이력이다. 특히 IA 200 PC와 251/252 MO 등은 후속 첨부에서 수급으로 정정됐다. 실제 브라우저 픽셀 비교 제한은 계속 남는다.
+후속 사용자 첨부 6개 영역을 이용한 [디자인·소스 대조](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/design-source-comparison-2026-10-29.md)에서 최초 검색으로 누락한 PC/MO 프레임을 추가 확인하고 구체적인 미적용 항목을 퍼블리싱 수정으로 반영했다. 아래 수급 수치·발견 목록·재판정 불가 기록은 최초 Figma 조사 시점의 이력이다. 특히 IA 200 PC와 251/252 MO 등은 후속 첨부에서 수급으로 정정됐다. 실제 브라우저 픽셀 비교 제한은 계속 남는다.
 
 2026-10-29 사용자가 정한 기준은 PC/MO 최종 화면 프레임을 찾으면 `수급`, 조사 목록에서 찾지 못하면 `미수급`이다. 디자인 `수정예정`과 퍼블리싱 `수정`은 서로 다른 상태다. 파일·스토리 존재나 기존 퍼블리싱 완료 상태로 디자인 수급을 추정하지 않는다.
 
@@ -72,3 +73,11 @@ Codex가 상태 모델 테스트 5개, 타입 검사, 변경 TS/TSX ESLint·Pret
 
 [^hoka-design]: [HOKA 디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design), 2026-10-29 네이티브 UI 읽기.
 [^hoka-main]: [런클럽 디자인](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP?node-id=2536-2823), 2026-10-29 네이티브 UI 읽기.
+
+## 첨부 디자인 대조·반영 기록 통합 (2026-11-04)
+
+2026-10-29 회원가입·로그인·고객센터·마이페이지·장바구니·주문의 첨부 이미지 대조와 후속 구현은 완료 이력으로 통합했다. 이미지 파일명·해시·IA별 변경 전 차이·원래 출처는 [디자인 대조 원문](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/design-source-comparison-2026-10-29.md)에서, 적용 UI·당시 서비스 계약·브랜치 작업·실행 검증과 한계는 [후속 구현 원문](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/design-implementation-2026-10-29.md)에서 확인한다. 두 원문의 generated/source_revision/working_tree_sources와 신뢰 메타데이터는 해당 커밋에 보존한다.
+
+디자인 수급과 퍼블리싱 완료는 별도 판정이다. 당시 주문 PC는 현시안 기준 적용이며 사용자 지정 수정예정을 유지했고, PG·OAuth·주소·지도·배송 추적·인증 제공자의 실제 연결 완료를 뜻하지 않았다. 이후 [전체 화면 퍼블리싱 인계](../development/markup-handoff.md)에서 서비스·시연 흐름을 제거했으므로 과거 CheckoutContext·취소·인증 계약을 현재 구현으로 간주하지 않는다. 현재 상태 URL과 실제 연결은 소스 및 [라우팅](routing.md)을 확인한다.
+
+이번 작업은 문서 분류·링크 정리이며 디자인 수급이나 화면 검수 상태를 새로 판정하지 않았다.

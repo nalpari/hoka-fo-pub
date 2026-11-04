@@ -4,6 +4,7 @@ title: '프로젝트 개요'
 description: '서비스 목적, 기술 버전과 구현 범위를 설명한다.'
 tags: [hoka, frontend, overview]
 status: draft
+updated: '2026-11-04T02:14:31Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
@@ -89,6 +90,10 @@ sources:
 ---
 
 # 프로젝트 개요
+
+## IA 러닝세션 비고 문구 정리 (2026-11-04)
+
+사용자가 선택한 내부 IA 258 러닝세션 목록의 `신규 러닝세션 모집 목록` 비고만 삭제했다. 화면·계층·기본/상태 URL과 담당자 연결은 유지한다. 출처: src/data/screenRegistry.ts 작업 트리와 사용자 브라우저 댓글. 기록: codex/gpt-6, 2026-11-04T02:14:31Z.
 
 ## 고객센터 공용 운영정보 (2026-11-02)
 
@@ -181,11 +186,11 @@ shared 내부를 src로 승격했다. 공통 UI는 src/components/common, 기능
 
 ## 프로모션 타입 소유자 변경 (2026-10-28)
 
-src/mocks/products.ts의 Promotions 타입 출처를 통합된 src/components/common/atoms/Badge.tsx로 변경했다. 목 상품의 값·정렬·정책은 바뀌지 않는다. [Badge 통합과 검증](architecture/responsive-platform-2026-10-28.md)을 참고한다.
+src/mocks/products.ts의 Promotions 타입 출처를 통합된 src/components/common/atoms/Badge.tsx로 변경했다. 목 상품의 값·정렬·정책은 바뀌지 않는다. [Badge 통합과 검증](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/responsive-platform-2026-10-28.md)을 참고한다.
 
 ## 보조 TS 모듈의 사용처별 배치 (2026-10-28)
 
-헤더 프로모션·메가 메뉴·푸터·검색 제안 데이터의 현재 소유 위치는 src/data다. 단일 라우트에 종속된 홈·FAQ·로케일·공지·매장·사이즈 가이드 등의 데이터는 해당 app 라우트 옆에 둔다. 공용 데이터라는 이유 없이 모든 페이지 데이터를 data로 승격하지 않는다. [이동 목록과 검증](architecture/ts-module-ownership-2026-10-28.md).
+헤더 프로모션·메가 메뉴·푸터·검색 제안 데이터의 현재 소유 위치는 src/data다. 단일 라우트에 종속된 홈·FAQ·로케일·공지·매장·사이즈 가이드 등의 데이터는 해당 app 라우트 옆에 둔다. 공용 데이터라는 이유 없이 모든 페이지 데이터를 data로 승격하지 않는다. [이동 목록과 검증](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/ts-module-ownership-2026-10-28.md).
 
 작성: codex/gpt-6, 2026-10-28T10:52:23.370Z. 이번 작업 트리 출처는 위 working_tree_sources이며 고정 source_revision의 과거 이력과 구분한다.
 
@@ -205,7 +210,7 @@ src/mocks/products.ts의 Promotions 타입 출처를 통합된 src/components/co
 
 ## 첨부 디자인의 표시 모델 확장 (2026-10-29)
 
-주문 쿠폰의 상품 행 식별자·선택 쿠폰과 기본배송지 저장 의도, 마이페이지 주문 수량/등급 진행률을 표시·제출 모델로 연결했다. 실제 결제/회원/취소 서비스가 구현된 것으로 간주하지 않는다. [구현 범위·출처·검증](architecture/design-implementation-2026-10-29.md).
+주문 쿠폰의 상품 행 식별자·선택 쿠폰과 기본배송지 저장 의도, 마이페이지 주문 수량/등급 진행률을 표시·제출 모델로 연결했다. 실제 결제/회원/취소 서비스가 구현된 것으로 간주하지 않는다. [구현 범위·출처·검증](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/design-implementation-2026-10-29.md).
 
 ## 상태 preview와 IA 연결 범위 (2026-10-30)
 

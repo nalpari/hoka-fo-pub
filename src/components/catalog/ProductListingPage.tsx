@@ -26,6 +26,7 @@ import { Box, Circle, Flex, Grid, HStack, Stack, VStack } from 'styled-system/js
 
 import { Button } from '@/components/common/atoms/Button';
 import { Checkbox } from '@/components/common/atoms/Checkbox';
+import { Dropdown } from '@/components/common/atoms/Dropdown';
 import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { FilterTabs } from '@/components/common/atoms/FilterTabs';
 import { useFormFieldContext } from '@/components/common/atoms/FormField';
@@ -777,158 +778,7 @@ function Collapsible({
     </BaseCollapsible.Root>
   );
 }
-const DisclosureRoot = cva({
-  base: { w: '100%' },
-  variants: {
-    variant: {
-      default: { borderBottom: '1px solid var(--color-black-20)' },
-      panel: { position: 'relative' },
-    },
-  },
-  defaultVariants: { variant: 'default' },
-});
-const DisclosureTrigger = cva({
-  base: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    flexShrink: 0,
-    w: '100%',
-    border: '0',
-    bg: 'transparent',
-    textAlign: 'left',
-  },
-  variants: {
-    variant: {
-      default: { px: '0', py: '22px' },
-      panel: {
-        gap: '2',
-      },
-    },
-  },
-  defaultVariants: { variant: 'default' },
-});
-const panel = cva({
-  variants: {
-    variant: {
-      default: {},
-      panel: {
-        position: 'absolute',
-        zIndex: 10,
-        top: 'calc(100% + 8px)',
-        right: '0',
-        w: 'max-content',
-        borderWidth: '1px',
-        borderStyle: 'solid',
-        borderColor: 'var(--color-border-tertiary)',
-        bg: 'var(--color-surface-default)',
-        borderRadius: '4px',
-      },
-    },
-  },
-  defaultVariants: { variant: 'default' },
-});
-const DisclosureContent = cva({
-  variants: {
-    variant: {
-      default: {
-        pb: '22px',
-        '&&': {
-          color: 'var(--color-text-tertiary)',
-          lineHeight: 'body',
-        },
-      },
-      panel: { p: '3' },
-    },
-  },
-  defaultVariants: { variant: 'default' },
-});
-type DisclosureVariant = 'default' | 'panel';
-type DisclosureProps = {
-  title: ReactNode;
-  children: ReactNode;
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-  className?: string;
-  contentClassName?: string;
-  indicator?: ReactNode | null;
-  panelClassName?: string;
-  triggerClassName?: string;
-  variant?: DisclosureVariant;
-};
-/** 펼칠 수 있는 행과 옵션 메뉴를 구성합니다 (Styled Collapsible composition for expandable content, rows, and option menus). */
-function Disclosure({
-  title,
-  children,
-  open,
-  onOpenChange,
-  className,
-  contentClassName,
-  indicator,
-  panelClassName,
-  triggerClassName,
-  variant = 'default',
-}: DisclosureProps) {
-  return (
-    <Collapsible
-      className={[DisclosureRoot({ variant }), className].filter(Boolean).join(' ')}
-      indicator={indicator}
-      onOpenChange={onOpenChange}
-      open={open}
-      panelClassName={[panel({ variant }), panelClassName].filter(Boolean).join(' ')}
-      trigger={<Typography variant="body3">{title}</Typography>}
-      triggerClassName={[DisclosureTrigger({ variant }), triggerClassName]
-        .filter(Boolean)
-        .join(' ')}
-    >
-      <Flex
-        className={[DisclosureContent({ variant }), contentClassName].filter(Boolean).join(' ')}
-      >
-        {children}
-      </Flex>
-    </Collapsible>
-  );
-}
-const sortOptions = css({ minW: '106px' });
-type ProductSortDropdownProps = {
-  placeholder?: string;
-  value: string;
-  onChange: (sort: string) => void;
-};
-/** 상품 정렬 드롭다운의 선택과 키보드 조작을 관리합니다. (Manages selection and keyboard interaction in the product sort dropdown.) */
-function ProductSortDropdown({ placeholder, value, onChange }: ProductSortDropdownProps) {
-  const [open, setOpen] = useState(false);
-  const selectingWithKeyboard = useRef(false);
-  return (
-    <Box
-      onBlurCapture={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false);
-      }}
-    >
-      <Disclosure onOpenChange={setOpen} open={open} title={placeholder ?? value} variant="panel">
-        <Box
-          onKeyDownCapture={(event) => {
-            selectingWithKeyboard.current = event.key === ' ' || event.key.startsWith('Arrow');
-          }}
-          onPointerDownCapture={() => {
-            selectingWithKeyboard.current = false;
-          }}
-        >
-          <Radio
-            ariaLabel="상품 정렬"
-            className={sortOptions}
-            onValueChange={(nextValue) => {
-              onChange(nextValue);
-              if (!selectingWithKeyboard.current) setOpen(false);
-              selectingWithKeyboard.current = false;
-            }}
-            options={productSortOptions}
-            value={value}
-          />
-        </Box>
-      </Disclosure>
-    </Box>
-  );
-}
+
 const promotion = {
   title: '데일리 러닝화 가이드',
   description: '목적에 맞는 호카 러닝화 기능을 비교해보세요.',
@@ -1528,7 +1378,14 @@ function ProductListingLayout({
         platform === 'mobile' ? (
           <ProductFilterTrigger onClick={() => onFilterDrawerOpenChange(true)} />
         ) : (
-          <ProductSortDropdown placeholder={sortPlaceholder} onChange={onSortChange} value={sort} />
+          <Dropdown
+            ariaLabel="상품 정렬"
+            variant="sort"
+            placeholder={sortPlaceholder}
+            onValueChange={onSortChange}
+            value={sort}
+            options={productSortOptions}
+          />
         )
       }
       stickyHeader={platform === 'web'}
@@ -1729,9 +1586,7 @@ export function ProductListingPage({ searchQuery = '', data }: ProductListingPag
   const filterPanel = (
     <ProductListingFilterPanel
       mobileSort={
-        platform === 'mobile' && (pathname === '/search' || Boolean(searchQuery.trim()))
-          ? { value: mobileSort, onValueChange: setMobileSort }
-          : undefined
+        platform === 'mobile' ? { value: mobileSort, onValueChange: setMobileSort } : undefined
       }
       activity={displayedFilters.activity}
       collection={displayedFilters.collection}
@@ -1807,7 +1662,6 @@ export {
   Tag,
   CatalogFilterPanel,
   Collapsible,
-  Disclosure,
   PromotionCard,
   CatalogResults,
 };

@@ -181,6 +181,7 @@ export function FormGuide() {
   const [numberValue, setNumberValue] = useState('');
   const [messageValue, setMessageValue] = useState('');
   const [selectedValue, setSelectedValue] = useState('');
+  const [sortValue, setSortValue] = useState('latest');
   const [errorValue, setErrorValue] = useState('');
   const [selectedMenuValue, setSelectedMenuValue] = useState('');
   const [iconMenuValue, setIconMenuValue] = useState('');
@@ -414,6 +415,25 @@ export function FormGuide() {
           aria-labelledby="form-dropdown-selection-title"
         >
           <SectionTitle id="form-dropdown-selection-title" title="Dropdown Selection" />
+          <FormExample
+            title="Sort"
+            description="공통 정렬 선택 · 20px 표시 행과 최소 클릭 영역"
+            code={
+              '<Dropdown variant="sort" ariaLabel="정렬 기준" options={options} value={value} onValueChange={setValue} />'
+            }
+            onCopy={copyCode}
+          >
+            <Dropdown
+              variant="sort"
+              ariaLabel="정렬 기준"
+              options={[
+                { value: 'latest', label: '최신순' },
+                { value: 'oldest', label: '과거순' },
+              ]}
+              value={sortValue}
+              onValueChange={setSortValue}
+            />
+          </FormExample>
           <Typography variant="body5" tone="subtle">
             기본·선택·오류·비활성화 상태를 비교하고, 선택 필드를 눌러 메뉴를 확인합니다.
           </Typography>
@@ -556,7 +576,8 @@ export function FormGuide() {
         >
           <SectionTitle id="form-dropdown-menu-title" title="Dropdown Menu" />
           <Typography variant="body5" tone="subtle">
-            각 선택 필드를 눌러 기본 목록, 아이콘 목록, 이미지 목록을 확인합니다.
+            PC는 팝업 목록, 모바일은 BottomSheet의 Radio 목록으로 선택합니다. 아이콘과 이미지도 함께
+            표시합니다.
           </Typography>
           <Grid columns={{ base: 3, _mobile: 1 }} gap="3">
             <FormExample

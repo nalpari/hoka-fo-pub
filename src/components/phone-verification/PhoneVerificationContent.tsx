@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import { css } from 'styled-system/css';
 import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
@@ -120,6 +120,7 @@ function PhoneVerificationDesignDialogs({
   designTermKind = 'required',
 }: PhoneVerificationDesignDialogsProps) {
   const [pickerOpen, setPickerOpen] = useState(initialPreviousPickerOpen);
+  const previousTermsTrigger = useRef<HTMLButtonElement>(null);
   const [version, setVersion] = useState<string>();
   const close = () => onDetail(null);
   const optional = designTermKind === 'optional';
@@ -135,7 +136,7 @@ function PhoneVerificationDesignDialogs({
   return (
     <>
       <ModalDialog
-        open={detail !== null && !pickerOpen}
+        open={detail !== null}
         onOpenChange={(open) => {
           if (!open) close();
         }}
@@ -151,7 +152,12 @@ function PhoneVerificationDesignDialogs({
               {`${optional ? '(선택)' : '(필수)'} ${detail ?? ''}`}
             </Typography>
             {!optional && (
-              <Button variant="link" size="sm" onClick={() => setPickerOpen(true)}>
+              <Button
+                ref={previousTermsTrigger}
+                variant="link"
+                size="sm"
+                onClick={() => setPickerOpen(true)}
+              >
                 이전 약관 보기
               </Button>
             )}
@@ -175,15 +181,16 @@ function PhoneVerificationDesignDialogs({
             공고일자 : 2025년 08월 25일 / 시행일자 : 2025년 09월 01일
           </Typography>
         </Stack>
+        <PreviousTermsPicker
+          finalFocus={previousTermsTrigger}
+          open={pickerOpen}
+          onClose={() => setPickerOpen(false)}
+          onSelect={(id) => {
+            setVersion(id);
+            setPickerOpen(false);
+          }}
+        />
       </ModalDialog>
-      <PreviousTermsPicker
-        open={pickerOpen}
-        onClose={() => setPickerOpen(false)}
-        onSelect={(id) => {
-          setVersion(id);
-          setPickerOpen(false);
-        }}
-      />
     </>
   );
 }

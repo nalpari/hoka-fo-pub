@@ -4,12 +4,21 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-03T23:51:12Z'
+updated: '2026-11-04T09:26:00Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/screen-index/page.tsx
+  - src/app/screen-index/screenChangeHistory.ts
+  - src/app/screen-index/screenChangeHistory.generated.json
+  - src/app/screen-index/sourceGraph.generated.json
+  - src/app/support/inquiries/new/_components/InquiryFormContent.tsx
+  - src/app/checkout/_components/CheckoutPayment.tsx
+  - src/app/publishing-guide/_components/FormGuide.tsx
+  - src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx
+  - src/app/screen-index/screenDevelopers.ts
   - src/app/wh/file-summary/route.ts
   - src/app/wh/_components/FileSummary.tsx
   - src/app/wh/loading.tsx
@@ -325,6 +334,82 @@ sources:
 
 # 라우팅과 플랫폼
 
+## 수동 main 변경 보고와 IA 이력 (2026-11-04)
+
+수동 스킬은 지정 시작 커밋을 포함하기 위해 첫 부모 B부터 fetch 직후 고정한 origin/main T까지 최종 diff를 비교한다. 이번 범위는 72ae26eb 포함, B=5db7492d, T=bf29bd25이며 2026-11-04 17:16:17+09:00에 수집했다. 원본260파일에서 Markdown28·퍼블리싱 가이드10·IA 자체6·nalpari 작성자8파일을 제외해208파일을 보고한다. ShopShell의 혼합 변경 중 해당 작성자의 추가 영역1개도 제외했다. 담당자는 기존 IA 매핑만 읽고 WBS/Drive는 조회하지 않는다.
+
+`screenChangeHistory.generated.json`은 reportId·B/T·수집 시각, 유효 파일/영역, 내부 기여 근거·소유자와 제외 집계를 보존한다. `screenChangeHistory.ts`는 공통/STATE 소유권·필터 복원과 IA 담당자 기반 표 행 묶음을 계산한다. 상품 공통 코드는 기존 상품 요약 행으로 통합하며 query/hash 상태별 담당자도 구분한다. 각 화면별 보고서 버튼은 제거하고 상단 날짜·보고서 개발담당자 Select와 [퍼블 변경사항 보고서] 버튼으로만 모달을 연다. 표는 개발담당자·변경사항·변경 파일 * Before·변경라인 * After의4열이며 같은 담당자/설명은 rowspan으로 합친다. 이름변경은 B 이전 경로와 T 이후 경로를 분리하고 일반 수정은 파일과 B/T 줄을 표시한다. collapse 목록과 기여 커밋·작성자 표시는 사용하지 않는다. 기존 수동 비고·담당자·7열 IA 표·상태 링크는 보존한다.
+
+기존 담당자 필터는 native Select를 사용한다. 전체 보고서 버튼 옆 날짜 Select에는 저장된 날짜만 최신순으로 제공하며 전체 버튼은 선택 날짜의 보고서를 표시한다. 날짜와 보고서 담당자를 선택하면 해당 항목만 표시하며 파일 수와 rowspan을 다시 계산한다. 공동 담당은 개별 이름으로 매칭하고 미지정도 선택한다. 이 선택은 IA 목록 담당자 필터와 독립적이다. 전역 layout/ShopShell 간접 영향을 각 영역의 수정으로 연결하지 않는다. 모달은 IA 검색·담당자 필터를 보존한다. 제목은26-11-04 퍼블 변경사항 보고서 형식이다. report=2026-11-04 URL은 전체 개발자, developer=김진영 추가는 해당 담당자를 표시한다. useSearchParams와 router.push/replace로 직접 진입·새로고침·뒤로/앞으로를 지원하며 닫을 때 보고서 query만 지우고 다른 query/hash는 보존한다. screen-index/page.tsx에는 Suspense 경계를 두었다. 열림과 실제 클릭한 트리거로의 닫기/Escape 포커스 복원은 IA 부모가 소유한다. PC는 넓은 모달, 모바일은 fullscreen과 표 내부 스크롤을 사용한다. 보고 UI는 외부 API를 요청하거나 담당자를 변경하지 않는다.
+
+보고서는 `reports/main-changes/inclusive-5db7492d7013d077712245026ece97b1f39a130d-bf29bd25aef39d027b0e69d605ea9e1e15fbfe52.md`에 같은 rowspan 표로 저장한다. B/T별 import 그래프와 에셋 문자열 참조는 외부 스냅샷에서 분석했다. layout/ShopShell 연결은 런타임 확정이 아닌 정적 영향 후보다. sourceGraph.generated.json은 이번 분석으로 덮어쓰지 않았다. 성공 상태는 Git 공통 디렉터리 codex/main-change-report에 검증 후 저장한다.
+
+출처: screenChangeHistory.ts·screenChangeHistory.generated.json·_components/IaStructurePage.tsx·보고서 작업 트리와 B/T Git 스냅샷. 실제 검증은 [검증 기록](../development/verification.md#main-변경-보고와-ia-이력-검증-2026-11-04)을 따른다. 기록: codex/gpt-6, 2026-11-04.
+
+## 이전 약관 확인 시트 시안 반영 (2026-11-04)
+
+기존 `/login/account-locked/verification/preview-previous-terms`와 회원가입 약관 상세의 공통 PreviousTermsPicker에 모바일 확인형 시트를 적용했다. 새 URL은 추가하지 않았다. 선택 시트의 간격을 공유하는 Dropdown의 즉시 선택과 문의 연속 선택은 유지한다. 의존 그래프에는 PreviousTermsPicker의 Button import 연결이 갱신되었다. 출처: `src/components/common/molecules/PreviousTermsPicker.tsx`, `src/app/screen-index/sourceGraph.generated.json`. [시안 기준·계약·검증](ui.md#이전-약관-확인-시트-시안-적용-2026-11-04).
+
+## 결제 수단 아이콘 이름 복구 (2026-11-04)
+
+`/checkout` 결제 수단의 미등록 `radio-checked`/`radio-unchecked` 이름을 현재 등록된 `hoka-radio-checked`/`hoka-radio-unchecked`로 교체해 Icon의 asset.mode 오류를 복구했다. PC1440px·모바일375px에서 결제 수단 6개와 상태 아이콘이 표시되고 오류 화면이 없는 것을 확인했다. 결제 선택·요청 계약은 변경하지 않았다. 출처: `src/app/checkout/_components/CheckoutPayment.tsx`, `src/components/common/atoms/Icon.assets.ts`.
+
+## 문의 유형 모바일 연속 선택 (2026-11-04)
+
+`/support/inquiries/new`는 모바일에서 문의 유형 선택 직후 같은 선택 시트 안에서 상세 유형을 선택한다. PC와 상세 필드 직접 선택은 기존 개별 Dropdown을 유지하며 라우트·쿼리·제출 소유권은 바꾸지 않았다. 출처: `src/app/support/inquiries/new/_components/InquiryFormContent.tsx`, `src/components/common/atoms/Dropdown.tsx`. [선택 계약과 검증](ui.md#모바일-문의-유형-연속-선택-2026-11-04).
+
+## 폼 Dropdown 모바일 시트 (2026-11-04)
+
+`/publishing-guide?tab=form`의 일반·아이콘·이미지 Dropdown 예시는 모바일에서 공통 Radio 선택 BottomSheet를 사용한다고 안내한다. 공통 Dropdown 변경으로 실제 사용처도 같은 모바일 표시를 사용하며 새 경로나 쿼리를 추가하지 않았다. PC·모바일 라우트와 기존 필드 값 소유권은 유지한다. 출처: `src/app/publishing-guide/_components/FormGuide.tsx`, `src/components/common/atoms/Dropdown.tsx`. 검증 범위는 [UI 기록](ui.md#기본-dropdown-모바일-선택-시트와-결제-아이콘-복구-2026-11-04)에 기록한다.
+
+## 선택 UI 공통화 (2026-11-04)
+
+`/login/account-locked/verification/preview-previous-terms`는 기존 진입점을 유지하면서 인증 약관 전문 위에 중첩된 PreviousTermsPicker를 표시한다. 모바일은 중앙 선택 휠, PC는 기존 라디오/확인 목록이며 새 preview URL은 추가하지 않았다. 화면 의존 그래프는 정식 명령으로 갱신한다. 출처: PhoneVerificationContent.tsx·PreviousTermsPicker.tsx 작업 트리(2026-11-04).
+
+상품리뷰의 정렬도 기존 MyPageReviewToolbar에서 공통 Dropdown을 직접 사용한다. recent/oldest 값·sort/onSortChange와 작성 가능/작성한 리뷰 탭·URL은 기존 소유자에 유지한다. MyPageReviewSort는 기본값 전달용 단일 부모 래퍼여서 제거했다. 출처: `src/app/mypage/reviews/_components/MyPageReviewsContent.tsx` 작업 트리(2026-11-04).
+
+고객센터 `/support/terms` 및 `?tab=privacy`의 시행일 선택은 기존 TermsDocument 로컬 날짜 상태를 공통 Dropdown에 연결했다. tab 쿼리와 탭 상태·문서 placeholder는 유지하며 새 라우트는 없다. PC 날짜 선택과 모바일 공통 시트의 해당 선택값 표시를 확인했다. 출처: `src/app/support/terms/_components/TermsDocument.tsx` 작업 트리(2026-11-04).
+
+후속 검토에서 신청내역 정렬에 `Dropdown.popupAlign="start"`를 지정해 콘텐츠 왼쪽 선과 옵션 박스의 시작점을 맞췄다. 정렬 상태·콜백·라우트는 유지한다. 출처: `src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx` 작업 트리(2026-11-04).
+
+모바일 상품 정렬은 `/products`에서도 기존 필터 안에 표시하며 검색 전용 표시 조건을 제거했다. draft/apply와 sort 쿼리 소유자는 유지한다. 일반 sort Dropdown의 모바일 전환은 공통 BottomSheet를 사용하고 새 라우트를 추가하지 않는다. 출처: ProductListingPage.tsx·Dropdown.tsx·BottomSheet.tsx 작업 트리(2026-11-04).
+
+상품 목록 정렬은 공통 Dropdown의 sort variant를 사용하며 기존 `useSearchParams`/router 소유권과 `sort` 쿼리를 유지한다. 러닝세션 신청내역의 sort 상태와 IA의 상품 분류·개발담당자 필터 상태도 기존 소유자에서 공통 Dropdown에 연결한다. 신규 라우트나 상태 URL은 추가하지 않았다. `npm run screen-files`로 의존 그래프를 재생성했다. 퍼블리싱 가이드에는 sort 예시를 추가했다. 소스: `src/components/catalog/ProductListingPage.tsx`, `src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx`, `src/app/screen-index/_components/IaStructurePage.tsx`, `src/app/publishing-guide/_components/FormGuide.tsx`, `src/app/screen-index/sourceGraph.generated.json` 작업 트리. PC의 정렬 쿼리 변경·IA 필터 선택과 62개 기존 검사 및 production build 통과를 확인했다. 상세 디자인과 모바일 검증 한계는 [공통 선택 UI](ui.md#공통-선택-ui와-정렬-variant-2026-11-04)에 기록한다. Codex, 2026-11-04T04:59:34Z.
+
+## STATE 공통 파일 상위 정리 (2026-11-04)
+
+실제 화면이 없는 분류 행도 파일 소유자가 될 수 있다. `getSiblingScreenSourceFiles`는 현재 표시된 직접 하위 화면 둘 이상이 공유하는 비page 파일을 바로 위 분류 경로에 모은다. 주문배송 조회의 목록·상세가 공유하는 OrdersPage.tsx 등 11개 파일은 D3 주문배송 조회에 표시하며 D4와 STATE에서는 반복하지 않는다. 취소/반품은 해당 D3에서 따로 정리하고 두 D3가 같은 파일을 쓴다는 이유로 D2 구매내역까지 올리지 않는다. 하나의 자식만 필터 결과에 남으면 공통 묶음을 만들지 않고 그 자식 화면에 파일을 유지한다. 진입 page·고유 파일·담당자·상태 연결은 그대로다.
+
+추가 사용자 지시로 화면 계층 사이에서도 상위 화면이 이미 표시하는 파일을 하위 화면과 STATE에 중복하지 않는다. `getAncestorScreenSourceFiles`는 현재 검색·담당자 필터 결과에 존재하는 실제 상위 IA의 표시 파일만 상속한다. 회원 정보 입력 D3의 RegistrationStatePreview.tsx·RegistrationContent.tsx는 D3에만 표시하고 부가정보 D4·마케팅 수신내역 D5에서는 제거한다. 기본·상태 URL과 고유 파일은 유지한다. 필터로 D3가 제외되면 현재 남은 하위 화면에 공통 파일을 다시 표시해 확인 경로를 잃지 않는다. 같은 계층의 형제 화면은 상위 소유자로 취급하지 않는다.
+
+후속 사용자 요청으로 같은 화면의 서로 다른 상태 URL 두 개 이상이 사용하는 공통 인계 파일을 상위 화면의 작업 파일 행에 한 번만 표시한다. `getSharedStateSourceFiles`는 기존 URL별 import 그래프 결과를 집계하며 동일 URL을 여러 IA가 공유해도 중복 횟수로 세지 않는다. 동적 route를 포함한 page 진입 파일은 상위로 이동하지 않는다. `_components/`는 기존 상위 비고 위치를 유지하고, 한 상태에서만 쓰는 나머지 파일은 해당 STATE 행에 남긴다.
+
+상품 상세의 productDetailPresentation.ts·productInquiries.ts·care.data.ts는 상위 작업 파일 행으로 모였으며 기본·입고 알림·문의 없음·옵션 안내 행에는 각 진입 파일이 남는다. 상품 목록의 기존 공용 파일 비고 배치와 상품 공통 D1의 수동 비고 묶음은 유지한다. 다른 화면의 STATE에도 같은 공통 파일 기준을 적용한다. 아래 이전 단계의 공용 파일 반복 표시는 이 후속 기준으로 대체된다. 기존 getScreenConnection/getRouteSourceFiles의 전체 연결 결과·URL·담당자·상태 값은 바꾸지 않는다.
+
+출처: src/app/screen-index/screenConnections.ts, _components/IaStructurePage.tsx와 tests/preview-links.test.mjs 작업 트리. 기록: codex/gpt-6, 2026-11-04T03:56:26Z.
+
+2026-11-04 에러·빈 상태 가이드 반영은 기존 `/preview-not-found`, `/service-unavailable`, `/maintenance`, `/mypage/recent/preview-empty`, `/mypage/preview-no-orders` 표시만 수정한다. 신규 route·IA 연결이나 플랫폼 판정 변경은 없다. 마이페이지 route-private 소유자는 `src/app/mypage/_components/MyPageContent.tsx`를 유지한다. 적용값과 실제 확인은 [에러·빈 상태 가이드](error-empty-guide.md)를 참고한다.
+
+## 기본 STATE와 담당자 필터 (2026-11-04)
+
+후속 사용자 지시로 실제 페이지 링크를 모든 화면의 하위 `STATE 기본 | 상태 | 보기` 행으로 이동했다. 기존 기본 URL의 query/hash는 유지하고 이미 같은 URL인 상태는 중복하지 않는다. 상품 공통 템플릿은 카테고리마다 기본 행을 늘리지 않고 현재 대표 상품 URL과 검색 진입점을 각각 유지한다. 독립 기본 URL이 없는 화면은 기존 상태 URL만 표시한다.
+
+기존 WBS 작업 기간 자리는 개발담당자로 대체했다. 별도로 추가했던 우측 담당자 열과 작업 기간 전용 데이터·그룹 보조 행을 제거해 7열·1300px 최소 폭으로 정리했다. 담당자 링크는 이름 길이에 맞는 폭이며 원본 WBS 행 링크를 유지한다. 담당자 필터는 전체·개별 이름·미지정을 제공하고 공동 담당은 이름별로 선택할 수 있다. 검색과 AND 조건으로 적용하며 전체 초기화는 담당자 선택과 검색어를 해제한다. 화면 체계 NAV 전환은 선택한 담당자를 유지한다. 후속 사용자 지시로 상태 필터와 전체 접기/펼치기 버튼·전용 상태를 제거하고 개별 계층의 접기/펼치기는 유지한다.
+
+`getScreenComponentFiles`는 화면·상태가 사용하는 `_components/` 파일을 import 그래프로 확인해 상위 화면 비고에 모은다. 상태 행에서는 이 파일을 반복하지 않는다. 사용자 한정 지시에 따라 **상품 목록만** 공용 구현·데이터 파일도 상위 비고에 모으고 상태 행에는 page 진입 파일만 표시한다. 상품 상세 및 다른 화면은 `_components/`만 상위로 이동하며 그 밖의 인계 파일은 기존 작업 파일·상태 행에 유지한다. 이 배치가 아래 최초 8열 설명을 대체한다.
+
+상품 공통 화면에 한정해 상품 목록·상세의 수동 비고 묶음 두 개만 D1 공통 행의 기존 `확정 IA 기준 화면 영역` 칸으로 이동했다. ProductNotes는 각각의 제목·건수와 원래 비고 내용·연결 분류 경로를 유지한다. 목록·상세의 구현 파일은 해당 화면 행에 남고, 다른 영역의 수동 비고 위치는 변경하지 않는다.
+
+출처: src/app/screen-index/_components/IaStructurePage.tsx, screenConnections.ts, screenDevelopers.ts와 tests/preview-links.test.mjs 작업 트리. 기록: codex/gpt-6, 2026-11-04T02:19:52Z.
+
+## IA 상태별 작업 파일과 개발담당자 (2026-11-04)
+
+IA 표에 고정 개발담당자 열을 추가했다. `screenDevelopers.ts`는 [WBS Schedule](https://docs.google.com/spreadsheets/d/1BAxtSHBSp8DguH0gv2EbnEpqHZhZEez66eyTSmAcG6w/edit?gid=1070650770)의 FO 개발(5.3.2)·X열 파트·Y열 담당을 2026-11-04에 확인한 표시 데이터다. 내부 IA 번호와 상품 템플릿 코드로 연결하며 커밋 작성자와 구분한다. 담당 공란인 마이페이지 메인·확인되지 않은 화면은 미지정, 삭제 화면은 `-`로 표시한다. 검색은 성인환, 상품 목록은 박혜리, 상품 상세는 박기홍이며 주문서의 배송지 수동입력 상태는 김진영이다. 담당자 링크는 확인한 WBS 행을 열고, 이름·업무 영역으로 IA를 검색할 수 있다. 실시간 Sheets 조회는 구현하지 않는다.
+
+`getScreenConnection`의 전체 파일 계약은 유지한다. 새 `getRouteSourceFiles`는 URL pathname에 대응하는 실제 page 진입점부터 기존 import 그래프의 인계 파일을 탐색한다. 정적 경로를 동적 경로보다 우선하며 query/hash 상태는 같은 진입 파일을 공유한다. 기본 화면에는 기본 경로 파일만 표시하고 각 STATE 행에는 해당 상태의 진입·공용 파일을 개별 표시한다. 상품 요약은 상품과 검색의 서로 다른 상태 URL도 합쳐 누락 없이 표시하며 상태 담당자는 해당 URL 소유 화면으로 한정한다. 표는 개발담당자 열을 포함해 8열이며 상태별 파일 셀을 병합하지 않는다.
+
+출처: 위 세 screen-index 작업 트리 파일과 WBS Schedule B267:Y351 직접 조회. 실제 검사와 한계는 [변경 검증](../development/verification.md#ia-개발담당자와-상태별-파일-검증-2026-11-04)을 따른다. 기록: codex/gpt-6, 2026-11-04T01:55:40Z.
+
 `/wh`는 공통 쇼핑 셸 없이 GitHub main의 한국 시간 기준 선택 기간(오늘, 어제부터 오늘, 3일 전부터 오늘, 7일 전부터 오늘)의 커밋과 변경 파일을 조회하고 OpenRouter로 커밋 메시지를 요약한다. 서버 환경 변수 `GITHUB_TOKEN`과 `OPENROUTER_API_KEY`가 필요하며 GitHub 공개 저장소는 토큰 없이 조회할 수 있다.
 
 `/wh`는 한국 시간으로 7일 전부터 오늘까지의 커밋과 파일을 한 번 조회한다. 최초에는 오늘이 선택되고 날짜 버튼은 서버 재요청 없이 해당 날짜부터 오늘까지의 결과와 기간 전체의 요약을 표시한다. 오늘 버튼은 오늘 결과만 표시한다. 새로고침 버튼은 선택을 유지하며 원격 데이터를 다시 조회한다. 최초 조회와 새로고침 중에는 `/wh` 전용 도트 매트릭스 로딩을 표시한다. GitHub 요청 한도 초과 시 초기화 시각과 서버 토큰 설정 안내를 표시한다. `Merge commit` 및 `Merge pull request`로 시작하는 병합 커밋은 파일과 요약을 포함한 조회 결과에서 제외한다.
@@ -439,7 +524,7 @@ IA 191 상품리뷰의 STATE에 디자인 세 화면을 연결했다. `/mypage/r
 
 ## 페이지 전용 컴포넌트 분리 재적용 (2026-10-30)
 
-사용자 요청으로 어제의 페이지 배치 패턴을 다시 적용했다. 30개 라우트의 `page.tsx`에는 페이지 컴포넌트를 유지하고 보조 UI 41개 모듈은 같은 라우트의 `_components/`에 둔다. 기존 순수 데이터·계산 모듈과 이미 적합한 페이지는 유지한다. URL, 서버/클라이언트 경계, 상태 소유권과 RoutePreview 계약은 바꾸지 않는다. 새 폼 가이드를 보존하며 IA import 그래프를 재생성했다. [범위와 이번 검증](page-private-components-2026-10-30.md)을 참고한다.
+사용자 요청으로 어제의 페이지 배치 패턴을 다시 적용했다. 30개 라우트의 `page.tsx`에는 페이지 컴포넌트를 유지하고 보조 UI 41개 모듈은 같은 라우트의 `_components/`에 둔다. 기존 순수 데이터·계산 모듈과 이미 적합한 페이지는 유지한다. URL, 서버/클라이언트 경계, 상태 소유권과 RoutePreview 계약은 바꾸지 않는다. 새 폼 가이드를 보존하며 IA import 그래프를 재생성했다. [범위와 이번 검증](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/page-private-components-2026-10-30.md)을 참고한다.
 
 ## 스타일 비교 샘플 삭제 (2026-10-29)
 
@@ -647,15 +732,15 @@ IA 구조도는 서버 metadata와 색인 제외 설정을 유지하고 클라�
 
 ## 런클럽 단일 부모 하단 바 통합 (2026-10-28)
 
-Desktop/Mobile 전수조사와 사용자 지정 단일 부모 범위에 따라 RunClubMobileActionBar를 기존 런클럽 상세 page.tsx의 로컬 RunClubFixedActionBar로 이동했다. 공개 페이지 export와 세션 조회·상태·신청 모달·기존 URL을 유지한다. 작업 트리 출처: `src/app/running/run-club/[sessionId]/page.tsx`. [전수조사 보고서](platform-component-audit-2026-10-28.md)를 참고한다.
+Desktop/Mobile 전수조사와 사용자 지정 단일 부모 범위에 따라 RunClubMobileActionBar를 기존 런클럽 상세 page.tsx의 로컬 RunClubFixedActionBar로 이동했다. 공개 페이지 export와 세션 조회·상태·신청 모달·기존 URL을 유지한다. 작업 트리 출처: `src/app/running/run-club/[sessionId]/page.tsx`. [전수조사 보고서](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/platform-component-audit-2026-10-28.md)를 참고한다.
 
-플랫폼 파일 통합 검증 (2026-10-28): 타입·ESLint/Prettier·Panda·Next/Storybook 빌드와 기존 테스트 62개를 통과했다. 브라우저에서 PC 정렬·즉시 필터와 모바일 초안·닫기·적용·검색어 유지 및 이동된 메뉴·푸터·갤러리·런클럽의 주요 동작을 확인했다. [전수조사 보고서](platform-component-audit-2026-10-28.md#검증)에 실제 확인 항목과 범위를 기록했다.
+플랫폼 파일 통합 검증 (2026-10-28): 타입·ESLint/Prettier·Panda·Next/Storybook 빌드와 기존 테스트 62개를 통과했다. 브라우저에서 PC 정렬·즉시 필터와 모바일 초안·닫기·적용·검색어 유지 및 이동된 메뉴·푸터·갤러리·런클럽의 주요 동작을 확인했다. [전수조사 보고서](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/platform-component-audit-2026-10-28.md#검증)에 실제 확인 항목과 범위를 기록했다.
 
 ## 단일 부모 통합과 도메인 폴더 승격 (2026-10-28)
 
-깊이에 관계없이 단일 라우트 구성과 하위 단일 부모 TSX를 실제 page.tsx의 최상위 로컬 함수로 통합했다. 페이지는 Next 지원 export와 기존 route props만 제공한다. IA private client와 서버 사이즈 가이드의 client 패널은 최소 경계로 유지한다. 실제 페이지의 로컬 Storybook 구성은 선택적 RoutePreview 컨텍스트로만 입력을 주입하며 기본 운영 렌더는 기존 상태 소유자를 사용한다. [단일 부모 통합 기록](single-parent-consolidation-2026-10-28.md) 참고.
+깊이에 관계없이 단일 라우트 구성과 하위 단일 부모 TSX를 실제 page.tsx의 최상위 로컬 함수로 통합했다. 페이지는 Next 지원 export와 기존 route props만 제공한다. IA private client와 서버 사이즈 가이드의 client 패널은 최소 경계로 유지한다. 실제 페이지의 로컬 Storybook 구성은 선택적 RoutePreview 컨텍스트로만 입력을 주입하며 기본 운영 렌더는 기존 상태 소유자를 사용한다. [단일 부모 통합 기록](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/single-parent-consolidation-2026-10-28.md) 참고.
 
-검증: 폴더 승격 후 타입·Panda·Next/Storybook 빌드와 기존 테스트 62개를 통과했다. 이동 함수 409개·초기화 표현식 211개의 구조 비교, PC·모바일 주요 동작 및 스토리 확인 범위는 [통합 검증 기록](single-parent-consolidation-2026-10-28.md#검증)에 명시했다.
+검증: 폴더 승격 후 타입·Panda·Next/Storybook 빌드와 기존 테스트 62개를 통과했다. 이동 함수 409개·초기화 표현식 211개의 구조 비교, PC·모바일 주요 동작 및 스토리 확인 범위는 [통합 검증 기록](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/single-parent-consolidation-2026-10-28.md#검증)에 명시했다.
 
 ## Import 자동 정렬 (2026-10-28)
 
@@ -695,7 +780,7 @@ IA 목록의 원본 IA/출처 열을 화면에서 제거했다. 원본 데이터
 
 ## 화면 폭 기반 플랫폼으로 전환 (2026-10-28)
 
-루트 layout은 서버 문서와 Suspense/ShopShell만 구성하며 UA headers 판별과 src/lib/device.ts를 제거했다. 서버/최초 hydration은 web, 이후 1024px 이하 mobile·초과 web으로 전환한다. URL·metadata와 서버/클라이언트 경계는 유지한다. [현재 계약과 검증](responsive-platform-2026-10-28.md)을 참고한다. 작업 트리 출처: src/app/layout.tsx, src/context/platform.tsx, src/context/ShopShell.tsx.
+루트 layout은 서버 문서와 Suspense/ShopShell만 구성하며 UA headers 판별과 src/lib/device.ts를 제거했다. 서버/최초 hydration은 web, 이후 1024px 이하 mobile·초과 web으로 전환한다. URL·metadata와 서버/클라이언트 경계는 유지한다. [현재 계약과 검증](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/responsive-platform-2026-10-28.md)을 참고한다. 작업 트리 출처: src/app/layout.tsx, src/context/platform.tsx, src/context/ShopShell.tsx.
 
 ## Next 이미지 경로와 로딩 (2026-10-28)
 
@@ -727,7 +812,7 @@ MainSection·OrderActionBar·ModalDialog를 사용하는 라우트의 import를 
 
 ## 보조 TS 모듈의 사용처별 배치 (2026-10-28)
 
-장바구니·주문서·홈·로케일·가입 정보·마이페이지·상품 상세·고객센터·IA 화면의 보조 TS 파일을 실제 라우트와 같은 폴더로 옮겼다. 공지 데이터와 문의 주문 선택 모듈은 공통 상위 라우트가 소유한다. 일반 TS 파일은 page/route 파일을 추가하지 않으므로 URL을 생성하지 않는다. IA와 카탈로그 스토리가 공유하는 IA 경로 변환기는 app/screen-index에서 관리한다. [이동 목록과 검증](ts-module-ownership-2026-10-28.md).
+장바구니·주문서·홈·로케일·가입 정보·마이페이지·상품 상세·고객센터·IA 화면의 보조 TS 파일을 실제 라우트와 같은 폴더로 옮겼다. 공지 데이터와 문의 주문 선택 모듈은 공통 상위 라우트가 소유한다. 일반 TS 파일은 page/route 파일을 추가하지 않으므로 URL을 생성하지 않는다. IA와 카탈로그 스토리가 공유하는 IA 경로 변환기는 app/screen-index에서 관리한다. [이동 목록과 검증](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/ts-module-ownership-2026-10-28.md).
 
 작성: codex/gpt-6, 2026-10-28T10:52:23.370Z. 이번 작업 트리 출처는 위 working_tree_sources이며 고정 source_revision의 과거 이력과 구분한다.
 
@@ -789,11 +874,11 @@ IA 헤더와 본문을 사용자 지정 7열·두 행으로 정렬했다. 메뉴
 
 ## 첨부 디자인·소스 대조 (2026-10-29)
 
-회원가입·로그인·고객센터·마이페이지·장바구니·주문의 첨부 이미지를 소스와 대조했다. `storybookLinks.ts`의 `screenReviewNotes`와 플랫폼별 확인 상태를 IA 표시·검색에 연결한다. 외부 override가 확인값보다 우선하며, 변경하지 않은 기존 퍼블리싱 상태를 새 검수 완료로 간주하지 않는다. 주문 PC 디자인 수정예정, 장바구니 MO 완료 등 사용자 직접 확인을 유지한다. [상세 근거와 제한](design-source-comparison-2026-10-29.md)을 참고한다.
+회원가입·로그인·고객센터·마이페이지·장바구니·주문의 첨부 이미지를 소스와 대조했다. `storybookLinks.ts`의 `screenReviewNotes`와 플랫폼별 확인 상태를 IA 표시·검색에 연결한다. 외부 override가 확인값보다 우선하며, 변경하지 않은 기존 퍼블리싱 상태를 새 검수 완료로 간주하지 않는다. 주문 PC 디자인 수정예정, 장바구니 MO 완료 등 사용자 직접 확인을 유지한다. [상세 근거와 제한](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/design-source-comparison-2026-10-29.md)을 참고한다.
 
 ## 첨부 시안의 라우트 구현 반영 (2026-10-29)
 
-주문·장바구니 PC 배치, 신청내역 전용 라우트 본문과 계정 잠금 이동·홈 링크를 반영했다. 기존 라우트와 App Router 소유권은 유지하며 전용 신청내역을 page.tsx에 직접 구성했다. [구현 범위·출처·검증](design-implementation-2026-10-29.md).
+주문·장바구니 PC 배치, 신청내역 전용 라우트 본문과 계정 잠금 이동·홈 링크를 반영했다. 기존 라우트와 App Router 소유권은 유지하며 전용 신청내역을 page.tsx에 직접 구성했다. [구현 범위·출처·검증](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/design-implementation-2026-10-29.md).
 
 현시안 UI를 적용한 IA의 퍼블리싱 확인값을 완료로 갱신하고 기존 미적용 비고를 반영 내용으로 대체했다. 서비스 연결 대기는 비고로 구분하며 주문/장바구니 PC 디자인 수정예정과 미수급·아이핀 대기는 유지한다. 출처: `src/app/screen-index/storybookLinks.ts`, `tests/screen-progress.test.mjs`.
 
@@ -1179,74 +1264,59 @@ Figma 파일 0dCBZJvU7aacxImQTV843M의 Icons 262:7807 / FontAwesome Icons 296:91
 
 IconGuide의 previewBackground 옵션으로 멤버십·네이버·알림 신청됨·발매 알림·발매 시간·말풍선 화살표·checkbox/radio 비활성 두 상태씩, 총 10개 배경을 지정한다. 원본 도형 색과 기본 #F3F3F3 배경을 대조했으며 어두운 미리보기는 파란 발매 시간을 포함해 모두 #4D4D4D로 통일한다. 흰색·#F7F7F9·#B3B3B3의 대비는 진회색에서 각각 8.45·7.90·4.03:1이다. 파랑 #009DFF는 진회색에서 2.93:1이며 사용자 요청에 따라 다른 어두운 카드와 배경을 통일했다. 원본 SVG·mask 색·서비스 UI는 유지한다. 배경은 표시 fixture에서 지정하며 런타임 SVG 분석이나 색상 자동 판정은 추가하지 않는다. 출처: IconGuide.tsx, 기존 SVG fill/stroke, panda.config.ts의 surface.subtle·black 토큰.
 
-
 ## 아이콘 호출 방식 통합 (2026-11-04)
 
 서비스 화면과 publishing-guide, screen-index의 아이콘은 공통 Icon name API로 통일했다. 라우트·URL 상태·콜백 소유권은 바꾸지 않는다. OrdersStatus의 date 입력은 원래 네이티브 입력과 표시 문자열을 유지하며 달력 도형만 공통 Icon으로 표시한다. 출처: src/app/publishing-guide/_components/IconGuide.tsx, src/app/mypage/orders/_components/OrdersStatus.tsx, src/app/screen-index/_components/IaStructurePage.tsx 및 아이콘 호출부 작업 트리.
-
 
 ## 아이콘 디렉터리 평탄화 (2026-11-04)
 
 아이콘 name에서 분류 폴더 접두사를 제거하고 가이드 다운로드를 /images/icon/{filename}으로 옮겼다. 라우트·화면 상태·이벤트는 변경하지 않는다. 출처: src/app/publishing-guide/_components/IconGuide.tsx 및 src/app 아이콘 호출부.
 
-
 ## Font Awesome 공식 이름 적용 (2026-11-04)
 
 아이콘의 공식 이름 전환에 맞춰 관련 호출부를 갱신했다. 상태·라우트·이벤트 소유권은 유지한다. 상세 대응표는 public/images/icon/README.md와 UI 문서를 따른다.
-
 
 ## Icon 기본 색상 표기 생략 (2026-11-04)
 
 Icon의 기본값과 같은 color="currentColor"를 실제 호출부와 IconGuide 미리보기·복사 코드에서 제거했다. 내부 기본값과 명시적인 다른 색상은 유지하므로 렌더링은 동일하다. 출처: IconGuide.tsx, ProductDetailContent.tsx, SizeSelector.tsx.
 
-
 ## 아이콘 색상 토큰 사용 (2026-11-04)
 
 Icon 호출부와 가이드 복사 코드의 HEX 색상을 동일 값의 Panda 토큰으로 교체했다: #B3B3B3 → black.40, #F7F7F9 → black.10, #009DFF → blue.100. 색상 값과 상태 전환은 유지한다. 출처: panda.config.ts, IconGuide.tsx, LaunchCalendarContent.tsx, LaunchCalendarDetail.tsx, ShopShell.tsx.
-
 
 ## 기본 mask prop 생략 (2026-11-04)
 
 레지스트리의 기본 mode가 mask인 돋보기·하트·장바구니·바구니·sort-down 호출에서 중복 mask prop을 제거했다. IconGuide/ButtonGuide의 미리보기·복사 코드에도 적용했다. mask={false}인 원본색 예외와 Icon 내부의 기본 모드 판정은 유지한다. 출처: Icon.assets.ts, Wishlist.tsx, Dropdown.tsx, ShopShell.tsx, IconGuide.tsx, ButtonGuide.tsx.
 
-
 ## Icon mask 재정의 옵션 제거 (2026-11-04)
 
 푸터 국가 선택 화살표를 color="black.10"으로 전환하고 마지막 mask={false} 호출을 제거했다. IconProps의 mask와 호출부 재정의 분기를 삭제했다. 단색/원본색 렌더링은 Icon.assets.ts의 mode로만 결정하며 실제 CSS mask 렌더러는 유지한다. 가이드의 개별 mask 지정 안내도 제거했다. 출처: Icon.tsx, ShopShell.tsx, IconGuide.tsx. 이전 기록의 mask 재정의 계약은 이 변경으로 대체한다.
-
 
 ## 가이드 복사 코드 중복 제거 (2026-11-04)
 
 퍼블리싱 가이드 전체의 정적 코드 문자열 123개를 검사했다. IconGuide의 6개 코드 블록에서 중복 import 6개와 동일 JSX 예시 2개를 제거했다. 크기·색상이 다른 예시는 유지하며 각 코드 블록의 동일 import는 한 번만 표시한다. 출처: src/app/publishing-guide/_components/IconGuide.tsx 및 가이드 전체 문자열 검사.
 
-
 ## 아이콘 가이드 색상 안내 문구 (2026-11-04)
 
 IconGuide의 단색 SVG/CSS mask 안내를 “color로 색상 변경 가능”으로 통일하고 사용 예시 제목을 “아이콘 색상 지정”으로 정리했다. 내부 렌더링은 변경하지 않는다. 출처: src/app/publishing-guide/_components/IconGuide.tsx.
-
 
 ## Icon 속성 표기 순서 (2026-11-04)
 
 Icon 사용처와 가이드 복사 코드는 name → size → color 순서로 적고 나머지 속성을 뒤에 둔다. 생략된 기본값은 추가하지 않으며 spread 경계의 덮어쓰기 순서는 보존한다. 표시 값·동작은 변경하지 않는다. 출처: src의 Icon 사용처 및 src/app/publishing-guide/_components/IconGuide.tsx.
 
-
 ## 아이콘 가이드 카드 설명 간소화 (2026-11-04)
 
 아이콘 카드에는 name을 한 번, Font Awesome 이름과 스타일을 한 줄로 표시한다. 중복 등록 이름·파일명·다운로드 링크를 제거하고 asset 메타데이터를 origin에 통합했다. 프리뷰·사용처·코드 복사는 유지한다. 출처: src/app/publishing-guide/_components/IconGuide.tsx.
-
 
 ## 아이콘 분류와 스타일 비교 배치 (2026-11-04)
 
 아이콘 가이드와 공통 데이터에서 생성되는 타임라인을 사용법 → 화살표·방향 → 기본 동작 → 상태·안내 → 사물·기호 → 폼 상태 → 브랜드·커스텀 순으로 변경했다. 각 그룹은 공식 기본 이름순으로 정렬하고 Regular 다음 Solid를 배치한다. 두 스타일은 2열 묶음으로 렌더링해 행이 갈라지지 않으며, PC 3열 그리드에서는 두 칸, 모바일에서는 한 행을 사용한다. 기존 84개 예시·코드·프리뷰는 유지했다. 출처: src/app/publishing-guide/_components/IconGuide.tsx.
 
-
 2026-11-04: IconGuide 색상 예시의 “색상 토큰 또는 CSS 색상” 안내도 “color로 색상 변경 가능”으로 통일했다. 표시 문구만 변경했다.
-
 
 ## Chevron down Regular 통일 (2026-11-04)
 
 사용자 확인에 따라 chevron-down은 Regular만 사용한다. Figma 296:11741의 18×18 원본을 chevron-down-regular.svg로 저장하고 기존 chevron-down 및 chevron-down-solid 파일·등록을 제거했다. 가이드 Solid 예시를 제거하고 실제 사용처·코드·README를 갱신했다. 이전 13×8 전용 도형의 높이 재정의는 제거해 size로 원본 비율을 유지한다. 다른 이름의 아이콘 스타일은 이번 범위에 포함하지 않는다. 출처: Icon.assets.ts, IconGuide.tsx, ProductListingPage.tsx 및 chevron-down 사용처.
-
 
 ## 아이콘 가이드 폼 상태 표시 순서 (2026-11-04)
 

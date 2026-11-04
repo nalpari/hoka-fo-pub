@@ -1,3 +1,149 @@
+## 2026-11-04 선택 시트 닫기 아이콘 참조 복구
+
+- 등록되지 않은 solid 이름을 실제 등록된 regular SVG로 수정하고 selection20px·기본24px와 닫기/포커스 동작을 유지했다. 전체 타입 검사를 통과했다. [UI 계약](architecture/ui.md#선택-시트-닫기-아이콘-참조-복구-2026-11-04).
+
+## 2026-11-04 main 최종 변경 보고와 IA 보고서 모달
+
+- 72ae26eb 포함·B=5db7492d·T=bf29bd25로 최종 유효 변경을 분석했다. 원본260파일에서 Markdown28·가이드10·IA 자체6·nalpari 작성자8파일과 혼합 파일1영역을 제외해208파일을 보고한다. 기존 IA 담당자만 읽으며 WBS 조회는 하지 않았다.
+- 날짜 Select와 필터 오른쪽 [퍼블 변경사항 보고서] 버튼으로 선택 날짜의4열 rowspan 표 모달을 열고 SVG 이름변경의 Before/After 경로를 분리한다. 작성자·기여 목록·collapse는 제거했고 담당자 필터는 native Select로 바꿨다. 화면별 버튼은 제거하고 날짜 옆 보고서 담당자 필터로 조건에 맞는 항목만 모달에서 표시한다. 같은 표의 [공유 보고서](../reports/main-changes/inclusive-5db7492d7013d077712245026ece97b1f39a130d-bf29bd25aef39d027b0e69d605ea9e1e15fbfe52.md)와 공통/STATE 비고 진입 버튼을 제공한다.
+- 사용자 요청으로 BottomSheet의 미등록 닫기 아이콘 참조를 등록된 regular 이름으로 수정했다. 이 로컬 후속 변경은 B/T 보고에 섞지 않는다. 날짜 제목·URL 직접 호출/전체 담당자 기본값과 새로고침·뒤로/앞으로도 검증했다. 테스트34개와 전체 타입 검사·PC1382/MO390 모달/필터/rowspan/닫기·포커스를 확인했다. [계약](architecture/routing.md#수동-main-변경-보고와-ia-이력-2026-11-04), [검증](development/verification.md#main-변경-보고와-ia-이력-검증-2026-11-04). 배포·발송은 하지 않았다.
+
+## 2026-11-04 수동 main 변경 보고 스킬 추가
+
+- `hoka-main-change-report`를 저장소 공유 스킬로 추가했다. 명시한 커밋은 포함하고 무인자 호출은 마지막 성공 SHA 이후부터 실행 시 fetch한 origin/main까지 비교한다. 첫 실행 기준은 사용자에게 확인한다.
+- 최종 tree diff로 전체 원복을 제외하고 부분 원복의 남은 변경과 이전 보고 이후 원복을 구분한다. 기존 IA 담당자만 사용하며 Google Drive/WBS 조회·예약·커밋·푸시·발송은 수행하지 않는다.
+- 공통 소유자/STATE별 IA 이력·한국어 보고서·중복 방지와 성공 SHA 저장·실패 재처리 지침을 작성했다. 스킬 생성 범위에서는 실제 IA 표시 기능이나 보고 데이터를 추가하지 않았다. [스킬](../.agents/skills/hoka-main-change-report/SKILL.md), [출력 규칙](../.agents/skills/hoka-main-change-report/references/output-and-state.md).
+- 스킬 validator와 임시 Git 이력의 시작 커밋 포함·전체 원복·이전 보고 이후 원복·부분 원복·이름변경·루트 빈 tree 비교 6건을 통과했다. 실제 main 보고·IA 갱신·앱 빌드는 실행하지 않았다. 출처: 이번 스킬 파일과 UI 메타데이터, codex/gpt-6, 2026-11-04.
+
+## 2026-11-04 모바일 전체 너비 버튼 제한 원복
+
+- 사용자 지정 커밋 ad5c4f5508c96bd633c221e3cd8acb811431fdd8의 Button 변경을 원복해 fullWidth의 모바일375px 제한과 관련 CSS 변수를 제거했다. 부모 기준100% 너비를 복구하고 진행 중인 다른 수정은 유지했다. [현재 규칙](architecture/ui.md#모바일-fullwidth-최대-너비-제한-원복-2026-11-04).
+
+## 2026-11-04 이전 약관 확인 시트와 공통 선택 간격 적용
+
+- 사용자 확정과 Figma2639:44921에 따라 이전 약관에 안내문·334px 축소 가능 본문·48px 확인 버튼을 적용했다. 닫기/Escape 초안 복원과 기존 PC/versions 계약을 유지한다.
+- BottomSheet 본문에 contentClassName을 추가하고 selection의20px 닫기 아이콘과96px 확인영역을 맞췄다. 기본/catalog은 유지하며 Dropdown 즉시 선택·문의 연속 선택은 바꾸지 않았다. 관련 Button 의존 그래프도 갱신되었다.
+- 모바일375px 화면/실측·날짜 확인/취소/재열기·360px높이 스크롤·1024/1025px 전환/PC확인·회원가입 시트,4종 Dropdown·문의 연속 선택·console을 확인했다. 변경 lint/포맷·typecheck·Panda 통과. [상세 기록](architecture/ui.md#이전-약관-확인-시트-시안-적용-2026-11-04).
+
+## 2026-11-04 결제 수단 라디오 아이콘 오류 수정
+
+- 결제 수단의 미등록 동적 라디오 아이콘 이름을 현재 hoka-radio 등록 이름으로 교체했다. PC/모바일에서 결제 수단 6개 렌더와 오류 화면 없음을 확인했다. 전체 typecheck·변경 lint/포맷을 통과했다. [상세 기록](architecture/routing.md#결제-수단-아이콘-이름-복구-2026-11-04).
+
+## 2026-11-04 모바일 문의 유형 연속 선택
+
+- 공통 Dropdown의 선택적인 다음 단계 표시 옵션을 문의 분류 소유자에 연결했다. 모바일 문의 유형 선택 후 같은 시트에서 상세 유형을 선택하고 닫는다. PC 개별 선택·기존 콜백과 상세 직접 선택은 유지한다.
+- 508px 단계 전환/같은 유형 재선택/상세 선택/Escape/포커스, 1440px PC 개별 선택과 console error 없음을 확인했다. 변경 lint/포맷·전체 typecheck·Panda 통과. 최소화 창으로 스크린샷은 미완료다. [상세 기록](architecture/ui.md#모바일-문의-유형-연속-선택-2026-11-04).
+
+## 2026-11-04 Dropdown 열림 상태 경고 수정
+
+- 직전 모바일 시트 변경에서 플랫폼에 따라 Select open이 undefined/false로 달라져 생긴 controlled 전환 경고를 수정했다. PC 팝업도 로컬 boolean 상태로 제어한다.
+- 배송 요청 preview의 모바일 선택·새로고침·1128/1024/1025/556px 전환에서 console error가 없음을 확인했다. 변경 lint/포맷·전체 typecheck 통과. [상세 기록](architecture/ui.md#dropdown-열림-상태-제어-방식-고정-2026-11-04).
+
+## 2026-11-04 기본 Dropdown 모바일 선택 시트와 결제 오류 수정
+
+- 기본 Dropdown도 모바일에서는 정렬 variant와 같은 Radio BottomSheet를 공유하도록 변경하고 폼 가이드 설명을 갱신했다. 기존 필드 트리거·오류/비활성화·입력 계약과 PC 팝업은 유지한다.
+- 375px 가이드의 일반/아이콘/이미지 시트·선택·Escape/포커스·disabled/invalid와 1440px PC 팝업, 결제 PC/모바일의 6개 수단 렌더를 확인했다. 변경 lint/포맷·Panda·전체 typecheck 통과. [상세 기록](architecture/ui.md#기본-dropdown-모바일-선택-시트와-결제-아이콘-복구-2026-11-04).
+
+## 2026-11-04 이전 약관 더미 휠 제거
+
+- 사용자 긴급 요청으로 PreviousTermsPicker 모바일 휠을 공통 정렬 Dropdown과 같은 기본 라디오 선택 시트로 바꿨다. PC 목록/확인과 날짜·콜백·포커스 계약은 유지한다. 이 결정이 이전 휠 시안 기록보다 우선한다.
+- 모바일 375px 목록·16px 간격·DOM 선택 후 부모 반영/닫기/포커스, PC 1440px 라디오와 확인 표시를 검증했다. 최소화된 브라우저 창으로 스크린샷과 실제 포인터 검증은 미완료다. 변경 lint·포맷·Panda 생성은 통과했다. [상세 기록](architecture/ui.md#이전-약관-더미-휠-제거-2026-11-04).
+
+## 2026-11-04 PC 정렬 Dropdown indicator 시안 복구
+
+- 러닝세션 신청내역 Figma 1934:98095를 기준으로 공통 sort variant의 PC indicator를 14px Regular chevron으로 바꾸고 중앙 정렬·Body 3 행간/자간을 맞췄다. 기본 Dropdown과 모바일 분기의 스타일은 유지했다.
+- PC 1632px 크기·간격·폰트 실측과 스크린샷, 선택/키보드 동작, 모바일 375px 시트 선택을 확인했다. 상세 출처와 검증은 [UI 기록](architecture/ui.md#pc-정렬-dropdown-indicator-시안-복구-2026-11-04)에 남겼다.
+
+## 2026-11-04 정렬 Dropdown 열기 오류 수정
+
+- Dropdown에 남은 이전 Icon src 호출을 등록 이름으로 교체해 PC 정렬 메뉴와 모바일 트리거의 런타임 오류를 수정했다.
+- PC 여성 상품 가격 오름/내림차순·URL·키보드 닫기/포커스, 모바일 약관 날짜 선택을 브라우저에서 확인했다. 변경 ESLint 통과, 전체 타입 검사는 별도 CheckoutPayment 아이콘 이름 오류로 실패했다. 상세 출처는 [UI 기록](architecture/ui.md#정렬-dropdown-아이콘-계약-복구-2026-11-04)에 남겼다.
+
+## 2026-11-04 모바일 fullWidth 버튼 최대 너비
+
+- 공통 Button의 모바일 `fullWidth` 최대 너비를 CSS 변수 `--button-full-width-mobile-max-width: 375px`로 제한했다. 출처와 검증 범위는 [모바일 fullWidth 버튼](architecture/ui.md#모바일-fullwidth-버튼-최대-너비-2026-11-04)에 기록한다.
+- 변경 파일 lint·포맷과 생성 CSS 규칙을 확인했다. 이번 변경과 직접 관련 OKF만 선별 스테이징하며 다른 작업의 변경은 보존한다.
+
+## 2026-11-04 선택 시트 항목 즉시 반영
+
+- 최신 사용자 요청으로 모바일 정렬 Dropdown의 확인 버튼을 제거하고 항목 클릭/Enter/Space 즉시 값을 전달하고 닫도록 변경했다. 이전 약관 휠도 같은 활성화에서 onSelect(id)/onClose를 전달한다. 방향키/스크롤은 초안만 바꾸고 PC 확인과 상품 필터의 적용 동작은 유지한다.
+- Radio에 선택 변경과 명시적 활성화를 분리하는 onOptionActivate를 추가했다. 이미 선택된 항목 재활성화도 처리하고 label의 hidden input 전달 클릭은 중복 콜백에서 제외한다. 375px 정렬 클릭·방향키·Enter/Space·포커스 복귀와 이전 약관 클릭 후 부모 버전 표시를 확인했다. 이 항목이 이전 확인형 시트 기록보다 우선한다.
+
+## 2026-11-04 이전 약관 모바일 시트 시안 반영
+
+- Figma 957:30161의 336px 휠 시트·56px 헤더·20px 중앙 선택·#E8EDF3 배경과 주변 날짜의 단계별 색상을 기존 PreviousTermsPicker에 반영했다. 날짜 fixture·PC 라디오/확인 계약을 유지하고 모바일에 시안에 없는 확인 버튼은 추가하지 않았다.
+- 인증 약관 본문 안에 선택기를 중첩해 배경 전문을 유지하고 BottomSheet selection의 중첩 50% 배경·명시적 finalFocus를 연결했다. 375px 휠 실측·스크롤/클릭/방향키·Escape 포커스 복귀와 PC1440 라디오 7개·확인/부모 본문 반영을 확인했다.
+- 타입·변경 lint/포맷·Panda·의존 그래프 생성을 수행했다. 실제 날짜 목록은 시안의 반복 placeholder와 다르며 버전 문서 조회는 미구현이다. 출처와 상세 경계는 [이전 약관 모바일 휠](architecture/ui.md#이전-약관-모바일-휠-시트-2026-11-04)에 기록한다.
+- 기존 폼/preview/계정 복구 검사 64개를 통과하고 hoka-markup-handoff의 컴포넌트 소유권·Panda·포커스·인계 경계를 점검했다. 이번 휠 변경 후 production build는 재실행하지 않았다. 사용자 요청에 따라 현재 채팅 변경만 추가 스테이징하며 커밋·푸시는 하지 않는다.
+
+## 2026-11-04 상품리뷰 정렬 공통화
+
+- 사용자 후속 요청으로 상품리뷰의 native Select·별도 화살표와 전용 MyPageReviewSort 래퍼를 제거하고 MyPageReviewToolbar에서 공통 Dropdown sort를 직접 사용한다. recent/oldest·sort/onSortChange는 유지하고 popup은 start 정렬, 모바일은 확인형 공통 시트를 사용한다.
+- PC 두 옵션과 시작점 정렬, 785px 모바일 선택값 유지·확인·포커스 복귀·가로 넘침 없음·내가 작성한 리뷰 2건 탭을 확인했다. 타입·Panda·변경 lint/포맷과 의존 그래프 생성을 수행했으며 production build는 다시 실행하지 않았다. 추가 스테이징·커밋·푸시는 하지 않았다.
+
+## 2026-11-04 약관 시행일 선택 공통화·잔여 대상 조사
+
+- TermsDocument의 전용 Popover/Radio를 공통 Dropdown sort로 통합했다. 날짜 식별자·표시 공백·tab 쿼리와 로컬 선택 소유자를 유지하고 PC 목록·모바일 확인형 시트를 재사용한다. 타입·변경 lint/포맷·Panda·화면 의존 그래프 생성을 통과했으며 PC 선택 및 475px 모바일 시트의 날짜 선택 표시를 확인했다.
+- 추가 전환 후보는 상품리뷰 정렬의 native Select/개별 화살표 1곳이다. 이전 약관은 별도 모달 계약이 있는 조건부 후보, 주문 기간·상품 옵션은 기존 표현 유지로 분류했다. 추가 후보는 조사만 했고 기존 스테이지는 변경하지 않았다.
+
+## 2026-11-04 모바일 정렬 시트와 정렬 옵션 보완
+
+- 변경 lint/포맷·타입·Panda·기존 폼/preview 검사 60개·Next production build(145개 정적 페이지)를 통과했다. 기존 index를 보존하며 현재 채팅의 후속 변경만 선별 스테이징했고 staged 공백·OKF 검사를 통과했다. 커밋·푸시는 하지 않았다.
+
+- 사용자 확정에 따라 정렬 Dropdown은 PC 현재 형태·모바일 BottomSheet를 사용하며, 상품 목록은 예외로 기존 모바일 필터 시트 안에 정렬 Radio를 표시한다. 일반 목록에서도 표시되도록 검색 전용 조건을 제거했고 draft/apply와 URL 소유자는 유지했다.
+- Figma 1306:8028의 20px 모서리·56px 헤더·24px 본문 패딩·48px 확인 버튼을 기존 BottomSheet의 selection 표현으로 적용했다. 제목 정렬·버튼 확인·항목 gap 16px이며 모바일 트리거의 기존 16px 텍스트/14px 화살표/8px 간격/20px 표시 행은 1934:97645에 맞춰 유지했다. 확인 시에만 선택을 반영하고 닫기/Escape는 폐기한다.
+- PC popup 왼쪽 정렬·hover 배경 없음·키보드 focus-visible과 375px 시트 실측·취소/확인·포커스 복귀, 상품 필터 내 4개 정렬과 URL 반영을 확인했다. 소스·디자인 링크와 상세 검증은 [공통 선택 UI](architecture/ui.md#공통-선택-ui와-정렬-variant-2026-11-04)에 기록한다.
+
+- 신청내역 정렬은 공통 Dropdown의 `popupAlign="start"`로 트리거 왼쪽에 목록 박스를 맞췄다. 상품 목록의 기본 end 정렬은 유지한다.
+
+- 사용자 검토에 따라 공통 Dropdown sort 옵션의 마우스 오버 배경을 제거하고 키보드 focus-visible 외곽선을 유지했다. 기본 선택 필드의 hover와 기존 스테이지는 변경하지 않았다. 출처: `src/components/common/atoms/Dropdown.tsx` 작업 트리.
+
+## 2026-11-04 선택 UI 공통화
+
+- 상품 목록과 신청내역 정렬을 Dropdown sort variant로 통합하고 IA의 두 native select를 기본 Dropdown으로 전환했다. 이전 약관은 모달/시트 경계를 유지하며 모바일 개별 버튼을 공통 Radio로 통합했다. 가이드에 Sort 예시를 추가하고 화면 의존 그래프를 재생성했다.
+- 정렬 트리거는 20px 표시 행·24px 기본 클릭 영역·대칭 -2px 여백으로 배치한다. 디자인 근거·소스·검증 한계는 [공통 선택 UI](architecture/ui.md#공통-선택-ui와-정렬-variant-2026-11-04)에 기록했다.
+- 전체 lint·타입·Panda·Next production build와 기존 검사 62개 및 PC 선택/URL/포커스 동작을 확인했다. 실제 모바일 viewport 시각 검증은 미완료다. 스테이징·커밋·푸시는 하지 않았다. Codex, 2026-11-04T04:59:34Z.
+
+## 2026-11-04 STATE 공통 파일 상위 정리
+
+- 실제 화면 없는 D3 분류도 공통 파일 소유자로 확장했다. 주문배송 조회 목록·상세의 공통 11개 파일은 D3에서 표시하고 D4와 STATE의 중복은 제거한다. 다른 D3와 합쳐 D2까지 올리지 않으며 단일 자식 필터에서는 파일을 복원한다.
+- 최종 Node 검사 24개·타입·변경 lint/포맷, 브라우저의 D3 11개 표시·목록/상세 중복 없음·목록 단독 필터와 링크 유지·390px 가로 넘침 없음을 확인했다. 기록: codex/gpt-6, 2026-11-04T03:56:26Z.
+
+- 후속 지시로 D3 회원 정보 입력의 공통 컴포넌트를 D4 부가정보·D5 수신내역 화면에 중복하지 않도록 상위 IA의 표시 파일을 상속했다. 필터에서 상위가 사라지면 하위에 파일을 복원한다. 기본/상태 링크는 유지한다.
+- 최종 Node 검사 23개·타입·변경 lint/포맷과 브라우저의 D3 단독 표시·D4/D5 제거·검색 시 하위 복원·390px 가로 넘침 없음을 확인했다. 기록: codex/gpt-6, 2026-11-04T03:47:45Z.
+
+- 같은 화면의 두 상태 이상이 공유하는 데이터·인계 파일을 상위 작업 파일 행에 한 번만 표시한다. 동일 URL 중복을 집계하지 않으며 page 진입점과 상태 전용 파일은 각 STATE 행에 유지한다.
+- 상품 상세 공통 파일 3개와 기본/입고 알림/문의 없음/옵션 안내 네 진입 파일, 전체 198개 상태의 page 연결과 상품 공통 수동 비고 유지를 확인했다. 기존 `_components/`·상품 목록 공용 파일 배치와 다른 채팅의 변경은 보존했다.
+- Node 검사 22개·타입·변경 lint/포맷, 1506px PC·390px 모바일 표시를 확인했다. 전체 제품 시각 회귀·프로덕션 빌드는 재실행하지 않았다. 스테이징·커밋·푸시는 수행하지 않았다. 기록: codex/gpt-6, 2026-11-04T03:44:25Z.
+
+## 2026-11-04 에러·빈 상태 가이드 적용
+
+- Figma 2520:98509의 에러·전체 빈 화면·내부 빈 영역을 구분해 기존 공통 UI와 최근 본 상품·마이페이지 주문 요약에 반영했다. PC 문구 최대 520px, 제목 아래 160px, 내부 빈 영역 PC 267px/MO 154px·문구 최대 320px과 모바일 좌우 12px을 적용한다.
+- 사용자 지정에 따라 에러 화면 모바일 버튼 최대 너비는 기존 PC 크기 180px이다. 다른 버튼·빈 상태 기본값과 서비스 경계·상태 URL은 유지한다.
+- 변경 출처·브라우저 측정·검증 한계는 [에러·빈 상태 가이드](architecture/error-empty-guide.md)에 기록한다. 스테이징·커밋·푸시는 수행하지 않았다.
+
+## 2026-11-04 IA 기본 STATE·담당자 자리·비고 후속 정리
+
+- 모든 페이지 링크를 하위 STATE 기본 행으로 이동하고 WBS 기간 자리를 개발담당자로 대체했다. 우측 중복 담당자 열을 제거하고 7열·1300px 표와 텍스트 폭의 담당자 링크로 정리했다.
+- `_components/` 파일은 상위 화면 비고에 모았다. 사용자 한정 지시로 상품 목록만 공용 구현·데이터도 상위 비고에 모으며 상품 상세와 다른 화면은 이 추가 정리에서 제외한다.
+- 담당자별·미지정 필터를 검색과 조합하고 전체 초기화에 연결했다. 상태 필터와 전체 접기 버튼은 후속 요청으로 제거했다. 내부 IA 258의 선택된 러닝세션 비고 문구만 삭제했다.
+- 상품 공통 영역의 목록/상세 수동 비고 묶음 두 개만 D1 공통 행으로 옮겼다. 파일 표시는 해당 화면 소유자에 유지하며 다른 영역의 비고는 이동하지 않았다.
+- 기본 STATE 66개·전체 상태 행 198개와 7열 그리드, 링크 위치·폭, PC/MO의 기본/상태 배치, 담당자/검색/초기화와 상품 비고 위치를 확인했다. Node 검사 21개·타입·변경 lint/포맷·Panda·diff 검사를 통과했다. 변경 검증 문서에 실제 검사 범위와 한계를 기록했다. 스테이징·커밋·푸시는 수행하지 않았다. 기록: codex/gpt-6, 2026-11-04T02:19:52Z.
+
+## 2026-11-04 IA 개발담당자와 상태별 작업 파일
+
+- WBS Schedule의 FO 개발 항목을 확인해 IA에 고정 개발담당자 열과 WBS 원본 행 링크를 추가했다. 상품/검색·주문서 배송지 담당을 구분하고 미확정 화면은 미지정으로 남긴다.
+- 기본 화면에 모여 있던 상태 진입 파일을 각 STATE 행으로 분리하고 공용 인계 파일은 사용하는 화면에 함께 표시한다. 전체 파일 연결 계약과 기존 비고·다른 채팅의 수정은 보존한다.
+- WBS 참조 48개 이름·행 대조, Node 테스트 19개, 타입·변경 ESLint/Prettier·Panda·diff 검사, PC/MO 표시와 138개 상태 행·8열 표·담당자 검색·플랫폼 경계를 확인했다. 실제 일일 변경 이력 UI·프로덕션 빌드·배포는 이번 수정에 포함하지 않았다.
+- 매일 17시 origin/main 보고 자동화는 고정 담당자 열과 상태별 소스 연결을 재사용하도록 갱신했다. 스테이징·커밋·푸시는 수행하지 않았다. 기록: codex/gpt-6, 2026-11-04T01:55:40Z.
+
+## 2026-11-04 Markdown 문서 정리
+
+- 완료된 구조 변경·재사용·디자인 대조·스킬 전환 보고서 9개를 관련 주제에 통합하고, 새 소유권 개념 1개를 추가했다. 상세 원문과 출처·검증 메타데이터는 삭제 전 커밋 고정 링크로 보존한다.
+- 아키텍처 인덱스의 반복 변경 이력을 주제별 탐색으로 정리하고 README·개발 인덱스·스킬 참조와 과거 원문 링크를 갱신했다. 작업 중인 터치 영역 조사와 다른 작업의 소스 변경은 유지한다.
+- 런칭 캘린더 문서의 description 들여쓰기 오류를 바로잡았다. OKF frontmatter 28개 YAML 파싱, 새 로컬 링크 22개와 커밋 고정 링크 51개·원문 9개 존재, 기존 조사 기록·Git 인덱스 보존을 확인했다. 새 소유권 문서·아키텍처 인덱스 Prettier와 Markdown diff 공백 검사를 통과했다. 기존 문서의 전체 서식 경고는 남아 있으며 일괄 재서식하지 않았다.
+- 애플리케이션 코드는 변경하지 않았고 빌드·브라우저 검증·스테이징·커밋은 수행하지 않았다. 기록: codex/gpt-6, 2026-11-04T01:19:32.500Z.
+
 ## 2026-11-04 — 라운드 방향 아이콘 등록
 
 흰색 방향 아이콘은 원과 방향 도형을 포함한 24px SVG 4종으로 등록했다. Icon이 이미지에 그림자를 자동 적용해 24px 바깥으로 표시한다. 출처: Icon.tsx, Icon.assets.ts, IconGuide.tsx.
@@ -114,75 +260,61 @@ Figma 디자인팀 UI 아이콘 5개 세트(296:25392, 296:25425, 298:25555, 298
 
 - 사용자 확인에 따라 하단 화살표를 Regular 원본으로 통일하고 Solid 파일·등록·예시를 제거했다.
 
-
 ## 2026-11-04 — 색상 예시 안내 통일
 
 - IconGuide의 색상 예시 설명을 “color로 색상 변경 가능”으로 맞췄다.
-
 
 ## 2026-11-04 — 아이콘 가이드 분류·타임라인 재구성
 
 - 합의된 의미별 순서로 그룹을 재편하고 Regular/Solid를 나란히 배치했다. 상세 구성과 검증은 UI 문서에 기록한다.
 - 검증: ESLint·Prettier·Panda 생성·OKF 검사 통과. Ego에서 타임라인 7개 항목과 대상 섹션 이동을 확인했다. PC·375px 모바일에서 Regular/Solid 9쌍의 같은 행/좌우 순서와 가로 넘침 없음을 확인했다. 전체 typecheck는 기존 .next/types 삭제 라우트 참조 오류만 남고 src 진단은 없다.
 
-
 ## 2026-11-04 — 아이콘 가이드 카드 문구 정리
 
 - 반복되는 이름·스타일·파일명 표기를 통합하고 다운로드 링크와 전용 메타데이터를 제거했다.
-
 
 ## 2026-11-04 — Icon 속성 순서 통일
 
 - 실제 사용처와 가이드 복사 코드의 속성을 name → size → color 순서로 정리했다.
 
-
 ## 2026-11-04 — 아이콘 가이드 색상 설명 통일
 
 - 사용자 안내를 “color로 색상 변경 가능”으로 통일하고 mask 구현 설명을 예시 제목·설명에서 제거했다.
-
 
 ## 2026-11-04 — 가이드 복사 코드 중복 정리
 
 - 전체 가이드 정적 코드 123개를 검사하고 6개 블록의 중복 import·동일 예시를 제거했다. 서로 다른 크기·색상 예시는 유지했다.
 
-
 ## 2026-11-04 — Icon mask 옵션 제거
 
 - 푸터 화살표에 black.10을 적용하고 미사용 mask prop·재정의 분기·가이드 안내를 제거했다. 레지스트리 기본 렌더링은 유지한다.
-
 
 ## 2026-11-04 — 기본 mask prop 정리
 
 - 기본 mask 아이콘의 실제 사용처와 가이드에서 중복 prop을 생략했다. 원본색 mask={false} 예외는 유지한다.
 
-
 ## 2026-11-04 — 아이콘 HEX 색상 토큰화
 
 - 아이콘 호출부·가이드의 직접 HEX 색상을 동일 값의 black.40/black.10/blue.100으로 바꿨다. 색상 정의와 컬러 가이드의 HEX 설명은 유지한다.
 
-
 ## 2026-11-04 — Icon 기본 색상 prop 정리
 
 - 사용처·가이드의 중복 color="currentColor"를 생략했다. 내부 기본값과 다른 색상 지정은 유지한다.
-
 
 ## 2026-11-04 — Font Awesome 공식 이름과 중복 아이콘 통합
 
 - Figma의 공식 이름·Regular/Solid를 반영하고 동일 자산을 공유한다. 호출부 크기·색상, 커스텀 자산은 보존하며 가이드 중복 카드를 정리했다. 상세 출처는 UI 문서와 아이콘 README에 기록했다.
 - 검증: 변경 소스 ESLint·Prettier, Panda 생성, screen-files, 폼 테스트 47개를 통과했다. 등록 경로 126개와 SVG 124개의 파일·XML을 확인했다. Ego PC 가이드에서 mask SVG 65종 요청 성공·깨진 이미지 없음·장바구니 카드 1개와 멤버십 흰색을 확인했고, 375px 헤더가 bag-shopping-regular.svg를 20px로 사용하는 것과 가로 넘침 없음을 확인했다. 전체 typecheck는 기존 .next/types 삭제 라우트 참조 오류만 남고 src 진단은 없다.
 
-
 ## 2026-11-04 — 아이콘 폴더 평탄화
 
 - 하위 폴더 SVG를 public/images/icon 루트로 이동하고 등록 이름·호출부·가이드 다운로드·소셜 경로 테스트를 갱신했다. 파일 내용·색상·크기는 유지하며 유사 도형 병합은 보류했다.
 - 검증: SVG 133개 XML·등록 경로와 하위 폴더 없음, 이동 109개 파일 바이트 동일성 및 새 URL HTTP 200을 확인했다. 변경 소스 ESLint, screen-files, okf:check, 폼 테스트 47개를 통과했다. 전체 typecheck는 기존 .next/types 삭제 라우트 참조 오류만 남고 src 진단은 없다. 이번 경로 변경에서 브라우저 시각 검증을 별도로 반복하지 않았다.
 
-
 ## 2026-11-04 — SVG 아이콘 name API 통합
 
 - 공통 atoms/Icon과 레지스트리로 모든 아이콘 호출을 통합하고 Figma 35종의 export 배경·테두리를 제거했다. 폼 상태·툴팁·알림·인라인 도형과 가이드 복사 코드도 name으로 전환했다.
 - Font Awesome 패키지와 이전 barrel/레지스트리 제거, 관련 UI·라우팅·상태·설치 문서를 갱신했다. 검증: SVG 135개(등록 이름 138개)의 경로와 XML 파싱을 확인했고 Figma 35종의 캔버스 fill 제거를 검사했다. 변경 TS/TSX ESLint 및 핵심 파일 Prettier, Panda 생성, screen-files 생성, okf:check를 통과했다. Ego에서 PC/375px 가이드 표시, 16/18/24px 치수, 단색 색상, SVG 미리보기 54개 mask 요청 HTTP 200 및 깨진 이미지 없음, 폼 12개 상태 이미지 16px, 비밀번호 표시 전환·체크박스 상태 전환을 확인했다. 모바일 가이드/폼의 가로 넘침이 없었다. 전체 typecheck는 기존 .next/types의 삭제된 라우트 참조 오류로 미통과이며 src 진단은 없었다. 모든 서비스 화면의 픽셀 비교를 완료했다는 뜻은 아니다. 패키지 정리 후 기존 개발 서버를 재시작했다.
-
 
 - 사용자 요청으로 발매 시간의 검정 배경을 다른 어두운 미리보기와 같은 black.60으로 통일했다.
 
@@ -819,7 +951,7 @@ production 서버에서 GNB Featured의 Running Session을 실제 클릭하여 /
 
 - 디자인 가이드 Typography의 빈 Mono 섹션과 전용 목록·스타일을 제거했다. Storybook 브라우저에서 Mono 제목 제거와 한영 비교표·복사 버튼 표시를 확인했다. [변경 범위](architecture/ui.md#디자인-가이드-mono-섹션-제거-2026-10-30).
 
-- 협업 환경의 스킬 누락을 해결하기 위해 `hoka-markup-handoff` 본문과 참조 문서를 `.agents/skills/`에 추가하고 AGENTS·README를 저장소 경로로 전환했다. 개인 설치 없이 동일 스킬을 공유한다. [공유 전환](development/markup-handoff-skill.md#저장소-공유-전환-2026-10-30).
+- 협업 환경의 스킬 누락을 해결하기 위해 `hoka-markup-handoff` 본문과 참조 문서를 `.agents/skills/`에 추가하고 AGENTS·README를 저장소 경로로 전환했다. 개인 설치 없이 동일 스킬을 공유한다. [공유 전환](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/development/markup-handoff-skill.md#저장소-공유-전환-2026-10-30).
 
 - 문의 대기/완료 preview를 하나의 누적 목록으로 통합했다. 기본 예시에 대기·완료 각 1건을 함께 표시하고 IA 187·210을 `/support/inquiries/preview-list`로 연결했다. 기존 두 route를 제거했다. 타입·변경 파일 린트/포맷·Next/Storybook 빌드·관련 테스트 6개와 PC/MO 혼합 목록·답변 토글·IA 링크를 확인했다. [구현과 표시 계약](architecture/publishing-state-previews-2026-10-30.md#문의-목록-통합-2026-10-30).
 
@@ -834,14 +966,14 @@ production 서버에서 GNB Featured의 Running Session을 실제 클릭하여 /
 - Form 가이드를 Figma처럼 케이스별 비교로 구성했다. Input Fields 상태·타입, Dropdown Selection 상태, Checkbox·Radio 선택 상태, Dropdown Menu 목록 타입을 나눠 보여주며 기존 다섯 카테고리 범위와 공통 구현 유지 원칙은 그대로다. [범위와 구분](architecture/routing.md#폼-가이드의-figma-기준-항목-정리-2026-10-30).
 - Form 가이드에 로그인 입력 조합을 임시로 추가했다가 Figma 기준 다섯 항목으로 범위를 좁히면서 로그인 전용 카드를 제거했다. 실제 로그인 화면은 그대로 유지한다. [현재 범위](architecture/routing.md#폼-가이드의-figma-기준-항목-정리-2026-10-30).
 - 로그인 화면 아이디 저장 도움말 주석을 한글 설명 뒤 영문 설명 형식으로 변경했다. 동작과 경로는 바꾸지 않았다. [라우팅 문서](architecture/routing.md#로그인-도움말-주석-언어-2026-10-30).
-- 개인 `hoka-markup-handoff`로 통합한 이전 `component-reusability` 스킬 9개 파일을 삭제하고 AGENTS·README의 활성 참조를 정리했다. 역사적 출처 링크는 삭제 전 커밋으로 보존했다. 개인 스킬은 저장소 배포 범위가 아니다. [전환 범위](development/markup-handoff-skill.md).
+- 개인 `hoka-markup-handoff`로 통합한 이전 `component-reusability` 스킬 9개 파일을 삭제하고 AGENTS·README의 활성 참조를 정리했다. 역사적 출처 링크는 삭제 전 커밋으로 보존했다. 개인 스킬은 저장소 배포 범위가 아니다. [전환 범위](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/development/markup-handoff-skill.md).
 
 - 고정 상태 preview 61개와 screen-index 상태 링크를 추가했다. 기존 표시 UI·전용 URL을 재사용하고 러닝세션 신청내역을 활성 IA 200에 연결했다. UTMB 표시명, 미연결 IA와 미확정 상태 디자인은 [인계 목록](architecture/publishing-state-previews-2026-10-30.md)에 분리했다. 실제 서비스 계약과 preview를 구분한다. 타입·변경 파일 린트/포맷·Next/Storybook 빌드·Node 테스트 105개와 PC/MO 122건의 직접 진입을 확인했다. [검증 범위와 기존 전체 린트 오류](development/verification.md#퍼블리싱-고정-상태-preview-검증-2026-10-30)를 구분해 기록했다.
 
 - 장바구니·로그인을 고정 마크업 확인용으로 단순화하고 빈 목록·로그인 오류 직접 URL 및 IA 링크를 추가했다. 인증·검증·계산·삭제·옵션 저장·결제 이동을 제거하고 최소 UI 조작을 유지했다. 관련 Storybook을 고정 상태 검증으로 전환했다. 프로덕션 빌드·타입·변경 파일 린트·관련 Node 테스트 61개와 Storybook 14개를 통과했다. 전체 린트의 기존 import 오류 9건과 화면 캡처 한계는 [검증 기록](development/verification.md#장바구니로그인-마크업-단순화-검증-2026-10-30)에 남겼다. [현재 인계 기준](architecture/data-binding.md#장바구니로그인-퍼블리싱-인계-전환-2026-10-30).
 
 - 기본 TextInput 포커스 링을 바깥 outline에서 기존 보더 위에 겹치는 안쪽 outline으로 조정했다. boxed FormField와 SearchField의 별도 포커스 방식은 유지한다. [UI 규칙](architecture/ui.md#textinput-포커스-테두리-겹침-2026-10-30). 브라우저 시각 검증은 하지 않았다.
-- 사용자 요청으로 `src/app`의 페이지 전용 UI 분리 패턴을 재적용했다. 30개 페이지의 보조 UI 41개 모듈을 `_components`로 옮기고 프로젝트·스킬 규칙과 IA 생성 그래프를 갱신했다. 새로운 폼 가이드와 기존 상태·바인딩 계약을 보존했다. [작업 범위와 이번 검증](architecture/page-private-components-2026-10-30.md)을 참고한다. 구현 완료 후 사용자가 별도로 커밋·푸시를 요청했으며 예약은 생성하지 않았다.
+- 사용자 요청으로 `src/app`의 페이지 전용 UI 분리 패턴을 재적용했다. 30개 페이지의 보조 UI 41개 모듈을 `_components`로 옮기고 프로젝트·스킬 규칙과 IA 생성 그래프를 갱신했다. 새로운 폼 가이드와 기존 상태·바인딩 계약을 보존했다. [작업 범위와 이번 검증](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/page-private-components-2026-10-30.md)을 참고한다. 구현 완료 후 사용자가 별도로 커밋·푸시를 요청했으며 예약은 생성하지 않았다.
 
 - 퍼블리싱 가이드 폼 탭에 현재 공통 폼 컴포넌트 미리보기와 복사 가능한 사용 코드를 추가했다. 실제 주소 검색·폼 제출 API는 연결하지 않고 제어형 예시는 페이지 내부 상태로 동작한다. [라우팅과 범위](architecture/routing.md#퍼블리싱-가이드-기본-버튼-2026-10-29)를 참고한다.
 
@@ -861,11 +993,11 @@ production 서버에서 GNB Featured의 Running Session을 실제 클릭하여 /
 
 - 사용자 요청으로 IA의 시안 반영·현시안 반영·연동 대기 설명을 비고 데이터와 검색에서 제거했다. 원본 비고·작업 파일·상태는 유지한다. [범위](architecture/routing.md#ia-반영연동-설명-제거-2026-10-29).
 
-- pub-jme를 origin/main으로 리베이스하고 6개 영역의 첨부 디자인을 소스에 반영했다. 주문 PC는 현시안을 적용하며 디자인 수정예정은 유지한다. 상품별 쿠폰·신청 취소·인증 약관 표시 계약을 확장하고 PC/MO를 점검했다. [구현·검증](architecture/design-implementation-2026-10-29.md).
+- pub-jme를 origin/main으로 리베이스하고 6개 영역의 첨부 디자인을 소스에 반영했다. 주문 PC는 현시안을 적용하며 디자인 수정예정은 유지한다. 상품별 쿠폰·신청 취소·인증 약관 표시 계약을 확장하고 PC/MO를 점검했다. [구현·검증](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/design-implementation-2026-10-29.md).
 
 - 기존 JSX props 예시와 퍼블리싱 가이드의 import 관계를 IA 생성 그래프에 반영했다. 생성 명령과 생성기 테스트 1개를 통과했다. [범위](architecture/routing.md#ia-생성-그래프-최신화-2026-10-29).
 
-- 사용자 첨부 6개 영역 디자인과 퍼블리싱 소스를 대조하고 수급·수정 상태 및 검색 가능한 IA 검토 비고를 갱신했다. 주문 PC 디자인은 수정예정이며 장바구니 MO 퍼블리싱 완료는 유지한다. UI 구조 누락과 실제 서비스 연결 대기를 구분했다. [범위·근거·검증](architecture/design-source-comparison-2026-10-29.md).
+- 사용자 첨부 6개 영역 디자인과 퍼블리싱 소스를 대조하고 수급·수정 상태 및 검색 가능한 IA 검토 비고를 갱신했다. 주문 PC 디자인은 수정예정이며 장바구니 MO 퍼블리싱 완료는 유지한다. UI 구조 누락과 실제 서비스 연결 대기를 구분했다. [범위·근거·검증](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/design-source-comparison-2026-10-29.md).
 
 - 사용자 확인으로 아이핀 인증 IA 235의 PC/MO 퍼블리싱을 대기로 정정했다. 디자인 미수급은 유지한다. [상태 반영 근거](architecture/ia-design-audit.md#퍼블리싱-비교와-제한).
 
@@ -1000,7 +1132,7 @@ production 서버에서 GNB Featured의 Running Session을 실제 클릭하여 /
 
 - AccountPageLayout을 common/layouts로 이동하고 로그인·가입·휴대폰 인증 소비처 import를 갱신했다. [현재 소유권](architecture/ui.md#accountpagelayout-공통-레이아웃-경로-복귀-2026-10-28)을 참고한다.
 
-- 보조 TS 모듈 33개를 현재 사용처에 맞춰 이동하고 비밀번호 검증 중계 파일 1개를 제거했다. import·스토리·타입·테스트와 현재 출처를 함께 갱신했다. [이동 목록과 검증](architecture/ts-module-ownership-2026-10-28.md)을 참고한다.
+- 보조 TS 모듈 33개를 현재 사용처에 맞춰 이동하고 비밀번호 검증 중계 파일 1개를 제거했다. import·스토리·타입·테스트와 현재 출처를 함께 갱신했다. [이동 목록과 검증](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/ts-module-ownership-2026-10-28.md)을 참고한다.
 
 - MainSection·OrderActionBar·ModalDialog를 common/layouts로 이동하고 호출부·선언 계약·전용 스토리 5개의 경로와 Layouts 분류를 갱신했다. [범위와 검증](architecture/ui.md#공통-레이아웃-3개-계층-이동-2026-10-28)을 참고한다.
 
@@ -1022,7 +1154,7 @@ production 서버에서 GNB Featured의 Running Session을 실제 클릭하여 /
 
 - 폴더 깊이·반응형·Badge 표현 옵션의 판단 기준을 AGENTS.md와 component-reusability 스킬에 반영하고 folder-and-responsive 참조를 추가했다. 사용자 승인 범위와 기존 컴포넌트/Storybook 계약을 보존하도록 명시했다.
 
-- UA 판별을 1024px 화면 폭 구독으로 전환하고 PC 1200px 캔버스·포털·명시적 Storybook 모드를 유지했다. 단일 구현 폴더 60개를 평탄화하고 Badge의 status/promotion 옵션으로 두 배지를 통합했다. 테스트 77개·빌드와 경계 폭 검증은 [구현 기록](architecture/responsive-platform-2026-10-28.md)을 참고한다.
+- UA 판별을 1024px 화면 폭 구독으로 전환하고 PC 1200px 캔버스·포털·명시적 Storybook 모드를 유지했다. 단일 구현 폴더 60개를 평탄화하고 Badge의 status/promotion 옵션으로 두 배지를 통합했다. 테스트 77개·빌드와 경계 폭 검증은 [구현 기록](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/responsive-platform-2026-10-28.md)을 참고한다.
 
 - 사용자 제공 퍼블리싱 WBS의 계획 날짜·작업자를 IA에 갱신했다. 카테고리 상위와 상품 목록·상세, 검색·검색결과 및 SUPPORT/Company 매핑을 보완하고 실제 완료 상태는 유지했다. [갱신 계약](architecture/ui.md#ia-wbs-계획표-갱신-2026-10-28)을 참고한다.
 
@@ -1064,13 +1196,13 @@ production 서버에서 GNB Featured의 Running Session을 실제 클릭하여 /
 
 - 재사용 스킬에 단일 운영 부모의 재귀 통합, 공통 UI 포함 범위, 경계 예외와 타입·Storybook 참조 처리 기준을 명문화했다. 도메인 폴더 승격 경로와 기존 분리 지침도 조정했으며 스킬 validator를 통과했다. [스킬](https://github.com/nalpari/hoka-fo-pub/blob/27b7e2f5b2c5e21681af53df27a535f3f13aa170/.codex/skills/component-reusability/SKILL.md) · [단일 부모 워크플로](https://github.com/nalpari/hoka-fo-pub/blob/27b7e2f5b2c5e21681af53df27a535f3f13aa170/.codex/skills/component-reusability/references/single-parent-consolidation.md).
 
-- 전체 단일 부모 TSX 389개를 50개 부모로 연쇄 통합하고 남은 도메인 파일 55개를 src/components/{도메인}으로 승격했다. 스토리·타입 계약·별칭과 OKF 매핑, component-reusability 스킬을 함께 갱신했다. [이동·예외·검증 기록](architecture/single-parent-consolidation-2026-10-28.md).
+- 전체 단일 부모 TSX 389개를 50개 부모로 연쇄 통합하고 남은 도메인 파일 55개를 src/components/{도메인}으로 승격했다. 스토리·타입 계약·별칭과 OKF 매핑, component-reusability 스킬을 함께 갱신했다. [이동·예외·검증 기록](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/single-parent-consolidation-2026-10-28.md).
 
 - **Update**: IA 구조도를 `/screen-index` 독립 페이지로 분리하고 쇼핑몰 헤더·푸터와 기존 IA 스토리를 제외했다. 검색·필터·트리와 Storybook PC/MO 미리보기를 유지하며 `NEXT_PUBLIC_STORYBOOK_URL`로 미리보기 호스트를 설정한다. [라우팅](architecture/routing.md#ia-구조도-독립-페이지-2026-10-28)과 [UI 기록](architecture/ui.md#ia-구조도-독립-페이지-2026-10-28)에 작업 트리 출처를 기록했다. 변경 파일 ESLint와 diff 공백 검사를 통과했고 로컬 `/screen-index`의 HTTP 200 및 IA 본문 응답을 확인했다. 브라우저 상호작용과 빌드 manifest 기반 라우트 테스트는 실행하지 않았다.
 
 ## 2026-10-28
 
-- **Refactor**: 상품 필터 컨테이너를 부모에 합치고 정렬 드롭다운 이름과 공통 옵션 정의를 정리했다. Desktop/Mobile 운영 12개와 Storybook 45개를 전수조사했으며, 사용자 지정 범위의 단일 부모 자식 9개는 부모 내부로 옮겨 파일을 제거했다. 플랫폼별 상태·배치·상호작용은 유지한다. 타입·린트·포맷·Next/Storybook 빌드와 테스트 62개, PC/Mobile 주요 브라우저 흐름을 확인했다. [전수조사 기록](architecture/platform-component-audit-2026-10-28.md)에 처리 내역과 범위를 기록했다.
+- **Refactor**: 상품 필터 컨테이너를 부모에 합치고 정렬 드롭다운 이름과 공통 옵션 정의를 정리했다. Desktop/Mobile 운영 12개와 Storybook 45개를 전수조사했으며, 사용자 지정 범위의 단일 부모 자식 9개는 부모 내부로 옮겨 파일을 제거했다. 플랫폼별 상태·배치·상호작용은 유지한다. 타입·린트·포맷·Next/Storybook 빌드와 테스트 62개, PC/Mobile 주요 브라우저 흐름을 확인했다. [전수조사 기록](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/platform-component-audit-2026-10-28.md)에 처리 내역과 범위를 기록했다.
 
 - **Docs**: 현재 폴더 구조와 페이지 소유권 정책을 재사용 스킬에 반영했다. 경로 깊이와 무관한 전용 화면 배치, 공유 상태 훅·표시 구성요소의 경계, Storybook의 실제 페이지 사용과 구 구조 변경 이식 절차를 [스킬](https://github.com/nalpari/hoka-fo-pub/blob/27b7e2f5b2c5e21681af53df27a535f3f13aa170/.codex/skills/component-reusability/SKILL.md) 및 [페이지 소유권 참조](https://github.com/nalpari/hoka-fo-pub/blob/27b7e2f5b2c5e21681af53df27a535f3f13aa170/.codex/skills/component-reusability/references/page-ownership.md)에 명문화했다. 스킬 validator를 통과했다.
 
@@ -1355,9 +1487,9 @@ production 서버에서 GNB Featured의 Running Session을 실제 클릭하여 /
 
 - **Fix**: 사용자 최신 첨부에 따라 모바일 상품목록 필터 버튼을 제목 오른쪽 알약형으로 원복하고, 카테고리 탭 오른쪽 아이콘과 사용하지 않는 iconOnly API를 제거했다. [원복 기록](architecture/ui.md#모바일-상품목록-필터-버튼-원복-2026-10-21)을 참고한다.
 
-- **Refactor**: [전체 소스 재사용 조사](architecture/component-reusability-2026-10-21.md#8-코드-적용-2026-10-21)의 금액 행·추천 데이터·소셜 버튼·compact/muted 입력·모바일 레일·폼 액션과 기능 내부 구성을 코드에 적용했다. 상품목록 제목 variant와 PC 검색 비모달 Dialog도 연결했다. UI·상태·목 데이터 문서에 책임과 검증 범위를 기록했다.
+- **Refactor**: [전체 소스 재사용 조사](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/component-reusability-2026-10-21.md#8-코드-적용-2026-10-21)의 금액 행·추천 데이터·소셜 버튼·compact/muted 입력·모바일 레일·폼 액션과 기능 내부 구성을 코드에 적용했다. 상품목록 제목 variant와 PC 검색 비모달 Dialog도 연결했다. UI·상태·목 데이터 문서에 책임과 검증 범위를 기록했다.
 
-- **Audit**: src 전체 833파일(TS/TSX 832개)을 운영/공용·앱 601개, 스토리 218개, 개발 fixture 9개, Mockup 4개와 전역 스타일로 구분해 재점검했다. [재사용 보고서](architecture/component-reusability-2026-10-21.md)에 기존 API 활용 7개·추출/API 개선 9개·Base UI 후보 3개·텍스트 스케일 1개 및 유지 사유를 기록했다. 설치 Base UI 1.8.0 전체 exports와 공식 카탈로그를 대조했으며 코드 이관·의존성 변경·런타임/빌드 검증은 수행하지 않았다.
+- **Audit**: src 전체 833파일(TS/TSX 832개)을 운영/공용·앱 601개, 스토리 218개, 개발 fixture 9개, Mockup 4개와 전역 스타일로 구분해 재점검했다. [재사용 보고서](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/component-reusability-2026-10-21.md)에 기존 API 활용 7개·추출/API 개선 9개·Base UI 후보 3개·텍스트 스케일 1개 및 유지 사유를 기록했다. 설치 Base UI 1.8.0 전체 exports와 공식 카탈로그를 대조했으며 코드 이관·의존성 변경·런타임/빌드 검증은 수행하지 않았다.
 
 - **Refactor**: 품목별 측정 방법과 신발 발볼 안내를 공통 SizeGuideMeasurementMethod로 분리했다. title/steps/description으로 조합하며 기존 목록·문구·간격·조건부 표시를 유지한다. [사이즈 가이드](architecture/size-guide.md)에 반영했다.
 
@@ -2035,64 +2167,44 @@ shared 내부를 src로 승격하고 components/common·components/features로 �
 
 - 커밋 범위 점검: DescriptionList 기본 설명색과 StepIndicator 모바일 라벨의 primary 색상 변경도 포함하고 UI 문서에 기록했다.
 
-
 ## 개발자 변경 내역 화면 정리 (2026-11-04)
 
 `/wh`의 저장소 정보, 날짜 선택, 변경 파일과 커밋 목록을 독립 개발 도구에 맞게 정리했다. 날짜 조회와 새로고침 동작은 유지한다. 출처: `src/app/wh/_components/WorkHistory.tsx` 작업 트리.
 
-
 장바구니 옵션 변경 및 모달 가이드의 확인 액션은 Figma 1985:76300 기준 데스크탑 180×48px, 버튼 간격 8px, 본문과 40px, 하단 24px를 적용한다. 공통 확인 액션의 buttonProps로 Tall 규격을 전달한다. 출처: CartDialogs.tsx, ModalDialog.tsx, ModalGuide.tsx.
-
 
 디자인팀 원형 방향 아이콘 이름을 circle로 변경하고 방향·액션·배너 35개 상태를 개별 복사 카드로 표시했다. 단색은 color, 원형 배경을 포함한 조합은 24px SVG로 표시한다. 출처: IconGuide.tsx, Icon.assets.ts.
 
-
 아이콘 가이드에서 Echo 배너 화살표의 좌우 기본·호버 4종은 현재 사용 화면 없음으로 표시한다. 출처: 사용자 확인, IconGuide.tsx.
-
 
 폼 상태 8개와 별점·쇼핑백·계정·장바구니 아이콘을 디자인팀 섹션에 배치하고 hoka- 등록 이름·파일명·호출부를 일치시켰다. 기존 SVG 도형을 유지하고 알림 수는 ShopShell의 배지 조합을 사용한다. 출처: IconGuide.tsx, Icon.assets.ts, ShopShell.tsx.
 
-
 디자인팀 아이콘 섹션에 쇼핑백·계정·장바구니의 파란 알림 배지 조합 3종을 개별 복사 카드로 추가하고 눈 아이콘 2종을 이동했다. 출처: IconGuide.tsx, ShopShell.tsx.
-
 
 디자인팀 체크박스·라디오 아이콘 8종의 가이드 미리보기와 복사 코드를 원본 16px 크기로 맞췄다. 출처: IconGuide.tsx 및 hoka-checkbox·hoka-radio SVG.
 
-
 아이콘 가이드에서 확인된 실제 호출 크기로 미리보기·복사 코드를 맞추고 크기 사용법 예시도 실제 chevron-down 규격 13/14/16px로 수정했다. 출처: IconGuide.tsx 및 화면 호출부.
-
 
 아이콘 가이드의 체크박스·라디오 상태 설명에서 불필요한 Font Awesome 대응 미확인 문구를 제거했다. 출처: IconGuide.tsx.
 
-
 디자인팀 xmark와 plus는 기존 Regular SVG와 도형을 대조해 hoka-action-xmark-regular·hoka-action-plus-regular로 명명했다. 원형 조합도 같은 접미사를 포함한다. 디자인팀 커스텀 또는 출처 스타일 미확인 도형에는 임의 접미사를 부여하지 않는다. 출처: Icon.assets.ts, IconGuide.tsx, ModalDialog.tsx 및 public/images/icon SVG.
-
 
 원형 배경이 포함된 디자인팀 아이콘은 이름 끝에 -circle을 붙인다. 방향·스타일·상태는 그 앞에 둔다. 예: hoka-nav-chevron-right-circle, hoka-action-plus-regular-active-circle. 출처: Icon.assets.ts, IconGuide.tsx 및 SVG 파일.
 
-
 Dropdown과 FormField의 16px 정보 아이콘을 circle-info-regular로 통일했다. Solid 호출부를 확인한 뒤 미사용 SVG와 등록·가이드 항목을 정리했다. 출처: Dropdown.tsx, FormField.tsx, Icon.assets.ts, IconGuide.tsx.
-
 
 - 주문 취소·반품 신청의 데스크탑 예정 금액 타이포그래피를 heading10으로 변경했다.
 
-
 - 하단 시트 닫기 버튼과 아이콘을 24px로 맞췄다.
-
 
 닫기·삭제의 기존 Solid xmark 호출 9곳을 디자인팀 hoka-action-xmark-regular로 통일했다. 각 호출의 14·16·18·24px 크기는 유지하고 Solid SVG·등록·가이드 항목을 제거했다. 출처: IconGuide.tsx와 관련 화면 호출부.
 
-
 주문상품 조회 더하기를 디자인팀 hoka-action-plus-regular로 변경했다. 16px 원본 도형을 중앙에 유지하고 SVG 캔버스를 여백 포함 24px로 맞췄다. 가이드에도 24px를 적용하고 미사용 Solid 더하기 에셋을 제거했다. 출처: InquiryOrderLookup.tsx, IconGuide.tsx, Icon.assets.ts.
-
 
 선택 태그 삭제에 사용하던 여백 포함 24px xmark Regular SVG를 hoka-action-xmark-regular 원본으로 채택했다. 기존 Regular 호출과 가이드 복사 코드를 같은 이름으로 통일하고 화면별 size 값은 유지한다. 출처: Icon.assets.ts, IconGuide.tsx, public/images/icon/hoka-action-xmark-regular.svg.
 
-
 Figma Navigational Buttons(296:25392)와 Action Buttons(296:25425)의 기본·원형 예시를 여백 포함 24px로 통일했다. 기본 방향·빼기 SVG는 내부 16px 도형을 중앙에 유지한다. 회색 카드는 제거하고 단색 회색은 color 토큰으로 안내한다. 출처: IconGuide.tsx 및 Icon.assets.ts.
 
-
 방향 아이콘은 Figma 순서대로 우·좌·상·하 열과 기본·회색·흰 원·흰 원 회색 행으로 배치한다. 24px 기본 SVG와 원형 SVG의 내부 경로·배치를 공유하며 원형 회색은 Icon color로 글리프만 변경한다. 출처: IconGuide.tsx, Icon.tsx, Icon.assets.ts.
-
 
 디자인팀 빼기와 상하좌우 chevron은 Figma Regular 도형에 대응해 -regular를 명시한다. 원형 이름은 -regular-circle 순서를 사용한다. 24px SVG의 도형과 여백은 유지한다. 출처: Icon.assets.ts, IconGuide.tsx, Figma 296:24896·296:13816·296:11741.
