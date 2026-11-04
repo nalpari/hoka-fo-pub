@@ -1105,7 +1105,7 @@ Storybook은 실제 기본·상태별 라우트를 사용한다. 기존 인증 �
 
 ## 페이지 전용 UI 배치 (2026-10-30)
 
-페이지 전용 보조 컴포넌트는 해당 라우트의 `_components/`에 배치한다. 이 규칙은 단일 부모 컴포넌트의 부모 모듈 통합 규칙의 예외다. 관련 내부 부품은 한 모듈에 함께 두고 새 전달용 래퍼는 만들지 않는다. 이번에는 30개 페이지의 41개 모듈을 분리했으며 JSX·Panda 스타일·콜백·바인딩 주석을 보존했다. 공통 컴포넌트와 이미 적합한 가이드 페이지는 변경하지 않았다. [범위·검증·한계](page-private-components-2026-10-30.md)를 참고한다.
+페이지 전용 보조 컴포넌트는 해당 라우트의 `_components/`에 배치한다. 이 규칙은 단일 부모 컴포넌트의 부모 모듈 통합 규칙의 예외다. 관련 내부 부품은 한 모듈에 함께 두고 새 전달용 래퍼는 만들지 않는다. 이번에는 30개 페이지의 41개 모듈을 분리했으며 JSX·Panda 스타일·콜백·바인딩 주석을 보존했다. 공통 컴포넌트와 이미 적합한 가이드 페이지는 변경하지 않았다. [범위·검증·한계](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/page-private-components-2026-10-30.md)를 참고한다.
 
 ## 디자인 가이드 폰트명 타입 오류 수정 (2026-10-29)
 
@@ -1369,7 +1369,7 @@ Codex가 기존 375px·768px 상품 목록 스토리에서 GNB top:0·활동 탐
 
 ## 전체 소스 재사용 조사 적용 (2026-10-21)
 
-[재사용 조사와 적용 기록](component-reusability-2026-10-21.md#8-코드-적용-2026-10-21)을 기준으로 다음 공용 계약을 적용했다.
+[재사용 조사와 적용 기록](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/component-reusability-2026-10-21.md#8-코드-적용-2026-10-21)을 기준으로 다음 공용 계약을 적용했다.
 
 - AmountRow를 molecules로 승격해 cart·checkout의 표시를 공유한다. 합계 계산은 기존 기능에 남긴다. OrderRecommendations는 items/title을 받으며 런타임 mock import를 제거했다. src/mocks/orderRecommendations.ts가 첫 네 상품·이미지 fallback·상품 링크를 준비한다.
 - SocialAuthButton은 provider와 appearance(login/signup)를 받는다. 기존 로그인 hover와 가입 border/inline 변수, 18px 아이콘, tall 크기를 유지한다. 문구·인증 업무와 미연결 안내는 기존 호출자가 소유한다.
@@ -3445,15 +3445,15 @@ Storybook의 인증 입력·필수 약관 및 폼 감사 시나리오는 실제 
 
 ## 상품 필터 통합과 플랫폼 파일 전수조사 (2026-10-28)
 
-Desktop/Mobile 이름의 운영 12개·Storybook 45개를 조사했다. 필터 컨테이너 2개는 ProductListingContent에 직접 통합하고 DesktopProductSort는 ProductSortDropdown으로 변경했다. 네 정렬 선택지는 productSortOptions를 드롭다운과 모바일 Radio가 공유한다. 나머지 9개는 사용자가 선택한 단일 부모 범위에 따라 부모 모듈의 로컬 구성요소로 이동하고 자식 파일을 삭제했다. PC 즉시 반영·모바일 초안/적용, 키보드·포커스·스와이프·아코디언·안전 영역과 기존 DOM·스타일을 보존한다. [전수조사 보고서](platform-component-audit-2026-10-28.md)에 12개별 처리·호출 관계·45개 스토리 목록과 범위를 기록했다. 다른 단일 부모 컴포넌트로 범위를 확대하지 않았다.
+Desktop/Mobile 이름의 운영 12개·Storybook 45개를 조사했다. 필터 컨테이너 2개는 ProductListingContent에 직접 통합하고 DesktopProductSort는 ProductSortDropdown으로 변경했다. 네 정렬 선택지는 productSortOptions를 드롭다운과 모바일 Radio가 공유한다. 나머지 9개는 사용자가 선택한 단일 부모 범위에 따라 부모 모듈의 로컬 구성요소로 이동하고 자식 파일을 삭제했다. PC 즉시 반영·모바일 초안/적용, 키보드·포커스·스와이프·아코디언·안전 영역과 기존 DOM·스타일을 보존한다. [전수조사 보고서](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/platform-component-audit-2026-10-28.md)에 12개별 처리·호출 관계·45개 스토리 목록과 범위를 기록했다. 다른 단일 부모 컴포넌트로 범위를 확대하지 않았다.
 
-플랫폼 파일 통합 검증 (2026-10-28): 타입·ESLint/Prettier·Panda·Next/Storybook 빌드와 기존 테스트 62개를 통과했다. 브라우저에서 PC 정렬·즉시 필터와 모바일 초안·닫기·적용·검색어 유지 및 이동된 메뉴·푸터·갤러리·런클럽의 주요 동작을 확인했다. [전수조사 보고서](platform-component-audit-2026-10-28.md#검증)에 실제 확인 항목과 범위를 기록했다.
+플랫폼 파일 통합 검증 (2026-10-28): 타입·ESLint/Prettier·Panda·Next/Storybook 빌드와 기존 테스트 62개를 통과했다. 브라우저에서 PC 정렬·즉시 필터와 모바일 초안·닫기·적용·검색어 유지 및 이동된 메뉴·푸터·갤러리·런클럽의 주요 동작을 확인했다. [전수조사 보고서](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/platform-component-audit-2026-10-28.md#검증)에 실제 확인 항목과 범위를 기록했다.
 
 ## 단일 부모 통합과 도메인 폴더 승격 (2026-10-28)
 
-공통 UI를 포함한 단일 운영 부모 TSX 389개를 부모 모듈로 재귀 통합했다. 의미 있는 로컬 컴포넌트 함수와 Panda 스타일은 모듈 최상위에 둔다. 실제 다중 부모 파일 94개와 기존 운영 부모 없는 파일 30개를 유지하고 경계 예외 2개를 기록했다. 도메인 폴더는 이제 src/components/{도메인}에 있으며 common은 공유 UI다. Storybook은 기존 제목·시나리오와 src/stories/features 범주를 유지한다. [단일 부모 통합 기록](single-parent-consolidation-2026-10-28.md)에 변경 전후 관계·이동 목록과 타입/미리보기 계약을 기록했다.
+공통 UI를 포함한 단일 운영 부모 TSX 389개를 부모 모듈로 재귀 통합했다. 의미 있는 로컬 컴포넌트 함수와 Panda 스타일은 모듈 최상위에 둔다. 실제 다중 부모 파일 94개와 기존 운영 부모 없는 파일 30개를 유지하고 경계 예외 2개를 기록했다. 도메인 폴더는 이제 src/components/{도메인}에 있으며 common은 공유 UI다. Storybook은 기존 제목·시나리오와 src/stories/features 범주를 유지한다. [단일 부모 통합 기록](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/single-parent-consolidation-2026-10-28.md)에 변경 전후 관계·이동 목록과 타입/미리보기 계약을 기록했다.
 
-검증: 폴더 승격 후 타입·Panda·Next/Storybook 빌드와 기존 테스트 62개를 통과했다. 이동 함수 409개·초기화 표현식 211개의 구조 비교, PC·모바일 주요 동작 및 스토리 확인 범위는 [통합 검증 기록](single-parent-consolidation-2026-10-28.md#검증)에 명시했다.
+검증: 폴더 승격 후 타입·Panda·Next/Storybook 빌드와 기존 테스트 62개를 통과했다. 이동 함수 409개·초기화 표현식 211개의 구조 비교, PC·모바일 주요 동작 및 스토리 확인 범위는 [통합 검증 기록](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/single-parent-consolidation-2026-10-28.md#검증)에 명시했다.
 
 ## Import 자동 정렬 (2026-10-28)
 
@@ -3544,11 +3544,11 @@ ContentLayout의 기존 headerAction 슬롯에 엑셀 다운로드 버튼을 배
 
 ## 화면 폭 반응형·폴더 평탄화·Badge 통합 (2026-10-28)
 
-모바일 경계는 1024px 이하이며 1024px 초과~1200px 미만은 PC 1200px 캔버스를 사용한다. 기존 _mobile 조건과 usePlatform 호출부를 유지했다. 공통의 단일 구현 폴더 60개를 평탄화하고 BadgeLaunchStatus/PromotionBadge를 Badge의 배타적 status/promotion 옵션으로 통합했다. 기존 일반 배지·상품 프로모션 표현과 Storybook 분류를 유지한다. [현재 API·이동 목록·검증](responsive-platform-2026-10-28.md)을 참고한다. 이전 절들의 UA 판별·해당 컴포넌트 경로는 당시 기록이다. 작업 트리 출처: src/components/common/, src/styles/global.scss, src/stories/, src/context/platform.tsx.
+모바일 경계는 1024px 이하이며 1024px 초과~1200px 미만은 PC 1200px 캔버스를 사용한다. 기존 _mobile 조건과 usePlatform 호출부를 유지했다. 공통의 단일 구현 폴더 60개를 평탄화하고 BadgeLaunchStatus/PromotionBadge를 Badge의 배타적 status/promotion 옵션으로 통합했다. 기존 일반 배지·상품 프로모션 표현과 Storybook 분류를 유지한다. [현재 API·이동 목록·검증](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/responsive-platform-2026-10-28.md)을 참고한다. 이전 절들의 UA 판별·해당 컴포넌트 경로는 당시 기록이다. 작업 트리 출처: src/components/common/, src/styles/global.scss, src/stories/, src/context/platform.tsx.
 
 ## 폴더·반응형·표현 옵션 정책과 스킬 (2026-10-28)
 
-사용자 요청으로 AGENTS.md와 component-reusability에 단일 구현 폴더 평탄화, Badge의 배타적 표현 옵션, 자동 화면 폭/명시적 플랫폼 구분과 상태·포털 검증 기준을 추가했다. 폴더 이동과 컴포넌트 삭제의 범위를 분리하고 기존 다중 파일 폴더·기본 호출부·도메인 정책을 보존한다. 상세 절차는 .codex/skills/component-reusability/references/folder-and-responsive.md 및 wrapper-consolidation.md를 따른다. [현재 구현 기록](responsive-platform-2026-10-28.md)을 참고한다. 작업 트리 출처: AGENTS.md, .codex/skills/component-reusability/SKILL.md와 위 참조 문서.
+사용자 요청으로 AGENTS.md와 component-reusability에 단일 구현 폴더 평탄화, Badge의 배타적 표현 옵션, 자동 화면 폭/명시적 플랫폼 구분과 상태·포털 검증 기준을 추가했다. 폴더 이동과 컴포넌트 삭제의 범위를 분리하고 기존 다중 파일 폴더·기본 호출부·도메인 정책을 보존한다. 상세 절차는 .codex/skills/component-reusability/references/folder-and-responsive.md 및 wrapper-consolidation.md를 따른다. [현재 구현 기록](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/responsive-platform-2026-10-28.md)을 참고한다. 작업 트리 출처: AGENTS.md, .codex/skills/component-reusability/SKILL.md와 위 참조 문서.
 
 ## 상품 이미지와 홈 배너 최적화 (2026-10-28)
 
@@ -3626,7 +3626,7 @@ MainSection·OrderActionBar·ModalDialog의 구현을 src/components/common/mole
 
 ## 보조 TS 모듈의 사용처별 배치 (2026-10-28)
 
-컴포넌트가 페이지에 통합된 뒤 남은 보조 TS 모듈 33개를 실제 소비자에 따라 재배치했다. 라우트 전용 모듈은 해당 app 경로, 셸 데이터는 data, 공용 훅은 hooks, 컨텍스트는 context, 공용 주소 타입은 types, 전화번호 유틸은 lib에서 관리한다. 재사용 컴포넌트와 함께 쓰는 catalog 필터·orders 정책·care 데이터·Carousel 컨텍스트 등은 유지한다. 비밀번호 검증의 중계 export를 제거하고 기존 lib/passwordValidation을 직접 사용한다. [이동 목록과 검증](ts-module-ownership-2026-10-28.md).
+컴포넌트가 페이지에 통합된 뒤 남은 보조 TS 모듈 33개를 실제 소비자에 따라 재배치했다. 라우트 전용 모듈은 해당 app 경로, 셸 데이터는 data, 공용 훅은 hooks, 컨텍스트는 context, 공용 주소 타입은 types, 전화번호 유틸은 lib에서 관리한다. 재사용 컴포넌트와 함께 쓰는 catalog 필터·orders 정책·care 데이터·Carousel 컨텍스트 등은 유지한다. 비밀번호 검증의 중계 export를 제거하고 기존 lib/passwordValidation을 직접 사용한다. [이동 목록과 검증](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/ts-module-ownership-2026-10-28.md).
 
 작성: codex/gpt-6, 2026-10-28T10:52:23.370Z. 이번 작업 트리 출처는 위 working_tree_sources이며 고정 source_revision의 과거 이력과 구분한다.
 
@@ -3764,11 +3764,11 @@ Storybook 프로덕션 빌드도 별도 출력 폴더 .tmp-ia-progress-storybook
 
 ## 첨부 디자인 대비 IA 검토 비고 (2026-10-29)
 
-IA 비고는 원본 메모와 `screenReviewNotes`를 목록으로 함께 표시하며 검색에도 포함한다. 날짜별 항목 분리·중복 제거와 기존 두 줄 표·작업 파일 배지는 유지한다. 이번 변경은 디자인 대비 미적용 UI와 서비스 연결 대기의 기록이며 실제 회원가입·로그인·고객센터·마이페이지·장바구니·주문 컴포넌트를 수정하지 않는다. [영역별 소스 대조](design-source-comparison-2026-10-29.md)를 참고한다. 작업 트리 출처는 `src/app/screen-index/_components/IaStructurePage.tsx`, `src/app/screen-index/storybookLinks.ts`다.
+IA 비고는 원본 메모와 `screenReviewNotes`를 목록으로 함께 표시하며 검색에도 포함한다. 날짜별 항목 분리·중복 제거와 기존 두 줄 표·작업 파일 배지는 유지한다. 이번 변경은 디자인 대비 미적용 UI와 서비스 연결 대기의 기록이며 실제 회원가입·로그인·고객센터·마이페이지·장바구니·주문 컴포넌트를 수정하지 않는다. [영역별 소스 대조](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/design-source-comparison-2026-10-29.md)를 참고한다. 작업 트리 출처는 `src/app/screen-index/_components/IaStructurePage.tsx`, `src/app/screen-index/storybookLinks.ts`다.
 
 ## 첨부 시안의 PC·MO UI 반영 (2026-10-29)
 
-6개 영역의 PC 표·그리드·모달·연락처/바로가기와 기존 MO 흐름을 반영했다. 마이페이지 기본 프레임은 1200px 중앙 정렬이며 기존 centered 모드는 유지한다. Panda TSX 스타일과 기존 Typography/Button/ModalDialog/NumberStepper를 재사용한다. [구현 범위·출처·검증](design-implementation-2026-10-29.md).
+6개 영역의 PC 표·그리드·모달·연락처/바로가기와 기존 MO 흐름을 반영했다. 마이페이지 기본 프레임은 1200px 중앙 정렬이며 기존 centered 모드는 유지한다. Panda TSX 스타일과 기존 Typography/Button/ModalDialog/NumberStepper를 재사용한다. [구현 범위·출처·검증](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/design-implementation-2026-10-29.md).
 
 ## Ghost 버튼을 아이콘·텍스트 용도로 분리 (2026-10-29)
 

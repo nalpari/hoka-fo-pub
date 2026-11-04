@@ -4,7 +4,7 @@ title: 'OKF 유지보수'
 description: '문서 형식, 출처와 변경 이력을 관리하는 절차를 설명한다.'
 tags: [okf, documentation, maintenance]
 status: draft
-updated: '2026-11-03T04:39:33.306Z'
+updated: '2026-11-04T01:19:32.500Z'
 generated:
   by: codex/gpt-6
   at: '2026-10-29T06:31:05Z'
@@ -155,3 +155,11 @@ scripts/screen-files.mjs는 tsconfig 경로 해석과 현재 import를 기준으
 ## 상품 카드 호버 변경 문서 동기화 검토 (2026-11-03)
 
 이번 변경은 ProductCard.tsx·ProductOptionList.tsx·관련 타입 선언에 한정되며 scripts/okf-sync.mjs 매핑상 UI 문서와 log 대상이다. 상태·라우팅·검증 문서도 해당 변경의 영향 범위를 검토해 기록했다. 훅·매핑·문서 관리 절차는 수정하지 않았다. 다른 작업의 미커밋 변경은 이 검토의 출처로 간주하지 않았다.
+
+## 문서 정리와 저장소 스킬 (2026-11-04)
+
+현재 프로젝트 인계 기준은 [저장소 hoka-markup-handoff](../.agents/skills/hoka-markup-handoff/SKILL.md)와 그 references다. 별도 개인 설치가 필요하지 않으며 개인 복사본을 자동 동기화하지 않는다. 이전 component-reusability 스킬은 제거된 상태를 유지한다. 2026-10-30 개인 스킬 통합·이전 스킬 삭제·저장소 공유 전환의 출처와 당시 검증은 [전환 원문](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/development/markup-handoff-skill.md)에 원래 메타데이터와 함께 보존한다.
+
+완료된 일회성 보고서를 계속 별도 파일로 추가하지 않는다. 현재 기준은 관련 주제 문서에 통합하고 이전 상세 이동표·변경 전 후보·당시 검증이 필요하면 삭제 전 커밋에 고정한 원문으로 연결한다. 유효한 디자인 근거·상태 URL·조사 증거와 현재 작업 중인 보고서는 유지한다. 활성 문서 링크는 통합 문서로, 과거 검증·이동 목록 링크는 커밋 고정 원문으로 연결한다.
+
+이번 정리는 구조 보고서 5개를 [소유권 기준](architecture/component-ownership.md)으로, 이전 재사용 조사 1개를 [공통 UI 조사](architecture/common-reuse-audit.md)로, 디자인 대조·반영 2개를 [IA 조사](architecture/ia-design-audit.md)로, 스킬 전환 1개를 이 절로 합쳤다. 아키텍처 인덱스는 주제별 탐색으로 바꾸고 개별 변경 이력은 log와 해당 개념 문서에 남겼다. 기록 주체는 codex/gpt-6이며 갱신 시점은 이 문서의 updated를 따른다.

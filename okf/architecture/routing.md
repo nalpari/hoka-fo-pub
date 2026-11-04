@@ -427,7 +427,7 @@ IA 191 상품리뷰의 STATE에 디자인 세 화면을 연결했다. `/mypage/r
 
 ## 페이지 전용 컴포넌트 분리 재적용 (2026-10-30)
 
-사용자 요청으로 어제의 페이지 배치 패턴을 다시 적용했다. 30개 라우트의 `page.tsx`에는 페이지 컴포넌트를 유지하고 보조 UI 41개 모듈은 같은 라우트의 `_components/`에 둔다. 기존 순수 데이터·계산 모듈과 이미 적합한 페이지는 유지한다. URL, 서버/클라이언트 경계, 상태 소유권과 RoutePreview 계약은 바꾸지 않는다. 새 폼 가이드를 보존하며 IA import 그래프를 재생성했다. [범위와 이번 검증](page-private-components-2026-10-30.md)을 참고한다.
+사용자 요청으로 어제의 페이지 배치 패턴을 다시 적용했다. 30개 라우트의 `page.tsx`에는 페이지 컴포넌트를 유지하고 보조 UI 41개 모듈은 같은 라우트의 `_components/`에 둔다. 기존 순수 데이터·계산 모듈과 이미 적합한 페이지는 유지한다. URL, 서버/클라이언트 경계, 상태 소유권과 RoutePreview 계약은 바꾸지 않는다. 새 폼 가이드를 보존하며 IA import 그래프를 재생성했다. [범위와 이번 검증](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/page-private-components-2026-10-30.md)을 참고한다.
 
 ## 스타일 비교 샘플 삭제 (2026-10-29)
 
@@ -635,15 +635,15 @@ IA 구조도는 서버 metadata와 색인 제외 설정을 유지하고 클라�
 
 ## 런클럽 단일 부모 하단 바 통합 (2026-10-28)
 
-Desktop/Mobile 전수조사와 사용자 지정 단일 부모 범위에 따라 RunClubMobileActionBar를 기존 런클럽 상세 page.tsx의 로컬 RunClubFixedActionBar로 이동했다. 공개 페이지 export와 세션 조회·상태·신청 모달·기존 URL을 유지한다. 작업 트리 출처: `src/app/running/run-club/[sessionId]/page.tsx`. [전수조사 보고서](platform-component-audit-2026-10-28.md)를 참고한다.
+Desktop/Mobile 전수조사와 사용자 지정 단일 부모 범위에 따라 RunClubMobileActionBar를 기존 런클럽 상세 page.tsx의 로컬 RunClubFixedActionBar로 이동했다. 공개 페이지 export와 세션 조회·상태·신청 모달·기존 URL을 유지한다. 작업 트리 출처: `src/app/running/run-club/[sessionId]/page.tsx`. [전수조사 보고서](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/platform-component-audit-2026-10-28.md)를 참고한다.
 
-플랫폼 파일 통합 검증 (2026-10-28): 타입·ESLint/Prettier·Panda·Next/Storybook 빌드와 기존 테스트 62개를 통과했다. 브라우저에서 PC 정렬·즉시 필터와 모바일 초안·닫기·적용·검색어 유지 및 이동된 메뉴·푸터·갤러리·런클럽의 주요 동작을 확인했다. [전수조사 보고서](platform-component-audit-2026-10-28.md#검증)에 실제 확인 항목과 범위를 기록했다.
+플랫폼 파일 통합 검증 (2026-10-28): 타입·ESLint/Prettier·Panda·Next/Storybook 빌드와 기존 테스트 62개를 통과했다. 브라우저에서 PC 정렬·즉시 필터와 모바일 초안·닫기·적용·검색어 유지 및 이동된 메뉴·푸터·갤러리·런클럽의 주요 동작을 확인했다. [전수조사 보고서](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/platform-component-audit-2026-10-28.md#검증)에 실제 확인 항목과 범위를 기록했다.
 
 ## 단일 부모 통합과 도메인 폴더 승격 (2026-10-28)
 
-깊이에 관계없이 단일 라우트 구성과 하위 단일 부모 TSX를 실제 page.tsx의 최상위 로컬 함수로 통합했다. 페이지는 Next 지원 export와 기존 route props만 제공한다. IA private client와 서버 사이즈 가이드의 client 패널은 최소 경계로 유지한다. 실제 페이지의 로컬 Storybook 구성은 선택적 RoutePreview 컨텍스트로만 입력을 주입하며 기본 운영 렌더는 기존 상태 소유자를 사용한다. [단일 부모 통합 기록](single-parent-consolidation-2026-10-28.md) 참고.
+깊이에 관계없이 단일 라우트 구성과 하위 단일 부모 TSX를 실제 page.tsx의 최상위 로컬 함수로 통합했다. 페이지는 Next 지원 export와 기존 route props만 제공한다. IA private client와 서버 사이즈 가이드의 client 패널은 최소 경계로 유지한다. 실제 페이지의 로컬 Storybook 구성은 선택적 RoutePreview 컨텍스트로만 입력을 주입하며 기본 운영 렌더는 기존 상태 소유자를 사용한다. [단일 부모 통합 기록](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/single-parent-consolidation-2026-10-28.md) 참고.
 
-검증: 폴더 승격 후 타입·Panda·Next/Storybook 빌드와 기존 테스트 62개를 통과했다. 이동 함수 409개·초기화 표현식 211개의 구조 비교, PC·모바일 주요 동작 및 스토리 확인 범위는 [통합 검증 기록](single-parent-consolidation-2026-10-28.md#검증)에 명시했다.
+검증: 폴더 승격 후 타입·Panda·Next/Storybook 빌드와 기존 테스트 62개를 통과했다. 이동 함수 409개·초기화 표현식 211개의 구조 비교, PC·모바일 주요 동작 및 스토리 확인 범위는 [통합 검증 기록](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/single-parent-consolidation-2026-10-28.md#검증)에 명시했다.
 
 ## Import 자동 정렬 (2026-10-28)
 
@@ -683,7 +683,7 @@ IA 목록의 원본 IA/출처 열을 화면에서 제거했다. 원본 데이터
 
 ## 화면 폭 기반 플랫폼으로 전환 (2026-10-28)
 
-루트 layout은 서버 문서와 Suspense/ShopShell만 구성하며 UA headers 판별과 src/lib/device.ts를 제거했다. 서버/최초 hydration은 web, 이후 1024px 이하 mobile·초과 web으로 전환한다. URL·metadata와 서버/클라이언트 경계는 유지한다. [현재 계약과 검증](responsive-platform-2026-10-28.md)을 참고한다. 작업 트리 출처: src/app/layout.tsx, src/context/platform.tsx, src/context/ShopShell.tsx.
+루트 layout은 서버 문서와 Suspense/ShopShell만 구성하며 UA headers 판별과 src/lib/device.ts를 제거했다. 서버/최초 hydration은 web, 이후 1024px 이하 mobile·초과 web으로 전환한다. URL·metadata와 서버/클라이언트 경계는 유지한다. [현재 계약과 검증](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/responsive-platform-2026-10-28.md)을 참고한다. 작업 트리 출처: src/app/layout.tsx, src/context/platform.tsx, src/context/ShopShell.tsx.
 
 ## Next 이미지 경로와 로딩 (2026-10-28)
 
@@ -715,7 +715,7 @@ MainSection·OrderActionBar·ModalDialog를 사용하는 라우트의 import를 
 
 ## 보조 TS 모듈의 사용처별 배치 (2026-10-28)
 
-장바구니·주문서·홈·로케일·가입 정보·마이페이지·상품 상세·고객센터·IA 화면의 보조 TS 파일을 실제 라우트와 같은 폴더로 옮겼다. 공지 데이터와 문의 주문 선택 모듈은 공통 상위 라우트가 소유한다. 일반 TS 파일은 page/route 파일을 추가하지 않으므로 URL을 생성하지 않는다. IA와 카탈로그 스토리가 공유하는 IA 경로 변환기는 app/screen-index에서 관리한다. [이동 목록과 검증](ts-module-ownership-2026-10-28.md).
+장바구니·주문서·홈·로케일·가입 정보·마이페이지·상품 상세·고객센터·IA 화면의 보조 TS 파일을 실제 라우트와 같은 폴더로 옮겼다. 공지 데이터와 문의 주문 선택 모듈은 공통 상위 라우트가 소유한다. 일반 TS 파일은 page/route 파일을 추가하지 않으므로 URL을 생성하지 않는다. IA와 카탈로그 스토리가 공유하는 IA 경로 변환기는 app/screen-index에서 관리한다. [이동 목록과 검증](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/ts-module-ownership-2026-10-28.md).
 
 작성: codex/gpt-6, 2026-10-28T10:52:23.370Z. 이번 작업 트리 출처는 위 working_tree_sources이며 고정 source_revision의 과거 이력과 구분한다.
 
@@ -777,11 +777,11 @@ IA 헤더와 본문을 사용자 지정 7열·두 행으로 정렬했다. 메뉴
 
 ## 첨부 디자인·소스 대조 (2026-10-29)
 
-회원가입·로그인·고객센터·마이페이지·장바구니·주문의 첨부 이미지를 소스와 대조했다. `storybookLinks.ts`의 `screenReviewNotes`와 플랫폼별 확인 상태를 IA 표시·검색에 연결한다. 외부 override가 확인값보다 우선하며, 변경하지 않은 기존 퍼블리싱 상태를 새 검수 완료로 간주하지 않는다. 주문 PC 디자인 수정예정, 장바구니 MO 완료 등 사용자 직접 확인을 유지한다. [상세 근거와 제한](design-source-comparison-2026-10-29.md)을 참고한다.
+회원가입·로그인·고객센터·마이페이지·장바구니·주문의 첨부 이미지를 소스와 대조했다. `storybookLinks.ts`의 `screenReviewNotes`와 플랫폼별 확인 상태를 IA 표시·검색에 연결한다. 외부 override가 확인값보다 우선하며, 변경하지 않은 기존 퍼블리싱 상태를 새 검수 완료로 간주하지 않는다. 주문 PC 디자인 수정예정, 장바구니 MO 완료 등 사용자 직접 확인을 유지한다. [상세 근거와 제한](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/design-source-comparison-2026-10-29.md)을 참고한다.
 
 ## 첨부 시안의 라우트 구현 반영 (2026-10-29)
 
-주문·장바구니 PC 배치, 신청내역 전용 라우트 본문과 계정 잠금 이동·홈 링크를 반영했다. 기존 라우트와 App Router 소유권은 유지하며 전용 신청내역을 page.tsx에 직접 구성했다. [구현 범위·출처·검증](design-implementation-2026-10-29.md).
+주문·장바구니 PC 배치, 신청내역 전용 라우트 본문과 계정 잠금 이동·홈 링크를 반영했다. 기존 라우트와 App Router 소유권은 유지하며 전용 신청내역을 page.tsx에 직접 구성했다. [구현 범위·출처·검증](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/design-implementation-2026-10-29.md).
 
 현시안 UI를 적용한 IA의 퍼블리싱 확인값을 완료로 갱신하고 기존 미적용 비고를 반영 내용으로 대체했다. 서비스 연결 대기는 비고로 구분하며 주문/장바구니 PC 디자인 수정예정과 미수급·아이핀 대기는 유지한다. 출처: `src/app/screen-index/storybookLinks.ts`, `tests/screen-progress.test.mjs`.
 

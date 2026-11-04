@@ -326,7 +326,7 @@ shared 내부를 src로 승격했다. 공통 UI는 src/components/common, 기능
 
 단일 부모 통합 후 form-controls 회귀 테스트의 RangeInput 소비처를 src/components/catalog/ProductListingPage.tsx로 변경했다. 테스트 TS 로더가 transpileModule에 실제 fileName을 전달해 .ts의 제네릭 함수를 JSX로 오인하지 않도록 했다. 기존 62개 테스트의 검증 내용은 유지한다. 상세 검증 기록은 ../architecture/single-parent-consolidation-2026-10-28.md를 참고한다.
 
-검증: 폴더 승격 후 타입·Panda·Next/Storybook 빌드와 기존 테스트 62개를 통과했다. 이동 함수 409개·초기화 표현식 211개의 구조 비교, PC·모바일 주요 동작 및 스토리 확인 범위는 [통합 검증 기록](../architecture/single-parent-consolidation-2026-10-28.md#검증)에 명시했다.
+검증: 폴더 승격 후 타입·Panda·Next/Storybook 빌드와 기존 테스트 62개를 통과했다. 이동 함수 409개·초기화 표현식 211개의 구조 비교, PC·모바일 주요 동작 및 스토리 확인 범위는 [통합 검증 기록](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/single-parent-consolidation-2026-10-28.md#검증)에 명시했다.
 
 ## Import 자동 정렬 (2026-10-28)
 
@@ -346,7 +346,7 @@ Perfectionist 기본 sortSideEffects:false는 부수 효과 import의 위치만 
 
 ## 반응형·공통 폴더·Badge 회귀 검증 (2026-10-28)
 
-공통 폴더 이동에 따라 form-controls의 직접 import와 동적 fixture 경로, import-order의 샘플 경로를 갱신했다. 자동 플랫폼의 SSR web 및 명시 web/mobile, Badge 기본/출시 상태와 프로모션 순서·구분선·weight·빈 배열 검사를 추가했다. 전체 Node 테스트 77개와 타입·lint·Panda·Next/Storybook 빌드가 통과했다. 실제 경계 폭과 상태 수명 검증 범위는 [구현 기록](../architecture/responsive-platform-2026-10-28.md#검증-codex-2026-10-28)에 명시했다. 작업 트리 출처: tests/form-controls.test.mjs, tests/import-order.test.mjs.
+공통 폴더 이동에 따라 form-controls의 직접 import와 동적 fixture 경로, import-order의 샘플 경로를 갱신했다. 자동 플랫폼의 SSR web 및 명시 web/mobile, Badge 기본/출시 상태와 프로모션 순서·구분선·weight·빈 배열 검사를 추가했다. 전체 Node 테스트 77개와 타입·lint·Panda·Next/Storybook 빌드가 통과했다. 실제 경계 폭과 상태 수명 검증 범위는 [구현 기록](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/responsive-platform-2026-10-28.md#검증-codex-2026-10-28)에 명시했다. 작업 트리 출처: tests/form-controls.test.mjs, tests/import-order.test.mjs.
 
 커밋 전 재검사에서 다른 작업의 next/image 적용으로 Node ESM 해석 오류가 확인되어 form-controls 테스트 로더의 Next 모듈 해석 목록에 next/image를 추가했다. 실제 컴포넌트를 유지한 채 전체 77개 테스트가 다시 통과했다.
 
@@ -360,7 +360,7 @@ Button.type-test.tsx는 src/types/type-tests/에서 npm run typecheck에 포함�
 
 ## 보조 TS 모듈의 사용처별 배치 (2026-10-28)
 
-계정 복구·주문 합계·상품 상세 표시의 기존 테스트 import를 새 소유 경로로 갱신했다. 테스트의 검증 로직과 시나리오는 유지한다. 이번 검증 결과와 전체 이동 목록은 아래 기록을 참고한다. [이동 목록과 검증](../architecture/ts-module-ownership-2026-10-28.md).
+계정 복구·주문 합계·상품 상세 표시의 기존 테스트 import를 새 소유 경로로 갱신했다. 테스트의 검증 로직과 시나리오는 유지한다. 이번 검증 결과와 전체 이동 목록은 아래 기록을 참고한다. [이동 목록과 검증](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/ts-module-ownership-2026-10-28.md).
 
 작성: codex/gpt-6, 2026-10-28T10:52:23.370Z. 이번 작업 트리 출처는 위 working_tree_sources이며 고정 source_revision의 과거 이력과 구분한다.
 
@@ -426,15 +426,15 @@ IA 헤더·본문의 최신 배치는 7열·두 행이며 이전 10열/파일 co
 
 변경 TS/TSX·테스트의 ESLint/Prettier, 타입 검사, Panda 생성과 diff 공백 검사를 통과했다. 작업 트리 기준 OKF 매핑 누락은 없다. 마지막 IA 검색/필터 재검사에서는 localhost:3000 연결이 거절되어 검사를 마치지 못했으며, 앞서 확인한 IA 비고 노출과 구분한다.
 
-`node --test tests/screen-progress.test.mjs` 10개를 통과했다. 디자인 수급과 퍼블리싱 완료의 독립성, 플랫폼별 수정, 주문 PC 수정예정·MO 팝업 미수급, 사용자 확인 장바구니 MO 완료 보존 및 외부 override 우선순위를 확인했다. 브라우저 DOM에서 약관 상세 빈 본문, 이전 약관 데모 선택 제한, 홈으로 링크, 고객센터 본문 및 IA 비고 노출을 확인했다. 창 최소화로 스크린샷을 확보하지 못해 전체 픽셀/반응형 시각 검증은 수행하지 않았다. 작업 트리 출처는 `tests/screen-progress.test.mjs`, `src/app/screen-index/storybookLinks.ts`, `src/app/screen-index/_components/IaStructurePage.tsx`다. [대조 결과](../architecture/design-source-comparison-2026-10-29.md)를 참고한다.
+`node --test tests/screen-progress.test.mjs` 10개를 통과했다. 디자인 수급과 퍼블리싱 완료의 독립성, 플랫폼별 수정, 주문 PC 수정예정·MO 팝업 미수급, 사용자 확인 장바구니 MO 완료 보존 및 외부 override 우선순위를 확인했다. 브라우저 DOM에서 약관 상세 빈 본문, 이전 약관 데모 선택 제한, 홈으로 링크, 고객센터 본문 및 IA 비고 노출을 확인했다. 창 최소화로 스크린샷을 확보하지 못해 전체 픽셀/반응형 시각 검증은 수행하지 않았다. 작업 트리 출처는 `tests/screen-progress.test.mjs`, `src/app/screen-index/storybookLinks.ts`, `src/app/screen-index/_components/IaStructurePage.tsx`다. [대조 결과](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/design-source-comparison-2026-10-29.md)를 참고한다.
 
 ## 첨부 디자인 반영 검증 (2026-10-29)
 
 최종 프로덕션 빌드에서 컴파일·타입 검사·58개 정적 페이지 생성이 성공했다. Panda 생성과 변경 소스 ESLint/Prettier·diff 검사·작업 트리 OKF 매핑 검사도 통과했다. UI/서비스 연결 범위는 아래 구현 기록을 따른다.
 
-기존 표시·주문 요약·IA 테스트 15개와 변경 소스 타입/ESLint/Prettier를 통과했다. 1440px PC/390px MO 6개 경로 렌더·알럿/문서 가로 넘침과 스크린샷을 확인했다. 외부 쿠폰 응답·실패/재시도 스토리는 추가했으며 실행 결과는 별도 기록한다. [구현 범위·출처·검증](../architecture/design-implementation-2026-10-29.md).
+기존 표시·주문 요약·IA 테스트 15개와 변경 소스 타입/ESLint/Prettier를 통과했다. 1440px PC/390px MO 6개 경로 렌더·알럿/문서 가로 넘침과 스크린샷을 확인했다. 외부 쿠폰 응답·실패/재시도 스토리는 추가했으며 실행 결과는 별도 기록한다. [구현 범위·출처·검증](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/design-implementation-2026-10-29.md).
 
-후속 검증: 계정/장바구니/주문 요약/IA 모델 19개 및 새 DesignBinding의 PC/MO 쿠폰·취소 4개 play를 통과했다. 쿠폰 실패 후 선택 유지·재시도·제출 payload와 서버 신청 ID 취소를 확인했다. 17개 경로의 PC/MO 렌더와 1024/1025·1199/1200 경계 및 열린 모달 왕복 전환을 확인했다. [기록](../architecture/design-implementation-2026-10-29.md).
+후속 검증: 계정/장바구니/주문 요약/IA 모델 19개 및 새 DesignBinding의 PC/MO 쿠폰·취소 4개 play를 통과했다. 쿠폰 실패 후 선택 유지·재시도·제출 payload와 서버 신청 ID 취소를 확인했다. 17개 경로의 PC/MO 렌더와 1024/1025·1199/1200 경계 및 열린 모달 왕복 전환을 확인했다. [기록](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/design-implementation-2026-10-29.md).
 
 ## 첨부 디자인 재검수 (2026-10-29)
 

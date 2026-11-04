@@ -1,3 +1,10 @@
+## 2026-11-04 Markdown 문서 정리
+
+- 완료된 구조 변경·재사용·디자인 대조·스킬 전환 보고서 9개를 관련 주제에 통합하고, 새 소유권 개념 1개를 추가했다. 상세 원문과 출처·검증 메타데이터는 삭제 전 커밋 고정 링크로 보존한다.
+- 아키텍처 인덱스의 반복 변경 이력을 주제별 탐색으로 정리하고 README·개발 인덱스·스킬 참조와 과거 원문 링크를 갱신했다. 작업 중인 터치 영역 조사와 다른 작업의 소스 변경은 유지한다.
+- 런칭 캘린더 문서의 description 들여쓰기 오류를 바로잡았다. OKF frontmatter 28개 YAML 파싱, 새 로컬 링크 22개와 커밋 고정 링크 51개·원문 9개 존재, 기존 조사 기록·Git 인덱스 보존을 확인했다. 새 소유권 문서·아키텍처 인덱스 Prettier와 Markdown diff 공백 검사를 통과했다. 기존 문서의 전체 서식 경고는 남아 있으며 일괄 재서식하지 않았다.
+- 애플리케이션 코드는 변경하지 않았고 빌드·브라우저 검증·스테이징·커밋은 수행하지 않았다. 기록: codex/gpt-6, 2026-11-04T01:19:32.500Z.
+
 ## 2026-11-03 주문서 마일리지 안내 문구 제거
 
 - 할인·쿠폰 요약의 마일리지 사용 한도 및 최소 보유/사용 단위 안내 두 문구를 제거했다. 기존 쿠폰 선택·안내와 준비된 금액 표시는 유지한다.
@@ -613,7 +620,7 @@ production 서버에서 GNB Featured의 Running Session을 실제 클릭하여 /
 
 - 디자인 가이드 Typography의 빈 Mono 섹션과 전용 목록·스타일을 제거했다. Storybook 브라우저에서 Mono 제목 제거와 한영 비교표·복사 버튼 표시를 확인했다. [변경 범위](architecture/ui.md#디자인-가이드-mono-섹션-제거-2026-10-30).
 
-- 협업 환경의 스킬 누락을 해결하기 위해 `hoka-markup-handoff` 본문과 참조 문서를 `.agents/skills/`에 추가하고 AGENTS·README를 저장소 경로로 전환했다. 개인 설치 없이 동일 스킬을 공유한다. [공유 전환](development/markup-handoff-skill.md#저장소-공유-전환-2026-10-30).
+- 협업 환경의 스킬 누락을 해결하기 위해 `hoka-markup-handoff` 본문과 참조 문서를 `.agents/skills/`에 추가하고 AGENTS·README를 저장소 경로로 전환했다. 개인 설치 없이 동일 스킬을 공유한다. [공유 전환](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/development/markup-handoff-skill.md#저장소-공유-전환-2026-10-30).
 
 - 문의 대기/완료 preview를 하나의 누적 목록으로 통합했다. 기본 예시에 대기·완료 각 1건을 함께 표시하고 IA 187·210을 `/support/inquiries/preview-list`로 연결했다. 기존 두 route를 제거했다. 타입·변경 파일 린트/포맷·Next/Storybook 빌드·관련 테스트 6개와 PC/MO 혼합 목록·답변 토글·IA 링크를 확인했다. [구현과 표시 계약](architecture/publishing-state-previews-2026-10-30.md#문의-목록-통합-2026-10-30).
 
@@ -628,14 +635,14 @@ production 서버에서 GNB Featured의 Running Session을 실제 클릭하여 /
 - Form 가이드를 Figma처럼 케이스별 비교로 구성했다. Input Fields 상태·타입, Dropdown Selection 상태, Checkbox·Radio 선택 상태, Dropdown Menu 목록 타입을 나눠 보여주며 기존 다섯 카테고리 범위와 공통 구현 유지 원칙은 그대로다. [범위와 구분](architecture/routing.md#폼-가이드의-figma-기준-항목-정리-2026-10-30).
 - Form 가이드에 로그인 입력 조합을 임시로 추가했다가 Figma 기준 다섯 항목으로 범위를 좁히면서 로그인 전용 카드를 제거했다. 실제 로그인 화면은 그대로 유지한다. [현재 범위](architecture/routing.md#폼-가이드의-figma-기준-항목-정리-2026-10-30).
 - 로그인 화면 아이디 저장 도움말 주석을 한글 설명 뒤 영문 설명 형식으로 변경했다. 동작과 경로는 바꾸지 않았다. [라우팅 문서](architecture/routing.md#로그인-도움말-주석-언어-2026-10-30).
-- 개인 `hoka-markup-handoff`로 통합한 이전 `component-reusability` 스킬 9개 파일을 삭제하고 AGENTS·README의 활성 참조를 정리했다. 역사적 출처 링크는 삭제 전 커밋으로 보존했다. 개인 스킬은 저장소 배포 범위가 아니다. [전환 범위](development/markup-handoff-skill.md).
+- 개인 `hoka-markup-handoff`로 통합한 이전 `component-reusability` 스킬 9개 파일을 삭제하고 AGENTS·README의 활성 참조를 정리했다. 역사적 출처 링크는 삭제 전 커밋으로 보존했다. 개인 스킬은 저장소 배포 범위가 아니다. [전환 범위](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/development/markup-handoff-skill.md).
 
 - 고정 상태 preview 61개와 screen-index 상태 링크를 추가했다. 기존 표시 UI·전용 URL을 재사용하고 러닝세션 신청내역을 활성 IA 200에 연결했다. UTMB 표시명, 미연결 IA와 미확정 상태 디자인은 [인계 목록](architecture/publishing-state-previews-2026-10-30.md)에 분리했다. 실제 서비스 계약과 preview를 구분한다. 타입·변경 파일 린트/포맷·Next/Storybook 빌드·Node 테스트 105개와 PC/MO 122건의 직접 진입을 확인했다. [검증 범위와 기존 전체 린트 오류](development/verification.md#퍼블리싱-고정-상태-preview-검증-2026-10-30)를 구분해 기록했다.
 
 - 장바구니·로그인을 고정 마크업 확인용으로 단순화하고 빈 목록·로그인 오류 직접 URL 및 IA 링크를 추가했다. 인증·검증·계산·삭제·옵션 저장·결제 이동을 제거하고 최소 UI 조작을 유지했다. 관련 Storybook을 고정 상태 검증으로 전환했다. 프로덕션 빌드·타입·변경 파일 린트·관련 Node 테스트 61개와 Storybook 14개를 통과했다. 전체 린트의 기존 import 오류 9건과 화면 캡처 한계는 [검증 기록](development/verification.md#장바구니로그인-마크업-단순화-검증-2026-10-30)에 남겼다. [현재 인계 기준](architecture/data-binding.md#장바구니로그인-퍼블리싱-인계-전환-2026-10-30).
 
 - 기본 TextInput 포커스 링을 바깥 outline에서 기존 보더 위에 겹치는 안쪽 outline으로 조정했다. boxed FormField와 SearchField의 별도 포커스 방식은 유지한다. [UI 규칙](architecture/ui.md#textinput-포커스-테두리-겹침-2026-10-30). 브라우저 시각 검증은 하지 않았다.
-- 사용자 요청으로 `src/app`의 페이지 전용 UI 분리 패턴을 재적용했다. 30개 페이지의 보조 UI 41개 모듈을 `_components`로 옮기고 프로젝트·스킬 규칙과 IA 생성 그래프를 갱신했다. 새로운 폼 가이드와 기존 상태·바인딩 계약을 보존했다. [작업 범위와 이번 검증](architecture/page-private-components-2026-10-30.md)을 참고한다. 구현 완료 후 사용자가 별도로 커밋·푸시를 요청했으며 예약은 생성하지 않았다.
+- 사용자 요청으로 `src/app`의 페이지 전용 UI 분리 패턴을 재적용했다. 30개 페이지의 보조 UI 41개 모듈을 `_components`로 옮기고 프로젝트·스킬 규칙과 IA 생성 그래프를 갱신했다. 새로운 폼 가이드와 기존 상태·바인딩 계약을 보존했다. [작업 범위와 이번 검증](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/page-private-components-2026-10-30.md)을 참고한다. 구현 완료 후 사용자가 별도로 커밋·푸시를 요청했으며 예약은 생성하지 않았다.
 
 - 퍼블리싱 가이드 폼 탭에 현재 공통 폼 컴포넌트 미리보기와 복사 가능한 사용 코드를 추가했다. 실제 주소 검색·폼 제출 API는 연결하지 않고 제어형 예시는 페이지 내부 상태로 동작한다. [라우팅과 범위](architecture/routing.md#퍼블리싱-가이드-기본-버튼-2026-10-29)를 참고한다.
 
@@ -655,11 +662,11 @@ production 서버에서 GNB Featured의 Running Session을 실제 클릭하여 /
 
 - 사용자 요청으로 IA의 시안 반영·현시안 반영·연동 대기 설명을 비고 데이터와 검색에서 제거했다. 원본 비고·작업 파일·상태는 유지한다. [범위](architecture/routing.md#ia-반영연동-설명-제거-2026-10-29).
 
-- pub-jme를 origin/main으로 리베이스하고 6개 영역의 첨부 디자인을 소스에 반영했다. 주문 PC는 현시안을 적용하며 디자인 수정예정은 유지한다. 상품별 쿠폰·신청 취소·인증 약관 표시 계약을 확장하고 PC/MO를 점검했다. [구현·검증](architecture/design-implementation-2026-10-29.md).
+- pub-jme를 origin/main으로 리베이스하고 6개 영역의 첨부 디자인을 소스에 반영했다. 주문 PC는 현시안을 적용하며 디자인 수정예정은 유지한다. 상품별 쿠폰·신청 취소·인증 약관 표시 계약을 확장하고 PC/MO를 점검했다. [구현·검증](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/design-implementation-2026-10-29.md).
 
 - 기존 JSX props 예시와 퍼블리싱 가이드의 import 관계를 IA 생성 그래프에 반영했다. 생성 명령과 생성기 테스트 1개를 통과했다. [범위](architecture/routing.md#ia-생성-그래프-최신화-2026-10-29).
 
-- 사용자 첨부 6개 영역 디자인과 퍼블리싱 소스를 대조하고 수급·수정 상태 및 검색 가능한 IA 검토 비고를 갱신했다. 주문 PC 디자인은 수정예정이며 장바구니 MO 퍼블리싱 완료는 유지한다. UI 구조 누락과 실제 서비스 연결 대기를 구분했다. [범위·근거·검증](architecture/design-source-comparison-2026-10-29.md).
+- 사용자 첨부 6개 영역 디자인과 퍼블리싱 소스를 대조하고 수급·수정 상태 및 검색 가능한 IA 검토 비고를 갱신했다. 주문 PC 디자인은 수정예정이며 장바구니 MO 퍼블리싱 완료는 유지한다. UI 구조 누락과 실제 서비스 연결 대기를 구분했다. [범위·근거·검증](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/design-source-comparison-2026-10-29.md).
 
 - 사용자 확인으로 아이핀 인증 IA 235의 PC/MO 퍼블리싱을 대기로 정정했다. 디자인 미수급은 유지한다. [상태 반영 근거](architecture/ia-design-audit.md#퍼블리싱-비교와-제한).
 
@@ -794,7 +801,7 @@ production 서버에서 GNB Featured의 Running Session을 실제 클릭하여 /
 
 - AccountPageLayout을 common/layouts로 이동하고 로그인·가입·휴대폰 인증 소비처 import를 갱신했다. [현재 소유권](architecture/ui.md#accountpagelayout-공통-레이아웃-경로-복귀-2026-10-28)을 참고한다.
 
-- 보조 TS 모듈 33개를 현재 사용처에 맞춰 이동하고 비밀번호 검증 중계 파일 1개를 제거했다. import·스토리·타입·테스트와 현재 출처를 함께 갱신했다. [이동 목록과 검증](architecture/ts-module-ownership-2026-10-28.md)을 참고한다.
+- 보조 TS 모듈 33개를 현재 사용처에 맞춰 이동하고 비밀번호 검증 중계 파일 1개를 제거했다. import·스토리·타입·테스트와 현재 출처를 함께 갱신했다. [이동 목록과 검증](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/ts-module-ownership-2026-10-28.md)을 참고한다.
 
 - MainSection·OrderActionBar·ModalDialog를 common/layouts로 이동하고 호출부·선언 계약·전용 스토리 5개의 경로와 Layouts 분류를 갱신했다. [범위와 검증](architecture/ui.md#공통-레이아웃-3개-계층-이동-2026-10-28)을 참고한다.
 
@@ -816,7 +823,7 @@ production 서버에서 GNB Featured의 Running Session을 실제 클릭하여 /
 
 - 폴더 깊이·반응형·Badge 표현 옵션의 판단 기준을 AGENTS.md와 component-reusability 스킬에 반영하고 folder-and-responsive 참조를 추가했다. 사용자 승인 범위와 기존 컴포넌트/Storybook 계약을 보존하도록 명시했다.
 
-- UA 판별을 1024px 화면 폭 구독으로 전환하고 PC 1200px 캔버스·포털·명시적 Storybook 모드를 유지했다. 단일 구현 폴더 60개를 평탄화하고 Badge의 status/promotion 옵션으로 두 배지를 통합했다. 테스트 77개·빌드와 경계 폭 검증은 [구현 기록](architecture/responsive-platform-2026-10-28.md)을 참고한다.
+- UA 판별을 1024px 화면 폭 구독으로 전환하고 PC 1200px 캔버스·포털·명시적 Storybook 모드를 유지했다. 단일 구현 폴더 60개를 평탄화하고 Badge의 status/promotion 옵션으로 두 배지를 통합했다. 테스트 77개·빌드와 경계 폭 검증은 [구현 기록](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/responsive-platform-2026-10-28.md)을 참고한다.
 
 - 사용자 제공 퍼블리싱 WBS의 계획 날짜·작업자를 IA에 갱신했다. 카테고리 상위와 상품 목록·상세, 검색·검색결과 및 SUPPORT/Company 매핑을 보완하고 실제 완료 상태는 유지했다. [갱신 계약](architecture/ui.md#ia-wbs-계획표-갱신-2026-10-28)을 참고한다.
 
@@ -858,13 +865,13 @@ production 서버에서 GNB Featured의 Running Session을 실제 클릭하여 /
 
 - 재사용 스킬에 단일 운영 부모의 재귀 통합, 공통 UI 포함 범위, 경계 예외와 타입·Storybook 참조 처리 기준을 명문화했다. 도메인 폴더 승격 경로와 기존 분리 지침도 조정했으며 스킬 validator를 통과했다. [스킬](https://github.com/nalpari/hoka-fo-pub/blob/27b7e2f5b2c5e21681af53df27a535f3f13aa170/.codex/skills/component-reusability/SKILL.md) · [단일 부모 워크플로](https://github.com/nalpari/hoka-fo-pub/blob/27b7e2f5b2c5e21681af53df27a535f3f13aa170/.codex/skills/component-reusability/references/single-parent-consolidation.md).
 
-- 전체 단일 부모 TSX 389개를 50개 부모로 연쇄 통합하고 남은 도메인 파일 55개를 src/components/{도메인}으로 승격했다. 스토리·타입 계약·별칭과 OKF 매핑, component-reusability 스킬을 함께 갱신했다. [이동·예외·검증 기록](architecture/single-parent-consolidation-2026-10-28.md).
+- 전체 단일 부모 TSX 389개를 50개 부모로 연쇄 통합하고 남은 도메인 파일 55개를 src/components/{도메인}으로 승격했다. 스토리·타입 계약·별칭과 OKF 매핑, component-reusability 스킬을 함께 갱신했다. [이동·예외·검증 기록](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/single-parent-consolidation-2026-10-28.md).
 
 - **Update**: IA 구조도를 `/screen-index` 독립 페이지로 분리하고 쇼핑몰 헤더·푸터와 기존 IA 스토리를 제외했다. 검색·필터·트리와 Storybook PC/MO 미리보기를 유지하며 `NEXT_PUBLIC_STORYBOOK_URL`로 미리보기 호스트를 설정한다. [라우팅](architecture/routing.md#ia-구조도-독립-페이지-2026-10-28)과 [UI 기록](architecture/ui.md#ia-구조도-독립-페이지-2026-10-28)에 작업 트리 출처를 기록했다. 변경 파일 ESLint와 diff 공백 검사를 통과했고 로컬 `/screen-index`의 HTTP 200 및 IA 본문 응답을 확인했다. 브라우저 상호작용과 빌드 manifest 기반 라우트 테스트는 실행하지 않았다.
 
 ## 2026-10-28
 
-- **Refactor**: 상품 필터 컨테이너를 부모에 합치고 정렬 드롭다운 이름과 공통 옵션 정의를 정리했다. Desktop/Mobile 운영 12개와 Storybook 45개를 전수조사했으며, 사용자 지정 범위의 단일 부모 자식 9개는 부모 내부로 옮겨 파일을 제거했다. 플랫폼별 상태·배치·상호작용은 유지한다. 타입·린트·포맷·Next/Storybook 빌드와 테스트 62개, PC/Mobile 주요 브라우저 흐름을 확인했다. [전수조사 기록](architecture/platform-component-audit-2026-10-28.md)에 처리 내역과 범위를 기록했다.
+- **Refactor**: 상품 필터 컨테이너를 부모에 합치고 정렬 드롭다운 이름과 공통 옵션 정의를 정리했다. Desktop/Mobile 운영 12개와 Storybook 45개를 전수조사했으며, 사용자 지정 범위의 단일 부모 자식 9개는 부모 내부로 옮겨 파일을 제거했다. 플랫폼별 상태·배치·상호작용은 유지한다. 타입·린트·포맷·Next/Storybook 빌드와 테스트 62개, PC/Mobile 주요 브라우저 흐름을 확인했다. [전수조사 기록](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/platform-component-audit-2026-10-28.md)에 처리 내역과 범위를 기록했다.
 
 - **Docs**: 현재 폴더 구조와 페이지 소유권 정책을 재사용 스킬에 반영했다. 경로 깊이와 무관한 전용 화면 배치, 공유 상태 훅·표시 구성요소의 경계, Storybook의 실제 페이지 사용과 구 구조 변경 이식 절차를 [스킬](https://github.com/nalpari/hoka-fo-pub/blob/27b7e2f5b2c5e21681af53df27a535f3f13aa170/.codex/skills/component-reusability/SKILL.md) 및 [페이지 소유권 참조](https://github.com/nalpari/hoka-fo-pub/blob/27b7e2f5b2c5e21681af53df27a535f3f13aa170/.codex/skills/component-reusability/references/page-ownership.md)에 명문화했다. 스킬 validator를 통과했다.
 
@@ -1149,9 +1156,9 @@ production 서버에서 GNB Featured의 Running Session을 실제 클릭하여 /
 
 - **Fix**: 사용자 최신 첨부에 따라 모바일 상품목록 필터 버튼을 제목 오른쪽 알약형으로 원복하고, 카테고리 탭 오른쪽 아이콘과 사용하지 않는 iconOnly API를 제거했다. [원복 기록](architecture/ui.md#모바일-상품목록-필터-버튼-원복-2026-10-21)을 참고한다.
 
-- **Refactor**: [전체 소스 재사용 조사](architecture/component-reusability-2026-10-21.md#8-코드-적용-2026-10-21)의 금액 행·추천 데이터·소셜 버튼·compact/muted 입력·모바일 레일·폼 액션과 기능 내부 구성을 코드에 적용했다. 상품목록 제목 variant와 PC 검색 비모달 Dialog도 연결했다. UI·상태·목 데이터 문서에 책임과 검증 범위를 기록했다.
+- **Refactor**: [전체 소스 재사용 조사](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/component-reusability-2026-10-21.md#8-코드-적용-2026-10-21)의 금액 행·추천 데이터·소셜 버튼·compact/muted 입력·모바일 레일·폼 액션과 기능 내부 구성을 코드에 적용했다. 상품목록 제목 variant와 PC 검색 비모달 Dialog도 연결했다. UI·상태·목 데이터 문서에 책임과 검증 범위를 기록했다.
 
-- **Audit**: src 전체 833파일(TS/TSX 832개)을 운영/공용·앱 601개, 스토리 218개, 개발 fixture 9개, Mockup 4개와 전역 스타일로 구분해 재점검했다. [재사용 보고서](architecture/component-reusability-2026-10-21.md)에 기존 API 활용 7개·추출/API 개선 9개·Base UI 후보 3개·텍스트 스케일 1개 및 유지 사유를 기록했다. 설치 Base UI 1.8.0 전체 exports와 공식 카탈로그를 대조했으며 코드 이관·의존성 변경·런타임/빌드 검증은 수행하지 않았다.
+- **Audit**: src 전체 833파일(TS/TSX 832개)을 운영/공용·앱 601개, 스토리 218개, 개발 fixture 9개, Mockup 4개와 전역 스타일로 구분해 재점검했다. [재사용 보고서](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/component-reusability-2026-10-21.md)에 기존 API 활용 7개·추출/API 개선 9개·Base UI 후보 3개·텍스트 스케일 1개 및 유지 사유를 기록했다. 설치 Base UI 1.8.0 전체 exports와 공식 카탈로그를 대조했으며 코드 이관·의존성 변경·런타임/빌드 검증은 수행하지 않았다.
 
 - **Refactor**: 품목별 측정 방법과 신발 발볼 안내를 공통 SizeGuideMeasurementMethod로 분리했다. title/steps/description으로 조합하며 기존 목록·문구·간격·조건부 표시를 유지한다. [사이즈 가이드](architecture/size-guide.md)에 반영했다.
 

@@ -1,7 +1,7 @@
 ---
 type: Architecture
 title: 런칭 캘린더
- description: 런칭 캘린더 시안과 직접 URL 및 표시 전용 인계 경계를 설명한다.
+description: 런칭 캘린더 시안과 직접 URL 및 표시 전용 인계 경계를 설명한다.
 tags: [launch-calendar, figma, publishing, ia]
 status: draft
 source_revision: c69358e5221beb6df59a17886835b44505b7a4dc
