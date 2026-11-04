@@ -4,12 +4,13 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-04T02:27:53Z'
+updated: '2026-11-04T03:56:26Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/app/screen-index/screenDevelopers.ts
   - src/app/support/inquiries/new/order-products/_components/InquiryOrderLookup.tsx
   - src/app/mypage/orders/_components/OrderClaimRequest.tsx
   - src/app/mypage/orders/_components/OrdersPage.tsx
@@ -985,7 +986,25 @@ sources:
 
 # 컴포넌트와 스타일
 
+## STATE 공통 사항의 상위 표시 (2026-11-04)
+
+화면이 없는 D3 분류 행에서도 직접 하위 목록·상세가 공유하는 파일을 한 번만 표시한다. 주문배송 조회 D3는 공통 11개 파일을 표시하고 목록/상세 D4와 STATE에는 진입·고유 파일만 남는다. 취소/반품 D3도 해당 분류에서 따로 모으며, D2까지 과도하게 이동하지 않는다. 필터 결과가 자식 하나이면 그 화면에 파일을 다시 표시한다. 출처: screenConnections.ts의 getSiblingScreenSourceFiles와 IaStructurePage.tsx의 분류 파일·상속 표시. 기록: codex/gpt-6, 2026-11-04T03:56:26Z.
+
+반복되는 상태 공통 파일은 각 화면의 상위 작업 파일 칸에 모으고 STATE 행에서는 제거했다. 화면 계층에서도 현재 표시된 상위 IA와 같은 파일은 하위 IA에 반복하지 않는다. 회원 정보 입력은 D3에만 공통 파일을 표시하고 D4·D5에는 고유 파일과 상태 링크를 유지한다. 필터로 상위 화면이 사라지면 현재 하위 화면에 파일을 복원한다. 진입 page와 상태 전용 파일은 해당 행에 유지한다. `_components/`·상품 목록 공용 파일의 기존 비고 배치, 상품 공통 수동 비고 묶음·담당자 필터·7열 표는 유지한다. 분류 기준과 출처는 [STATE 공통 파일](routing.md#state-공통-파일-상위-정리-2026-11-04), 실제 확인은 [검증 기록](../development/verification.md#state-공통-파일-정리-검증-2026-11-04)을 따른다. 기록: codex/gpt-6, 2026-11-04T03:47:45Z.
+
 에러·최근 본 상품 빈 화면·마이페이지 주문 요약의 최신 가이드 적용값과 검증 범위는 [에러·빈 상태 가이드](error-empty-guide.md)에 기록한다. `EmptyState` page/content 옵션을 추가하며 기존 standard/minimal/plain 기본값은 유지한다. 작업 트리 출처: `src/components/common/atoms/EmptyState.tsx`, `src/components/common/organisms/SystemStatusPage.tsx`, `src/components/mypage/MyPageProductHistory.tsx`, `src/app/mypage/_components/MyPageContent.tsx` (2026-11-04).
+
+## IA 기본 상태·비고 배치 후속 정리 (2026-11-04)
+
+모든 기본 페이지 링크를 하위 STATE 기본 행으로 이동하고 기존 WBS 기간 자리를 개발담당자로 바꿔 표를 7열로 정리했다. 담당자 링크는 Stack의 flex-start 정렬로 텍스트 폭에 맞추며, 별도 담당자 필터와 미지정 선택·초기화를 제공한다. 상위 화면 비고는 `_components/` 파일을 모아 표시한다. 상품 목록만 공용 구현·데이터 파일도 그 비고로 모아 상태 행을 page 진입 파일로 한정하며, 상품 상세와 다른 화면은 이 추가 정리에서 제외한다. 상품 목록·상세의 수동 비고 묶음 두 개만 상품 공통 D1 행으로 이동했다. 파일 표시와 다른 영역 비고는 해당 소유자에 유지한다. 상태 필터와 전체 접기 버튼은 제거하고 검색·담당자 필터와 개별 계층 접기는 유지한다. 아래 최초 8열/1450px 배치는 이 후속 7열/1300px 배치로 대체된다.
+
+계약과 출처는 [기본 STATE와 담당자 필터](routing.md#기본-state와-담당자-필터-2026-11-04), 실제 검사 범위는 [변경 검증](../development/verification.md#ia-기본-state와-담당자-필터-검증-2026-11-04)을 따른다. 기록: codex/gpt-6, 2026-11-04T02:14:31Z.
+
+## IA 담당자 열과 상태별 파일 표시 (2026-11-04)
+
+IaStructurePage의 기존 두 행 표를 8열로 확장해 WBS 기반 개발담당자를 별도 열로 표시한다. 기존 수동 비고·상태 값·미리보기 URL·조회 필터와 다른 채팅의 24px 조작 영역 수정을 유지한다. SourceFiles와 ScreenDevelopers는 해당 페이지 모듈의 private 표시 컴포넌트이며, 상태 행별 파일과 담당자를 분리한다. 상세 계약과 WBS 출처는 [라우팅과 플랫폼](routing.md#ia-상태별-작업-파일과-개발담당자-2026-11-04)에 기록했다. 모바일은 표 내부 가로 스크롤로 1450px 최소 폭과 담당자 열을 탐색한다. 고정 상태 URL에 따른 파일 분류이며 실제 일일 변경 이력을 표시하는 기능은 이번 수정에 포함하지 않는다.
+
+출처: src/app/screen-index/_components/IaStructurePage.tsx, screenConnections.ts, screenDevelopers.ts 작업 트리. 1506px PC·390px 모바일 표시, 138개 상태 행의 파일, 8열 rowspan/colspan 배치와 담당자 이름 검색을 브라우저에서 확인했다. 전체 제품 화면의 시각 회귀는 수행하지 않았다. 기록: codex/gpt-6, 2026-11-04T01:55:40Z.
 
 ## 장바구니 선택·품절 표시 (2026-11-02)
 

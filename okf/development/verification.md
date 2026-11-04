@@ -4,12 +4,13 @@ title: '변경 검증'
 description: '변경 범위에 맞는 정적 검사, 빌드와 수동 검증을 안내한다.'
 tags: [verification, testing, build]
 status: draft
-updated: '2026-11-03T04:39:33.306Z'
+updated: '2026-11-04T03:56:26Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/screen-index/screenDevelopers.ts
   - src/components/common/molecules/ProductCard/ProductCard.tsx
   - src/components/common/molecules/ProductOptionList.tsx
   - src/types/component-contracts/components-common-molecules-ProductCard-ProductCard.d.ts
@@ -132,6 +133,32 @@ sources:
 ---
 
 # 변경 검증
+
+## STATE 공통 파일 정리 검증 (2026-11-04)
+
+화면 없는 분류 행의 형제 파일 수집 검사를 추가해 Node 검사 24개·타입·변경 소스 ESLint/Prettier를 통과했다. 주문배송 조회와 취소/반품의 파일은 각각 D3에 모이고 D2로 합쳐지지 않으며, page 제외·단일 자식의 복원을 확인한다. 브라우저에서 주문배송 조회 D3의 공통 파일 11개, 목록/상세 D4의 중복 파일 없음과 목록 단독 검색 시 파일·기본/상태 링크 유지를 확인했다. 390px 모바일 document 가로 넘침 없음도 확인했다. 출처: tests/preview-links.test.mjs와 screenConnections.ts·IaStructurePage.tsx 작업 트리. 이전 23개 결과는 분류 소유자 추가 전 검증이다. 기록: codex/gpt-6, 2026-11-04T03:56:26Z.
+
+후속 계층 중복 제거에서 Node 검사 23개·타입·변경 소스 ESLint/Prettier를 통과했다. 추가 검사는 D3 상위 파일 상속·D4/D5 중복 제거, 상위가 필터에서 빠진 경우의 복원과 형제 화면의 비상속을 확인한다. 브라우저에서 RegistrationStatePreview.tsx가 전체 표에 한 번만 표시되고 D3에는 두 공통 컴포넌트, D4·D5에는 중복 컴포넌트가 없음을 확인했다. 마케팅 수신내역 URL로 검색해 D3가 사라지면 D5에 두 컴포넌트와 해당 page가 표시되는 것을 확인했다. 390px 모바일에서 document 가로 넘침이 없음을 재확인했다. 출처는 같은 screen-index 소스와 preview-links 검사이며, 아래 22개 결과는 계층 중복 제거 전 상태다. 기록: codex/gpt-6, 2026-11-04T03:47:45Z.
+
+기존 preview-links 검사에 상품 상세의 공통 데이터 3개 수집, 동일 연결·URL 중복 집계 방지, 단일 상태의 비공통 판정과 동적 page 진입 파일 유지 검사를 추가했다. Node 검사 22개·타입 검사·변경 소스 ESLint/Prettier를 통과했다. 출처: tests/preview-links.test.mjs, src/app/screen-index/screenConnections.ts, _components/IaStructurePage.tsx 작업 트리.
+
+로컬 브라우저 1506px PC에서 상품 상세의 productDetailPresentation.ts·productInquiries.ts·care.data.ts가 상위 행에 한 번만 표시되고 기본/입고 알림/문의 없음/옵션 안내 네 STATE 행에는 각 page만 남는 것을 확인했다. 390px 모바일은 1300px 표의 내부 스크롤을 유지하며 document 가로 넘침이 없다. 전체 표시 상태의 STATE 198개 모두에 page 진입 파일이 남고 상품 공통 비고 두 묶음도 유지됨을 DOM으로 확인했다. 전체 제품 화면의 시각 회귀·플랫폼 경계·프로덕션 빌드는 재실행하지 않았다. 기록: codex/gpt-6, 2026-11-04T03:44:25Z.
+
+## IA 기본 STATE와 담당자 필터 검증 (2026-11-04)
+
+최종 후속 변경에서 Node 검사 21개·타입 검사·변경 소스 ESLint/Prettier·Panda·diff 검사를 통과했다. PC 브라우저에서 상태 필터와 전체 접기 버튼 없음, 상품 공통 D1 행에 `상품 목록 비고 5건`·`상품 상세 비고 1건` 표시 및 각 화면 행의 비고 묶음 제거를 확인했다. 상품 목록 상태는 page 진입 파일만 표시하고 상품 상세 데이터 파일 위치는 유지한다. 담당자 단독·공동 담당자 화면 포함, 미지정·검색 조합의 Empty와 전체 초기화 후 검색어/담당자 해제를 확인했다. 390px 모바일의 담당자 필터 표시와 document 가로 넘침 없음·198개 상태 행 유지를 확인했다. 최종 도구 모음에는 검색·개발담당자 필터만 남으며 아래 상태 필터 조합 검사 이력은 제거 전 확인이다. 기록: codex/gpt-6, 2026-11-04T02:19:52Z.
+
+기본 링크의 STATE 이동·중복 URL 방지, 독립 기본 경로만 있는 화면, 상위 `_components/` 수집과 상품 목록에 한정한 공용 파일 수집, 공동 담당자의 개별 선택 및 미지정/삭제 구분을 기존 preview-links 검사에 추가했다. 소스 출처는 src/app/screen-index/_components/IaStructurePage.tsx, screenConnections.ts, screenDevelopers.ts, tests/preview-links.test.mjs 작업 트리다. 화면과 선택 기능을 새 API나 서비스 요청으로 연결하지 않았다.
+
+후속 배치의 브라우저 검사에서 기본 STATE 66개·상태 행 총 198개, 본문 밖 기본 페이지 링크 없음, 상태 행에 `_components/` 반복 없음과 헤더/본문 7열 rowspan/colspan 유효성을 확인했다. 마이페이지 index의 상위 비고에 MyPageContent.tsx, 하위 기본 행에 app/mypage/page.tsx가 표시되는 것을 확인했다. 담당자 링크는 PC에서 359.5px 셀 안의 81.02px 폭으로 축소됐으며 390px 모바일은 표 내부 스크롤을 유지했다. 이 수치는 후속 필터 추가 전 전체 표시 상태 측정이며 담당자 선택 시 행 수는 달라진다. 전체 제품 화면 시각 회귀·프로덕션 빌드는 수행하지 않았다. 기록: codex/gpt-6, 2026-11-04T02:14:31Z.
+
+## IA 개발담당자와 상태별 파일 검증 (2026-11-04)
+
+`preview-links.test.mjs`에 상태 파일 분리·정적 우선·동적 문의 URL·query/hash 경로 공유·전체 활성 preview의 파일 존재 검사와 WBS 상품/검색·주문서 배송지·미지정/삭제 담당자 검사를 추가했다. 기존 screen-files·screen-progress와 함께 Node 테스트 19개, TypeScript 검사, 변경 TS/TSX ESLint·Prettier, Panda 생성과 diff 공백 검사를 통과했다. WBS Schedule의 직접 조회 결과와 48개 코드 내 WBS 참조의 담당자 이름·행 번호를 별도 AST 검사로 대조해 일치를 확인했다.
+
+로컬 `/screen-index` 브라우저에서 138개 상태 행에 파일이 표시되고 헤더·본문 8열 rowspan/colspan 그리드가 유효함을 확인했다. 1506px PC·390px 모바일 화면과 담당자 이름 검색을 확인했다. 플랫폼 전환 완료를 기다린 뒤 1024/1025·1199/1200px를 재측정했으며 모바일과 1200px 이상은 document 가로 넘침이 없고 1025~1199px는 기존 1200px canvas를 유지한다. 모바일의 넓은 표는 기존 컨테이너 내부에서 가로 스크롤한다. 명시 플랫폼 preview·열린 overlay·전체 상품 화면 시각 회귀·프로덕션 빌드·배포 검증은 이번 범위에서 재실행하지 않았다.
+
+출처: tests/preview-links.test.mjs, src/app/screen-index/screenConnections.ts, screenDevelopers.ts, _components/IaStructurePage.tsx 작업 트리와 WBS 직접 조회 및 로컬 브라우저 실행. 기록: codex/gpt-6, 2026-11-04T01:55:40Z.
 
 ## 장바구니·로그인 마크업 단순화 검증 (2026-10-30)
 

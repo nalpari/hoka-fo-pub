@@ -4,12 +4,13 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-04T02:27:53Z'
+updated: '2026-11-04T03:56:26Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/screen-index/screenDevelopers.ts
   - src/app/checkout/_components/CheckoutDiscountSummary.tsx
   - src/app/screen-index/screenProgress.ts
   - src/components/common/molecules/OrderProductSummary.tsx
@@ -319,7 +320,39 @@ sources:
 
 # 라우팅과 플랫폼
 
+## STATE 공통 파일 상위 정리 (2026-11-04)
+
+실제 화면이 없는 분류 행도 파일 소유자가 될 수 있다. `getSiblingScreenSourceFiles`는 현재 표시된 직접 하위 화면 둘 이상이 공유하는 비page 파일을 바로 위 분류 경로에 모은다. 주문배송 조회의 목록·상세가 공유하는 OrdersPage.tsx 등 11개 파일은 D3 주문배송 조회에 표시하며 D4와 STATE에서는 반복하지 않는다. 취소/반품은 해당 D3에서 따로 정리하고 두 D3가 같은 파일을 쓴다는 이유로 D2 구매내역까지 올리지 않는다. 하나의 자식만 필터 결과에 남으면 공통 묶음을 만들지 않고 그 자식 화면에 파일을 유지한다. 진입 page·고유 파일·담당자·상태 연결은 그대로다.
+
+추가 사용자 지시로 화면 계층 사이에서도 상위 화면이 이미 표시하는 파일을 하위 화면과 STATE에 중복하지 않는다. `getAncestorScreenSourceFiles`는 현재 검색·담당자 필터 결과에 존재하는 실제 상위 IA의 표시 파일만 상속한다. 회원 정보 입력 D3의 RegistrationStatePreview.tsx·RegistrationContent.tsx는 D3에만 표시하고 부가정보 D4·마케팅 수신내역 D5에서는 제거한다. 기본·상태 URL과 고유 파일은 유지한다. 필터로 D3가 제외되면 현재 남은 하위 화면에 공통 파일을 다시 표시해 확인 경로를 잃지 않는다. 같은 계층의 형제 화면은 상위 소유자로 취급하지 않는다.
+
+후속 사용자 요청으로 같은 화면의 서로 다른 상태 URL 두 개 이상이 사용하는 공통 인계 파일을 상위 화면의 작업 파일 행에 한 번만 표시한다. `getSharedStateSourceFiles`는 기존 URL별 import 그래프 결과를 집계하며 동일 URL을 여러 IA가 공유해도 중복 횟수로 세지 않는다. 동적 route를 포함한 page 진입 파일은 상위로 이동하지 않는다. `_components/`는 기존 상위 비고 위치를 유지하고, 한 상태에서만 쓰는 나머지 파일은 해당 STATE 행에 남긴다.
+
+상품 상세의 productDetailPresentation.ts·productInquiries.ts·care.data.ts는 상위 작업 파일 행으로 모였으며 기본·입고 알림·문의 없음·옵션 안내 행에는 각 진입 파일이 남는다. 상품 목록의 기존 공용 파일 비고 배치와 상품 공통 D1의 수동 비고 묶음은 유지한다. 다른 화면의 STATE에도 같은 공통 파일 기준을 적용한다. 아래 이전 단계의 공용 파일 반복 표시는 이 후속 기준으로 대체된다. 기존 getScreenConnection/getRouteSourceFiles의 전체 연결 결과·URL·담당자·상태 값은 바꾸지 않는다.
+
+출처: src/app/screen-index/screenConnections.ts, _components/IaStructurePage.tsx와 tests/preview-links.test.mjs 작업 트리. 기록: codex/gpt-6, 2026-11-04T03:56:26Z.
+
 2026-11-04 에러·빈 상태 가이드 반영은 기존 `/preview-not-found`, `/service-unavailable`, `/maintenance`, `/mypage/recent/preview-empty`, `/mypage/preview-no-orders` 표시만 수정한다. 신규 route·IA 연결이나 플랫폼 판정 변경은 없다. 마이페이지 route-private 소유자는 `src/app/mypage/_components/MyPageContent.tsx`를 유지한다. 적용값과 실제 확인은 [에러·빈 상태 가이드](error-empty-guide.md)를 참고한다.
+
+## 기본 STATE와 담당자 필터 (2026-11-04)
+
+후속 사용자 지시로 실제 페이지 링크를 모든 화면의 하위 `STATE 기본 | 상태 | 보기` 행으로 이동했다. 기존 기본 URL의 query/hash는 유지하고 이미 같은 URL인 상태는 중복하지 않는다. 상품 공통 템플릿은 카테고리마다 기본 행을 늘리지 않고 현재 대표 상품 URL과 검색 진입점을 각각 유지한다. 독립 기본 URL이 없는 화면은 기존 상태 URL만 표시한다.
+
+기존 WBS 작업 기간 자리는 개발담당자로 대체했다. 별도로 추가했던 우측 담당자 열과 작업 기간 전용 데이터·그룹 보조 행을 제거해 7열·1300px 최소 폭으로 정리했다. 담당자 링크는 이름 길이에 맞는 폭이며 원본 WBS 행 링크를 유지한다. 담당자 필터는 전체·개별 이름·미지정을 제공하고 공동 담당은 이름별로 선택할 수 있다. 검색과 AND 조건으로 적용하며 전체 초기화는 담당자 선택과 검색어를 해제한다. 화면 체계 NAV 전환은 선택한 담당자를 유지한다. 후속 사용자 지시로 상태 필터와 전체 접기/펼치기 버튼·전용 상태를 제거하고 개별 계층의 접기/펼치기는 유지한다.
+
+`getScreenComponentFiles`는 화면·상태가 사용하는 `_components/` 파일을 import 그래프로 확인해 상위 화면 비고에 모은다. 상태 행에서는 이 파일을 반복하지 않는다. 사용자 한정 지시에 따라 **상품 목록만** 공용 구현·데이터 파일도 상위 비고에 모으고 상태 행에는 page 진입 파일만 표시한다. 상품 상세 및 다른 화면은 `_components/`만 상위로 이동하며 그 밖의 인계 파일은 기존 작업 파일·상태 행에 유지한다. 이 배치가 아래 최초 8열 설명을 대체한다.
+
+상품 공통 화면에 한정해 상품 목록·상세의 수동 비고 묶음 두 개만 D1 공통 행의 기존 `확정 IA 기준 화면 영역` 칸으로 이동했다. ProductNotes는 각각의 제목·건수와 원래 비고 내용·연결 분류 경로를 유지한다. 목록·상세의 구현 파일은 해당 화면 행에 남고, 다른 영역의 수동 비고 위치는 변경하지 않는다.
+
+출처: src/app/screen-index/_components/IaStructurePage.tsx, screenConnections.ts, screenDevelopers.ts와 tests/preview-links.test.mjs 작업 트리. 기록: codex/gpt-6, 2026-11-04T02:19:52Z.
+
+## IA 상태별 작업 파일과 개발담당자 (2026-11-04)
+
+IA 표에 고정 개발담당자 열을 추가했다. `screenDevelopers.ts`는 [WBS Schedule](https://docs.google.com/spreadsheets/d/1BAxtSHBSp8DguH0gv2EbnEpqHZhZEez66eyTSmAcG6w/edit?gid=1070650770)의 FO 개발(5.3.2)·X열 파트·Y열 담당을 2026-11-04에 확인한 표시 데이터다. 내부 IA 번호와 상품 템플릿 코드로 연결하며 커밋 작성자와 구분한다. 담당 공란인 마이페이지 메인·확인되지 않은 화면은 미지정, 삭제 화면은 `-`로 표시한다. 검색은 성인환, 상품 목록은 박혜리, 상품 상세는 박기홍이며 주문서의 배송지 수동입력 상태는 김진영이다. 담당자 링크는 확인한 WBS 행을 열고, 이름·업무 영역으로 IA를 검색할 수 있다. 실시간 Sheets 조회는 구현하지 않는다.
+
+`getScreenConnection`의 전체 파일 계약은 유지한다. 새 `getRouteSourceFiles`는 URL pathname에 대응하는 실제 page 진입점부터 기존 import 그래프의 인계 파일을 탐색한다. 정적 경로를 동적 경로보다 우선하며 query/hash 상태는 같은 진입 파일을 공유한다. 기본 화면에는 기본 경로 파일만 표시하고 각 STATE 행에는 해당 상태의 진입·공용 파일을 개별 표시한다. 상품 요약은 상품과 검색의 서로 다른 상태 URL도 합쳐 누락 없이 표시하며 상태 담당자는 해당 URL 소유 화면으로 한정한다. 표는 개발담당자 열을 포함해 8열이며 상태별 파일 셀을 병합하지 않는다.
+
+출처: 위 세 screen-index 작업 트리 파일과 WBS Schedule B267:Y351 직접 조회. 실제 검사와 한계는 [변경 검증](../development/verification.md#ia-개발담당자와-상태별-파일-검증-2026-11-04)을 따른다. 기록: codex/gpt-6, 2026-11-04T01:55:40Z.
 
 ## 상품상세 사이즈 추천 1차 제외 (2026-11-03)
 

@@ -744,26 +744,195 @@ function getRegisteredConnection(screen: ScreenDefinition): ScreenConnection {
 }
 /** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 콘텐츠 연결 소유자가 표시 모델과 식별자·입력/선택 payload, 요청 중/실패/성공/재시도 및 응답 갱신을 별도로 구현해야 합니다. */
 const resolvedSourceFiles = new Map<string, string[]>();
+
 const bindingFiles = new Set(sourceGraph.bindingFiles);
-export function getScreenConnection(screen: ScreenDefinition): ScreenConnection {
-  const connection = getRegisteredConnection(screen);
-  const key = connection.sourceFiles.join('\n');
+
+const graph: Record<string, string[]> = sourceGraph.imports;
+
+const routeSourceFiles = new Map<string, string[]>();
+
+const pageFiles = Object.keys(graph).filter(
+  (file) => /^src\/app\/.*\/page\.[jt]sx?$/.test(file) || file === 'src/app/page.tsx',
+);
+
+function resolveSourceFiles(roots: string[], includePrivateComponents = false) {
+  const key = String(includePrivateComponents) + ':' + roots.join('\n');
   const cached = resolvedSourceFiles.get(key);
-  if (cached) return { ...connection, sourceFiles: cached };
-  const graph: Record<string, string[]> = sourceGraph.imports;
+  if (cached) return cached;
   const visited = new Set<string>();
-  const sourceFiles: string[] = [];
-  const pending = [...connection.sourceFiles];
+  const files: string[] = [];
+  const pending = [...roots];
   for (let index = 0; index < pending.length; index++) {
     const file = pending[index];
-    if (visited.has(file)) continue;
+    if (visited.has(file) || !Object.hasOwn(graph, file)) continue;
     visited.add(file);
-    if (!Object.hasOwn(graph, file)) continue;
-    if (connection.sourceFiles.includes(file) || bindingFiles.has(file)) sourceFiles.push(file);
-    // 화면이 소비하는 전역 서비스 소유자까지만 안내하고 헤더·푸터 전체로 확장하지 않는다.
-    if (file === 'src/context/ShopShell.tsx' && !connection.sourceFiles.includes(file)) continue;
+    if (
+      roots.includes(file) ||
+      bindingFiles.has(file) ||
+      (includePrivateComponents && file.includes('/_components/'))
+    )
+      files.push(file);
+    if (file === 'src/context/ShopShell.tsx' && !roots.includes(file)) continue;
     pending.push(...graph[file]);
   }
-  resolvedSourceFiles.set(key, sourceFiles);
-  return { ...connection, sourceFiles };
+  resolvedSourceFiles.set(key, files);
+  return files;
+}
+
+/** [ 개발팀 바인딩 ] IA 관리 소유자가 상태 URL별 진입점과 해당 화면의 인계 파일을 표시합니다.
+ * 생성된 import 그래프를 사용하며 query/hash 상태는 같은 진입점을 공유합니다. 런타임 요청은 없습니다.
+ */
+export function getRouteSourceFiles(connection: ScreenConnection, href?: string): string[] {
+  if (!href) {
+    const previewFiles = new Set(
+      (connection.previewRoutes ?? []).flatMap((preview) =>
+        getRouteSourceFiles(connection, preview.href),
+      ),
+    );
+    return connection.sourceFiles.filter((file) => !previewFiles.has(file));
+  }
+  const pathname = new URL(href, 'https://ia.local').pathname;
+  const cached = routeSourceFiles.get(pathname);
+  if (cached) return cached;
+  const segments = pathname.split('/').filter(Boolean);
+  const matches = pageFiles.flatMap((file) => {
+    const parts = file
+      .replace(/^src\/app\//, '')
+      .replace(/page\.[jt]sx?$/, '')
+      .split('/')
+      .filter((part) => part && !part.startsWith('(') && !part.startsWith('@'));
+    let cursor = 0;
+    let score = 0;
+    for (const part of parts) {
+      if (/^\[\[\.\.\..+\]\]$/.test(part)) {
+        cursor = segments.length;
+        continue;
+      }
+      if (/^\[\.\.\..+\]$/.test(part)) {
+        if (cursor >= segments.length) return [];
+        cursor = segments.length;
+        continue;
+      }
+      if (cursor >= segments.length) return [];
+      if (part.startsWith('[')) score += 1;
+      else if (part === segments[cursor]) score += 10;
+      else return [];
+      cursor += 1;
+    }
+    return cursor === segments.length ? [{ file, score }] : [];
+  });
+  const bestScore = Math.max(...matches.map(({ score }) => score));
+  const roots = matches.filter(({ score }) => score === bestScore).map(({ file }) => file);
+  const files = resolveSourceFiles(roots);
+  routeSourceFiles.set(pathname, files);
+  return files;
+}
+
+export function getScreenConnection(screen: ScreenDefinition): ScreenConnection {
+  const connection = getRegisteredConnection(screen);
+  return { ...connection, sourceFiles: resolveSourceFiles(connection.sourceFiles) };
+}
+
+export function getScreenStatePreviews(connection: ScreenConnection | undefined) {
+  const previews = connection?.previewRoutes ?? [];
+  return connection?.route
+    ? [
+        { label: '기본', href: connection.route },
+        ...previews.filter(({ href }) => href !== connection.route),
+      ]
+    : previews;
+}
+
+/** [ 개발팀 바인딩 ] 두 개 이상의 상태 URL이 사용하는 공통 인계 파일은 상위 화면에 표시합니다.
+ * page 진입점은 같은 동적 파일을 공유해도 상태 행에 유지하고, _components는 기존 상위 비고를 사용합니다.
+ */
+export function getSharedStateSourceFiles(connections: readonly ScreenConnection[]): string[] {
+  const routes = new Map<string, ScreenConnection>();
+  connections.forEach((connection) =>
+    getScreenStatePreviews(connection).forEach(({ href }) => {
+      if (!routes.has(href)) routes.set(href, connection);
+    }),
+  );
+  const counts = new Map<string, number>();
+  routes.forEach((connection, href) =>
+    getRouteSourceFiles(connection, href).forEach((file) => {
+      if (file.includes('/_components/') || /\/page\.[jt]sx?$/.test(file)) return;
+      counts.set(file, (counts.get(file) ?? 0) + 1);
+    }),
+  );
+  return Array.from(counts)
+    .filter(([, count]) => count > 1)
+    .map(([file]) => file);
+}
+
+/** route-private 파일을 상위 IA의 비고에 모으며 상품 목록은 공용 인계 파일도 포함합니다. */
+export function getScreenComponentFiles(
+  connection: ScreenConnection,
+  includeSharedFiles = false,
+): string[] {
+  return resolveSourceFiles(connection.sourceFiles, true).filter(
+    (file) =>
+      file.includes('/_components/') || (includeSharedFiles && !/\/page\.[jt]sx?$/.test(file)),
+  );
+}
+
+/** 현재 필터 결과에 남은 실제 상위 화면이 표시하는 파일만 상속합니다. */
+export function getAncestorScreenSourceFiles(
+  screen: ScreenDefinition,
+  visibleScreens: readonly ScreenDefinition[],
+): string[] {
+  const path = [...screen.depths];
+  while (path.at(-1) === '') path.pop();
+  const ancestors = visibleScreens.filter((candidate) => {
+    if (isScreenDeleted(candidate)) return false;
+    const parentPath = [...candidate.depths];
+    while (parentPath.at(-1) === '') parentPath.pop();
+    return (
+      parentPath.length < path.length && parentPath.every((depth, index) => depth === path[index])
+    );
+  });
+  return Array.from(
+    new Set(
+      ancestors.flatMap((ancestor) => {
+        const connection = getScreenConnection(ancestor);
+        const files = getScreenStatePreviews(connection).length
+          ? getSharedStateSourceFiles([connection])
+          : getRouteSourceFiles(connection).filter(
+              (file) => !file.includes('/_components/') && !/\/page\.[jt]sx?$/.test(file),
+            );
+        return [...getScreenComponentFiles(connection), ...files];
+      }),
+    ),
+  );
+}
+
+/** 실제 화면이 없는 분류 행도 직접 하위 화면 둘 이상이 공유하는 파일의 소유자가 됩니다. */
+export function getSiblingScreenSourceFiles(
+  visibleScreens: readonly ScreenDefinition[],
+): Map<string, string[]> {
+  const groups = new Map<string, Map<string, number>>();
+  visibleScreens.forEach((screen) => {
+    if (isScreenDeleted(screen)) return;
+    const path = [...screen.depths];
+    while (path.at(-1) === '') path.pop();
+    path.pop();
+    if (path.length < 2) return;
+    const key = path.join('|');
+    const counts = groups.get(key) ?? new Map<string, number>();
+    groups.set(key, counts);
+    const connection = getScreenConnection(screen);
+    const files = new Set([
+      ...getScreenComponentFiles(connection),
+      ...connection.sourceFiles.filter((file) => !/\/page\.[jt]sx?$/.test(file)),
+    ]);
+    files.forEach((file) => counts.set(file, (counts.get(file) ?? 0) + 1));
+  });
+  return new Map(
+    Array.from(groups, ([path, counts]) => [
+      path,
+      Array.from(counts)
+        .filter(([, count]) => count > 1)
+        .map(([file]) => file),
+    ]),
+  );
 }

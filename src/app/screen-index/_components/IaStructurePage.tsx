@@ -7,7 +7,6 @@ import {
   faBan,
   faChevronDown,
   faChevronRight,
-  faDesktop,
   faFileLines,
   faFolder,
   faFolderOpen,
@@ -26,10 +25,22 @@ import { Typography } from '@/components/common/atoms/Typography';
 import { ContentLayout } from '@/components/common/layouts/ContentLayout';
 
 import {
+  getAncestorScreenSourceFiles,
+  getRouteSourceFiles,
+  getScreenComponentFiles,
   getScreenConnection,
+  getScreenStatePreviews,
+  getSharedStateSourceFiles,
+  getSiblingScreenSourceFiles,
   isScreenDeleted,
   type ScreenConnection,
 } from '@/app/screen-index/screenConnections';
+import {
+  developerWbsSource,
+  getScreenDeveloperNames,
+  getScreenDevelopers,
+  matchesScreenDeveloper,
+} from '@/app/screen-index/screenDevelopers';
 import {
   confirmedPublishingProgress,
   getScreenProgress,
@@ -53,10 +64,6 @@ type TreeRow = {
   label: string;
   isBranch: boolean;
   screen?: ScreenDefinition;
-};
-
-type WbsAssignment = {
-  period: string;
 };
 
 const progressFields = [
@@ -87,39 +94,9 @@ function isProductScreen(screen: ScreenDefinition) {
 
 const emptyProgressOverrides: ScreenProgressOverrides = {};
 
-function matchesProgressFilter(
-  screen: ScreenDefinition,
-  filter: string,
-  overrides: ScreenProgressOverrides,
-) {
-  if (filter === 'all') return true;
-  if (filter === 'deleted') return isScreenDeleted(screen);
-  if (isScreenDeleted(screen)) return false;
-  return progressFields.some(
-    ({ key }) => filter === key + ':' + (getScreenProgress(screen, overrides)[key] ?? 'unknown'),
-  );
-}
-
-const directWbsAssignments: Record<string, WbsAssignment> = {
-  레이아웃: { period: '2026.09.21 ~ 2026.09.23' },
-  Main: { period: '2026.10.02 ~ 2026.10.05' },
-  '런칭 캘린더': { period: '2026.10.28' },
-  기획전: { period: '2026.10.29' },
-  이벤트: { period: '2026.10.30' },
-  장바구니: { period: '2026.10.22 ~ 2026.10.23' },
-  주문: { period: '2026.10.26 ~ 2026.10.27' },
-  마이페이지: { period: '2026.10.15 ~ 2026.10.21' },
-  카테고리: { period: '2026.10.07 ~ 2026.10.14' },
-  고객센터: { period: '2026.10.15 ~ 2026.10.21' },
-  로그인: { period: '2026.10.06 ~ 2026.10.07' },
-  회원가입: { period: '2026.10.08 ~ 2026.10.12' },
-  Company: { period: '2026.11.06 ~ 2026.11.10' },
-};
-
-const categoryWbsAssignments = {
-  목록: { period: '2026.10.07 ~ 2026.10.14' },
-  상세: { period: '2026.10.07 ~ 2026.10.14' },
-} satisfies Record<string, WbsAssignment>;
+const developerNames = Array.from(new Set(screens.flatMap(getScreenDeveloperNames))).sort((a, b) =>
+  a.localeCompare(b, 'ko'),
+);
 
 const styles = {
   page: css({ maxW: 'none', bg: '#f6f8ff', px: '6', py: '6', _mobile: { px: '4', py: '4' } }),
@@ -262,7 +239,7 @@ const styles = {
     fontSize: '12' /* 기존: 11px */,
     fontWeight: '700',
   }),
-  wbs: css({ fontFamily: 'mono', fontSize: '12' /* 기존: 11px */, whiteSpace: 'nowrap' }),
+  developer: css({ fontSize: '12', whiteSpace: 'normal' }),
   preview: css({
     display: 'flex',
     justifyContent: 'center',
@@ -410,32 +387,6 @@ function screenDepth(screen: ScreenDefinition) {
   return 0;
 }
 
-function getWbsAssignment(depths: readonly string[]): WbsAssignment | undefined {
-  const [depth1, ...descendants] = depths;
-
-  if (depth1 === '공통') {
-    if (descendants[0] === '전체메뉴') {
-      return { period: '2026.09.30' };
-    }
-
-    if (descendants[0] === '검색' || descendants[0] === '검색결과') {
-      return { period: '2026.10.22 ~ 2026.10.23' };
-    }
-  }
-
-  if (depth1 === 'MEN' || depth1 === 'WOMEN' || depth1 === 'SHOES') {
-    const terminalDepth = descendants.reduce((lastDepth, depth) => (depth ? depth : lastDepth), '');
-    if (terminalDepth === '목록' || terminalDepth === '상세') {
-      return categoryWbsAssignments[terminalDepth];
-    }
-    return directWbsAssignments.카테고리;
-  }
-
-  const assignmentKey =
-    depth1 === 'SUPPORT' ? '고객센터' : depth1 === 'About HOKA' ? 'Company' : depth1;
-  return directWbsAssignments[assignmentKey];
-}
-
 function createTreeRows(group: ScreenGroup): TreeRow[] {
   const rows: TreeRow[] = [];
   const knownPaths = new Set<string>();
@@ -517,8 +468,7 @@ export function IaStructurePage({
   const [activeDepth1, setActiveDepth1] = useState('all');
   const [productDepth1, setProductDepth1] = useState('all');
   const [query, setQuery] = useState('');
-  const [statusFilter, setStatusFilter] = useState('all');
-  const [isExpanded, setIsExpanded] = useState(true);
+  const [developerFilter, setDeveloperFilter] = useState('all');
   const [productMenuExpanded, setProductMenuExpanded] = useState(false);
   const [collapsedPaths, setCollapsedPaths] = useState<Set<string>>(new Set());
 
@@ -569,12 +519,13 @@ export function IaStructurePage({
           screen.category,
           screen.screenCode,
           screen.note,
+          ...getScreenDevelopers(screen).flatMap(({ name, area }) => [name, area]),
         ]
           .join(' ')
           .toLowerCase();
 
         return (
-          matchesProgressFilter(screen, statusFilter, progressOverrides) &&
+          matchesScreenDeveloper(screen, developerFilter) &&
           searchable.includes(query.trim().toLowerCase())
         );
       }),
@@ -600,8 +551,7 @@ export function IaStructurePage({
   const productDepths = Array.from(
     new Set(visibleProductScreens.map((screen) => screen.depths[0])),
   );
-  const productSectionOpen =
-    (isExpanded || query.trim().length > 0) && !collapsedPaths.has('상품 공통 화면');
+  const productSectionOpen = !collapsedPaths.has('상품 공통 화면');
   const productTreeOpen = productMenuExpanded || query.trim().length > 0;
   const copyPreviewPath = (path: string) => {
     setFeedback('');
@@ -704,7 +654,6 @@ export function IaStructurePage({
                   onClick={() => {
                     setActiveDepth1(group.depth1);
                     setProductDepth1('all');
-                    setStatusFilter('all');
                   }}
                 >
                   <Flex gap="2" alignItems="center">
@@ -733,23 +682,9 @@ export function IaStructurePage({
               type="button"
               className={styles.button}
               onClick={() => {
-                setIsExpanded((current) => !current);
-                setProductMenuExpanded(!isExpanded);
-                setCollapsedPaths(new Set());
-              }}
-            >
-              <FontAwesomeIcon
-                icon={isExpanded ? faChevronDown : faChevronRight}
-                aria-hidden="true"
-              />{' '}
-              전체 {isExpanded ? '접기' : '펼치기'}
-            </button>
-            <button
-              type="button"
-              className={styles.button}
-              onClick={() => {
                 setActiveDepth1('all');
-                setStatusFilter('all');
+                setQuery('');
+                setDeveloperFilter('all');
               }}
             >
               전체 초기화
@@ -775,32 +710,22 @@ export function IaStructurePage({
               className={styles.search}
               value={query}
               onChange={(event) => setQuery(event.target.value)}
-              placeholder="화면명, IA 번호, 코드, URL, 파일 경로 검색"
+              placeholder="화면명, 담당자, IA 번호, 코드, URL, 파일 경로 검색"
               aria-label="IA 화면 검색"
             />
             <select
               className={styles.select}
-              aria-label="상태 필터"
-              value={statusFilter}
-              onChange={(event) => setStatusFilter(event.target.value)}
+              aria-label="개발담당자 필터"
+              value={developerFilter}
+              onChange={(event) => setDeveloperFilter(event.target.value)}
             >
-              <option value="all">상태 전체</option>
-              {progressFields.map(({ key, label, kind }) => (
-                <optgroup key={key} label={label}>
-                  {(kind === 'design'
-                    ? (['received', 'missing', 'revision-planned', 'not-applicable'] as const)
-                    : (['ready', 'revision', 'working', 'pending'] as const)
-                  ).map((value) => (
-                    <option key={value} value={key + ':' + value}>
-                      {label} · {progressLabels[value]}
-                    </option>
-                  ))}
-                  {kind === 'design' && (
-                    <option value={key + ':unknown'}>{label} · 확인 전 (-)</option>
-                  )}
-                </optgroup>
+              <option value="all">개발담당자 전체</option>
+              {developerNames.map((name) => (
+                <option key={name} value={name}>
+                  {name}
+                </option>
               ))}
-              <option value="deleted">삭제 / 제외</option>
+              <option value="unassigned">미지정</option>
             </select>
           </Flex>
         </Flex>
@@ -824,8 +749,8 @@ export function IaStructurePage({
                 <th scope="col">비고 / 이슈</th>
               </tr>
               <tr>
-                <th colSpan={2} scope="col">
-                  WBS
+                <th colSpan={2} scope="col" title={'WBS 확인일: ' + developerWbsSource.checkedAt}>
+                  개발담당자
                 </th>
                 <th scope="col">PC 퍼블리싱</th>
                 <th scope="col">MO 퍼블리싱</th>
@@ -868,7 +793,17 @@ export function IaStructurePage({
                     </td>
                     <td>-</td>
                     <td>-</td>
-                    <td className={styles.note}>확정 IA 기준 화면 영역</td>
+                    <td className={styles.note}>
+                      <Stack gap="2">
+                        {productGroups.map((group) => (
+                          <ProductNotes
+                            key={group.code}
+                            screens={group.screens}
+                            label={group.code === 'eland_hca_01' ? '상품 목록' : '상품 상세'}
+                          />
+                        ))}
+                      </Stack>
+                    </td>
                   </tr>
                   {productSectionOpen && (
                     <>
@@ -909,7 +844,6 @@ export function IaStructurePage({
                   key={group.depth1}
                   group={group}
                   progressOverrides={progressOverrides}
-                  isExpanded={isExpanded || query.trim().length > 0}
                   collapsedPaths={collapsedPaths}
                   onToggle={togglePath}
                   onCopyPath={copyPreviewPath}
@@ -935,27 +869,25 @@ export function IaStructurePage({
 function GroupRows({
   group,
   progressOverrides,
-  isExpanded,
   collapsedPaths,
   onToggle,
   onCopyPath,
 }: {
   group: ScreenGroup;
   progressOverrides: ScreenProgressOverrides;
-  isExpanded: boolean;
   collapsedPaths: ReadonlySet<string>;
   onToggle: (path: string) => void;
   onCopyPath: (path: string) => void;
 }) {
   const treeRows = createTreeRows(group);
+  const siblingFiles = getSiblingScreenSourceFiles(group.screens);
   const groupPath = group.depth1;
   const groupOpen = !collapsedPaths.has(groupPath);
-  const groupWbs = getWbsAssignment([group.depth1]);
 
   return (
     <>
       <tr className={styles.groupRow}>
-        <td className={styles.treeCell} rowSpan={groupWbs ? 2 : undefined}>
+        <td className={styles.treeCell}>
           <div className={styles.treeItem}>
             <button
               type="button"
@@ -980,7 +912,7 @@ function GroupRows({
             <Typography as="span">({group.screens.length} screens)</Typography>
           </div>
         </td>
-        <td rowSpan={groupWbs ? 2 : undefined}>대분류</td>
+        <td>대분류</td>
         <td colSpan={2} className={styles.code}>
           CAT_{group.depth1.replaceAll(' ', '_').toUpperCase()}
         </td>
@@ -988,18 +920,7 @@ function GroupRows({
         <td>-</td>
         <td className={styles.note}>확정 IA 기준 화면 영역</td>
       </tr>
-      {groupWbs && (
-        <tr className={styles.groupRow}>
-          <td colSpan={2} className={styles.wbs}>
-            {groupWbs.period}
-          </td>
-          <td>-</td>
-          <td>-</td>
-          <td>-</td>
-        </tr>
-      )}
-      {isExpanded &&
-        groupOpen &&
+      {groupOpen &&
         treeRows.map((row) => {
           const hiddenByParent = row.ancestors.some((path) => collapsedPaths.has(path));
           if (hiddenByParent) return null;
@@ -1007,9 +928,19 @@ function GroupRows({
           const deleted = row.screen ? isScreenDeleted(row.screen) : false;
           const progress =
             row.screen && !deleted ? getScreenProgress(row.screen, progressOverrides) : undefined;
-          const rowWbs = row.screen ? getWbsAssignment(row.screen.depths) : undefined;
           const connection = row.screen ? getScreenConnection(row.screen) : undefined;
-          const statePreviews = deleted ? [] : getStatePreviews(connection);
+          const statePreviews = deleted ? [] : getScreenStatePreviews(connection);
+          const groupFiles = siblingFiles.get(row.path) ?? [];
+          const inheritedFiles = Array.from(
+            new Set([
+              ...(row.screen ? getAncestorScreenSourceFiles(row.screen, group.screens) : []),
+              ...row.ancestors.flatMap((path) => siblingFiles.get(path) ?? []),
+            ]),
+          );
+          const componentFiles = Array.from(
+            new Set([...(connection ? getScreenComponentFiles(connection) : []), ...groupFiles]),
+          ).filter((file) => !inheritedFiles.includes(file));
+          const sharedFiles = connection ? getSharedStateSourceFiles([connection]) : [];
           const hasStateRows = statePreviews.length > 0;
           const rowClass = deleted ? styles.deletedRow : '';
           const noteEntries = row.screen ? splitNoteEntries(row.screen.note) : [];
@@ -1059,11 +990,13 @@ function GroupRows({
                 <td className={styles.code}>{row.screen?.screenCode ?? '-'}</td>
                 <td>
                   <Stack gap="1" minW="180px">
-                    {row.screen ? (
-                      <ScreenPreview screen={row.screen} onCopyPath={onCopyPath} />
-                    ) : (
-                      '-'
-                    )}
+                    {deleted
+                      ? '삭제 / 제외'
+                      : hasStateRows
+                        ? '하위 상태 참조'
+                        : row.screen
+                          ? '독립 경로 없음'
+                          : '-'}
                   </Stack>
                 </td>
                 {renderProgressCells('design', progress, row.screen, progressOverrides)}
@@ -1079,45 +1012,44 @@ function GroupRows({
                         <li key={entry}>{entry}</li>
                       ))}
                     </ul>
-                  ) : (
+                  ) : componentFiles.length ? null : (
                     '-'
                   )}
+                  {componentFiles.length > 0 && <SourceFiles files={componentFiles} />}
                 </td>
               </tr>
               {row.screen && (
                 <tr className={rowClass}>
-                  <td colSpan={2} className={styles.wbs}>
-                    {rowWbs?.period ?? '-'}
+                  <td colSpan={2} className={styles.developer}>
+                    <ScreenDevelopers screens={[row.screen]} />
                   </td>
                   {renderProgressCells('publishing', progress, row.screen, progressOverrides)}
                   <td className={styles.note}>
-                    <Flex alignItems="flex-start" gap="3">
-                      <Stack gap="1" flex="1" minW="0">
-                        {connection?.sourceFiles.length ? (
-                          <Flex flexWrap="wrap" gap="2">
-                            {connection.sourceFiles.map((file) => (
-                              <code
-                                key={file}
-                                className={styles.path({ page: /\/page\.[jt]sx?$/.test(file) })}
-                                title={file}
-                              >
-                                {file.replace(/^src\//, '')}
-                              </code>
-                            ))}
-                          </Flex>
-                        ) : isScreenDeleted(row.screen) ? (
-                          '삭제 / 제외'
-                        ) : (
-                          '-'
+                    {connection?.sourceFiles.length ? (
+                      <SourceFiles
+                        files={(statePreviews.length
+                          ? sharedFiles
+                          : getRouteSourceFiles(connection, connection.route).filter(
+                              (file) =>
+                                !file.includes('/_components/') && !/\/page\.[jt]sx?$/.test(file),
+                            )
+                        ).filter(
+                          (file) => !inheritedFiles.includes(file) && !groupFiles.includes(file),
                         )}
-                      </Stack>
-                    </Flex>
+                      />
+                    ) : deleted ? (
+                      '삭제 / 제외'
+                    ) : (
+                      '-'
+                    )}
                   </td>
                 </tr>
               )}
               {!collapsedPaths.has(row.path) && (
                 <StatePreviewRows
                   previews={statePreviews}
+                  screens={row.screen ? [row.screen] : []}
+                  sharedFiles={[...sharedFiles, ...inheritedFiles, ...groupFiles]}
                   depth={row.depth + 2}
                   onCopyPath={onCopyPath}
                 />
@@ -1129,117 +1061,167 @@ function GroupRows({
   );
 }
 
-function getStatePreviews(connection: ScreenConnection | undefined) {
-  const previews = connection?.previewRoutes ?? [];
-  if (connection?.route && connection.defaultStateLabel && previews.length === 1) {
-    return [{ label: connection.defaultStateLabel, href: connection.route }, ...previews];
-  }
-  return previews;
-}
-
 function StatePreviewRows({
   previews,
+  sharedFiles,
+  screens: members,
   depth,
   onCopyPath,
 }: {
   previews: NonNullable<ScreenConnection['previewRoutes']>;
+  sharedFiles: readonly string[];
+  screens: ScreenDefinition[];
   depth: number;
   onCopyPath: (path: string) => void;
 }) {
   return (
     <>
-      {previews.map(({ label, href }, index) => (
-        <tr key={href}>
-          <td className={styles.treeCell}>
-            <div className={styles.treeItem} style={{ paddingLeft: String(depth * 20) + 'px' }}>
-              <span className={styles.spacer} />
-              <span className={styles.depthMarker}>STATE</span>
-              <Typography as="span">{label}</Typography>
-            </div>
-          </td>
-          {index === 0 && (
-            <>
-              <td rowSpan={previews.length}>상태</td>
-              <td rowSpan={previews.length}>-</td>
-            </>
-          )}
-          <td>
-            <div className={styles.preview}>
-              <Link
-                href={href}
-                aria-label={label + ' 보기'}
-                target="_blank"
-                rel="noreferrer"
-                title={href + ' (경로 복사 및 새 창 열기)'}
-                onClick={() => onCopyPath(href)}
-              >
-                보기
-              </Link>
-            </div>
-          </td>
-          {index === 0 && (
-            <>
-              <td rowSpan={previews.length}>-</td>
-              <td rowSpan={previews.length}>-</td>
-            </>
-          )}
-          {index === 0 && (
-            <td className={styles.note} rowSpan={previews.length}>
-              화면 상태 미리보기
+      {previews.map(({ label, href }) => {
+        const owners = members.filter((screen) =>
+          getScreenStatePreviews(getScreenConnection(screen)).some(
+            (preview) => preview.href === href,
+          ),
+        );
+        return (
+          <tr key={href}>
+            <td className={styles.treeCell}>
+              <div className={styles.treeItem} style={{ paddingLeft: String(depth * 20) + 'px' }}>
+                <span className={styles.spacer} />
+                <span className={styles.depthMarker}>STATE</span>
+                <Typography as="span">{label}</Typography>
+              </div>
             </td>
-          )}
-        </tr>
-      ))}
+            <td>상태</td>
+            <td>
+              <ScreenDevelopers screens={owners} href={href} />
+            </td>
+            <td>
+              <div className={styles.preview}>
+                <Link
+                  href={href}
+                  aria-label={label + ' 보기'}
+                  target="_blank"
+                  rel="noreferrer"
+                  title={href + ' (경로 복사 및 새 창 열기)'}
+                  onClick={() => onCopyPath(href)}
+                >
+                  보기
+                </Link>
+              </div>
+            </td>
+            <td>-</td>
+            <td>-</td>
+            <td className={styles.note}>
+              <SourceFiles
+                files={Array.from(
+                  new Set(
+                    owners
+                      .flatMap((screen) => getRouteSourceFiles(getScreenConnection(screen), href))
+                      .filter(
+                        (file) =>
+                          !file.includes('/_components/') &&
+                          !sharedFiles.includes(file) &&
+                          (owners.some((screen) => screen.screenCode === 'eland_hca_01')
+                            ? /\/page\.[jt]sx?$/.test(file)
+                            : true),
+                      ),
+                  ),
+                )}
+              />
+            </td>
+          </tr>
+        );
+      })}
     </>
   );
 }
 
-function ScreenPreview({
-  screen,
-  onCopyPath,
+function SourceFiles({ files }: { files: string[] }) {
+  return files.length ? (
+    <Flex flexWrap="wrap" gap="2">
+      {files.map((file) => (
+        <code
+          key={file}
+          className={styles.path({ page: /\/page\.[jt]sx?$/.test(file) })}
+          title={file}
+        >
+          {file.replace(/^src\//, '')}
+        </code>
+      ))}
+    </Flex>
+  ) : (
+    '-'
+  );
+}
+
+function ScreenDevelopers({
+  screens: members,
+  href,
 }: {
-  screen: ScreenDefinition;
-  onCopyPath: (path: string) => void;
+  screens: ScreenDefinition[];
+  href?: string;
 }) {
-  const connection = getScreenConnection(screen);
-  const route =
-    connection.defaultStateLabel && connection.previewRoutes?.length === 1
-      ? undefined
-      : connection.route;
+  const developers = Array.from(
+    new Map(
+      members
+        .flatMap((screen) => getScreenDevelopers(screen, href))
+        .map((assignment) => [assignment.wbs, assignment]),
+    ).values(),
+  );
   return (
-    <>
-      {!isScreenDeleted(screen) ? (
-        route ? (
-          <>
-            <div className={styles.preview}>
-              {route && (
-                <Link
-                  href={route}
-                  target="_blank"
-                  rel="noreferrer"
-                  title={route + ' (경로 복사 및 새 창 열기)'}
-                  onClick={() => onCopyPath(route)}
-                >
-                  <FontAwesomeIcon icon={faDesktop} aria-hidden="true" />{' '}
-                  {connection.routeLabel ?? '페이지'}
-                </Link>
-              )}
-            </div>
-          </>
-        ) : (
-          <Typography as="span">
-            {connection.previewRoutes?.length ? '-' : '독립 경로 없음'}
-          </Typography>
-        )
-      ) : (
-        <Typography as="span">삭제 / 제외</Typography>
-      )}
-    </>
+    <Stack gap="1" minW="130px" alignItems="flex-start">
+      {developers.length
+        ? developers.map(({ name, area, wbs, row }) => (
+            <a
+              key={wbs}
+              href={developerWbsSource.url + '&range=B' + row + ':Y' + row}
+              target="_blank"
+              rel="noreferrer"
+              title={area + ' · WBS ' + wbs + ' · ' + developerWbsSource.checkedAt + ' 확인'}
+            >
+              {name}
+              {developers.length > 1 && <span> ({area})</span>}
+            </a>
+          ))
+        : members.every(isScreenDeleted)
+          ? '-'
+          : '미지정'}
+    </Stack>
   );
 }
 
 function productNotes(screen: ScreenDefinition) {
   return splitNoteEntries(screen.note);
+}
+
+function ProductNotes({ screens: members, label }: { screens: ScreenDefinition[]; label: string }) {
+  const notes = new Map<string, string[]>();
+  members.forEach((screen) =>
+    productNotes(screen).forEach((note) => {
+      notes.set(note, [...(notes.get(note) ?? []), screen.depths.filter(Boolean).join(' → ')]);
+    }),
+  );
+  if (!notes.size) return null;
+  return (
+    <details>
+      <summary>
+        {label} 비고 {notes.size}건
+      </summary>
+      <ul className={styles.noteList}>
+        {[...notes].map(([note, paths]) => (
+          <li key={note}>
+            {note}
+            <details>
+              <summary>연결 분류 {paths.length}건</summary>
+              {paths.map((path, index) => (
+                <div key={index}>{path}</div>
+              ))}
+            </details>
+          </li>
+        ))}
+      </ul>
+    </details>
+  );
 }
 
 function ProductRows({
@@ -1252,7 +1234,20 @@ function ProductRows({
   onCopyPath: (path: string) => void;
 }) {
   const representative = members[0];
-  const statePreviews = getStatePreviews(getScreenConnection(representative));
+  // 카테고리별 query를 모두 기본 상태로 늘리지 않고 현재 대표 화면과 검색 진입점을 유지합니다.
+  const stateConnections = new Map<string, ScreenConnection>();
+  members.forEach((screen) => {
+    const connection = getScreenConnection(screen);
+    const key = connection.route?.split(/[?#]/)[0] ?? screen.screenCode;
+    if (!stateConnections.has(key)) stateConnections.set(key, connection);
+  });
+  const statePreviews = Array.from(
+    new Map(
+      Array.from(stateConnections.values())
+        .flatMap((connection) => getScreenStatePreviews(connection))
+        .map((preview) => [preview.href, preview]),
+    ).values(),
+  );
   const label = representative.screenCode === 'eland_hca_01' ? '상품 목록' : '상품 상세';
   const progress = Object.fromEntries(
     progressFields.map(({ key }) => {
@@ -1264,18 +1259,14 @@ function ProductRows({
       return [key, values.size === 1 ? [...values][0] : 'mixed'];
     }),
   ) as SummaryProgress;
-  const files = Array.from(
-    new Set(members.flatMap((screen) => getScreenConnection(screen).sourceFiles)),
+  const isListing = representative.screenCode === 'eland_hca_01';
+  const sharedFiles = getSharedStateSourceFiles(Array.from(stateConnections.values()));
+  const componentFiles = Array.from(
+    new Set(
+      members.flatMap((screen) => getScreenComponentFiles(getScreenConnection(screen), isListing)),
+    ),
   );
-  const periods = Array.from(
-    new Set(members.map((screen) => getWbsAssignment(screen.depths)?.period ?? '-')),
-  );
-  const notes = new Map<string, string[]>();
-  members.forEach((screen) =>
-    productNotes(screen).forEach((note) => {
-      notes.set(note, [...(notes.get(note) ?? []), screen.depths.filter(Boolean).join(' → ')]);
-    }),
-  );
+  const files = isListing ? [] : sharedFiles;
   return (
     <>
       <tr>
@@ -1293,54 +1284,30 @@ function ProductRows({
         <td>
           <Stack gap="1">
             <span>대표 화면</span>
-            <ScreenPreview screen={representative} onCopyPath={onCopyPath} />
+            <span>하위 상태 참조</span>
           </Stack>
         </td>
         {renderProgressCells('design', progress, undefined, progressOverrides)}
         <td className={styles.note}>
-          {notes.size ? (
-            <details>
-              <summary>비고 {notes.size}건</summary>
-              <ul className={styles.noteList}>
-                {[...notes].map(([note, paths]) => (
-                  <li key={note}>
-                    {note}
-                    <details>
-                      <summary>연결 분류 {paths.length}건</summary>
-                      {paths.map((path, index) => (
-                        <div key={index}>{path}</div>
-                      ))}
-                    </details>
-                  </li>
-                ))}
-              </ul>
-            </details>
-          ) : (
-            '-'
-          )}
+          <SourceFiles files={componentFiles} />
         </td>
       </tr>
       <tr>
-        <td colSpan={2} className={styles.wbs}>
-          {periods.join(' / ')}
+        <td colSpan={2} className={styles.developer}>
+          <ScreenDevelopers screens={members} />
         </td>
         {renderProgressCells('publishing', progress, undefined, progressOverrides)}
         <td className={styles.note}>
-          <Flex flexWrap="wrap" gap="2">
-            {files.map((file) => (
-              <code
-                key={file}
-                className={styles.path({ page: /\/page\.[jt]sx?$/.test(file) })}
-                title={file}
-              >
-                {file.replace(/^src\//, '')}
-              </code>
-            ))}
-            {!files.length && '-'}
-          </Flex>
+          <SourceFiles files={files} />
         </td>
       </tr>
-      <StatePreviewRows previews={statePreviews} depth={2} onCopyPath={onCopyPath} />
+      <StatePreviewRows
+        previews={statePreviews}
+        sharedFiles={sharedFiles}
+        screens={members}
+        depth={2}
+        onCopyPath={onCopyPath}
+      />
     </>
   );
 }
