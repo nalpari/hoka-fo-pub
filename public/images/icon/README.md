@@ -96,3 +96,6 @@ Figma FontAwesome Icons 296:9192를 다시 조회해 공식 이름을 기준으�
 | `phone-call` | `phone` · [phone.svg](phone.svg) | 공식 이름 phone · 스타일 미확정 |
 
 2026-11-04: 사용자 지정에 따라 chevron-down은 Figma Regular 원본(296:11741)으로 통일했다. 기존 선 도형과 Solid 파일·등록·가이드 항목을 제거하고 모든 해당 호출을 chevron-down-regular로 변경했다.
+
+
+원형 배경이 포함된 디자인팀 아이콘은 이름 끝에 -circle을 붙인다. 방향·스타일·상태는 그 앞에 둔다. 예: hoka-nav-chevron-right-muted-circle, hoka-action-plus-regular-active-circle. 출처: Icon.assets.ts, IconGuide.tsx 및 SVG 파일.

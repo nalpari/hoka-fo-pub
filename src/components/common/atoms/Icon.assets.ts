@@ -504,12 +504,12 @@ export const iconAssets = {
     src: '/images/icon/hoka-action-minus.svg',
     mode: 'mask',
   },
-  'hoka-action-plus': {
-    src: '/images/icon/hoka-action-plus.svg',
+  'hoka-action-plus-regular': {
+    src: '/images/icon/hoka-action-plus-regular.svg',
     mode: 'mask',
   },
-  'hoka-action-xmark': {
-    src: '/images/icon/hoka-action-xmark.svg',
+  'hoka-action-xmark-regular': {
+    src: '/images/icon/hoka-action-xmark-regular.svg',
     mode: 'mask',
   },
   'hoka-echo-left-state-default': {
@@ -544,12 +544,12 @@ export const iconAssets = {
     src: '/images/icon/hoka-nav-chevron-up.svg',
     mode: 'mask',
   },
-  'hoka-round-angle-left': {
-    src: '/images/icon/hoka-round-angle-left.svg',
+  'hoka-action-angle-left': {
+    src: '/images/icon/hoka-action-angle-left.svg',
     mode: 'mask',
   },
-  'hoka-round-angle-right': {
-    src: '/images/icon/hoka-round-angle-right.svg',
+  'hoka-action-angle-right': {
+    src: '/images/icon/hoka-action-angle-right.svg',
     mode: 'mask',
   },
   'hoka-nav-chevron-right-circle': {
@@ -572,60 +572,60 @@ export const iconAssets = {
     mode: 'image',
     filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.16))',
   },
-  'hoka-nav-chevron-right-circle-muted': {
-    src: '/images/icon/hoka-nav-chevron-right-circle-muted.svg',
+  'hoka-nav-chevron-right-muted-circle': {
+    src: '/images/icon/hoka-nav-chevron-right-muted-circle.svg',
     mode: 'image',
     filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.16))',
   },
-  'hoka-nav-chevron-left-circle-muted': {
-    src: '/images/icon/hoka-nav-chevron-left-circle-muted.svg',
+  'hoka-nav-chevron-left-muted-circle': {
+    src: '/images/icon/hoka-nav-chevron-left-muted-circle.svg',
     mode: 'image',
     filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.16))',
   },
-  'hoka-nav-chevron-up-circle-muted': {
-    src: '/images/icon/hoka-nav-chevron-up-circle-muted.svg',
+  'hoka-nav-chevron-up-muted-circle': {
+    src: '/images/icon/hoka-nav-chevron-up-muted-circle.svg',
     mode: 'image',
     filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.16))',
   },
-  'hoka-nav-chevron-down-circle-muted': {
-    src: '/images/icon/hoka-nav-chevron-down-circle-muted.svg',
+  'hoka-nav-chevron-down-muted-circle': {
+    src: '/images/icon/hoka-nav-chevron-down-muted-circle.svg',
     mode: 'image',
     filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.16))',
   },
-  'hoka-action-plus-circle': {
-    src: '/images/icon/hoka-action-plus-circle.svg',
+  'hoka-action-plus-regular-circle': {
+    src: '/images/icon/hoka-action-plus-regular-circle.svg',
     mode: 'image',
   },
   'hoka-action-minus-circle': {
     src: '/images/icon/hoka-action-minus-circle.svg',
     mode: 'image',
   },
-  'hoka-action-xmark-circle': {
-    src: '/images/icon/hoka-action-xmark-circle.svg',
+  'hoka-action-xmark-regular-circle': {
+    src: '/images/icon/hoka-action-xmark-regular-circle.svg',
     mode: 'image',
   },
-  'hoka-round-left-circle-default': {
-    src: '/images/icon/hoka-round-left-circle-default.svg',
+  'hoka-action-angle-left-default-circle': {
+    src: '/images/icon/hoka-action-angle-left-default-circle.svg',
     mode: 'image',
   },
-  'hoka-round-left-circle-active': {
-    src: '/images/icon/hoka-round-left-circle-active.svg',
+  'hoka-action-angle-left-active-circle': {
+    src: '/images/icon/hoka-action-angle-left-active-circle.svg',
     mode: 'image',
   },
-  'hoka-round-right-circle-default': {
-    src: '/images/icon/hoka-round-right-circle-default.svg',
+  'hoka-action-angle-right-default-circle': {
+    src: '/images/icon/hoka-action-angle-right-default-circle.svg',
     mode: 'image',
   },
-  'hoka-round-right-circle-active': {
-    src: '/images/icon/hoka-round-right-circle-active.svg',
+  'hoka-action-angle-right-active-circle': {
+    src: '/images/icon/hoka-action-angle-right-active-circle.svg',
     mode: 'image',
   },
-  'hoka-round-plus-circle-default': {
-    src: '/images/icon/hoka-round-plus-circle-default.svg',
+  'hoka-action-plus-regular-default-circle': {
+    src: '/images/icon/hoka-action-plus-regular-default-circle.svg',
     mode: 'image',
   },
-  'hoka-round-plus-circle-active': {
-    src: '/images/icon/hoka-round-plus-circle-active.svg',
+  'hoka-action-plus-regular-active-circle': {
+    src: '/images/icon/hoka-action-plus-regular-active-circle.svg',
     mode: 'image',
   },
 } as const;

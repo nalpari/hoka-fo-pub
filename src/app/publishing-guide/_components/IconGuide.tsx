@@ -30,7 +30,8 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
   {
     id: 'icon-design-system',
     title: '디자인팀 아이콘',
-    description: '방향·액션·배너·폼 상태·별점·쇼핑 아이콘',
+    description:
+      '방향·액션·배너·폼 상태·별점·쇼핑 아이콘. 확인된 글리프는 이름에 Regular/Solid를 표기합니다.',
     items: [
       {
         label: '오른쪽 기본',
@@ -67,12 +68,12 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
       },
       {
         label: '오른쪽 원 회색',
-        registeredName: 'hoka-nav-chevron-right-circle-muted',
+        registeredName: 'hoka-nav-chevron-right-muted-circle',
 
-        preview: <Icon name="hoka-nav-chevron-right-circle-muted" size={24} />,
+        preview: <Icon name="hoka-nav-chevron-right-muted-circle" size={24} />,
         code: `import { Icon } from '@/components/common/atoms/Icon';
 
-<Icon name="hoka-nav-chevron-right-circle-muted" size={24} />`,
+<Icon name="hoka-nav-chevron-right-muted-circle" size={24} />`,
         source: 'HOKA 디자인 시스템',
         note: '24px',
       },
@@ -111,12 +112,12 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
       },
       {
         label: '왼쪽 원 회색',
-        registeredName: 'hoka-nav-chevron-left-circle-muted',
+        registeredName: 'hoka-nav-chevron-left-muted-circle',
 
-        preview: <Icon name="hoka-nav-chevron-left-circle-muted" size={24} />,
+        preview: <Icon name="hoka-nav-chevron-left-muted-circle" size={24} />,
         code: `import { Icon } from '@/components/common/atoms/Icon';
 
-<Icon name="hoka-nav-chevron-left-circle-muted" size={24} />`,
+<Icon name="hoka-nav-chevron-left-muted-circle" size={24} />`,
         source: 'HOKA 디자인 시스템',
         note: '24px',
       },
@@ -155,12 +156,12 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
       },
       {
         label: '위 원 회색',
-        registeredName: 'hoka-nav-chevron-up-circle-muted',
+        registeredName: 'hoka-nav-chevron-up-muted-circle',
 
-        preview: <Icon name="hoka-nav-chevron-up-circle-muted" size={24} />,
+        preview: <Icon name="hoka-nav-chevron-up-muted-circle" size={24} />,
         code: `import { Icon } from '@/components/common/atoms/Icon';
 
-<Icon name="hoka-nav-chevron-up-circle-muted" size={24} />`,
+<Icon name="hoka-nav-chevron-up-muted-circle" size={24} />`,
         source: 'HOKA 디자인 시스템',
         note: '24px',
       },
@@ -199,45 +200,45 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
       },
       {
         label: '아래 원 회색',
-        registeredName: 'hoka-nav-chevron-down-circle-muted',
+        registeredName: 'hoka-nav-chevron-down-muted-circle',
 
-        preview: <Icon name="hoka-nav-chevron-down-circle-muted" size={24} />,
+        preview: <Icon name="hoka-nav-chevron-down-muted-circle" size={24} />,
         code: `import { Icon } from '@/components/common/atoms/Icon';
 
-<Icon name="hoka-nav-chevron-down-circle-muted" size={24} />`,
+<Icon name="hoka-nav-chevron-down-muted-circle" size={24} />`,
         source: 'HOKA 디자인 시스템',
         note: '24px',
       },
       {
         label: '더하기 기본',
-        registeredName: 'hoka-action-plus',
+        registeredName: 'hoka-action-plus-regular',
 
-        preview: <Icon name="hoka-action-plus" size={16} />,
+        preview: <Icon name="hoka-action-plus-regular" size={16} />,
         code: `import { Icon } from '@/components/common/atoms/Icon';
 
-<Icon name="hoka-action-plus" size={16} />`,
+<Icon name="hoka-action-plus-regular" size={16} />`,
         source: 'HOKA 디자인 시스템',
         note: '16px',
       },
       {
         label: '더하기 회색',
-        registeredName: 'hoka-action-plus',
+        registeredName: 'hoka-action-plus-regular',
 
-        preview: <Icon name="hoka-action-plus" size={16} color="black.40" />,
+        preview: <Icon name="hoka-action-plus-regular" size={16} color="black.40" />,
         code: `import { Icon } from '@/components/common/atoms/Icon';
 
-<Icon name="hoka-action-plus" size={16} color="black.40" />`,
+<Icon name="hoka-action-plus-regular" size={16} color="black.40" />`,
         source: 'HOKA 디자인 시스템',
         note: '16px',
       },
       {
         label: '더하기 원',
-        registeredName: 'hoka-action-plus-circle',
+        registeredName: 'hoka-action-plus-regular-circle',
 
-        preview: <Icon name="hoka-action-plus-circle" size={24} />,
+        preview: <Icon name="hoka-action-plus-regular-circle" size={24} />,
         code: `import { Icon } from '@/components/common/atoms/Icon';
 
-<Icon name="hoka-action-plus-circle" size={24} />`,
+<Icon name="hoka-action-plus-regular-circle" size={24} />`,
         source: 'HOKA 디자인 시스템',
         note: '24px',
       },
@@ -276,34 +277,34 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
       },
       {
         label: '닫기 기본',
-        registeredName: 'hoka-action-xmark',
+        registeredName: 'hoka-action-xmark-regular',
 
-        preview: <Icon name="hoka-action-xmark" size={16} />,
+        preview: <Icon name="hoka-action-xmark-regular" size={20} />,
         code: `import { Icon } from '@/components/common/atoms/Icon';
 
-<Icon name="hoka-action-xmark" size={16} />`,
+<Icon name="hoka-action-xmark-regular" size={20} />`,
         source: 'HOKA 디자인 시스템',
         note: '16px',
       },
       {
         label: '닫기 회색',
-        registeredName: 'hoka-action-xmark',
+        registeredName: 'hoka-action-xmark-regular',
 
-        preview: <Icon name="hoka-action-xmark" size={16} color="black.40" />,
+        preview: <Icon name="hoka-action-xmark-regular" size={16} color="black.40" />,
         code: `import { Icon } from '@/components/common/atoms/Icon';
 
-<Icon name="hoka-action-xmark" size={16} color="black.40" />`,
+<Icon name="hoka-action-xmark-regular" size={16} color="black.40" />`,
         source: 'HOKA 디자인 시스템',
         note: '16px',
       },
       {
         label: '닫기 원',
-        registeredName: 'hoka-action-xmark-circle',
+        registeredName: 'hoka-action-xmark-regular-circle',
 
-        preview: <Icon name="hoka-action-xmark-circle" size={24} />,
+        preview: <Icon name="hoka-action-xmark-regular-circle" size={24} />,
         code: `import { Icon } from '@/components/common/atoms/Icon';
 
-<Icon name="hoka-action-xmark-circle" size={24} />`,
+<Icon name="hoka-action-xmark-regular-circle" size={24} />`,
         source: 'HOKA 디자인 시스템',
         note: '24px',
       },
@@ -353,67 +354,67 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
       },
       {
         label: '원형 액션 left default',
-        registeredName: 'hoka-round-left-circle-default',
+        registeredName: 'hoka-action-angle-left-default-circle',
 
-        preview: <Icon name="hoka-round-left-circle-default" size={24} />,
+        preview: <Icon name="hoka-action-angle-left-default-circle" size={24} />,
         code: `import { Icon } from '@/components/common/atoms/Icon';
 
-<Icon name="hoka-round-left-circle-default" size={24} />`,
+<Icon name="hoka-action-angle-left-default-circle" size={24} />`,
         source: 'HOKA 디자인 시스템',
         note: '24px',
       },
       {
         label: '원형 액션 left active',
-        registeredName: 'hoka-round-left-circle-active',
+        registeredName: 'hoka-action-angle-left-active-circle',
 
-        preview: <Icon name="hoka-round-left-circle-active" size={24} />,
+        preview: <Icon name="hoka-action-angle-left-active-circle" size={24} />,
         code: `import { Icon } from '@/components/common/atoms/Icon';
 
-<Icon name="hoka-round-left-circle-active" size={24} />`,
+<Icon name="hoka-action-angle-left-active-circle" size={24} />`,
         source: 'HOKA 디자인 시스템',
         note: '24px',
       },
       {
         label: '원형 액션 right default',
-        registeredName: 'hoka-round-right-circle-default',
+        registeredName: 'hoka-action-angle-right-default-circle',
 
-        preview: <Icon name="hoka-round-right-circle-default" size={24} />,
+        preview: <Icon name="hoka-action-angle-right-default-circle" size={24} />,
         code: `import { Icon } from '@/components/common/atoms/Icon';
 
-<Icon name="hoka-round-right-circle-default" size={24} />`,
+<Icon name="hoka-action-angle-right-default-circle" size={24} />`,
         source: 'HOKA 디자인 시스템',
         note: '24px',
       },
       {
         label: '원형 액션 right active',
-        registeredName: 'hoka-round-right-circle-active',
+        registeredName: 'hoka-action-angle-right-active-circle',
 
-        preview: <Icon name="hoka-round-right-circle-active" size={24} />,
+        preview: <Icon name="hoka-action-angle-right-active-circle" size={24} />,
         code: `import { Icon } from '@/components/common/atoms/Icon';
 
-<Icon name="hoka-round-right-circle-active" size={24} />`,
+<Icon name="hoka-action-angle-right-active-circle" size={24} />`,
         source: 'HOKA 디자인 시스템',
         note: '24px',
       },
       {
         label: '원형 액션 plus default',
-        registeredName: 'hoka-round-plus-circle-default',
+        registeredName: 'hoka-action-plus-regular-default-circle',
 
-        preview: <Icon name="hoka-round-plus-circle-default" size={24} />,
+        preview: <Icon name="hoka-action-plus-regular-default-circle" size={24} />,
         code: `import { Icon } from '@/components/common/atoms/Icon';
 
-<Icon name="hoka-round-plus-circle-default" size={24} />`,
+<Icon name="hoka-action-plus-regular-default-circle" size={24} />`,
         source: 'HOKA 디자인 시스템',
         note: '24px',
       },
       {
         label: '원형 액션 plus active',
-        registeredName: 'hoka-round-plus-circle-active',
+        registeredName: 'hoka-action-plus-regular-active-circle',
 
-        preview: <Icon name="hoka-round-plus-circle-active" size={24} />,
+        preview: <Icon name="hoka-action-plus-regular-active-circle" size={24} />,
         code: `import { Icon } from '@/components/common/atoms/Icon';
 
-<Icon name="hoka-round-plus-circle-active" size={24} />`,
+<Icon name="hoka-action-plus-regular-active-circle" size={24} />`,
         source: 'HOKA 디자인 시스템',
         note: '24px',
       },
