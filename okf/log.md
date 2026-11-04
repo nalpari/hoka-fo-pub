@@ -2,6 +2,14 @@
 
 - 등록되지 않은 solid 이름을 실제 등록된 regular SVG로 수정하고 selection20px·기본24px와 닫기/포커스 동작을 유지했다. 전체 타입 검사를 통과했다. [UI 계약](architecture/ui.md#선택-시트-닫기-아이콘-참조-복구-2026-11-04).
 
+## 2026-11-04 수동 main 변경 보고 스킬 추가
+
+- `hoka-main-change-report`를 저장소 공유 스킬로 추가했다. 명시한 커밋은 포함하고 무인자 호출은 마지막 성공 SHA 이후부터 실행 시 fetch한 origin/main까지 비교한다. 첫 실행 기준은 사용자에게 확인한다.
+- 최종 tree diff로 전체 원복을 제외하고 부분 원복의 남은 변경과 이전 보고 이후 원복을 구분한다. 기존 IA 담당자만 사용하며 Google Drive/WBS 조회·예약·커밋·푸시·발송은 수행하지 않는다.
+- 공통 소유자/STATE별 IA 이력·한국어 보고서·중복 방지와 성공 SHA 저장·실패 재처리 지침을 작성했다. 스킬 생성 범위에서는 실제 IA 표시 기능이나 보고 데이터를 추가하지 않았다. [스킬](../.agents/skills/hoka-main-change-report/SKILL.md), [출력 규칙](../.agents/skills/hoka-main-change-report/references/output-and-state.md).
+- 스킬 validator와 임시 Git 이력의 시작 커밋 포함·전체 원복·이전 보고 이후 원복·부분 원복·이름변경·루트 빈 tree 비교 6건을 통과했다. 실제 main 보고·IA 갱신·앱 빌드는 실행하지 않았다. 출처: 이번 스킬 파일과 UI 메타데이터, codex/gpt-6, 2026-11-04.
+
+
 ## 2026-11-04 모바일 전체 너비 버튼 제한 원복
 
 - 사용자 지정 커밋 ad5c4f5508c96bd633c221e3cd8acb811431fdd8의 Button 변경을 원복해 fullWidth의 모바일375px 제한과 관련 CSS 변수를 제거했다. 부모 기준100% 너비를 복구하고 진행 중인 다른 수정은 유지했다. [현재 규칙](architecture/ui.md#모바일-fullwidth-최대-너비-제한-원복-2026-11-04).

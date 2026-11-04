@@ -1,0 +1,4 @@
+interface:
+  display_name: 'HOKA main 변경 보고'
+  short_description: '지정 커밋부터 최신 main의 유효 변경을 IA와 개발자 보고서로 정리'
+  default_prompt: '$hoka-main-change-report로 지정 커밋 또는 마지막 성공 보고 이후부터 최신 origin/main까지 분석해 IA 비고와 공유 보고서를 만들어줘.'
