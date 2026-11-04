@@ -4,7 +4,7 @@ title: '로컬 실행'
 description: '설치, Panda 생성과 앱 실행 명령을 안내한다.'
 tags: [development, npm]
 status: draft
-updated: '2026-11-03T04:36:24.907Z'
+updated: '2026-11-03T23:26:59Z'
 generated:
   by: codex/gpt-6
   at: '2026-10-29T02:11:18Z'
@@ -123,3 +123,8 @@ npm run screen-files는 현재 src의 import 그래프와 바인딩 주석 소�
 Storybook 관련 직접 의존성 4개와 lockfile의 전이 의존성, dev:all 및 Storybook 실행·사전 생성·빌드 명령을 제거했다. .storybook TypeScript include와 생성물 ignore를 정리했다. npm run dev와 npm run build를 사용한다. 과거 날짜별 Storybook 명령·출처 기록은 당시 이력이다.
 
 출처: 사용자 요청과 위 파일의 현재 작업 트리. 기록: codex/gpt-6, 2026-11-03T04:36:24.907Z. 기존 generated·source_revision·draft 상태와 과거 출처는 보존한다.
+
+
+## SVG 아이콘 의존성 (2026-11-04)
+
+아이콘은 public/images/icon의 SVG와 atoms/Icon.assets.ts 레지스트리로 관리한다. Font Awesome의 core/free-regular/free-solid/react 네 패키지는 더 이상 사용하지 않으며 package.json과 lockfile에서 제거한다. 새 아이콘은 SVG 파일과 등록 이름·렌더링 모드를 추가한 뒤 Icon name으로 사용한다. 출처: package.json, package-lock.json, src/components/common/atoms/Icon.assets.ts.

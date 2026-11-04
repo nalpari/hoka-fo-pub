@@ -4,12 +4,13 @@ title: '공통 상태와 데모 데이터'
 description: '로그인, 장바구니와 목 데이터의 수명 및 제약을 설명한다.'
 tags: [react, state, mock-data]
 status: draft
-updated: '2026-11-03T04:39:33.306Z'
+updated: '2026-11-03T23:51:12Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
 source_revision: 84b1d96781349d795089b9e2f737aad11a02172d
 working_tree_sources:
+  - src/types/component-contracts/context-ShopShell.d.ts
   - src/components/common/molecules/ProductCard/ProductCard.tsx
   - src/components/common/molecules/ProductOptionList.tsx
   - src/types/component-contracts/components-common-molecules-ProductCard-ProductCard.d.ts
@@ -240,6 +241,8 @@ sources:
 Typography의 화면 전용 variant를 표준 heading/body scale로 바꾼 변경은 표시 계층에 한정된다. 선택·필터·문의·상품·세션·장바구니 데이터와 상태 흐름은 변경하지 않았다. 관련 컴포넌트 사용처는 UI 아키텍처 문서의 Typography 전용 variant 표준화 항목에 기록했다.
 
 # 공통 상태와 데모 데이터
+
+`/wh`는 공통 쇼핑 셸을 사용하지 않는다. 다른 경로의 플랫폼 및 쇼핑 상태 소유자는 그대로 유지한다.
 
 ## 주문서 저장 배송지 연락처 표시값 (2026-11-02)
 
@@ -687,3 +690,38 @@ Storybook만 사용하던 RoutePreviewProvider/useRoutePreview와 routePreviewCo
 ## 상품 카드 호버 상태 검토 (2026-11-03)
 
 ProductCard의 Quick View 제거와 하단 색상 캐러셀 교체를 검토했다. 선택 ID는 카드 로컬 상태이며 현재 product 옵션에서 찾아 미리보기만 변경한다. ShopShell·공유 context·관심상품 콜백·실제 조회/저장 상태 계약은 변경하지 않았다. 출처: ProductCard.tsx·ProductOptionList.tsx의 이번 작업 트리 변경.
+
+
+## ShopShell 아이콘 통합 (2026-11-04)
+
+헤더·푸터·알림 아이콘을 atoms/Icon name API로 옮겼다. 알림 수·색상 판정과 메뉴·검색 상태 소유권은 변경하지 않는다. HeaderIcon의 기존 desktopSrc/mobileSrc 필드는 경로 대신 IconAssetName을 받으며 내부 호출은 name을 사용한다. 소셜 파일명은 기존 세 제공자 키를 등록 이름으로 대응한다. 출처: src/context/ShopShell.tsx, src/types/component-contracts/context-ShopShell.d.ts.
+
+
+## 아이콘 디렉터리 평탄화 (2026-11-04)
+
+ShopShell의 멤버십·알림·소셜 아이콘 등록 이름을 평탄화했다. 상태 로직과 표시 크기는 유지한다. 출처: src/context/ShopShell.tsx.
+
+
+## Font Awesome 공식 이름 적용 (2026-11-04)
+
+아이콘의 공식 이름 전환에 맞춰 관련 호출부를 갱신했다. 상태·라우트·이벤트 소유권은 유지한다. 상세 대응표는 public/images/icon/README.md와 UI 문서를 따른다.
+
+
+## 아이콘 색상 토큰 사용 (2026-11-04)
+
+Icon 호출부와 가이드 복사 코드의 HEX 색상을 동일 값의 Panda 토큰으로 교체했다: #B3B3B3 → black.40, #F7F7F9 → black.10, #009DFF → blue.100. 색상 값과 상태 전환은 유지한다. 출처: panda.config.ts, IconGuide.tsx, LaunchCalendarContent.tsx, LaunchCalendarDetail.tsx, ShopShell.tsx.
+
+
+## 기본 mask prop 생략 (2026-11-04)
+
+레지스트리의 기본 mode가 mask인 돋보기·하트·장바구니·바구니·sort-down 호출에서 중복 mask prop을 제거했다. IconGuide/ButtonGuide의 미리보기·복사 코드에도 적용했다. mask={false}인 원본색 예외와 Icon 내부의 기본 모드 판정은 유지한다. 출처: Icon.assets.ts, Wishlist.tsx, Dropdown.tsx, ShopShell.tsx, IconGuide.tsx, ButtonGuide.tsx.
+
+
+## Icon mask 재정의 옵션 제거 (2026-11-04)
+
+푸터 국가 선택 화살표를 color="black.10"으로 전환하고 마지막 mask={false} 호출을 제거했다. IconProps의 mask와 호출부 재정의 분기를 삭제했다. 단색/원본색 렌더링은 Icon.assets.ts의 mode로만 결정하며 실제 CSS mask 렌더러는 유지한다. 가이드의 개별 mask 지정 안내도 제거했다. 출처: Icon.tsx, ShopShell.tsx, IconGuide.tsx. 이전 기록의 mask 재정의 계약은 이 변경으로 대체한다.
+
+
+## Icon 속성 표기 순서 (2026-11-04)
+
+Icon 사용처와 가이드 복사 코드는 name → size → color 순서로 적고 나머지 속성을 뒤에 둔다. 생략된 기본값은 추가하지 않으며 spread 경계의 덮어쓰기 순서는 보존한다. 표시 값·동작은 변경하지 않는다. 출처: src의 Icon 사용처 및 src/app/publishing-guide/_components/IconGuide.tsx.

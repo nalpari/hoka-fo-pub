@@ -1,4 +1,3 @@
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import type { ReactNode } from 'react';
 
 import { css, cva } from 'styled-system/css';
@@ -111,7 +110,7 @@ export function StepIndicator({
             <Stack gap="3" alignItems="center">
               <Circle size="6" bg={index < current ? 'blue.100' : 'black.20'} aria-hidden="true">
                 {index < current ? (
-                  <Icon fontAwesomeIcon={faCheck} size={12} color="white" />
+                  <Icon name="check-solid" size={12} color="white" />
                 ) : (
                   <Circle size="3" bg="white" />
                 )}

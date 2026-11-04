@@ -3,8 +3,6 @@ import { HStack } from 'styled-system/jsx';
 import { Button } from '@/components/common/atoms/Button';
 import { Icon } from '@/components/common/atoms/Icon';
 
-import { faXmark } from '@/icons/fontAwesome';
-
 type SearchHeaderProps = { onClose: () => void };
 
 /** 전체 검색 패널의 닫기 행을 표시합니다. (Displays the close row of the global search panel.) */
@@ -18,7 +16,7 @@ export function SearchHeader({ onClose }: SearchHeaderProps) {
       borderBottom="1px solid {colors.black.20}"
     >
       <Button variant="icon" aria-label="검색 닫기" size="24px" onClick={onClose}>
-        <Icon fontAwesomeIcon={faXmark} size="16px" />
+        <Icon name="xmark-solid" size="16px" />
       </Button>
     </HStack>
   );

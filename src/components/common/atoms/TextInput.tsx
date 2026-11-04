@@ -16,8 +16,6 @@ import { HStack } from 'styled-system/jsx';
 import { useFormFieldContext } from '@/components/common/atoms/FormField';
 import { Icon } from '@/components/common/atoms/Icon';
 
-import { faEye, faEyeSlash, faXmark } from '@/icons/fontAwesome';
-
 const textInput = css.raw({
   minH: 'var(--field-height, 42px)',
   border:
@@ -218,7 +216,7 @@ export function TextInput({
           className={action}
           onClick={() => setVisible(!visible)}
         >
-          <Icon fontAwesomeIcon={visible ? faEyeSlash : faEye} size="16px" />
+          <Icon name={visible ? 'eye-slash-regular' : 'eye-regular'} size="16px" />
         </button>
       ) : clearable ? (
         <button
@@ -228,7 +226,7 @@ export function TextInput({
           className={action}
           onClick={clear}
         >
-          <Icon fontAwesomeIcon={faXmark} size="16px" />
+          <Icon name="xmark-solid" size="16px" />
         </button>
       ) : null}
       {endIcon}

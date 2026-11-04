@@ -19,8 +19,6 @@ import { ProductCard } from '@/components/common/molecules/ProductCard/ProductCa
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 
-import { faChevronRight } from '@/icons/fontAwesome';
-
 type OrderRecommendation = {
   id: string;
   gender?: string;
@@ -110,7 +108,7 @@ export function OrderRecommendations({
                 }
               >
                 <Icon
-                  fontAwesomeIcon={faChevronRight}
+                  name="chevron-right-solid"
                   size="16px"
                   className={css({ transform: 'rotate(180deg)' })}
                 />
@@ -128,7 +126,7 @@ export function OrderRecommendations({
                   })
                 }
               >
-                <Icon fontAwesomeIcon={faChevronRight} size="16px" />
+                <Icon name="chevron-right-solid" size="16px" />
               </Button>
             </HStack>
           ) : layout === 'portrait' ? (

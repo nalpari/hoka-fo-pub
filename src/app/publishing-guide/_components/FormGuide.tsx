@@ -14,8 +14,6 @@ import { Typography } from '@/components/common/atoms/Typography';
 
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
 
-import { faCopy, faUser } from '@/icons/fontAwesome';
-
 import { renderGuideCode } from './GuideCode';
 import { type GuideCopyNotice, GuideCopyToast } from './GuideCopyToast';
 import { GuideTimeline } from './GuideTimeline';
@@ -71,19 +69,19 @@ const menuOptions = [
 
 const iconMenuOptions: readonly DropdownOption[] = menuOptions.map((option) => ({
   ...option,
-  prefix: <Icon fontAwesomeIcon={faUser} size={16} />,
+  prefix: <Icon name="user-regular" size={16} />,
 }));
 
 const imageMenuOptions: readonly DropdownOption[] = [
   {
     value: 'us',
     label: 'United States',
-    prefix: <Icon src="/images/flag/us.svg" size={16} />,
+    prefix: <Icon name="flag/us" size={16} />,
   },
   {
     value: 'jp',
     label: 'Japan',
-    prefix: <Icon src="/images/flag/jp.svg" size={16} />,
+    prefix: <Icon name="flag/jp" size={16} />,
   },
 ];
 
@@ -119,9 +117,9 @@ const codeExamples = {
   dropdownList:
     '<Dropdown ariaLabel="메뉴 선택" label="타이틀명" placeholder="메뉴를 선택해 주세요" options={options} value={value} onValueChange={setValue} />',
   dropdownIconList:
-    '<Dropdown ariaLabel="사용자 선택" label="타이틀명" options={options.map((option) => ({ ...option, prefix: <Icon fontAwesomeIcon={faUser} size={16} /> }))} />',
+    '<Dropdown ariaLabel="사용자 선택" label="타이틀명" options={options.map((option) => ({ ...option, prefix: <Icon name="user-regular" size={16} /> }))} />',
   dropdownImageList:
-    '<Dropdown ariaLabel="국가 선택" label="타이틀명" options={[{ value: "us", label: "United States", prefix: <Icon src="/images/flag/us.svg" size={16} /> }]} />',
+    '<Dropdown ariaLabel="국가 선택" label="타이틀명" options={[{ value: "us", label: "United States", prefix: <Icon name="flag/us" size={16} /> }]} />',
 } as const;
 
 type FormExampleProps = {
@@ -168,7 +166,7 @@ function ButtonCopy({ code, onCopy }: { code: string; onCopy: (code: string) => 
       size={32}
       onClick={() => onCopy(code)}
     >
-      <Icon fontAwesomeIcon={faCopy} size={16} />
+      <Icon name="copy-regular" size={16} />
     </Button>
   );
 }

@@ -2,8 +2,6 @@
 
 import Image from 'next/image';
 
-import { faCreditCard } from '@fortawesome/free-solid-svg-icons';
-
 import { css } from 'styled-system/css';
 import { Box, Stack } from 'styled-system/jsx';
 
@@ -42,7 +40,7 @@ function CheckoutPaymentMark({ method }: { method: PaymentMethod }) {
           className={css({ w: '28px', h: '16px', objectFit: 'contain' })}
         />
       ) : method === 'card' ? (
-        <Icon fontAwesomeIcon={faCreditCard} size={16} />
+        <Icon name="credit-card-solid" size={16} />
       ) : (
         <Typography
           variant="body5"
@@ -101,11 +99,10 @@ function CheckoutPaymentMethods({
           <Stack h="100%" alignItems="center" justifyContent="center" gap="1">
             <CheckoutPaymentMark method={method.value} />
             <Typography variant="body5">{method.label}</Typography>
-            <img
-              src={`/images/icon/form/radio-${payment === method.value ? 'checked' : 'unchecked'}.svg`}
+            <Icon
+              name={`radio-${payment === method.value ? 'checked' : 'unchecked'}`}
+              size={16}
               alt=""
-              width={16}
-              height={16}
             />
           </Stack>
         ),

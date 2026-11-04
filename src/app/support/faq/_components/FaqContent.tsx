@@ -23,7 +23,7 @@ import {
 } from '@/app/support/faq/faq.data';
 import { supportNavigation } from '@/app/support/support.navigation';
 import { CustomerCenterLayout } from '@/components/support/CustomerCenterLayout';
-import { faChevronDown } from '@/icons/fontAwesome';
+
 type Props = {
   category: FaqCategory;
   categories: FaqCategory[];
@@ -170,7 +170,7 @@ function FaqList({ entries, openQuestion, onToggle }: FaqListProps) {
         <Accordion
           indicator={
             <Flex as="span" w="24px" h="24px" alignItems="center" justifyContent="center">
-              <Icon fontAwesomeIcon={faChevronDown} size="16px" />
+              <Icon name="chevron-down-regular" size="16px" />
             </Flex>
           }
           triggerClassName={styles.question}

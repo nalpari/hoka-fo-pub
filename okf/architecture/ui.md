@@ -4,16 +4,26 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-04T05:48:57Z'
+updated: '2026-11-03T23:51:12Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/app/wh/_components/work-history-animations.css
+  - src/app/wh/_components/FileSummary.tsx
+  - src/app/wh/loading.tsx
+  - src/app/wh/_components/WorkHistoryLoading.tsx
+  - src/app/wh/_components/WorkHistory.tsx
   - src/app/publishing-guide/_components/FormGuide.tsx
   - src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx
   - src/app/screen-index/screenDevelopers.ts
   - src/app/support/inquiries/new/order-products/_components/InquiryOrderLookup.tsx
+
+  - src/components/common/atoms/Icon.tsx
+  - src/components/common/atoms/Icon.assets.ts
+  - src/app/publishing-guide/_components/IconGuide.tsx
+  - public/images/icon/README.md
   - src/app/mypage/orders/_components/OrderClaimRequest.tsx
   - src/app/mypage/orders/_components/OrdersPage.tsx
   - src/app/mypage/orders/_components/OrdersContent.tsx
@@ -38,9 +48,9 @@ working_tree_sources:
   - src/app/mypage/orders/_components/OrderDetails.tsx
   - src/app/mypage/orders/_components/OrdersProducts.tsx
   - src/components/common/molecules/OrderProductSummary.tsx
-  - public/images/icon/orders/bag-shopping.svg
+  - public/images/icon/bag-shopping.svg
   - src/app/mypage/orders/_components/OrdersStatus.tsx
-  - public/images/icon/form/calendar.svg
+  - public/images/icon/calendar.svg
   - src/app/mypage/orders/_components/OrdersList.tsx
   - src/stories/features/orders/OrdersStatus.stories.tsx
   - src/components/common/molecules/PreviousTermsPicker.tsx
@@ -123,9 +133,9 @@ working_tree_sources:
   - src/components/common/molecules/HelpTips.tsx
   - src/app/publishing-guide/_components/HelpTipsGuide.tsx
   - src/app/publishing-guide/page.tsx
-  - public/images/icon/tooltip/arrow.svg
-  - public/images/icon/tooltip/info.svg
-  - public/images/icon/tooltip/question.svg
+  - public/images/icon/arrow.svg
+  - public/images/icon/info.svg
+  - public/images/icon/question.svg
   - src/app/support/store/_components/StoreContent.tsx
   - src/app/publishing-guide/_components/TypographyGuide.tsx
   - src/app/publishing-guide/_components/ButtonGuide.tsx
@@ -786,7 +796,7 @@ working_tree_sources:
   - src/icons/iconAssets.ts
   - src/stories/components/common/atoms/Icon/Icon.stories.tsx
   - public/images/icon/unlock-keyhole.svg
-  - public/images/icon/navigation/membership.svg
+  - public/images/icon/membership.svg
   - src/stories/components/common/organisms/Navigation/MenuDrawer/MenuDrawer.stories.tsx
   - src/components/run-club/RunClubBadge.tsx
   - src/app/locales/page.tsx
@@ -4484,3 +4494,107 @@ ProductIdentity는 기존 ProductDetailsIdentity를 공용 export로 전환한 �
 
 - `src/components/common/atoms/Button.tsx` 작업 트리: 기존 `fullWidth` 옵션에 `--button-full-width-mobile-max-width: 375px`를 정의하고 `_mobile`에서만 해당 변수로 `max-width`를 제한한다. 부모가 더 좁으면 기존 `width: 100%`를 따르며 PC와 일반 버튼의 너비는 유지한다. ButtonLink도 기존 공통 Button 경로를 따른다.
 - ESLint·Prettier 검사를 통과했고 생성 CSS의 `.platform-mobile` 최대 너비 규칙을 확인했다. 브라우저 시각 검증은 수행하지 않았다.
+
+## 개발자 변경 이력 로딩 (2026-11-04)
+
+`/wh`의 최초 조회는 경로 전용 `loading.tsx`에서, 새로고침은 기존 화면 내부에서 도트 매트릭스 상태를 표시한다. 열별 도트 막대의 높이 변화는 Dot Matrix Sound Bars를 참고했으며 움직임 줄이기 환경에서는 정적이다. 공통 쇼핑 화면의 로딩 스타일은 변경하지 않았다. 출처: 위 세 작업 트리 파일과 `panda.config.ts`, [Dot Matrix](https://dotmatrix.zzzzshawn.cloud/). 기록: codex/gpt-6, 2026-11-04T00:39:56Z.
+
+## 파일 diff 요약 로딩 (2026-11-04)
+
+`/wh`의 파일 요약 콜아웃은 요청 중 Tripod Handoff 도트 로더와 분석 중 문구를 표시한다. 원본은 [Dot Matrix](https://dotmatrix.zzzzshawn.cloud/)이며 움직임 줄이기 설정에서는 정지한다. 작업 트리 출처: `src/app/wh/_components/FileSummary.tsx`, `panda.config.ts`. 기록: codex/gpt-6, 2026-11-04T01:01:23Z.
+
+## 변경 이력 로더 키프레임 분리 (2026-11-04)
+
+`/wh`의 Sound Bars와 파일 diff 요약 Tripod Handoff 키프레임은 `src/app/wh/_components/work-history-animations.css`에서 정의하고 각 컴포넌트가 불러온다. 그 외 컴포넌트 스타일은 Panda CSS를 유지한다. 기존 `panda.config.ts`에 추가했던 두 키프레임은 제거했다. 출처: 위 CSS와 `WorkHistoryLoading.tsx`, `FileSummary.tsx` 작업 트리. 기록: codex/gpt-6, 2026-11-04T01:20:43Z.
+
+## Font Awesome 교체용 Figma SVG 준비 (2026-11-03)
+
+`public/images/icon/svg/`에 현재 사용하는 Font Awesome 35종의 대응 SVG를 내려받았다. 출처는 HOKA design system v1.0 (`0dCBZJvU7aacxImQTV843M`)의 Icons `262:7807` / FontAwesome Icons `296:9192`다. Regular/Solid 이름을 대응하고 각 variant 노드를 SVG로 export했다. 원본 파일은 도형·fill·크기·viewBox를 수정하지 않았다. 파일별 기존 fa 이름과 Figma 노드 링크는 [대응표](../../public/images/icon/README.md)에 기록한다. 서비스 화면의 React 호출부·Font Awesome 의존성은 그대로이며, 교체는 별도 작업이다. 현재 설치된 패키지와 Figma의 도형 버전 동일성은 보장하지 않으므로 교체 시 PC/MO 크기·여백·색상 검증이 필요하다.
+
+검증: 35개 파일 모두 비어 있지 않은 SVG XML이고 viewBox·root 크기를 갖는다. 32개는 18×18, circle-info와 star 두 상태는 16×16이다.
+
+브라우저에서 35개 SVG를 한 화면에 표시해 형태를 확인했고 이미지 로딩 실패는 0개였다. 일부 export에는 밝은 배경이 보이므로 추후 mask 교체 전에 배경 포함 여부를 확인한다.
+
+## 아이콘 가이드 SVG 이름 대응 (2026-11-04)
+
+IconGuide의 Font Awesome 영역 35개 카드는 다운로드한 Figma SVG 미리보기와 사용 코드를 제공한다. 기존 코드 이름(예: faUser), Font Awesome 정식 이름·variant(user / Regular), SVG 파일명(user-regular.svg)을 함께 표시하고 파일 다운로드 링크를 제공한다. 서비스 화면의 기존 Font Awesome 호출부는 아직 유지한다. 출처: `src/app/publishing-guide/_components/IconGuide.tsx`, `public/images/icon/svg/README.md` 및 해당 SVG 파일. 기존 아이콘 탭과 목차 ID는 유지한다. Panda 생성 통과; 전체 타입 검사는 기존 .next/types의 삭제 라우트 참조 오류로 미통과이며 새 소스 오류는 없었다.
+
+## 기존 SVG의 Font Awesome 이름 안내 (2026-11-04)
+
+IconGuide의 기존 SVG 42개와 폼 상태 10개에 origin 표시를 추가했다. 26개는 Figma FontAwesome Icons의 Regular/Solid export와 로컬 SVG path 또는 크기 정규화한 도형 대조로 이름·스타일을 기록했다. 예: gift/party-horn/medal/clock-nine/ruler-horizontal Regular, filter.svg는 sliders Regular, sort-down Solid. 별점 반 개는 star-half-stroke의 두 variant 도형이 같아 스타일 구분을 보류한다. SVG 레이어명으로 확인한 check·bell·bag-shopping과 그 외 후보는 variant 미확인을 표시한다. 인증 그림·브랜드 로고·폼 조합·말풍선 화살표에 Font Awesome 이름을 임의로 부여하지 않는다.
+
+Figma 파일 0dCBZJvU7aacxImQTV843M의 Icons 262:7807 / FontAwesome Icons 296:9192에서 기존 메타데이터 및 이번에 받은 60개 후보 variant 원본을 대조했다. 조회 도중 Figma 도구 호출 한도에 도달해 추가 원본 확인이 필요한 항목은 가이드에 명시했다. 원본 에셋·코드 사용법·서비스 화면은 변경하지 않았다. 출처: IconGuide.tsx와 public/images/icon, header, launch-calendar의 기존 SVG.
+
+2026-11-04: IconGuide의 멤버십 카드만 darkPreview 옵션으로 미리보기 배경을 black.60으로 표시한다. 밝은 원본 SVG와 배경의 대비를 확보하며 원본 아이콘 색상·서비스 화면은 유지한다. 출처: src/app/publishing-guide/_components/IconGuide.tsx.
+
+## 아이콘 미리보기 명도 대비 (2026-11-04)
+
+IconGuide의 previewBackground 옵션으로 멤버십·네이버·알림 신청됨·발매 알림·발매 시간·말풍선 화살표·checkbox/radio 비활성 두 상태씩, 총 10개 배경을 지정한다. 원본 도형 색과 기본 #F3F3F3 배경을 대조했으며 어두운 미리보기는 파란 발매 시간을 포함해 모두 #4D4D4D로 통일한다. 흰색·#F7F7F9·#B3B3B3의 대비는 진회색에서 각각 8.45·7.90·4.03:1이다. 파랑 #009DFF는 진회색에서 2.93:1이며 사용자 요청에 따라 다른 어두운 카드와 배경을 통일했다. 원본 SVG·mask 색·서비스 UI는 유지한다. 배경은 표시 fixture에서 지정하며 런타임 SVG 분석이나 색상 자동 판정은 추가하지 않는다. 출처: IconGuide.tsx, 기존 SVG fill/stroke, panda.config.ts의 surface.subtle·black 토큰.
+
+## 이름 기반 SVG 아이콘 통합 (2026-11-04)
+
+공통 `atoms/Icon.tsx`는 필수 `name`으로만 SVG를 선택한다. 경로·기본 image/mask 모드는 같은 atoms의 `Icon.assets.ts`가 소유하고 IconAssetName 타입으로 이름을 검사한다. 기존 src/fontAwesomeIcon API와 src/icons의 별도 레지스트리·barrel을 제거했다. 단색 SVG는 currentColor 또는 color 토큰을 따르고 상태·다색 SVG는 원본색을 유지한다. size 기본 16px, mask 개별 재정의, carousel 방향과 두 CSS 색상 변수, 장식/의미 아이콘 접근성은 유지한다.
+
+Figma에서 받은 35종은 캔버스 배경·컴포넌트 테두리를 제거하고 도형과 viewBox를 보존했다. 기존 FA 호출, 파일 경로 호출, 폼 상태 이미지, 알림 mask와 화면 전용 인라인 도형을 모두 name으로 옮겼다. 달력은 네이티브 date 입력 위 pointer-events 없는 SVG로 표시해 기존 달력 선택을 유지한다. 로고·국기·콘텐츠 이미지·배경 장식은 해당 이미지 책임에 남긴다. 가이드의 다운로드·기존 fa 명칭은 유지하고 복사 코드를 name API로 갱신했다. 이전 준비 단계의 “서비스 호출부 유지/미교체” 기록은 이 변경으로 대체된다.
+
+출처: src/components/common/atoms/Icon.tsx, Icon.assets.ts, Checkbox.tsx, Radio.tsx, src/context/ShopShell.tsx, src/app/publishing-guide/_components/IconGuide.tsx, public/images/icon/svg/README.md 및 각 호출부 작업 트리.
+
+검증: SVG 135개(등록 이름 138개)의 경로와 XML 파싱을 확인했고 Figma 35종의 캔버스 fill 제거를 검사했다. 변경 TS/TSX ESLint 및 핵심 파일 Prettier, Panda 생성, screen-files 생성, okf:check를 통과했다. Ego에서 PC/375px 가이드 표시, 16/18/24px 치수, 단색 색상, SVG 미리보기 54개 mask 요청 HTTP 200 및 깨진 이미지 없음, 폼 12개 상태 이미지 16px, 비밀번호 표시 전환·체크박스 상태 전환을 확인했다. 모바일 가이드/폼의 가로 넘침이 없었다. 전체 typecheck는 기존 .next/types의 삭제된 라우트 참조 오류로 미통과이며 src 진단은 없었다. 모든 서비스 화면의 픽셀 비교를 완료했다는 뜻은 아니다. 패키지 정리 후 기존 개발 서버를 재시작했다.
+
+## 아이콘 디렉터리 평탄화 (2026-11-04)
+
+public/images/icon 하위 폴더를 제거하고 SVG 133개를 루트에 모았다. 파일 바이트와 image/mask 모드·크기는 보존하고 이름과 경로만 변경했다. navigation/chevron-right.svg는 기존 루트 파일과 충돌해 navigation-chevron-right.svg로 구분했다. 비슷한 도형 통합은 아직 하지 않는다. 공통 Icon.assets.ts, 모든 name 호출, 동적 폼/소셜/툴팁 이름과 가이드 다운로드를 함께 갱신했다. 출처: src/components/common/atoms/Icon.assets.ts, public/images/icon/README.md 및 관련 호출부.
+
+검증: SVG 133개 XML·등록 경로와 하위 폴더 없음, 이동 109개 파일 바이트 동일성 및 새 URL HTTP 200을 확인했다. 변경 소스 ESLint, screen-files, okf:check, 폼 테스트 47개를 통과했다. 전체 typecheck는 기존 .next/types 삭제 라우트 참조 오류만 남고 src 진단은 없다. 이번 경로 변경에서 브라우저 시각 검증을 별도로 반복하지 않았다.
+
+## Font Awesome 공식 이름 적용 (2026-11-04)
+
+Figma FontAwesome Icons 296:9192의 현재 메타데이터와 기존 variant 대조 자료를 기준으로 용도 이름을 공식 아이콘 이름으로 바꿨다. 확인된 스타일은 -regular/-solid로 구분하고 미확정 스타일은 기본 공식 이름을 유지한다. bag-shopping/notification-bag, fa-plus/filter-collapsed, close/tag-delete/catalog-filter-close/fa-xmark, fa-ruler-horizontal/ruler 등은 같은 자산을 공유한다. 크기는 size, 흰색·회색·파란색은 color로 유지한다. 인증 일러스트·브랜드·폼 상태 조합과 전용 도형은 임의 FA 이름을 붙이지 않는다. Icon.assets.ts는 인증 그림의 image 모드를 유지한다. 가이드 중복 예시는 사용처·코드를 합쳤다. 출처: public/images/icon/README.md, Icon.assets.ts, IconGuide.tsx 및 Figma 파일 0dCBZJvU7aacxImQTV843M. bag-shopping Regular 296:12131, basket-shopping Regular 296:13966, circle-star Solid 296:16623은 이번 디자인 컨텍스트 export를 사용했다.
+
+검증: 변경 소스 ESLint·Prettier, Panda 생성, screen-files, 폼 테스트 47개를 통과했다. 등록 경로 126개와 SVG 124개의 파일·XML을 확인했다. Ego PC 가이드에서 mask SVG 65종 요청 성공·깨진 이미지 없음·장바구니 카드 1개와 멤버십 흰색을 확인했고, 375px 헤더가 bag-shopping-regular.svg를 20px로 사용하는 것과 가로 넘침 없음을 확인했다. 전체 typecheck는 기존 .next/types 삭제 라우트 참조 오류만 남고 src 진단은 없다.
+
+## Icon 기본 색상 표기 생략 (2026-11-04)
+
+Icon의 기본값과 같은 color="currentColor"를 실제 호출부와 IconGuide 미리보기·복사 코드에서 제거했다. 내부 기본값과 명시적인 다른 색상은 유지하므로 렌더링은 동일하다. 출처: IconGuide.tsx, ProductDetailContent.tsx, SizeSelector.tsx.
+
+## 아이콘 색상 토큰 사용 (2026-11-04)
+
+Icon 호출부와 가이드 복사 코드의 HEX 색상을 동일 값의 Panda 토큰으로 교체했다: #B3B3B3 → black.40, #F7F7F9 → black.10, #009DFF → blue.100. 색상 값과 상태 전환은 유지한다. 출처: panda.config.ts, IconGuide.tsx, LaunchCalendarContent.tsx, LaunchCalendarDetail.tsx, ShopShell.tsx.
+
+## 기본 mask prop 생략 (2026-11-04)
+
+레지스트리의 기본 mode가 mask인 돋보기·하트·장바구니·바구니·sort-down 호출에서 중복 mask prop을 제거했다. IconGuide/ButtonGuide의 미리보기·복사 코드에도 적용했다. mask={false}인 원본색 예외와 Icon 내부의 기본 모드 판정은 유지한다. 출처: Icon.assets.ts, Wishlist.tsx, Dropdown.tsx, ShopShell.tsx, IconGuide.tsx, ButtonGuide.tsx.
+
+## Icon mask 재정의 옵션 제거 (2026-11-04)
+
+푸터 국가 선택 화살표를 color="black.10"으로 전환하고 마지막 mask={false} 호출을 제거했다. IconProps의 mask와 호출부 재정의 분기를 삭제했다. 단색/원본색 렌더링은 Icon.assets.ts의 mode로만 결정하며 실제 CSS mask 렌더러는 유지한다. 가이드의 개별 mask 지정 안내도 제거했다. 출처: Icon.tsx, ShopShell.tsx, IconGuide.tsx. 이전 기록의 mask 재정의 계약은 이 변경으로 대체한다.
+
+## 가이드 복사 코드 중복 제거 (2026-11-04)
+
+퍼블리싱 가이드 전체의 정적 코드 문자열 123개를 검사했다. IconGuide의 6개 코드 블록에서 중복 import 6개와 동일 JSX 예시 2개를 제거했다. 크기·색상이 다른 예시는 유지하며 각 코드 블록의 동일 import는 한 번만 표시한다. 출처: src/app/publishing-guide/_components/IconGuide.tsx 및 가이드 전체 문자열 검사.
+
+## 아이콘 가이드 색상 안내 문구 (2026-11-04)
+
+IconGuide의 단색 SVG/CSS mask 안내를 “color로 색상 변경 가능”으로 통일하고 사용 예시 제목을 “아이콘 색상 지정”으로 정리했다. 내부 렌더링은 변경하지 않는다. 출처: src/app/publishing-guide/_components/IconGuide.tsx.
+
+## Icon 속성 표기 순서 (2026-11-04)
+
+Icon 사용처와 가이드 복사 코드는 name → size → color 순서로 적고 나머지 속성을 뒤에 둔다. 생략된 기본값은 추가하지 않으며 spread 경계의 덮어쓰기 순서는 보존한다. 표시 값·동작은 변경하지 않는다. 출처: src의 Icon 사용처 및 src/app/publishing-guide/_components/IconGuide.tsx.
+
+## 아이콘 가이드 카드 설명 간소화 (2026-11-04)
+
+아이콘 카드에는 name을 한 번, Font Awesome 이름과 스타일을 한 줄로 표시한다. 중복 등록 이름·파일명·다운로드 링크를 제거하고 asset 메타데이터를 origin에 통합했다. 프리뷰·사용처·코드 복사는 유지한다. 출처: src/app/publishing-guide/_components/IconGuide.tsx.
+
+## 아이콘 분류와 스타일 비교 배치 (2026-11-04)
+
+아이콘 가이드와 공통 데이터에서 생성되는 타임라인을 사용법 → 화살표·방향 → 기본 동작 → 상태·안내 → 사물·기호 → 폼 상태 → 브랜드·커스텀 순으로 변경했다. 각 그룹은 공식 기본 이름순으로 정렬하고 Regular 다음 Solid를 배치한다. 두 스타일은 2열 묶음으로 렌더링해 행이 갈라지지 않으며, PC 3열 그리드에서는 두 칸, 모바일에서는 한 행을 사용한다. 기존 84개 예시·코드·프리뷰는 유지했다. 출처: src/app/publishing-guide/_components/IconGuide.tsx.
+
+검증: ESLint·Prettier·Panda 생성·OKF 검사 통과. Ego에서 타임라인 7개 항목과 대상 섹션 이동을 확인했다. PC·375px 모바일에서 Regular/Solid 9쌍의 같은 행/좌우 순서와 가로 넘침 없음을 확인했다. 전체 typecheck는 기존 .next/types 삭제 라우트 참조 오류만 남고 src 진단은 없다.
+
+2026-11-04: IconGuide 색상 예시의 “색상 토큰 또는 CSS 색상” 안내도 “color로 색상 변경 가능”으로 통일했다. 표시 문구만 변경했다.
+
+## Chevron down Regular 통일 (2026-11-04)
+
+사용자 확인에 따라 chevron-down은 Regular만 사용한다. Figma 296:11741의 18×18 원본을 chevron-down-regular.svg로 저장하고 기존 chevron-down 및 chevron-down-solid 파일·등록을 제거했다. 가이드 Solid 예시를 제거하고 실제 사용처·코드·README를 갱신했다. 이전 13×8 전용 도형의 높이 재정의는 제거해 size로 원본 비율을 유지한다. 다른 이름의 아이콘 스타일은 이번 범위에 포함하지 않는다. 출처: Icon.assets.ts, IconGuide.tsx, ProductListingPage.tsx 및 chevron-down 사용처.
+
+검증: 변경 파일 ESLint·Prettier, screen-files·OKF 검사 통과. 소스와 에셋 목록에서 이전 chevron-down 및 Solid 참조가 없음을 확인했다. Ego 가이드에서 Regular 카드 1개·Solid 예시 없음과 원본 표시를 확인했다. 전체 typecheck는 기존 .next/types 삭제 라우트 참조 오류만 남고 src 진단은 없다.

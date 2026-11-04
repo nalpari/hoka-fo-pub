@@ -11,6 +11,10 @@ generated:
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/app/screen-index/screenDevelopers.ts
+  - src/app/wh/_components/work-history-animations.css
+  - src/app/wh/_components/WorkHistoryLoading.tsx
+  - src/app/wh/_components/FileSummary.tsx
+  - panda.config.ts
   - src/components/common/molecules/ProductCard/ProductCard.tsx
   - src/components/common/molecules/ProductOptionList.tsx
   - src/types/component-contracts/components-common-molecules-ProductCard-ProductCard.d.ts
@@ -633,3 +637,21 @@ Storybook 빌드·play 검증을 제거했다. IA 경로·진행 상태·소스 
 ## 상품 카드 호버 변경 검증 (2026-11-03)
 
 ProductCard.tsx·ProductOptionList.tsx·관련 타입 선언을 검토했다. 전체 npm run typecheck·npm run lint와 npm run panda, npx next build를 실제 통과했고, PC 호버/색상 선택/좌우 이동/Escape/Tab, 검색 결과·history/showcase 구분, 390px 모바일과 1024/1025·1199/1200px 경계를 실행 화면에서 확인했다. 검사 스크립트·ESLint 설정·테스트 정책은 변경하지 않았다. 최신 Figma 실측 검증은 API 호출 제한과 브라우저 로그인 필요로 미수행이다.
+
+## 파일 diff 요약 로딩 표시 (2026-11-04)
+
+`/wh` 파일 요약의 로딩 상태에만 Tripod Handoff 도트 애니메이션을 표시하며 분석 완료·실패 시에는 제거한다. 움직임 줄이기 설정에서는 정적으로 표시한다. 변경 파일 ESLint, 타입 검사와 Panda 생성을 확인했고 브라우저에서 콜아웃 분석 중 로더 표시를 확인했다. 출처: `src/app/wh/_components/FileSummary.tsx`, `panda.config.ts` 작업 트리. 기록: codex/gpt-6, 2026-11-04T01:01:23Z.
+
+## 변경 이력 로더 키프레임 분리 검증 (2026-11-04)
+
+`/wh` 전용 CSS로 로더 키프레임을 옮기고 Panda 설정의 해당 추가분을 제거했다. 출처: `src/app/wh/_components/work-history-animations.css`, `WorkHistoryLoading.tsx`, `FileSummary.tsx` 작업 트리. 기록: codex/gpt-6, 2026-11-04T01:20:43Z.
+
+## 아이콘 디렉터리 평탄화 (2026-11-04)
+
+아이콘 파일 평탄화에 맞춰 form-controls.test.mjs의 소셜 아이콘 경로 기대값을 /images/icon/{provider}.svg로 갱신했다. 실제 Button 렌더링과 폼 연결 검증은 유지한다. 출처: tests/form-controls.test.mjs.
+
+별점 검사의 이전 data-icon 기대값을 실제 mask SVG의 채움 3개·윤곽 2개 검사로 전환했다. 폼 회귀 테스트 47개 통과.
+
+## Font Awesome 공식 이름 적용 (2026-11-04)
+
+별점 반 개의 공식 이름 star-half-stroke로 테스트 기대값을 갱신했다. 폼 회귀 테스트 47개 통과. 전체 typecheck는 기존 .next/types 삭제 라우트 참조 오류만 남으며 src 진단은 없다.

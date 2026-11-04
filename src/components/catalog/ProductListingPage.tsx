@@ -138,12 +138,7 @@ function CatalogFilterTrigger({
       <Typography variant="body3" weight="semibold">
         {title}
       </Typography>
-      <Icon
-        alt=""
-        className={icon}
-        size={16}
-        src={expanded ? '/images/icon/filter-expanded.svg' : '/images/icon/filter-collapsed.svg'}
-      />
+      <Icon name={expanded ? 'minus-regular' : 'plus-regular'} size={16} alt="" className={icon} />
     </Button>
   );
 }
@@ -468,7 +463,7 @@ function Tag({ children, onDelete }: TagProps) {
         onClick={onDelete}
         size={platform === 'mobile' ? '14px' : '16px'}
       >
-        <Icon name="tag-delete" size={platform === 'mobile' ? '14px' : '16px'} />
+        <Icon name="xmark-regular" size={platform === 'mobile' ? '14px' : '16px'} />
       </Button>
     </Flex>
   );
@@ -725,15 +720,7 @@ const defaultIndicator = css({
   flexShrink: 0,
 });
 function DefaultIndicator() {
-  return (
-    <svg className={defaultIndicator} fill="none" height="8" viewBox="0 0 13 8" width="13">
-      <path
-        d="M0.480469 0.508114L6.24565 6.2733L11.9805 0.477905"
-        stroke="currentColor"
-        strokeWidth="1.35887"
-      />
-    </svg>
-  );
+  return <Icon name="chevron-down-regular" size={13} className={defaultIndicator} />;
 }
 type CollapsibleProps = {
   children: ReactNode;
@@ -1189,7 +1176,7 @@ function ProductFilterTrigger({
   return (
     <Button
       aria-haspopup="dialog"
-      icon={<Icon name="filter" size={isSearch ? 20 : undefined} />}
+      icon={<Icon name="sliders-regular" size={isSearch ? 20 : undefined} />}
       onClick={onClick}
       variant="filterTrigger"
       size={isSearch ? 'regular' : 'compact'}
@@ -1265,7 +1252,7 @@ function ProductActivityNavigation({
             size={36}
             onClick={onOpenFilters}
           >
-            <Icon name="filter" />
+            <Icon name="sliders-regular" />
           </Button>
         )}
       </HStack>

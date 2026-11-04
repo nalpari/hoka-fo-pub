@@ -7,6 +7,7 @@ import { type ReactNode } from 'react';
 import { css } from 'styled-system/css';
 import { Box, Flex } from 'styled-system/jsx';
 
+import { Icon } from '@/components/common/atoms/Icon';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { type LocaleRegion } from '@/app/locales/locales.data';
@@ -24,17 +25,7 @@ function LocalesHeading() {
       bg="var(--color-black-10)"
       _mobile={{ minH: '15' }}
     >
-      <svg
-        className={globe}
-        aria-hidden="true"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2.4"
-      >
-        <circle cx="12" cy="12" r="9" />
-        <path d="M3 12h18M12 3c2.7 2.5 4.1 5.5 4.1 9S14.7 18.5 12 21c-2.7-2.5-4.1-5.5-4.1-9S9.3 5.5 12 3" />
-      </svg>
+      <Icon name="globe" size={28} className={globe} />
       <Typography as="h1" web="body2" mo="body3" weight="bold">
         Choose your shipping country
       </Typography>

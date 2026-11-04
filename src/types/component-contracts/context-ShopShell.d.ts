@@ -11,6 +11,8 @@ import {
 } from 'react';
 import { type Platform } from '@/context/platform';
 
+import type { IconAssetName } from '@/components/common/atoms/Icon';
+
 import { type FooterGroup } from '@/data/footerData';
 import { type HeaderPromotionItem } from '@/data/headerPromotionData';
 import { type MegaMenu, type MegaMenuPromo } from '@/data/megaMenu';
@@ -123,7 +125,7 @@ declare function MenuDrawer({ close, isLoggedIn }: MenuDrawerProps): import('rea
 declare function FooterBrandLogo(): import('react').JSX.Element;
 type SocialIconLinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
   label: string;
-  file: string;
+  file: 'instagram.svg' | 'youtube.svg' | 'x.svg';
   href?: string;
 };
 declare function SocialIconLink({
@@ -307,8 +309,8 @@ type HeaderLogoProps = {
 };
 declare function HeaderLogo({ onClick }: HeaderLogoProps): import('react').JSX.Element;
 type HeaderIconProps = {
-  desktopSrc: string;
-  mobileSrc?: string;
+  desktopSrc: IconAssetName;
+  mobileSrc?: IconAssetName;
   alt?: string;
 };
 type HeaderIconLinkProps = {

@@ -6,7 +6,7 @@ import { css } from 'styled-system/css';
 import { Box, Center, Grid, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
-import { Icon } from '@/components/common/atoms/Icon';
+import { Icon, type IconAssetName } from '@/components/common/atoms/Icon';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
@@ -23,7 +23,7 @@ const styles = {
 };
 
 type Props = {
-  method: { id: VerificationMethod; label: string; iconName: string };
+  method: { id: VerificationMethod; label: string; iconName: IconAssetName };
   onSelect: (method: VerificationMethod) => void;
 };
 
@@ -68,8 +68,8 @@ function IdentityVerificationContent({ onSelect }: IdentityVerificationContentPr
         <Grid columns={2} gap="2">
           {(
             [
-              { id: 'phone', label: '휴대폰 인증', iconName: 'phoneVerification' },
-              { id: 'ipin', label: '아이핀 인증', iconName: 'ipinVerification' },
+              { id: 'phone', label: '휴대폰 인증', iconName: 'phone-verification' },
+              { id: 'ipin', label: '아이핀 인증', iconName: 'ipin-verification' },
             ] as const
           ).map((method) => (
             <VerificationMethodCard key={method.id} method={method} onSelect={onSelect} />

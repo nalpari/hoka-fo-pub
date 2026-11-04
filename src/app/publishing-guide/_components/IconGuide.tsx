@@ -1,27 +1,5 @@
 'use client';
 
-import { faBell } from '@fortawesome/free-regular-svg-icons';
-import {
-  faBan,
-  faBoxOpen,
-  faCheck,
-  faChevronLeft,
-  faClipboardList,
-  faCreditCard,
-  faDesktop,
-  faFileLines,
-  faFilePdf,
-  faFolder,
-  faFolderOpen,
-  faFolderTree,
-  faImage,
-  faMagnifyingGlass,
-  faMinus,
-  faPlus,
-  faScrewdriverWrench,
-  faTriangleExclamation,
-  faTruckFast,
-} from '@fortawesome/free-solid-svg-icons';
 import { type ReactNode, useCallback, useRef, useState } from 'react';
 
 import { css } from 'styled-system/css';
@@ -31,29 +9,15 @@ import { Button } from '@/components/common/atoms/Button';
 import { Icon } from '@/components/common/atoms/Icon';
 import { Typography } from '@/components/common/atoms/Typography';
 
-import {
-  faBox,
-  faChevronDown,
-  faChevronRight,
-  faCircleCheck,
-  faCircleInfo,
-  faComments,
-  faCopy,
-  faEye,
-  faEyeSlash,
-  faLocationDot,
-  faStarRegular,
-  faStarSolid,
-  faUser,
-  faUserSolid,
-  faXmark,
-} from '@/icons/fontAwesome';
-
 import { renderGuideCode } from './GuideCode';
 import { type GuideCopyNotice, GuideCopyToast } from './GuideCopyToast';
 import { GuideTimeline } from './GuideTimeline';
 
 type IconExample = {
+  registeredName?: string;
+  /** 밝은 원본 도형의 명도 대비를 확인해 지정하는 가이드 전용 배경입니다. */
+  previewBackground?: 'black.60';
+  origin?: { label: string; name: string; detail?: string };
   label: string;
   preview: ReactNode;
   code: string;
@@ -64,725 +28,853 @@ type IconExample = {
 // 현재 사용처를 조사한 고정 가이드 목록입니다. 서비스 데이터나 자동 수집 결과가 아닙니다.
 const iconGroups: { id: string; title: string; description: string; items: IconExample[] }[] = [
   {
-    id: 'icon-assets',
-    title: 'SVG 아이콘',
-    description: '이름과 파일 경로로 사용하는 아이콘',
+    id: 'icon-direction',
+    title: '화살표·방향',
+    description: '화살표와 이동 방향',
     items: [
       {
-        label: '멤버십',
-        preview: <Icon name="navigation/membership" size={16} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="navigation/membership" size={16} />',
-        source: 'ShopShell.tsx',
-        note: '원본 SVG 색상 유지',
+        label: '캐러셀 · 이전',
+        preview: <Icon name="carousel-arrow" size={48} direction="previous" />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="carousel-arrow" size={48} direction="previous" />',
+        source: 'CarouselControls.tsx',
+        note: '전용 SVG · direction으로 방향 지정',
+        registeredName: 'carousel-arrow',
       },
       {
-        label: '가입 선물',
-        preview: <Icon name="gift" size={18} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="gift" size={18} />',
-        source: 'SignupContent.tsx',
-        note: '원본 SVG 색상 유지',
-      },
-      {
-        label: '기념일',
-        preview: <Icon name="partyHorn" size={18} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="partyHorn" size={18} />',
-        source: 'SignupContent.tsx',
-        note: '원본 SVG 색상 유지',
-      },
-      {
-        label: '회원 등급',
-        preview: <Icon name="medal" size={18} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="medal" size={18} />',
-        source: 'SignupContent.tsx',
-        note: '원본 SVG 색상 유지',
-      },
-      {
-        label: '휴대폰 인증',
-        preview: <Icon name="phoneVerification" size={80} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="phoneVerification" size={80} />',
-        source: 'IdentityVerificationContent.tsx',
-        note: '원본 SVG 색상 유지',
-      },
-      {
-        label: '아이핀 인증',
-        preview: <Icon name="ipinVerification" size={80} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="ipinVerification" size={80} />',
-        source: 'IdentityVerificationContent.tsx',
-        note: '원본 SVG 색상 유지',
-      },
-      {
-        label: '타이머',
-        preview: <Icon name="timer" size={18} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="timer" size={18} />',
-        source: 'ShopShell.tsx',
-        note: '원본 SVG 색상 유지',
-      },
-      {
-        label: '계정 잠금 해제',
-        preview: <Icon name="unlock-keyhole" size={18} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="unlock-keyhole" size={18} />',
-        source: 'account-locked/complete/page.tsx',
-        note: '원본 SVG 색상 유지',
-      },
-      {
-        label: '카카오',
-        preview: <Icon name="social/kakao" size={18} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="social/kakao" size={18} />',
-        source: 'Button.tsx',
-        note: '원본 SVG 색상 유지',
-      },
-      {
-        label: '네이버',
-        preview: <Icon name="social/naver" size={18} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="social/naver" size={18} />',
-        source: 'Button.tsx',
-        note: '원본 SVG 색상 유지',
-      },
-      {
-        label: '별점 반 개',
-        preview: <Icon name="rating/rating-star-half" size={16} color="currentColor" />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="rating/rating-star-half" size={16} color="currentColor" />',
-        source: 'RatingStars.tsx',
-        note: 'CSS mask · color 변경 가능',
-      },
-      {
-        label: '수량 감소',
-        preview: <Icon name="action/fa-minus" size={24} color="currentColor" />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="action/fa-minus" size={24} color="currentColor" />',
-        source: 'NumberStepper.tsx',
-        note: 'CSS mask · color 변경 가능',
-      },
-      {
-        label: '수량 증가',
-        preview: <Icon name="action/fa-plus" size={24} color="currentColor" />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="action/fa-plus" size={24} color="currentColor" />',
-        source: 'NumberStepper.tsx',
-        note: 'CSS mask · color 변경 가능',
-      },
-      {
-        label: '선택 태그 삭제',
-        preview: <Icon name="tag-delete" size={16} color="currentColor" />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="tag-delete" size={16} color="currentColor" />',
-        source: 'ProductListingPage.tsx',
-        note: 'CSS mask · color 변경 가능',
-      },
-      {
-        label: '필터',
-        preview: <Icon name="filter" size={20} color="currentColor" />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="filter" size={20} color="currentColor" />',
-        source: 'ProductListingPage.tsx',
-        note: 'CSS mask · color 변경 가능',
-      },
-      {
-        label: '우측 화살표',
-        preview: <Icon name="chevron-right" size={12} color="currentColor" />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="chevron-right" size={12} color="currentColor" />',
-        source: 'Breadcrumb.tsx',
-        note: 'CSS mask · color 변경 가능',
-      },
-      {
-        label: '입고 예정',
-        preview: <Icon name="action/fa-clock-nine" size={12} color="currentColor" />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="action/fa-clock-nine" size={12} color="currentColor" />',
-        source: 'SizeSelector.tsx',
-        note: 'CSS mask · color 변경 가능',
-      },
-      {
-        label: '사이즈 가이드',
-        preview: <Icon name="action/fa-ruler-horizontal" size={18} color="currentColor" />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="action/fa-ruler-horizontal" size={18} color="currentColor" />',
-        source: 'ProductDetailContent.tsx',
-        note: 'CSS mask · color 변경 가능',
-      },
-      {
-        label: '공유',
-        preview: <Icon name="action/fa-arrow-up-from-bracket" size={16} color="currentColor" />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="action/fa-arrow-up-from-bracket" size={16} color="currentColor" />',
-        source: 'ProductDetailContent.tsx',
-        note: 'CSS mask · color 변경 가능',
-      },
-      {
-        label: '닫기',
-        preview: <Icon name="close" size={16} color="currentColor" />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="close" size={16} color="currentColor" />',
-        source: 'OrderTrackingDialog.tsx',
-        note: 'CSS mask · color 변경 가능',
+        label: '캐러셀 · 다음',
+        preview: <Icon name="carousel-arrow" size={48} direction="next" />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="carousel-arrow" size={48} direction="next" />',
+        source: 'CarouselControls.tsx',
+        note: '전용 SVG · direction으로 방향 지정',
+        registeredName: 'carousel-arrow',
       },
       {
         label: '하단 화살표',
-        preview: <Icon name="chevron-down-small" size={14} color="currentColor" />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="chevron-down-small" size={14} color="currentColor" />',
-        source: 'MyPageReviewsContent.tsx',
-        note: 'CSS mask · color 변경 가능',
+        origin: { label: 'Font Awesome', name: 'chevron-down', detail: 'Regular' },
+        preview: <Icon name="chevron-down-regular" size={14} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="chevron-down-regular" size={14} />\n\n<Icon name="chevron-down-regular" size={13} />',
+        source:
+          'MyPageReviewsContent.tsx, ProductListingPage.tsx, Accordion.tsx, FaqContent.tsx, ProductDetailContent.tsx, RunningSessionEntriesContent.tsx, IaStructurePage.tsx, TermsDocument.tsx, NoticesContent.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'chevron-down-regular',
+      },
+
+      {
+        label: 'faChevronLeft',
+        origin: { label: 'Font Awesome', name: 'chevron-left', detail: 'Solid' },
+        preview: <Icon name="chevron-left-solid" size={24} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="chevron-left-solid" size={24} />',
+        source: 'ProductOptionList.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'chevron-left-solid',
       },
       {
-        label: '검색',
-        preview: <Icon src="/images/header/search.svg" size={19} mask />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon src="/images/header/search.svg" size={19} mask />',
-        source: 'ShopShell.tsx',
-        note: 'CSS mask · color 변경 가능',
+        label: '우측 화살표',
+        origin: { label: 'Font Awesome', name: 'chevron-right', detail: '스타일 구분 미확인' },
+        preview: <Icon name="chevron-right" size={12} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="chevron-right" size={12} />',
+        source: 'Breadcrumb.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'chevron-right',
+      },
+      {
+        label: 'faChevronRight',
+        origin: { label: 'Font Awesome', name: 'chevron-right', detail: 'Solid' },
+        preview: <Icon name="chevron-right-solid" size={24} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="chevron-right-solid" size={24} />',
+        source: 'OrderRecommendations.tsx, ShopShell.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'chevron-right-solid',
+      },
+      {
+        label: '드롭다운 표시',
+        origin: { label: 'Font Awesome', name: 'sort-down', detail: 'Solid' },
+        preview: <Icon name="sort-down-solid" size={18} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="sort-down-solid" size={18} />',
+        source: 'Dropdown.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'sort-down-solid',
+      },
+    ],
+  },
+  {
+    id: 'icon-action',
+    title: '기본 동작',
+    description: '검색·닫기·추가·공유·복사',
+    items: [
+      {
+        label: '공유',
+        origin: { label: 'Font Awesome', name: 'arrow-up-from-bracket', detail: 'Regular' },
+        preview: <Icon name="arrow-up-from-bracket-regular" size={16} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="arrow-up-from-bracket-regular" size={16} />',
+        source: 'ProductDetailContent.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'arrow-up-from-bracket-regular',
       },
       {
         label: '모바일 메뉴',
-        preview: <Icon src="/images/header/m-menu.svg" size={20} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon src="/images/header/m-menu.svg" size={20} />',
+        origin: { label: 'Font Awesome', name: 'bars', detail: 'Regular' },
+        preview: <Icon name="bars-regular" size={20} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="bars-regular" size={20} />',
         source: 'ShopShell.tsx',
-        note: '원본 SVG 색상 유지',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'bars-regular',
       },
       {
-        label: '알림 신청됨',
-        preview: <Icon src="/images/launch-calendar/check.svg" size={18} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon src="/images/launch-calendar/check.svg" size={18} />',
-        source: 'LaunchCalendarContent.tsx',
-        note: '원본 SVG 색상 유지',
+        label: 'faCopy',
+        origin: { label: 'Font Awesome', name: 'copy', detail: 'Regular' },
+        preview: <Icon name="copy-regular" size={24} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="copy-regular" size={24} />',
+        source: 'ButtonGuide.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'copy-regular',
       },
       {
-        label: '발매 알림',
-        preview: <Icon src="/images/launch-calendar/bell.svg" size={18} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon src="/images/launch-calendar/bell.svg" size={18} />',
-        source: 'LaunchCalendarContent.tsx',
-        note: '원본 SVG 색상 유지',
+        label: 'faEye',
+        origin: { label: 'Font Awesome', name: 'eye', detail: 'Regular' },
+        preview: <Icon name="eye-regular" size={24} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="eye-regular" size={24} />',
+        source: 'TextInput.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'eye-regular',
       },
       {
-        label: '발매 시간',
-        preview: <Icon src="/images/launch-calendar/clock.svg" size={18} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon src="/images/launch-calendar/clock.svg" size={18} />',
-        source: 'LaunchCalendarDetail.tsx',
-        note: '원본 SVG 색상 유지',
+        label: 'faEyeSlash',
+        origin: { label: 'Font Awesome', name: 'eye-slash', detail: 'Regular' },
+        preview: <Icon name="eye-slash-regular" size={24} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="eye-slash-regular" size={24} />',
+        source: 'TextInput.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'eye-slash-regular',
       },
       {
-        label: '발매 상품 사이즈',
-        preview: <Icon src="/images/launch-calendar/ruler.svg" size={16} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon src="/images/launch-calendar/ruler.svg" size={16} />',
-        source: 'LaunchCalendarDetail.tsx',
-        note: '원본 SVG 색상 유지',
+        label: '검색',
+        origin: { label: 'Font Awesome', name: 'magnifying-glass', detail: 'Regular' },
+        preview: <Icon name="magnifying-glass-regular" size={19} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="magnifying-glass-regular" size={19} />',
+        source: 'ShopShell.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'magnifying-glass-regular',
+      },
+      {
+        label: 'faMagnifyingGlass',
+        origin: { label: 'Font Awesome', name: 'magnifying-glass', detail: 'Solid' },
+        preview: <Icon name="magnifying-glass-solid" size={24} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="magnifying-glass-solid" size={24} />',
+        source: 'ProductDetailContent.tsx, SearchField.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'magnifying-glass-solid',
       },
       {
         label: '필터 펼침',
-        preview: <Icon src="/images/icon/filter-expanded.svg" size={16} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon src="/images/icon/filter-expanded.svg" size={16} />',
+        origin: { label: 'Font Awesome', name: 'minus', detail: 'Regular' },
+        preview: <Icon name="minus-regular" size={16} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="minus-regular" size={16} />',
         source: 'ProductListingPage.tsx',
-        note: '원본 SVG 색상 유지',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'minus-regular',
       },
       {
-        label: '필터 접힘',
-        preview: <Icon src="/images/icon/filter-collapsed.svg" size={16} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon src="/images/icon/filter-collapsed.svg" size={16} />',
-        source: 'ProductListingPage.tsx',
-        note: '원본 SVG 색상 유지',
+        label: '수량 감소',
+        origin: { label: 'Font Awesome', name: 'minus', detail: 'Solid' },
+        preview: <Icon name="minus-solid" size={24} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="minus-solid" size={24} />',
+        source: 'NumberStepper.tsx, InquiryOrderLookup.tsx',
+        note: 'color로 색상 변경 가능',
+
+        registeredName: 'minus-solid',
       },
       {
-        label: '카탈로그 필터 닫기',
-        preview: <Icon src="/images/icon/catalog-filter-close.svg" size={16} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon src="/images/icon/catalog-filter-close.svg" size={16} />',
-        source: 'BottomSheet.tsx',
-        note: '원본 SVG 색상 유지',
+        label: '수량 증가',
+        origin: { label: 'Font Awesome', name: 'plus', detail: 'Regular' },
+        preview: <Icon name="plus-regular" size={24} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="plus-regular" size={24} />\n\n<Icon name="plus-regular" size={16} />',
+        source: 'NumberStepper.tsx, ProductListingPage.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'plus-regular',
       },
       {
-        label: '가입 완료',
-        preview: <Icon src="/images/icon/join-check.svg" size={48} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon src="/images/icon/join-check.svg" size={48} />',
-        source: 'signup/complete/page.tsx',
-        note: '원본 SVG 색상 유지',
+        label: 'faPlus',
+        origin: { label: 'Font Awesome', name: 'plus', detail: 'Solid' },
+        preview: <Icon name="plus-solid" size={24} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="plus-solid" size={24} />',
+        source: 'InquiryOrderLookup.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'plus-solid',
       },
       {
-        label: '회원 전용',
-        preview: <Icon src="/images/icon/lock-keyhole.svg" size={14} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon src="/images/icon/lock-keyhole.svg" size={14} />',
+        label: 'faScrewdriverWrench',
+        origin: { label: 'Font Awesome', name: 'screwdriver-wrench', detail: 'Solid' },
+        preview: <Icon name="screwdriver-wrench-solid" size={24} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="screwdriver-wrench-solid" size={24} />',
         source: 'ProductDetailContent.tsx',
-        note: '원본 SVG 색상 유지',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'screwdriver-wrench-solid',
       },
       {
-        label: '관심상품 선택',
-        preview: <Icon src="/images/icon/wishlist-solid.svg" size={20} mask />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon src="/images/icon/wishlist-solid.svg" size={20} mask />',
-        source: 'Wishlist.tsx',
-        note: 'CSS mask · color 변경 가능',
+        label: '필터',
+        origin: { label: 'Font Awesome', name: 'sliders', detail: 'Regular' },
+        preview: <Icon name="sliders-regular" size={20} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="sliders-regular" size={20} />',
+        source: 'ProductListingPage.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'sliders-regular',
       },
       {
-        label: '관심상품 기본',
-        preview: <Icon src="/images/icon/wishlist-regular.svg" size={20} mask />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon src="/images/icon/wishlist-regular.svg" size={20} mask />',
-        source: 'Wishlist.tsx',
-        note: 'CSS mask · color 변경 가능',
+        label: '선택 태그 삭제',
+        origin: { label: 'Font Awesome', name: 'xmark', detail: 'Regular' },
+        preview: <Icon name="xmark-regular" size={16} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="xmark-regular" size={16} />',
+        source: 'ProductListingPage.tsx, OrderTrackingDialog.tsx, BottomSheet.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'xmark-regular',
       },
       {
-        label: '장바구니 담기',
-        preview: <Icon src="/images/icon/orders/bag-shopping.svg" size={18} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon src="/images/icon/orders/bag-shopping.svg" size={18} />',
-        source: 'OrdersProducts.tsx',
-        note: '원본 SVG 색상 유지',
+        label: 'faXmark',
+        origin: { label: 'Font Awesome', name: 'xmark', detail: 'Solid' },
+        preview: <Icon name="xmark-solid" size={24} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="xmark-solid" size={24} />',
+        source:
+          'CartProductSection.tsx, InquiryFormContent.tsx, ModalDialog.tsx, ProductDetailContent.tsx, SearchHeader.tsx, ShopShell.tsx, TextInput.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'xmark-solid',
+      },
+    ],
+  },
+  {
+    id: 'icon-status',
+    title: '상태·안내',
+    description: '체크·경고·정보·잠금·알림',
+    items: [
+      {
+        label: 'faBan',
+        origin: { label: 'Font Awesome', name: 'ban', detail: 'Solid' },
+        preview: <Icon name="ban-solid" size={24} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="ban-solid" size={24} />',
+        source: 'IaStructurePage.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'ban-solid',
       },
       {
-        label: '헤더 장바구니',
-        preview: <Icon src="/images/icon/notification/notification-bag.svg" size={22} mask />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon src="/images/icon/notification/notification-bag.svg" size={22} mask />',
-        source: 'ShopShell.tsx',
-        note: 'CSS mask · color 변경 가능',
+        label: '발매 알림',
+        previewBackground: 'black.60',
+        origin: { label: 'Font Awesome', name: 'bell', detail: 'Regular' },
+        preview: <Icon name="bell-regular" size={18} color="white" />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="bell-regular" size={18} color="white" />\n\n<Icon name="bell-regular" size={24} />',
+        source: 'LaunchCalendarContent.tsx, SizeSelector.tsx',
+        note: 'color로 색상 변경 가능',
+
+        registeredName: 'bell-regular',
       },
       {
-        label: 'Instagram',
-        preview: <Icon src="/images/icon/social/instagram.svg" size={24} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon src="/images/icon/social/instagram.svg" size={24} />',
-        source: 'ShopShell.tsx',
-        note: '원본 SVG 색상 유지',
+        label: '알림 신청됨',
+        previewBackground: 'black.60',
+        origin: { label: 'Font Awesome', name: 'check', detail: 'Regular' },
+        preview: <Icon name="check-regular" size={18} color="black.40" />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="check-regular" size={18} color="black.40" />',
+        source: 'LaunchCalendarContent.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'check-regular',
       },
       {
-        label: 'YouTube',
-        preview: <Icon src="/images/icon/social/youtube.svg" size={24} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon src="/images/icon/social/youtube.svg" size={24} />',
-        source: 'ShopShell.tsx',
-        note: '원본 SVG 색상 유지',
+        label: 'faCheck',
+        origin: { label: 'Font Awesome', name: 'check', detail: 'Solid' },
+        preview: <Icon name="check-solid" size={24} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="check-solid" size={24} />',
+        source: 'StepIndicator.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'check-solid',
       },
       {
-        label: 'X',
-        preview: <Icon src="/images/icon/social/x.svg" size={24} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon src="/images/icon/social/x.svg" size={24} />',
-        source: 'ShopShell.tsx',
-        note: '원본 SVG 색상 유지',
+        label: 'faCircleCheck',
+        origin: { label: 'Font Awesome', name: 'circle-check', detail: 'Regular' },
+        preview: <Icon name="circle-check-regular" size={24} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="circle-check-regular" size={24} />',
+        source: 'CouponManagement.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'circle-check-regular',
       },
       {
         label: '정보 도움말',
-        preview: <Icon src="/images/icon/tooltip/info.svg" size={16} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon src="/images/icon/tooltip/info.svg" size={16} />',
+        origin: { label: 'Font Awesome', name: 'circle-info', detail: 'Regular' },
+        preview: <Icon name="circle-info-regular" size={16} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="circle-info-regular" size={16} />',
         source: 'HelpTips.tsx',
-        note: '원본 SVG 색상 유지',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'circle-info-regular',
+      },
+      {
+        label: 'faCircleInfo',
+        origin: { label: 'Font Awesome', name: 'circle-info', detail: 'Solid' },
+        preview: <Icon name="circle-info-solid" size={24} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="circle-info-solid" size={24} />',
+        source: 'Dropdown.tsx, FormField.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'circle-info-solid',
       },
       {
         label: '질문 도움말',
-        preview: <Icon src="/images/icon/tooltip/question.svg" size={16} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon src="/images/icon/tooltip/question.svg" size={16} />',
+        origin: { label: 'Font Awesome', name: 'circle-question', detail: 'Regular' },
+        preview: <Icon name="circle-question-regular" size={16} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="circle-question-regular" size={16} />',
         source: 'HelpTips.tsx',
-        note: '원본 SVG 색상 유지',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'circle-question-regular',
       },
       {
-        label: '도움말 말풍선 화살표',
-        preview: (
-          <img
-            src="/images/icon/tooltip/arrow.svg"
-            width={17}
-            height={8}
-            alt=""
-            aria-hidden="true"
-          />
-        ),
-        code: '\n<img src="/images/icon/tooltip/arrow.svg" width={17} height={8} alt="" aria-hidden="true" />',
-        source: 'HelpTips.tsx',
-        note: '장식 이미지 · 17 × 8px',
+        label: '회원 전용',
+        origin: { label: 'Font Awesome', name: 'lock-keyhole', detail: 'Regular' },
+        preview: <Icon name="lock-keyhole-regular" size={14} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="lock-keyhole-regular" size={14} />',
+        source: 'ProductDetailContent.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'lock-keyhole-regular',
+      },
+      {
+        label: 'faTriangleExclamation',
+        origin: { label: 'Font Awesome', name: 'triangle-exclamation', detail: 'Solid' },
+        preview: <Icon name="triangle-exclamation-solid" size={24} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="triangle-exclamation-solid" size={24} />',
+        source: 'SystemStatusPage.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'triangle-exclamation-solid',
+      },
+      {
+        label: '계정 잠금 해제',
+        origin: { label: 'Font Awesome', name: 'unlock-keyhole', detail: 'Regular' },
+        preview: <Icon name="unlock-keyhole-regular" size={18} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="unlock-keyhole-regular" size={18} />',
+        source: 'account-locked/complete/page.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'unlock-keyhole-regular',
+      },
+    ],
+  },
+  {
+    id: 'icon-symbol',
+    title: '사물·기호',
+    description: '장바구니·사용자·시간·별·하트',
+    items: [
+      {
+        label: '장바구니 담기',
+        origin: { label: 'Font Awesome', name: 'bag-shopping', detail: 'Regular' },
+        preview: <Icon name="bag-shopping-regular" size={18} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="bag-shopping-regular" size={18} />\n\n<Icon name="bag-shopping-regular" size={22} />',
+        source: 'OrdersProducts.tsx, ShopShell.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'bag-shopping-regular',
+      },
+      {
+        label: 'faBox',
+        origin: { label: 'Font Awesome', name: 'box', detail: 'Solid' },
+        preview: <Icon name="box-solid" size={24} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="box-solid" size={24} />',
+        source: 'ShopShell.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'box-solid',
+      },
+      {
+        label: 'faBoxOpen',
+        origin: { label: 'Font Awesome', name: 'box-open', detail: 'Solid' },
+        preview: <Icon name="box-open-solid" size={24} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="box-open-solid" size={24} />',
+        source: 'ProductDetailContent.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'box-open-solid',
+      },
+      {
+        label: '날짜 선택',
+        origin: { label: 'Font Awesome', name: 'calendar', detail: 'Regular' },
+        preview: <Icon name="calendar-regular" size={16} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="calendar-regular" size={16} />',
+        source: 'OrdersStatus.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'calendar-regular',
+      },
+      {
+        label: '멤버십',
+        previewBackground: 'black.60',
+        origin: { label: 'Font Awesome', name: 'circle-star', detail: 'Solid' },
+        preview: <Icon name="circle-star-solid" size={16} color="black.10" />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="circle-star-solid" size={16} color="black.10" />',
+        source: 'ShopShell.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'circle-star-solid',
+      },
+      {
+        label: 'faClipboardList',
+        origin: { label: 'Font Awesome', name: 'clipboard-list', detail: 'Solid' },
+        preview: <Icon name="clipboard-list-solid" size={24} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="clipboard-list-solid" size={24} />',
+        source: 'ProductDetailContent.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'clipboard-list-solid',
+      },
+      {
+        label: '입고 예정',
+        origin: { label: 'Font Awesome', name: 'clock-nine', detail: 'Regular' },
+        preview: <Icon name="clock-nine-regular" size={12} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="clock-nine-regular" size={12} />',
+        source: 'SizeSelector.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'clock-nine-regular',
+      },
+      {
+        label: '발매 시간',
+        previewBackground: 'black.60',
+        origin: { label: 'Font Awesome', name: 'clock-ten', detail: '스타일 구분 미확인' },
+        preview: <Icon name="clock-ten" size={18} color="blue.100" />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="clock-ten" size={18} color="blue.100" />',
+        source: 'LaunchCalendarDetail.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'clock-ten',
+      },
+      {
+        label: 'faComments',
+        origin: { label: 'Font Awesome', name: 'comments', detail: 'Solid' },
+        preview: <Icon name="comments-solid" size={24} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="comments-solid" size={24} />',
+        source: 'ShopShell.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'comments-solid',
+      },
+      {
+        label: 'faCreditCard',
+        origin: { label: 'Font Awesome', name: 'credit-card', detail: 'Solid' },
+        preview: <Icon name="credit-card-solid" size={24} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="credit-card-solid" size={24} />',
+        source: 'CheckoutPayment.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'credit-card-solid',
+      },
+      {
+        label: 'faDesktop',
+        origin: { label: 'Font Awesome', name: 'desktop', detail: 'Solid' },
+        preview: <Icon name="desktop-solid" size={24} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="desktop-solid" size={24} />',
+        source: 'IaStructurePage.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'desktop-solid',
+      },
+      {
+        label: 'faFileLines',
+        origin: { label: 'Font Awesome', name: 'file-lines', detail: 'Solid' },
+        preview: <Icon name="file-lines-solid" size={24} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="file-lines-solid" size={24} />',
+        source: 'IaStructurePage.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'file-lines-solid',
+      },
+      {
+        label: 'faFilePdf',
+        origin: { label: 'Font Awesome', name: 'file-pdf', detail: 'Solid' },
+        preview: <Icon name="file-pdf-solid" size={24} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="file-pdf-solid" size={24} />',
+        source: 'InquiryListContent.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'file-pdf-solid',
+      },
+      {
+        label: 'faFolder',
+        origin: { label: 'Font Awesome', name: 'folder', detail: 'Solid' },
+        preview: <Icon name="folder-solid" size={24} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="folder-solid" size={24} />',
+        source: 'IaStructurePage.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'folder-solid',
+      },
+      {
+        label: 'faFolderOpen',
+        origin: { label: 'Font Awesome', name: 'folder-open', detail: 'Solid' },
+        preview: <Icon name="folder-open-solid" size={24} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="folder-open-solid" size={24} />',
+        source: 'IaStructurePage.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'folder-open-solid',
+      },
+      {
+        label: 'faFolderTree',
+        origin: { label: 'Font Awesome', name: 'folder-tree', detail: 'Solid' },
+        preview: <Icon name="folder-tree-solid" size={24} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="folder-tree-solid" size={24} />',
+        source: 'IaStructurePage.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'folder-tree-solid',
+      },
+      {
+        label: '가입 선물',
+        origin: { label: 'Font Awesome', name: 'gift', detail: 'Regular' },
+        preview: <Icon name="gift-regular" size={18} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="gift-regular" size={18} />',
+        source: 'SignupContent.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'gift-regular',
+      },
+      {
+        label: '관심상품 기본',
+        origin: { label: 'Font Awesome', name: 'heart', detail: 'Regular' },
+        preview: <Icon name="heart-regular" size={20} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="heart-regular" size={20} />',
+        source: 'Wishlist.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'heart-regular',
+      },
+      {
+        label: '관심상품 선택',
+        origin: { label: 'Font Awesome', name: 'heart', detail: 'Solid' },
+        preview: <Icon name="heart-solid" size={20} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="heart-solid" size={20} />',
+        source: 'Wishlist.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'heart-solid',
+      },
+      {
+        label: 'faImage',
+        origin: { label: 'Font Awesome', name: 'image', detail: 'Solid' },
+        preview: <Icon name="image-solid" size={24} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="image-solid" size={24} />',
+        source: 'InquiryListContent.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'image-solid',
+      },
+      {
+        label: 'faLocationDot',
+        origin: { label: 'Font Awesome', name: 'location-dot', detail: 'Solid' },
+        preview: <Icon name="location-dot-solid" size={24} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="location-dot-solid" size={24} />',
+        source: 'ShopShell.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'location-dot-solid',
+      },
+      {
+        label: '회원 등급',
+        origin: { label: 'Font Awesome', name: 'medal', detail: 'Regular' },
+        preview: <Icon name="medal-regular" size={18} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="medal-regular" size={18} />',
+        source: 'SignupContent.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'medal-regular',
+      },
+      {
+        label: '기념일',
+        origin: { label: 'Font Awesome', name: 'party-horn', detail: 'Regular' },
+        preview: <Icon name="party-horn-regular" size={18} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="party-horn-regular" size={18} />',
+        source: 'SignupContent.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'party-horn-regular',
+      },
+      {
+        label: '사이즈 가이드',
+        origin: { label: 'Font Awesome', name: 'ruler-horizontal', detail: 'Regular' },
+        preview: <Icon name="ruler-horizontal-regular" size={18} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="ruler-horizontal-regular" size={18} />\n\n<Icon name="ruler-horizontal-regular" size={16} />',
+        source: 'ProductDetailContent.tsx, LaunchCalendarDetail.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'ruler-horizontal-regular',
+      },
+      {
+        label: 'faStarRegular',
+        origin: { label: 'Font Awesome', name: 'star', detail: 'Regular' },
+        preview: <Icon name="star-regular" size={24} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="star-regular" size={24} />',
+        source: 'RatingStars.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'star-regular',
+      },
+      {
+        label: 'faStarSolid',
+        origin: { label: 'Font Awesome', name: 'star', detail: 'Solid' },
+        preview: <Icon name="star-solid" size={24} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="star-solid" size={24} />',
+        source: 'RatingStars.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'star-solid',
+      },
+      {
+        label: '별점 반 개',
+        origin: { label: 'Font Awesome', name: 'star-half-stroke', detail: '스타일 구분 미확인' },
+        preview: <Icon name="star-half-stroke" size={16} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="star-half-stroke" size={16} />',
+        source: 'RatingStars.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'star-half-stroke',
+      },
+      {
+        label: '타이머',
+        origin: { label: 'Font Awesome', name: 'timer', detail: 'Regular' },
+        preview: <Icon name="timer-regular" size={18} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="timer-regular" size={18} />',
+        source: 'ShopShell.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'timer-regular',
+      },
+      {
+        label: 'faTruckFast',
+        origin: { label: 'Font Awesome', name: 'truck-fast', detail: 'Solid' },
+        preview: <Icon name="truck-fast-solid" size={24} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="truck-fast-solid" size={24} />',
+        source: 'ProductDetailContent.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'truck-fast-solid',
+      },
+      {
+        label: 'faUser',
+        origin: { label: 'Font Awesome', name: 'user', detail: 'Regular' },
+        preview: <Icon name="user-regular" size={24} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="user-regular" size={24} />',
+        source: 'ShopShell.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'user-regular',
+      },
+      {
+        label: 'faUserSolid',
+        origin: { label: 'Font Awesome', name: 'user', detail: 'Solid' },
+        preview: <Icon name="user-solid" size={24} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="user-solid" size={24} />',
+        source: 'ShopShell.tsx',
+        note: 'color로 색상 변경 가능',
+        registeredName: 'user-solid',
       },
     ],
   },
   {
     id: 'icon-form',
-    title: '폼 상태 아이콘',
-    description: '선택·비활성·드롭다운·달력',
+    title: '폼 상태',
+    description: '체크박스·라디오 선택과 비활성',
     items: [
       {
         label: 'checkbox · 기본',
-        preview: <Icon src="/images/icon/form/checkbox-unchecked.svg" size={20} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon src="/images/icon/form/checkbox-unchecked.svg" size={20} />',
+        origin: {
+          label: '종류',
+          name: 'checkbox 상태 SVG',
+          detail: '폼 상태 조합 · 단일 Font Awesome 대응 미확인',
+        },
+        preview: <Icon name="checkbox-unchecked" size={20} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="checkbox-unchecked" size={20} />',
         source: 'Checkbox.tsx',
         note: '상태 이미지 확인용 · 실제 폼에서는 Checkbox / Radio 사용',
+        registeredName: 'checkbox-unchecked',
       },
       {
         label: 'checkbox · 선택',
-        preview: <Icon src="/images/icon/form/checkbox-checked.svg" size={20} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon src="/images/icon/form/checkbox-checked.svg" size={20} />',
+        origin: {
+          label: '종류',
+          name: 'checkbox 상태 SVG',
+          detail: '폼 상태 조합 · 단일 Font Awesome 대응 미확인',
+        },
+        preview: <Icon name="checkbox-checked" size={20} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="checkbox-checked" size={20} />',
         source: 'Checkbox.tsx',
         note: '상태 이미지 확인용 · 실제 폼에서는 Checkbox / Radio 사용',
+        registeredName: 'checkbox-checked',
       },
       {
-        label: 'checkbox · 비활성',
-        preview: <Icon src="/images/icon/form/checkbox-disabled.svg" size={20} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon src="/images/icon/form/checkbox-disabled.svg" size={20} />',
+        label: 'checkbox · 비활성 기본',
+        previewBackground: 'black.60',
+        origin: {
+          label: '종류',
+          name: 'checkbox 상태 SVG',
+          detail: '폼 상태 조합 · 단일 Font Awesome 대응 미확인',
+        },
+        preview: <Icon name="checkbox-disabled" size={20} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="checkbox-disabled" size={20} />',
         source: 'Checkbox.tsx',
         note: '상태 이미지 확인용 · 실제 폼에서는 Checkbox / Radio 사용',
+        registeredName: 'checkbox-disabled',
       },
       {
-        label: 'checkbox · 선택 + 비활성',
-        preview: <Icon src="/images/icon/form/checkbox-disabled-checked.svg" size={20} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon src="/images/icon/form/checkbox-disabled-checked.svg" size={20} />',
+        label: 'checkbox · 비활성 선택',
+        previewBackground: 'black.60',
+        origin: {
+          label: '종류',
+          name: 'checkbox 상태 SVG',
+          detail: '폼 상태 조합 · 단일 Font Awesome 대응 미확인',
+        },
+        preview: <Icon name="checkbox-disabled-checked" size={20} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="checkbox-disabled-checked" size={20} />',
         source: 'Checkbox.tsx',
         note: '상태 이미지 확인용 · 실제 폼에서는 Checkbox / Radio 사용',
+        registeredName: 'checkbox-disabled-checked',
       },
       {
         label: 'radio · 기본',
-        preview: <Icon src="/images/icon/form/radio-unchecked.svg" size={20} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon src="/images/icon/form/radio-unchecked.svg" size={20} />',
+        origin: {
+          label: '종류',
+          name: 'radio 상태 SVG',
+          detail: '폼 상태 조합 · 단일 Font Awesome 대응 미확인',
+        },
+        preview: <Icon name="radio-unchecked" size={20} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="radio-unchecked" size={20} />',
         source: 'Radio.tsx',
         note: '상태 이미지 확인용 · 실제 폼에서는 Checkbox / Radio 사용',
+        registeredName: 'radio-unchecked',
       },
       {
         label: 'radio · 선택',
-        preview: <Icon src="/images/icon/form/radio-checked.svg" size={20} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon src="/images/icon/form/radio-checked.svg" size={20} />',
+        origin: {
+          label: '종류',
+          name: 'radio 상태 SVG',
+          detail: '폼 상태 조합 · 단일 Font Awesome 대응 미확인',
+        },
+        preview: <Icon name="radio-checked" size={20} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="radio-checked" size={20} />',
         source: 'Radio.tsx',
         note: '상태 이미지 확인용 · 실제 폼에서는 Checkbox / Radio 사용',
+        registeredName: 'radio-checked',
       },
       {
-        label: 'radio · 비활성',
-        preview: <Icon src="/images/icon/form/radio-disabled.svg" size={20} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon src="/images/icon/form/radio-disabled.svg" size={20} />',
+        label: 'radio · 비활성 기본',
+        previewBackground: 'black.60',
+        origin: {
+          label: '종류',
+          name: 'radio 상태 SVG',
+          detail: '폼 상태 조합 · 단일 Font Awesome 대응 미확인',
+        },
+        preview: <Icon name="radio-disabled" size={20} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="radio-disabled" size={20} />',
         source: 'Radio.tsx',
         note: '상태 이미지 확인용 · 실제 폼에서는 Checkbox / Radio 사용',
+        registeredName: 'radio-disabled',
       },
       {
-        label: 'radio · 선택 + 비활성',
-        preview: <Icon src="/images/icon/form/radio-disabled-checked.svg" size={20} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon src="/images/icon/form/radio-disabled-checked.svg" size={20} />',
+        label: 'radio · 비활성 선택',
+        previewBackground: 'black.60',
+        origin: {
+          label: '종류',
+          name: 'radio 상태 SVG',
+          detail: '폼 상태 조합 · 단일 Font Awesome 대응 미확인',
+        },
+        preview: <Icon name="radio-disabled-checked" size={20} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="radio-disabled-checked" size={20} />',
         source: 'Radio.tsx',
         note: '상태 이미지 확인용 · 실제 폼에서는 Checkbox / Radio 사용',
-      },
-      {
-        label: '드롭다운 표시',
-        preview: <Icon src="/images/icon/form/sort-down.svg" size={18} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon src="/images/icon/form/sort-down.svg" size={18} />',
-        source: 'Dropdown.tsx',
-        note: '원본 SVG 색상 유지',
-      },
-      {
-        label: '날짜 선택',
-        preview: <Icon src="/images/icon/form/calendar.svg" size={16} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon src="/images/icon/form/calendar.svg" size={16} />',
-        source: 'OrdersStatus.tsx',
-        note: '원본 SVG 색상 유지',
+        registeredName: 'radio-disabled-checked',
       },
     ],
   },
   {
-    id: 'icon-fontawesome',
-    title: 'Font Awesome',
-    description: '공통 UI·화면 목록에서 사용하는 아이콘',
+    id: 'icon-custom',
+    title: '브랜드·커스텀',
+    description: '소셜 로고·인증 그림·전용 도형',
     items: [
       {
-        label: 'faChevronRight',
-        preview: <Icon fontAwesomeIcon={faChevronRight} size={24} color="currentColor" />,
-        code: "import { Icon } from '@/components/common/atoms/Icon';\nimport { faChevronRight } from '@/icons/fontAwesome';\n\n<Icon fontAwesomeIcon={faChevronRight} size={24} color=\"currentColor\" />",
-        source: 'OrderRecommendations.tsx, ShopShell.tsx',
-        note: 'Font Awesome · color 변경 가능',
-      },
-      {
-        label: 'faXmark',
-        preview: <Icon fontAwesomeIcon={faXmark} size={24} color="currentColor" />,
-        code: "import { Icon } from '@/components/common/atoms/Icon';\nimport { faXmark } from '@/icons/fontAwesome';\n\n<Icon fontAwesomeIcon={faXmark} size={24} color=\"currentColor\" />",
-        source:
-          'CartProductSection.tsx, InquiryFormContent.tsx, ModalDialog.tsx, ProductDetailContent.tsx, SearchHeader.tsx, ShopShell.tsx, TextInput.tsx',
-        note: 'Font Awesome · color 변경 가능',
-      },
-      {
-        label: 'faTriangleExclamation',
-        preview: <Icon fontAwesomeIcon={faTriangleExclamation} size={24} color="currentColor" />,
-        code: "import { Icon } from '@/components/common/atoms/Icon';\nimport { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';\n\n<Icon fontAwesomeIcon={faTriangleExclamation} size={24} color=\"currentColor\" />",
-        source: 'SystemStatusPage.tsx',
-        note: 'Font Awesome · color 변경 가능',
-      },
-      {
-        label: 'faCheck',
-        preview: <Icon fontAwesomeIcon={faCheck} size={24} color="currentColor" />,
-        code: "import { Icon } from '@/components/common/atoms/Icon';\nimport { faCheck } from '@fortawesome/free-solid-svg-icons';\n\n<Icon fontAwesomeIcon={faCheck} size={24} color=\"currentColor\" />",
-        source: 'StepIndicator.tsx',
-        note: 'Font Awesome · color 변경 가능',
-      },
-      {
-        label: 'faChevronLeft',
-        preview: <Icon fontAwesomeIcon={faChevronLeft} size={24} color="currentColor" />,
-        code: "import { Icon } from '@/components/common/atoms/Icon';\nimport { faChevronLeft } from '@fortawesome/free-solid-svg-icons';\n\n<Icon fontAwesomeIcon={faChevronLeft} size={24} color=\"currentColor\" />",
-        source: 'ProductOptionList.tsx',
-        note: 'Font Awesome · color 변경 가능',
-      },
-      {
-        label: 'faBox',
-        preview: <Icon fontAwesomeIcon={faBox} size={24} color="currentColor" />,
-        code: "import { Icon } from '@/components/common/atoms/Icon';\nimport { faBox } from '@/icons/fontAwesome';\n\n<Icon fontAwesomeIcon={faBox} size={24} color=\"currentColor\" />",
-        source: 'ShopShell.tsx',
-        note: 'Font Awesome · color 변경 가능',
-      },
-      {
-        label: 'faComments',
-        preview: <Icon fontAwesomeIcon={faComments} size={24} color="currentColor" />,
-        code: "import { Icon } from '@/components/common/atoms/Icon';\nimport { faComments } from '@/icons/fontAwesome';\n\n<Icon fontAwesomeIcon={faComments} size={24} color=\"currentColor\" />",
-        source: 'ShopShell.tsx',
-        note: 'Font Awesome · color 변경 가능',
-      },
-      {
-        label: 'faLocationDot',
-        preview: <Icon fontAwesomeIcon={faLocationDot} size={24} color="currentColor" />,
-        code: "import { Icon } from '@/components/common/atoms/Icon';\nimport { faLocationDot } from '@/icons/fontAwesome';\n\n<Icon fontAwesomeIcon={faLocationDot} size={24} color=\"currentColor\" />",
-        source: 'ShopShell.tsx',
-        note: 'Font Awesome · color 변경 가능',
-      },
-      {
-        label: 'faUser',
-        preview: <Icon fontAwesomeIcon={faUser} size={24} color="currentColor" />,
-        code: "import { Icon } from '@/components/common/atoms/Icon';\nimport { faUser } from '@/icons/fontAwesome';\n\n<Icon fontAwesomeIcon={faUser} size={24} color=\"currentColor\" />",
-        source: 'ShopShell.tsx',
-        note: 'Font Awesome · color 변경 가능',
-      },
-      {
-        label: 'faUserSolid',
-        preview: <Icon fontAwesomeIcon={faUserSolid} size={24} color="currentColor" />,
-        code: "import { Icon } from '@/components/common/atoms/Icon';\nimport { faUserSolid } from '@/icons/fontAwesome';\n\n<Icon fontAwesomeIcon={faUserSolid} size={24} color=\"currentColor\" />",
-        source: 'ShopShell.tsx',
-        note: 'Font Awesome · color 변경 가능',
-      },
-      {
-        label: 'faCircleInfo',
-        preview: <Icon fontAwesomeIcon={faCircleInfo} size={24} color="currentColor" />,
-        code: "import { Icon } from '@/components/common/atoms/Icon';\nimport { faCircleInfo } from '@/icons/fontAwesome';\n\n<Icon fontAwesomeIcon={faCircleInfo} size={24} color=\"currentColor\" />",
-        source: 'Dropdown.tsx, FormField.tsx',
-        note: 'Font Awesome · color 변경 가능',
-      },
-      {
-        label: 'faChevronDown',
-        preview: <Icon fontAwesomeIcon={faChevronDown} size={24} color="currentColor" />,
-        code: "import { Icon } from '@/components/common/atoms/Icon';\nimport { faChevronDown } from '@/icons/fontAwesome';\n\n<Icon fontAwesomeIcon={faChevronDown} size={24} color=\"currentColor\" />",
-        source:
-          'Accordion.tsx, FaqContent.tsx, ProductDetailContent.tsx, RunningSessionEntriesContent.tsx',
-        note: 'Font Awesome · color 변경 가능',
-      },
-      {
-        label: 'faStarRegular',
-        preview: <Icon fontAwesomeIcon={faStarRegular} size={24} color="currentColor" />,
-        code: "import { Icon } from '@/components/common/atoms/Icon';\nimport { faStarRegular } from '@/icons/fontAwesome';\n\n<Icon fontAwesomeIcon={faStarRegular} size={24} color=\"currentColor\" />",
-        source: 'RatingStars.tsx',
-        note: 'Font Awesome · color 변경 가능',
-      },
-      {
-        label: 'faStarSolid',
-        preview: <Icon fontAwesomeIcon={faStarSolid} size={24} color="currentColor" />,
-        code: "import { Icon } from '@/components/common/atoms/Icon';\nimport { faStarSolid } from '@/icons/fontAwesome';\n\n<Icon fontAwesomeIcon={faStarSolid} size={24} color=\"currentColor\" />",
-        source: 'RatingStars.tsx',
-        note: 'Font Awesome · color 변경 가능',
-      },
-      {
-        label: 'faEye',
-        preview: <Icon fontAwesomeIcon={faEye} size={24} color="currentColor" />,
-        code: "import { Icon } from '@/components/common/atoms/Icon';\nimport { faEye } from '@/icons/fontAwesome';\n\n<Icon fontAwesomeIcon={faEye} size={24} color=\"currentColor\" />",
-        source: 'TextInput.tsx',
-        note: 'Font Awesome · color 변경 가능',
-      },
-      {
-        label: 'faEyeSlash',
-        preview: <Icon fontAwesomeIcon={faEyeSlash} size={24} color="currentColor" />,
-        code: "import { Icon } from '@/components/common/atoms/Icon';\nimport { faEyeSlash } from '@/icons/fontAwesome';\n\n<Icon fontAwesomeIcon={faEyeSlash} size={24} color=\"currentColor\" />",
-        source: 'TextInput.tsx',
-        note: 'Font Awesome · color 변경 가능',
-      },
-      {
-        label: 'faCreditCard',
-        preview: <Icon fontAwesomeIcon={faCreditCard} size={24} color="currentColor" />,
-        code: "import { Icon } from '@/components/common/atoms/Icon';\nimport { faCreditCard } from '@fortawesome/free-solid-svg-icons';\n\n<Icon fontAwesomeIcon={faCreditCard} size={24} color=\"currentColor\" />",
-        source: 'CheckoutPayment.tsx',
-        note: 'Font Awesome · color 변경 가능',
-      },
-      {
-        label: 'faBell',
-        preview: <Icon fontAwesomeIcon={faBell} size={24} color="currentColor" />,
-        code: "import { Icon } from '@/components/common/atoms/Icon';\nimport { faBell } from '@fortawesome/free-regular-svg-icons';\n\n<Icon fontAwesomeIcon={faBell} size={24} color=\"currentColor\" />",
-        source: 'SizeSelector.tsx',
-        note: 'Font Awesome · color 변경 가능',
-      },
-      {
-        label: 'faMagnifyingGlass',
-        preview: <Icon fontAwesomeIcon={faMagnifyingGlass} size={24} color="currentColor" />,
-        code: "import { Icon } from '@/components/common/atoms/Icon';\nimport { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';\n\n<Icon fontAwesomeIcon={faMagnifyingGlass} size={24} color=\"currentColor\" />",
-        source: 'ProductDetailContent.tsx, SearchField.tsx',
-        note: 'Font Awesome · color 변경 가능',
-      },
-      {
-        label: 'faBan',
-        preview: <Icon fontAwesomeIcon={faBan} size={24} color="currentColor" />,
-        code: "import { Icon } from '@/components/common/atoms/Icon';\nimport { faBan } from '@fortawesome/free-solid-svg-icons';\n\n<Icon fontAwesomeIcon={faBan} size={24} color=\"currentColor\" />",
-        source: 'IaStructurePage.tsx',
-        note: 'Font Awesome · color 변경 가능',
-      },
-      {
-        label: 'faDesktop',
-        preview: <Icon fontAwesomeIcon={faDesktop} size={24} color="currentColor" />,
-        code: "import { Icon } from '@/components/common/atoms/Icon';\nimport { faDesktop } from '@fortawesome/free-solid-svg-icons';\n\n<Icon fontAwesomeIcon={faDesktop} size={24} color=\"currentColor\" />",
-        source: 'IaStructurePage.tsx',
-        note: 'Font Awesome · color 변경 가능',
-      },
-      {
-        label: 'faFileLines',
-        preview: <Icon fontAwesomeIcon={faFileLines} size={24} color="currentColor" />,
-        code: "import { Icon } from '@/components/common/atoms/Icon';\nimport { faFileLines } from '@fortawesome/free-solid-svg-icons';\n\n<Icon fontAwesomeIcon={faFileLines} size={24} color=\"currentColor\" />",
-        source: 'IaStructurePage.tsx',
-        note: 'Font Awesome · color 변경 가능',
-      },
-      {
-        label: 'faFolder',
-        preview: <Icon fontAwesomeIcon={faFolder} size={24} color="currentColor" />,
-        code: "import { Icon } from '@/components/common/atoms/Icon';\nimport { faFolder } from '@fortawesome/free-solid-svg-icons';\n\n<Icon fontAwesomeIcon={faFolder} size={24} color=\"currentColor\" />",
-        source: 'IaStructurePage.tsx',
-        note: 'Font Awesome · color 변경 가능',
-      },
-      {
-        label: 'faFolderOpen',
-        preview: <Icon fontAwesomeIcon={faFolderOpen} size={24} color="currentColor" />,
-        code: "import { Icon } from '@/components/common/atoms/Icon';\nimport { faFolderOpen } from '@fortawesome/free-solid-svg-icons';\n\n<Icon fontAwesomeIcon={faFolderOpen} size={24} color=\"currentColor\" />",
-        source: 'IaStructurePage.tsx',
-        note: 'Font Awesome · color 변경 가능',
-      },
-      {
-        label: 'faFolderTree',
-        preview: <Icon fontAwesomeIcon={faFolderTree} size={24} color="currentColor" />,
-        code: "import { Icon } from '@/components/common/atoms/Icon';\nimport { faFolderTree } from '@fortawesome/free-solid-svg-icons';\n\n<Icon fontAwesomeIcon={faFolderTree} size={24} color=\"currentColor\" />",
-        source: 'IaStructurePage.tsx',
-        note: 'Font Awesome · color 변경 가능',
-      },
-      {
-        label: 'faBoxOpen',
-        preview: <Icon fontAwesomeIcon={faBoxOpen} size={24} color="currentColor" />,
-        code: "import { Icon } from '@/components/common/atoms/Icon';\nimport { faBoxOpen } from '@fortawesome/free-solid-svg-icons';\n\n<Icon fontAwesomeIcon={faBoxOpen} size={24} color=\"currentColor\" />",
-        source: 'ProductDetailContent.tsx',
-        note: 'Font Awesome · color 변경 가능',
-      },
-      {
-        label: 'faClipboardList',
-        preview: <Icon fontAwesomeIcon={faClipboardList} size={24} color="currentColor" />,
-        code: "import { Icon } from '@/components/common/atoms/Icon';\nimport { faClipboardList } from '@fortawesome/free-solid-svg-icons';\n\n<Icon fontAwesomeIcon={faClipboardList} size={24} color=\"currentColor\" />",
-        source: 'ProductDetailContent.tsx',
-        note: 'Font Awesome · color 변경 가능',
-      },
-      {
-        label: 'faScrewdriverWrench',
-        preview: <Icon fontAwesomeIcon={faScrewdriverWrench} size={24} color="currentColor" />,
-        code: "import { Icon } from '@/components/common/atoms/Icon';\nimport { faScrewdriverWrench } from '@fortawesome/free-solid-svg-icons';\n\n<Icon fontAwesomeIcon={faScrewdriverWrench} size={24} color=\"currentColor\" />",
-        source: 'ProductDetailContent.tsx',
-        note: 'Font Awesome · color 변경 가능',
-      },
-      {
-        label: 'faTruckFast',
-        preview: <Icon fontAwesomeIcon={faTruckFast} size={24} color="currentColor" />,
-        code: "import { Icon } from '@/components/common/atoms/Icon';\nimport { faTruckFast } from '@fortawesome/free-solid-svg-icons';\n\n<Icon fontAwesomeIcon={faTruckFast} size={24} color=\"currentColor\" />",
-        source: 'ProductDetailContent.tsx',
-        note: 'Font Awesome · color 변경 가능',
-      },
-      {
-        label: 'faFilePdf',
-        preview: <Icon fontAwesomeIcon={faFilePdf} size={24} color="currentColor" />,
-        code: "import { Icon } from '@/components/common/atoms/Icon';\nimport { faFilePdf } from '@fortawesome/free-solid-svg-icons';\n\n<Icon fontAwesomeIcon={faFilePdf} size={24} color=\"currentColor\" />",
-        source: 'InquiryListContent.tsx',
-        note: 'Font Awesome · color 변경 가능',
-      },
-      {
-        label: 'faImage',
-        preview: <Icon fontAwesomeIcon={faImage} size={24} color="currentColor" />,
-        code: "import { Icon } from '@/components/common/atoms/Icon';\nimport { faImage } from '@fortawesome/free-solid-svg-icons';\n\n<Icon fontAwesomeIcon={faImage} size={24} color=\"currentColor\" />",
-        source: 'InquiryListContent.tsx',
-        note: 'Font Awesome · color 변경 가능',
-      },
-      {
-        label: 'faCircleCheck',
-        preview: <Icon fontAwesomeIcon={faCircleCheck} size={24} color="currentColor" />,
-        code: "import { Icon } from '@/components/common/atoms/Icon';\nimport { faCircleCheck } from '@/icons/fontAwesome';\n\n<Icon fontAwesomeIcon={faCircleCheck} size={24} color=\"currentColor\" />",
-        source: 'CouponManagement.tsx',
-        note: 'Font Awesome · color 변경 가능',
-      },
-      {
-        label: 'faMinus',
-        preview: <Icon fontAwesomeIcon={faMinus} size={24} color="currentColor" />,
-        code: "import { Icon } from '@/components/common/atoms/Icon';\nimport { faMinus } from '@fortawesome/free-solid-svg-icons';\n\n<Icon fontAwesomeIcon={faMinus} size={24} color=\"currentColor\" />",
-        source: 'InquiryOrderLookup.tsx',
-        note: 'Font Awesome · color 변경 가능',
-      },
-      {
-        label: 'faPlus',
-        preview: <Icon fontAwesomeIcon={faPlus} size={24} color="currentColor" />,
-        code: "import { Icon } from '@/components/common/atoms/Icon';\nimport { faPlus } from '@fortawesome/free-solid-svg-icons';\n\n<Icon fontAwesomeIcon={faPlus} size={24} color=\"currentColor\" />",
-        source: 'InquiryOrderLookup.tsx',
-        note: 'Font Awesome · color 변경 가능',
-      },
-      {
-        label: 'faCopy',
-        preview: <Icon fontAwesomeIcon={faCopy} size={24} color="currentColor" />,
-        code: "import { Icon } from '@/components/common/atoms/Icon';\nimport { faCopy } from '@/icons/fontAwesome';\n\n<Icon fontAwesomeIcon={faCopy} size={24} color=\"currentColor\" />",
-        source: 'ButtonGuide.tsx',
-        note: 'Font Awesome · color 변경 가능',
-      },
-    ],
-  },
-  {
-    id: 'icon-carousel',
-    title: '캐러셀',
-    description: '이전·다음 방향',
-    items: [
-      {
-        label: '캐러셀 · 이전',
-        preview: <Icon name="carousel-arrow" direction="previous" size={48} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="carousel-arrow" direction="previous" size={48} />',
-        source: 'CarouselControls.tsx',
-        note: '전용 SVG · direction으로 방향 지정',
-      },
-      {
-        label: '캐러셀 · 다음',
-        preview: <Icon name="carousel-arrow" direction="next" size={48} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="carousel-arrow" direction="next" size={48} />',
-        source: 'CarouselControls.tsx',
-        note: '전용 SVG · direction으로 방향 지정',
-      },
-    ],
-  },
-  {
-    id: 'icon-inline',
-    title: '화면 전용 SVG',
-    description: '각 화면에서 직접 그리는 아이콘',
-    items: [
-      {
-        label: '상품 스펙 안내',
-        preview: (
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-            <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5" />
-            <path d="M8 7v4M6.5 11h3" stroke="currentColor" strokeWidth="1.5" />
-            <circle cx="8" cy="4.5" r="1" fill="currentColor" />
-          </svg>
-        ),
-        code: '\n<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">\n          <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5" />\n          <path d="M8 7v4M6.5 11h3" stroke="currentColor" strokeWidth="1.5" />\n          <circle cx="8" cy="4.5" r="1" fill="currentColor" />\n        </svg>',
-        source: 'ProductDetailContent.tsx',
-        note: '화면 내부 전용 SVG · 공통 Icon name으로 등록되지 않음',
-      },
-      {
-        label: '목록 펼침 표시',
-        preview: (
-          <svg fill="none" height="8" viewBox="0 0 13 8" width="13">
-            <path
-              d="M0.480469 0.508114L6.24565 6.2733L11.9805 0.477905"
-              stroke="currentColor"
-              strokeWidth="1.35887"
-            />
-          </svg>
-        ),
-        code: '\n<svg fill="none" height="8" viewBox="0 0 13 8" width="13">\n      <path\n        d="M0.480469 0.508114L6.24565 6.2733L11.9805 0.477905"\n        stroke="currentColor"\n        strokeWidth="1.35887"\n      />\n    </svg>',
-        source: 'ProductListingPage.tsx',
-        note: '화면 내부 전용 SVG · 공통 Icon name으로 등록되지 않음',
+        label: '도움말 말풍선 화살표',
+        previewBackground: 'black.60',
+        origin: { label: '종류', name: '말풍선 화살표', detail: '장식 SVG' },
+        preview: <Icon name="arrow" size={17} style={{ height: 8 }} aria-hidden="true" />,
+        code: '\n<Icon name="arrow" size={17} style={{ height: 8 }} aria-hidden="true" />',
+        source: 'HelpTips.tsx',
+        note: '장식 이미지 · 17 × 8px',
+        registeredName: 'arrow',
       },
       {
         label: '국가 선택 지구본',
-        preview: (
-          <svg
-            width="28"
-            height="28"
-            aria-hidden="true"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.4"
-          >
-            <circle cx="12" cy="12" r="9" />
-            <path d="M3 12h18M12 3c2.7 2.5 4.1 5.5 4.1 9S14.7 18.5 12 21c-2.7-2.5-4.1-5.5-4.1-9S9.3 5.5 12 3" />
-          </svg>
-        ),
-        code: '\n<svg width="28" height="28"\n        aria-hidden="true"\n        viewBox="0 0 24 24"\n        fill="none"\n        stroke="currentColor"\n        strokeWidth="2.4"\n      >\n        <circle cx="12" cy="12" r="9" />\n        <path d="M3 12h18M12 3c2.7 2.5 4.1 5.5 4.1 9S14.7 18.5 12 21c-2.7-2.5-4.1-5.5-4.1-9S9.3 5.5 12 3" />\n      </svg>',
+        preview: <Icon name="globe" size={28} />,
+        code: '<Icon name="globe" size={28} />',
         source: 'LocalesContent.tsx',
-        note: '화면 내부 전용 SVG · 공통 Icon name으로 등록되지 않음',
+        note: 'SVG 파일 · 공통 Icon name 등록',
+        registeredName: 'globe',
+      },
+      {
+        label: 'Instagram',
+        origin: { label: '종류', name: 'Instagram 로고', detail: 'Figma 3rd Party Icons' },
+        preview: <Icon name="instagram" size={24} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="instagram" size={24} />',
+        source: 'ShopShell.tsx',
+        note: '원본 SVG 색상 유지',
+        registeredName: 'instagram',
+      },
+      {
+        label: '아이핀 인증',
+        origin: {
+          label: '종류',
+          name: '인증 일러스트',
+          detail: '단일 Font Awesome 아이콘 대응 미확인',
+        },
+        preview: <Icon name="ipin-verification" size={80} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="ipin-verification" size={80} />',
+        source: 'IdentityVerificationContent.tsx',
+        note: '원본 SVG 색상 유지',
+        registeredName: 'ipin-verification',
+      },
+      {
+        label: '가입 완료',
+        origin: {
+          label: '종류',
+          name: '완료 표시 SVG',
+          detail: '원형·체크 조합 · 단일 Font Awesome 대응 미확인',
+        },
+        preview: <Icon name="join-check" size={48} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="join-check" size={48} />',
+        source: 'signup/complete/page.tsx',
+        note: '원본 SVG 색상 유지',
+        registeredName: 'join-check',
+      },
+      {
+        label: '카카오',
+        origin: { label: '종류', name: 'Kakao 로고', detail: '브랜드 아이콘' },
+        preview: <Icon name="kakao" size={18} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="kakao" size={18} />',
+        source: 'Button.tsx',
+        note: '원본 SVG 색상 유지',
+        registeredName: 'kakao',
+      },
+      {
+        label: '네이버',
+        previewBackground: 'black.60',
+        origin: { label: '종류', name: 'Naver 로고', detail: '브랜드 아이콘' },
+        preview: <Icon name="naver" size={18} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="naver" size={18} />',
+        source: 'Button.tsx',
+        note: '원본 SVG 색상 유지',
+        registeredName: 'naver',
+      },
+      {
+        label: '휴대폰 인증',
+        origin: {
+          label: '종류',
+          name: '인증 일러스트',
+          detail: '단일 Font Awesome 아이콘 대응 미확인',
+        },
+        preview: <Icon name="phone-verification" size={80} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="phone-verification" size={80} />',
+        source: 'IdentityVerificationContent.tsx',
+        note: '원본 SVG 색상 유지',
+        registeredName: 'phone-verification',
+      },
+      {
+        label: '상품 스펙 안내',
+        preview: <Icon name="specification-info" size={16} />,
+        code: '<Icon name="specification-info" size={16} />',
+        source: 'ProductDetailContent.tsx',
+        note: 'SVG 파일 · 공통 Icon name 등록',
+        registeredName: 'specification-info',
+      },
+      {
+        label: 'X',
+        origin: { label: '종류', name: 'X 로고', detail: 'Figma 3rd Party Icons' },
+        preview: <Icon name="x" size={24} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="x" size={24} />',
+        source: 'ShopShell.tsx',
+        note: '원본 SVG 색상 유지',
+        registeredName: 'x',
+      },
+      {
+        label: 'YouTube',
+        origin: { label: '종류', name: 'YouTube 로고', detail: 'Figma 3rd Party Icons' },
+        preview: <Icon name="youtube" size={24} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="youtube" size={24} />',
+        source: 'ShopShell.tsx',
+        note: '원본 SVG 색상 유지',
+        registeredName: 'youtube',
       },
     ],
   },
 ];
 
 const sections = [
-  { id: 'icon-usage', title: '사용 기준', description: '크기·색상·접근성' },
+  { id: 'icon-usage', title: '사용법', description: '크기·색상·접근성' },
   ...iconGroups.map(({ id, title, description }) => ({ id, title, description })),
 ];
 
@@ -805,7 +897,23 @@ function IconExampleCard({
       <Typography as="h4" variant="body4" weight="semibold">
         {example.label}
       </Typography>
-      <HStack justifyContent="center" alignItems="center" minH="100px" bg="surface.subtle">
+      {example.registeredName ? (
+        <Typography as="p" variant="body5">
+          name: {example.registeredName}
+        </Typography>
+      ) : null}
+      {example.origin ? (
+        <Typography as="p" variant="body5">
+          {example.origin.label}: {example.origin.name}
+          {example.origin.detail ? ` / ${example.origin.detail}` : ''}
+        </Typography>
+      ) : null}
+      <HStack
+        justifyContent="center"
+        alignItems="center"
+        minH="100px"
+        bg={example.previewBackground ?? 'surface.subtle'}
+      >
         {example.preview}
       </HStack>
       <Typography as="p" variant="body5" tone="subtle">
@@ -849,7 +957,7 @@ function IconExampleCard({
             _hover: { bg: 'black.20!' },
           })}
         >
-          <Icon fontAwesomeIcon={faCopy} size={16} />
+          <Icon name="copy-regular" size={16} />
         </Button>
       </HStack>
     </Stack>
@@ -899,15 +1007,15 @@ export function IconGuide() {
           scrollMarginTop="calc(var(--layout-site-header-height) + 16px)"
         >
           <Typography as="h3" id="icon-usage-title" variant="heading8">
-            사용 기준
+            사용법
           </Typography>
           <Typography as="p" variant="body4">
             공통 Icon을 사용합니다. size 기본값은 16px이며 숫자 또는 CSS 크기를 받습니다. PC·모바일
             크기가 다르면 호출부에서 각각 지정합니다.
           </Typography>
           <Typography as="p" variant="body4">
-            Font Awesome과 CSS mask는 color로 색상을 바꿉니다. 등록된 name이나 일반 src 이미지는 SVG
-            원본 색상을 유지합니다. 원본을 단색으로 바꾸려면 src와 mask를 함께 사용합니다.
+            모든 아이콘은 name으로 불러옵니다. 단색 아이콘은 color로 색상을 바꾸고, 다색·상태
+            아이콘은 원본 색상을 유지합니다. 렌더링 방식은 atoms/Icon.assets.ts에서 관리합니다.
           </Typography>
           <Typography as="p" variant="body4">
             장식 아이콘은 alt를 비워 두고, 의미가 있는 아이콘은 alt로 설명합니다. 아이콘만 있는
@@ -930,13 +1038,13 @@ export function IconGuide() {
                   <HStack gap="4">
                     {[16, 18, 24].map((size) => (
                       <Stack key={size} gap="2" alignItems="center">
-                        <Icon fontAwesomeIcon={faChevronDown} size={size} />
+                        <Icon name="chevron-down-regular" size={size} />
                         <Typography variant="body5">{size}px</Typography>
                       </Stack>
                     ))}
                   </HStack>
                 ),
-                code: '<Icon fontAwesomeIcon={faChevronDown} size={16} />\n<Icon fontAwesomeIcon={faChevronDown} size={18} />\n<Icon fontAwesomeIcon={faChevronDown} size={24} />',
+                code: '<Icon name="chevron-down-regular" size={16} />\n<Icon name="chevron-down-regular" size={18} />\n<Icon name="chevron-down-regular" size={24} />',
               }}
             />
             <IconExampleCard
@@ -944,25 +1052,25 @@ export function IconGuide() {
               example={{
                 label: '색상 · 기본 / 회색 / 파랑',
                 source: 'Icon.tsx',
-                note: '색상 토큰 또는 CSS 색상',
+                note: 'color로 색상 변경 가능',
                 preview: (
                   <HStack gap="4">
-                    <Icon fontAwesomeIcon={faCircleInfo} size={24} />
-                    <Icon fontAwesomeIcon={faCircleInfo} size={24} color="black.40" />
-                    <Icon fontAwesomeIcon={faCircleInfo} size={24} color="blue.100" />
+                    <Icon name="circle-info-solid" size={24} />
+                    <Icon name="circle-info-solid" size={24} color="black.40" />
+                    <Icon name="circle-info-solid" size={24} color="blue.100" />
                   </HStack>
                 ),
-                code: '<Icon fontAwesomeIcon={faCircleInfo} size={24} />\n<Icon fontAwesomeIcon={faCircleInfo} size={24} color="black.40" />\n<Icon fontAwesomeIcon={faCircleInfo} size={24} color="blue.100" />',
+                code: '<Icon name="circle-info-solid" size={24} />\n<Icon name="circle-info-solid" size={24} color="black.40" />\n<Icon name="circle-info-solid" size={24} color="blue.100" />',
               }}
             />
             <IconExampleCard
               onCopy={copyCode}
               example={{
-                label: '파일을 단색 mask로 사용',
+                label: '아이콘 색상 지정',
                 source: 'ShopShell.tsx',
-                note: 'src + mask + color',
-                preview: <Icon src="/images/header/search.svg" size={24} mask color="blue.100" />,
-                code: '<Icon src="/images/header/search.svg" size={24} mask color="blue.100" />',
+                note: 'color로 색상 변경 가능',
+                preview: <Icon name="magnifying-glass-regular" size={24} color="blue.100" />,
+                code: '<Icon name="magnifying-glass-regular" size={24} color="blue.100" />',
               }}
             />
           </Grid>
@@ -982,10 +1090,36 @@ export function IconGuide() {
             <Typography as="p" variant="body5" tone="subtle">
               {group.description}
             </Typography>
-            <Grid columns={{ base: 3, _mobile: 1 }} gap="3">
-              {group.items.map((example) => (
-                <IconExampleCard key={example.label} example={example} onCopy={copyCode} />
-              ))}
+            <Grid columns={{ base: 4, _mobile: 1 }} gap="3">
+              {group.items.map((example, index) => {
+                const family = example.registeredName?.replace(/-(regular|solid)$/, '');
+                const previous = group.items[index - 1];
+                const next = group.items[index + 1];
+                const isVariant = /-(regular|solid)$/.test(example.registeredName ?? '');
+                if (
+                  isVariant &&
+                  previous?.registeredName?.replace(/-(regular|solid)$/, '') === family &&
+                  /-regular$/.test(previous.registeredName ?? '')
+                )
+                  return null;
+                const paired =
+                  example.registeredName?.endsWith('-regular') &&
+                  next?.registeredName === `${family}-solid`;
+                return paired ? (
+                  <Grid
+                    key={example.registeredName}
+                    columns={2}
+                    gap="3"
+                    gridColumn={{ base: 'span 2', _mobile: 'span 1' }}
+                    minW="0"
+                  >
+                    <IconExampleCard example={example} onCopy={copyCode} />
+                    <IconExampleCard example={next} onCopy={copyCode} />
+                  </Grid>
+                ) : (
+                  <IconExampleCard key={example.label} example={example} onCopy={copyCode} />
+                );
+              })}
             </Grid>
           </Stack>
         ))}

@@ -24,7 +24,6 @@ import { ProductOptionList } from '@/components/common/molecules/ProductOptionLi
 
 import { OrderHistoryProduct } from '@/components/orders/OrderHistoryProduct';
 import type { OrderLine } from '@/components/orders/orders.types';
-import { faCopy } from '@/icons/fontAwesome';
 import { type Product, products } from '@/mocks/products';
 
 import { renderGuideCode } from './GuideCode';
@@ -279,7 +278,7 @@ function GuideExampleFrame({
           className={copyButton}
           onClick={() => onCopy(code)}
         >
-          <Icon fontAwesomeIcon={faCopy} size={token.var('sizes.4')} />
+          <Icon name="copy-regular" size={token.var('sizes.4')} />
         </Button>
       </HStack>
     </Stack>
@@ -414,7 +413,7 @@ const [liked, setLiked] = useState(true);
   <Box pt="1.5">
     <Button variant="plain" size="sm">
       <HStack gap="1">
-        <Icon src="/images/icon/orders/bag-shopping.svg" size={token.var('sizes.3.5')} />
+        <Icon name="bag-shopping-regular" size={token.var('sizes.3.5')} />
         장바구니 담기
       </HStack>
     </Button>
@@ -472,7 +471,7 @@ function FullDetailsPreview() {
       <Box pt="1.5">
         <Button variant="plain" size="sm">
           <HStack gap="1">
-            <Icon src="/images/icon/orders/bag-shopping.svg" size={token.var('sizes.3.5')} />
+            <Icon name="bag-shopping-regular" size={token.var('sizes.3.5')} />
             장바구니 담기
           </HStack>
         </Button>

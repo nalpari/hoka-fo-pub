@@ -1,7 +1,6 @@
 'use client';
 import Image from 'next/image';
 
-import { faFilePdf, faImage } from '@fortawesome/free-solid-svg-icons';
 import type { ReactNode } from 'react';
 import { useId, useState } from 'react';
 
@@ -174,7 +173,7 @@ function InquiryAttachmentPreview({
                   />
                 ) : (
                   <Icon
-                    fontAwesomeIcon={attachment.kind === 'document' ? faFilePdf : faImage}
+                    name={attachment.kind === 'document' ? 'file-pdf-solid' : 'image-solid'}
                     size="40px"
                     color="black.20"
                   />

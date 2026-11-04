@@ -39,7 +39,7 @@ export default function Page() {
               <Typography as="span" web="heading7" mo="heading5">
                 계정 잠금 해제 완료
               </Typography>
-              <Icon name="unlock-keyhole" size="18px" />
+              <Icon name="unlock-keyhole-regular" size="18px" />
             </>
           }
           headerProps={{

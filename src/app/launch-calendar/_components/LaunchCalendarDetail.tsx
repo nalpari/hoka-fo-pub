@@ -146,7 +146,7 @@ export function LaunchCalendarDetail({
             gap="20px"
           />
           <HStack gap="8px">
-            <Icon src="/images/launch-calendar/clock.svg" size="18px" />
+            <Icon name="clock-ten" size="18px" color="blue.100" />
             <Typography
               as="p"
               variant="body3"
@@ -165,7 +165,7 @@ export function LaunchCalendarDetail({
               titleProps: { variant: 'body3', weight: 'bold' },
               action: (
                 <HStack gap="8px">
-                  <Icon src="/images/launch-calendar/ruler.svg" size="16px" />
+                  <Icon name="ruler-horizontal-regular" size="16px" />
                   <ButtonLink href="/support/size-guide" variant="link" size="sm">
                     사이즈 가이드
                   </ButtonLink>

@@ -122,11 +122,7 @@ function BottomSheetHeader({ appearance, action, onClose, title }: BottomSheetHe
           size={appearance === 'catalog' ? '24px' : appearance === 'selection' ? '16px' : '15px'}
         >
           <Icon
-            src={
-              appearance === 'catalog'
-                ? '/images/icon/catalog-filter-close.svg'
-                : '/images/icon/close.svg'
-            }
+            name={appearance === 'catalog' ? 'xmark-regular' : 'xmark-regular'}
             size={appearance === 'catalog' ? '24px' : appearance === 'selection' ? '16px' : '15px'}
           />
         </Button>

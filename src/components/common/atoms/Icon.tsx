@@ -1,23 +1,17 @@
-import { config, type IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import type { CSSProperties, ImgHTMLAttributes } from 'react';
+import type { CSSProperties, HTMLAttributes, ImgHTMLAttributes } from 'react';
 
 import { css } from 'styled-system/css';
-import '@fortawesome/fontawesome-svg-core/styles.css';
 import { token } from 'styled-system/tokens';
 
-import { type IconAssetName, iconAssets } from '@/icons/iconAssets';
+import { type IconAssetName, iconAssets } from './Icon.assets';
 
-config.autoAddCss = false;
+export type { IconAssetName } from './Icon.assets';
 
-const iconClass = css({
-  display: 'block',
-  flexShrink: 0,
-  objectFit: 'contain',
-});
+const iconClass = css({ display: 'block', flexShrink: 0, objectFit: 'contain' });
 
 const iconMask = css({
-  display: 'block',
+  display: 'inline-block',
+  verticalAlign: 'middle',
   flexShrink: 0,
   bg: 'currentColor',
   maskPosition: 'center',
@@ -28,161 +22,85 @@ const iconMask = css({
   WebkitMaskSize: 'contain',
 });
 
-type IconSourceProps =
-  | {
-      /** Icon asset name. Ignored when `src` is supplied. */
-      name: string;
-      src?: string;
-      fontAwesomeIcon?: never;
-    }
-  | {
-      name?: never;
-      src: string;
-      fontAwesomeIcon?: never;
-    };
-
-type FontAwesomeSourceProps = {
-  fontAwesomeIcon: IconDefinition;
-  name?: never;
-  src?: never;
+export type IconProps = Omit<ImgHTMLAttributes<HTMLImageElement>, 'size' | 'src'> & {
+  name: IconAssetName;
+  size?: string | number;
+  /** CSS color or Panda token. Monochrome assets follow currentColor by default. */
+  color?: string;
+  direction?: 'previous' | 'next';
 };
 
-export type IconProps = Omit<ImgHTMLAttributes<HTMLImageElement>, 'size' | 'src'> &
-  (IconSourceProps | FontAwesomeSourceProps) & {
-    size?: string | number;
-    /** CSS color or Panda color token path such as `black.50` or `text.tertiary`. */
-    color?: string;
-    /** Render a monochrome src as a mask so it follows the current text color. */
-    mask?: boolean;
-    /** Direction for the reusable carousel arrow. */
-    direction?: 'previous' | 'next';
-  };
+const resolveIconColor = (color: string) =>
+  color === 'currentColor'
+    ? color
+    : token.var(`colors.${color}` as Parameters<typeof token.var>[0], color);
 
-type CarouselArrowProps = Pick<IconProps, 'className' | 'size' | 'style' | 'direction'>;
-
-function CarouselArrow({ className, size, style, direction = 'previous' }: CarouselArrowProps) {
-  return (
-    <svg
-      aria-hidden="true"
-      className={[iconClass, className].filter(Boolean).join(' ')}
-      fill="none"
-      height={size}
-      style={
-        {
-          '--icon-carousel-rotation': direction === 'next' ? '180deg' : '0deg',
-          ...style,
-        } as CSSProperties
-      }
-      viewBox="0 0 48 48"
-      width={size}
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <circle
-        cx="24"
-        cy="24"
-        fill="var(--icon-carousel-circle-color, var(--color-black-10))"
-        r="24"
-      />
-      <path
-        d="M16.0701 23.0703C15.5561 23.5844 15.5561 24.4156 16.0701 24.9242L26.5701 35.4297C27.0842 35.9437 27.9154 35.9437 28.424 35.4297C28.9326 34.9156 28.9381 34.0844 28.424 33.5758L18.8537 24L28.4295 14.4297C28.9436 13.9156 28.9436 13.0844 28.4295 12.5758C27.9154 12.0672 27.0842 12.0617 26.5756 12.5758L16.0701 23.0703Z"
-        fill="var(--icon-carousel-path-color, var(--color-black-40))"
-        style={{ transform: 'rotate(var(--icon-carousel-rotation))', transformOrigin: 'center' }}
-      />
-    </svg>
-  );
-}
-
-const resolveIconColor = (color: IconProps['color']) => {
-  if (!color || color === 'currentColor') return color;
-
-  return token.var(`colors.${color}` as Parameters<typeof token.var>[0], color);
-};
-
+/** 등록된 SVG를 이름으로 표시하며 단색·원본색 렌더링을 관리합니다. (Renders registered SVGs by name with monochrome or original colors.) */
 export function Icon({
   name,
-  fontAwesomeIcon,
   size = '16px',
   color = 'currentColor',
-  mask = false,
   className,
   alt = '',
   role = 'img',
-  direction,
+  direction = 'previous',
+  style,
   ...props
 }: IconProps) {
-  if (fontAwesomeIcon) {
-    return (
-      <FontAwesomeIcon
-        aria-hidden={alt ? undefined : true}
-        aria-label={alt || undefined}
-        className={[iconClass, className].filter(Boolean).join(' ')}
-        icon={fontAwesomeIcon}
-        role={role}
-        style={{ width: size, height: size, color: resolveIconColor(color), ...props.style }}
-      />
-    );
-  }
+  const asset = iconAssets[name];
+  const label = alt || props['aria-label'];
+  const hidden = props['aria-hidden'] ?? (label ? undefined : true);
+  const classes = [iconClass, className].filter(Boolean).join(' ');
 
   if (name === 'carousel-arrow') {
     return (
-      <CarouselArrow className={className} direction={direction} size={size} style={props.style} />
-    );
-  }
-
-  if (name && !props.src) {
-    const registeredIconSrc = iconAssets[name as IconAssetName];
-
-    if (registeredIconSrc) {
-      return (
-        <img
-          {...props}
-          alt={alt}
-          aria-hidden={alt ? undefined : true}
-          className={[iconClass, className].filter(Boolean).join(' ')}
-          role={role}
-          src={registeredIconSrc}
+      <span
+        {...(props as HTMLAttributes<HTMLSpanElement>)}
+        aria-hidden={hidden}
+        aria-label={label}
+        role={role}
+        className={classes}
+        style={{
+          width: size,
+          height: size,
+          borderRadius: '50%',
+          background: 'var(--icon-carousel-circle-color, var(--color-black-10))',
+          ...style,
+        }}
+      >
+        <span
+          className={iconMask}
           style={{
-            width: size,
-            height: size,
-            ...props.style,
+            width: '100%',
+            height: '100%',
+            color: 'var(--icon-carousel-path-color, var(--color-black-40))',
+            maskImage: `url(${asset.src})`,
+            WebkitMaskImage: `url(${asset.src})`,
+            transform: direction === 'next' ? 'rotate(180deg)' : undefined,
           }}
         />
-      );
-    }
-
-    return (
-      <span
-        aria-hidden={alt ? undefined : true}
-        aria-label={alt || undefined}
-        className={[iconMask, className].filter(Boolean).join(' ')}
-        role={role}
-        style={{
-          width: size,
-          height: size,
-          color: resolveIconColor(color),
-          maskImage: `url(/images/icon/${name}.svg)`,
-          WebkitMaskImage: `url(/images/icon/${name}.svg)`,
-          ...props.style,
-        }}
-      />
+      </span>
     );
   }
 
-  if (mask && props.src) {
+  if (asset.mode === 'mask') {
     return (
       <span
-        aria-hidden={alt ? undefined : true}
-        aria-label={alt || undefined}
-        className={[iconMask, className].filter(Boolean).join(' ')}
+        {...(props as HTMLAttributes<HTMLSpanElement>)}
+        aria-hidden={hidden}
+        aria-label={label}
         role={role}
-        style={{
-          width: size,
-          height: size,
-          color: resolveIconColor(color),
-          maskImage: `url(${props.src})`,
-          WebkitMaskImage: `url(${props.src})`,
-          ...props.style,
-        }}
+        className={[iconMask, className].filter(Boolean).join(' ')}
+        style={
+          {
+            width: size,
+            height: size,
+            color: resolveIconColor(color),
+            maskImage: `url(${asset.src})`,
+            WebkitMaskImage: `url(${asset.src})`,
+            ...style,
+          } as CSSProperties
+        }
       />
     );
   }
@@ -190,17 +108,12 @@ export function Icon({
   return (
     <img
       {...props}
-      src={props.src}
+      src={asset.src}
       alt={alt}
+      aria-hidden={hidden}
       role={role}
-      aria-hidden={alt ? undefined : true}
-      className={[iconClass, className].filter(Boolean).join(' ')}
-      style={{
-        width: size,
-        height: size,
-        color,
-        ...props.style,
-      }}
+      className={classes}
+      style={{ width: size, height: size, ...style }}
     />
   );
 }

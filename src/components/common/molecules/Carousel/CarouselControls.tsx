@@ -65,7 +65,7 @@ export function CarouselControls({
         onClick={goNext}
         type="button"
       >
-        <Icon direction="next" name={iconName} size={iconSize} />
+        <Icon name={iconName} size={iconSize} direction="next" />
       </button>
     </div>
   );

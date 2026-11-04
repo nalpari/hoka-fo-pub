@@ -16,7 +16,6 @@ import { OrderProductSummary } from '@/components/common/molecules/OrderProductS
 
 import { itemKey } from '@/app/cart/cart-item';
 import { cartPreviewAmounts, type CartPreviewRow } from '@/app/cart/cart-preview';
-import { faXmark } from '@/icons/fontAwesome';
 import { getCartImage } from '@/mocks/cartDisplay';
 
 type CartProductSectionProps = {
@@ -45,7 +44,7 @@ function CartMobileItem({ row, selected, onSelect }: CartItemProps) {
           label={null}
         />
         <Button variant="icon" size={18} aria-label={`${product.name} 삭제`}>
-          <Icon fontAwesomeIcon={faXmark} size={14} />
+          <Icon name="xmark-solid" size={14} />
         </Button>
       </HStack>
       <Stack

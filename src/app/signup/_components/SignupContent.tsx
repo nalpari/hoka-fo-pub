@@ -8,7 +8,7 @@ import { css, cx } from 'styled-system/css';
 import { Box, Center, Grid, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
-import { Icon } from '@/components/common/atoms/Icon';
+import { Icon, type IconAssetName } from '@/components/common/atoms/Icon';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
@@ -27,7 +27,7 @@ const benefit = css({
 const mobileBreak = css({ display: 'none', _mobile: { display: 'inline' } });
 
 type Props = {
-  iconName: string;
+  iconName: IconAssetName;
   title: string;
   description: string;
 };
@@ -96,10 +96,10 @@ type SignupMethodStepSignupMethodOption = {
   description: string;
 };
 
-const benefits = [
-  { iconName: 'gift', title: '신규가입', description: '1만원 쿠폰' },
-  { iconName: 'partyHorn', title: '기념일', description: '축하 쿠폰' },
-  { iconName: 'medal', title: '회원 등급별', description: '혜택' },
+const benefits: Props[] = [
+  { iconName: 'gift-regular', title: '신규가입', description: '1만원 쿠폰' },
+  { iconName: 'party-horn-regular', title: '기념일', description: '축하 쿠폰' },
+  { iconName: 'medal-regular', title: '회원 등급별', description: '혜택' },
 ];
 
 const methodOrder = ['kakao', 'naver', 'local'] as const;

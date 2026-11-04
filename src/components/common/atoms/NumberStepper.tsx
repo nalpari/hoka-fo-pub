@@ -85,7 +85,7 @@ export function NumberStepper({
       value={value}
     >
       <BaseNumberField.Decrement aria-label="감소" className={control}>
-        <Icon name="action/fa-minus" size={24} />
+        <Icon name="minus-solid" size={24} />
       </BaseNumberField.Decrement>
       <BaseNumberField.Input
         aria-describedby={field?.describedBy}
@@ -94,7 +94,7 @@ export function NumberStepper({
         className={valueStyle}
       />
       <BaseNumberField.Increment aria-label="증가" className={control}>
-        <Icon name="action/fa-plus" size={24} />
+        <Icon name="plus-regular" size={24} />
       </BaseNumberField.Increment>
     </BaseNumberField.Root>
   );
