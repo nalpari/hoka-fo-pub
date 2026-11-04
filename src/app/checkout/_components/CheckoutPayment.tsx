@@ -100,7 +100,7 @@ function CheckoutPaymentMethods({
             <CheckoutPaymentMark method={method.value} />
             <Typography variant="body5">{method.label}</Typography>
             <Icon
-              name={`radio-${payment === method.value ? 'checked' : 'unchecked'}`}
+              name={`hoka-radio-${payment === method.value ? 'checked' : 'unchecked'}`}
               size={16}
               alt=""
             />

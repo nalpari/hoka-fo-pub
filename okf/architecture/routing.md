@@ -4,12 +4,13 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-03T23:51:12Z'
+updated: '2026-11-04T07:19:33Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/checkout/_components/CheckoutPayment.tsx
   - src/app/publishing-guide/_components/FormGuide.tsx
   - src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx
   - src/app/screen-index/screenDevelopers.ts
@@ -327,6 +328,10 @@ sources:
 ---
 
 # 라우팅과 플랫폼
+
+## 결제 수단 아이콘 이름 복구 (2026-11-04)
+
+`/checkout` 결제 수단의 미등록 `radio-checked`/`radio-unchecked` 이름을 현재 등록된 `hoka-radio-checked`/`hoka-radio-unchecked`로 교체해 Icon의 asset.mode 오류를 복구했다. PC1440px·모바일375px에서 결제 수단 6개와 상태 아이콘이 표시되고 오류 화면이 없는 것을 확인했다. 결제 선택·요청 계약은 변경하지 않았다. 출처: `src/app/checkout/_components/CheckoutPayment.tsx`, `src/components/common/atoms/Icon.assets.ts`.
 
 ## 선택 UI 공통화 (2026-11-04)
 
