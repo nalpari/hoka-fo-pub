@@ -76,14 +76,7 @@ const button = cva({
         '--button-label-size': 'var(--home-body-14, 14px)',
       },
     },
-    fullWidth: {
-      true: {
-        '--button-full-width-mobile-max-width': '375px',
-        w: '100%',
-        _mobile: { maxW: 'var(--button-full-width-mobile-max-width)' },
-        '& > span': { w: '100%' },
-      },
-    },
+    fullWidth: { true: { w: '100%', '& > span': { w: '100%' } } },
     language: {
       kr: { fontFamily: 'korean', fontWeight: 'semibold', letterSpacing: 'korean' },
       en: { fontFamily: 'hoka', fontWeight: 'medium', letterSpacing: '0' },

@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-04T07:50:16Z'
+updated: '2026-11-04T07:57:20Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -1001,6 +1001,10 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 모바일 fullWidth 최대 너비 제한 원복 (2026-11-04)
+
+사용자 요청으로 `ad5c4f5508c96bd633c221e3cd8acb811431fdd8`의 Button 변경을 원복했다. `fullWidth`는 기존처럼 부모 기준 `width: 100%`를 사용하며 모바일 전용 375px max-width와 `--button-full-width-mobile-max-width` 선언을 제거했다. 이전 최대 너비 기록은 적용 당시 이력이며 현재 규칙은 이 원복 기록을 따른다. 이전 약관 시트 등 진행 중인 변경은 유지했다. 변경 파일 ESLint·Prettier와 Panda 생성을 수행했고 생성 CSS에서도 해당 최대 너비 변수와 규칙이 제거된 것을 확인했다. 출처: `src/components/common/atoms/Button.tsx`와 지정 커밋.
 
 ## 이전 약관 확인 시트 시안 적용 (2026-11-04)
 
