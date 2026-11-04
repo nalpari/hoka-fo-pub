@@ -1,19 +1,30 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
-import { Fragment, useMemo, useState } from 'react';
+import { Fragment, useMemo, useRef, useState } from 'react';
 
 import { css, cva } from 'styled-system/css';
 import { Box, Flex, Grid, Stack } from 'styled-system/jsx';
 
 import { Dropdown } from '@/components/common/atoms/Dropdown';
 import { Icon } from '@/components/common/atoms/Icon';
+import { Select } from '@/components/common/atoms/Select';
 import { TextInput } from '@/components/common/atoms/TextInput';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { ContentLayout } from '@/components/common/layouts/ContentLayout';
+import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
+import {
+  type ChangeHistoryReport,
+  getChangeReportsForDate,
+  getChangeReportTableGroups,
+  getReportNavigationUrl,
+  getReportUrlState,
+  screenChangeReports,
+} from '@/app/screen-index/screenChangeHistory';
 import {
   getAncestorScreenSourceFiles,
   getRouteSourceFiles,
@@ -38,6 +49,12 @@ import {
   type ScreenProgressOverrides,
 } from '@/app/screen-index/screenProgress';
 import { type ScreenDefinition, screens } from '@/data/screenRegistry';
+
+const reportDates = [
+  ...new Set(screenChangeReports.map((report) => report.collectedAtKst.slice(0, 10))),
+]
+  .sort()
+  .reverse();
 
 type ScreenGroup = {
   depth1: string;
@@ -456,6 +473,42 @@ export function IaStructurePage({
   progressOverrides?: ScreenProgressOverrides;
 }) {
   const [feedback, setFeedback] = useState('');
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const reportLocation = getReportUrlState(searchParams.toString());
+  const reportOpen = reportLocation.open;
+  const reportTrigger = useRef<HTMLButtonElement>(null);
+  const [selectedReportDate, setSelectedReportDate] = useState(reportDates[0] ?? '');
+  const [reportDeveloperFilter, setReportDeveloperFilter] = useState('all');
+  const reportReturnFocus = useRef<HTMLElement | null>(null);
+  const openReport = () => {
+    reportReturnFocus.current =
+      document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    router.push(
+      getReportNavigationUrl(
+        pathname,
+        searchParams.toString(),
+        { date: selectedReportDate, developer: reportDeveloperFilter },
+        window.location.hash,
+      ),
+      { scroll: false },
+    );
+  };
+  const activeReportDate = reportOpen ? reportLocation.date : selectedReportDate;
+  const activeReportDeveloper = reportOpen ? reportLocation.developer : reportDeveloperFilter;
+  const onReportOpenChange = (open: boolean) => {
+    if (open) {
+      openReport();
+      return;
+    }
+    if (reportDates.includes(activeReportDate)) setSelectedReportDate(activeReportDate);
+    setReportDeveloperFilter(activeReportDeveloper);
+    router.replace(
+      getReportNavigationUrl(pathname, searchParams.toString(), null, window.location.hash),
+      { scroll: false },
+    );
+  };
   const [activeDepth1, setActiveDepth1] = useState('all');
   const [productDepth1, setProductDepth1] = useState('all');
   const [query, setQuery] = useState('');
@@ -700,20 +753,68 @@ export function IaStructurePage({
               placeholder="화면명, 담당자, IA 번호, 코드, URL, 파일 경로 검색"
               aria-label="IA 화면 검색"
             />
-            <Dropdown
-              ariaLabel="개발담당자 필터"
+            <Select
+              aria-label="개발담당자 필터"
               value={developerFilter}
-              onValueChange={setDeveloperFilter}
-              options={[
-                { value: 'all', label: '개발담당자 전체' },
-                ...developerNames.map((value) => ({ value, label: value })),
-                { value: 'unassigned', label: '미지정' },
-              ]}
-            />
+              onChange={(event) => setDeveloperFilter(event.target.value)}
+              className={css({ w: 'auto', minW: '140px' })}
+            >
+              <option value="all">개발담당자 전체</option>
+              {developerNames.map((value) => (
+                <option key={value} value={value}>
+                  {value}
+                </option>
+              ))}
+              <option value="unassigned">미지정</option>
+            </Select>
+          </Flex>
+          <Flex gap="2" alignItems="center" flexWrap="wrap">
+            <Select
+              aria-label="퍼블 보고서 날짜"
+              value={reportDates.includes(activeReportDate) ? activeReportDate : selectedReportDate}
+              onChange={(event) => setSelectedReportDate(event.target.value)}
+              className={css({ w: 'auto', minW: '140px' })}
+            >
+              {reportDates.map((date) => (
+                <option key={date} value={date}>
+                  {date}
+                </option>
+              ))}
+            </Select>
+            <Select
+              aria-label="보고서 개발담당자 필터"
+              value={activeReportDeveloper}
+              onChange={(event) => setReportDeveloperFilter(event.target.value)}
+              className={css({ w: 'auto', minW: '140px' })}
+            >
+              <option value="all">보고서 담당자 전체</option>
+              {developerNames.map((name) => (
+                <option key={name} value={name}>
+                  {name}
+                </option>
+              ))}
+              <option value="unassigned">미지정</option>
+            </Select>
+            <button
+              type="button"
+              className={styles.button}
+              onClick={() => openReport()}
+              ref={reportTrigger}
+              aria-haspopup="dialog"
+              disabled={!selectedReportDate}
+            >
+              퍼블 변경사항 보고서
+            </button>
           </Flex>
         </Flex>
       </Box>
-
+      <MainChangeReportDialog
+        open={reportOpen}
+        developer={activeReportDeveloper}
+        date={activeReportDate}
+        onOpenChange={onReportOpenChange}
+        finalFocus={() => reportReturnFocus.current ?? reportTrigger.current}
+      />
       <section aria-label="IA 화면 목록">
         <Box overflowX="auto" border="1px solid #dbe5ff" borderRadius="7px" bg="#fff">
           <table className={styles.table}>
@@ -1129,6 +1230,176 @@ function StatePreviewRows({
         );
       })}
     </>
+  );
+}
+
+function ChangeReportTable({ report }: { report: ChangeHistoryReport }) {
+  const groups = getChangeReportTableGroups(report, screens);
+  return (
+    <Box
+      overflow="auto"
+      maxH="65dvh"
+      border="1px solid #dbe5ff"
+      _mobile={{ maxH: 'calc(100dvh - 210px)' }}
+    >
+      <table
+        aria-label="개발담당자별 퍼블 변경사항"
+        className={css({
+          width: '100%',
+          minW: '1040px',
+          borderCollapse: 'collapse',
+          tableLayout: 'fixed',
+          fontSize: '12px',
+          '& th, & td': {
+            border: '1px solid #dbe5ff',
+            p: '3',
+            verticalAlign: 'top',
+            textAlign: 'left',
+            overflowWrap: 'anywhere',
+          },
+          '& thead th': { position: 'sticky', top: '0', bg: '#e5edff', zIndex: '1' },
+          '& tbody th': { bg: '#f5f8ff', fontWeight: '600' },
+        })}
+      >
+        <colgroup>
+          <col style={{ width: '16%' }} />
+          <col style={{ width: '29%' }} />
+          <col style={{ width: '32%' }} />
+          <col style={{ width: '23%' }} />
+        </colgroup>
+        <thead>
+          <tr>
+            <th scope="col">개발담당자</th>
+            <th scope="col">변경사항</th>
+            <th scope="col">변경 파일 * Before</th>
+            <th scope="col">변경라인 * After</th>
+          </tr>
+        </thead>
+        {groups.map((group) => (
+          <tbody key={group.developer}>
+            {group.changes.flatMap((change, changeIndex) =>
+              change.entries.map((entry, entryIndex) => (
+                <tr key={entry.id}>
+                  {changeIndex === 0 && entryIndex === 0 && (
+                    <th scope="rowgroup" rowSpan={group.rowCount}>
+                      {group.developer}
+                    </th>
+                  )}
+                  {entryIndex === 0 && <td rowSpan={change.entries.length}>{change.summary}</td>}
+                  <td>
+                    <a
+                      href={`${report.remote.replace(/\.git$/, '')}/blob/${entry.status === 'D' || entry.status.startsWith('R') ? report.baseSha : report.targetSha}/${(entry.previousFile ?? entry.file).split('/').map(encodeURIComponent).join('/')}`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {entry.previousFile ?? entry.file}
+                    </a>
+                    <div>
+                      {entry.status.startsWith('R')
+                        ? '이름변경'
+                        : entry.status === 'A'
+                          ? '추가'
+                          : entry.status === 'D'
+                            ? '삭제'
+                            : '수정'}
+                    </div>
+                  </td>
+                  <td>
+                    {entry.status.startsWith('R') && (
+                      <a
+                        href={`${report.remote.replace(/\.git$/, '')}/blob/${report.targetSha}/${entry.file.split('/').map(encodeURIComponent).join('/')}`}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {entry.file}
+                      </a>
+                    )}
+                    {entry.ranges.length ? (
+                      <Stack gap="1">
+                        {entry.ranges.map((range, index) => (
+                          <span key={index}>
+                            {range.oldCount
+                              ? `${range.oldStart}–${range.oldStart + range.oldCount - 1}`
+                              : '없음'}{' '}
+                            →{' '}
+                            {range.newCount
+                              ? `${range.newStart}–${range.newStart + range.newCount - 1}`
+                              : '없음'}
+                          </span>
+                        ))}
+                      </Stack>
+                    ) : entry.status.startsWith('R') ? null : (
+                      '본문 차이 없음'
+                    )}
+                  </td>
+                </tr>
+              )),
+            )}
+          </tbody>
+        ))}
+      </table>
+    </Box>
+  );
+}
+
+// [ 개발팀 바인딩 ] IA 관리 소유자가 완료한 main 비교 데이터를 표시합니다. 외부 요청·담당자 변경은 없으며
+// 부모가 모달 열림과 실제 클릭한 트리거로의 포커스 복원을 소유합니다. 파일과 줄은 보고 시점 B/T 기준입니다.
+function MainChangeReportDialog({
+  open,
+  developer,
+  date,
+  onOpenChange,
+  finalFocus,
+}: {
+  open: boolean;
+  developer: string;
+  date: string;
+  onOpenChange: (open: boolean) => void;
+  finalFocus: () => HTMLElement | null;
+}) {
+  const reports = getChangeReportsForDate(screenChangeReports, date).map((report) => ({
+    ...report,
+    entries: getChangeReportTableGroups(report, screens, developer).flatMap((group) =>
+      group.changes.flatMap((change) => change.entries),
+    ),
+  }));
+  return (
+    <ModalDialog
+      open={open}
+      onOpenChange={onOpenChange}
+      finalFocus={finalFocus}
+      title={`${date.slice(2)} 퍼블 변경사항 보고서`}
+      closeLabel="보고서 닫기"
+      size="lg"
+      mobilePresentation="fullscreen"
+      popupClassName={css({
+        '&&': { maxW: '1320px', w: 'calc(100vw - 48px)' },
+        _mobile: { '&&': { w: '100vw' } },
+      })}
+    >
+      <Stack gap="4">
+        {!reports.length && <p>선택한 날짜의 보고서가 없습니다.</p>}
+        {reports.map((report) => (
+          <Stack key={report.reportId} gap="3">
+            <strong>main 변경 보고 · {report.entries.length}개 파일</strong>
+            <span>
+              개발담당자:{' '}
+              {developer === 'all' ? '전체' : developer === 'unassigned' ? '미지정' : developer}
+            </span>
+            <span>
+              {report.collectedAtKst} · {report.baseSha.slice(0, 8)} →{' '}
+              {report.targetSha.slice(0, 8)}
+            </span>
+            <span>변경라인: B 이전 → T 이후 · 원복된 변경과 Markdown 파일은 제외했습니다.</span>
+            {report.entries.length ? (
+              <ChangeReportTable report={report} />
+            ) : (
+              <p>선택한 개발담당자의 변경사항이 없습니다.</p>
+            )}
+          </Stack>
+        ))}
+      </Stack>
+    </ModalDialog>
   );
 }
 

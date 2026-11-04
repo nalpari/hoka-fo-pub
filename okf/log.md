@@ -2,13 +2,18 @@
 
 - 등록되지 않은 solid 이름을 실제 등록된 regular SVG로 수정하고 selection20px·기본24px와 닫기/포커스 동작을 유지했다. 전체 타입 검사를 통과했다. [UI 계약](architecture/ui.md#선택-시트-닫기-아이콘-참조-복구-2026-11-04).
 
+## 2026-11-04 main 최종 변경 보고와 IA 보고서 모달
+
+- 72ae26eb 포함·B=5db7492d·T=bf29bd25로 최종 유효 변경을 분석했다. 원본260파일에서 Markdown28·가이드10·IA 자체6·nalpari 작성자8파일과 혼합 파일1영역을 제외해208파일을 보고한다. 기존 IA 담당자만 읽으며 WBS 조회는 하지 않았다.
+- 날짜 Select와 필터 오른쪽 [퍼블 변경사항 보고서] 버튼으로 선택 날짜의4열 rowspan 표 모달을 열고 SVG 이름변경의 Before/After 경로를 분리한다. 작성자·기여 목록·collapse는 제거했고 담당자 필터는 native Select로 바꿨다. 화면별 버튼은 제거하고 날짜 옆 보고서 담당자 필터로 조건에 맞는 항목만 모달에서 표시한다. 같은 표의 [공유 보고서](../reports/main-changes/inclusive-5db7492d7013d077712245026ece97b1f39a130d-bf29bd25aef39d027b0e69d605ea9e1e15fbfe52.md)와 공통/STATE 비고 진입 버튼을 제공한다.
+- 사용자 요청으로 BottomSheet의 미등록 닫기 아이콘 참조를 등록된 regular 이름으로 수정했다. 이 로컬 후속 변경은 B/T 보고에 섞지 않는다. 날짜 제목·URL 직접 호출/전체 담당자 기본값과 새로고침·뒤로/앞으로도 검증했다. 테스트34개와 전체 타입 검사·PC1382/MO390 모달/필터/rowspan/닫기·포커스를 확인했다. [계약](architecture/routing.md#수동-main-변경-보고와-ia-이력-2026-11-04), [검증](development/verification.md#main-변경-보고와-ia-이력-검증-2026-11-04). 배포·발송은 하지 않았다.
+
 ## 2026-11-04 수동 main 변경 보고 스킬 추가
 
 - `hoka-main-change-report`를 저장소 공유 스킬로 추가했다. 명시한 커밋은 포함하고 무인자 호출은 마지막 성공 SHA 이후부터 실행 시 fetch한 origin/main까지 비교한다. 첫 실행 기준은 사용자에게 확인한다.
 - 최종 tree diff로 전체 원복을 제외하고 부분 원복의 남은 변경과 이전 보고 이후 원복을 구분한다. 기존 IA 담당자만 사용하며 Google Drive/WBS 조회·예약·커밋·푸시·발송은 수행하지 않는다.
 - 공통 소유자/STATE별 IA 이력·한국어 보고서·중복 방지와 성공 SHA 저장·실패 재처리 지침을 작성했다. 스킬 생성 범위에서는 실제 IA 표시 기능이나 보고 데이터를 추가하지 않았다. [스킬](../.agents/skills/hoka-main-change-report/SKILL.md), [출력 규칙](../.agents/skills/hoka-main-change-report/references/output-and-state.md).
 - 스킬 validator와 임시 Git 이력의 시작 커밋 포함·전체 원복·이전 보고 이후 원복·부분 원복·이름변경·루트 빈 tree 비교 6건을 통과했다. 실제 main 보고·IA 갱신·앱 빌드는 실행하지 않았다. 출처: 이번 스킬 파일과 UI 메타데이터, codex/gpt-6, 2026-11-04.
-
 
 ## 2026-11-04 모바일 전체 너비 버튼 제한 원복
 

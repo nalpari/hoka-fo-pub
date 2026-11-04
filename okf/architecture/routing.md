@@ -4,12 +4,15 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-04T07:50:16Z'
+updated: '2026-11-04T09:26:00Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/screen-index/page.tsx
+  - src/app/screen-index/screenChangeHistory.ts
+  - src/app/screen-index/screenChangeHistory.generated.json
   - src/app/screen-index/sourceGraph.generated.json
   - src/app/support/inquiries/new/_components/InquiryFormContent.tsx
   - src/app/checkout/_components/CheckoutPayment.tsx
@@ -330,6 +333,18 @@ sources:
 ---
 
 # 라우팅과 플랫폼
+
+## 수동 main 변경 보고와 IA 이력 (2026-11-04)
+
+수동 스킬은 지정 시작 커밋을 포함하기 위해 첫 부모 B부터 fetch 직후 고정한 origin/main T까지 최종 diff를 비교한다. 이번 범위는 72ae26eb 포함, B=5db7492d, T=bf29bd25이며 2026-11-04 17:16:17+09:00에 수집했다. 원본260파일에서 Markdown28·퍼블리싱 가이드10·IA 자체6·nalpari 작성자8파일을 제외해208파일을 보고한다. ShopShell의 혼합 변경 중 해당 작성자의 추가 영역1개도 제외했다. 담당자는 기존 IA 매핑만 읽고 WBS/Drive는 조회하지 않는다.
+
+`screenChangeHistory.generated.json`은 reportId·B/T·수집 시각, 유효 파일/영역, 내부 기여 근거·소유자와 제외 집계를 보존한다. `screenChangeHistory.ts`는 공통/STATE 소유권·필터 복원과 IA 담당자 기반 표 행 묶음을 계산한다. 상품 공통 코드는 기존 상품 요약 행으로 통합하며 query/hash 상태별 담당자도 구분한다. 각 화면별 보고서 버튼은 제거하고 상단 날짜·보고서 개발담당자 Select와 [퍼블 변경사항 보고서] 버튼으로만 모달을 연다. 표는 개발담당자·변경사항·변경 파일 * Before·변경라인 * After의4열이며 같은 담당자/설명은 rowspan으로 합친다. 이름변경은 B 이전 경로와 T 이후 경로를 분리하고 일반 수정은 파일과 B/T 줄을 표시한다. collapse 목록과 기여 커밋·작성자 표시는 사용하지 않는다. 기존 수동 비고·담당자·7열 IA 표·상태 링크는 보존한다.
+
+기존 담당자 필터는 native Select를 사용한다. 전체 보고서 버튼 옆 날짜 Select에는 저장된 날짜만 최신순으로 제공하며 전체 버튼은 선택 날짜의 보고서를 표시한다. 날짜와 보고서 담당자를 선택하면 해당 항목만 표시하며 파일 수와 rowspan을 다시 계산한다. 공동 담당은 개별 이름으로 매칭하고 미지정도 선택한다. 이 선택은 IA 목록 담당자 필터와 독립적이다. 전역 layout/ShopShell 간접 영향을 각 영역의 수정으로 연결하지 않는다. 모달은 IA 검색·담당자 필터를 보존한다. 제목은26-11-04 퍼블 변경사항 보고서 형식이다. report=2026-11-04 URL은 전체 개발자, developer=김진영 추가는 해당 담당자를 표시한다. useSearchParams와 router.push/replace로 직접 진입·새로고침·뒤로/앞으로를 지원하며 닫을 때 보고서 query만 지우고 다른 query/hash는 보존한다. screen-index/page.tsx에는 Suspense 경계를 두었다. 열림과 실제 클릭한 트리거로의 닫기/Escape 포커스 복원은 IA 부모가 소유한다. PC는 넓은 모달, 모바일은 fullscreen과 표 내부 스크롤을 사용한다. 보고 UI는 외부 API를 요청하거나 담당자를 변경하지 않는다.
+
+보고서는 `reports/main-changes/inclusive-5db7492d7013d077712245026ece97b1f39a130d-bf29bd25aef39d027b0e69d605ea9e1e15fbfe52.md`에 같은 rowspan 표로 저장한다. B/T별 import 그래프와 에셋 문자열 참조는 외부 스냅샷에서 분석했다. layout/ShopShell 연결은 런타임 확정이 아닌 정적 영향 후보다. sourceGraph.generated.json은 이번 분석으로 덮어쓰지 않았다. 성공 상태는 Git 공통 디렉터리 codex/main-change-report에 검증 후 저장한다.
+
+출처: screenChangeHistory.ts·screenChangeHistory.generated.json·_components/IaStructurePage.tsx·보고서 작업 트리와 B/T Git 스냅샷. 실제 검증은 [검증 기록](../development/verification.md#main-변경-보고와-ia-이력-검증-2026-11-04)을 따른다. 기록: codex/gpt-6, 2026-11-04.
 
 ## 이전 약관 확인 시트 시안 반영 (2026-11-04)
 

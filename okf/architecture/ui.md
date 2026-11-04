@@ -10,6 +10,9 @@ generated:
   at: '2026-11-03T06:11:12Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/app/screen-index/page.tsx
+  - src/app/screen-index/screenChangeHistory.ts
+  - src/app/screen-index/screenChangeHistory.generated.json
   - src/components/common/layouts/BottomSheet.tsx
   - src/app/support/inquiries/new/_components/InquiryFormContent.tsx
   - src/components/common/molecules/PreviousTermsPicker.tsx
@@ -1002,10 +1005,15 @@ sources:
 
 # 컴포넌트와 스타일
 
-## 선택 시트 닫기 아이콘 참조 복구 (2026-11-04)
+## main 보고 비고 표시 (2026-11-04)
 
-BottomSheetHeader의 미등록 hoka-action-xmark-solid 참조를 실제 등록된 hoka-action-xmark-regular로 통일했다. selection20px·기본24px와 닫기·포커스 계약은 유지한다. 전체 타입 검사를 통과했다. 출처: src/components/common/layouts/BottomSheet.tsx 작업 트리, codex/gpt-6, 2026-11-04.
+IA 필터 오른쪽의 [퍼블 변경사항 보고서] 버튼은208파일의 main 최종 변경을 모달로 보여준다. 개발담당자·변경사항은 rowspan으로 묶고 변경 파일 * Before / 변경라인 * After 열에서 이름변경 전후 경로를 나눈다. 일반 수정은 파일과 B/T 변경 줄을 보여준다. 동일 설명의 collapse 목록·커밋 작성자·기여 목록은 표시하지 않는다. 담당자 필터는 native Select이며 기존 검색·담당자·7열 IA 표·수동 비고는 보존한다.
 
+상단은 날짜 Select·보고서 개발담당자 Select·보고서 버튼 순서다. 날짜/담당자 선택으로 보고 파일과 rowspan을 다시 계산하며 IA 목록 검색/담당자 필터와 독립적이다. 각 화면의 보고서 버튼은 모두 제거했다. 모달 제목에 날짜를 붙이고 날짜만 지정한 report URL은 전체 담당자, developer query는 특정 담당자를 표시한다. 닫기·새로고침·뒤로/앞으로 이동도 URL과 동기화한다.
+
+사용자 요청으로 미등록된 선택 시트 닫기 아이콘 참조를 실제 등록된 hoka-action-xmark-regular로 고쳤다. selection20px/기본24px 크기와 닫기·포커스 계약은 유지한다. 이 로컬 후속 수정은 고정한 main B/T 보고에 섞지 않는다. 보고서에는 해결된 오류의 확인 필요 표시를 남기지 않는다.
+
+출처: IaStructurePage.tsx·screenChangeHistory.ts·screenChangeHistory.generated.json·BottomSheet.tsx 작업 트리. [계약](routing.md#수동-main-변경-보고와-ia-이력-2026-11-04)과 [검증](../development/verification.md#main-변경-보고와-ia-이력-검증-2026-11-04)을 따른다. 기록: codex/gpt-6, 2026-11-04.
 
 ## 모바일 fullWidth 최대 너비 제한 원복 (2026-11-04)
 

@@ -4,12 +4,16 @@ title: '변경 검증'
 description: '변경 범위에 맞는 정적 검사, 빌드와 수동 검증을 안내한다.'
 tags: [verification, testing, build]
 status: draft
-updated: '2026-11-04T03:56:26Z'
+updated: '2026-11-04T09:26:00Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/screen-index/page.tsx
+  - src/app/screen-index/screenChangeHistory.ts
+  - src/app/screen-index/screenChangeHistory.generated.json
+  - tests/main-change-history.test.mjs
   - src/app/screen-index/screenDevelopers.ts
   - src/app/wh/_components/work-history-animations.css
   - src/app/wh/_components/WorkHistoryLoading.tsx
@@ -137,6 +141,18 @@ sources:
 ---
 
 # 변경 검증
+
+## main 변경 보고와 IA 이력 검증 (2026-11-04)
+
+- origin/main을 fetch하고 T=bf29bd25로 고정했다. 시작72ae26eb의 첫 부모5db7492d부터 원본260파일을 수집하고 B/T 그래프와 에셋 문자열을 외부 스냅샷에서 확인했다. Markdown28·가이드10·IA 자체6·작성자 제외8파일과 혼합 ShopShell의 작성자 제외1영역을 빼고208파일을 보고한다. Button의 너비 제한 적용/원복은 상쇄되고 SVG 소셜 이름 변경만 남는 것을 확인했다.
+- main-change-history·preview-links·screen-files·screen-progress 테스트34개를 통과했다. 제외 후 파일 목록 일치·작성자 제외 파일의 실제 Git 이력·혼합 파일 영역 유지·동일 요약 묶음·rowspan 행 수·query/hash 담당자·공통 이력 상위 소유권과 필터 복원·원복된 Button 기여 제외를 검사했다.
+- 저장 보고 날짜 선택·없는 날짜의 빈 결과와 보고서 담당자별 정확한 이름/공동 담당/미지정 분류를 검사했다. 화면별 버튼은 제거하고 상단 날짜·보고서 담당자 조건으로만 모달을 연다. 전체 보고는208파일이다.
+- URL 직접 진입/새로고침에서 날짜만 지정하면208행·전체 담당자이며, developer=김진영은171행이다. 모달 제목26-11-04, 닫을 때 다른 query/hash 보존, 뒤로/앞으로 닫기·재열기, 모바일390px 및 트리거 포커스와 선택값 유지를 확인했다.
+- PC1382px에서 보고서 버튼→모달208행·4열을 확인하고 rowspan을 펼친 논리 그리드의 모든 행이4열임을 검사했다. SVG all-terrain의 Before 경로는 B, After 경로는 T를 가리킨다. Markdown/가이드/IA/wh 제외 경로·작성자/기여 목록·collapse가 없음을 확인했다. Escape 닫기 후 트리거 포커스와 김진영 필터가 유지된다.
+- 모바일390px에서 native Select의 반자은 선택, fullscreen 모달390px·표 내부1040px 스크롤·208행·문서 폭390/390, 닫기 후 트리거 포커스를 확인했다. 앞선 확인에서 주문 목록만 검색할 때 D3 공통 이력4개가 D4로 복원되고 계정 잠금 해제 완료의 기본 STATE에 page 이력1개가 연결되는 것도 확인했다. 전체 제품 시각 회귀는 수행하지 않았다.
+- 검증 중 발견한 기존 main의 미등록 hoka-action-xmark-solid 참조는 사용자 요청으로 실제 등록된 regular 이름으로 수정했다. 수정 후 전체 타입 검사를 통과했다. 이 후속 소스 변경은 고정한 B/T 보고에 포함하지 않는다. 외부 서비스 요청·production build·커밋·푸시·배포는 수행하지 않았다.
+
+출처: tests/main-change-history.test.mjs, screenChangeHistory.ts·screenChangeHistory.generated.json·IaStructurePage.tsx·BottomSheet.tsx 작업 트리, B/T Git 스냅샷과 PC/MO 브라우저 검사. 기록: codex/gpt-6, 2026-11-04.
 
 ## STATE 공통 파일 정리 검증 (2026-11-04)
 
