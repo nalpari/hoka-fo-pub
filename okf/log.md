@@ -1,3 +1,7 @@
+## 2026-11-04 — 아이콘 가이드 폼 상태 순서
+
+- checkbox와 radio 예시를 기본, 선택, 비활성 기본, 비활성 선택 순서로 정렬했다. 출처: IconGuide.tsx.
+
 ## 2026-11-04 — Font Awesome 의존성 제거 커밋
 
 - SVG name 전환 후 사용하지 않는 Font Awesome 직접 의존성 4개와 관련 lock 항목을 제거했다. 다른 패키지 버전은 변경하지 않았다. 출처: package.json, package-lock.json.

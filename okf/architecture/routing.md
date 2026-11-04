@@ -1246,3 +1246,8 @@ Icon 사용처와 가이드 복사 코드는 name → size → color 순서로 �
 ## Chevron down Regular 통일 (2026-11-04)
 
 사용자 확인에 따라 chevron-down은 Regular만 사용한다. Figma 296:11741의 18×18 원본을 chevron-down-regular.svg로 저장하고 기존 chevron-down 및 chevron-down-solid 파일·등록을 제거했다. 가이드 Solid 예시를 제거하고 실제 사용처·코드·README를 갱신했다. 이전 13×8 전용 도형의 높이 재정의는 제거해 size로 원본 비율을 유지한다. 다른 이름의 아이콘 스타일은 이번 범위에 포함하지 않는다. 출처: Icon.assets.ts, IconGuide.tsx, ProductListingPage.tsx 및 chevron-down 사용처.
+
+
+## 아이콘 가이드 폼 상태 표시 순서 (2026-11-04)
+
+IconGuide의 폼 상태는 checkbox와 radio 각각 기본 → 선택 → 비활성 기본 → 비활성 선택 순서로 표시한다. 정적 예시 배열과 제목만 조정하며 실제 폼 동작은 변경하지 않는다. 출처: src/app/publishing-guide/_components/IconGuide.tsx.

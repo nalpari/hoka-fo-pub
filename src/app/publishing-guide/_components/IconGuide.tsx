@@ -644,6 +644,19 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
     description: '체크박스·라디오 선택과 비활성',
     items: [
       {
+        label: 'checkbox · 기본',
+        origin: {
+          label: '종류',
+          name: 'checkbox 상태 SVG',
+          detail: '폼 상태 조합 · 단일 Font Awesome 대응 미확인',
+        },
+        preview: <Icon name="checkbox-unchecked" size={20} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="checkbox-unchecked" size={20} />',
+        source: 'Checkbox.tsx',
+        note: '상태 이미지 확인용 · 실제 폼에서는 Checkbox / Radio 사용',
+        registeredName: 'checkbox-unchecked',
+      },
+      {
         label: 'checkbox · 선택',
         origin: {
           label: '종류',
@@ -657,7 +670,7 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
         registeredName: 'checkbox-checked',
       },
       {
-        label: 'checkbox · 비활성',
+        label: 'checkbox · 비활성 기본',
         previewBackground: 'black.60',
         origin: {
           label: '종류',
@@ -671,7 +684,7 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
         registeredName: 'checkbox-disabled',
       },
       {
-        label: 'checkbox · 선택 + 비활성',
+        label: 'checkbox · 비활성 선택',
         previewBackground: 'black.60',
         origin: {
           label: '종류',
@@ -685,17 +698,17 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
         registeredName: 'checkbox-disabled-checked',
       },
       {
-        label: 'checkbox · 기본',
+        label: 'radio · 기본',
         origin: {
           label: '종류',
-          name: 'checkbox 상태 SVG',
+          name: 'radio 상태 SVG',
           detail: '폼 상태 조합 · 단일 Font Awesome 대응 미확인',
         },
-        preview: <Icon name="checkbox-unchecked" size={20} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="checkbox-unchecked" size={20} />',
-        source: 'Checkbox.tsx',
+        preview: <Icon name="radio-unchecked" size={20} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="radio-unchecked" size={20} />',
+        source: 'Radio.tsx',
         note: '상태 이미지 확인용 · 실제 폼에서는 Checkbox / Radio 사용',
-        registeredName: 'checkbox-unchecked',
+        registeredName: 'radio-unchecked',
       },
       {
         label: 'radio · 선택',
@@ -711,7 +724,7 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
         registeredName: 'radio-checked',
       },
       {
-        label: 'radio · 비활성',
+        label: 'radio · 비활성 기본',
         previewBackground: 'black.60',
         origin: {
           label: '종류',
@@ -725,7 +738,7 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
         registeredName: 'radio-disabled',
       },
       {
-        label: 'radio · 선택 + 비활성',
+        label: 'radio · 비활성 선택',
         previewBackground: 'black.60',
         origin: {
           label: '종류',
@@ -737,19 +750,6 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
         source: 'Radio.tsx',
         note: '상태 이미지 확인용 · 실제 폼에서는 Checkbox / Radio 사용',
         registeredName: 'radio-disabled-checked',
-      },
-      {
-        label: 'radio · 기본',
-        origin: {
-          label: '종류',
-          name: 'radio 상태 SVG',
-          detail: '폼 상태 조합 · 단일 Font Awesome 대응 미확인',
-        },
-        preview: <Icon name="radio-unchecked" size={20} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="radio-unchecked" size={20} />',
-        source: 'Radio.tsx',
-        note: '상태 이미지 확인용 · 실제 폼에서는 Checkbox / Radio 사용',
-        registeredName: 'radio-unchecked',
       },
     ],
   },
