@@ -83,6 +83,37 @@ export function Icon({
     );
   }
 
+  if ('foreground' in asset && color !== 'currentColor') {
+    return (
+      <span
+        {...(props as HTMLAttributes<HTMLSpanElement>)}
+        aria-hidden={hidden}
+        aria-label={label}
+        role={role}
+        className={classes}
+        style={{
+          width: size,
+          height: size,
+          borderRadius: '50%',
+          background: 'white',
+          filter: asset.filter,
+          ...style,
+        }}
+      >
+        <span
+          className={iconMask}
+          style={{
+            width: '100%',
+            height: '100%',
+            color: resolveIconColor(color),
+            maskImage: `url(${asset.foreground})`,
+            WebkitMaskImage: `url(${asset.foreground})`,
+          }}
+        />
+      </span>
+    );
+  }
+
   if (asset.mode === 'mask') {
     return (
       <span

@@ -35,201 +35,254 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
     items: [
       {
         label: '오른쪽 기본',
-        registeredName: 'hoka-nav-chevron-right',
+        registeredName: 'hoka-nav-chevron-right-regular',
 
-        preview: <Icon name="hoka-nav-chevron-right" size={16} />,
+        preview: <Icon name="hoka-nav-chevron-right-regular" size={24} />,
         code: `import { Icon } from '@/components/common/atoms/Icon';
 
-<Icon name="hoka-nav-chevron-right" size={16} />`,
+<Icon name="hoka-nav-chevron-right-regular" size={24} />`,
         source: 'HOKA 디자인 시스템',
-        note: '16px',
-      },
-      {
-        label: '오른쪽 회색',
-        registeredName: 'hoka-nav-chevron-right',
-
-        preview: <Icon name="hoka-nav-chevron-right" size={16} color="black.40" />,
-        code: `import { Icon } from '@/components/common/atoms/Icon';
-
-<Icon name="hoka-nav-chevron-right" size={16} color="black.40" />`,
-        source: 'HOKA 디자인 시스템',
-        note: '16px',
-      },
-      {
-        label: '오른쪽 원',
-        registeredName: 'hoka-nav-chevron-right-circle',
-
-        preview: <Icon name="hoka-nav-chevron-right-circle" size={24} />,
-        code: `import { Icon } from '@/components/common/atoms/Icon';
-
-<Icon name="hoka-nav-chevron-right-circle" size={24} />`,
-        source: 'HOKA 디자인 시스템',
-        note: '24px',
-      },
-      {
-        label: '오른쪽 원 회색',
-        registeredName: 'hoka-nav-chevron-right-muted-circle',
-
-        preview: <Icon name="hoka-nav-chevron-right-muted-circle" size={24} />,
-        code: `import { Icon } from '@/components/common/atoms/Icon';
-
-<Icon name="hoka-nav-chevron-right-muted-circle" size={24} />`,
-        source: 'HOKA 디자인 시스템',
-        note: '24px',
+        note: '여백 포함 24px · 회색은 color="black.40"',
       },
       {
         label: '왼쪽 기본',
-        registeredName: 'hoka-nav-chevron-left',
+        registeredName: 'hoka-nav-chevron-left-regular',
 
-        preview: <Icon name="hoka-nav-chevron-left" size={16} />,
+        preview: <Icon name="hoka-nav-chevron-left-regular" size={24} />,
         code: `import { Icon } from '@/components/common/atoms/Icon';
 
-<Icon name="hoka-nav-chevron-left" size={16} />`,
+<Icon name="hoka-nav-chevron-left-regular" size={24} />`,
         source: 'HOKA 디자인 시스템',
-        note: '16px',
-      },
-      {
-        label: '왼쪽 회색',
-        registeredName: 'hoka-nav-chevron-left',
-
-        preview: <Icon name="hoka-nav-chevron-left" size={16} color="black.40" />,
-        code: `import { Icon } from '@/components/common/atoms/Icon';
-
-<Icon name="hoka-nav-chevron-left" size={16} color="black.40" />`,
-        source: 'HOKA 디자인 시스템',
-        note: '16px',
-      },
-      {
-        label: '왼쪽 원',
-        registeredName: 'hoka-nav-chevron-left-circle',
-
-        preview: <Icon name="hoka-nav-chevron-left-circle" size={24} />,
-        code: `import { Icon } from '@/components/common/atoms/Icon';
-
-<Icon name="hoka-nav-chevron-left-circle" size={24} />`,
-        source: 'HOKA 디자인 시스템',
-        note: '24px',
-      },
-      {
-        label: '왼쪽 원 회색',
-        registeredName: 'hoka-nav-chevron-left-muted-circle',
-
-        preview: <Icon name="hoka-nav-chevron-left-muted-circle" size={24} />,
-        code: `import { Icon } from '@/components/common/atoms/Icon';
-
-<Icon name="hoka-nav-chevron-left-muted-circle" size={24} />`,
-        source: 'HOKA 디자인 시스템',
-        note: '24px',
+        note: '여백 포함 24px · 회색은 color="black.40"',
       },
       {
         label: '위 기본',
-        registeredName: 'hoka-nav-chevron-up',
+        registeredName: 'hoka-nav-chevron-up-regular',
 
-        preview: <Icon name="hoka-nav-chevron-up" size={16} />,
+        preview: <Icon name="hoka-nav-chevron-up-regular" size={24} />,
         code: `import { Icon } from '@/components/common/atoms/Icon';
 
-<Icon name="hoka-nav-chevron-up" size={16} />`,
+<Icon name="hoka-nav-chevron-up-regular" size={24} />`,
         source: 'HOKA 디자인 시스템',
-        note: '16px',
-      },
-      {
-        label: '위 회색',
-        registeredName: 'hoka-nav-chevron-up',
-
-        preview: <Icon name="hoka-nav-chevron-up" size={16} color="black.40" />,
-        code: `import { Icon } from '@/components/common/atoms/Icon';
-
-<Icon name="hoka-nav-chevron-up" size={16} color="black.40" />`,
-        source: 'HOKA 디자인 시스템',
-        note: '16px',
-      },
-      {
-        label: '위 원',
-        registeredName: 'hoka-nav-chevron-up-circle',
-
-        preview: <Icon name="hoka-nav-chevron-up-circle" size={24} />,
-        code: `import { Icon } from '@/components/common/atoms/Icon';
-
-<Icon name="hoka-nav-chevron-up-circle" size={24} />`,
-        source: 'HOKA 디자인 시스템',
-        note: '24px',
-      },
-      {
-        label: '위 원 회색',
-        registeredName: 'hoka-nav-chevron-up-muted-circle',
-
-        preview: <Icon name="hoka-nav-chevron-up-muted-circle" size={24} />,
-        code: `import { Icon } from '@/components/common/atoms/Icon';
-
-<Icon name="hoka-nav-chevron-up-muted-circle" size={24} />`,
-        source: 'HOKA 디자인 시스템',
-        note: '24px',
+        note: '여백 포함 24px · 회색은 color="black.40"',
       },
       {
         label: '아래 기본',
-        registeredName: 'hoka-nav-chevron-down',
+        registeredName: 'hoka-nav-chevron-down-regular',
 
-        preview: <Icon name="hoka-nav-chevron-down" size={16} />,
+        preview: <Icon name="hoka-nav-chevron-down-regular" size={24} />,
         code: `import { Icon } from '@/components/common/atoms/Icon';
 
-<Icon name="hoka-nav-chevron-down" size={16} />`,
+<Icon name="hoka-nav-chevron-down-regular" size={24} />`,
         source: 'HOKA 디자인 시스템',
-        note: '16px',
+        note: '여백 포함 24px · 회색은 color="black.40"',
       },
       {
-        label: '아래 회색',
-        registeredName: 'hoka-nav-chevron-down',
+        label: '오른쪽 기본 · 회색',
+        registeredName: 'hoka-nav-chevron-right-regular',
 
-        preview: <Icon name="hoka-nav-chevron-down" size={16} color="black.40" />,
+        preview: <Icon name="hoka-nav-chevron-right-regular" size={24} color="black.40" />,
         code: `import { Icon } from '@/components/common/atoms/Icon';
 
-<Icon name="hoka-nav-chevron-down" size={16} color="black.40" />`,
+<Icon name="hoka-nav-chevron-right-regular" size={24} color="black.40" />`,
         source: 'HOKA 디자인 시스템',
-        note: '16px',
+        note: '여백 포함 24px · 회색은 color="black.40"',
+      },
+      {
+        label: '왼쪽 기본 · 회색',
+        registeredName: 'hoka-nav-chevron-left-regular',
+
+        preview: <Icon name="hoka-nav-chevron-left-regular" size={24} color="black.40" />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-nav-chevron-left-regular" size={24} color="black.40" />`,
+        source: 'HOKA 디자인 시스템',
+        note: '여백 포함 24px · 회색은 color="black.40"',
+      },
+      {
+        label: '위 기본 · 회색',
+        registeredName: 'hoka-nav-chevron-up-regular',
+
+        preview: <Icon name="hoka-nav-chevron-up-regular" size={24} color="black.40" />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-nav-chevron-up-regular" size={24} color="black.40" />`,
+        source: 'HOKA 디자인 시스템',
+        note: '여백 포함 24px · 회색은 color="black.40"',
+      },
+      {
+        label: '아래 기본 · 회색',
+        registeredName: 'hoka-nav-chevron-down-regular',
+
+        preview: <Icon name="hoka-nav-chevron-down-regular" size={24} color="black.40" />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-nav-chevron-down-regular" size={24} color="black.40" />`,
+        source: 'HOKA 디자인 시스템',
+        note: '여백 포함 24px · 회색은 color="black.40"',
+      },
+      {
+        label: '오른쪽 원',
+        registeredName: 'hoka-nav-chevron-right-regular-circle',
+
+        preview: <Icon name="hoka-nav-chevron-right-regular-circle" size={24} />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-nav-chevron-right-regular-circle" size={24} />`,
+        source: 'HOKA 디자인 시스템',
+        note: '24px',
+      },
+      {
+        label: '왼쪽 원',
+        registeredName: 'hoka-nav-chevron-left-regular-circle',
+
+        preview: <Icon name="hoka-nav-chevron-left-regular-circle" size={24} />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-nav-chevron-left-regular-circle" size={24} />`,
+        source: 'HOKA 디자인 시스템',
+        note: '24px',
+      },
+      {
+        label: '위 원',
+        registeredName: 'hoka-nav-chevron-up-regular-circle',
+
+        preview: <Icon name="hoka-nav-chevron-up-regular-circle" size={24} />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-nav-chevron-up-regular-circle" size={24} />`,
+        source: 'HOKA 디자인 시스템',
+        note: '24px',
       },
       {
         label: '아래 원',
-        registeredName: 'hoka-nav-chevron-down-circle',
+        registeredName: 'hoka-nav-chevron-down-regular-circle',
 
-        preview: <Icon name="hoka-nav-chevron-down-circle" size={24} />,
+        preview: <Icon name="hoka-nav-chevron-down-regular-circle" size={24} />,
         code: `import { Icon } from '@/components/common/atoms/Icon';
 
-<Icon name="hoka-nav-chevron-down-circle" size={24} />`,
+<Icon name="hoka-nav-chevron-down-regular-circle" size={24} />`,
         source: 'HOKA 디자인 시스템',
         note: '24px',
       },
       {
-        label: '아래 원 회색',
-        registeredName: 'hoka-nav-chevron-down-muted-circle',
+        label: '오른쪽 원 · 회색',
+        registeredName: 'hoka-nav-chevron-right-regular-circle',
 
-        preview: <Icon name="hoka-nav-chevron-down-muted-circle" size={24} />,
+        preview: <Icon name="hoka-nav-chevron-right-regular-circle" size={24} color="black.40" />,
         code: `import { Icon } from '@/components/common/atoms/Icon';
 
-<Icon name="hoka-nav-chevron-down-muted-circle" size={24} />`,
+<Icon name="hoka-nav-chevron-right-regular-circle" size={24} color="black.40" />`,
         source: 'HOKA 디자인 시스템',
         note: '24px',
       },
+      {
+        label: '왼쪽 원 · 회색',
+        registeredName: 'hoka-nav-chevron-left-regular-circle',
+
+        preview: <Icon name="hoka-nav-chevron-left-regular-circle" size={24} color="black.40" />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-nav-chevron-left-regular-circle" size={24} color="black.40" />`,
+        source: 'HOKA 디자인 시스템',
+        note: '24px',
+      },
+      {
+        label: '위 원 · 회색',
+        registeredName: 'hoka-nav-chevron-up-regular-circle',
+
+        preview: <Icon name="hoka-nav-chevron-up-regular-circle" size={24} color="black.40" />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-nav-chevron-up-regular-circle" size={24} color="black.40" />`,
+        source: 'HOKA 디자인 시스템',
+        note: '24px',
+      },
+      {
+        label: '아래 원 · 회색',
+        registeredName: 'hoka-nav-chevron-down-regular-circle',
+
+        preview: <Icon name="hoka-nav-chevron-down-regular-circle" size={24} color="black.40" />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-nav-chevron-down-regular-circle" size={24} color="black.40" />`,
+        source: 'HOKA 디자인 시스템',
+        note: '24px',
+      },
+    ],
+  },
+  {
+    id: 'icon-design-actions',
+    title: '디자인팀 액션 아이콘',
+    description: '기본 · 회색 · 원형',
+    items: [
       {
         label: '더하기 기본',
         registeredName: 'hoka-action-plus-regular',
 
-        preview: <Icon name="hoka-action-plus-regular" size={16} />,
+        preview: <Icon name="hoka-action-plus-regular" size={24} />,
         code: `import { Icon } from '@/components/common/atoms/Icon';
 
-<Icon name="hoka-action-plus-regular" size={16} />`,
-        source: 'HOKA 디자인 시스템',
-        note: '16px',
+<Icon name="hoka-action-plus-regular" size={24} />`,
+        source: 'InquiryOrderLookup.tsx',
+        note: '여백 포함 24px · 회색은 color="black.40"',
       },
       {
-        label: '더하기 회색',
-        registeredName: 'hoka-action-plus-regular',
+        label: '빼기 기본',
+        registeredName: 'hoka-action-minus-regular',
 
-        preview: <Icon name="hoka-action-plus-regular" size={16} color="black.40" />,
+        preview: <Icon name="hoka-action-minus-regular" size={24} />,
         code: `import { Icon } from '@/components/common/atoms/Icon';
 
-<Icon name="hoka-action-plus-regular" size={16} color="black.40" />`,
+<Icon name="hoka-action-minus-regular" size={24} />`,
         source: 'HOKA 디자인 시스템',
-        note: '16px',
+        note: '여백 포함 24px · 회색은 color="black.40"',
+      },
+      {
+        label: '닫기 기본',
+        registeredName: 'hoka-action-xmark-regular',
+
+        preview: <Icon name="hoka-action-xmark-regular" size={24} />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-action-xmark-regular" size={24} />`,
+        source:
+          'ModalDialog.tsx, CartProductSection.tsx, InquiryFormContent.tsx, ProductDetailContent.tsx, SearchHeader.tsx, ShopShell.tsx, TextInput.tsx',
+        note: '원본 여백 포함 24px · 화면에 따라 14·16·18·24px',
+      },
+      {
+        label: '더하기 · 회색',
+        registeredName: 'hoka-action-plus-regular',
+
+        preview: <Icon name="hoka-action-plus-regular" size={24} color="black.40" />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-action-plus-regular" size={24} color="black.40" />`,
+        source: 'InquiryOrderLookup.tsx',
+        note: '여백 포함 24px · 회색은 color="black.40"',
+      },
+      {
+        label: '빼기 · 회색',
+        registeredName: 'hoka-action-minus-regular',
+
+        preview: <Icon name="hoka-action-minus-regular" size={24} color="black.40" />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-action-minus-regular" size={24} color="black.40" />`,
+        source: 'HOKA 디자인 시스템',
+        note: '여백 포함 24px · 회색은 color="black.40"',
+      },
+      {
+        label: '닫기 · 회색',
+        registeredName: 'hoka-action-xmark-regular',
+
+        preview: <Icon name="hoka-action-xmark-regular" size={24} color="black.40" />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-action-xmark-regular" size={24} color="black.40" />`,
+        source:
+          'ModalDialog.tsx, CartProductSection.tsx, InquiryFormContent.tsx, ProductDetailContent.tsx, SearchHeader.tsx, ShopShell.tsx, TextInput.tsx',
+        note: '원본 여백 포함 24px · 화면에 따라 14·16·18·24px',
       },
       {
         label: '더하기 원',
@@ -243,59 +296,15 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
         note: '24px',
       },
       {
-        label: '빼기 기본',
-        registeredName: 'hoka-action-minus',
-
-        preview: <Icon name="hoka-action-minus" size={16} />,
-        code: `import { Icon } from '@/components/common/atoms/Icon';
-
-<Icon name="hoka-action-minus" size={16} />`,
-        source: 'HOKA 디자인 시스템',
-        note: '16px',
-      },
-      {
-        label: '빼기 회색',
-        registeredName: 'hoka-action-minus',
-
-        preview: <Icon name="hoka-action-minus" size={16} color="black.40" />,
-        code: `import { Icon } from '@/components/common/atoms/Icon';
-
-<Icon name="hoka-action-minus" size={16} color="black.40" />`,
-        source: 'HOKA 디자인 시스템',
-        note: '16px',
-      },
-      {
         label: '빼기 원',
-        registeredName: 'hoka-action-minus-circle',
+        registeredName: 'hoka-action-minus-regular-circle',
 
-        preview: <Icon name="hoka-action-minus-circle" size={24} />,
+        preview: <Icon name="hoka-action-minus-regular-circle" size={24} />,
         code: `import { Icon } from '@/components/common/atoms/Icon';
 
-<Icon name="hoka-action-minus-circle" size={24} />`,
+<Icon name="hoka-action-minus-regular-circle" size={24} />`,
         source: 'HOKA 디자인 시스템',
         note: '24px',
-      },
-      {
-        label: '닫기 기본',
-        registeredName: 'hoka-action-xmark-regular',
-
-        preview: <Icon name="hoka-action-xmark-regular" size={20} />,
-        code: `import { Icon } from '@/components/common/atoms/Icon';
-
-<Icon name="hoka-action-xmark-regular" size={20} />`,
-        source: 'HOKA 디자인 시스템',
-        note: '16px',
-      },
-      {
-        label: '닫기 회색',
-        registeredName: 'hoka-action-xmark-regular',
-
-        preview: <Icon name="hoka-action-xmark-regular" size={16} color="black.40" />,
-        code: `import { Icon } from '@/components/common/atoms/Icon';
-
-<Icon name="hoka-action-xmark-regular" size={16} color="black.40" />`,
-        source: 'HOKA 디자인 시스템',
-        note: '16px',
       },
       {
         label: '닫기 원',
@@ -308,6 +317,13 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
         source: 'HOKA 디자인 시스템',
         note: '24px',
       },
+    ],
+  },
+  {
+    id: 'icon-design-other',
+    title: '디자인팀 폼·배너·쇼핑 아이콘',
+    description: '상태별 예시',
+    items: [
       {
         label: '배너 left default',
         registeredName: 'hoka-echo-left-state-default',
@@ -859,15 +875,6 @@ import { Typography } from '@/components/common/atoms/Typography';
         registeredName: 'plus-regular',
       },
       {
-        label: 'faPlus',
-        origin: { label: 'Font Awesome', name: 'plus', detail: 'Solid' },
-        preview: <Icon name="plus-solid" size={24} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="plus-solid" size={24} />',
-        source: 'InquiryOrderLookup.tsx',
-        note: 'color로 색상 변경 가능',
-        registeredName: 'plus-solid',
-      },
-      {
         label: 'faScrewdriverWrench',
         origin: { label: 'Font Awesome', name: 'screwdriver-wrench', detail: 'Solid' },
         preview: <Icon name="screwdriver-wrench-solid" size={24} />,
@@ -888,21 +895,11 @@ import { Typography } from '@/components/common/atoms/Typography';
       {
         label: '선택 태그 삭제',
         origin: { label: 'Font Awesome', name: 'xmark', detail: 'Regular' },
-        preview: <Icon name="xmark-regular" size={24} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="xmark-regular" size={24} />',
+        preview: <Icon name="hoka-action-xmark-regular" size={24} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="hoka-action-xmark-regular" size={24} />',
         source: 'ProductListingPage.tsx, OrderTrackingDialog.tsx, BottomSheet.tsx',
         note: 'color로 색상 변경 가능',
-        registeredName: 'xmark-regular',
-      },
-      {
-        label: 'faXmark',
-        origin: { label: 'Font Awesome', name: 'xmark', detail: 'Solid' },
-        preview: <Icon name="xmark-solid" size={24} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="xmark-solid" size={24} />',
-        source:
-          'CartProductSection.tsx, InquiryFormContent.tsx, ModalDialog.tsx, ProductDetailContent.tsx, SearchHeader.tsx, ShopShell.tsx, TextInput.tsx',
-        note: 'color로 색상 변경 가능',
-        registeredName: 'xmark-solid',
+        registeredName: 'hoka-action-xmark-regular',
       },
     ],
   },
@@ -1586,7 +1583,10 @@ export function IconGuide() {
             <Typography as="p" variant="body5" tone="subtle">
               {group.description}
             </Typography>
-            <Grid columns={{ base: 4, _mobile: 1 }} gap="3">
+            <Grid
+              columns={{ base: group.id === 'icon-design-actions' ? 3 : 4, _mobile: 1 }}
+              gap="3"
+            >
               {group.items.map((example, index) => {
                 const family = example.registeredName?.replace(/-(regular|solid)$/, '');
                 const previous = group.items[index - 1];

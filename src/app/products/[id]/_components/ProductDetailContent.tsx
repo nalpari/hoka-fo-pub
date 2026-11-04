@@ -190,7 +190,7 @@ function ProductDetailImageViewer({
         variant="icon"
         size={24}
       >
-        <Icon name="xmark-solid" size="24px" />
+        <Icon name="hoka-action-xmark-regular" size="24px" />
       </Button>
       <ViewerContentBoundary>
         <ProductDetailViewerContent
@@ -2341,7 +2341,7 @@ function ProductSelectedOptions({
                     size="24px"
                     onClick={() => onRemove(index)}
                   >
-                    <Icon name="xmark-solid" size={16} />
+                    <Icon name="hoka-action-xmark-regular" size={16} />
                   </Button>
                 </Flex>
                 <Flex gap="3" alignItems="center" justifyContent="space-between">

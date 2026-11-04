@@ -171,7 +171,7 @@ function MenuDrawerHeader({ close, isLoggedIn, closeButtonRef }: MenuDrawerHeade
         aria-label="메뉴 닫기"
         onClick={close}
       >
-        <Icon name="xmark-solid" size="18px" aria-hidden="true" />
+        <Icon name="hoka-action-xmark-regular" size="18px" aria-hidden="true" />
       </Button>
     </HStack>
   );
@@ -1311,7 +1311,7 @@ function RecentSearchItem({ query, onNavigateSearch, onRemove }: RecentSearchIte
         size="18px"
         shape="square"
       >
-        <Icon name="xmark-solid" size="14px" />
+        <Icon name="hoka-action-xmark-regular" size="14px" />
       </Button>
     </HStack>
   );

@@ -226,7 +226,7 @@ export function TextInput({
           className={action}
           onClick={clear}
         >
-          <Icon name="xmark-solid" size="16px" />
+          <Icon name="hoka-action-xmark-regular" size="16px" />
         </button>
       ) : null}
       {endIcon}

@@ -728,3 +728,6 @@ Icon 사용처와 가이드 복사 코드는 name → size → color 순서로 �
 
 
 ShopShell 알림 아이콘은 hoka- 이름의 쇼핑백·장바구니·계정 SVG를 사용한다. 알림 건수는 기존 파란 배지로 표시하며 건수의 소유권과 갱신 방식은 동일하다. 출처: src/context/ShopShell.tsx.
+
+
+닫기·삭제의 기존 Solid xmark 호출 9곳을 디자인팀 hoka-action-xmark-regular로 통일했다. 각 호출의 14·16·18·24px 크기는 유지하고 Solid SVG·등록·가이드 항목을 제거했다. 출처: IconGuide.tsx와 관련 화면 호출부.

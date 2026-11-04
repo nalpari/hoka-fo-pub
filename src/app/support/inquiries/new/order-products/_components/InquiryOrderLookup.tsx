@@ -170,7 +170,10 @@ export function InquiryOrderLookup({
                         주문번호 {order.id}
                       </Typography>
                     </Stack>
-                    <Icon name={isExpanded ? 'minus-solid' : 'plus-solid'} size="16px" />
+                    <Icon
+                      name={isExpanded ? 'minus-solid' : 'hoka-action-plus-regular'}
+                      size={isExpanded ? 16 : 24}
+                    />
                   </button>
                 </Flex>
                 {isExpanded && (

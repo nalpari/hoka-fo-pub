@@ -31,7 +31,6 @@
 | `faLocationDot` | [location-dot-solid.svg](location-dot-solid.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-12528) |
 | `faMagnifyingGlass` | [magnifying-glass-solid.svg](magnifying-glass-solid.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-22998) |
 | `faMinus` | [minus-solid.svg](minus-solid.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-24898) |
-| `faPlus` | [plus-solid.svg](plus-solid.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-16548) |
 | `faScrewdriverWrench` | [screwdriver-wrench-solid.svg](screwdriver-wrench-solid.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-23958) |
 | `faStarRegular` | [hoka-star-regular.svg](hoka-star-regular.svg) | 16 × 16 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-20271) |
 | `faStarSolid` | [hoka-star-solid.svg](hoka-star-solid.svg) | 16 × 16 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-20273) |
@@ -39,7 +38,6 @@
 | `faTruckFast` | [truck-fast-solid.svg](truck-fast-solid.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-17248) |
 | `faUser` | [hoka-user-regular.svg](hoka-user-regular.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-10845) |
 | `faUserSolid` | [user-solid.svg](user-solid.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-10843) |
-| `faXmark` | [xmark-solid.svg](xmark-solid.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-19868) |
 
 
 2026-11-04: 아이콘 SVG는 하위 폴더 없이 이 디렉터리에 모읍니다. 레지스트리 이름도 파일명(확장자 제외)을 사용합니다. 이름이 충돌한 navigation/chevron-right.svg만 navigation-chevron-right.svg로 옮겼으며 도형 병합은 하지 않았습니다.
@@ -64,10 +62,10 @@ Figma FontAwesome Icons 296:9192를 다시 조회해 공식 이름을 기준으�
 | `fa-plus` | `plus-regular` · [plus-regular.svg](plus-regular.svg) | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-16546) |
 | `filter-collapsed` | `plus-regular` · [plus-regular.svg](plus-regular.svg) | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-16546) |
 | `filter-expanded` | `minus-regular` · [minus-regular.svg](minus-regular.svg) | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-24896) |
-| `tag-delete` | `xmark-regular` · [xmark-regular.svg](xmark-regular.svg) | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-19866) |
-| `close` | `xmark-regular` · [xmark-regular.svg](xmark-regular.svg) | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-19866) |
-| `catalog-filter-close` | `xmark-regular` · [xmark-regular.svg](xmark-regular.svg) | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-19866) |
-| `fa-xmark` | `xmark-regular` · [xmark-regular.svg](xmark-regular.svg) | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-19866) |
+| `tag-delete` | `hoka-action-xmark-regular` · [hoka-action-xmark-regular.svg](hoka-action-xmark-regular.svg) | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-19866) |
+| `close` | `hoka-action-xmark-regular` · [hoka-action-xmark-regular.svg](hoka-action-xmark-regular.svg) | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-19866) |
+| `catalog-filter-close` | `hoka-action-xmark-regular` · [hoka-action-xmark-regular.svg](hoka-action-xmark-regular.svg) | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-19866) |
+| `fa-xmark` | `hoka-action-xmark-regular` · [hoka-action-xmark-regular.svg](hoka-action-xmark-regular.svg) | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-19866) |
 | `filter` | `sliders-regular` · [sliders-regular.svg](sliders-regular.svg) | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-11385) |
 | `fa-clock-nine` | `clock-nine-regular` · [clock-nine-regular.svg](clock-nine-regular.svg) | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-22596) |
 | `fa-ruler-horizontal` | `ruler-horizontal-regular` · [ruler-horizontal-regular.svg](ruler-horizontal-regular.svg) | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-12756) |
@@ -97,4 +95,7 @@ Figma FontAwesome Icons 296:9192를 다시 조회해 공식 이름을 기준으�
 2026-11-04: 사용자 지정에 따라 chevron-down은 Figma Regular 원본(296:11741)으로 통일했다. 기존 선 도형과 Solid 파일·등록·가이드 항목을 제거하고 모든 해당 호출을 chevron-down-regular로 변경했다.
 
 
-원형 배경이 포함된 디자인팀 아이콘은 이름 끝에 -circle을 붙인다. 방향·스타일·상태는 그 앞에 둔다. 예: hoka-nav-chevron-right-muted-circle, hoka-action-plus-regular-active-circle. 출처: Icon.assets.ts, IconGuide.tsx 및 SVG 파일.
+원형 배경이 포함된 디자인팀 아이콘은 이름 끝에 -circle을 붙인다. 방향·스타일·상태는 그 앞에 둔다. 예: hoka-nav-chevron-right-regular-circle, hoka-action-plus-regular-active-circle. 출처: Icon.assets.ts, IconGuide.tsx 및 SVG 파일.
+
+
+Figma Navigational Buttons(296:25392)와 Action Buttons(296:25425)의 기본·원형 예시를 여백 포함 24px로 통일했다. 기본 방향·빼기 SVG는 내부 16px 도형을 중앙에 유지한다. 회색 카드는 제거하고 단색 회색은 color 토큰으로 안내한다. 출처: IconGuide.tsx 및 Icon.assets.ts.
