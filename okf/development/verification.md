@@ -4,7 +4,7 @@ title: '변경 검증'
 description: '변경 범위에 맞는 정적 검사, 빌드와 수동 검증을 안내한다.'
 tags: [verification, testing, build]
 status: draft
-updated: '2026-11-04T09:26:00Z'
+updated: '2026-11-05T01:11:42.851Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
@@ -674,3 +674,9 @@ ProductCard.tsx·ProductOptionList.tsx·관련 타입 선언을 검토했다. �
 
 
 디자인팀 아이콘의 hoka- 이름에 맞춘 별점 회귀 검사 기대값을 갱신했다. 폼 회귀 테스트 47개 통과. 출처: tests/form-controls.test.mjs.
+
+## 보고서 메뉴·화면 식별 (2026-11-05)
+
+main-change-history 테스트11개와 전체 typecheck를 통과했다. 브라우저에서 날짜·전체 담당자 직접 URL의5열/208행, 장바구니 및 주문배송 조회·취소/반품 메뉴 경로와 문서 가로 넘침 없음을 확인했다. 시각 스크린샷 수집은 브라우저 CDP 시간 초과로 완료하지 못했다.
+
+출처: src/app/screen-index/screenChangeHistory.ts, src/app/screen-index/_components/IaStructurePage.tsx, tests/main-change-history.test.mjs 및 hoka-main-change-report 스킬 작업 트리. 기록: codex, 2026-11-05T01:11:42.851Z.

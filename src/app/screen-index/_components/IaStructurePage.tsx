@@ -21,6 +21,7 @@ import {
   type ChangeHistoryReport,
   getChangeReportsForDate,
   getChangeReportTableGroups,
+  getChangeScreenLabels,
   getReportNavigationUrl,
   getReportUrlState,
   screenChangeReports,
@@ -1246,7 +1247,7 @@ function ChangeReportTable({ report }: { report: ChangeHistoryReport }) {
         aria-label="개발담당자별 퍼블 변경사항"
         className={css({
           width: '100%',
-          minW: '1040px',
+          minW: '1200px',
           borderCollapse: 'collapse',
           tableLayout: 'fixed',
           fontSize: '12px',
@@ -1262,14 +1263,16 @@ function ChangeReportTable({ report }: { report: ChangeHistoryReport }) {
         })}
       >
         <colgroup>
-          <col style={{ width: '16%' }} />
-          <col style={{ width: '29%' }} />
-          <col style={{ width: '32%' }} />
-          <col style={{ width: '23%' }} />
+          <col style={{ width: '12%' }} />
+          <col style={{ width: '20%' }} />
+          <col style={{ width: '24%' }} />
+          <col style={{ width: '26%' }} />
+          <col style={{ width: '18%' }} />
         </colgroup>
         <thead>
           <tr>
             <th scope="col">개발담당자</th>
+            <th scope="col">메뉴 / 화면</th>
             <th scope="col">변경사항</th>
             <th scope="col">변경 파일 * Before</th>
             <th scope="col">변경라인 * After</th>
@@ -1285,6 +1288,13 @@ function ChangeReportTable({ report }: { report: ChangeHistoryReport }) {
                       {group.developer}
                     </th>
                   )}
+                  <td>
+                    <Stack gap="2">
+                      {getChangeScreenLabels(entry).map((label) => (
+                        <span key={label}>{label}</span>
+                      ))}
+                    </Stack>
+                  </td>
                   {entryIndex === 0 && <td rowSpan={change.entries.length}>{change.summary}</td>}
                   <td>
                     <a

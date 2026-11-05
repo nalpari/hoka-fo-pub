@@ -67,6 +67,24 @@ export function getChangeOwnerPath(screen: ScreenDefinition): string {
     : screen.depths.filter(Boolean).join('|');
 }
 
+export function getChangeScreenLabels(entry: ChangeHistoryEntry): string[] {
+  if (!entry.owners.length)
+    return [entry.affectedIa.length ? '공통 UI · 영향 가능 화면' : '화면 외 공통 · 설정/에셋'];
+  return [
+    ...new Set(
+      entry.owners.map(({ path, href }) => {
+        const label =
+          path === 'product:eland_hca_01'
+            ? '상품 공통 > 상품 목록'
+            : path === 'product:eland_hca_02'
+              ? '상품 공통 > 상품 상세'
+              : path.split('|').filter(Boolean).join(' > ');
+        return href ? `${label} · STATE: ${href}` : label;
+      }),
+    ),
+  ];
+}
+
 export function getChangeReportTableGroups(
   report: ChangeHistoryReport,
   screens: readonly ScreenDefinition[],

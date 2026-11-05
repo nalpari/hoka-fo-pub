@@ -3,7 +3,7 @@ import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, URL } from 'node:url';
 import vm from 'node:vm';
 
 import ts from 'typescript';
@@ -48,9 +48,34 @@ const {
   getChangeOwnerPath,
   groupChangeHistoryEntries,
   getChangeReportTableGroups,
+  getChangeScreenLabels,
 } = module.exports;
 
 const entry = (id, path, href = null) => ({ id, owners: [{ path, href }] });
+
+test('menu labels preserve multiple owners and state URLs without treating indirect impact as ownership', () => {
+  assert.deepEqual(
+    getChangeScreenLabels({
+      owners: [
+        { path: '마이페이지|구매내역|주문배송 조회', href: '/mypage/orders?state=empty#list' },
+        { path: '마이페이지|구매내역|취소/반품 내역', href: null },
+      ],
+    }),
+    [
+      '마이페이지 > 구매내역 > 주문배송 조회 · STATE: /mypage/orders?state=empty#list',
+      '마이페이지 > 구매내역 > 취소/반품 내역',
+    ],
+  );
+  assert.deepEqual(getChangeScreenLabels(entry('product', 'product:eland_hca_02')), [
+    '상품 공통 > 상품 상세',
+  ]);
+  assert.deepEqual(getChangeScreenLabels({ owners: [], affectedIa: [1] }), [
+    '공통 UI · 영향 가능 화면',
+  ]);
+  assert.deepEqual(getChangeScreenLabels({ owners: [], affectedIa: [] }), [
+    '화면 외 공통 · 설정/에셋',
+  ]);
+});
 
 test('product aliases share the existing product summary owner', () => {
   assert.equal(
