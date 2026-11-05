@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-05T01:11:42.851Z'
+updated: '2026-11-05T06:40:00Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -4729,3 +4729,7 @@ Figma Navigational Buttons(296:25392)와 Action Buttons(296:25425)의 기본·�
 보고서에 파일별 메뉴 / 화면 열을 추가한다. 직접 소유 IA 경로와 상품 공통 목록/상세 이름, STATE URL(query/hash 포함)을 표시하며 여러 소유 경로는 모두 보존한다. 소유 화면 없는 공용 파일은 공통 UI·영향 가능 화면, 미연결 설정/에셋은 화면 외 공통으로 구분한다. 담당자/요약 rowspan과 기존 날짜·담당자 URL 동작은 유지하고 공유 Markdown208행 및 스킬 출력 계약도 같은5열로 갱신한다.
 
 출처: src/app/screen-index/screenChangeHistory.ts, src/app/screen-index/_components/IaStructurePage.tsx, tests/main-change-history.test.mjs 및 hoka-main-change-report 스킬 작업 트리. 기록: codex, 2026-11-05T01:11:42.851Z.
+
+## 바인딩 주석의 제거된 Context 이름 정리 (2026-11-05)
+
+`src/components/phone-verification/phone-verification.types.ts`의 `[ 개발팀 바인딩 ]` 주석에서 제거된 `usePhoneVerification`·`PhoneVerificationContext`를 지우고 통합 소유자가 발송/검증을 연결한다고 고쳤다. 주석만 바꿨으며 UI·타입·스타일 영향은 없다. 범위와 현재 기준은 [데이터 바인딩 현재 연결 경계](data-binding.md#현재-연결-경계-2026-11-05)를 따른다.

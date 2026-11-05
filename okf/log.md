@@ -1,3 +1,11 @@
+## 2026-11-05 플랫폼 판별·서비스 Context 문서 현행화
+
+- 사용자 요청으로 OKF·코드 대조에서 찾은 UA 판별과 제거된 서비스 Context 서술을 현재 코드에 맞췄다. 코드 동작은 바꾸지 않았다.
+- 플랫폼: [라우팅 진입점](architecture/routing.md#진입점과-책임)의 User-Agent·`detectPlatform` 설명을 화면 폭 1024px(`PlatformProvider`) 기준으로 고치고, 10-28 import 정렬 절에 같은 날 대체됐음을 표시했다. [수동 확인](development/verification.md#수동-확인)의 UA 확인 지시를 1024/1025px·1199/1200px 경계 확인으로, 장바구니·로그인 변경 확인을 `ShopShell.state` 표시값 확인으로 바꿨다. `scripts/okf-sync.mjs`와 [매핑표](maintenance.md#소스-변경-훅)에서 삭제된 `src/lib/device.ts`를 뺐다.
+- 서비스 Context: [데이터 바인딩](architecture/data-binding.md#현재-연결-경계-2026-11-05)에 현재 연결 지점(ShopState·ProductListingPage.data·CheckoutContext·InquiryPreviewContext·RunningSessionSessionContext)을 추가하고 제거 전 Provider·요청 hook 절에 대체 표시를 달았다. [state.md ShopShell](architecture/state.md#shopshell)·장바구니 항목을 현재 셸 구조로 다시 쓰고, running-session·home-product·inquiry·support·publishing-state-previews 문서의 Context 유지 문장에 제거 표시를 달았다.
+- 소스 주석: `src`의 `[ 개발팀 바인딩 ]` 주석 25개 파일에서 제거된 Context·hook 이름과 없는 콜백 연결을 지우고 통합 소유자 연결·현재 연결 없음으로 고쳤다(코드 동작 변경 없음). [라우트](architecture/routing.md#라우트-바인딩-주석의-제거된-context-이름-정리-2026-11-05)·[Context](architecture/state.md#context-바인딩-주석-정리-2026-11-05)·[UI](architecture/ui.md#바인딩-주석의-제거된-context-이름-정리-2026-11-05).
+- 확인: `src/context`(5개)·`src/hooks`(`useRecentSearches`만)·`ShopShell.tsx`·`ProductListingPage.tsx`·`layout.tsx`·`platform.tsx`를 HEAD `b72ed2f6`에서 대조했다. 주석 정리 후 `src`에 제거된 Context·hook 이름 0건, 변경 파일 ESLint·전체 타입 검사 통과, `screen-files` 재생성 결과 변경 없음.
+
 ## 2026-11-05 전체 담당자 보고 URL 수정
 
 - developer=ALL도 전체 보고서로 처리하도록 예약값 대소문자와 공백을 정규화했다. 실제 담당자 이름·날짜 및 기존 URL 계약은 유지하고 스킬에 반영했다. 출처: screenChangeHistory.ts와 관련 테스트 작업 트리.

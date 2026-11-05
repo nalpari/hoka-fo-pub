@@ -4,7 +4,7 @@ title: '화면 데이터와 서비스 연결 계약'
 description: '퍼블리싱 화면에 실제 조회 결과와 비동기 요청을 연결하는 지점을 설명한다.'
 tags: [frontend, binding, state, forms]
 status: draft
-updated: '2026-11-02T15:07:00+09:00'
+updated: '2026-11-05T06:21:48Z'
 generated:
   by: codex/gpt-6
   at: '2026-10-30T08:34:43.457833+00:00'
@@ -76,6 +76,20 @@ working_tree_sources:
 
 # 화면 데이터와 서비스 연결 계약
 
+## 현재 연결 경계 (2026-11-05)
+
+2026-11-02 커밋 `d0f4581f`(전체 화면을 고정 마크업 인계로 전환)에서 서비스 Context(`AccountFlow`·`PhoneVerification`·`Orders`·`MyPageData`·`MyPageInitialState`·`InquiryData`·`ProductListing`·`HomeContent`·`SupportContent`·`RunningSessionData`)와 요청 hook(`useRequestAction`·`useBindingQuery`·`usePhoneVerification`)을 제거했다. 화면은 준비된 표시 데이터와 로컬 UI 조작만 소유하며 인증·조회·저장·삭제·견적·결제·완료 이동을 실행하지 않는다. 현재 남은 연결 지점은 다음과 같다.
+
+| 연결 지점                                 | 현재 계약                                                                                                                                             |
+| ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ShopShell.state` (`ShopState`)           | `isLoggedIn`·`cartCount`·`wishlistCount`·`recentCount` 읽기 전용 표시값. 생략하면 `false`·12·3·7 데모 값. 상품 목록·로그인·장바구니 변경 함수는 없다. |
+| `ProductListingPage.data`                 | `items`·`totalCount`·`hasMore`·`mobileResultCount?`·`pending?`·`error?` 표시값. 조건 변경·추가 조회·재시도 콜백은 없다.                               |
+| `CheckoutContent.rows`, `CheckoutContext` | 상품 행 props와 선택적 `savedAddress` 표시 데이터. 제출·검증·요청은 없다.                                                                             |
+| `InquiryPreviewContext`                   | 문의 미리보기 시나리오(`empty`·`pending`·`answered`·`attachmentPreview`) 선택값. 실제 문의 목록 연결이 아니다.                                        |
+| `RunningSessionSessionContext`            | 러닝세션 상세 미리보기의 단일 세션 주입값. 조회·신청 요청 연결이 아니다.                                                                              |
+
+실제 API·DTO 매핑·pending/실패/재시도·성공 후 갱신은 통합 소유자가 새로 정의한다. 소스의 `[ 개발팀 바인딩 ]` 주석은 미연결 경계를 설명하며 API 존재를 뜻하지 않는다. 아래 2026-10-29~10-30 절의 Provider·`useRequestAction`·`login`·`onQueryChange`/`onRetry`·`MyPageDataContext`·`OrdersContext` 등 서비스 계약 설명은 제거 전 기록이다. 일부 소스 주석에 제거된 Context 이름이 남아 있으나 현재 구현을 뜻하지 않는다.
+
 ## 장바구니 고정 표시 예시 갱신 (2026-11-02)
 
 후속 옵션 시안의 색상 이미지·상품명은 `cartOptionPreview`에만 둔다. 기본 장바구니 행이나 실제 상품/재고 데이터로 확장하지 않는다. 수량 제한 안내는 `/cart/preview-limit`의 고정 상태이며 특정 수량에서 자동으로 발생하는 서비스 규칙을 만들지 않았다. 실제 제한 판정·안내 노출 시점·옵션 저장 요청과 오류 처리는 개발팀 장바구니 소유자가 연결한다.
@@ -90,9 +104,11 @@ working_tree_sources:
 - 로그인: `LoginContent.showErrors`가 고정 오류 표시를 선택한다. 인증/형식 검사/아이디 저장/소셜 인증/성공 이동/pending/retry는 미연결이다.
 - 개발팀 연결 소유자가 실제 데이터·요청·성공/실패·상태 갱신을 구현해야 한다. 소스의 `[ 개발팀 바인딩 ]` 주석은 이 미연결 경계를 설명하며 API 존재를 뜻하지 않는다.
 
-현재 서비스 API는 연결하지 않는다. 아래 계약은 기존 화면을 유지하며 개발팀이 조회 결과와 요청 함수를 연결할 수 있게 만든 경계다. Provider가 없으면 기존 퍼블리싱 데모가 동작한다. 라우트의 default export에 임의 props를 추가하거나 Storybook 전용 RoutePreview를 운영 데이터 주입에 사용하지 않는다.
+(2026-10-30 기록, [현재 연결 경계](#현재-연결-경계-2026-11-05)로 대체) 현재 서비스 API는 연결하지 않는다. 아래 계약은 당시 기존 화면을 유지하며 개발팀이 조회 결과와 요청 함수를 연결할 수 있게 만든 경계였다. Provider가 없으면 기존 퍼블리싱 데모가 동작했다. 라우트의 default export에 임의 props를 추가하거나 Storybook 전용 RoutePreview를 운영 데이터 주입에 사용하지 않는다.
 
 ## 연결 위치
+
+> 2026-11-05 현행화: 표의 Provider·Context(`CheckoutContext` 제외)은(는) 2026-11-02 [전체 화면 퍼블리싱 인계](state.md#전체-화면-퍼블리싱-인계-2026-11-02)에서 제거됐다. 이 절은 제거 전 기록이며 현재 계약은 [현재 연결 경계](#현재-연결-경계-2026-11-05)를 따른다.
 
 | 영역                  | 연결 지점                                          | 데이터·이벤트 소유권                                                                          |
 | --------------------- | -------------------------------------------------- | --------------------------------------------------------------------------------------------- |
@@ -112,11 +128,15 @@ working_tree_sources:
 
 ## 요청 결과와 오류
 
+> 2026-11-05 현행화: `useRequestAction`과 Provider 목록 연결은(는) 2026-11-02 [전체 화면 퍼블리싱 인계](state.md#전체-화면-퍼블리싱-인계-2026-11-02)에서 제거됐다. 이 절은 제거 전 기록이며 현재 계약은 [현재 연결 경계](#현재-연결-경계-2026-11-05)를 따른다.
+
 비동기 변경 함수는 성공 시 resolve하고 실패 시 `Error`를 throw/reject한다. `{ ok: false }` 같은 서버 응답을 성공으로 resolve하지 않도록 서비스 어댑터에서 변환한다. `useRequestAction`은 같은 화면에서의 중복 제출을 막고 오류를 표시한다. 요청 중에는 관련 입력과 확인 액션을 비활성화한다. 실패 시 편집값과 화면을 유지하고, 성공 이후에만 닫기·이동·완료 처리를 한다.
 
 배송지·주문·리뷰의 서비스 연결 모드는 Provider의 현재 목록을 직접 읽는다. 초기 목록을 페이지 로컬 상태로 복사하지 않으므로 늦게 도착한 응답과 재조회 결과가 반영된다. 입력 중인 draft는 페이지에서 유지한다. 저장·삭제 성공 후 최신 목록 갱신 또는 query invalidation은 연결 함수의 소유자가 담당한다. 목록을 무조건 effect로 로컬 draft에 복사하지 않는다.
 
 ## 셸·상품
+
+> 2026-11-05 현행화: `ShopShell.state`의 `products`·`login`·`authenticationMode`은(는) 2026-11-02 [전체 화면 퍼블리싱 인계](state.md#전체-화면-퍼블리싱-인계-2026-11-02)에서 제거됐다. 이 절은 제거 전 기록이며 현재 계약은 [현재 연결 경계](#현재-연결-경계-2026-11-05)를 따른다.
 
 `ShopShell.state`로 연결할 때 `products`와 `isLoggedIn`을 반드시 제공한다. 장바구니·상품 상세·결제는 이 상품 목록을 사용한다. 실제 API의 ID가 목 상품에 없다는 이유로 행이 누락되지 않도록 주문 가능한 장바구니 상품을 목록에 포함한다. 조회 전 상태와 상품 조회 실패는 연결 소유자가 명시적으로 처리한다. DTO는 화면의 `Product` 모델로 변환한다. 현재 `Product` 타입의 출처는 `src/mocks/products.ts`이며 API 응답 타입을 의미하지 않는다.
 
@@ -125,6 +145,8 @@ working_tree_sources:
 `CartItem.imageSrc`는 명시적인 이미지 override다. 목 장바구니와 해당 스토리는 이 값을 지정해 기존 시안 이미지를 유지한다. 색상명으로 시안 이미지를 추측하지 않으며 override가 없으면 상품의 이미지를 사용한다.
 
 ## 상품 목록
+
+> 2026-11-05 현행화: `onQueryChange`·`onPreviewQueryChange`·추가 조회·`onRetry` 콜백은(는) 2026-11-02 [전체 화면 퍼블리싱 인계](state.md#전체-화면-퍼블리싱-인계-2026-11-02)에서 제거됐다. 이 절은 제거 전 기록이며 현재 계약은 [현재 연결 경계](#현재-연결-경계-2026-11-05)를 따른다.
 
 서비스 모드의 `items`는 이미 검색·필터·정렬된 결과다. 화면에서 목 상품을 다시 필터링하거나 서버 결과를 36개로 자르지 않는다. `totalCount`와 `hasMore`는 반환된 일부 상품 수와 별도로 전달한다. `pending`·`error`가 있는 빈 응답을 검색 결과 없음으로 표시하지 않는다.
 
@@ -150,6 +172,8 @@ working_tree_sources:
 
 ## 나머지 화면의 연결과 상세 주석 (2026-10-29)
 
+> 2026-11-05 현행화: 이 절의 가입·계정 복구·프로필·문의·목록·런클럽·결제수단 Provider 계약과 `RemainingBinding.stories.tsx`은(는) 2026-11-02 [전체 화면 퍼블리싱 인계](state.md#전체-화면-퍼블리싱-인계-2026-11-02)에서 제거됐다. 이 절은 제거 전 기록이며 현재 계약은 [현재 연결 경계](#현재-연결-경계-2026-11-05)를 따른다.
+
 모든 계약은 화면 모델을 받는 경계다. API DTO를 그대로 전역 저장소에 복사하거나 임의 URL을 만드는 구현은 포함하지 않는다. 각 영역의 Client 어댑터가 조회 상태·함수를 Provider에 넣고 성공 후 실제 목록을 갱신한다. Provider 자체를 생략하면 데모이므로 운영에서는 빈 결과라도 `items: []`/`item: null`과 상태를 명시한다.
 
 - 가입: 인증 서비스는 `VerifiedIdentity`의 서버 proof/개인정보/accountStatus를 반환한다. 신규 회원은 약관→입력, 기존 회원은 기존가입 안내로 분기한다. `signupTerms`는 BO id/version/required/label/body/이전 버전을 받는다. 현재 약관 동의와 인증 proof를 가입 입력·마케팅 선택과 함께 register로 전달한다. 약관 ID/버전/순서 변경 시 이전 인덱스 동의를 새 약관에 적용하지 않는다.
@@ -161,6 +185,8 @@ working_tree_sources:
 - 결제수단: 등록 버튼/안내 모달에서 외부 결제사 register를 실행한다. 등록 완료와 사용자 취소를 구분하고 마스킹된 결과만 목록에 전달한다. 원문 카드 입력 폼은 추가하지 않는다.
 
 ## 반품·환불의 논리 경계
+
+> 2026-11-05 현행화: `OrdersContext.quoteClaim`·`submitClaim`은(는) 2026-11-02 [전체 화면 퍼블리싱 인계](state.md#전체-화면-퍼블리싱-인계-2026-11-02)에서 제거됐다. 이 절은 제거 전 기록이며 현재 계약은 [현재 연결 경계](#현재-연결-경계-2026-11-05)를 따른다.
 
 사용자 제공 설계 이미지는 동작만 참고했으며 스타일을 복제하지 않았다. 반품은 상품/수량·사유·선택 상세내용을 제출한다. 신규 선택 사유는 단순변심·상품불량/파손·오배송·구성품 누락·기타이고 기존 size 코드는 과거 내역 표시 호환을 위해 남겼다. 취소는 배송 반품비가 없고, 반품의 고객 귀책 예시 비용은 5,000원, 회사 귀책·무료반품 대상/쿠폰 적용은 0원이다. 기타의 비용을 임의로 확정하지 않는다.
 
@@ -190,6 +216,8 @@ working_tree_sources:
 
 ## 쿠폰·신청 취소·인증 본문 연결 (2026-10-29)
 
+> 2026-11-05 현행화: `CheckoutContext`의 쿠폰 적용·주문 payload, `RunClubDataContext`, `PhoneVerificationService`은(는) 2026-11-02 [전체 화면 퍼블리싱 인계](state.md#전체-화면-퍼블리싱-인계-2026-11-02)에서 제거됐다. 이 절은 제거 전 기록이며 현재 계약은 [현재 연결 경계](#현재-연결-경계-2026-11-05)를 따른다.
+
 CheckoutContext의 상품별 쿠폰 그룹·선택·비동기 적용과 주문 payload, RunClubDataContext.cancelEntry, PhoneVerificationService.terms, OverviewView.tierProgress를 추가했다. 연결 소유자는 서버 처리와 목록/견적 갱신 뒤 resolve하며 reject 시 초안을 유지한다. 소스에 [ 개발팀 바인딩 ] 인계 주석을 기록한다. [구현 범위·출처·검증](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/design-implementation-2026-10-29.md).
 
 ## 고정 상태 preview의 연결 경계 (2026-10-30)
@@ -198,9 +226,13 @@ CheckoutContext의 상품별 쿠폰 그룹·선택·비동기 적용과 주문 p
 
 ## 회원등급 시안의 진행금액 표시 (2026-10-30)
 
+> 2026-11-05 현행화: `MyPageDataContext.overview`은(는) 2026-11-02 [전체 화면 퍼블리싱 인계](state.md#전체-화면-퍼블리싱-인계-2026-11-02)에서 제거됐다. 이 절은 제거 전 기록이며 현재 계약은 [현재 연결 경계](#현재-연결-경계-2026-11-05)를 따른다.
+
 `/mypage/rewards`는 `MyPageDataContext.overview.item`의 현재 이름·등급·이니셜·구매금액을 사용한다. `tierProgress`의 기존 percent/label에 optional currentAmount/targetAmount 표시 문자열을 추가했고 기존 소비자 호환은 유지한다. 미공급 금액과 진행률을 추정하지 않는다. 어댑터가 준비한 label을 툴팁과 접근성 이름에 사용한다. Provider 없는 PC/MO 값은 별도 fixture이며 실제 조회 구현이 아니다. pending/error/onRetry는 기존 BindingFeedback으로 표시하며 API 연결·응답 취소·갱신은 외부 소유다.
 
 ## 회원정보 인라인 비밀번호와 표시 계약 (2026-10-30)
+
+> 2026-11-05 현행화: `ProfileEditForm.onSubmit`·`changePassword`·`save` 요청 연결은(는) 2026-11-02 [전체 화면 퍼블리싱 인계](state.md#전체-화면-퍼블리싱-인계-2026-11-02)에서 제거됐다. 이 절은 제거 전 기록이며 현재 계약은 [현재 연결 경계](#현재-연결-경계-2026-11-05)를 따른다.
 
 ProfileEditForm은 선택적인 details 표시 항목과 pending을 받는다. 기존 onPasswordSettings 팝업 진입을 인라인 비밀번호/재입력으로 바꾸고 검증된 선택 비밀번호를 onSubmit(event, password?) 두 번째 인자로 전달한다. 실제 저장 소유자는 ProfileContent와 기존 MyPageDataContext.profile이며 새 API를 만들지 않았다. 비밀번호를 입력하지 않으면 기존 프로필 저장만 실행한다.
 
@@ -209,6 +241,8 @@ ProfileEditForm은 선택적인 details 표시 항목과 pending을 받는다. �
 ProfileStatePreview의 기본정보는 표시 fixture이며 저장·탈퇴·인증 요청을 실행하지 않는다. 도메인 선택은 domainChoice와 domain을 함께 변경한다. 주소 검색 모달은 기존 미연결 수동 입력 UI다. 출처는 관련 작업 트리 TSX/types 및 [디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1813-89280)이며 실제 API 연결 검증은 하지 않았다.
 
 ## 재입고 알림 표시 상태와 시안 fixture (2026-10-30)
+
+> 2026-11-05 현행화: `MyPageDataContext.histories`와 연결 story은(는) 2026-11-02 [전체 화면 퍼블리싱 인계](state.md#전체-화면-퍼블리싱-인계-2026-11-02)에서 제거됐다. 이 절은 제거 전 기록이며 현재 계약은 [현재 연결 경계](#현재-연결-경계-2026-11-05)를 따른다.
 
 작업 트리 출처: `src/context/MyPageDataContext.ts`, `src/components/mypage/MyPageProductHistory.tsx`, `src/stories/features/mypage/MyPage.RestockAlerts.Web.stories.tsx`. `histories['restock-alerts'].items`의 각 `HistoryItem`은 `status?: 'waiting' | 'sent'`를 공급할 수 있다. product의 이름·성별·이미지, 신청일·신청 ID는 현재 Provider 값을 읽으며 status 생략은 기존 알림대기를 유지한다. sent는 취소 액션 없이 발송완료로 표시한다. 서비스 DTO 매핑·목록 갱신과 오래된 응답 배제는 연결 소유자가 담당한다. 취소의 기존 pending/실패/성공 계약을 보존하고 PC/MO의 서로 다른 시안 예시는 미연결 restockPreview에 한정했다. WEB 연결 story의 수동 응답으로 late/replaced 데이터, pending/실패/재시도/성공을 확인했다. 실제 API·인증·영속 저장 구현은 추가하지 않았다.
 

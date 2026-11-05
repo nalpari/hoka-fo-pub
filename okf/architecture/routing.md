@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-05T01:25:12.647Z'
+updated: '2026-11-05T06:40:00Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -636,9 +636,9 @@ src/app/explore/shoe-finder/page.tsx는 src/shared/Mockup/shoe-finder/ShoeFinder
 
 `/signup`은 가입 방법만 표시한다. 이메일 가입은 `/signup/verify`로 이동하고, 카카오·네이버 가입은 연결되지 않았다는 안내를 표시한다. 이전 카카오 약관 동의·정보 입력·가입 완료 화면은 운영 가입 흐름에서 분리해 `src/shared/Mockup/signup` 및 `Mockup/Signup` Storybook에 보존한다. 별도 앱 URL은 추가하지 않았다.
 
-`src/app/layout.tsx`는 서버에서 `await headers()`로 User-Agent를 읽고 `detectPlatform`으로 플랫폼을 선택한다. 휴대폰과 태블릿은 `mobile`, 그 외는 `web`이다. 이 선택은 화면 너비만으로 결정되지 않는다. 선택한 플랫폼은 `<body>`의 `platform-*` 클래스로도 전달된다.
+`src/app/layout.tsx`는 User-Agent를 읽지 않는다. `<body className="platform-web">`로 시작하고, `src/context/platform.tsx`의 `PlatformProvider`가 화면 폭(`matchMedia('(max-width: 1024px)')`)으로 1024px 이하는 `mobile`, 초과는 `web`을 선택해 `<body>`의 `platform-*` 클래스를 바꾼다. `.app`의 클래스는 `ShopShell`의 `ShopFrame`이 같은 값으로 설정한다. 서버와 최초 hydration은 `web`이며 명시한 preview `platform`은 화면 폭보다 우선한다. 2026-10-28 [화면 폭 기반 플랫폼으로 전환](#화면-폭-기반-플랫폼으로-전환-2026-10-28)에서 UA 판별과 `src/lib/device.ts`를 제거했다.
 
-루트 레이아웃은 공통 `ShopShell`에 페이지를 전달한다. `Suspense`는 화면 로딩 대체 콘텐츠를 제공하고, PC 루트에는 `--layout-web-min-width`가 적용된다.
+루트 레이아웃은 공통 `ShopShell`에 페이지를 전달한다. `Suspense`는 화면 로딩 대체 콘텐츠를 제공하고, PC(`.app.platform-web`)에는 `--layout-web-min-width`가 적용된다.
 
 ## 파일 기반 경로
 
@@ -748,7 +748,7 @@ src/app의 import만 새 그룹 순서로 정렬했다. 라우트의 URL·기본
 
 ## 공용 훅·컨텍스트 import 순서 적용 (2026-10-28)
 
-`src/app`의 공용 훅·컨텍스트 import를 외부 패키지 다음으로 옮겼다. 라우트 경로·페이지 본문·서버/클라이언트 경계·User-Agent 기반 플랫폼 판별은 유지한다. 화면 너비 판별로 전환하지 않았다.
+`src/app`의 공용 훅·컨텍스트 import를 외부 패키지 다음으로 옮겼다. 라우트 경로·페이지 본문·서버/클라이언트 경계와 당시의 User-Agent 기반 플랫폼 판별은 이 작업에서 바꾸지 않았다. 플랫폼 판별은 같은 날 [화면 폭 기반 플랫폼으로 전환](#화면-폭-기반-플랫폼으로-전환-2026-10-28)에서 화면 폭 기준으로 대체됐다.
 
 ## 얇은 헤더·필드 래퍼 직접 사용 (2026-10-28)
 
@@ -1416,3 +1416,7 @@ Figma Navigational Buttons(296:25392)와 Action Buttons(296:25425)의 기본·�
 ## 보고서 전체 담당자 URL 대소문자 처리 (2026-11-05)
 
 URL의 developer=ALL을 담당자 이름으로 해석하던 원인을 수정한다. 예약값 all/unassigned는 공백 제거 후 대소문자와 관계없이 정규화하고 실제 담당자 이름은 보존한다. URL 파싱과 전체 결과 필터 연결을 회귀 검사한다. 출처: screenChangeHistory.ts, tests/main-change-history.test.mjs 작업 트리, codex, 2026-11-05T01:25:12.647Z.
+
+## 라우트 바인딩 주석의 제거된 Context 이름 정리 (2026-11-05)
+
+`src/app` 아래 22개 파일의 `[ 개발팀 바인딩 ]` 주석에서 2026-11-02 제거된 `MyPageDataContext`·`SupportContentContext`·`HomeContentContext`·`InquiryDataContext`·`ProductListingContext`·`AccountServicesContext`·`AccountFlowProvider` 이름과 존재하지 않는 `onQueryChange`·`onRetry` 연결을 지우고, 통합 소유자가 연결하며 현재 연결 Context·요청은 없다고 고쳤다. 표기는 `[ 개발팀 바인딩 ]`으로 맞췄다. 주석만 바꿨으며 라우트·렌더 결과 영향은 없다. 기준: [데이터 바인딩 현재 연결 경계](data-binding.md#현재-연결-경계-2026-11-05).

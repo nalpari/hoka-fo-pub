@@ -1,8 +1,8 @@
 'use client';
 
 /**
- * [개발팀 바인딩]
- * 이 화면은 가입 성공 안내만 표시합니다. 실제 가입 요청은 signup/information의 AccountServicesContext.register에서 완료해야 합니다.
+ * [ 개발팀 바인딩 ]
+ * 이 화면은 가입 성공 안내만 표시합니다. 실제 가입 요청은 signup/information 제출에서 통합 소유자가 완료해야 합니다. 현재 연결 Context·요청은 없습니다.
  * 서비스 연결 시 URL 진입 자체를 가입 완료의 근거로 사용하지 말고 서버 세션/일회성 완료 상태로 진입 가능 여부를 관리합니다.
  */
 

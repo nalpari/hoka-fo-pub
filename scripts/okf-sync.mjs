@@ -4,7 +4,7 @@ import process from 'node:process';
 import { pathToFileURL } from 'node:url';
 
 const rules = [
-  [['src/app/', 'src/lib/device.ts'], 'okf/architecture/routing.md'],
+  [['src/app/'], 'okf/architecture/routing.md'],
   [
     [
       'src/context/ShopShell.tsx',
