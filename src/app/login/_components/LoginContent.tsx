@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 
-import { css } from 'styled-system/css';
 import { Box, HStack, Stack } from 'styled-system/jsx';
 
 import { Button, ButtonLink } from '@/components/common/atoms/Button';
@@ -14,7 +13,6 @@ import { HelpToggletip } from '@/components/common/molecules/HelpTips';
 
 import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout';
 import { ContentSection } from '@/components/common/layouts/ContentSection';
-import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
 type LoginFormProps = {
   showErrors?: boolean;
@@ -98,8 +96,6 @@ function LoginForm({ showErrors = false, showHelp = false }: LoginFormProps) {
   );
 }
 
-type LoginContentProps = LoginFormProps & { showSessionTimeout?: boolean };
-
 /**
  * 로그인 기본 또는 고정 오류 마크업을 표시합니다. (Displays the default login markup or fixed field errors.)
  *
@@ -107,55 +103,10 @@ type LoginContentProps = LoginFormProps & { showSessionTimeout?: boolean };
  * 이 화면은 퍼블리싱 확인용이며 showErrors는 고정 오류 표시만 선택합니다. 입력과 체크는 로컬 UI 상태입니다.
  * 인증·형식 검증·소셜 로그인·아이디 저장소 연결·요청 상태·완료 이동은 구현하지 않습니다.
  * 개발팀은 실제 로그인 소유자에서 입력값과 동의 상태를 수집하고 요청·오류·저장·이동을 연결해야 합니다.
- * showSessionTimeout은 45:1394의 안내를 즉시 여는 fixture입니다. 세션 소유자가 실제 만료 판정·종료·재인증을 연결하며, 이 화면의 1분 문구는 표시만 하고 타이머·로그아웃·새로고침을 실행하지 않습니다. 확인·Escape는 안내만 닫습니다.
  */
-export function LoginContent({
-  showErrors = false,
-  showHelp = false,
-  showSessionTimeout = false,
-}: LoginContentProps) {
-  const [sessionTimeoutOpen, setSessionTimeoutOpen] = useState(showSessionTimeout);
-
+export function LoginContent({ showErrors = false, showHelp = false }: LoginFormProps) {
   return (
-    <AccountPageLayout
-      outsideContent={
-        <ModalDialog
-          open={sessionTimeoutOpen}
-          onOpenChange={setSessionTimeoutOpen}
-          finalFocus={() => document.getElementById('login-id')}
-          closeLabel="로그아웃 안내 닫기"
-          size="sm"
-          title={
-            <Typography as="span" variant="body2" weight="bold">
-              로그아웃 되었습니다.
-            </Typography>
-          }
-          headerProps={{
-            css: css.raw({
-              bg: 'white.0',
-              px: '6',
-              pt: '6',
-              pb: '0',
-              minH: '0',
-              '& h2': { h: 'auto' },
-              '& button': { display: 'none' },
-            }),
-          }}
-          popupClassName={css({
-            maxW: '343px',
-            borderRadius: '14px',
-            '&& > div': { p: '6' },
-          })}
-          footerProps={{ css: css.raw({ px: '6', '& > button': { w: '100%' } }) }}
-          actions={{ kind: 'single', onConfirm: () => setSessionTimeoutOpen(false) }}
-        >
-          <Typography as="p" variant="body4">
-            장시간 입력이 없어 보안을 위해 1분 뒤 로그아웃을 진행합니다. 계속 이용을 원하시면
-            페이지를 새로고침 해주세요
-          </Typography>
-        </ModalDialog>
-      }
-    >
+    <AccountPageLayout>
       <ContentSection
         gap="10"
         title={

@@ -476,13 +476,11 @@ const connections: Record<number, ScreenConnection> = {
     previewRoutes: [
       { label: '에러 메시지', href: '/login/preview-error' },
       { label: '아이디 저장 도움말', href: '/login/preview-help' },
-      { label: '장시간 미입력 로그아웃 안내', href: '/login/preview-session-timeout' },
     ],
     sourceFiles: [
       'src/app/login/page.tsx',
       'src/app/login/preview-error/page.tsx',
       'src/app/login/preview-help/page.tsx',
-      'src/app/login/preview-session-timeout/page.tsx',
     ],
   },
   '224': {

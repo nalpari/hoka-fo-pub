@@ -1510,3 +1510,7 @@ PC는 중앙 `ModalDialog`, 모바일은 `ModalDialog`의 fullscreen 표시를 �
 ## 문의 주문번호 선택 안내 글자 크기 (2026-11-05)
 
 주문번호 선택 안내는 16px 본문을 사용한다. 출처는 문의 폼 작업 트리다.
+
+## 로그인 장시간 미입력 안내 삭제 (2026-11-05)
+
+`/login/preview-session-timeout`과 로그인 화면 전용 모달, IA 223의 상태 링크를 삭제했다. 로그인 기본·입력 오류·아이디 저장 도움말과 마이페이지 로그아웃 확인은 별도 상태다. 출처는 `LoginContent.tsx`, `screenConnections.ts`와 생성 그래프의 작업 트리다.
