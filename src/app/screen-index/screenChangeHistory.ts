@@ -12,10 +12,12 @@ export const screenChangeReports = history.reports;
 export function getReportUrlState(query: string) {
   const params = new URLSearchParams(query);
   const date = params.get('report') ?? '';
+  const developer = params.get('developer')?.trim() || 'all';
+  const normalized = developer.toLowerCase();
   return {
     open: /^\d{4}-\d{2}-\d{2}$/.test(date),
     date,
-    developer: params.get('developer') || 'all',
+    developer: ['all', 'unassigned'].includes(normalized) ? normalized : developer,
   };
 }
 

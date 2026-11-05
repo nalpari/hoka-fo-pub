@@ -4,7 +4,7 @@ title: '변경 검증'
 description: '변경 범위에 맞는 정적 검사, 빌드와 수동 검증을 안내한다.'
 tags: [verification, testing, build]
 status: draft
-updated: '2026-11-05T01:11:42.851Z'
+updated: '2026-11-05T01:25:12.647Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
@@ -680,3 +680,9 @@ ProductCard.tsx·ProductOptionList.tsx·관련 타입 선언을 검토했다. �
 main-change-history 테스트11개와 전체 typecheck를 통과했다. 브라우저에서 날짜·전체 담당자 직접 URL의5열/208행, 장바구니 및 주문배송 조회·취소/반품 메뉴 경로와 문서 가로 넘침 없음을 확인했다. 시각 스크린샷 수집은 브라우저 CDP 시간 초과로 완료하지 못했다.
 
 출처: src/app/screen-index/screenChangeHistory.ts, src/app/screen-index/_components/IaStructurePage.tsx, tests/main-change-history.test.mjs 및 hoka-main-change-report 스킬 작업 트리. 기록: codex, 2026-11-05T01:11:42.851Z.
+
+## 보고서 전체 담당자 URL 대소문자 처리 (2026-11-05)
+
+URL의 developer=ALL을 담당자 이름으로 해석하던 원인을 수정한다. 예약값 all/unassigned는 공백 제거 후 대소문자와 관계없이 정규화하고 실제 담당자 이름은 보존한다. URL 파싱과 전체 결과 필터 연결을 회귀 검사한다. 출처: screenChangeHistory.ts, tests/main-change-history.test.mjs 작업 트리, codex, 2026-11-05T01:25:12.647Z.
+
+검증: 관련 테스트11개·전체 typecheck·변경 ESLint 통과. 브라우저에서 배포 URL의 ALL=0건을 재현하고, 수정된 로컬 URL의 ALL=전체208행을 확인했다. 배포 반영은 아직 수행하지 않았다.

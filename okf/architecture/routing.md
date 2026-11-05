@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-05T01:11:42.851Z'
+updated: '2026-11-05T01:25:12.647Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -1412,3 +1412,7 @@ Figma Navigational Buttons(296:25392)와 Action Buttons(296:25425)의 기본·�
 보고서에 파일별 메뉴 / 화면 열을 추가한다. 직접 소유 IA 경로와 상품 공통 목록/상세 이름, STATE URL(query/hash 포함)을 표시하며 여러 소유 경로는 모두 보존한다. 소유 화면 없는 공용 파일은 공통 UI·영향 가능 화면, 미연결 설정/에셋은 화면 외 공통으로 구분한다. 담당자/요약 rowspan과 기존 날짜·담당자 URL 동작은 유지하고 공유 Markdown208행 및 스킬 출력 계약도 같은5열로 갱신한다.
 
 출처: src/app/screen-index/screenChangeHistory.ts, src/app/screen-index/_components/IaStructurePage.tsx, tests/main-change-history.test.mjs 및 hoka-main-change-report 스킬 작업 트리. 기록: codex, 2026-11-05T01:11:42.851Z.
+
+## 보고서 전체 담당자 URL 대소문자 처리 (2026-11-05)
+
+URL의 developer=ALL을 담당자 이름으로 해석하던 원인을 수정한다. 예약값 all/unassigned는 공백 제거 후 대소문자와 관계없이 정규화하고 실제 담당자 이름은 보존한다. URL 파싱과 전체 결과 필터 연결을 회귀 검사한다. 출처: screenChangeHistory.ts, tests/main-change-history.test.mjs 작업 트리, codex, 2026-11-05T01:25:12.647Z.

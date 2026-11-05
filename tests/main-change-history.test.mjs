@@ -284,6 +284,16 @@ test('report developer selection filters exact IA names and distinguishes unassi
 });
 
 test('report-only URLs default to every developer and support encoded developer selection', () => {
+  for (const value of ['ALL', 'All', 'all', '%20ALL%20', '']) {
+    const state = getReportUrlState(`report=2026-11-04&developer=${value}`);
+    assert.equal(state.developer, 'all');
+    const screens = [{ iaNumber: 1, screenCode: '', depths: ['주문'], developers: ['김진영'] }];
+    const report = {
+      entries: [{ ...entry('orders', '주문'), summary: '주문 변경', affectedIa: [1] }],
+    };
+    assert.equal(getChangeReportTableGroups(report, screens, state.developer)[0].rowCount, 1);
+  }
+  assert.equal(getReportUrlState('report=2026-11-04&developer=UNASSIGNED').developer, 'unassigned');
   assert.deepEqual(getReportUrlState('report=2026-11-04'), {
     open: true,
     date: '2026-11-04',
