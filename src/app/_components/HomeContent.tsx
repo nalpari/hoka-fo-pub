@@ -722,9 +722,9 @@ export function RouteContent() {
     <HomeLayout platform={platform}>
       {<HomeHeroSection platform={platform} />}
       {<HomeCategorySection platform={platform} />}
-      <HomeBestSellerSection />
-      {<HomeExploreSection />}
       {<HomeShoeFinderSection platform={platform} />}
+      {<HomeExploreSection />}
+      <HomeBestSellerSection />
     </HomeLayout>
   );
 }
