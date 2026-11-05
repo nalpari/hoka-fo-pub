@@ -349,13 +349,6 @@ const platform = usePlatform();
         source: 'HOKA 디자인 시스템',
         note: '24px',
       },
-    ],
-  },
-  {
-    id: 'icon-design-actions',
-    title: '디자인팀 액션 아이콘',
-    description: '기본 · 회색 · 원형',
-    items: [
       {
         label: '더하기 기본',
         registeredName: 'hoka-action-plus-regular',
@@ -458,13 +451,6 @@ const platform = usePlatform();
         source: 'HOKA 디자인 시스템',
         note: '24px',
       },
-    ],
-  },
-  {
-    id: 'icon-design-other',
-    title: '디자인팀 폼·배너·쇼핑 아이콘',
-    description: '상태별 예시',
-    items: [
       {
         label: '배너 left default',
         registeredName: 'hoka-echo-left-state-default',
@@ -1633,10 +1619,7 @@ export function IconGuide() {
             <Typography as="p" variant="body5" tone="subtle">
               {group.description}
             </Typography>
-            <Grid
-              columns={{ base: group.id === 'icon-design-actions' ? 3 : 4, _mobile: 1 }}
-              gap="3"
-            >
+            <Grid columns={{ base: 4, _mobile: 1 }} gap="3">
               {group.items.map((example, index) => {
                 const family = example.registeredName?.replace(/-(regular|solid)$/, '');
                 const previous = group.items[index - 1];

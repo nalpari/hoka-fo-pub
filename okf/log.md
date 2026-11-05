@@ -2365,3 +2365,5 @@ Figma Navigational Buttons(296:25392)와 Action Buttons(296:25425)의 기본·�
 - 약관 본문 확인 버튼의 외곽만 확대되던 문제를 수정했다. Button fullWidth로 내부 배경 프레임까지 채우고 데스크탑 maxW180px/모바일 maxW none으로 제한한다. 가이드와 복사 코드도 동일하게 교정했다.
 
 - 커밋 전 검토에서 popup 클래스 배열의 잘못된 scrollable=false 대입과 contentClassName 중복 적용을 제거했다. 푸터 없는 스크롤 모달도 본문이 축소되도록 모바일 하단 모달의 flex/overflow 컨테이너를 명시했다. ModalDialog ESLint 통과. 전체 타입 검사 결과는 기존 .next/types 삭제 경로 참조 오류가 남는다.
+
+- 아이콘 가이드의 디자인팀/액션/폼·배너·쇼핑 세 그룹을 디자인팀 아이콘 한 그룹으로 합쳤다. 본문과 데이터 기반 타임라인을 함께 통합하고 기존 아이콘·상태·복사 코드는 유지한다.
