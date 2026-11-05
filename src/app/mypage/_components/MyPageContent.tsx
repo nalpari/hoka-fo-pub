@@ -262,7 +262,6 @@ function MyPageRecentOrders({ empty = false }: { empty?: boolean }) {
       titleProps={{ as: 'p', web: 'heading9', mo: 'heading7', weight: 'semibold' }}
       layoutProps={{
         borderBottom: '1px solid var(--colors-black-20)',
-        _mobile: { px: '0' },
       }}
     />
   );

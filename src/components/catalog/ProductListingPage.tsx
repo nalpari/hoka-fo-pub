@@ -916,6 +916,9 @@ function ProductListingResults({
           action={<Button onClick={onReset}>필터 초기화</Button>}
           description="선택한 필터를 초기화한 뒤 다시 찾아보세요."
           title="조건에 맞는 상품이 없습니다"
+          layoutProps={css.raw({
+            _mobile: { px: 'calc(var(--layout-mobile-inline-gutter) + 12px)' },
+          })}
         />
       )}
     </CatalogResults>
@@ -1076,15 +1079,19 @@ function SearchListingLayout({
       titleProps={{ web: 'body3', mo: 'body4', weight: 'regular', tone: 'subtle' }}
       description="검색어를 정확하게 다시 한번 입력해 주세요."
       descriptionProps={{ web: 'body3', mo: 'body4', weight: 'regular', tone: 'subtle' }}
-      layoutProps={{
+      layoutProps={css.raw({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
         minH: '470px',
         gap: '0',
-        _mobile: { minH: 'auto', py: '96px' },
-      }}
+        _mobile: {
+          minH: 'auto',
+          py: '96px',
+          px: 'calc(var(--layout-mobile-inline-gutter) + 12px)',
+        },
+      })}
     />
   );
   if (platform === 'mobile') {

@@ -92,11 +92,17 @@ function EmptyStateRoot({
         color="black.100"
         {...layoutProps}
         _mobile={{
+          px: '3',
           ...(variant === 'content' ? { minH: '154px' } : { py: '8' }),
           ...layoutProps?._mobile,
         }}
       >
-        <Stack gap="4" w="100%" maxW={variant === 'content' ? '320px' : '520px'}>
+        <Stack
+          gap="4"
+          w="100%"
+          maxW={variant === 'content' ? '320px' : '520px'}
+          _mobile={{ maxW: 'none' }}
+        >
           {titleContent}
           {descriptionContent}
         </Stack>
@@ -107,7 +113,14 @@ function EmptyStateRoot({
 
   if (variant === 'plain') {
     return (
-      <Box as={as ?? 'div'} className={className} role={role} textAlign="center" {...layoutProps}>
+      <Box
+        as={as ?? 'div'}
+        className={className}
+        role={role}
+        textAlign="center"
+        {...layoutProps}
+        _mobile={{ px: '3', ...layoutProps?._mobile }}
+      >
         {titleContent}
         {descriptionContent}
         {actionContent}
@@ -127,6 +140,7 @@ function EmptyStateRoot({
         pt="42px"
         textAlign="center"
         {...layoutProps}
+        _mobile={{ px: '3', ...layoutProps?._mobile }}
       >
         {titleContent}
         {description ? (
@@ -154,6 +168,7 @@ function EmptyStateRoot({
       color="black.100"
       textAlign="center"
       {...layoutProps}
+      _mobile={{ px: '3', ...layoutProps?._mobile }}
     >
       {titleContent}
       {description ? <Box>{descriptionContent}</Box> : null}

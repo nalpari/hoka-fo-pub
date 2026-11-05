@@ -4,12 +4,13 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-05T03:41:02.449Z'
+updated: '2026-11-05T04:19:28.294Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/components/running-session/RunningSessionPage.tsx
   - src/app/support/inquiries/new/_components/InquiryFormStatePreview.tsx
   - src/app/support/inquiries/new/_components/InquiryFormLayout.tsx
   - src/app/publishing-guide/_components/CarouselGuide.tsx
@@ -4751,3 +4752,22 @@ InquiryFormLayout은 모든 선택 상태에서 페이지 제목 '1:1 문의'와
 검증: PC 1920px·모바일 375px에서 여섯 대상 기본 화면과 다섯 빈 URL의 DOM·계산 스타일을 확인했다. 제목 28/22px·900, 설명 16/14px·간격 16px, PC 상단 패딩 160px과 최소 높이, 모바일 중앙/상단 배치 및 가로 넘침 없음을 확인했다. 배송지 추가 버튼으로 기존 편집 폼이 열리고 기본 상품·리뷰·주소가 유지되며 재입고 정상 PC에서 최근 상품 안내가 사라짐을 확인했다. 빈 재입고 화면을 1024/1025·1199/1200px로 전환해 모바일/PC 분기와 1200px 미만 PC 캔버스 및 1200px 이상 가로 넘침 없음을 확인했다. CDP 실제 글리프 폰트는 Pretendard Black 웹폰트였다. 대상 ESLint/Prettier·타입·Panda·Next 빌드 검사를 수행했다. 전체 lint는 비대상 tests/wh-file-summary.test.mjs의 URL/Request/Response no-undef 8건으로 실패했다. 스크린샷은 캡처 시간 초과로 이미지 비교를 완료하지 못했으며 명시적 preview 플랫폼과 열린 overlay resize는 미실행이다. 브라우저 확인은 DOM/계산 스타일과 조작 범위이며 픽셀 일치를 주장하지 않는다.
 
 출처: 위 6개 작업 트리 파일. 기록: codex/gpt-6, 2026-11-05T03:41:02.449Z. 기존 신뢰 메타데이터와 source_revision은 보존한다.
+
+## 재입고 빈 화면 설명 가운데 정렬 (2026-11-05)
+
+Figma [2063:70557](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2063-70557)의 설명 2498:93424는 현재 CENTER다. MyPageProductHistory의 재입고 전용 PC 왼쪽 정렬 override를 제거해 기존 EmptyState.page의 가운데 정렬을 상속한다. 제목·설명 너비와 글자 크기·문구·예시 데이터·상태 owner는 유지한다. 이 기록이 앞선 재입고 설명 정렬 관측보다 우선한다.
+
+검증: Codex가 /mypage/restock-alerts/preview-empty를 1116px·1920px·375px에서 열어 제목과 설명의 계산 text-align=center를 확인했다. PC 설명은 520px·16px, 모바일은 319px·14px이며 제목은 기존 28/22px이다. hoka-markup-handoff의 기존 EmptyState·Panda·표시 전용 경계를 점검했고 새 래퍼·서비스 연결은 없다. 출처: src/components/mypage/MyPageProductHistory.tsx 작업 트리, codex/gpt-6, 2026-11-05.
+
+
+## EmptyState 모바일 내부 여백 통일 (2026-11-05)
+
+Figma [전체 빈 화면 2734:86819](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2734-86819)과 [콘텐츠 내부 빈 상태 2736:86820](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2736-86820)의 좌우 내부 12px을 공통 EmptyState 모바일 기본값으로 통일했다. page/content뿐 아니라 standard/minimal/plain도 같은 내부 여백을 사용한다. 바깥 레이아웃이 --layout-mobile-inline-gutter(현재 16px)를 소유하고 EmptyState가 내부 12px을 소유해 각 변 28px을 확보한다. page/content 텍스트 그룹의 320/520px 최대 너비는 PC에서 유지하고 모바일에서는 해제해 가용 폭을 채운다. 콘텐츠형의 기존 모바일 최소 높이 154px과 각 화면의 명시적 세로 여백·정렬·문구·액션은 유지한다.
+
+관심상품·최근 본 상품은 목록용 -16px 여백을 빈 상태에도 적용해 바깥 gutter를 상쇄하던 원인을 수정했다. 음수 여백과 제목의 보상 패딩은 상품이 있는 목록에서만 유지한다. 마이페이지 요약의 주문 없음은 px=0 override를 제거한다. 화면 전체 폭을 쓰는 상품 목록 무결과·검색 무결과·러닝세션 빈 상태는 해당 소유자에서 calc(var(--layout-mobile-inline-gutter) + 12px)를 적용해 바깥 gutter도 확보한다. 공통 컴포넌트에서 바깥 gutter를 이중 부여하지 않으며 PC 스타일과 데이터/콜백·서비스 경계는 변경하지 않는다.
+
+EmptyState 직접 JSX 사용 16곳을 소스로 조사했다. 미사용 AccountDataList와 직접 empty URL이 없는 InquiryListPreview의 빈 분기는 소스만 점검했고, 실제 확인은 다음 17개 상태 URL에서 수행했다: 관심상품·최근 본 상품·재입고·배송지·리뷰 작성 가능/작성 완료·마이페이지 주문 요약·러닝세션 신청 내역·주문·쿠폰·러닝세션·공지·FAQ·1:1문의·상품 목록 무결과·상품 상세 문의 없음·검색 무결과. 문의 목록은 기본 /support/inquiries가 빈 상태이며 존재하지 않는 /support/inquiries/preview-empty를 검증 URL로 기록하지 않는다.
+
+검증: Codex가 17개 URL을 375/540px에서 직접 열어 EmptyState 또는 해당 full-width 소유자의 계산 패딩 12/28px과 가로 넘침 없음을 확인했다. 관심상품·최근·마이페이지 주문 요약은 마지막 최대 너비 보완 후 375/540/1024px에서 각 변 28px·내용 너비 319/484/968px, PC 1920px에서 기존 520/320px 최대 너비 유지를 재확인했다. 정상 관심상품·최근·상품 목록·러닝세션의 예시 이미지와 목록 표시 및 가로 넘침 없음을 확인했다. 대상 ESLint/Prettier·Panda·타입 검사와 Next 빌드를 수행했다. 기존 전체 lint 오류는 이번 범위에서 수정하거나 재검사하지 않았으며 새 스크린샷·명시적 preview 플랫폼·열린 overlay resize 검증은 수행하지 않았다. hoka-markup-handoff 기준으로 기존 소유자·공통 옵션·Panda·반응형·미연동 서비스 경계를 점검했다.
+
+출처: 위 5개 작업 트리 파일. 기록: codex/gpt-6, 2026-11-05T04:19:28.294Z. 앞선 재입고 설명 가운데 정렬 보정은 그대로 유지한다.

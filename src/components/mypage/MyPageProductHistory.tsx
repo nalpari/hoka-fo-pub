@@ -374,7 +374,11 @@ export function MyPageProductHistory({
     >
       <Stack
         gap={restock || !items.length ? '0' : '8'}
-        mx={kind === 'wishlist' || kind === 'recent' ? { _mobile: '-16px' } : undefined}
+        mx={
+          items.length > 0 && (kind === 'wishlist' || kind === 'recent')
+            ? { _mobile: '-16px' }
+            : undefined
+        }
         _mobile={
           kind === 'recent'
             ? {
@@ -396,7 +400,7 @@ export function MyPageProductHistory({
             pb="10"
             borderBottom="2px solid var(--colors-black-100)"
             _mobile={{
-              px: '4',
+              px: items.length ? '4' : '0',
               pt: '0',
               pb: '0',
               borderBottom: '0',
@@ -432,9 +436,6 @@ export function MyPageProductHistory({
             descriptionProps={{
               web: 'body3',
               mo: 'body4',
-              className: restock
-                ? css({ textAlign: 'left', _mobile: { textAlign: 'center' } })
-                : undefined,
             }}
             layoutProps={css.raw({
               minH: '795px',

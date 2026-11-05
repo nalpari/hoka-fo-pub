@@ -327,7 +327,10 @@ function RunningSessionEmptyState() {
             gap: '24px',
             alignItems: 'center',
             justifyContent: 'center',
-            _mobile: { h: '504px', px: '16px' },
+            _mobile: {
+              h: '504px',
+              px: 'calc(var(--layout-mobile-inline-gutter) + 12px)',
+            },
           },
         })}
       />

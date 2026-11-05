@@ -4,12 +4,15 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-05T03:41:02.449Z'
+updated: '2026-11-05T04:19:28.294Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/components/running-session/RunningSessionPage.tsx
+  - src/components/catalog/ProductListingPage.tsx
+  - src/components/common/atoms/EmptyState.tsx
   - src/app/support/inquiries/new/_components/InquiryFormStatePreview.tsx
   - src/app/support/inquiries/new/_components/InquiryFormLayout.tsx
   - src/app/publishing-guide/_components/CarouselGuide.tsx
@@ -1427,3 +1430,8 @@ Figma [마이페이지 메인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8W
 /support/inquiries/new의 기본·고정 상태는 기존 InquiryFormLayout에서 제목과 경로를 '1:1 문의'로 통일한다. orderSelected는 제목 분기에만 쓰이던 표시 prop이어서 호출부와 함께 제거했다. 문의 입력·선택 fixture·팝업은 유지하며 URL·IA 번호·previewRoutes는 변경하지 않는다. 불필요해진 platform import를 제거한 의존 그래프는 정식 screen-files 명령으로 재생성했다.
 
 /mypage/reviews/preview-empty, /mypage/addresses/preview-empty, /mypage/wishlist/preview-empty, /mypage/recent/preview-empty, /mypage/restock-alerts/preview-empty는 기존 화면 소유자와 EmptyState.page를 공유해 새 빈 상태 시안을 표시한다. 새 라우트나 provider를 만들지 않으며 콜백·예시 데이터·상태 수명과 미연동 서비스 경계는 보존한다. 스타일·실제 검증 및 한계는 [UI 보완](ui.md#문의-제목과-마이페이지-빈-화면-시안-보완-2026-11-05)에 기록했다. 출처: 위 working_tree_sources의 대상 작업 트리. 기록: codex/gpt-6, 2026-11-05T03:41:02.449Z.
+
+
+## EmptyState 모바일 내부 여백 통일 (2026-11-05)
+
+공통 EmptyState의 모바일 내부 12px과 기존 화면별 바깥 gutter를 합산하도록 표시만 보완했다. 관심상품·최근 본 상품의 빈 상태에서는 목록용 음수 여백을 제외하며, 마이페이지 주문 요약의 내부 padding=0 예외를 제거한다. 상품/검색 무결과와 러닝세션처럼 화면 전체 폭을 쓰는 경우는 기존 화면 소유자가 바깥 gutter와 내부 12px을 함께 전달한다. 라우트·IA 상태 URL·플랫폼 선택 로직·API/콜백·예시 데이터는 변경하지 않는다. 기존 17개 상태 URL과 정상 목록의 검증 범위는 [UI 기록](ui.md#emptystate-모바일-내부-여백-통일-2026-11-05)에 남겼다. 출처: 위 작업 트리 파일, codex/gpt-6, 2026-11-05T04:19:28.294Z.
