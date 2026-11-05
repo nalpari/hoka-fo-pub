@@ -134,6 +134,7 @@ test('generated reports cover the net diff except Markdown once with valid sourc
                 file.startsWith('src/app/screen-index/') ||
                 file === 'src/data/screenRegistry.ts' ||
                 [
+                  'tests/main-change-history.test.mjs',
                   'tests/preview-links.test.mjs',
                   'tests/screen-files.test.mjs',
                   'tests/screen-progress.test.mjs',

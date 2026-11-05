@@ -10290,6 +10290,3741 @@
         "browser": "PC1382/MO390; report=only all208, Kim171, reload/back/forward/close/focus; no inline buttons",
         "productionBuild": "not-run"
       }
+    },
+    {
+      "version": 1,
+      "reportId": "inclusive-ccd82db013337404dd7cc241f98aa177f22d2097-3719352bb2fbe33689e1bdb5cf4302816f150886",
+      "baseSha": "ccd82db013337404dd7cc241f98aa177f22d2097",
+      "targetSha": "3719352bb2fbe33689e1bdb5cf4302816f150886",
+      "startSha": "459cbcda498e4dcdee6843bf3309a392bdfd2eb4",
+      "collectedAt": "2026-11-05T07:41:47.005Z",
+      "collectedAtKst": "2026-11-05 16:41:47+09:00",
+      "remote": "https://github.com/nalpari/hoka-fo-pub.git",
+      "reportFile": "reports/main-changes/inclusive-ccd82db013337404dd7cc241f98aa177f22d2097-3719352bb2fbe33689e1bdb5cf4302816f150886.md",
+      "status": "complete",
+      "entries": [
+        {
+          "id": "F001",
+          "status": "M",
+          "file": "public/images/icon/arrow-up-from-bracket-regular.svg",
+          "previousFile": null,
+          "summary": "공유 아이콘을 18px SVG 원본으로 교체한다.",
+          "symbols": [],
+          "ranges": [
+            {
+              "oldStart": 1,
+              "oldCount": 2,
+              "newStart": 1,
+              "newCount": 9,
+              "context": ""
+            }
+          ],
+          "commits": [
+            {
+              "sha": "b5d718cf296a4a43cfd985585675a4fefa158e57",
+              "title": "fix: 아이콘 원본과 화면별 크기 및 가이드 수정",
+              "date": "2026-11-05T16:28:19+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/b5d718cf296a4a43cfd985585675a4fefa158e57"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [],
+          "affectedIa": [
+            4, 6, 8, 10, 12, 15, 17, 19, 21, 23, 25, 28, 30, 32, 34, 36, 38, 41,
+            43, 45, 47, 49, 51, 53, 55, 57, 59, 61, 63, 65, 67, 69, 72, 74, 76,
+            78, 80, 82, 85, 87, 89, 91, 93, 95, 98, 100, 102, 104, 106, 108,
+            110, 112, 114, 116, 118, 120, 122, 124, 126, 129, 131, 133, 135,
+            137, 139, 142, 144, 146, 148, 150, 152
+          ]
+        },
+        {
+          "id": "F002",
+          "status": "M",
+          "file": "public/images/icon/heart-regular.svg",
+          "previousFile": null,
+          "summary": "관심상품 비선택 하트를 18px SVG 원본으로 교체한다.",
+          "symbols": [],
+          "ranges": [
+            {
+              "oldStart": 1,
+              "oldCount": 2,
+              "newStart": 1,
+              "newCount": 4,
+              "context": ""
+            }
+          ],
+          "commits": [
+            {
+              "sha": "b5d718cf296a4a43cfd985585675a4fefa158e57",
+              "title": "fix: 아이콘 원본과 화면별 크기 및 가이드 수정",
+              "date": "2026-11-05T16:28:19+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/b5d718cf296a4a43cfd985585675a4fefa158e57"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [],
+          "affectedIa": [
+            1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+            21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37,
+            38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54,
+            55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71,
+            72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88,
+            89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104,
+            105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117,
+            118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130,
+            131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143,
+            144, 145, 146, 147, 148, 149, 150, 151, 152, 170, 171, 182, 183,
+            184, 247, 259, 261, 262, 263, 264, 265, 266
+          ]
+        },
+        {
+          "id": "F003",
+          "status": "M",
+          "file": "public/images/icon/heart-solid.svg",
+          "previousFile": null,
+          "summary": "관심상품 선택 하트를 18px SVG 원본으로 교체한다.",
+          "symbols": [],
+          "ranges": [
+            {
+              "oldStart": 1,
+              "oldCount": 2,
+              "newStart": 1,
+              "newCount": 4,
+              "context": ""
+            }
+          ],
+          "commits": [
+            {
+              "sha": "b5d718cf296a4a43cfd985585675a4fefa158e57",
+              "title": "fix: 아이콘 원본과 화면별 크기 및 가이드 수정",
+              "date": "2026-11-05T16:28:19+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/b5d718cf296a4a43cfd985585675a4fefa158e57"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [],
+          "affectedIa": [
+            1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+            21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37,
+            38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54,
+            55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71,
+            72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88,
+            89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104,
+            105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117,
+            118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130,
+            131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143,
+            144, 145, 146, 147, 148, 149, 150, 151, 152, 170, 171, 182, 183,
+            184, 247, 259, 261, 262, 263, 264, 265, 266
+          ]
+        },
+        {
+          "id": "F004",
+          "status": "M",
+          "file": "public/images/icon/minus-regular.svg",
+          "previousFile": null,
+          "summary": "빼기 기본형을 18px SVG 원본으로 교체한다.",
+          "symbols": [],
+          "ranges": [
+            {
+              "oldStart": 1,
+              "oldCount": 2,
+              "newStart": 1,
+              "newCount": 4,
+              "context": ""
+            }
+          ],
+          "commits": [
+            {
+              "sha": "7400834d7f4d8fb6d5064140676f1a3a45a5031f",
+              "title": "fix: 기본형 아이콘 규격과 사용처 가이드 정리",
+              "date": "2026-11-05T11:15:27+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/7400834d7f4d8fb6d5064140676f1a3a45a5031f"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [],
+          "affectedIa": []
+        },
+        {
+          "id": "F005",
+          "status": "D",
+          "file": "public/images/icon/minus-solid.svg",
+          "previousFile": null,
+          "summary": "사용하지 않는 빼기 채움형 SVG를 삭제한다.",
+          "symbols": [],
+          "ranges": [
+            {
+              "oldStart": 1,
+              "oldCount": 2,
+              "newStart": 0,
+              "newCount": 0,
+              "context": ""
+            }
+          ],
+          "commits": [
+            {
+              "sha": "7400834d7f4d8fb6d5064140676f1a3a45a5031f",
+              "title": "fix: 기본형 아이콘 규격과 사용처 가이드 정리",
+              "date": "2026-11-05T11:15:27+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/7400834d7f4d8fb6d5064140676f1a3a45a5031f"
+            }
+          ],
+          "attribution": "file-history-candidate",
+          "owners": [],
+          "affectedIa": []
+        },
+        {
+          "id": "F006",
+          "status": "M",
+          "file": "public/images/icon/plus-regular.svg",
+          "previousFile": null,
+          "summary": "더하기 기본형을 18px SVG 원본으로 교체한다.",
+          "symbols": [],
+          "ranges": [
+            {
+              "oldStart": 1,
+              "oldCount": 2,
+              "newStart": 1,
+              "newCount": 4,
+              "context": ""
+            }
+          ],
+          "commits": [
+            {
+              "sha": "7400834d7f4d8fb6d5064140676f1a3a45a5031f",
+              "title": "fix: 기본형 아이콘 규격과 사용처 가이드 정리",
+              "date": "2026-11-05T11:15:27+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/7400834d7f4d8fb6d5064140676f1a3a45a5031f"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [],
+          "affectedIa": []
+        },
+        {
+          "id": "F007",
+          "status": "A",
+          "file": "public/images/icon/xmark-regular.svg",
+          "previousFile": null,
+          "summary": "공통 닫기용 18px xmark SVG를 추가한다.",
+          "symbols": [],
+          "ranges": [
+            {
+              "oldStart": 0,
+              "oldCount": 0,
+              "newStart": 1,
+              "newCount": 5,
+              "context": ""
+            }
+          ],
+          "commits": [
+            {
+              "sha": "7400834d7f4d8fb6d5064140676f1a3a45a5031f",
+              "title": "fix: 기본형 아이콘 규격과 사용처 가이드 정리",
+              "date": "2026-11-05T11:15:27+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/7400834d7f4d8fb6d5064140676f1a3a45a5031f"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [],
+          "affectedIa": [
+            3, 5, 7, 9, 11, 13, 14, 16, 18, 20, 22, 24, 26, 27, 29, 31, 33, 35,
+            37, 39, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68,
+            70, 71, 73, 75, 77, 79, 81, 83, 84, 86, 88, 90, 92, 94, 96, 97, 99,
+            101, 103, 105, 107, 109, 111, 113, 115, 117, 119, 121, 123, 125,
+            127, 128, 130, 132, 134, 136, 138, 140, 141, 143, 145, 147, 149,
+            151, 170, 171, 177, 178, 179, 180, 181, 182, 183, 184, 187, 189,
+            191, 192, 193, 196, 197, 200, 201, 202, 203, 204, 205, 210, 211,
+            218, 219, 223, 226, 229, 233, 234, 236, 237, 247, 251, 252, 253,
+            255, 256, 257, 259, 261, 262, 263, 264, 265, 266
+          ]
+        },
+        {
+          "id": "F009",
+          "status": "M",
+          "file": "src/app/_components/HomeContent.tsx",
+          "previousFile": null,
+          "summary": "베스트셀러를 필터 슬롯이 있는 공통 캐러셀로 바꾸고 신발 찾기 다음에 배치한다.",
+          "symbols": [
+            "HomeBestSellerSection",
+            "HomeCategorySection",
+            "HomeShoeFinderSection",
+            "RouteContent"
+          ],
+          "ranges": [
+            {
+              "oldStart": 21,
+              "oldCount": 0,
+              "newStart": 22,
+              "newCount": 1,
+              "context": "import { type FilterTabOption, FilterTabs } from '@/components/common/atoms/Filt"
+            },
+            {
+              "oldStart": 23,
+              "oldCount": 1,
+              "newStart": 23,
+              "newCount": 0,
+              "context": "import { ContentHeader } from '@/components/common/molecules/ContentHeader';"
+            },
+            {
+              "oldStart": 115,
+              "oldCount": 11,
+              "newStart": 115,
+              "newCount": 9,
+              "context": "function HomeBestSellerSection() {"
+            },
+            {
+              "oldStart": 142,
+              "oldCount": 1,
+              "newStart": 140,
+              "newCount": 1,
+              "context": "function HomeBestSellerSection() {"
+            },
+            {
+              "oldStart": 167,
+              "oldCount": 1,
+              "newStart": 165,
+              "newCount": 1,
+              "context": "function HomeCategorySection({ platform }: HomeCategorySectionProps) {"
+            },
+            {
+              "oldStart": 181,
+              "oldCount": 1,
+              "newStart": 179,
+              "newCount": 1,
+              "context": "function HomeCategorySection({ platform }: HomeCategorySectionProps) {"
+            },
+            {
+              "oldStart": 697,
+              "oldCount": 1,
+              "newStart": 695,
+              "newCount": 1,
+              "context": "function HomeShoeFinderSection({ platform, variant = 'imagePill' }: HomeShoeFind"
+            },
+            {
+              "oldStart": 717,
+              "oldCount": 1,
+              "newStart": 715,
+              "newCount": 1,
+              "context": "function HomeShoeFinderSection({ platform, variant = 'imagePill' }: HomeShoeFind"
+            },
+            {
+              "oldStart": 727,
+              "oldCount": 2,
+              "newStart": 724,
+              "newCount": 0,
+              "context": "export function RouteContent() {"
+            },
+            {
+              "oldStart": 729,
+              "oldCount": 0,
+              "newStart": 726,
+              "newCount": 2,
+              "context": "export function RouteContent() {"
+            }
+          ],
+          "commits": [
+            {
+              "sha": "6d6da3b72c66a75e136dd1ef633ce27fb69cf9f1",
+              "title": "feat: 공통 캐러셀 가이드와 카트 목업 구성",
+              "date": "2026-11-05T10:13:32+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/6d6da3b72c66a75e136dd1ef633ce27fb69cf9f1"
+            },
+            {
+              "sha": "4aa5bee25c1732e933ea76e9970f3edf1e95079c",
+              "title": "fix: 메인 신발 찾기와 베스트셀러 위치 교환",
+              "date": "2026-11-05T16:35:25+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/4aa5bee25c1732e933ea76e9970f3edf1e95079c"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [{ "path": "Main", "href": null }],
+          "affectedIa": [1]
+        },
+        {
+          "id": "F010",
+          "status": "M",
+          "file": "src/app/cart/_components/CartContent.tsx",
+          "previousFile": null,
+          "summary": "장바구니에 공통 상품 카드 기반 추천 목업을 표시한다.",
+          "symbols": ["CartContent", "platform"],
+          "ranges": [
+            {
+              "oldStart": 0,
+              "oldCount": 0,
+              "newStart": 1,
+              "newCount": 5,
+              "context": ""
+            },
+            {
+              "oldStart": 4,
+              "oldCount": 0,
+              "newStart": 10,
+              "newCount": 1,
+              "context": "import { Button } from '@/components/common/atoms/Button';"
+            },
+            {
+              "oldStart": 6,
+              "oldCount": 2,
+              "newStart": 12,
+              "newCount": 1,
+              "context": "import { ContentHeader } from '@/components/common/molecules/ContentHeader';"
+            },
+            {
+              "oldStart": 11,
+              "oldCount": 1,
+              "newStart": 16,
+              "newCount": 1,
+              "context": "import { OrderPageLayout } from '@/components/orders/OrderPageLayout';"
+            },
+            {
+              "oldStart": 18,
+              "oldCount": 0,
+              "newStart": 24,
+              "newCount": 1,
+              "context": "export function CartContent() {"
+            },
+            {
+              "oldStart": 57,
+              "oldCount": 1,
+              "newStart": 63,
+              "newCount": 20,
+              "context": "export function CartContent() {"
+            }
+          ],
+          "commits": [
+            {
+              "sha": "6d6da3b72c66a75e136dd1ef633ce27fb69cf9f1",
+              "title": "feat: 공통 캐러셀 가이드와 카트 목업 구성",
+              "date": "2026-11-05T10:13:32+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/6d6da3b72c66a75e136dd1ef633ce27fb69cf9f1"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [{ "path": "장바구니|목록", "href": null }],
+          "affectedIa": [170]
+        },
+        {
+          "id": "F011",
+          "status": "M",
+          "file": "src/app/cart/_components/CartDialogs.tsx",
+          "previousFile": null,
+          "summary": "장바구니 옵션 모달의 모바일 하단 버튼 영역을 고정한다.",
+          "symbols": ["CartOptionsDialog"],
+          "ranges": [
+            {
+              "oldStart": 51,
+              "oldCount": 0,
+              "newStart": 52,
+              "newCount": 1,
+              "context": "function CartOptionsDialog({"
+            }
+          ],
+          "commits": [
+            {
+              "sha": "7a7d6c2e90f2c68d11ae6ad245a8818f1209e05d",
+              "title": "fix: 모바일 전체 화면 모달 버튼 배치 수정",
+              "date": "2026-11-05T16:11:35+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/7a7d6c2e90f2c68d11ae6ad245a8818f1209e05d"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [{ "path": "장바구니|목록", "href": null }],
+          "affectedIa": [170]
+        },
+        {
+          "id": "F012",
+          "status": "M",
+          "file": "src/app/cart/_components/CartProductSection.tsx",
+          "previousFile": null,
+          "summary": "모바일 상품 삭제 버튼을 20px 닫기 아이콘으로 바꾼다.",
+          "symbols": ["CartMobileItem"],
+          "ranges": [
+            {
+              "oldStart": 46,
+              "oldCount": 2,
+              "newStart": 46,
+              "newCount": 2,
+              "context": "function CartMobileItem({ row, selected, onSelect }: CartItemProps) {"
+            }
+          ],
+          "commits": [
+            {
+              "sha": "11fd1b65c8c168d1b095b44945f0b0246bb4685f",
+              "title": "fix: 닫기 아이콘 규격과 가이드 배경 수정",
+              "date": "2026-11-05T10:13:06+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/11fd1b65c8c168d1b095b44945f0b0246bb4685f"
+            },
+            {
+              "sha": "7400834d7f4d8fb6d5064140676f1a3a45a5031f",
+              "title": "fix: 기본형 아이콘 규격과 사용처 가이드 정리",
+              "date": "2026-11-05T11:15:27+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/7400834d7f4d8fb6d5064140676f1a3a45a5031f"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [{ "path": "장바구니|목록", "href": null }],
+          "affectedIa": [170]
+        },
+        {
+          "id": "F013",
+          "status": "M",
+          "file": "src/app/checkout/_components/CheckoutForm.tsx",
+          "previousFile": null,
+          "summary": "주문서에서 배송지 변경 모달의 초기 열림 상태를 전달한다.",
+          "symbols": ["CheckoutContentProps", "CheckoutContent"],
+          "ranges": [
+            {
+              "oldStart": 21,
+              "oldCount": 0,
+              "newStart": 22,
+              "newCount": 1,
+              "context": "type CheckoutContentProps = {"
+            },
+            {
+              "oldStart": 32,
+              "oldCount": 0,
+              "newStart": 34,
+              "newCount": 1,
+              "context": "export function CheckoutContent({"
+            },
+            {
+              "oldStart": 51,
+              "oldCount": 0,
+              "newStart": 54,
+              "newCount": 1,
+              "context": "export function CheckoutContent({"
+            }
+          ],
+          "commits": [
+            {
+              "sha": "2d51b068e4628f4903b1814e505bcd0f82bf9d47",
+              "title": "feat: 주문서 배송지 변경 모달 추가",
+              "date": "2026-11-05T16:11:31+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/2d51b068e4628f4903b1814e505bcd0f82bf9d47"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [{ "path": "주문|상세", "href": null }],
+          "affectedIa": [171]
+        },
+        {
+          "id": "F014",
+          "status": "M",
+          "file": "src/app/checkout/_components/CheckoutShipping.tsx",
+          "previousFile": null,
+          "summary": "저장 배송지 변경 모달과 편집용 입력 상태, 주소 검색 및 닫기 흐름을 추가한다.",
+          "symbols": [
+            "emptyShippingDraft",
+            "ShippingDraft",
+            "CheckoutShippingForm",
+            "[searchOpen, setSearchOpen]",
+            "{ postalCode, address, addressDetail }",
+            "addressDetailDisabled",
+            "CheckoutSavedAddressProps",
+            "CheckoutSavedAddress",
+            "binding",
+            "CheckoutShipping",
+            "[addressChangeOpen, setAddressChangeOpen]",
+            "editButtonRef",
+            "[draft, setDraft]",
+            "showInlineForm",
+            "closeAddressChange"
+          ],
+          "ranges": [
+            {
+              "oldStart": 3,
+              "oldCount": 1,
+              "newStart": 3,
+              "newCount": 1,
+              "context": ""
+            },
+            {
+              "oldStart": 19,
+              "oldCount": 0,
+              "newStart": 20,
+              "newCount": 1,
+              "context": "import { ContentSection } from '@/components/common/layouts/ContentSection';"
+            },
+            {
+              "oldStart": 56,
+              "oldCount": 28,
+              "newStart": 57,
+              "newCount": 9,
+              "context": "const fields = ["
+            },
+            {
+              "oldStart": 86,
+              "oldCount": 2,
+              "newStart": 68,
+              "newCount": 5,
+              "context": "type Props = {"
+            },
+            {
+              "oldStart": 89,
+              "oldCount": 7,
+              "newStart": 74,
+              "newCount": 9,
+              "context": "function CheckoutAddressFields({"
+            },
+            {
+              "oldStart": 99,
+              "oldCount": 1,
+              "newStart": 86,
+              "newCount": 19,
+              "context": "function CheckoutAddressFields({"
+            },
+            {
+              "oldStart": 111,
+              "oldCount": 1,
+              "newStart": 116,
+              "newCount": 1,
+              "context": "function CheckoutAddressFields({"
+            },
+            {
+              "oldStart": 113,
+              "oldCount": 4,
+              "newStart": 118,
+              "newCount": 1,
+              "context": "function CheckoutAddressFields({"
+            },
+            {
+              "oldStart": 118,
+              "oldCount": 1,
+              "newStart": 120,
+              "newCount": 1,
+              "context": "function CheckoutAddressFields({"
+            },
+            {
+              "oldStart": 120,
+              "oldCount": 36,
+              "newStart": 122,
+              "newCount": 4,
+              "context": "function CheckoutAddressFields({"
+            },
+            {
+              "oldStart": 157,
+              "oldCount": 4,
+              "newStart": 127,
+              "newCount": 5,
+              "context": "function CheckoutShippingForm({"
+            },
+            {
+              "oldStart": 166,
+              "oldCount": 0,
+              "newStart": 138,
+              "newCount": 1,
+              "context": "type CheckoutSavedAddressProps = {"
+            },
+            {
+              "oldStart": 181,
+              "oldCount": 1,
+              "newStart": 153,
+              "newCount": 1,
+              "context": "const demoSavedAddress = {"
+            },
+            {
+              "oldStart": 204,
+              "oldCount": 1,
+              "newStart": 176,
+              "newCount": 7,
+              "context": "function CheckoutSavedAddress({ errors, onEdit }: CheckoutSavedAddressProps) {"
+            },
+            {
+              "oldStart": 315,
+              "oldCount": 1,
+              "newStart": 293,
+              "newCount": 6,
+              "context": "export type ShippingErrors = Partial<Record<'name' | 'phone' | 'address', string"
+            },
+            {
+              "oldStart": 319,
+              "oldCount": 0,
+              "newStart": 303,
+              "newCount": 1,
+              "context": "export function CheckoutShipping({"
+            },
+            {
+              "oldStart": 323,
+              "oldCount": 0,
+              "newStart": 308,
+              "newCount": 1,
+              "context": "export function CheckoutShipping({"
+            },
+            {
+              "oldStart": 329,
+              "oldCount": 3,
+              "newStart": 314,
+              "newCount": 10,
+              "context": "export function CheckoutShipping({"
+            },
+            {
+              "oldStart": 339,
+              "oldCount": 1,
+              "newStart": 331,
+              "newCount": 1,
+              "context": "export function CheckoutShipping({"
+            },
+            {
+              "oldStart": 340,
+              "oldCount": 0,
+              "newStart": 333,
+              "newCount": 2,
+              "context": "export function CheckoutShipping({"
+            },
+            {
+              "oldStart": 342,
+              "oldCount": 7,
+              "newStart": 336,
+              "newCount": 5,
+              "context": "export function CheckoutShipping({"
+            },
+            {
+              "oldStart": 351,
+              "oldCount": 1,
+              "newStart": 343,
+              "newCount": 24,
+              "context": "export function CheckoutShipping({"
+            }
+          ],
+          "commits": [
+            {
+              "sha": "2d51b068e4628f4903b1814e505bcd0f82bf9d47",
+              "title": "feat: 주문서 배송지 변경 모달 추가",
+              "date": "2026-11-05T16:11:31+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/2d51b068e4628f4903b1814e505bcd0f82bf9d47"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [{ "path": "주문|상세", "href": null }],
+          "affectedIa": [171]
+        },
+        {
+          "id": "F015",
+          "status": "M",
+          "file": "src/app/checkout/_components/CheckoutStatePreview.tsx",
+          "previousFile": null,
+          "summary": "배송지 변경 미리보기 상태와 해당 상태의 카카오페이 표시값을 추가한다.",
+          "symbols": ["CheckoutStatePreview", "[payment, setPayment]"],
+          "ranges": [
+            {
+              "oldStart": 20,
+              "oldCount": 1,
+              "newStart": 20,
+              "newCount": 1,
+              "context": "export function CheckoutStatePreview({"
+            },
+            {
+              "oldStart": 22,
+              "oldCount": 1,
+              "newStart": 22,
+              "newCount": 3,
+              "context": "export function CheckoutStatePreview({"
+            },
+            {
+              "oldStart": 32,
+              "oldCount": 1,
+              "newStart": 34,
+              "newCount": 2,
+              "context": "export function CheckoutStatePreview({"
+            }
+          ],
+          "commits": [
+            {
+              "sha": "2d51b068e4628f4903b1814e505bcd0f82bf9d47",
+              "title": "feat: 주문서 배송지 변경 모달 추가",
+              "date": "2026-11-05T16:11:31+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/2d51b068e4628f4903b1814e505bcd0f82bf9d47"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [{ "path": "주문|상세", "href": null }],
+          "affectedIa": [171]
+        },
+        {
+          "id": "F016",
+          "status": "A",
+          "file": "src/app/checkout/preview-address-change/page.tsx",
+          "previousFile": null,
+          "summary": "배송지 변경 모달이 열린 주문서 상태 URL을 추가한다.",
+          "symbols": ["Page"],
+          "ranges": [
+            {
+              "oldStart": 0,
+              "oldCount": 0,
+              "newStart": 1,
+              "newCount": 6,
+              "context": ""
+            }
+          ],
+          "commits": [
+            {
+              "sha": "2d51b068e4628f4903b1814e505bcd0f82bf9d47",
+              "title": "feat: 주문서 배송지 변경 모달 추가",
+              "date": "2026-11-05T16:11:31+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/2d51b068e4628f4903b1814e505bcd0f82bf9d47"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [
+            { "path": "주문|상세", "href": "/checkout/preview-address-change" }
+          ],
+          "affectedIa": [171]
+        },
+        {
+          "id": "F018",
+          "status": "M",
+          "file": "src/app/login/_components/LoginContent.tsx",
+          "previousFile": null,
+          "summary": "로그인에서 세션 만료 안내 팝업과 관련 표시 상태를 제거한다.",
+          "symbols": ["LoginContent"],
+          "ranges": [
+            {
+              "oldStart": 5,
+              "oldCount": 1,
+              "newStart": 4,
+              "newCount": 0,
+              "context": "import { useState } from 'react';"
+            },
+            {
+              "oldStart": 17,
+              "oldCount": 1,
+              "newStart": 15,
+              "newCount": 0,
+              "context": "import { ContentSection } from '@/components/common/layouts/ContentSection';"
+            },
+            {
+              "oldStart": 101,
+              "oldCount": 2,
+              "newStart": 98,
+              "newCount": 0,
+              "context": "function LoginForm({ showErrors = false, showHelp = false }: LoginFormProps) {"
+            },
+            {
+              "oldStart": 110,
+              "oldCount": 1,
+              "newStart": 105,
+              "newCount": 0,
+              "context": "type LoginContentProps = LoginFormProps & { showSessionTimeout?: boolean };"
+            },
+            {
+              "oldStart": 112,
+              "oldCount": 7,
+              "newStart": 107,
+              "newCount": 1,
+              "context": "type LoginContentProps = LoginFormProps & { showSessionTimeout?: boolean };"
+            },
+            {
+              "oldStart": 120,
+              "oldCount": 39,
+              "newStart": 109,
+              "newCount": 1,
+              "context": "export function LoginContent({"
+            }
+          ],
+          "commits": [
+            {
+              "sha": "d997cefb5fb7c2dbd34bd9ba7c2accd82ed9bdb5",
+              "title": "fix: 미입력 로그아웃 안내 팝업 제거",
+              "date": "2026-11-05T16:11:46+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/d997cefb5fb7c2dbd34bd9ba7c2accd82ed9bdb5"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [{ "path": "로그인", "href": null }],
+          "affectedIa": [223]
+        },
+        {
+          "id": "F021",
+          "status": "D",
+          "file": "src/app/login/preview-session-timeout/page.tsx",
+          "previousFile": null,
+          "summary": "세션 만료 팝업의 고정 미리보기 경로를 삭제한다.",
+          "symbols": [],
+          "ranges": [
+            {
+              "oldStart": 1,
+              "oldCount": 6,
+              "newStart": 0,
+              "newCount": 0,
+              "context": ""
+            }
+          ],
+          "commits": [
+            {
+              "sha": "d997cefb5fb7c2dbd34bd9ba7c2accd82ed9bdb5",
+              "title": "fix: 미입력 로그아웃 안내 팝업 제거",
+              "date": "2026-11-05T16:11:46+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/d997cefb5fb7c2dbd34bd9ba7c2accd82ed9bdb5"
+            }
+          ],
+          "attribution": "file-history-candidate",
+          "owners": [],
+          "affectedIa": []
+        },
+        {
+          "id": "F022",
+          "status": "M",
+          "file": "src/app/mypage/_components/MyPageContent.tsx",
+          "previousFile": null,
+          "summary": "로그아웃 확인 문구와 버튼, 프로필과 최근 주문 빈 화면 배치를 조정한다.",
+          "symbols": [
+            "LogoutDialog",
+            "membershipLink",
+            "MyPageBenefitItemProps",
+            "benefitLink",
+            "MyPageBenefits",
+            "profileLink",
+            "MyPageOverviewProfile",
+            "platform",
+            "MyPageOrderTile",
+            "MyPageRecentOrders",
+            "emptyState",
+            "MyPageMenuItemProps",
+            "menuLink",
+            "MyPageMenuSection",
+            "RouteContent"
+          ],
+          "ranges": [
+            {
+              "oldStart": 32,
+              "oldCount": 0,
+              "newStart": 33,
+              "newCount": 1,
+              "context": "type LogoutDialogProps = {"
+            },
+            {
+              "oldStart": 44,
+              "oldCount": 1,
+              "newStart": 45,
+              "newCount": 1,
+              "context": "function LogoutDialog({ open, onOpenChange, onConfirm }: LogoutDialogProps) {"
+            },
+            {
+              "oldStart": 48,
+              "oldCount": 0,
+              "newStart": 50,
+              "newCount": 1,
+              "context": "function LogoutDialog({ open, onOpenChange, onConfirm }: LogoutDialogProps) {"
+            },
+            {
+              "oldStart": 91,
+              "oldCount": 0,
+              "newStart": 94,
+              "newCount": 1,
+              "context": "function MyPageMembership() {"
+            },
+            {
+              "oldStart": 97,
+              "oldCount": 0,
+              "newStart": 101,
+              "newCount": 1,
+              "context": "type MyPageBenefitItemProps = {"
+            },
+            {
+              "oldStart": 124,
+              "oldCount": 0,
+              "newStart": 129,
+              "newCount": 1,
+              "context": "function MyPageBenefitItem({ href, label, count, unit }: MyPageBenefitItemProps)"
+            },
+            {
+              "oldStart": 132,
+              "oldCount": 0,
+              "newStart": 138,
+              "newCount": 1,
+              "context": "function MyPageBenefits() {"
+            },
+            {
+              "oldStart": 139,
+              "oldCount": 1,
+              "newStart": 145,
+              "newCount": 3,
+              "context": "const profileLink = css({"
+            },
+            {
+              "oldStart": 166,
+              "oldCount": 0,
+              "newStart": 175,
+              "newCount": 13,
+              "context": "function MyPageOverviewProfile() {"
+            },
+            {
+              "oldStart": 185,
+              "oldCount": 0,
+              "newStart": 207,
+              "newCount": 1,
+              "context": "function MyPageOverviewProfile() {"
+            },
+            {
+              "oldStart": 231,
+              "oldCount": 0,
+              "newStart": 254,
+              "newCount": 1,
+              "context": "function MyPageOrderTile({ item }: { item: MyPageOrderItem }) {"
+            },
+            {
+              "oldStart": 234,
+              "oldCount": 0,
+              "newStart": 258,
+              "newCount": 11,
+              "context": "function MyPageRecentOrders({ empty = false }: { empty?: boolean }) {"
+            },
+            {
+              "oldStart": 253,
+              "oldCount": 11,
+              "newStart": 287,
+              "newCount": 1,
+              "context": "function MyPageRecentOrders({ empty = false }: { empty?: boolean }) {"
+            },
+            {
+              "oldStart": 278,
+              "oldCount": 29,
+              "newStart": 302,
+              "newCount": 31,
+              "context": "function MyPageRecentOrders({ empty = false }: { empty?: boolean }) {"
+            },
+            {
+              "oldStart": 307,
+              "oldCount": 0,
+              "newStart": 334,
+              "newCount": 2,
+              "context": "function MyPageRecentOrders({ empty = false }: { empty?: boolean }) {"
+            },
+            {
+              "oldStart": 326,
+              "oldCount": 0,
+              "newStart": 355,
+              "newCount": 1,
+              "context": "function MyPageRecentOrders({ empty = false }: { empty?: boolean }) {"
+            },
+            {
+              "oldStart": 330,
+              "oldCount": 0,
+              "newStart": 360,
+              "newCount": 1,
+              "context": "type MyPageMenuItemProps = {"
+            },
+            {
+              "oldStart": 341,
+              "oldCount": 0,
+              "newStart": 372,
+              "newCount": 1,
+              "context": "function MyPageMenuItem({ label, to }: MyPageMenuItemProps) {"
+            },
+            {
+              "oldStart": 367,
+              "oldCount": 1,
+              "newStart": 398,
+              "newCount": 2,
+              "context": "function MyPageMenuSection({ title, items }: { title: string; items: MyPageMenuI"
+            },
+            {
+              "oldStart": 381,
+              "oldCount": 1,
+              "newStart": 413,
+              "newCount": 1,
+              "context": "export function RouteContent({"
+            }
+          ],
+          "commits": [
+            {
+              "sha": "5db6b1d6c2504bf7b0729fe58196d9741ccf3171",
+              "title": "fix: 마이페이지 로그아웃과 빈 주문 헤더 시안 반영",
+              "date": "2026-11-05T11:09:39+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/5db6b1d6c2504bf7b0729fe58196d9741ccf3171"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [{ "path": "마이페이지|index", "href": null }],
+          "affectedIa": [177]
+        },
+        {
+          "id": "F023",
+          "status": "M",
+          "file": "src/app/mypage/addresses/_components/AddressManagement.tsx",
+          "previousFile": null,
+          "summary": "배송지 목록과 빈 상태의 간격을 조정하고 준비된 페이지 카운터 표시를 받는다.",
+          "symbols": ["AddressList"],
+          "ranges": [
+            {
+              "oldStart": 220,
+              "oldCount": 0,
+              "newStart": 221,
+              "newCount": 1,
+              "context": "export function AddressList({"
+            },
+            {
+              "oldStart": 225,
+              "oldCount": 0,
+              "newStart": 227,
+              "newCount": 1,
+              "context": "export function AddressList({"
+            },
+            {
+              "oldStart": 230,
+              "oldCount": 4,
+              "newStart": 232,
+              "newCount": 1,
+              "context": "export function AddressList({"
+            },
+            {
+              "oldStart": 235,
+              "oldCount": 2,
+              "newStart": 234,
+              "newCount": 3,
+              "context": "export function AddressList({"
+            },
+            {
+              "oldStart": 239,
+              "oldCount": 1,
+              "newStart": 239,
+              "newCount": 3,
+              "context": "export function AddressList({"
+            },
+            {
+              "oldStart": 242,
+              "oldCount": 1,
+              "newStart": 244,
+              "newCount": 12,
+              "context": "export function AddressList({"
+            },
+            {
+              "oldStart": 246,
+              "oldCount": 1,
+              "newStart": 259,
+              "newCount": 4,
+              "context": "export function AddressList({"
+            },
+            {
+              "oldStart": 333,
+              "oldCount": 14,
+              "newStart": 349,
+              "newCount": 27,
+              "context": "export function AddressList({"
+            },
+            {
+              "oldStart": 351,
+              "oldCount": 5,
+              "newStart": 380,
+              "newCount": 20,
+              "context": "export function AddressList({"
+            }
+          ],
+          "commits": [
+            {
+              "sha": "b3f4056e895eb6774b4c531c67681fe197725517",
+              "title": "fix: 배송지 관리 목록 시안 반영",
+              "date": "2026-11-05T15:50:48+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/b3f4056e895eb6774b4c531c67681fe197725517"
+            },
+            {
+              "sha": "e6cd1166564fb487a729d7277563164e21bcfd7b",
+              "title": "fix: 문의 제목과 마이페이지 빈 화면 시안 반영",
+              "date": "2026-11-05T12:55:15+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/e6cd1166564fb487a729d7277563164e21bcfd7b"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [
+            { "path": "마이페이지|계정관리|배송지 관리", "href": null }
+          ],
+          "affectedIa": [203, 204, 205]
+        },
+        {
+          "id": "F024",
+          "status": "M",
+          "file": "src/app/mypage/addresses/_components/AddressStatePreview.tsx",
+          "previousFile": null,
+          "summary": "배송지 목록에 1/10 미리보기 카운터를 연결한다.",
+          "symbols": ["previewPageCounter", "AddressStatePreview"],
+          "ranges": [
+            {
+              "oldStart": 20,
+              "oldCount": 1,
+              "newStart": 20,
+              "newCount": 4,
+              "context": "const editPreviewAddress: Address = {"
+            },
+            {
+              "oldStart": 58,
+              "oldCount": 0,
+              "newStart": 62,
+              "newCount": 3,
+              "context": "export function AddressStatePreview({"
+            }
+          ],
+          "commits": [
+            {
+              "sha": "b3f4056e895eb6774b4c531c67681fe197725517",
+              "title": "fix: 배송지 관리 목록 시안 반영",
+              "date": "2026-11-05T15:50:48+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/b3f4056e895eb6774b4c531c67681fe197725517"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [
+            { "path": "마이페이지|계정관리|배송지 관리", "href": null }
+          ],
+          "affectedIa": [203, 204, 205]
+        },
+        {
+          "id": "F027",
+          "status": "M",
+          "file": "src/app/mypage/orders/_components/OrderClaimRequest.tsx",
+          "previousFile": null,
+          "summary": "주문 취소·반품 신청 모달의 안내와 확인 버튼을 본문 구성으로 정리한다.",
+          "symbols": ["OrderClaimRequest", "content"],
+          "ranges": [
+            {
+              "oldStart": 43,
+              "oldCount": 0,
+              "newStart": 44,
+              "newCount": 148,
+              "context": "export function OrderClaimRequest({"
+            },
+            {
+              "oldStart": 52,
+              "oldCount": 11,
+              "newStart": 200,
+              "newCount": 1,
+              "context": "export function OrderClaimRequest({"
+            },
+            {
+              "oldStart": 69,
+              "oldCount": 1,
+              "newStart": 206,
+              "newCount": 0,
+              "context": "export function OrderClaimRequest({"
+            },
+            {
+              "oldStart": 78,
+              "oldCount": 1,
+              "newStart": 215,
+              "newCount": 1,
+              "context": "export function OrderClaimRequest({"
+            },
+            {
+              "oldStart": 95,
+              "oldCount": 147,
+              "newStart": 232,
+              "newCount": 1,
+              "context": "export function OrderClaimRequest({"
+            }
+          ],
+          "commits": [
+            {
+              "sha": "cd8d51b232cd1ad5bb80904bb0a0657475e144e5",
+              "title": "refactor: 모달 표시 방식과 콘텐츠 버튼 구성 통일",
+              "date": "2026-11-05T16:28:34+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/cd8d51b232cd1ad5bb80904bb0a0657475e144e5"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [
+            { "path": "마이페이지|구매내역|주문배송 조회", "href": null },
+            { "path": "마이페이지|구매내역|취소/반품 내역", "href": null }
+          ],
+          "affectedIa": [178, 179, 180, 181]
+        },
+        {
+          "id": "F028",
+          "status": "M",
+          "file": "src/app/mypage/orders/_components/OrderTrackingDialog.tsx",
+          "previousFile": null,
+          "summary": "배송조회를 공통 모달로 통합하고 모바일은 하단 시트로 표시한다.",
+          "symbols": ["OrderTrackingDialog"],
+          "ranges": [
+            {
+              "oldStart": 1,
+              "oldCount": 3,
+              "newStart": 0,
+              "newCount": 0,
+              "context": ""
+            },
+            {
+              "oldStart": 5,
+              "oldCount": 1,
+              "newStart": 2,
+              "newCount": 1,
+              "context": "import { css } from 'styled-system/css';"
+            },
+            {
+              "oldStart": 7,
+              "oldCount": 1,
+              "newStart": 3,
+              "newCount": 0,
+              "context": "import { Box, HStack, Stack } from 'styled-system/jsx';"
+            },
+            {
+              "oldStart": 9,
+              "oldCount": 1,
+              "newStart": 4,
+              "newCount": 0,
+              "context": "import { DataTable } from '@/components/common/atoms/DataTable';"
+            },
+            {
+              "oldStart": 78,
+              "oldCount": 17,
+              "newStart": 72,
+              "newCount": 0,
+              "context": "function OrderTrackingHistory({ date }: { date: string }) {"
+            },
+            {
+              "oldStart": 103,
+              "oldCount": 1,
+              "newStart": 80,
+              "newCount": 0,
+              "context": "export function OrderTrackingDialog({"
+            },
+            {
+              "oldStart": 145,
+              "oldCount": 19,
+              "newStart": 121,
+              "newCount": 0,
+              "context": "export function OrderTrackingDialog({"
+            },
+            {
+              "oldStart": 165,
+              "oldCount": 40,
+              "newStart": 123,
+              "newCount": 13,
+              "context": "export function OrderTrackingDialog({"
+            }
+          ],
+          "commits": [
+            {
+              "sha": "cd8d51b232cd1ad5bb80904bb0a0657475e144e5",
+              "title": "refactor: 모달 표시 방식과 콘텐츠 버튼 구성 통일",
+              "date": "2026-11-05T16:28:34+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/cd8d51b232cd1ad5bb80904bb0a0657475e144e5"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [
+            { "path": "마이페이지|구매내역|주문배송 조회", "href": null },
+            { "path": "마이페이지|구매내역|취소/반품 내역", "href": null }
+          ],
+          "affectedIa": [178, 179, 180, 181]
+        },
+        {
+          "id": "F029",
+          "status": "M",
+          "file": "src/app/mypage/orders/_components/OrdersContent.tsx",
+          "previousFile": null,
+          "summary": "주문 목록·상세·취소/반품 뷰별 PC와 모바일 간격을 보정한다.",
+          "symbols": ["OrdersContent"],
+          "ranges": [
+            {
+              "oldStart": 70,
+              "oldCount": 1,
+              "newStart": 70,
+              "newCount": 7,
+              "context": "export function OrdersContent({"
+            }
+          ],
+          "commits": [
+            {
+              "sha": "3b333a30f2737b4ca3f4fe801199df9d64c8d334",
+              "title": "fix: 마이페이지와 고객센터 화면 배치 보정",
+              "date": "2026-11-05T13:46:25+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/3b333a30f2737b4ca3f4fe801199df9d64c8d334"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [
+            { "path": "마이페이지|구매내역|주문배송 조회", "href": null },
+            { "path": "마이페이지|구매내역|취소/반품 내역", "href": null }
+          ],
+          "affectedIa": [178, 179, 180, 181]
+        },
+        {
+          "id": "F033",
+          "status": "M",
+          "file": "src/app/mypage/reviews/_components/MyPageReviewsContent.tsx",
+          "previousFile": null,
+          "summary": "리뷰 빈 결과를 페이지형 EmptyState로 전환하고 PC와 모바일 제목 및 배치를 조정한다.",
+          "symbols": ["MyPageReviewsContent"],
+          "ranges": [
+            {
+              "oldStart": 453,
+              "oldCount": 1,
+              "newStart": 453,
+              "newCount": 1,
+              "context": "export function MyPageReviewsContent({"
+            },
+            {
+              "oldStart": 458,
+              "oldCount": 12,
+              "newStart": 458,
+              "newCount": 2,
+              "context": "export function MyPageReviewsContent({"
+            },
+            {
+              "oldStart": 470,
+              "oldCount": 0,
+              "newStart": 461,
+              "newCount": 11,
+              "context": "export function MyPageReviewsContent({"
+            }
+          ],
+          "commits": [
+            {
+              "sha": "e6cd1166564fb487a729d7277563164e21bcfd7b",
+              "title": "fix: 문의 제목과 마이페이지 빈 화면 시안 반영",
+              "date": "2026-11-05T12:55:15+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/e6cd1166564fb487a729d7277563164e21bcfd7b"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [{ "path": "마이페이지|Q&A|상품리뷰", "href": null }],
+          "affectedIa": [191, 192, 193]
+        },
+        {
+          "id": "F038",
+          "status": "M",
+          "file": "src/app/products/[id]/_components/ProductDetailContent.tsx",
+          "previousFile": null,
+          "summary": "상품 상세의 공유·관심상품 아이콘 크기를 조정하고 추천을 공통 캐러셀로 전환한다.",
+          "symbols": [
+            "ShareButton",
+            "ProductDetailHeaderActions",
+            "ProductDetailRecommend"
+          ],
+          "ranges": [
+            {
+              "oldStart": 42,
+              "oldCount": 0,
+              "newStart": 43,
+              "newCount": 1,
+              "context": "import {"
+            },
+            {
+              "oldStart": 44,
+              "oldCount": 1,
+              "newStart": 44,
+              "newCount": 0,
+              "context": "import { ContentHeader } from '@/components/common/molecules/ContentHeader';"
+            },
+            {
+              "oldStart": 1797,
+              "oldCount": 1,
+              "newStart": 1797,
+              "newCount": 1,
+              "context": "function ShareButton({"
+            },
+            {
+              "oldStart": 1837,
+              "oldCount": 1,
+              "newStart": 1837,
+              "newCount": 6,
+              "context": "function ProductDetailHeaderActions({"
+            },
+            {
+              "oldStart": 2271,
+              "oldCount": 1,
+              "newStart": 2276,
+              "newCount": 1,
+              "context": "function ProductDetailRecommend({ products, title = '추천 상품' }: ProductDe"
+            },
+            {
+              "oldStart": 2287,
+              "oldCount": 1,
+              "newStart": 2292,
+              "newCount": 1,
+              "context": "function ProductDetailRecommend({ products, title = '추천 상품' }: ProductDe"
+            }
+          ],
+          "commits": [
+            {
+              "sha": "6d6da3b72c66a75e136dd1ef633ce27fb69cf9f1",
+              "title": "feat: 공통 캐러셀 가이드와 카트 목업 구성",
+              "date": "2026-11-05T10:13:32+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/6d6da3b72c66a75e136dd1ef633ce27fb69cf9f1"
+            },
+            {
+              "sha": "b5d718cf296a4a43cfd985585675a4fefa158e57",
+              "title": "fix: 아이콘 원본과 화면별 크기 및 가이드 수정",
+              "date": "2026-11-05T16:28:19+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/b5d718cf296a4a43cfd985585675a4fefa158e57"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [{ "path": "product:eland_hca_02", "href": null }],
+          "affectedIa": [
+            4, 6, 8, 10, 12, 15, 17, 19, 21, 23, 25, 28, 30, 32, 34, 36, 38, 41,
+            43, 45, 47, 49, 51, 53, 55, 57, 59, 61, 63, 65, 67, 69, 72, 74, 76,
+            78, 80, 82, 85, 87, 89, 91, 93, 95, 98, 100, 102, 104, 106, 108,
+            110, 112, 114, 116, 118, 120, 122, 124, 126, 129, 131, 133, 135,
+            137, 139, 142, 144, 146, 148, 150, 152
+          ]
+        },
+        {
+          "id": "F039",
+          "status": "M",
+          "file": "src/app/running/running-session/[sessionId]/_components/RunningSessionSessionContent.tsx",
+          "previousFile": null,
+          "summary": "러닝세션 상세 신청 알림의 색상·여백을 조정하고 추천을 공통 캐러셀로 전환한다.",
+          "symbols": ["styles", "RunningSessionRecommendations"],
+          "ranges": [
+            {
+              "oldStart": 18,
+              "oldCount": 0,
+              "newStart": 19,
+              "newCount": 1,
+              "context": "import { Typography } from '@/components/common/atoms/Typography';"
+            },
+            {
+              "oldStart": 20,
+              "oldCount": 1,
+              "newStart": 20,
+              "newCount": 0,
+              "context": "import { ContentHeader } from '@/components/common/molecules/ContentHeader';"
+            },
+            {
+              "oldStart": 191,
+              "oldCount": 1,
+              "newStart": 191,
+              "newCount": 1,
+              "context": "const styles = {"
+            },
+            {
+              "oldStart": 424,
+              "oldCount": 1,
+              "newStart": 424,
+              "newCount": 1,
+              "context": "export function RunningSessionRecommendations({"
+            },
+            {
+              "oldStart": 437,
+              "oldCount": 1,
+              "newStart": 437,
+              "newCount": 1,
+              "context": "export function RunningSessionRecommendations({"
+            }
+          ],
+          "commits": [
+            {
+              "sha": "6d6da3b72c66a75e136dd1ef633ce27fb69cf9f1",
+              "title": "feat: 공통 캐러셀 가이드와 카트 목업 구성",
+              "date": "2026-11-05T10:13:32+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/6d6da3b72c66a75e136dd1ef633ce27fb69cf9f1"
+            },
+            {
+              "sha": "c63d14e7234c2e0750c041aea7a29f5f4847cc90",
+              "title": "fix: 러닝세션 신청 알림과 목록 이미지 스타일 수정",
+              "date": "2026-11-05T16:35:10+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/c63d14e7234c2e0750c041aea7a29f5f4847cc90"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [
+            { "path": "EXPLORE|Featured|Running Session|상세", "href": null }
+          ],
+          "affectedIa": [259]
+        },
+        {
+          "id": "F043",
+          "status": "M",
+          "file": "src/app/signup/terms/_components/SignupTermsContent.tsx",
+          "previousFile": null,
+          "summary": "약관 모달의 모바일 하단 영역과 본문 확인 버튼 구성을 정리한다.",
+          "symbols": ["TermsDialog"],
+          "ranges": [
+            {
+              "oldStart": 110,
+              "oldCount": 2,
+              "newStart": 110,
+              "newCount": 1,
+              "context": "function TermsDialog({"
+            },
+            {
+              "oldStart": 113,
+              "oldCount": 1,
+              "newStart": 112,
+              "newCount": 1,
+              "context": "function TermsDialog({"
+            },
+            {
+              "oldStart": 139,
+              "oldCount": 0,
+              "newStart": 139,
+              "newCount": 11,
+              "context": "function TermsDialog({"
+            }
+          ],
+          "commits": [
+            {
+              "sha": "7a7d6c2e90f2c68d11ae6ad245a8818f1209e05d",
+              "title": "fix: 모바일 전체 화면 모달 버튼 배치 수정",
+              "date": "2026-11-05T16:11:35+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/7a7d6c2e90f2c68d11ae6ad245a8818f1209e05d"
+            },
+            {
+              "sha": "cd8d51b232cd1ad5bb80904bb0a0657475e144e5",
+              "title": "refactor: 모달 표시 방식과 콘텐츠 버튼 구성 통일",
+              "date": "2026-11-05T16:28:34+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/cd8d51b232cd1ad5bb80904bb0a0657475e144e5"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [{ "path": "회원가입|자체 회원|약관동의", "href": null }],
+          "affectedIa": [236]
+        },
+        {
+          "id": "F048",
+          "status": "M",
+          "file": "src/app/support/inquiries/new/_components/InquiryFormContent.tsx",
+          "previousFile": null,
+          "summary": "문의 주문상품 조회 트리거에 모달 접근성 속성과 포커스 복귀용 ref를 연결한다.",
+          "symbols": ["InquiryOrderProductsProps", "InquiryOrderProducts"],
+          "ranges": [
+            {
+              "oldStart": 3,
+              "oldCount": 1,
+              "newStart": 3,
+              "newCount": 1,
+              "context": ""
+            },
+            {
+              "oldStart": 324,
+              "oldCount": 0,
+              "newStart": 325,
+              "newCount": 1,
+              "context": "type InquiryOrderProductsProps = {"
+            },
+            {
+              "oldStart": 331,
+              "oldCount": 0,
+              "newStart": 333,
+              "newCount": 1,
+              "context": "export function InquiryOrderProducts({"
+            },
+            {
+              "oldStart": 380,
+              "oldCount": 0,
+              "newStart": 383,
+              "newCount": 2,
+              "context": "export function InquiryOrderProducts({"
+            },
+            {
+              "oldStart": 406,
+              "oldCount": 0,
+              "newStart": 411,
+              "newCount": 2,
+              "context": "export function InquiryOrderProducts({"
+            }
+          ],
+          "commits": [
+            {
+              "sha": "7d4883b129778124624a103e201be00f13ad4a4d",
+              "title": "fix: 문의 주문 상품 조회를 모달로 전환",
+              "date": "2026-11-05T16:11:38+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/7d4883b129778124624a103e201be00f13ad4a4d"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [
+            { "path": "마이페이지|Q&A|1:1 문의|등록", "href": null },
+            { "path": "SUPPORT|1:1문의|등록", "href": null }
+          ],
+          "affectedIa": [189, 211]
+        },
+        {
+          "id": "F049",
+          "status": "M",
+          "file": "src/app/support/inquiries/new/_components/InquiryFormLayout.tsx",
+          "previousFile": null,
+          "summary": "문의 등록 화면의 제목과 브레드크럼을 1:1 문의로 맞춘다.",
+          "symbols": ["InquiryFormLayout"],
+          "ranges": [
+            {
+              "oldStart": 3,
+              "oldCount": 1,
+              "newStart": 2,
+              "newCount": 0,
+              "context": "import type { ReactNode } from 'react';"
+            },
+            {
+              "oldStart": 13,
+              "oldCount": 8,
+              "newStart": 12,
+              "newCount": 1,
+              "context": "import { CustomerCenterLayout } from '@/components/support/CustomerCenterLayout'"
+            },
+            {
+              "oldStart": 27,
+              "oldCount": 1,
+              "newStart": 19,
+              "newCount": 1,
+              "context": "export function InquiryFormLayout({"
+            },
+            {
+              "oldStart": 44,
+              "oldCount": 2,
+              "newStart": 36,
+              "newCount": 1,
+              "context": "export function InquiryFormLayout({"
+            }
+          ],
+          "commits": [
+            {
+              "sha": "e6cd1166564fb487a729d7277563164e21bcfd7b",
+              "title": "fix: 문의 제목과 마이페이지 빈 화면 시안 반영",
+              "date": "2026-11-05T12:55:15+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/e6cd1166564fb487a729d7277563164e21bcfd7b"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [
+            { "path": "마이페이지|Q&A|1:1 문의|등록", "href": null },
+            { "path": "SUPPORT|1:1문의|등록", "href": null }
+          ],
+          "affectedIa": [189, 211]
+        },
+        {
+          "id": "F050",
+          "status": "M",
+          "file": "src/app/support/inquiries/new/_components/InquiryFormStatePreview.tsx",
+          "previousFile": null,
+          "summary": "문의 폼에서 주문상품 조회 모달을 열고 선택 결과를 폼에 반영한다.",
+          "symbols": [
+            "InquiryFormStatePreview",
+            "[lookupOpen, setLookupOpen]",
+            "lookupTrigger",
+            "orderState"
+          ],
+          "ranges": [
+            {
+              "oldStart": 2,
+              "oldCount": 3,
+              "newStart": 2,
+              "newCount": 1,
+              "context": ""
+            },
+            {
+              "oldStart": 14,
+              "oldCount": 0,
+              "newStart": 13,
+              "newCount": 4,
+              "context": "import type { InquiryOrderSelection } from '@/app/support/inquiries/new/inquiryO"
+            },
+            {
+              "oldStart": 30,
+              "oldCount": 0,
+              "newStart": 33,
+              "newCount": 1,
+              "context": "export function InquiryFormStatePreview({"
+            },
+            {
+              "oldStart": 41,
+              "oldCount": 0,
+              "newStart": 45,
+              "newCount": 1,
+              "context": "export function InquiryFormStatePreview({"
+            },
+            {
+              "oldStart": 43,
+              "oldCount": 1,
+              "newStart": 47,
+              "newCount": 2,
+              "context": "export function InquiryFormStatePreview({"
+            },
+            {
+              "oldStart": 80,
+              "oldCount": 1,
+              "newStart": 85,
+              "newCount": 1,
+              "context": "export function InquiryFormStatePreview({"
+            },
+            {
+              "oldStart": 102,
+              "oldCount": 1,
+              "newStart": 107,
+              "newCount": 2,
+              "context": "export function InquiryFormStatePreview({"
+            },
+            {
+              "oldStart": 127,
+              "oldCount": 0,
+              "newStart": 134,
+              "newCount": 12,
+              "context": "export function InquiryFormStatePreview({"
+            },
+            {
+              "oldStart": 140,
+              "oldCount": 1,
+              "newStart": 158,
+              "newCount": 1,
+              "context": "export function InquiryFormStatePreview({"
+            }
+          ],
+          "commits": [
+            {
+              "sha": "7d4883b129778124624a103e201be00f13ad4a4d",
+              "title": "fix: 문의 주문 상품 조회를 모달로 전환",
+              "date": "2026-11-05T16:11:38+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/7d4883b129778124624a103e201be00f13ad4a4d"
+            },
+            {
+              "sha": "e6cd1166564fb487a729d7277563164e21bcfd7b",
+              "title": "fix: 문의 제목과 마이페이지 빈 화면 시안 반영",
+              "date": "2026-11-05T12:55:15+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/e6cd1166564fb487a729d7277563164e21bcfd7b"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [
+            { "path": "마이페이지|Q&A|1:1 문의|등록", "href": null },
+            { "path": "SUPPORT|1:1문의|등록", "href": null }
+          ],
+          "affectedIa": [189, 211]
+        },
+        {
+          "id": "F051",
+          "status": "M",
+          "file": "src/app/support/inquiries/new/inquiryOrders.data.ts",
+          "previousFile": null,
+          "summary": "주문상품 조회 목업에 결제완료·구매확정·배송완료 표시값을 추가한다.",
+          "symbols": ["InquiryOrderProduct", "inquiryOrders"],
+          "ranges": [
+            {
+              "oldStart": 9,
+              "oldCount": 0,
+              "newStart": 10,
+              "newCount": 1,
+              "context": "export type InquiryOrderProduct = {"
+            },
+            {
+              "oldStart": 34,
+              "oldCount": 4,
+              "newStart": 35,
+              "newCount": 4,
+              "context": "export const inquiryOrders: InquiryOrder[] = Array.from({ length: 13 }, (_, inde"
+            }
+          ],
+          "commits": [
+            {
+              "sha": "7d4883b129778124624a103e201be00f13ad4a4d",
+              "title": "fix: 문의 주문 상품 조회를 모달로 전환",
+              "date": "2026-11-05T16:11:38+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/7d4883b129778124624a103e201be00f13ad4a4d"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [
+            { "path": "마이페이지|Q&A|1:1 문의|등록", "href": null },
+            { "path": "SUPPORT|1:1문의|등록", "href": null }
+          ],
+          "affectedIa": [189, 211]
+        },
+        {
+          "id": "F052",
+          "status": "M",
+          "file": "src/app/support/inquiries/new/order-products/_components/InquiryOrderLookup.tsx",
+          "previousFile": null,
+          "summary": "주문상품 조회를 공통 모달로 전환하고 기간 필터, 펼침 및 선택 UI를 연결한다.",
+          "symbols": [
+            "orderHeading",
+            "visuallyHidden",
+            "InquiryLookupPreview",
+            "InquiryOrderLookup",
+            "[selection, setSelection]",
+            "[period, setPeriod]",
+            "[expandedOrder, setExpandedOrder]",
+            "[visibleCount, setVisibleCount]",
+            "[dateFrom, setDateFrom]",
+            "filteredOrders",
+            "isExpanded",
+            "isSelected"
+          ],
+          "ranges": [
+            {
+              "oldStart": 3,
+              "oldCount": 2,
+              "newStart": 3,
+              "newCount": 1,
+              "context": ""
+            },
+            {
+              "oldStart": 8,
+              "oldCount": 0,
+              "newStart": 8,
+              "newCount": 1,
+              "context": "import { Box, Flex, Stack } from 'styled-system/jsx';"
+            },
+            {
+              "oldStart": 16,
+              "oldCount": 1,
+              "newStart": 15,
+              "newCount": 0,
+              "context": "import { Typography } from '@/components/common/atoms/Typography';"
+            },
+            {
+              "oldStart": 23,
+              "oldCount": 2,
+              "newStart": 21,
+              "newCount": 0,
+              "context": "import { type InquiryOrderSelection } from '@/app/support/inquiries/new/inquiryO"
+            },
+            {
+              "oldStart": 33,
+              "oldCount": 1,
+              "newStart": 29,
+              "newCount": 0,
+              "context": "const orderHeading = css({"
+            },
+            {
+              "oldStart": 35,
+              "oldCount": 8,
+              "newStart": 30,
+              "newCount": 0,
+              "context": "const orderHeading = css({"
+            },
+            {
+              "oldStart": 43,
+              "oldCount": 0,
+              "newStart": 32,
+              "newCount": 10,
+              "context": "const orderHeading = css({"
+            },
+            {
+              "oldStart": 44,
+              "oldCount": 0,
+              "newStart": 43,
+              "newCount": 1,
+              "context": "const orderHeading = css({"
+            },
+            {
+              "oldStart": 46,
+              "oldCount": 1,
+              "newStart": 45,
+              "newCount": 3,
+              "context": "const visuallyHidden = css({ srOnly: true });"
+            },
+            {
+              "oldStart": 48,
+              "oldCount": 1,
+              "newStart": 48,
+              "newCount": 0,
+              "context": "export function InquiryOrderLookup({"
+            },
+            {
+              "oldStart": 49,
+              "oldCount": 0,
+              "newStart": 50,
+              "newCount": 4,
+              "context": "export function InquiryOrderLookup({"
+            },
+            {
+              "oldStart": 51,
+              "oldCount": 4,
+              "newStart": 55,
+              "newCount": 5,
+              "context": "export function InquiryOrderLookup({"
+            },
+            {
+              "oldStart": 56,
+              "oldCount": 3,
+              "newStart": 61,
+              "newCount": 7,
+              "context": "export function InquiryOrderLookup({"
+            },
+            {
+              "oldStart": 62,
+              "oldCount": 2,
+              "newStart": 71,
+              "newCount": 4,
+              "context": "export function InquiryOrderLookup({"
+            },
+            {
+              "oldStart": 66,
+              "oldCount": 1,
+              "newStart": 77,
+              "newCount": 1,
+              "context": "export function InquiryOrderLookup({"
+            },
+            {
+              "oldStart": 88,
+              "oldCount": 7,
+              "newStart": 99,
+              "newCount": 36,
+              "context": "export function InquiryOrderLookup({"
+            },
+            {
+              "oldStart": 104,
+              "oldCount": 1,
+              "newStart": 143,
+              "newCount": 0,
+              "context": "export function InquiryOrderLookup({"
+            },
+            {
+              "oldStart": 106,
+              "oldCount": 88,
+              "newStart": 145,
+              "newCount": 62,
+              "context": "export function InquiryOrderLookup({"
+            },
+            {
+              "oldStart": 195,
+              "oldCount": 5,
+              "newStart": 208,
+              "newCount": 13,
+              "context": "export function InquiryOrderLookup({"
+            },
+            {
+              "oldStart": 201,
+              "oldCount": 5,
+              "newStart": 222,
+              "newCount": 1,
+              "context": "export function InquiryOrderLookup({"
+            },
+            {
+              "oldStart": 207,
+              "oldCount": 17,
+              "newStart": 224,
+              "newCount": 82,
+              "context": "export function InquiryOrderLookup({"
+            },
+            {
+              "oldStart": 225,
+              "oldCount": 59,
+              "newStart": 306,
+              "newCount": 0,
+              "context": "export function InquiryOrderLookup({"
+            },
+            {
+              "oldStart": 285,
+              "oldCount": 51,
+              "newStart": 308,
+              "newCount": 1,
+              "context": "export function InquiryOrderLookup({"
+            }
+          ],
+          "commits": [
+            {
+              "sha": "7d4883b129778124624a103e201be00f13ad4a4d",
+              "title": "fix: 문의 주문 상품 조회를 모달로 전환",
+              "date": "2026-11-05T16:11:38+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/7d4883b129778124624a103e201be00f13ad4a4d"
+            },
+            {
+              "sha": "e03b57e0d3e59a740a35b2efa2c5e3f03a7d29ab",
+              "title": "refactor: 주문상품 조회 펼침 버튼 공통화",
+              "date": "2026-11-05T11:15:39+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/e03b57e0d3e59a740a35b2efa2c5e3f03a7d29ab"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [
+            { "path": "마이페이지|Q&A|1:1 문의|등록", "href": null },
+            { "path": "SUPPORT|1:1문의|등록", "href": null }
+          ],
+          "affectedIa": [189, 211]
+        },
+        {
+          "id": "F053",
+          "status": "M",
+          "file": "src/app/support/inquiries/new/order-products/page.tsx",
+          "previousFile": null,
+          "summary": "선택된 상품이 있는 주문상품 조회 모달 미리보기를 연결한다.",
+          "symbols": ["Page"],
+          "ranges": [
+            {
+              "oldStart": 1,
+              "oldCount": 1,
+              "newStart": 1,
+              "newCount": 1,
+              "context": ""
+            },
+            {
+              "oldStart": 3,
+              "oldCount": 1,
+              "newStart": 3,
+              "newCount": 1,
+              "context": "import { InquiryOrderLookup } from './_components/InquiryOrderLookup';"
+            },
+            {
+              "oldStart": 5,
+              "oldCount": 1,
+              "newStart": 5,
+              "newCount": 1,
+              "context": "export default function Page() {"
+            }
+          ],
+          "commits": [
+            {
+              "sha": "7d4883b129778124624a103e201be00f13ad4a4d",
+              "title": "fix: 문의 주문 상품 조회를 모달로 전환",
+              "date": "2026-11-05T16:11:38+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/7d4883b129778124624a103e201be00f13ad4a4d"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [
+            {
+              "path": "마이페이지|Q&A|1:1 문의|등록",
+              "href": "/support/inquiries/new/order-products"
+            },
+            {
+              "path": "SUPPORT|1:1문의|등록",
+              "href": "/support/inquiries/new/order-products"
+            }
+          ],
+          "affectedIa": [189, 211]
+        },
+        {
+          "id": "F054",
+          "status": "M",
+          "file": "src/app/support/inquiries/new/order-products/preview-custom/page.tsx",
+          "previousFile": null,
+          "summary": "직접 기간 선택이 열린 주문상품 조회 모달 미리보기를 연결한다.",
+          "symbols": ["Page"],
+          "ranges": [
+            {
+              "oldStart": 1,
+              "oldCount": 1,
+              "newStart": 1,
+              "newCount": 1,
+              "context": ""
+            },
+            {
+              "oldStart": 3,
+              "oldCount": 1,
+              "newStart": 3,
+              "newCount": 1,
+              "context": "import { InquiryOrderLookup } from '@/app/support/inquiries/new/order-products/_"
+            },
+            {
+              "oldStart": 5,
+              "oldCount": 1,
+              "newStart": 5,
+              "newCount": 1,
+              "context": "export default function Page() {"
+            }
+          ],
+          "commits": [
+            {
+              "sha": "7d4883b129778124624a103e201be00f13ad4a4d",
+              "title": "fix: 문의 주문 상품 조회를 모달로 전환",
+              "date": "2026-11-05T16:11:38+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/7d4883b129778124624a103e201be00f13ad4a4d"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [
+            {
+              "path": "마이페이지|Q&A|1:1 문의|등록",
+              "href": "/support/inquiries/new/order-products/preview-custom"
+            },
+            {
+              "path": "SUPPORT|1:1문의|등록",
+              "href": "/support/inquiries/new/order-products/preview-custom"
+            }
+          ],
+          "affectedIa": [189, 211]
+        },
+        {
+          "id": "F055",
+          "status": "M",
+          "file": "src/app/support/inquiries/new/order-products/preview-empty/page.tsx",
+          "previousFile": null,
+          "summary": "검색 결과가 없는 주문상품 조회 모달 미리보기를 연결한다.",
+          "symbols": ["Page"],
+          "ranges": [
+            {
+              "oldStart": 1,
+              "oldCount": 1,
+              "newStart": 1,
+              "newCount": 1,
+              "context": ""
+            },
+            {
+              "oldStart": 3,
+              "oldCount": 1,
+              "newStart": 3,
+              "newCount": 1,
+              "context": "import { InquiryOrderLookup } from '@/app/support/inquiries/new/order-products/_"
+            },
+            {
+              "oldStart": 5,
+              "oldCount": 1,
+              "newStart": 5,
+              "newCount": 1,
+              "context": "export default function Page() {"
+            }
+          ],
+          "commits": [
+            {
+              "sha": "7d4883b129778124624a103e201be00f13ad4a4d",
+              "title": "fix: 문의 주문 상품 조회를 모달로 전환",
+              "date": "2026-11-05T16:11:38+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/7d4883b129778124624a103e201be00f13ad4a4d"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [
+            {
+              "path": "마이페이지|Q&A|1:1 문의|등록",
+              "href": "/support/inquiries/new/order-products/preview-empty"
+            },
+            {
+              "path": "SUPPORT|1:1문의|등록",
+              "href": "/support/inquiries/new/order-products/preview-empty"
+            }
+          ],
+          "affectedIa": [189, 211]
+        },
+        {
+          "id": "F059",
+          "status": "M",
+          "file": "src/components/catalog/ProductListingPage.tsx",
+          "previousFile": null,
+          "summary": "상품 목록·검색 빈 상태 배치와 필터 초기화·닫기 버튼 표현을 보정한다.",
+          "symbols": [
+            "Tag",
+            "CatalogFilterPanelHeader",
+            "ProductListingResults",
+            "ProductListingContent",
+            "SearchListingLayout",
+            "results"
+          ],
+          "ranges": [
+            {
+              "oldStart": 46,
+              "oldCount": 1,
+              "newStart": 45,
+              "newCount": 0,
+              "context": "import { SearchHeader } from '@/components/common/organisms/Search/SearchHeader'"
+            },
+            {
+              "oldStart": 47,
+              "oldCount": 0,
+              "newStart": 47,
+              "newCount": 1,
+              "context": "import { ContentLayout } from '@/components/common/layouts/ContentLayout';"
+            },
+            {
+              "oldStart": 466,
+              "oldCount": 1,
+              "newStart": 466,
+              "newCount": 1,
+              "context": "function Tag({ children, onDelete }: TagProps) {"
+            },
+            {
+              "oldStart": 495,
+              "oldCount": 1,
+              "newStart": 495,
+              "newCount": 1,
+              "context": "function CatalogFilterPanelHeader({ onReset, selectedFilters }: CatalogFilterPan"
+            },
+            {
+              "oldStart": 915,
+              "oldCount": 0,
+              "newStart": 916,
+              "newCount": 1,
+              "context": "function ProductListingResults({"
+            },
+            {
+              "oldStart": 918,
+              "oldCount": 0,
+              "newStart": 920,
+              "newCount": 12,
+              "context": "function ProductListingResults({"
+            },
+            {
+              "oldStart": 1005,
+              "oldCount": 3,
+              "newStart": 1018,
+              "newCount": 4,
+              "context": "function ProductListingContent({"
+            },
+            {
+              "oldStart": 1013,
+              "oldCount": 1,
+              "newStart": 1027,
+              "newCount": 1,
+              "context": "function ProductListingContent({"
+            },
+            {
+              "oldStart": 1017,
+              "oldCount": 1,
+              "newStart": 1031,
+              "newCount": 1,
+              "context": "function ProductListingContent({"
+            },
+            {
+              "oldStart": 1073,
+              "oldCount": 1,
+              "newStart": 1087,
+              "newCount": 1,
+              "context": "function SearchListingLayout({"
+            },
+            {
+              "oldStart": 1076,
+              "oldCount": 1,
+              "newStart": 1090,
+              "newCount": 1,
+              "context": "function SearchListingLayout({"
+            },
+            {
+              "oldStart": 1078,
+              "oldCount": 6,
+              "newStart": 1092,
+              "newCount": 2,
+              "context": "function SearchListingLayout({"
+            },
+            {
+              "oldStart": 1085,
+              "oldCount": 3,
+              "newStart": 1095,
+              "newCount": 7,
+              "context": "function SearchListingLayout({"
+            }
+          ],
+          "commits": [
+            {
+              "sha": "cd8d51b232cd1ad5bb80904bb0a0657475e144e5",
+              "title": "refactor: 모달 표시 방식과 콘텐츠 버튼 구성 통일",
+              "date": "2026-11-05T16:28:34+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/cd8d51b232cd1ad5bb80904bb0a0657475e144e5"
+            },
+            {
+              "sha": "7400834d7f4d8fb6d5064140676f1a3a45a5031f",
+              "title": "fix: 기본형 아이콘 규격과 사용처 가이드 정리",
+              "date": "2026-11-05T11:15:27+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/7400834d7f4d8fb6d5064140676f1a3a45a5031f"
+            },
+            {
+              "sha": "c782b9a2618c134687c2be4d8059f5abaaa71b9d",
+              "title": "fix: 상품 목록·배송지·검색 빈 화면 스타일 통일",
+              "date": "2026-11-05T14:07:48+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/c782b9a2618c134687c2be4d8059f5abaaa71b9d"
+            },
+            {
+              "sha": "69fb04410f7821cdced8baccafcfb0e93baf3e0c",
+              "title": "fix: 빈 상태 정렬과 모바일 내부 여백 보정",
+              "date": "2026-11-05T13:23:23+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/69fb04410f7821cdced8baccafcfb0e93baf3e0c"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [{ "path": "product:eland_hca_01", "href": null }],
+          "affectedIa": [
+            3, 5, 7, 9, 11, 13, 14, 16, 18, 20, 22, 24, 26, 27, 29, 31, 33, 35,
+            37, 39, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68,
+            70, 71, 73, 75, 77, 79, 81, 83, 84, 86, 88, 90, 92, 94, 96, 97, 99,
+            101, 103, 105, 107, 109, 111, 113, 115, 117, 119, 121, 123, 125,
+            127, 128, 130, 132, 134, 136, 138, 140, 141, 143, 145, 147, 149,
+            151, 247, 261, 262, 263, 264, 265, 266
+          ]
+        },
+        {
+          "id": "F060",
+          "status": "M",
+          "file": "src/components/common/atoms/Dropdown.tsx",
+          "previousFile": null,
+          "summary": "모바일 드롭다운 선택 시트를 공통 ModalDialog의 하단 시트로 전환한다.",
+          "symbols": ["Dropdown", "mobileSheet"],
+          "ranges": [
+            {
+              "oldStart": 16,
+              "oldCount": 1,
+              "newStart": 16,
+              "newCount": 1,
+              "context": "import { Typography } from '@/components/common/atoms/Typography';"
+            },
+            {
+              "oldStart": 190,
+              "oldCount": 2,
+              "newStart": 190,
+              "newCount": 4,
+              "context": "export function Dropdown({"
+            },
+            {
+              "oldStart": 194,
+              "oldCount": 2,
+              "newStart": 196,
+              "newCount": 3,
+              "context": "export function Dropdown({"
+            },
+            {
+              "oldStart": 232,
+              "oldCount": 1,
+              "newStart": 235,
+              "newCount": 1,
+              "context": "export function Dropdown({"
+            }
+          ],
+          "commits": [
+            {
+              "sha": "cd8d51b232cd1ad5bb80904bb0a0657475e144e5",
+              "title": "refactor: 모달 표시 방식과 콘텐츠 버튼 구성 통일",
+              "date": "2026-11-05T16:28:34+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/cd8d51b232cd1ad5bb80904bb0a0657475e144e5"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [],
+          "affectedIa": [
+            3, 5, 7, 9, 11, 13, 14, 16, 18, 20, 22, 24, 26, 27, 29, 31, 33, 35,
+            37, 39, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68,
+            70, 71, 73, 75, 77, 79, 81, 83, 84, 86, 88, 90, 92, 94, 96, 97, 99,
+            101, 103, 105, 107, 109, 111, 113, 115, 117, 119, 121, 123, 125,
+            127, 128, 130, 132, 134, 136, 138, 140, 141, 143, 145, 147, 149,
+            151, 171, 178, 179, 180, 181, 189, 191, 192, 193, 200, 201, 202,
+            211, 218, 219, 234, 237, 247, 253, 255, 256, 257, 261, 262, 263,
+            264, 265, 266
+          ]
+        },
+        {
+          "id": "F061",
+          "status": "M",
+          "file": "src/components/common/atoms/EmptyState.tsx",
+          "previousFile": null,
+          "summary": "공통 빈 상태의 제목·액션 간격과 페이지형 내부 여백을 조정한다.",
+          "symbols": ["EmptyStateRoot"],
+          "ranges": [
+            {
+              "oldStart": 86,
+              "oldCount": 1,
+              "newStart": 86,
+              "newCount": 1,
+              "context": "function EmptyStateRoot({"
+            },
+            {
+              "oldStart": 94,
+              "oldCount": 0,
+              "newStart": 95,
+              "newCount": 1,
+              "context": "function EmptyStateRoot({"
+            },
+            {
+              "oldStart": 99,
+              "oldCount": 1,
+              "newStart": 100,
+              "newCount": 6,
+              "context": "function EmptyStateRoot({"
+            },
+            {
+              "oldStart": 110,
+              "oldCount": 1,
+              "newStart": 116,
+              "newCount": 8,
+              "context": "function EmptyStateRoot({"
+            },
+            {
+              "oldStart": 129,
+              "oldCount": 0,
+              "newStart": 143,
+              "newCount": 1,
+              "context": "function EmptyStateRoot({"
+            },
+            {
+              "oldStart": 156,
+              "oldCount": 0,
+              "newStart": 171,
+              "newCount": 1,
+              "context": "function EmptyStateRoot({"
+            }
+          ],
+          "commits": [
+            {
+              "sha": "c782b9a2618c134687c2be4d8059f5abaaa71b9d",
+              "title": "fix: 상품 목록·배송지·검색 빈 화면 스타일 통일",
+              "date": "2026-11-05T14:07:48+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/c782b9a2618c134687c2be4d8059f5abaaa71b9d"
+            },
+            {
+              "sha": "69fb04410f7821cdced8baccafcfb0e93baf3e0c",
+              "title": "fix: 빈 상태 정렬과 모바일 내부 여백 보정",
+              "date": "2026-11-05T13:23:23+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/69fb04410f7821cdced8baccafcfb0e93baf3e0c"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [],
+          "affectedIa": [
+            3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+            22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38,
+            39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55,
+            56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72,
+            73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89,
+            90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104,
+            105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117,
+            118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130,
+            131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143,
+            144, 145, 146, 147, 148, 149, 150, 151, 152, 177, 178, 179, 180,
+            181, 182, 183, 184, 185, 187, 191, 192, 193, 196, 197, 200, 203,
+            204, 205, 207, 208, 210, 247, 258, 261, 262, 263, 264, 265, 266
+          ]
+        },
+        {
+          "id": "F062",
+          "status": "M",
+          "file": "src/components/common/atoms/Icon.assets.ts",
+          "previousFile": null,
+          "summary": "더하기·빼기·닫기 기본형 SVG를 등록하고 제거된 아이콘 참조를 정리한다.",
+          "symbols": ["iconAssets"],
+          "ranges": [
+            {
+              "oldStart": 2,
+              "oldCount": 0,
+              "newStart": 3,
+              "newCount": 8,
+              "context": "export const iconAssets = {"
+            },
+            {
+              "oldStart": 19,
+              "oldCount": 8,
+              "newStart": 26,
+              "newCount": 0,
+              "context": "export const iconAssets = {"
+            },
+            {
+              "oldStart": 175,
+              "oldCount": 4,
+              "newStart": 174,
+              "newCount": 0,
+              "context": "export const iconAssets = {"
+            },
+            {
+              "oldStart": 494,
+              "oldCount": 0,
+              "newStart": 491,
+              "newCount": 4,
+              "context": "export const iconAssets = {"
+            }
+          ],
+          "commits": [
+            {
+              "sha": "7400834d7f4d8fb6d5064140676f1a3a45a5031f",
+              "title": "fix: 기본형 아이콘 규격과 사용처 가이드 정리",
+              "date": "2026-11-05T11:15:27+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/7400834d7f4d8fb6d5064140676f1a3a45a5031f"
+            },
+            {
+              "sha": "11fd1b65c8c168d1b095b44945f0b0246bb4685f",
+              "title": "fix: 닫기 아이콘 규격과 가이드 배경 수정",
+              "date": "2026-11-05T10:13:06+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/11fd1b65c8c168d1b095b44945f0b0246bb4685f"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [],
+          "affectedIa": [
+            1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+            21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37,
+            38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54,
+            55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71,
+            72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88,
+            89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104,
+            105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117,
+            118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130,
+            131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143,
+            144, 145, 146, 147, 148, 149, 150, 151, 152, 159, 160, 161, 162,
+            170, 171, 177, 178, 179, 180, 181, 182, 183, 184, 185, 187, 189,
+            191, 192, 193, 195, 196, 197, 200, 201, 202, 203, 204, 205, 206,
+            207, 208, 209, 210, 211, 212, 213, 216, 217, 218, 219, 223, 224,
+            226, 229, 233, 234, 236, 237, 238, 247, 248, 249, 250, 251, 252,
+            253, 254, 255, 256, 257, 258, 259, 260, 261, 262, 263, 264, 265,
+            266, 267
+          ]
+        },
+        {
+          "id": "F063",
+          "status": "M",
+          "file": "src/components/common/atoms/NumberStepper.tsx",
+          "previousFile": null,
+          "summary": "수량 증감 버튼에 기본형 빼기·더하기 아이콘을 적용한다.",
+          "symbols": ["NumberStepper"],
+          "ranges": [
+            {
+              "oldStart": 88,
+              "oldCount": 1,
+              "newStart": 88,
+              "newCount": 1,
+              "context": "export function NumberStepper({"
+            },
+            {
+              "oldStart": 97,
+              "oldCount": 1,
+              "newStart": 97,
+              "newCount": 1,
+              "context": "export function NumberStepper({"
+            }
+          ],
+          "commits": [
+            {
+              "sha": "7400834d7f4d8fb6d5064140676f1a3a45a5031f",
+              "title": "fix: 기본형 아이콘 규격과 사용처 가이드 정리",
+              "date": "2026-11-05T11:15:27+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/7400834d7f4d8fb6d5064140676f1a3a45a5031f"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [],
+          "affectedIa": [
+            4, 6, 8, 10, 12, 15, 17, 19, 21, 23, 25, 28, 30, 32, 34, 36, 38, 41,
+            43, 45, 47, 49, 51, 53, 55, 57, 59, 61, 63, 65, 67, 69, 72, 74, 76,
+            78, 80, 82, 85, 87, 89, 91, 93, 95, 98, 100, 102, 104, 106, 108,
+            110, 112, 114, 116, 118, 120, 122, 124, 126, 129, 131, 133, 135,
+            137, 139, 142, 144, 146, 148, 150, 152, 170, 178, 179, 180, 181
+          ]
+        },
+        {
+          "id": "F064",
+          "status": "M",
+          "file": "src/components/common/atoms/Wishlist.tsx",
+          "previousFile": null,
+          "summary": "관심상품 토글에 화면별 기본 하트 크기를 적용한다.",
+          "symbols": ["Wishlist"],
+          "ranges": [
+            {
+              "oldStart": 45,
+              "oldCount": 1,
+              "newStart": 45,
+              "newCount": 1,
+              "context": "export type WishlistProps = {"
+            },
+            {
+              "oldStart": 76,
+              "oldCount": 1,
+              "newStart": 76,
+              "newCount": 1,
+              "context": "export function Wishlist({"
+            }
+          ],
+          "commits": [
+            {
+              "sha": "b5d718cf296a4a43cfd985585675a4fefa158e57",
+              "title": "fix: 아이콘 원본과 화면별 크기 및 가이드 수정",
+              "date": "2026-11-05T16:28:19+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/b5d718cf296a4a43cfd985585675a4fefa158e57"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [],
+          "affectedIa": [
+            1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+            21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37,
+            38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54,
+            55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71,
+            72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88,
+            89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104,
+            105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117,
+            118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130,
+            131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143,
+            144, 145, 146, 147, 148, 149, 150, 151, 152, 170, 171, 182, 183,
+            184, 247, 259, 261, 262, 263, 264, 265, 266
+          ]
+        },
+        {
+          "id": "F065",
+          "status": "D",
+          "file": "src/components/common/layouts/BottomSheet.tsx",
+          "previousFile": null,
+          "summary": "하단 시트 구현을 ModalDialog로 통합하면서 독립 BottomSheet를 삭제한다.",
+          "symbols": [],
+          "ranges": [
+            {
+              "oldStart": 1,
+              "oldCount": 243,
+              "newStart": 0,
+              "newCount": 0,
+              "context": ""
+            }
+          ],
+          "commits": [
+            {
+              "sha": "cd8d51b232cd1ad5bb80904bb0a0657475e144e5",
+              "title": "refactor: 모달 표시 방식과 콘텐츠 버튼 구성 통일",
+              "date": "2026-11-05T16:28:34+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/cd8d51b232cd1ad5bb80904bb0a0657475e144e5"
+            }
+          ],
+          "attribution": "file-history-candidate",
+          "owners": [],
+          "affectedIa": [
+            3, 5, 7, 9, 11, 13, 14, 16, 18, 20, 22, 24, 26, 27, 29, 31, 33, 35,
+            37, 39, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68,
+            70, 71, 73, 75, 77, 79, 81, 83, 84, 86, 88, 90, 92, 94, 96, 97, 99,
+            101, 103, 105, 107, 109, 111, 113, 115, 117, 119, 121, 123, 125,
+            127, 128, 130, 132, 134, 136, 138, 140, 141, 143, 145, 147, 149,
+            151, 171, 178, 179, 180, 181, 189, 191, 192, 193, 200, 201, 202,
+            211, 218, 219, 234, 236, 237, 247, 253, 255, 256, 257, 261, 262,
+            263, 264, 265, 266
+          ]
+        },
+        {
+          "id": "F066",
+          "status": "M",
+          "file": "src/components/common/layouts/ModalDialog.tsx",
+          "previousFile": null,
+          "summary": "공통 모달에 모바일 하단 시트와 고정 하단 영역을 통합하고 헤더·본문·버튼 배치를 정리한다.",
+          "symbols": [
+            "header",
+            "ModalDialogHeader",
+            "ModalDialogFooter",
+            "popup",
+            "ModalDialogBaseProps",
+            "ModalDialog",
+            "sheet",
+            "resolvedFooter",
+            "footerInContent",
+            "footerContent"
+          ],
+          "ranges": [
+            {
+              "oldStart": 21,
+              "oldCount": 1,
+              "newStart": 20,
+              "newCount": 0,
+              "context": "const header = css.raw({"
+            },
+            {
+              "oldStart": 33,
+              "oldCount": 0,
+              "newStart": 33,
+              "newCount": 2,
+              "context": "function ModalDialogHeader({"
+            },
+            {
+              "oldStart": 34,
+              "oldCount": 0,
+              "newStart": 36,
+              "newCount": 2,
+              "context": "function ModalDialogHeader({"
+            },
+            {
+              "oldStart": 40,
+              "oldCount": 2,
+              "newStart": 43,
+              "newCount": 23,
+              "context": "function ModalDialogHeader({"
+            },
+            {
+              "oldStart": 46,
+              "oldCount": 2,
+              "newStart": 70,
+              "newCount": 2,
+              "context": "function ModalDialogHeader({"
+            },
+            {
+              "oldStart": 83,
+              "oldCount": 0,
+              "newStart": 108,
+              "newCount": 1,
+              "context": "function ModalDialogFooter({"
+            },
+            {
+              "oldStart": 88,
+              "oldCount": 0,
+              "newStart": 114,
+              "newCount": 1,
+              "context": "function ModalDialogFooter({"
+            },
+            {
+              "oldStart": 101,
+              "oldCount": 0,
+              "newStart": 128,
+              "newCount": 1,
+              "context": "function ModalDialogFooter({"
+            },
+            {
+              "oldStart": 180,
+              "oldCount": 3,
+              "newStart": 207,
+              "newCount": 4,
+              "context": "const popup = cva({"
+            },
+            {
+              "oldStart": 240,
+              "oldCount": 0,
+              "newStart": 269,
+              "newCount": 2,
+              "context": "type ModalDialogBaseProps = {"
+            },
+            {
+              "oldStart": 242,
+              "oldCount": 0,
+              "newStart": 273,
+              "newCount": 3,
+              "context": "type ModalDialogBaseProps = {"
+            },
+            {
+              "oldStart": 323,
+              "oldCount": 0,
+              "newStart": 357,
+              "newCount": 1,
+              "context": "export function ModalDialog({"
+            },
+            {
+              "oldStart": 325,
+              "oldCount": 0,
+              "newStart": 360,
+              "newCount": 2,
+              "context": "export function ModalDialog({"
+            },
+            {
+              "oldStart": 332,
+              "oldCount": 0,
+              "newStart": 369,
+              "newCount": 1,
+              "context": "export function ModalDialog({"
+            },
+            {
+              "oldStart": 338,
+              "oldCount": 0,
+              "newStart": 376,
+              "newCount": 12,
+              "context": "export function ModalDialog({"
+            },
+            {
+              "oldStart": 350,
+              "oldCount": 0,
+              "newStart": 400,
+              "newCount": 2,
+              "context": "export function ModalDialog({"
+            },
+            {
+              "oldStart": 357,
+              "oldCount": 1,
+              "newStart": 408,
+              "newCount": 7,
+              "context": "export function ModalDialog({"
+            },
+            {
+              "oldStart": 359,
+              "oldCount": 1,
+              "newStart": 416,
+              "newCount": 14,
+              "context": "export function ModalDialog({"
+            },
+            {
+              "oldStart": 361,
+              "oldCount": 0,
+              "newStart": 432,
+              "newCount": 1,
+              "context": "export function ModalDialog({"
+            },
+            {
+              "oldStart": 363,
+              "oldCount": 5,
+              "newStart": 434,
+              "newCount": 1,
+              "context": "export function ModalDialog({"
+            }
+          ],
+          "commits": [
+            {
+              "sha": "cd8d51b232cd1ad5bb80904bb0a0657475e144e5",
+              "title": "refactor: 모달 표시 방식과 콘텐츠 버튼 구성 통일",
+              "date": "2026-11-05T16:28:34+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/cd8d51b232cd1ad5bb80904bb0a0657475e144e5"
+            },
+            {
+              "sha": "7400834d7f4d8fb6d5064140676f1a3a45a5031f",
+              "title": "fix: 기본형 아이콘 규격과 사용처 가이드 정리",
+              "date": "2026-11-05T11:15:27+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/7400834d7f4d8fb6d5064140676f1a3a45a5031f"
+            },
+            {
+              "sha": "7a7d6c2e90f2c68d11ae6ad245a8818f1209e05d",
+              "title": "fix: 모바일 전체 화면 모달 버튼 배치 수정",
+              "date": "2026-11-05T16:11:35+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/7a7d6c2e90f2c68d11ae6ad245a8818f1209e05d"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [],
+          "affectedIa": [
+            3, 5, 7, 9, 11, 13, 14, 16, 18, 20, 22, 24, 26, 27, 29, 31, 33, 35,
+            37, 39, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68,
+            70, 71, 73, 75, 77, 79, 81, 83, 84, 86, 88, 90, 92, 94, 96, 97, 99,
+            101, 103, 105, 107, 109, 111, 113, 115, 117, 119, 121, 123, 125,
+            127, 128, 130, 132, 134, 136, 138, 140, 141, 143, 145, 147, 149,
+            151, 170, 171, 177, 178, 179, 180, 181, 182, 183, 184, 187, 189,
+            191, 192, 193, 196, 197, 200, 201, 202, 203, 204, 205, 210, 211,
+            218, 219, 223, 226, 229, 233, 234, 236, 237, 247, 251, 252, 253,
+            255, 256, 257, 259, 261, 262, 263, 264, 265, 266
+          ]
+        },
+        {
+          "id": "F067",
+          "status": "M",
+          "file": "src/components/common/layouts/SidebarNavigationLayout.tsx",
+          "previousFile": null,
+          "summary": "사이드 내비게이션의 제목·링크 스타일과 PC·모바일 메뉴 간격을 조정한다.",
+          "symbols": ["navLink", "SideNavigation", "isActive"],
+          "ranges": [
+            {
+              "oldStart": 28,
+              "oldCount": 1,
+              "newStart": 28,
+              "newCount": 1,
+              "context": "const navLink = cva({"
+            },
+            {
+              "oldStart": 48,
+              "oldCount": 1,
+              "newStart": 48,
+              "newCount": 1,
+              "context": "export function SideNavigation({"
+            },
+            {
+              "oldStart": 78,
+              "oldCount": 1,
+              "newStart": 78,
+              "newCount": 1,
+              "context": "export function SideNavigation({"
+            },
+            {
+              "oldStart": 94,
+              "oldCount": 1,
+              "newStart": 94,
+              "newCount": 1,
+              "context": "export function SideNavigation({"
+            },
+            {
+              "oldStart": 97,
+              "oldCount": 0,
+              "newStart": 98,
+              "newCount": 1,
+              "context": "export function SideNavigation({"
+            },
+            {
+              "oldStart": 108,
+              "oldCount": 1,
+              "newStart": 109,
+              "newCount": 1,
+              "context": "export function SideNavigation({"
+            },
+            {
+              "oldStart": 115,
+              "oldCount": 16,
+              "newStart": 116,
+              "newCount": 17,
+              "context": "export function SideNavigation({"
+            },
+            {
+              "oldStart": 132,
+              "oldCount": 22,
+              "newStart": 134,
+              "newCount": 11,
+              "context": "export function SideNavigation({"
+            },
+            {
+              "oldStart": 155,
+              "oldCount": 9,
+              "newStart": 146,
+              "newCount": 17,
+              "context": "export function SideNavigation({"
+            }
+          ],
+          "commits": [
+            {
+              "sha": "3b333a30f2737b4ca3f4fe801199df9d64c8d334",
+              "title": "fix: 마이페이지와 고객센터 화면 배치 보정",
+              "date": "2026-11-05T13:46:25+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/3b333a30f2737b4ca3f4fe801199df9d64c8d334"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [],
+          "affectedIa": [
+            177, 178, 179, 180, 181, 182, 183, 184, 185, 187, 189, 191, 192,
+            193, 195, 196, 197, 200, 201, 202, 203, 204, 205, 206, 207, 208,
+            209, 210, 211, 212, 213, 216, 217, 218, 219, 260
+          ]
+        },
+        {
+          "id": "F068",
+          "status": "R077",
+          "file": "src/components/common/molecules/CarouselSection.tsx",
+          "previousFile": "src/components/common/molecules/HomeCarouselSection.tsx",
+          "summary": "홈 전용 캐러셀을 공통 CarouselSection으로 전환하고 필터 슬롯과 레일 구성을 제공한다.",
+          "symbols": [
+            "Props",
+            "CarouselSectionRail",
+            "CarouselSectionProps",
+            "CarouselSection"
+          ],
+          "ranges": [
+            {
+              "oldStart": 5,
+              "oldCount": 1,
+              "newStart": 5,
+              "newCount": 1,
+              "context": "import { css } from 'styled-system/css';"
+            },
+            {
+              "oldStart": 16,
+              "oldCount": 1,
+              "newStart": 16,
+              "newCount": 1,
+              "context": "import type { MainSectionProps } from '@/types/component-contracts/components-co"
+            },
+            {
+              "oldStart": 38,
+              "oldCount": 1,
+              "newStart": 38,
+              "newCount": 1,
+              "context": "type Props = Pick<"
+            },
+            {
+              "oldStart": 52,
+              "oldCount": 1,
+              "newStart": 52,
+              "newCount": 1,
+              "context": "type Props = Pick<"
+            },
+            {
+              "oldStart": 111,
+              "oldCount": 1,
+              "newStart": 111,
+              "newCount": 1,
+              "context": "function HomeCarouselRail({"
+            },
+            {
+              "oldStart": 119,
+              "oldCount": 0,
+              "newStart": 120,
+              "newCount": 2,
+              "context": "export type HomeCarouselSectionProps = {"
+            },
+            {
+              "oldStart": 131,
+              "oldCount": 2,
+              "newStart": 133,
+              "newCount": 2,
+              "context": "export type HomeCarouselSectionProps = {"
+            },
+            {
+              "oldStart": 140,
+              "oldCount": 0,
+              "newStart": 143,
+              "newCount": 1,
+              "context": "export function HomeCarouselSection({"
+            },
+            {
+              "oldStart": 148,
+              "oldCount": 1,
+              "newStart": 151,
+              "newCount": 1,
+              "context": "export function HomeCarouselSection({"
+            },
+            {
+              "oldStart": 155,
+              "oldCount": 3,
+              "newStart": 158,
+              "newCount": 5,
+              "context": "export function HomeCarouselSection({"
+            },
+            {
+              "oldStart": 162,
+              "oldCount": 0,
+              "newStart": 168,
+              "newCount": 17,
+              "context": "export function HomeCarouselSection({"
+            },
+            {
+              "oldStart": 164,
+              "oldCount": 1,
+              "newStart": 186,
+              "newCount": 1,
+              "context": "export function HomeCarouselSection({"
+            },
+            {
+              "oldStart": 176,
+              "oldCount": 1,
+              "newStart": 198,
+              "newCount": 1,
+              "context": "export function HomeCarouselSection({"
+            }
+          ],
+          "commits": [
+            {
+              "sha": "6d6da3b72c66a75e136dd1ef633ce27fb69cf9f1",
+              "title": "feat: 공통 캐러셀 가이드와 카트 목업 구성",
+              "date": "2026-11-05T10:13:32+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/6d6da3b72c66a75e136dd1ef633ce27fb69cf9f1"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [],
+          "affectedIa": [
+            1, 4, 6, 8, 10, 12, 15, 17, 19, 21, 23, 25, 28, 30, 32, 34, 36, 38,
+            41, 43, 45, 47, 49, 51, 53, 55, 57, 59, 61, 63, 65, 67, 69, 72, 74,
+            76, 78, 80, 82, 85, 87, 89, 91, 93, 95, 98, 100, 102, 104, 106, 108,
+            110, 112, 114, 116, 118, 120, 122, 124, 126, 129, 131, 133, 135,
+            137, 139, 142, 144, 146, 148, 150, 152, 170, 259
+          ]
+        },
+        {
+          "id": "F069",
+          "status": "M",
+          "file": "src/components/common/molecules/PreviousTermsPicker.tsx",
+          "previousFile": null,
+          "summary": "이전 약관 선택 시트를 공통 ModalDialog로 전환하고 닫기 후 포커스 복귀를 연결한다.",
+          "symbols": ["PreviousTermsPicker"],
+          "ranges": [
+            {
+              "oldStart": 13,
+              "oldCount": 1,
+              "newStart": 12,
+              "newCount": 0,
+              "context": "import { Typography } from '@/components/common/atoms/Typography';"
+            },
+            {
+              "oldStart": 47,
+              "oldCount": 1,
+              "newStart": 46,
+              "newCount": 1,
+              "context": "export function PreviousTermsPicker({"
+            },
+            {
+              "oldStart": 59,
+              "oldCount": 2,
+              "newStart": 58,
+              "newCount": 4,
+              "context": "export function PreviousTermsPicker({"
+            },
+            {
+              "oldStart": 62,
+              "oldCount": 2,
+              "newStart": 63,
+              "newCount": 2,
+              "context": "export function PreviousTermsPicker({"
+            },
+            {
+              "oldStart": 96,
+              "oldCount": 1,
+              "newStart": 97,
+              "newCount": 1,
+              "context": "export function PreviousTermsPicker({"
+            }
+          ],
+          "commits": [
+            {
+              "sha": "cd8d51b232cd1ad5bb80904bb0a0657475e144e5",
+              "title": "refactor: 모달 표시 방식과 콘텐츠 버튼 구성 통일",
+              "date": "2026-11-05T16:28:34+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/cd8d51b232cd1ad5bb80904bb0a0657475e144e5"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [],
+          "affectedIa": [234, 236, 253, 257]
+        },
+        {
+          "id": "F070",
+          "status": "M",
+          "file": "src/components/common/molecules/ProductCard/ProductCard.tsx",
+          "previousFile": null,
+          "summary": "상품 카드의 관심상품 아이콘 크기를 카드 유형과 화면에 맞춰 조정한다.",
+          "symbols": ["ProductCard"],
+          "ranges": [
+            {
+              "oldStart": 825,
+              "oldCount": 1,
+              "newStart": 825,
+              "newCount": 1,
+              "context": "export function ProductCard({"
+            },
+            {
+              "oldStart": 831,
+              "oldCount": 3,
+              "newStart": 831,
+              "newCount": 5,
+              "context": "export function ProductCard({"
+            }
+          ],
+          "commits": [
+            {
+              "sha": "b5d718cf296a4a43cfd985585675a4fefa158e57",
+              "title": "fix: 아이콘 원본과 화면별 크기 및 가이드 수정",
+              "date": "2026-11-05T16:28:19+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/b5d718cf296a4a43cfd985585675a4fefa158e57"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [],
+          "affectedIa": [
+            1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+            21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37,
+            38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54,
+            55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71,
+            72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88,
+            89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104,
+            105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117,
+            118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130,
+            131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143,
+            144, 145, 146, 147, 148, 149, 150, 151, 152, 170, 171, 182, 183,
+            184, 247, 259, 261, 262, 263, 264, 265, 266
+          ]
+        },
+        {
+          "id": "F071",
+          "status": "M",
+          "file": "src/components/common/molecules/StepIndicator.tsx",
+          "previousFile": null,
+          "summary": "단계 표시 완료 아이콘과 원형 배경 크기를 조정한다.",
+          "symbols": ["StepIndicator"],
+          "ranges": [
+            {
+              "oldStart": 111,
+              "oldCount": 1,
+              "newStart": 111,
+              "newCount": 1,
+              "context": "export function StepIndicator({"
+            },
+            {
+              "oldStart": 113,
+              "oldCount": 1,
+              "newStart": 113,
+              "newCount": 1,
+              "context": "export function StepIndicator({"
+            }
+          ],
+          "commits": [
+            {
+              "sha": "b5d718cf296a4a43cfd985585675a4fefa158e57",
+              "title": "fix: 아이콘 원본과 화면별 크기 및 가이드 수정",
+              "date": "2026-11-05T16:28:19+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/b5d718cf296a4a43cfd985585675a4fefa158e57"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [],
+          "affectedIa": [178, 179, 180, 181]
+        },
+        {
+          "id": "F072",
+          "status": "M",
+          "file": "src/components/common/organisms/OrderRecommendations.tsx",
+          "previousFile": null,
+          "summary": "주문 추천 상품에 기존 간결형과 주문서용 레이아웃을 구분한다.",
+          "symbols": [
+            "OrderRecommendationLayout",
+            "OrderRecommendationItem",
+            "OrderRecommendations",
+            "viewport"
+          ],
+          "ranges": [
+            {
+              "oldStart": 31,
+              "oldCount": 1,
+              "newStart": 31,
+              "newCount": 1,
+              "context": "type OrderRecommendation = {"
+            },
+            {
+              "oldStart": 40,
+              "oldCount": 7,
+              "newStart": 40,
+              "newCount": 1,
+              "context": "function OrderRecommendationItem({ item, layout = 'compact' }: Props) {"
+            },
+            {
+              "oldStart": 77,
+              "oldCount": 1,
+              "newStart": 70,
+              "newCount": 0,
+              "context": "export function OrderRecommendations({"
+            },
+            {
+              "oldStart": 82,
+              "oldCount": 7,
+              "newStart": 75,
+              "newCount": 1,
+              "context": "export function OrderRecommendations({"
+            },
+            {
+              "oldStart": 132,
+              "oldCount": 27,
+              "newStart": 118,
+              "newCount": 0,
+              "context": "export function OrderRecommendations({"
+            },
+            {
+              "oldStart": 161,
+              "oldCount": 4,
+              "newStart": 121,
+              "newCount": 2,
+              "context": "export function OrderRecommendations({"
+            },
+            {
+              "oldStart": 170,
+              "oldCount": 7,
+              "newStart": 128,
+              "newCount": 1,
+              "context": "export function OrderRecommendations({"
+            },
+            {
+              "oldStart": 179,
+              "oldCount": 1,
+              "newStart": 131,
+              "newCount": 1,
+              "context": "export function OrderRecommendations({"
+            }
+          ],
+          "commits": [
+            {
+              "sha": "6d6da3b72c66a75e136dd1ef633ce27fb69cf9f1",
+              "title": "feat: 공통 캐러셀 가이드와 카트 목업 구성",
+              "date": "2026-11-05T10:13:32+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/6d6da3b72c66a75e136dd1ef633ce27fb69cf9f1"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [],
+          "affectedIa": [170, 171]
+        },
+        {
+          "id": "F073",
+          "status": "M",
+          "file": "src/components/mypage/MyPageFrame.tsx",
+          "previousFile": null,
+          "summary": "마이페이지 공통 본문 너비를 최대 1532px로 제한한다.",
+          "symbols": ["MyPageFrame"],
+          "ranges": [
+            {
+              "oldStart": 65,
+              "oldCount": 1,
+              "newStart": 65,
+              "newCount": 1,
+              "context": "export function MyPageFrame({"
+            }
+          ],
+          "commits": [
+            {
+              "sha": "3b333a30f2737b4ca3f4fe801199df9d64c8d334",
+              "title": "fix: 마이페이지와 고객센터 화면 배치 보정",
+              "date": "2026-11-05T13:46:25+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/3b333a30f2737b4ca3f4fe801199df9d64c8d334"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [],
+          "affectedIa": [
+            177, 178, 179, 180, 181, 182, 183, 184, 191, 192, 193, 195, 196,
+            197, 200, 201, 202, 203, 204, 205
+          ]
+        },
+        {
+          "id": "F074",
+          "status": "M",
+          "file": "src/components/mypage/MyPageProductHistory.tsx",
+          "previousFile": null,
+          "summary": "관심상품·최근 본 상품·재입고 목록의 빈 상태와 모바일 여백을 조정한다.",
+          "symbols": ["MyPageProductHistory"],
+          "ranges": [
+            {
+              "oldStart": 376,
+              "oldCount": 2,
+              "newStart": 376,
+              "newCount": 6,
+              "context": "export function MyPageProductHistory({"
+            },
+            {
+              "oldStart": 399,
+              "oldCount": 1,
+              "newStart": 403,
+              "newCount": 1,
+              "context": "export function MyPageProductHistory({"
+            },
+            {
+              "oldStart": 421,
+              "oldCount": 13,
+              "newStart": 425,
+              "newCount": 38,
+              "context": "export function MyPageProductHistory({"
+            },
+            {
+              "oldStart": 461,
+              "oldCount": 20,
+              "newStart": 489,
+              "newCount": 0,
+              "context": "export function MyPageProductHistory({"
+            },
+            {
+              "oldStart": 483,
+              "oldCount": 1,
+              "newStart": 492,
+              "newCount": 1,
+              "context": "export function MyPageProductHistory({"
+            },
+            {
+              "oldStart": 498,
+              "oldCount": 1,
+              "newStart": 507,
+              "newCount": 1,
+              "context": "export function MyPageProductHistory({"
+            },
+            {
+              "oldStart": 513,
+              "oldCount": 2,
+              "newStart": 522,
+              "newCount": 1,
+              "context": "export function MyPageProductHistory({"
+            },
+            {
+              "oldStart": 518,
+              "oldCount": 1,
+              "newStart": 525,
+              "newCount": 0,
+              "context": "export function MyPageProductHistory({"
+            }
+          ],
+          "commits": [
+            {
+              "sha": "e6cd1166564fb487a729d7277563164e21bcfd7b",
+              "title": "fix: 문의 제목과 마이페이지 빈 화면 시안 반영",
+              "date": "2026-11-05T12:55:15+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/e6cd1166564fb487a729d7277563164e21bcfd7b"
+            },
+            {
+              "sha": "69fb04410f7821cdced8baccafcfb0e93baf3e0c",
+              "title": "fix: 빈 상태 정렬과 모바일 내부 여백 보정",
+              "date": "2026-11-05T13:23:23+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/69fb04410f7821cdced8baccafcfb0e93baf3e0c"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [
+            { "path": "마이페이지|상품내역|관심상품|목록", "href": null },
+            { "path": "마이페이지|상품내역|오늘 본 상품|목록", "href": null },
+            {
+              "path": "마이페이지|상품내역|재입고 알림 상품|목록",
+              "href": null
+            }
+          ],
+          "affectedIa": [182, 183, 184]
+        },
+        {
+          "id": "F076",
+          "status": "M",
+          "file": "src/components/running-session/RunningSessionPage.tsx",
+          "previousFile": null,
+          "summary": "러닝세션 목록 이미지의 모서리와 모바일 비율, 빈 결과 높이·여백을 조정한다.",
+          "symbols": ["styles", "RunningSessionEmptyState"],
+          "ranges": [
+            {
+              "oldStart": 218,
+              "oldCount": 2,
+              "newStart": 218,
+              "newCount": 2,
+              "context": "const styles = {"
+            },
+            {
+              "oldStart": 330,
+              "oldCount": 1,
+              "newStart": 330,
+              "newCount": 4,
+              "context": "function RunningSessionEmptyState() {"
+            }
+          ],
+          "commits": [
+            {
+              "sha": "c63d14e7234c2e0750c041aea7a29f5f4847cc90",
+              "title": "fix: 러닝세션 신청 알림과 목록 이미지 스타일 수정",
+              "date": "2026-11-05T16:35:10+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/c63d14e7234c2e0750c041aea7a29f5f4847cc90"
+            },
+            {
+              "sha": "69fb04410f7821cdced8baccafcfb0e93baf3e0c",
+              "title": "fix: 빈 상태 정렬과 모바일 내부 여백 보정",
+              "date": "2026-11-05T13:23:23+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/69fb04410f7821cdced8baccafcfb0e93baf3e0c"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [
+            { "path": "EXPLORE|Featured|Running Session|목록", "href": null }
+          ],
+          "affectedIa": [258]
+        },
+        {
+          "id": "F079",
+          "status": "M",
+          "file": "src/context/ShopShell.tsx",
+          "previousFile": null,
+          "summary": "헤더 장바구니 카운트에 별도 글자색을 전달해 검정으로 표시한다.",
+          "symbols": [
+            "NotificationCountProps",
+            "NotificationCount",
+            "NotificationIconProps",
+            "NotificationIcon",
+            "HeaderCartLink"
+          ],
+          "ranges": [
+            {
+              "oldStart": 48,
+              "oldCount": 1,
+              "newStart": 48,
+              "newCount": 1,
+              "context": "import { TextInput } from '@/components/common/atoms/TextInput';"
+            },
+            {
+              "oldStart": 2024,
+              "oldCount": 0,
+              "newStart": 2025,
+              "newCount": 1,
+              "context": "type NotificationCountProps = ComponentPropsWithoutRef<'span'> & {"
+            },
+            {
+              "oldStart": 2027,
+              "oldCount": 1,
+              "newStart": 2028,
+              "newCount": 7,
+              "context": "type NotificationCountProps = ComponentPropsWithoutRef<'span'> & {"
+            },
+            {
+              "oldStart": 2046,
+              "oldCount": 1,
+              "newStart": 2053,
+              "newCount": 1,
+              "context": "function NotificationCount({ count = 0, max = 99, className, ...props }: Notific"
+            },
+            {
+              "oldStart": 2073,
+              "oldCount": 0,
+              "newStart": 2081,
+              "newCount": 1,
+              "context": "type NotificationIconProps = Omit<HTMLAttributes<HTMLSpanElement>, 'color'> & {"
+            },
+            {
+              "oldStart": 2082,
+              "oldCount": 0,
+              "newStart": 2091,
+              "newCount": 1,
+              "context": "function NotificationIcon({"
+            },
+            {
+              "oldStart": 2112,
+              "oldCount": 1,
+              "newStart": 2121,
+              "newCount": 1,
+              "context": "function NotificationIcon({"
+            },
+            {
+              "oldStart": 2161,
+              "oldCount": 0,
+              "newStart": 2171,
+              "newCount": 1,
+              "context": "function HeaderCartLink({ cart }: HeaderCartLinkProps) {"
+            }
+          ],
+          "commits": [
+            {
+              "sha": "d6120922eb8ab181be68425b7eae0d74886b4c8c",
+              "title": "fix: 헤더 장바구니 숫자를 검정으로 변경",
+              "date": "2026-11-05T16:35:22+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/d6120922eb8ab181be68425b7eae0d74886b4c8c"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [],
+          "affectedIa": [
+            1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+            21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37,
+            38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54,
+            55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71,
+            72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88,
+            89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104,
+            105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117,
+            118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130,
+            131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143,
+            144, 145, 146, 147, 148, 149, 150, 151, 152, 159, 160, 161, 162,
+            170, 171, 177, 178, 179, 180, 181, 182, 183, 184, 185, 187, 189,
+            191, 192, 193, 195, 196, 197, 200, 201, 202, 203, 204, 205, 206,
+            207, 208, 209, 210, 211, 212, 213, 216, 217, 218, 219, 223, 224,
+            226, 229, 233, 234, 236, 237, 238, 247, 248, 249, 250, 251, 252,
+            253, 254, 255, 256, 257, 258, 259, 260, 261, 262, 263, 264, 265,
+            266, 267
+          ]
+        },
+        {
+          "id": "F080",
+          "status": "R081",
+          "file": "src/types/component-contracts/components-common-molecules-CarouselSection-CarouselSection.d.ts",
+          "previousFile": "src/types/component-contracts/components-common-molecules-HomeCarouselSection-HomeCarouselSection.d.ts",
+          "summary": "공통 캐러셀 이름과 필터 슬롯을 컴포넌트 타입 선언에 반영한다.",
+          "symbols": [
+            "Props",
+            "CarouselSectionRail",
+            "CarouselSectionProps",
+            "CarouselSection"
+          ],
+          "ranges": [
+            {
+              "oldStart": 5,
+              "oldCount": 1,
+              "newStart": 5,
+              "newCount": 1,
+              "context": "import { type Platform } from '@/context/platform';"
+            },
+            {
+              "oldStart": 9,
+              "oldCount": 1,
+              "newStart": 9,
+              "newCount": 1,
+              "context": "type Props = Pick<"
+            },
+            {
+              "oldStart": 22,
+              "oldCount": 1,
+              "newStart": 22,
+              "newCount": 1,
+              "context": "type Props = Pick<"
+            },
+            {
+              "oldStart": 34,
+              "oldCount": 1,
+              "newStart": 34,
+              "newCount": 1,
+              "context": "declare function HomeCarouselRail({"
+            },
+            {
+              "oldStart": 42,
+              "oldCount": 0,
+              "newStart": 43,
+              "newCount": 1,
+              "context": "export type HomeCarouselSectionProps = {"
+            },
+            {
+              "oldStart": 54,
+              "oldCount": 1,
+              "newStart": 55,
+              "newCount": 1,
+              "context": "export type HomeCarouselSectionProps = {"
+            },
+            {
+              "oldStart": 70,
+              "oldCount": 2,
+              "newStart": 71,
+              "newCount": 2,
+              "context": "export declare function HomeCarouselSection({"
+            }
+          ],
+          "commits": [
+            {
+              "sha": "6d6da3b72c66a75e136dd1ef633ce27fb69cf9f1",
+              "title": "feat: 공통 캐러셀 가이드와 카트 목업 구성",
+              "date": "2026-11-05T10:13:32+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/6d6da3b72c66a75e136dd1ef633ce27fb69cf9f1"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [],
+          "affectedIa": []
+        },
+        {
+          "id": "F081",
+          "status": "M",
+          "file": "src/types/component-contracts/context-ShopShell.d.ts",
+          "previousFile": null,
+          "summary": "헤더 알림 카운트의 글자색 전달 옵션을 타입 선언에 반영한다.",
+          "symbols": [
+            "NotificationCountProps",
+            "NotificationCount",
+            "NotificationIconProps",
+            "NotificationIcon"
+          ],
+          "ranges": [
+            {
+              "oldStart": 14,
+              "oldCount": 0,
+              "newStart": 15,
+              "newCount": 1,
+              "context": "import type { IconAssetName } from '@/components/common/atoms/Icon';"
+            },
+            {
+              "oldStart": 346,
+              "oldCount": 0,
+              "newStart": 348,
+              "newCount": 1,
+              "context": "type NotificationCountProps = ComponentPropsWithoutRef<'span'> & {"
+            },
+            {
+              "oldStart": 351,
+              "oldCount": 0,
+              "newStart": 354,
+              "newCount": 1,
+              "context": "declare function NotificationCount({"
+            },
+            {
+              "oldStart": 358,
+              "oldCount": 0,
+              "newStart": 362,
+              "newCount": 1,
+              "context": "type NotificationIconProps = Omit<HTMLAttributes<HTMLSpanElement>, 'color'> & {"
+            },
+            {
+              "oldStart": 366,
+              "oldCount": 0,
+              "newStart": 371,
+              "newCount": 1,
+              "context": "declare function NotificationIcon({"
+            }
+          ],
+          "commits": [
+            {
+              "sha": "d6120922eb8ab181be68425b7eae0d74886b4c8c",
+              "title": "fix: 헤더 장바구니 숫자를 검정으로 변경",
+              "date": "2026-11-05T16:35:22+09:00",
+              "url": "https://github.com/nalpari/hoka-fo-pub/commit/d6120922eb8ab181be68425b7eae0d74886b4c8c"
+            }
+          ],
+          "attribution": "final-lines",
+          "owners": [],
+          "affectedIa": []
+        }
+      ],
+      "rawChangedFileCount": 111,
+      "excludedMarkdownFileCount": 18,
+      "excludedFileCounts": { "markdown": 18, "publishingGuide": 5, "ia": 7 },
+      "excludedAuthors": ["nalpari"],
+      "excludedAuthorFiles": [
+        "scripts/okf-sync.mjs",
+        "src/app/homeContent.ts",
+        "src/app/login/account-locked/complete/page.tsx",
+        "src/app/login/account-locked/page.tsx",
+        "src/app/mypage/coupons/page.tsx",
+        "src/app/mypage/mypage-home-data.ts",
+        "src/app/mypage/page.tsx",
+        "src/app/mypage/recent/page.tsx",
+        "src/app/mypage/restock-alerts/page.tsx",
+        "src/app/mypage/reviews/_components/ReviewStatePreview.tsx",
+        "src/app/mypage/reviews/reviewFixtures.ts",
+        "src/app/mypage/wishlist/page.tsx",
+        "src/app/page.tsx",
+        "src/app/search/page.tsx",
+        "src/app/signup/complete/page.tsx",
+        "src/app/signup/information/registration.types.ts",
+        "src/app/signup/verify/page.tsx",
+        "src/app/support/faq/faq.data.ts",
+        "src/app/support/faq/page.tsx",
+        "src/app/support/inquiries/_components/InquiryListPreview.tsx",
+        "src/app/support/member-benefits/page.tsx",
+        "src/app/support/notices/notices.data.ts",
+        "src/app/support/terms/page.tsx",
+        "src/components/phone-verification/phone-verification.types.ts",
+        "src/context/InquiryPreviewContext.ts",
+        "src/context/RunningSessionSessionContext.ts"
+      ],
+      "excludedAuthorHunkCount": 0,
+      "findings": [],
+      "mappingRevision": "3719352bb2fbe33689e1bdb5cf4302816f150886",
+      "completedAt": "2026-11-05T07:47:55.730Z",
+      "validation": {
+        "testsPassed": 11,
+        "typecheck": "passed",
+        "eslint": "passed",
+        "browser": "ALL 55 rows, 5 columns; 김진영 27 rows",
+        "productionBuild": "not-run"
+      }
     }
   ]
 }

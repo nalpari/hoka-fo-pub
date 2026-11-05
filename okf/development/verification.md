@@ -4,7 +4,7 @@ title: '변경 검증'
 description: '변경 범위에 맞는 정적 검사, 빌드와 수동 검증을 안내한다.'
 tags: [verification, testing, build]
 status: draft
-updated: '2026-11-05T06:21:48Z'
+updated: '2026-11-05T07:47:55.730Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
@@ -686,3 +686,9 @@ main-change-history 테스트11개와 전체 typecheck를 통과했다. 브라�
 URL의 developer=ALL을 담당자 이름으로 해석하던 원인을 수정한다. 예약값 all/unassigned는 공백 제거 후 대소문자와 관계없이 정규화하고 실제 담당자 이름은 보존한다. URL 파싱과 전체 결과 필터 연결을 회귀 검사한다. 출처: screenChangeHistory.ts, tests/main-change-history.test.mjs 작업 트리, codex, 2026-11-05T01:25:12.647Z.
 
 검증: 관련 테스트11개·전체 typecheck·변경 ESLint 통과. 브라우저에서 배포 URL의 ALL=0건을 재현하고, 수정된 로컬 URL의 ALL=전체208행을 확인했다. 배포 반영은 아직 수행하지 않았다.
+
+## 11월 5일 변경 보고서 (2026-11-05)
+
+관련 테스트 11개, 전체 타입 검사 및 변경 파일 ESLint를 통과했다. 로컬 브라우저에서 전체 55행·5열, 김진영 필터 27행을 확인했다. 제품 전체 회귀 검사와 배포 빌드는 수행하지 않았다. 회귀 검사는 보고서 자체 테스트 파일을 IA 제외 목록으로 분류하고 기존 및 새 보고서의 파일 목록을 비교한다.
+
+출처: screenChangeHistory.ts, screenChangeHistory.generated.json, tests/main-change-history.test.mjs 작업 트리 및 ccd82db0 → 3719352b Git 비교. 기록: codex, 2026-11-05T07:47:55.730Z.

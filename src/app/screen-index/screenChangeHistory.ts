@@ -3,11 +3,27 @@ import type { ScreenDefinition } from '@/data/screenRegistry';
 import history from './screenChangeHistory.generated.json';
 import { getScreenDeveloperNames, getScreenDevelopers } from './screenDevelopers';
 
-export type ChangeHistoryEntry = (typeof history.reports)[number]['entries'][number];
+export type ChangeHistoryEntry = {
+  id: string;
+  status: string;
+  file: string;
+  previousFile: string | null;
+  summary: string;
+  ranges: { oldStart: number; oldCount: number; newStart: number; newCount: number }[];
+  owners: { path: string; href: string | null }[];
+  affectedIa: number[];
+};
 
-export type ChangeHistoryReport = (typeof history.reports)[number];
+export type ChangeHistoryReport = {
+  reportId: string;
+  baseSha: string;
+  targetSha: string;
+  collectedAtKst: string;
+  remote: string;
+  entries: ChangeHistoryEntry[];
+};
 
-export const screenChangeReports = history.reports;
+export const screenChangeReports: readonly ChangeHistoryReport[] = history.reports;
 
 export function getReportUrlState(query: string) {
   const params = new URLSearchParams(query);
