@@ -107,10 +107,8 @@ function TermsDialog({
       title={title}
       closeLabel="약관 닫기"
       mobilePresentation="fullscreen"
-      scrollFade
-      actions={{ kind: 'single', onConfirm: () => onOpenChange(false) }}
     >
-      <Stack gap="0" minH="0" flex="1" pb="20">
+      <Stack gap="0">
         <HStack justify="space-between" gap="2" mb="4">
           <Typography variant="body3">{label}</Typography>
           {version ? (
@@ -137,6 +135,17 @@ function TermsDialog({
             </Typography>
           </Box>
         ) : null}
+        <HStack justifyContent="center" pt="6">
+          <Button
+            variant="primary"
+            size="tall"
+            fullWidth
+            onClick={() => onOpenChange(false)}
+            className={css({ maxW: '180px', _mobile: { maxW: 'none' } })}
+          >
+            확인
+          </Button>
+        </HStack>
       </Stack>
     </ModalDialog>
   );

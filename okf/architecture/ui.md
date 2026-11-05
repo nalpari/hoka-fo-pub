@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-04T09:26:00Z'
+updated: '2026-11-05T06:14:32Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -15,7 +15,6 @@ working_tree_sources:
   - src/app/screen-index/page.tsx
   - src/app/screen-index/screenChangeHistory.ts
   - src/app/screen-index/screenChangeHistory.generated.json
-  - src/components/common/layouts/BottomSheet.tsx
   - src/app/support/inquiries/new/_components/InquiryFormContent.tsx
   - src/components/common/molecules/PreviousTermsPicker.tsx
   - src/components/common/atoms/Dropdown.tsx
@@ -87,7 +86,6 @@ working_tree_sources:
   - src/app/support/notices/_components/NoticesContent.tsx
   - src/app/support/faq/_components/FaqContent.tsx
   - src/stories/components/common/atoms/EmptyState/EmptyState.stories.tsx
-  - src/components/common/layouts/BottomSheet.tsx
   - public/images/navigation/clifton-utl.webp
   - src/app/support/inquiries/_components/InquiryListContent.tsx
   - src/app/support/inquiries/_components/InquiryListLayout.tsx
@@ -4757,3 +4755,13 @@ Figma Navigational Buttons(296:25392)와 Action Buttons(296:25425)의 기본·�
 - 공유 아이콘 arrow-up-from-bracket-regular를 Figma 296:20401의 18px 원본으로 교체하고 기본형 가이드로 이동했다. 상품 상세 ShareButton 아이콘은 모바일 20px/데스크탑 22px로 적용한다.
 
 - check-solid는 기존 18×18 SVG 원본을 유지하고 StepIndicator 완료 단계 크기를 12px에서 14px로 수정했다. 가이드의 기존 faCheck 항목을 기본형 18px 카테고리로 이동하고 실제 14px 사용처를 명시했다.
+
+- 모바일 배송조회 OrderTrackingDialog의 직접 Drawer·헤더·푸터·배경 스타일을 제거하고 공통 BottomSheet 기본형을 사용한다. 배송 본문과 onClose, 하단 닫기 버튼을 전달하며 데스크탑 ModalDialog 분기는 그대로 유지한다.
+
+- 주문 취소·반품 신청 OrderClaimRequest는 모바일에서 공통 BottomSheet 기본형, 데스크탑에서 기존 ModalDialog를 사용한다. 폼 JSX와 입력 상태는 같은 컴포넌트에서 공유하고 신청 버튼은 목업으로 유지한다. 모바일 전용 ModalDialog 스타일을 제거하고 모달 가이드의 사용처 설명을 갱신했다.
+
+- 최종 방향: 배송조회·주문 취소·반품 신청은 플랫폼별 BottomSheet 분기 없이 ModalDialog mobilePresentation="bottomSheet"로 통일한다. 공통 모바일 옵션은 전체 너비/상단 20px 라운드/최대 높이 화면-44px/헤더 56px/body3 타이틀/xmark-regular 24px를 제공한다. 데스크탑 모달 규격은 보존하고 가이드 예시의 별도 모바일 스타일을 제거했다.
+
+- 바텀시트 디자인 시스템 1306:8008 / 1313:8442 / 1313:8517 / 1313:8543 기준으로 기존 selection을 default로 통합했다. appearance는 default/catalog만 제공하고 Dropdown·PreviousTermsPicker는 기본값을 사용한다. 기본형 헤더 56px(상단20/좌우24), body3, 닫기20px, 상단 라운드20px. scrollable은 화면-44px 확장 및 본문 스크롤/상단 구분선, footer는 선택 슬롯으로 48px 버튼·상단/좌우16·하단32px(+safe-area)를 제공한다. 본문 하단은 비스크롤형에 푸터가 있으면24px, 그 외에는32px이다. 가이드에 기본/스크롤 × 푸터 유무 네 사례와 catalog 예시, 각각의 복사 코드를 제공한다. ModalDialog의 bottomSheet 옵션은 이번 변경 대상이 아니다.
+
+- 사용자 최종 지시에 따라 별도 BottomSheet 구현과 catalog 옵션을 삭제했다. 모든 호출(상품 필터·Dropdown·PreviousTermsPicker)을 ModalDialog mobilePresentation="bottomSheet"로 통합했다. 모바일 표시 방식은 popup/fullscreen/bottomSheet이며 scrollable과 footer 유무를 독립적으로 조합한다. 가이드 네 조합도 데스크탑 중앙 팝업/모바일 하단 표시를 공유하고 FormGuide 설명을 갱신했다. 앞선 BottomSheet 독립 구성 기록은 이 결정으로 대체된다.

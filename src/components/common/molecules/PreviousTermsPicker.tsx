@@ -10,7 +10,6 @@ import { Button } from '@/components/common/atoms/Button';
 import { Radio } from '@/components/common/atoms/Radio';
 import { Typography } from '@/components/common/atoms/Typography';
 
-import { BottomSheet } from '@/components/common/layouts/BottomSheet';
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
 const previousTerms = [
@@ -44,7 +43,7 @@ export function PreviousTermsPicker({
   open: boolean;
   onClose: () => void;
   onSelect: (id?: string) => void;
-  finalFocus?: ComponentProps<typeof BottomSheet>['finalFocus'];
+  finalFocus?: ComponentProps<typeof ModalDialog>['finalFocus'];
 }) {
   const platform = usePlatform();
   const dates = versions ? versions.map((version) => version.id) : previousTerms;
@@ -56,11 +55,13 @@ export function PreviousTermsPicker({
   if (platform === 'mobile') {
     if (!open) return null;
     return (
-      <BottomSheet
-        appearance="selection"
+      <ModalDialog
+        open
+        mobilePresentation="bottomSheet"
+        closeLabel="닫기"
         title="이전 약관 보기"
-        ariaLabel="이전 약관 보기"
-        onClose={() => {
+        onOpenChange={(open) => {
+          if (open) return;
           setSelectedDate(confirmedDate);
           onClose();
         }}
@@ -93,7 +94,7 @@ export function PreviousTermsPicker({
             className={css({ gap: '16px' })}
           />
         </Stack>
-      </BottomSheet>
+      </ModalDialog>
     );
   }
   return (

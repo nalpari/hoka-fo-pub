@@ -18,7 +18,6 @@ const header = css.raw({
   justifyContent: 'space-between',
   minH: '14',
   px: '4',
-  bg: 'var(--color-surface-subtle)',
   _mobile: {
     px: '4',
   },
@@ -31,19 +30,44 @@ function ModalDialogHeader({
   title,
   closeLabel,
   css: styleOverrides,
+  bottomSheet = false,
+  scrollable = false,
 }: {
+  bottomSheet?: boolean;
+  scrollable?: boolean;
   title: ReactNode;
   closeLabel: string;
   css?: SystemStyleObject;
 }) {
   return (
-    <header className={css(header, styleOverrides)}>
-      <Dialog.Title className={titleStyle}>
+    <header
+      className={css(
+        header,
+        styleOverrides,
+        bottomSheet && {
+          _mobile: {
+            h: '56px',
+            minH: '56px',
+            flexShrink: '0',
+            px: '6',
+            bg: 'white.0',
+            pt: '20px',
+            pb: '0',
+            borderBottom: scrollable ? '1px solid token(colors.black.20)' : '0',
+          },
+        },
+      )}
+    >
+      <Dialog.Title
+        className={[titleStyle, bottomSheet && css({ _mobile: { h: 'auto', m: '0' } })]
+          .filter(Boolean)
+          .join(' ')}
+      >
         <Typography variant="body3">{title}</Typography>
       </Dialog.Title>
       <Dialog.Close
         render={
-          <Button aria-label={closeLabel} variant="icon" size={24}>
+          <Button aria-label={closeLabel} variant="icon" size={20}>
             <Icon name="xmark-regular" size={20} />
           </Button>
         }
@@ -177,9 +201,10 @@ const popup = cva({
       },
       bottomSheet: {
         _mobile: {
-          w: 'calc(100vw - 32px)!',
-          maxH: 'calc(100dvh - 16px)',
-          borderRadius: '0',
+          w: '100vw!',
+          maxW: '100vw',
+          maxH: 'calc(100dvh - 44px)',
+          borderRadius: '20px 20px 0 0',
         },
       },
     },
@@ -240,6 +265,9 @@ type ModalDialogBaseProps = {
   mobilePresentation?: ModalMobilePresentation;
   overlayTone?: ModalOverlayTone;
   popupClassName?: string;
+  contentClassName?: string;
+  /** 모바일 바텀시트를 최대 높이로 확장하고 본문만 스크롤합니다. */
+  scrollable?: boolean;
   /** Explicit return target for a directly opened preview without a dialog trigger. */
   finalFocus?: ComponentProps<typeof Dialog.Popup>['finalFocus'];
   headerProps?: Pick<ComponentProps<typeof ModalDialogHeader>, 'css'>;
@@ -323,6 +351,8 @@ export function ModalDialog({
   mobilePresentation = 'popup',
   overlayTone = 'dark',
   popupClassName,
+  contentClassName,
+  scrollable = false,
   finalFocus,
   headerProps,
   footerProps,
@@ -330,6 +360,7 @@ export function ModalDialog({
   title,
 }: ModalDialogProps) {
   const platform = usePlatform();
+  const sheet = mobilePresentation === 'bottomSheet' && platform === 'mobile';
   const resolvedFooter = actions ? (
     <ModalDialogActionButtons actions={actions} onOpenChange={onOpenChange} />
   ) : (
@@ -348,20 +379,54 @@ export function ModalDialog({
                 css(
                   popup.raw({ size, mobilePresentation }),
                   Boolean(resolvedFooter) && popupWithFooter,
+                  sheet && { display: 'flex', flexDirection: 'column', overflow: 'hidden' },
+                  sheet && scrollable && { h: 'calc(100dvh - 44px)' },
                 ),
                 popupClassName,
               ]
                 .filter(Boolean)
                 .join(' ')}
             >
-              <ModalDialogHeader {...headerProps} title={title} closeLabel={closeLabel} />
+              <ModalDialogHeader
+                {...headerProps}
+                title={title}
+                closeLabel={closeLabel}
+                bottomSheet={sheet}
+                scrollable={scrollable}
+              />
               <div
-                className={[content, resolvedFooter && scrollableContent].filter(Boolean).join(' ')}
+                className={[
+                  !sheet && content,
+                  !sheet && resolvedFooter && scrollableContent,
+                  sheet &&
+                    css({
+                      minH: '0',
+                      flex: scrollable ? '1' : '0 1 auto',
+                      overflowY: 'auto',
+                      p: resolvedFooter && !scrollable ? '24px' : '24px 24px 32px',
+                    }),
+                  contentClassName,
+                ]
+                  .filter(Boolean)
+                  .join(' ')}
               >
                 {children}
               </div>
               {resolvedFooter ? (
-                <ModalDialogFooter {...footerProps} scrollFade={scrollFade}>
+                <ModalDialogFooter
+                  {...footerProps}
+                  css={{
+                    ...(sheet
+                      ? {
+                          p: '16px 16px calc(32px + env(safe-area-inset-bottom))',
+                          boxShadow: 'inset 0 1px 0 var(--color-black-20)',
+                          '& > button': { w: '100%', '--button-height': '48px' },
+                        }
+                      : {}),
+                    ...footerProps?.css,
+                  }}
+                  scrollFade={scrollFade}
+                >
                   {resolvedFooter}
                 </ModalDialogFooter>
               ) : null}

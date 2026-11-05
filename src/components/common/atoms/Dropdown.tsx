@@ -13,7 +13,7 @@ import { Icon } from '@/components/common/atoms/Icon';
 import { Radio } from '@/components/common/atoms/Radio';
 import { Typography } from '@/components/common/atoms/Typography';
 
-import { BottomSheet } from '@/components/common/layouts/BottomSheet';
+import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
 const styles = {
   trigger: cva({
@@ -187,12 +187,15 @@ export function Dropdown({
   }, [sheetOpen, showNextSelection]);
 
   const mobileSheet = sheetOpen ? (
-    <BottomSheet
-      appearance="selection"
+    <ModalDialog
+      open
+      mobilePresentation="bottomSheet"
+      closeLabel="닫기"
       finalFocus={triggerRef}
       title={sheetLabel}
-      ariaLabel={sheetLabel}
-      onClose={() => setSheetOpen(false)}
+      onOpenChange={(open) => {
+        if (!open) setSheetOpen(false);
+      }}
     >
       <div ref={sheetOptionsRef}>
         <Radio
@@ -229,7 +232,7 @@ export function Dropdown({
           className={css({ gap: '16px' })}
         />
       </div>
-    </BottomSheet>
+    </ModalDialog>
   ) : null;
 
   // [ 개발팀 바인딩 ] 선택값과 options는 호출 화면이 소유합니다. 모바일 Radio의 클릭·Enter·Space는 onValueChange(value)를 전달합니다. mobileNextSelection이 있으면 같은 시트에서 다음 선택으로 이어지고 그 콜백 후 닫으며, 없으면 즉시 닫습니다. 방향키는 초안만 바꾸고 닫기/Escape는 현재 단계 초안만 폐기합니다. API 요청은 없으며 상품 목록 모바일의 필터 Radio/적용 소유자는 유지합니다.

@@ -576,8 +576,8 @@ export function FormGuide() {
         >
           <SectionTitle id="form-dropdown-menu-title" title="Dropdown Menu" />
           <Typography variant="body5" tone="subtle">
-            PC는 팝업 목록, 모바일은 BottomSheet의 Radio 목록으로 선택합니다. 아이콘과 이미지도 함께
-            표시합니다.
+            PC는 팝업 목록, 모바일은 ModalDialog 바텀시트형의 Radio 목록으로 선택합니다. 아이콘과
+            이미지도 함께 표시합니다.
           </Typography>
           <Grid columns={{ base: 3, _mobile: 1 }} gap="3">
             <FormExample
