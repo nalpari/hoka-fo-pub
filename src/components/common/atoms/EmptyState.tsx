@@ -83,7 +83,7 @@ function EmptyStateRoot({
         role={role}
         alignItems="center"
         justifyContent="center"
-        gap="4"
+        gap={variant === 'page' && actionContent ? '8' : '4'}
         w="100%"
         minH={variant === 'content' ? '267px' : undefined}
         py={variant === 'page' ? '160px' : '0'}

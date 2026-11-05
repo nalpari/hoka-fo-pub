@@ -1,3 +1,10 @@
+## 2026-11-05 검색 결과 없음 공통 스타일 적용
+
+- 검색 무결과의 제목과 설명에 EmptyState.page의 위계와 16px 간격을 적용했다. PC와 모바일에서 계산 스타일을 확인했다. [UI 기록](architecture/ui.md#검색-결과-없음의-제목과-설명-2026-11-05). 출처는 ProductListingPage.tsx 작업 트리다.
+
+## 2026-11-05 버튼이 있는 빈 화면의 공통 간격
+
+- 상품 목록 무결과와 배송지 빈 화면이 제목·설명 16px과 설명·버튼 32px을 공유한다. 1543px·375px에서 확인했다. [UI 기록](architecture/ui.md#버튼이-있는-빈-화면의-공통-간격-2026-11-05). 출처: EmptyState.tsx, ProductListingPage.tsx, AddressManagement.tsx 작업 트리.
 ## 2026-11-05 마이페이지·고객센터 사이드 메뉴 시안 반영
 
 - 두 프레임의 PC 시작점을 공통 110px 차감으로 맞추고, 마이페이지 그룹/하위 메뉴와 고객센터 글자·간격을 각 시안대로 적용했다. 좁은 PC·넓은 PC·모바일에서 시작점, 텍스트, 상태 표시를 확인했다. [UI 기록](architecture/ui.md#마이페이지고객센터-사이드-메뉴-시안-반영-2026-11-05). 출처: SidebarNavigationLayout.tsx·MyPageFrame.tsx 작업 트리, codex/gpt-6, 2026-11-05T04:45:21.116Z.

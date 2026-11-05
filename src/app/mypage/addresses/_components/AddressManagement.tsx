@@ -335,7 +335,6 @@ export function AddressList({
               minH: '795px',
               pt: '160px',
               pb: '0',
-              gap: '8',
               justifyContent: 'flex-start',
               _mobile: {
                 mt: '-24px',

@@ -4794,3 +4794,15 @@ Figma [2121:9345](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Desi
 SideNavigation 기존 그룹형은 Figma [마이페이지 2121:9344](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2121-9344)의 제목 28px/900, 그룹명 20px/400·행간 26px, 항목 16px/400·행간 20.8px을 적용한다. 제목과 메뉴 사이 48px, 그룹 간 24px, 그룹명 행 상하 8px과 하위 그룹까지 10px, 항목 상하 4px과 사이 8px은 부모 Stack 및 행에서 관리한다. 현재 링크 aria-current와 검정 밑줄은 유지한다. 고객센터는 [1973:15195](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1973-15195)의 SUPPORT 28px/900, 메뉴 20px/400·행간 26px·상하 8px·사이 24px을 적용한다. 제목 높이 28px 뒤 46px을 두어 메뉴를 사이드바 시작 기준 74px에 배치한다. 영문은 기존 HOKA·한글은 Pretendard를 재사용한다. 탐색 URL, 현재/비활성 상태 계약, 데이터 및 주문 목록 간격 수정은 별개로 유지한다.
 
 검증: Codex가 주문/배송조회와 온라인 회원등급 안내를 1031/1385/1920/375px에서 열어 두 사이드바·브레드크럼 시작점 일치, 글자 크기·굵기·행간·행 패딩·메뉴 시작점, aria-current, 모바일 숨김을 확인했다. 프레임 수정 단계에서 1024/1025·1199/1200px도 확인해 PC 1200px 캔버스와 1200px 이상 가로 넘침 없음을 검증했다. CDP에서 한글 Pretendard Black/Regular와 영문 커스텀 HOKA 글리프를 확인했다. 영문 face의 내부 family/postScript 이름은 '.'으로 표시되어 기존 hoka CSS 연결과 구분했다. 대상 ESLint/Prettier·Panda·타입·Next 빌드를 통과했다. 새 스크린샷·명시적 플랫폼·열린 overlay resize는 미실행이다. hoka-markup-handoff의 기존 탐색 owner·부모 간격·반응형·Next Link 경계를 점검했다. 출처: 위 두 작업 트리 파일, codex/gpt-6, 2026-11-05T04:45:21.116Z.
+
+## 버튼이 있는 빈 화면의 공통 간격 (2026-11-05)
+
+EmptyState의 page 변형은 제목과 설명 사이 16px, 버튼이 전달되면 설명 그룹과 버튼 사이 32px을 적용한다. 배송지 빈 화면과 상품 목록 무결과 화면이 이 기본값을 공유한다. 화면 소유자는 바깥 여백과 버튼 스타일을 관리한다.
+
+검증: 1543px·375px에서 두 화면의 실제 간격이 16px·32px임을 확인했다. 출처: EmptyState.tsx, ProductListingPage.tsx, AddressManagement.tsx 작업 트리. 기록: Codex, 2026-11-05.
+
+## 검색 결과 없음의 제목과 설명 (2026-11-05)
+
+검색 결과 없음은 EmptyState의 page 변형을 사용한다. 제목은 PC 28px과 모바일 22px의 900 굵기, 설명은 PC 16px과 모바일 14px이며 두 문구 사이에는 공통 16px 간격을 적용한다. PC 최소 높이 470px과 모바일 상하 96px을 검색 화면이 지정한다.
+
+1543px과 375px의 /search/preview-no-results에서 계산 스타일과 16px 간격을 확인했다. 두 폭에서 문서 가로 넘침이 없었다. 대상 ESLint·Prettier와 Panda 생성이 통과했다. 출처는 ProductListingPage.tsx 작업 트리와 사용자 브라우저 주석이다. Codex, 2026-11-05.
