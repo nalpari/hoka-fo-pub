@@ -125,7 +125,7 @@ type ProductPriceProps = {
   price: number;
   /** Original price; discount details appear only when this exceeds price. */
   originalPrice?: number;
-  variant?: ProductCardVariant;
+  variant?: ProductCardVariant | 'detail';
 };
 /** 판매가와 선택적 정상가·할인율을 표시합니다. (Displays the selling price with an optional original price and discount rate.) */
 function ProductPrice({
@@ -135,8 +135,18 @@ function ProductPrice({
   variant = 'listing',
 }: ProductPriceProps) {
   const hasDiscount = originalPrice !== undefined && Boolean(discountLabel);
+  const detailPrice = variant === 'detail';
+  const detailPriceText = detailPrice
+    ? css({ fontSize: '18px', lineHeight: '20.8px', _mobile: { fontSize: '16px' } })
+    : undefined;
+
   return (
-    <VStack data-product-price data-product-card-variant={variant} gap="1" alignItems="flex-start">
+    <VStack
+      data-product-price
+      data-product-card-variant={variant}
+      gap={detailPrice ? '14px' : '1'}
+      alignItems="flex-start"
+    >
       {hasDiscount ? (
         <Typography
           as="del"
@@ -145,7 +155,9 @@ function ProductPrice({
           tone="tertiary"
           language="en"
           aria-label={`정상가 ${won(originalPrice ?? 0)}원`}
-          className={css({ textDecoration: 'line-through' })}
+          className={[css({ textDecoration: 'line-through' }), detailPriceText]
+            .filter(Boolean)
+            .join(' ')}
         >
           {won(originalPrice ?? 0)}
           <Typography variant="body3" mo="body4">
@@ -158,13 +170,20 @@ function ProductPrice({
           <Typography
             variant="body3"
             mo="body4"
-            tone={variant === 'listing' ? 'red80' : 'error'}
+            className={detailPriceText}
+            tone={variant === 'listing' || detailPrice ? 'red80' : 'error'}
             aria-label={`${discountLabel} 할인`}
           >
             {discountLabel}
           </Typography>
         ) : null}
-        <Typography language="en" variant={variant === 'history' ? 'body4' : 'body3'} mo="body4">
+        <Typography
+          language="en"
+          variant={variant === 'history' ? 'body4' : 'body3'}
+          mo="body4"
+          weight={detailPrice ? 'medium' : undefined}
+          className={detailPriceText}
+        >
           {won(price)}
           <Typography variant={variant === 'history' ? 'body4' : 'body3'} weight="bold">
             원
@@ -254,9 +273,12 @@ export function ProductIdentity({
             weight: 'black',
           }}
         />
-        <Box className={css({ '& span': { fontSize: '16', fontWeight: 'normal' } })}>
-          <ProductPrice price={price} originalPrice={originalPrice} discountLabel={discountLabel} />
-        </Box>
+        <ProductPrice
+          variant="detail"
+          price={price}
+          originalPrice={originalPrice}
+          discountLabel={discountLabel}
+        />
       </VStack>
     );
   }
