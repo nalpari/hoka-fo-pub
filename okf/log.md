@@ -1,3 +1,11 @@
+## 2026-11-05 플랫폼 판별·서비스 Context 문서 현행화
+
+- 사용자 요청으로 OKF·코드 대조에서 찾은 UA 판별과 제거된 서비스 Context 서술을 현재 코드에 맞췄다. 코드 동작은 바꾸지 않았다.
+- 플랫폼: [라우팅 진입점](architecture/routing.md#진입점과-책임)의 User-Agent·`detectPlatform` 설명을 화면 폭 1024px(`PlatformProvider`) 기준으로 고치고, 10-28 import 정렬 절에 같은 날 대체됐음을 표시했다. [수동 확인](development/verification.md#수동-확인)의 UA 확인 지시를 1024/1025px·1199/1200px 경계 확인으로, 장바구니·로그인 변경 확인을 `ShopShell.state` 표시값 확인으로 바꿨다. `scripts/okf-sync.mjs`와 [매핑표](maintenance.md#소스-변경-훅)에서 삭제된 `src/lib/device.ts`를 뺐다.
+- 서비스 Context: [데이터 바인딩](architecture/data-binding.md#현재-연결-경계-2026-11-05)에 현재 연결 지점(ShopState·ProductListingPage.data·CheckoutContext·InquiryPreviewContext·RunningSessionSessionContext)을 추가하고 제거 전 Provider·요청 hook 절에 대체 표시를 달았다. [state.md ShopShell](architecture/state.md#shopshell)·장바구니 항목을 현재 셸 구조로 다시 쓰고, running-session·home-product·inquiry·support·publishing-state-previews 문서의 Context 유지 문장에 제거 표시를 달았다.
+- 소스 주석: `src`의 `[ 개발팀 바인딩 ]` 주석 25개 파일에서 제거된 Context·hook 이름과 없는 콜백 연결을 지우고 통합 소유자 연결·현재 연결 없음으로 고쳤다(코드 동작 변경 없음). [라우트](architecture/routing.md#라우트-바인딩-주석의-제거된-context-이름-정리-2026-11-05)·[Context](architecture/state.md#context-바인딩-주석-정리-2026-11-05)·[UI](architecture/ui.md#바인딩-주석의-제거된-context-이름-정리-2026-11-05).
+- 확인: `src/context`(5개)·`src/hooks`(`useRecentSearches`만)·`ShopShell.tsx`·`ProductListingPage.tsx`·`layout.tsx`·`platform.tsx`를 HEAD `b72ed2f6`에서 대조했다. 주석 정리 후 `src`에 제거된 Context·hook 이름 0건, 변경 파일 ESLint·전체 타입 검사 통과, `screen-files` 재생성 결과 변경 없음.
+
 ## 2026-11-05 모바일 주문 상품 조회 보완과 로그아웃 안내 삭제
 
 - 모바일 주문 상품 조회의 제목 바·본문 간격·하단 여백을 Figma 1973:17354 기준으로 보완하고 장시간 미입력 로그아웃 안내와 IA 상태 링크를 삭제했다.
@@ -29,6 +37,7 @@
 ## 2026-11-05 버튼이 있는 빈 화면의 공통 간격
 
 - 상품 목록 무결과와 배송지 빈 화면이 제목·설명 16px과 설명·버튼 32px을 공유한다. 1543px·375px에서 확인했다. [UI 기록](architecture/ui.md#버튼이-있는-빈-화면의-공통-간격-2026-11-05). 출처: EmptyState.tsx, ProductListingPage.tsx, AddressManagement.tsx 작업 트리.
+
 ## 2026-11-05 마이페이지·고객센터 사이드 메뉴 시안 반영
 
 - 두 프레임의 PC 시작점을 공통 110px 차감으로 맞추고, 마이페이지 그룹/하위 메뉴와 고객센터 글자·간격을 각 시안대로 적용했다. 좁은 PC·넓은 PC·모바일에서 시작점, 텍스트, 상태 표시를 확인했다. [UI 기록](architecture/ui.md#마이페이지고객센터-사이드-메뉴-시안-반영-2026-11-05). 출처: SidebarNavigationLayout.tsx·MyPageFrame.tsx 작업 트리, codex/gpt-6, 2026-11-05T04:45:21.116Z.

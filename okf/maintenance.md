@@ -4,7 +4,7 @@ title: 'OKF 유지보수'
 description: '문서 형식, 출처와 변경 이력을 관리하는 절차를 설명한다.'
 tags: [okf, documentation, maintenance]
 status: draft
-updated: '2026-11-04T01:19:32.500Z'
+updated: '2026-11-05T06:21:48Z'
 generated:
   by: codex/gpt-6
   at: '2026-10-29T06:31:05Z'
@@ -79,15 +79,15 @@ status: draft
 
 `scripts/okf-sync.mjs`가 변경 파일을 관련 개념에 연결한다. 이 매핑은 저장소 운영 규칙이며 OKF 명세의 필수 항목은 아니다.
 
-| 변경 영역                                  | 검토·갱신할 문서                  |
-| ------------------------------------------ | --------------------------------- |
-| App Router, 기기 판별                      | `okf/architecture/routing.md`     |
-| ShopShell, Context, 장바구니·로그인 상태   | `okf/architecture/state.md`       |
-| 목 상품·IA 데이터, 그 외 새 src 영역       | `okf/project.md`                  |
-| 공통 UI·기능 화면·스타일·스토리·Panda 설정 | `okf/architecture/ui.md`          |
-| 패키지·TypeScript·PostCSS 설정             | `okf/development/setup.md`        |
-| 테스트·ESLint 설정                         | `okf/development/verification.md` |
-| 훅과 검사 스크립트                         | `okf/maintenance.md`              |
+| 변경 영역                                    | 검토·갱신할 문서                  |
+| -------------------------------------------- | --------------------------------- |
+| App Router                                   | `okf/architecture/routing.md`     |
+| ShopShell, Context(화면 폭 플랫폼 판별 포함) | `okf/architecture/state.md`       |
+| 목 상품·IA 데이터, 그 외 새 src 영역         | `okf/project.md`                  |
+| 공통 UI·기능 화면·스타일·스토리·Panda 설정   | `okf/architecture/ui.md`          |
+| 패키지·TypeScript·PostCSS 설정               | `okf/development/setup.md`        |
+| 테스트·ESLint 설정                           | `okf/development/verification.md` |
+| 훅과 검사 스크립트                           | `okf/maintenance.md`              |
 
 위 영역이 바뀌면 `okf/log.md`도 갱신한다. 문서 설명에 영향이 없더라도 관련 문서에 검토한 코드 범위와 영향 없음을 기록한다. 검토 없이 시간만 변경해서 통과시키지 않는다.
 

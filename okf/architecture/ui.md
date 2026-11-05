@@ -4779,13 +4779,11 @@ EmptyState 직접 JSX 사용 16곳을 소스로 조사했다. 미사용 AccountD
 
 출처: 위 5개 작업 트리 파일. 기록: codex/gpt-6, 2026-11-05T04:19:28.294Z. 앞선 재입고 설명 가운데 정렬 보정은 그대로 유지한다.
 
-
 ## 주문 목록 제목 하단 간격 보정 (2026-11-05)
 
 Figma [2121:9345](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2121-9345)의 Section Header 2121:9346 하단 패딩은 40px이다. OrdersContent의 기존 ContentSection에서 view=list·returns=false인 주문 목록만 PC gap 16px을 40px로 변경한다. 모바일 목록은 16px, 취소/반품은 PC 40px·모바일 24px, 주문 상세는 기존 gap 16px을 보존한다. 제목과 본문 사이 여백을 기존 부모에서 소유하며 추가 래퍼·자식 margin을 만들지 않는다. 라우트·fixture·콜백·서비스 경계는 변경하지 않는다.
 
 검증: Codex가 1440/375px에서 /mypage/orders와 /mypage/orders/preview-empty의 실제 제목 영역 아래 간격을 40/16px로 확인했다. /mypage/returns는 40/24px, /mypage/orders/preview-detail은 기존 section gap 16px과 본문 자체 여백을 포함한 실제 간격 40/24px를 확인했다. Panda 생성·대상 ESLint/Prettier를 수행했고, 한정된 간격 수정으로 전체 타입/빌드는 재실행하지 않았다. hoka-markup-handoff의 ContentSection·부모 간격·반응형·표시 전용 경계를 점검했다. 출처: src/app/mypage/orders/_components/OrdersContent.tsx 작업 트리, codex/gpt-6, 2026-11-05T04:29:53.252Z.
-
 
 ## 마이페이지·고객센터 사이드 메뉴 시안 반영 (2026-11-05)
 
@@ -4814,3 +4812,7 @@ EmptyState의 page 변형은 제목과 설명 사이 16px, 버튼이 전달되�
 ## 모바일 전체 화면 모달의 본문 버튼 (2026-11-05)
 
 `ModalDialog`의 모바일 전체 화면 기본값은 본문 안에서 버튼을 함께 스크롤하는 배치다. `mobileFixedFooter`를 지정하면 화면 하단에 버튼을 고정한다. 배송지 변경의 저장은 본문 아래에 배치하고 장바구니 옵션 변경과 회원가입 약관 상세는 기존 고정 배치를 명시한다. 출처는 `src/components/common/layouts/ModalDialog.tsx`, `CartDialogs.tsx`, `SignupTermsContent.tsx` 및 `ModalGuide.tsx` 작업 트리다.
+
+## 바인딩 주석의 제거된 Context 이름 정리 (2026-11-05)
+
+`src/components/phone-verification/phone-verification.types.ts`의 `[ 개발팀 바인딩 ]` 주석에서 제거된 `usePhoneVerification`·`PhoneVerificationContext`를 지우고 통합 소유자가 발송/검증을 연결한다고 고쳤다. 주석만 바꿨으며 UI·타입·스타일 영향은 없다. 범위와 현재 기준은 [데이터 바인딩 현재 연결 경계](data-binding.md#현재-연결-경계-2026-11-05)를 따른다.

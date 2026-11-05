@@ -2,7 +2,7 @@
 
 /**
  * [ 개발팀 바인딩 ]
- * SupportContentContext.terms의 terms/privacy 각각에 versions/document/onQueryChange를 전달합니다.
+ * terms/privacy 각각의 versions/document와 조회 연결은 통합 소유자가 추가합니다. 현재 연결 Context·요청은 없습니다.
  * 시행일 선택은 versionId, 탭은 URL tab 값으로 조회합니다. 이전/다음 탐색에서도 같은 조건을 반영하고 BO 본문은 어댑터에서 안전하게 렌더링합니다.
  */
 

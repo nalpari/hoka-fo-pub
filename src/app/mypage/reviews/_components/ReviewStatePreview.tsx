@@ -15,7 +15,7 @@ import type { RatingValue } from '@/types/component-contracts/components-common-
 import { MyPageReviewDialog, MyPageReviewsContent } from './MyPageReviewsContent';
 
 /** 리뷰 목록·빈 상태와 작성·수정 오류를 고정 표시합니다. (Displays prepared review lists, empty states, and editing errors.)
- * [ 개발팀 바인딩 ] 디자인 목록/빈 결과/편집 오류 fixture이며 저장·조회·페이지 추가 요청은 실행하지 않습니다. 실제 리뷰/구매 ID와 저장 결과·갱신은 MyPageDataContext.reviews 소유자가 관리합니다. 작성한 목록은 PC 1건·총 62건·1/10, MO 2건·총 2건·더보기 없음으로 준비된 독립 예시이며 실제 응답 건수로 추론하지 않습니다. 목록 교체와 요청 상태는 기본 route의 기존 context 소유자가 관리하며 이 preview의 편집은 저장 성공을 표시하거나 데이터를 갱신하지 않습니다.
+ * [ 개발팀 바인딩 ] 디자인 목록/빈 결과/편집 오류 fixture이며 저장·조회·페이지 추가 요청은 실행하지 않습니다. 실제 리뷰/구매 ID와 저장 결과·갱신은 통합 소유자가 연결합니다(현재 연결 Context·요청 없음). 작성한 목록은 PC 1건·총 62건·1/10, MO 2건·총 2건·더보기 없음으로 준비된 독립 예시이며 실제 응답 건수로 추론하지 않습니다. 목록 교체와 요청 상태도 통합 소유자가 연결하며 이 preview의 편집은 저장 성공을 표시하거나 데이터를 갱신하지 않습니다.
  */
 export function ReviewStatePreview({
   state,

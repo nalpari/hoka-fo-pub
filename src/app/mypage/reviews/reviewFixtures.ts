@@ -1,6 +1,6 @@
 /**
- * [개발팀 바인딩]
- * 이 파일은 미연동 리뷰 예시 생성기입니다. 운영 목록은 MyPageDataContext.reviews로 실제 id/product/purchasedAt/review를 공급합니다.
+ * [ 개발팀 바인딩 ]
+ * 이 파일은 미연동 리뷰 예시 생성기입니다. 운영 목록의 실제 id/product/purchasedAt/review는 통합 소유자가 공급합니다. 현재 연결 Context·요청은 없습니다.
  * 실제 ID에 예시 상품을 붙이는 용도로 createReviewFixture를 호출하지 않습니다.
  */
 

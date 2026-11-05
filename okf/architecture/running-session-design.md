@@ -55,6 +55,8 @@ applicationOpeningLabel은 연결 소유자가 전달하는 신청 시작 표시
 
 기존 RunningSessionDataContext.detail과 useRequestAction을 유지한다. 상세 경로 조회의 session/facts/guide/recommendedProducts는 현재 Context에서 읽는다. apply(session.id) 완료 전 성공 안내를 표시하지 않고, request.pending/binding.pending을 hero/고정 신청 버튼에 전달해 요청 중 비활성화한다. 실패는 기존 alert에 남기고 상세를 유지한다. 성공 후 세션/신청내역 갱신·오래된 응답 폐기는 연결 소유자의 책임이다. 새 API·결제·인증은 구현하지 않았다.
 
+> 2026-11-05 현행화: `RunningSessionDataContext.detail`과 `useRequestAction`은(는) 2026-11-02 [전체 화면 퍼블리싱 인계](state.md#전체-화면-퍼블리싱-인계-2026-11-02)에서 제거됐다. 현재는 준비된 표시 데이터와 로컬 UI 조작만 있으며 연결 경계는 [데이터 바인딩](data-binding.md#현재-연결-경계-2026-11-05)을 따른다.
+
 기존 Integration/RemainingBinding RunningSessionApplication을 수동 완료 Promise로 보강하고 모바일 시나리오를 추가했다. api-session-99의 늦은 응답·제목 교체·정원 45명/예약금 8,000원·pending disabled·실패 유지·재시도·완료 후 성공 안내를 PC/MO에서 실행해 data-running-application-result=passed를 확인했다. Storybook 검증용 응답 버튼은 제품 UI에 포함되지 않는다.
 
 실제 앱에서 PC 1920px(clientWidth 1905px)의 목록 1532px·카드 371px·제목 50px, 상세 이미지 640px·제목 36px·안내 그리드 858/640px을 측정했다. 모바일 375px(clientWidth 360px)의 제목 36px·분할 필터 44px·전체 폭 사진·상세 제목 28px·고정 버튼 48px·가로 넘침 없음, 빈 목록 504px·14px 문구, 모집마감/신청예정 disabled를 확인했다. 목록 필터와 미연결 신청 준비 안내·Escape 닫기도 확인했다. 이미지 8개의 로드와 기존 10개 PNG 경로 검사를 통과했다. 세로 scrollbar 15px·배너 50px 차이는 Figma와 구분한다. 실기기 모바일의 overlay scrollbar와 전수 시각 회귀를 검증한 것은 아니다.

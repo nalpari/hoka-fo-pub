@@ -1,8 +1,8 @@
 'use client';
 
 /**
- * [개발팀 바인딩]
- * MyPageDataContext.coupons의 items/totalCount/hasMore와 category별 서버 조회·register를 연결합니다.
+ * [ 개발팀 바인딩 ]
+ * 쿠폰 items/totalCount/hasMore와 category별 서버 조회·등록은 통합 소유자가 연결합니다. 현재 연결 Context·요청은 없습니다.
  * 등록 성공 후 목록/요약 수를 갱신하고 resolve합니다. 실패 시 코드가 남습니다. employeeCoupons는 실제 임직원 자격/발급 상태에 맞는 표시 목록입니다.
  */
 

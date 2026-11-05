@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-05T05:13:58.473Z'
+updated: '2026-11-05T06:40:00Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -655,9 +655,9 @@ src/app/explore/shoe-finder/page.tsx는 src/shared/Mockup/shoe-finder/ShoeFinder
 
 `/signup`은 가입 방법만 표시한다. 이메일 가입은 `/signup/verify`로 이동하고, 카카오·네이버 가입은 연결되지 않았다는 안내를 표시한다. 이전 카카오 약관 동의·정보 입력·가입 완료 화면은 운영 가입 흐름에서 분리해 `src/shared/Mockup/signup` 및 `Mockup/Signup` Storybook에 보존한다. 별도 앱 URL은 추가하지 않았다.
 
-`src/app/layout.tsx`는 서버에서 `await headers()`로 User-Agent를 읽고 `detectPlatform`으로 플랫폼을 선택한다. 휴대폰과 태블릿은 `mobile`, 그 외는 `web`이다. 이 선택은 화면 너비만으로 결정되지 않는다. 선택한 플랫폼은 `<body>`의 `platform-*` 클래스로도 전달된다.
+`src/app/layout.tsx`는 User-Agent를 읽지 않는다. `<body className="platform-web">`로 시작하고, `src/context/platform.tsx`의 `PlatformProvider`가 화면 폭(`matchMedia('(max-width: 1024px)')`)으로 1024px 이하는 `mobile`, 초과는 `web`을 선택해 `<body>`의 `platform-*` 클래스를 바꾼다. `.app`의 클래스는 `ShopShell`의 `ShopFrame`이 같은 값으로 설정한다. 서버와 최초 hydration은 `web`이며 명시한 preview `platform`은 화면 폭보다 우선한다. 2026-10-28 [화면 폭 기반 플랫폼으로 전환](#화면-폭-기반-플랫폼으로-전환-2026-10-28)에서 UA 판별과 `src/lib/device.ts`를 제거했다.
 
-루트 레이아웃은 공통 `ShopShell`에 페이지를 전달한다. `Suspense`는 화면 로딩 대체 콘텐츠를 제공하고, PC 루트에는 `--layout-web-min-width`가 적용된다.
+루트 레이아웃은 공통 `ShopShell`에 페이지를 전달한다. `Suspense`는 화면 로딩 대체 콘텐츠를 제공하고, PC(`.app.platform-web`)에는 `--layout-web-min-width`가 적용된다.
 
 ## 파일 기반 경로
 
@@ -767,7 +767,7 @@ src/app의 import만 새 그룹 순서로 정렬했다. 라우트의 URL·기본
 
 ## 공용 훅·컨텍스트 import 순서 적용 (2026-10-28)
 
-`src/app`의 공용 훅·컨텍스트 import를 외부 패키지 다음으로 옮겼다. 라우트 경로·페이지 본문·서버/클라이언트 경계·User-Agent 기반 플랫폼 판별은 유지한다. 화면 너비 판별로 전환하지 않았다.
+`src/app`의 공용 훅·컨텍스트 import를 외부 패키지 다음으로 옮겼다. 라우트 경로·페이지 본문·서버/클라이언트 경계와 당시의 User-Agent 기반 플랫폼 판별은 이 작업에서 바꾸지 않았다. 플랫폼 판별은 같은 날 [화면 폭 기반 플랫폼으로 전환](#화면-폭-기반-플랫폼으로-전환-2026-10-28)에서 화면 폭 기준으로 대체됐다.
 
 ## 얇은 헤더·필드 래퍼 직접 사용 (2026-10-28)
 
@@ -1461,13 +1461,11 @@ Figma [마이페이지 메인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8W
 
 공통 EmptyState의 모바일 내부 12px과 기존 화면별 바깥 gutter를 합산하도록 표시만 보완했다. 관심상품·최근 본 상품의 빈 상태에서는 목록용 음수 여백을 제외하며, 마이페이지 주문 요약의 내부 padding=0 예외를 제거한다. 상품/검색 무결과와 러닝세션처럼 화면 전체 폭을 쓰는 경우는 기존 화면 소유자가 바깥 gutter와 내부 12px을 함께 전달한다. 라우트·IA 상태 URL·플랫폼 선택 로직·API/콜백·예시 데이터는 변경하지 않는다. 기존 17개 상태 URL과 정상 목록의 검증 범위는 [UI 기록](ui.md#emptystate-모바일-내부-여백-통일-2026-11-05)에 남겼다. 출처: 위 작업 트리 파일, codex/gpt-6, 2026-11-05T04:19:28.294Z.
 
-
 ## 주문 목록 제목 하단 간격 보정 (2026-11-05)
 
 Figma [2121:9345](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2121-9345)의 Section Header 2121:9346 하단 패딩은 40px이다. OrdersContent의 기존 ContentSection에서 view=list·returns=false인 주문 목록만 PC gap 16px을 40px로 변경한다. 모바일 목록은 16px, 취소/반품은 PC 40px·모바일 24px, 주문 상세는 기존 gap 16px을 보존한다. 제목과 본문 사이 여백을 기존 부모에서 소유하며 추가 래퍼·자식 margin을 만들지 않는다. 라우트·fixture·콜백·서비스 경계는 변경하지 않는다.
 
 검증: Codex가 1440/375px에서 /mypage/orders와 /mypage/orders/preview-empty의 실제 제목 영역 아래 간격을 40/16px로 확인했다. /mypage/returns는 40/24px, /mypage/orders/preview-detail은 기존 section gap 16px과 본문 자체 여백을 포함한 실제 간격 40/24px를 확인했다. Panda 생성·대상 ESLint/Prettier를 수행했고, 한정된 간격 수정으로 전체 타입/빌드는 재실행하지 않았다. hoka-markup-handoff의 ContentSection·부모 간격·반응형·표시 전용 경계를 점검했다. 출처: src/app/mypage/orders/_components/OrdersContent.tsx 작업 트리, codex/gpt-6, 2026-11-05T04:29:53.252Z.
-
 
 ## 마이페이지·고객센터 사이드 메뉴 시안 반영 (2026-11-05)
 
@@ -1514,3 +1512,7 @@ PC는 중앙 `ModalDialog`, 모바일은 `ModalDialog`의 fullscreen 표시를 �
 ## 로그인 장시간 미입력 안내 삭제 (2026-11-05)
 
 `/login/preview-session-timeout`과 로그인 화면 전용 모달, IA 223의 상태 링크를 삭제했다. 로그인 기본·입력 오류·아이디 저장 도움말과 마이페이지 로그아웃 확인은 별도 상태다. 출처는 `LoginContent.tsx`, `screenConnections.ts`와 생성 그래프의 작업 트리다.
+
+## 라우트 바인딩 주석의 제거된 Context 이름 정리 (2026-11-05)
+
+`src/app` 아래 22개 파일의 `[ 개발팀 바인딩 ]` 주석에서 2026-11-02 제거된 `MyPageDataContext`·`SupportContentContext`·`HomeContentContext`·`InquiryDataContext`·`ProductListingContext`·`AccountServicesContext`·`AccountFlowProvider` 이름과 존재하지 않는 `onQueryChange`·`onRetry` 연결을 지우고, 통합 소유자가 연결하며 현재 연결 Context·요청은 없다고 고쳤다. 표기는 `[ 개발팀 바인딩 ]`으로 맞췄다. 주석만 바꿨으며 라우트·렌더 결과 영향은 없다. 기준: [데이터 바인딩 현재 연결 경계](data-binding.md#현재-연결-경계-2026-11-05).

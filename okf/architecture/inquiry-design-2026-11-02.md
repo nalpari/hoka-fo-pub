@@ -77,6 +77,8 @@ sources:
 
 InquiryListPreview와 InquiryFormStatePreview는 준비 fixture와 초기 popup/선택 상태를 공유한다. 기본 InquiryDataContext의 조회·late data·pending/error/retry·제출 payload·성공 대기·실패 시 입력 보존은 유지한다. InquiryOrderLookup의 preview.period만 고정 자료를 사용해 조회·선택 복원·저장을 건너뛴다. 기본 경로의 주문 조회/선택 복원과 반환 계약은 변경하지 않았다. 실제 재고·가격·업로드 API를 추가하지 않았다.
 
+> 2026-11-05 현행화: `InquiryDataContext`은(는) 2026-11-02 [전체 화면 퍼블리싱 인계](state.md#전체-화면-퍼블리싱-인계-2026-11-02)에서 제거됐다. 현재는 준비된 표시 데이터와 로컬 UI 조작만 있으며 연결 경계는 [데이터 바인딩](data-binding.md#현재-연결-경계-2026-11-05)을 따른다. 미리보기 시나리오는 `InquiryPreviewContext`가 선택한다.
+
 ## 검증
 
 - 최종 반응형 URL 14개를 1920px·375px에서 각각 직접 열어 28개 확인이 통과했다. runtime error·iframe·가로 overflow는 모두 없었다. IA SUPPORT 영역의 실제 링크에서 PC/MO 접두사와 이전 디자인별 URL이 남지 않았음을 확인했다.

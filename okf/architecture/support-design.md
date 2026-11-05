@@ -157,6 +157,8 @@ PC 제목 아래 간격 32px와 검색 영역 상단 24px, 검색창 590×56px, 
 
 시안의 반복 질문·건수 16을 운영 데이터로 복사하지 않고 기존 FAQ fixture와 실제 totalCount를 표시한다. SupportContentContext.faq의 검색 결과·추가 조회 책임을 보존하며 추가 조회 중 버튼은 중복 실행을 막는다. 서버 검색·실패·재시도·응답 교체 자체는 이번 디자인 변경의 검증 대상이 아니다.
 
+> 2026-11-05 현행화: `SupportContentContext.faq`은(는) 2026-11-02 [전체 화면 퍼블리싱 인계](state.md#전체-화면-퍼블리싱-인계-2026-11-02)에서 제거됐다. 현재는 준비된 표시 데이터와 로컬 UI 조작만 있으며 연결 경계는 [데이터 바인딩](data-binding.md#현재-연결-경계-2026-11-05)을 따른다.
+
 2026-11-02 Codex 실행 확인: PC 1920px/clientWidth 1905px의 본문 844px·질문 20px/600/24px, 모바일 375px/clientWidth 360px의 제목 22px·검색 높이 56px·질문 16px/600·답변 14px 및 양쪽 가로 넘침 없음을 DOM으로 확인했다. 실제 질문 글리프는 Pretendard SemiBold였다. 영문 제목의 실제 글리프 내부 이름은 `.`이지만 --font-hoka의 hoka 900 normal face가 참조한 TheFutureHOKA_Black.2cswp60rr-lan.woff2와 public/fonts/TheFutureHOKA-Black.woff2의 SHA256이 같아 제공 파일과 연결했다. 모바일 답변 펼침·검색 결과 없음·상품정보 탭, 더 보기로 10→12건 표시와 버튼 제거를 확인했다.
 
 [^faq-section-figma]: [사용자가 지정한 FAQ 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1973-15997), 2026-11-02 확인. 별도 디자인 시스템 파일의 지정 노드는 존재하지 않아 그 라이브러리를 이번 수치의 근거로 사용하지 않았다.
@@ -233,6 +235,8 @@ Codex 검증: Panda 생성·타입 검사 통과. 1920px 및 375px viewport에�
 
 `SupportTabs`의 명시적인 `terms` variant로 높이·글자 굵기를 지정한다. 기본/guide/scrollable 및 다른 고객지원 variant의 계약은 유지한다. `TermsDocument`의 기존 버전 선택과 `SupportContentContext.terms` 연결, URL tab 전환·뒤로/앞으로 탐색은 변경하지 않는다. 본문의 회색 약관내용은 시안과 기존 미연결 표시 자료이며 실제 법률 문서나 API 구현을 뜻하지 않는다.
 
+> 2026-11-05 현행화: `SupportContentContext.terms`은(는) 2026-11-02 [전체 화면 퍼블리싱 인계](state.md#전체-화면-퍼블리싱-인계-2026-11-02)에서 제거됐다. 현재는 준비된 표시 데이터와 로컬 UI 조작만 있으며 연결 경계는 [데이터 바인딩](data-binding.md#현재-연결-경계-2026-11-05)을 따른다.
+
 작업 트리 출처: `src/app/support/terms/page.tsx`, `src/app/support/terms/_components/TermsDocument.tsx`, `src/components/common/molecules/SupportTabs.tsx`.
 
 2026-11-02 Codex 검증: 변경 파일 ESLint·Prettier, Panda 생성, 타입 검사, Next production build(119개 정적 경로), `git diff --check`를 통과했다. 작업 트리 전체의 `pendingDocs(false)`는 누락 없음이었다. 전체 `lint:fix`는 기존 로그인 FindAccountContent의 css·가입 완료의 Stack 미사용 import 2건으로 중단되었으며 이 소스는 수정하지 않았다.
@@ -250,6 +254,8 @@ Figma 모바일 프레임 PNG는 확인했으나 실행 화면의 스크린샷 �
 등록자 정보는 PC 16px·MO 값 14px의 일반 굵기를 사용한다. 내용 입력은 100px textarea와 내부 글자 수 표시를 유지하고, 필드 패딩 12px·내부 간격 8px로 조정했다. 파일 첨부 제목은 PC 20px·MO 16px이며, 취소/등록 버튼은 PC 각 180×48px·MO 가변 2열 48px이다. 유의사항은 위쪽 20px 패딩·제목 14px 일반·본문 12px 및 시안의 네 번째 환불계좌 안내를 추가한다. 목록 하단 버튼 앞 간격은 PC 48px·MO 24px이다. 공통 고객센터 레이아웃·폰트 등록·전역 플랫폼은 이번 변경의 대상이 아니다.
 
 기존 InquiryDataContext와 입력/파일 선택/검증/주문 조회/답변 펼침/첨부 미리보기 계약은 변경하지 않았다. 실제 API 연결은 기존 통합 소유자의 책임이며 시안 문구가 서비스 구현을 의미하지 않는다. 등록/오류 상태가 동일 표현 부품을 사용하므로 기존 오류 URL도 시각 변경을 공유한다.
+
+> 2026-11-05 현행화: `InquiryDataContext`은(는) 2026-11-02 [전체 화면 퍼블리싱 인계](state.md#전체-화면-퍼블리싱-인계-2026-11-02)에서 제거됐다. 현재는 준비된 표시 데이터와 로컬 UI 조작만 있으며 연결 경계는 [데이터 바인딩](data-binding.md#현재-연결-경계-2026-11-05)을 따른다.
 
 Codex 검증(2026-11-02): Panda 생성·최종 타입 검사·문의 소스 ESLint/Prettier·Storybook production build·diff 공백 검사 통과. PC 1920px의 본문 844px·180×48px 버튼, MO 375px의 빈 영역 190px·설명 Empty 14px/List 16px·100px textarea·48px 버튼과 가로 넘침 없음을 실행 DOM으로 확인했다. Windows 세로 스크롤바 때문에 clientWidth는 각각 1905px·360px, MO 본문은 328px이다. 앱 공통 홍보 배너·Figma status bar·fixture 문장 길이 차이는 화면 절대 위치와 구분한다. 모바일 목록 답변 접기/펼치기를 확인했고 제목의 실제 글리프는 Pretendard Black으로 확인했다. 공유 개발 서버에서 범위 밖 size-guide의 shoeSizes export 빌드 오류가 나타나 후반 PC/MO 확인은 빌드한 Storybook의 명시 플랫폼을 사용했다. 스크린샷은 capture 시간 초과로 실패하여 최종 렌더 이미지와 Figma의 시각 대조는 완료하지 못했다. 전체 lint 및 lint:fix는 기존 find-account의 css·signup/complete의 Stack 미사용 import 2건으로 실패했다. Next production build와 실제 API 요청 검증은 수행하지 않았다. OKF staged check는 통과했으며 index는 비어 있고 pendingDocs(false)는 누락이 없다.
 
