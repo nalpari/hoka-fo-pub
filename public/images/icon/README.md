@@ -30,7 +30,6 @@
 | `faImage` | [image-solid.svg](image-solid.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-17978) |
 | `faLocationDot` | [location-dot-solid.svg](location-dot-solid.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-12528) |
 | `faMagnifyingGlass` | [magnifying-glass-solid.svg](magnifying-glass-solid.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-22998) |
-| `faMinus` | [minus-solid.svg](minus-solid.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-24898) |
 | `faScrewdriverWrench` | [screwdriver-wrench-solid.svg](screwdriver-wrench-solid.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-23958) |
 | `faStarRegular` | [hoka-star-regular.svg](hoka-star-regular.svg) | 16 × 16 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-20271) |
 | `faStarSolid` | [hoka-star-solid.svg](hoka-star-solid.svg) | 16 × 16 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-20273) |
@@ -58,10 +57,6 @@ Figma FontAwesome Icons 296:9192를 다시 조회해 공식 이름을 기준으�
 | `unlock-keyhole` | `unlock-keyhole-regular` · [unlock-keyhole-regular.svg](unlock-keyhole-regular.svg) | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-17751) |
 | `lock-keyhole` | `lock-keyhole-regular` · [lock-keyhole-regular.svg](lock-keyhole-regular.svg) | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-13031) |
 | `rating-star-half` | `hoka-star-half-stroke` · [hoka-star-half-stroke.svg](hoka-star-half-stroke.svg) | 공식 이름 확인 · 스타일 미확정 |
-| `fa-minus` | `minus-solid` · [minus-solid.svg](minus-solid.svg) | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-24898) |
-| `fa-plus` | `plus-regular` · [plus-regular.svg](plus-regular.svg) | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-16546) |
-| `filter-collapsed` | `plus-regular` · [plus-regular.svg](plus-regular.svg) | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-16546) |
-| `filter-expanded` | `minus-regular` · [minus-regular.svg](minus-regular.svg) | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-24896) |
 | `tag-delete` | `hoka-action-xmark-regular` · [hoka-action-xmark-regular.svg](hoka-action-xmark-regular.svg) | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-19866) |
 | `close` | `hoka-action-xmark-regular` · [hoka-action-xmark-regular.svg](hoka-action-xmark-regular.svg) | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-19866) |
 | `catalog-filter-close` | `hoka-action-xmark-regular` · [hoka-action-xmark-regular.svg](hoka-action-xmark-regular.svg) | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-19866) |
@@ -99,3 +94,9 @@ Figma FontAwesome Icons 296:9192를 다시 조회해 공식 이름을 기준으�
 
 
 Figma Navigational Buttons(296:25392)와 Action Buttons(296:25425)의 기본·원형 예시를 여백 포함 24px로 통일했다. 기본 방향·빼기 SVG는 내부 16px 도형을 중앙에 유지한다. 회색 카드는 제거하고 단색 회색은 color 토큰으로 안내한다. 출처: IconGuide.tsx 및 Icon.assets.ts.
+
+수량 조절·주문상품 펼침의 더하기/빼기는 디자인팀 `hoka-action-plus-regular` / `hoka-action-minus-regular`를 사용한다.
+
+`xmark-regular.svg`는 Figma xmark Regular(296:19866)의 18px 기본형 원본이다. size로 20px/14px 등 확대·축소하며 장바구니 상품 삭제와 ModalDialog 닫기는 20px를 사용한다. hoka-action-xmark-regular-20은 제거했다.
+
+`plus-regular.svg`(296:16546), `minus-regular.svg`(296:24896)는 Figma 18×18 기본형 원본으로 재등록했다. 기본형 가이드에 18px/16px 예시를 제공하며 상품 목록 필터는 기본형을 16px로 사용한다.

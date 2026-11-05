@@ -1,5 +1,13 @@
 /** 공통 Icon의 SVG 경로입니다. Font Awesome은 공식 이름과 스타일을 사용합니다. */
 export const iconAssets = {
+  'plus-regular': {
+    src: '/images/icon/plus-regular.svg',
+    mode: 'mask',
+  },
+  'minus-regular': {
+    src: '/images/icon/minus-regular.svg',
+    mode: 'mask',
+  },
   'flag/us': {
     src: '/images/flag/us.svg',
     mode: 'image',
@@ -14,14 +22,6 @@ export const iconAssets = {
   },
   'clock-nine-regular': {
     src: '/images/icon/clock-nine-regular.svg',
-    mode: 'mask',
-  },
-  'minus-solid': {
-    src: '/images/icon/minus-solid.svg',
-    mode: 'mask',
-  },
-  'plus-regular': {
-    src: '/images/icon/plus-regular.svg',
     mode: 'mask',
   },
   'ruler-horizontal-regular': {
@@ -170,10 +170,6 @@ export const iconAssets = {
   },
   'sliders-regular': {
     src: '/images/icon/sliders-regular.svg',
-    mode: 'mask',
-  },
-  'minus-regular': {
-    src: '/images/icon/minus-regular.svg',
     mode: 'mask',
   },
   'calendar-regular': {
@@ -492,8 +488,8 @@ export const iconAssets = {
     src: '/images/icon/hoka-action-plus-regular.svg',
     mode: 'mask',
   },
-  'hoka-action-xmark-regular-20': {
-    src: '/images/icon/hoka-action-xmark-regular-20.svg',
+  'xmark-regular': {
+    src: '/images/icon/xmark-regular.svg',
     mode: 'mask',
   },
   'hoka-action-xmark-regular': {

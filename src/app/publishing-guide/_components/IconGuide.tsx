@@ -26,6 +26,105 @@ type IconExample = {
 // 현재 사용처를 조사한 고정 가이드 목록입니다. 서비스 데이터나 자동 수집 결과가 아닙니다.
 const iconGroups: { id: string; title: string; description: string; items: IconExample[] }[] = [
   {
+    id: 'font-awesome-basic',
+    title: '폰트어썸 기본형 · 18px',
+    description:
+      '18px 원본 SVG 하나를 size로 확대·축소합니다. 닫기·장바구니 삭제·모달은 20px로 사용합니다.',
+    items: [
+      {
+        label: '더하기 · 18px',
+        registeredName: 'plus-regular',
+        origin: { label: 'Font Awesome', name: 'plus', detail: 'Regular' },
+        preview: <Icon name="plus-regular" size={18} />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="plus-regular" size={18} />`,
+        source: 'Figma plus / Regular · 화면 미적용',
+        note: '원본 18px · size로 크기 변경 · color로 색상 변경 가능',
+      },
+      {
+        label: '더하기 · 16px',
+        registeredName: 'plus-regular',
+        origin: { label: 'Font Awesome', name: 'plus', detail: 'Regular' },
+        preview: <Icon name="plus-regular" size={16} />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="plus-regular" size={16} />`,
+        source: 'ProductListingPage.tsx · CatalogFilterTrigger',
+        note: '상품 목록 필터 · 접힌 필터 펼치기 · 16px',
+      },
+      {
+        label: '빼기 · 18px',
+        registeredName: 'minus-regular',
+        origin: { label: 'Font Awesome', name: 'minus', detail: 'Regular' },
+        preview: <Icon name="minus-regular" size={18} />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="minus-regular" size={18} />`,
+        source: 'Figma minus / Regular · 화면 미적용',
+        note: '원본 18px · size로 크기 변경 · color로 색상 변경 가능',
+      },
+      {
+        label: '빼기 · 16px',
+        registeredName: 'minus-regular',
+        origin: { label: 'Font Awesome', name: 'minus', detail: 'Regular' },
+        preview: <Icon name="minus-regular" size={16} />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="minus-regular" size={16} />`,
+        source: 'ProductListingPage.tsx · CatalogFilterTrigger',
+        note: '상품 목록 필터 · 펼친 필터 접기 · 16px',
+      },
+      {
+        label: '닫기 기본 · 18px',
+        registeredName: 'xmark-regular',
+        origin: { label: 'Font Awesome', name: 'xmark', detail: 'Regular' },
+        preview: <Icon name="xmark-regular" size={18} />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="xmark-regular" size={18} />`,
+        source: 'Figma xmark / Regular',
+        note: '원본 18px · size로 크기 변경 · color로 색상 변경 가능',
+      },
+      {
+        label: '닫기 · 20px',
+        registeredName: 'xmark-regular',
+        origin: { label: 'Font Awesome', name: 'xmark', detail: 'Regular' },
+        preview: <Icon name="xmark-regular" size={20} />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="xmark-regular" size={20} />`,
+        source: 'CartProductSection.tsx, ModalDialog.tsx',
+        note: '원본 18px · size로 크기 변경 · color로 색상 변경 가능',
+      },
+      {
+        label: '선택 태그 삭제 · 모바일 14px / 데스크탑 16px',
+        registeredName: 'xmark-regular',
+        origin: { label: 'Font Awesome', name: 'xmark', detail: 'Regular' },
+        preview: (
+          <HStack gap="6">
+            <Stack alignItems="center" gap="2">
+              <Icon name="xmark-regular" size={14} />
+              <Typography variant="body5">모바일 14px</Typography>
+            </Stack>
+            <Stack alignItems="center" gap="2">
+              <Icon name="xmark-regular" size={16} />
+              <Typography variant="body5">데스크탑 16px</Typography>
+            </Stack>
+          </HStack>
+        ),
+        code: `import { usePlatform } from '@/context/platform';
+import { Icon } from '@/components/common/atoms/Icon';
+
+const platform = usePlatform();
+
+<Icon name="xmark-regular" size={platform === 'mobile' ? '14px' : '16px'} />`,
+        source: 'ProductListingPage.tsx',
+        note: '선택 태그 삭제 · 모바일 14px / 데스크탑 16px · 원본 18px',
+      },
+    ],
+  },
+  {
     id: 'icon-design-system',
     title: '디자인팀 아이콘',
     description:
@@ -222,7 +321,7 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
         code: `import { Icon } from '@/components/common/atoms/Icon';
 
 <Icon name="hoka-action-plus-regular" size={24} />`,
-        source: 'InquiryOrderLookup.tsx',
+        source: 'NumberStepper.tsx, InquiryOrderLookup.tsx',
         note: '여백 포함 24px · 회색은 color="black.40"',
       },
       {
@@ -233,19 +332,10 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
         code: `import { Icon } from '@/components/common/atoms/Icon';
 
 <Icon name="hoka-action-minus-regular" size={24} />`,
-        source: 'HOKA 디자인 시스템',
+        source: 'NumberStepper.tsx, InquiryOrderLookup.tsx',
         note: '여백 포함 24px · 회색은 color="black.40"',
       },
-      {
-        label: '닫기 · 장바구니 삭제와 모달',
-        registeredName: 'hoka-action-xmark-regular-20',
-        preview: <Icon name="hoka-action-xmark-regular-20" size={20} />,
-        code: `import { Icon } from '@/components/common/atoms/Icon';
 
-<Icon name="hoka-action-xmark-regular-20" size={20} />`,
-        source: 'CartProductSection.tsx, ModalDialog.tsx',
-        note: 'Figma 원본 · 여백 포함 20px',
-      },
       {
         label: '닫기 기본',
         registeredName: 'hoka-action-xmark-regular',
@@ -847,34 +937,6 @@ import { Typography } from '@/components/common/atoms/Typography';
         registeredName: 'magnifying-glass-solid',
       },
       {
-        label: '필터 펼침',
-        origin: { label: 'Font Awesome', name: 'minus', detail: 'Regular' },
-        preview: <Icon name="minus-regular" size={16} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="minus-regular" size={16} />',
-        source: 'ProductListingPage.tsx',
-        note: 'color로 색상 변경 가능',
-        registeredName: 'minus-regular',
-      },
-      {
-        label: '수량 감소',
-        origin: { label: 'Font Awesome', name: 'minus', detail: 'Solid' },
-        preview: <Icon name="minus-solid" size={24} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="minus-solid" size={24} />',
-        source: 'NumberStepper.tsx, InquiryOrderLookup.tsx',
-        note: 'color로 색상 변경 가능',
-
-        registeredName: 'minus-solid',
-      },
-      {
-        label: '수량 증가',
-        origin: { label: 'Font Awesome', name: 'plus', detail: 'Regular' },
-        preview: <Icon name="plus-regular" size={24} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="plus-regular" size={24} />\n\n<Icon name="plus-regular" size={16} />',
-        source: 'NumberStepper.tsx, ProductListingPage.tsx',
-        note: 'color로 색상 변경 가능',
-        registeredName: 'plus-regular',
-      },
-      {
         label: 'faScrewdriverWrench',
         origin: { label: 'Font Awesome', name: 'screwdriver-wrench', detail: 'Solid' },
         preview: <Icon name="screwdriver-wrench-solid" size={24} />,
@@ -1395,12 +1457,7 @@ function IconExampleCard({
           {example.origin.detail ? ` / ${example.origin.detail}` : ''}
         </Typography>
       ) : null}
-      <HStack
-        justifyContent="center"
-        alignItems="center"
-        minH="100px"
-        bg="#D4D4D4"
-      >
+      <HStack justifyContent="center" alignItems="center" minH="100px" bg="#D4D4D4">
         {example.preview}
       </HStack>
       <Typography as="p" variant="body5" tone="subtle">
@@ -1585,9 +1642,9 @@ export function IconGuide() {
                 const family = example.registeredName?.replace(/-(regular|solid)$/, '');
                 const previous = group.items[index - 1];
                 const next = group.items[index + 1];
-                const isVariant = /-(regular|solid)$/.test(example.registeredName ?? '');
+                const isSolid = /-solid$/.test(example.registeredName ?? '');
                 if (
-                  isVariant &&
+                  isSolid &&
                   previous?.registeredName?.replace(/-(regular|solid)$/, '') === family &&
                   /-regular$/.test(previous.registeredName ?? '')
                 )

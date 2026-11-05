@@ -4737,3 +4737,13 @@ Figma Navigational Buttons(296:25392)와 Action Buttons(296:25425)의 기본·�
 - 캐러셀 `tabs` 슬롯이 있으면 제목 아래 탭 행 오른쪽에 컨트롤을 배치하며, 없으면 제목 오른쪽을 유지한다. 홈 베스트셀러를 이 옵션으로 연결하고 가이드에 기본/탭 포함 예시를 함께 추가했다. 모바일 컨트롤 숨김과 탭 선택 상태는 유지한다.
 
 - 카트 추천 영역은 CartContent에서 가이드와 같은 CarouselSection + ProductCard를 직접 조합한다. 카트 전용 OrderRecommendations portrait 분기를 제거했으며, 다른 화면의 compact/checkout과 OrderRecommendationItem은 유지한다. 카트는 공통 products를 직접 사용하며 데스크탑 4열/모바일 150px 카드와 10px 간격은 유지한다.
+
+- NumberStepper 감소 아이콘을 hoka-action-minus-regular로 교체했다. 기존 24px 크기와 수량 조작은 유지하고 아이콘 가이드 사용처를 갱신했다.
+
+- plus-regular/minus-solid/minus-regular를 디자인팀 hoka-action-plus-regular/hoka-action-minus-regular로 통일했다. NumberStepper·InquiryOrderLookup의 기존 교체를 유지하고 ProductListingPage를 변경했다. 사용처가 없어진 SVG 3개·등록·가이드 항목·README 링크를 제거했으며 기존 아이콘 크기는 유지한다.
+
+- Figma 296:19866의 18px 기본 xmark Regular 원본을 xmark-regular.svg로 등록했다. hoka-action-xmark-regular-20 SVG/등록을 제거하고 카트 삭제·ModalDialog 닫기를 xmark-regular size={20}으로 교체했다. 가이드에 폰트어썸 기본형 18px 카테고리와 18/20/14px 개별 복사 예시를 추가했다. 기존 24px 디자인팀 액션 아이콘은 별도로 유지한다.
+
+- 사용자 후속 지시에 따라 Figma 296:16546/296:24896의 18px 원본 plus-regular/minus-regular를 다시 등록했다. 기본형 가이드에 각각 18px·16px 미리보기와 개별 복사 코드를 추가했으며 화면 사용처는 변경하지 않았다.
+
+- CatalogFilterTrigger에 plus-regular/minus-regular size={16}을 실제 적용했다. 가이드 적용 예정 표시를 제거하고 디자인팀 액션 아이콘 사용처에서 ProductListingPage를 제외했다. 기존 필터 접기/펼치기 동작은 유지한다.

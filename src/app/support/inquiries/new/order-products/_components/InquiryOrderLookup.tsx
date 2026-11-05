@@ -171,8 +171,8 @@ export function InquiryOrderLookup({
                       </Typography>
                     </Stack>
                     <Icon
-                      name={isExpanded ? 'minus-solid' : 'hoka-action-plus-regular'}
-                      size={isExpanded ? 16 : 24}
+                      name={isExpanded ? 'hoka-action-minus-regular' : 'hoka-action-plus-regular'}
+                      size={24}
                     />
                   </button>
                 </Flex>

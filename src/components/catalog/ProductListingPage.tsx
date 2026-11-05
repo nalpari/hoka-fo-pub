@@ -463,7 +463,7 @@ function Tag({ children, onDelete }: TagProps) {
         onClick={onDelete}
         size={platform === 'mobile' ? '14px' : '16px'}
       >
-        <Icon name="hoka-action-xmark-regular" size={platform === 'mobile' ? '14px' : '16px'} />
+        <Icon name="xmark-regular" size={platform === 'mobile' ? '14px' : '16px'} />
       </Button>
     </Flex>
   );
@@ -492,7 +492,7 @@ function CatalogFilterPanelHeader({ onReset, selectedFilters }: CatalogFilterPan
           </>
         )}
         <Flex h="8" alignItems="center">
-          <Button onClick={onReset} variant="link" size="sm">
+          <Button onClick={onReset} variant="link" size="md">
             초기화
           </Button>
         </Flex>
