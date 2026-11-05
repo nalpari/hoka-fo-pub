@@ -108,9 +108,9 @@ export function StepIndicator({
         >
           {variant === 'connected' ? (
             <Stack gap="3" alignItems="center">
-              <Circle size="6" bg={index < current ? 'blue.100' : 'black.20'} aria-hidden="true">
+              <Circle size="28px" bg={index < current ? 'blue.100' : 'black.20'} aria-hidden="true">
                 {index < current ? (
-                  <Icon name="check-solid" size={12} color="white" />
+                  <Icon name="check-solid" size={14} color="white" />
                 ) : (
                   <Circle size="3" bg="white" />
                 )}

@@ -4747,3 +4747,13 @@ Figma Navigational Buttons(296:25392)와 Action Buttons(296:25425)의 기본·�
 - 사용자 후속 지시에 따라 Figma 296:16546/296:24896의 18px 원본 plus-regular/minus-regular를 다시 등록했다. 기본형 가이드에 각각 18px·16px 미리보기와 개별 복사 코드를 추가했으며 화면 사용처는 변경하지 않았다.
 
 - CatalogFilterTrigger에 plus-regular/minus-regular size={16}을 실제 적용했다. 가이드 적용 예정 표시를 제거하고 디자인팀 액션 아이콘 사용처에서 ProductListingPage를 제외했다. 기존 필터 접기/펼치기 동작은 유지한다.
+
+- 하트 Regular/Solid를 Figma 296:25330의 18px 원본으로 교체했다. Wishlist 기본 모바일 22px/데스크탑 24px, ProductCard history 14px, listing 모바일 22px로 사용하며 기존 텍스트형 관심상품 14px를 유지한다. 가이드 기존 20px 하트를 제거하고 기본형 카테고리에 18px 원본 두 상태만 표시한다.
+
+- 사용자 시안 확인에 따라 ProductCard listing 하트는 데스크탑 24px/모바일 18px로 명시했다. 기본형 하트 가이드의 모바일 22px 공통 기준을 제거하고 상품 목록 화면 기준만 기록한다. 다른 화면 크기는 이번 교정에서 변경하지 않았다.
+
+- 확정된 하트 크기: 상품 상세 데스크탑 22px/모바일 20px를 Wishlist 호출에 명시하고, 관심상품·최근 본 상품의 history 카드는 양쪽 18px로 수정했다. 장바구니 양쪽 14px와 상품 목록 데스크탑 24px/모바일 18px는 유지하며 가이드에 화면별 값을 기재했다.
+
+- 공유 아이콘 arrow-up-from-bracket-regular를 Figma 296:20401의 18px 원본으로 교체하고 기본형 가이드로 이동했다. 상품 상세 ShareButton 아이콘은 모바일 20px/데스크탑 22px로 적용한다.
+
+- check-solid는 기존 18×18 SVG 원본을 유지하고 StepIndicator 완료 단계 크기를 12px에서 14px로 수정했다. 가이드의 기존 faCheck 항목을 기본형 18px 카테고리로 이동하고 실제 14px 사용처를 명시했다.

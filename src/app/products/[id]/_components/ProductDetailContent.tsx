@@ -1794,7 +1794,7 @@ function ShareButton({
   const platform = usePlatform();
   return (
     <Button variant="icon" {...props} aria-label={ariaLabel} size={size}>
-      <Icon name="arrow-up-from-bracket-regular" size={platform === 'mobile' ? '19px' : '24px'} />
+      <Icon name="arrow-up-from-bracket-regular" size={platform === 'mobile' ? '20px' : '22px'} />
     </Button>
   );
 }
@@ -1834,7 +1834,12 @@ function ProductDetailHeaderActions({
       </HStack>
       <HStack gap="4">
         <ShareButton size="24px" />
-        <Wishlist active={wish} ariaLabel="관심상품" onActiveChange={onWishChange} />
+        <Wishlist
+          active={wish}
+          ariaLabel="관심상품"
+          iconSize={platform === 'mobile' ? '20px' : '22px'}
+          onActiveChange={onWishChange}
+        />
       </HStack>
     </Flex>
   );

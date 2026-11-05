@@ -822,15 +822,17 @@ export function ProductCard({
                 ? token.var('sizes.4.5')
                 : variant === 'listing'
                   ? platform === 'mobile'
-                    ? '19px'
+                    ? '18px'
                     : token.var('sizes.6')
                   : undefined
             }
             iconSize={
               variant === 'history'
-                ? token.var('sizes.4.5')
-                : variant === 'listing' && platform === 'mobile'
-                  ? '19px'
+                ? '18px'
+                : variant === 'listing'
+                  ? platform === 'mobile'
+                    ? '18px'
+                    : '24px'
                   : undefined
             }
             active={isLiked}
