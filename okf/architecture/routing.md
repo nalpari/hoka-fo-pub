@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-05T01:25:12.647Z'
+updated: '2026-11-05T02:07:59.450Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -1409,3 +1409,12 @@ URL의 developer=ALL을 담당자 이름으로 해석하던 원인을 수정한�
 - 카트 추천 영역은 CartContent에서 가이드와 같은 CarouselSection + ProductCard를 직접 조합한다. 카트 전용 OrderRecommendations portrait 분기를 제거했으며, 다른 화면의 compact/checkout과 OrderRecommendationItem은 유지한다. 카트는 공통 products를 직접 사용하며 데스크탑 4열/모바일 150px 카드와 10px 간격은 유지한다.
 
 - 카트 추천은 별도 orderRecommendations 변환 배열 대신 공통 products를 직접 순회하고 ProductCard product로 전달한다. itemCount도 products.length를 사용한다. 주문완료의 기존 추천 데이터 사용은 유지한다.
+
+
+## 마이페이지 상단 로그아웃과 빈 주문 헤더 보완 (2026-11-05)
+
+Figma [마이페이지 메인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1413-131325)의 PC 기본 1533:43644·주문 없음 1480:36896과 모바일 기본 1413:131326을 기준으로 이름 오른쪽에 로그아웃을 추가했다. PC는 기존 Button secondary/short의 높이 40px, 모바일은 link/md의 밑줄·14px·400 굵기를 사용하며 모바일 하단 48px 버튼은 유지한다. 기존 ContentSection.headerProps.action과 RouteContent의 logoutOpen을 재사용해 페이지·공용 컴포넌트·상태 owner를 추가하지 않았다.
+
+/mypage/preview-no-orders는 PC에서 기존 상품정보·수량·가격·주문상태 헤더를 유지하고 모바일은 기존 빈 상태만 표시한다. 확인 문구의 중복 물음표를 제거해 '로그아웃 하시겠습니까?'로 표시한다. /mypage·/mypage/preview-no-orders·/mypage/preview-logout의 URL과 IA 연결, 상품·관심상품 등 예시 데이터, 기존 빈 상태 Typography는 보존한다. 로그아웃은 확인창 열기/닫기만 수행하며 실제 인증 요청·저장·완료 이동은 미연동이다. 연결 책임은 owner의 [ 개발팀 바인딩 ] 주석에 기록했다.
+
+검증: Codex가 PC 1920px의 상단 버튼 높이 40px, PC 빈 화면의 네 열 헤더와 모바일 375px의 헤더 생략·상단/하단 로그아웃 표시를 DOM과 계산 스타일로 확인했다. 모바일 상단 밑줄·14px·400, PC Escape 닫기와 모바일 닫기·확인 후 포커스 복귀 및 URL 유지, 기본 예시 5개·New·관심상품 6건 유지를 확인했다. 타입·Panda·대상 ESLint/Prettier 및 Next 빌드는 통과했다. 전체 lint는 비대상 tests/wh-file-summary.test.mjs의 URL/Request/Response no-undef 8건으로 실패했다. 브라우저 스크린샷은 캡처 시간 초과로 이미지 비교를 완료하지 못했으며, 명시적 플랫폼·전체 경계 폭 검사는 실행하지 않았다. 출처: src/app/mypage/_components/MyPageContent.tsx 작업 트리. 기록: codex/gpt-6, 2026-11-05T02:07:59.450Z.

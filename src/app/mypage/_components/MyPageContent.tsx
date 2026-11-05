@@ -30,6 +30,7 @@ type LogoutDialogProps = {
   onOpenChange: (open: boolean) => void;
   onConfirm: () => void;
 };
+
 function LogoutDialog({ open, onOpenChange, onConfirm }: LogoutDialogProps) {
   return (
     <ModalDialog
@@ -41,11 +42,12 @@ function LogoutDialog({ open, onOpenChange, onConfirm }: LogoutDialogProps) {
       actions={{ kind: 'confirm', onConfirm: onConfirm }}
     >
       <Typography as="p" variant="body3">
-        로그아웃 하시겠습니까??
+        로그아웃 하시겠습니까?
       </Typography>
     </ModalDialog>
   );
 }
+
 const membershipLink = css({
   color: 'inherit',
   textDecoration: 'underline',
@@ -89,12 +91,14 @@ function MyPageMembership() {
     </Box>
   );
 }
+
 type MyPageBenefitItemProps = {
   href: string;
   label: string;
   count: number;
   unit: string;
 };
+
 const benefitLink = css({
   minW: '0',
   bg: 'black.10',
@@ -122,6 +126,7 @@ function MyPageBenefitItem({ href, label, count, unit }: MyPageBenefitItemProps)
     </Link>
   );
 }
+
 function MyPageBenefits() {
   return (
     <Grid columns={2} gap="2" h="full">
@@ -130,13 +135,16 @@ function MyPageBenefits() {
     </Grid>
   );
 }
+
 const profileLink = css({
   display: 'inline-flex',
   alignSelf: 'flex-start',
   color: 'inherit',
   textDecoration: 'none',
 });
-function MyPageOverviewProfile() {
+function MyPageOverviewProfile({ onLogout }: { onLogout: () => void }) {
+  const platform = usePlatform();
+
   return (
     <ContentSection
       gap="8"
@@ -164,6 +172,19 @@ function MyPageOverviewProfile() {
         </>
       }
       headerProps={{
+        orientation: 'horizontal',
+        alignItems: 'flex-end',
+        action: (
+          <Button
+            className={css({ _mobile: { '& > span': { '--button-label-weight': '400' } } })}
+            {...(platform === 'mobile'
+              ? { variant: 'link', size: 'md' }
+              : { variant: 'secondary', size: 'short' })}
+            onClick={onLogout}
+          >
+            로그아웃
+          </Button>
+        ),
         titleAs: 'h1',
         titleProps: {
           web: 'heading6',
@@ -183,6 +204,7 @@ function MyPageOverviewProfile() {
     </ContentSection>
   );
 }
+
 function MyPageOrderTile({ item }: { item: MyPageOrderItem }) {
   return (
     <HStack position="relative" alignItems="flex-start" gap="4">
@@ -229,9 +251,22 @@ function MyPageOrderTile({ item }: { item: MyPageOrderItem }) {
     </HStack>
   );
 }
+
 function MyPageRecentOrders({ empty = false }: { empty?: boolean }) {
   const platform = usePlatform();
   const items = empty ? [] : orderItems;
+  const emptyState = (
+    <EmptyState
+      variant="content"
+      title="주문 배송 내역이 없습니다."
+      titleProps={{ as: 'p', web: 'heading9', mo: 'heading7', weight: 'semibold' }}
+      layoutProps={{
+        borderBottom: '1px solid var(--colors-black-20)',
+        _mobile: { px: '0' },
+      }}
+    />
+  );
+
   return (
     <ContentSection
       as="section"
@@ -250,17 +285,7 @@ function MyPageRecentOrders({ empty = false }: { empty?: boolean }) {
           ) : undefined,
       }}
     >
-      {items.length === 0 ? (
-        <EmptyState
-          variant="content"
-          title="주문 배송 내역이 없습니다."
-          titleProps={{ as: 'p', web: 'heading9', mo: 'heading7', weight: 'semibold' }}
-          layoutProps={{
-            borderBottom: '1px solid var(--colors-black-20)',
-            _mobile: { px: '0' },
-          }}
-        />
-      ) : platform !== 'mobile' ? (
+      {platform !== 'mobile' ? (
         <Stack gap="0">
           <Grid
             gridTemplateColumns="minmax(0, 1fr) 158px 200px 170px"
@@ -275,36 +300,40 @@ function MyPageRecentOrders({ empty = false }: { empty?: boolean }) {
             <Typography variant="heading9">가격</Typography>
             <Typography variant="heading9">주문상태</Typography>
           </Grid>
-          {items.map((item, index) => (
-            <Grid
-              key={index}
-              gridTemplateColumns="minmax(0, 1fr) 158px 200px 170px"
-              alignItems="center"
-              gap="0"
-              py="8"
-              borderBottom="1px solid var(--colors-black-20)"
-            >
-              <Box px="6" minW="0">
-                <OrderProductSummary
-                  variant="cart"
-                  image={item.image}
-                  name={item.name}
-                  gender={item.gender}
-                  amount={item.price}
-                />
-              </Box>
-              <Typography variant="body3" className={css({ textAlign: 'center' })}>
-                {item.quantity ?? '-'}
-              </Typography>
-              <Typography variant="body3" className={css({ textAlign: 'right', px: '6' })}>
-                {item.price}
-              </Typography>
-              <Typography variant="body3" className={css({ textAlign: 'center' })}>
-                {item.status}
-              </Typography>
-            </Grid>
-          ))}
+          {items.length === 0
+            ? emptyState
+            : items.map((item, index) => (
+                <Grid
+                  key={index}
+                  gridTemplateColumns="minmax(0, 1fr) 158px 200px 170px"
+                  alignItems="center"
+                  gap="0"
+                  py="8"
+                  borderBottom="1px solid var(--colors-black-20)"
+                >
+                  <Box px="6" minW="0">
+                    <OrderProductSummary
+                      variant="cart"
+                      image={item.image}
+                      name={item.name}
+                      gender={item.gender}
+                      amount={item.price}
+                    />
+                  </Box>
+                  <Typography variant="body3" className={css({ textAlign: 'center' })}>
+                    {item.quantity ?? '-'}
+                  </Typography>
+                  <Typography variant="body3" className={css({ textAlign: 'right', px: '6' })}>
+                    {item.price}
+                  </Typography>
+                  <Typography variant="body3" className={css({ textAlign: 'center' })}>
+                    {item.status}
+                  </Typography>
+                </Grid>
+              ))}
         </Stack>
+      ) : items.length === 0 ? (
+        emptyState
       ) : (
         <Carousel itemCount={items.length}>
           <CarouselViewport freeMode={false} mode={platform} showScrollbar={false}>
@@ -324,10 +353,12 @@ function MyPageRecentOrders({ empty = false }: { empty?: boolean }) {
     </ContentSection>
   );
 }
+
 type MyPageMenuItemProps = {
   label: string;
   to: string;
 };
+
 const menuLink = css({ display: 'block', borderBottom: '1px solid var(--color-border-subtle)' });
 function MyPageMenuItem({ label, to }: MyPageMenuItemProps) {
   return (
@@ -339,6 +370,7 @@ function MyPageMenuItem({ label, to }: MyPageMenuItemProps) {
     </Link>
   );
 }
+
 function MyPageMenuSection({ title, items }: { title: string; items: MyPageMenuItemProps[] }) {
   return (
     <ContentSection
@@ -364,7 +396,8 @@ function MyPageMenuSection({ title, items }: { title: string; items: MyPageMenuI
     </ContentSection>
   );
 }
-/** [ 개발팀 바인딩 ] previewLogout은 확인창의 초기 표시만 지정합니다. 이 고정 상태에서는 인증 변경·로그아웃 요청 없이 확인창만 닫습니다. */
+
+/** [ 개발팀 바인딩 ] PC·모바일 상단 및 모바일 하단 로그아웃은 이 owner의 logoutOpen을 공유합니다. previewLogout은 확인창의 초기 표시만 지정하며, 확인·취소는 인증 변경·로그아웃 요청 없이 확인창만 닫습니다. 실제 인증 종료 요청과 pending·실패 처리 및 완료 후 화면 갱신은 인증 연동 소유자가 연결해야 하는 미연동 경계입니다. */
 /** 마이페이지 요약과 메뉴를 구성하고 로그아웃을 연결합니다. (Composes the account overview and menus and connects logout.) */
 export function RouteContent({
   previewNoOrders = false,
@@ -378,7 +411,7 @@ export function RouteContent({
     <>
       <MyPageFrame activePath="/mypage" layout="centered">
         <Stack gap="14" _mobile={{ pt: '6', gap: '8' }}>
-          <MyPageOverviewProfile />
+          <MyPageOverviewProfile onLogout={() => setLogoutOpen(true)} />
           <MyPageRecentOrders empty={previewNoOrders} />
 
           <Grid

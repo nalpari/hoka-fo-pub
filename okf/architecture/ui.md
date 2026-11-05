@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-05T01:11:42.851Z'
+updated: '2026-11-05T02:07:59.450Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -1189,7 +1189,7 @@ Figma `1992:85202`·`1938:45809`·`1797:47269`의 기본/선택/PC 화면을 기
 
 Figma [마이페이지 메인 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1413-131325)의 기본 PC `1533:43644`·모바일 `1413:131326`, 주문 없음 PC `1480:36896`·모바일 `1480:36472`를 반영했다. 기존 1200px 프레임/좌우 34px 안에 PC 등급 카드와 240px 혜택 카드 두 개를 가로 배치한다. 카드 배경 #F7F7F9, PC 패딩 32px·모바일 20px 16px, 카드 간격 8px이다. 이름은 PC 36px·모바일 28px, ‘님’은 24px 본문, 섹션 제목은 PC 28px·모바일 22px이다.
 
-PC 주문 표는 상품정보 가변 폭과 수량 158px·가격 200px·상태 170px, 헤더 세로 패딩 20px·행 32px·썸네일 96px을 사용한다. 메뉴는 PC 3열(가로 56px/세로 48px 간격)·모바일 1열(32px 간격), 제목 밑줄은 PC 2px·모바일 1px이다. 모바일 캐러셀 표시점 간격은 5px이다. 주문 없음은 ‘주문 배송 내역이 없습니다.’를 PC 16px·모바일 14px·#4D4D4D로 표시하고 세로 패딩 120px/64px, ‘전체 보기’ 숨김을 적용한다. 로그아웃 버튼은 시안대로 모바일에 표시하며 기존 모달·콜백은 유지한다.
+PC 주문 표는 상품정보 가변 폭과 수량 158px·가격 200px·상태 170px, 헤더 세로 패딩 20px·행 32px·썸네일 96px을 사용한다. 메뉴는 PC 3열(가로 56px/세로 48px 간격)·모바일 1열(32px 간격), 제목 밑줄은 PC 2px·모바일 1px이다. 모바일 캐러셀 표시점 간격은 5px이다. 주문 없음은 ‘주문 배송 내역이 없습니다.’를 PC 16px·모바일 14px·#4D4D4D로 표시하고 세로 패딩 120px/64px, ‘전체 보기’ 숨김을 적용한다. 당시 로그아웃 버튼은 모바일 하단에 표시했다. 이후 2026-11-05 상단 로그아웃 보완에서 PC 버튼과 모바일 링크를 추가했다.
 
 기존 회원/주문 fixture와 `MyPageDataContext.overview` 계약은 유지한다. 예시 관심상품 6건·주문 5건 및 공통 홍보 배너는 시안 수치로 덮어쓰지 않았다. 신규 API나 상태 URL을 만들지 않았다. 회원명 글리프에서 Pretendard Black 웹폰트를 확인했고 영문은 기존 layout의 HOKA 폰트 변수를 재사용한다.
 
@@ -4725,3 +4725,12 @@ Figma Navigational Buttons(296:25392)와 Action Buttons(296:25425)의 기본·�
 - 캐러셀 `tabs` 슬롯이 있으면 제목 아래 탭 행 오른쪽에 컨트롤을 배치하며, 없으면 제목 오른쪽을 유지한다. 홈 베스트셀러를 이 옵션으로 연결하고 가이드에 기본/탭 포함 예시를 함께 추가했다. 모바일 컨트롤 숨김과 탭 선택 상태는 유지한다.
 
 - 카트 추천 영역은 CartContent에서 가이드와 같은 CarouselSection + ProductCard를 직접 조합한다. 카트 전용 OrderRecommendations portrait 분기를 제거했으며, 다른 화면의 compact/checkout과 OrderRecommendationItem은 유지한다. 카트는 공통 products를 직접 사용하며 데스크탑 4열/모바일 150px 카드와 10px 간격은 유지한다.
+
+
+## 마이페이지 상단 로그아웃과 빈 주문 헤더 보완 (2026-11-05)
+
+Figma [마이페이지 메인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1413-131325)의 PC 기본 1533:43644·주문 없음 1480:36896과 모바일 기본 1413:131326을 기준으로 이름 오른쪽에 로그아웃을 추가했다. PC는 기존 Button secondary/short의 높이 40px, 모바일은 link/md의 밑줄·14px·400 굵기를 사용하며 모바일 하단 48px 버튼은 유지한다. 기존 ContentSection.headerProps.action과 RouteContent의 logoutOpen을 재사용해 페이지·공용 컴포넌트·상태 owner를 추가하지 않았다.
+
+/mypage/preview-no-orders는 PC에서 기존 상품정보·수량·가격·주문상태 헤더를 유지하고 모바일은 기존 빈 상태만 표시한다. 확인 문구의 중복 물음표를 제거해 '로그아웃 하시겠습니까?'로 표시한다. /mypage·/mypage/preview-no-orders·/mypage/preview-logout의 URL과 IA 연결, 상품·관심상품 등 예시 데이터, 기존 빈 상태 Typography는 보존한다. 로그아웃은 확인창 열기/닫기만 수행하며 실제 인증 요청·저장·완료 이동은 미연동이다. 연결 책임은 owner의 [ 개발팀 바인딩 ] 주석에 기록했다.
+
+검증: Codex가 PC 1920px의 상단 버튼 높이 40px, PC 빈 화면의 네 열 헤더와 모바일 375px의 헤더 생략·상단/하단 로그아웃 표시를 DOM과 계산 스타일로 확인했다. 모바일 상단 밑줄·14px·400, PC Escape 닫기와 모바일 닫기·확인 후 포커스 복귀 및 URL 유지, 기본 예시 5개·New·관심상품 6건 유지를 확인했다. 타입·Panda·대상 ESLint/Prettier 및 Next 빌드는 통과했다. 전체 lint는 비대상 tests/wh-file-summary.test.mjs의 URL/Request/Response no-undef 8건으로 실패했다. 브라우저 스크린샷은 캡처 시간 초과로 이미지 비교를 완료하지 못했으며, 명시적 플랫폼·전체 경계 폭 검사는 실행하지 않았다. 출처: src/app/mypage/_components/MyPageContent.tsx 작업 트리. 기록: codex/gpt-6, 2026-11-05T02:07:59.450Z.
