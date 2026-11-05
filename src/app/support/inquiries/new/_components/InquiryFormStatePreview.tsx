@@ -77,7 +77,7 @@ export function InquiryFormStatePreview({
             ? 'count'
             : undefined;
   return (
-    <InquiryFormLayout orderSelected={Boolean(selection)}>
+    <InquiryFormLayout>
       <form
         className={css({ mt: { base: '10', _mobile: '6' } })}
         noValidate

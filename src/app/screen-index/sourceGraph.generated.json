@@ -1071,8 +1071,7 @@
     "src/app/support/inquiries/new/_components/InquiryFormLayout.tsx": [
       "src/app/support/support.navigation.ts",
       "src/components/common/molecules/ContentHeader.tsx",
-      "src/components/support/CustomerCenterLayout.tsx",
-      "src/context/platform.tsx"
+      "src/components/support/CustomerCenterLayout.tsx"
     ],
     "src/app/support/inquiries/new/_components/InquiryFormStatePreview.tsx": [
       "src/app/support/inquiries/new/_components/InquiryFormContent.tsx",

@@ -4,12 +4,14 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-05T02:07:59.450Z'
+updated: '2026-11-05T03:41:02.449Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/app/support/inquiries/new/_components/InquiryFormStatePreview.tsx
+  - src/app/support/inquiries/new/_components/InquiryFormLayout.tsx
   - src/app/publishing-guide/_components/CarouselGuide.tsx
   - src/components/common/molecules/CarouselSection.tsx
   - src/app/screen-index/page.tsx
@@ -4734,3 +4736,18 @@ Figma [마이페이지 메인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8W
 /mypage/preview-no-orders는 PC에서 기존 상품정보·수량·가격·주문상태 헤더를 유지하고 모바일은 기존 빈 상태만 표시한다. 확인 문구의 중복 물음표를 제거해 '로그아웃 하시겠습니까?'로 표시한다. /mypage·/mypage/preview-no-orders·/mypage/preview-logout의 URL과 IA 연결, 상품·관심상품 등 예시 데이터, 기존 빈 상태 Typography는 보존한다. 로그아웃은 확인창 열기/닫기만 수행하며 실제 인증 요청·저장·완료 이동은 미연동이다. 연결 책임은 owner의 [ 개발팀 바인딩 ] 주석에 기록했다.
 
 검증: Codex가 PC 1920px의 상단 버튼 높이 40px, PC 빈 화면의 네 열 헤더와 모바일 375px의 헤더 생략·상단/하단 로그아웃 표시를 DOM과 계산 스타일로 확인했다. 모바일 상단 밑줄·14px·400, PC Escape 닫기와 모바일 닫기·확인 후 포커스 복귀 및 URL 유지, 기본 예시 5개·New·관심상품 6건 유지를 확인했다. 타입·Panda·대상 ESLint/Prettier 및 Next 빌드는 통과했다. 전체 lint는 비대상 tests/wh-file-summary.test.mjs의 URL/Request/Response no-undef 8건으로 실패했다. 브라우저 스크린샷은 캡처 시간 초과로 이미지 비교를 완료하지 못했으며, 명시적 플랫폼·전체 경계 폭 검사는 실행하지 않았다. 출처: src/app/mypage/_components/MyPageContent.tsx 작업 트리. 기록: codex/gpt-6, 2026-11-05T02:07:59.450Z.
+
+
+## 문의 제목과 마이페이지 빈 화면 시안 보완 (2026-11-05)
+
+Figma 파일 qyXJp4bnoeYSQxQULV8Wql의 [상품리뷰 1487:38311](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1487-38311), [배송지 1978:60309](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1978-60309), [관심상품 1978:74225](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1978-74225), [최근 본 상품 2025:149807](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2025-149807), [재입고 2025:152235](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2025-152235), 문의 등록 [모바일 1241:92705](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1241-92705)·[PC 1241:92753](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1241-92753)을 기준으로 보완했다.
+
+InquiryFormLayout은 모든 선택 상태에서 페이지 제목 '1:1 문의'와 Home > 고객센터 > 1:1 문의 경로를 표시한다. 선택 여부로 제목을 나누던 orderSelected prop과 호출부만 제거했으며 문의 입력란의 제목, 안내 팝업 제목과 선택 fixture는 보존했다. 제목은 기존 PC 36px·모바일 22px·900을 유지한다.
+
+상품리뷰·배송지·관심상품·최근 본 상품·재입고의 빈 상태는 기존 EmptyState.page를 재사용한다. 제목은 headingKr7/headingKr5로 PC 28px·모바일 22px·900·검정, 설명은 body3/body4로 16px/14px이며 제목과 설명 사이 16px을 둔다. PC 본문 상단 패딩은 160px이며 리뷰는 탭을 제외한 최소 755px, 나머지는 795px 영역이다. 모바일 리뷰·배송지·최근·재입고는 실제 셸 높이를 뺀 영역에서 중앙 정렬하고 관심상품은 시안의 200px 상단 여백을 유지한다. 중첩 layoutProps는 css.raw로 추출해 모바일 최소 높이가 실제 생성되게 한다. 자동 셸의 홍보 배너 50px과 breadcrumb 여백은 디자인의 상태바와 구분해 계산했다.
+
+배송지 빈 안내를 제목과 설명으로 분리하고 기존 onAdd 버튼을 빈 상태 action으로 이동했다. 버튼은 PC 180px·모바일 322px 기준과 가용 폭 제한을 사용하며 정상 목록의 하단 추가 버튼과 배송지명 스타일은 그대로다. 상품 빈 상태의 별도 하단 disclaimer를 본문 설명에 통합하고, 재입고 정상 PC 목록의 잘못된 최근 본 상품 안내를 재입고 알림 안내로 수정했다. 공통 EmptyState·MyPageFrame·플랫폼·폰트 정의와 상품/리뷰/주소 fixture·콜백·최소 로컬 UI 조작은 유지한다. 실제 API·인증·저장·삭제 연동을 추가하지 않았다.
+
+검증: PC 1920px·모바일 375px에서 여섯 대상 기본 화면과 다섯 빈 URL의 DOM·계산 스타일을 확인했다. 제목 28/22px·900, 설명 16/14px·간격 16px, PC 상단 패딩 160px과 최소 높이, 모바일 중앙/상단 배치 및 가로 넘침 없음을 확인했다. 배송지 추가 버튼으로 기존 편집 폼이 열리고 기본 상품·리뷰·주소가 유지되며 재입고 정상 PC에서 최근 상품 안내가 사라짐을 확인했다. 빈 재입고 화면을 1024/1025·1199/1200px로 전환해 모바일/PC 분기와 1200px 미만 PC 캔버스 및 1200px 이상 가로 넘침 없음을 확인했다. CDP 실제 글리프 폰트는 Pretendard Black 웹폰트였다. 대상 ESLint/Prettier·타입·Panda·Next 빌드 검사를 수행했다. 전체 lint는 비대상 tests/wh-file-summary.test.mjs의 URL/Request/Response no-undef 8건으로 실패했다. 스크린샷은 캡처 시간 초과로 이미지 비교를 완료하지 못했으며 명시적 preview 플랫폼과 열린 overlay resize는 미실행이다. 브라우저 확인은 DOM/계산 스타일과 조작 범위이며 픽셀 일치를 주장하지 않는다.
+
+출처: 위 6개 작업 트리 파일. 기록: codex/gpt-6, 2026-11-05T03:41:02.449Z. 기존 신뢰 메타데이터와 source_revision은 보존한다.

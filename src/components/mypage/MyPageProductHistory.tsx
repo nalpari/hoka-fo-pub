@@ -373,7 +373,7 @@ export function MyPageProductHistory({
       breadcrumbs={[{ label: '상품내역', href: '/mypage' }, { label: current.title }]}
     >
       <Stack
-        gap={restock || (kind === 'recent' && !items.length) ? '0' : '8'}
+        gap={restock || !items.length ? '0' : '8'}
         mx={kind === 'wishlist' || kind === 'recent' ? { _mobile: '-16px' } : undefined}
         _mobile={
           kind === 'recent'
@@ -418,19 +418,47 @@ export function MyPageProductHistory({
             }}
           />
         )}
-        {restock ? (
-          items.length ? (
-            <MyPageRestockList entries={entries} items={items} onCancelRequest={setPendingCancel} />
-          ) : (
-            <EmptyState
-              variant="plain"
-              role="status"
-              title={`${current.empty}.`}
-              titleProps={{ as: 'p', web: 'body3', mo: 'body4', tone: 'subtle' }}
-              layoutProps={{ py: '240px', mt: '8', _mobile: { py: '96px', mt: '0' } }}
-            />
-          )
-        ) : items.length ? (
+        {!items.length ? (
+          <EmptyState
+            variant="page"
+            role="status"
+            title={`${current.empty}${kind === 'recent' || (kind === 'wishlist' && platform === 'web') ? '' : '.'}`}
+            description={
+              restock
+                ? restockNote.replace(/^\* /gm, '').replace(/\n/g, ' ')
+                : current.note.replace(/^\* /, '')
+            }
+            titleProps={{ as: 'p', web: 'headingKr7', mo: 'headingKr5' }}
+            descriptionProps={{
+              web: 'body3',
+              mo: 'body4',
+              className: restock
+                ? css({ textAlign: 'left', _mobile: { textAlign: 'center' } })
+                : undefined,
+            }}
+            layoutProps={css.raw({
+              minH: '795px',
+              pt: '160px',
+              pb: '0',
+              justifyContent: 'flex-start',
+              _mobile:
+                kind === 'wishlist'
+                  ? {
+                      minH: 'calc(100svh - var(--layout-site-header-height) - 156px)',
+                      pt: '200px',
+                      pb: '0',
+                    }
+                  : {
+                      minH: 'calc(100svh - var(--layout-site-header-height) - 106px)',
+                      py: '0',
+                      justifyContent: 'center',
+                      ...(restock ? { mt: '-24px' } : {}),
+                    },
+            })}
+          />
+        ) : restock ? (
+          <MyPageRestockList entries={entries} items={items} onCancelRequest={setPendingCancel} />
+        ) : (
           <ContentSection
             gap={kind === 'wishlist' ? '8' : '6'}
             footer={
@@ -458,29 +486,9 @@ export function MyPageProductHistory({
               }}
             />
           </ContentSection>
-        ) : (
-          <EmptyState
-            variant={kind === 'recent' ? 'page' : 'plain'}
-            title={`${current.empty}${kind === 'wishlist' ? '.' : ''}`}
-            description={kind === 'recent' ? current.note.replace(/^\* /, '') : undefined}
-            titleProps={
-              kind === 'recent'
-                ? { as: 'p', web: 'heading7', mo: 'heading6' }
-                : { as: 'p', variant: 'body4', className: css({ color: 'black.60' }) }
-            }
-            descriptionProps={{ web: 'body4', mo: 'body5' }}
-            layoutProps={
-              kind === 'recent'
-                ? css.raw({
-                    // 50px promotion + 80px breadcrumbs - the existing 24px overlap.
-                    _mobile: { minH: 'calc(100svh - var(--layout-site-header-height) - 106px)' },
-                  })
-                : { py: '240px', _mobile: { py: '24', px: '4' } }
-            }
-          />
         )}
 
-        {restock ? (
+        {restock && items.length > 0 ? (
           <Box
             mt="4"
             pt={items.length ? '0' : '4'}
@@ -495,7 +503,7 @@ export function MyPageProductHistory({
                 tone="tertiary"
                 className={css({ _mobile: { display: 'none' } })}
               >
-                {config.recent.note}
+                {restockNote}
               </Typography>
             )}
             <Typography
@@ -510,12 +518,10 @@ export function MyPageProductHistory({
               {restockNote}
             </Typography>
           </Box>
-        ) : (kind === 'wishlist' && items.length > 0) ||
-          (kind === 'recent' && items.length === 0) ? null : (
+        ) : kind === 'wishlist' || !items.length ? null : (
           <MyPageProductHistoryNote
             recent={kind === 'recent'}
             note={current.note}
-            wishlist={kind === 'wishlist'}
             empty={!items.length}
           />
         )}

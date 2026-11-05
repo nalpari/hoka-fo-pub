@@ -233,7 +233,7 @@ export function AddressList({
     >
       <ContentSection
         title="회원정보"
-        gap="8"
+        gap={addresses.length ? '8' : '0'}
         headerProps={{
           titleAs: 'h1',
           titleProps: { variant: 'headingKr6' },
@@ -330,29 +330,45 @@ export function AddressList({
           </Stack>
         ) : (
           <EmptyState
-            variant="plain"
-            layoutProps={{
-              py: '120px',
-              borderBottom: '1px solid var(--colors-black-20)',
-              _mobile: { py: '24', borderBottom: '0' },
-            }}
-            titleProps={{ as: 'p', web: 'body3', mo: 'body4', tone: 'tertiary' }}
-            title={
-              <>
-                자주 쓰는 배송지 주소를 설정해주세요.
-                <br />
-                자주 쓰는 배송지 주소를 저장하시면 보다 편리하게{mobile ? <br /> : ' '}이용이
-                가능합니다.
-              </>
+            variant="page"
+            layoutProps={css.raw({
+              minH: '795px',
+              pt: '160px',
+              pb: '0',
+              gap: '8',
+              justifyContent: 'flex-start',
+              _mobile: {
+                mt: '-24px',
+                py: '0',
+                minH: 'calc(100svh - var(--layout-site-header-height) - 106px)',
+                justifyContent: 'center',
+              },
+            })}
+            titleProps={{ as: 'p', web: 'headingKr7', mo: 'headingKr5' }}
+            title="자주 쓰는 배송지 주소를 설정해주세요."
+            description={
+              mobile
+                ? '자주 쓰는 배송지 주소를 저장하시면 보다 편리하게 이용이 가능합니다.'
+                : '자주 쓰는 배송지 주소를 설정해주세요. 자주 쓰는 배송지 주소를 저장하시면 보다 편리하게 이용이 가능합니다.'
+            }
+            descriptionProps={{ web: 'body3', mo: 'body4' }}
+            action={
+              <Box w="180px" _mobile={{ w: '322px', maxW: '100%' }}>
+                <Button fullWidth size="tall" variant="primary" onClick={onAdd}>
+                  배송지 추가
+                </Button>
+              </Box>
             }
           />
         )}
       </ContentSection>
-      <Box w="180px" mx="auto" _mobile={{ w: '100%' }}>
-        <Button fullWidth size="tall" variant="primary" onClick={onAdd}>
-          배송지 추가
-        </Button>
-      </Box>
+      {addresses.length > 0 && (
+        <Box w="180px" mx="auto" _mobile={{ w: '100%' }}>
+          <Button fullWidth size="tall" variant="primary" onClick={onAdd}>
+            배송지 추가
+          </Button>
+        </Box>
+      )}
     </Stack>
   );
 }

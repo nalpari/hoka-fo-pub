@@ -4,12 +4,14 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-05T02:07:59.450Z'
+updated: '2026-11-05T03:41:02.449Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/support/inquiries/new/_components/InquiryFormStatePreview.tsx
+  - src/app/support/inquiries/new/_components/InquiryFormLayout.tsx
   - src/app/publishing-guide/_components/CarouselGuide.tsx
   - src/components/common/molecules/CarouselSection.tsx
   - src/app/screen-index/page.tsx
@@ -1418,3 +1420,10 @@ Figma [마이페이지 메인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8W
 /mypage/preview-no-orders는 PC에서 기존 상품정보·수량·가격·주문상태 헤더를 유지하고 모바일은 기존 빈 상태만 표시한다. 확인 문구의 중복 물음표를 제거해 '로그아웃 하시겠습니까?'로 표시한다. /mypage·/mypage/preview-no-orders·/mypage/preview-logout의 URL과 IA 연결, 상품·관심상품 등 예시 데이터, 기존 빈 상태 Typography는 보존한다. 로그아웃은 확인창 열기/닫기만 수행하며 실제 인증 요청·저장·완료 이동은 미연동이다. 연결 책임은 owner의 [ 개발팀 바인딩 ] 주석에 기록했다.
 
 검증: Codex가 PC 1920px의 상단 버튼 높이 40px, PC 빈 화면의 네 열 헤더와 모바일 375px의 헤더 생략·상단/하단 로그아웃 표시를 DOM과 계산 스타일로 확인했다. 모바일 상단 밑줄·14px·400, PC Escape 닫기와 모바일 닫기·확인 후 포커스 복귀 및 URL 유지, 기본 예시 5개·New·관심상품 6건 유지를 확인했다. 타입·Panda·대상 ESLint/Prettier 및 Next 빌드는 통과했다. 전체 lint는 비대상 tests/wh-file-summary.test.mjs의 URL/Request/Response no-undef 8건으로 실패했다. 브라우저 스크린샷은 캡처 시간 초과로 이미지 비교를 완료하지 못했으며, 명시적 플랫폼·전체 경계 폭 검사는 실행하지 않았다. 출처: src/app/mypage/_components/MyPageContent.tsx 작업 트리. 기록: codex/gpt-6, 2026-11-05T02:07:59.450Z.
+
+
+## 문의 제목과 마이페이지 빈 화면 시안 보완 (2026-11-05)
+
+/support/inquiries/new의 기본·고정 상태는 기존 InquiryFormLayout에서 제목과 경로를 '1:1 문의'로 통일한다. orderSelected는 제목 분기에만 쓰이던 표시 prop이어서 호출부와 함께 제거했다. 문의 입력·선택 fixture·팝업은 유지하며 URL·IA 번호·previewRoutes는 변경하지 않는다. 불필요해진 platform import를 제거한 의존 그래프는 정식 screen-files 명령으로 재생성했다.
+
+/mypage/reviews/preview-empty, /mypage/addresses/preview-empty, /mypage/wishlist/preview-empty, /mypage/recent/preview-empty, /mypage/restock-alerts/preview-empty는 기존 화면 소유자와 EmptyState.page를 공유해 새 빈 상태 시안을 표시한다. 새 라우트나 provider를 만들지 않으며 콜백·예시 데이터·상태 수명과 미연동 서비스 경계는 보존한다. 스타일·실제 검증 및 한계는 [UI 보완](ui.md#문의-제목과-마이페이지-빈-화면-시안-보완-2026-11-05)에 기록했다. 출처: 위 working_tree_sources의 대상 작업 트리. 기록: codex/gpt-6, 2026-11-05T03:41:02.449Z.

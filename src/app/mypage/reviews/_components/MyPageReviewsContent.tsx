@@ -450,24 +450,25 @@ export function MyPageReviewsContent({
           </Box>
         ) : (
           <EmptyState
-            variant="plain"
+            variant="page"
             as="section"
             title={tab === 'ready' ? '작성 가능한 상품이 없습니다.' : '작성한 리뷰가 없습니다.'}
             titleProps={{
               as: 'span',
-              variant: 'body3',
-              className: css({ color: 'black.60', textAlign: 'start' }),
+              web: 'headingKr7',
+              mo: 'headingKr5',
             }}
-            layoutProps={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '8px',
-              mt: '10',
-              py: '203px',
-              justifyContent: 'center',
-              alignItems: 'center',
-              _mobile: { mt: '0', pt: '24', pb: '8' },
-            }}
+            layoutProps={css.raw({
+              minH: '755px',
+              pt: '160px',
+              pb: '0',
+              justifyContent: 'flex-start',
+              _mobile: {
+                py: '0',
+                minH: 'calc(100svh - var(--layout-site-header-height) - 186px)',
+                justifyContent: 'center',
+              },
+            })}
           />
         )}
       </Stack>
