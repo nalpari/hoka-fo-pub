@@ -215,8 +215,8 @@ const styles = {
     position: 'relative',
     aspectRatio: '3 / 4',
     overflow: 'hidden',
-    borderRadius: '8px',
-    _mobile: { aspectRatio: '1', borderRadius: '0' },
+    borderRadius: '0',
+    _mobile: { aspectRatio: '1' },
     '&::before': {
       bg: 'rgba(0, 0, 0, 0.3)',
     },

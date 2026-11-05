@@ -188,7 +188,7 @@ function RunningSessionFacts({
 const detailText = css({ display: 'block', mt: '4px' });
 const styles = {
   image: css({ w: '100%', h: 'auto', aspectRatio: '1', objectFit: 'cover', display: 'block' }),
-  opening: css({ color: 'var(--color-blue-100)', mb: '24px' }),
+  opening: css({ color: 'var(--color-red-80)', mb: '24px' }),
 };
 type RunningSessionSessionHeroProps = {
   session: RunningSessionSession;
