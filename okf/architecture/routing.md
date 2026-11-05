@@ -1415,6 +1415,21 @@ URL의 developer=ALL을 담당자 이름으로 해석하던 원인을 수정한�
 
 - 카트 추천은 별도 orderRecommendations 변환 배열 대신 공통 products를 직접 순회하고 ProductCard product로 전달한다. itemCount도 products.length를 사용한다. 주문완료의 기존 추천 데이터 사용은 유지한다.
 
+- NumberStepper 감소 아이콘을 hoka-action-minus-regular로 교체했다. 기존 24px 크기와 수량 조작은 유지하고 아이콘 가이드 사용처를 갱신했다.
+
+- plus-regular/minus-solid/minus-regular를 디자인팀 hoka-action-plus-regular/hoka-action-minus-regular로 통일했다. NumberStepper·InquiryOrderLookup의 기존 교체를 유지하고 ProductListingPage를 변경했다. 사용처가 없어진 SVG 3개·등록·가이드 항목·README 링크를 제거했으며 기존 아이콘 크기는 유지한다.
+
+- InquiryOrderLookup의 주문 목록 펼침 행을 공통 Button variant="plain"으로 교체했다. 기존 행 배치·24px 아이콘·펼침 상태를 유지하고 aria-expanded를 제공한다.
+
+- Figma 296:19866의 18px 기본 xmark Regular 원본을 xmark-regular.svg로 등록했다. hoka-action-xmark-regular-20 SVG/등록을 제거하고 카트 삭제·ModalDialog 닫기를 xmark-regular size={20}으로 교체했다. 가이드에 폰트어썸 기본형 18px 카테고리와 18/20/14px 개별 복사 예시를 추가했다. 기존 24px 디자인팀 액션 아이콘은 별도로 유지한다.
+
+- xmark-regular 가이드에 ProductListingPage 선택 태그 삭제의 모바일 14px/데스크탑 16px 실제 사용처와 조건부 복사 코드·두 크기 미리보기를 반영했다.
+
+- 사용자 후속 지시에 따라 Figma 296:16546/296:24896의 18px 원본 plus-regular/minus-regular를 다시 등록했다. 기본형 가이드에 각각 18px·16px 미리보기와 개별 복사 코드를 추가했으며 화면 사용처는 변경하지 않았다.
+
+- 기본형 plus/minus 16px 가이드에 ProductListingPage의 CatalogFilterTrigger 사용 예정 위치와 접기/펼치기 용도를 명시했다. 현재 실제 호출은 hoka-action 24px이므로 이번 요청에서는 가이드만 갱신했다.
+
+- CatalogFilterTrigger에 plus-regular/minus-regular size={16}을 실제 적용했다. 가이드 적용 예정 표시를 제거하고 디자인팀 액션 아이콘 사용처에서 ProductListingPage를 제외했다. 기존 필터 접기/펼치기 동작은 유지한다.
 
 ## 마이페이지 상단 로그아웃과 빈 주문 헤더 보완 (2026-11-05)
 
@@ -1424,13 +1439,11 @@ Figma [마이페이지 메인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8W
 
 검증: Codex가 PC 1920px의 상단 버튼 높이 40px, PC 빈 화면의 네 열 헤더와 모바일 375px의 헤더 생략·상단/하단 로그아웃 표시를 DOM과 계산 스타일로 확인했다. 모바일 상단 밑줄·14px·400, PC Escape 닫기와 모바일 닫기·확인 후 포커스 복귀 및 URL 유지, 기본 예시 5개·New·관심상품 6건 유지를 확인했다. 타입·Panda·대상 ESLint/Prettier 및 Next 빌드는 통과했다. 전체 lint는 비대상 tests/wh-file-summary.test.mjs의 URL/Request/Response no-undef 8건으로 실패했다. 브라우저 스크린샷은 캡처 시간 초과로 이미지 비교를 완료하지 못했으며, 명시적 플랫폼·전체 경계 폭 검사는 실행하지 않았다. 출처: src/app/mypage/_components/MyPageContent.tsx 작업 트리. 기록: codex/gpt-6, 2026-11-05T02:07:59.450Z.
 
-
 ## 문의 제목과 마이페이지 빈 화면 시안 보완 (2026-11-05)
 
 /support/inquiries/new의 기본·고정 상태는 기존 InquiryFormLayout에서 제목과 경로를 '1:1 문의'로 통일한다. orderSelected는 제목 분기에만 쓰이던 표시 prop이어서 호출부와 함께 제거했다. 문의 입력·선택 fixture·팝업은 유지하며 URL·IA 번호·previewRoutes는 변경하지 않는다. 불필요해진 platform import를 제거한 의존 그래프는 정식 screen-files 명령으로 재생성했다.
 
 /mypage/reviews/preview-empty, /mypage/addresses/preview-empty, /mypage/wishlist/preview-empty, /mypage/recent/preview-empty, /mypage/restock-alerts/preview-empty는 기존 화면 소유자와 EmptyState.page를 공유해 새 빈 상태 시안을 표시한다. 새 라우트나 provider를 만들지 않으며 콜백·예시 데이터·상태 수명과 미연동 서비스 경계는 보존한다. 스타일·실제 검증 및 한계는 [UI 보완](ui.md#문의-제목과-마이페이지-빈-화면-시안-보완-2026-11-05)에 기록했다. 출처: 위 working_tree_sources의 대상 작업 트리. 기록: codex/gpt-6, 2026-11-05T03:41:02.449Z.
-
 
 ## EmptyState 모바일 내부 여백 통일 (2026-11-05)
 

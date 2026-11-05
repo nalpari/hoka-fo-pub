@@ -30,18 +30,20 @@ const periodOptions = [
   { value: 'custom', label: '직접설정' },
 ] as const;
 const orderHeading = css({
-  display: 'flex',
   flex: '1',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  gap: '2',
-  p: '0',
-  border: '0',
-  bg: 'transparent',
-  textAlign: 'left',
-  cursor: 'pointer',
   minW: '0',
+  textAlign: 'left',
+  '& > span > span > span:first-child': {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: '2',
+    w: '100%',
+    minW: '0',
+    whiteSpace: 'normal',
+  },
 });
+
 const visuallyHidden = css({ srOnly: true });
 /** 문의 대상 주문을 조회하고 상품을 선택하는 전용 페이지입니다. (Provides the dedicated order and product selection page for inquiries.) */
 export function InquiryOrderLookup({
@@ -156,13 +158,16 @@ export function InquiryOrderLookup({
                       },
                     ]}
                   />
-                  <button
+                  <Button
+                    variant="plain"
+                    fullWidth
                     type="button"
+                    aria-expanded={isExpanded}
                     aria-label={`${order.id} 상품 목록 ${isExpanded ? '접기' : '펼치기'}`}
                     onClick={() => setExpandedOrder(isExpanded ? null : order.id)}
                     className={orderHeading}
                   >
-                    <Stack gap="2" alignItems="flex-start" minW="0" flex="1">
+                    <Stack as="span" gap="2" alignItems="flex-start" minW="0" flex="1">
                       <Typography variant="body4" language="en">
                         {order.date}
                       </Typography>
@@ -171,10 +176,10 @@ export function InquiryOrderLookup({
                       </Typography>
                     </Stack>
                     <Icon
-                      name={isExpanded ? 'minus-solid' : 'hoka-action-plus-regular'}
-                      size={isExpanded ? 16 : 24}
+                      name={isExpanded ? 'hoka-action-minus-regular' : 'hoka-action-plus-regular'}
+                      size={24}
                     />
-                  </button>
+                  </Button>
                 </Flex>
                 {isExpanded && (
                   <Stack

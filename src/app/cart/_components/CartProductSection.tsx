@@ -44,7 +44,7 @@ function CartMobileItem({ row, selected, onSelect }: CartItemProps) {
           label={null}
         />
         <Button variant="icon" size={20} aria-label={`${product.name} 삭제`}>
-          <Icon name="hoka-action-xmark-regular-20" size={20} />
+          <Icon name="xmark-regular" size={20} />
         </Button>
       </HStack>
       <Stack

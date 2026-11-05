@@ -4729,6 +4729,15 @@ Figma Navigational Buttons(296:25392)와 Action Buttons(296:25425)의 기본·�
 
 - 카트 추천 영역은 CartContent에서 가이드와 같은 CarouselSection + ProductCard를 직접 조합한다. 카트 전용 OrderRecommendations portrait 분기를 제거했으며, 다른 화면의 compact/checkout과 OrderRecommendationItem은 유지한다. 카트는 공통 products를 직접 사용하며 데스크탑 4열/모바일 150px 카드와 10px 간격은 유지한다.
 
+- NumberStepper 감소 아이콘을 hoka-action-minus-regular로 교체했다. 기존 24px 크기와 수량 조작은 유지하고 아이콘 가이드 사용처를 갱신했다.
+
+- plus-regular/minus-solid/minus-regular를 디자인팀 hoka-action-plus-regular/hoka-action-minus-regular로 통일했다. NumberStepper·InquiryOrderLookup의 기존 교체를 유지하고 ProductListingPage를 변경했다. 사용처가 없어진 SVG 3개·등록·가이드 항목·README 링크를 제거했으며 기존 아이콘 크기는 유지한다.
+
+- Figma 296:19866의 18px 기본 xmark Regular 원본을 xmark-regular.svg로 등록했다. hoka-action-xmark-regular-20 SVG/등록을 제거하고 카트 삭제·ModalDialog 닫기를 xmark-regular size={20}으로 교체했다. 가이드에 폰트어썸 기본형 18px 카테고리와 18/20/14px 개별 복사 예시를 추가했다. 기존 24px 디자인팀 액션 아이콘은 별도로 유지한다.
+
+- 사용자 후속 지시에 따라 Figma 296:16546/296:24896의 18px 원본 plus-regular/minus-regular를 다시 등록했다. 기본형 가이드에 각각 18px·16px 미리보기와 개별 복사 코드를 추가했으며 화면 사용처는 변경하지 않았다.
+
+- CatalogFilterTrigger에 plus-regular/minus-regular size={16}을 실제 적용했다. 가이드 적용 예정 표시를 제거하고 디자인팀 액션 아이콘 사용처에서 ProductListingPage를 제외했다. 기존 필터 접기/펼치기 동작은 유지한다.
 
 ## 마이페이지 상단 로그아웃과 빈 주문 헤더 보완 (2026-11-05)
 
@@ -4737,7 +4746,6 @@ Figma [마이페이지 메인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8W
 /mypage/preview-no-orders는 PC에서 기존 상품정보·수량·가격·주문상태 헤더를 유지하고 모바일은 기존 빈 상태만 표시한다. 확인 문구의 중복 물음표를 제거해 '로그아웃 하시겠습니까?'로 표시한다. /mypage·/mypage/preview-no-orders·/mypage/preview-logout의 URL과 IA 연결, 상품·관심상품 등 예시 데이터, 기존 빈 상태 Typography는 보존한다. 로그아웃은 확인창 열기/닫기만 수행하며 실제 인증 요청·저장·완료 이동은 미연동이다. 연결 책임은 owner의 [ 개발팀 바인딩 ] 주석에 기록했다.
 
 검증: Codex가 PC 1920px의 상단 버튼 높이 40px, PC 빈 화면의 네 열 헤더와 모바일 375px의 헤더 생략·상단/하단 로그아웃 표시를 DOM과 계산 스타일로 확인했다. 모바일 상단 밑줄·14px·400, PC Escape 닫기와 모바일 닫기·확인 후 포커스 복귀 및 URL 유지, 기본 예시 5개·New·관심상품 6건 유지를 확인했다. 타입·Panda·대상 ESLint/Prettier 및 Next 빌드는 통과했다. 전체 lint는 비대상 tests/wh-file-summary.test.mjs의 URL/Request/Response no-undef 8건으로 실패했다. 브라우저 스크린샷은 캡처 시간 초과로 이미지 비교를 완료하지 못했으며, 명시적 플랫폼·전체 경계 폭 검사는 실행하지 않았다. 출처: src/app/mypage/_components/MyPageContent.tsx 작업 트리. 기록: codex/gpt-6, 2026-11-05T02:07:59.450Z.
-
 
 ## 문의 제목과 마이페이지 빈 화면 시안 보완 (2026-11-05)
 
@@ -4758,7 +4766,6 @@ InquiryFormLayout은 모든 선택 상태에서 페이지 제목 '1:1 문의'와
 Figma [2063:70557](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2063-70557)의 설명 2498:93424는 현재 CENTER다. MyPageProductHistory의 재입고 전용 PC 왼쪽 정렬 override를 제거해 기존 EmptyState.page의 가운데 정렬을 상속한다. 제목·설명 너비와 글자 크기·문구·예시 데이터·상태 owner는 유지한다. 이 기록이 앞선 재입고 설명 정렬 관측보다 우선한다.
 
 검증: Codex가 /mypage/restock-alerts/preview-empty를 1116px·1920px·375px에서 열어 제목과 설명의 계산 text-align=center를 확인했다. PC 설명은 520px·16px, 모바일은 319px·14px이며 제목은 기존 28/22px이다. hoka-markup-handoff의 기존 EmptyState·Panda·표시 전용 경계를 점검했고 새 래퍼·서비스 연결은 없다. 출처: src/components/mypage/MyPageProductHistory.tsx 작업 트리, codex/gpt-6, 2026-11-05.
-
 
 ## EmptyState 모바일 내부 여백 통일 (2026-11-05)
 

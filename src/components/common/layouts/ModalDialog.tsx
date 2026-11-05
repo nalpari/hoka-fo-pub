@@ -44,7 +44,7 @@ function ModalDialogHeader({
       <Dialog.Close
         render={
           <Button aria-label={closeLabel} variant="icon" size={24}>
-            <Icon name="hoka-action-xmark-regular-20" size={20} />
+            <Icon name="xmark-regular" size={20} />
           </Button>
         }
       />
