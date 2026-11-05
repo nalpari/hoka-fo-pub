@@ -15,8 +15,6 @@ import { GuideTimeline } from './GuideTimeline';
 
 type IconExample = {
   registeredName?: string;
-  /** 밝은 원본 도형의 명도 대비를 확인해 지정하는 가이드 전용 배경입니다. */
-  previewBackground?: 'black.60';
   origin?: { label: string; name: string; detail?: string };
   label: string;
   preview: ReactNode;
@@ -239,6 +237,16 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
         note: '여백 포함 24px · 회색은 color="black.40"',
       },
       {
+        label: '닫기 · 장바구니 삭제와 모달',
+        registeredName: 'hoka-action-xmark-regular-20',
+        preview: <Icon name="hoka-action-xmark-regular-20" size={20} />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="hoka-action-xmark-regular-20" size={20} />`,
+        source: 'CartProductSection.tsx, ModalDialog.tsx',
+        note: 'Figma 원본 · 여백 포함 20px',
+      },
+      {
         label: '닫기 기본',
         registeredName: 'hoka-action-xmark-regular',
 
@@ -247,7 +255,7 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
 
 <Icon name="hoka-action-xmark-regular" size={24} />`,
         source:
-          'ModalDialog.tsx, CartProductSection.tsx, InquiryFormContent.tsx, ProductDetailContent.tsx, SearchHeader.tsx, ShopShell.tsx, TextInput.tsx',
+          'InquiryFormContent.tsx, ProductDetailContent.tsx, SearchHeader.tsx, ShopShell.tsx, TextInput.tsx',
         note: '원본 여백 포함 24px · 화면에 따라 14·16·18·24px',
       },
       {
@@ -281,7 +289,7 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
 
 <Icon name="hoka-action-xmark-regular" size={24} color="black.40" />`,
         source:
-          'ModalDialog.tsx, CartProductSection.tsx, InquiryFormContent.tsx, ProductDetailContent.tsx, SearchHeader.tsx, ShopShell.tsx, TextInput.tsx',
+          'InquiryFormContent.tsx, ProductDetailContent.tsx, SearchHeader.tsx, ShopShell.tsx, TextInput.tsx',
         note: '원본 여백 포함 24px · 화면에 따라 14·16·18·24px',
       },
       {
@@ -327,7 +335,6 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
       {
         label: '배너 left default',
         registeredName: 'hoka-echo-left-state-default',
-        previewBackground: 'black.60',
         preview: <Icon name="hoka-echo-left-state-default" size={16} />,
         code: `import { Icon } from '@/components/common/atoms/Icon';
 
@@ -338,7 +345,6 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
       {
         label: '배너 left hover',
         registeredName: 'hoka-echo-left-state-hover',
-        previewBackground: 'black.60',
         preview: <Icon name="hoka-echo-left-state-hover" size={16} />,
         code: `import { Icon } from '@/components/common/atoms/Icon';
 
@@ -349,7 +355,6 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
       {
         label: '배너 right default',
         registeredName: 'hoka-echo-right-state-default',
-        previewBackground: 'black.60',
         preview: <Icon name="hoka-echo-right-state-default" size={16} />,
         code: `import { Icon } from '@/components/common/atoms/Icon';
 
@@ -360,7 +365,6 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
       {
         label: '배너 right hover',
         registeredName: 'hoka-echo-right-state-hover',
-        previewBackground: 'black.60',
         preview: <Icon name="hoka-echo-right-state-hover" size={16} />,
         code: `import { Icon } from '@/components/common/atoms/Icon';
 
@@ -462,7 +466,6 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
       },
       {
         label: 'checkbox · 비활성 기본',
-        previewBackground: 'black.60',
         origin: {
           label: '종류',
           name: 'checkbox 상태 SVG',
@@ -476,7 +479,6 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
       },
       {
         label: 'checkbox · 비활성 선택',
-        previewBackground: 'black.60',
         origin: {
           label: '종류',
           name: 'checkbox 상태 SVG',
@@ -516,7 +518,6 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
       },
       {
         label: 'radio · 비활성 기본',
-        previewBackground: 'black.60',
         origin: {
           label: '종류',
           name: 'radio 상태 SVG',
@@ -530,7 +531,6 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
       },
       {
         label: 'radio · 비활성 선택',
-        previewBackground: 'black.60',
         origin: {
           label: '종류',
           name: 'radio 상태 SVG',
@@ -919,7 +919,6 @@ import { Typography } from '@/components/common/atoms/Typography';
       },
       {
         label: '발매 알림',
-        previewBackground: 'black.60',
         origin: { label: 'Font Awesome', name: 'bell', detail: 'Regular' },
         preview: <Icon name="bell-regular" size={18} color="white" />,
         code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="bell-regular" size={18} color="white" />\n\n<Icon name="bell-regular" size={14} />',
@@ -930,7 +929,6 @@ import { Typography } from '@/components/common/atoms/Typography';
       },
       {
         label: '알림 신청됨',
-        previewBackground: 'black.60',
         origin: { label: 'Font Awesome', name: 'check', detail: 'Regular' },
         preview: <Icon name="check-regular" size={18} color="black.40" />,
         code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="check-regular" size={18} color="black.40" />',
@@ -1037,7 +1035,6 @@ import { Typography } from '@/components/common/atoms/Typography';
       },
       {
         label: '멤버십',
-        previewBackground: 'black.60',
         origin: { label: 'Font Awesome', name: 'circle-star', detail: 'Solid' },
         preview: <Icon name="circle-star-solid" size={16} color="black.10" />,
         code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="circle-star-solid" size={16} color="black.10" />',
@@ -1065,7 +1062,6 @@ import { Typography } from '@/components/common/atoms/Typography';
       },
       {
         label: '발매 시간',
-        previewBackground: 'black.60',
         origin: { label: 'Font Awesome', name: 'clock-ten', detail: '스타일 구분 미확인' },
         preview: <Icon name="clock-ten" size={18} color="blue.100" />,
         code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="clock-ten" size={18} color="blue.100" />',
@@ -1253,7 +1249,6 @@ import { Typography } from '@/components/common/atoms/Typography';
     items: [
       {
         label: '도움말 말풍선 화살표',
-        previewBackground: 'black.60',
         origin: { label: '종류', name: '말풍선 화살표', detail: '장식 SVG' },
         preview: <Icon name="arrow" size={17} style={{ height: 8 }} aria-hidden="true" />,
         code: '\n<Icon name="arrow" size={17} style={{ height: 8 }} aria-hidden="true" />',
@@ -1315,7 +1310,6 @@ import { Typography } from '@/components/common/atoms/Typography';
       },
       {
         label: '네이버',
-        previewBackground: 'black.60',
         origin: { label: '종류', name: 'Naver 로고', detail: '브랜드 아이콘' },
         preview: <Icon name="naver" size={18} />,
         code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="naver" size={18} />',
@@ -1405,7 +1399,7 @@ function IconExampleCard({
         justifyContent="center"
         alignItems="center"
         minH="100px"
-        bg={example.previewBackground ?? 'surface.subtle'}
+        bg="#D4D4D4"
       >
         {example.preview}
       </HStack>

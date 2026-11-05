@@ -2,7 +2,7 @@ import { type CSSProperties, type ReactNode } from 'react';
 import { type Platform } from '@/context/platform';
 
 import { css } from 'styled-system/css';
-import { Box } from 'styled-system/jsx';
+import { Box, HStack } from 'styled-system/jsx';
 
 import {
   Carousel,
@@ -13,7 +13,7 @@ import {
 import { MainSection } from '@/components/common/layouts/MainSection';
 
 import type { MainSectionProps } from '@/types/component-contracts/components-common-layouts-MainSection';
-import type { HomeCarouselSectionProps as ImportedHomeCarouselSectionProps } from '@/types/component-contracts/components-common-molecules-HomeCarouselSection-HomeCarouselSection';
+import type { CarouselSectionProps as ImportedCarouselSectionProps } from '@/types/component-contracts/components-common-molecules-CarouselSection-CarouselSection';
 
 // Size cards against the central grid, independently of the extended rail.
 const desktopSlide = css({
@@ -35,7 +35,7 @@ const bleedRail = css({
 });
 
 type Props = Pick<
-  ImportedHomeCarouselSectionProps,
+  ImportedCarouselSectionProps,
   | 'children'
   | 'itemCount'
   | 'platform'
@@ -49,7 +49,7 @@ type Props = Pick<
 >;
 
 /** Own card sizing, terminal spacing, and the responsive carousel viewport. */
-function HomeCarouselRail({
+function CarouselSectionRail({
   children,
   itemCount,
   platform,
@@ -108,7 +108,7 @@ function HomeCarouselRail({
   );
 }
 
-export type HomeCarouselSectionProps = {
+export type CarouselSectionProps = {
   className?: string;
   children: ReactNode;
   itemCount: number;
@@ -117,6 +117,8 @@ export type HomeCarouselSectionProps = {
   slideClassName?: string;
   title: string;
   titleVariant?: MainSectionProps['titleVariant'];
+  /** Optional filter row; controls align to its right when present. */
+  tabs?: ReactNode;
   beforeViewport?: ReactNode;
   desktopCenteredItemCount: number;
   desktopItemGutter: number;
@@ -128,8 +130,8 @@ export type HomeCarouselSectionProps = {
   viewportKey?: string;
 };
 
-/** 홈 콘텐츠 목록과 캐러셀 이동 조작을 구성합니다 (Home content rail with a shared responsive carousel frame and controls). */
-export function HomeCarouselSection({
+/** 제목·오른쪽 컨트롤·반응형 레일을 공통으로 구성합니다. (Composes a shared title, right-aligned controls, and responsive carousel rail.) */
+export function CarouselSection({
   className,
   children,
   itemCount,
@@ -138,6 +140,7 @@ export function HomeCarouselSection({
   title,
   titleVariant,
   beforeViewport,
+  tabs,
   desktopCenteredItemCount,
   desktopItemGutter,
   mobileItemGutter,
@@ -145,23 +148,42 @@ export function HomeCarouselSection({
   mobileRail,
   spacing,
   viewportKey,
-}: HomeCarouselSectionProps) {
+}: CarouselSectionProps) {
   return (
     <Carousel itemCount={itemCount}>
       <MainSection
         contentWidth={platform === 'web' ? 'extended' : 'contained'}
         className={[css({ overflowX: 'clip' }), className].filter(Boolean).join(' ')}
         actionSlot={
-          <Box _mobile={{ display: 'none' }}>
-            <CarouselControls />
-          </Box>
+          !tabs ? (
+            <Box _mobile={{ display: 'none' }}>
+              <CarouselControls />
+            </Box>
+          ) : undefined
         }
         spacing={spacing}
         title={title}
         titleVariant={titleVariant}
       >
+        {tabs ? (
+          <HStack
+            w={{ base: 'var(--section-content-width)', _mobile: '100%' }}
+            minW="0"
+            justifyContent="space-between"
+            gap="4"
+            pb={{ base: '10', _mobile: '4' }}
+            px={{ base: '0', _mobile: '4' }}
+          >
+            <Box minW="0" flex="1">
+              {tabs}
+            </Box>
+            <Box flexShrink="0" _mobile={{ display: 'none' }}>
+              <CarouselControls />
+            </Box>
+          </HStack>
+        ) : null}
         {beforeViewport}
-        <HomeCarouselRail
+        <CarouselSectionRail
           itemCount={itemCount}
           platform={platform}
           desktopCenteredItemCount={desktopCenteredItemCount}
@@ -173,7 +195,7 @@ export function HomeCarouselSection({
           viewportKey={viewportKey}
         >
           {children}
-        </HomeCarouselRail>
+        </CarouselSectionRail>
       </MainSection>
     </Carousel>
   );

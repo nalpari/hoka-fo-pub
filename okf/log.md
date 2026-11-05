@@ -2217,3 +2217,23 @@ Figma Navigational Buttons(296:25392)와 Action Buttons(296:25425)의 기본·�
 방향 아이콘은 Figma 순서대로 우·좌·상·하 열과 기본·회색·흰 원·흰 원 회색 행으로 배치한다. 24px 기본 SVG와 원형 SVG의 내부 경로·배치를 공유하며 원형 회색은 Icon color로 글리프만 변경한다. 출처: IconGuide.tsx, Icon.tsx, Icon.assets.ts.
 
 디자인팀 빼기와 상하좌우 chevron은 Figma Regular 도형에 대응해 -regular를 명시한다. 원형 이름은 -regular-circle 순서를 사용한다. 24px SVG의 도형과 여백은 유지한다. 출처: Icon.assets.ts, IconGuide.tsx, Figma 296:24896·296:13816·296:11741.
+
+## 2026-11-05 — 닫기 아이콘과 가이드 배경
+
+아이콘 가이드 미리보기 배경을 #D4D4D4로 통일했다. 장바구니 상품 삭제와 공통 모달 닫기에 여백 포함 20px 디자인팀 SVG hoka-action-xmark-regular-20을 등록하고 적용했다. 출처: IconGuide.tsx, CartProductSection.tsx, ModalDialog.tsx, Icon.assets.ts.
+
+## 2026-11-05 — 공통 캐러셀 가이드
+
+- HomeCarouselSection을 CarouselSection으로 변경하고 기존 사용처와 타입 계약을 연결했다.
+- 퍼블리싱 가이드 캐러셀 탭에 제목·오른쪽 컨트롤·레일 실동작 예시와 복사 코드를 추가했다.
+- 검증: 변경 TSX ESLint 수정 완료, 가이드/공통 캐러셀 Prettier 및 diff 검사 통과. 전체 타입 검사는 삭제된 경로를 참조하는 기존 `.next/types` 오류로 실패했으며 변경 소스 오류는 출력되지 않았다. 이번 가이드의 브라우저 시각 검증은 미실시.
+
+- 캐러셀 선택적 tabs 슬롯과 조건부 컨트롤 위치를 추가하고 홈 베스트셀러 및 가이드 두 가지 예시에 적용했다.
+
+- 캐러셀 가이드 기본형·탭 포함형 각각의 예시 바로 아래에 독립 사용 코드와 복사 버튼을 배치했다. 기본형 코드에는 탭 상태와 FilterTabs import를 포함하지 않는다.
+
+- 캐러셀 가이드 기본형을 홈 카테고리의 MainContentCard, 탭 포함형을 베스트셀러 ProductCard showcase로 교체했다. 홈 표시 fixture·카드 스타일·모바일 슬라이드 크기를 사용하며 createHomeCarouselPreviewItems로 각각 12개를 제공한다. 복사 코드에도 각 카드와 fixture를 명시했다. 탭은 선택 UI만 변경하며 상품 목록은 고정이다.
+
+- 카트 추천을 CartContent의 CarouselSection/ProductCard 직접 조합으로 변경했다. 사용처가 없어진 portrait 분기만 제거하고 비대상 추천 목록을 보존했다.
+
+- 카트 추천은 별도 orderRecommendations 변환 배열 대신 공통 products를 직접 순회하고 ProductCard product로 전달한다. itemCount도 products.length를 사용한다. 주문완료의 기존 추천 데이터 사용은 유지한다.

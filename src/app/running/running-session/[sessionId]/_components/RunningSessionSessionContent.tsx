@@ -16,8 +16,8 @@ import { Button } from '@/components/common/atoms/Button';
 import { DescriptionList } from '@/components/common/atoms/DescriptionList';
 import { Typography } from '@/components/common/atoms/Typography';
 
+import { CarouselSection } from '@/components/common/molecules/CarouselSection';
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
-import { HomeCarouselSection } from '@/components/common/molecules/HomeCarouselSection';
 import { ProductCard } from '@/components/common/molecules/ProductCard/ProductCard';
 
 import { SystemStatusPage } from '@/components/common/organisms/SystemStatusPage';
@@ -421,7 +421,7 @@ export function RunningSessionRecommendations({
         '--layout-web-content-inline-space': '144px',
       }}
     >
-      <HomeCarouselSection
+      <CarouselSection
         title="로드 러닝 Essential"
         titleVariant="heading6"
         itemCount={products.length}
@@ -434,7 +434,7 @@ export function RunningSessionRecommendations({
         {products.map((product) => (
           <ProductCard key={product.id} product={product} variant="showcase" />
         ))}
-      </HomeCarouselSection>
+      </CarouselSection>
     </Box>
   );
 }

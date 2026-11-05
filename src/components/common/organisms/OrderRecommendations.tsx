@@ -28,7 +28,7 @@ type OrderRecommendation = {
   href: string;
 };
 
-type OrderRecommendationLayout = 'compact' | 'portrait' | 'checkout';
+type OrderRecommendationLayout = 'compact' | 'checkout';
 
 type Props = { item: OrderRecommendation; layout?: OrderRecommendationLayout };
 
@@ -37,13 +37,7 @@ function OrderRecommendationItem({ item, layout = 'compact' }: Props) {
   return (
     <Box
       minW="0"
-      flex={
-        layout === 'checkout'
-          ? '0 0 calc((100% - 64px) / 5)'
-          : layout === 'portrait'
-            ? '0 0 calc((100% - 48px) / 4)'
-            : '0 0 140px'
-      }
+      flex={layout === 'checkout' ? '0 0 calc((100% - 64px) / 5)' : '0 0 140px'}
       _mobile={{ flexBasis: layout === 'compact' ? '140px' : '150px' }}
     >
       <ProductCard
@@ -74,18 +68,11 @@ export function OrderRecommendations({
   layout = 'compact',
 }: OrderRecommendationsProps) {
   const viewport = useRef<HTMLDivElement>(null);
-  const portraitLayout = layout !== 'compact';
 
   return (
     <ContentSection
       as="section"
-      gap={
-        layout === 'checkout'
-          ? { base: '8', _mobile: '4' }
-          : layout === 'portrait'
-            ? { base: '6', _mobile: '4' }
-            : '4'
-      }
+      gap={layout === 'checkout' ? { base: '8', _mobile: '4' } : '4'}
       overflow="hidden"
       title={title}
       headerProps={{
@@ -129,54 +116,19 @@ export function OrderRecommendations({
                 <Icon name="chevron-right-solid" size="16px" />
               </Button>
             </HStack>
-          ) : layout === 'portrait' ? (
-            <HStack display={{ _mobile: 'none' }} gap="2">
-              <Button
-                variant="icon"
-                aria-label="이전 추천 상품"
-                onClick={() =>
-                  viewport.current?.scrollBy({
-                    left: -viewport.current.clientWidth,
-                    behavior: 'smooth',
-                  })
-                }
-              >
-                ←
-              </Button>
-              <Button
-                variant="icon"
-                aria-label="다음 추천 상품"
-                onClick={() =>
-                  viewport.current?.scrollBy({
-                    left: viewport.current.clientWidth,
-                    behavior: 'smooth',
-                  })
-                }
-              >
-                →
-              </Button>
-            </HStack>
           ) : undefined,
         titleProps: {
-          web:
-            layout === 'checkout' ? 'headingKr6' : layout === 'portrait' ? 'heading7' : 'heading8',
-          mo:
-            layout === 'checkout' ? 'headingKr6' : layout === 'portrait' ? 'heading6' : 'heading7',
+          web: layout === 'checkout' ? 'headingKr6' : 'heading8',
+          mo: layout === 'checkout' ? 'headingKr6' : 'heading7',
         },
       }}
     >
       <HStack
         ref={viewport}
-        gap={
-          layout === 'checkout'
-            ? { base: '4', _mobile: '2.5' }
-            : layout === 'portrait'
-              ? { base: '4', _mobile: '2.5' }
-              : '1'
-        }
+        gap={layout === 'checkout' ? { base: '4', _mobile: '2.5' } : '1'}
         overflowX="auto"
         alignItems="flex-start"
-        scrollbarWidth={portraitLayout ? { _mobile: 'none' } : undefined}
+        scrollbarWidth={layout === 'checkout' ? { _mobile: 'none' } : undefined}
       >
         {items.map((item) => (
           <OrderRecommendationItem key={item.id} item={item} layout={layout} />

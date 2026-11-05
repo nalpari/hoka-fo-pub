@@ -10,6 +10,8 @@ generated:
   at: '2026-11-03T06:11:12Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/app/publishing-guide/_components/CarouselGuide.tsx
+  - src/components/common/molecules/CarouselSection.tsx
   - src/app/screen-index/page.tsx
   - src/app/screen-index/screenChangeHistory.ts
   - src/app/screen-index/screenChangeHistory.generated.json
@@ -4666,61 +4668,43 @@ Icon 사용처와 가이드 복사 코드는 name → size → color 순서로 �
 
 검증: 변경 파일 ESLint·Prettier, screen-files·OKF 검사 통과. 소스와 에셋 목록에서 이전 chevron-down 및 Solid 참조가 없음을 확인했다. Ego 가이드에서 Regular 카드 1개·Solid 예시 없음과 원본 표시를 확인했다. 전체 typecheck는 기존 .next/types 삭제 라우트 참조 오류만 남고 src 진단은 없다.
 
-
 ## 모달 닫기 아이콘 Regular 적용 (2026-11-04)
 
 사용자 확인에 따라 공통 ModalDialog 헤더의 닫기 아이콘을 xmark-solid에서 xmark-regular로 변경했다. 크기 16px와 색상 상속, 버튼 접근성·닫기 동작은 유지한다. 출처: src/components/common/layouts/ModalDialog.tsx.
-
 
 ## 2026-11-04 — 디자인팀 UI 아이콘 원본 등록
 
 Figma 디자인팀 UI 아이콘 5개 세트(296:25392, 296:25425, 298:25555, 298:25560, 298:25567)의 SVG 27개를 원본 그대로 등록했다. SVG 캔버스는 16×16이며 24px 버튼 프레임과 구분한다. 공통 모달 닫기에는 Action Buttons의 기본 xmark를 16px로 적용했다. 다른 화면과 상태 버튼은 사용 위치 확인 후 연결한다.
 
-
 장바구니 옵션 변경은 ModalDialog의 footerProps.desktopContentOffset으로 데스크탑 버튼을 오른쪽 콘텐츠 열에 맞춘다. 왼쪽 이미지 300px와 열 간격 32px를 전달하며 모바일은 기존 푸터 배치를 따른다. 출처: CartDialogs.tsx, ModalDialog.tsx, ModalGuide.tsx.
-
 
 장바구니 옵션 변경 및 모달 가이드의 확인 액션은 Figma 1985:76300 기준 데스크탑 180×48px, 버튼 간격 8px, 본문과 40px, 하단 24px를 적용한다. 공통 확인 액션의 buttonProps로 Tall 규격을 전달한다. 출처: CartDialogs.tsx, ModalDialog.tsx, ModalGuide.tsx.
 
-
 디자인팀 UI 아이콘 27개를 비교해 색상만 다른 14개를 제거하고 13개 SVG로 정리했다. 단색 액션·방향 아이콘은 Icon color로 색상을 지정한다. Echo 배너 화살표는 기본·호버 도형이 달라 각각 유지한다. 출처: public/images/icon/hoka-*.svg, Icon.assets.ts, IconGuide.tsx.
-
 
 흰색 방향 아이콘은 원과 방향 도형을 포함한 24px SVG 4종으로 등록했다. Icon이 이미지에 그림자를 자동 적용해 24px 바깥으로 표시한다. 출처: Icon.tsx, Icon.assets.ts, IconGuide.tsx.
 
-
 디자인팀 원형 방향 아이콘 이름을 circle로 변경하고 방향·액션·배너 35개 상태를 개별 복사 카드로 표시했다. 단색은 color, 원형 배경을 포함한 조합은 24px SVG로 표시한다. 출처: IconGuide.tsx, Icon.assets.ts.
-
 
 폼 상태 8개와 별점·쇼핑백·계정·장바구니 아이콘을 디자인팀 섹션에 배치하고 hoka- 등록 이름·파일명·호출부를 일치시켰다. 기존 SVG 도형을 유지하고 알림 수는 ShopShell의 배지 조합을 사용한다. 출처: IconGuide.tsx, Icon.assets.ts, ShopShell.tsx.
 
-
 디자인팀 xmark와 plus는 기존 Regular SVG와 도형을 대조해 hoka-action-xmark-regular·hoka-action-plus-regular로 명명했다. 원형 조합도 같은 접미사를 포함한다. 디자인팀 커스텀 또는 출처 스타일 미확인 도형에는 임의 접미사를 부여하지 않는다. 출처: Icon.assets.ts, IconGuide.tsx, ModalDialog.tsx 및 public/images/icon SVG.
-
 
 원형 배경이 포함된 디자인팀 아이콘은 이름 끝에 -circle을 붙인다. 방향·스타일·상태는 그 앞에 둔다. 예: hoka-nav-chevron-right-circle, hoka-action-plus-regular-active-circle. 출처: Icon.assets.ts, IconGuide.tsx 및 SVG 파일.
 
-
 Dropdown과 FormField의 16px 정보 아이콘을 circle-info-regular로 통일했다. Solid 호출부를 확인한 뒤 미사용 SVG와 등록·가이드 항목을 정리했다. 출처: Dropdown.tsx, FormField.tsx, Icon.assets.ts, IconGuide.tsx.
-
 
 기본·상품 목록 하단 시트의 닫기 버튼과 아이콘은 24px로 표시한다. 출처: BottomSheet.tsx.
 
-
 닫기·삭제의 기존 Solid xmark 호출 9곳을 디자인팀 hoka-action-xmark-regular로 통일했다. 각 호출의 14·16·18·24px 크기는 유지하고 Solid SVG·등록·가이드 항목을 제거했다. 출처: IconGuide.tsx와 관련 화면 호출부.
-
 
 주문상품 조회 더하기를 디자인팀 hoka-action-plus-regular로 변경했다. 16px 원본 도형을 중앙에 유지하고 SVG 캔버스를 여백 포함 24px로 맞췄다. 가이드에도 24px를 적용하고 미사용 Solid 더하기 에셋을 제거했다. 출처: InquiryOrderLookup.tsx, IconGuide.tsx, Icon.assets.ts.
 
-
 선택 태그 삭제에 사용하던 여백 포함 24px xmark Regular SVG를 hoka-action-xmark-regular 원본으로 채택했다. 기존 Regular 호출과 가이드 복사 코드를 같은 이름으로 통일하고 화면별 size 값은 유지한다. 출처: Icon.assets.ts, IconGuide.tsx, public/images/icon/hoka-action-xmark-regular.svg.
-
 
 Figma Navigational Buttons(296:25392)와 Action Buttons(296:25425)의 기본·원형 예시를 여백 포함 24px로 통일했다. 기본 방향·빼기 SVG는 내부 16px 도형을 중앙에 유지한다. 회색 카드는 제거하고 단색 회색은 color 토큰으로 안내한다. 출처: IconGuide.tsx 및 Icon.assets.ts.
 
-
 방향 아이콘은 Figma 순서대로 우·좌·상·하 열과 기본·회색·흰 원·흰 원 회색 행으로 배치한다. 24px 기본 SVG와 원형 SVG의 내부 경로·배치를 공유하며 원형 회색은 Icon color로 글리프만 변경한다. 출처: IconGuide.tsx, Icon.tsx, Icon.assets.ts.
-
 
 디자인팀 빼기와 상하좌우 chevron은 Figma Regular 도형에 대응해 -regular를 명시한다. 원형 이름은 -regular-circle 순서를 사용한다. 24px SVG의 도형과 여백은 유지한다. 출처: Icon.assets.ts, IconGuide.tsx, Figma 296:24896·296:13816·296:11741.
 
@@ -4729,3 +4713,15 @@ Figma Navigational Buttons(296:25392)와 Action Buttons(296:25425)의 기본·�
 보고서에 파일별 메뉴 / 화면 열을 추가한다. 직접 소유 IA 경로와 상품 공통 목록/상세 이름, STATE URL(query/hash 포함)을 표시하며 여러 소유 경로는 모두 보존한다. 소유 화면 없는 공용 파일은 공통 UI·영향 가능 화면, 미연결 설정/에셋은 화면 외 공통으로 구분한다. 담당자/요약 rowspan과 기존 날짜·담당자 URL 동작은 유지하고 공유 Markdown208행 및 스킬 출력 계약도 같은5열로 갱신한다.
 
 출처: src/app/screen-index/screenChangeHistory.ts, src/app/screen-index/_components/IaStructurePage.tsx, tests/main-change-history.test.mjs 및 hoka-main-change-report 스킬 작업 트리. 기록: codex, 2026-11-05T01:11:42.851Z.
+
+## 2026-11-05 — 닫기 아이콘과 가이드 배경
+
+아이콘 가이드 미리보기 배경을 #D4D4D4로 통일했다. 장바구니 상품 삭제와 공통 모달 닫기에 여백 포함 20px 디자인팀 SVG hoka-action-xmark-regular-20을 등록하고 적용했다. 출처: IconGuide.tsx, CartProductSection.tsx, ModalDialog.tsx, Icon.assets.ts.
+
+## 공통 캐러셀과 가이드 (2026-11-05)
+
+홈 전용 이름의 HomeCarouselSection을 공통 `CarouselSection`으로 변경했다. 홈·장바구니 추천·상품 상세·러닝 세션은 같은 제목/오른쪽 컨트롤/레일 구현을 사용한다. `/publishing-guide?tab=carousel`에서 MainContentCard·ProductCard 각 12개 예시 카드, 데스크탑 48px 컨트롤과 모바일 터치 레일, 코드 복사를 제공한다. 기존 화면별 카드 크기와 필터 슬롯은 유지한다.
+
+- 캐러셀 `tabs` 슬롯이 있으면 제목 아래 탭 행 오른쪽에 컨트롤을 배치하며, 없으면 제목 오른쪽을 유지한다. 홈 베스트셀러를 이 옵션으로 연결하고 가이드에 기본/탭 포함 예시를 함께 추가했다. 모바일 컨트롤 숨김과 탭 선택 상태는 유지한다.
+
+- 카트 추천 영역은 CartContent에서 가이드와 같은 CarouselSection + ProductCard를 직접 조합한다. 카트 전용 OrderRecommendations portrait 분기를 제거했으며, 다른 화면의 compact/checkout과 OrderRecommendationItem은 유지한다. 카트는 공통 products를 직접 사용하며 데스크탑 4열/모바일 150px 카드와 10px 간격은 유지한다.
