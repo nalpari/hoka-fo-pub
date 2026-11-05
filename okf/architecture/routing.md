@@ -1493,6 +1493,14 @@ PC는 중앙 `ModalDialog`, 모바일은 `ModalDialog`의 fullscreen 표시를 �
 
 최종 표시 검증에서 PC 중앙 모달, 390×700px 모바일 전체 화면, 화면 전환 시 입력값 유지, 단일 저장 버튼 비활성, 닫기 후 포커스 복원을 확인했다.
 
+## 문의 주문 상품 조회와 배송조회 오버레이 (2026-11-05)
+
+1:1 문의 폼에서 주문 상품 조회 또는 상품변경을 누르면 같은 폼 위에서 PC 중앙 모달과 모바일 전체 화면 모달을 연다. 문의 등록 액션은 선택한 주문과 상품을 폼에 반영한다. 조회 URL 및 직접설정·빈 결과 URL은 모달이 열린 상태로 진입하며 IA의 기존 링크를 유지한다.
+
+마이페이지 배송조회는 PC 중앙 모달과 모바일 공통 BottomSheet를 사용한다. 출처는 `src/app/support/inquiries/new`, `src/app/mypage/orders/_components/OrderTrackingDialog.tsx`, `src/app/screen-index/sourceGraph.generated.json` 작업 트리다.
+
+브라우저에서 문의 화면 URL 유지, PC 568px 모달, 상품 선택 반영과 닫기, 모바일 390px 전체 화면 직접 진입, 모바일 배송조회 BottomSheet의 추적 이력과 닫기를 확인했다.
+
 ## 모바일 전체 화면 모달의 버튼 배치 (2026-11-05)
 
 모바일 전체 화면 `ModalDialog`는 버튼을 스크롤 본문 끝에 둔다. 장바구니 옵션 변경과 회원가입 약관 상세는 `mobileFixedFooter`를 명시하여 버튼을 본문 스크롤 영역 밖에 둔다. 모달 퍼블리싱 가이드의 장바구니 예시와 복사 코드에도 이 옵션을 반영했다.
