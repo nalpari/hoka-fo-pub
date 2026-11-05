@@ -43,8 +43,8 @@ import { SizeSelector } from '@/components/common/molecules/SizeSelector/SizeSel
 
 import { SearchHeader } from '@/components/common/organisms/Search/SearchHeader';
 
-import { BottomSheet } from '@/components/common/layouts/BottomSheet';
 import { ContentLayout } from '@/components/common/layouts/ContentLayout';
+import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
 import { filterProducts, sortProducts } from '@/components/catalog/product-listing/filterProducts';
 import {
@@ -1015,19 +1015,20 @@ function ProductListingContent({
         />
       </Grid>
       {platform === 'mobile' && filterDrawerOpen && (
-        <BottomSheet
-          appearance={isSearchPage ? 'default' : 'catalog'}
-          ariaLabel="상품 필터"
+        <ModalDialog
+          open
+          mobilePresentation="bottomSheet"
+          closeLabel="닫기"
           footer={
             <Button onClick={onMobileFilterApply} variant="primary">
               필터 적용하기 ({mobileResultCount})
             </Button>
           }
-          onClose={() => onFilterDrawerOpenChange(false)}
+          onOpenChange={onFilterDrawerOpenChange}
           title="필터"
         >
           {filterPanel}
-        </BottomSheet>
+        </ModalDialog>
       )}
     </>
   );

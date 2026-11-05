@@ -10,7 +10,6 @@ import { Button } from '@/components/common/atoms/Button';
 import { Icon } from '@/components/common/atoms/Icon';
 import { Typography } from '@/components/common/atoms/Typography';
 
-import { BottomSheet } from '@/components/common/layouts/BottomSheet';
 import { ModalDialog, type ModalDialogProps } from '@/components/common/layouts/ModalDialog';
 
 import { renderGuideCode } from './GuideCode';
@@ -29,7 +28,9 @@ type ModalExample = {
     'size' | 'mobilePresentation' | 'mobileFixedFooter' | 'overlayTone' | 'scrollFade'
   >;
   action?: 'single' | 'confirm' | 'vertical' | 'disabled';
-  sheet?: 'default' | 'catalog';
+  sheet?: 'default';
+  sheetFooter?: boolean;
+  contentAction?: boolean;
   long?: boolean;
 };
 
@@ -77,8 +78,19 @@ const groups: { id: string; title: string; description: string; items: ModalExam
   {
     id: 'modal-actions',
     title: '버튼·스크롤·배경',
-    description: '세로 버튼 · 비활성 · 긴 내용 · 밝은 배경',
+    description: '콘텐츠 하단 버튼 · 세로 버튼 · 비활성 · 긴 내용 · 밝은 배경',
     items: [
+      {
+        id: 'content-action',
+        title: '푸터 없음 · 콘텐츠 하단 버튼',
+        usage:
+          '회원가입 약관 상세. 확인 버튼이 약관과 공고·시행일 아래 본문 안에 들어가 함께 스크롤됩니다. actions와 footer는 전달하지 않습니다.',
+        source: 'signup/terms/_components/SignupTermsContent.tsx · TermsDialog',
+        desktop: '중앙 팝업 · 본문 아래 확인 버튼 180×48px',
+        mobile: '전체화면 · 본문 아래 전체 너비×48px 확인 버튼 · 고정 푸터 없음',
+        options: { mobilePresentation: 'fullscreen' },
+        contentAction: true,
+      },
       {
         id: 'vertical',
         usage: '가이드용 옵션 예시. 현재 서비스 화면에서 세로 액션 옵션 사용처는 없습니다.',
@@ -153,8 +165,8 @@ const groups: { id: string; title: string; description: string; items: ModalExam
       {
         id: 'bottom',
         usage:
-          '주문 취소·환불(반품) 신청, 이전 약관 선택, 문의 첨부파일 미리보기. 별도 BottomSheet가 아니라 ModalDialog를 모바일에서 바텀시트처럼 표시한 형태입니다. 데스크탑에서는 중앙 팝업, 모바일에서는 하단 시트로 보여주되 같은 모달 안에서 본문·입력 상태·열기/닫기를 유지하기 위해 사용합니다. 이 예시는 모바일 전체 너비·상단 모서리 20px를 반영했으며 본문·버튼·세부 여백은 화면별로 다릅니다.',
-        source: 'OrderClaimRequest.tsx / PreviousTermsPicker.tsx / InquiryListContent.tsx',
+          '배송조회, 주문 취소·반품 신청, 문의 첨부파일 미리보기. ModalDialog를 모바일에서 바텀시트처럼 표시한 형태입니다. 데스크탑에서는 중앙 팝업, 모바일에서는 하단 시트로 보여주되 같은 모달 안에서 본문·입력 상태·열기/닫기를 유지하기 위해 사용합니다. bottomSheet 옵션이 모바일 전체 너비·상단 모서리 20px·헤더 56px·타이틀 body3·닫기 xmark-regular 20px를 공통 적용합니다. 본문·버튼·세부 여백은 화면별로 다릅니다.',
+        source: 'OrderTrackingDialog.tsx / OrderClaimRequest.tsx / InquiryListContent.tsx',
         title: '바텀시트형 모달 · bottomSheet',
         desktop: '중앙 팝업 · 최대 568px',
         mobile: '하단 정렬 · 전체 너비 · 상단 모서리 20px',
@@ -165,53 +177,93 @@ const groups: { id: string; title: string; description: string; items: ModalExam
   },
   {
     id: 'modal-sheet',
-    title: 'BottomSheet',
-    description: '모바일 전용 하단 시트',
+    title: '바텀시트형 모달 · 조합',
+    description: '기본형 · 스크롤 유무 · 버튼 푸터 유무',
     items: [
-      {
-        id: 'sheet',
+      ...[
+        { id: 'sheet', title: '기본 · 푸터 없음', long: false, sheetFooter: false },
+        { id: 'sheet-footer', title: '기본 · 버튼 푸터', long: false, sheetFooter: true },
+        { id: 'sheet-scroll', title: '스크롤 · 푸터 없음', long: true, sheetFooter: false },
+        { id: 'sheet-scroll-footer', title: '스크롤 · 버튼 푸터', long: true, sheetFooter: true },
+      ].map((item) => ({
+        ...item,
+        sheet: 'default' as const,
         usage:
-          '모바일 검색 결과의 필터에서 사용합니다. 실제 시트에는 필터 항목과 적용 버튼이 들어갑니다.',
-        source: 'components/catalog/ProductListingPage.tsx (isSearchPage)',
-        title: '기본 하단 시트',
-        desktop: '모바일 전용 · 데스크탑에서는 ModalDialog 사용',
-        mobile: '전체 너비 · 상단 모서리 16px',
-        sheet: 'default',
-      },
-      {
-        id: 'catalog-sheet',
-        usage:
-          '모바일 상품 목록의 필터에서 사용합니다. 실제 시트에는 필터 항목과 적용 버튼이 들어갑니다.',
-        source: 'components/catalog/ProductListingPage.tsx (상품 목록)',
-        title: '상품 목록 하단 시트',
-        desktop: '모바일 전용 · 데스크탑에서는 ModalDialog 사용',
-        mobile: '전체 너비 · 상단 모서리 24px · 상품 목록 여백',
-        sheet: 'catalog',
-      },
+          'Dropdown의 모바일 선택·정렬, 이전 약관 선택에서 사용하는 기본형입니다. 분홍 영역은 피그마의 본문 자리 표시이며 실제 화면의 콘텐츠를 넣습니다.',
+        source: 'Dropdown.tsx / PreviousTermsPicker.tsx',
+        desktop: '중앙 팝업 · 최대 568px',
+        mobile: `상단 모서리 20px · 헤더 56px · body3 · 닫기 20px · ${item.long ? '화면 높이까지 확장 · 본문 스크롤 · 헤더 구분선' : '본문 예시 높이 334px'} · ${item.sheetFooter ? '버튼 48px · 푸터 위/좌우 16px · 아래 32px' : '푸터 없음 · 본문 아래 32px'}`,
+      })),
     ],
   },
 ];
 
 function exampleCode(example: ModalExample) {
+  if (example.contentAction)
+    return `import { useRef, useState } from 'react';
+import { css } from 'styled-system/css';
+import { HStack, Stack } from 'styled-system/jsx';
+import { Button } from '@/components/common/atoms/Button';
+import { Typography } from '@/components/common/atoms/Typography';
+import { ModalDialog } from '@/components/common/layouts/ModalDialog';
+
+const [open, setOpen] = useState(false);
+const triggerRef = useRef<HTMLButtonElement>(null);
+
+<Button ref={triggerRef} onClick={() => setOpen(true)}>열기</Button>
+<ModalDialog
+  open={open}
+  onOpenChange={setOpen}
+  title="약관 상세"
+  closeLabel="약관 닫기"
+  mobilePresentation="fullscreen"
+  finalFocus={triggerRef}
+>
+  <Stack gap="6">
+    <Stack gap="4">
+      {Array.from({ length: 12 }, (_, index) => (
+        <Typography key={index} as="p" variant="body4">
+          {index + 1}. 약관 내용입니다. 확인 버튼은 본문 마지막에 함께 스크롤됩니다.
+        </Typography>
+      ))}
+      <Typography as="p" variant="body5" tone="subtle">
+        공고일자 : 2025년 08월 25일 / 시행일자 : 2025년 09월 01일
+      </Typography>
+    </Stack>
+    <HStack justifyContent="center">
+      <Button
+        variant="primary"
+        size="tall"
+        fullWidth
+        onClick={() => setOpen(false)}
+        className={css({ maxW: '180px', _mobile: { maxW: 'none' } })}
+      >
+        확인
+      </Button>
+    </HStack>
+  </Stack>
+</ModalDialog>`;
+
   if (example.sheet)
     return `import { useState } from 'react';
-${example.id === 'bottom' || example.id === 'large' ? "import { css } from 'styled-system/css';\n" : ''}import { Button } from '@/components/common/atoms/Button';
-import { Typography } from '@/components/common/atoms/Typography';
-import { BottomSheet } from '@/components/common/layouts/BottomSheet';
+${!example.long ? "import { css } from 'styled-system/css';\n" : ''}import { Box } from 'styled-system/jsx';
+import { Button } from '@/components/common/atoms/Button';
+import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
 const [open, setOpen] = useState(false);
 
 <Button onClick={() => setOpen(true)}>열기</Button>
 {open && (
-  <BottomSheet
-    appearance="${example.sheet}"
-    title="${example.title}"
-    ariaLabel="${example.title}"
-    onClose={() => setOpen(false)}
-    footer={<Button onClick={() => setOpen(false)}>확인</Button>}
-  >
-    <Typography as="p" variant="body4">안내 내용입니다.</Typography>
-  </BottomSheet>
+  <ModalDialog
+    open={open}
+    mobilePresentation="bottomSheet"
+    closeLabel="닫기"
+${example.long ? '    scrollable\n' : ''}    title="바텀시트 타이틀"
+    onOpenChange={setOpen}
+${!example.long ? "    contentClassName={css({ h: '334px' })}\n" : ''}${example.sheetFooter ? '    footer={<Button variant="primary" onClick={() => setOpen(false)}>신청하기</Button>}\n' : ''}  >
+    {/* 본문 자리 표시: 실제 화면의 콘텐츠로 교체 */}
+    <Box h="${example.long ? '900px' : example.sheetFooter ? '286px' : '278px'}" bg="rgba(255, 0, 0, 0.2)" />
+  </ModalDialog>
 )}`;
   const options = Object.entries(example.options ?? {})
     .map(([key, value]) => (typeof value === 'boolean' ? `  ${key}` : `  ${key}="${value}"`))
@@ -248,21 +300,7 @@ const triggerRef = useRef<HTMLButtonElement>(null);
   closeLabel="닫기"
   finalFocus={triggerRef}
 ${[options, action, example.id === 'large' && "  footerProps={{ desktopContentOffset: 332, css: { pt: '6', _mobile: { pt: '4' } } }}"].filter(Boolean).join('\n')}
-${
-  example.id === 'bottom'
-    ? `  popupClassName={css({
-    _mobile: {
-      '&&': {
-        w: '100vw!',
-        maxW: '100vw',
-        maxH: 'calc(100dvh - 44px)!',
-        borderRadius: '20px 20px 0 0',
-      },
-    },
-  })}
-  headerProps={{ css: { bg: 'white.0', borderBottom: '1px solid token(colors.black.20)' } }}`
-    : ''
-}
+
 >
   <Typography as="p" variant="body4">${example.long ? '긴 안내 내용을 이 영역에 넣습니다. 내용이 높이를 넘으면 스크롤됩니다.' : '안내 내용입니다.'}</Typography>
 </ModalDialog>`;
@@ -275,7 +313,6 @@ function ModalExampleCard({
   example: ModalExample;
   onCopy: (code: string) => void;
 }) {
-  const mobile = usePlatform() === 'mobile';
   const [open, setOpen] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const code = exampleCode(example);
@@ -298,7 +335,31 @@ function ModalExampleCard({
                 : undefined,
           }
         : undefined;
-  const content = example.long ? (
+  const content = example.contentAction ? (
+    <Stack gap="6">
+      <Stack gap="4">
+        {Array.from({ length: 12 }, (_, index) => (
+          <Typography key={index} as="p" variant="body4">
+            {index + 1}. 약관 내용입니다. 확인 버튼은 본문 마지막에 함께 스크롤됩니다.
+          </Typography>
+        ))}
+        <Typography as="p" variant="body5" tone="subtle">
+          공고일자 : 2025년 08월 25일 / 시행일자 : 2025년 09월 01일
+        </Typography>
+      </Stack>
+      <HStack justifyContent="center">
+        <Button
+          variant="primary"
+          size="tall"
+          fullWidth
+          onClick={() => setOpen(false)}
+          className={css({ maxW: '180px', _mobile: { maxW: 'none' } })}
+        >
+          확인
+        </Button>
+      </HStack>
+    </Stack>
+  ) : example.long ? (
     <Stack gap="4">
       {Array.from({ length: 32 }, (_, index) => (
         <Typography key={index} as="p" variant="body4">
@@ -344,10 +405,10 @@ function ModalExampleCard({
           ref={triggerRef}
           variant="secondary"
           size="short"
-          disabled={Boolean(example.sheet) && !mobile}
+
           onClick={() => setOpen(true)}
         >
-          {example.sheet && !mobile ? '모바일에서 확인' : `${example.title} 열기`}
+          {`${example.title} 열기`}
         </Button>
       </HStack>
       <HStack
@@ -372,17 +433,29 @@ function ModalExampleCard({
         </Button>
       </HStack>
       {example.sheet ? (
-        open &&
-        mobile && (
-          <BottomSheet
-            appearance={example.sheet}
-            title={example.title}
-            ariaLabel={example.title}
-            onClose={() => setOpen(false)}
-            footer={<Button onClick={() => setOpen(false)}>확인</Button>}
+        open && (
+          <ModalDialog
+            open={open}
+            mobilePresentation="bottomSheet"
+            closeLabel="닫기"
+            scrollable={example.long}
+            title="바텀시트 타이틀"
+            finalFocus={triggerRef}
+            contentClassName={!example.long ? css({ h: '334px' }) : undefined}
+            onOpenChange={setOpen}
+            footer={
+              example.sheetFooter ? (
+                <Button variant="primary" onClick={() => setOpen(false)}>
+                  신청하기
+                </Button>
+              ) : undefined
+            }
           >
-            {content}
-          </BottomSheet>
+            <Box
+              h={example.long ? '900px' : example.sheetFooter ? '286px' : '278px'}
+              bg="rgba(255, 0, 0, 0.2)"
+            />
+          </ModalDialog>
         )
       ) : (
         <ModalDialog
@@ -390,25 +463,6 @@ function ModalExampleCard({
           footerProps={
             example.id === 'large'
               ? { desktopContentOffset: 332, css: { pt: '6', _mobile: { pt: '4' } } }
-              : undefined
-          }
-          popupClassName={
-            example.id === 'bottom'
-              ? css({
-                  _mobile: {
-                    '&&': {
-                      w: '100vw!',
-                      maxW: '100vw',
-                      maxH: 'calc(100dvh - 44px)!',
-                      borderRadius: '20px 20px 0 0',
-                    },
-                  },
-                })
-              : undefined
-          }
-          headerProps={
-            example.id === 'bottom'
-              ? { css: { bg: 'white.0', borderBottom: '1px solid token(colors.black.20)' } }
               : undefined
           }
           open={open}
@@ -464,11 +518,12 @@ export function ModalGuide() {
           </Typography>
           <Typography as="p" variant="body5" tone="subtle">
             ModalDialog의 기본값은 md · popup · dark입니다. 모바일 표시 옵션은 데스크탑에서 중앙
-            팝업으로 유지됩니다. BottomSheet는 별도의 모바일 하단 시트입니다.
+            팝업으로 유지됩니다. 모바일에서만 bottomSheet 옵션으로 하단에 표시합니다.
           </Typography>
           <Typography as="p" variant="body5" tone="subtle">
-            사용처: 전체화면은 본인인증·약관, 하단 표시는 주문 취소·반품 신청과 이전 약관 선택에서
-            사용합니다. 예시의 확인 버튼은 닫기만 수행합니다.
+            사용처: 전체화면은 본인인증·약관, 바텀시트형 모달은 배송조회·주문 취소·반품 신청,
+            바텀시트형 모달은 모바일 드롭다운·이전 약관 선택에서 사용합니다. 예시의 확인 버튼은
+            닫기만 수행합니다.
           </Typography>
         </Stack>
         {groups.map((group) => (

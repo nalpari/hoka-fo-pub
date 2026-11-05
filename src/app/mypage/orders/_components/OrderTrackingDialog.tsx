@@ -1,16 +1,12 @@
-import { usePlatform } from '@/context/platform';
-
 import { css } from 'styled-system/css';
 import { Stack } from 'styled-system/jsx';
 
-import { Button } from '@/components/common/atoms/Button';
 import { DataTable } from '@/components/common/atoms/DataTable';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { StepIndicator } from '@/components/common/molecules/StepIndicator';
 
-import { BottomSheet } from '@/components/common/layouts/BottomSheet';
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
@@ -82,7 +78,6 @@ export function OrderTrackingDialog({
   order: OrderRecord;
   onClose: () => void;
 }) {
-  const platform = usePlatform();
   const current =
     order.status === 'preparing'
       ? 2
@@ -124,39 +119,19 @@ export function OrderTrackingDialog({
     </Stack>
   );
 
-  if (platform !== 'mobile') {
-    return (
-      <ModalDialog
-        open
-        onOpenChange={(open) => {
-          if (!open) onClose();
-        }}
-        title="배송조회"
-        closeLabel="배송조회 닫기"
-        size="md"
-        popupClassName={css({ h: '804px' })}
-        headerProps={{ css: { h: '56px', flexShrink: '0' } }}
-        actions={{ kind: 'single', label: '닫기', onConfirm: onClose }}
-      >
-        {content}
-      </ModalDialog>
-    );
-  }
-
   return (
-    <BottomSheet
-      appearance="selection"
+    <ModalDialog
+      open
+      onOpenChange={(open) => !open && onClose()}
       title="배송조회"
-      ariaLabel="배송조회"
-      onClose={onClose}
-      contentClassName={css({ py: '8', borderTop: '1px solid var(--color-black-20)' })}
-      footer={
-        <Button variant="primary" onClick={onClose}>
-          닫기
-        </Button>
-      }
+      closeLabel="배송조회 닫기"
+      size="md"
+      mobilePresentation="bottomSheet"
+      popupClassName={css({ h: '804px', _mobile: { h: 'auto' } })}
+      headerProps={{ css: { h: '56px', flexShrink: '0' } }}
+      actions={{ kind: 'single', label: '닫기', onConfirm: onClose }}
     >
       {content}
-    </BottomSheet>
+    </ModalDialog>
   );
 }

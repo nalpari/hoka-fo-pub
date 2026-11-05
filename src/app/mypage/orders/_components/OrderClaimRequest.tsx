@@ -41,6 +41,154 @@ export function OrderClaimRequest({
     returning ? '스크래치가 있어서 반품하고 환불 신청합니다.' : '',
   );
 
+  const content = (
+    <Stack gap="16px">
+      <Typography variant="body4" tone="subtle">
+        {returning ? '환불할 상품과 수량을 선택해주세요.' : '취소할 상품과 수량을 선택해주세요.'}
+        <br />
+        {returning
+          ? '상품을 회수한 뒤 결제 금액이 환불됩니다. (반품 접수)'
+          : '일부만 취소(부분취소)할 수 있으며, 배송비는 주문의 남은 상품이 모두 취소될 때 함께 환불됩니다.'}
+      </Typography>
+      <Stack gap="12px">
+        <Typography as="h2" variant="body3" weight="semibold">
+          상품 선택
+        </Typography>
+        <Stack gap="0" borderY="1px solid black">
+          {order.items.map((line) => (
+            <HStack
+              key={line.key}
+              gap="16px"
+              py="16px"
+              alignItems="flex-start"
+              borderBottom="1px solid var(--colors-black-20)"
+            >
+              <Checkbox
+                label=""
+                aria-label={`${line.name} ${line.key} ${name} 선택`}
+                checked={selected.includes(line.key)}
+                onCheckedChange={(checked) =>
+                  setSelected((previous) =>
+                    checked ? [...previous, line.key] : previous.filter((key) => key !== line.key),
+                  )
+                }
+              />
+              <Stack flex="1" minW="0" gap="4">
+                <OrderHistoryProduct
+                  line={line}
+                  imageSize="claim"
+                  showAmount={false}
+                  showQuantity
+                />
+                {!returning ? (
+                  <Box pl="28" _mobile={{ pl: '0' }}>
+                    <NumberStepper
+                      value={quantities[line.key] ?? 1}
+                      min={1}
+                      max={line.quantity}
+                      ariaLabel={`${line.name} ${line.key} ${name} 수량`}
+                      onChange={(value) =>
+                        setQuantities((previous) => ({ ...previous, [line.key]: value }))
+                      }
+                    />
+                  </Box>
+                ) : null}
+              </Stack>
+            </HStack>
+          ))}
+        </Stack>
+      </Stack>
+      <Stack gap="8px" py="8px">
+        <Dropdown
+          ariaLabel={`${name} 사유`}
+          layer="modal"
+          name={`${kind}Reason`}
+          label="사유"
+          required
+          value={reason}
+          onValueChange={setReason}
+          options={[
+            ...(returning
+              ? [
+                  { value: 'damage', label: '상품불량/파손' },
+                  { value: 'wrong', label: '오배송' },
+                  { value: 'missing', label: '구성품 누락' },
+                ]
+              : []),
+            { value: 'mind', label: '상품이 마음에 들지 않음 (단순변심)' },
+            { value: 'size', label: '사이즈가 맞지 않음' },
+            { value: 'delay', label: '배송 지연' },
+            { value: 'other', label: '기타' },
+          ]}
+        />
+        <TextFormField
+          id={`${kind}-details`}
+          label="* 상세내용 (선택)"
+          variant="boxed"
+          renderControl={(control) => (
+            <Stack w="100%" gap="8px">
+              {control}
+              <Typography variant="body5" tone="tertiary" className={css({ textAlign: 'right' })}>
+                {details.length} / 250
+              </Typography>
+            </Stack>
+          )}
+          inputProps={{
+            multiline: true,
+            rows: 5,
+            maxLength: 250,
+            value: details,
+            onChange: (event) => setDetails(event.target.value),
+            placeholder: '자세한 내용을 적어주시면 처리에 도움이 됩니다.',
+          }}
+        />
+        <Typography variant="body5" tone="tertiary">
+          {returning
+            ? '*단순 변심·주문 실수 등 고객님 사유의 반품는 반품비 5,000원을 부담하셔야 하며 환불 금액에서 차감됩니다. 상품 불량/파손·오배송·구성품 누락 등 회사 사유는 반품 비가 무료입니다. 상품 수령 후 7일 이내에 신청할 수 있으며, 접수 후 회수 일정은 안내해 드립니다. 착용하거나 세탁한 상품은 반품이 어렵습니다.'
+            : '*단순 변심·주문 실수 등 고객님 사유의 취소는 반품비 5,000원을 부담하셔야 하며 환불 금액에서 차감됩니다. 배송 지연 등 회사 사유는 반품비가 무료입니다.'}
+        </Typography>
+      </Stack>
+      <Stack gap="0" border="1px solid var(--colors-black-20)">
+        <Stack gap="12px" px="16px" py="20px">
+          {[
+            ['상품금액', returning && mobile ? '0원' : '3,350,000원'],
+            ['반품비', returning ? '사유 선택 후 확인' : '- 5,000원'],
+          ].map(([label, value]) => (
+            <HStack key={label} justifyContent="space-between">
+              <Typography variant="body4">{label}</Typography>
+              <Typography
+                variant="body4"
+                weight="medium"
+                tone={returning && label === '반품비' ? 'subtle' : 'primary'}
+              >
+                {value}
+              </Typography>
+            </HStack>
+          ))}
+        </Stack>
+        <HStack
+          justifyContent="space-between"
+          px="16px"
+          py="20px"
+          bg="black.10"
+          borderTop="1px solid var(--colors-black-20)"
+        >
+          <Typography variant="body4" weight="medium">
+            {returning ? '환불예정금액' : '취소예정금액'}
+          </Typography>
+          <HStack gap="2px" alignItems="baseline">
+            <Typography web="heading10" mo="heading7" weight="semibold">
+              {returning && mobile ? '0' : '3,300,000'}
+            </Typography>
+            <Typography variant="body3" weight="medium">
+              원
+            </Typography>
+          </HStack>
+        </HStack>
+      </Stack>
+    </Stack>
+  );
+
   return (
     <ModalDialog
       open
@@ -49,24 +197,13 @@ export function OrderClaimRequest({
       closeLabel={`${title} 닫기`}
       size="md"
       mobilePresentation="bottomSheet"
-      popupClassName={css({
-        '& > div': { p: '24px!' },
-        _mobile: {
-          '&&': {
-            w: '100vw!',
-            maxW: '100vw',
-            maxH: 'calc(100dvh - 44px)!',
-            borderRadius: '20px 20px 0 0',
-          },
-        },
-      })}
+      popupClassName={css({ '& > div': { p: '24px!' } })}
       headerProps={{
         css: css.raw({
           h: '56px',
           flexShrink: '0',
           bg: 'white.0',
           borderBottom: '1px solid var(--colors-black-20)',
-          _mobile: { px: '24px' },
         }),
       }}
       footerProps={{
@@ -75,7 +212,7 @@ export function OrderClaimRequest({
           _mobile: {
             pt: '16px',
             pb: '32px',
-            borderTop: '1px solid var(--colors-black-20)',
+            borderTop: '1px solid token(colors.black.20)',
             '& > button': { w: '100%' },
           },
         }),
@@ -92,153 +229,7 @@ export function OrderClaimRequest({
         </Button>
       }
     >
-      <Stack gap="16px">
-        <Typography variant="body4" tone="subtle">
-          {returning ? '환불할 상품과 수량을 선택해주세요.' : '취소할 상품과 수량을 선택해주세요.'}
-          <br />
-          {returning
-            ? '상품을 회수한 뒤 결제 금액이 환불됩니다. (반품 접수)'
-            : '일부만 취소(부분취소)할 수 있으며, 배송비는 주문의 남은 상품이 모두 취소될 때 함께 환불됩니다.'}
-        </Typography>
-        <Stack gap="12px">
-          <Typography as="h2" variant="body3" weight="semibold">
-            상품 선택
-          </Typography>
-          <Stack gap="0" borderY="1px solid black">
-            {order.items.map((line) => (
-              <HStack
-                key={line.key}
-                gap="16px"
-                py="16px"
-                alignItems="flex-start"
-                borderBottom="1px solid var(--colors-black-20)"
-              >
-                <Checkbox
-                  label=""
-                  aria-label={`${line.name} ${line.key} ${name} 선택`}
-                  checked={selected.includes(line.key)}
-                  onCheckedChange={(checked) =>
-                    setSelected((previous) =>
-                      checked
-                        ? [...previous, line.key]
-                        : previous.filter((key) => key !== line.key),
-                    )
-                  }
-                />
-                <Stack flex="1" minW="0" gap="4">
-                  <OrderHistoryProduct
-                    line={line}
-                    imageSize="claim"
-                    showAmount={false}
-                    showQuantity
-                  />
-                  {!returning ? (
-                    <Box pl="28" _mobile={{ pl: '0' }}>
-                      <NumberStepper
-                        value={quantities[line.key] ?? 1}
-                        min={1}
-                        max={line.quantity}
-                        ariaLabel={`${line.name} ${line.key} ${name} 수량`}
-                        onChange={(value) =>
-                          setQuantities((previous) => ({ ...previous, [line.key]: value }))
-                        }
-                      />
-                    </Box>
-                  ) : null}
-                </Stack>
-              </HStack>
-            ))}
-          </Stack>
-        </Stack>
-        <Stack gap="8px" py="8px">
-          <Dropdown
-            ariaLabel={`${name} 사유`}
-            layer="modal"
-            name={`${kind}Reason`}
-            label="사유"
-            required
-            value={reason}
-            onValueChange={setReason}
-            options={[
-              ...(returning
-                ? [
-                    { value: 'damage', label: '상품불량/파손' },
-                    { value: 'wrong', label: '오배송' },
-                    { value: 'missing', label: '구성품 누락' },
-                  ]
-                : []),
-              { value: 'mind', label: '상품이 마음에 들지 않음 (단순변심)' },
-              { value: 'size', label: '사이즈가 맞지 않음' },
-              { value: 'delay', label: '배송 지연' },
-              { value: 'other', label: '기타' },
-            ]}
-          />
-          <TextFormField
-            id={`${kind}-details`}
-            label="* 상세내용 (선택)"
-            variant="boxed"
-            renderControl={(control) => (
-              <Stack w="100%" gap="8px">
-                {control}
-                <Typography variant="body5" tone="tertiary" className={css({ textAlign: 'right' })}>
-                  {details.length} / 250
-                </Typography>
-              </Stack>
-            )}
-            inputProps={{
-              multiline: true,
-              rows: 5,
-              maxLength: 250,
-              value: details,
-              onChange: (event) => setDetails(event.target.value),
-              placeholder: '자세한 내용을 적어주시면 처리에 도움이 됩니다.',
-            }}
-          />
-          <Typography variant="body5" tone="tertiary">
-            {returning
-              ? '*단순 변심·주문 실수 등 고객님 사유의 반품는 반품비 5,000원을 부담하셔야 하며 환불 금액에서 차감됩니다. 상품 불량/파손·오배송·구성품 누락 등 회사 사유는 반품 비가 무료입니다. 상품 수령 후 7일 이내에 신청할 수 있으며, 접수 후 회수 일정은 안내해 드립니다. 착용하거나 세탁한 상품은 반품이 어렵습니다.'
-              : '*단순 변심·주문 실수 등 고객님 사유의 취소는 반품비 5,000원을 부담하셔야 하며 환불 금액에서 차감됩니다. 배송 지연 등 회사 사유는 반품비가 무료입니다.'}
-          </Typography>
-        </Stack>
-        <Stack gap="0" border="1px solid var(--colors-black-20)">
-          <Stack gap="12px" px="16px" py="20px">
-            {[
-              ['상품금액', returning && mobile ? '0원' : '3,350,000원'],
-              ['반품비', returning ? '사유 선택 후 확인' : '- 5,000원'],
-            ].map(([label, value]) => (
-              <HStack key={label} justifyContent="space-between">
-                <Typography variant="body4">{label}</Typography>
-                <Typography
-                  variant="body4"
-                  weight="medium"
-                  tone={returning && label === '반품비' ? 'subtle' : 'primary'}
-                >
-                  {value}
-                </Typography>
-              </HStack>
-            ))}
-          </Stack>
-          <HStack
-            justifyContent="space-between"
-            px="16px"
-            py="20px"
-            bg="black.10"
-            borderTop="1px solid var(--colors-black-20)"
-          >
-            <Typography variant="body4" weight="medium">
-              {returning ? '환불예정금액' : '취소예정금액'}
-            </Typography>
-            <HStack gap="2px" alignItems="baseline">
-              <Typography web="heading10" mo="heading7" weight="semibold">
-                {returning && mobile ? '0' : '3,300,000'}
-              </Typography>
-              <Typography variant="body3" weight="medium">
-                원
-              </Typography>
-            </HStack>
-          </HStack>
-        </Stack>
-      </Stack>
+      {content}
     </ModalDialog>
   );
 }

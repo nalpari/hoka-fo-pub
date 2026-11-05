@@ -42,7 +42,7 @@ export type WishlistProps = {
   onActiveChange: (active: boolean) => void;
 };
 
-/** Accessible wishlist toggle with outline and filled icon states. */
+/** 18px 기본형 하트를 화면 크기에 맞춰 표시하는 관심상품 토글입니다. (Displays a wishlist toggle using scaled 18px heart assets.) */
 export function Wishlist({
   active,
   ariaLabel,
@@ -73,7 +73,7 @@ export function Wishlist({
     >
       <Icon
         name={active ? 'heart-solid' : 'heart-regular'}
-        size={iconSize ?? (platform === 'mobile' ? '19px' : '24px')}
+        size={iconSize ?? (platform === 'mobile' ? '22px' : '24px')}
         alt=""
         className={wishlist}
       />

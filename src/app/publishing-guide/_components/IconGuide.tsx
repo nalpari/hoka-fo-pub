@@ -31,6 +31,50 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
     description: '18px 원본 SVG 하나를 size로 확대·축소합니다.',
     items: [
       {
+        label: '체크 기본 · 18px',
+        registeredName: 'check-solid',
+        origin: { label: 'Font Awesome', name: 'check', detail: 'Solid' },
+        preview: <Icon name="check-solid" size={18} />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="check-solid" size={18} />`,
+        source: 'StepIndicator.tsx',
+        note: '원본 18px · StepIndicator 완료 단계에서 14px, color="white"로 사용',
+      },
+      {
+        label: '공유 기본 · 18px',
+        registeredName: 'arrow-up-from-bracket-regular',
+        origin: { label: 'Font Awesome', name: 'arrow-up-from-bracket', detail: 'Regular' },
+        preview: <Icon name="arrow-up-from-bracket-regular" size={18} />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="arrow-up-from-bracket-regular" size={18} />`,
+        source: 'ProductDetailContent.tsx · ShareButton',
+        note: '원본 18px · 상품 상세: 모바일 20px / 데스크탑 22px',
+      },
+      {
+        label: '하트 기본 · 18px',
+        registeredName: 'heart-regular',
+        origin: { label: 'Font Awesome', name: 'heart', detail: 'Regular' },
+        preview: <Icon name="heart-regular" size={18} />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="heart-regular" size={18} />`,
+        source: 'Wishlist.tsx · ProductCard.tsx, CartProductSection.tsx, ProductDetailContent.tsx',
+        note: '원본 18px · 상품 목록: 데스크탑 24px / 모바일 18px · 상품 상세: 데스크탑 22px / 모바일 20px · 장바구니: 14px · 관심상품·최근 본 상품: 18px',
+      },
+      {
+        label: '하트 선택 · 18px',
+        registeredName: 'heart-solid',
+        origin: { label: 'Font Awesome', name: 'heart', detail: 'Solid' },
+        preview: <Icon name="heart-solid" size={18} />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="heart-solid" size={18} />`,
+        source: 'Wishlist.tsx · ProductCard.tsx, CartProductSection.tsx, ProductDetailContent.tsx',
+        note: '원본 18px · 상품 목록: 데스크탑 24px / 모바일 18px · 상품 상세: 데스크탑 22px / 모바일 20px · 장바구니: 14px · 관심상품·최근 본 상품: 18px',
+      },
+      {
         label: '더하기 · 18px',
         registeredName: 'plus-regular',
         origin: { label: 'Font Awesome', name: 'plus', detail: 'Regular' },
@@ -891,15 +935,6 @@ import { Typography } from '@/components/common/atoms/Typography';
     description: '검색·닫기·추가·공유·복사',
     items: [
       {
-        label: '공유',
-        origin: { label: 'Font Awesome', name: 'arrow-up-from-bracket', detail: 'Regular' },
-        preview: <Icon name="arrow-up-from-bracket-regular" size={16} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="arrow-up-from-bracket-regular" size={16} />',
-        source: 'ProductDetailContent.tsx',
-        note: 'color로 색상 변경 가능',
-        registeredName: 'arrow-up-from-bracket-regular',
-      },
-      {
         label: '모바일 메뉴',
         origin: { label: 'Font Awesome', name: 'bars', detail: 'Regular' },
         preview: <Icon name="bars-regular" size={20} />,
@@ -953,15 +988,6 @@ import { Typography } from '@/components/common/atoms/Typography';
         note: 'color로 색상 변경 가능',
         registeredName: 'sliders-regular',
       },
-      {
-        label: '선택 태그 삭제',
-        origin: { label: 'Font Awesome', name: 'xmark', detail: 'Regular' },
-        preview: <Icon name="hoka-action-xmark-regular" size={24} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="hoka-action-xmark-regular" size={24} />',
-        source: 'ProductListingPage.tsx, OrderTrackingDialog.tsx, BottomSheet.tsx',
-        note: 'color로 색상 변경 가능',
-        registeredName: 'hoka-action-xmark-regular',
-      },
     ],
   },
   {
@@ -997,15 +1023,7 @@ import { Typography } from '@/components/common/atoms/Typography';
         note: 'color로 색상 변경 가능',
         registeredName: 'check-regular',
       },
-      {
-        label: 'faCheck',
-        origin: { label: 'Font Awesome', name: 'check', detail: 'Solid' },
-        preview: <Icon name="check-solid" size={12} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="check-solid" size={12} />',
-        source: 'StepIndicator.tsx',
-        note: 'color로 색상 변경 가능',
-        registeredName: 'check-solid',
-      },
+
       {
         label: 'faCircleCheck',
         origin: { label: 'Font Awesome', name: 'circle-check', detail: 'Regular' },
@@ -1210,24 +1228,6 @@ import { Typography } from '@/components/common/atoms/Typography';
         source: 'SignupContent.tsx',
         note: 'color로 색상 변경 가능',
         registeredName: 'gift-regular',
-      },
-      {
-        label: '관심상품 기본',
-        origin: { label: 'Font Awesome', name: 'heart', detail: 'Regular' },
-        preview: <Icon name="heart-regular" size={20} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="heart-regular" size={20} />',
-        source: 'Wishlist.tsx',
-        note: 'color로 색상 변경 가능',
-        registeredName: 'heart-regular',
-      },
-      {
-        label: '관심상품 선택',
-        origin: { label: 'Font Awesome', name: 'heart', detail: 'Solid' },
-        preview: <Icon name="heart-solid" size={20} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="heart-solid" size={20} />',
-        source: 'Wishlist.tsx',
-        note: 'color로 색상 변경 가능',
-        registeredName: 'heart-solid',
       },
       {
         label: 'faImage',
