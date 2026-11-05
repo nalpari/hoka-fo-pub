@@ -81,11 +81,13 @@ const footerWithScrollFade = css.raw({
 function ModalDialogFooter({
   children,
   scrollFade,
+  inContent,
   desktopContentOffset,
   css: styleOverrides,
 }: {
   children: ReactNode;
   scrollFade: boolean;
+  inContent: boolean;
   desktopContentOffset?: number;
   css?: SystemStyleObject;
 }) {
@@ -99,6 +101,7 @@ function ModalDialogFooter({
           paddingInlineEnd: '24px',
           _mobile: { paddingInlineStart: '16px', paddingInlineEnd: '16px' },
         },
+        inContent && { px: '0', pt: '4' },
         styleOverrides,
       )}
       style={
@@ -238,6 +241,8 @@ type ModalDialogBaseProps = {
   open: boolean;
   size?: ModalSize;
   mobilePresentation?: ModalMobilePresentation;
+  /** Keep the footer outside the scroll area on mobile fullscreen dialogs. */
+  mobileFixedFooter?: boolean;
   overlayTone?: ModalOverlayTone;
   popupClassName?: string;
   /** Explicit return target for a directly opened preview without a dialog trigger. */
@@ -321,6 +326,7 @@ export function ModalDialog({
   open,
   size = 'md',
   mobilePresentation = 'popup',
+  mobileFixedFooter = false,
   overlayTone = 'dark',
   popupClassName,
   finalFocus,
@@ -335,6 +341,18 @@ export function ModalDialog({
   ) : (
     footer
   );
+
+  const footerInContent =
+    platform === 'mobile' && mobilePresentation === 'fullscreen' && !mobileFixedFooter;
+  const footerContent = resolvedFooter ? (
+    <ModalDialogFooter
+      {...footerProps}
+      inContent={footerInContent}
+      scrollFade={scrollFade && !footerInContent}
+    >
+      {resolvedFooter}
+    </ModalDialogFooter>
+  ) : null;
 
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
@@ -359,12 +377,9 @@ export function ModalDialog({
                 className={[content, resolvedFooter && scrollableContent].filter(Boolean).join(' ')}
               >
                 {children}
+                {footerInContent && footerContent}
               </div>
-              {resolvedFooter ? (
-                <ModalDialogFooter {...footerProps} scrollFade={scrollFade}>
-                  {resolvedFooter}
-                </ModalDialogFooter>
-              ) : null}
+              {!footerInContent && footerContent}
             </Dialog.Popup>
           </Dialog.Viewport>
         </div>

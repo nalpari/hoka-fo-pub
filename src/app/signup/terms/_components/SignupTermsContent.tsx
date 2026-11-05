@@ -107,6 +107,7 @@ function TermsDialog({
       title={title}
       closeLabel="약관 닫기"
       mobilePresentation="fullscreen"
+      mobileFixedFooter
       scrollFade
       actions={{ kind: 'single', onConfirm: () => onOpenChange(false) }}
     >

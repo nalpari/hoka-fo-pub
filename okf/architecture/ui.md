@@ -4810,3 +4810,7 @@ EmptyState의 page 변형은 제목과 설명 사이 16px, 버튼이 전달되�
 ## 배송지 변경 모달 footer (2026-11-05)
 
 배송지 변경은 PC 중앙 모달과 모바일 전체 화면 모달에서 공통 `ModalDialog`의 단일 저장 버튼을 사용한다. 저장 연동 전에는 버튼을 비활성으로 표시한다. 출처는 `src/app/checkout/_components/CheckoutShipping.tsx` 작업 트리다.
+
+## 모바일 전체 화면 모달의 본문 버튼 (2026-11-05)
+
+`ModalDialog`의 모바일 전체 화면 기본값은 본문 안에서 버튼을 함께 스크롤하는 배치다. `mobileFixedFooter`를 지정하면 화면 하단에 버튼을 고정한다. 배송지 변경의 저장은 본문 아래에 배치하고 장바구니 옵션 변경과 회원가입 약관 상세는 기존 고정 배치를 명시한다. 출처는 `src/components/common/layouts/ModalDialog.tsx`, `CartDialogs.tsx`, `SignupTermsContent.tsx` 및 `ModalGuide.tsx` 작업 트리다.

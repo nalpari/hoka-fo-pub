@@ -49,6 +49,7 @@ function CartOptionsDialog({
       closeLabel="옵션 변경 닫기"
       size="lg"
       mobilePresentation="fullscreen"
+      mobileFixedFooter
       headerProps={{
         css: css.raw({
           bg: 'white',

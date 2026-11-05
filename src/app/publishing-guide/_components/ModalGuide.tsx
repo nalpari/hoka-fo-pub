@@ -24,7 +24,10 @@ type ModalExample = {
   source: string;
   desktop: string;
   mobile: string;
-  options?: Pick<ModalDialogProps, 'size' | 'mobilePresentation' | 'overlayTone' | 'scrollFade'>;
+  options?: Pick<
+    ModalDialogProps,
+    'size' | 'mobilePresentation' | 'mobileFixedFooter' | 'overlayTone' | 'scrollFade'
+  >;
   action?: 'single' | 'confirm' | 'vertical' | 'disabled';
   sheet?: 'default' | 'catalog';
   long?: boolean;
@@ -66,7 +69,7 @@ const groups: { id: string; title: string; description: string; items: ModalExam
         desktop:
           '최대 너비 864px · 오른쪽 열 중앙 · 버튼 180×48px · 버튼 간격 8px · 본문과 40px · 하단 24px',
         mobile: '전체화면 · 하단 버튼',
-        options: { size: 'lg', mobilePresentation: 'fullscreen' },
+        options: { size: 'lg', mobilePresentation: 'fullscreen', mobileFixedFooter: true },
         action: 'confirm',
       },
     ],
