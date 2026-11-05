@@ -28,8 +28,7 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
   {
     id: 'font-awesome-basic',
     title: '폰트어썸 기본형 · 18px',
-    description:
-      '18px 원본 SVG 하나를 size로 확대·축소합니다. 닫기·장바구니 삭제·모달은 20px로 사용합니다.',
+    description: '18px 원본 SVG 하나를 size로 확대·축소합니다.',
     items: [
       {
         label: '더하기 · 18px',
