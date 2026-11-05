@@ -1,6 +1,7 @@
 ## 2026-11-05 러닝세션·Site Header·메인 시안 반영
 
 - 러닝세션 상세의 신청 시작 알림을 `#E10F00`으로 표시하고 목록 카드 이미지 반경을 0으로 맞췄다. [러닝세션 디자인](architecture/running-session-design.md#신청-시작-알림-색상과-목록-이미지-모서리-2026-11-05).
+- Site Header 장바구니 카운트의 숫자를 검정으로 표시한다. 작업 트리 출처는 `src/context/ShopShell.tsx`와 대응 타입 선언이다. [Site Header 시안](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP?node-id=4041-3543).
 
 ## 2026-11-05 플랫폼 판별·서비스 Context 문서 현행화
 

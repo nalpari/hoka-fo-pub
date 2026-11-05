@@ -242,6 +242,8 @@ Typography의 화면 전용 variant를 표준 heading/body scale로 바꾼 변�
 
 # 공통 상태와 데모 데이터
 
+Site Header의 장바구니 개수는 기존 `ShopShell.state.cartCount`에서 읽는다. `ShopShell.tsx`의 `HeaderCartLink`가 개수 배지에 검정 텍스트를 지정하며, 아이콘과 배지의 표시 여부는 기존 개수 계약을 따른다.
+
 `/wh`는 공통 쇼핑 셸을 사용하지 않는다. 다른 경로의 플랫폼 및 쇼핑 상태 소유자는 그대로 유지한다.
 
 ## 주문서 저장 배송지 연락처 표시값 (2026-11-02)

@@ -1012,6 +1012,8 @@ sources:
 
 러닝세션 목록 카드의 이미지 반경은 PC와 모바일 모두 0이다. 스타일은 공통 Card가 아닌 `RunningSessionPage.tsx`의 이미지 링크에서 관리한다. [러닝세션 디자인](running-session-design.md#신청-시작-알림-색상과-목록-이미지-모서리-2026-11-05).
 
+Site Header의 장바구니 숫자는 기존 Typography의 `primary` 톤(`#000000`)을 사용한다. `NotificationIcon`의 `countTone`은 숫자에만 적용되며 기본 톤은 `inverse`다. [Site Header 시안](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP?node-id=4041-3543).
+
 ## main 보고 비고 표시 (2026-11-04)
 
 IA 필터 오른쪽의 [퍼블 변경사항 보고서] 버튼은208파일의 main 최종 변경을 모달로 보여준다. 개발담당자·변경사항은 rowspan으로 묶고 변경 파일 * Before / 변경라인 * After 열에서 이름변경 전후 경로를 나눈다. 일반 수정은 파일과 B/T 변경 줄을 보여준다. 동일 설명의 collapse 목록·커밋 작성자·기여 목록은 표시하지 않는다. 담당자 필터는 native Select이며 기존 검색·담당자·7열 IA 표·수동 비고는 보존한다.

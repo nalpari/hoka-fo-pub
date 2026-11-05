@@ -45,7 +45,7 @@ import { Divider } from '@/components/common/atoms/Divider';
 import { Icon, type IconAssetName } from '@/components/common/atoms/Icon';
 import { StatusMessage } from '@/components/common/atoms/StatusMessage';
 import { TextInput } from '@/components/common/atoms/TextInput';
-import { Typography } from '@/components/common/atoms/Typography';
+import { Typography, type TypographyTone } from '@/components/common/atoms/Typography';
 
 import {
   Carousel,
@@ -2022,9 +2022,16 @@ function HeaderIconLink({
 type NotificationCountProps = ComponentPropsWithoutRef<'span'> & {
   count?: number;
   max?: number;
+  tone?: TypographyTone;
 };
 /** 알림 건수를 작은 원형 배지로 표시합니다. (Displays a notification count in a compact circular badge.) */
-function NotificationCount({ count = 0, max = 99, className, ...props }: NotificationCountProps) {
+function NotificationCount({
+  count = 0,
+  max = 99,
+  tone = 'inverse',
+  className,
+  ...props
+}: NotificationCountProps) {
   if (!Number.isFinite(count) || count <= 0) return null;
   const displayCount = count > max ? `${max}+` : count;
   return (
@@ -2043,7 +2050,7 @@ function NotificationCount({ count = 0, max = 99, className, ...props }: Notific
       <Typography
         variant="body5"
         weight="medium"
-        tone="inverse"
+        tone={tone}
         {...props}
         aria-hidden="true"
         className={[css({ fontSize: '8px', lineHeight: '16px' }), className]
@@ -2071,6 +2078,7 @@ type NotificationIconVariant = keyof typeof notificationAssetByVariant | 'user';
 type NotificationIconProps = Omit<HTMLAttributes<HTMLSpanElement>, 'color'> & {
   variant: NotificationIconVariant;
   count?: number;
+  countTone?: TypographyTone;
   maxCount?: number;
   size?: CSSProperties['width'];
   color?: CSSProperties['color'];
@@ -2080,6 +2088,7 @@ type NotificationIconProps = Omit<HTMLAttributes<HTMLSpanElement>, 'color'> & {
 function NotificationIcon({
   variant,
   count,
+  countTone,
   maxCount,
   size = '22px',
   color,
@@ -2109,7 +2118,7 @@ function NotificationIcon({
       ) : (
         <Icon name={notificationAssetByVariant[variant]} size={size} aria-hidden="true" />
       )}
-      <NotificationCount count={count} max={maxCount} />
+      <NotificationCount count={count} max={maxCount} tone={countTone} />
     </span>
   );
 }
@@ -2159,6 +2168,7 @@ function HeaderCartLink({ cart }: HeaderCartLinkProps) {
         <NotificationIcon
           variant="bag"
           count={cart}
+          countTone="primary"
           color="var(--color-black-100)"
           size={platform === 'mobile' ? '20px' : '22px'}
         />

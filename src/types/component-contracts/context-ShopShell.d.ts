@@ -12,6 +12,7 @@ import {
 import { type Platform } from '@/context/platform';
 
 import type { IconAssetName } from '@/components/common/atoms/Icon';
+import type { TypographyTone } from '@/components/common/atoms/Typography';
 
 import { type FooterGroup } from '@/data/footerData';
 import { type HeaderPromotionItem } from '@/data/headerPromotionData';
@@ -344,11 +345,13 @@ declare function HeaderIconLink({
 type NotificationCountProps = ComponentPropsWithoutRef<'span'> & {
   count?: number;
   max?: number;
+  tone?: TypographyTone;
 };
 /** 알림 건수를 작은 원형 배지로 표시합니다. (Displays a notification count in a compact circular badge.) */
 declare function NotificationCount({
   count,
   max,
+  tone,
   className,
   ...props
 }: NotificationCountProps): import('react').JSX.Element | null;
@@ -356,6 +359,7 @@ type NotificationIconVariant = 'bag' | 'basket' | 'user';
 type NotificationIconProps = Omit<HTMLAttributes<HTMLSpanElement>, 'color'> & {
   variant: NotificationIconVariant;
   count?: number;
+  countTone?: TypographyTone;
   maxCount?: number;
   size?: CSSProperties['width'];
   color?: CSSProperties['color'];
@@ -364,6 +368,7 @@ type NotificationIconProps = Omit<HTMLAttributes<HTMLSpanElement>, 'color'> & {
 declare function NotificationIcon({
   variant,
   count,
+  countTone,
   maxCount,
   size,
   color,
