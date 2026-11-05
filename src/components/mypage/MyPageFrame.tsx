@@ -62,7 +62,7 @@ export function MyPageFrame({
   return (
     <Box
       as="main"
-      w="min(calc(100% - 64px), 1532px)"
+      w="min(calc(100% - var(--layout-web-content-inline-space)), 1532px)"
       mx="auto"
       pb="24"
       _mobile={{ w: '100%', px: '4', pb: '16' }}

@@ -67,7 +67,13 @@ export function OrdersContent({
         <ContentSection
           title={title}
           headerProps={{ titleAs: 'h1', titleProps: { web: 'heading6', mo: 'heading5' } }}
-          gap={view === 'claim' || returns ? { base: '40px', _mobile: '24px' } : '4'}
+          gap={
+            view === 'claim' || returns
+              ? { base: '40px', _mobile: '24px' }
+              : view === 'list'
+                ? { base: '40px', _mobile: '16px' }
+                : '4'
+          }
         >
           {view === 'claim' && selectedOrder && selectedClaim ? (
             <OrderClaimDetail

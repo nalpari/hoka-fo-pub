@@ -4,12 +4,13 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-05T04:19:28.294Z'
+updated: '2026-11-05T04:45:21.116Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/components/common/layouts/SidebarNavigationLayout.tsx
   - src/components/running-session/RunningSessionPage.tsx
   - src/components/catalog/ProductListingPage.tsx
   - src/components/common/atoms/EmptyState.tsx
@@ -1448,3 +1449,19 @@ Figma [마이페이지 메인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8W
 ## EmptyState 모바일 내부 여백 통일 (2026-11-05)
 
 공통 EmptyState의 모바일 내부 12px과 기존 화면별 바깥 gutter를 합산하도록 표시만 보완했다. 관심상품·최근 본 상품의 빈 상태에서는 목록용 음수 여백을 제외하며, 마이페이지 주문 요약의 내부 padding=0 예외를 제거한다. 상품/검색 무결과와 러닝세션처럼 화면 전체 폭을 쓰는 경우는 기존 화면 소유자가 바깥 gutter와 내부 12px을 함께 전달한다. 라우트·IA 상태 URL·플랫폼 선택 로직·API/콜백·예시 데이터는 변경하지 않는다. 기존 17개 상태 URL과 정상 목록의 검증 범위는 [UI 기록](ui.md#emptystate-모바일-내부-여백-통일-2026-11-05)에 남겼다. 출처: 위 작업 트리 파일, codex/gpt-6, 2026-11-05T04:19:28.294Z.
+
+
+## 주문 목록 제목 하단 간격 보정 (2026-11-05)
+
+Figma [2121:9345](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2121-9345)의 Section Header 2121:9346 하단 패딩은 40px이다. OrdersContent의 기존 ContentSection에서 view=list·returns=false인 주문 목록만 PC gap 16px을 40px로 변경한다. 모바일 목록은 16px, 취소/반품은 PC 40px·모바일 24px, 주문 상세는 기존 gap 16px을 보존한다. 제목과 본문 사이 여백을 기존 부모에서 소유하며 추가 래퍼·자식 margin을 만들지 않는다. 라우트·fixture·콜백·서비스 경계는 변경하지 않는다.
+
+검증: Codex가 1440/375px에서 /mypage/orders와 /mypage/orders/preview-empty의 실제 제목 영역 아래 간격을 40/16px로 확인했다. /mypage/returns는 40/24px, /mypage/orders/preview-detail은 기존 section gap 16px과 본문 자체 여백을 포함한 실제 간격 40/24px를 확인했다. Panda 생성·대상 ESLint/Prettier를 수행했고, 한정된 간격 수정으로 전체 타입/빌드는 재실행하지 않았다. hoka-markup-handoff의 ContentSection·부모 간격·반응형·표시 전용 경계를 점검했다. 출처: src/app/mypage/orders/_components/OrdersContent.tsx 작업 트리, codex/gpt-6, 2026-11-05T04:29:53.252Z.
+
+
+## 마이페이지·고객센터 사이드 메뉴 시안 반영 (2026-11-05)
+
+마이페이지와 고객센터의 바깥 프레임은 같은 --layout-web-content-inline-space(110px)와 최대 1532px을 사용한다. 이전 마이페이지의 64px 차감 때문에 1385px에서 브레드크럼이 32px과 55px로 달랐고, 1031px의 1200px PC 캔버스에서는 사이드바와 본문도 각각 23px 차이가 났다. MyPageFrame을 고객센터와 같은 계산식으로 맞췄다. PC 안쪽 최대 1200px·34px 안쪽 여백·190px/98px 열 배치, 모바일 16px과 메뉴 숨김은 유지한다.
+
+SideNavigation 기존 그룹형은 Figma [마이페이지 2121:9344](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2121-9344)의 제목 28px/900, 그룹명 20px/400·행간 26px, 항목 16px/400·행간 20.8px을 적용한다. 제목과 메뉴 사이 48px, 그룹 간 24px, 그룹명 행 상하 8px과 하위 그룹까지 10px, 항목 상하 4px과 사이 8px은 부모 Stack 및 행에서 관리한다. 현재 링크 aria-current와 검정 밑줄은 유지한다. 고객센터는 [1973:15195](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1973-15195)의 SUPPORT 28px/900, 메뉴 20px/400·행간 26px·상하 8px·사이 24px을 적용한다. 제목 높이 28px 뒤 46px을 두어 메뉴를 사이드바 시작 기준 74px에 배치한다. 영문은 기존 HOKA·한글은 Pretendard를 재사용한다. 탐색 URL, 현재/비활성 상태 계약, 데이터 및 주문 목록 간격 수정은 별개로 유지한다.
+
+검증: Codex가 주문/배송조회와 온라인 회원등급 안내를 1031/1385/1920/375px에서 열어 두 사이드바·브레드크럼 시작점 일치, 글자 크기·굵기·행간·행 패딩·메뉴 시작점, aria-current, 모바일 숨김을 확인했다. 프레임 수정 단계에서 1024/1025·1199/1200px도 확인해 PC 1200px 캔버스와 1200px 이상 가로 넘침 없음을 검증했다. CDP에서 한글 Pretendard Black/Regular와 영문 커스텀 HOKA 글리프를 확인했다. 영문 face의 내부 family/postScript 이름은 '.'으로 표시되어 기존 hoka CSS 연결과 구분했다. 대상 ESLint/Prettier·Panda·타입·Next 빌드를 통과했다. 새 스크린샷·명시적 플랫폼·열린 overlay resize는 미실행이다. hoka-markup-handoff의 기존 탐색 owner·부모 간격·반응형·Next Link 경계를 점검했다. 출처: 위 두 작업 트리 파일, codex/gpt-6, 2026-11-05T04:45:21.116Z.

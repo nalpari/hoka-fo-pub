@@ -25,7 +25,7 @@ type SideNavigationProps = {
 };
 
 const navLink = cva({
-  base: { color: 'var(--color-text-tertiary)' },
+  base: { display: 'inline-flex', color: 'var(--color-text-tertiary)' },
   variants: {
     active: { true: { color: 'var(--color-blue-100)' }, false: {} },
     disabled: { true: { cursor: 'not-allowed', opacity: '0.5', pointerEvents: 'none' }, false: {} },
@@ -45,7 +45,7 @@ export function SideNavigation({
   if (appearance === 'support') {
     return (
       <Box as="aside" className={className} w="190px" _mobile={{ display: 'none' }}>
-        <Stack alignItems="flex-start" gap="10">
+        <Stack alignItems="flex-start" gap="46px">
           <Link href={titleTo}>
             <Typography as="span" variant="heading7">
               {title}
@@ -75,7 +75,7 @@ export function SideNavigation({
                       <Typography
                         as="span"
                         variant="body2"
-                        weight="medium"
+                        weight="regular"
                         tone={isActive ? 'primary' : 'subtle'}
                       >
                         {item.label}
@@ -91,10 +91,11 @@ export function SideNavigation({
   }
 
   return (
-    <Box
+    <Stack
       as="aside"
       className={className}
       flex="0 0 180px"
+      gap="12"
       _mobile={{
         display: mobileNavigation === 'hidden' ? 'none' : 'flex',
         flexDirection: 'row',
@@ -105,62 +106,60 @@ export function SideNavigation({
         borderBottom: '1px solid var(--color-border-subtle)',
       }}
     >
-      <Box display="block" mb="7" _mobile={{ flex: 'none', mr: '10', mb: '0' }}>
+      <Box display="block" _mobile={{ flex: 'none', mr: '10' }}>
         <Link href={titleTo}>
           <Typography as="span" variant="heading7">
             {title}
           </Typography>
         </Link>
       </Box>
-      {groups.map((group) => (
-        <Stack
-          as="section"
-          alignItems="stretch"
-          gap="0"
-          mb="25px"
-          _mobile={{ display: 'contents' }}
-          key={group.heading}
-        >
-          <Box mb="2" _mobile={{ display: 'none' }}>
-            <Typography as="h2" variant="body4" weight="bold">
-              {group.heading}
-            </Typography>
-          </Box>
-          {group.items.map((item) => {
-            const isActive = item.active ?? item.to === activePath;
+      <Stack as="nav" aria-label={title} gap="6" _mobile={{ display: 'contents' }}>
+        {groups.map((group) => (
+          <Stack
+            as="section"
+            alignItems="stretch"
+            gap="2.5"
+            _mobile={{ display: 'contents' }}
+            key={group.heading}
+          >
+            <Box py="2" _mobile={{ display: 'none' }}>
+              <Typography as="h2" variant="body2" weight="regular">
+                {group.heading}
+              </Typography>
+            </Box>
+            <Stack gap="2" _mobile={{ display: 'contents' }}>
+              {group.items.map((item) => {
+                const isActive = item.active ?? item.to === activePath;
 
-            return (
-              <Box
-                as="div"
-                my="2"
-                _mobile={{
-                  flex: 'none',
-                  my: '0',
-                  py: '1',
-                  whiteSpace: 'nowrap',
-                }}
-                key={`${item.to}-${item.label}`}
-              >
-                <Link
-                  aria-current={isActive ? 'page' : undefined}
-                  className={navLink({ active: isActive, disabled: item.disabled })}
-                  href={item.to}
-                >
-                  <Typography
-                    as="span"
-                    web="body4"
-                    mo="body5"
-                    weight={isActive ? 'bold' : 'regular'}
+                return (
+                  <Box
+                    as="div"
+                    display="flex"
+                    alignItems="center"
+                    py="1"
+                    _mobile={{
+                      flex: 'none',
+                      whiteSpace: 'nowrap',
+                    }}
+                    key={`${item.to}-${item.label}`}
                   >
-                    {item.label}
-                  </Typography>
-                </Link>
-              </Box>
-            );
-          })}
-        </Stack>
-      ))}
-    </Box>
+                    <Link
+                      aria-current={isActive ? 'page' : undefined}
+                      className={navLink({ active: isActive, disabled: item.disabled })}
+                      href={item.to}
+                    >
+                      <Typography as="span" web="body3" mo="body5" weight="regular">
+                        {item.label}
+                      </Typography>
+                    </Link>
+                  </Box>
+                );
+              })}
+            </Stack>
+          </Stack>
+        ))}
+      </Stack>
+    </Stack>
   );
 }
 
