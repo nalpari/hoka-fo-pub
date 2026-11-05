@@ -40,8 +40,8 @@ import {
   CarouselPagination,
   CarouselViewport,
 } from '@/components/common/molecules/Carousel/Carousel';
+import { CarouselSection } from '@/components/common/molecules/CarouselSection';
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
-import { HomeCarouselSection } from '@/components/common/molecules/HomeCarouselSection';
 import {
   ProductCard,
   ProductIdentity,
@@ -2268,7 +2268,7 @@ function ProductDetailRecommend({ products, title = '추천 상품' }: ProductDe
   const platform = usePlatform();
   const isWeb = platform === 'web';
   return (
-    <HomeCarouselSection
+    <CarouselSection
       className={ProductDetailRecommendStyles.section}
       desktopCenteredItemCount={5}
       desktopItemGutter={8}
@@ -2284,7 +2284,7 @@ function ProductDetailRecommend({ products, title = '추천 상품' }: ProductDe
       {products.map((product) => (
         <ProductCard key={product.id} product={product} variant="showcase" />
       ))}
-    </HomeCarouselSection>
+    </CarouselSection>
   );
 }
 /** Owns the recommendation regions' leading space, common interval, and platform visibility. */

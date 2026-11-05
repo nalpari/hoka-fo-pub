@@ -2,11 +2,11 @@
 import { type ReactNode } from 'react';
 import { type Platform } from '@/context/platform';
 
-import { type HomeCarouselSectionProps as ImportedHomeCarouselSectionProps } from '@/components/common/molecules/HomeCarouselSection';
+import { type CarouselSectionProps as ImportedCarouselSectionProps } from '@/components/common/molecules/CarouselSection';
 
 import { type MainSectionProps } from '@/types/component-contracts/components-common-layouts-MainSection';
 type Props = Pick<
-  ImportedHomeCarouselSectionProps,
+  ImportedCarouselSectionProps,
   | 'children'
   | 'itemCount'
   | 'platform'
@@ -19,7 +19,7 @@ type Props = Pick<
   | 'viewportKey'
 >;
 /** Own card sizing, terminal spacing, and the responsive carousel viewport. */
-declare function HomeCarouselRail({
+declare function CarouselSectionRail({
   children,
   itemCount,
   platform,
@@ -31,7 +31,7 @@ declare function HomeCarouselRail({
   mobileRail,
   viewportKey,
 }: Props): import('react').JSX.Element;
-export type HomeCarouselSectionProps = {
+export type CarouselSectionProps = {
   className?: string;
   children: ReactNode;
   itemCount: number;
@@ -40,6 +40,7 @@ export type HomeCarouselSectionProps = {
   slideClassName?: string;
   title: string;
   titleVariant?: MainSectionProps['titleVariant'];
+  tabs?: ReactNode;
   beforeViewport?: ReactNode;
   desktopCenteredItemCount: number;
   desktopItemGutter: number;
@@ -51,7 +52,7 @@ export type HomeCarouselSectionProps = {
   viewportKey?: string;
 };
 /** Home content rail with a shared responsive carousel frame and controls. */
-export declare function HomeCarouselSection({
+export declare function CarouselSection({
   className,
   children,
   itemCount,
@@ -67,5 +68,5 @@ export declare function HomeCarouselSection({
   mobileRail,
   spacing,
   viewportKey,
-}: HomeCarouselSectionProps): import('react').JSX.Element;
-export { HomeCarouselRail };
+}: CarouselSectionProps): import('react').JSX.Element;
+export { CarouselSectionRail };

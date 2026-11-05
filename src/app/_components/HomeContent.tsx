@@ -19,8 +19,8 @@ import { contentFrame } from 'styled-system/patterns';
 import { Button, ButtonLink } from '@/components/common/atoms/Button';
 import { type FilterTabOption, FilterTabs } from '@/components/common/atoms/FilterTabs';
 
+import { CarouselSection } from '@/components/common/molecules/CarouselSection';
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
-import { HomeCarouselSection } from '@/components/common/molecules/HomeCarouselSection';
 import { MainContentCard } from '@/components/common/molecules/MainContentCard';
 import { ProductCard } from '@/components/common/molecules/ProductCard/ProductCard';
 
@@ -112,17 +112,15 @@ function HomeBestSellerSection() {
   const [selectedTab, setSelectedTab] = useState<BestSellerTab>('전체');
   const bestSellerProducts = createHomeCarouselPreviewItems(getBestSellerProducts(selectedTab));
   return (
-    <HomeCarouselSection
-      beforeViewport={
-        <Box pl="0" pb="10" _mobile={{ pl: '4', pb: '4' }}>
-          <FilterTabs
-            ariaLabel="베스트셀러 카테고리 필터"
-            onValueChange={setSelectedTab}
-            options={bestSellerFilterTabs}
-            value={selectedTab}
-            variant="fill"
-          />
-        </Box>
+    <CarouselSection
+      tabs={
+        <FilterTabs
+          ariaLabel="베스트셀러 카테고리 필터"
+          onValueChange={setSelectedTab}
+          options={bestSellerFilterTabs}
+          value={selectedTab}
+          variant="fill"
+        />
       }
       desktopCenteredItemCount={5}
       desktopItemGutter={8}
@@ -139,7 +137,7 @@ function HomeBestSellerSection() {
       {bestSellerProducts.map((product, index) => (
         <ProductCard key={`${product.id}-${index}`} product={product} variant="showcase" />
       ))}
-    </HomeCarouselSection>
+    </CarouselSection>
   );
 }
 // 312px at a 375px viewport. The slide adds 8px gutters on both sides,
@@ -164,7 +162,7 @@ const categoryCard = css({
 function HomeCategorySection({ platform }: HomeCategorySectionProps) {
   const isWeb = platform === 'web';
   return (
-    <HomeCarouselSection
+    <CarouselSection
       desktopCenteredItemCount={4}
       desktopItemGutter={8}
       itemCount={homeCategories.length}
@@ -178,7 +176,7 @@ function HomeCategorySection({ platform }: HomeCategorySectionProps) {
       {homeCategories.map((category) => (
         <MainContentCard className={categoryCard} key={category.title} {...category} />
       ))}
-    </HomeCarouselSection>
+    </CarouselSection>
   );
 }
 const exploreCard = css({
@@ -694,7 +692,7 @@ type HomeShoeFinderSectionProps = {
 function HomeShoeFinderSection({ platform, variant = 'imagePill' }: HomeShoeFinderSectionProps) {
   const isWeb = platform === 'web';
   return (
-    <HomeCarouselSection
+    <CarouselSection
       desktopCenteredItemCount={4}
       desktopItemGutter={8}
       itemCount={previewItems.length}
@@ -714,7 +712,7 @@ function HomeShoeFinderSection({ platform, variant = 'imagePill' }: HomeShoeFind
           variant={variant}
         />
       ))}
-    </HomeCarouselSection>
+    </CarouselSection>
   );
 }
 /** 홈의 주요 프로모션과 상품 영역을 구성합니다. (Composes the home promotions and product sections.) */

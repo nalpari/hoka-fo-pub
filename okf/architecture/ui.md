@@ -10,6 +10,8 @@ generated:
   at: '2026-11-03T06:11:12Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/app/publishing-guide/_components/CarouselGuide.tsx
+  - src/components/common/molecules/CarouselSection.tsx
   - src/app/screen-index/page.tsx
   - src/app/screen-index/screenChangeHistory.ts
   - src/app/screen-index/screenChangeHistory.generated.json
@@ -4724,7 +4726,14 @@ Figma Navigational Buttons(296:25392)와 Action Buttons(296:25425)의 기본·�
 
 디자인팀 빼기와 상하좌우 chevron은 Figma Regular 도형에 대응해 -regular를 명시한다. 원형 이름은 -regular-circle 순서를 사용한다. 24px SVG의 도형과 여백은 유지한다. 출처: Icon.assets.ts, IconGuide.tsx, Figma 296:24896·296:13816·296:11741.
 
-
 ## 2026-11-05 — 닫기 아이콘과 가이드 배경
 
 아이콘 가이드 미리보기 배경을 #D4D4D4로 통일했다. 장바구니 상품 삭제와 공통 모달 닫기에 여백 포함 20px 디자인팀 SVG hoka-action-xmark-regular-20을 등록하고 적용했다. 출처: IconGuide.tsx, CartProductSection.tsx, ModalDialog.tsx, Icon.assets.ts.
+
+## 공통 캐러셀과 가이드 (2026-11-05)
+
+홈 전용 이름의 HomeCarouselSection을 공통 `CarouselSection`으로 변경했다. 홈·장바구니 추천·상품 상세·러닝 세션은 같은 제목/오른쪽 컨트롤/레일 구현을 사용한다. `/publishing-guide?tab=carousel`에서 MainContentCard·ProductCard 각 12개 예시 카드, 데스크탑 48px 컨트롤과 모바일 터치 레일, 코드 복사를 제공한다. 기존 화면별 카드 크기와 필터 슬롯은 유지한다.
+
+- 캐러셀 `tabs` 슬롯이 있으면 제목 아래 탭 행 오른쪽에 컨트롤을 배치하며, 없으면 제목 오른쪽을 유지한다. 홈 베스트셀러를 이 옵션으로 연결하고 가이드에 기본/탭 포함 예시를 함께 추가했다. 모바일 컨트롤 숨김과 탭 선택 상태는 유지한다.
+
+- 카트 추천 영역은 CartContent에서 가이드와 같은 CarouselSection + ProductCard를 직접 조합한다. 카트 전용 OrderRecommendations portrait 분기를 제거했으며, 다른 화면의 compact/checkout과 OrderRecommendationItem은 유지한다. 카트는 공통 products를 직접 사용하며 데스크탑 4열/모바일 150px 카드와 10px 간격은 유지한다.

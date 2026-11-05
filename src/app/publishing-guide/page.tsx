@@ -9,6 +9,7 @@ import { Typography } from '@/components/common/atoms/Typography';
 import { type SupportTab, SupportTabs } from '@/components/common/molecules/SupportTabs';
 
 import { ButtonGuide } from './_components/ButtonGuide';
+import { CarouselGuide } from './_components/CarouselGuide';
 import { ColorGuide } from './_components/ColorGuide';
 import { FormGuide } from './_components/FormGuide';
 import { HelpTipsGuide } from './_components/HelpTipsGuide';
@@ -25,6 +26,7 @@ const guideTabs: readonly SupportTab[] = [
   { value: 'form', label: '폼', content: <FormGuide /> },
   { value: 'help-tips', label: '툴팁·토글팁', content: <HelpTipsGuide /> },
   { value: 'modal', label: '모달', content: <ModalGuide /> },
+  { value: 'carousel', label: '캐러셀', content: <CarouselGuide /> },
   { value: 'product-tiles', label: '상품 타일', content: <ProductCardGuide /> },
 ];
 
