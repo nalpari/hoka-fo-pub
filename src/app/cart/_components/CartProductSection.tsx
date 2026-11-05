@@ -43,8 +43,8 @@ function CartMobileItem({ row, selected, onSelect }: CartItemProps) {
           onCheckedChange={onSelect}
           label={null}
         />
-        <Button variant="icon" size={18} aria-label={`${product.name} 삭제`}>
-          <Icon name="hoka-action-xmark-regular" size={14} />
+        <Button variant="icon" size={20} aria-label={`${product.name} 삭제`}>
+          <Icon name="hoka-action-xmark-regular-20" size={20} />
         </Button>
       </HStack>
       <Stack
