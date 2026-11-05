@@ -4,12 +4,13 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-05T04:45:21.116Z'
+updated: '2026-11-05T05:13:58.473Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/checkout/preview-address-change/page.tsx
   - src/components/common/layouts/SidebarNavigationLayout.tsx
   - src/components/running-session/RunningSessionPage.tsx
   - src/components/catalog/ProductListingPage.tsx
@@ -1479,3 +1480,15 @@ SideNavigation 기존 그룹형은 Figma [마이페이지 2121:9344](https://www
 ## 상품 목록과 배송지 빈 화면 간격 공유 (2026-11-05)
 
 /products/preview-no-results와 /mypage/addresses/preview-empty는 버튼이 있는 EmptyState.page의 공통 간격을 사용한다. 두 기존 상태 URL을 PC와 모바일에서 확인했다. [공통 간격과 검증](ui.md#버튼이-있는-빈-화면의-공통-간격-2026-11-05). 출처: ProductListingPage.tsx, AddressManagement.tsx, EmptyState.tsx 작업 트리. 기록: Codex, 2026-11-05.
+
+## 주문/결제 배송지 변경 모달 (2026-11-05)
+
+IA 171 주문/결제의 배송지 변경 모달은 `/checkout/preview-address-change`에서 열린 상태로 표시된다. 기본 `/checkout`에서는 저장 배송지의 배송지변경 버튼으로 같은 공통 모달을 연다. 기존 배송지 입력 폼을 임시로 사용하며 `/checkout/preview-shipping`의 수동입력과 오류 상태는 인라인으로 표시한다. 디자인은 미수급이다.
+
+PC는 중앙 `ModalDialog`, 모바일은 `ModalDialog`의 fullscreen 표시를 사용한다. 두 플랫폼 모두 `kind: single` 액션을 사용한다. 입력값과 열림 상태는 `CheckoutShipping`이 관리한다. 기존 배송지 사용 버튼은 인라인 수동입력에만 표시한다. 하단에는 연동 전까지 비활성인 저장 버튼을 표시하며, 헤더의 닫기 버튼으로 닫는다. 배송지 입력과 모달 열기·닫기는 로컬 UI다. 주문서 연동 시 입력 데이터와 저장 요청 결과를 연결하고, 성공한 배송지로 주문서의 `savedAddress`를 갱신한다.
+
+출처는 사용자 브라우저 댓글과 `src/app/checkout`의 배송지 및 preview 구현, `src/app/screen-index/screenConnections.ts` 작업 트리다.
+
+검증은 주문서 기본 상태에서 버튼으로 열기, Escape로 닫기와 버튼 포커스 복원, IA 171 검색과 링크 클릭, 미리보기 새로고침, 390px로 전환 후 모달 표시와 닫기, 수동입력 화면의 인라인 표시를 포함한다. 타입 검사, 변경 코드 ESLint·Prettier, IA 링크 테스트 13개를 통과했다. 후속 변경에서 PC 모달에 입력한 값을 유지한 채 390×700px로 전환되는 `BottomSheet`, 화면 하단 배치와 버튼을 통한 닫기 후 배송지변경 버튼 포커스 복원을 확인했다.
+
+최종 표시 검증에서 PC 중앙 모달, 390×700px 모바일 전체 화면, 화면 전환 시 입력값 유지, 단일 저장 버튼 비활성, 닫기 후 포커스 복원을 확인했다.

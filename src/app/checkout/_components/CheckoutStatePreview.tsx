@@ -17,9 +17,11 @@ import type { PaymentMethod } from './CheckoutPayment';
 export function CheckoutStatePreview({
   state,
 }: {
-  state: 'empty' | 'error' | 'complete' | 'shipping' | 'delivery-request';
+  state: 'empty' | 'error' | 'complete' | 'shipping' | 'address-change' | 'delivery-request';
 }) {
-  const [payment, setPayment] = useState<PaymentMethod>('card');
+  const [payment, setPayment] = useState<PaymentMethod>(
+    state === 'address-change' ? 'kakao' : 'card',
+  );
   return (
     <CheckoutLayout completed={state === 'complete'}>
       {state === 'complete' ? (
@@ -29,7 +31,8 @@ export function CheckoutStatePreview({
         <CheckoutEmptyState />
       ) : (
         <CheckoutContent
-          editShipping={state !== 'delivery-request'}
+          editShipping={state === 'shipping' || state === 'error'}
+          initialAddressChangeOpen={state === 'address-change'}
           initialDeliveryRequest={state === 'delivery-request' ? 'custom' : undefined}
           rows={cartPreviewRows}
           payment={payment}

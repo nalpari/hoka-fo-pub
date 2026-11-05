@@ -1,6 +1,6 @@
 'use client';
 
-import { useContext, useState } from 'react';
+import { type Dispatch, type Ref, type SetStateAction, useContext, useRef, useState } from 'react';
 import { CheckoutContext } from '@/context/CheckoutContext';
 
 import { css } from 'styled-system/css';
@@ -17,6 +17,7 @@ import { TextFormField } from '@/components/common/molecules/FormFields/TextForm
 import { AddressFields } from '@/components/common/organisms/Address/AddressFields';
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
+import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
 const fields = [
   {
@@ -53,50 +54,54 @@ const fields = [
   },
 ] as const;
 
-/** 주문 배송 연락처를 공통 필드로 표시합니다. (Displays shipping contact inputs using shared form fields.) */
-function CheckoutRecipientFields({ errors }: { errors?: ShippingErrors }) {
-  return fields.map((field) => (
-    <TextFormField
-      key={field.name}
-      id={`shipping-${field.name}`}
-      label={field.label}
-      variant="boxed"
-      required={field.required}
-      error={field.name === 'name' || field.name === 'phone' ? errors?.[field.name] : undefined}
-      inputProps={{
-        name: field.name,
-        placeholder: field.placeholder,
-        autoComplete: field.autoComplete,
-        type: field.type,
-      }}
-    />
-  ));
-}
-
-type Props = {
-  errors?: ShippingErrors;
-  postalCode: string;
-  address: string;
-  onPostalCodeChange: (postalCode: string) => void;
-  onAddressChange: (address: string) => void;
-  searchOpen: boolean;
-  onSearchOpenChange: (open: boolean) => void;
+const emptyShippingDraft = {
+  name: '',
+  email: '',
+  phone: '',
+  otherPhone: '',
+  postalCode: '',
+  address: '',
+  addressDetail: '',
+  isDefault: false,
 };
 
-/** 배송지 주소 입력과 주소 검색을 연결합니다. (Connects shipping address fields and address search.) */
-function CheckoutAddressFields({
+type ShippingDraft = typeof emptyShippingDraft;
+
+function CheckoutShippingForm({
+  draft,
+  onDraftChange,
   errors,
-  postalCode,
-  address,
-  onPostalCodeChange,
-  onAddressChange,
-  searchOpen,
-  onSearchOpenChange,
-}: Props) {
+  onUseSavedAddress,
+}: {
+  draft: ShippingDraft;
+  onDraftChange: Dispatch<SetStateAction<ShippingDraft>>;
+  errors?: ShippingErrors;
+  onUseSavedAddress?: () => void;
+}) {
+  const [searchOpen, setSearchOpen] = useState(false);
+  const { postalCode, address, addressDetail } = draft;
   const addressDetailDisabled = !postalCode.trim() || !address.trim();
 
   return (
-    <>
+    <Stack gap="4">
+      {fields.map((field) => (
+        <TextFormField
+          key={field.name}
+          id={`shipping-${field.name}`}
+          label={field.label}
+          variant="boxed"
+          required={field.required}
+          error={field.name === 'name' || field.name === 'phone' ? errors?.[field.name] : undefined}
+          inputProps={{
+            name: field.name,
+            placeholder: field.placeholder,
+            autoComplete: field.autoComplete,
+            type: field.type,
+            value: draft[field.name],
+            onChange: (event) => onDraftChange({ ...draft, [field.name]: event.target.value }),
+          }}
+        />
+      ))}
       <AddressFields
         variant="boxed"
         fieldOptions={{
@@ -108,62 +113,29 @@ function CheckoutAddressFields({
           },
         }}
         idPrefix="shipping"
-        value={{ postalCode, address }}
+        value={{ postalCode, address, addressDetail }}
         errors={errors}
-        onValueChange={(field, next) => {
-          if (field === 'postalCode') onPostalCodeChange(next);
-          if (field === 'address') onAddressChange(next);
-        }}
+        onValueChange={(field, next) => onDraftChange((current) => ({ ...current, [field]: next }))}
         searchOpen={searchOpen}
-        onSearchOpenChange={onSearchOpenChange}
+        onSearchOpenChange={setSearchOpen}
       />
-    </>
-  );
-}
-
-type CheckoutShippingFormProps = {
-  errors?: ShippingErrors;
-  postalCode: string;
-  address: string;
-  onAddressChange: (address: string) => void;
-  onPostalCodeChange: (postalCode: string) => void;
-  searchOpen: boolean;
-  onSearchOpenChange: (open: boolean) => void;
-  onUseSavedAddress: () => void;
-};
-
-function CheckoutShippingForm({
-  errors,
-  postalCode,
-  address,
-  onAddressChange,
-  onPostalCodeChange,
-  searchOpen,
-  onSearchOpenChange,
-  onUseSavedAddress,
-}: CheckoutShippingFormProps) {
-  return (
-    <Stack gap="4">
-      <CheckoutRecipientFields errors={errors} />
-      <CheckoutAddressFields
-        errors={errors}
-        postalCode={postalCode}
-        address={address}
-        onAddressChange={onAddressChange}
-        onPostalCodeChange={onPostalCodeChange}
-        searchOpen={searchOpen}
-        onSearchOpenChange={onSearchOpenChange}
+      <Checkbox
+        label="기본배송지로 등록"
+        checked={draft.isDefault}
+        onCheckedChange={(isDefault) => onDraftChange({ ...draft, isDefault })}
       />
-      <Checkbox label="기본배송지로 등록" />
-      <Button variant="link" size="sm" onClick={onUseSavedAddress}>
-        기존 배송지 사용
-      </Button>
+      {onUseSavedAddress && (
+        <Button variant="link" size="sm" onClick={onUseSavedAddress}>
+          기존 배송지 사용
+        </Button>
+      )}
     </Stack>
   );
 }
 
 type CheckoutSavedAddressProps = {
   errors?: ShippingErrors;
+  editButtonRef: Ref<HTMLButtonElement>;
   onEdit: () => void;
 };
 
@@ -178,7 +150,7 @@ const demoSavedAddress = {
   addressDetail: '',
 };
 
-function CheckoutSavedAddress({ errors, onEdit }: CheckoutSavedAddressProps) {
+function CheckoutSavedAddress({ errors, editButtonRef, onEdit }: CheckoutSavedAddressProps) {
   const binding = useContext(CheckoutContext);
   const saved = binding ? binding.savedAddress : demoSavedAddress;
   if (!saved) return null;
@@ -201,7 +173,13 @@ function CheckoutSavedAddress({ errors, onEdit }: CheckoutSavedAddressProps) {
             <Typography variant="body5">기본 배송지</Typography>
           </Box>
         </HStack>
-        <Button variant="link" size="sm" onClick={onEdit}>
+        <Button
+          ref={editButtonRef}
+          variant="link"
+          size="sm"
+          aria-haspopup="dialog"
+          onClick={onEdit}
+        >
           배송지변경
         </Button>
       </HStack>
@@ -312,23 +290,37 @@ function CheckoutDeliveryRequest({ initialRequest = '' }: { initialRequest?: str
 
 export type ShippingErrors = Partial<Record<'name' | 'phone' | 'address', string>>;
 
-/** [ 개발팀 바인딩 ] initialEditing과 initialDeliveryRequest는 고정 preview의 최초 표시 seed입니다. 입력·주소 검색·요청사항 선택만 로컬이며 배송지 저장·배송 요청 전송은 연결 소유자가 별도로 구현합니다. */
+/**
+ * [ 개발팀 바인딩 ] initialEditing·initialAddressChangeOpen·initialDeliveryRequest는 고정 preview seed입니다.
+ * 배송지 변경 모달은 기존 입력을 표시합니다. 주문서 연동 소유자가 수령인·연락처·주소·기본배송지 여부를 연결하고,
+ * 변경 요청 중 중복 제출을 막으며 실패 시 입력을 유지합니다. 성공 시 savedAddress를 갱신한 뒤 모달을 닫습니다.
+ * 현재 입력·닫기는 로컬 UI입니다. 저장 버튼은 연동 전까지 비활성이며 배송 요청 전송도 연결하지 않습니다.
+ */
 /** 주문자와 배송지 입력 및 배송 요청을 표시합니다. (Displays checkout shipping details and delivery requests.) */
 export function CheckoutShipping({
   errors,
   initialEditing = false,
+  initialAddressChangeOpen = false,
   initialDeliveryRequest,
 }: {
   errors?: ShippingErrors;
   initialEditing?: boolean;
+  initialAddressChangeOpen?: boolean;
   initialDeliveryRequest?: string;
 }) {
   const binding = useContext(CheckoutContext);
   const hasSavedAddress = !binding || binding.savedAddress !== null;
   const [editing, setEditing] = useState(initialEditing);
-  const [postalCode, setPostalCode] = useState('');
-  const [address, setAddress] = useState('');
-  const [searchOpen, setSearchOpen] = useState(false);
+  const [addressChangeOpen, setAddressChangeOpen] = useState(initialAddressChangeOpen);
+  const editButtonRef = useRef<HTMLButtonElement>(null);
+  const [draft, setDraft] = useState(emptyShippingDraft);
+  const showInlineForm = editing || !hasSavedAddress;
+
+  function closeAddressChange() {
+    setAddressChangeOpen(false);
+    setDraft(emptyShippingDraft);
+  }
+
   return (
     <ContentSection
       as="section"
@@ -336,19 +328,42 @@ export function CheckoutShipping({
       title="주문자 및 배송지 정보"
       headerProps={{ titleAs: 'h2', titleProps: { web: 'heading7', mo: 'heading6' } }}
     >
-      {editing || !hasSavedAddress ? (
+      {showInlineForm ? (
         <CheckoutShippingForm
+          draft={draft}
+          onDraftChange={setDraft}
           errors={errors}
-          postalCode={postalCode}
-          address={address}
-          onAddressChange={setAddress}
-          onPostalCodeChange={setPostalCode}
-          searchOpen={searchOpen}
-          onSearchOpenChange={setSearchOpen}
-          onUseSavedAddress={() => setEditing(false)}
+          onUseSavedAddress={() => {
+            if (!hasSavedAddress) return;
+            setEditing(false);
+            setDraft(emptyShippingDraft);
+          }}
         />
       ) : (
-        <CheckoutSavedAddress errors={errors} onEdit={() => setEditing(true)} />
+        <>
+          <CheckoutSavedAddress
+            errors={errors}
+            editButtonRef={editButtonRef}
+            onEdit={() => setAddressChangeOpen(true)}
+          />
+          <ModalDialog
+            title="배송지 변경"
+            mobilePresentation="fullscreen"
+            closeLabel="배송지 변경 닫기"
+            open={addressChangeOpen}
+            onOpenChange={(open) => {
+              if (!open) closeAddressChange();
+            }}
+            finalFocus={editButtonRef}
+            actions={{
+              kind: 'single',
+              label: '저장',
+              buttonProps: { disabled: true },
+            }}
+          >
+            <CheckoutShippingForm draft={draft} onDraftChange={setDraft} />
+          </ModalDialog>
+        </>
       )}
       <CheckoutDeliveryRequest initialRequest={initialDeliveryRequest} />
     </ContentSection>

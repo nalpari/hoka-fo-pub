@@ -127,6 +127,7 @@
       "src/components/common/atoms/Dropdown.tsx",
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/ContentSection.tsx",
+      "src/components/common/layouts/ModalDialog.tsx",
       "src/components/common/molecules/FormFields/CharacterCount.tsx",
       "src/components/common/molecules/FormFields/TextFormField.tsx",
       "src/components/common/organisms/Address/AddressFields.tsx",
@@ -150,6 +151,9 @@
       "src/app/cart/cart-preview.ts",
       "src/app/checkout/_components/CheckoutForm.tsx",
       "src/app/checkout/_components/CheckoutLayout.tsx"
+    ],
+    "src/app/checkout/preview-address-change/page.tsx": [
+      "src/app/checkout/_components/CheckoutStatePreview.tsx"
     ],
     "src/app/checkout/preview-complete/page.tsx": [
       "src/app/checkout/_components/CheckoutStatePreview.tsx"

@@ -19,6 +19,7 @@ import { CheckoutSummary } from './CheckoutSummary';
 
 type CheckoutContentProps = {
   editShipping?: boolean;
+  initialAddressChangeOpen?: boolean;
   initialDeliveryRequest?: string;
   rows: readonly CheckoutRow[];
   payment: PaymentMethod;
@@ -30,6 +31,7 @@ type CheckoutContentProps = {
 /** 주문서 섹션과 입력·선택 UI를 배치합니다. (Arranges checkout sections and input controls.) */
 export function CheckoutContent({
   editShipping = false,
+  initialAddressChangeOpen,
   initialDeliveryRequest,
   rows,
   payment,
@@ -49,6 +51,7 @@ export function CheckoutContent({
         <CheckoutShipping
           errors={errors}
           initialEditing={editShipping}
+          initialAddressChangeOpen={initialAddressChangeOpen}
           initialDeliveryRequest={initialDeliveryRequest}
         />
       </Box>

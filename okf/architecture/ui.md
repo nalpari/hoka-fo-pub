@@ -4806,3 +4806,7 @@ EmptyState의 page 변형은 제목과 설명 사이 16px, 버튼이 전달되�
 검색 결과 없음은 EmptyState의 page 변형을 사용한다. 제목은 PC 28px과 모바일 22px의 900 굵기, 설명은 PC 16px과 모바일 14px이며 두 문구 사이에는 공통 16px 간격을 적용한다. PC 최소 높이 470px과 모바일 상하 96px을 검색 화면이 지정한다.
 
 1543px과 375px의 /search/preview-no-results에서 계산 스타일과 16px 간격을 확인했다. 두 폭에서 문서 가로 넘침이 없었다. 대상 ESLint·Prettier와 Panda 생성이 통과했다. 출처는 ProductListingPage.tsx 작업 트리와 사용자 브라우저 주석이다. Codex, 2026-11-05.
+
+## 배송지 변경 모달 footer (2026-11-05)
+
+배송지 변경은 PC 중앙 모달과 모바일 전체 화면 모달에서 공통 `ModalDialog`의 단일 저장 버튼을 사용한다. 저장 연동 전에는 버튼을 비활성으로 표시한다. 출처는 `src/app/checkout/_components/CheckoutShipping.tsx` 작업 트리다.
