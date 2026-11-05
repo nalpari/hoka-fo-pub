@@ -4,12 +4,13 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-05T04:45:21.116Z'
+updated: '2026-11-05T08:13:41Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/app/products/[id]/productDetailPreviews.ts
   - src/components/running-session/RunningSessionPage.tsx
   - src/app/support/inquiries/new/_components/InquiryFormStatePreview.tsx
   - src/app/support/inquiries/new/_components/InquiryFormLayout.tsx
@@ -4838,3 +4839,13 @@ EmptyState의 page 변형은 제목과 설명 사이 16px, 버튼이 전달되�
 - 바텀시트 디자인 시스템 1306:8008 / 1313:8442 / 1313:8517 / 1313:8543 기준으로 기존 selection을 default로 통합했다. appearance는 default/catalog만 제공하고 Dropdown·PreviousTermsPicker는 기본값을 사용한다. 기본형 헤더 56px(상단20/좌우24), body3, 닫기20px, 상단 라운드20px. scrollable은 화면-44px 확장 및 본문 스크롤/상단 구분선, footer는 선택 슬롯으로 48px 버튼·상단/좌우16·하단32px(+safe-area)를 제공한다. 본문 하단은 비스크롤형에 푸터가 있으면24px, 그 외에는32px이다. 가이드에 기본/스크롤 × 푸터 유무 네 사례와 catalog 예시, 각각의 복사 코드를 제공한다. ModalDialog의 bottomSheet 옵션은 이번 변경 대상이 아니다.
 
 - 사용자 최종 지시에 따라 별도 BottomSheet 구현과 catalog 옵션을 삭제했다. 모든 호출(상품 필터·Dropdown·PreviousTermsPicker)을 ModalDialog mobilePresentation="bottomSheet"로 통합했다. 모바일 표시 방식은 popup/fullscreen/bottomSheet이며 scrollable과 footer 유무를 독립적으로 조합한다. 가이드 네 조합도 데스크탑 중앙 팝업/모바일 하단 표시를 공유하고 FormGuide 설명을 갱신했다. 앞선 BottomSheet 독립 구성 기록은 이 결정으로 대체된다.
+
+## PDP 개정 시안 적용 (2026-11-05)
+
+PC 1920px 기준 1016px 미디어와 484px 구매 패널 사이 32px를 유지한다. 모바일 상세에는 상품 정보·리뷰·상품문의 앵커와 고정 구매 CTA를 표시한다. 의류는 EveryRun 사진·스와치와 XS–XXL, 사이즈 앵커, 의류 특징을 별도 준비 데이터로 사용한다. 사이즈 상세와 리뷰는 시안의 크리마 표시 영역이며 서비스는 연결되지 않았다.
+
+상세 가격은 기존 ProductPrice의 detail 모드로 PC 18px·MO 16px, 할인 가격 줄 간격 14px를 표시한다. Sale 시안의 290,000원·20%·240,000원은 준비된 표시값이다. 품절은 옵션에 따른 회색 CTA와 입고 알림 CTA를 표시하며 사이즈 미선택 오류는 PC/MO 모두 선택 영역에 직접 표시한다.
+
+선택 옵션은 PC 구매 패널과 모바일 하단 시트가 기존 목록 표현을 공유한다. 완료는 공통 모달에서 PC 너비 640px·모서리 10px, 모바일 상단 모서리 24px를 사용한다. 시트 손잡이는 36×4px 장식이다. 최대 높이 시트는 상단 여유 92px를 두고 내부 스크롤과 하단 CTA를 분리한다. 수량 조작은 로컬 표시만 바꾼다. [디자인 출처와 상태별 URL](routing.md#pdp-개정-시안과-ia-상태-2026-11-05).
+
+브라우저에서 PC 가격 18px와 할인 줄 간격 14px, PC 모달 640px, 모바일 시트 375px·모서리 24px와 최대 높이에서의 내부 스크롤을 확인했다. Escape로 닫으면 PDP 패널의 버튼에 포커스가 돌아온다. 변경 파일 ESLint·Prettier, 상품상세와 IA 관련 테스트 17개, Panda 생성과 Next 프로덕션 빌드를 통과했다.

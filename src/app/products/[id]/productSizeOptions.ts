@@ -4,8 +4,11 @@ import type { SizeSelectorOption } from '@/components/common/molecules/SizeSelec
 import type { ProductWidthOption } from '@/mocks/products';
 
 /** Availability wins over low-stock hints for every Korean size. */
-export function productSizeOptions(width?: ProductWidthOption): SizeSelectorOption[] {
-  return koreanSizes.map((value) => ({
+export function productSizeOptions(
+  width?: ProductWidthOption,
+  sizes: readonly string[] = koreanSizes,
+): SizeSelectorOption[] {
+  return sizes.map((value) => ({
     value,
     state: !width?.sizes.includes(value)
       ? 'unavailable'

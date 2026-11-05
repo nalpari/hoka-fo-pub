@@ -4,12 +4,14 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-05T07:47:55.730Z'
+updated: '2026-11-05T08:13:41Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/products/pdp-preview/[state]/page.tsx
+  - src/app/products/[id]/productDetailPreviews.ts
   - src/app/checkout/preview-address-change/page.tsx
   - src/components/common/layouts/SidebarNavigationLayout.tsx
   - src/components/running-session/RunningSessionPage.tsx
@@ -339,6 +341,27 @@ sources:
   - id: tests-app-router-test-mjs
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/tests/app-router.test.mjs
     title: 'tests/app-router.test.mjs'
+  - id: pdp-104663
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2780-104663
+    title: 'PDP 신발'
+  - id: pdp-93347
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2780-93347
+    title: 'PDP 의류'
+  - id: pdp-103439
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2780-103439
+    title: 'Sale Price'
+  - id: pdp-100884
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2780-100884
+    title: '품절'
+  - id: pdp-98879
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2780-98879
+    title: 'Option Selection'
+  - id: pdp-97663
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2780-97663
+    title: 'No Size Selected Error'
+  - id: pdp-94996
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2780-94996
+    title: '장바구니 추가 완료'
 ---
 
 # 라우팅과 플랫폼
@@ -1556,3 +1579,33 @@ PC는 중앙 `ModalDialog`, 모바일은 `ModalDialog`의 fullscreen 표시를 �
 보고서 렌더러의 표시 타입을 명시했다. 생성 JSON의 보고서마다 이름 변경·소유 화면·줄 범위 조합이 달라도 필터 결과를 같은 표에 전달할 수 있다.
 
 출처: screenChangeHistory.ts, screenChangeHistory.generated.json, tests/main-change-history.test.mjs 작업 트리 및 ccd82db0 → 3719352b Git 비교. 기록: codex, 2026-11-05T07:47:55.730Z.
+
+## PDP 개정 시안과 IA 상태 (2026-11-05)
+
+기존 상품상세 코드 `eland_hca_02`의 기본 링크는 `/products/shoe-1`이다. PC/MO는 동일 URL을 공유한다. 추가 상태는 `/products/pdp-preview/[state]`에서 허용된 상태만 렌더링한다. 아래 표의 짧은 상태명은 해당 경로의 마지막 segment다. 모바일 고정 CTA는 대응 기본/품절 화면에서 확인한다. 가이드·Note 프레임은 제품 상태에서 제외했다.
+
+| 시안 섹션 | 대응 프레임 PC / MO | 확인 URL |
+| --- | --- | --- |
+| 신발[^pdp-104663] | 105293 / 108394 접힘 | `/products/shoe-1` |
+| 신발 | 105836 / 107721 펼침 | `inquiries-expanded` |
+| 신발 | 104664 / 109004 문의 없음 | `/products/preview-empty-inquiries#product-inquiries` |
+| 의류[^pdp-93347] | 94464 / 93348 기본, 93902 고정 CTA | `apparel` |
+| 할인[^pdp-103439] | 103440 / 104077 | `sale` |
+| 품절[^pdp-100884] | 100885 / 대응 MO 시안 미제공 | `partial-stock` |
+| 품절 | 101514 / 102823·106489의 품절 CTA | `/products/preview-restock` |
+| 품절 | 102146 / 102823·106489의 품절 CTA | `sold-out` |
+| 선택[^pdp-98879] | 98880 / 99533 | `options-selected` |
+| 선택 | PC는 기존 선택 목록 / 100177 최대 높이 | `options-scroll` |
+| 사이즈 미선택 오류[^pdp-97663] | 98244 / 97664 | `/products/preview-options-required` |
+| 장바구니 추가 완료[^pdp-94996] | 95623 / 96237 한 스타일 | `cart-added` |
+| 장바구니 추가 완료 | 94997 / 96942 최대 높이 | `cart-added-scroll` |
+
+브라우저에서 IA 의류 링크가 지정 URL을 새 탭으로 여는지 확인했다. PC 1920px과 모바일 375px 모드에서 13개 URL에 직접 들어가 기본·할인·품절·오류·선택과 완료 상태를 확인했다. 구매·추가·입고알림 요청과 금액 계산은 향후 상품상세 통합 소유자가 연결한다.
+
+[^pdp-104663]: PDP 신발 섹션과 하위 프레임.
+[^pdp-93347]: PDP 의류 섹션과 하위 프레임.
+[^pdp-103439]: Sale Price 섹션.
+[^pdp-100884]: 품절 섹션.
+[^pdp-98879]: Option Selection 섹션.
+[^pdp-97663]: No Size Selected Error 섹션.
+[^pdp-94996]: 장바구니 추가 완료 섹션.

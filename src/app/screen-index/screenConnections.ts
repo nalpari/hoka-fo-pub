@@ -1,3 +1,4 @@
+import { productDetailPreviews } from '@/app/products/[id]/productDetailPreviews';
 import {
   getProductListingIaKey,
   getProductListingRoute,
@@ -675,17 +676,23 @@ const productConnections: Record<'listing' | 'detail', ScreenConnection> = {
     ],
   },
   detail: {
-    defaultStateLabel: '상품문의 있음',
+    defaultStateLabel: '신발 · 상품문의 접힘',
     previewRoutes: [
+      ...productDetailPreviews.map(({ state, label }) => ({
+        label,
+        href: `/products/pdp-preview/${state}`,
+      })),
       { label: '옵션 입고 알림', href: '/products/preview-restock' },
       {
-        label: '상품문의 없음',
+        label: '신발 · 상품문의 없음',
         href: '/products/preview-empty-inquiries#product-inquiries',
       },
-      { label: '옵션 미선택 안내', href: '/products/preview-options-required' },
+      { label: '사이즈 미선택 오류', href: '/products/preview-options-required' },
     ],
     sourceFiles: [
       'src/app/products/[id]/page.tsx',
+      'src/app/products/pdp-preview/[state]/page.tsx',
+      'src/app/products/[id]/productDetailPreviews.ts',
       'src/app/products/preview-empty-inquiries/page.tsx',
       'src/app/products/preview-options-required/page.tsx',
       'src/app/products/preview-restock/page.tsx',
