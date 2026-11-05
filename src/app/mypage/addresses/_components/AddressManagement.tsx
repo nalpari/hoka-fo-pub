@@ -218,32 +218,48 @@ export function AddressList({
   onEdit,
   onDelete,
   onAdd,
+  more,
 }: {
   addresses: readonly Address[];
   onEdit: (address: Address) => void;
   onDelete: (id: number) => void;
   onAdd: () => void;
+  more?: { counter: { current: number; total: number }; onLoadMore?: () => void };
 }) {
   const mobile = usePlatform() === 'mobile';
 
   return (
-    <Stack
-      gap="12"
-      _mobile={{ gap: addresses.length ? '6' : '0', pt: addresses.length ? '6' : '0' }}
-    >
+    <Stack gap="6">
       <ContentSection
-        title="회원정보"
+        title="배송지 관리"
         gap={addresses.length ? '8' : '0'}
+        _mobile={{ gap: addresses.length ? '6' : '0' }}
         headerProps={{
           titleAs: 'h1',
-          titleProps: { variant: 'headingKr6' },
+          titleProps: { web: 'headingKr6', mo: 'headingKr5' },
+          orientation: 'horizontal',
+          alignItems: 'end',
           pb: '10',
           borderBottom: '2px solid black',
-          _mobile: { display: 'none' },
+          _mobile: addresses.length ? { pb: '0', borderBottom: '0' } : { display: 'none' },
+          action: addresses.length ? (
+            <Button
+              {...(mobile
+                ? ({ size: 'md', variant: 'link' } as const)
+                : ({ size: 'short', variant: 'secondary' } as const))}
+              className={css({ flexShrink: '0' })}
+              onClick={onAdd}
+            >
+              배송지 추가
+            </Button>
+          ) : null,
         }}
       >
         {addresses.length ? (
-          <Stack gap="8" _mobile={{ gap: '6' }}>
+          <Stack
+            gap="8"
+            _mobile={{ gap: '6', pt: '6', borderTop: '1px solid var(--colors-black-20)' }}
+          >
             {addresses.map((address) => (
               <Stack
                 as="article"
@@ -361,13 +377,26 @@ export function AddressList({
           />
         )}
       </ContentSection>
-      {addresses.length > 0 && (
-        <Box w="180px" mx="auto" _mobile={{ w: '100%' }}>
-          <Button fullWidth size="tall" variant="primary" onClick={onAdd}>
-            배송지 추가
-          </Button>
-        </Box>
-      )}
+      {addresses.length > 0 && more ? (
+        <Button
+          fullWidth
+          variant="secondary"
+          size="short"
+          className={css({
+            alignSelf: 'center',
+            w: '160px',
+            _mobile: { w: '100%' },
+            '&&:disabled > span': {
+              bg: 'white!',
+              color: 'black.100!',
+              boxShadow: 'inset 0 0 0 1px var(--color-black-100)!',
+            },
+          })}
+          loadMore={{ counter: more.counter, labelProps: { variant: 'ctaKr2' } }}
+          onClick={more.onLoadMore}
+          disabled={!more.onLoadMore}
+        />
+      ) : null}
     </Stack>
   );
 }

@@ -17,7 +17,10 @@ const editPreviewAddress: Address = {
   zip: '052266',
   isDefault: true,
 };
-/** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 마이페이지 연결 소유자가 표시 모델과 식별자·입력/선택 payload, 요청 중/실패/성공/재시도 및 응답 갱신을 별도로 구현해야 합니다. */
+
+const previewPageCounter = { current: 1, total: 10 };
+
+/** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 기본 목록의 1/10은 시안 표기이며 더보기는 비활성입니다. 마이페이지 연동 소유자는 AddressList에 현재 배송지 모델과 ID, 다음 페이지가 있을 때만 실제 페이지 카운터와 more.onLoadMore를 전달합니다. 소유자가 요청 중 중복 호출 방지, 실패 시 기존 목록 유지와 재시도, 성공 시 최신 응답 반영과 오래된 응답 폐기를 담당합니다. 저장·삭제의 payload와 요청 상태도 연동 소유자가 관리합니다. */
 /** 배송지 빈 목록과 추가·수정 및 고정 오류를 표시합니다. (Displays empty, create, edit, and fixed error address previews.) */
 export function AddressStatePreview({
   state,
@@ -56,6 +59,9 @@ export function AddressStatePreview({
       ) : (
         <AddressList
           addresses={state === 'list' || state === 'delete' ? (items ?? initialAddresses) : []}
+          more={
+            state === 'list' && items === undefined ? { counter: previewPageCounter } : undefined
+          }
           onAdd={() => {
             setDraft(emptyAddress);
             setEditingId('new');

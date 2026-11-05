@@ -342,6 +342,16 @@ sources:
 
 # 라우팅과 플랫폼
 
+## 배송지 관리 목록 (2026-11-05)
+
+`/mypage/addresses`는 PC와 모바일에서 `배송지 관리` 제목 오른쪽에 추가 액션을 배치한다. PC는 40px 외곽선 버튼, 모바일은 밑줄 버튼을 사용한다. 목록 끝에서 24px 띄워 공통 Button의 `더보기 (1/10)`를 표시한다. PC는 160×40px, 모바일은 본문 너비 × 40px이다. 빈 상태 URL은 안내문 아래의 추가 버튼을 사용한다.
+
+기본 목록의 1/10은 디자인 표시용 값이다. 미리보기의 더보기는 비활성이다. 실제 연동 소유자가 다음 페이지가 있을 때 카운터와 추가 조회 콜백을 전달하고 응답·실패·재시도를 관리한다.
+
+출처는 [PC 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1978-61923), [모바일 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1978-60310) 및 `src/app/mypage/addresses/_components/`의 AddressManagement.tsx·AddressStatePreview.tsx 작업 트리다.
+
+Codex가 2026-11-05에 1339px·375px 브라우저에서 버튼 순서·크기, 추가 폼 열기, 빈 상태 CTA, 더보기의 비활성 상태와 가로 넘침이 없는 것을 확인했다. 변경 파일 ESLint와 TypeScript 검사도 통과했다.
+
 ## 수동 main 변경 보고와 IA 이력 (2026-11-04)
 
 수동 스킬은 지정 시작 커밋을 포함하기 위해 첫 부모 B부터 fetch 직후 고정한 origin/main T까지 최종 diff를 비교한다. 이번 범위는 72ae26eb 포함, B=5db7492d, T=bf29bd25이며 2026-11-04 17:16:17+09:00에 수집했다. 원본260파일에서 Markdown28·퍼블리싱 가이드10·IA 자체6·nalpari 작성자8파일을 제외해208파일을 보고한다. ShopShell의 혼합 변경 중 해당 작성자의 추가 영역1개도 제외했다. 담당자는 기존 IA 매핑만 읽고 WBS/Drive는 조회하지 않는다.
