@@ -2371,3 +2371,7 @@ Figma Navigational Buttons(296:25392)와 Action Buttons(296:25425)의 기본·�
 - 커밋 전 검토에서 popup 클래스 배열의 잘못된 scrollable=false 대입과 contentClassName 중복 적용을 제거했다. 푸터 없는 스크롤 모달도 본문이 축소되도록 모바일 하단 모달의 flex/overflow 컨테이너를 명시했다. ModalDialog ESLint 통과. 전체 타입 검사 결과는 기존 .next/types 삭제 경로 참조 오류가 남는다.
 
 - 아이콘 가이드의 디자인팀/액션/폼·배너·쇼핑 세 그룹을 디자인팀 아이콘 한 그룹으로 합쳤다. 본문과 데이터 기반 타임라인을 함께 통합하고 기존 아이콘·상태·복사 코드는 유지한다.
+
+- 아이콘 가이드 hoka-bag-shopping-regular 사용처를 실제 소유 파일 OrderHistoryProduct.tsx로 교정했다. 공통 헤더 ShopShell.tsx 표기는 유지한다.
+
+- 2026-11-06: origin/main 9dca5003을 pub-psh-1015에 fast-forward 반영하고 아이콘 사용처 교정을 복원했다. routing 문서의 동시 추가 기록은 모두 보존했다. 자동 재생성된 화면 그래프에서 삭제된 BottomSheet의 남은 참조를 제거했다.

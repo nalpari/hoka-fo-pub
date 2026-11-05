@@ -487,7 +487,6 @@
       "src/app/mypage/orders/_components/OrderDetails.tsx",
       "src/components/common/atoms/DataTable.tsx",
       "src/components/common/atoms/Typography.tsx",
-      "src/components/common/layouts/BottomSheet.tsx",
       "src/components/common/layouts/ContentSection.tsx",
       "src/components/common/layouts/ModalDialog.tsx",
       "src/components/common/molecules/ContentHeader.tsx",

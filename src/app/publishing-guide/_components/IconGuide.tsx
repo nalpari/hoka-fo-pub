@@ -697,7 +697,7 @@ const platform = usePlatform();
         origin: { label: 'Font Awesome', name: 'bag-shopping', detail: 'Regular' },
         preview: <Icon name="hoka-bag-shopping-regular" size={18} />,
         code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="hoka-bag-shopping-regular" size={18} />\n\n<Icon name="hoka-bag-shopping-regular" size={22} />',
-        source: 'OrdersProducts.tsx, ShopShell.tsx',
+        source: 'OrderHistoryProduct.tsx, ShopShell.tsx',
         note: 'color로 색상 변경 가능',
         registeredName: 'hoka-bag-shopping-regular',
       },

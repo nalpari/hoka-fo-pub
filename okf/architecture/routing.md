@@ -1556,3 +1556,5 @@ PC는 중앙 `ModalDialog`, 모바일은 `ModalDialog`의 fullscreen 표시를 �
 보고서 렌더러의 표시 타입을 명시했다. 생성 JSON의 보고서마다 이름 변경·소유 화면·줄 범위 조합이 달라도 필터 결과를 같은 표에 전달할 수 있다.
 
 출처: screenChangeHistory.ts, screenChangeHistory.generated.json, tests/main-change-history.test.mjs 작업 트리 및 ccd82db0 → 3719352b Git 비교. 기록: codex, 2026-11-05T07:47:55.730Z.
+
+- 아이콘 가이드 hoka-bag-shopping-regular 사용처를 실제 소유 파일 OrderHistoryProduct.tsx로 교정했다. 공통 헤더 ShopShell.tsx 표기는 유지한다.
