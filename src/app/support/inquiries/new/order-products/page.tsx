@@ -1,6 +1,6 @@
-import { InquiryOrderLookup } from './_components/InquiryOrderLookup';
+import { InquiryFormStatePreview } from '@/app/support/inquiries/new/_components/InquiryFormStatePreview';
 
-/** 기본 화면의 상태 소유자를 연결합니다. (Connects the default route to its shared state owner.) */
+/** 주문 상품 조회 모달을 열린 상태로 표시합니다. (Displays the order product lookup dialog open.) */
 export default function Page() {
-  return <InquiryOrderLookup />;
+  return <InquiryFormStatePreview state="order-lookup" lookupPreview={{ selected: true }} />;
 }

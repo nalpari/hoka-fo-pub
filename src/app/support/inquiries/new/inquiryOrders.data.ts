@@ -7,6 +7,7 @@ export type InquiryOrderProduct = {
   size: string;
   quantity: number;
   image: string;
+  statusLabel?: '결제완료' | '구매확정' | '배송완료';
 };
 export type InquiryOrder = {
   id: string;
@@ -31,10 +32,10 @@ export const inquiryOrders: InquiryOrder[] = Array.from({ length: 13 }, (_, inde
     products:
       index === 0
         ? [
-            product('H0KA12', 'HRKRGF747G', 'Gray', '270'),
-            product('H0KA13', 'HRKRGF869G', 'Gray', '270'),
-            product('H0KA14', 'HRKRGF871G', 'Black', '270'),
-            product('H0KA15', 'HRKRGF872G', 'Black', '275'),
+            { ...product('H0KA12', 'HRKRGF747G', 'Gray', '270'), statusLabel: '결제완료' },
+            { ...product('H0KA13', 'HRKRGF869G', 'Gray', '270'), statusLabel: '구매확정' },
+            { ...product('H0KA14', 'HRKRGF871G', 'Black', '270'), statusLabel: '배송완료' },
+            { ...product('H0KA15', 'HRKRGF872G', 'Black', '275'), statusLabel: '배송완료' },
             product('H0KA16', 'HRKRGF873G', 'Gray', '275'),
             product('H0KA17', 'HRKRGF874G', 'Gray', '280'),
           ]

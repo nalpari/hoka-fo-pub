@@ -1,6 +1,6 @@
-import { InquiryOrderLookup } from '@/app/support/inquiries/new/order-products/_components/InquiryOrderLookup';
+import { InquiryFormStatePreview } from '@/app/support/inquiries/new/_components/InquiryFormStatePreview';
 
-/** 고정 상태의 퍼블리싱 마크업을 직접 표시합니다. (Displays fixed publishing state markup directly.) */
+/** 주문 상품 조회 모달을 열린 상태로 표시합니다. (Displays the order product lookup dialog open.) */
 export default function Page() {
-  return <InquiryOrderLookup previewEmpty />;
+  return <InquiryFormStatePreview state="order-lookup" lookupPreview={{ empty: true }} />;
 }

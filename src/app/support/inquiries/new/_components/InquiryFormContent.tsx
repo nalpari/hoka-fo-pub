@@ -1,6 +1,6 @@
 'use client';
 
-import { type ChangeEvent, useRef } from 'react';
+import { type ChangeEvent, type Ref, useRef } from 'react';
 
 import { css } from 'styled-system/css';
 import { Box, Flex, Grid, HStack, Stack } from 'styled-system/jsx';
@@ -322,6 +322,7 @@ export function InquiryFormActions({ onCancel }: InquiryFormActionsProps) {
 type InquiryOrderProductsProps = {
   invalid: boolean;
   fixedErrors?: boolean;
+  lookupButtonRef?: Ref<HTMLButtonElement>;
   onLookup: () => void;
   onSelectionChange: (selection: InquiryOrderSelection) => void;
   selection: InquiryOrderSelection;
@@ -329,6 +330,7 @@ type InquiryOrderProductsProps = {
 /** 문의 대상 주문을 선택하거나 현재 선택 내용을 표시합니다. (Starts order lookup or displays the selected order.) */
 export function InquiryOrderProducts({
   invalid,
+  lookupButtonRef,
   onLookup,
   onSelectionChange,
   selection,
@@ -378,6 +380,8 @@ export function InquiryOrderProducts({
         <Button
           size="short"
           variant="primary"
+          ref={lookupButtonRef}
+          aria-haspopup="dialog"
           onClick={onLookup}
           className={css({
             '& > span': {
@@ -404,6 +408,8 @@ export function InquiryOrderProducts({
           size="tall"
           variant="secondary"
           fullWidth
+          ref={lookupButtonRef}
+          aria-haspopup="dialog"
           onClick={onLookup}
           className={css({
             _mobile: { '& > span': { '--button-height': '36px', '--button-label-size': '14px' } },

@@ -1,7 +1,5 @@
 'use client';
-import { useRouter } from 'next/navigation';
-
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import { css } from 'styled-system/css';
 import { Stack } from 'styled-system/jsx';
@@ -12,6 +10,10 @@ import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
 import { inquiryOrders } from '@/app/support/inquiries/new/inquiryOrders.data';
 import type { InquiryOrderSelection } from '@/app/support/inquiries/new/inquiryOrders.data';
+import {
+  type InquiryLookupPreview,
+  InquiryOrderLookup,
+} from '@/app/support/inquiries/new/order-products/_components/InquiryOrderLookup';
 import { InquiryCautions } from '@/components/support/InquiryCautions';
 
 import {
@@ -28,6 +30,7 @@ import { InquiryFormLayout } from './InquiryFormLayout';
 /** 문의 폼과 첨부·주문 선택 오류를 직접 표시합니다. (Displays fixed inquiry form, attachment and order-selection errors.) */
 export function InquiryFormStatePreview({
   state,
+  lookupPreview,
 }: {
   state:
     | 'form'
@@ -39,8 +42,10 @@ export function InquiryFormStatePreview({
     | 'attachment-type'
     | 'attachment-size'
     | 'attachment-count';
+  lookupPreview?: InquiryLookupPreview;
 }) {
-  const router = useRouter();
+  const [lookupOpen, setLookupOpen] = useState(Boolean(lookupPreview));
+  const lookupTrigger = useRef<HTMLButtonElement>(null);
   const orderState =
     state === 'order-required' || state === 'order-lookup' || state === 'order-selected';
   const [category, setCategory] = useState(
@@ -99,7 +104,8 @@ export function InquiryFormStatePreview({
                 invalid={state === 'order-required'}
                 selection={selection}
                 onSelectionChange={setSelection}
-                onLookup={() => router.push('/support/inquiries/new/order-products')}
+                lookupButtonRef={lookupTrigger}
+                onLookup={() => setLookupOpen(true)}
               />
             )}
             <InquiryMessageFields
@@ -125,6 +131,18 @@ export function InquiryFormStatePreview({
           />
         </Stack>
       </form>
+      {lookupOpen && (
+        <InquiryOrderLookup
+          preview={lookupPreview}
+          initialSelection={selection}
+          finalFocus={lookupTrigger}
+          onClose={() => setLookupOpen(false)}
+          onSelect={(next) => {
+            setSelection(next);
+            setLookupOpen(false);
+          }}
+        />
+      )}
       <ModalDialog
         {...inquiryAlertPresentation}
         open={open}
@@ -137,7 +155,7 @@ export function InquiryFormStatePreview({
             : { kind: 'single', onConfirm: () => setOpen(false) }
         }
       >
-        <Typography as="p" variant="body2">
+        <Typography as="p" variant={cancelDialog ? 'body2' : 'body3'}>
           {cancelDialog ? '문의 작성을 취소하시겠습니까?' : '주문번호를 선택해주세요.'}
         </Typography>
       </ModalDialog>

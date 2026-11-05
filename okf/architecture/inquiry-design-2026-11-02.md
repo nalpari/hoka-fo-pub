@@ -68,7 +68,7 @@ sources:
 | 주문 미선택 안내 | 1973:16677 / 1973:16470 | `/support/inquiries/new/preview-order-required` |
 | 주문 조회 전 | 1973:17121 / 1973:17047 | `/support/inquiries/new/preview-order-lookup` |
 | 주문 선택 후 | 1973:17270 / 1973:17185 | `/support/inquiries/new/preview-order-selected` |
-| 주문 조회 | 1973:17354 | `/support/inquiries/new/order-products` |
+| 주문 조회 | 2339:62636 / 1973:17354 | `/support/inquiries/new/order-products` |
 | 조회 기간 직접설정 | 1973:17613 | `/support/inquiries/new/order-products/preview-custom` |
 
 1973:17114는 모바일 OS의 사진/파일 선택 메뉴 참고다. 앱에서 OS 메뉴 모양을 복제하거나 자동으로 띄우는 별도 화면을 만들지 않는다. 문의 등록 화면의 파일찾기 클릭이 실제 기기의 선택기를 연다. Windows 브라우저로 iOS 메뉴 자체를 검증했다고 기록하지 않는다.
@@ -87,3 +87,11 @@ InquiryListPreview와 InquiryFormStatePreview는 준비 fixture와 초기 popup/
 - 실서비스 API·업로드·실기기 OS 파일 메뉴는 검증하지 않았다. 마크업 인계의 기존 owner·wrapper·Panda·페이지 진입점과 반응형 지침을 검토했으며, 별도 서비스 경량화나 인증/저장 삭제로 범위를 확대하지 않았다.
 
 [^inquiry-design]: 사용자 제공 Figma 섹션과 그 하위 제품 화면·팝업. 시안 가이드와 OS 참고 UI는 제품 화면 수와 구분한다.
+
+## 2026-11-05 주문 상품 조회 모달
+
+[PC 2339:62636](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2339-62636)과 [MO 1973:17354](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1973-17354)의 중앙·전체 화면 구성과 하단 액션을 적용했다. 현재 조회는 준비된 주문 fixture를 사용하며 문의 폼은 선택 결과만 로컬로 반영한다. 화면의 주문번호·날짜·상품 이미지에는 기존 fixture를 사용한다. 출처는 `InquiryOrderLookup.tsx`, `InquiryFormStatePreview.tsx`, `InquiryFormContent.tsx`, `inquiryOrders.data.ts` 작업 트리다.
+
+### 모바일 주문 상품 조회 간격 보완
+
+375px 시안 1973:17354 기준으로 제목 바 56px, 본문 여백 24px 16px 64px, 주요 구간 간격 32px, 결과 건수와 목록 간격 8px을 적용했다. 조회 기간 탭은 37px, 하단 액션은 48px이며 버튼은 본문과 함께 스크롤한다. 기본 조회 미리보기만 첫 상품을 미리 선택한다. 출처는 `InquiryOrderLookup.tsx`와 `order-products/page.tsx` 작업 트리다.

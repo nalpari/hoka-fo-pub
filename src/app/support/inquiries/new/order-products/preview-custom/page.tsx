@@ -1,6 +1,6 @@
-import { InquiryOrderLookup } from '@/app/support/inquiries/new/order-products/_components/InquiryOrderLookup';
+import { InquiryFormStatePreview } from '@/app/support/inquiries/new/_components/InquiryFormStatePreview';
 
-/** 직접설정 기간으로 주문상품 조회 화면을 엽니다. (Opens order lookup with the custom date range selected.) */
+/** 주문 상품 조회 모달을 열린 상태로 표시합니다. (Displays the order product lookup dialog open.) */
 export default function Page() {
-  return <InquiryOrderLookup preview={{ period: 'custom' }} />;
+  return <InquiryFormStatePreview state="order-lookup" lookupPreview={{ period: 'custom' }} />;
 }
