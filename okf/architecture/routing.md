@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-06T01:41:38Z'
+updated: '2026-11-06T02:02:03Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -1632,3 +1632,5 @@ IA 개발자 열의 진척율은 Eland_021_일정(WBS)_20261106_v1.0/Schedule.ht
 ## 주문 상세 소스 목록 갱신 (2026-11-06)
 
 `src/app/screen-index/sourceGraph.generated.json`을 현재 import 관계로 재생성해 주문 상세의 연결 목록에서 사용하지 않는 `BottomSheet.tsx`를 제외했다. `npm run screen-files`를 다시 실행해 같은 결과를 확인했다. 화면 URL과 라우팅 동작에는 영향이 없다.
+
+IA STATE의 WBS·개발자·진척율이 상위 화면에 표시된 경우 STATE 행에서는 생략한다. 별도 매핑이 있는 상태는 해당 행에 표시한다. 출처: IaStructurePage.tsx 작업 트리.

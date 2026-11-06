@@ -1078,6 +1078,17 @@ function StatePreviewRows({
             (preview) => preview.href === href,
           ),
         );
+        const showAssignment = owners.some((screen) => {
+          const parentAssignments = getScreenDevelopers(screen);
+          const stateAssignments = getScreenDevelopers(screen, href);
+          return (
+            stateAssignments.length !== parentAssignments.length ||
+            stateAssignments.some(
+              ({ wbs, name }) =>
+                !parentAssignments.some((parent) => parent.wbs === wbs && parent.name === name),
+            )
+          );
+        });
         return (
           <tr key={href}>
             <td className={styles.treeCell}>
@@ -1103,10 +1114,10 @@ function StatePreviewRows({
               </div>
             </td>
             <td className={styles.code}>
-              <ScreenWbsNumbers screens={owners} href={href} />
+              {showAssignment && <ScreenWbsNumbers screens={owners} href={href} />}
             </td>
             <td className={styles.developer}>
-              <ScreenDevelopers screens={owners} href={href} />
+              {showAssignment && <ScreenDevelopers screens={owners} href={href} />}
             </td>
             <td className={styles.note}>
               <SourceFiles
