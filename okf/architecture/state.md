@@ -4,12 +4,13 @@ title: '공통 상태와 데모 데이터'
 description: '로그인, 장바구니와 목 데이터의 수명 및 제약을 설명한다.'
 tags: [react, state, mock-data]
 status: draft
-updated: '2026-11-05T06:40:00Z'
+updated: '2026-11-06T00:50:51Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
 source_revision: 84b1d96781349d795089b9e2f737aad11a02172d
 working_tree_sources:
+  - src/context/ShopShell.tsx
   - src/types/component-contracts/context-ShopShell.d.ts
   - src/components/common/molecules/ProductCard/ProductCard.tsx
   - src/components/common/molecules/ProductOptionList.tsx
@@ -351,6 +352,10 @@ CartPage는 기존 선택·관심상품·옵션 편집 상태, 상품 조회와 
 ## 장바구니 버튼 크기 명시 검토 (2026-10-19)
 
 작업 트리 출처 `src/components/features/cart/CartPage.tsx`의 삭제·주문하기 버튼에 short 크기를 명시했다. 삭제 콜백과 주문 이동 경로, 상품 선택·수량·금액 계산 및 장바구니 Context 상태 처리는 변경하지 않았다. 이번 검토는 버튼 크기 지정 범위이며 결제 서버 연동 검증을 의미하지 않는다.
+
+## 로그인 헤더 관심상품 아이콘 제거 (2026-11-06)
+
+`src/context/ShopShell.tsx`의 `HeaderAccount`는 로그인 상태에서 마이페이지 링크만 표시한다. 관심상품 개수와 가방 아이콘을 표시하던 `/mypage/wishlist` 링크를 제거했다. `HeaderCartLink`는 기존 장바구니 표시를 담당하며, `wishlistCount` 표시 데이터와 호출부 타입은 유지한다.
 
 ## ShopShell
 

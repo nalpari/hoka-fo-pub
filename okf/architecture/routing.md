@@ -1589,30 +1589,36 @@ PC는 중앙 `ModalDialog`, 모바일은 `ModalDialog`의 fullscreen 표시를 �
 
 기존 상품상세 코드 `eland_hca_02`의 기본 링크는 `/products/shoe-1`이다. PC/MO는 동일 URL을 공유한다. 추가 상태는 `/products/pdp-preview/[state]`에서 허용된 상태만 렌더링한다. 아래 표의 짧은 상태명은 해당 경로의 마지막 segment다. 모바일 고정 CTA는 대응 기본/품절 화면에서 확인한다. 가이드·Note 프레임은 제품 상태에서 제외했다.
 
-| 시안 섹션 | 대응 프레임 PC / MO | 확인 URL |
-| --- | --- | --- |
-| 신발[^pdp-104663] | 105293 / 108394 접힘 | `/products/shoe-1` |
-| 신발 | 105836 / 107721 펼침 | `inquiries-expanded` |
-| 신발 | 104664 / 109004 문의 없음 | `/products/preview-empty-inquiries#product-inquiries` |
-| 의류[^pdp-93347] | 94464 / 93348 기본, 93902 고정 CTA | `apparel` |
-| 할인[^pdp-103439] | 103440 / 104077 | `sale` |
-| 품절[^pdp-100884] | 100885 / 대응 MO 시안 미제공 | `partial-stock` |
-| 품절 | 101514 / 102823·106489의 품절 CTA | `/products/preview-restock` |
-| 품절 | 102146 / 102823·106489의 품절 CTA | `sold-out` |
-| 선택[^pdp-98879] | 98880 / 99533 | `options-selected` |
-| 선택 | PC는 기존 선택 목록 / 100177 최대 높이 | `options-scroll` |
-| 사이즈 미선택 오류[^pdp-97663] | 98244 / 97664 | `/products/preview-options-required` |
-| 장바구니 추가 완료[^pdp-94996] | 95623 / 96237 한 스타일 | `cart-added` |
-| 장바구니 추가 완료 | 94997 / 96942 최대 높이 | `cart-added-scroll` |
+| 시안 섹션                      | 대응 프레임 PC / MO                    | 확인 URL                                              |
+| ------------------------------ | -------------------------------------- | ----------------------------------------------------- |
+| 신발[^pdp-104663]              | 105293 / 108394 접힘                   | `/products/shoe-1`                                    |
+| 신발                           | 105836 / 107721 펼침                   | `inquiries-expanded`                                  |
+| 신발                           | 104664 / 109004 문의 없음              | `/products/preview-empty-inquiries#product-inquiries` |
+| 의류[^pdp-93347]               | 94464 / 93348 기본, 93902 고정 CTA     | `apparel`                                             |
+| 할인[^pdp-103439]              | 103440 / 104077                        | `sale`                                                |
+| 품절[^pdp-100884]              | 100885 / 대응 MO 시안 미제공           | `partial-stock`                                       |
+| 품절                           | 101514 / 102823·106489의 품절 CTA      | `/products/preview-restock`                           |
+| 품절                           | 102146 / 102823·106489의 품절 CTA      | `sold-out`                                            |
+| 선택[^pdp-98879]               | 98880 / 99533                          | `options-selected`                                    |
+| 선택                           | PC는 기존 선택 목록 / 100177 최대 높이 | `options-scroll`                                      |
+| 사이즈 미선택 오류[^pdp-97663] | 98244 / 97664                          | `/products/preview-options-required`                  |
+| 장바구니 추가 완료[^pdp-94996] | 95623 / 96237 한 스타일                | `cart-added`                                          |
+| 장바구니 추가 완료             | 94997 / 96942 최대 높이                | `cart-added-scroll`                                   |
 
 브라우저에서 IA 의류 링크가 지정 URL을 새 탭으로 여는지 확인했다. PC 1920px과 모바일 375px 모드에서 13개 URL에 직접 들어가 기본·할인·품절·오류·선택과 완료 상태를 확인했다. 구매·추가·입고알림 요청과 금액 계산은 향후 상품상세 통합 소유자가 연결한다.
 
 [^pdp-104663]: PDP 신발 섹션과 하위 프레임.
+
 [^pdp-93347]: PDP 의류 섹션과 하위 프레임.
+
 [^pdp-103439]: Sale Price 섹션.
+
 [^pdp-100884]: 품절 섹션.
+
 [^pdp-98879]: Option Selection 섹션.
+
 [^pdp-97663]: No Size Selected Error 섹션.
+
 [^pdp-94996]: 장바구니 추가 완료 섹션.
 
 2026-11-06 IA 표에서 PC·MO 디자인 및 퍼블리싱 열을 제거했다. 실제 페이지 열의 제목은 새창으로 표시하고 보기 링크는 새 탭에서 연다. 출처: IaStructurePage.tsx 작업 트리.
@@ -1622,3 +1628,7 @@ IA 표의 화면코드 아래에는 WBS를 표시한다. 구분 바로 다음에
 IA 개발자 열의 진척율은 Eland_021_일정(WBS)_20261106_v1.0/Schedule.html의 FO 개발 5.3.2 범위 실적(AB열)을 WBS 번호로 연결한다. 내보내기 시점의 실적만 반영하며 화면·STATE 담당자 연결은 기존 매핑을 따른다. 배지는 0% 회색, 진행 중 황색, 100% 녹색으로 구분한다. 출처: wbsActualSnapshot.json 및 IaStructurePage.tsx 작업 트리.
 
 새창 열은 최소 너비 100px로 표시한다. 상위 행의 하위 상태 참조 문구를 제거하고 실제 미리보기는 STATE 행의 보기 링크로 표시한다. 출처: IaStructurePage.tsx 작업 트리.
+
+## 주문 상세 소스 목록 갱신 (2026-11-06)
+
+`src/app/screen-index/sourceGraph.generated.json`을 현재 import 관계로 재생성해 주문 상세의 연결 목록에서 사용하지 않는 `BottomSheet.tsx`를 제외했다. `npm run screen-files`를 다시 실행해 같은 결과를 확인했다. 화면 URL과 라우팅 동작에는 영향이 없다.

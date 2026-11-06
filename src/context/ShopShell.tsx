@@ -2127,7 +2127,7 @@ type HeaderAccountProps = {
   isLoggedIn: boolean;
   wishlistCount: number;
 };
-function HeaderAccount({ isLoggedIn, wishlistCount }: HeaderAccountProps) {
+function HeaderAccount({ isLoggedIn }: HeaderAccountProps) {
   const platform = usePlatform();
   const iconSize = platform === 'mobile' ? '20px' : '22px';
   if (!isLoggedIn) {
@@ -2146,11 +2146,6 @@ function HeaderAccount({ isLoggedIn, wishlistCount }: HeaderAccountProps) {
         to="/mypage"
         ariaLabel="마이페이지"
         iconSlot={<NotificationIcon variant="user" size={iconSize} />}
-      />
-      <HeaderIconLink
-        to="/mypage/wishlist"
-        ariaLabel={`관심상품 ${wishlistCount}개`}
-        iconSlot={<NotificationIcon variant="bag" count={wishlistCount} size={iconSize} />}
       />
     </>
   );
