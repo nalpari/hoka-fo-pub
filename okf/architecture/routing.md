@@ -4,12 +4,13 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-05T08:13:41Z'
+updated: '2026-11-06T01:26:52Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/screen-index/sourceGraph.generated.json
   - src/app/products/pdp-preview/[state]/page.tsx
   - src/app/products/[id]/productDetailPreviews.ts
   - src/app/checkout/preview-address-change/page.tsx
@@ -365,6 +366,10 @@ sources:
 ---
 
 # 라우팅과 플랫폼
+
+## 주문 상세 소스 연결 목록 갱신 (2026-11-06)
+
+`src/app/screen-index/sourceGraph.generated.json`의 주문 상세 연결 목록을 현재 import 관계로 갱신해 사용하지 않는 `BottomSheet.tsx`를 제외했다. `OrderDetails.tsx`의 참조와 `npm run screen-files` 재실행 결과를 확인했으며 화면 URL과 라우트 동작에는 영향이 없다.
 
 홈 `/`의 섹션 순서는 히어로 → 카테고리 → Find my HOKA → Explore → Best Seller다. 홈의 `HomeContent.tsx`가 PC와 모바일의 공통 순서를 정한다. 러닝세션의 ‘신청 시작’ 알림은 기존 상세 경로에서 신청 예정 상태일 때 표시하며, 색상은 [러닝세션 디자인](running-session-design.md#신청-시작-알림-색상과-목록-이미지-모서리-2026-11-05)을 따른다.
 
