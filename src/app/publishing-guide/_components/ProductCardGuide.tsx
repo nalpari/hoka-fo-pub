@@ -278,7 +278,7 @@ function GuideExampleFrame({
           className={copyButton}
           onClick={() => onCopy(code)}
         >
-          <Icon name="copy-regular" size={token.var('sizes.4')} />
+          <Icon name="copy-regular" size={18} />
         </Button>
       </HStack>
     </Stack>

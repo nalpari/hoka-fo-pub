@@ -154,7 +154,7 @@ function ColorCopyRow({
           _hover: { bg: 'black.20!' },
         })}
       >
-        <Icon name="copy-regular" size={16} />
+        <Icon name="copy-regular" size={18} />
       </Button>
     </HStack>
   );

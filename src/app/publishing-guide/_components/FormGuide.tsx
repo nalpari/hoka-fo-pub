@@ -166,7 +166,7 @@ function ButtonCopy({ code, onCopy }: { code: string; onCopy: (code: string) => 
       size={32}
       onClick={() => onCopy(code)}
     >
-      <Icon name="copy-regular" size={16} />
+      <Icon name="copy-regular" size={18} />
     </Button>
   );
 }

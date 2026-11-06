@@ -574,7 +574,7 @@ function MenuDrawerNavigation({
 }
 const utilityItems = [
   { label: '마이페이지', to: '/mypage', icon: 'user-solid' },
-  { label: 'HOKA 멤버십', to: '/support/member-benefits', icon: null },
+  { label: 'HOKA 멤버십', to: '/support/member-benefits', icon: 'circle-star-solid' },
   { label: '주문/배송 조회', to: '/mypage/orders', icon: 'box-solid' },
   { label: '매장 찾기', to: '/support/store', icon: 'location-dot-solid' },
   { label: '고객센터', to: '/support', icon: 'comments-solid' },
@@ -614,11 +614,7 @@ function MenuDrawerUtilityLinks({ onNavigate }: { onNavigate: () => void }) {
                 alignItems="center"
                 justifyContent="flex-start"
               >
-                {item.icon ? (
-                  <Icon name={item.icon} size="16px" aria-hidden="true" />
-                ) : (
-                  <Icon name="circle-star-solid" size="16px" color="black.10" alt="" />
-                )}
+                <Icon name={item.icon} size={16} color="black.10" aria-hidden="true" />
               </Flex>
               <Typography variant="body4" weight="semibold">
                 {item.label}

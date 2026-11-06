@@ -756,3 +756,5 @@ ShopShell 알림 아이콘은 hoka- 이름의 쇼핑백·장바구니·계정 SV
 - 2026-11-06: RecentSearchItem의 개별 삭제 X는 모바일 18px, 데스크탑 14px이며 왼쪽 시계 아이콘은 두 환경 모두 18px이다.
 
 - 2026-11-06: 헤더 검색 패널은 SearchField의 기본 돋보기를 사용한다.
+
+- 2026-11-06: MenuDrawerUtilityLinks는 다섯 메뉴 아이콘 모두에 16px와 black.10을 적용한다.
