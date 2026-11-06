@@ -327,10 +327,12 @@ function CouponDetailsDialog({ coupon, onOpenChange }: CouponDetailsDialogProps)
   );
 }
 
-const employeeCouponTypes = ['50% 쿠폰 발급', '30% 쿠폰 발급'] as const;
+const employeeCoupons = [
+  { label: '50% 쿠폰 발급', icon: 'circle-check-solid' },
+  { label: '30% 쿠폰 발급', icon: 'circle-check-regular' },
+] as const;
+
 function EmployeeCoupons() {
-  const labels = employeeCouponTypes;
-  if (!labels.length) return null;
   return (
     <ContentSection
       as="section"
@@ -340,12 +342,12 @@ function EmployeeCoupons() {
       headerProps={{ titleAs: 'h2', titleProps: { web: 'headingKr7', mo: 'headingKr5' } }}
     >
       <HStack gap="2">
-        {labels.map((label) => (
+        {employeeCoupons.map(({ label, icon }) => (
           <HStack key={label} flex="1" minW="0" justifyContent="space-between" p="4" bg="black.10">
             <Typography variant="body3" weight="medium">
               {label}
             </Typography>
-            <Icon name="circle-check-regular" size="18px" />
+            <Icon name={icon} size={18} />
           </HStack>
         ))}
       </HStack>

@@ -4869,3 +4869,11 @@ PC 1920px 기준 1016px 미디어와 484px 구매 패널 사이 32px를 유지�
 - 2026-11-06: 상품 상세 A/S 처리 절차는 단계 번호·제목·설명으로 구성한다. 이 절차 전용 더미 아이콘 5종은 등록 및 파일에서 제거했다.
 
 - 2026-11-06: FormField의 boxed 라벨은 info 아이콘을 직접 렌더링하지 않는다.
+
+- 2026-11-06: 비밀번호 상태 아이콘은 hoka-eye-slash-regular(숨김)와 hoka-eye-regular(보임) 이름으로 등록한다.
+
+- 2026-11-06: magnifying-glass-regular.svg는 디자인 시스템 296:22996의 18px Regular 원본이며 SearchField는 size=16으로 표시한다.
+
+- 2026-11-06: sliders-regular.svg는 디자인 시스템 296:11385의 18px Regular 원본이다.
+
+- 2026-11-06: 임직원 쿠폰 디자인에 쓰이는 circle-check-solid 18px를 등록했다. 쿠폰 화면은 첫 항목 Solid, 둘째 항목 Regular를 각각 18px로 표시한다.

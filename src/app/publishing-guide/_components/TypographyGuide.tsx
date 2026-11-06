@@ -259,7 +259,7 @@ export function TypographyGuide() {
                       title="코드 복사"
                       onClick={() => copyVariant(variant, text)}
                     >
-                      <Icon name="copy-regular" size={16} />
+                      <Icon name="copy-regular" size={18} />
                     </Button>
                   </HStack>
                 </Stack>

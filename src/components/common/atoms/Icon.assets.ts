@@ -356,6 +356,10 @@ export const iconAssets = {
     src: '/images/icon/circle-check-regular.svg',
     mode: 'mask',
   },
+  'circle-check-solid': {
+    src: '/images/icon/circle-check-solid.svg',
+    mode: 'mask',
+  },
   'comments-solid': {
     src: '/images/icon/comments-solid.svg',
     mode: 'mask',
@@ -372,12 +376,12 @@ export const iconAssets = {
     src: '/images/icon/desktop-solid.svg',
     mode: 'mask',
   },
-  'eye-regular': {
-    src: '/images/icon/eye-regular.svg',
+  'hoka-eye-regular': {
+    src: '/images/icon/hoka-eye-regular.svg',
     mode: 'mask',
   },
-  'eye-slash-regular': {
-    src: '/images/icon/eye-slash-regular.svg',
+  'hoka-eye-slash-regular': {
+    src: '/images/icon/hoka-eye-slash-regular.svg',
     mode: 'mask',
   },
   'file-lines-solid': {

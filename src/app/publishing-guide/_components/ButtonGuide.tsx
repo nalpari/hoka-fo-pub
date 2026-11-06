@@ -408,7 +408,7 @@ function ButtonVariantPanel({ variant, onCopy }: ButtonVariantPanelProps) {
                               aria-label={`${variantSpec.title} ${size.label} ${colorway} ${state.label} 코드 복사`}
                               title="코드 복사"
                             >
-                              <Icon name="copy-regular" size={16} />
+                              <Icon name="copy-regular" size={18} />
                             </Button>
                           </HStack>
                         </Stack>
@@ -612,7 +612,7 @@ function AuxiliaryButtonsGuide({ onCopy }: { onCopy: (code: string) => void }) {
                             aria-label={`${item.title} ${sample.label} ${state.label} 코드 복사`}
                             title="코드 복사"
                           >
-                            <Icon name="copy-regular" size={16} />
+                            <Icon name="copy-regular" size={18} />
                           </Button>
                         </HStack>
                       </Stack>

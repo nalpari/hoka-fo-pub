@@ -429,7 +429,7 @@ function ModalExampleCard({
           onClick={() => onCopy(code)}
           className={css({ flexShrink: '0' })}
         >
-          <Icon name="copy-regular" size={16} />
+          <Icon name="copy-regular" size={18} />
         </Button>
       </HStack>
       {example.sheet ? (
