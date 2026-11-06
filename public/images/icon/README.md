@@ -72,7 +72,6 @@ Figma FontAwesome Icons 296:9192를 다시 조회해 공식 이름을 기준으�
 | `wishlist-regular` | `heart-regular` · [heart-regular.svg](heart-regular.svg) | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-25331) |
 | `bag-shopping` | `hoka-bag-shopping-regular` · [hoka-bag-shopping-regular.svg](hoka-bag-shopping-regular.svg) | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-12131) |
 | `notification-bag` | `hoka-bag-shopping-regular` · [hoka-bag-shopping-regular.svg](hoka-bag-shopping-regular.svg) | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-12131) |
-| `notification-basket` | `hoka-basket-shopping-regular` · [hoka-basket-shopping-regular.svg](hoka-basket-shopping-regular.svg) | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-13966) |
 | `info` | `circle-info-regular` · [circle-info-regular.svg](circle-info-regular.svg) | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-19691) |
 | `question` | `circle-question-regular` · [circle-question-regular.svg](circle-question-regular.svg) | 커스텀 / 기존 별칭 정리 |
 | `calendar` | `calendar-regular` · [calendar-regular.svg](calendar-regular.svg) | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-22886) |

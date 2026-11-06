@@ -4,7 +4,7 @@ title: '공통 상태와 데모 데이터'
 description: '로그인, 장바구니와 목 데이터의 수명 및 제약을 설명한다.'
 tags: [react, state, mock-data]
 status: draft
-updated: '2026-11-05T06:40:00Z'
+updated: '2026-11-06T00:00:00Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
@@ -736,3 +736,20 @@ ShopShell 알림 아이콘은 hoka- 이름의 쇼핑백·장바구니·계정 SV
 ## Context 바인딩 주석 정리 (2026-11-05)
 
 `InquiryPreviewContext.ts`·`RunningSessionSessionContext.ts`의 주석이 제거된 `InquiryDataContext`·`RunningSessionDataContext`로 연결하라고 안내하던 문장을 통합 소유자 연결·현재 연결 없음으로 고쳤다. Context 값과 타입은 바꾸지 않았다.
+
+
+## 모바일 헤더 아이콘 규격 (2026-11-06)
+
+출처: `src/context/ShopShell.tsx`, Figma `qyXJp4bnoeYSQxQULV8Wql`의 `I2158:12144;379:47647` Right Nav Panel. 모바일 검색·장바구니·메뉴는 22px 아이콘, 34×36px 클릭 영역, 6px 간격을 사용한다. 데스크탑·모바일 장바구니는 검정 아이콘과 12px 파란 배지, 흰 숫자로 표시하며 배지는 클릭 영역 기준 left 19px/top 0이다. 데스크탑 검색은 18px이며, 장바구니 아이콘 22px·배지 12px·흰색 숫자 8px은 모바일과 공통이다. NotificationCount의 지정된 8px 글자가 Typography body5에 덮이지 않도록 스타일 우선순위를 명시했다. 카운트 데이터와 메뉴·검색 동작의 소유권은 변경하지 않았다.
+
+검증: Ego에서 모바일 아이콘 22px, 배지 12px·숫자 8px/흰색과 데스크탑 검색 16px·장바구니 22px를 실측했다. 버튼 최소 너비 36px이 34px 지정을 막는 것을 확인하고 minW도 34px로 수정했다. 후속 Ego 검증에서 모바일 검색·메뉴 클릭 영역 34×36px를 확인했다. 대상 ESLint 및 OKF 검사 통과.
+
+추가 확인: 데스크탑 Figma `2203:92554`에서도 배지 숫자는 흰색이다. HeaderCartLink의 플랫폼별 색상 분기와 배지 위치 오버라이드를 제거하고 NotificationCount의 공통 위치(-7px/-3px)·흰색 기본값을 사용한다. iconLink의 동일한 모바일 너비·높이 재선언도 제거했다.
+
+후속 Ego 검증: 데스크탑과 모바일 모두 장바구니 아이콘 22×22px, 배지 12×12px, 숫자 8px·rgb(255, 255, 255)로 실측했다. 대상 ESLint와 OKF 검사가 통과했다.
+
+- 2026-11-06: 헤더 계정 링크는 두 플랫폼에서 NotificationIcon의 기본 크기 22px를 사용한다. 계정 알림 수가 제공될 때의 모습은 가이드 예시에서 확인한다.
+
+- 2026-11-06: 헤더 NotificationIcon은 bag·user만 지원하며 두 variant를 같은 Icon 마크업으로 표시한다.
+
+- 2026-11-06: 공통 헤더에서 #site-search-panel로 진입하면 검색 패널을 연다.

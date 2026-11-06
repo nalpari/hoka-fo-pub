@@ -16,7 +16,7 @@ export function SearchHeader({ onClose }: SearchHeaderProps) {
       borderBottom="1px solid {colors.black.20}"
     >
       <Button variant="icon" aria-label="검색 닫기" size="24px" onClick={onClose}>
-        <Icon name="hoka-action-xmark-regular" size="16px" />
+        <Icon name="xmark-regular" size={20} />
       </Button>
     </HStack>
   );

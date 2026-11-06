@@ -268,10 +268,6 @@ export const iconAssets = {
     src: '/images/icon/hoka-bag-shopping-regular.svg',
     mode: 'mask',
   },
-  'hoka-basket-shopping-regular': {
-    src: '/images/icon/hoka-basket-shopping-regular.svg',
-    mode: 'mask',
-  },
   'party-horn-regular': {
     src: '/images/icon/party-horn-regular.svg',
     mode: 'mask',
