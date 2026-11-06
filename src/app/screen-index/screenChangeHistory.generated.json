@@ -14389,6 +14389,370 @@
         "src/app/products/pdp-preview/[state]/page.tsx",
         "src/components/common/molecules/ProductCard/ProductCard.tsx"
       ]
+    },
+    {
+      "version": 1,
+      "reportId": "inclusive-3719352bb2fbe33689e1bdb5cf4302816f150886-e8203fb05ce20a07b39e0ffeaa2d23ed4af387d0",
+      "baseSha": "3719352bb2fbe33689e1bdb5cf4302816f150886",
+      "targetSha": "e8203fb05ce20a07b39e0ffeaa2d23ed4af387d0",
+      "startSha": "9dca5003f204a226c88efe419fc0af3081220b8f",
+      "startTitle": "feat: 11월 5일 퍼블 변경사항 보고서 추가",
+      "collectedAt": "2026-11-06T07:48:37.257521+00:00",
+      "collectedAtKst": "2026-11-06T16:48:37.257521+09:00",
+      "remote": "https://github.com/nalpari/hoka-fo-pub.git",
+      "reportFile": "reports/main-changes/inclusive-3719352bb2fbe33689e1bdb5cf4302816f150886-e8203fb05ce20a07b39e0ffeaa2d23ed4af387d0.md",
+      "status": "complete",
+      "excludedFileCounts": {
+        "markdown": 12,
+        "publishingGuide": 1,
+        "ia": 7
+      },
+      "entries": [
+        {
+          "id": "F001",
+          "status": "D",
+          "file": "public/images/icon/hoka-basket-shopping-regular.svg",
+          "previousFile": null,
+          "summary": "기존 장바구니 SVG를 삭제한다. 등록 아이콘과 전역 헤더의 호출부 변경을 함께 확인한다.",
+          "ranges": [
+            {
+              "oldStart": 1,
+              "oldCount": 5,
+              "newStart": 0,
+              "newCount": 0
+            }
+          ],
+          "owners": [],
+          "affectedIa": [
+            245
+          ],
+          "commits": [
+            {
+              "sha": "d5e50700c8769ec0e85b3e85ffe46659b7b0dbdc",
+              "subject": "fix: 헤더와 입력창 아이콘 규격 및 가이드 사용처 정리"
+            }
+          ]
+        },
+        {
+          "id": "F019",
+          "status": "M",
+          "file": "src/components/catalog/ProductListingPage.tsx",
+          "previousFile": null,
+          "summary": "ProductListTitle의 모바일 제목을 heading5로 통일하고 22px 수동 덮어쓰기를 제거한다. PC heading7과 결과 건수는 유지한다. 보고 대상은 검색 결과 화면입니다.",
+          "ranges": [
+            {
+              "oldStart": 1037,
+              "oldCount": 1,
+              "newStart": 1036,
+              "newCount": 0
+            },
+            {
+              "oldStart": 1043,
+              "oldCount": 1,
+              "newStart": 1042,
+              "newCount": 1
+            },
+            {
+              "oldStart": 1046,
+              "oldCount": 8,
+              "newStart": 1045,
+              "newCount": 1
+            },
+            {
+              "oldStart": 1408,
+              "oldCount": 1,
+              "newStart": 1399,
+              "newCount": 0
+            }
+          ],
+          "owners": [
+            {
+              "path": "공통|검색결과|목록",
+              "href": "/search",
+              "iaNumber": 247
+            }
+          ],
+          "affectedIa": [],
+          "commits": [
+            {
+              "sha": "419b37eb2d854c8ee713234309cea563dcf9bbf2",
+              "subject": "fix: 상품 목록 제목의 반응형 타이포그래피 정리"
+            }
+          ]
+        },
+        {
+          "id": "F020",
+          "status": "M",
+          "file": "src/components/common/atoms/Icon.assets.ts",
+          "previousFile": null,
+          "summary": "사용이 정리된 hoka-basket-shopping-regular 항목을 아이콘 레지스트리에서 제거한다.",
+          "ranges": [
+            {
+              "oldStart": 271,
+              "oldCount": 4,
+              "newStart": 270,
+              "newCount": 0
+            }
+          ],
+          "owners": [],
+          "affectedIa": [
+            245
+          ],
+          "commits": [
+            {
+              "sha": "d5e50700c8769ec0e85b3e85ffe46659b7b0dbdc",
+              "subject": "fix: 헤더와 입력창 아이콘 규격 및 가이드 사용처 정리"
+            }
+          ]
+        },
+        {
+          "id": "F021",
+          "status": "M",
+          "file": "src/components/common/atoms/TextInput.tsx",
+          "previousFile": null,
+          "summary": "TextInput 비밀번호 토글 아이콘을 현재 표시 상태에 맞춰 바꾸고 18px 및 black.60 톤을 적용한다. 로그인·회원가입·비밀번호 입력에 영향이 가능하다.",
+          "ranges": [
+            {
+              "oldStart": 219,
+              "oldCount": 1,
+              "newStart": 219,
+              "newCount": 1
+            }
+          ],
+          "owners": [],
+          "affectedIa": [
+            223,
+            233
+          ],
+          "commits": [
+            {
+              "sha": "d5e50700c8769ec0e85b3e85ffe46659b7b0dbdc",
+              "subject": "fix: 헤더와 입력창 아이콘 규격 및 가이드 사용처 정리"
+            }
+          ]
+        },
+        {
+          "id": "F023",
+          "status": "M",
+          "file": "src/components/common/organisms/Search/SearchHeader.tsx",
+          "previousFile": null,
+          "summary": "SearchHeader의 닫기 아이콘을 xmark-regular 20px로 바꾼다. 검색 오버레이와 상품 목록·검색 사용처에 영향이 가능하다.",
+          "ranges": [
+            {
+              "oldStart": 19,
+              "oldCount": 1,
+              "newStart": 19,
+              "newCount": 1
+            }
+          ],
+          "owners": [],
+          "affectedIa": [
+            246,
+            247
+          ],
+          "commits": [
+            {
+              "sha": "d5e50700c8769ec0e85b3e85ffe46659b7b0dbdc",
+              "subject": "fix: 헤더와 입력창 아이콘 규격 및 가이드 사용처 정리"
+            }
+          ]
+        },
+        {
+          "id": "F024",
+          "status": "M",
+          "file": "src/context/ShopShell.tsx",
+          "previousFile": null,
+          "summary": "NotificationCount 숫자 기본색을 검정으로 변경하고 배지 위치·줄 높이를 조정한다. HeaderAccount 관심상품 바로가기를 제거하고 검색·메뉴 아이콘 크기를 조정한다. SiteHeader는 #site-search-panel 해시로 검색 패널을 연다.",
+          "ranges": [
+            {
+              "oldStart": 1971,
+              "oldCount": 1,
+              "newStart": 1970,
+              "newCount": 0
+            },
+            {
+              "oldStart": 2031,
+              "oldCount": 1,
+              "newStart": 2030,
+              "newCount": 1
+            },
+            {
+              "oldStart": 2041,
+              "oldCount": 2,
+              "newStart": 2040,
+              "newCount": 2
+            },
+            {
+              "oldStart": 2056,
+              "oldCount": 1,
+              "newStart": 2055,
+              "newCount": 1
+            },
+            {
+              "oldStart": 2075,
+              "oldCount": 1,
+              "newStart": 2074,
+              "newCount": 1
+            },
+            {
+              "oldStart": 2077,
+              "oldCount": 1,
+              "newStart": 2076,
+              "newCount": 1
+            },
+            {
+              "oldStart": 2116,
+              "oldCount": 5,
+              "newStart": 2115,
+              "newCount": 1
+            },
+            {
+              "oldStart": 2130,
+              "oldCount": 1,
+              "newStart": 2125,
+              "newCount": 1
+            },
+            {
+              "oldStart": 2132,
+              "oldCount": 1,
+              "newStart": 2126,
+              "newCount": 0
+            },
+            {
+              "oldStart": 2139,
+              "oldCount": 1,
+              "newStart": 2133,
+              "newCount": 1
+            },
+            {
+              "oldStart": 2148,
+              "oldCount": 6,
+              "newStart": 2142,
+              "newCount": 1
+            },
+            {
+              "oldStart": 2162,
+              "oldCount": 1,
+              "newStart": 2150,
+              "newCount": 0
+            },
+            {
+              "oldStart": 2168,
+              "oldCount": 7,
+              "newStart": 2156,
+              "newCount": 1
+            },
+            {
+              "oldStart": 2267,
+              "oldCount": 1,
+              "newStart": 2249,
+              "newCount": 1
+            },
+            {
+              "oldStart": 2273,
+              "oldCount": 2,
+              "newStart": 2255,
+              "newCount": 8
+            },
+            {
+              "oldStart": 2491,
+              "oldCount": 0,
+              "newStart": 2480,
+              "newCount": 1
+            },
+            {
+              "oldStart": 2508,
+              "oldCount": 1,
+              "newStart": 2497,
+              "newCount": 1
+            },
+            {
+              "oldStart": 2512,
+              "oldCount": 1,
+              "newStart": 2501,
+              "newCount": 1
+            },
+            {
+              "oldStart": 2642,
+              "oldCount": 0,
+              "newStart": 2632,
+              "newCount": 12
+            },
+            {
+              "oldStart": 2654,
+              "oldCount": 1,
+              "newStart": 2654,
+              "newCount": 0
+            }
+          ],
+          "owners": [],
+          "affectedIa": [
+            245,
+            246
+          ],
+          "commits": [
+            {
+              "sha": "51e5c49a5c9ef19048736b26b8f97ab89c5ab11f",
+              "subject": "fix: 헤더 알림 숫자의 기본 색상을 검정으로 변경"
+            },
+            {
+              "sha": "d5e50700c8769ec0e85b3e85ffe46659b7b0dbdc",
+              "subject": "fix: 헤더와 입력창 아이콘 규격 및 가이드 사용처 정리"
+            },
+            {
+              "sha": "da007d4319d3b03f3d2b869de19dae456f08674b",
+              "subject": "fix: 로그인 헤더 관심상품 아이콘 제거"
+            }
+          ]
+        },
+        {
+          "id": "F025",
+          "status": "M",
+          "file": "src/types/component-contracts/context-ShopShell.d.ts",
+          "previousFile": null,
+          "summary": "NotificationIconVariant에서 basket을 제거해 공통 헤더 아이콘 타입을 실제 구현에 맞춘다.",
+          "ranges": [
+            {
+              "oldStart": 358,
+              "oldCount": 1,
+              "newStart": 358,
+              "newCount": 1
+            }
+          ],
+          "owners": [],
+          "affectedIa": [
+            245
+          ],
+          "commits": [
+            {
+              "sha": "d5e50700c8769ec0e85b3e85ffe46659b7b0dbdc",
+              "subject": "fix: 헤더와 입력창 아이콘 규격 및 가이드 사용처 정리"
+            }
+          ]
+        }
+      ],
+      "excludedAuthorFiles": [],
+      "excludedAuthorHunkCount": 0,
+      "excludedZeroProgressFiles": [
+        "public/images/products/everyrun/pdp-94538.png",
+        "public/images/products/everyrun/pdp-94539.png",
+        "public/images/products/everyrun/pdp-94540.png",
+        "public/images/products/everyrun/pdp-94541.png",
+        "public/images/products/everyrun/pdp-94542.png",
+        "public/images/products/everyrun/pdp-94543.png",
+        "public/images/products/everyrun/pdp-94559.png",
+        "public/images/products/everyrun/pdp-94564.png",
+        "public/images/products/everyrun/pdp-94569.png",
+        "public/images/products/everyrun/pdp-94574.png",
+        "public/images/products/everyrun/pdp-94650.png",
+        "public/images/products/everyrun/pdp-94653.png",
+        "public/images/products/everyrun/pdp-94655.png",
+        "src/app/products/[id]/_components/ProductDetailContent.tsx",
+        "src/app/products/[id]/productDetailPreviews.ts",
+        "src/app/products/[id]/productSizeOptions.ts",
+        "src/app/products/pdp-preview/[state]/page.tsx",
+        "src/components/common/molecules/ProductCard/ProductCard.tsx"
+      ]
     }
   ]
 }
