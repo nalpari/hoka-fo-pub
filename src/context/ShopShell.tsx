@@ -2027,7 +2027,7 @@ type NotificationCountProps = ComponentPropsWithoutRef<'span'> & {
 function NotificationCount({
   count = 0,
   max = 99,
-  tone = 'inverse',
+  tone = 'primary',
   className,
   ...props
 }: NotificationCountProps) {

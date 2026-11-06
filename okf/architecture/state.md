@@ -753,3 +753,5 @@ ShopShell 알림 아이콘은 hoka- 이름의 쇼핑백·장바구니·계정 SV
 - 2026-11-06: 헤더 NotificationIcon은 bag·user만 지원하며 두 variant를 같은 Icon 마크업으로 표시한다.
 
 - 2026-11-06: 공통 헤더에서 #site-search-panel로 진입하면 검색 패널을 연다.
+
+- 2026-11-06: NotificationCount의 기본 숫자 색상을 primary(검정)로 갱신했다. countTone이 생략된 헤더 알림 배지에 적용된다.

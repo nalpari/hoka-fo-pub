@@ -2407,3 +2407,5 @@ Figma Navigational Buttons(296:25392)와 Action Buttons(296:25425)의 기본·�
 - 2026-11-06: Figma SearchDesktop의 Regular 돋보기 기준으로 데스크탑 헤더 및 가이드 예시를 18px로 맞췄다.
 
 - 2026-11-06: 검색 자동완성 패널 닫기 아이콘을 20px로 맞추고 가이드에서 검색 패널로 직접 연결했다.
+
+- 2026-11-06: 헤더 알림 숫자의 기본 색상을 inverse에서 primary로 변경했다.
