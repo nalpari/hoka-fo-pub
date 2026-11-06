@@ -755,3 +755,9 @@ ShopShell 알림 아이콘은 hoka- 이름의 쇼핑백·장바구니·계정 SV
 - 2026-11-06: 공통 헤더에서 #site-search-panel로 진입하면 검색 패널을 연다.
 
 - 2026-11-06: NotificationCount의 기본 숫자 색상을 primary(검정)로 갱신했다. countTone이 생략된 헤더 알림 배지에 적용된다.
+
+- 2026-11-06: SearchOverlay의 showRecentSearches 기본값은 true이며, false이면 목록과 해당 영역의 레이아웃을 숨긴다. 개별·전체 삭제는 패널이 열려 있는 동안만 적용된다.
+
+- 2026-11-06: RecentSearchItem의 개별 삭제 X는 모바일 18px, 데스크탑 14px이며 왼쪽 시계 아이콘은 두 환경 모두 18px이다.
+
+- 2026-11-06: 헤더 검색 패널은 SearchField의 기본 돋보기를 사용한다.

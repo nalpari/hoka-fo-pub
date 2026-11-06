@@ -62,7 +62,12 @@ import { ContentSection } from '@/components/common/layouts/ContentSection';
 import { type FooterGroup, footerGroups, socials } from '@/data/footerData';
 import { type HeaderPromotionItem, headerPromotionItems } from '@/data/headerPromotionData';
 import { type MegaMenu, type MegaMenuPromo, megaMenus } from '@/data/megaMenu';
-import { autocompleteSearches, popularSearches, suggestedSearches } from '@/data/searchOverlayData';
+import {
+  autocompleteSearches,
+  popularSearches,
+  previewRecentSearches,
+  suggestedSearches,
+} from '@/data/searchOverlayData';
 import { supportContactHours, supportContacts } from '@/data/supportContacts';
 
 const styles = {
@@ -1246,7 +1251,6 @@ function SearchForm({ query, onQueryChange, onSearch, error = '' }: SearchFormPr
         onValueChange={onQueryChange}
         onSearch={onSearch}
         iconPlacement="start"
-        icon={<Icon name="magnifying-glass-regular" size="16px" />}
         rootStyles={css.raw({
           borderColor: error ? 'red.100' : 'black.100',
           display: mobile ? 'flex' : 'none',
@@ -1298,10 +1302,12 @@ type RecentSearchItemProps = {
   onRemove: (query: string) => void;
 };
 function RecentSearchItem({ query, onNavigateSearch, onRemove }: RecentSearchItemProps) {
+const platform = usePlatform();
+
   return (
     <HStack as="li" gap="2" _mobile={{ justifyContent: 'space-between' }}>
       <HStack gap="2">
-        <Icon name="timer-regular" size="18px" />
+        <Icon name="timer-regular" size={18} />
         <SearchKeywordButton query={query} onNavigateSearch={onNavigateSearch} />
       </HStack>
       <Button
@@ -1311,7 +1317,7 @@ function RecentSearchItem({ query, onNavigateSearch, onRemove }: RecentSearchIte
         size="18px"
         shape="square"
       >
-        <Icon name="hoka-action-xmark-regular" size="14px" />
+        <Icon name="xmark-regular" size={platform === 'mobile' ? '18px' : '14px'} />
       </Button>
     </HStack>
   );
@@ -1488,6 +1494,7 @@ function SearchSuggestions({
   );
 }
 type SearchOverlayProps = {
+  showRecentSearches?: boolean;
   onClose: () => void;
   query?: string;
   onQueryChange?: (query: string) => void;
@@ -1497,6 +1504,7 @@ type SearchOverlayProps = {
 /** 검색어 입력과 추천·결과 이동을 구성합니다 (Search suggestions use local preview data; submission preserves the search results route). */
 function SearchOverlay({
   onClose,
+  showRecentSearches = true,
   query: externalQuery,
   onQueryChange,
   error: externalError,
@@ -1512,7 +1520,12 @@ function SearchOverlay({
   const query = externalQuery ?? localQuery;
   const normalized = query.trim();
   const platform = usePlatform();
-  const { recentSearches, removeRecentSearch, clearRecentSearches } = useRecentSearches();
+  const {
+    recentSearches: items,
+    removeRecentSearch,
+    clearRecentSearches,
+  } = useRecentSearches(previewRecentSearches);
+  const recentSearches = showRecentSearches ? items : [];
   const hasRecentSearches = recentSearches.length > 0;
   const router = useRouter();
   const matches = [...new Set(autocompleteSearches)]
@@ -2768,6 +2781,7 @@ function SiteHeader({
         ) : null}
         {search ? (
           <SearchOverlay
+            showRecentSearches={true}
             query={searchQuery}
             onQueryChange={changeSearchQuery}
             error={searchError}

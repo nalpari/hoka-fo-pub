@@ -241,6 +241,7 @@ declare function SearchSuggestions({
   onClearRecent,
 }: SearchSuggestionsProps): import('react').JSX.Element;
 type SearchOverlayProps = {
+  showRecentSearches?: boolean;
   onClose: () => void;
   query?: string;
   onQueryChange?: (query: string) => void;
@@ -250,6 +251,7 @@ type SearchOverlayProps = {
 /** Search suggestions use local preview data; submission preserves the search results route. */
 declare function SearchOverlay({
   onClose,
+  showRecentSearches,
   query: externalQuery,
   onQueryChange,
   error: externalError,

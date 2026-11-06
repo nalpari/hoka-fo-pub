@@ -56,7 +56,7 @@ export function SearchField({
   inputStyles,
   inputProps,
 }: SearchFieldProps) {
-  const searchIcon = icon ?? <Icon name="magnifying-glass-solid" size="16px" aria-hidden="true" />;
+  const searchIcon = icon ?? <Icon name="magnifying-glass-regular" size={16} aria-hidden="true" />;
 
   return (
     <Box

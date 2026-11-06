@@ -60,6 +60,7 @@ function FaqSearch({ query, onQueryChange }: FaqSearchProps) {
         css={{ _mobile: { '& input::placeholder': { color: 'black.50' } } }}
       >
         <SearchField
+          iconPlacement="start"
           label="질문 또는 답변 검색"
           placeholder="검색어를 입력해주세요"
           value={query}
