@@ -10,7 +10,7 @@ export type ChangeHistoryEntry = {
   previousFile: string | null;
   summary: string;
   ranges: { oldStart: number; oldCount: number; newStart: number; newCount: number }[];
-  owners: { path: string; href: string | null }[];
+  owners: { path: string; href: string | null; iaNumber?: number }[];
   affectedIa: number[];
 };
 
@@ -103,6 +103,12 @@ export function getChangeScreenLabels(entry: ChangeHistoryEntry): string[] {
   ];
 }
 
+function matchesChangeOwner(screen: ScreenDefinition, owner: ChangeHistoryEntry['owners'][number]) {
+  if (owner.iaNumber !== undefined) return screen.iaNumber === owner.iaNumber;
+  const path = getChangeOwnerPath(screen);
+  return path === owner.path || path.startsWith(owner.path + '|');
+}
+
 export function getChangeReportTableGroups(
   report: ChangeHistoryReport,
   screens: readonly ScreenDefinition[],
@@ -111,10 +117,7 @@ export function getChangeReportTableGroups(
   const groups = new Map<string, ChangeHistoryEntry[]>();
   report.entries.forEach((entry) => {
     const owners = screens.filter((screen) =>
-      entry.owners.some(({ path }) => {
-        const candidate = getChangeOwnerPath(screen);
-        return candidate === path || candidate.startsWith(path + '|');
-      }),
+      entry.owners.some((owner) => matchesChangeOwner(screen, owner)),
     );
     const related = owners.length
       ? owners
@@ -122,9 +125,8 @@ export function getChangeReportTableGroups(
     const names = [
       ...new Set(
         related.flatMap((screen) => {
-          const path = getChangeOwnerPath(screen);
           const hrefs = entry.owners
-            .filter((owner) => path === owner.path || path.startsWith(owner.path + '|'))
+            .filter((owner) => matchesChangeOwner(screen, owner))
             .map((owner) => owner.href ?? undefined);
           return hrefs.length
             ? hrefs.flatMap((href) =>

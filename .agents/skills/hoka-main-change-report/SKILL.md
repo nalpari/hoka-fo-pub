@@ -47,6 +47,7 @@ $hoka-main-change-report
 - 실제 보고를 실행할 때 [Google Sheets Schedule](https://docs.google.com/spreadsheets/d/1BAxtSHBSp8DguH0gv2EbnEpqHZhZEez66eyTSmAcG6w/edit?gid=1070650770#gid=1070650770)을 연결된 Google Drive/Sheets 도구로 읽는다. FO 개발 5.3.2와 그 하위 작업의 B열 WBS 번호, AB열 실적 값을 수집하고 조회 시각(Asia/Seoul)을 기록한다. 행 위치로 매칭하거나 AA열 계획을 실적으로 사용하지 않는다.
 - IA에 매핑된 WBS 번호를 기준으로 현재 IA가 사용하는 `src/app/screen-index/wbsActualSnapshot.json`의 `actualByWbs`와 비교한다. 비교 기준 파일과 출처를 기록하고 시트 숫자 비율과 백분율 문자열을 같은 단위로 정규화한다. 0%도 유효 값이다. 중복 번호·누락·공란·오류 값·기준값 부재는 별도로 기록하고 변경 없음으로 처리하지 않는다.
 - 코드 diff와 별개로 Git 변경이 없어도 진척도를 확인한다. 비교 결과는 공유 보고서의 별도 섹션에 WBS 번호·관련 IA 메뉴/화면·IA 개발담당자·저장값·현재 실적으로 정리한다. 여러 화면이 공유하는 번호는 한 번 비교하고 관련 화면을 함께 표시한다.
+- 보고 대상 화면에 연결된 WBS 실적이 확인된 0%면 해당 화면의 변경을 모달과 공유 보고서에서 제외한다. 공용 파일은 0% 화면 연결만 제거하고 실적이 있는 다른 화면의 변경은 유지한다. 누락·미확인 값을 0%로 처리하지 않는다. 제외한 파일은 내부 데이터의 `excludedZeroProgressFiles`에 기록하고 보고 파일 수에서 뺀다.
 - 시트 접근이나 검증에 실패하면 이유와 확인 가능한 범위를 알리고 Git 보고는 계속한다. 스킬 실행의 기본 범위는 읽기와 비교이며 IA 실적 스냅샷 갱신은 명시적으로 요청받았을 때만 한다.
 
 ## 보고서·IA·실행 상태 저장

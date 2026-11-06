@@ -4,7 +4,7 @@ title: '변경 검증'
 description: '변경 범위에 맞는 정적 검사, 빌드와 수동 검증을 안내한다.'
 tags: [verification, testing, build]
 status: draft
-updated: '2026-11-05T07:47:55.730Z'
+updated: '2026-11-06T03:37:38Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
@@ -692,3 +692,7 @@ URL의 developer=ALL을 담당자 이름으로 해석하던 원인을 수정한�
 관련 테스트 11개, 전체 타입 검사 및 변경 파일 ESLint를 통과했다. 로컬 브라우저에서 전체 55행·5열, 김진영 필터 27행을 확인했다. 제품 전체 회귀 검사와 배포 빌드는 수행하지 않았다. 회귀 검사는 보고서 자체 테스트 파일을 IA 제외 목록으로 분류하고 기존 및 새 보고서의 파일 목록을 비교한다.
 
 출처: screenChangeHistory.ts, screenChangeHistory.generated.json, tests/main-change-history.test.mjs 작업 트리 및 ccd82db0 → 3719352b Git 비교. 기록: codex, 2026-11-05T07:47:55.730Z.
+
+## WBS 실적을 반영한 퍼블 변경 보고 검증 (2026-11-06)
+
+11월 6일 보고에서 실적 0%인 상품상세 전용 변경 18개를 제외했다. 로컬 모달에서 보고 대상 7개, 상품상세 항목 제외, 검색 결과 유지와 담당자 표시를 확인했다. main-change-history.test.mjs의 11개 검사를 통과했다. 출처: screenChangeHistory.ts, screenChangeHistory.generated.json 및 main-change-history.test.mjs 작업 트리.

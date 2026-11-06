@@ -142,7 +142,9 @@ test('generated reports cover the net diff except Markdown once with valid sourc
             ),
       )
       .map((line) => line.split('\t').at(-1));
-    const included = files.filter((file) => !report.excludedAuthorFiles.includes(file));
+    const exclusions = [...report.excludedAuthorFiles, ...(report.excludedZeroProgressFiles ?? [])];
+    for (const file of exclusions) assert.ok(files.includes(file), file);
+    const included = files.filter((file) => !exclusions.includes(file));
     assert.deepEqual(report.entries.map(({ file }) => file).sort(), included.sort());
     for (const file of report.excludedAuthorFiles) {
       const authors = execFileSync(
