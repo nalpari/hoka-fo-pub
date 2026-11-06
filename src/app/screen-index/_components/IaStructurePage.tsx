@@ -8,6 +8,7 @@ import { Fragment, useMemo, useRef, useState } from 'react';
 import { css, cva } from 'styled-system/css';
 import { Box, Flex, Grid, Stack } from 'styled-system/jsx';
 
+import { Badge } from '@/components/common/atoms/Badge';
 import { Dropdown } from '@/components/common/atoms/Dropdown';
 import { Icon } from '@/components/common/atoms/Icon';
 import { Select } from '@/components/common/atoms/Select';
@@ -43,12 +44,7 @@ import {
   getScreenDevelopers,
   matchesScreenDeveloper,
 } from '@/app/screen-index/screenDevelopers';
-import {
-  confirmedPublishingProgress,
-  getScreenProgress,
-  type ScreenProgress,
-  type ScreenProgressOverrides,
-} from '@/app/screen-index/screenProgress';
+import wbsActualSnapshot from '@/app/screen-index/wbsActualSnapshot.json';
 import { type ScreenDefinition, screens } from '@/data/screenRegistry';
 
 const reportDates = [
@@ -72,33 +68,11 @@ type TreeRow = {
   screen?: ScreenDefinition;
 };
 
-const progressFields = [
-  { key: 'pcDesign', label: 'PC 디자인', kind: 'design' },
-  { key: 'moDesign', label: 'MO 디자인', kind: 'design' },
-  { key: 'pcPublishing', label: 'PC 퍼블리싱', kind: 'publishing' },
-  { key: 'moPublishing', label: 'MO 퍼블리싱', kind: 'publishing' },
-] as const;
-
-const progressLabels = {
-  received: '수급',
-  missing: '미수급',
-  'revision-planned': '수정예정',
-  'not-applicable': '미해당',
-  ready: '완료',
-  revision: '수정',
-  working: '진행중',
-  pending: '대기',
-};
-
-type SummaryProgress = { [K in keyof ScreenProgress]: ScreenProgress[K] | 'mixed' };
-
 const productScreenCodes = ['eland_hca_01', 'eland_hca_02'] as const;
 
 function isProductScreen(screen: ScreenDefinition) {
   return productScreenCodes.some((code) => code === screen.screenCode);
 }
-
-const emptyProgressOverrides: ScreenProgressOverrides = {};
 
 const developerNames = Array.from(new Set(screens.flatMap(getScreenDeveloperNames))).sort((a, b) =>
   a.localeCompare(b, 'ko'),
@@ -249,6 +223,7 @@ const styles = {
     fontWeight: '700',
   }),
   developer: css({ fontSize: '12', whiteSpace: 'normal' }),
+  previewColumn: css({ minW: '100px', whiteSpace: 'nowrap' }),
   preview: css({
     display: 'flex',
     justifyContent: 'center',
@@ -307,20 +282,6 @@ const styles = {
     gap: '4px',
     overflowWrap: 'anywhere',
   }),
-  statusTag: css({
-    display: 'inline-flex',
-    whiteSpace: 'nowrap',
-    px: '1.5',
-    py: '0.5',
-    borderRadius: '3px',
-    fontSize: '12' /* 기존: 10px */,
-    fontWeight: '800',
-  }),
-  readyTag: css({ bg: '#e5f7ed', color: '#17643b' }),
-  workingTag: css({ bg: '#e7e5ff', color: '#5148d7' }),
-  pendingTag: css({ bg: '#eff2f8', color: '#68718a' }),
-  missingTag: css({ bg: '#fff0ef', color: '#b42318' }),
-  revisionTag: css({ bg: '#fff7e5', color: '#935600' }),
   deletedTag: css({ bg: '#d9dde6', color: '#68718a' }),
   empty: css({ p: '8', color: '#68718a', textAlign: 'center' }),
 };
@@ -339,53 +300,6 @@ function splitNoteEntries(note: string) {
     seen.add(key);
     return true;
   });
-}
-
-function getProgressTagClass(value: ScreenProgress[keyof ScreenProgress]) {
-  if (value === 'ready' || value === 'received') return styles.readyTag;
-  if (value === 'working') return styles.workingTag;
-  if (value === 'missing') return styles.missingTag;
-  if (value === 'revision-planned' || value === 'revision') return styles.revisionTag;
-  return styles.pendingTag;
-}
-
-function renderProgressCells(
-  kind: 'design' | 'publishing',
-  progress: SummaryProgress | undefined,
-  screen: ScreenDefinition | undefined,
-  progressOverrides: ScreenProgressOverrides,
-) {
-  return progressFields
-    .filter((field) => field.kind === kind)
-    .map(({ key }) => {
-      const value = progress?.[key];
-      return (
-        <td key={key}>
-          {value ? (
-            <Typography
-              as="span"
-              className={
-                styles.statusTag +
-                ' ' +
-                (value === 'mixed' ? styles.revisionTag : getProgressTagClass(value))
-              }
-              title={
-                (key === 'pcPublishing' || key === 'moPublishing') &&
-                screen &&
-                progressOverrides[screen.iaNumber]?.[key] === undefined &&
-                confirmedPublishingProgress[screen.iaNumber]?.[key] === undefined
-                  ? '기존 통합 상태를 이관한 초기값입니다. PC·MO별 확인값으로 갱신할 수 있습니다.'
-                  : undefined
-              }
-            >
-              {value === 'mixed' ? '혼합' : progressLabels[value]}
-            </Typography>
-          ) : (
-            '-'
-          )}
-        </td>
-      );
-    });
 }
 
 function screenDepth(screen: ScreenDefinition) {
@@ -460,19 +374,8 @@ function createTreeRows(group: ScreenGroup): TreeRow[] {
   return rows;
 }
 
-/**
- * IA 계층과 PC·MO별 작업 현황을 탐색합니다. (Explores the IA hierarchy and delivery progress by platform.)
- *
- * [ 개발팀 바인딩 ] IA 관리 소유자는 확인한 화면별 상태를 내부 IA 번호 기준 progressOverrides로
- * 전달합니다. 디자인은 received/missing/revision-planned/not-applicable/null, 퍼블리싱은 ready/revision/working/pending을 PC·MO별로
- * 독립 전달하며 새 props는 즉시 반영합니다. 조사 목록에 없는 디자인은 미수급, 명시적 null은 -이며 퍼블리싱 기본값은 기존
- * 통합 상태를 이관한 값입니다. 상품 요약은 현재 필터 결과와 props에서 계산하며 상태 차이는 혼합으로 표시합니다. 조회·수정·저장 API와 상태 변경 UI는 구현하지 않습니다.
- */
-export function IaStructurePage({
-  progressOverrides = emptyProgressOverrides,
-}: {
-  progressOverrides?: ScreenProgressOverrides;
-}) {
+/** IA 화면 계층과 미리보기 경로를 탐색합니다. (Browses the IA hierarchy and preview routes.) */
+export function IaStructurePage() {
   const [feedback, setFeedback] = useState('');
   const router = useRouter();
   const pathname = usePathname();
@@ -668,7 +571,7 @@ export function IaStructurePage({
               <Typography as="span">개 화면</Typography>
             </Typography>
             <Typography as="p" className={css({ color: '#68718a', fontSize: '12px' })}>
-              PC · MO 디자인 및 퍼블리싱 별도 관리
+              IA 화면과 미리보기 경로
             </Typography>
           </article>
           <section
@@ -827,18 +730,19 @@ export function IaStructurePage({
                 <th rowSpan={2} scope="col">
                   구분
                 </th>
-                <th scope="col">화면 코드</th>
-                <th scope="col">실제 페이지</th>
-                <th scope="col">PC 디자인</th>
-                <th scope="col">MO 디자인</th>
+                <th rowSpan={2} scope="col" className={styles.previewColumn}>
+                  새창
+                </th>
+                <th scope="col">화면코드</th>
+                <th rowSpan={2} scope="col" title={wbsActualSnapshot.source + ' · 실적(AB열)'}>
+                  개발자 (진척율)
+                </th>
                 <th scope="col">비고 / 이슈</th>
               </tr>
               <tr>
-                <th colSpan={2} scope="col" title={'WBS 확인일: ' + developerWbsSource.checkedAt}>
-                  개발담당자
+                <th scope="col" title={'WBS 확인일: ' + developerWbsSource.checkedAt}>
+                  WBS
                 </th>
-                <th scope="col">PC 퍼블리싱</th>
-                <th scope="col">MO 퍼블리싱</th>
                 <th scope="col">작업 파일</th>
               </tr>
             </thead>
@@ -875,13 +779,12 @@ export function IaStructurePage({
                       </div>
                     </td>
                     <td>대분류</td>
+                    <td>-</td>
                     <td colSpan={2} className={styles.code}>
                       {productDepths
                         .map((depth) => 'CAT_' + (depth === '공통' ? 'COMMON' : depth))
                         .join(', ')}
                     </td>
-                    <td>-</td>
-                    <td>-</td>
                     <td className={styles.note}>
                       <Stack gap="2">
                         {productGroups.map((group) => (
@@ -900,12 +803,11 @@ export function IaStructurePage({
                         <ProductRows
                           key={group.code}
                           screens={group.screens}
-                          progressOverrides={progressOverrides}
                           onCopyPath={copyPreviewPath}
                         />
                       ))}
                       <tr>
-                        <td colSpan={7}>
+                        <td colSpan={6}>
                           <button
                             type="button"
                             className={styles.button}
@@ -919,7 +821,7 @@ export function IaStructurePage({
                       </tr>
                       {productTreeOpen && (
                         <tr id="product-menu-tree">
-                          <td colSpan={7}>
+                          <td colSpan={6}>
                             <ProductMenuTree screens={visibleProductScreens} />
                           </td>
                         </tr>
@@ -932,7 +834,6 @@ export function IaStructurePage({
                 <GroupRows
                   key={group.depth1}
                   group={group}
-                  progressOverrides={progressOverrides}
                   collapsedPaths={collapsedPaths}
                   onToggle={togglePath}
                   onCopyPath={copyPreviewPath}
@@ -957,13 +858,11 @@ export function IaStructurePage({
 
 function GroupRows({
   group,
-  progressOverrides,
   collapsedPaths,
   onToggle,
   onCopyPath,
 }: {
   group: ScreenGroup;
-  progressOverrides: ScreenProgressOverrides;
   collapsedPaths: ReadonlySet<string>;
   onToggle: (path: string) => void;
   onCopyPath: (path: string) => void;
@@ -1003,11 +902,10 @@ function GroupRows({
           </div>
         </td>
         <td>대분류</td>
+        <td>-</td>
         <td colSpan={2} className={styles.code}>
           CAT_{group.depth1.replaceAll(' ', '_').toUpperCase()}
         </td>
-        <td>-</td>
-        <td>-</td>
         <td className={styles.note}>확정 IA 기준 화면 영역</td>
       </tr>
       {groupOpen &&
@@ -1016,8 +914,7 @@ function GroupRows({
           if (hiddenByParent) return null;
 
           const deleted = row.screen ? isScreenDeleted(row.screen) : false;
-          const progress =
-            row.screen && !deleted ? getScreenProgress(row.screen, progressOverrides) : undefined;
+
           const connection = row.screen ? getScreenConnection(row.screen) : undefined;
           const statePreviews = deleted ? [] : getScreenStatePreviews(connection);
           const groupFiles = siblingFiles.get(row.path) ?? [];
@@ -1085,19 +982,21 @@ function GroupRows({
                   {row.screen?.category ??
                     (row.depth === 1 ? '중분류' : row.depth === 2 ? '소분류' : '상세')}
                 </td>
-                <td className={styles.code}>{row.screen?.screenCode ?? '-'}</td>
-                <td>
-                  <Stack gap="1" minW="180px">
+                <td rowSpan={row.screen ? 2 : undefined}>
+                  <Stack gap="1">
                     {deleted
                       ? '삭제 / 제외'
                       : hasStateRows
-                        ? '하위 상태 참조'
+                        ? null
                         : row.screen
                           ? '독립 경로 없음'
                           : '-'}
                   </Stack>
                 </td>
-                {renderProgressCells('design', progress, row.screen, progressOverrides)}
+                <td className={styles.code}>{row.screen?.screenCode ?? '-'}</td>
+                <td rowSpan={row.screen ? 2 : undefined} className={styles.developer}>
+                  {row.screen ? <ScreenDevelopers screens={[row.screen]} /> : '-'}
+                </td>
                 <td className={styles.note}>
                   {deleted && (
                     <Typography as="span" className={styles.deletedTag}>
@@ -1118,10 +1017,9 @@ function GroupRows({
               </tr>
               {row.screen && (
                 <tr className={rowClass}>
-                  <td colSpan={2} className={styles.developer}>
-                    <ScreenDevelopers screens={[row.screen]} />
+                  <td className={styles.code}>
+                    <ScreenWbsNumbers screens={[row.screen]} />
                   </td>
-                  {renderProgressCells('publishing', progress, row.screen, progressOverrides)}
                   <td className={styles.note}>
                     {connection?.sourceFiles.length ? (
                       <SourceFiles
@@ -1191,9 +1089,6 @@ function StatePreviewRows({
             </td>
             <td>상태</td>
             <td>
-              <ScreenDevelopers screens={owners} href={href} />
-            </td>
-            <td>
               <div className={styles.preview}>
                 <Link
                   href={href}
@@ -1207,8 +1102,12 @@ function StatePreviewRows({
                 </Link>
               </div>
             </td>
-            <td>-</td>
-            <td>-</td>
+            <td className={styles.code}>
+              <ScreenWbsNumbers screens={owners} href={href} />
+            </td>
+            <td className={styles.developer}>
+              <ScreenDevelopers screens={owners} href={href} />
+            </td>
             <td className={styles.note}>
               <SourceFiles
                 files={Array.from(
@@ -1431,6 +1330,46 @@ function SourceFiles({ files }: { files: string[] }) {
   );
 }
 
+function ScreenWbsNumbers({
+  screens: members,
+  href,
+}: {
+  screens: ScreenDefinition[];
+  href?: string;
+}) {
+  const numbers = new Set(
+    members.flatMap((screen) => getScreenDevelopers(screen, href).map(({ wbs }) => wbs)),
+  );
+  return [...numbers].join(', ') || '-';
+}
+
+// [ 개발팀 바인딩 ] IA 관리 소유자가 전달한 Schedule 내보내기의 실적을 WBS 번호별로 표시합니다.
+const actualByWbs: Readonly<Partial<Record<string, string>>> = wbsActualSnapshot.actualByWbs;
+
+const wbsProgressBadge = cva({
+  base: {
+    marginInlineStart: '1.5',
+    verticalAlign: 'middle',
+    '&&': { px: '1.5', py: '0' },
+    '& > span': { color: 'inherit' },
+  },
+  variants: {
+    progress: {
+      pending: { '&&': { bg: '#eff2f8', color: '#526077' } },
+      working: { '&&': { bg: '#fff2d4', color: '#7a4700' } },
+      complete: { '&&': { bg: '#e5f7ed', color: '#17643b' } },
+    },
+  },
+});
+
+function WbsProgressBadge({ actual }: { actual?: string }) {
+  if (actual === undefined) return null;
+
+  const percent = Number.parseFloat(actual);
+  const progress = percent === 0 ? 'pending' : percent === 100 ? 'complete' : 'working';
+  return <Badge className={wbsProgressBadge({ progress })}>{percent}%</Badge>;
+}
+
 function ScreenDevelopers({
   screens: members,
   href,
@@ -1458,6 +1397,7 @@ function ScreenDevelopers({
             >
               {name}
               {developers.length > 1 && <span> ({area})</span>}
+              <WbsProgressBadge actual={actualByWbs[wbs]} />
             </a>
           ))
         : members.every(isScreenDeleted)
@@ -1503,11 +1443,9 @@ function ProductNotes({ screens: members, label }: { screens: ScreenDefinition[]
 
 function ProductRows({
   screens: members,
-  progressOverrides,
   onCopyPath,
 }: {
   screens: ScreenDefinition[];
-  progressOverrides: ScreenProgressOverrides;
   onCopyPath: (path: string) => void;
 }) {
   const representative = members[0];
@@ -1526,16 +1464,6 @@ function ProductRows({
     ).values(),
   );
   const label = representative.screenCode === 'eland_hca_01' ? '상품 목록' : '상품 상세';
-  const progress = Object.fromEntries(
-    progressFields.map(({ key }) => {
-      const values = new Set(
-        members.map((screen) =>
-          isScreenDeleted(screen) ? null : getScreenProgress(screen, progressOverrides)[key],
-        ),
-      );
-      return [key, values.size === 1 ? [...values][0] : 'mixed'];
-    }),
-  ) as SummaryProgress;
   const isListing = representative.screenCode === 'eland_hca_01';
   const sharedFiles = getSharedStateSourceFiles(Array.from(stateConnections.values()));
   const componentFiles = Array.from(
@@ -1557,23 +1485,19 @@ function ProductRows({
           </Stack>
         </td>
         <td rowSpan={2}>page</td>
+        <td rowSpan={2}>대표 화면</td>
         <td className={styles.code}>{representative.screenCode}</td>
-        <td>
-          <Stack gap="1">
-            <span>대표 화면</span>
-            <span>하위 상태 참조</span>
-          </Stack>
+        <td rowSpan={2} className={styles.developer}>
+          <ScreenDevelopers screens={members} />
         </td>
-        {renderProgressCells('design', progress, undefined, progressOverrides)}
         <td className={styles.note}>
           <SourceFiles files={componentFiles} />
         </td>
       </tr>
       <tr>
-        <td colSpan={2} className={styles.developer}>
-          <ScreenDevelopers screens={members} />
+        <td className={styles.code}>
+          <ScreenWbsNumbers screens={members} />
         </td>
-        {renderProgressCells('publishing', progress, undefined, progressOverrides)}
         <td className={styles.note}>
           <SourceFiles files={files} />
         </td>

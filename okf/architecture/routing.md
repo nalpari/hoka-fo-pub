@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-06T01:26:52Z'
+updated: '2026-11-06T01:41:38Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -1614,3 +1614,11 @@ PC는 중앙 `ModalDialog`, 모바일은 `ModalDialog`의 fullscreen 표시를 �
 [^pdp-98879]: Option Selection 섹션.
 [^pdp-97663]: No Size Selected Error 섹션.
 [^pdp-94996]: 장바구니 추가 완료 섹션.
+
+2026-11-06 IA 표에서 PC·MO 디자인 및 퍼블리싱 열을 제거했다. 실제 페이지 열의 제목은 새창으로 표시하고 보기 링크는 새 탭에서 연다. 출처: IaStructurePage.tsx 작업 트리.
+
+IA 표의 화면코드 아래에는 WBS를 표시한다. 구분 바로 다음에 새창 열을 배치하고 개발자 (진척율)는 독립 열로 표시한다. WBS 번호와 개발자는 기존 화면·상태별 매핑을 사용한다. 출처: IaStructurePage.tsx와 screenDevelopers.ts.
+
+IA 개발자 열의 진척율은 Eland_021_일정(WBS)_20261106_v1.0/Schedule.html의 FO 개발 5.3.2 범위 실적(AB열)을 WBS 번호로 연결한다. 내보내기 시점의 실적만 반영하며 화면·STATE 담당자 연결은 기존 매핑을 따른다. 배지는 0% 회색, 진행 중 황색, 100% 녹색으로 구분한다. 출처: wbsActualSnapshot.json 및 IaStructurePage.tsx 작업 트리.
+
+새창 열은 최소 너비 100px로 표시한다. 상위 행의 하위 상태 참조 문구를 제거하고 실제 미리보기는 STATE 행의 보기 링크로 표시한다. 출처: IaStructurePage.tsx 작업 트리.
