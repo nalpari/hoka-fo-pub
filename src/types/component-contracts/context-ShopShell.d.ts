@@ -355,7 +355,7 @@ declare function NotificationCount({
   className,
   ...props
 }: NotificationCountProps): import('react').JSX.Element | null;
-type NotificationIconVariant = 'bag' | 'basket' | 'user';
+type NotificationIconVariant = 'bag' | 'user';
 type NotificationIconProps = Omit<HTMLAttributes<HTMLSpanElement>, 'color'> & {
   variant: NotificationIconVariant;
   count?: number;

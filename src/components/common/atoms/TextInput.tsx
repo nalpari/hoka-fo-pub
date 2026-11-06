@@ -216,7 +216,7 @@ export function TextInput({
           className={action}
           onClick={() => setVisible(!visible)}
         >
-          <Icon name={visible ? 'eye-slash-regular' : 'eye-regular'} size="16px" />
+          <Icon name={visible ? 'eye-regular' : 'eye-slash-regular'} size={18} color="black.60" />
         </button>
       ) : clearable ? (
         <button

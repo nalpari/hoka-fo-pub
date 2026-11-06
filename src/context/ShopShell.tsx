@@ -1968,7 +1968,6 @@ const iconLink = css({
   w: '34px',
   h: '9',
   '& img': { display: 'block' },
-  _mobile: { w: '8', h: '8' },
 });
 type HeaderIconProps = {
   desktopSrc: IconAssetName;
@@ -2028,7 +2027,7 @@ type NotificationCountProps = ComponentPropsWithoutRef<'span'> & {
 function NotificationCount({
   count = 0,
   max = 99,
-  tone = 'inverse',
+  tone = 'primary',
   className,
   ...props
 }: NotificationCountProps) {
@@ -2038,8 +2037,8 @@ function NotificationCount({
     <Circle
       as="span"
       pos="absolute"
-      top="-.3rem"
-      right="-4px"
+      top="-7px"
+      right="-3px"
       display="inline-flex"
       size="12px"
       px="2px"
@@ -2053,7 +2052,7 @@ function NotificationCount({
         tone={tone}
         {...props}
         aria-hidden="true"
-        className={[css({ fontSize: '8px', lineHeight: '16px' }), className]
+        className={[css({ '&&': { fontSize: '8px', lineHeight: '12px' } }), className]
           .filter(Boolean)
           .join(' ')}
       >
@@ -2072,9 +2071,9 @@ const notificationIcon = css({
 });
 const notificationAssetByVariant = {
   bag: 'hoka-bag-shopping-regular',
-  basket: 'hoka-basket-shopping-regular',
+  user: 'hoka-user-regular',
 } as const;
-type NotificationIconVariant = keyof typeof notificationAssetByVariant | 'user';
+type NotificationIconVariant = keyof typeof notificationAssetByVariant;
 type NotificationIconProps = Omit<HTMLAttributes<HTMLSpanElement>, 'color'> & {
   variant: NotificationIconVariant;
   count?: number;
@@ -2113,11 +2112,7 @@ function NotificationIcon({
         } as CSSProperties
       }
     >
-      {variant === 'user' ? (
-        <Icon name="hoka-user-regular" size={size} aria-hidden="true" />
-      ) : (
-        <Icon name={notificationAssetByVariant[variant]} size={size} aria-hidden="true" />
-      )}
+      <Icon name={notificationAssetByVariant[variant]} size={size} aria-hidden="true" />
       <NotificationCount count={count} max={maxCount} tone={countTone} />
     </span>
   );
@@ -2129,14 +2124,13 @@ type HeaderAccountProps = {
 };
 function HeaderAccount({ isLoggedIn }: HeaderAccountProps) {
   const platform = usePlatform();
-  const iconSize = platform === 'mobile' ? '20px' : '22px';
   if (!isLoggedIn) {
     return (
       <HeaderIconLink
         to="/login"
         ariaLabel="로그인"
         className={loginLink}
-        iconSlot={<NotificationIcon variant="user" size={iconSize} />}
+        iconSlot={<NotificationIcon variant="user" />}
       />
     );
   }
@@ -2145,7 +2139,7 @@ function HeaderAccount({ isLoggedIn }: HeaderAccountProps) {
       <HeaderIconLink
         to="/mypage"
         ariaLabel="마이페이지"
-        iconSlot={<NotificationIcon variant="user" size={iconSize} />}
+        iconSlot={<NotificationIcon variant="user" />}
       />
     </>
   );
@@ -2154,19 +2148,12 @@ type HeaderCartLinkProps = {
   cart: number;
 };
 function HeaderCartLink({ cart }: HeaderCartLinkProps) {
-  const platform = usePlatform();
   return (
     <HeaderIconLink
       to="/cart"
       ariaLabel={`장바구니 ${cart}개`}
       iconSlot={
-        <NotificationIcon
-          variant="bag"
-          count={cart}
-          countTone="primary"
-          color="var(--color-black-100)"
-          size={platform === 'mobile' ? '20px' : '22px'}
-        />
+        <NotificationIcon variant="bag" count={cart} color="var(--color-black-100)" size="22px" />
       }
     />
   );
@@ -2259,14 +2246,20 @@ function HeaderSearch({
           form="site-search-form"
           onClick={onSearch}
         >
-          <Icon name="magnifying-glass-regular" size="16px" />
+          <Icon name="magnifying-glass-regular" size={18} />
         </Button>
       </HStack>
     );
   }
   return (
-    <Button variant="icon" size="32px" onClick={onSearch} aria-label="검색">
-      <Icon name="magnifying-glass-regular" size="19px" />
+    <Button
+      variant="icon"
+      size="36px"
+      className={css({ '&&': { w: '34px', minW: '34px', color: 'black.100' } })}
+      onClick={onSearch}
+      aria-label="검색"
+    >
+      <Icon name="magnifying-glass-regular" size="22px" />
     </Button>
   );
 }
@@ -2484,6 +2477,7 @@ function HeaderMegaMenuNavigation({
 }
 const menuButtonStyles = css({
   order: 2,
+  '&&': { w: '34px', minW: '34px', color: 'black.100' },
   p: 0,
   border: 0,
   bg: 'transparent',
@@ -2500,11 +2494,11 @@ function HeaderMenuButton({ onClick }: HeaderMenuButtonProps) {
     <Button
       variant="icon"
       className={menuButtonStyles}
-      size="32px"
+      size="36px"
       onClick={onClick}
       aria-label="전체 메뉴"
     >
-      <Icon name="bars-regular" size="20px" alt="" />
+      <Icon name="bars-regular" size="22px" alt="" />
     </Button>
   );
 }
@@ -2635,6 +2629,18 @@ function SiteHeader({
   const [search, setSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchError, setSearchError] = useState('');
+  const [activeMenu, setActiveMenu] = useState<MegaMenu['id'] | null>(null);
+  useEffect(() => {
+    const openLinkedSearch = () => {
+      if (window.location.hash !== '#site-search-panel') return;
+      setActiveMenu(null);
+      setSearch(true);
+    };
+
+    openLinkedSearch();
+    window.addEventListener('hashchange', openLinkedSearch);
+    return () => window.removeEventListener('hashchange', openLinkedSearch);
+  }, []);
   const changeSearchQuery = (query: string) => {
     setSearchError('');
     setSearchQuery(query);
@@ -2646,7 +2652,6 @@ function SiteHeader({
     }
     setSearch(false);
   };
-  const [activeMenu, setActiveMenu] = useState<MegaMenu['id'] | null>(null);
   const activeMegaMenu = megaMenus.find((menu) => menu.id === activeMenu);
   useEffect(() => {
     const closeOnEscape = (event: KeyboardEvent) => {

@@ -780,7 +780,8 @@
       "src/app/publishing-guide/_components/GuideTimeline.tsx",
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Icon.tsx",
-      "src/components/common/atoms/Typography.tsx"
+      "src/components/common/atoms/Typography.tsx",
+      "src/context/ShopShell.tsx"
     ],
     "src/app/publishing-guide/_components/ModalGuide.tsx": [
       "src/app/publishing-guide/_components/GuideCode.tsx",

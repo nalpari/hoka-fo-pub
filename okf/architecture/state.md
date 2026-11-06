@@ -361,11 +361,11 @@ CartPage는 기존 선택·관심상품·옵션 편집 상태, 상품 조회와 
 
 `src/context/ShopShell.tsx`는 `PlatformProvider`·`ShopFrame`(`.app platform-*`)·`AppLayout`(헤더·본문·푸터)을 구성한다. 상태를 공유하는 `ShopContext`·`useShop()`은 없다(2026-11-02 [전체 화면 퍼블리싱 인계](#전체-화면-퍼블리싱-인계-2026-11-02)에서 제거). `/wh`는 셸 없이 렌더한다.
 
-| 상태               | 보관 위치                                                     | 수명                                                    |
-| ------------------ | ------------------------------------------------------------- | ------------------------------------------------------- |
-| 로그인 여부        | `ShopShell` `state.isLoggedIn` 표시값(생략 시 `false`)        | props로만 바뀐다. 저장소·인증 연동 없음                 |
-| 장바구니·관심·최근 개수 | `state.cartCount`·`wishlistCount`·`recentCount`(생략 시 12·3·7) | 헤더 표시값. 장바구니 항목 상태는 셸에 없다            |
-| 플랫폼             | `PlatformProvider`가 화면 폭 1024px로 선택, 명시 `platform` 우선 | 서버·최초 hydration은 `web`, 창 크기 변경 시 갱신     |
+| 상태                    | 보관 위치                                                        | 수명                                              |
+| ----------------------- | ---------------------------------------------------------------- | ------------------------------------------------- |
+| 로그인 여부             | `ShopShell` `state.isLoggedIn` 표시값(생략 시 `false`)           | props로만 바뀐다. 저장소·인증 연동 없음           |
+| 장바구니·관심·최근 개수 | `state.cartCount`·`wishlistCount`·`recentCount`(생략 시 12·3·7)  | 헤더 표시값. 장바구니 항목 상태는 셸에 없다       |
+| 플랫폼                  | `PlatformProvider`가 화면 폭 1024px로 선택, 명시 `platform` 우선 | 서버·최초 hydration은 `web`, 창 크기 변경 시 갱신 |
 
 `/cart`는 `cart-preview.ts` fixture와 로컬 UI 상태만, `/login`은 로컬 입력과 고정 오류 표시만 사용한다. 아래 로그인 구조 설명의 `onLogin`·데모 검증·홈 이동과 `src/components/features/*` 경로는 2026-10-30 [장바구니·로그인 서비스 상태 제거](#장바구니로그인-서비스-상태-제거-2026-10-30) 전 기록이다.
 
@@ -697,47 +697,56 @@ Storybook만 사용하던 RoutePreviewProvider/useRoutePreview와 routePreviewCo
 
 ProductCard의 Quick View 제거와 하단 색상 캐러셀 교체를 검토했다. 선택 ID는 카드 로컬 상태이며 현재 product 옵션에서 찾아 미리보기만 변경한다. ShopShell·공유 context·관심상품 콜백·실제 조회/저장 상태 계약은 변경하지 않았다. 출처: ProductCard.tsx·ProductOptionList.tsx의 이번 작업 트리 변경.
 
-
 ## ShopShell 아이콘 통합 (2026-11-04)
 
 헤더·푸터·알림 아이콘을 atoms/Icon name API로 옮겼다. 알림 수·색상 판정과 메뉴·검색 상태 소유권은 변경하지 않는다. HeaderIcon의 기존 desktopSrc/mobileSrc 필드는 경로 대신 IconAssetName을 받으며 내부 호출은 name을 사용한다. 소셜 파일명은 기존 세 제공자 키를 등록 이름으로 대응한다. 출처: src/context/ShopShell.tsx, src/types/component-contracts/context-ShopShell.d.ts.
-
 
 ## 아이콘 디렉터리 평탄화 (2026-11-04)
 
 ShopShell의 멤버십·알림·소셜 아이콘 등록 이름을 평탄화했다. 상태 로직과 표시 크기는 유지한다. 출처: src/context/ShopShell.tsx.
 
-
 ## Font Awesome 공식 이름 적용 (2026-11-04)
 
 아이콘의 공식 이름 전환에 맞춰 관련 호출부를 갱신했다. 상태·라우트·이벤트 소유권은 유지한다. 상세 대응표는 public/images/icon/README.md와 UI 문서를 따른다.
-
 
 ## 아이콘 색상 토큰 사용 (2026-11-04)
 
 Icon 호출부와 가이드 복사 코드의 HEX 색상을 동일 값의 Panda 토큰으로 교체했다: #B3B3B3 → black.40, #F7F7F9 → black.10, #009DFF → blue.100. 색상 값과 상태 전환은 유지한다. 출처: panda.config.ts, IconGuide.tsx, LaunchCalendarContent.tsx, LaunchCalendarDetail.tsx, ShopShell.tsx.
 
-
 ## 기본 mask prop 생략 (2026-11-04)
 
 레지스트리의 기본 mode가 mask인 돋보기·하트·장바구니·바구니·sort-down 호출에서 중복 mask prop을 제거했다. IconGuide/ButtonGuide의 미리보기·복사 코드에도 적용했다. mask={false}인 원본색 예외와 Icon 내부의 기본 모드 판정은 유지한다. 출처: Icon.assets.ts, Wishlist.tsx, Dropdown.tsx, ShopShell.tsx, IconGuide.tsx, ButtonGuide.tsx.
-
 
 ## Icon mask 재정의 옵션 제거 (2026-11-04)
 
 푸터 국가 선택 화살표를 color="black.10"으로 전환하고 마지막 mask={false} 호출을 제거했다. IconProps의 mask와 호출부 재정의 분기를 삭제했다. 단색/원본색 렌더링은 Icon.assets.ts의 mode로만 결정하며 실제 CSS mask 렌더러는 유지한다. 가이드의 개별 mask 지정 안내도 제거했다. 출처: Icon.tsx, ShopShell.tsx, IconGuide.tsx. 이전 기록의 mask 재정의 계약은 이 변경으로 대체한다.
 
-
 ## Icon 속성 표기 순서 (2026-11-04)
 
 Icon 사용처와 가이드 복사 코드는 name → size → color 순서로 적고 나머지 속성을 뒤에 둔다. 생략된 기본값은 추가하지 않으며 spread 경계의 덮어쓰기 순서는 보존한다. 표시 값·동작은 변경하지 않는다. 출처: src의 Icon 사용처 및 src/app/publishing-guide/_components/IconGuide.tsx.
 
-
 ShopShell 알림 아이콘은 hoka- 이름의 쇼핑백·장바구니·계정 SVG를 사용한다. 알림 건수는 기존 파란 배지로 표시하며 건수의 소유권과 갱신 방식은 동일하다. 출처: src/context/ShopShell.tsx.
-
 
 닫기·삭제의 기존 Solid xmark 호출 9곳을 디자인팀 hoka-action-xmark-regular로 통일했다. 각 호출의 14·16·18·24px 크기는 유지하고 Solid SVG·등록·가이드 항목을 제거했다. 출처: IconGuide.tsx와 관련 화면 호출부.
 
 ## Context 바인딩 주석 정리 (2026-11-05)
 
 `InquiryPreviewContext.ts`·`RunningSessionSessionContext.ts`의 주석이 제거된 `InquiryDataContext`·`RunningSessionDataContext`로 연결하라고 안내하던 문장을 통합 소유자 연결·현재 연결 없음으로 고쳤다. Context 값과 타입은 바꾸지 않았다.
+
+## 모바일 헤더 아이콘 규격 (2026-11-06)
+
+출처: `src/context/ShopShell.tsx`, Figma `qyXJp4bnoeYSQxQULV8Wql`의 `I2158:12144;379:47647` Right Nav Panel. 모바일 검색·장바구니·메뉴는 22px 아이콘, 34×36px 클릭 영역, 6px 간격을 사용한다. 데스크탑·모바일 장바구니는 검정 아이콘과 12px 파란 배지, 흰 숫자로 표시하며 배지는 클릭 영역 기준 left 19px/top 0이다. 데스크탑 검색은 18px이며, 장바구니 아이콘 22px·배지 12px·흰색 숫자 8px은 모바일과 공통이다. NotificationCount의 지정된 8px 글자가 Typography body5에 덮이지 않도록 스타일 우선순위를 명시했다. 카운트 데이터와 메뉴·검색 동작의 소유권은 변경하지 않았다.
+
+검증: Ego에서 모바일 아이콘 22px, 배지 12px·숫자 8px/흰색과 데스크탑 검색 16px·장바구니 22px를 실측했다. 버튼 최소 너비 36px이 34px 지정을 막는 것을 확인하고 minW도 34px로 수정했다. 후속 Ego 검증에서 모바일 검색·메뉴 클릭 영역 34×36px를 확인했다. 대상 ESLint 및 OKF 검사 통과.
+
+추가 확인: 데스크탑 Figma `2203:92554`에서도 배지 숫자는 흰색이다. HeaderCartLink의 플랫폼별 색상 분기와 배지 위치 오버라이드를 제거하고 NotificationCount의 공통 위치(-7px/-3px)·흰색 기본값을 사용한다. iconLink의 동일한 모바일 너비·높이 재선언도 제거했다.
+
+후속 Ego 검증: 데스크탑과 모바일 모두 장바구니 아이콘 22×22px, 배지 12×12px, 숫자 8px·rgb(255, 255, 255)로 실측했다. 대상 ESLint와 OKF 검사가 통과했다.
+
+- 2026-11-06: 헤더 계정 링크는 두 플랫폼에서 NotificationIcon의 기본 크기 22px를 사용한다. 계정 알림 수가 제공될 때의 모습은 가이드 예시에서 확인한다.
+
+- 2026-11-06: 헤더 NotificationIcon은 bag·user만 지원하며 두 variant를 같은 Icon 마크업으로 표시한다.
+
+- 2026-11-06: 공통 헤더에서 #site-search-panel로 진입하면 검색 패널을 연다.
+
+- 2026-11-06: NotificationCount의 기본 숫자 색상을 primary(검정)로 갱신했다. countTone이 생략된 헤더 알림 배지에 적용된다.

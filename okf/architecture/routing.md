@@ -1585,6 +1585,8 @@ PC는 중앙 `ModalDialog`, 모바일은 `ModalDialog`의 fullscreen 표시를 �
 
 출처: screenChangeHistory.ts, screenChangeHistory.generated.json, tests/main-change-history.test.mjs 작업 트리 및 ccd82db0 → 3719352b Git 비교. 기록: codex, 2026-11-05T07:47:55.730Z.
 
+- 아이콘 가이드 hoka-bag-shopping-regular 사용처를 실제 소유 파일 OrderHistoryProduct.tsx로 교정했다. 공통 헤더 ShopShell.tsx 표기는 유지한다.
+
 ## PDP 개정 시안과 IA 상태 (2026-11-05)
 
 기존 상품상세 코드 `eland_hca_02`의 기본 링크는 `/products/shoe-1`이다. PC/MO는 동일 URL을 공유한다. 추가 상태는 `/products/pdp-preview/[state]`에서 허용된 상태만 렌더링한다. 아래 표의 짧은 상태명은 해당 경로의 마지막 segment다. 모바일 고정 CTA는 대응 기본/품절 화면에서 확인한다. 가이드·Note 프레임은 제품 상태에서 제외했다.
@@ -1634,3 +1636,25 @@ IA 개발자 열의 진척율은 Eland_021_일정(WBS)_20261106_v1.0/Schedule.ht
 `src/app/screen-index/sourceGraph.generated.json`을 현재 import 관계로 재생성해 주문 상세의 연결 목록에서 사용하지 않는 `BottomSheet.tsx`를 제외했다. `npm run screen-files`를 다시 실행해 같은 결과를 확인했다. 화면 URL과 라우팅 동작에는 영향이 없다.
 
 IA STATE의 WBS·개발자·진척율이 상위 화면에 표시된 경우 STATE 행에서는 생략한다. 별도 매핑이 있는 상태는 해당 행에 표시한다. 출처: IaStructurePage.tsx 작업 트리.
+
+- 아이콘 가이드에 파일명별 대표 화면/컴포넌트 가이드 링크를 추가했다. 사용 파일 표기는 유지하고 화면 이름을 새 탭 링크로 제공하며 중복 URL은 제거한다. 디자인 시스템 미적용 예시는 링크를 만들지 않는다. Next Link prefetch=false로 가이드의 대량 선행 로드를 방지한다.
+
+- 아이콘 가이드 별점 제목 faStarRegular/faStarSolid를 별점 · 기본/별점 · 채움으로 한글화했다. 등록 이름과 사용 코드는 유지한다.
+
+아이콘 가이드의 `icon-header` 그룹은 모바일 헤더 순서(검색·장바구니·메뉴)로 분리한다. 각 예시의 복사 코드와 ShopShell 대표 화면 링크를 유지하며 주문 내역의 18px 장바구니 담기는 기존 디자인팀 그룹에 남긴다. 출처: `src/app/publishing-guide/_components/IconGuide.tsx`; 2026-11-06.
+
+헤더 장바구니 가이드는 데스크탑·모바일 공통 22px 아이콘과 12px 파란 배지·8px 검정(primary) 숫자를 명시한다. 다른 알림 예시의 배지 위치와 글자 스타일도 공통 NotificationCount 규격에 맞춘다. (2026-11-06)
+
+- 2026-11-06: 헤더 아이콘 그룹의 계정·쇼핑백 알림 예시와 복사 코드는 ShopShell의 NotificationIcon을 사용한다.
+
+- 2026-11-06: 디자인팀 아이콘 그룹에서 서비스 미사용 바구니의 단독·배지 예시를 삭제했다.
+
+- 2026-11-06: 계정 아이콘은 헤더 그룹에서 안내하며 디자인팀 그룹의 faUser 단독 카드는 제거했다.
+
+- 2026-11-06: 디자인팀 아이콘 그룹은 현재 상태 순서(비밀번호 숨김 · 기본 → 비밀번호 보임)의 제목, 18px 및 black.60 예시를 제공한다.
+
+- 2026-11-06: 폰트어썸 원본 18px 카드 제목에 기본형을 명시해 실제 사용 크기 예시와 구분한다.
+
+- 2026-11-06: 헤더 아이콘 그룹의 검색 예시는 데스크탑 검색창 18px과 모바일 검색 버튼 22px로 나눈다.
+
+- 2026-11-06: 닫기 20px 아이콘 카드에서 홈의 헤더 검색 패널을 직접 여는 링크를 제공한다.

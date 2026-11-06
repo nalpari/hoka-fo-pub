@@ -1,9 +1,12 @@
 'use client';
 
+import Link from 'next/link';
+
 import { type ReactNode, useCallback, useRef, useState } from 'react';
+import { NotificationIcon } from '@/context/ShopShell';
 
 import { css } from 'styled-system/css';
-import { Box, Circle, Grid, HStack, Stack } from 'styled-system/jsx';
+import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
 import { Icon } from '@/components/common/atoms/Icon';
@@ -23,15 +26,270 @@ type IconExample = {
   note: string;
 };
 
+// 공통 컴포넌트는 대표 화면 또는 해당 컴포넌트 가이드로 연결합니다.
+const usageScreens: Record<string, { label: string; href: string }> = {
+  'StepIndicator.tsx': {
+    label: '주문 배송조회',
+    href: '/mypage/orders/preview-tracking',
+  },
+  'ProductDetailContent.tsx': {
+    label: '상품 상세',
+    href: '/products/shoe-1',
+  },
+  'ProductOptionList.tsx': {
+    label: '상품 상세',
+    href: '/products/shoe-1',
+  },
+  'RatingStars.tsx': {
+    label: '상품 상세',
+    href: '/products/shoe-1',
+  },
+  'SizeSelector.tsx': {
+    label: '상품 상세',
+    href: '/products/shoe-1',
+  },
+  'Wishlist.tsx': {
+    label: '관심상품',
+    href: '/mypage/wishlist',
+  },
+  'ProductCard.tsx': {
+    label: '상품 목록',
+    href: '/products',
+  },
+  'ProductListingPage.tsx': {
+    label: '상품 목록',
+    href: '/products',
+  },
+  'Breadcrumb.tsx': {
+    label: '상품 목록',
+    href: '/products',
+  },
+  'CartProductSection.tsx': {
+    label: '장바구니',
+    href: '/cart',
+  },
+  'NumberStepper.tsx': {
+    label: '장바구니',
+    href: '/cart',
+  },
+  'OrderRecommendations.tsx': {
+    label: '장바구니',
+    href: '/cart',
+  },
+  'OrderHistoryProduct.tsx': {
+    label: '주문/배송조회',
+    href: '/mypage/orders',
+  },
+  'OrdersStatus.tsx': {
+    label: '주문/배송조회',
+    href: '/mypage/orders',
+  },
+  'ShopShell.tsx': {
+    label: '공통 헤더 · 홈',
+    href: '/',
+  },
+  'InquiryOrderLookup.tsx': {
+    label: '주문상품 선택',
+    href: '/support/inquiries/new/order-products',
+  },
+  'InquiryFormContent.tsx': {
+    label: '문의 작성',
+    href: '/support/inquiries/new',
+  },
+  'FormField.tsx': {
+    label: '문의 작성',
+    href: '/support/inquiries/new',
+  },
+  'InquiryListContent.tsx': {
+    label: '문의 내역',
+    href: '/support/inquiries/preview-list',
+  },
+  'SearchField.tsx': {
+    label: '상품 검색',
+    href: '/search?q=클리프톤',
+  },
+  'SearchHeader.tsx': {
+    label: '홈 · 헤더 검색 패널',
+    href: '/#site-search-panel',
+  },
+  'MyPageReviewsContent.tsx': {
+    label: '상품 리뷰',
+    href: '/mypage/reviews',
+  },
+  'Accordion.tsx': {
+    label: 'FAQ',
+    href: '/support/faq',
+  },
+  'FaqContent.tsx': {
+    label: 'FAQ',
+    href: '/support/faq',
+  },
+  'RunningSessionEntriesContent.tsx': {
+    label: '이벤트 신청 내역',
+    href: '/mypage/event-entries',
+  },
+  'TermsDocument.tsx': {
+    label: '약관',
+    href: '/support/terms',
+  },
+  'NoticesContent.tsx': {
+    label: '공지사항',
+    href: '/support/notices',
+  },
+  'IaStructurePage.tsx': {
+    label: '화면 목록',
+    href: '/screen-index',
+  },
+  'LaunchCalendarContent.tsx': {
+    label: '런칭 캘린더',
+    href: '/launch-calendar',
+  },
+  'LaunchCalendarDetail.tsx': {
+    label: '런칭 상품 상세',
+    href: '/launch-calendar/clifton-11-gtx',
+  },
+  'CouponManagement.tsx': {
+    label: '쿠폰',
+    href: '/mypage/coupons',
+  },
+  'SystemStatusPage.tsx': {
+    label: '오류 화면',
+    href: '/preview-not-found',
+  },
+  'account-locked/complete/page.tsx': {
+    label: '계정 잠금 해제 완료',
+    href: '/login/account-locked/complete',
+  },
+  'CheckoutPayment.tsx': {
+    label: '주문서',
+    href: '/checkout',
+  },
+  'SignupContent.tsx': {
+    label: '회원가입',
+    href: '/signup',
+  },
+  'LocalesContent.tsx': {
+    label: '국가 선택',
+    href: '/locales',
+  },
+  'IdentityVerificationContent.tsx': {
+    label: '본인인증 선택',
+    href: '/signup/verify',
+  },
+  'signup/complete/page.tsx': {
+    label: '회원가입 완료',
+    href: '/signup/complete',
+  },
+  'TextInput.tsx': {
+    label: '로그인 · 비밀번호 입력',
+    href: '/login',
+  },
+  'Checkbox.tsx': {
+    label: '폼 가이드',
+    href: '/publishing-guide?tab=form',
+  },
+  'Radio.tsx': {
+    label: '폼 가이드',
+    href: '/publishing-guide?tab=form',
+  },
+  'Dropdown.tsx': {
+    label: '폼 가이드',
+    href: '/publishing-guide?tab=form',
+  },
+  'ModalDialog.tsx': {
+    label: '모달 가이드',
+    href: '/publishing-guide?tab=modal',
+  },
+  'CarouselControls.tsx': {
+    label: '캐러셀 가이드',
+    href: '/publishing-guide?tab=carousel',
+  },
+  'Button.tsx': {
+    label: '버튼 가이드',
+    href: '/publishing-guide?tab=button',
+  },
+  'ButtonGuide.tsx': {
+    label: '버튼 가이드',
+    href: '/publishing-guide?tab=button',
+  },
+  'HelpTips.tsx': {
+    label: '툴팁 가이드',
+    href: '/publishing-guide?tab=help-tips',
+  },
+};
+
+function getUsageScreens(source: string) {
+  const files = source.match(/[\w/-]+\.tsx/g) ?? [];
+  const screens = files.flatMap((file) => (usageScreens[file] ? [usageScreens[file]] : []));
+  return screens.filter(
+    (screen, index) => screens.findIndex((item) => item.href === screen.href) === index,
+  );
+}
+
 // 현재 사용처를 조사한 고정 가이드 목록입니다. 서비스 데이터나 자동 수집 결과가 아닙니다.
 const iconGroups: { id: string; title: string; description: string; items: IconExample[] }[] = [
+  {
+    id: 'icon-header',
+    title: '헤더 아이콘',
+    description:
+      '모바일 오른쪽 헤더: 검색 → 장바구니 → 메뉴. 아이콘 22px, 클릭 영역 34×36px, 간격 6px.',
+    items: [
+      {
+        label: '데스크탑 검색',
+        origin: { label: 'Font Awesome', name: 'magnifying-glass', detail: 'Regular' },
+        preview: <Icon name="magnifying-glass-regular" size={18} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="magnifying-glass-regular" size={18} />',
+        source: 'ShopShell.tsx',
+        note: '데스크탑 헤더 검색창 내부 · 18px',
+        registeredName: 'magnifying-glass-regular',
+      },
+      {
+        label: '모바일 검색',
+        origin: { label: 'Font Awesome', name: 'magnifying-glass', detail: 'Regular' },
+        preview: <Icon name="magnifying-glass-regular" size={22} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="magnifying-glass-regular" size={22} />',
+        source: 'ShopShell.tsx',
+        note: '모바일 22px · 클릭 영역 34×36px',
+        registeredName: 'magnifying-glass-regular',
+      },
+      {
+        label: '계정 · 알림 배지',
+        registeredName: 'hoka-user-regular',
+        preview: <NotificationIcon variant="user" count={1} color="var(--color-black-100)" />,
+        code: `import { NotificationIcon } from '@/context/ShopShell';
+
+<NotificationIcon variant="user" count={1} color="var(--color-black-100)" />`,
+        source: 'ShopShell.tsx',
+        note: '데스크탑·모바일 공통 22px · 알림 1건 예시 · 배지 12px · 숫자 8px 검정(primary)',
+      },
+      {
+        label: '쇼핑백 · 알림 배지',
+        registeredName: 'hoka-bag-shopping-regular',
+        preview: <NotificationIcon variant="bag" count={1} color="var(--color-black-100)" />,
+        code: `import { NotificationIcon } from '@/context/ShopShell';
+
+<NotificationIcon variant="bag" count={1} color="var(--color-black-100)" />`,
+        source: 'ShopShell.tsx',
+        note: '데스크탑·모바일 공통: 아이콘 22px · 클릭 영역 34×36px · 배지 12px · 숫자 8px 검정(primary)',
+      },
+      {
+        label: '모바일 메뉴',
+        origin: { label: 'Font Awesome', name: 'bars', detail: 'Regular' },
+        preview: <Icon name="bars-regular" size={22} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="bars-regular" size={22} />',
+        source: 'ShopShell.tsx',
+        note: '모바일 22px · 클릭 영역 34×36px',
+        registeredName: 'bars-regular',
+      },
+    ],
+  },
   {
     id: 'font-awesome-basic',
     title: '폰트어썸 기본형 · 18px',
     description: '18px 원본 SVG 하나를 size로 확대·축소합니다.',
     items: [
       {
-        label: '체크 기본 · 18px',
+        label: '체크 기본형 · 18px',
         registeredName: 'check-solid',
         origin: { label: 'Font Awesome', name: 'check', detail: 'Solid' },
         preview: <Icon name="check-solid" size={18} />,
@@ -42,7 +300,7 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
         note: '원본 18px · StepIndicator 완료 단계에서 14px, color="white"로 사용',
       },
       {
-        label: '공유 기본 · 18px',
+        label: '공유 기본형 · 18px',
         registeredName: 'arrow-up-from-bracket-regular',
         origin: { label: 'Font Awesome', name: 'arrow-up-from-bracket', detail: 'Regular' },
         preview: <Icon name="arrow-up-from-bracket-regular" size={18} />,
@@ -53,7 +311,7 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
         note: '원본 18px · 상품 상세: 모바일 20px / 데스크탑 22px',
       },
       {
-        label: '하트 기본 · 18px',
+        label: '하트 기본형 · 18px',
         registeredName: 'heart-regular',
         origin: { label: 'Font Awesome', name: 'heart', detail: 'Regular' },
         preview: <Icon name="heart-regular" size={18} />,
@@ -64,7 +322,7 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
         note: '원본 18px · 상품 목록: 데스크탑 24px / 모바일 18px · 상품 상세: 데스크탑 22px / 모바일 20px · 장바구니: 14px · 관심상품·최근 본 상품: 18px',
       },
       {
-        label: '하트 선택 · 18px',
+        label: '하트 선택 기본형 · 18px',
         registeredName: 'heart-solid',
         origin: { label: 'Font Awesome', name: 'heart', detail: 'Solid' },
         preview: <Icon name="heart-solid" size={18} />,
@@ -75,7 +333,7 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
         note: '원본 18px · 상품 목록: 데스크탑 24px / 모바일 18px · 상품 상세: 데스크탑 22px / 모바일 20px · 장바구니: 14px · 관심상품·최근 본 상품: 18px',
       },
       {
-        label: '더하기 · 18px',
+        label: '더하기 기본형 · 18px',
         registeredName: 'plus-regular',
         origin: { label: 'Font Awesome', name: 'plus', detail: 'Regular' },
         preview: <Icon name="plus-regular" size={18} />,
@@ -97,7 +355,7 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
         note: '상품 목록 필터 · 접힌 필터 펼치기 · 16px',
       },
       {
-        label: '빼기 · 18px',
+        label: '빼기 기본형 · 18px',
         registeredName: 'minus-regular',
         origin: { label: 'Font Awesome', name: 'minus', detail: 'Regular' },
         preview: <Icon name="minus-regular" size={18} />,
@@ -119,7 +377,7 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
         note: '상품 목록 필터 · 펼친 필터 접기 · 16px',
       },
       {
-        label: '닫기 기본 · 18px',
+        label: '닫기 기본형 · 18px',
         registeredName: 'xmark-regular',
         origin: { label: 'Font Awesome', name: 'xmark', detail: 'Regular' },
         preview: <Icon name="xmark-regular" size={18} />,
@@ -137,7 +395,7 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
         code: `import { Icon } from '@/components/common/atoms/Icon';
 
 <Icon name="xmark-regular" size={20} />`,
-        source: 'CartProductSection.tsx, ModalDialog.tsx',
+        source: 'SearchHeader.tsx, CartProductSection.tsx, ModalDialog.tsx',
         note: '원본 18px · size로 크기 변경 · color로 색상 변경 가능',
       },
       {
@@ -381,7 +639,7 @@ const platform = usePlatform();
 
 <Icon name="hoka-action-xmark-regular" size={24} />`,
         source:
-          'InquiryFormContent.tsx, ProductDetailContent.tsx, SearchHeader.tsx, ShopShell.tsx, TextInput.tsx',
+          'InquiryFormContent.tsx, ProductDetailContent.tsx, ShopShell.tsx, TextInput.tsx',
         note: '원본 여백 포함 24px · 화면에 따라 14·16·18·24px',
       },
       {
@@ -415,7 +673,7 @@ const platform = usePlatform();
 
 <Icon name="hoka-action-xmark-regular" size={24} color="black.40" />`,
         source:
-          'InquiryFormContent.tsx, ProductDetailContent.tsx, SearchHeader.tsx, ShopShell.tsx, TextInput.tsx',
+          'InquiryFormContent.tsx, ProductDetailContent.tsx, ShopShell.tsx, TextInput.tsx',
         note: '원본 여백 포함 24px · 화면에 따라 14·16·18·24px',
       },
       {
@@ -662,7 +920,7 @@ const platform = usePlatform();
         registeredName: 'hoka-radio-disabled-checked',
       },
       {
-        label: 'faStarRegular',
+        label: '별점 · 기본',
         origin: { label: 'Font Awesome', name: 'star', detail: 'Regular' },
         preview: <Icon name="hoka-star-regular" size={16} />,
         code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="hoka-star-regular" size={16} />',
@@ -671,7 +929,7 @@ const platform = usePlatform();
         registeredName: 'hoka-star-regular',
       },
       {
-        label: 'faStarSolid',
+        label: '별점 · 채움',
         origin: { label: 'Font Awesome', name: 'star', detail: 'Solid' },
         preview: <Icon name="hoka-star-solid" size={16} />,
         code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="hoka-star-solid" size={16} />',
@@ -696,152 +954,28 @@ const platform = usePlatform();
         label: '장바구니 담기',
         origin: { label: 'Font Awesome', name: 'bag-shopping', detail: 'Regular' },
         preview: <Icon name="hoka-bag-shopping-regular" size={18} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="hoka-bag-shopping-regular" size={18} />\n\n<Icon name="hoka-bag-shopping-regular" size={22} />',
-        source: 'OrdersProducts.tsx, ShopShell.tsx',
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="hoka-bag-shopping-regular" size={18} />',
+        source: 'OrderHistoryProduct.tsx',
         note: 'color로 색상 변경 가능',
         registeredName: 'hoka-bag-shopping-regular',
       },
       {
-        label: '쇼핑백 · 알림 배지',
-        registeredName: 'hoka-bag-shopping-regular',
-        preview: (
-          <Box as="span" pos="relative" display="inline-flex">
-            <Icon name="hoka-bag-shopping-regular" size={22} />
-            <Circle pos="absolute" top="-.3rem" right="-4px" size="12px" bg="blue.100">
-              <Typography
-                variant="body5"
-                weight="medium"
-                tone="inverse"
-                className={css({ fontSize: '8px', lineHeight: '16px' })}
-              >
-                1
-              </Typography>
-            </Circle>
-          </Box>
-        ),
-        code: `import { css } from 'styled-system/css';
-import { Box, Circle } from 'styled-system/jsx';
-
-import { Icon } from '@/components/common/atoms/Icon';
-import { Typography } from '@/components/common/atoms/Typography';
-
-<Box as="span" pos="relative" display="inline-flex">
-  <Icon name="hoka-bag-shopping-regular" size={22} />
-  <Circle pos="absolute" top="-.3rem" right="-4px" size="12px" bg="blue.100">
-    <Typography variant="body5" weight="medium" tone="inverse" className={css({ fontSize: '8px', lineHeight: '16px' })}>
-      1
-    </Typography>
-  </Circle>
-</Box>`,
-        source: 'ShopShell.tsx',
-        note: '22px 아이콘 · 12px 파란 배지 · 알림 1건 예시',
-      },
-      {
-        label: '장바구니',
-        registeredName: 'hoka-basket-shopping-regular',
-        preview: <Icon name="hoka-basket-shopping-regular" size={16} />,
-        code: `import { Icon } from '@/components/common/atoms/Icon';
-
-<Icon name="hoka-basket-shopping-regular" size={16} />`,
-        source: 'ShopShell.tsx',
-        note: '알림 건수는 화면에서 배지를 조합합니다.',
-      },
-      {
-        label: '장바구니 · 알림 배지',
-        registeredName: 'hoka-basket-shopping-regular',
-        preview: (
-          <Box as="span" pos="relative" display="inline-flex">
-            <Icon name="hoka-basket-shopping-regular" size={22} />
-            <Circle pos="absolute" top="-.3rem" right="-4px" size="12px" bg="blue.100">
-              <Typography
-                variant="body5"
-                weight="medium"
-                tone="inverse"
-                className={css({ fontSize: '8px', lineHeight: '16px' })}
-              >
-                1
-              </Typography>
-            </Circle>
-          </Box>
-        ),
-        code: `import { css } from 'styled-system/css';
-import { Box, Circle } from 'styled-system/jsx';
-
-import { Icon } from '@/components/common/atoms/Icon';
-import { Typography } from '@/components/common/atoms/Typography';
-
-<Box as="span" pos="relative" display="inline-flex">
-  <Icon name="hoka-basket-shopping-regular" size={22} />
-  <Circle pos="absolute" top="-.3rem" right="-4px" size="12px" bg="blue.100">
-    <Typography variant="body5" weight="medium" tone="inverse" className={css({ fontSize: '8px', lineHeight: '16px' })}>
-      1
-    </Typography>
-  </Circle>
-</Box>`,
-        source: 'ShopShell.tsx',
-        note: '22px 아이콘 · 12px 파란 배지 · 알림 1건 예시',
-      },
-      {
-        label: 'faUser',
-        origin: { label: 'Font Awesome', name: 'user', detail: 'Regular' },
-        preview: <Icon name="hoka-user-regular" size={18} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="hoka-user-regular" size={18} />',
-        source: 'ShopShell.tsx',
-        note: 'color로 색상 변경 가능',
-        registeredName: 'hoka-user-regular',
-      },
-      {
-        label: '계정 · 알림 배지',
-        registeredName: 'hoka-user-regular',
-        preview: (
-          <Box as="span" pos="relative" display="inline-flex">
-            <Icon name="hoka-user-regular" size={22} />
-            <Circle pos="absolute" top="-.3rem" right="-4px" size="12px" bg="blue.100">
-              <Typography
-                variant="body5"
-                weight="medium"
-                tone="inverse"
-                className={css({ fontSize: '8px', lineHeight: '16px' })}
-              >
-                1
-              </Typography>
-            </Circle>
-          </Box>
-        ),
-        code: `import { css } from 'styled-system/css';
-import { Box, Circle } from 'styled-system/jsx';
-
-import { Icon } from '@/components/common/atoms/Icon';
-import { Typography } from '@/components/common/atoms/Typography';
-
-<Box as="span" pos="relative" display="inline-flex">
-  <Icon name="hoka-user-regular" size={22} />
-  <Circle pos="absolute" top="-.3rem" right="-4px" size="12px" bg="blue.100">
-    <Typography variant="body5" weight="medium" tone="inverse" className={css({ fontSize: '8px', lineHeight: '16px' })}>
-      1
-    </Typography>
-  </Circle>
-</Box>`,
-        source: 'ShopShell.tsx',
-        note: '22px 아이콘 · 12px 파란 배지 · 알림 1건 예시',
-      },
-      {
-        label: 'faEye',
-        origin: { label: 'Font Awesome', name: 'eye', detail: 'Regular' },
-        preview: <Icon name="eye-regular" size={24} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="eye-regular" size={24} />',
-        source: 'TextInput.tsx',
-        note: 'color로 색상 변경 가능',
-        registeredName: 'eye-regular',
-      },
-      {
-        label: 'faEyeSlash',
+        label: '비밀번호 숨김 · 기본',
         origin: { label: 'Font Awesome', name: 'eye-slash', detail: 'Regular' },
-        preview: <Icon name="eye-slash-regular" size={24} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="eye-slash-regular" size={24} />',
+        preview: <Icon name="eye-slash-regular" size={18} color="black.60" />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="eye-slash-regular" size={18} color="black.60" />',
         source: 'TextInput.tsx',
-        note: 'color로 색상 변경 가능',
+        note: '입력한 글자가 가려진 기본 상태입니다. 누르면 비밀번호를 표시합니다.',
         registeredName: 'eye-slash-regular',
+      },
+      {
+        label: '비밀번호 보임',
+        origin: { label: 'Font Awesome', name: 'eye', detail: 'Regular' },
+        preview: <Icon name="eye-regular" size={18} color="black.60" />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="eye-regular" size={18} color="black.60" />',
+        source: 'TextInput.tsx',
+        note: '입력한 글자가 보이는 상태입니다. 누르면 비밀번호를 숨깁니다.',
+        registeredName: 'eye-regular',
       },
     ],
   },
@@ -921,15 +1055,6 @@ import { Typography } from '@/components/common/atoms/Typography';
     description: '검색·닫기·추가·공유·복사',
     items: [
       {
-        label: '모바일 메뉴',
-        origin: { label: 'Font Awesome', name: 'bars', detail: 'Regular' },
-        preview: <Icon name="bars-regular" size={20} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="bars-regular" size={20} />',
-        source: 'ShopShell.tsx',
-        note: 'color로 색상 변경 가능',
-        registeredName: 'bars-regular',
-      },
-      {
         label: 'faCopy',
         origin: { label: 'Font Awesome', name: 'copy', detail: 'Regular' },
         preview: <Icon name="copy-regular" size={24} />,
@@ -938,15 +1063,7 @@ import { Typography } from '@/components/common/atoms/Typography';
         note: 'color로 색상 변경 가능',
         registeredName: 'copy-regular',
       },
-      {
-        label: '검색',
-        origin: { label: 'Font Awesome', name: 'magnifying-glass', detail: 'Regular' },
-        preview: <Icon name="magnifying-glass-regular" size={19} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="magnifying-glass-regular" size={19} />',
-        source: 'ShopShell.tsx',
-        note: 'color로 색상 변경 가능',
-        registeredName: 'magnifying-glass-regular',
-      },
+
       {
         label: 'faMagnifyingGlass',
         origin: { label: 'Font Awesome', name: 'magnifying-glass', detail: 'Solid' },
@@ -1454,8 +1571,31 @@ function IconExampleCard({
         tone="subtle"
         className={css({ overflowWrap: 'anywhere' })}
       >
-        사용처: {example.source}
+        사용 파일: {example.source}
       </Typography>
+      {getUsageScreens(example.source).length > 0 && (
+        <HStack gap="2" flexWrap="wrap" aria-label="아이콘 사용 화면">
+          {getUsageScreens(example.source).map((screen) => (
+            <Link
+              key={screen.href}
+              href={screen.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              prefetch={false}
+              className={css({
+                color: 'blue.100',
+                textDecoration: 'underline',
+                textUnderlineOffset: '3px',
+                _focusVisible: { outline: '2px solid', outlineOffset: '2px' },
+              })}
+            >
+              <Typography as="span" variant="body5">
+                {screen.label} ↗
+              </Typography>
+            </Link>
+          ))}
+        </HStack>
+      )}
       <HStack
         as="code"
         alignItems="flex-start"
@@ -1552,9 +1692,11 @@ export function IconGuide() {
             제공합니다.
           </Typography>
           <Typography as="p" variant="body5" tone="subtle">
-            서비스 화면과 화면 목록·기존 가이드의 사용처를 기준으로 정리했습니다. 로고·국기·상품
-            이미지·배경 장식과 사용되지 않는 파일은 제외합니다. 사용처가 확인된 아이콘은 실제 호출
-            크기로 표시합니다. 화면별 크기가 다르면 해당 화면의 규격을 따릅니다.
+            사용 화면 링크는 새 탭으로 열립니다. 공통 컴포넌트는 대표 화면 또는 해당 가이드로
+            연결합니다. 화면 미적용 아이콘에는 링크를 제공하지 않습니다. 서비스 화면과 화면
+            목록·기존 가이드의 사용처를 기준으로 정리했습니다. 로고·국기·상품 이미지·배경 장식과
+            사용되지 않는 파일은 제외합니다. 사용처가 확인된 아이콘은 실제 호출 크기로 표시합니다.
+            화면별 크기가 다르면 해당 화면의 규격을 따릅니다.
           </Typography>
           <Grid columns={{ base: 3, _mobile: 1 }} gap="3">
             <IconExampleCard

@@ -1034,23 +1034,15 @@ function ProductListingContent({
   );
 }
 type ProductListTitleProps = {
-  platform: Platform;
   resultCount: number;
   searchQuery: string;
   title: string;
 };
 /** 상품 목록 제목과 검색 결과 건수를 표시합니다. (Displays the product listing title and result count.) */
-function ProductListTitle({ platform, resultCount, searchQuery, title }: ProductListTitleProps) {
+function ProductListTitle({ resultCount, searchQuery, title }: ProductListTitleProps) {
   return (
     <HStack gap="2" alignItems="flex-end">
-      <Typography
-        web="heading7"
-        mo="heading8"
-        weight="black"
-        className={
-          platform === 'mobile' ? css({ '&&': { fontSize: '22px', lineHeight: '1.2' } }) : undefined
-        }
-      >
+      <Typography web="heading7" mo="heading5" weight="black" tone="primary">
         {searchQuery ? `“${searchQuery}”에 대한 검색결과` : title}
       </Typography>
       <Typography variant="body4">({resultCount})</Typography>
@@ -1405,7 +1397,6 @@ function ProductListingLayout({
       stickyHeader={platform === 'web'}
       title={
         <ProductListTitle
-          platform={platform}
           resultCount={resultCount ?? result.length}
           searchQuery={normalizedSearchQuery}
           title={productListingTitle}
