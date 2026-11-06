@@ -1,6 +1,6 @@
 # 개발
 
-[main 변경 보고 스킬](../../.agents/skills/hoka-main-change-report/SKILL.md)은 수동 호출 시 지정 커밋을 포함하거나 마지막 성공 SHA 이후부터 최신 origin/main까지 최종 유효 변경을 분석해 IA 구조도의 날짜·담당자별 모달과 개발자 공유 보고서를 만든다. 담당자는 기존 IA 매핑을 사용한다.
+[main 변경 보고 스킬](../../.agents/skills/hoka-main-change-report/SKILL.md)은 수동 호출 시 지정 커밋을 포함하거나 마지막 성공 SHA 이후부터 최신 origin/main까지 최종 유효 변경을 분석해 IA 구조도의 날짜·담당자별 모달과 개발자 공유 보고서를 만든다. 담당자는 기존 IA 매핑을 사용한다. Schedule의 FO 개발 실적과 IA 저장값을 WBS 번호로 비교해 공유 보고서에 별도로 기록한다.
 
 [파일 diff 요약 로딩](verification.md#파일-diff-요약-로딩-표시-2026-11-04)은 `/wh` 콜아웃의 로딩 상태와 검증 범위를 기록한다.
 
