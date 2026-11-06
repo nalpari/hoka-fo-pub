@@ -12,7 +12,6 @@ import {
 import { css, cva } from 'styled-system/css';
 import { HStack, Stack } from 'styled-system/jsx';
 
-import { Icon } from '@/components/common/atoms/Icon';
 import { Typography } from '@/components/common/atoms/Typography';
 
 const root = css({ display: 'flex', flexDirection: 'column', gap: '8px', minW: '0' });
@@ -100,7 +99,6 @@ function FormFieldRoot({
   required = false,
   disabled = false,
   invalid = false,
-  info,
   hint,
   hintProps,
   error,
@@ -143,15 +141,6 @@ function FormFieldRoot({
             {labelElement ? (
               <HStack gap="4px" h="16px">
                 {labelElement}
-                {info ? (
-                  <span title={typeof info === 'string' ? info : undefined}>
-                    {typeof info === 'string' ? (
-                      <Icon name="circle-info-regular" size="16px" />
-                    ) : (
-                      info
-                    )}
-                  </span>
-                ) : null}
               </HStack>
             ) : null}
             <HStack gap="10px" minW="0">

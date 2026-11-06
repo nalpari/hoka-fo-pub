@@ -1643,3 +1643,5 @@ PC는 중앙 `ModalDialog`, 모바일은 `ModalDialog`의 fullscreen 표시를 �
 - 2026-11-06: A/S 처리 절차 전용 아이콘 카드와 해당 화면 링크를 가이드에서 제거했다.
 
 - 2026-11-06: FAQ 검색은 공통 SearchField의 iconPlacement="start"를 사용하여 데스크탑과 모바일 모두 입력문 앞에 돋보기를 배치한다.
+
+- 2026-11-06: 화면 목록의 생성된 소스 그래프에서 FormField의 Icon 의존성을 제거했다.
