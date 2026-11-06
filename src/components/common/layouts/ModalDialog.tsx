@@ -16,20 +16,16 @@ const header = css.raw({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  gap: '2',
-  flexShrink: '0',
   minH: '14',
-  px: '8',
-  pt: '8',
-  pb: '2',
+  px: '4',
   _mobile: {
     px: '4',
-    pt: '0',
-    pb: '0',
   },
 });
 
-const titleStyle = css({ m: '0', minW: '0' });
+const titleStyle = css({ h: '32px' });
+
+const sheetTitleStyle = css({ m: '0', minW: '0' });
 
 /** 공통 모달의 제목과 닫기 영역을 표시합니다. (Displays the shared modal title and dismissal action.) */
 function ModalDialogHeader({
@@ -50,6 +46,8 @@ function ModalDialogHeader({
       className={css(
         header,
         bottomSheet && {
+          gap: '2',
+          flexShrink: '0',
           _mobile: {
             borderBottom: scrollable ? '1px solid token(colors.black.20)' : '0',
           },
@@ -57,9 +55,11 @@ function ModalDialogHeader({
         styleOverrides,
       )}
     >
-      <Dialog.Title className={titleStyle}>
-        {typeof title === 'string' || typeof title === 'number' ? (
-          <Typography web="headingKr8" mo="headingKr9" weight="semibold">
+      <Dialog.Title className={bottomSheet ? sheetTitleStyle : titleStyle}>
+        {!bottomSheet ? (
+          <Typography variant="body3">{title}</Typography>
+        ) : typeof title === 'string' || typeof title === 'number' ? (
+          <Typography variant="headingKr9" weight="semibold">
             {title}
           </Typography>
         ) : (
@@ -82,9 +82,8 @@ const footerStyle = css.raw({
   justifyContent: 'center',
   flexShrink: '0',
   gap: '2',
-  px: '8',
-  pb: '10',
-  _mobile: { px: '4', pb: '6' },
+  px: '4',
+  pb: '6',
   '& > button': { w: '40', '--button-height': '40px', _mobile: { w: '100%' } },
 });
 
@@ -130,7 +129,7 @@ function ModalDialogFooter({
           paddingInlineEnd: '24px',
           _mobile: { paddingInlineStart: '16px', paddingInlineEnd: '16px' },
         },
-        inContent && { pt: '4', _mobile: { px: '0' } },
+        inContent && { px: '0', pt: '4' },
         styleOverrides,
       )}
       style={
@@ -192,7 +191,7 @@ const popup = cva({
   variants: {
     size: {
       sm: { maxW: '420px' },
-      md: { maxW: '640px' },
+      md: { maxW: '568px' },
       lg: { maxW: '864px' },
     },
     mobilePresentation: {
@@ -244,7 +243,7 @@ const sheetPopup = css.raw({
   },
 });
 
-const content = css({ p: '24px 32px 16px', _mobile: { p: '24px 16px 16px' } });
+const content = css({ p: '24px 24px 16px', _mobile: { p: '24px 16px 16px' } });
 
 const scrollableContent = css({ flex: '1', minH: '0', overflowY: 'auto' });
 
