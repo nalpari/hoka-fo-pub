@@ -7,6 +7,8 @@
 
 export type SearchCollection = { label: string; id: string };
 
+export const previewRecentSearches = ['트레일 러닝화', '러닝화', '본디 7'] as const;
+
 export const suggestedSearches = ['스피드고트', '여성러닝화', '본디8', '트레일러닝화', '마하5'];
 
 export const popularSearches = [

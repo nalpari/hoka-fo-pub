@@ -105,8 +105,12 @@ const usageScreens: Record<string, { label: string; href: string }> = {
     href: '/support/inquiries/preview-list',
   },
   'SearchField.tsx': {
-    label: '상품 검색',
-    href: '/search?q=클리프톤',
+    label: '고객센터 FAQ · 검색 입력',
+    href: '/support/faq',
+  },
+  'ShopShell.tsx · RecentSearchItem': {
+    label: '최근 검색어 · 개별 삭제',
+    href: '/#site-search-panel',
   },
   'SearchHeader.tsx': {
     label: '홈 · 헤더 검색 패널',
@@ -219,6 +223,7 @@ const usageScreens: Record<string, { label: string; href: string }> = {
 };
 
 function getUsageScreens(source: string) {
+  if (usageScreens[source]) return [usageScreens[source]];
   const files = source.match(/[\w/-]+\.tsx/g) ?? [];
   const screens = files.flatMap((file) => (usageScreens[file] ? [usageScreens[file]] : []));
   return screens.filter(
@@ -384,8 +389,33 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
         code: `import { Icon } from '@/components/common/atoms/Icon';
 
 <Icon name="xmark-regular" size={18} />`,
-        source: 'Figma xmark / Regular',
-        note: '원본 18px · size로 크기 변경 · color로 색상 변경 가능',
+        source: 'ShopShell.tsx · RecentSearchItem',
+        note: '원본 18px · 최근 검색어 삭제 시 모바일 18px / 데스크탑 14px',
+      },
+      {
+        label: '최근 검색어 삭제 · 모바일 18px / 데스크탑 14px',
+        registeredName: 'xmark-regular',
+        origin: { label: 'Font Awesome', name: 'xmark', detail: 'Regular' },
+        preview: (
+          <HStack gap="6">
+            <Stack alignItems="center" gap="2">
+              <Icon name="xmark-regular" size={18} />
+              <Typography variant="body5">모바일 18px</Typography>
+            </Stack>
+            <Stack alignItems="center" gap="2">
+              <Icon name="xmark-regular" size={14} />
+              <Typography variant="body5">데스크탑 14px</Typography>
+            </Stack>
+          </HStack>
+        ),
+        code: `import { usePlatform } from '@/context/platform';
+import { Icon } from '@/components/common/atoms/Icon';
+
+const platform = usePlatform();
+
+<Icon name="xmark-regular" size={platform === 'mobile' ? '18px' : '14px'} />`,
+        source: 'ShopShell.tsx · RecentSearchItem',
+        note: '최근 검색어 삭제 · 모바일 18px / 데스크탑 14px · 원본 18px',
       },
       {
         label: '닫기 · 20px',
@@ -1065,22 +1095,13 @@ const platform = usePlatform();
       },
 
       {
-        label: 'faMagnifyingGlass',
-        origin: { label: 'Font Awesome', name: 'magnifying-glass', detail: 'Solid' },
-        preview: <Icon name="magnifying-glass-solid" size={16} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="magnifying-glass-solid" size={16} />',
-        source: 'ProductDetailContent.tsx, SearchField.tsx',
-        note: 'color로 색상 변경 가능',
-        registeredName: 'magnifying-glass-solid',
-      },
-      {
-        label: 'faScrewdriverWrench',
-        origin: { label: 'Font Awesome', name: 'screwdriver-wrench', detail: 'Solid' },
-        preview: <Icon name="screwdriver-wrench-solid" size={24} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="screwdriver-wrench-solid" size={24} />',
-        source: 'ProductDetailContent.tsx',
-        note: 'color로 색상 변경 가능',
-        registeredName: 'screwdriver-wrench-solid',
+        label: '검색 입력 돋보기',
+        origin: { label: 'Font Awesome', name: 'magnifying-glass', detail: 'Regular' },
+        preview: <Icon name="magnifying-glass-regular" size={16} />,
+        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="magnifying-glass-regular" size={16} />',
+        source: 'SearchField.tsx',
+        note: 'SearchField 기본 아이콘 · 데스크탑·모바일 16px',
+        registeredName: 'magnifying-glass-regular',
       },
       {
         label: '필터',
@@ -1198,15 +1219,6 @@ const platform = usePlatform();
         registeredName: 'box-solid',
       },
       {
-        label: 'faBoxOpen',
-        origin: { label: 'Font Awesome', name: 'box-open', detail: 'Solid' },
-        preview: <Icon name="box-open-solid" size={24} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="box-open-solid" size={24} />',
-        source: 'ProductDetailContent.tsx',
-        note: 'color로 색상 변경 가능',
-        registeredName: 'box-open-solid',
-      },
-      {
         label: '날짜 선택',
         origin: { label: 'Font Awesome', name: 'calendar', detail: 'Regular' },
         preview: <Icon name="calendar-regular" size={16} />,
@@ -1223,15 +1235,6 @@ const platform = usePlatform();
         source: 'ShopShell.tsx',
         note: 'color로 색상 변경 가능',
         registeredName: 'circle-star-solid',
-      },
-      {
-        label: 'faClipboardList',
-        origin: { label: 'Font Awesome', name: 'clipboard-list', detail: 'Solid' },
-        preview: <Icon name="clipboard-list-solid" size={24} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="clipboard-list-solid" size={24} />',
-        source: 'ProductDetailContent.tsx',
-        note: 'color로 색상 변경 가능',
-        registeredName: 'clipboard-list-solid',
       },
       {
         label: '입고 예정',
@@ -1385,15 +1388,6 @@ const platform = usePlatform();
         source: 'ShopShell.tsx',
         note: 'color로 색상 변경 가능',
         registeredName: 'timer-regular',
-      },
-      {
-        label: 'faTruckFast',
-        origin: { label: 'Font Awesome', name: 'truck-fast', detail: 'Solid' },
-        preview: <Icon name="truck-fast-solid" size={24} />,
-        code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="truck-fast-solid" size={24} />',
-        source: 'ProductDetailContent.tsx',
-        note: 'color로 색상 변경 가능',
-        registeredName: 'truck-fast-solid',
       },
       {
         label: 'faUserSolid',

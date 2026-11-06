@@ -336,10 +336,6 @@ export const iconAssets = {
     src: '/images/icon/ban-solid.svg',
     mode: 'mask',
   },
-  'box-open-solid': {
-    src: '/images/icon/box-open-solid.svg',
-    mode: 'mask',
-  },
   'box-solid': {
     src: '/images/icon/box-solid.svg',
     mode: 'mask',
@@ -358,10 +354,6 @@ export const iconAssets = {
   },
   'circle-check-regular': {
     src: '/images/icon/circle-check-regular.svg',
-    mode: 'mask',
-  },
-  'clipboard-list-solid': {
-    src: '/images/icon/clipboard-list-solid.svg',
     mode: 'mask',
   },
   'comments-solid': {
@@ -416,14 +408,6 @@ export const iconAssets = {
     src: '/images/icon/location-dot-solid.svg',
     mode: 'mask',
   },
-  'magnifying-glass-solid': {
-    src: '/images/icon/magnifying-glass-solid.svg',
-    mode: 'mask',
-  },
-  'screwdriver-wrench-solid': {
-    src: '/images/icon/screwdriver-wrench-solid.svg',
-    mode: 'mask',
-  },
   'hoka-star-regular': {
     src: '/images/icon/hoka-star-regular.svg',
     mode: 'mask',
@@ -434,10 +418,6 @@ export const iconAssets = {
   },
   'triangle-exclamation-solid': {
     src: '/images/icon/triangle-exclamation-solid.svg',
-    mode: 'mask',
-  },
-  'truck-fast-solid': {
-    src: '/images/icon/truck-fast-solid.svg',
     mode: 'mask',
   },
   'hoka-user-regular': {

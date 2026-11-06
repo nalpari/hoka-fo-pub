@@ -8,14 +8,12 @@
 | --- | --- | --- | --- |
 | `faBan` | [ban-solid.svg](ban-solid.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-13553) |
 | `faBell` | [bell-regular.svg](bell-regular.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-15741) |
-| `faBoxOpen` | [box-open-solid.svg](box-open-solid.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-12908) |
 | `faBox` | [box-solid.svg](box-solid.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-18623) |
 | `faCheck` | [check-solid.svg](check-solid.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-16568) |
 | `faChevronDown` | [chevron-down-regular.svg](chevron-down-regular.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-11741) |
 | `faChevronLeft` | [chevron-left-solid.svg](chevron-left-solid.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-24938) |
 | `faChevronRight` | [chevron-right-solid.svg](chevron-right-solid.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-13818) |
 | `faCircleCheck` | [circle-check-regular.svg](circle-check-regular.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-15696) |
-| `faClipboardList` | [clipboard-list-solid.svg](clipboard-list-solid.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-16323) |
 | `faComments` | [comments-solid.svg](comments-solid.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-12393) |
 | `faCopy` | [copy-regular.svg](copy-regular.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-17546) |
 | `faCreditCard` | [credit-card-solid.svg](credit-card-solid.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-21253) |
@@ -29,12 +27,9 @@
 | `faFolderTree` | [folder-tree-solid.svg](folder-tree-solid.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-11407) |
 | `faImage` | [image-solid.svg](image-solid.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-17978) |
 | `faLocationDot` | [location-dot-solid.svg](location-dot-solid.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-12528) |
-| `faMagnifyingGlass` | [magnifying-glass-solid.svg](magnifying-glass-solid.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-22998) |
-| `faScrewdriverWrench` | [screwdriver-wrench-solid.svg](screwdriver-wrench-solid.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-23958) |
 | `faStarRegular` | [hoka-star-regular.svg](hoka-star-regular.svg) | 16 × 16 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-20271) |
 | `faStarSolid` | [hoka-star-solid.svg](hoka-star-solid.svg) | 16 × 16 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-20273) |
 | `faTriangleExclamation` | [triangle-exclamation-solid.svg](triangle-exclamation-solid.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-22653) |
-| `faTruckFast` | [truck-fast-solid.svg](truck-fast-solid.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-17248) |
 | `faUser` | [hoka-user-regular.svg](hoka-user-regular.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-10845) |
 | `faUserSolid` | [user-solid.svg](user-solid.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-10843) |
 
