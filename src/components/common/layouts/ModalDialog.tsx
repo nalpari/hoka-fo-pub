@@ -16,14 +16,20 @@ const header = css.raw({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
+  gap: '2',
+  flexShrink: '0',
   minH: '14',
-  px: '4',
+  px: '8',
+  pt: '8',
+  pb: '2',
   _mobile: {
     px: '4',
+    pt: '0',
+    pb: '0',
   },
 });
 
-const titleStyle = css({ height: '32px' });
+const titleStyle = css({ m: '0', minW: '0' });
 
 /** 공통 모달의 제목과 닫기 영역을 표시합니다. (Displays the shared modal title and dismissal action.) */
 function ModalDialogHeader({
@@ -43,27 +49,22 @@ function ModalDialogHeader({
     <header
       className={css(
         header,
-        styleOverrides,
         bottomSheet && {
           _mobile: {
-            h: '56px',
-            minH: '56px',
-            flexShrink: '0',
-            px: '6',
-            bg: 'white.0',
-            pt: '20px',
-            pb: '0',
             borderBottom: scrollable ? '1px solid token(colors.black.20)' : '0',
           },
         },
+        styleOverrides,
       )}
     >
-      <Dialog.Title
-        className={[titleStyle, bottomSheet && css({ _mobile: { h: 'auto', m: '0' } })]
-          .filter(Boolean)
-          .join(' ')}
-      >
-        <Typography variant="body3">{title}</Typography>
+      <Dialog.Title className={titleStyle}>
+        {typeof title === 'string' || typeof title === 'number' ? (
+          <Typography web="headingKr8" mo="headingKr9" weight="semibold">
+            {title}
+          </Typography>
+        ) : (
+          title
+        )}
       </Dialog.Title>
       <Dialog.Close
         render={
@@ -81,8 +82,9 @@ const footerStyle = css.raw({
   justifyContent: 'center',
   flexShrink: '0',
   gap: '2',
-  px: '4',
-  pb: '6',
+  px: '8',
+  pb: '10',
+  _mobile: { px: '4', pb: '6' },
   '& > button': { w: '40', '--button-height': '40px', _mobile: { w: '100%' } },
 });
 
@@ -106,12 +108,14 @@ function ModalDialogFooter({
   children,
   scrollFade,
   inContent,
+  bottomSheet,
   desktopContentOffset,
   css: styleOverrides,
 }: {
   children: ReactNode;
   scrollFade: boolean;
   inContent: boolean;
+  bottomSheet: boolean;
   desktopContentOffset?: number;
   css?: SystemStyleObject;
 }) {
@@ -119,13 +123,14 @@ function ModalDialogFooter({
     <footer
       className={css(
         footerStyle,
+        bottomSheet && { _mobile: { pb: '8' } },
         scrollFade && footerWithScrollFade,
         desktopContentOffset !== undefined && {
           paddingInlineStart: 'calc(24px + var(--modal-footer-content-offset))',
           paddingInlineEnd: '24px',
           _mobile: { paddingInlineStart: '16px', paddingInlineEnd: '16px' },
         },
-        inContent && { px: '0', pt: '4' },
+        inContent && { pt: '4', _mobile: { px: '0' } },
         styleOverrides,
       )}
       style={
@@ -179,15 +184,15 @@ const popup = cva({
     w: '100%',
     maxH: 'calc(100dvh - 48px)',
     overflowY: 'auto',
-    borderRadius: '0',
+    borderRadius: '10px',
     bg: 'var(--color-white-000)',
     boxShadow: '0 4px 4px color-mix(in srgb, var(--color-black-100) 25%, transparent)',
-    _mobile: { maxH: 'calc(100dvh - 32px)' },
+    _mobile: { maxH: 'calc(100dvh - 32px)', borderRadius: '0' },
   },
   variants: {
     size: {
       sm: { maxW: '420px' },
-      md: { maxW: '568px' },
+      md: { maxW: '640px' },
       lg: { maxW: '864px' },
     },
     mobilePresentation: {
@@ -207,7 +212,7 @@ const popup = cva({
           w: '100vw!',
           maxW: '100vw',
           maxH: 'calc(100dvh - 44px)',
-          borderRadius: '20px 20px 0 0',
+          borderRadius: '24px 24px 0 0',
         },
       },
     },
@@ -222,7 +227,24 @@ const popupWithFooter = css.raw({
   overflowY: 'hidden',
 });
 
-const content = css({ p: '24px 24px 16px', _mobile: { p: '24px 16px 16px 16px' } });
+const sheetPopup = css.raw({
+  display: 'flex',
+  flexDirection: 'column',
+  overflow: 'hidden',
+  '&::before': {
+    content: '""',
+    display: 'block',
+    flexShrink: '0',
+    w: '36px',
+    h: '4px',
+    borderRadius: 'full',
+    bg: '#E9EAEB',
+    mx: 'auto',
+    mt: '2',
+  },
+});
+
+const content = css({ p: '24px 32px 16px', _mobile: { p: '24px 16px 16px' } });
 
 const scrollableContent = css({ flex: '1', minH: '0', overflowY: 'auto' });
 
@@ -378,6 +400,7 @@ export function ModalDialog({
   const footerContent = resolvedFooter ? (
     <ModalDialogFooter
       {...footerProps}
+      bottomSheet={sheet}
       inContent={footerInContent}
       scrollFade={scrollFade && !footerInContent}
     >
@@ -397,7 +420,7 @@ export function ModalDialog({
                 css(
                   popup.raw({ size, mobilePresentation }),
                   Boolean(resolvedFooter) && popupWithFooter,
-                  sheet && { display: 'flex', flexDirection: 'column', overflow: 'hidden' },
+                  sheet && sheetPopup,
                   sheet && scrollable && { h: 'calc(100dvh - 44px)' },
                 ),
                 popupClassName,
@@ -421,7 +444,7 @@ export function ModalDialog({
                       minH: '0',
                       flex: scrollable ? '1' : '0 1 auto',
                       overflowY: 'auto',
-                      p: resolvedFooter && !scrollable ? '24px' : '24px 24px 32px',
+                      p: resolvedFooter && !scrollable ? '24px 16px' : '24px 16px 32px',
                     }),
                   contentClassName,
                 ]

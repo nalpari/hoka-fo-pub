@@ -4,12 +4,13 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-06T02:02:03Z'
+updated: '2026-11-06T05:09:40Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/publishing-guide/_components/ModalGuide.tsx
   - src/app/screen-index/sourceGraph.generated.json
   - src/app/products/pdp-preview/[state]/page.tsx
   - src/app/products/[id]/productDetailPreviews.ts
@@ -1660,3 +1661,7 @@ IA STATE의 WBS·개발자·진척율이 상위 화면에 표시된 경우 STATE
 - 2026-11-06: 닫기 20px 아이콘 카드에서 홈의 헤더 검색 패널을 직접 여는 링크를 제공한다.
 
 2026-11-06 main 변경 보고는 origin/main의 고정 비교 범위와 Schedule 실적을 사용한다. 실적 0% 화면 전용 변경을 제외하고 공용 파일은 보고 대상 IA 번호를 명시해 담당자를 좁힐 수 있다. 출처: screenChangeHistory.ts 및 11월 6일 보고 데이터.
+
+## 공통 모달 규격 적용과 확인 경로 (2026-11-06)
+
+PDP의 장바구니 완료와 옵션 바텀시트는 공통 기본 규격을 사용한다. 최대 높이 상태의 별도 높이 제한과 완료 팝업의 상품·추천·CTA 구성은 PDP에서 관리한다. 기존 확인 URL을 사용하며 퍼블리싱 가이드 모달 예시의 규격 설명을 갱신했다. [공통 UI 규격](ui.md#pdp-기준-공통-모달-스타일-2026-11-06).

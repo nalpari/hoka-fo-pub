@@ -2559,43 +2559,16 @@ function CartAddedRecommendations({ products }: { products: Product[] }) {
   );
 }
 
-const productSheet = css({
-  _mobile: {
-    borderRadius: '24px 24px 0 0',
-    '&::before': {
-      content: '""',
-      display: 'block',
-      flexShrink: '0',
-      w: '36px',
-      h: '4px',
-      borderRadius: 'full',
-      bg: '#E9EAEB',
-      mx: 'auto',
-      mt: '2',
-    },
-  },
-});
-
 const maxProductSheet = css({
   _mobile: { maxH: 'calc(100dvh - 92px)' },
 });
 
 const cartScrollPopup = css({ maxH: 'min(720px, calc(100dvh - 48px))' });
 
-const sheetContent = css({ _mobile: { px: '4' } });
-
-const cartAddedPopup = css({
-  maxW: '640px',
-  borderRadius: '10px',
-  _mobile: { maxW: '100vw', borderRadius: '24px 24px 0 0' },
-});
-
 const cartAddedContent = css({
   display: 'flex',
   flexDirection: 'column',
   gap: '8',
-  px: '8',
-  _mobile: { px: '4' },
 });
 
 /** 상품 옵션과 입고알림 선택 및 이미지 열람을 로컬로 표시합니다. (Displays local product-option and restock selections and image viewing.) */
@@ -2790,10 +2763,7 @@ export function RouteContent({ preview }: { preview?: ProductDetailPreview }) {
           closeLabel="상품 옵션 닫기"
           mobilePresentation="bottomSheet"
           scrollable={preview === 'options-scroll'}
-          popupClassName={
-            preview === 'options-scroll' ? `${productSheet} ${maxProductSheet}` : productSheet
-          }
-          contentClassName={sheetContent}
+          popupClassName={preview === 'options-scroll' ? maxProductSheet : undefined}
           footer={<ProductPurchaseActions restock={restock} placement="sheet" />}
         >
           <Stack gap="6">
@@ -2832,10 +2802,8 @@ export function RouteContent({ preview }: { preview?: ProductDetailPreview }) {
           mobilePresentation="bottomSheet"
           scrollable={scrollPreview}
           scrollFade={scrollPreview}
-          popupClassName={`${cartAddedPopup} ${productSheet} ${scrollPreview ? `${cartScrollPopup} ${maxProductSheet}` : ''}`}
+          popupClassName={scrollPreview ? `${cartScrollPopup} ${maxProductSheet}` : undefined}
           contentClassName={cartAddedContent}
-          headerProps={{ css: { px: '8', pt: '8', pb: '2', _mobile: { px: '4', pt: '0' } } }}
-          footerProps={{ css: { px: '8', pb: '10', _mobile: { px: '4', pb: '8' } } }}
           footer={
             <Stack gap="8" minW="0" w="100%">
               <Grid w="100%" maxW="484px" mx="auto" gridTemplateColumns="1fr 1fr" gap="2">
