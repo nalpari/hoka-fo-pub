@@ -2379,3 +2379,5 @@ Figma Navigational Buttons(296:25392)와 Action Buttons(296:25425)의 기본·�
 - 아이콘 가이드 hoka-bag-shopping-regular 사용처를 실제 소유 파일 OrderHistoryProduct.tsx로 교정했다. 공통 헤더 ShopShell.tsx 표기는 유지한다.
 
 - 2026-11-06: origin/main 9dca5003을 pub-psh-1015에 fast-forward 반영하고 아이콘 사용처 교정을 복원했다. routing 문서의 동시 추가 기록은 모두 보존했다. 자동 재생성된 화면 그래프에서 삭제된 BottomSheet의 남은 참조를 제거했다.
+
+- 2026-11-06: 상품 목록 카테고리 제목을 피그마의 Wide H7·Compact H5에 맞추고 개별 모바일 글자 크기 오버라이드를 제거했다.
