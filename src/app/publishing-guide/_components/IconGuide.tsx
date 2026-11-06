@@ -260,7 +260,7 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
 
 <NotificationIcon variant="user" count={1} color="var(--color-black-100)" />`,
         source: 'ShopShell.tsx',
-        note: '데스크탑·모바일 공통 22px · 알림 1건 예시 · 배지 12px · 숫자 8px 흰색',
+        note: '데스크탑·모바일 공통 22px · 알림 1건 예시 · 배지 12px · 숫자 8px 검정(primary)',
       },
       {
         label: '쇼핑백 · 알림 배지',
@@ -270,7 +270,7 @@ const iconGroups: { id: string; title: string; description: string; items: IconE
 
 <NotificationIcon variant="bag" count={1} color="var(--color-black-100)" />`,
         source: 'ShopShell.tsx',
-        note: '데스크탑·모바일 공통: 아이콘 22px · 클릭 영역 34×36px · 배지 12px · 숫자 8px 흰색',
+        note: '데스크탑·모바일 공통: 아이콘 22px · 클릭 영역 34×36px · 배지 12px · 숫자 8px 검정(primary)',
       },
       {
         label: '모바일 메뉴',

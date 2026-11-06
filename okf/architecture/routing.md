@@ -1618,7 +1618,7 @@ PC는 중앙 `ModalDialog`, 모바일은 `ModalDialog`의 fullscreen 표시를 �
 
 아이콘 가이드의 `icon-header` 그룹은 모바일 헤더 순서(검색·장바구니·메뉴)로 분리한다. 각 예시의 복사 코드와 ShopShell 대표 화면 링크를 유지하며 주문 내역의 18px 장바구니 담기는 기존 디자인팀 그룹에 남긴다. 출처: `src/app/publishing-guide/_components/IconGuide.tsx`; 2026-11-06.
 
-헤더 장바구니 가이드는 데스크탑·모바일 공통 22px 아이콘과 12px 파란 배지·8px 흰색 숫자를 명시한다. 다른 알림 예시의 배지 위치와 글자 스타일도 공통 NotificationCount 규격에 맞춘다. (2026-11-06)
+헤더 장바구니 가이드는 데스크탑·모바일 공통 22px 아이콘과 12px 파란 배지·8px 검정(primary) 숫자를 명시한다. 다른 알림 예시의 배지 위치와 글자 스타일도 공통 NotificationCount 규격에 맞춘다. (2026-11-06)
 
 - 2026-11-06: 헤더 아이콘 그룹의 계정·쇼핑백 알림 예시와 복사 코드는 ShopShell의 NotificationIcon을 사용한다.
 
