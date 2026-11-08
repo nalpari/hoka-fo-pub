@@ -165,11 +165,11 @@ const groups: { id: string; title: string; description: string; items: ModalExam
       {
         id: 'bottom',
         usage:
-          '배송조회, 주문 취소·반품 신청, 문의 첨부파일 미리보기. ModalDialog를 모바일에서 바텀시트처럼 표시한 형태입니다. 데스크탑에서는 중앙 팝업, 모바일에서는 하단 시트로 보여주되 같은 모달 안에서 본문·입력 상태·열기/닫기를 유지하기 위해 사용합니다. bottomSheet 옵션이 모바일 전체 너비·상단 모서리 20px·헤더 56px·타이틀 body3·닫기 xmark-regular 20px를 공통 적용합니다. 본문·버튼·세부 여백은 화면별로 다릅니다.',
+          '배송조회, 주문 취소·반품 신청, 문의 첨부파일 미리보기. ModalDialog를 모바일에서 바텀시트처럼 표시한 형태입니다. 데스크탑에서는 중앙 팝업, 모바일에서는 하단 시트로 보여주되 같은 모달 안에서 본문·입력 상태·열기/닫기를 유지하기 위해 사용합니다. bottomSheet 옵션이 모바일 전체 너비·상단 모서리 24px·손잡이 36×4px·헤더 최소 56px·타이틀 headingKr9·닫기 xmark-regular 20px를 공통 적용합니다. 본문·버튼·세부 여백은 화면별로 다릅니다.',
         source: 'OrderTrackingDialog.tsx / OrderClaimRequest.tsx / InquiryListContent.tsx',
         title: '바텀시트형 모달 · bottomSheet',
         desktop: '중앙 팝업 · 최대 568px',
-        mobile: '하단 정렬 · 전체 너비 · 상단 모서리 20px',
+        mobile: '하단 정렬 · 전체 너비 · 상단 모서리 24px',
         options: { mobilePresentation: 'bottomSheet' },
         action: 'confirm',
       },
@@ -192,7 +192,7 @@ const groups: { id: string; title: string; description: string; items: ModalExam
           'Dropdown의 모바일 선택·정렬, 이전 약관 선택에서 사용하는 기본형입니다. 분홍 영역은 피그마의 본문 자리 표시이며 실제 화면의 콘텐츠를 넣습니다.',
         source: 'Dropdown.tsx / PreviousTermsPicker.tsx',
         desktop: '중앙 팝업 · 최대 568px',
-        mobile: `상단 모서리 20px · 헤더 56px · body3 · 닫기 20px · ${item.long ? '화면 높이까지 확장 · 본문 스크롤 · 헤더 구분선' : '본문 예시 높이 334px'} · ${item.sheetFooter ? '버튼 48px · 푸터 위/좌우 16px · 아래 32px' : '푸터 없음 · 본문 아래 32px'}`,
+        mobile: `상단 모서리 24px · 손잡이 36×4px · 헤더 최소 56px · headingKr9 · 닫기 20px · ${item.long ? '화면 높이까지 확장 · 본문 스크롤 · 헤더 구분선' : '본문 예시 높이 334px'} · ${item.sheetFooter ? '푸터 좌우 16px · 아래 32px' : '푸터 없음 · 본문 아래 32px'}`,
       })),
     ],
   },
@@ -246,7 +246,7 @@ const triggerRef = useRef<HTMLButtonElement>(null);
 
   if (example.sheet)
     return `import { useState } from 'react';
-${!example.long ? "import { css } from 'styled-system/css';\n" : ''}import { Box } from 'styled-system/jsx';
+import { Box } from 'styled-system/jsx';
 import { Button } from '@/components/common/atoms/Button';
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
@@ -260,9 +260,9 @@ const [open, setOpen] = useState(false);
     closeLabel="닫기"
 ${example.long ? '    scrollable\n' : ''}    title="바텀시트 타이틀"
     onOpenChange={setOpen}
-${!example.long ? "    contentClassName={css({ h: '334px' })}\n" : ''}${example.sheetFooter ? '    footer={<Button variant="primary" onClick={() => setOpen(false)}>신청하기</Button>}\n' : ''}  >
+${example.sheetFooter ? '    footer={<Button variant="primary" onClick={() => setOpen(false)}>신청하기</Button>}\n' : ''}  >
     {/* 본문 자리 표시: 실제 화면의 콘텐츠로 교체 */}
-    <Box h="${example.long ? '900px' : example.sheetFooter ? '286px' : '278px'}" bg="rgba(255, 0, 0, 0.2)" />
+    <Box h=${example.long ? '"900px"' : `{{ base: '294px', _mobile: '${example.sheetFooter ? '286px' : '278px'}' }}`} bg="rgba(255, 0, 0, 0.2)" />
   </ModalDialog>
 )}`;
   const options = Object.entries(example.options ?? {})
@@ -441,7 +441,6 @@ function ModalExampleCard({
             scrollable={example.long}
             title="바텀시트 타이틀"
             finalFocus={triggerRef}
-            contentClassName={!example.long ? css({ h: '334px' }) : undefined}
             onOpenChange={setOpen}
             footer={
               example.sheetFooter ? (
@@ -452,7 +451,13 @@ function ModalExampleCard({
             }
           >
             <Box
-              h={example.long ? '900px' : example.sheetFooter ? '286px' : '278px'}
+              className={
+                example.long
+                  ? css({ h: '900px' })
+                  : example.sheetFooter
+                    ? css({ h: '294px', _mobile: { h: '286px' } })
+                    : css({ h: '294px', _mobile: { h: '278px' } })
+              }
               bg="rgba(255, 0, 0, 0.2)"
             />
           </ModalDialog>
@@ -517,8 +522,8 @@ export function ModalGuide() {
             모달을 확인합니다.
           </Typography>
           <Typography as="p" variant="body5" tone="subtle">
-            ModalDialog의 기본값은 md · popup · dark입니다. 모바일 표시 옵션은 데스크탑에서 중앙
-            팝업으로 유지됩니다. 모바일에서만 bottomSheet 옵션으로 하단에 표시합니다.
+            ModalDialog의 기본값은 md · popup · dark입니다. PC 기본 모달은 최대 너비 568px와 모서리
+            10px를 사용합니다. bottomSheet는 모바일에서 하단에 표시됩니다.
           </Typography>
           <Typography as="p" variant="body5" tone="subtle">
             사용처: 전체화면은 본인인증·약관, 바텀시트형 모달은 배송조회·주문 취소·반품 신청,

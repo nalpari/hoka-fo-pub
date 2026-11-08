@@ -4,12 +4,14 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-05T08:13:41Z'
+updated: '2026-11-06T07:52:01Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/publishing-guide/_components/ModalGuide.tsx
+  - src/app/screen-index/sourceGraph.generated.json
   - src/app/products/pdp-preview/[state]/page.tsx
   - src/app/products/[id]/productDetailPreviews.ts
   - src/app/checkout/preview-address-change/page.tsx
@@ -365,6 +367,10 @@ sources:
 ---
 
 # 라우팅과 플랫폼
+
+## 주문 상세 소스 연결 목록 갱신 (2026-11-06)
+
+`src/app/screen-index/sourceGraph.generated.json`의 주문 상세 연결 목록을 현재 import 관계로 갱신해 사용하지 않는 `BottomSheet.tsx`를 제외했다. `OrderDetails.tsx`의 참조와 `npm run screen-files` 재실행 결과를 확인했으며 화면 URL과 라우트 동작에는 영향이 없다.
 
 홈 `/`의 섹션 순서는 히어로 → 카테고리 → Find my HOKA → Explore → Best Seller다. 홈의 `HomeContent.tsx`가 PC와 모바일의 공통 순서를 정한다. 러닝세션의 ‘신청 시작’ 알림은 기존 상세 경로에서 신청 예정 상태일 때 표시하며, 색상은 [러닝세션 디자인](running-session-design.md#신청-시작-알림-색상과-목록-이미지-모서리-2026-11-05)을 따른다.
 
@@ -1581,40 +1587,60 @@ PC는 중앙 `ModalDialog`, 모바일은 `ModalDialog`의 fullscreen 표시를 �
 출처: screenChangeHistory.ts, screenChangeHistory.generated.json, tests/main-change-history.test.mjs 작업 트리 및 ccd82db0 → 3719352b Git 비교. 기록: codex, 2026-11-05T07:47:55.730Z.
 
 - 아이콘 가이드 hoka-bag-shopping-regular 사용처를 실제 소유 파일 OrderHistoryProduct.tsx로 교정했다. 공통 헤더 ShopShell.tsx 표기는 유지한다.
+
 ## PDP 개정 시안과 IA 상태 (2026-11-05)
 
 기존 상품상세 코드 `eland_hca_02`의 기본 링크는 `/products/shoe-1`이다. PC/MO는 동일 URL을 공유한다. 추가 상태는 `/products/pdp-preview/[state]`에서 허용된 상태만 렌더링한다. 아래 표의 짧은 상태명은 해당 경로의 마지막 segment다. 모바일 고정 CTA는 대응 기본/품절 화면에서 확인한다. 가이드·Note 프레임은 제품 상태에서 제외했다.
 
-| 시안 섹션 | 대응 프레임 PC / MO | 확인 URL |
-| --- | --- | --- |
-| 신발[^pdp-104663] | 105293 / 108394 접힘 | `/products/shoe-1` |
-| 신발 | 105836 / 107721 펼침 | `inquiries-expanded` |
-| 신발 | 104664 / 109004 문의 없음 | `/products/preview-empty-inquiries#product-inquiries` |
-| 의류[^pdp-93347] | 94464 / 93348 기본, 93902 고정 CTA | `apparel` |
-| 할인[^pdp-103439] | 103440 / 104077 | `sale` |
-| 품절[^pdp-100884] | 100885 / 대응 MO 시안 미제공 | `partial-stock` |
-| 품절 | 101514 / 102823·106489의 품절 CTA | `/products/preview-restock` |
-| 품절 | 102146 / 102823·106489의 품절 CTA | `sold-out` |
-| 선택[^pdp-98879] | 98880 / 99533 | `options-selected` |
-| 선택 | PC는 기존 선택 목록 / 100177 최대 높이 | `options-scroll` |
-| 사이즈 미선택 오류[^pdp-97663] | 98244 / 97664 | `/products/preview-options-required` |
-| 장바구니 추가 완료[^pdp-94996] | 95623 / 96237 한 스타일 | `cart-added` |
-| 장바구니 추가 완료 | 94997 / 96942 최대 높이 | `cart-added-scroll` |
+| 시안 섹션                      | 대응 프레임 PC / MO                    | 확인 URL                                              |
+| ------------------------------ | -------------------------------------- | ----------------------------------------------------- |
+| 신발[^pdp-104663]              | 105293 / 108394 접힘                   | `/products/shoe-1`                                    |
+| 신발                           | 105836 / 107721 펼침                   | `inquiries-expanded`                                  |
+| 신발                           | 104664 / 109004 문의 없음              | `/products/preview-empty-inquiries#product-inquiries` |
+| 의류[^pdp-93347]               | 94464 / 93348 기본, 93902 고정 CTA     | `apparel`                                             |
+| 할인[^pdp-103439]              | 103440 / 104077                        | `sale`                                                |
+| 품절[^pdp-100884]              | 100885 / 대응 MO 시안 미제공           | `partial-stock`                                       |
+| 품절                           | 101514 / 102823·106489의 품절 CTA      | `/products/preview-restock`                           |
+| 품절                           | 102146 / 102823·106489의 품절 CTA      | `sold-out`                                            |
+| 선택[^pdp-98879]               | 98880 / 99533                          | `options-selected`                                    |
+| 선택                           | PC는 기존 선택 목록 / 100177 최대 높이 | `options-scroll`                                      |
+| 사이즈 미선택 오류[^pdp-97663] | 98244 / 97664                          | `/products/preview-options-required`                  |
+| 장바구니 추가 완료[^pdp-94996] | 95623 / 96237 한 스타일                | `cart-added`                                          |
+| 장바구니 추가 완료             | 94997 / 96942 최대 높이                | `cart-added-scroll`                                   |
 
 브라우저에서 IA 의류 링크가 지정 URL을 새 탭으로 여는지 확인했다. PC 1920px과 모바일 375px 모드에서 13개 URL에 직접 들어가 기본·할인·품절·오류·선택과 완료 상태를 확인했다. 구매·추가·입고알림 요청과 금액 계산은 향후 상품상세 통합 소유자가 연결한다.
 
 [^pdp-104663]: PDP 신발 섹션과 하위 프레임.
+
 [^pdp-93347]: PDP 의류 섹션과 하위 프레임.
+
 [^pdp-103439]: Sale Price 섹션.
+
 [^pdp-100884]: 품절 섹션.
+
 [^pdp-98879]: Option Selection 섹션.
+
 [^pdp-97663]: No Size Selected Error 섹션.
+
 [^pdp-94996]: 장바구니 추가 완료 섹션.
+
+2026-11-06 IA 표에서 PC·MO 디자인 및 퍼블리싱 열을 제거했다. 실제 페이지 열의 제목은 새창으로 표시하고 보기 링크는 새 탭에서 연다. 출처: IaStructurePage.tsx 작업 트리.
+
+IA 표의 화면코드 아래에는 WBS를 표시한다. 구분 바로 다음에 새창 열을 배치하고 개발자 (진척율)는 독립 열로 표시한다. WBS 번호와 개발자는 기존 화면·상태별 매핑을 사용한다. 출처: IaStructurePage.tsx와 screenDevelopers.ts.
+
+IA 개발자 열의 진척율은 Eland_021_일정(WBS)_20261106_v1.0/Schedule.html의 FO 개발 5.3.2 범위 실적(AB열)을 WBS 번호로 연결한다. 내보내기 시점의 실적만 반영하며 화면·STATE 담당자 연결은 기존 매핑을 따른다. 배지는 0% 회색, 진행 중 황색, 100% 녹색으로 구분한다. 출처: wbsActualSnapshot.json 및 IaStructurePage.tsx 작업 트리.
+
+새창 열은 최소 너비 100px로 표시한다. 상위 행의 하위 상태 참조 문구를 제거하고 실제 미리보기는 STATE 행의 보기 링크로 표시한다. 출처: IaStructurePage.tsx 작업 트리.
+
+## 주문 상세 소스 목록 갱신 (2026-11-06)
+
+`src/app/screen-index/sourceGraph.generated.json`을 현재 import 관계로 재생성해 주문 상세의 연결 목록에서 사용하지 않는 `BottomSheet.tsx`를 제외했다. `npm run screen-files`를 다시 실행해 같은 결과를 확인했다. 화면 URL과 라우팅 동작에는 영향이 없다.
+
+IA STATE의 WBS·개발자·진척율이 상위 화면에 표시된 경우 STATE 행에서는 생략한다. 별도 매핑이 있는 상태는 해당 행에 표시한다. 출처: IaStructurePage.tsx 작업 트리.
 
 - 아이콘 가이드에 파일명별 대표 화면/컴포넌트 가이드 링크를 추가했다. 사용 파일 표기는 유지하고 화면 이름을 새 탭 링크로 제공하며 중복 URL은 제거한다. 디자인 시스템 미적용 예시는 링크를 만들지 않는다. Next Link prefetch=false로 가이드의 대량 선행 로드를 방지한다.
 
 - 아이콘 가이드 별점 제목 faStarRegular/faStarSolid를 별점 · 기본/별점 · 채움으로 한글화했다. 등록 이름과 사용 코드는 유지한다.
-
 
 아이콘 가이드의 `icon-header` 그룹은 모바일 헤더 순서(검색·장바구니·메뉴)로 분리한다. 각 예시의 복사 코드와 ShopShell 대표 화면 링크를 유지하며 주문 내역의 18px 장바구니 담기는 기존 디자인팀 그룹에 남긴다. 출처: `src/app/publishing-guide/_components/IconGuide.tsx`; 2026-11-06.
 
@@ -1667,3 +1693,11 @@ PC는 중앙 `ModalDialog`, 모바일은 `ModalDialog`의 fullscreen 표시를 �
 - 2026-11-06: 임직원 쿠폰 미리보기의 체크 아이콘은 피그마 1813:88674 순서대로 첫 카드 Solid·둘째 카드 Regular를 사용한다.
 
 - 2026-11-06: 아이콘 가이드 타임라인은 섹션 제목과 짧은 한 줄 요약을 표시하고, 상세 설명은 본문 제목 아래에 표시한다.
+
+2026-11-06 main 변경 보고는 origin/main의 고정 비교 범위와 Schedule 실적을 사용한다. 실적 0% 화면 전용 변경을 제외하고 공용 파일은 보고 대상 IA 번호를 명시해 담당자를 좁힐 수 있다. 출처: screenChangeHistory.ts 및 11월 6일 보고 데이터.
+
+## 공통 모달 규격 적용과 확인 경로 (2026-11-06)
+
+PDP 옵션 시트와 모바일 장바구니 완료는 공통 바텀시트 규격을 사용한다. PC 장바구니 완료는 PDP에서 최대 너비 640px와 화면 전용 헤더·본문·푸터 여백을 지정한다. 최대 높이 상태의 별도 높이 제한과 완료 팝업의 상품·추천·CTA 구성은 PDP에서 관리한다. 기존 확인 URL을 사용하며 퍼블리싱 가이드 모달 예시의 규격 설명을 갱신했다. [공통 UI 규격](ui.md#pdp-기준-공통-모달-스타일-2026-11-06).
+
+2026-11-06 16:48 KST 보고는 지정 시작 커밋 9dca5003을 포함해 origin/main e8203fb0까지 비교했다. 제품 패치가 앞선 보고와 일치해 변경 근거를 재사용하고, WBS 실적을 다시 조회했다. 모달의 두 비교 범위와 각 7개 파일, 보고서 테스트 11개를 확인했다. 출처: screenChangeHistory.generated.json 및 공유 보고서 작업 트리.

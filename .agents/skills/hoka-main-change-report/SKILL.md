@@ -1,6 +1,6 @@
 ---
 name: hoka-main-change-report
-description: 'origin/main의 최종 유효 변경을 분석해 IA 구조도의 보고서 모달과 개발자 공유용 한국어 자료를 만든다. 커밋 해시부터 최신 main까지 또는 마지막 성공 보고 이후의 변경 보고 요청에 사용한다.'
+description: 'origin/main의 최종 유효 변경을 분석해 IA 구조도의 보고서 모달과 개발자 공유용 한국어 자료를 만들고 WBS 진척도 변경을 확인한다. 커밋 해시부터 최신 main까지 또는 마지막 성공 보고 이후의 변경 보고 요청에 사용한다.'
 ---
 
 # HOKA main 변경 보고
@@ -35,12 +35,20 @@ $hoka-main-change-report
 
 ## IA 연결과 담당자
 
-- 현재 IA 구조도의 `src/data/screenRegistry.ts`, `src/app/screen-index/screenConnections.ts`, `screenDevelopers.ts`와 렌더러를 읽는다. **개발담당자는 IA에 등록된 값을 그대로 사용**한다. Google Drive·Sheets·WBS는 조회하지 않고 매핑을 변경하지 않는다. 공란은 `미지정`으로 표시하며 과거 담당자를 추정하지 않는다.
+- 현재 IA 구조도의 `src/data/screenRegistry.ts`, `src/app/screen-index/screenConnections.ts`, `screenDevelopers.ts`와 렌더러를 읽는다. **개발담당자와 WBS 번호는 IA에 등록된 매핑을 그대로 사용**한다. Google Sheets는 아래 진척도 확인에만 사용한다. 공란은 `미지정`으로 표시하며 과거 담당자를 추정하지 않는다.
 - 제품 변경 분석은 B/T 소스에서 수행하고 IA/담당자 매핑을 읽은 리비전과 작업 트리 사용 여부를 별도 기록한다. 로컬 미커밋 제품 변경을 main의 변경으로 섞지 않는다.
 - `getRouteSourceFiles`는 인계용 목록이므로 전체 영향 탐색의 유일한 기준으로 사용하지 않는다. 비교 전후 전체 import 관계를 역추적해 page·layout과 연결된 IA를 찾는다. `scripts/screen-files.mjs`의 `buildSourceGraph` 등 기존 분석기를 참고하되 B/T를 저장소 밖 임시 스냅샷에서 분석하고 공유 생성 파일을 덮어쓰지 않는다. 현재 그래프를 과거 리비전의 그래프로 간주하지 않는다.
 - 공통 UI·삭제/이름변경 파일·layout·전역 스타일·public 에셋·설정·문자열/동적 참조도 확인한다. 정적 import 그래프로 증명되지 않는 영향은 `영향 가능` 또는 `연결 확인 필요`로 구분한다. 직접 수정 파일과 영향 화면을 분리하고 IA에 연결되지 않는 파일도 보고서에서 누락하지 않는다.
 - 공통 변경은 실제 소유자 기준으로 한 번 분류한다. STATE 공통은 상위 화면, D4 목록/상세의 공통은 실제 D3 분류 등 기존 소유권을 매핑 근거로 사용한다. 이 분류는 보고 데이터의 담당자·변경사항에 사용하며 각 IA 행에 새 비고나 보고서 버튼을 추가하지 않는다. 기존 상품 공통 수동 비고는 그대로 보존한다.
 - 상태 URL의 query/hash를 보존하고 같은 pathname의 다른 상태를 합치지 않는다. 소유자가 여러 영역에 걸치면 대표 화면을 발명하지 말고 공통 변경으로 구분한다. 전역 레이아웃의 간접 의존만으로 특정 화면이 직접 수정된 것처럼 표시하지 않는다.
+
+## WBS 진척도 변경 확인
+
+- 실제 보고를 실행할 때 [Google Sheets Schedule](https://docs.google.com/spreadsheets/d/1BAxtSHBSp8DguH0gv2EbnEpqHZhZEez66eyTSmAcG6w/edit?gid=1070650770#gid=1070650770)을 연결된 Google Drive/Sheets 도구로 읽는다. FO 개발 5.3.2와 그 하위 작업의 B열 WBS 번호, AB열 실적 값을 수집하고 조회 시각(Asia/Seoul)을 기록한다. 행 위치로 매칭하거나 AA열 계획을 실적으로 사용하지 않는다.
+- IA에 매핑된 WBS 번호를 기준으로 현재 IA가 사용하는 `src/app/screen-index/wbsActualSnapshot.json`의 `actualByWbs`와 비교한다. 비교 기준 파일과 출처를 기록하고 시트 숫자 비율과 백분율 문자열을 같은 단위로 정규화한다. 0%도 유효 값이다. 중복 번호·누락·공란·오류 값·기준값 부재는 별도로 기록하고 변경 없음으로 처리하지 않는다.
+- 코드 diff와 별개로 Git 변경이 없어도 진척도를 확인한다. 비교 결과는 공유 보고서의 별도 섹션에 WBS 번호·관련 IA 메뉴/화면·IA 개발담당자·저장값·현재 실적으로 정리한다. 여러 화면이 공유하는 번호는 한 번 비교하고 관련 화면을 함께 표시한다.
+- 보고 대상 화면에 연결된 WBS 실적이 확인된 0%면 해당 화면의 변경을 모달과 공유 보고서에서 제외한다. 공용 파일은 0% 화면 연결만 제거하고 실적이 있는 다른 화면의 변경은 유지한다. 누락·미확인 값을 0%로 처리하지 않는다. 제외한 파일은 내부 데이터의 `excludedZeroProgressFiles`에 기록하고 보고 파일 수에서 뺀다.
+- 시트 접근이나 검증에 실패하면 이유와 확인 가능한 범위를 알리고 Git 보고는 계속한다. 스킬 실행의 기본 범위는 읽기와 비교이며 IA 실적 스냅샷 갱신은 명시적으로 요청받았을 때만 한다.
 
 ## 보고서·IA·실행 상태 저장
 

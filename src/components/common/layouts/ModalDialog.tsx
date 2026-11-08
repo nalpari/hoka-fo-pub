@@ -23,7 +23,9 @@ const header = css.raw({
   },
 });
 
-const titleStyle = css({ height: '32px' });
+const titleStyle = css({ h: '32px' });
+
+const sheetTitleStyle = css({ m: '0', minW: '0' });
 
 /** 공통 모달의 제목과 닫기 영역을 표시합니다. (Displays the shared modal title and dismissal action.) */
 function ModalDialogHeader({
@@ -43,27 +45,26 @@ function ModalDialogHeader({
     <header
       className={css(
         header,
-        styleOverrides,
         bottomSheet && {
+          gap: '2',
+          flexShrink: '0',
           _mobile: {
-            h: '56px',
-            minH: '56px',
-            flexShrink: '0',
-            px: '6',
-            bg: 'white.0',
-            pt: '20px',
-            pb: '0',
             borderBottom: scrollable ? '1px solid token(colors.black.20)' : '0',
           },
         },
+        styleOverrides,
       )}
     >
-      <Dialog.Title
-        className={[titleStyle, bottomSheet && css({ _mobile: { h: 'auto', m: '0' } })]
-          .filter(Boolean)
-          .join(' ')}
-      >
-        <Typography variant="body3">{title}</Typography>
+      <Dialog.Title className={bottomSheet ? sheetTitleStyle : titleStyle}>
+        {!bottomSheet ? (
+          <Typography variant="body3">{title}</Typography>
+        ) : typeof title === 'string' || typeof title === 'number' ? (
+          <Typography variant="headingKr9" weight="semibold">
+            {title}
+          </Typography>
+        ) : (
+          title
+        )}
       </Dialog.Title>
       <Dialog.Close
         render={
@@ -106,12 +107,14 @@ function ModalDialogFooter({
   children,
   scrollFade,
   inContent,
+  bottomSheet,
   desktopContentOffset,
   css: styleOverrides,
 }: {
   children: ReactNode;
   scrollFade: boolean;
   inContent: boolean;
+  bottomSheet: boolean;
   desktopContentOffset?: number;
   css?: SystemStyleObject;
 }) {
@@ -119,6 +122,7 @@ function ModalDialogFooter({
     <footer
       className={css(
         footerStyle,
+        bottomSheet && { _mobile: { pb: '8' } },
         scrollFade && footerWithScrollFade,
         desktopContentOffset !== undefined && {
           paddingInlineStart: 'calc(24px + var(--modal-footer-content-offset))',
@@ -179,10 +183,10 @@ const popup = cva({
     w: '100%',
     maxH: 'calc(100dvh - 48px)',
     overflowY: 'auto',
-    borderRadius: '0',
+    borderRadius: '10px',
     bg: 'var(--color-white-000)',
     boxShadow: '0 4px 4px color-mix(in srgb, var(--color-black-100) 25%, transparent)',
-    _mobile: { maxH: 'calc(100dvh - 32px)' },
+    _mobile: { maxH: 'calc(100dvh - 32px)', borderRadius: '0' },
   },
   variants: {
     size: {
@@ -207,7 +211,7 @@ const popup = cva({
           w: '100vw!',
           maxW: '100vw',
           maxH: 'calc(100dvh - 44px)',
-          borderRadius: '20px 20px 0 0',
+          borderRadius: '24px 24px 0 0',
         },
       },
     },
@@ -222,7 +226,24 @@ const popupWithFooter = css.raw({
   overflowY: 'hidden',
 });
 
-const content = css({ p: '24px 24px 16px', _mobile: { p: '24px 16px 16px 16px' } });
+const sheetPopup = css.raw({
+  display: 'flex',
+  flexDirection: 'column',
+  overflow: 'hidden',
+  '&::before': {
+    content: '""',
+    display: 'block',
+    flexShrink: '0',
+    w: '36px',
+    h: '4px',
+    borderRadius: 'full',
+    bg: '#E9EAEB',
+    mx: 'auto',
+    mt: '2',
+  },
+});
+
+const content = css({ p: '24px 24px 16px', _mobile: { p: '24px 16px 16px' } });
 
 const scrollableContent = css({ flex: '1', minH: '0', overflowY: 'auto' });
 
@@ -378,6 +399,7 @@ export function ModalDialog({
   const footerContent = resolvedFooter ? (
     <ModalDialogFooter
       {...footerProps}
+      bottomSheet={sheet}
       inContent={footerInContent}
       scrollFade={scrollFade && !footerInContent}
     >
@@ -397,7 +419,7 @@ export function ModalDialog({
                 css(
                   popup.raw({ size, mobilePresentation }),
                   Boolean(resolvedFooter) && popupWithFooter,
-                  sheet && { display: 'flex', flexDirection: 'column', overflow: 'hidden' },
+                  sheet && sheetPopup,
                   sheet && scrollable && { h: 'calc(100dvh - 44px)' },
                 ),
                 popupClassName,
@@ -421,7 +443,7 @@ export function ModalDialog({
                       minH: '0',
                       flex: scrollable ? '1' : '0 1 auto',
                       overflowY: 'auto',
-                      p: resolvedFooter && !scrollable ? '24px' : '24px 24px 32px',
+                      p: resolvedFooter && !scrollable ? '24px 16px' : '24px 16px 32px',
                     }),
                   contentClassName,
                 ]
