@@ -1697,6 +1697,10 @@ IA STATE의 WBS·개발자·진척율이 상위 화면에 표시된 경우 STATE
 
 2026-11-06 main 변경 보고는 origin/main의 고정 비교 범위와 Schedule 실적을 사용한다. 실적 0% 화면 전용 변경을 제외하고 공용 파일은 보고 대상 IA 번호를 명시해 담당자를 좁힐 수 있다. 출처: screenChangeHistory.ts 및 11월 6일 보고 데이터.
 
+## 상품 상세 상품 정보 스타일 (2026-11-09)
+
+상품 상세의 장바구니와 구매하기 CTA 라벨을 Bold로 표시한다. 출처는 사용자 브라우저 주석과 `ProductDetailContent.tsx`의 `ProductPurchaseActions`다.
+
 ## 상품 상세 문의 더 보기 (2026-11-09)
 
 `/products/shoe-1`의 문의 목록은 PC·모바일에서 같은 `Button.loadMore.appearance="inline"`을 사용한다. 라벨과 아이콘의 간격을 조정했으며 클릭 시 다음 문의 묶음을 표시한다. [표시 규격](ui.md#상품-문의-더-보기-버튼-2026-11-09).

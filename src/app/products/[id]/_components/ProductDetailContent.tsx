@@ -1964,6 +1964,8 @@ type ProductPurchaseActionsProps = {
   restock?: boolean;
 };
 
+const productPurchaseLabelStyle = css({ fontWeight: 'bold' });
+
 function ProductPurchaseActions({
   placement,
   restock,
@@ -1987,7 +1989,7 @@ function ProductPurchaseActions({
         fullWidth
         size={platform === 'mobile' ? 'short' : 'tall'}
       >
-        {restock ? '품절' : '장바구니'}
+        {restock ? '품절' : <Typography className={productPurchaseLabelStyle}>장바구니</Typography>}
       </Button>
       <Button
         variant="primary"
@@ -1995,7 +1997,11 @@ function ProductPurchaseActions({
         size={platform === 'mobile' ? 'short' : 'tall'}
         onClick={restock ? undefined : onOpenOptions}
       >
-        {restock ? '입고 알림 신청하기' : '구매하기'}
+        {restock ? (
+          '입고 알림 신청하기'
+        ) : (
+          <Typography className={productPurchaseLabelStyle}>구매하기</Typography>
+        )}
       </Button>
     </Grid>
   );
