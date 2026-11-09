@@ -14,8 +14,6 @@ export function productSizeOptions(
       ? 'unavailable'
       : width.soldOut.includes(value)
         ? 'soldOut'
-        : width.lowStockSizes?.includes(value)
-          ? 'lowStock'
-          : 'available',
+        : 'available',
   }));
 }

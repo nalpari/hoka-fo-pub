@@ -20,10 +20,6 @@ export const iconAssets = {
     src: '/images/icon/arrow-up-from-bracket-regular.svg',
     mode: 'mask',
   },
-  'clock-nine-regular': {
-    src: '/images/icon/clock-nine-regular.svg',
-    mode: 'mask',
-  },
   'ruler-horizontal-regular': {
     src: '/images/icon/ruler-horizontal-regular.svg',
     mode: 'mask',
@@ -364,12 +360,12 @@ export const iconAssets = {
     src: '/images/icon/comments-solid.svg',
     mode: 'mask',
   },
-  'copy-regular': {
-    src: '/images/icon/copy-regular.svg',
+  'credit-card-regular': {
+    src: '/images/icon/credit-card-regular.svg',
     mode: 'mask',
   },
-  'credit-card-solid': {
-    src: '/images/icon/credit-card-solid.svg',
+  'copy-regular': {
+    src: '/images/icon/copy-regular.svg',
     mode: 'mask',
   },
   'desktop-solid': {

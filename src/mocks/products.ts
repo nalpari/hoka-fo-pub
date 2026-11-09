@@ -3,7 +3,6 @@ export type ProductWidthOption = {
   label: 'Regular' | 'Wide' | 'X-Wide';
   sizes: string[];
   soldOut: string[];
-  lowStockSizes?: string[];
 };
 export type ProductColorOption = {
   color: string;
@@ -22,7 +21,6 @@ export type Product = {
   sizes: string[];
   hasSizeGuide?: boolean;
   soldOut: string[];
-  lowStockSizes?: string[];
   rating: number;
   /** 목록 카드의 품절 표시이며 실제 재고 판정은 연결 소유자가 전달합니다. */
   listingSoldOut?: boolean;

@@ -107,8 +107,8 @@ export function InquiryAttachments({ files, onFilesChange, previewError }: Props
         orientation: 'horizontal',
         gap: '8px',
         titleProps: {
-          variant: 'heading9',
-          className: css({ _mobile: { fontWeight: 'semibold' } }),
+          web: 'heading8',
+          mo: 'heading7',
         },
         action: (
           <Button
@@ -336,11 +336,13 @@ export function InquiryOrderProducts({
   selection,
 }: InquiryOrderProductsProps) {
   return selection ? (
-    <Stack gap="3">
-      <Typography variant="headingKr10">상품 정보</Typography>
+    <Stack gap="16px" pt={{ base: '24px', _mobile: '8px' }} pb={{ base: '24px', _mobile: '8px' }}>
+      <Typography web="heading8" mo="heading7">
+        상품 정보
+      </Typography>
       <Box border="1px solid token(colors.black.20)" p="4" pb="5">
         <HStack justifyContent="space-between" mb="4" _mobile={{ alignItems: 'flex-start' }}>
-          <Typography variant="body3" language="en" weight="bold">
+          <Typography web="heading9" mo="heading7">
             {selection.order.date}
           </Typography>
           <Button
@@ -349,12 +351,14 @@ export function InquiryOrderProducts({
             size={24}
             onClick={() => onSelectionChange(null)}
           >
-            <Icon name="hoka-action-xmark-regular" size="16px" />
+            <Icon name="hoka-action-xmark-regular" size="24px" />
           </Button>
         </HStack>
         <Stack gap="4">
           <Stack gap="2">
-            <Typography variant="body4">주문번호</Typography>
+            <Typography web="heading9" mo="body4">
+              주문번호
+            </Typography>
             <HStack gap="2" flexWrap="wrap">
               <Typography variant="body4" language="en" tone="subtle">
                 {selection.order.id}
@@ -365,7 +369,9 @@ export function InquiryOrderProducts({
             </HStack>
           </Stack>
           <Stack gap="2">
-            <Typography variant="body4">상품코드</Typography>
+            <Typography web="heading9" mo="body4">
+              상품코드
+            </Typography>
             <Stack gap="1">
               {selection.products.map((item) => (
                 <Typography key={item.id} variant="body4" language="en" tone="subtle">
@@ -378,31 +384,32 @@ export function InquiryOrderProducts({
       </Box>
       <Flex justifyContent="flex-start" gap="2">
         <Button
-          size="short"
-          variant="primary"
+          size="tall"
+          variant="secondary"
           ref={lookupButtonRef}
           aria-haspopup="dialog"
           onClick={onLookup}
-          className={css({
-            '& > span': {
-              '--button-height': '36px',
-              '--button-label-size': '12px',
-              '--button-padding-x': '24px',
-            },
-          })}
         >
           상품변경
         </Button>
       </Flex>
     </Stack>
   ) : (
-    <Flex
-      direction="column"
-      alignItems={{ base: 'flex-end', _mobile: 'flex-start' }}
-      gap="3"
-      flex="1"
-      pb="3"
+    <Stack
+      gap="10px"
+      alignItems="flex-start"
+      w="100%"
+      pt={{ base: '24px', _mobile: '8px' }}
+      pb={{ base: '24px', _mobile: '8px' }}
     >
+      <Typography web="heading8" mo="heading7">
+        상품 정보
+      </Typography>
+      <Typography as="p" variant="body4" tone={invalid ? 'error' : 'subtle'}>
+        {invalid
+          ? '문의하실 주문 상품을 선택해주세요.'
+          : '주문 상품조회 버튼을 눌러 문의하실 주문 상품을 선택해 주세요.'}
+      </Typography>
       <Box w={{ base: '160px', _mobile: 'auto' }}>
         <Button
           size="tall"
@@ -411,20 +418,10 @@ export function InquiryOrderProducts({
           ref={lookupButtonRef}
           aria-haspopup="dialog"
           onClick={onLookup}
-          className={css({
-            _mobile: { '& > span': { '--button-height': '36px', '--button-label-size': '14px' } },
-          })}
         >
           주문 상품 조회
         </Button>
       </Box>
-      <Flex as="p" w="100%" justifyContent={{ base: 'flex-end', _mobile: 'flex-start' }} m="0">
-        <Typography variant="body5" tone={invalid ? 'error' : 'tertiary'}>
-          {invalid
-            ? '문의하실 주문 상품을 선택해주세요.'
-            : '*주문 상품조회 버튼을 눌러 문의하실 주문 상품을 선택해 주세요.'}
-        </Typography>
-      </Flex>
-    </Flex>
+    </Stack>
   );
 }

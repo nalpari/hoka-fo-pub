@@ -1,3 +1,111 @@
+## 2026-11-09 — 상품 스펙 공통 도움말 적용
+
+- 상품 상세 스펙 안내의 전용 Tooltip을 공통 HelpTooltip으로 교체하고 아이콘 가이드 사용처를 정정했다. [UI](architecture/ui.md).
+
+## 2026-11-09 — 첨부파일 미리보기 아이콘 카드 제목
+
+- 아이콘 가이드의 faFilePdf·faImage 제목을 용도가 드러나는 한글 제목으로 바꿨다. [라우팅](architecture/routing.md).
+
+## 2026-11-09 — 1:1 문의 주문 상품 조회 영역
+
+- Figma의 상품 정보 제목·안내문·왼쪽 조회 버튼 순서를 선택 전 문의 화면에 반영했다. [고객센터 시안](architecture/support-design.md#11-문의-주문-상품-조회-영역-2026-11-09).
+
+## 2026-11-09 — 문의 첨부파일 아이콘 화면 링크
+
+- 아이콘 가이드의 PDF·이미지 아이콘 사용 화면을 문의 내역의 첨부파일 미리보기 직접 URL로 연결했다. [라우팅](architecture/routing.md).
+
+## 2026-11-09 — 카드 결제 아이콘 기본형 분류
+
+- credit-card-regular를 기본형 18px 그룹으로 옮겼다. [라우팅](architecture/routing.md).
+
+## 2026-11-09 — 카드 결제 Regular 아이콘
+
+- Right Image SVG를 제거하고 디자인 시스템의 credit-card Regular를 Icon으로 등록해 체크아웃에 사용했다. [UI](architecture/ui.md).
+
+## 2026-11-09 — 체크아웃 렌더 오류 수정
+
+- 카드 이미지 교체 때 제거된 CheckoutPayment의 Icon import를 복원했다. [UI](architecture/ui.md).
+
+## 2026-11-09 — 카드 결제 에셋 SVG 전환
+
+- 카드 결제 이미지를 SVG 파일로 교체하고 PNG 파일을 제거했다. [UI](architecture/ui.md).
+
+## 2026-11-09 — 카드 결제 이미지 교체
+
+- 체크아웃 카드 결제 아이콘을 Figma 원본 이미지로 교체하고 기존 SVG 및 등록을 삭제했다. [UI](architecture/ui.md).
+
+## 2026-11-09 — 회원가입 아이콘 섹션
+
+- 선물·회원 등급·기념일 아이콘 세 개를 가이드의 회원가입 섹션으로 이동했다. [라우팅](architecture/routing.md).
+
+## 2026-11-09 — 타임라인 활성 글자 두께 조정
+
+- 활성 항목의 제목과 설명 글자 두께를 모두 700으로 조정했다. [라우팅](architecture/routing.md).
+
+## 2026-11-09 — 가이드 현재 항목 글자 두께
+
+- 타임라인의 현재 섹션 제목만 900 두께로 표시한다. [라우팅](architecture/routing.md).
+
+## 2026-11-09 — 가이드 현재 섹션 표시
+
+- 퍼블리싱 가이드 타임라인에 스크롤 위치에 따른 현재 섹션 강조를 추가했다. [라우팅](architecture/routing.md).
+
+## 2026-11-09 — 최근 검색어 타이머 가이드
+
+- timer-regular를 기본형 18px 그룹으로 옮기고 최근 검색어 앞 사용처와 18px 크기를 기록했다. [라우팅](architecture/routing.md).
+
+## 2026-11-09 — IA 사용 아이콘 분류
+
+- 가이드에서 IaStructurePage.tsx 사용 아이콘을 IA 화면용 그룹으로 이동했다. [UI](architecture/ui.md).
+
+## 2026-11-09 — 사이즈 가이드 아이콘 분류
+
+- ruler-horizontal-regular를 기본형 18px 그룹으로 옮기고 상품 상세의 실제 PC·모바일 사용 크기 16px를 기록했다. [라우팅](architecture/routing.md).
+
+## 2026-11-09 — 저재고 아이콘 제거
+
+- 미사용 clock-nine-regular와 사이즈 옵션 lowStock 상태 및 미리보기 데이터를 제거했다. [UI](architecture/ui.md).
+
+## 2026-11-09 — 발매 시간 아이콘 가이드
+
+- clock-ten을 기본형 18px 그룹으로 옮기고 Regular 및 red.80 색상을 반영했다. [라우팅](architecture/routing.md).
+
+## 2026-11-09 — 날짜 입력 구분자 자동 표시
+
+- 시작일·종료일에 숫자를 입력하면 연·월·일 구분점이 자동 표시되도록 형식을 적용했다. [라우팅](architecture/routing.md).
+
+## 2026-11-09 — 날짜 입력 선택 영역 정리
+
+- OrdersDateRange의 날짜를 text input으로 표시하고 달력 아이콘 영역에 native date picker를 연결했다. 겹친 라벨을 제거해 끝 점 없는 표시와 텍스트 선택을 같은 요소로 처리한다. [라우팅](architecture/routing.md).
+
+## 2026-11-09 — 날짜 조회 캘린더 위치 반영
+
+- 주문 내역 날짜 필드의 캘린더 아이콘 위치를 디자인 기준 오른쪽 17px로 통일했다. [라우팅](architecture/routing.md).
+
+## 2026-11-09 — 주문 조회 달력 아이콘 위치 통일
+
+- 반품 조회에만 적용되던 달력 아이콘 right 16px 인라인 스타일을 제거해 네 화면 공통 위치로 맞췄다. [라우팅](architecture/routing.md).
+
+## 2026-11-09 — 오류 안내 아이콘 기본형 분류
+
+- 가이드의 triangle-exclamation-solid를 기본형 18px로 이동하고 오류 화면 규격 44px를 명시했다. 실제 화면 코드는 변경하지 않았다. [라우팅](architecture/routing.md).
+
+## 2026-11-09 — 계정 잠금 해제 아이콘 분류
+
+- unlock-keyhole-regular를 폰트어썸 기본형 18px로 분류했다. 실제 화면 코드는 변경하지 않았다. [라우팅](architecture/routing.md).
+
+## 2026-11-09 — 상품문의 자물쇠 가이드
+
+- lock-keyhole-regular를 기본형 18px 그룹으로 이동하고 비공개 상품문의 명칭, 실제 사용 14px와 화면 링크를 반영했다. 화면 코드는 유지했다. [라우팅](architecture/routing.md).
+
+## 2026-11-09 — 도움말 아이콘 가이드 분류
+
+- 정보·질문 도움말을 기본형 18px 그룹으로 이동하고 예시를 18px로 표시했다. 실제 화면 사용 크기 16px를 안내하며 화면 구현은 유지했다. [라우팅](architecture/routing.md).
+
+## 2026-11-09 — 알림 아이콘 기본형 분류
+
+- bell-regular와 check-regular를 폰트어썸 기본형 18px 그룹으로 이동하고 기본형 제목을 명시했다. 실제 화면 아이콘은 변경하지 않았다. [라우팅](architecture/routing.md).
+
 ## 2026-11-06 지정 커밋 범위 퍼블 변경 보고
 
 - 9dca5003 포함 범위의 최종 유효 변경과 WBS 실적을 확인해 공유 보고서와 모달 데이터를 갱신했다.
