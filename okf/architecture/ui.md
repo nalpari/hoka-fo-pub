@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-09T00:48:27.758Z'
+updated: '2026-11-09T23:45:28Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -1008,6 +1008,10 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 상품 목록 이미지 정사각형 복원 (2026-11-10)
+
+`ProductThumbnail`의 `listing` 상품 이미지 영역은 기본 `media.oneByOne` 비율을 사용한다. 371:464 세로 비율 지정만 제거했으며 캐러셀 `showcase`, `history`, `summary` 이미지와 카드 텍스트·간격은 유지한다. 출처: 작업 트리의 `src/components/common/molecules/ProductThumbnail.tsx`와 상품 목록 `ProductCard` 호출부.
 
 러닝세션 목록 카드의 이미지 반경은 PC와 모바일 모두 0이다. 스타일은 공통 Card가 아닌 `RunningSessionPage.tsx`의 이미지 링크에서 관리한다. [러닝세션 디자인](running-session-design.md#신청-시작-알림-색상과-목록-이미지-모서리-2026-11-05).
 

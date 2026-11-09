@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-09T00:48:27.758Z'
+updated: '2026-11-09T23:45:28Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -367,6 +367,8 @@ sources:
 ---
 
 # 라우팅과 플랫폼
+
+2026-11-10: 상품 목록의 `ProductThumbnail.listing` 이미지 비율을 정사각형으로 되돌렸다. 라우트·상태 URL·IA 연결에는 영향이 없다. [UI 변경](ui.md#상품-목록-이미지-정사각형-복원-2026-11-10)을 참고한다.
 
 ## 상품 상세 머지 잔여 변경 반영 (2026-11-10)
 
