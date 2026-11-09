@@ -77,6 +77,8 @@ import { productSizeOptions } from '@/app/products/[id]/productSizeOptions';
 import {
   type Gender,
   genderOptions,
+  guideCategories,
+  type GuideChart,
   shoeGuide,
   type Unit,
 } from '@/app/support/size-guide/size-guide.data';
@@ -1528,16 +1530,20 @@ function ProductColorSelector({
 /**
  * [ 개발팀 바인딩 ]
  * 상품 상세 연결 소유자가 현재 Product.gender를 전달하면 해당 신발 안내표를 선택합니다.
- * 고객센터와 공유하는 shoeGuide는 준비된 표시 데이터이며, 열기와 단위 전환은 조회 없이 처리합니다.
+ * 고객센터와 공유하는 신발·의류 치수표는 준비된 표시 데이터이며, 열기와 단위 전환은 조회 없이 처리합니다.
  * 운영 치수표 승인과 갱신은 연결 소유자가 담당합니다.
  */
-const shoeGuideGenders = {
+const sizeGuideGenders = {
   "Men's": 'men',
   "Women's": 'women',
   'All Gender': 'unisex',
 } satisfies Record<NonNullable<Product['gender']>, Gender>;
 
-const shoeGuideTableStyle = css({
+const apparelSizeGuide =
+  guideCategories.find(({ value }) => value === 'apparel') ??
+  guideCategories.find(({ value }) => value === 'tops');
+
+const sizeGuideTableStyle = css.raw({
   borderCollapse: 'separate',
   borderSpacing: 0,
   tableLayout: 'fixed',
@@ -1584,18 +1590,22 @@ const shoeGuideUnitButtonStyle = css({
   _mobile: { h: '27px' },
 });
 
-function ShoeGuideChart({
+function ProductSizeGuideChart({
+  apparel,
+  chart,
   gender,
   unit,
   onUnitChange,
 }: {
+  apparel?: boolean;
+  chart: GuideChart;
   gender: Gender;
   unit: Unit;
   onUnitChange: (unit: Unit) => void;
 }) {
   const headingId = useId();
-  const title = `${genderOptions.find((option) => option.value === gender)?.label} 신발`;
-  const { rows } = shoeGuide.charts[gender][unit];
+  const title = `${genderOptions.find((option) => option.value === gender)?.label} ${apparel ? '의류' : '신발'}`;
+  const { headers, rows } = chart;
 
   return (
     <Stack minW="0" gap="4">
@@ -1604,7 +1614,7 @@ function ShoeGuideChart({
           {title}
         </Typography>
         <SegmentedControl
-          ariaLabel="발길이 단위"
+          ariaLabel={apparel ? '치수 단위' : '발길이 단위'}
           className={css({ display: 'flex', p: '0.5', borderRadius: 'full', bg: 'black.20' })}
           itemClassName={() => shoeGuideUnitButtonStyle}
           onValueChange={onUnitChange}
@@ -1614,37 +1624,65 @@ function ShoeGuideChart({
         />
       </HStack>
       <Box role="region" aria-labelledby={headingId} tabIndex={0} overflowX="auto">
-        <table aria-label={`${title} 치수표 (${unit})`} className={shoeGuideTableStyle}>
-          <tbody>
-            <tr>
-              <th scope="row">한국 사이즈</th>
-              {rows.map(([kr]) => (
-                <th key={kr} scope="col">
-                  {kr}
+        <table
+          aria-label={`${title} 치수표 (${unit})`}
+          className={css(sizeGuideTableStyle, apparel && { width: 'full' })}
+        >
+          {apparel && (
+            <thead>
+              <tr>
+                {headers.map((header) => (
+                  <th key={header} scope="col">
+                    {header}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+          )}
+          {apparel ? (
+            <tbody>
+              {rows.map(([us, kr, chest, waist, hips]) => (
+                <tr key={kr}>
+                  <th scope="row">{us}</th>
+                  <td>{kr}</td>
+                  <td>{chest}</td>
+                  <td>{waist}</td>
+                  <td>{hips}</td>
+                </tr>
+              ))}
+            </tbody>
+          ) : (
+            <tbody>
+              <tr>
+                <th scope="row">한국 사이즈</th>
+                {rows.map(([kr]) => (
+                  <th key={kr} scope="col">
+                    {kr}
+                  </th>
+                ))}
+              </tr>
+              <tr>
+                <th scope="row">
+                  US 사이즈
+                  {gender === 'unisex' && (
+                    <>
+                      <br />
+                      (남/여)
+                    </>
+                  )}
                 </th>
-              ))}
-            </tr>
-            <tr>
-              <th scope="row">
-                US 사이즈
-                {gender === 'unisex' && (
-                  <>
-                    <br />
-                    (남/여)
-                  </>
-                )}
-              </th>
-              {rows.map(([kr, , us]) => (
-                <td key={kr}>{us}</td>
-              ))}
-            </tr>
-            <tr>
-              <th scope="row">발길이</th>
-              {rows.map(([kr, length]) => (
-                <td key={kr}>{length}</td>
-              ))}
-            </tr>
-          </tbody>
+                {rows.map(([kr, , us]) => (
+                  <td key={kr}>{us}</td>
+                ))}
+              </tr>
+              <tr>
+                <th scope="row">발길이</th>
+                {rows.map(([kr, length]) => (
+                  <td key={kr}>{length}</td>
+                ))}
+              </tr>
+            </tbody>
+          )}
         </table>
       </Box>
     </Stack>
@@ -1654,7 +1692,7 @@ function ShoeGuideChart({
 type ProductSizeSelectorProps = {
   selectedWidth?: ProductWidthOption;
   apparel?: boolean;
-  shoeGuideGender?: Gender;
+  guideGender?: Gender;
   value: string;
   error: string;
   onValueChange: (size: string) => void;
@@ -1663,7 +1701,7 @@ type ProductSizeSelectorProps = {
 function ProductSizeSelector({
   selectedWidth,
   apparel,
-  shoeGuideGender,
+  guideGender,
   value,
   error,
   onValueChange,
@@ -1671,12 +1709,14 @@ function ProductSizeSelector({
   const [guideOpen, setGuideOpen] = useState(false);
   const [guideUnit, setGuideUnit] = useState<Unit>('cm');
   const guideButton = useRef<HTMLButtonElement>(null);
+  const guide = apparel ? apparelSizeGuide : shoeGuide;
+  const chart = guideGender ? guide?.charts[guideGender]?.[guideUnit] : undefined;
 
   return (
     <>
       <SizeSelector
         action={
-          shoeGuideGender ? (
+          chart ? (
             <Button
               ref={guideButton}
               variant="link"
@@ -1713,7 +1753,7 @@ function ProductSizeSelector({
         //   </Typography>
         // }
       />
-      {shoeGuideGender && (
+      {guideGender && chart && (
         <ModalDialog
           title={
             <Typography variant="headingKr9" weight="bold">
@@ -1738,7 +1778,13 @@ function ProductSizeSelector({
             _mobile: { p: '8px 16px calc(44px + env(safe-area-inset-bottom))!' },
           })}
         >
-          <ShoeGuideChart gender={shoeGuideGender} unit={guideUnit} onUnitChange={setGuideUnit} />
+          <ProductSizeGuideChart
+            apparel={apparel}
+            chart={chart}
+            gender={guideGender}
+            unit={guideUnit}
+            onUnitChange={setGuideUnit}
+          />
         </ModalDialog>
       )}
     </>
@@ -1805,9 +1851,7 @@ function ProductVariantSelectors({
           error={error}
           onValueChange={onSizeChange}
           selectedWidth={selected}
-          shoeGuideGender={
-            !apparel && product.gender ? shoeGuideGenders[product.gender] : undefined
-          }
+          guideGender={product.gender ? sizeGuideGenders[product.gender] : undefined}
           value={size}
         />
       </Stack>
