@@ -815,8 +815,8 @@ const PromotionCardRoot = cva({
 });
 const imageAspectRatios = {
   inline: {
-    desktop: '371 / 412',
-    mobile: '184 / 205',
+    desktop: '371 / 464',
+    mobile: '371 / 464',
   },
   fullWidth: { desktop: '375 / 281', mobile: '375 / 281' },
 } as const;

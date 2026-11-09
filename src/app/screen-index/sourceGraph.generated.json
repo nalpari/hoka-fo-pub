@@ -670,7 +670,6 @@
       "src/components/common/molecules/Carousel/Carousel.tsx",
       "src/components/common/molecules/CarouselSection.tsx",
       "src/components/common/molecules/ContentHeader.tsx",
-      "src/components/common/molecules/HelpTips.tsx",
       "src/components/common/molecules/ProductCard/ProductCard.tsx",
       "src/components/common/molecules/ProductDetailImage.tsx",
       "src/components/common/molecules/ProductOptionSelectors/ProductColorSelector.tsx",
@@ -1009,8 +1008,7 @@
       "src/app/support/care/_components/CareContent.tsx",
       "src/app/support/support.navigation.ts",
       "src/components/common/molecules/SupportTabs.tsx",
-      "src/components/support/CustomerCenterLayout.tsx",
-      "src/context/platform.tsx"
+      "src/components/support/CustomerCenterLayout.tsx"
     ],
     "src/app/support/faq/_components/FaqContent.tsx": [
       "src/app/support/faq/faq.data.ts",

@@ -17,6 +17,7 @@
 | 원형 체크 (Solid) | [circle-check-solid.svg](circle-check-solid.svg) | 18 × 18 | [임직원 쿠폰 노드](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1813-89267) |
 | `faComments` | [comments-solid.svg](comments-solid.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-12393) |
 | `faCopy` | [copy-regular.svg](copy-regular.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-17546) |
+| `faCreditCard` | [credit-card-solid.svg](credit-card-solid.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-21253) |
 | `faDesktop` | [desktop-solid.svg](desktop-solid.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-14818) |
 | `faEye` | [hoka-eye-regular.svg](hoka-eye-regular.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-21916) |
 | `faEyeSlash` | [hoka-eye-slash-regular.svg](hoka-eye-slash-regular.svg) | 18 × 18 | [노드](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=296-18831) |

@@ -19,14 +19,14 @@ working_tree_sources:
   - src/stories/features/binding/RemainingBinding.stories.tsx
 sources:
   - id: figma-running-session-opening-color
-    resource: https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP?node-id=2917-4062
+    resource: https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP
     title: '러닝세션 신청 시작 알림'
   - id: figma-running-session-card-corners
-    resource: https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP?node-id=4054-19035
+    resource: https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP
     title: '러닝세션 목록 이미지 모서리'
   - id: figma-running-session
-    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1559-21804
-    title: 'HOKA RUN CLUB 1559:21804'
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design
+    title: 'HOKA RUN CLUB 시안'
 ---
 
 # 러닝세션 목록·상세 Figma 적용
@@ -38,7 +38,7 @@ sources:
 [^figma-running-session-opening-color]: 지정 노드의 변경 코멘트와 ‘신청 시작’ 텍스트 색상 속성.
 [^figma-running-session-card-corners]: 지정 목록 노드의 이미지 모서리 변경 코멘트.
 
-2026-11-02 사용자가 지정한 /running/running-session과 /running/running-session/yeouido-night에 적용했다. 원본 섹션에서 PC 목록 1559:21355·빈 목록 1570:22948·상세 1570:23289·신청예정 1570:25306, 모바일 목록 1585:27604·빈 목록 1607:28167·상세 1607:29572와 고정 CTA 1616:9316을 확인했다. 필요한 카드·신청 정보·안내·CTA 자식 노드도 읽었다. 동일 섹션의 모집 마감·모바일 미리보기는 기존 상태 표시와 공유 컴포넌트 경계를 유지했다. 헤더·일반 사이트 푸터의 추가 디자인 변경은 하지 않았다.[^figma-running-session]
+2026-11-02 사용자가 지정한 /running/running-session과 /running/running-session/yeouido-night에 적용했다. 원본 섹션에서 PC 목록·빈 목록·상세·신청예정, 모바일 목록·빈 목록·상세와 고정 CTA을 확인했다. 필요한 카드·신청 정보·안내·CTA 자식 노드도 읽었다. 동일 섹션의 모집 마감·모바일 미리보기는 기존 상태 표시와 공유 컴포넌트 경계를 유지했다. 헤더·일반 사이트 푸터의 추가 디자인 변경은 하지 않았다.[^figma-running-session]
 
 ## 목록
 

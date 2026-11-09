@@ -269,7 +269,7 @@ src/mocks/products.ts의 Promotions 타입 출처를 통합된 src/components/co
 
 ## GNB 디자인 표시 데이터 (2026-11-02)
 
-[Navigation 1215:50882](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1215-50882)에 맞춰 src/data/megaMenu.ts의 프로모션 imageSrc를 public/images/navigation/clifton-utl.webp로 교체했다. 기존 메뉴 ID·목적지·title은 유지하고 신발 레이블 띄어쓰기와 columns.activeItemEmphasis: heading 표시 옵션을 반영했다. 이 옵션은 PC 현재 URL 항목의 제목형 강조만 지정하며 서버 조회·응답이나 카테고리 API는 추가하지 않는다. 기존 [ 개발팀 바인딩 ] 주석에 표시 fixture와 운영 목적지/이미지 갱신 책임을 명시했다. 기능 범위·의존성·패키지는 변경하지 않았다. 이미지 출처·UI 수치·검증은 [GNB Figma 기록](architecture/ui.md#gnb-figma-적용-2026-11-02)을 따른다. 위 두 파일은 작업 트리 출처다. 검토: codex/gpt-6, 2026-11-02T03:53:14.763Z.
+[Navigation](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)에 맞춰 src/data/megaMenu.ts의 프로모션 imageSrc를 public/images/navigation/clifton-utl.webp로 교체했다. 기존 메뉴 ID·목적지·title은 유지하고 신발 레이블 띄어쓰기와 columns.activeItemEmphasis: heading 표시 옵션을 반영했다. 이 옵션은 PC 현재 URL 항목의 제목형 강조만 지정하며 서버 조회·응답이나 카테고리 API는 추가하지 않는다. 기존 [ 개발팀 바인딩 ] 주석에 표시 fixture와 운영 목적지/이미지 갱신 책임을 명시했다. 기능 범위·의존성·패키지는 변경하지 않았다. 이미지 출처·UI 수치·검증은 [GNB Figma 기록](architecture/ui.md#gnb-figma-적용-2026-11-02)을 따른다. 위 두 파일은 작업 트리 출처다. 검토: codex/gpt-6, 2026-11-02T03:53:14.763Z.
 
 ## 러닝세션 표시 fixture 갱신 (2026-11-02)
 

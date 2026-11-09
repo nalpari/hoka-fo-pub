@@ -19,7 +19,7 @@ working_tree_sources:
   - src/stories/features/launch-calendar/LaunchCalendar.Mobile.stories.tsx
 sources:
   - id: launch-calendar-design
-    resource: https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP?node-id=3696-9496
+    resource: https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP
     title: Launch Calendar
 ---
 
@@ -27,12 +27,12 @@ sources:
 
 2026-11-03 사용자 수급 안내에 따라 삭제된 목업을 복구하지 않고, 현재 공통 ContentLayout·ContentHeader·ContentSection·Button·DescriptionList·SizeSelector·Carousel를 조합해 실제 화면을 추가했다. 상품 상세의 기존 구매 흐름이나 새 API·인증·저장을 만들지 않는다.
 
-| IA  | 디자인 노드          | 화면                         | 확인 URL                                              |
-| --- | -------------------- | ---------------------------- | ----------------------------------------------------- |
-| 159 | 3696:9496, 3696:9503 | 캘린더 진입 / 발매 예정 상세 | `/launch-calendar`, `/launch-calendar/clifton-11-gtx` |
-| 160 | 3696:9681            | Feed                         | `/launch-calendar`                                    |
-| 161 | 3696:10052           | Upcoming                     | `/launch-calendar/upcoming`                           |
-| 162 | 3696:9892            | In Stock                     | `/launch-calendar/in-stock`                           |
+| IA  | 화면                         | 확인 URL                                              |
+| --- | ---------------------------- | ----------------------------------------------------- |
+| 159 | 캘린더 진입 / 발매 예정 상세 | `/launch-calendar`, `/launch-calendar/clifton-11-gtx` |
+| 160 | Feed                         | `/launch-calendar`                                    |
+| 161 | Upcoming                     | `/launch-calendar/upcoming`                           |
+| 162 | In Stock                     | `/launch-calendar/in-stock`                           |
 
 IA 159의 previewRoutes에 발매 예정 상품 상세를 연결한다. 기존 IA 번호·Feed/Coming/In-stock 행과 삭제된 키즈 163~165를 보존한다. PC 디자인은 네 프레임을 수급했고 모바일 프레임은 제공되지 않았다. 사용자 지시로 MO는 HOKA RUN Club의 기존 반응형 패턴을 적용한다. MO 디자인 수급 여부는 missing을 유지한다.
 
@@ -59,6 +59,6 @@ PC 1920px에서 Feed12/Upcoming8/In Stock8과 4열, 제목44px·탭120×40px·�
 
 ## 모바일 탭 시안 정정 (2026-11-03)
 
-사용자가 지목한 [RUN Club 모바일 2921:5026](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP?node-id=2921-5026)의 Category Button Group `2921:5050`·버튼 `2921:5052/5056/5060`을 기준으로 수정했다. 기존 서비스의 사각 분할 탭을 참조했던 최초 구현 대신 높이32px, radius52px, 가로padding16px, 간격6px, 글자14px/500의 내용 너비 pill을 사용한다. 선택은 검정/흰 글자, 미선택은 흰 배경/검정 1px 테두리다. 탭 행은 상하16px이며 제목은28px/30.72px이다. PC 120×40px 탭과44px 제목, 세 상태 URL·탐색·1열 카드/상세는 유지한다.
+사용자가 지목한 [RUN Club 모바일](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP)의 Category Button Group과 버튼을 기준으로 수정했다. 기존 서비스의 사각 분할 탭을 참조했던 최초 구현 대신 높이32px, radius52px, 가로padding16px, 간격6px, 글자14px/500의 내용 너비 pill을 사용한다. 선택은 검정/흰 글자, 미선택은 흰 배경/검정 1px 테두리다. 탭 행은 상하16px이며 제목은28px/30.72px이다. PC 120×40px 탭과44px 제목, 세 상태 URL·탐색·1열 카드/상세는 유지한다.
 
 정정 검증: MO375px의 세 목록에서 높이32px·반경52px·간격6px·선택 색상과 넘침 없음을 측정했다. PC1920px에서는44px 제목과120×40px 탭을 유지한다. TypeScript·변경 ESLint/Prettier·Panda·링크/진행 상태16개 검사를 통과했다.

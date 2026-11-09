@@ -195,11 +195,11 @@ function CouponHistorySection({ coupons, onDetails }: CouponHistorySectionProps)
     <ContentSection
       as="section"
       gap={{ base: '8', _mobile: '6' }}
-      aria-label="쿠폰 내역"
-      title="쿠폰 내역"
+      aria-label="쿠폰"
+      title="쿠폰"
       headerProps={{
         gap: { base: '3', _mobile: '4' },
-        titleAs: 'h2',
+        titleAs: 'h1',
         titleProps: { web: 'headingKr7', mo: 'headingKr5' },
         description: '쿠폰별 사용조건이 상이하니 사용 전에 반드시 확인하시기 바랍니다.',
         descriptionProps: {
@@ -311,7 +311,7 @@ function CouponDetailsDialog({ coupon, onOpenChange }: CouponDetailsDialogProps)
       open={coupon !== null}
       onOpenChange={onOpenChange}
       size="sm"
-      title="쿠폰 상세"
+      title="쿠폰 상세보기"
     >
       <Stack gap="3">
         <Typography variant="body3" weight="semibold">
@@ -451,10 +451,7 @@ export function RouteContent({
   employee?: boolean;
 }) {
   return (
-    <MyPageFrame
-      activePath="/mypage/coupons"
-      breadcrumbs={[{ label: 'MY HOKA', href: '/mypage' }, { label: '쿠폰' }]}
-    >
+    <MyPageFrame activePath="/mypage/coupons" breadcrumbs={[{ label: '쿠폰' }]}>
       <CouponManager
         coupons={preview === 'empty' ? [] : coupons}
         preview={preview}

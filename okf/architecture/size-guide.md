@@ -4,11 +4,13 @@ title: '사이즈 가이드'
 description: '품목별 측정 안내, 선택 상태와 미확정 데이터의 표시 범위를 설명한다.'
 tags: [support, size-guide, storybook]
 status: draft
+updated: '2026-11-09T12:55:37+09:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T04:46:17Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/products/[id]/_components/ProductDetailContent.tsx
   - src/components/common/atoms/DataTable.tsx
   - src/app/support/size-guide/page.tsx
   - src/app/support/size-guide/size-guide.data.ts
@@ -33,19 +35,19 @@ working_tree_sources:
   - public/images/size-guide/
 sources:
   - id: size-guide-desktop-selector
-    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1973-18231
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design
     title: 'PC 성별 선택·차트·단위 탭'
   - id: size-guide-mobile-selector
-    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2108-66625
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design
     title: '모바일 성별 선택·차트·단위 탭'
   - id: size-guide-desktop-measurement
-    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1973-18205
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design
     title: 'PC 측정 안내 카드의 제목·STEP·본문'
   - id: size-guide-design-20261102
-    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1973-17900
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design
     title: '사이즈 가이드 디자인: 신발과 추가 4개 품목 섹션'
   - id: size-guide-spec-20261102
-    resource: https://www.figma.com/design/4cJ1LkWUgme3lklyQ9U8qr/-?node-id=2087-18211
+    resource: https://www.figma.com/design/4cJ1LkWUgme3lklyQ9U8qr/-
     title: '고객센터 PC 화면설계서의 사이즈 가이드 2913 노드'
   - id: size-guide-route
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/src/app/support/size-guide/page.tsx
@@ -53,6 +55,30 @@ sources:
 ---
 
 # 사이즈 가이드
+
+## 고객센터 품목 통합 (2026-11-09)
+
+`/support/size-guide`는 신발·의류·용품 탭을 제공한다. 의류는 가슴·허리·엉덩이 치수가 포함된 기존 상의 표를 사용하고, 여성 KR 사이즈를 cm와 inch에서 모두 `XS`로 표시한다. 하의와 러닝 베스트의 탭·패널 데이터와 관련 이미지를 제거했다.
+
+용품은 기존 양말의 공용 성별 선택과 S/M/L/XL 차트를 표시하며, 표 바로 위 제목은 ‘양말’이다. `GuideCategory.measurement`가 없는 품목은 측정 이미지와 절차를 렌더링하지 않는다. `chartTitle`은 탭 이름과 다른 품목명을 표 제목에 표시할 때 사용한다. 표는 기존의 정적 표시 데이터이며 운영 승인·갱신은 연동 담당자가 맡는다.
+
+출처는 2026-11-09 사용자 요청과 `src/app/support/size-guide/` 및 `public/images/size-guide/`의 작업 트리 변경이다. 아래의 이전 구현과 검증 기록은 각 작업 시점의 상태를 설명한다.
+
+Codex가 PC 1440px와 모바일 390px에서 탭 전환, 기본 신발 표, 여성 의류 이미지와 cm·inch의 `XS`, 용품의 공용 선택과 양말 제목·표 및 측정 안내 미표시를 확인했다. 기존 커밋과 데이터 대조 결과 신발·양말 표 값은 동일하며 의류 표는 여성 KR 사이즈 문구만 변경됐다. 타입 검사와 수정 경로 ESLint·Prettier 검사를 통과했다.
+
+## 상품 상세 신발 사이즈 가이드 팝업 (2026-11-09)
+
+의류 미리보기 `/products/pdp-preview/apparel`에도 공통 팝업을 연결했다. 상품 성별의 의류 치수표를 고객센터와 공유하고 US·KR 사이즈, 가슴·허리·엉덩이 값을 표시한다. PC 모달과 모바일 바텀시트는 열 때 cm로 시작한다. 출처는 `ProductDetailContent.tsx`의 `ProductSizeGuideChart`와 `size-guide.data.ts`다.
+
+의류 표는 팝업 본문 너비를 채운다. 신발 표는 고정 열 너비와 표 내부 가로 스크롤을 사용한다.
+
+팝업을 여는 버튼 안에서 자 아이콘을 문구 왼쪽에 배치한다.
+
+신발 상품 상세는 `Product.gender`에 해당하는 남성·여성·공용 표를 열고 고객센터와 동일한 `shoeGuide.charts` 표시 데이터를 사용한다. 한국 사이즈·US 사이즈·발길이를 행으로 배치하고, 표가 넓으면 행 제목 열을 고정한 채 표 안에서 가로로 스크롤한다. 열 때마다 cm로 시작하며 inch는 발길이만 바꾼다. 운영 치수표 승인·갱신은 연결 소유자가 맡는다. 기존 상품 상세 링크 설명은 이 절 이전의 동작을 기록한다. [팝업 UI](ui.md#상품-상세-사이즈-가이드-모달-2026-11-09).
+
+출처는 사용자 첨부 PC·모바일 시안과 작업 트리의 `ProductDetailContent.tsx`, `size-guide.data.ts`다. 기준 HEAD는 `781c2adb1fb5bb30c69f78301311728f9a3a8fbc`이며 codex/gpt-6가 2026-11-09에 기록했다.
+
+브라우저에서 자동 PC 1440px와 모바일 390px의 남성·여성·공용 표, 단위 전환, Escape·닫기 버튼, 재열기 초기화, 포커스 복귀, 첫 열 고정과 표 내부 스크롤을 확인했다. 팝업을 연 상태에서 1024/1025px 및 1199/1200px로 전환해 단위가 유지되는 것을 확인했고 모바일 배경 클릭과 고객센터 기본 표도 확인했다. 최종 단위 선택 UI는 PC에서 inch 값, 12px 표 글자, 선택한 색상과 포커스 복귀를 재확인했다. 명시적 플랫폼을 사용하는 상품 상세 미리보기 검증은 수행하지 않았다.
 
 ## 재사용 개선과 사이드 메뉴 순서 (2026-10-21)
 
@@ -100,7 +126,7 @@ SizeGuideMeasurements는 Grid 배치와 하위 영역 조합을 담당한다. Si
 
 ## Figma 디자인·설계서 반영 (2026-11-02)
 
-이 절이 위의 8품목·미확정 00·발볼 선택·DataTable.spaced 기록을 대체한다. 화면 디자인의 1973:17900(신발), 2149:35764(상의), 2149:35765(하의), 2149:37894(러닝 베스트), 2149:38728(양말)을 읽었다. 추가 화면설계서 2087:18211의 2913:5559~6660 품목별 프레임으로 복제된 상의 문구·표를 구분했다. 디자인의 하의 안내에 남은 가슴 측정과 베스트·양말의 상의 내용은 설계서의 실제 품목 안내로 보완한다.
+이 절이 위의 8품목·미확정 00·발볼 선택·DataTable.spaced 기록을 대체한다. 화면 디자인의(신발),(상의),(하의),(러닝 베스트),(양말)을 읽었다. 추가 화면설계서의 시안 품목별 프레임으로 복제된 상의 문구·표를 구분했다. 디자인의 하의 안내에 남은 가슴 측정과 베스트·양말의 상의 내용은 설계서의 실제 품목 안내로 보완한다.
 
 탭은 신발·상의·하의·러닝 베스트·양말 5개다. 기존 경로·IA 260·상품 상세·푸터 진입을 유지한다. 베스트와 양말은 공용만 제공하며 양말은 S/M/L/XL에 신발 사이즈 210–230/230–250/250–270/270–290을 표시하고 단위 선택은 제공하지 않는다. 설계서에 없는 발볼 선택은 제거했다. 상의·하의·베스트의 US/KR 및 cm/inch 값은 준비된 표로 제공한다. 신발 여성은 220~260, 공용은 220~300으로 설계서 범위를 반영했다. 신발 inch는 cm/2.54를 소수 두 자리로 미리 준비한 값이며 남성 디자인 표와 대조했다. 여성·공용 inch는 원본 프레임에서 직접 확인한 값과 구분한다.
 
@@ -113,7 +139,7 @@ SizeGuideMeasurements는 Grid 배치와 하위 영역 조합을 담당한다. Si
 | 성별 버튼 높이 37px, radius 30px                   | 기존 SegmentedControl에 로컬 표현 적용               |
 | 표 높이 48px, #E9EAEB 헤더, #F7F7F9 짝수 행        | 라우트 전용 시맨틱 table, 공통 DataTable 기본값 유지 |
 
-신발 그림은 디자인 1973:17954에서, 상의·하의·베스트·양말 그림은 추가 설계서의 2913:6633/5852/5663/5793에서 가져왔다. 여성 상의는 기존 tops-women 자산을 유지한다. 이미지 원본의 해상도 한계와 디자인의 수급 후 적용 표시는 최종 운영 이미지 확정과 구분한다.
+신발 그림은 디자인에서, 상의·하의·베스트·양말 그림은 추가 설계서의 시안에서 가져왔다. 여성 상의는 기존 tops-women 자산을 유지한다. 이미지 원본의 해상도 한계와 디자인의 수급 후 적용 표시는 최종 운영 이미지 확정과 구분한다.
 
 표 모델은 GuideCategory.charts[gender][unit]이며 route가 정적 표시 데이터와 품목 구성을 소유한다. Panel은 성별·단위 로컬 UI만 소유한다. API 요청·저장·재고 판정·가격 계산은 없고, 승인된 운영 데이터 교체와 갱신은 연동 담당 책임이다. 네트워크 pending/오류/재시도 계약을 새로 구현하지 않았다.
 
@@ -121,7 +147,7 @@ SizeGuideMeasurements는 Grid 배치와 하위 영역 조합을 담당한다. Si
 
 ## 캡처 재검증과 선택 UI 통일 (2026-11-02)
 
-이 절이 위의 37px 성별 버튼 및 캡처 미완료 기록을 대체한다. 추가로 지정된 PC 1973:18231, 모바일 2108:66625를 읽고 실제 렌더링 화면과 대조했다. 전체 페이지 캡처에서 일부 모바일 화면의 재배치·미도색이 발생해, 최종 증빙은 실제 보이는 영역을 나누어 캡처했다. PC 5품목과 모바일 5품목의 화면을 직접 확인했다. 원본의 이미지 수급 자리표시자와 현재 설계서 자산, 홍보 배너 및 스크롤바 차이는 제품 스타일 차이와 구분한다.
+이 절이 위의 37px 성별 버튼 및 캡처 미완료 기록을 대체한다. 추가로 지정된 PC, 모바일를 읽고 실제 렌더링 화면과 대조했다. 전체 페이지 캡처에서 일부 모바일 화면의 재배치·미도색이 발생해, 최종 증빙은 실제 보이는 영역을 나누어 캡처했다. PC 5품목과 모바일 5품목의 화면을 직접 확인했다. 원본의 이미지 수급 자리표시자와 현재 설계서 자산, 홍보 배너 및 스크롤바 차이는 제품 스타일 차이와 구분한다.
 
 신발만 별도 표현을 쓰던 분기를 제거했다. 사용자의 후속 지시에 따라 모든 품목이 성별 선택 → 차트 제목/오른쪽 단위 탭 → 표의 동일 배치를 사용한다. 성별 선택은 3개 개별 버튼이 아닌 하나의 회색 캡슐이며, 베스트·양말은 기존 공용 1개만 제공한다. 양말은 기존 신발 사이즈 범위 데이터와 단위 탭 미제공을 유지한다. 표 수치·성별별 데이터·서비스 연결 경계는 바꾸지 않았다.
 

@@ -26,13 +26,13 @@ working_tree_sources:
   - src/app/screen-index/sourceGraph.generated.json
 sources:
   - id: inquiry-design
-    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1973-16422
-    title: '1:1 문의 섹션 1973:16422'
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design
+    title: '1:1 문의 섹션'
 ---
 
 # 1:1 문의 시안과 반응형 상태 연결
 
-사용자가 지정한 섹션 전체의 구조·텍스트·폰트·버튼 수치를 읽었다. PC/MO 제품 화면·팝업 24개와 OS 파일선택 참고 프레임 1개를 구분한다. 타이포 변경 안내 2207:58017과 표시용 도형 2273:33586은 제품 화면이 아니다. PC/MO가 같은 상태이면 하나의 반응형 URL을 사용한다. 시안 프레임 수를 맞추려고 플랫폼별 URL이나 고정 viewport iframe을 만들지 않는다. 초기의 플랫폼별 링크·iframe은 사용자 정정에 따라 제거했다.[^inquiry-design]
+사용자가 지정한 섹션 전체의 구조·텍스트·폰트·버튼 수치를 읽었다. PC/MO 제품 화면·팝업 24개와 OS 파일선택 참고 프레임 1개를 구분한다. 타이포 변경 안내과 표시용 도형은 제품 화면이 아니다. PC/MO가 같은 상태이면 하나의 반응형 URL을 사용한다. 시안 프레임 수를 맞추려고 플랫폼별 URL이나 고정 viewport iframe을 만들지 않는다. 초기의 플랫폼별 링크·iframe은 사용자 정정에 따라 제거했다.[^inquiry-design]
 
 ## 반영한 표현
 
@@ -54,24 +54,24 @@ sources:
 
 목록은 IA 210, 등록은 IA 211의 기존 route·Storybook 연결을 유지하고 `previewRoutes`에 상태만 추가했다. 기존 187/189 연결에도 같은 상태 데이터가 적용된다. 기본·오류·빈 조회·첨부 오류 URL은 재사용했다. 시안 24개는 아래 14개 반응형 상태로 대응하며, 기존 누적 문의 목록과 추가 첨부 오류 예시는 별도로 유지한다.
 
-| 상태 | 시안 노드 (PC / MO) | URL |
+| 상태 | 시안 확인 플랫폼 | URL |
 | --- | --- | --- |
-| 문의 없음 | 1973:16485 / 1973:16691 | `/support/inquiries` |
-| 접수완료 | 1973:16510 / 1973:16713 | `/support/inquiries/preview-pending` |
-| 답변완료 | 1973:16544 / 1973:16753 | `/support/inquiries/preview-answered` |
-| 접수완료·첨부 | 1973:16583 | `/support/inquiries/preview-pending-attachments` |
-| 답변완료·첨부 | 1973:16789 | `/support/inquiries/preview-attachments` |
-| 첨부 미리보기 | 1973:16636 / 1973:16423 | `/support/inquiries/preview-attachment` |
-| 문의등록 | 1973:16898 / 1973:16849 | `/support/inquiries/new` |
-| 입력 오류 | 1973:16944 / 1973:16994 | `/support/inquiries/new/preview-error` |
-| 작성 취소 | 1973:16663 / 1973:16455 | `/support/inquiries/new/preview-cancel` |
-| 주문 미선택 안내 | 1973:16677 / 1973:16470 | `/support/inquiries/new/preview-order-required` |
-| 주문 조회 전 | 1973:17121 / 1973:17047 | `/support/inquiries/new/preview-order-lookup` |
-| 주문 선택 후 | 1973:17270 / 1973:17185 | `/support/inquiries/new/preview-order-selected` |
-| 주문 조회 | 2339:62636 / 1973:17354 | `/support/inquiries/new/order-products` |
-| 조회 기간 직접설정 | 1973:17613 | `/support/inquiries/new/order-products/preview-custom` |
+| 문의 없음 | PC / MO | `/support/inquiries` |
+| 접수완료 | PC / MO | `/support/inquiries/preview-pending` |
+| 답변완료 | PC / MO | `/support/inquiries/preview-answered` |
+| 접수완료·첨부 | PC | `/support/inquiries/preview-pending-attachments` |
+| 답변완료·첨부 | MO | `/support/inquiries/preview-attachments` |
+| 첨부 미리보기 | PC / MO | `/support/inquiries/preview-attachment` |
+| 문의등록 | PC / MO | `/support/inquiries/new` |
+| 입력 오류 | PC / MO | `/support/inquiries/new/preview-error` |
+| 작성 취소 | PC / MO | `/support/inquiries/new/preview-cancel` |
+| 주문 미선택 안내 | PC / MO | `/support/inquiries/new/preview-order-required` |
+| 주문 조회 전 | PC / MO | `/support/inquiries/new/preview-order-lookup` |
+| 주문 선택 후 | PC / MO | `/support/inquiries/new/preview-order-selected` |
+| 주문 조회 | PC / MO | `/support/inquiries/new/order-products` |
+| 조회 기간 직접설정 | MO | `/support/inquiries/new/order-products/preview-custom` |
 
-1973:17114는 모바일 OS의 사진/파일 선택 메뉴 참고다. 앱에서 OS 메뉴 모양을 복제하거나 자동으로 띄우는 별도 화면을 만들지 않는다. 문의 등록 화면의 파일찾기 클릭이 실제 기기의 선택기를 연다. Windows 브라우저로 iOS 메뉴 자체를 검증했다고 기록하지 않는다.
+시안는 모바일 OS의 사진/파일 선택 메뉴 참고다. 앱에서 OS 메뉴 모양을 복제하거나 자동으로 띄우는 별도 화면을 만들지 않는다. 문의 등록 화면의 파일찾기 클릭이 실제 기기의 선택기를 연다. Windows 브라우저로 iOS 메뉴 자체를 검증했다고 기록하지 않는다.
 
 ## 상태와 데이터 소유권
 
@@ -92,8 +92,8 @@ InquiryListPreview와 InquiryFormStatePreview는 준비 fixture와 초기 popup/
 
 ## 2026-11-05 주문 상품 조회 모달
 
-[PC 2339:62636](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2339-62636)과 [MO 1973:17354](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1973-17354)의 중앙·전체 화면 구성과 하단 액션을 적용했다. 현재 조회는 준비된 주문 fixture를 사용하며 문의 폼은 선택 결과만 로컬로 반영한다. 화면의 주문번호·날짜·상품 이미지에는 기존 fixture를 사용한다. 출처는 `InquiryOrderLookup.tsx`, `InquiryFormStatePreview.tsx`, `InquiryFormContent.tsx`, `inquiryOrders.data.ts` 작업 트리다.
+[PC](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)과 [MO](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 중앙·전체 화면 구성과 하단 액션을 적용했다. 현재 조회는 준비된 주문 fixture를 사용하며 문의 폼은 선택 결과만 로컬로 반영한다. 화면의 주문번호·날짜·상품 이미지에는 기존 fixture를 사용한다. 출처는 `InquiryOrderLookup.tsx`, `InquiryFormStatePreview.tsx`, `InquiryFormContent.tsx`, `inquiryOrders.data.ts` 작업 트리다.
 
 ### 모바일 주문 상품 조회 간격 보완
 
-375px 시안 1973:17354 기준으로 제목 바 56px, 본문 여백 24px 16px 64px, 주요 구간 간격 32px, 결과 건수와 목록 간격 8px을 적용했다. 조회 기간 탭은 37px, 하단 액션은 48px이며 버튼은 본문과 함께 스크롤한다. 기본 조회 미리보기만 첫 상품을 미리 선택한다. 출처는 `InquiryOrderLookup.tsx`와 `order-products/page.tsx` 작업 트리다.
+375px 시안 기준으로 제목 바 56px, 본문 여백 24px 16px 64px, 주요 구간 간격 32px, 결과 건수와 목록 간격 8px을 적용했다. 조회 기간 탭은 37px, 하단 액션은 48px이며 버튼은 본문과 함께 스크롤한다. 기본 조회 미리보기만 첫 상품을 미리 선택한다. 출처는 `InquiryOrderLookup.tsx`와 `order-products/page.tsx` 작업 트리다.

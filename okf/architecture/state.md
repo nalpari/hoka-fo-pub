@@ -263,7 +263,7 @@ CheckoutContent에는 상품 행만 표시 데이터로 전달한다. 금액 요
 
 RunningSessionEntriesContent와 eventEntries.data.ts를 검토했다. fixture 사진 3종을 지정 시안의 마스크 크롭으로 교체하고 세 번째 제목의 문장부호를 시안에 맞췄다. 3건·총 62건·1/10은 준비된 표시 데이터이며 운영 응답·조회 조건·취소 ID·pending/실패/재시도·갱신 책임은 기존 RunningSessionDataContext 계약을 유지한다. Context·서비스 구현은 변경하지 않았다. 비연결 취소 확인은 창만 닫고 목록 3건을 유지한다. 이번 변경은 바인딩 경계를 바꾸지 않으므로 비동기 서비스 시나리오를 다시 검증한 것으로 기록하지 않는다.
 
-출처: [Figma 신청내역 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1934-97644)의 PC `1934:98031`·MO `1934:97645`·모달 `1934:97736`, 위 두 작업 트리 파일과 `public/images/mypage/event-entries/`. 작성: Codex, 2026-10-30T08:21:19.889Z; 조사 기준 HEAD `44faf1e5aa491c2506db28d0741e3f27f782ad58`. 기존 개념의 source_revision은 이전 출처로 보존한다.
+출처: [Figma 신청내역 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 PC·MO·모달, 위 두 작업 트리 파일과 `public/images/mypage/event-entries/`. 작성: Codex, 2026-10-30T08:21:19.889Z; 조사 기준 HEAD `44faf1e5aa491c2506db28d0741e3f27f782ad58`. 기존 개념의 source_revision은 이전 출처로 보존한다.
 
 ## ShopShell 타이포 이름 변경 검토 (2026-10-30)
 
@@ -397,7 +397,7 @@ RegistrationPage의 checkedEmail은 이메일·도메인 변경이나 실패한 
 
 재설정의 validatePasswordReset도 공통 모듈에서 제공하며 기존 기능 경로는 재수출로 호환한다. 빈 비밀번호는 공통 규칙 문구, 빈 확인란은 “비밀번호를 다시 입력해 주세요.”, 불일치는 기존 “동일한 비밀번호가 입력되었는지 확인해주세요.”를 반환한다. required라는 내부 표식을 반환해 화면에서 설명을 숨기던 경로는 제거했다.
 
-Figma 제공 링크의 291:53311·291:60808은 재인증 오류로 원문을 읽지 못했다. 이 정책 통일은 사용자가 확인한 로그인 스크린샷과 코드의 충돌을 보완한 것이며 두 Figma 영역 전체와 일치한다는 판정은 아니다. 이메일 중복·인증번호의 실제 서버 검증은 계속 데모 안내로 표시한다.
+Figma 제공 링크의은 재인증 오류로 원문을 읽지 못했다. 이 정책 통일은 사용자가 확인한 로그인 스크린샷과 코드의 충돌을 보완한 것이며 두 Figma 영역 전체와 일치한다는 판정은 아니다. 이메일 중복·인증번호의 실제 서버 검증은 계속 데모 안내로 표시한다.
 
 ## 장바구니 항목
 
@@ -635,13 +635,13 @@ MyPageDataContext에 프로필·상품내역·쿠폰·요약/추천·결제수�
 
 ## 전체 검색 표시 상태 검토 (2026-11-02)
 
-검색 공통 Figma 섹션 655:19884에 맞춰 src/context/ShopShell.tsx의 검색 표현과 src/components/common/organisms/Search/SearchHeader.tsx를 보정했다. 검색어·오류는 기존 SiteHeader/SearchOverlay의 제어/비제어 소유권, 최근 검색어는 useRecentSearches, 제출·검색 결과 URL은 기존 콜백을 유지한다. 추천/인기/자동완성은 기존 고정 예시이며 실제 검색 API나 금칙어 정책을 구현하지 않았다. 새 provider·인증·요청·저장 흐름은 추가하지 않았다.
+검색 공통 Figma 섹션에 맞춰 src/context/ShopShell.tsx의 검색 표현과 src/components/common/organisms/Search/SearchHeader.tsx를 보정했다. 검색어·오류는 기존 SiteHeader/SearchOverlay의 제어/비제어 소유권, 최근 검색어는 useRecentSearches, 제출·검색 결과 URL은 기존 콜백을 유지한다. 추천/인기/자동완성은 기존 고정 예시이며 실제 검색 API나 금칙어 정책을 구현하지 않았다. 새 provider·인증·요청·저장 흐름은 추가하지 않았다.
 
 PC 오류일 때 추천 영역을 숨기고 544px 패널에 오류만 표시하며 모바일은 기존 섹션을 유지한다. recentTopPadding은 기본 24px 또는 자동완성/오류 32px인 표시 옵션이다. 열린 상태에서 PC/MO 전환 시 입력값이 유지되는 것을 확인했다. 전체 수치와 검증 한계는 [전체 검색 Figma 적용](ui.md#전체-검색-figma-적용-2026-11-02)을 따른다. 기존 상태·서비스 계약은 이 표시 변경의 영향을 받지 않는다. 검토: codex/gpt-6, 2026-11-02T02:35:01.795Z; 위 두 파일은 미커밋 작업 트리 출처다.
 
 ## GNB 표시와 상태 경계 검토 (2026-11-02)
 
-Navigation 1215:50882 적용 범위의 ShopShell 메뉴·헤더·프로모션 표시를 검토했다. SiteHeader의 activeMenu/search 배타적 열림과 URL 활성 항목, MenuDrawer의 activeMenu·기본 Featured 열림·다른 그룹 전환·뒤로가기/닫기 포커스 소유권은 유지했다. 현재 앱의 로그인 상태도 바꾸지 않았다. 새 요청·인증·저장·서비스 콜백을 추가하지 않았다. MegaMenu.columns.activeItemEmphasis는 제목형 활성 강조를 고르는 표시 옵션이며 서버 카테고리 선택 정책이 아니다. [수치와 실제 확인](ui.md#gnb-figma-적용-2026-11-02)을 참고한다. 작업 트리 출처: src/context/ShopShell.tsx, src/data/megaMenu.ts. 검토: codex/gpt-6, 2026-11-02T03:53:14.763Z.
+Navigation 시안 적용 범위의 ShopShell 메뉴·헤더·프로모션 표시를 검토했다. SiteHeader의 activeMenu/search 배타적 열림과 URL 활성 항목, MenuDrawer의 activeMenu·기본 Featured 열림·다른 그룹 전환·뒤로가기/닫기 포커스 소유권은 유지했다. 현재 앱의 로그인 상태도 바꾸지 않았다. 새 요청·인증·저장·서비스 콜백을 추가하지 않았다. MegaMenu.columns.activeItemEmphasis는 제목형 활성 강조를 고르는 표시 옵션이며 서버 카테고리 선택 정책이 아니다. [수치와 실제 확인](ui.md#gnb-figma-적용-2026-11-02)을 참고한다. 작업 트리 출처: src/context/ShopShell.tsx, src/data/megaMenu.ts. 검토: codex/gpt-6, 2026-11-02T03:53:14.763Z.
 
 ## 러닝세션 신청 pending 표시 보정 (2026-11-02)
 
@@ -735,11 +735,11 @@ ShopShell 알림 아이콘은 hoka- 이름의 쇼핑백·장바구니·계정 SV
 
 ## 모바일 헤더 아이콘 규격 (2026-11-06)
 
-출처: `src/context/ShopShell.tsx`, Figma `qyXJp4bnoeYSQxQULV8Wql`의 `I2158:12144;379:47647` Right Nav Panel. 모바일 검색·장바구니·메뉴는 22px 아이콘, 34×36px 클릭 영역, 6px 간격을 사용한다. 데스크탑·모바일 장바구니는 검정 아이콘과 12px 파란 배지, 흰 숫자로 표시하며 배지는 클릭 영역 기준 left 19px/top 0이다. 데스크탑 검색은 18px이며, 장바구니 아이콘 22px·배지 12px·흰색 숫자 8px은 모바일과 공통이다. NotificationCount의 지정된 8px 글자가 Typography body5에 덮이지 않도록 스타일 우선순위를 명시했다. 카운트 데이터와 메뉴·검색 동작의 소유권은 변경하지 않았다.
+출처: `src/context/ShopShell.tsx`, Figma `qyXJp4bnoeYSQxQULV8Wql`의 시안 Right Nav Panel. 모바일 검색·장바구니·메뉴는 22px 아이콘, 34×36px 클릭 영역, 6px 간격을 사용한다. 데스크탑·모바일 장바구니는 검정 아이콘과 12px 파란 배지, 흰 숫자로 표시하며 배지는 클릭 영역 기준 left 19px/top 0이다. 데스크탑 검색은 18px이며, 장바구니 아이콘 22px·배지 12px·흰색 숫자 8px은 모바일과 공통이다. NotificationCount의 지정된 8px 글자가 Typography body5에 덮이지 않도록 스타일 우선순위를 명시했다. 카운트 데이터와 메뉴·검색 동작의 소유권은 변경하지 않았다.
 
 검증: Ego에서 모바일 아이콘 22px, 배지 12px·숫자 8px/흰색과 데스크탑 검색 16px·장바구니 22px를 실측했다. 버튼 최소 너비 36px이 34px 지정을 막는 것을 확인하고 minW도 34px로 수정했다. 후속 Ego 검증에서 모바일 검색·메뉴 클릭 영역 34×36px를 확인했다. 대상 ESLint 및 OKF 검사 통과.
 
-추가 확인: 데스크탑 Figma `2203:92554`에서도 배지 숫자는 흰색이다. HeaderCartLink의 플랫폼별 색상 분기와 배지 위치 오버라이드를 제거하고 NotificationCount의 공통 위치(-7px/-3px)·흰색 기본값을 사용한다. iconLink의 동일한 모바일 너비·높이 재선언도 제거했다.
+추가 확인: 데스크탑 Figma 시안에서도 배지 숫자는 흰색이다. HeaderCartLink의 플랫폼별 색상 분기와 배지 위치 오버라이드를 제거하고 NotificationCount의 공통 위치(-7px/-3px)·흰색 기본값을 사용한다. iconLink의 동일한 모바일 너비·높이 재선언도 제거했다.
 
 후속 Ego 검증: 데스크탑과 모바일 모두 장바구니 아이콘 22×22px, 배지 12×12px, 숫자 8px·rgb(255, 255, 255)로 실측했다. 대상 ESLint와 OKF 검사가 통과했다.
 

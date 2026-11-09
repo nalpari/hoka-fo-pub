@@ -167,9 +167,9 @@ const backdrop = cva({
     position: 'fixed',
     inset: '0',
     zIndex: '99',
-    backdropFilter: 'blur(48px)',
   },
   variants: {
+    blur: { true: { backdropFilter: 'blur(48px)' } },
     overlayTone: {
       dark: { bg: 'color-mix(in srgb, var(--color-black-100) 50%, transparent)' },
       light: { bg: 'color-mix(in srgb, var(--color-white-000) 50%, transparent)' },
@@ -290,6 +290,7 @@ type ModalDialogBaseProps = {
   /** Keep the footer outside the scroll area on mobile fullscreen dialogs. */
   mobileFixedFooter?: boolean;
   overlayTone?: ModalOverlayTone;
+  blurBackdrop?: boolean;
   popupClassName?: string;
   contentClassName?: string;
   /** 모바일 바텀시트를 최대 높이로 확장하고 본문만 스크롤합니다. */
@@ -377,6 +378,7 @@ export function ModalDialog({
   mobilePresentation = 'popup',
   mobileFixedFooter = false,
   overlayTone = 'dark',
+  blurBackdrop = true,
   popupClassName,
   contentClassName,
   scrollable = false,
@@ -411,7 +413,7 @@ export function ModalDialog({
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
         <div className={`platform-${platform}`}>
-          <Dialog.Backdrop className={backdrop({ overlayTone })} />
+          <Dialog.Backdrop className={backdrop({ blur: blurBackdrop, overlayTone })} />
           <Dialog.Viewport className={viewport({ mobilePresentation })}>
             <Dialog.Popup
               finalFocus={finalFocus}

@@ -280,13 +280,18 @@ export function RewardsPageContent({
       />
       <Stack gap="14" _mobile={{ gap: '10', pt: '6' }}>
         <Stack gap="6">
+          <ContentHeader
+            title="회원등급"
+            titleAs="h1"
+            titleProps={{ web: 'heading6', mo: 'heading5' }}
+          />
           <HStack gap="4" alignItems="flex-start">
             <Box display={{ base: 'block', _mobile: 'none' }} aria-hidden="true">
               <TierBadge tier={summary?.tier} initial={summary?.tierInitial} />
             </Box>
             <ContentHeader
               title={summary?.tier}
-              titleAs="h1"
+              titleAs="h2"
               titleProps={{ web: 'heading6', mo: 'heading3' }}
               description={
                 <>

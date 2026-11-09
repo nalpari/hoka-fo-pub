@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-06T05:36:02Z'
+updated: '2026-11-09T00:48:27.758Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -1008,10 +1008,6 @@ sources:
 ---
 
 # 컴포넌트와 스타일
-
-2026-11-09: 상품 상세 스펙 항목의 전용 Base UI Tooltip 구현을 공통 `HelpTooltip` 직접 호출로 교체했다. 두 사용처의 레이블과 설명은 그대로 전달하며 아래쪽 표시를 지정한다. 공통 Tooltip의 텍스트는 원문 줄바꿈을 유지한다. 기존 `specification-info` SVG는 생산 화면에서 사용하지 않아 가이드 사용처만 정정했다. 출처: 작업 트리의 `src/app/products/[id]/_components/ProductDetailContent.tsx`, `src/components/common/molecules/HelpTips.tsx`, `src/app/publishing-guide/_components/IconGuide.tsx`.
-
-2026-11-09: 1:1 문의의 주문 상품 미선택 영역을 제목→안내문→조회 버튼으로 정렬하고 데스크탑 버튼을 160×48px 왼쪽 정렬로 맞췄다. [고객센터 시안 기록](support-design.md#11-문의-주문-상품-조회-영역-2026-11-09)을 참고한다.
 
 러닝세션 목록 카드의 이미지 반경은 PC와 모바일 모두 0이다. 스타일은 공통 Card가 아닌 `RunningSessionPage.tsx`의 이미지 링크에서 관리한다. [러닝세션 디자인](running-session-design.md#신청-시작-알림-색상과-목록-이미지-모서리-2026-11-05).
 
@@ -4890,14 +4886,6 @@ PC 1920px 기준 1016px 미디어와 484px 구매 패널 사이 32px를 유지�
 
 - 2026-11-06: 임직원 쿠폰 디자인에 쓰이는 circle-check-solid 18px를 등록했다. 쿠폰 화면은 첫 항목 Solid, 둘째 항목 Regular를 각각 18px로 표시한다.
 
-2026-11-09: 시안에 사용하지 않는 저재고 시계 아이콘 clock-nine-regular와 lowStockSizes 상태를 삭제했다. 사이즈 선택은 available, soldOut, unavailable만 표시한다.
+## 마이페이지 고객지원 메뉴 진입 (2026-11-09)
 
-2026-11-09: IconGuide에서 IaStructurePage.tsx 사용처로 표기된 모든 아이콘을 IA 화면용 그룹에 모은다.
-
-2026-11-09: 체크아웃 카드 결제 표시 이미지를 Figma 1985:77684의 원본 PNG로 교체했다. 기존 credit-card-solid SVG, Icon 등록, 아이콘 가이드 항목을 제거하고 27×18px 이미지를 사용한다.
-
-2026-11-09: 카드 결제 표시 파일을 PNG에서 SVG로 교체했다. Figma 원본이 래스터 이미지이므로 SVG 내부의 image 데이터로 원본 화질을 유지한다.
-
-2026-11-09: CheckoutPayment의 다른 아이콘 호출이 남아 있어 Icon import를 유지한다. 카드 결제 표시는 card-payment.svg 이미지로 렌더링한다.
-
-2026-11-09: 체크아웃 카드 타일은 Figma 디자인 시스템 296:21251의 credit-card Regular 벡터를 Icon 등록명 credit-card-regular로 사용한다. Right Image 기반 checkout/card-payment.svg는 제거했다. 타일 표시 크기는 기존 16px이다.
+마이페이지 사이드 메뉴의 FAQs·1:1문의와 대시보드의 같은 바로가기는 고객센터 URL에 `from=mypage`를 붙인다. 공유 브레드크럼에는 기존과 같이 라벨과 링크를 넘기며, 진입별 상위 항목은 [고객지원 라우트](routing.md#마이페이지고객센터-브레드크럼과-화면-제목-2026-11-09)에서 선택한다. 작업 트리 출처는 `src/components/mypage/mypage.data.ts`와 `src/app/mypage/mypage-home-data.ts`다.

@@ -19,18 +19,18 @@ working_tree_sources:
   - src/types/component-contracts/components-common-molecules-HomeCarouselSection-HomeCarouselSection.d.ts
 sources:
   - id: main-design
-    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1181-41552
-    title: 'Main 1181:41552'
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design
+    title: 'Main 시안'
   - id: product-design
-    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1294-32410
-    title: 'PDP 1294:32410'
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design
+    title: 'PDP 시안'
 ---
 
 # 메인과 상품 상세 Figma 적용
 
 ## 메인
 
-대상은 `/`이다. Main 섹션의 PC 1181:39776과 Mobile 1181:40175, 필요한 배너·카테고리·Explore·Find my HOKA 하위 노드를 읽고 내보낸 화면과 대조했다. 화면 파일과 별도 디자인 시스템 파일의 읽기 접근을 각각 확인했다. 큰 노드 일부는 응답 시간 초과 후 필요한 하위 구조를 읽었으며, 스크린샷만으로 구조를 확인했다고 기록하지 않는다.[^main-design]
+대상은 `/`이다. Main 섹션의 PC과 Mobile, 필요한 배너·카테고리·Explore·Find my HOKA 하위 노드를 읽고 내보낸 화면과 대조했다. 화면 파일과 별도 디자인 시스템 파일의 읽기 접근을 각각 확인했다. 큰 노드 일부는 응답 시간 초과 후 필요한 하위 구조를 읽었으며, 스크린샷만으로 구조를 확인했다고 기록하지 않는다.[^main-design]
 
 | 디자인                                             | 구현                                                                                                                                                               |
 | -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -49,7 +49,7 @@ HomeContentContext의 현재 상품·탭 조회·콘텐츠 슬롯, 기존 캐러
 
 ## 상품 상세
 
-대상은 `/products/shoe-1`이다. PDP 섹션의 PC 1294:31466, MO 1325:33038, 할인 1444:35530, 고정 CTA 1365:51728과 후속 PC 1687:10261·펼침/접힘 프레임의 필요한 구조를 확인했다. 1750:25031에는 이미지·Tab & Spec·Why you’ll love it·Review·상품문의·Info Accordion이 있어 기존 상세 기술/리뷰/문의 영역을 유지했다.[^product-design]
+대상은 `/products/shoe-1`이다. PDP 섹션의 PC, MO, 할인, 고정 CTA와 후속 PC·펼침/접힘 프레임의 필요한 구조를 확인했다. 시안에는 이미지·Tab & Spec·Why you’ll love it·Review·상품문의·Info Accordion이 있어 기존 상세 기술/리뷰/문의 영역을 유지했다.[^product-design]
 
 | 디자인                                                                   | 구현                                                                                                                                                                                                                |
 | ------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -78,9 +78,9 @@ HomeContentContext의 현재 상품·탭 조회·콘텐츠 슬롯, 기존 캐러
 
 전체 카드/후속 상세 프레임의 모든 시각 차이, 실제 API 성공/실패/재시도, 결제와 장바구니 서비스 연동은 검증 범위에 포함하지 않았다. 시안과 픽셀 단위로 완전히 같다고 주장하지 않는다.
 
-[^main-design]: Main 섹션 1181:41552 및 PC/MO 하위 프레임.
+[^main-design]: Main 섹션 및 PC/MO 하위 프레임.
 
-[^product-design]: PDP 섹션 1294:32410 및 기본/할인/고정 CTA/후속 PC 프레임.
+[^product-design]: PDP 섹션 및 기본/할인/고정 CTA/후속 PC 프레임.
 
 ## 공통 전체 대조 후 조합 (2026-11-02)
 

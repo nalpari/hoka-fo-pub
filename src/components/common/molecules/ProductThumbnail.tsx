@@ -18,7 +18,8 @@ const root = cva({
   },
   variants: {
     variant: {
-      listing: {},
+      listing: { aspectRatio: '371 / 464' },
+      history: {},
       summary: { h: 'full', bg: 'black.10', _mobile: { fontSize: 'inherit' } },
       showcase: {
         aspectRatio: '293.6 / 367.25',
@@ -54,7 +55,7 @@ export type ProductThumbnailProps = {
   imageProps?: Pick<ImageProps, 'width' | 'height' | 'loading'>;
 };
 
-export type ProductThumbnailVariant = 'listing' | 'showcase' | 'summary';
+export type ProductThumbnailVariant = 'listing' | 'showcase' | 'summary' | 'history';
 
 /** 상품 이미지의 반응형 로딩·호버 이미지와 오버레이를 제공합니다. (Provides responsive product image loading, hover images, and overlays.) */
 export function ProductThumbnail({
