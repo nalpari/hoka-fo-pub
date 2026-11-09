@@ -35,19 +35,19 @@ working_tree_sources:
   - public/images/size-guide/
 sources:
   - id: size-guide-desktop-selector
-    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1973-18231
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design
     title: 'PC 성별 선택·차트·단위 탭'
   - id: size-guide-mobile-selector
-    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2108-66625
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design
     title: '모바일 성별 선택·차트·단위 탭'
   - id: size-guide-desktop-measurement
-    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1973-18205
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design
     title: 'PC 측정 안내 카드의 제목·STEP·본문'
   - id: size-guide-design-20261102
-    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1973-17900
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design
     title: '사이즈 가이드 디자인: 신발과 추가 4개 품목 섹션'
   - id: size-guide-spec-20261102
-    resource: https://www.figma.com/design/4cJ1LkWUgme3lklyQ9U8qr/-?node-id=2087-18211
+    resource: https://www.figma.com/design/4cJ1LkWUgme3lklyQ9U8qr/-
     title: '고객센터 PC 화면설계서의 사이즈 가이드 2913 노드'
   - id: size-guide-route
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/src/app/support/size-guide/page.tsx
@@ -126,7 +126,7 @@ SizeGuideMeasurements는 Grid 배치와 하위 영역 조합을 담당한다. Si
 
 ## Figma 디자인·설계서 반영 (2026-11-02)
 
-이 절이 위의 8품목·미확정 00·발볼 선택·DataTable.spaced 기록을 대체한다. 화면 디자인의 1973:17900(신발), 2149:35764(상의), 2149:35765(하의), 2149:37894(러닝 베스트), 2149:38728(양말)을 읽었다. 추가 화면설계서 2087:18211의 2913:5559~6660 품목별 프레임으로 복제된 상의 문구·표를 구분했다. 디자인의 하의 안내에 남은 가슴 측정과 베스트·양말의 상의 내용은 설계서의 실제 품목 안내로 보완한다.
+이 절이 위의 8품목·미확정 00·발볼 선택·DataTable.spaced 기록을 대체한다. 화면 디자인의(신발),(상의),(하의),(러닝 베스트),(양말)을 읽었다. 추가 화면설계서의 시안 품목별 프레임으로 복제된 상의 문구·표를 구분했다. 디자인의 하의 안내에 남은 가슴 측정과 베스트·양말의 상의 내용은 설계서의 실제 품목 안내로 보완한다.
 
 탭은 신발·상의·하의·러닝 베스트·양말 5개다. 기존 경로·IA 260·상품 상세·푸터 진입을 유지한다. 베스트와 양말은 공용만 제공하며 양말은 S/M/L/XL에 신발 사이즈 210–230/230–250/250–270/270–290을 표시하고 단위 선택은 제공하지 않는다. 설계서에 없는 발볼 선택은 제거했다. 상의·하의·베스트의 US/KR 및 cm/inch 값은 준비된 표로 제공한다. 신발 여성은 220~260, 공용은 220~300으로 설계서 범위를 반영했다. 신발 inch는 cm/2.54를 소수 두 자리로 미리 준비한 값이며 남성 디자인 표와 대조했다. 여성·공용 inch는 원본 프레임에서 직접 확인한 값과 구분한다.
 
@@ -139,7 +139,7 @@ SizeGuideMeasurements는 Grid 배치와 하위 영역 조합을 담당한다. Si
 | 성별 버튼 높이 37px, radius 30px                   | 기존 SegmentedControl에 로컬 표현 적용               |
 | 표 높이 48px, #E9EAEB 헤더, #F7F7F9 짝수 행        | 라우트 전용 시맨틱 table, 공통 DataTable 기본값 유지 |
 
-신발 그림은 디자인 1973:17954에서, 상의·하의·베스트·양말 그림은 추가 설계서의 2913:6633/5852/5663/5793에서 가져왔다. 여성 상의는 기존 tops-women 자산을 유지한다. 이미지 원본의 해상도 한계와 디자인의 수급 후 적용 표시는 최종 운영 이미지 확정과 구분한다.
+신발 그림은 디자인에서, 상의·하의·베스트·양말 그림은 추가 설계서의 시안에서 가져왔다. 여성 상의는 기존 tops-women 자산을 유지한다. 이미지 원본의 해상도 한계와 디자인의 수급 후 적용 표시는 최종 운영 이미지 확정과 구분한다.
 
 표 모델은 GuideCategory.charts[gender][unit]이며 route가 정적 표시 데이터와 품목 구성을 소유한다. Panel은 성별·단위 로컬 UI만 소유한다. API 요청·저장·재고 판정·가격 계산은 없고, 승인된 운영 데이터 교체와 갱신은 연동 담당 책임이다. 네트워크 pending/오류/재시도 계약을 새로 구현하지 않았다.
 
@@ -147,7 +147,7 @@ SizeGuideMeasurements는 Grid 배치와 하위 영역 조합을 담당한다. Si
 
 ## 캡처 재검증과 선택 UI 통일 (2026-11-02)
 
-이 절이 위의 37px 성별 버튼 및 캡처 미완료 기록을 대체한다. 추가로 지정된 PC 1973:18231, 모바일 2108:66625를 읽고 실제 렌더링 화면과 대조했다. 전체 페이지 캡처에서 일부 모바일 화면의 재배치·미도색이 발생해, 최종 증빙은 실제 보이는 영역을 나누어 캡처했다. PC 5품목과 모바일 5품목의 화면을 직접 확인했다. 원본의 이미지 수급 자리표시자와 현재 설계서 자산, 홍보 배너 및 스크롤바 차이는 제품 스타일 차이와 구분한다.
+이 절이 위의 37px 성별 버튼 및 캡처 미완료 기록을 대체한다. 추가로 지정된 PC, 모바일를 읽고 실제 렌더링 화면과 대조했다. 전체 페이지 캡처에서 일부 모바일 화면의 재배치·미도색이 발생해, 최종 증빙은 실제 보이는 영역을 나누어 캡처했다. PC 5품목과 모바일 5품목의 화면을 직접 확인했다. 원본의 이미지 수급 자리표시자와 현재 설계서 자산, 홍보 배너 및 스크롤바 차이는 제품 스타일 차이와 구분한다.
 
 신발만 별도 표현을 쓰던 분기를 제거했다. 사용자의 후속 지시에 따라 모든 품목이 성별 선택 → 차트 제목/오른쪽 단위 탭 → 표의 동일 배치를 사용한다. 성별 선택은 3개 개별 버튼이 아닌 하나의 회색 캡슐이며, 베스트·양말은 기존 공용 1개만 제공한다. 양말은 기존 신발 사이즈 범위 데이터와 단위 탭 미제공을 유지한다. 표 수치·성별별 데이터·서비스 연결 경계는 바꾸지 않았다.
 

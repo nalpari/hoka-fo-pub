@@ -16,7 +16,7 @@ working_tree_sources:
   - src/app/mypage/_components/MyPageContent.tsx
 sources:
   - id: error-empty-design
-    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2520-98509
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design
     title: '에러/상품없음 가이드'
 ---
 
@@ -44,4 +44,4 @@ MO 최근 본 상품의 높이 계산은 현재 홍보 배너 50px과 breadcrumb
 
 최근 본 상품 기본 목록, 관심상품 빈 화면, 장바구니 빈 화면과 점검·서비스 오류 화면도 PC/MO에서 확인했다. 최종 PC 최근 본 상품 제목 경계 아래 간격은 160px, 문구 폭은 520px으로 측정했다. 전체 ESLint, 변경 TSX Prettier, TypeScript, Panda 생성과 최종 Next.js production build(145개 정적 페이지)가 통과했다. `hoka-markup-handoff` 기준으로 기존 소유권·Panda 추출·모바일 override 병합·콘텐츠 간격·서비스 경계 보존을 점검했다. 새 import의 `sourceGraph.generated.json` 의존성은 정식 생성 명령으로 갱신했다. 이 확인은 전체 소비자 시각 회귀나 서비스 바인딩 검증을 의미하지 않는다. Storybook 검증은 수행하지 않았다.
 
-[^error-empty-design]: [에러/상품없음 가이드](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2520-98509), 하위 섹션 2520:98510. 412px·160px·154px·267px·320px·520px과 12px 주석을 확인했다. 화면 예시는 이미지이므로 제품 UI의 세부 타이포그래피·간격을 구조화된 실측으로 간주하지 않는다.
+[^error-empty-design]: [에러/상품없음 가이드](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design), 하위 섹션 기준. 412px·160px·154px·267px·320px·520px과 12px 주석을 확인했다. 화면 예시는 이미지이므로 제품 UI의 세부 타이포그래피·간격을 구조화된 실측으로 간주하지 않는다.

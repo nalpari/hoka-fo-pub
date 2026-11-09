@@ -238,7 +238,7 @@ ProfileEditForm은 선택적인 details 표시 항목과 pending을 받는다. �
 
 저장 확인 시 선택 비밀번호는 기존 changePassword, 이메일·주소·휴대폰·phoneProof·세 동의 값은 기존 save에 전달한다. 각 요청을 await하고 대기 중 제출을 비활성화한다. 비밀번호 변경 성공 뒤 프로필 저장이 실패하면 비밀번호 초안 참조를 지워 재시도에서 같은 변경 요청을 반복하지 않는다. 두 요청은 원자적 트랜잭션이 아니며 실제 계정 어댑터의 처리·조회 item 갱신은 개발팀 책임이다. 실패 시 편집 초안과 확인창·오류를 유지한다.
 
-ProfileStatePreview의 기본정보는 표시 fixture이며 저장·탈퇴·인증 요청을 실행하지 않는다. 도메인 선택은 domainChoice와 domain을 함께 변경한다. 주소 검색 모달은 기존 미연결 수동 입력 UI다. 출처는 관련 작업 트리 TSX/types 및 [디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1813-89280)이며 실제 API 연결 검증은 하지 않았다.
+ProfileStatePreview의 기본정보는 표시 fixture이며 저장·탈퇴·인증 요청을 실행하지 않는다. 도메인 선택은 domainChoice와 domain을 함께 변경한다. 주소 검색 모달은 기존 미연결 수동 입력 UI다. 출처는 관련 작업 트리 TSX/types 및 [디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)이며 실제 API 연결 검증은 하지 않았다.
 
 ## 재입고 알림 표시 상태와 시안 fixture (2026-10-30)
 

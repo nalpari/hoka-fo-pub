@@ -22,6 +22,10 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - Use the repository skill [hoka-markup-handoff](.agents/skills/hoka-markup-handoff/SKILL.md) for markup handoff and its integrated component ownership, wrapper, form, Panda, responsive and Next.js guidance. Resolve its `references/` paths from `.agents/skills/hoka-markup-handoff/`; no personal skill installation is required. The retired `component-reusability` skill is not used.
 - Within an authorized publishing handoff, remove service/demo flows and keep prepared display fixtures, fixed state URLs and minimum local UI interactions. Do not reintroduce authentication, requests, persistence, calculations or completion navigation merely to preserve a previous demo. Preserve contracts used by out-of-scope screens and follow explicit user exclusions.
 
+## Markdown design references
+
+- Omit Figma node IDs, including instance paths, from Markdown documents. This applies to prose, tables, code examples, comments, front matter and URLs. Refer to the design by screen, state or component name. If a link is useful, use the file-level URL without node parameters or fragments. Keep implementation measurements and verification results.
+
 ## Project knowledge (OKF)
 
 - Start with [okf/index.md](okf/index.md) and read the concepts relevant to the task.

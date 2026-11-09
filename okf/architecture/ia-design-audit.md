@@ -18,7 +18,7 @@ sources:
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design
     title: '[HOKA]Design — Figma 데스크탑에서 읽은 프레임 목록'
   - id: hoka-main
-    resource: https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP?node-id=2536-2823
+    resource: https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP
     title: 'Main / PLP / PDP — HOKA RUN CLUB'
 updated: '2026-11-04T01:19:32.500Z'
 ---
@@ -33,17 +33,17 @@ updated: '2026-11-04T01:19:32.500Z'
 
 Figma 데스크탑의 현재 페이지 찾기와 접근성 트리로 다음 목록을 읽었다. PC는 `Desktop /`, `PC /`, `[PC]`, MO는 `Mobile /`, `[MO]` 이름을 구분했다. 전용 프레임이 발견되지 않은 것은 조사한 파일에서의 미수급이며 모든 Figma 파일의 부재를 증명하지 않는다.[^hoka-design][^hoka-main]
 
-| 파일·페이지 | 페이지 node-id | 발견한 화면 |
-| --- | --- | --- |
-| Main / PLP / PDP · HOKA RUN CLUB | 2536-2823 | PC/Mobile List, Detail 및 마감·미리보기 상태 |
-| [HOKA]Design · 메인/ 상품리스트 / 상세페이지 | 1181-38880 | PC/Mobile Main, PLP, PDP, Navigation 및 필터 상태 |
-| 로그인/ID찾기/비밀번호 찾기 | 1-18 | Desktop/Mobile Login, 아이디/비밀번호 찾기, 아이디 확인, 재설정, 계정잠금 인증·해제 완료. PC 계정잠금·비밀번호 변경완료 모달 |
-| 회원가입 | 127-1333 | Desktop/Mobile Join, 휴대폰 인증, 약관, 정보 입력, 부가정보와 모달. 가입완료 검색은 Desktop 프레임 2개 |
-| 마이페이지 | 389-9339 | Desktop/Mobile MY Page, Product Reviews, 회원등급. Mobile 쿠폰·러닝세션 신청내역·회원정보·배송지·관심/최근/재입고 상품 |
-| 장바구니/주문하기/주문내역 | 962-5160 | Desktop/Mobile Cart, Order/Payment, Order&Shipping. Mobile 보유 쿠폰 조회·주문/취소/반품 상세 |
-| 고객센터 | 324-4175 | Desktop/Mobile 메인·FAQs·공지목록·문의등록·매장·배송/반품·손질·개인정보·사이즈. Mobile 공지상세·이용약관, PC 문의목록 상태 |
-| 검색_공통 | 648-17782 | Desktop/Mobile Search, Results, No results 및 입력 상태 |
-| 에러페이지 | 577-10864 | [PC]/[MO] 404·점검·기타 에러 |
+| 파일·페이지 | 발견한 화면 |
+| --- | --- |
+| Main / PLP / PDP · HOKA RUN CLUB | PC/Mobile List, Detail 및 마감·미리보기 상태 |
+| [HOKA]Design · 메인/ 상품리스트 / 상세페이지 | PC/Mobile Main, PLP, PDP, Navigation 및 필터 상태 |
+| 로그인/ID찾기/비밀번호 찾기 | Desktop/Mobile Login, 아이디/비밀번호 찾기, 아이디 확인, 재설정, 계정잠금 인증·해제 완료. PC 계정잠금·비밀번호 변경완료 모달 |
+| 회원가입 | Desktop/Mobile Join, 휴대폰 인증, 약관, 정보 입력, 부가정보와 모달. 가입완료 검색은 Desktop 프레임 2개 |
+| 마이페이지 | Desktop/Mobile MY Page, Product Reviews, 회원등급. Mobile 쿠폰·러닝세션 신청내역·회원정보·배송지·관심/최근/재입고 상품 |
+| 장바구니/주문하기/주문내역 | Desktop/Mobile Cart, Order/Payment, Order&Shipping. Mobile 보유 쿠폰 조회·주문/취소/반품 상세 |
+| 고객센터 | Desktop/Mobile 메인·FAQs·공지목록·문의등록·매장·배송/반품·손질·개인정보·사이즈. Mobile 공지상세·이용약관, PC 문의목록 상태 |
+| 검색_공통 | Desktop/Mobile Search, Results, No results 및 입력 상태 |
+| 에러페이지 | [PC]/[MO] 404·점검·기타 에러 |
 
 `storybookLinks.ts`가 내부 IA 번호별 확인값을 보관한다. 동일 `eland_hca_01`/`eland_hca_02` 카테고리 IA는 발견한 PLP/PDP 공통 템플릿 수급 상태를 공유한다. 검색 결과 IA 247은 별도의 실제 검색 디자인 확인값이 우선한다. 고객센터와 마이페이지 Q&A의 같은 화면 코드도 공통 디자인을 연결한다. IA 200 러닝세션 신청내역은 실제 발견한 Mobile 마이페이지 프레임만 수급이며, 런클럽 구현을 재사용한다는 이유로 PC 수급을 추정하지 않는다.
 
@@ -72,7 +72,7 @@ Figma 네이티브 화면 캡처는 `window capture timed out: timed out waiting
 Codex가 상태 모델 테스트 5개, 타입 검사, 변경 TS/TSX ESLint·Prettier와 Panda 생성을 통과했다. 브라우저에서 앱의 수급 수치, 가입완료 PC 수급/MO 미수급, PC 퍼블리싱 수정 필터와 실제 판정 항목 0개를 확인했다. Storybook은 독립 PC/MO 수정 상태 fixture를 수정했지만 이번 변경 후 전체 빌드·play를 실행하지 않았다. 전체 화면의 디자인 대비 시각 검증은 위 캡처 실패로 수행하지 못했다.
 
 [^hoka-design]: [HOKA 디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design), 2026-10-29 네이티브 UI 읽기.
-[^hoka-main]: [런클럽 디자인](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP?node-id=2536-2823), 2026-10-29 네이티브 UI 읽기.
+[^hoka-main]: [런클럽 디자인](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP), 2026-10-29 네이티브 UI 읽기.
 
 ## 첨부 디자인 대조·반영 기록 통합 (2026-11-04)
 
