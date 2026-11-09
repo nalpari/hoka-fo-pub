@@ -4,12 +4,13 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-06T07:52:01Z'
+updated: '2026-11-09T09:35:47+09:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/support/size-guide/size-guide.data.ts
   - src/app/publishing-guide/_components/ModalGuide.tsx
   - src/app/screen-index/sourceGraph.generated.json
   - src/app/products/pdp-preview/[state]/page.tsx
@@ -1695,6 +1696,14 @@ IA STATE의 WBS·개발자·진척율이 상위 화면에 표시된 경우 STATE
 - 2026-11-06: 아이콘 가이드 타임라인은 섹션 제목과 짧은 한 줄 요약을 표시하고, 상세 설명은 본문 제목 아래에 표시한다.
 
 2026-11-06 main 변경 보고는 origin/main의 고정 비교 범위와 Schedule 실적을 사용한다. 실적 0% 화면 전용 변경을 제외하고 공용 파일은 보고 대상 IA 번호를 명시해 담당자를 좁힐 수 있다. 출처: screenChangeHistory.ts 및 11월 6일 보고 데이터.
+
+## 상품 상세 신발 사이즈 가이드 팝업 (2026-11-09)
+
+신발 사이즈 가이드 버튼은 문구 왼쪽에 자 아이콘을 표시한다.
+
+`/products/shoe-1` 등 성별이 지정된 신발 상세에서 사이즈 가이드 버튼을 누르면 현재 URL에 머물며 공통 모달을 연다. 의류와 성별 미제공 상품은 기존 `/support/size-guide` 링크를 사용한다. 기존 상품 상세 진입점과 IA 연결을 유지하고 생성 소스 그래프에 공유 치수 데이터 의존성을 반영했다. [표와 단위 선택](size-guide.md#상품-상세-신발-사이즈-가이드-팝업-2026-11-09).
+
+출처는 사용자 첨부 PC·모바일 시안과 작업 트리의 변경 소스다. 기준 HEAD는 `781c2adb1fb5bb30c69f78301311728f9a3a8fbc`이며 codex/gpt-6가 2026-11-09T09:35:47+09:00에 기록했다.
 
 ## 공통 모달 규격 적용과 확인 경로 (2026-11-06)
 

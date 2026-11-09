@@ -4,11 +4,13 @@ title: '사이즈 가이드'
 description: '품목별 측정 안내, 선택 상태와 미확정 데이터의 표시 범위를 설명한다.'
 tags: [support, size-guide, storybook]
 status: draft
+updated: '2026-11-09T09:35:47+09:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T04:46:17Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/products/[id]/_components/ProductDetailContent.tsx
   - src/components/common/atoms/DataTable.tsx
   - src/app/support/size-guide/page.tsx
   - src/app/support/size-guide/size-guide.data.ts
@@ -53,6 +55,16 @@ sources:
 ---
 
 # 사이즈 가이드
+
+## 상품 상세 신발 사이즈 가이드 팝업 (2026-11-09)
+
+팝업을 여는 버튼 안에서 자 아이콘을 문구 왼쪽에 배치한다.
+
+신발 상품 상세는 `Product.gender`에 해당하는 남성·여성·공용 표를 열고 고객센터와 동일한 `shoeGuide.charts` 표시 데이터를 사용한다. 한국 사이즈·US 사이즈·발길이를 행으로 배치하고, 표가 넓으면 행 제목 열을 고정한 채 표 안에서 가로로 스크롤한다. 열 때마다 cm로 시작하며 inch는 발길이만 바꾼다. 운영 치수표 승인·갱신은 연결 소유자가 맡는다. 기존 상품 상세 링크 설명은 이 절 이전의 동작을 기록한다. [팝업 UI](ui.md#상품-상세-사이즈-가이드-모달-2026-11-09).
+
+출처는 사용자 첨부 PC·모바일 시안과 작업 트리의 `ProductDetailContent.tsx`, `size-guide.data.ts`다. 기준 HEAD는 `781c2adb1fb5bb30c69f78301311728f9a3a8fbc`이며 codex/gpt-6가 2026-11-09에 기록했다.
+
+브라우저에서 자동 PC 1440px와 모바일 390px의 남성·여성·공용 표, 단위 전환, Escape·닫기 버튼, 재열기 초기화, 포커스 복귀, 첫 열 고정과 표 내부 스크롤을 확인했다. 팝업을 연 상태에서 1024/1025px 및 1199/1200px로 전환해 단위가 유지되는 것을 확인했고 모바일 배경 클릭과 고객센터 기본 표도 확인했다. 최종 단위 선택 UI는 PC에서 inch 값, 12px 표 글자, 선택한 색상과 포커스 복귀를 재확인했다. 명시적 플랫폼을 사용하는 상품 상세 미리보기 검증은 수행하지 않았다.
 
 ## 재사용 개선과 사이드 메뉴 순서 (2026-10-21)
 

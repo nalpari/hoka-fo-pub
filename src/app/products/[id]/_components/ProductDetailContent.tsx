@@ -31,6 +31,7 @@ import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { Icon } from '@/components/common/atoms/Icon';
 import { NumberStepper } from '@/components/common/atoms/NumberStepper';
 import { RatingStars } from '@/components/common/atoms/RatingStars';
+import { SegmentedControl } from '@/components/common/atoms/SegmentedControl';
 import { Typography } from '@/components/common/atoms/Typography';
 import { Wishlist } from '@/components/common/atoms/Wishlist';
 
@@ -73,6 +74,12 @@ import {
 } from '@/app/products/[id]/productDetailPreviews';
 import { productInquiries } from '@/app/products/[id]/productInquiries';
 import { productSizeOptions } from '@/app/products/[id]/productSizeOptions';
+import {
+  type Gender,
+  genderOptions,
+  shoeGuide,
+  type Unit,
+} from '@/app/support/size-guide/size-guide.data';
 import { shoeCareSections } from '@/components/care-guide/care.data';
 import { CareInstructions } from '@/components/care-guide/CareInstructions';
 import { type Product, products, type ProductWidthOption } from '@/mocks/products';
@@ -1514,9 +1521,136 @@ function ProductColorSelector({
       }));
   return <ColorSelector options={options} value={value} onValueChange={onValueChange} />;
 }
+/**
+ * [ 개발팀 바인딩 ]
+ * 상품 상세 연결 소유자가 현재 Product.gender를 전달하면 해당 신발 안내표를 선택합니다.
+ * 고객센터와 공유하는 shoeGuide는 준비된 표시 데이터이며, 열기와 단위 전환은 조회 없이 처리합니다.
+ * 운영 치수표 승인과 갱신은 연결 소유자가 담당합니다.
+ */
+const shoeGuideGenders = {
+  "Men's": 'men',
+  "Women's": 'women',
+  'All Gender': 'unisex',
+} satisfies Record<NonNullable<Product['gender']>, Gender>;
+
+const shoeGuideTableStyle = css({
+  borderCollapse: 'separate',
+  borderSpacing: 0,
+  tableLayout: 'fixed',
+  width: 'max-content',
+  textAlign: 'center',
+  fontSize: '12px',
+  lineHeight: '1.4',
+  '& th, & td': {
+    boxSizing: 'border-box',
+    width: '68px',
+    height: '54px',
+    bg: 'white.000',
+    borderInlineEnd: '1px solid token(colors.black.10)',
+    borderBlockEnd: '1px solid token(colors.black.10)',
+    fontWeight: 'normal',
+    _mobile: { width: '63px', height: '52px' },
+  },
+  '& tr:first-child > *': { borderBlockStart: '1px solid token(colors.black.10)' },
+  '& tr > :first-child': {
+    position: 'sticky',
+    insetInlineStart: 0,
+    width: '92px',
+    bg: '#F5F5F7',
+    borderInlineStart: '1px solid token(colors.black.10)',
+    fontWeight: 'semibold',
+    _mobile: { width: '76px' },
+  },
+});
+
+const shoeGuideUnitOptions = shoeGuide.units.map((unit) => ({ value: unit, label: unit }));
+
+const shoeGuideUnitButtonStyle = css({
+  w: '46px',
+  h: '28px',
+  border: '0',
+  p: '0',
+  borderRadius: 'full',
+  bg: 'transparent',
+  color: 'text.primary',
+  fontSize: '12px',
+  fontWeight: 'semibold',
+  cursor: 'pointer',
+  '&[aria-pressed=true]': { bg: 'white.000' },
+  _mobile: { h: '27px' },
+});
+
+function ShoeGuideChart({
+  gender,
+  unit,
+  onUnitChange,
+}: {
+  gender: Gender;
+  unit: Unit;
+  onUnitChange: (unit: Unit) => void;
+}) {
+  const headingId = useId();
+  const title = `${genderOptions.find((option) => option.value === gender)?.label} 신발`;
+  const { rows } = shoeGuide.charts[gender][unit];
+
+  return (
+    <Stack minW="0" gap="4">
+      <HStack justify="space-between">
+        <Typography id={headingId} as="h3" variant="body3" weight="bold">
+          {title}
+        </Typography>
+        <SegmentedControl
+          ariaLabel="발길이 단위"
+          className={css({ display: 'flex', p: '0.5', borderRadius: 'full', bg: 'black.20' })}
+          itemClassName={() => shoeGuideUnitButtonStyle}
+          onValueChange={onUnitChange}
+          options={shoeGuideUnitOptions}
+          unstyled
+          value={unit}
+        />
+      </HStack>
+      <Box role="region" aria-labelledby={headingId} tabIndex={0} overflowX="auto">
+        <table aria-label={`${title} 치수표 (${unit})`} className={shoeGuideTableStyle}>
+          <tbody>
+            <tr>
+              <th scope="row">한국 사이즈</th>
+              {rows.map(([kr]) => (
+                <th key={kr} scope="col">
+                  {kr}
+                </th>
+              ))}
+            </tr>
+            <tr>
+              <th scope="row">
+                US 사이즈
+                {gender === 'unisex' && (
+                  <>
+                    <br />
+                    (남/여)
+                  </>
+                )}
+              </th>
+              {rows.map(([kr, , us]) => (
+                <td key={kr}>{us}</td>
+              ))}
+            </tr>
+            <tr>
+              <th scope="row">발길이</th>
+              {rows.map(([kr, length]) => (
+                <td key={kr}>{length}</td>
+              ))}
+            </tr>
+          </tbody>
+        </table>
+      </Box>
+    </Stack>
+  );
+}
+
 type ProductSizeSelectorProps = {
   selectedWidth?: ProductWidthOption;
   apparel?: boolean;
+  shoeGuideGender?: Gender;
   value: string;
   error: string;
   onValueChange: (size: string) => void;
@@ -1525,32 +1659,85 @@ type ProductSizeSelectorProps = {
 function ProductSizeSelector({
   selectedWidth,
   apparel,
+  shoeGuideGender,
   value,
   error,
   onValueChange,
 }: ProductSizeSelectorProps) {
+  const [guideOpen, setGuideOpen] = useState(false);
+  const [guideUnit, setGuideUnit] = useState<Unit>('cm');
+  const guideButton = useRef<HTMLButtonElement>(null);
+
   return (
-    <SizeSelector
-      action={
-        <Flex gap="2" align="center">
-          <Icon name="ruler-horizontal-regular" size="18px" />
-          <ButtonLink variant="link" size="md" href="/support/size-guide">
-            사이즈 가이드
-          </ButtonLink>
-        </Flex>
-      }
-      allowSoldOutSelection
-      error={error}
-      options={productSizeOptions(selectedWidth, apparel ? selectedWidth?.sizes : undefined)}
-      value={value}
-      onValueChange={onValueChange}
-      // 1차 제외: 사이즈 추천
-      // description={
-      //   <Typography as="p" variant="body4" tone="tertiary">
-      //     사이즈 추천: 정사이즈
-      //   </Typography>
-      // }
-    />
+    <>
+      <SizeSelector
+        action={
+          shoeGuideGender ? (
+            <Button
+              ref={guideButton}
+              variant="link"
+              size="md"
+              aria-haspopup="dialog"
+              onClick={() => {
+                setGuideUnit('cm');
+                setGuideOpen(true);
+              }}
+            >
+              <Flex as="span" display="inline-flex" gap="2" align="center">
+                <Icon name="ruler-horizontal-regular" size="18px" />
+                <span>사이즈 가이드</span>
+              </Flex>
+            </Button>
+          ) : (
+            <Flex gap="2" align="center">
+              <Icon name="ruler-horizontal-regular" size="18px" />
+              <ButtonLink variant="link" size="md" href="/support/size-guide">
+                사이즈 가이드
+              </ButtonLink>
+            </Flex>
+          )
+        }
+        allowSoldOutSelection
+        error={error}
+        options={productSizeOptions(selectedWidth, apparel ? selectedWidth?.sizes : undefined)}
+        value={value}
+        onValueChange={onValueChange}
+        // 1차 제외: 사이즈 추천
+        // description={
+        //   <Typography as="p" variant="body4" tone="tertiary">
+        //     사이즈 추천: 정사이즈
+        //   </Typography>
+        // }
+      />
+      {shoeGuideGender && (
+        <ModalDialog
+          title={
+            <Typography variant="headingKr9" weight="bold">
+              사이즈 가이드
+            </Typography>
+          }
+          closeLabel="사이즈 가이드 닫기"
+          open={guideOpen}
+          onOpenChange={setGuideOpen}
+          finalFocus={guideButton}
+          mobilePresentation="bottomSheet"
+          blurBackdrop={false}
+          size="lg"
+          popupClassName={css({
+            maxW: '768px!',
+            borderRadius: '12px',
+            _mobile: { maxW: '100vw!', borderRadius: '24px 24px 0 0' },
+          })}
+          headerProps={{ css: { px: '8', mt: '3', _mobile: { px: '4', mt: '2' } } }}
+          contentClassName={css({
+            p: '12px 32px 38px!',
+            _mobile: { p: '8px 16px calc(44px + env(safe-area-inset-bottom))!' },
+          })}
+        >
+          <ShoeGuideChart gender={shoeGuideGender} unit={guideUnit} onUnitChange={setGuideUnit} />
+        </ModalDialog>
+      )}
+    </>
   );
 }
 function productWidthOptions(product: Product, color: string): ProductWidthOption[] {
@@ -1614,6 +1801,9 @@ function ProductVariantSelectors({
           error={error}
           onValueChange={onSizeChange}
           selectedWidth={selected}
+          shoeGuideGender={
+            !apparel && product.gender ? shoeGuideGenders[product.gender] : undefined
+          }
           value={size}
         />
       </Stack>

@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-06T05:36:02Z'
+updated: '2026-11-09T09:35:47+09:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -4885,3 +4885,9 @@ PC 1920px 기준 1016px 미디어와 484px 구매 패널 사이 32px를 유지�
 - 2026-11-06: sliders-regular.svg는 디자인 시스템 296:11385의 18px Regular 원본이다.
 
 - 2026-11-06: 임직원 쿠폰 디자인에 쓰이는 circle-check-solid 18px를 등록했다. 쿠폰 화면은 첫 항목 Solid, 둘째 항목 Regular를 각각 18px로 표시한다.
+
+## 상품 상세 사이즈 가이드 모달 (2026-11-09)
+
+`ModalDialog.blurBackdrop`의 기본값은 `true`다. 상품 상세의 신발 사이즈 가이드에서는 `false`로 지정해 상품이 비쳐 보이는 반투명 배경을 사용한다. PC는 최대 768px의 중앙 모달, 모바일은 기존 플랫폼 컨텍스트를 따르는 하단 시트다. 닫기와 포커스 복귀는 공통 모달에 맡긴다. [라우팅](routing.md#상품-상세-신발-사이즈-가이드-팝업-2026-11-09).
+
+출처는 사용자 첨부 PC·모바일 시안과 작업 트리의 `ModalDialog.tsx`, `ProductDetailContent.tsx`다. 기준 HEAD는 `781c2adb1fb5bb30c69f78301311728f9a3a8fbc`이며 codex/gpt-6가 2026-11-09에 기록했다.
