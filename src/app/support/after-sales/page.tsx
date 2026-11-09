@@ -22,13 +22,13 @@ export default function Page() {
   return (
     <CustomerCenterLayout
       className={css({ color: 'black.100' })}
-      title="배송 및 반품안내"
+      title="배송 및 반품 안내"
       mobileTitleVariant="heading5"
       activePath="/support/after-sales"
       breadcrumbItems={[
         { label: 'Home', href: '/' },
         { label: '고객센터', href: '/support' },
-        { label: '배송 및 반품안내' },
+        { label: '배송 및 반품 안내' },
       ]}
       groups={supportNavigation}
     >

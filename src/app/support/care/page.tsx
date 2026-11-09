@@ -7,8 +7,6 @@
  * shoes/apparel 탭은 로컬 표시 상태이며 원격 요청·저장·성공/실패 처리는 구현하지 않았습니다.
  */
 
-import { usePlatform } from '@/context/platform';
-
 import { Box } from 'styled-system/jsx';
 
 import { SupportTabs } from '@/components/common/molecules/SupportTabs';
@@ -29,10 +27,9 @@ const tabs = [
 
 /** 해당 경로의 화면과 상호작용을 구성합니다. (Composes the route screen and its interactions.) */
 export default function Page() {
-  const platform = usePlatform();
   return (
     <CustomerCenterLayout
-      title={platform === 'mobile' ? '세탁 및 손질 방법 안내' : '세탁 및 손질 방법'}
+      title="세탁 및 손질 방법 안내"
       mobileTitleVariant="heading5"
       activePath="/support/care"
       breadcrumbItems={[

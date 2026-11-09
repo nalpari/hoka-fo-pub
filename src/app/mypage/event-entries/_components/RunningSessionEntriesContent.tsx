@@ -54,10 +54,7 @@ export function RunningSessionEntriesContent({
       : items.length;
   const pageInfo = eventEntryPreview.pageInfo;
   return (
-    <MyPageFrame
-      activePath="/mypage/event-entries"
-      breadcrumbs={[{ label: 'MY HOKA', href: '/mypage' }, { label: '러닝세션 신청내역' }]}
-    >
+    <MyPageFrame activePath="/mypage/event-entries" breadcrumbs={[{ label: '러닝세션 신청내역' }]}>
       <Stack gap="0" minW="0">
         <ContentHeader
           title="러닝세션 신청내역"

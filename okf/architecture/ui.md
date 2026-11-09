@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-09T09:35:47+09:00'
+updated: '2026-11-09T00:48:27.758Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -4891,3 +4891,7 @@ PC 1920px 기준 1016px 미디어와 484px 구매 패널 사이 32px를 유지�
 `ModalDialog.blurBackdrop`의 기본값은 `true`다. 상품 상세의 신발 사이즈 가이드에서는 `false`로 지정해 상품이 비쳐 보이는 반투명 배경을 사용한다. PC는 최대 768px의 중앙 모달, 모바일은 기존 플랫폼 컨텍스트를 따르는 하단 시트다. 닫기와 포커스 복귀는 공통 모달에 맡긴다. [라우팅](routing.md#상품-상세-신발-사이즈-가이드-팝업-2026-11-09).
 
 출처는 사용자 첨부 PC·모바일 시안과 작업 트리의 `ModalDialog.tsx`, `ProductDetailContent.tsx`다. 기준 HEAD는 `781c2adb1fb5bb30c69f78301311728f9a3a8fbc`이며 codex/gpt-6가 2026-11-09에 기록했다.
+
+## 마이페이지 고객지원 메뉴 진입 (2026-11-09)
+
+마이페이지 사이드 메뉴의 FAQs·1:1문의와 대시보드의 같은 바로가기는 고객센터 URL에 `from=mypage`를 붙인다. 공유 브레드크럼에는 기존과 같이 라벨과 링크를 넘기며, 진입별 상위 항목은 [고객지원 라우트](routing.md#마이페이지고객센터-브레드크럼과-화면-제목-2026-11-09)에서 선택한다. 작업 트리 출처는 `src/components/mypage/mypage.data.ts`와 `src/app/mypage/mypage-home-data.ts`다.

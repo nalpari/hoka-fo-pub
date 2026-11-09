@@ -1,5 +1,7 @@
 'use client';
 
+import { useSearchParams } from 'next/navigation';
+
 import type { ReactNode } from 'react';
 
 import { css } from 'styled-system/css';
@@ -22,6 +24,11 @@ export function InquiryListLayout({
   empty?: boolean;
   mobileTitleSize?: '22px' | '24px';
 }) {
+  const fromMyPage = useSearchParams().get('from') === 'mypage';
+  const newInquiryHref = fromMyPage
+    ? '/support/inquiries/new?from=mypage'
+    : '/support/inquiries/new';
+
   return (
     <CustomerCenterLayout
       header={
@@ -30,7 +37,7 @@ export function InquiryListLayout({
           orientation="horizontal"
           alignItems="flex-end"
           textGroupProps={{ gap: { base: '3', _mobile: '4' }, minW: '0', flex: '1' }}
-          title="1:1 문의"
+          title="1:1문의"
           titleAs="h1"
           titleProps={{
             web: 'heading6',
@@ -40,7 +47,7 @@ export function InquiryListLayout({
           }}
           action={
             <ButtonLink
-              href="/support/inquiries/new"
+              href={newInquiryHref}
               variant="primary"
               size="short"
               className={css({
@@ -67,14 +74,16 @@ export function InquiryListLayout({
       activePath="/support/inquiries"
       breadcrumbItems={[
         { label: 'Home', href: '/' },
-        { label: '고객센터', href: '/support' },
-        { label: '1:1 문의' },
+        fromMyPage
+          ? { label: '마이페이지', href: '/mypage' }
+          : { label: '고객센터', href: '/support' },
+        { label: '1:1문의' },
       ]}
       groups={supportNavigation}
       footerAction={{
         kind: 'link',
         label: '1:1 문의하기',
-        href: '/support/inquiries/new',
+        href: newInquiryHref,
         variant: 'primary',
         size: 'tall',
         width: 'compact',

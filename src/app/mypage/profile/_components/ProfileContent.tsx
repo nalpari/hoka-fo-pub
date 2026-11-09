@@ -174,14 +174,7 @@ export function ProfileEditForm({
     <form noValidate onSubmit={submit}>
       <ContentSection
         gap={{ base: '10', _mobile: '6' }}
-        title={
-          <>
-            <span className={css({ _mobile: { display: 'none' } })}>회원정보</span>
-            <span className={css({ display: 'none', _mobile: { display: 'inline' } })}>
-              회원정보 수정
-            </span>
-          </>
-        }
+        title="회원정보 수정"
         headerProps={{ titleAs: 'h1', titleProps: { web: 'heading6', mo: 'heading5' } }}
       >
         <Grid
@@ -650,10 +643,7 @@ export function ProfileContent({
   const dismissNotice = () => setNotice(null);
   const saveProfile = () => setNotice(null);
   return (
-    <MyPageFrame
-      activePath="/mypage/profile"
-      breadcrumbs={[{ label: editing ? '회원정보 수정' : '회원정보' }]}
-    >
+    <MyPageFrame activePath="/mypage/profile" breadcrumbs={[{ label: '회원정보 확인 및 수정' }]}>
       {editing ? (
         <ProfileEditForm
           emailLocal={emailLocal}
@@ -702,7 +692,7 @@ export function ProfileContent({
       ) : (
         <ContentSection
           gap={{ base: '8', _mobile: '6' }}
-          title="회원정보"
+          title="회원정보 확인"
           headerProps={{
             titleAs: 'h1',
             pb: { base: '10', _mobile: '0' },
