@@ -1,4 +1,7 @@
 'use client';
+
+import { useSearchParams } from 'next/navigation';
+
 import type { ReactNode } from 'react';
 
 import { css } from 'styled-system/css';
@@ -10,13 +13,14 @@ import { CustomerCenterLayout } from '@/components/support/CustomerCenterLayout'
 
 /** 문의 작성 기본·고정 상태의 제목과 탐색을 공유합니다. (Shares headings and navigation across inquiry form states.) */
 export function InquiryFormLayout({ children }: { children: ReactNode }) {
+  const fromMyPage = useSearchParams().get('from') === 'mypage';
   return (
     <CustomerCenterLayout
       header={
         /* 문의 등록 제목과 안내 문구 (Inquiry submission heading and guidance). */
         <ContentHeader
           gap={{ base: '3', _mobile: '4' }}
-          title="1:1 문의"
+          title="1:1문의"
           titleAs="h1"
           titleProps={{
             web: 'heading6',
@@ -32,8 +36,10 @@ export function InquiryFormLayout({ children }: { children: ReactNode }) {
       activePath="/support/inquiries"
       breadcrumbItems={[
         { label: 'Home', href: '/' },
-        { label: '고객센터', href: '/support' },
-        { label: '1:1 문의' },
+        fromMyPage
+          ? { label: '마이페이지', href: '/mypage' }
+          : { label: '고객센터', href: '/support' },
+        { label: '1:1문의' },
       ]}
       groups={supportNavigation}
     >

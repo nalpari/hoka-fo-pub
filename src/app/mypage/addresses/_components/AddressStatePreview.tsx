@@ -39,13 +39,7 @@ export function AddressStatePreview({
   );
   const [addressOpen, setAddressOpen] = useState(false);
   return (
-    <MyPageFrame
-      activePath="/mypage/addresses"
-      breadcrumbs={[
-        { label: '계정관리', href: '/mypage' },
-        { label: editing ? (state === 'edit' ? '배송지 수정' : '배송지 추가') : '배송지 관리' },
-      ]}
-    >
+    <MyPageFrame activePath="/mypage/addresses" breadcrumbs={[{ label: '배송지 관리' }]}>
       {editing ? (
         <AddressEditor
           editingId={editingId}

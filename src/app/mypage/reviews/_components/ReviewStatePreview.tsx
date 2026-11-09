@@ -50,10 +50,7 @@ export function ReviewStatePreview({
       ? reviewListPreview.writtenMobile
       : reviewListPreview;
   return (
-    <MyPageFrame
-      activePath="/mypage/reviews"
-      breadcrumbs={[{ label: '구매내역', href: '/mypage' }, { label: '상품리뷰' }]}
-    >
+    <MyPageFrame activePath="/mypage/reviews" breadcrumbs={[{ label: '상품리뷰' }]}>
       <MyPageReviewsContent
         tab={tab}
         sort={sort}
@@ -77,7 +74,7 @@ export function ReviewStatePreview({
       <MyPageReviewDialog
         open={open}
         productName={selectedEntry.product.name}
-        title={state === 'edit' || (list && tab === 'written') ? '리뷰 수정' : '리뷰 작성'}
+        title={state === 'edit' || (list && tab === 'written') ? '상품리뷰 수정' : '상품리뷰 작성'}
         rating={rating}
         body={body}
         invalid={state === 'error'}

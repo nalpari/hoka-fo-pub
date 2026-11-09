@@ -12,7 +12,7 @@ import { stores } from './store.data';
 export default function Page() {
   return (
     <CustomerCenterLayout
-      title="매장 찾기"
+      title="매장찾기"
       mobileTitleVariant="heading5"
       activePath="/support/store"
       breadcrumbItems={[

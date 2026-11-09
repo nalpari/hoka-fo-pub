@@ -30,7 +30,7 @@ export function ProfileStatePreview({
   const [smsPreference, setSmsPreference] = useState<Preference>('수신안함');
   const [kakaoPreference, setKakaoPreference] = useState<Preference>('수신안함');
   return (
-    <MyPageFrame activePath="/mypage/profile" breadcrumbs={[{ label: '회원정보 수정' }]}>
+    <MyPageFrame activePath="/mypage/profile" breadcrumbs={[{ label: '회원정보 확인 및 수정' }]}>
       <ProfileEditForm
         details={[
           ['회원 아이디', 'hon******@gmail.com'],

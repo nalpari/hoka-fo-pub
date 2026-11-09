@@ -1,4 +1,7 @@
 'use client';
+
+import { useSearchParams } from 'next/navigation';
+
 import { type ReactNode, useMemo, useState } from 'react';
 import { usePlatform } from '@/context/platform';
 
@@ -206,6 +209,7 @@ type FaqContentProps =
 /** [ 개발팀 바인딩 ] previewExpanded는 1973:16070의 질문·본문과 초기 펼침을 재현하는 표시 fixture입니다. 기본 FAQ 데이터는 유지하며 검색·분류·펼침만 로컬로 처리합니다. 실제 FAQ 연결 소유자가 항목 ID·질문·본문과 조회 상태를 제공해야 하며 이 미리보기는 요청·성공·실패를 실행하지 않습니다. */
 /** 자주 묻는 질문의 분류와 펼침 상태를 관리합니다. (Manages FAQ categories and expanded answers.) */
 export function RouteContent({ previewEmpty = false, previewExpanded = false }: FaqContentProps) {
+  const fromMyPage = useSearchParams().get('from') === 'mypage';
   const platform = usePlatform();
   const sourceEntries = previewExpanded ? expandedFaqPreviewEntries : faqs;
   const [category, setCategory] = useState<FaqCategory>('전체');
@@ -243,7 +247,9 @@ export function RouteContent({ previewEmpty = false, previewExpanded = false }: 
       groups={supportNavigation}
       breadcrumbItems={[
         { label: 'Home', href: '/' },
-        { label: '고객센터', href: '/support' },
+        fromMyPage
+          ? { label: '마이페이지', href: '/mypage' }
+          : { label: '고객센터', href: '/support' },
         { label: 'FAQs' },
       ]}
       footer={

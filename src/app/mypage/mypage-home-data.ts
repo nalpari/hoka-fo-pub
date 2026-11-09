@@ -86,8 +86,8 @@ export const menuSections = [
   {
     title: 'Q&A',
     items: [
-      { label: 'FAQs', to: '/support/faq' },
-      { label: '1:1 문의', to: '/support/inquiries' },
+      { label: 'FAQs', to: '/support/faq?from=mypage' },
+      { label: '1:1 문의', to: '/support/inquiries?from=mypage' },
     ],
   },
   {

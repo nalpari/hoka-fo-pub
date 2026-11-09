@@ -1008,8 +1008,7 @@
       "src/app/support/care/_components/CareContent.tsx",
       "src/app/support/support.navigation.ts",
       "src/components/common/molecules/SupportTabs.tsx",
-      "src/components/support/CustomerCenterLayout.tsx",
-      "src/context/platform.tsx"
+      "src/components/support/CustomerCenterLayout.tsx"
     ],
     "src/app/support/faq/_components/FaqContent.tsx": [
       "src/app/support/faq/faq.data.ts",
