@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-09T23:50:42Z'
+updated: '2026-11-09T23:53:01Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -1009,7 +1009,7 @@ sources:
 
 # 컴포넌트와 스타일
 
-2026-11-10: 상품 상세의 전용 사이즈 가이드 표·단위 선택 모달은 제거되고, 상품 정보 스펙 안내에는 공통 `HelpTooltip`을 사용한다. 자 아이콘은 16px이며 상품 문의 더 보기와 구매 버튼은 기존 기본 스타일로 돌아갔다. 출처: 작업 트리의 `src/app/products/[id]/_components/ProductDetailContent.tsx`.
+2026-11-10: 상품 상세의 사이즈 가이드 표·단위 선택 모달을 유지하며, 상품 정보 스펙 안내에는 공통 `HelpTooltip`을 사용한다. 팝업을 여는 자 아이콘은 16px이다. 출처: 작업 트리의 `src/app/products/[id]/_components/ProductDetailContent.tsx`.
 
 ## 상품 목록 이미지 정사각형 복원 (2026-11-10)
 
