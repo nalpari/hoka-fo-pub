@@ -826,7 +826,7 @@ export function ProductCard({
         selectedImage={showColorPreview ? selectedColor?.image : undefined}
         product={product}
         soldOut={soldOut}
-        variant={variant === 'history' ? 'listing' : variant}
+        variant={variant}
       />
 
       {hasOption('like') && (

@@ -4898,6 +4898,14 @@ PC 1920px 기준 1016px 미디어와 484px 구매 패널 사이 32px를 유지�
 
 라벨과 개수는 사용자 확인에 따라 PC 15px를 적용하고 모바일은 기존 14px를 유지한다. 다른 시안 노드는 접근 제한으로 확인하지 못해 간격과 아이콘 크기는 PC·모바일에 같은 값을 적용했다. 출처는 작업 트리의 `Button.tsx`와 `ProductDetailContent.tsx`다. 기준 HEAD는 `60fdf4c47537f964833c1c4851effa9832f76763`이며 codex/gpt-6가 2026-11-09에 기록했다.
 
+## 상품 목록 그리드 썸네일 비율 (2026-11-09)
+
+PC·모바일의 상품 목록 그리드는 상품 종류에 관계없이 상품 썸네일과 그리드에 삽입된 프로모션 이미지를 371:464로 표시한다. 상품 기본·호버 이미지는 기존 중앙 정렬을, 그리드 프로모션은 기존 cover를 사용한다. 하단 전폭 배너는 375:281을 유지한다. 상품 카드의 history 변형은 독립된 썸네일 변형으로 기존 정사각형을 사용하며 showcase와 summary도 기존 규격을 따른다.
+
+Figma의 상품 이미지 프레임 371 × 464.4px와 프로모션 이미지 프레임을 확인했고, 실제 비율은 사용자 확정값 371:464를 사용했다. 작업 트리 출처는 `ProductThumbnail.tsx`, `ProductCard.tsx`, `ProductListingPage.tsx`다. 기준 HEAD는 `1118ff2e947fa489b430a8f6a8fa6e8a98479446`이며 codex/gpt-6가 2026-11-09에 기록했다. [상품 이미지 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=3041-1470) · [프로모션 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=3041-1535).
+
+브라우저에서 1440px와 390px의 상품 25개, 인라인 프로모션의 같은 행 정렬, 가로 넘침 부재를 확인했다. PC 호버 전후의 프레임 높이, 모바일 전폭 배너의 375:281, 검색과 품절 미리보기의 371:464, 홈 추천과 관심상품의 기존 비율도 확인했다.
+
 ## 마이페이지 고객지원 메뉴 진입 (2026-11-09)
 
 마이페이지 사이드 메뉴의 FAQs·1:1문의와 대시보드의 같은 바로가기는 고객센터 URL에 `from=mypage`를 붙인다. 공유 브레드크럼에는 기존과 같이 라벨과 링크를 넘기며, 진입별 상위 항목은 [고객지원 라우트](routing.md#마이페이지고객센터-브레드크럼과-화면-제목-2026-11-09)에서 선택한다. 작업 트리 출처는 `src/components/mypage/mypage.data.ts`와 `src/app/mypage/mypage-home-data.ts`다.
