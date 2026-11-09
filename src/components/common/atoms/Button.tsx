@@ -229,10 +229,12 @@ function renderLoadMoreContent({
 
   if (appearance === 'inline') {
     return (
-      <>
-        {typeof label === 'string' ? `${label} (` : <>{label} (</>}
-        {countLabel}) {indicator}
-      </>
+      <HStack as="span" display="inline-flex" gap="2">
+        <span>
+          {label} ({countLabel})
+        </span>
+        {indicator}
+      </HStack>
     );
   }
 

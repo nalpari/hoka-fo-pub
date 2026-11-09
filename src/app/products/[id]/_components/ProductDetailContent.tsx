@@ -579,12 +579,16 @@ function InquiryBoard({
         <Flex justifyContent="center" py="5">
           <Button
             variant="plain"
+            className={css({
+              '&&': { '--button-label-size': '15px' },
+              _mobile: { '&&': { '--button-label-size': '14px' } },
+            })}
             onClick={() => setShownCount((count) => count + nextCount)}
             loadMore={{
               appearance: 'inline',
               count: nextCount,
               label: '더 보기',
-              indicator: <Icon name="chevron-down-regular" size="16px" />,
+              indicator: <Icon name="chevron-down-regular" size="18px" />,
             }}
           />
         </Flex>
