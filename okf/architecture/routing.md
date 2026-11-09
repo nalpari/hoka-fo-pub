@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-09T23:45:28Z'
+updated: '2026-11-09T23:50:42Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -367,6 +367,8 @@ sources:
 ---
 
 # 라우팅과 플랫폼
+
+2026-11-10: 상품 상세의 사이즈 가이드 버튼은 팝업 대신 `/support/size-guide`로 이동한다. 상품 상세 URL과 IA 연결은 유지하며, 상품 문의 더 보기와 구매 버튼은 이전 표시로 돌아갔다. [현재 사이즈 가이드 연결](size-guide.md#상품-상세-사이즈-가이드-링크-복원-2026-11-10)을 참고한다.
 
 2026-11-10: 상품 목록의 `ProductThumbnail.listing` 이미지 비율을 정사각형으로 되돌렸다. 라우트·상태 URL·IA 연결에는 영향이 없다. [UI 변경](ui.md#상품-목록-이미지-정사각형-복원-2026-11-10)을 참고한다.
 

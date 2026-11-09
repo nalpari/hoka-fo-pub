@@ -4,7 +4,7 @@ title: '사이즈 가이드'
 description: '품목별 측정 안내, 선택 상태와 미확정 데이터의 표시 범위를 설명한다.'
 tags: [support, size-guide, storybook]
 status: draft
-updated: '2026-11-09T12:55:37+09:00'
+updated: '2026-11-09T23:50:42Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T04:46:17Z'
@@ -55,6 +55,10 @@ sources:
 ---
 
 # 사이즈 가이드
+
+## 상품 상세 사이즈 가이드 링크 복원 (2026-11-10)
+
+상품 상세의 신발·의류 사이즈 가이드 팝업 구현을 제거하고 `/support/size-guide` 링크로 되돌렸다. 상품 상세의 자 아이콘은 16px이며 화면 연결 그래프에서 공유 치수 데이터와 SegmentedControl 의존성을 제거했다. 아래 2026-11-09 팝업 기록은 당시 구현 이력이며 현재 동작은 이 절이 우선한다. 출처: 작업 트리의 `src/app/products/[id]/_components/ProductDetailContent.tsx`, `src/app/screen-index/sourceGraph.generated.json`.
 
 ## 고객센터 품목 통합 (2026-11-09)
 

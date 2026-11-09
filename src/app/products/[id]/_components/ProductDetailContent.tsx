@@ -4,7 +4,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 
-import { Tooltip } from '@base-ui/react/tooltip';
 import {
   Component,
   type ComponentPropsWithoutRef,
@@ -31,7 +30,6 @@ import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { Icon } from '@/components/common/atoms/Icon';
 import { NumberStepper } from '@/components/common/atoms/NumberStepper';
 import { RatingStars } from '@/components/common/atoms/RatingStars';
-import { SegmentedControl } from '@/components/common/atoms/SegmentedControl';
 import { Typography } from '@/components/common/atoms/Typography';
 import { Wishlist } from '@/components/common/atoms/Wishlist';
 
@@ -43,6 +41,7 @@ import {
 } from '@/components/common/molecules/Carousel/Carousel';
 import { CarouselSection } from '@/components/common/molecules/CarouselSection';
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
+import { HelpTooltip } from '@/components/common/molecules/HelpTips';
 import {
   ProductCard,
   ProductIdentity,
@@ -74,14 +73,6 @@ import {
 } from '@/app/products/[id]/productDetailPreviews';
 import { productInquiries } from '@/app/products/[id]/productInquiries';
 import { productSizeOptions } from '@/app/products/[id]/productSizeOptions';
-import {
-  type Gender,
-  genderOptions,
-  guideCategories,
-  type GuideChart,
-  shoeGuide,
-  type Unit,
-} from '@/app/support/size-guide/size-guide.data';
 import { shoeCareSections } from '@/components/care-guide/care.data';
 import { CareInstructions } from '@/components/care-guide/CareInstructions';
 import { type Product, products, type ProductWidthOption } from '@/mocks/products';
@@ -581,16 +572,12 @@ function InquiryBoard({
         <Flex justifyContent="center" py="5">
           <Button
             variant="plain"
-            className={css({
-              '&&': { '--button-label-size': '15px' },
-              _mobile: { '&&': { '--button-label-size': '14px' } },
-            })}
             onClick={() => setShownCount((count) => count + nextCount)}
             loadMore={{
               appearance: 'inline',
               count: nextCount,
               label: '더 보기',
-              indicator: <Icon name="chevron-down-regular" size="18px" />,
+              indicator: <Icon name="chevron-down-regular" size="16px" />,
             }}
           />
         </Flex>
@@ -643,65 +630,6 @@ export function ProductDetailInquiryContent({
     />
   );
 }
-type ProductSpecificationHelpProps = {
-  label: string;
-  description: string;
-};
-/** Product specification help; Base UI owns hover, focus, dismissal and positioning. */
-function ProductSpecificationHelp({ label, description }: ProductSpecificationHelpProps) {
-  const platform = usePlatform();
-  return (
-    <Tooltip.Root>
-      <Tooltip.Trigger
-        delay={0}
-        closeOnClick={false}
-        aria-label={`${label} 안내`}
-        render={<Button variant="icon" size="16px" color="var(--color-black-60)" />}
-      >
-        <Icon name="specification-info" size={16} />
-      </Tooltip.Trigger>
-      <Tooltip.Portal>
-        <div className={`platform-${platform}`}>
-          <Tooltip.Positioner
-            side="bottom"
-            align="start"
-            alignOffset={-44}
-            sideOffset={12}
-            collisionPadding={16}
-            className={css({ zIndex: '100' })}
-          >
-            <Tooltip.Popup
-              className={css({
-                w: 'max-content',
-                maxW: 'min(280px, calc(100vw - 32px))',
-                p: '3',
-                bg: 'white.0',
-                color: 'black.100',
-                borderRadius: '4px',
-                boxShadow: '0 0 12px rgba(0, 0, 0, 0.2)',
-                outline: 'none',
-              })}
-            >
-              <Tooltip.Arrow
-                className={css({
-                  w: '3',
-                  h: '3',
-                  bg: 'white.0',
-                  transform: 'rotate(45deg)',
-                  '&[data-side=bottom]': { top: '-6px' },
-                  '&[data-side=top]': { bottom: '-6px' },
-                })}
-              />
-              <Typography variant="body5" className={css({ whiteSpace: 'pre-line' })}>
-                {description}
-              </Typography>
-            </Tooltip.Popup>
-          </Tooltip.Positioner>
-        </div>
-      </Tooltip.Portal>
-    </Tooltip.Root>
-  );
-}
 type ProductDetailSpecificationListProps = {
   items: readonly ProductDetailSpecification[];
   gap: '4' | '8';
@@ -715,7 +643,7 @@ function ProductDetailSpecificationList({ items, gap }: ProductDetailSpecificati
           <HStack as="span" gap="2" alignItems="center">
             {item.label}
             {item.help ? (
-              <ProductSpecificationHelp label={item.label} description={item.help} />
+              <HelpTooltip label={`${item.label} 안내`} text={item.help} side="bottom" />
             ) : null}
           </HStack>
         ),
@@ -783,7 +711,9 @@ function ProductTechnicalScale({ title, labels, level, help }: ProductTechnicalS
         orientation: 'horizontal',
         gap: '2',
         css: css.raw({ justifyContent: 'flex-start' }),
-        action: help ? <ProductSpecificationHelp label={title} description={help} /> : undefined,
+        action: help ? (
+          <HelpTooltip label={`${title} 안내`} text={help} side="bottom" />
+        ) : undefined,
       }}
       gap="3"
     >
@@ -1527,172 +1457,9 @@ function ProductColorSelector({
       }));
   return <ColorSelector options={options} value={value} onValueChange={onValueChange} />;
 }
-/**
- * [ 개발팀 바인딩 ]
- * 상품 상세 연결 소유자가 현재 Product.gender를 전달하면 해당 신발 안내표를 선택합니다.
- * 고객센터와 공유하는 신발·의류 치수표는 준비된 표시 데이터이며, 열기와 단위 전환은 조회 없이 처리합니다.
- * 운영 치수표 승인과 갱신은 연결 소유자가 담당합니다.
- */
-const sizeGuideGenders = {
-  "Men's": 'men',
-  "Women's": 'women',
-  'All Gender': 'unisex',
-} satisfies Record<NonNullable<Product['gender']>, Gender>;
-
-const apparelSizeGuide =
-  guideCategories.find(({ value }) => value === 'apparel') ??
-  guideCategories.find(({ value }) => value === 'tops');
-
-const sizeGuideTableStyle = css.raw({
-  borderCollapse: 'separate',
-  borderSpacing: 0,
-  tableLayout: 'fixed',
-  width: 'max-content',
-  textAlign: 'center',
-  fontSize: '12px',
-  lineHeight: '1.4',
-  '& th, & td': {
-    boxSizing: 'border-box',
-    width: '68px',
-    height: '54px',
-    bg: 'white.000',
-    borderInlineEnd: '1px solid token(colors.black.10)',
-    borderBlockEnd: '1px solid token(colors.black.10)',
-    fontWeight: 'normal',
-    _mobile: { width: '63px', height: '52px' },
-  },
-  '& tr:first-child > *': { borderBlockStart: '1px solid token(colors.black.10)' },
-  '& tr > :first-child': {
-    position: 'sticky',
-    insetInlineStart: 0,
-    width: '92px',
-    bg: '#F5F5F7',
-    borderInlineStart: '1px solid token(colors.black.10)',
-    fontWeight: 'semibold',
-    _mobile: { width: '76px' },
-  },
-});
-
-const shoeGuideUnitOptions = shoeGuide.units.map((unit) => ({ value: unit, label: unit }));
-
-const shoeGuideUnitButtonStyle = css({
-  w: '46px',
-  h: '28px',
-  border: '0',
-  p: '0',
-  borderRadius: 'full',
-  bg: 'transparent',
-  color: 'text.primary',
-  fontSize: '12px',
-  fontWeight: 'semibold',
-  cursor: 'pointer',
-  '&[aria-pressed=true]': { bg: 'white.000' },
-  _mobile: { h: '27px' },
-});
-
-function ProductSizeGuideChart({
-  apparel,
-  chart,
-  gender,
-  unit,
-  onUnitChange,
-}: {
-  apparel?: boolean;
-  chart: GuideChart;
-  gender: Gender;
-  unit: Unit;
-  onUnitChange: (unit: Unit) => void;
-}) {
-  const headingId = useId();
-  const title = `${genderOptions.find((option) => option.value === gender)?.label} ${apparel ? '의류' : '신발'}`;
-  const { headers, rows } = chart;
-
-  return (
-    <Stack minW="0" gap="4">
-      <HStack justify="space-between">
-        <Typography id={headingId} as="h3" variant="body3" weight="bold">
-          {title}
-        </Typography>
-        <SegmentedControl
-          ariaLabel={apparel ? '치수 단위' : '발길이 단위'}
-          className={css({ display: 'flex', p: '0.5', borderRadius: 'full', bg: 'black.20' })}
-          itemClassName={() => shoeGuideUnitButtonStyle}
-          onValueChange={onUnitChange}
-          options={shoeGuideUnitOptions}
-          unstyled
-          value={unit}
-        />
-      </HStack>
-      <Box role="region" aria-labelledby={headingId} tabIndex={0} overflowX="auto">
-        <table
-          aria-label={`${title} 치수표 (${unit})`}
-          className={css(sizeGuideTableStyle, apparel && { width: 'full' })}
-        >
-          {apparel && (
-            <thead>
-              <tr>
-                {headers.map((header) => (
-                  <th key={header} scope="col">
-                    {header}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-          )}
-          {apparel ? (
-            <tbody>
-              {rows.map(([us, kr, chest, waist, hips]) => (
-                <tr key={kr}>
-                  <th scope="row">{us}</th>
-                  <td>{kr}</td>
-                  <td>{chest}</td>
-                  <td>{waist}</td>
-                  <td>{hips}</td>
-                </tr>
-              ))}
-            </tbody>
-          ) : (
-            <tbody>
-              <tr>
-                <th scope="row">한국 사이즈</th>
-                {rows.map(([kr]) => (
-                  <th key={kr} scope="col">
-                    {kr}
-                  </th>
-                ))}
-              </tr>
-              <tr>
-                <th scope="row">
-                  US 사이즈
-                  {gender === 'unisex' && (
-                    <>
-                      <br />
-                      (남/여)
-                    </>
-                  )}
-                </th>
-                {rows.map(([kr, , us]) => (
-                  <td key={kr}>{us}</td>
-                ))}
-              </tr>
-              <tr>
-                <th scope="row">발길이</th>
-                {rows.map(([kr, length]) => (
-                  <td key={kr}>{length}</td>
-                ))}
-              </tr>
-            </tbody>
-          )}
-        </table>
-      </Box>
-    </Stack>
-  );
-}
-
 type ProductSizeSelectorProps = {
   selectedWidth?: ProductWidthOption;
   apparel?: boolean;
-  guideGender?: Gender;
   value: string;
   error: string;
   onValueChange: (size: string) => void;
@@ -1701,93 +1468,32 @@ type ProductSizeSelectorProps = {
 function ProductSizeSelector({
   selectedWidth,
   apparel,
-  guideGender,
   value,
   error,
   onValueChange,
 }: ProductSizeSelectorProps) {
-  const [guideOpen, setGuideOpen] = useState(false);
-  const [guideUnit, setGuideUnit] = useState<Unit>('cm');
-  const guideButton = useRef<HTMLButtonElement>(null);
-  const guide = apparel ? apparelSizeGuide : shoeGuide;
-  const chart = guideGender ? guide?.charts[guideGender]?.[guideUnit] : undefined;
-
   return (
-    <>
-      <SizeSelector
-        action={
-          chart ? (
-            <Button
-              ref={guideButton}
-              variant="link"
-              size="md"
-              aria-haspopup="dialog"
-              onClick={() => {
-                setGuideUnit('cm');
-                setGuideOpen(true);
-              }}
-            >
-              <Flex as="span" display="inline-flex" gap="2" align="center">
-                <Icon name="ruler-horizontal-regular" size="18px" />
-                <span>사이즈 가이드</span>
-              </Flex>
-            </Button>
-          ) : (
-            <Flex gap="2" align="center">
-              <Icon name="ruler-horizontal-regular" size="18px" />
-              <ButtonLink variant="link" size="md" href="/support/size-guide">
-                사이즈 가이드
-              </ButtonLink>
-            </Flex>
-          )
-        }
-        allowSoldOutSelection
-        error={error}
-        options={productSizeOptions(selectedWidth, apparel ? selectedWidth?.sizes : undefined)}
-        value={value}
-        onValueChange={onValueChange}
-        // 1차 제외: 사이즈 추천
-        // description={
-        //   <Typography as="p" variant="body4" tone="tertiary">
-        //     사이즈 추천: 정사이즈
-        //   </Typography>
-        // }
-      />
-      {guideGender && chart && (
-        <ModalDialog
-          title={
-            <Typography variant="headingKr9" weight="bold">
-              사이즈 가이드
-            </Typography>
-          }
-          closeLabel="사이즈 가이드 닫기"
-          open={guideOpen}
-          onOpenChange={setGuideOpen}
-          finalFocus={guideButton}
-          mobilePresentation="bottomSheet"
-          blurBackdrop={false}
-          size="lg"
-          popupClassName={css({
-            maxW: '768px!',
-            borderRadius: '12px',
-            _mobile: { maxW: '100vw!', borderRadius: '24px 24px 0 0' },
-          })}
-          headerProps={{ css: { px: '8', mt: '3', _mobile: { px: '4', mt: '2' } } }}
-          contentClassName={css({
-            p: '12px 32px 38px!',
-            _mobile: { p: '8px 16px calc(44px + env(safe-area-inset-bottom))!' },
-          })}
-        >
-          <ProductSizeGuideChart
-            apparel={apparel}
-            chart={chart}
-            gender={guideGender}
-            unit={guideUnit}
-            onUnitChange={setGuideUnit}
-          />
-        </ModalDialog>
-      )}
-    </>
+    <SizeSelector
+      action={
+        <Flex gap="2" align="center">
+          <Icon name="ruler-horizontal-regular" size="16px" />
+          <ButtonLink variant="link" size="md" href="/support/size-guide">
+            사이즈 가이드
+          </ButtonLink>
+        </Flex>
+      }
+      allowSoldOutSelection
+      error={error}
+      options={productSizeOptions(selectedWidth, apparel ? selectedWidth?.sizes : undefined)}
+      value={value}
+      onValueChange={onValueChange}
+      // 1차 제외: 사이즈 추천
+      // description={
+      //   <Typography as="p" variant="body4" tone="tertiary">
+      //     사이즈 추천: 정사이즈
+      //   </Typography>
+      // }
+    />
   );
 }
 function productWidthOptions(product: Product, color: string): ProductWidthOption[] {
@@ -1850,7 +1556,6 @@ function ProductVariantSelectors({
           error={error}
           onValueChange={onSizeChange}
           selectedWidth={selected}
-          guideGender={product.gender ? sizeGuideGenders[product.gender] : undefined}
           value={size}
         />
       </Stack>
@@ -2007,8 +1712,6 @@ type ProductPurchaseActionsProps = {
   restock?: boolean;
 };
 
-const productPurchaseLabelStyle = css({ fontWeight: 'bold' });
-
 function ProductPurchaseActions({
   placement,
   restock,
@@ -2032,7 +1735,7 @@ function ProductPurchaseActions({
         fullWidth
         size={platform === 'mobile' ? 'short' : 'tall'}
       >
-        {restock ? '품절' : <Typography className={productPurchaseLabelStyle}>장바구니</Typography>}
+        {restock ? '품절' : '장바구니'}
       </Button>
       <Button
         variant="primary"
@@ -2040,11 +1743,7 @@ function ProductPurchaseActions({
         size={platform === 'mobile' ? 'short' : 'tall'}
         onClick={restock ? undefined : onOpenOptions}
       >
-        {restock ? (
-          '입고 알림 신청하기'
-        ) : (
-          <Typography className={productPurchaseLabelStyle}>구매하기</Typography>
-        )}
+        {restock ? '입고 알림 신청하기' : '구매하기'}
       </Button>
     </Grid>
   );
