@@ -368,6 +368,10 @@ sources:
 
 # 라우팅과 플랫폼
 
+## 상품 상세 머지 잔여 변경 반영 (2026-11-10)
+
+머지 후 스테이징된 `ProductDetailContent.tsx`의 사이즈 가이드 팝업, 상품 문의 더 보기 표시와 구매 버튼 라벨을 화면에 반영했다. 현행 `Product` 타입에서 제거된 `lowStockSizes` 참조도 정리했다. `sourceGraph.generated.json`에는 공유 치수 데이터와 SegmentedControl 참조를 반영했다. 상품 상세 URL과 IA 연결은 유지한다. 기존 [상품 상세 사이즈 가이드 기록](#상품-상세-신발-사이즈-가이드-팝업-2026-11-09)을 따른다.
+
 ## 상품 상세 화면 연결 그래프 갱신 (2026-11-10)
 
 충돌 파일을 `origin/main` 버전으로 선택한 뒤 `ProductDetailContent.tsx`의 실제 import 관계에 맞춰 `src/app/screen-index/sourceGraph.generated.json`을 다시 생성했다. 상품 상세 URL과 IA 연결은 유지한다.
