@@ -135,19 +135,12 @@ function SizeGuideChoiceGroup<T extends string>({
   );
 }
 
-function SizeGuideMeasurementImage({
-  category,
-  gender,
-}: {
-  category: GuideCategory;
-  gender: Gender;
-}) {
-  const image = category.value === 'tops' && gender === 'women' ? 'tops-women' : category.image;
+function SizeGuideMeasurementImage({ image, label }: { image: string; label: string }) {
   return (
     <Box pos="relative" w="100%" h={{ base: '422px', _mobile: '274px' }} bg="#E0E0E0">
       <Image
         src={`/images/size-guide/${image}.png`}
-        alt={`${category.label} 치수 측정 위치`}
+        alt={`${label} 치수 측정 위치`}
         fill
         sizes="(max-width: 1024px) calc(100vw - 32px), 844px"
         className={css({
@@ -224,9 +217,15 @@ const footWidthSteps = [
   '양발 중 더 넓은 발을 기준으로 사이즈표와 비교하여 적합한 발볼 옵션을 확인해 주세요.',
 ] as const;
 
-function SizeGuideMeasurementInstructions({ category }: { category: GuideCategory }) {
-  const shoes = category.value === 'shoes';
-
+function SizeGuideMeasurementInstructions({
+  label,
+  shoes,
+  steps,
+}: {
+  label: string;
+  shoes: boolean;
+  steps: readonly string[];
+}) {
   return (
     <Stack
       gap="4"
@@ -234,8 +233,8 @@ function SizeGuideMeasurementInstructions({ category }: { category: GuideCategor
       alignItems="stretch"
     >
       <SizeGuideMeasurementMethod
-        title={`${shoes ? '발 길이' : category.label} 측정 방법`}
-        steps={category.steps}
+        title={`${shoes ? '발 길이' : label} 측정 방법`}
+        steps={steps}
         description={
           shoes ? undefined : '측정한 치수를 사이즈표와 비교해 가장 알맞은 사이즈를 선택해 주세요.'
         }
@@ -246,10 +245,20 @@ function SizeGuideMeasurementInstructions({ category }: { category: GuideCategor
 }
 
 function SizeGuideMeasurements({ category, gender }: { category: GuideCategory; gender: Gender }) {
+  const { label, measurement, value } = category;
+  if (!measurement) return null;
+
+  const image =
+    gender === 'women' ? (measurement.womenImage ?? measurement.image) : measurement.image;
+
   return (
     <Grid gridTemplateColumns="minmax(0, 1fr)" gap={{ base: '6', _mobile: '8' }} alignItems="start">
-      <SizeGuideMeasurementImage category={category} gender={gender} />
-      <SizeGuideMeasurementInstructions category={category} />
+      <SizeGuideMeasurementImage image={image} label={label} />
+      <SizeGuideMeasurementInstructions
+        label={label}
+        shoes={value === 'shoes'}
+        steps={measurement.steps}
+      />
     </Grid>
   );
 }
@@ -271,11 +280,11 @@ function SizeGuideChart({ category, gender, unit, onUnitChange }: SizeGuideChart
   const chart = category.charts[gender]?.[unit];
   const shoes = category.value === 'shoes';
   const genderLabel = genderOptions.find((item) => item.value === gender)?.label;
-  const caption = `${category.label} ${genderLabel} 사이즈 차트 (${unit === 'cm' ? 'CM' : 'INCH'})`;
+  const caption = `${category.chartTitle ?? category.label} ${genderLabel} 사이즈 차트 (${unit === 'cm' ? 'CM' : 'INCH'})`;
 
   return (
     <ContentSection
-      title="사이즈 차트"
+      title={category.chartTitle ?? '사이즈 차트'}
       gap="4"
       headerProps={{
         titleAs: 'h3',

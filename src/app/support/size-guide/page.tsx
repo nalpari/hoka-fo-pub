@@ -1,7 +1,8 @@
 /**
  * [ 개발팀 바인딩 ]
  * 이 라우트는 설계서에서 준비한 guideCategories 표시 데이터를 SizeGuidePanel에 전달합니다.
- * 연동 담당자는 value/label/image/steps/genders/units/charts를 승인된 안내 데이터로 갱신합니다.
+ * 연동 담당자는 value/label/chartTitle/measurement/genders/units/charts를 승인된 안내 데이터로 갱신합니다.
+ * measurement가 없는 품목에는 성별 선택과 차트만 표시합니다.
  * 요청·저장·재고 판정은 없는 정적 안내이며, 실제 상품 재고는 상품 옵션 데이터 소유자가 연결합니다.
  */
 
