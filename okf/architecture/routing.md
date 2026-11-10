@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-09T23:53:01Z'
+updated: '2026-11-10T04:49:00Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -126,6 +126,7 @@ working_tree_sources:
   - src/components/common/molecules/ProductOptionSelectors/ProductSizeSelector.tsx
   - src/components/common/molecules/SizeSelector/SizeSelector.tsx
   - src/app/mypage/coupons/_components/CouponManagement.tsx
+  - public/images/mypage/coupon.svg
   - src/stories/features/mypage/MyPage.Coupons.Web.stories.tsx
   - src/stories/features/mypage/MyPage.Coupons.Mobile.stories.tsx
   - src/stories/features/binding/RemainingBinding.stories.tsx
@@ -1743,3 +1744,15 @@ IA STATE의 WBS·개발자·진척율이 상위 화면에 표시된 경우 STATE
 `/products`의 제목과 필터, 상품 상세와 옵션·장바구니 완료 미리보기, `/running/running-session`의 목록과 상세, `/launch-calendar`의 목록과 상세에서 고객사 스타일을 사용한다. 상품 상세 소스 그래프는 선택 합계가 화면 내부로 이동한 뒤 공용 AmountRow 의존성을 제거한다. 화면별 표시 책임은 [UI 기록](ui.md#고객사-화면-타이포그래피-적용-2026-11-10)에 기록한다.
 
 `/products/preview-options-required`에서 상품 상세의 사이즈 미선택 오류 문구를 확인할 수 있다. [오류 타이포그래피](ui.md#상품-상세-사이즈-오류-타이포그래피-2026-11-10).
+
+## 마이페이지 쿠폰과 상세보기 시안 적용 (2026-11-10)
+
+`/mypage/coupons`와 `/mypage/coupons/preview-employee`는 공통 페이지 제목 ‘쿠폰’과 섹션 제목 ‘쿠폰 내역’을 표시한다. 쿠폰 카드는 PC 2열·MO 1열이며 PC 열 16px·행 20px, MO 행 16px로 배치한다. 전용 SVG 배경을 카드의 가용 폭과 높이에 맞춘다. 목록은 5건 단위 더보기를 사용한다. 임직원 영역의 카드 패딩과 간격은 PC 32px·16px, MO 16px·8px이며 첫째는 Solid 체크, 둘째는 Regular 체크다. 두 번째 카드의 예시 문구는 시안의 PC 50%, MO 30%를 각각 사용한다.
+
+`/mypage/coupons/preview-detail`은 신규 회원가입 쿠폰의 상세를 직접 표시한다. 목록에서 상세보기를 열면 선택한 카드의 데이터로 같은 모달을 표시한다. PC는 568px 중앙 모달, MO는 전체 화면이다. 수량·혜택·쿠폰명·사용기간·사용가능처와 상세조건을 표시하며 확인 버튼의 높이는 48px, 너비는 PC 180px·MO 본문 전체다. 수량·발급 표시·상세조건은 미리보기 데이터이며, 쿠폰 조회·발급 서비스는 마이페이지 연동 소유자가 연결한다. 등록·분류 탭의 1차 개발 제외 범위는 유지한다.
+
+PC 1920px·MO 375px에서 일반·임직원 목록, 상세 직접 진입, 확인·Esc 닫기와 버튼 포커스 복귀, 5→10건 확장 및 빈 목록을 확인했다. 상세를 연 채 1200/1199px·1025/1024px에서 폭을 전환하고 높이 420px에서 본문 스크롤과 확인 버튼을 확인했다. 임직원 카드 높이는 PC 90px·MO 56px이며, 일반 카드 가용 폭은 PC 414px·MO 328px이었다. 모바일 목록은 Windows 스크롤바가 차지하는 15px만큼 시안보다 좁다. 범위 ESLint·Prettier와 IA/OKF 테스트 9개를 통과했다. Next 빌드에서 Panda CSS 생성, TypeScript 검사와 정적 페이지 155개 생성을 완료했다.
+
+디자인 출처는 [HOKA Design의 마이페이지 쿠폰 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 일반·임직원 목록과 상세 프레임이다. 구현 출처는 이 문서의 작업 트리 출처에 있는 `CouponManagement.tsx`, IA 소스 그래프와 `public/images/mypage/coupon.svg`다.
+
+쿠폰 화면은 기본 `Typography` 변형을 사용한다. 쿠폰 내역 안내와 모바일 임직원 카드 문구에는 `bodyKr3`와 화면의 1.5 행간을 적용한다. 상세보기 링크, 팝업 제목과 금액의 글자 크기·굵기도 기존 Typography 옵션으로 지정한다. 섹션 제목의 모바일 굵기와 상세 본문의 1.5 행간은 화면 스타일에서 지정한다. PC 1920px·MO 375px에서 내역 안내 16px/24px, 링크 12px/400, 금액 숫자 16px/500, 팝업 제목 PC 16px/400·MO 20px/700을 실측했다.
