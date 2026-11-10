@@ -1681,6 +1681,7 @@ function ProductSizeSelector({
         }
         allowSoldOutSelection
         error={error}
+        errorVariant="eland-product-option-error"
         options={productSizeOptions(selectedWidth, apparel ? selectedWidth?.sizes : undefined)}
         value={value}
         onValueChange={onValueChange}
