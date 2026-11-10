@@ -1737,3 +1737,7 @@ IA STATE의 WBS·개발자·진척율이 상위 화면에 표시된 경우 STATE
 ## 타이포그래피 가이드 표시 범위 2026-11-10
 
 `/publishing-guide`의 타이포그래피 탭은 `figmaTypographyVariants`의 표준 항목을 미리보기와 복사 예시로 제공한다. 화면 작업 파일 그래프에는 `Typography.tsx`가 참조하는 고객사 정의 모듈을 포함한다. 작업 트리 출처는 `TypographyGuide.tsx`와 `sourceGraph.generated.json`이다.
+
+## 고객사 타이포그래피 적용 화면 2026-11-10
+
+`/products`의 제목과 필터, 상품 상세와 옵션·장바구니 완료 미리보기, `/running/running-session`의 목록과 상세, `/launch-calendar`의 목록과 상세에서 고객사 스타일을 사용한다. 상품 상세 소스 그래프는 선택 합계가 화면 내부로 이동한 뒤 공용 AmountRow 의존성을 제거한다. 화면별 표시 책임은 [UI 기록](ui.md#고객사-화면-타이포그래피-적용-2026-11-10)에 기록한다.

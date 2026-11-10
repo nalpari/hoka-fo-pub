@@ -64,11 +64,13 @@ function RunningSessionApplyButton({ status, onApply, pending }: RunningSessionA
       disabled={pending || status !== 'open'}
       onClick={onApply}
     >
-      {status === 'closed'
-        ? '모집 마감'
-        : status === 'upcoming'
-          ? '신청이 곧 시작됩니다.'
-          : '신청하기'}
+      <Typography variant="eland-event-action">
+        {status === 'closed'
+          ? '모집 마감'
+          : status === 'upcoming'
+            ? '신청이 곧 시작됩니다.'
+            : '신청하기'}
+      </Typography>
     </Button>
   );
 }
@@ -82,15 +84,14 @@ function RunningSessionSessionNotes({ precautions = false }: { precautions?: boo
       color="var(--color-text-tertiary)"
       aria-label={precautions ? '주의 사항' : '안내 사항'}
     >
-      <Typography as="p" variant="body4" mo="body5" className={css({ m: '0' })}>
+      <Typography as="p" variant="eland-session-note-label" className={css({ m: '0' })}>
         {precautions ? '주의 사항' : '안내 사항'} ⓘ
       </Typography>
       <Box as="ul" listStyle="none" p="0" m="0">
         {(precautions ? sessionPrecautions : sessionNotices).map((notice) => (
           <Typography
             as="li"
-            variant="body4"
-            mo="body5"
+            variant="eland-session-note"
             key={notice}
             className={css({ _before: { content: '"- "' } })}
           >
@@ -153,13 +154,10 @@ function RunningSessionFacts({
           : undefined,
       }))}
       termProps={{
-        variant: variant === 'hero' ? 'body3' : 'body4',
-        mo: variant === 'hero' ? 'body3' : 'body4',
-        weight: variant === 'hero' ? 'semibold' : 'regular',
+        variant: 'eland-session-fact-label',
       }}
       descriptionProps={{
-        variant: variant === 'hero' ? 'body3' : 'body4',
-        mo: variant === 'hero' ? 'body3' : 'body4',
+        variant: 'eland-product-description',
         tone: undefined,
       }}
       slotStyles={{
@@ -231,20 +229,23 @@ export function RunningSessionSessionHero({
       <Stack gap="32px" _mobile={{ px: '4', pt: '4', pb: '72px' }}>
         <Stack gap="12px" _mobile={{ gap: '18px' }}>
           <HStack>
-            <Badge runningSessionCategory={session.category} />
+            <Badge
+              runningSessionCategory={session.category}
+              textProps={{ variant: 'eland-session-badge' }}
+            />
           </HStack>
           <ContentHeader
             gap="16px"
             _mobile={{ gap: '8px' }}
             title={session.title}
             titleAs="h1"
-            titleProps={{ variant: 'heading6', mo: 'heading4', weight: 'black' }}
+            titleProps={{ variant: 'eland-session-title' }}
             description={
               <>
                 {session.schedule} | {session.location} {session.distance}
               </>
             }
-            descriptionProps={{ variant: 'body2', mo: 'body3' }}
+            descriptionProps={{ variant: 'eland-session-subtitle' }}
           />
         </Stack>
         {upcoming && session.applicationOpeningLabel ? (
@@ -282,17 +283,15 @@ function RunningSessionSessionPoster({ session }: Props) {
         gap: '40px',
         _mobile: { gap: '20px' },
         eyebrow: <>Hoka Run Club</>,
-        eyebrowProps: { variant: 'heading5', mo: 'heading4', weight: 'black' },
+        eyebrowProps: { variant: 'eland-session-banner-eyebrow' },
         titleAs: 'h2',
         titleProps: {
-          variant: 'heading1',
-          mo: 'heading2',
-          weight: 'black',
+          variant: 'eland-session-banner-title',
           className: css({ overflowWrap: 'anywhere' }),
         },
       }}
     >
-      <Typography as="span" variant="body1" mo="body3">
+      <Typography as="span" variant="eland-session-banner-caption">
         {session.overlayDate}
         <br />
         @hoka_kr
@@ -316,7 +315,7 @@ function RunningSessionSessionGuideContent({
         title="세션 안내"
         headerProps={{
           gap: '4',
-          titleProps: { variant: 'heading7', mo: 'heading6' },
+          titleProps: { variant: 'eland-session-guide-title' },
           description: (
             <>
               호카 런 클럽 {title}에서
@@ -324,7 +323,7 @@ function RunningSessionSessionGuideContent({
               러너들과 함께 달리며 그룹 러닝의 즐거움을 느껴보세요!
             </>
           ),
-          descriptionProps: { variant: 'body3' },
+          descriptionProps: { variant: 'eland-body' },
         }}
       >
         <RunningSessionFacts variant="guide" rows={rows} />

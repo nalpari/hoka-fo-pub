@@ -79,7 +79,7 @@ export type BadgeProps = Omit<ComponentPropsWithoutRef<'span'>, 'children'> &
         promotionTone?: 'brand' | 'red80';
         runningSessionCategory?: never;
         weight?: TypographyProps['weight'];
-        textProps?: never;
+        textProps?: Pick<TypographyProps, 'variant'>;
         status?: never;
         children?: never;
         variant?: never;
@@ -88,7 +88,7 @@ export type BadgeProps = Omit<ComponentPropsWithoutRef<'span'>, 'children'> &
       }
     | {
         runningSessionCategory: 'Road' | 'Trail';
-        textProps?: never;
+        textProps?: Pick<TypographyProps, 'variant'>;
         status?: never;
         promotion?: never;
         promotionTone?: never;
@@ -124,7 +124,10 @@ export function Badge({
           .filter(Boolean)
           .join(' ')}
       >
-        <Typography variant="body4" weight="regular">
+        <Typography
+          variant={textProps?.variant ?? 'body4'}
+          weight={textProps?.variant ? undefined : 'regular'}
+        >
           {runningSessionCategory}
         </Typography>
       </HStack>
@@ -150,7 +153,12 @@ export function Badge({
                 })}
               />
             )}
-            <Typography variant="body4" weight={weight} tone={promotionTone} className={className}>
+            <Typography
+              variant={textProps?.variant ?? 'body4'}
+              weight={weight}
+              tone={promotionTone}
+              className={className}
+            >
               {label}
             </Typography>
           </Fragment>

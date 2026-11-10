@@ -34,7 +34,6 @@ import { SegmentedControl } from '@/components/common/atoms/SegmentedControl';
 import { Typography } from '@/components/common/atoms/Typography';
 import { Wishlist } from '@/components/common/atoms/Wishlist';
 
-import { AmountRow } from '@/components/common/molecules/AmountRow';
 import {
   Carousel,
   CarouselPagination,
@@ -1810,10 +1809,14 @@ type ProductInformationProps = {
   }[];
 };
 const productInformationTitleProps = {
-  web: 'headingKr9',
-  mo: 'bodyKr3',
-  weight: 'semibold',
-  className: css({ '&&': { fontSize: '20px' }, _mobile: { fontSize: '16px!' } }),
+  variant: 'bodyKr3',
+  language: 'ko',
+  weight: 'bold',
+  className: css({ _mobile: { fontSize: '15px' } }),
+} as const;
+
+const productInformationDescriptionProps = {
+  variant: 'eland-product-description',
 } as const;
 /** 상품 설명 섹션과 규격 정보를 의미 있는 목록으로 표시합니다. (Displays product description sections and specifications as a semantic list.) */
 function ProductInformation({
@@ -1823,7 +1826,6 @@ function ProductInformation({
   specifications,
   initiallyExpanded = false,
 }: ProductInformationProps) {
-  const platform = usePlatform();
   const [description, ...features] = sections;
   const [expanded, setExpanded] = useState(initiallyExpanded);
   const contentId = useId();
@@ -1832,12 +1834,13 @@ function ProductInformation({
       as="section"
       gap="6"
       px="8"
-      py="8"
+      pt="8"
+      pb="10"
       bg="var(--color-black-10)"
-      _mobile={{ px: '4', w: 'calc(100% + 32px)', ml: '-16px' }}
+      _mobile={{ px: '4', pb: '8', w: 'calc(100% + 32px)', ml: '-16px' }}
       css={{
-        '--product-information-label-width': '112px',
-        _mobile: { '--product-information-label-width': '88px' },
+        '--product-information-label-width': '80px',
+        _mobile: { '--product-information-label-width': '76px' },
       }}
       id={id}
       title={title}
@@ -1846,14 +1849,14 @@ function ProductInformation({
         titleProps: {
           variant: 'headingKr8',
           mo: 'headingKr9',
-          weight: platform === 'mobile' ? 'semibold' : 'black',
-          className: css({ '&&': { fontSize: '22px' }, _mobile: { fontSize: '20px!' } }),
+          weight: 'black',
+          className: css({ _mobile: { '&&': { fontSize: '20px' } } }),
         },
       }}
     >
       <Stack gap="10">
-        <Stack gap="6" alignItems="start">
-          <Stack id={contentId} gap="4" w="100%">
+        <Stack gap="6" _mobile={{ gap: '7' }} alignItems="start">
+          <Stack id={contentId} gap="6" w="100%">
             {description && (
               <ContentHeader
                 gap="5"
@@ -1862,12 +1865,23 @@ function ProductInformation({
                 titleProps={productInformationTitleProps}
                 description={<>{description.content}</>}
                 descriptionProps={{
-                  web: 'bodyKr3',
-                  mo: 'bodyKr4',
+                  ...productInformationDescriptionProps,
                   className: expanded ? undefined : css({ lineClamp: 5 }),
                 }}
               />
             )}
+            {expanded &&
+              features.map((section) => (
+                <ContentHeader
+                  gap="5"
+                  key={section.title}
+                  titleAs="h3"
+                  title={section.title}
+                  titleProps={productInformationTitleProps}
+                  description={section.content}
+                  descriptionProps={productInformationDescriptionProps}
+                />
+              ))}
           </Stack>
           {description && (
             <Button
@@ -1878,34 +1892,30 @@ function ProductInformation({
               aria-controls={contentId}
               onClick={() => setExpanded((value) => !value)}
             >
-              {expanded ? '닫기' : '더 보기'}
+              <Typography as="span" variant="bodyKr4" weight="semibold">
+                {expanded ? '닫기' : '더 보기'}
+              </Typography>
             </Button>
           )}
         </Stack>
-        {expanded &&
-          features.map((section) => (
-            <ContentHeader
-              gap="5"
-              key={section.title}
-              titleAs="h3"
-              title={section.title}
-              titleProps={productInformationTitleProps}
-              description={<>{section.content}</>}
-              descriptionProps={{ web: 'bodyKr3', mo: 'bodyKr4' }}
-            />
-          ))}
         <DescriptionList
           items={specifications.map(({ label, value }) => ({ term: label, description: value }))}
           labelWidth="var(--product-information-label-width)"
           termProps={{
-            web: 'headingKr9',
-            mo: 'bodyKr3',
+            variant: 'bodyKr4',
             weight: 'semibold',
           }}
-          descriptionProps={{ variant: 'body4', tone: 'primary' }}
+          descriptionProps={{ variant: 'bodyKr4', weight: 'regular' }}
           slotStyles={{
             root: css.raw({ columnGap: '3', rowGap: '6', alignItems: 'center' }),
-            term: css.raw({ fontSize: '20px', _mobile: { fontSize: '16px' } }),
+            term: css.raw({
+              '&&': { fontFamily: 'korean', fontSize: '15px' },
+              _mobile: { '&&': { fontSize: '14px' } },
+            }),
+            description: css.raw({
+              '&&': { fontFamily: 'korean', fontSize: '15px', lineHeight: '1.5' },
+              _mobile: { '&&': { fontSize: '14px' } },
+            }),
           }}
         />
       </Stack>
@@ -1969,7 +1979,7 @@ function ProductPurchaseActions({
         fullWidth
         size={platform === 'mobile' ? 'short' : 'tall'}
       >
-        {restock ? '품절' : '장바구니'}
+        <Typography variant="eland-purchase-action">{restock ? '품절' : '장바구니'}</Typography>
       </Button>
       <Button
         variant="primary"
@@ -1977,7 +1987,9 @@ function ProductPurchaseActions({
         size={platform === 'mobile' ? 'short' : 'tall'}
         onClick={restock ? undefined : onOpenOptions}
       >
-        {restock ? '입고 알림 신청하기' : '구매하기'}
+        <Typography variant="eland-purchase-action">
+          {restock ? '입고 알림 신청하기' : '구매하기'}
+        </Typography>
       </Button>
     </Grid>
   );
@@ -2663,7 +2675,7 @@ function ProductSelectedOptions({
             <li key={JSON.stringify([item.id, item.color, item.width, item.size])}>
               <Stack gap="3" py="4" borderBottom="1px solid var(--color-black-20)">
                 <Flex gap="3" alignItems="center" justifyContent="space-between">
-                  <Typography variant="body4">{label}</Typography>
+                  <Typography variant="eland-option-name">{label}</Typography>
                   <Button
                     variant="icon"
                     aria-label={`${label} 삭제`}
@@ -2680,8 +2692,9 @@ function ProductSelectedOptions({
                     value={item.quantity}
                     onChange={(quantity) => onQuantityChange(index, quantity)}
                   />
-                  <Typography variant="body3" weight="semibold">
-                    {(item.amount ?? unitPrice).toLocaleString('ko-KR')}원
+                  <Typography variant="cta1" language="en">
+                    {(item.amount ?? unitPrice).toLocaleString('ko-KR')}
+                    <Typography variant="eland-listing-price-unit">원</Typography>
                   </Typography>
                 </Flex>
               </Stack>
@@ -2689,15 +2702,22 @@ function ProductSelectedOptions({
           );
         })}
       </Box>
-      <AmountRow
-        label={previewTotal === undefined ? '합계' : '총 3개'}
-        amount={previewTotal ?? unitPrice}
-        emphasis
-        emphasizeLabel
+      <HStack
+        justifyContent="space-between"
         py="5"
         borderTop="2px solid var(--color-black-100)"
         aria-live="polite"
-      />
+      >
+        <Typography variant="eland-option-total">
+          {previewTotal === undefined ? '합계' : '총 3개'}
+        </Typography>
+        <HStack alignItems="baseline" gap="0.5">
+          <Typography variant="eland-product-price">
+            {(previewTotal ?? unitPrice).toLocaleString()}
+          </Typography>
+          <Typography variant="eland-product-price-unit">원</Typography>
+        </HStack>
+      </HStack>
     </Stack>
   );
 }
@@ -2968,9 +2988,7 @@ export function RouteContent({ preview }: { preview?: ProductDetailPreview }) {
           title={
             <HStack as="span" gap="2">
               <Icon name="circle-check-regular" size="22px" />
-              <Typography variant="headingKr8" mo="headingKr9" weight="semibold">
-                장바구니 추가 완료
-              </Typography>
+              <Typography variant="eland-cart-confirmation">장바구니 추가 완료</Typography>
             </HStack>
           }
           mobilePresentation="bottomSheet"
@@ -2991,7 +3009,7 @@ export function RouteContent({ preview }: { preview?: ProductDetailPreview }) {
                   fullWidth
                   onClick={() => setCartOpen(false)}
                 >
-                  쇼핑 계속하기
+                  <Typography variant="eland-purchase-action">쇼핑 계속하기</Typography>
                 </Button>
                 <ButtonLink
                   variant="primary"
@@ -2999,7 +3017,7 @@ export function RouteContent({ preview }: { preview?: ProductDetailPreview }) {
                   fullWidth
                   href="/cart"
                 >
-                  장바구니 확인하기
+                  <Typography variant="eland-purchase-action">장바구니 확인하기</Typography>
                 </ButtonLink>
               </Grid>
               {platform === 'web' && <CartAddedRecommendations products={recommendations} />}
@@ -3030,17 +3048,23 @@ export function RouteContent({ preview }: { preview?: ProductDetailPreview }) {
                     })}
                   />
                   <Stack gap="1">
-                    <Typography variant="body4" tone="tertiary">
+                    <Typography variant="eland-cart-item" tone="tertiary">
                       {product.gender}
                     </Typography>
-                    <Typography variant="body3" weight="semibold">
-                      {product.name}
-                    </Typography>
-                    <Typography variant="body4">
+                    <Typography variant="eland-cart-item">{product.name}</Typography>
+                    <Typography variant="eland-cart-item-option">
                       {row.color}, {row.size}, {row.width}, {row.quantity}개
                     </Typography>
-                    <Typography variant="body4" weight="semibold">
-                      {row.amount.toLocaleString('ko-KR')}원
+                    <Typography variant="eland-cart-item">
+                      {row.amount.toLocaleString('ko-KR')}
+                      <Typography
+                        variant="bodyKr4"
+                        language="ko"
+                        weight="bold"
+                        style={{ fontFamily: 'var(--font-family-korean)' }}
+                      >
+                        원
+                      </Typography>
                     </Typography>
                   </Stack>
                 </Flex>

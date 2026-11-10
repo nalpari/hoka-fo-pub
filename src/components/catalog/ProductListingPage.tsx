@@ -135,7 +135,12 @@ function CatalogFilterTrigger({
       onClick={onToggle}
       type="button"
     >
-      <Typography variant="body3" weight="semibold">
+      <Typography
+        variant="ctaKr1"
+        language="ko"
+        style={{ fontFamily: 'var(--font-family-korean)' }}
+        weight="semibold"
+      >
         {title}
       </Typography>
       <Icon name={expanded ? 'minus-regular' : 'plus-regular'} size={16} alt="" className={icon} />
@@ -209,7 +214,10 @@ function CatalogFilterGroup({
     <CatalogFilterSection title={title}>
       <Checkbox
         onValueChange={(next) => (onChange ? onChange(next) : setInternalSelected(next))}
-        options={values.map((item) => ({ label: item, value: item }))}
+        options={values.map((item) => ({
+          label: <Typography variant="eland-filter-option">{item}</Typography>,
+          value: item,
+        }))}
         value={selectedValues}
       />
     </CatalogFilterSection>
@@ -454,7 +462,7 @@ function Tag({ children, onDelete }: TagProps) {
   if (!onDelete) return <span className={tag}>{children}</span>;
   return (
     <Flex className={tag} gap="1.5" alignItems="center" justifyContent="space-between">
-      <Typography web="body3" mo="body5" tone="primary">
+      <Typography variant="eland-listing-secondary" tone="primary">
         {children}
       </Typography>
       <Button
@@ -493,7 +501,14 @@ function CatalogFilterPanelHeader({ onReset, selectedFilters }: CatalogFilterPan
         )}
         <Flex h="8" alignItems="center">
           <Button onClick={onReset} variant="link" size="md">
-            초기화
+            <Typography
+              variant="bodyKr4"
+              language="ko"
+              weight="medium"
+              style={{ fontFamily: 'var(--font-family-korean)' }}
+            >
+              초기화
+            </Typography>
           </Button>
         </Flex>
       </Flex>
@@ -621,7 +636,10 @@ function ProductListingFilterPanel({
             ariaLabel="상품 정렬"
             value={mobileSort.value}
             onValueChange={mobileSort.onValueChange}
-            options={productSortOptions}
+            options={productSortOptions.map(({ label, value }) => ({
+              label: <Typography variant="eland-filter-option">{label}</Typography>,
+              value,
+            }))}
           />
         </CatalogFilterSection>
       )}
@@ -1021,11 +1039,23 @@ function ProductListingContent({
           closeLabel="닫기"
           footer={
             <Button onClick={onMobileFilterApply} variant="primary">
-              필터 적용하기 ({mobileResultCount})
+              <Typography variant="eland-filter-apply-count">
+                <Typography variant="eland-purchase-action">필터 적용하기</Typography> (
+                {mobileResultCount})
+              </Typography>
             </Button>
           }
           onOpenChange={onFilterDrawerOpenChange}
-          title="필터"
+          title={
+            <Typography
+              mo="headingKr6"
+              language="ko"
+              weight="bold"
+              style={{ fontFamily: 'var(--font-family-korean)' }}
+            >
+              필터
+            </Typography>
+          }
         >
           {filterPanel}
         </ModalDialog>
@@ -1035,17 +1065,24 @@ function ProductListingContent({
 }
 type ProductListTitleProps = {
   resultCount: number;
-  searchQuery: string;
   title: string;
 };
 /** 상품 목록 제목과 검색 결과 건수를 표시합니다. (Displays the product listing title and result count.) */
-function ProductListTitle({ resultCount, searchQuery, title }: ProductListTitleProps) {
+function ProductListTitle({ resultCount, title }: ProductListTitleProps) {
   return (
     <HStack gap="2" alignItems="flex-end">
-      <Typography web="heading7" mo="heading5" weight="black" tone="primary">
-        {searchQuery ? `“${searchQuery}”에 대한 검색결과` : title}
+      <Typography
+        web="headingKr7"
+        mo="headingKr5"
+        language="ko"
+        style={{ fontFamily: 'var(--font-family-korean)' }}
+        tone="primary"
+      >
+        {title}
       </Typography>
-      <Typography variant="body4">({resultCount})</Typography>
+      <Typography variant="body4" language="en">
+        ({resultCount})
+      </Typography>
     </HStack>
   );
 }
@@ -1224,7 +1261,14 @@ function ProductFilterTrigger({
       variant="filterTrigger"
       size={isSearch ? 'regular' : 'compact'}
     >
-      <Typography variant={isSearch ? 'cta1' : 'body4'}>{label}</Typography>
+      <Typography
+        variant="bodyKr4"
+        language="ko"
+        weight="semibold"
+        style={{ fontFamily: 'var(--font-family-korean)' }}
+      >
+        {label}
+      </Typography>
     </Button>
   );
 }
@@ -1427,17 +1471,16 @@ function ProductListingLayout({
             placeholder={sortPlaceholder}
             onValueChange={onSortChange}
             value={sort}
-            options={productSortOptions}
+            options={productSortOptions.map(({ label, value }) => ({
+              label: <Typography variant="eland-filter-option">{label}</Typography>,
+              value,
+            }))}
           />
         )
       }
       stickyHeader={platform === 'web'}
       title={
-        <ProductListTitle
-          resultCount={resultCount ?? result.length}
-          searchQuery={normalizedSearchQuery}
-          title={productListingTitle}
-        />
+        <ProductListTitle resultCount={resultCount ?? result.length} title={productListingTitle} />
       }
     >
       {platform === 'mobile' && (
@@ -1496,6 +1539,7 @@ export function ProductListingPage({ searchQuery = '', data }: ProductListingPag
   const platform = usePlatform();
   const params = useSearchParams();
   const pathname = usePathname();
+  const isSearchPage = pathname === '/search' || Boolean(searchQuery.trim());
   const router = useRouter();
   const setParams = (next: URLSearchParams) => {
     const query = next.toString();
@@ -1676,7 +1720,7 @@ export function ProductListingPage({ searchQuery = '', data }: ProductListingPag
       onSortChange={(nextSort) => update('sort', nextSort)}
       onSearch={(query) => router.push(`/search?q=${encodeURIComponent(query)}`)}
       onCloseSearch={() => router.push('/products')}
-      isSearchPage={pathname === '/search' || Boolean(searchQuery.trim())}
+      isSearchPage={isSearchPage}
       hasActiveFilters={
         facetKeys.some((key) => params.has(key)) ||
         minPrice !== productListingPriceRange.min ||

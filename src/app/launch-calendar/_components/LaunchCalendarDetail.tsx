@@ -133,26 +133,16 @@ export function LaunchCalendarDetail({
           <ContentHeader
             title={product.name}
             titleAs="h1"
-            titleProps={{
-              variant: 'heading7',
-              className: css({
-                '&&': { fontSize: '32px', lineHeight: '30.72px', _mobile: { fontSize: '28px' } },
-              }),
-            }}
+            titleProps={{ variant: 'eland-product-title' }}
             eyebrow={product.gender}
             eyebrowProps={{ variant: 'body4', tone: 'tertiary' }}
             description={product.priceLabel}
-            descriptionProps={{ variant: 'body2', weight: 'medium' }}
+            descriptionProps={{ variant: 'eland-product-price' }}
             gap="20px"
           />
           <HStack gap="8px">
             <Icon name="clock-ten" size="18px" color="red.80" />
-            <Typography
-              as="p"
-              variant="body3"
-              weight="semibold"
-              tone="red80"
-            >
+            <Typography as="p" variant="eland-launch-release" tone="red80">
               {product.releaseLabel}
             </Typography>
           </HStack>
@@ -189,7 +179,7 @@ export function LaunchCalendarDetail({
             fullWidth
             size={platform === 'mobile' ? 'short' : 'tall'}
           >
-            입고 알림 신청
+            <Typography variant="eland-purchase-action">입고 알림 신청</Typography>
           </Button>
           <ContentSection
             as="section"
@@ -199,7 +189,7 @@ export function LaunchCalendarDetail({
             pt="32px"
             pb="40px"
             bg="var(--color-black-10)"
-            headerProps={{ titleProps: { variant: 'heading8', mo: 'heading8' } }}
+            headerProps={{ titleProps: { variant: 'heading8' } }}
             _mobile={{ px: '24px' }}
           >
             <Stack gap="20px">
@@ -211,7 +201,7 @@ export function LaunchCalendarDetail({
               <Typography
                 as="p"
                 id={descriptionId}
-                variant="body3"
+                variant="eland-body"
                 className={expanded ? undefined : css({ lineClamp: 4 })}
               >
                 {product.description}
@@ -231,8 +221,8 @@ export function LaunchCalendarDetail({
             <DescriptionList
               items={product.specifications}
               labelWidth="80px"
-              termProps={{ variant: 'body4', weight: 'semibold' }}
-              descriptionProps={{ variant: 'body4' }}
+              termProps={{ variant: 'eland-launch-spec-label' }}
+              descriptionProps={{ variant: 'eland-launch-spec' }}
               slotStyles={{ root: css.raw({ columnGap: '12px', rowGap: '24px' }) }}
             />
           </ContentSection>
