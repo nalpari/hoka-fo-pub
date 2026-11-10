@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-09T23:53:01Z'
+updated: '2026-11-10T07:45:13Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -1008,6 +1008,10 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 상품 목록 이미지 비율 복원 (2026-11-10)
+
+상품 목록의 신발·의류 썸네일은 `ProductThumbnail.listing`에서 PC·모바일 모두 `371 / 464`를 사용한다. 목록에 삽입되는 홍보 카드의 이미지도 `ProductListingPage`에서 두 플랫폼 모두 같은 비율을 사용한다. 출처는 사용자 요청과 `src/components/common/molecules/ProductThumbnail.tsx`, `src/components/catalog/ProductListingPage.tsx`의 작업 트리다.
 
 2026-11-10: 상품 상세의 사이즈 가이드 표·단위 선택 모달을 유지하며, 상품 정보 스펙 안내에는 공통 `HelpTooltip`을 사용한다. 팝업을 여는 자 아이콘은 16px이다. 출처: 작업 트리의 `src/app/products/[id]/_components/ProductDetailContent.tsx`.
 
@@ -4814,6 +4818,18 @@ EmptyState의 page 변형은 제목과 설명 사이 16px, 버튼이 전달되�
 
 1543px과 375px의 /search/preview-no-results에서 계산 스타일과 16px 간격을 확인했다. 두 폭에서 문서 가로 넘침이 없었다. 대상 ESLint·Prettier와 Panda 생성이 통과했다. 출처는 ProductListingPage.tsx 작업 트리와 사용자 브라우저 주석이다. Codex, 2026-11-05.
 
+## PC 검색 결과 정렬 (2026-11-10)
+
+PC 검색 결과 제목 오른쪽에 상품 목록과 같은 정렬 드롭다운을 배치한다. 정렬을 선택하면 검색어와 필터를 유지하고 URL의 sort를 갱신하면서 page를 지운다. 준비된 상품은 기존 정렬 함수로 재배치하며, 실제 조회는 통합 소유자가 URL 조건에 맞춰 최신 상품 목록과 조회 상태를 전달하는 경계로 남아 있다. 모바일 정렬은 필터 시트에서 제공하며, 검색 결과 없음 미리보기에는 정렬을 표시하지 않는다.
+
+Codex가 PC 브라우저에서 네 옵션, 낮은가격순 선택 시 Clifton 결과의 144,000원·240,000원 순서, 검색어 보존·page 제거와 뒤로 가기를 확인했다. 390px에서 필터 시트의 정렬을 확인했고, 빈 결과는 HTTP 응답의 안내 문구와 정렬 미노출을 확인했다. 대상 ESLint·Prettier, 타입 검사와 Panda 생성이 통과했다. 출처는 `src/components/catalog/ProductListingPage.tsx` 작업 트리다.
+
+## 모바일 상품 목록과 검색 결과의 색상 선택 (2026-11-10)
+
+공통 `ProductCard`의 모바일 목록에서 `colorThumbnails`가 제공되면 썸네일을 버튼으로 표시한다. 선택한 옵션 ID로 현재 이미지 데이터를 찾아 카드 대표 이미지에 반영한다. 색상 이름만 제공되는 상품은 기존 읽기 전용 썸네일을 유지한다. 선택은 카드 안의 미리보기 상태이며 URL, 상품 상세 링크와 서비스 데이터에 영향을 주지 않는다.
+
+Codex가 473px 모바일 목록과 검색 결과에서 Summit Pace 4의 색상 버튼을 연속 선택해 대표 이미지와 `aria-pressed`가 바뀌고 URL이 유지됨을 확인했다. 1440px 목록에서 PC 호버 미리보기의 색상 선택도 확인했다. 대상 ESLint와 타입 검사를 통과했다. 출처는 사용자 브라우저 주석과 `src/components/common/molecules/ProductCard/ProductCard.tsx` 작업 트리다.
+
 ## 배송지 변경 모달 footer (2026-11-05)
 
 배송지 변경은 PC 중앙 모달과 모바일 전체 화면 모달에서 공통 `ModalDialog`의 단일 저장 버튼을 사용한다. 저장 연동 전에는 버튼을 비활성으로 표시한다. 출처는 `src/app/checkout/_components/CheckoutShipping.tsx` 작업 트리다.
@@ -4895,6 +4911,20 @@ PC 1920px 기준 1016px 미디어와 484px 구매 패널 사이 32px를 유지�
 ## 마이페이지 고객지원 메뉴 진입 (2026-11-09)
 
 마이페이지 사이드 메뉴의 FAQs·1:1문의와 대시보드의 같은 바로가기는 고객센터 URL에 `from=mypage`를 붙인다. 공유 브레드크럼에는 기존과 같이 라벨과 링크를 넘기며, 진입별 상위 항목은 [고객지원 라우트](routing.md#마이페이지고객센터-브레드크럼과-화면-제목-2026-11-09)에서 선택한다. 작업 트리 출처는 `src/components/mypage/mypage.data.ts`와 `src/app/mypage/mypage-home-data.ts`다.
+
+## 고객사 타이포그래피 정의 2026-11-10
+
+`src/components/common/atoms/Typography.eland.ts`는 고객사 전용 타이포그래피 45개를 정의한다. `Typography.tsx`는 이를 Panda recipe와 `TypographyVariant`에 포함한다. 호출부는 `variant`, `web`, `mo`로 전용 스타일을 선택할 수 있다. 이 기록의 범위는 공용 정의와 타입이다.
+
+## 고객사 화면 타이포그래피 적용 2026-11-10
+
+상품 목록은 제목과 결과 건수에 표준 variant를 재사용하고 필터 선택지·선택 태그·적용 버튼에 고객사 스타일을 적용한다. 상품 상세는 상품 정보 본문과 선택 옵션·합계·구매 버튼·장바구니 완료 문구를 화면에서 구성한다. 옵션 합계는 준비된 표시 금액을 사용한다.
+
+러닝클럽은 목록과 상세의 제목·세션 정보·신청 버튼에 고객사 스타일을 적용한다. 공용 Badge의 `textProps.variant`로 런클럽 분류와 프로모션의 라벨 스타일을 선택할 수 있다. 런치 캘린더는 목록·상세에 고객사 스타일을 적용하며, 상세의 가격은 `product.priceLabel`을 ContentHeader에 전달한다.
+
+## 상품 상세 사이즈 오류 타이포그래피 2026-11-10
+
+공용 `ProductSizeSelector`는 선택적 `errorVariant`로 오류 문구의 타이포그래피를 지정한다. 오류 메시지는 기존 `FormField`의 alert와 설명 연결을 사용한다. 상품 상세는 `eland-product-option-error`를 전달해 사이즈 미선택 문구를 PC 14px, 모바일 13px의 Pretendard 500으로 표시한다.
 
 ## 브레드크럼 링크 글자 정렬 (2026-11-10)
 

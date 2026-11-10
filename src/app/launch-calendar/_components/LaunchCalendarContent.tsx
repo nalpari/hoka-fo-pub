@@ -97,13 +97,12 @@ function LaunchCalendarCard({ item, eager }: { item: LaunchCalendarItem; eager: 
           {item.dateLabel && (
             <Typography
               as="span"
-              variant="body3"
-              weight="bold"
+              variant="eland-launch-date"
               className={css({
                 position: 'absolute',
                 top: '32px',
                 left: '32px',
-                _mobile: { top: '16px', left: '12px', fontSize: '14px' },
+                _mobile: { top: '16px', left: '12px' },
               })}
             >
               {item.dateLabel}
@@ -114,7 +113,7 @@ function LaunchCalendarCard({ item, eager }: { item: LaunchCalendarItem; eager: 
       <Flex gap="16px" px="8px" align="start" _mobile={{ gap: '16px', p: '16px' }}>
         <Stack gap="16px" flex="1" minW="0" _mobile={{ gap: '8px' }}>
           {item.releaseLabel && (
-            <Typography as="p" variant="body3" mo="body5">
+            <Typography as="p" variant="eland-body">
               {item.releaseLabel}
             </Typography>
           )}
@@ -122,15 +121,7 @@ function LaunchCalendarCard({ item, eager }: { item: LaunchCalendarItem; eager: 
             title={item.name}
             titleAs="h2"
             titleProps={{
-              variant: 'heading8',
-              weight: 'black',
-              className: css({
-                '&&': {
-                  fontSize: '24px',
-                  lineHeight: '23.04px',
-                  _mobile: { fontSize: '28px', lineHeight: '1.1' },
-                },
-              }),
+              variant: 'eland-launch-card-title',
             }}
             description={item.priceLabel}
             descriptionProps={{ variant: 'body3', mo: 'body4', weight: 'medium' }}
@@ -151,7 +142,7 @@ function LaunchCalendarCard({ item, eager }: { item: LaunchCalendarItem; eager: 
               } as CSSProperties
             }
           >
-            {label}
+            <Typography variant="eland-event-action">{label}</Typography>
           </ButtonLink>
         ) : (
           <Button
@@ -171,7 +162,7 @@ function LaunchCalendarCard({ item, eager }: { item: LaunchCalendarItem; eager: 
               } as CSSProperties
             }
           >
-            {label}
+            <Typography variant="eland-event-action">{label}</Typography>
           </Button>
         )}
       </Flex>
@@ -209,17 +200,7 @@ export function LaunchCalendarContent({
           <ContentHeader
             title="Launch Calendar"
             titleAs="h1"
-            titleProps={{
-              variant: 'heading7',
-              weight: 'black',
-              className: css({
-                '&&': {
-                  fontSize: '44px',
-                  lineHeight: '30.72px',
-                  _mobile: { fontSize: '28px', lineHeight: '30.72px' },
-                },
-              }),
-            }}
+            titleProps={{ variant: 'eland-campaign-title' }}
           />
           <HStack
             as="nav"
@@ -250,7 +231,7 @@ export function LaunchCalendarContent({
                   _mobile: { w: 'auto', minW: '0' },
                 })}
               >
-                {tab.label}
+                <Typography variant="eland-launch-tabs">{tab.label}</Typography>
               </ButtonLink>
             ))}
           </HStack>

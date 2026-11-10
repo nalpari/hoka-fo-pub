@@ -62,18 +62,6 @@ const genderMenu = (gender: 'men' | 'women', label: string): MegaMenu => ({
       ],
     },
     {
-      title: '액티비티',
-      activeItemEmphasis: 'heading',
-      items: [
-        { label: '로드 러닝', to: productLink(`gender=${gender}&activity=road-running`) },
-        { label: '트레일 러닝', to: productLink(`gender=${gender}&activity=trail-running`) },
-        { label: '라이프스타일', to: productLink(`gender=${gender}&activity=lifestyle`) },
-        { label: '하이킹', to: productLink(`gender=${gender}&activity=hiking`) },
-        { label: '워킹', to: productLink(`gender=${gender}&activity=walking`) },
-        { label: '리커버리', to: productLink(`gender=${gender}&activity=recovery`) },
-      ],
-    },
-    {
       title: '신발',
       items: shoeMenuItems(gender),
     },
@@ -107,6 +95,18 @@ const genderMenu = (gender: 'men' | 'women', label: string): MegaMenu => ({
         },
         { label: '베스트&벨트', to: productLink(`gender=${gender}&category=vests-belts`) },
         { label: '기타용품', to: productLink(`gender=${gender}&category=other-accessories`) },
+      ],
+    },
+    {
+      title: '액티비티',
+      activeItemEmphasis: 'heading',
+      items: [
+        { label: '로드 러닝', to: productLink(`gender=${gender}&activity=road-running`) },
+        { label: '트레일 러닝', to: productLink(`gender=${gender}&activity=trail-running`) },
+        { label: '라이프스타일', to: productLink(`gender=${gender}&activity=lifestyle`) },
+        { label: '하이킹', to: productLink(`gender=${gender}&activity=hiking`) },
+        { label: '워킹', to: productLink(`gender=${gender}&activity=walking`) },
+        { label: '리커버리', to: productLink(`gender=${gender}&activity=recovery`) },
       ],
     },
   ],

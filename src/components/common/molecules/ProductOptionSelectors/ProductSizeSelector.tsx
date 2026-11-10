@@ -12,7 +12,7 @@ import { type ReactNode, useId } from 'react';
 import { Stack } from 'styled-system/jsx';
 
 import { FormField } from '@/components/common/atoms/FormField';
-import { Typography } from '@/components/common/atoms/Typography';
+import { Typography, type TypographyVariant } from '@/components/common/atoms/Typography';
 
 import {
   SizeSelector,
@@ -30,6 +30,7 @@ export type ProductSizeSelectorProps = {
   action?: ReactNode;
   description?: ReactNode;
   error?: string;
+  errorVariant?: TypographyVariant;
   id?: string;
   fieldId?: string;
 };
@@ -44,6 +45,7 @@ export function ProductSizeSelector({
   action,
   description,
   error,
+  errorVariant,
   id,
   fieldId,
 }: ProductSizeSelectorProps) {
@@ -86,7 +88,16 @@ export function ProductSizeSelector({
         selector
       ) : (
         <Stack gap="4">
-          <FormField htmlFor={fieldId ?? generatedId} error={error || undefined}>
+          <FormField
+            htmlFor={fieldId ?? generatedId}
+            error={
+              error && errorVariant ? (
+                <Typography variant={errorVariant}>{error}</Typography>
+              ) : (
+                error || undefined
+              )
+            }
+          >
             {selector}
           </FormField>
           {description}

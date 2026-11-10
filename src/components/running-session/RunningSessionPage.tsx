@@ -30,7 +30,7 @@ function RunningSessionHistoryLink({ compact = false }: { compact?: boolean }) {
   return (
     <Flex justifyContent={compact ? 'flex-start' : 'flex-end'}>
       <ButtonLink href="/mypage/event-entries" variant="link" size={compact ? 'sm' : 'lg'}>
-        <Typography variant="body4" weight="regular" className={css({ display: 'block' })}>
+        <Typography variant="eland-session-history" className={css({ display: 'block' })}>
           세션 신청 내역
         </Typography>
       </ButtonLink>
@@ -62,19 +62,6 @@ const filterButton = css({
     _focusVisible: { outline: '2px solid {colors.blue.100}', outlineOffset: '-2px' },
   },
 });
-const options = filters.map(({ value, label, mobileLabel }) => ({
-  value,
-  label: (
-    <>
-      <Typography as="span" className={css({ _mobile: { display: 'none' } })}>
-        {label}
-      </Typography>
-      <Typography as="span" className={css({ display: 'none', _mobile: { display: 'inline' } })}>
-        {mobileLabel}
-      </Typography>
-    </>
-  ),
-}));
 function RunningSessionFilters({
   filter,
   onFilterChange,
@@ -82,6 +69,14 @@ function RunningSessionFilters({
 }: RunningSessionFiltersProps) {
   const mobile = usePlatform() === 'mobile';
   const segmented = mobile || empty;
+  const options = filters.map(({ value, label, mobileLabel }) => ({
+    value,
+    label: (
+      <Typography as="span" variant="eland-session-filter">
+        {mobile ? mobileLabel : label}
+      </Typography>
+    ),
+  }));
   return (
     <SegmentedControl
       unstyled
@@ -139,7 +134,6 @@ function RunningSessionHeader({
   onFilterChange,
   empty = false,
 }: RunningSessionHeaderProps) {
-  const mobile = usePlatform() === 'mobile';
   return (
     <ContentSection
       as="header"
@@ -156,19 +150,19 @@ function RunningSessionHeader({
           _mobile: { alignItems: 'flex-start', textAlign: 'left', maxW: '316px' },
         }),
         titleAs: 'h1',
-        titleProps: { variant: 'heading4', mo: 'heading3', language: mobile ? 'ko' : 'en' },
+        titleProps: { variant: 'eland-campaign-title' },
         description: (
           <>
             경쾌한 도심의 로드 러닝부터 거친 트레일까지.
             <br />
             당신의 모든 러닝을{' '}
-            <Typography as="span" variant="body3" language={mobile ? 'ko' : 'en'}>
+            <Typography as="span" variant="eland-session-intro-name">
               HOKA Run Club
             </Typography>
             과 함께하세요.
           </>
         ),
-        descriptionProps: { variant: 'body3' },
+        descriptionProps: { variant: 'eland-body' },
       }}
     >
       <Stack gap="0" _mobile={{ w: '100%' }}>
@@ -246,16 +240,12 @@ function RunningSessionSessionCardImage({ session }: { session: RunningSessionSe
       />
       <Square pos="absolute" left="0" top="0" w="100%" h="100%">
         <VStack gap="8px" color="white.0">
-          <Typography variant="heading6" mo="heading3">
-            {session.overlayDate}
-          </Typography>
+          <Typography variant="eland-session-overlay">{session.overlayDate}</Typography>
           <HStack gap="8px">
             <Typography variant="heading6" mo="heading3">
               {session.location}
             </Typography>
-            <Typography variant="heading6" mo="heading3">
-              {session.distance}
-            </Typography>
+            <Typography variant="eland-session-overlay">{session.distance}</Typography>
           </HStack>
         </VStack>
       </Square>
@@ -270,20 +260,28 @@ function RunningSessionSessionCardContent({ session }: { session: RunningSession
       header={
         <Stack gap="14px" _mobile={{ gap: '16px' }}>
           <Flex justifyContent="flex-start">
-            <Badge runningSessionCategory={session.category} />
+            <Badge
+              runningSessionCategory={session.category}
+              textProps={{ variant: 'eland-session-badge' }}
+            />
           </Flex>
           <ContentHeader
             gap="16px"
             _mobile={{ gap: '2' }}
             titleAs="h2"
             title={<>{session.title}</>}
-            titleProps={{ variant: 'heading7', mo: 'heading6', weight: 'black' }}
+            titleProps={{
+              web: 'headingKr7',
+              mo: 'headingKr5',
+              language: 'ko',
+              style: { fontFamily: 'var(--font-family-korean)' },
+            }}
             description={
               <>
                 {session.schedule} | {session.location} {session.distance}
               </>
             }
-            descriptionProps={{ variant: 'body3' }}
+            descriptionProps={{ variant: 'eland-session-card-description' }}
           />
         </Stack>
       }
@@ -294,7 +292,7 @@ function RunningSessionSessionCardContent({ session }: { session: RunningSession
           size="tall"
           className={css({ w: '140px', '& > span': { w: '100%' }, _mobile: { display: 'none' } })}
         >
-          자세히 보기
+          <Typography variant="eland-purchase-action">자세히 보기</Typography>
         </ButtonLink>
       }
     />
@@ -315,9 +313,12 @@ function RunningSessionEmptyState() {
       <EmptyState
         title="현재 운영중인 세션이 없습니다."
         titleProps={{
-          variant: 'body3',
-          mo: 'body4',
-          className: css({ _mobile: { color: 'black.60' } }),
+          web: 'headingKr7',
+          mo: 'headingKr5',
+          className: css({
+            '&&': { fontFamily: 'var(--font-family-korean)' },
+            _mobile: { color: 'black.60' },
+          }),
         }}
         action={mobile ? undefined : <RunningSessionHistoryLink />}
         className={css({

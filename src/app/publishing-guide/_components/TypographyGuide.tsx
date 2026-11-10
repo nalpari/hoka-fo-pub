@@ -8,27 +8,25 @@ import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 import { Button } from '@/components/common/atoms/Button';
 import { Icon } from '@/components/common/atoms/Icon';
 import { Toast, type ToastNotice } from '@/components/common/atoms/Toast';
-import {
-  figmaTypographyVariants,
-  Typography,
-  type TypographyVariant,
-} from '@/components/common/atoms/Typography';
+import { figmaTypographyVariants, Typography } from '@/components/common/atoms/Typography';
 
 import { renderGuideCode } from './GuideCode';
 import { GuideTimeline } from './GuideTimeline';
+
+type GuideVariant = keyof typeof figmaTypographyVariants;
 
 const groups: readonly {
   id: string;
   title: string;
   description: string;
-  examples: readonly { variant: TypographyVariant; text: string }[];
+  examples: readonly { variant: GuideVariant; text: string }[];
 }[] = [
   {
     id: 'typography-heading-en',
     title: '영문 헤딩',
     description: '영문 제목 계층',
     examples: Array.from({ length: 10 }, (_, index) => ({
-      variant: `heading${index + 1}` as TypographyVariant,
+      variant: `heading${index + 1}` as GuideVariant,
       text: `Heading ${index + 1}`,
     })),
   },
@@ -37,7 +35,7 @@ const groups: readonly {
     title: '한글 헤딩',
     description: '한글 제목 계층',
     examples: Array.from({ length: 10 }, (_, index) => ({
-      variant: `headingKr${index + 1}` as TypographyVariant,
+      variant: `headingKr${index + 1}` as GuideVariant,
       text: `한글 헤딩 ${index + 1}`,
     })),
   },
@@ -46,7 +44,7 @@ const groups: readonly {
     title: '영문 본문',
     description: '영문 본문 계층',
     examples: Array.from({ length: 5 }, (_, index) => ({
-      variant: `body${index + 1}` as TypographyVariant,
+      variant: `body${index + 1}` as GuideVariant,
       text: `Body text ${index + 1}: The future starts here.`,
     })),
   },
@@ -55,7 +53,7 @@ const groups: readonly {
     title: '한글 본문',
     description: '한글 본문 계층',
     examples: Array.from({ length: 5 }, (_, index) => ({
-      variant: `bodyKr${index + 1}` as TypographyVariant,
+      variant: `bodyKr${index + 1}` as GuideVariant,
       text: `본문 텍스트 ${index + 1}: 새로운 움직임을 시작하세요.`,
     })),
   },
@@ -138,7 +136,7 @@ function formatFontSize(fontSize: string) {
   return `${tokenSize ?? Number.parseFloat(fontSize)}px`;
 }
 
-function variantMetrics(variant: TypographyVariant) {
+function variantMetrics(variant: GuideVariant) {
   const style = figmaTypographyVariants[variant];
   const mobileStyle = '_mobile' in style ? style._mobile : undefined;
   const lineHeight = lineHeightValues[style.lineHeight] ?? style.lineHeight;
@@ -173,7 +171,7 @@ export function TypographyGuide() {
     setCopyNotice((current) => (current?.id === id ? null : current));
   }, []);
 
-  async function copyVariant(variant: TypographyVariant, text: string) {
+  async function copyVariant(variant: GuideVariant, text: string) {
     const code = `<Typography variant="${variant}">${text}</Typography>`;
 
     try {
