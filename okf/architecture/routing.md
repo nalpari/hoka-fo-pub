@@ -1733,3 +1733,7 @@ IA STATE의 WBS·개발자·진척율이 상위 화면에 표시된 경우 STATE
 ## 로그인 헤더 표시 확인 (2026-11-10)
 
 `src/app/layout.tsx`에서 `ShopShell state={{ isLoggedIn: true }}`를 전달해 로그인 헤더 목업을 표시한다. 실제 인증 처리는 추가하지 않으며 경로 구조는 동일하다. 출처: 해당 파일 작업 트리.
+
+## 타이포그래피 가이드 표시 범위 2026-11-10
+
+`/publishing-guide`의 타이포그래피 탭은 `figmaTypographyVariants`의 표준 항목을 미리보기와 복사 예시로 제공한다. 화면 작업 파일 그래프에는 `Typography.tsx`가 참조하는 고객사 정의 모듈을 포함한다. 작업 트리 출처는 `TypographyGuide.tsx`와 `sourceGraph.generated.json`이다.

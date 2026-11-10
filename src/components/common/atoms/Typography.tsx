@@ -6,6 +6,10 @@ import { usePlatform } from '@/context/platform';
 
 import { css, cva, cx } from 'styled-system/css';
 
+import { elandTypographyRecipe, elandTypographyVariants } from './Typography.eland';
+
+export { elandTypographyVariants };
+
 // Compact EN H7 uses the approved guide (500); the Figma style currently says 700.
 export const figmaTypographyVariants = {
   heading1: {
@@ -398,6 +402,7 @@ const typography = cva({
   variants: {
     variant: {
       ...figmaTypographyVariants,
+      ...elandTypographyRecipe.config.variants?.variant,
       cta2: {
         ...figmaTypographyVariants.cta2,
         _mobile: { fontSize: 'var(--home-body-14, var(--font-sizes-14))' },
@@ -463,7 +468,8 @@ export type TypographyVariant =
   | 'cta2'
   | 'textLink1'
   | 'textLink2'
-  | 'textLink3';
+  | 'textLink3'
+  | keyof typeof elandTypographyVariants;
 
 export type TypographyTone = NonNullable<Parameters<typeof typography>[0]>['tone'];
 
@@ -512,7 +518,7 @@ function resolveLanguageVariant(
   return resolved in figmaTypographyVariants ? (resolved as TypographyVariant) : variant;
 }
 
-/** 웹·모바일의 표준 타이포그래피 scale을 적용하는 텍스트 요소입니다. (Applies standard web and mobile typography scales to text.) */
+/** 웹·모바일의 HOKA 및 고객사 타이포그래피를 적용합니다. (Applies HOKA and customer typography on web and mobile.) */
 export function Typography<T extends ElementType = 'span'>({
   as,
   children,
@@ -539,7 +545,7 @@ export function Typography<T extends ElementType = 'span'>({
         selectedVariant
           ? typography({
               tone: resolvedTone,
-              variant: resolvedVariant as never,
+              variant: resolvedVariant,
               weight,
             })
           : tone

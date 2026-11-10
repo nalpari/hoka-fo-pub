@@ -1343,7 +1343,11 @@
       "src/components/common/atoms/FormField.tsx",
       "src/components/common/atoms/Icon.tsx"
     ],
-    "src/components/common/atoms/Typography.tsx": ["src/context/platform.tsx"],
+    "src/components/common/atoms/Typography.eland.ts": [],
+    "src/components/common/atoms/Typography.tsx": [
+      "src/components/common/atoms/Typography.eland.ts",
+      "src/context/platform.tsx"
+    ],
     "src/components/common/atoms/Wishlist.tsx": [
       "src/components/common/atoms/Icon.tsx",
       "src/components/common/atoms/Typography.tsx",

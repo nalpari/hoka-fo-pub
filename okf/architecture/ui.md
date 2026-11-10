@@ -4895,3 +4895,7 @@ PC 1920px 기준 1016px 미디어와 484px 구매 패널 사이 32px를 유지�
 ## 마이페이지 고객지원 메뉴 진입 (2026-11-09)
 
 마이페이지 사이드 메뉴의 FAQs·1:1문의와 대시보드의 같은 바로가기는 고객센터 URL에 `from=mypage`를 붙인다. 공유 브레드크럼에는 기존과 같이 라벨과 링크를 넘기며, 진입별 상위 항목은 [고객지원 라우트](routing.md#마이페이지고객센터-브레드크럼과-화면-제목-2026-11-09)에서 선택한다. 작업 트리 출처는 `src/components/mypage/mypage.data.ts`와 `src/app/mypage/mypage-home-data.ts`다.
+
+## 고객사 타이포그래피 정의 2026-11-10
+
+`src/components/common/atoms/Typography.eland.ts`는 고객사 전용 타이포그래피 45개를 정의한다. `Typography.tsx`는 이를 Panda recipe와 `TypographyVariant`에 포함한다. 호출부는 `variant`, `web`, `mo`로 전용 스타일을 선택할 수 있다. 이 기록의 범위는 공용 정의와 타입이다.
