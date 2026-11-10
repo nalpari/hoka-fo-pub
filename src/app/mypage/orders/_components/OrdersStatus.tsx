@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import { usePlatform } from '@/context/platform';
 
-import { css, cx } from 'styled-system/css';
+import { css } from 'styled-system/css';
 import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
@@ -76,36 +76,42 @@ const dateInput = css({
     flexShrink: '0',
     minH: '36px',
     h: '36px',
-    px: '12px',
+    pl: '16px',
+    pr: '40px',
     borderRadius: 'full',
     fontSize: '14px',
     fontWeight: 'medium',
-    color: 'transparent',
-    '&::-webkit-datetime-edit': { color: 'transparent' },
+    // letterSpacing: '-0.4px',
+    color: 'black.100',
     bg: 'white.0',
-
-    '&::-webkit-calendar-picker-indicator': { opacity: '0', cursor: 'pointer' },
-  },
-  _mobile: {
-    '&&': {
-      minH: '28px',
-      h: '28px',
-      px: '8px',
-      borderRadius: 'full',
-      fontSize: '14px',
-    },
+    '&::selection': { bg: 'blue.100', color: 'black.100' },
   },
 });
 
-const dateLabel = css({
-  pos: 'absolute',
+const calendarPicker = css({
+  position: 'absolute',
+  right: '16px',
   top: '50%',
-  left: '12px',
   transform: 'translateY(-50%)',
-  pointerEvents: 'none',
-  whiteSpace: 'nowrap',
-  _mobile: { left: '8px' },
+  w: '18px',
+  h: '18px',
+  opacity: '0',
+  cursor: 'pointer',
+  '&::-webkit-calendar-picker-indicator': {
+    position: 'absolute',
+    inset: '0',
+    w: '100%',
+    h: '100%',
+    margin: '0',
+    padding: '0',
+    cursor: 'pointer',
+  },
 });
+
+function formatDateInput(value: string) {
+  const digits = value.replace(/\D/g, '').slice(0, 8);
+  return [digits.slice(0, 4), digits.slice(4, 6), digits.slice(6, 8)].filter(Boolean).join('-');
+}
 
 /** 직접 조회 기간 입력과 오류·조회 액션을 표시합니다. (Displays custom date inputs, errors, and the search action.) */
 function OrdersDateRange({
@@ -113,118 +119,71 @@ function OrdersDateRange({
   error,
   onDateChange,
   onDateSearch,
-  returns = false,
-}: Pick<OrdersFiltersProps, 'dates' | 'error' | 'onDateChange' | 'onDateSearch' | 'returns'>) {
+}: Pick<OrdersFiltersProps, 'dates' | 'error' | 'onDateChange' | 'onDateSearch'>) {
   return (
     <Stack gap="2">
       <HStack alignItems="center" justify="space-between" gap="24px">
-        <HStack alignItems="center" gap={returns ? '6px' : undefined}>
+        <HStack alignItems="center" gap="6px">
           <Box pos="relative" flexShrink="0">
             <TextInput
-              className={cx(
-                dateInput,
-                returns &&
-                  css({
-                    '&&': {
-                      w: '128px',
-                      h: '36px',
-                      minH: '36px',
-                      px: '16px',
-
-                      borderColor: 'var(--color-border-tertiary)',
-                    },
-                    _mobile: {
-                      '&&': {
-                        h: '36px',
-                        minH: '36px',
-                        px: '16px',
-                      },
-                    },
-                  }),
-              )}
-              type="date"
+              className={dateInput}
+              type="text"
+              inputMode="numeric"
+              maxLength={10}
               aria-label="조회 시작일"
-              value={dates.start}
+              placeholder="YYYY.MM.DD"
+              value={dates.start.replaceAll('-', '.')}
+              onChange={(event) => onDateChange('start', formatDateInput(event.target.value))}
+            />
+            <input
+              type="date"
+              aria-label="조회 시작일 달력 열기"
+              className={calendarPicker}
+              value={/^\d{4}-\d{2}-\d{2}$/.test(dates.start) ? dates.start : ''}
               onChange={(event) => onDateChange('start', event.target.value)}
             />
             <Icon
               name="calendar-regular"
-              size={returns ? 18 : 16}
+              size={18}
               className={css({
                 position: 'absolute',
                 top: '50%',
                 transform: 'translateY(-50%)',
                 pointerEvents: 'none',
-                right: '12px',
-                _mobile: { right: '8px' },
+                right: '16px',
               })}
-              style={{ right: returns ? 16 : undefined }}
             />
-            <Typography
-              as="span"
-              variant="body4"
-              weight="medium"
-              aria-hidden="true"
-              className={cx(dateLabel, returns && css({ left: '16px', _mobile: { left: '16px' } }))}
-              language={returns ? 'en' : undefined}
-            >
-              {dates.start.replaceAll('-', returns ? '.' : '. ')}
-            </Typography>
           </Box>
-          <Typography variant="body4" tone={returns ? 'subtle' : undefined}>
-            –
-          </Typography>
+          <Typography variant="body4">–</Typography>
           <Box pos="relative" flexShrink="0">
             <TextInput
-              className={cx(
-                dateInput,
-                returns &&
-                  css({
-                    '&&': {
-                      w: '128px',
-                      h: '36px',
-                      minH: '36px',
-                      px: '16px',
-
-                      borderColor: 'var(--color-border-tertiary)',
-                    },
-                    _mobile: {
-                      '&&': {
-                        h: '36px',
-                        minH: '36px',
-                        px: '16px',
-                      },
-                    },
-                  }),
-              )}
-              type="date"
+              className={dateInput}
+              type="text"
+              inputMode="numeric"
+              maxLength={10}
               aria-label="조회 종료일"
-              value={dates.end}
+              placeholder="YYYY.MM.DD"
+              value={dates.end.replaceAll('-', '.')}
+              onChange={(event) => onDateChange('end', formatDateInput(event.target.value))}
+            />
+            <input
+              type="date"
+              aria-label="조회 종료일 달력 열기"
+              className={calendarPicker}
+              value={/^\d{4}-\d{2}-\d{2}$/.test(dates.end) ? dates.end : ''}
               onChange={(event) => onDateChange('end', event.target.value)}
             />
             <Icon
               name="calendar-regular"
-              size={returns ? 18 : 16}
+              size={18}
               className={css({
                 position: 'absolute',
                 top: '50%',
                 transform: 'translateY(-50%)',
                 pointerEvents: 'none',
-                right: '12px',
-                _mobile: { right: '8px' },
+                right: '16px',
               })}
-              style={{ right: returns ? 16 : undefined }}
             />
-            <Typography
-              as="span"
-              variant="body4"
-              weight="medium"
-              aria-hidden="true"
-              className={cx(dateLabel, returns && css({ left: '16px', _mobile: { left: '16px' } }))}
-              language={returns ? 'en' : undefined}
-            >
-              {dates.end.replaceAll('-', returns ? '.' : '. ')}
-            </Typography>
           </Box>
         </HStack>
         <Button variant="link" size="md" onClick={onDateSearch}>
@@ -258,7 +217,6 @@ export function OrdersFilters({
   onPeriodChange,
   onDateChange,
   onDateSearch,
-  returns = false,
 }: OrdersFiltersProps) {
   const platform = usePlatform();
   const periodOptions = [
@@ -281,19 +239,9 @@ export function OrdersFilters({
         variant="fill"
         value={filters.period}
         onValueChange={onPeriodChange}
-        options={
-          platform === 'mobile'
-            ? periodOptions
-            : returns
-              ? [...periodOptions.slice(0, 4).reverse(), periodOptions[4]]
-              : [...periodOptions].reverse()
-        }
-        className={
-          returns ? css({ '& [role=group]': { gap: '8px', _mobile: { gap: '6px' } } }) : undefined
-        }
+        options={platform === 'mobile' ? periodOptions : [...periodOptions].reverse()}
       />
       <OrdersDateRange
-        returns={returns}
         dates={dates}
         error={error}
         onDateChange={onDateChange}

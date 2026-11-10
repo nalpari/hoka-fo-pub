@@ -672,6 +672,7 @@
       "src/components/common/molecules/Carousel/Carousel.tsx",
       "src/components/common/molecules/CarouselSection.tsx",
       "src/components/common/molecules/ContentHeader.tsx",
+      "src/components/common/molecules/HelpTips.tsx",
       "src/components/common/molecules/ProductCard/ProductCard.tsx",
       "src/components/common/molecules/ProductDetailImage.tsx",
       "src/components/common/molecules/ProductOptionSelectors/ProductColorSelector.tsx",

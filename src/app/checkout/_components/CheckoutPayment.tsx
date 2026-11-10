@@ -40,7 +40,7 @@ function CheckoutPaymentMark({ method }: { method: PaymentMethod }) {
           className={css({ w: '28px', h: '16px', objectFit: 'contain' })}
         />
       ) : method === 'card' ? (
-        <Icon name="credit-card-solid" size={16} />
+        <Icon name="credit-card-regular" size={16} />
       ) : (
         <Typography
           variant="body5"

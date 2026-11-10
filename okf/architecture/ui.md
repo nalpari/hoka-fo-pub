@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-09T00:48:27.758Z'
+updated: '2026-11-09T23:53:01Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -921,68 +921,68 @@ working_tree_sources:
   - src/components/common/molecules/ProductOptionList.tsx
   - src/components/common/organisms/OrderRecommendations.tsx
 sources:
-  - id: figma-claim-design-1
-    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design
+  - id: figma-claim-2182-71235
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2182-71235
     title: '모바일 취소 상세'
-  - id: figma-claim-design-2
-    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design
+  - id: figma-claim-2182-71570
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2182-71570
     title: 'PC 취소 상세'
-  - id: figma-claim-design-3
-    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design
+  - id: figma-claim-2203-74539
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2203-74539
     title: '모바일 반품 상세'
-  - id: figma-claim-design-4
-    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design
+  - id: figma-claim-2203-75405
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2203-75405
     title: 'PC 반품 상세'
   - id: figma-order-detail-mobile-20261103
-    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2158-12142
     title: '모바일 주문 상세 시안'
   - id: figma-order-detail-desktop-20261103
-    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2203-92526
     title: 'PC 주문 상세 시안'
   - id: final-product-tiles-pc-20261103
-    resource: https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0
+    resource: https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=1722-8232
     title: '최종 상품 타일 PC 예시'
   - id: final-product-tiles-mobile-20261103
-    resource: https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0
+    resource: https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=1679-763
     title: '최종 상품 타일 모바일 예시'
   - id: final-product-tiles-components-20261103
-    resource: https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0
+    resource: https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=497-864
     title: '최종 상품 타일 모바일 컴포넌트'
   - id: product-tiles-figma-20261103
-    resource: https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0
+    resource: https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=497-774
     title: '상품 타일 디자인 시스템 — 모바일 기본·PC 목록·PC 호버'
   - id: coupons-figma-20261030
-    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1716-80655
     title: 쿠폰 일반·임직원 PC/MO 시안
   - id: recent-figma-20261030
-    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2025-149807
     title: '최근 본 상품 PC/MO 목록·빈 목록'
   - id: figma-orders-list-updates
-    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1482-20706
     title: 'Figma 주문/배송 조회 목록'
   - id: figma-orders-empty
-    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1423-57168
     title: 'Figma 주문/배송 조회 빈 상태'
   - id: figma-order-detail
-    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1423-58823
     title: 'Figma 주문 상세'
   - id: figma-order-cancel-detail
-    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1510-36283
     title: 'Figma 취소 상세'
   - id: figma-order-return-detail
-    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1527-40225
     title: 'Figma 반품 상세'
   - id: figma-order-tracking
-    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1653-57244
     title: 'Figma 배송조회 하단 시트'
   - id: figma-orders-lookup-20261102
-    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2059-162098
     title: 'Figma 주문/배송조회 PC·모바일 목록과 상세'
   - id: figma-order-claim-application-20261102
-    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2203-76650
     title: 'Figma 주문 취소·환불 신청 PC 모달과 모바일 시트'
   - id: figma-claim-history-20261102
-    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2134-82959
     title: 'Figma 취소/반품내역 PC 표·모바일 목록·빈 상태'
   - id: base-ui-jsx-audit
     resource: https://base-ui.com/react/overview/quick-start
@@ -1009,9 +1009,15 @@ sources:
 
 # 컴포넌트와 스타일
 
+2026-11-10: 상품 상세의 사이즈 가이드 표·단위 선택 모달을 유지하며, 상품 정보 스펙 안내에는 공통 `HelpTooltip`을 사용한다. 팝업을 여는 자 아이콘은 16px이다. 출처: 작업 트리의 `src/app/products/[id]/_components/ProductDetailContent.tsx`.
+
+## 상품 목록 이미지 정사각형 복원 (2026-11-10)
+
+`ProductThumbnail`의 `listing` 상품 이미지 영역은 기본 `media.oneByOne` 비율을 사용한다. 371:464 세로 비율 지정만 제거했으며 캐러셀 `showcase`, `history`, `summary` 이미지와 카드 텍스트·간격은 유지한다. 출처: 작업 트리의 `src/components/common/molecules/ProductThumbnail.tsx`와 상품 목록 `ProductCard` 호출부.
+
 러닝세션 목록 카드의 이미지 반경은 PC와 모바일 모두 0이다. 스타일은 공통 Card가 아닌 `RunningSessionPage.tsx`의 이미지 링크에서 관리한다. [러닝세션 디자인](running-session-design.md#신청-시작-알림-색상과-목록-이미지-모서리-2026-11-05).
 
-Site Header의 장바구니 숫자는 기존 Typography의 `primary` 톤(`#000000`)을 사용한다. `NotificationIcon`의 `countTone`은 숫자에만 적용되며 기본 톤은 `inverse`다. [Site Header 시안](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP).
+Site Header의 장바구니 숫자는 기존 Typography의 `primary` 톤(`#000000`)을 사용한다. `NotificationIcon`의 `countTone`은 숫자에만 적용되며 기본 톤은 `inverse`다. [Site Header 시안](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP?node-id=4041-3543).
 
 ## main 보고 비고 표시 (2026-11-04)
 
@@ -1029,9 +1035,9 @@ IA 필터 오른쪽의 [퍼블 변경사항 보고서] 버튼은208파일의 mai
 
 ## 이전 약관 확인 시트 시안 적용 (2026-11-04)
 
-사용자가 [Figma](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)을 기준으로 이전 약관만 확인 방식으로 확정했다. 이 결정이 이전 약관 즉시 선택 기록보다 우선한다. 공통 Dropdown은 즉시 선택·문의 유형 연속 선택을 유지한다. `PreviousTermsPicker` 모바일에 안내문과 확인 footer를 추가하고 라디오 변경은 초안만 갱신한다. 확인 시 기존 onSelect(id)/onClose를 호출하며 닫기/Escape는 마지막 확정값으로 초안을 복원한다. PC 확인 계약과 versions id/label·기본 날짜 fixture, 문서 조회의 호출 화면 소유권은 유지한다. 확인 버튼은 현재 options에 없는 선택값 또는 빈 options에서 비활성화된다.
+사용자가 [Figma 2639:44921](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2639-44921)을 기준으로 이전 약관만 확인 방식으로 확정했다. 이 결정이 이전 약관 즉시 선택 기록보다 우선한다. 공통 Dropdown은 즉시 선택·문의 유형 연속 선택을 유지한다. `PreviousTermsPicker` 모바일에 안내문과 확인 footer를 추가하고 라디오 변경은 초안만 갱신한다. 확인 시 기존 onSelect(id)/onClose를 호출하며 닫기/Escape는 마지막 확정값으로 초안을 복원한다. PC 확인 계약과 versions id/label·기본 날짜 fixture, 문서 조회의 호출 화면 소유권은 유지한다. 확인 버튼은 현재 options에 없는 선택값 또는 빈 options에서 비활성화된다.
 
-선택 시트는 헤더 56px·상단/좌우 패딩 20/24px, 본문 패딩 24px, 안내문→목록과 Radio 항목 간격 16px, 닫기 Solid 아이콘 20px을 사용한다. `BottomSheet.contentClassName?: string`은 본문 스타일의 선택적 확장점이며 이전 약관에만 334px 높이를 전달한다. 본문은 flex 축소·내부 overflow를 유지한다. 확인 footer는 16px/16px/32px+safe area 패딩과 48px Primary 버튼을 사용하고 1px 구분선은 내부 shadow로 그려 시안의 96px 영역 높이를 유지한다. 기본/catalog의 기존 스타일은 유지한다. 일반 Dropdown은 같은 selection 간격을 쓰되 본문은 옵션 수에 맞추고 footer를 추가하지 않는다. 출처: `src/components/common/layouts/BottomSheet.tsx`, `src/components/common/molecules/PreviousTermsPicker.tsx`, Figma 시안.
+선택 시트는 헤더 56px·상단/좌우 패딩 20/24px, 본문 패딩 24px, 안내문→목록과 Radio 항목 간격 16px, 닫기 Solid 아이콘 20px을 사용한다. `BottomSheet.contentClassName?: string`은 본문 스타일의 선택적 확장점이며 이전 약관에만 334px 높이를 전달한다. 본문은 flex 축소·내부 overflow를 유지한다. 확인 footer는 16px/16px/32px+safe area 패딩과 48px Primary 버튼을 사용하고 1px 구분선은 내부 shadow로 그려 시안의 96px 영역 높이를 유지한다. 기본/catalog의 기존 스타일은 유지한다. 일반 Dropdown은 같은 selection 간격을 쓰되 본문은 옵션 수에 맞추고 footer를 추가하지 않는다. 출처: `src/components/common/layouts/BottomSheet.tsx`, `src/components/common/molecules/PreviousTermsPicker.tsx`, Figma 2639:44923~44928.
 
 검증: 375×812 본인인증 preview에서 헤더56·본문334·패딩24·항목16·아이콘20·footer96·버튼48px을 실측하고 화면 이미지를 비교했다. Windows 세로 스크롤바로 clientWidth는360px이었다. 날짜 클릭 후 유지/확인 후 부모 날짜 반영과 포커스 복귀, Escape 취소 후 재열기 확정값 복원을 확인했다. 375×360에서 본문164px/scrollHeight308px·overflow auto와 확인영역 하단360px을 확인했다. 열린 상태의1024→1025px 전환 후 PC 라디오7개·확인 반영도 확인했다. 회원가입에서는 날짜 선택 후 시트 유지와 확인 후 닫기를 확인했다. 회원가입 기존 전문 fixture는 선택 날짜를 본문에 출력하지 않는다. 일반/정렬/사용자/국가 Dropdown의 헤더56·패딩24·항목16·footer없음과 즉시 선택, 문의→상세 유형 선택 완료 및 console error없음을 확인했다. 변경 ESLint·Prettier·전체 typecheck·Panda 생성 통과. production build는 재실행하지 않았다.
 
@@ -1063,7 +1069,7 @@ IA 필터 오른쪽의 [퍼블 변경사항 보고서] 버튼은208파일의 mai
 
 ## PC 정렬 Dropdown indicator 시안 복구 (2026-11-04)
 
-[러닝세션 신청내역 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 Action에서 정렬 트리거는 Body 3(16px, 1.3 행간, -2% 자간), 8px 간격, 14×14px Regular chevron이다. 공통 `Dropdown variant="sort"`의 PC indicator를 `sort-down-solid`에서 기존 `chevron-down-regular`로 바꾸고 아이콘 래퍼를 flex로 중앙 정렬했다. 기본 Dropdown indicator와 모바일 분기, 호출부의 사용자 지정 indicator/크기 옵션은 유지한다. 출처: `src/components/common/atoms/Dropdown.tsx`, `Icon.assets.ts`, Figma 시안.
+[러닝세션 신청내역 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1934-98095)의 Action(1934:98102)에서 정렬 트리거는 Body 3(16px, 1.3 행간, -2% 자간), 8px 간격, 14×14px Regular chevron이다. 공통 `Dropdown variant="sort"`의 PC indicator를 `sort-down-solid`에서 기존 `chevron-down-regular`로 바꾸고 아이콘 래퍼를 flex로 중앙 정렬했다. 기본 Dropdown indicator와 모바일 분기, 호출부의 사용자 지정 indicator/크기 옵션은 유지한다. 출처: `src/components/common/atoms/Dropdown.tsx`, `Icon.assets.ts`, Figma 1934:98105~98107.
 
 1632×1252 PC `/mypage/event-entries`에서 14×14px 아이콘·8px 간격·16px/20.8px Pretendard·-0.32px 자간과 텍스트/아이콘 중심 일치를 실측하고 스크린샷을 확인했다. 과거순 선택·방향키 열기·Escape 닫기, 375px 모바일 시트의 최신순 즉시 선택도 확인했다. Panda 생성·변경 파일 ESLint·포맷 검사는 통과했다. 전체 타입 검사는 기존 `CheckoutPayment.tsx:103`의 미등록 라디오 아이콘 이름 때문에 실패했다. 기존 터치영역 최소 크기·음수 여백은 이번 시안 수정 범위에서 변경하지 않았다.
 
@@ -1081,7 +1087,7 @@ IA 필터 오른쪽의 [퍼블 변경사항 보고서] 버튼은208파일의 mai
 
 ## 이전 약관 모바일 휠 시트 (2026-11-04)
 
-[Figma](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의을 기준으로 PreviousTermsPicker 모바일을 중앙 선택 휠로 변경했다. 기존 날짜 ID·라벨과 PC 라디오 목록/확인 콜백을 유지한다. 시트는 기존 BottomSheet selection 표현을 사용하며 높이 336px·상단 모서리 20px·헤더 56px·좌우 24px, 가운데 행은 34px·#E8EDF3·8px 모서리·20px/26px/400 글자다. 주변 날짜는 16px이며 #777777/#B3B3B3 단계로 표시한다. 34px 단위 스크롤 스냅·클릭·방향키로 중앙 선택을 바꾼다. 목록 양 끝의 빈 공간은 실제 날짜 데이터 범위이며 시안의 반복 placeholder 날짜를 복제하지 않는다. 확인 버튼은 시안에 없어 모바일에 추가하지 않았다.
+[Figma 957:30161](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=957-30161)의 `957:30203`을 기준으로 PreviousTermsPicker 모바일을 중앙 선택 휠로 변경했다. 기존 날짜 ID·라벨과 PC 라디오 목록/확인 콜백을 유지한다. 시트는 기존 BottomSheet selection 표현을 사용하며 높이 336px·상단 모서리 20px·헤더 56px·좌우 24px, 가운데 행은 34px·#E8EDF3·8px 모서리·20px/26px/400 글자다. 주변 날짜는 16px이며 #777777/#B3B3B3 단계로 표시한다. 34px 단위 스크롤 스냅·클릭·방향키로 중앙 선택을 바꾼다. 목록 양 끝의 빈 공간은 실제 날짜 데이터 범위이며 시안의 반복 placeholder 날짜를 복제하지 않는다. 확인 버튼은 시안에 없어 모바일에 추가하지 않았다.
 
 인증 약관은 PreviousTermsPicker를 본문 ModalDialog 내부에 배치해 뒤의 약관 전문을 유지하고 중첩 모달의 포커스/접근성을 연결한다. BottomSheet selection은 Base UI의 forceRender로 중첩 시에도 50% 검정 배경을 표시하며 finalFocus를 받아 부모의 이전 약관 보기 버튼으로 복귀한다. 기본 BottomSheet와 상품 필터의 기존 appearance는 유지한다. 모바일 휠의 명시적 선택은 onSelect(id)/onClose로 전달하지만 실제 버전 문서 조회는 구현하지 않는다. 연결 경계는 PreviousTermsPicker의 `[ 개발팀 바인딩 ]`에 기록한다.
 
@@ -1105,9 +1111,9 @@ IA 필터 오른쪽의 [퍼블 변경사항 보고서] 버튼은208파일의 mai
 
 사용자 확정 기준: 정렬 Dropdown은 PC의 현재 형태를 유지하고 모바일은 BottomSheet로 전환한다. 상품 목록 Sort는 예외로 별도 선택 시트를 만들지 않고 기존 모바일 필터 시트 내부의 Radio를 사용한다. 검색에만 제한하던 mobileSort 전달 조건을 모바일 전체로 확장해 `/products`에서도 필터 내부에 표시한다. 기존 선택 draft·적용 시 sort URL 반영·닫기 동작을 유지한다. 기본 폼 필드 Dropdown과 이전 약관의 별도 모달/시트는 이 정렬 전환의 대상이 아니다. 출처: ProductListingPage.tsx 작업 트리와 사용자 확정(2026-11-04).
 
-모바일 정렬은 [BottomSheet 예시](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0)의 20px 상단 모서리·56px 헤더·24px 본문 패딩·하단 패딩 16/16/32px·48px primary 버튼을 기존 BottomSheet의 `appearance="selection"`에 구현했다. 문서 예시의 붉은 placeholder와 고정 본문 높이는 가져오지 않는다. 제목은 정렬, 버튼은 확인, Radio 항목 간격은 사용자 지정 16px이다. 열 때 현재 값을 초안에 복사하고 확인 시에만 값/콜백을 반영한다. 닫기/Escape는 초안을 적용하지 않으며 닫힌 뒤 트리거로 포커스를 복원한다. 선택 중 options가 교체되어 초안 ID가 사라지면 확인 버튼을 비활성화한다. `[ 개발팀 바인딩 ]` 주석은 Dropdown 소유자에 둔다. 소스: Dropdown.tsx·BottomSheet.tsx 작업 트리.
+모바일 정렬은 [BottomSheet 예시 1306:8028](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=1306-8028)의 20px 상단 모서리·56px 헤더·24px 본문 패딩·하단 패딩 16/16/32px·48px primary 버튼을 기존 BottomSheet의 `appearance="selection"`에 구현했다. 문서 예시의 붉은 placeholder와 고정 본문 높이는 가져오지 않는다. 제목은 정렬, 버튼은 확인, Radio 항목 간격은 사용자 지정 16px이다. 열 때 현재 값을 초안에 복사하고 확인 시에만 값/콜백을 반영한다. 닫기/Escape는 초안을 적용하지 않으며 닫힌 뒤 트리거로 포커스를 복원한다. 선택 중 options가 교체되어 초안 ID가 사라지면 확인 버튼을 비활성화한다. `[ 개발팀 바인딩 ]` 주석은 Dropdown 소유자에 둔다. 소스: Dropdown.tsx·BottomSheet.tsx 작업 트리.
 
-모바일 트리거는 [신청내역](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 하위을 따른다. 기존 16px Pretendard/400·14px chevron-down·간격 8px·20px 표시 행을 유지하며 클릭 영역은 기존 최소 크기 변수로 확보한다. 외곽 테두리와 배경을 추가하지 않는다.
+모바일 트리거는 [신청내역 1934:97645](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1934-97645)의 하위 `1934:97663`을 따른다. 기존 16px Pretendard/400·14px chevron-down·간격 8px·20px 표시 행을 유지하며 클릭 영역은 기존 최소 크기 변수로 확보한다. 외곽 테두리와 배경을 추가하지 않는다.
 
 후속 실제 검증(2026-11-04, Codex): PC 신청내역에서 트리거와 popup의 왼쪽 좌표가 522px로 같고 hover 배경은 transparent, 키보드 focus-visible 외곽선은 solid임을 확인했다. 375px viewport에서 신청내역 시트의 제목/확인·헤더 56px·항목 gap 16px·버튼 48px·footer 16/16/32px을 측정했다. 과거순 선택 후 닫기→최신순 유지, 재진입 후 선택·확인→과거순 반영과 트리거 포커스 복귀, Escape 닫기를 확인했다. 모바일 상품 목록의 필터 안 정렬 4항목과 선택 후 적용 시 `sort=신상품순&gender=men` URL을 확인했다. 앞선 작업 당시의 모바일 미검증 기록은 이 후속 확인 이전의 이력이다.
 
@@ -1115,7 +1121,7 @@ IA 필터 오른쪽의 [퍼블 변경사항 보고서] 버튼은208파일의 mai
 
 `Dropdown.variant="sort"`는 상품 목록 PC 정렬과 러닝세션 신청내역 정렬이 공유한다. 상품 목록의 전용 ProductSortDropdown/Disclosure와 신청내역의 개별 화살표·스타일을 제거했다. 값과 선택 콜백, 상품 URL 상태는 기존 화면 소유자가 유지한다. IA의 상품 분류·개발담당자 필터는 기본 Dropdown을 사용한다. 이전 약관은 확인 모달/모바일 시트 경계를 유지하며 PC와 모바일 모두 공통 Radio로 단일 선택을 표현한다. 모바일은 Radio의 custom 표현으로 기존 40px 날짜 행을 보존한다.
 
-디자인 출처는 [정렬 트리거](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0)와 [정렬 목록](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0)이다. 트리거는 16px 본문·14px 화살표·8px 간격, 목록은 최소 너비 130px·패딩 12px·옵션 간격 16px·1px #B3B3B3 테두리·4px 반경을 적용한다. 정렬 행은 20px이며 클릭 영역은 `max(20px, var(--touch-target-min-size))`로 확보하고 대칭 음수 세로 여백으로 레이아웃 높이를 유지한다. 기본 변수 24px에서는 위아래 -2px이다. 목록 행의 최소 클릭 높이는 기존 24px 접근성 기준을 유지한다. 기본 Dropdown의 필드·오류·disabled·모달 포털 계약은 유지한다.
+디자인 출처는 [정렬 트리거 1693:2201](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=1693-2201)와 [정렬 목록 387:70509](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=387-70509)이다. 트리거는 16px 본문·14px 화살표·8px 간격, 목록은 최소 너비 130px·패딩 12px·옵션 간격 16px·1px #B3B3B3 테두리·4px 반경을 적용한다. 정렬 행은 20px이며 클릭 영역은 `max(20px, var(--touch-target-min-size))`로 확보하고 대칭 음수 세로 여백으로 레이아웃 높이를 유지한다. 기본 변수 24px에서는 위아래 -2px이다. 목록 행의 최소 클릭 높이는 기존 24px 접근성 기준을 유지한다. 기본 Dropdown의 필드·오류·disabled·모달 포털 계약은 유지한다.
 
 작업 트리 출처: `src/components/common/atoms/Dropdown.tsx`, `src/components/catalog/ProductListingPage.tsx`, `src/components/common/molecules/PreviousTermsPicker.tsx`, `src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx`, `src/app/screen-index/_components/IaStructurePage.tsx`, `src/app/publishing-guide/_components/FormGuide.tsx`. 가이드의 Sort 예시에서 공통 variant를 조작할 수 있다.
 
@@ -1143,31 +1149,31 @@ IaStructurePage의 기존 두 행 표를 8열로 확장해 WBS 기반 개발담�
 
 ## 장바구니 선택·품절 표시 (2026-11-02)
 
-Figma PC 옵션 변경의 484px 패널에는 74px 컬러 썸네일 6개와 사이즈 버튼 5개가 한 줄씩 배치된다. `ProductOptionList`의 cart 레이아웃은 PC 6열로, `ProductSizeSelector`의 cart 레이아웃은 PC 5열·MO 4열로 설정했다. 공통 `SizeSelector`에 선택적 `mobileColumns`를 추가해 다른 호출자의 기존 열 수는 유지한다. 브라우저 PC에서 컬러 열 `74px` 6개와 사이즈 열 약 `90.4px` 5개, MO 375px에서 컬러 가로 스크롤과 사이즈 4열을 확인했다.
+Figma PC 옵션 변경 `1985:76300`의 484px 패널에는 74px 컬러 썸네일 6개와 사이즈 버튼 5개가 한 줄씩 배치된다. `ProductOptionList`의 cart 레이아웃은 PC 6열로, `ProductSizeSelector`의 cart 레이아웃은 PC 5열·MO 4열로 설정했다. 공통 `SizeSelector`에 선택적 `mobileColumns`를 추가해 다른 호출자의 기존 열 수는 유지한다. 브라우저 PC에서 컬러 열 `74px` 6개와 사이즈 열 약 `90.4px` 5개, MO 375px에서 컬러 가로 스크롤과 사이즈 4열을 확인했다.
 
 모바일 cart 컬러 목록은 기존 가로 폭을 유지하고 끝에 16px 빈 칸을 추가해 마지막 썸네일 뒤 여유를 만든다. 앞서 적용한 목록 폭 축소는 썸네일이 덜 보이게 해 제거했다. 브라우저 375px `/cart` 옵션 변경 화면에서 처음의 썸네일 노출과 목록 끝 스크롤 시 마지막 썸네일 뒤 빈 공간을 확인했다.
 
 모바일 옵션 변경 모달의 내부 Grid는 `1fr`의 최소 콘텐츠 폭 때문에 375px 화면에서도 812px 열로 커졌다. 모바일 열을 `minmax(0, 1fr)`로 제한한다. Panda CSS 재생성 후 브라우저 375px에서 모달 375px, 내부 Grid 343px, 이미지 375px로 계산되고 문서 가로 스크롤 폭도 375px인 것을 확인했다. PC의 `300px minmax(0, 1fr)` 구성은 유지한다.
 
-Figma PC 장바구니의 Wishlist 인스턴스는 14×14px 채움 하트다. 같은 디자인 시스템의 `heart` 컴포넌트에서 채움·실선 SVG를 추출해 `public/images/icon/wishlist-*.svg`에 두고 공통 `Wishlist`의 Font Awesome 하트를 교체했다. 장바구니 카드의 PC/MO 아이콘 크기는 모두 14×14px이다. 다른 `Wishlist` 호출자의 크기 prop과 기본 크기는 유지한다.
+Figma PC 장바구니 `1797:47269`의 Wishlist 인스턴스 `2203:91405`는 14×14px 채움 하트다. 같은 디자인 시스템의 `heart` 컴포넌트에서 채움·실선 SVG를 추출해 `public/images/icon/wishlist-*.svg`에 두고 공통 `Wishlist`의 Font Awesome 하트를 교체했다. 장바구니 카드의 PC/MO 아이콘 크기는 모두 14×14px이다. 다른 `Wishlist` 호출자의 크기 prop과 기본 크기는 유지한다.
 
 장바구니 본문을 읽을 때 흐름을 따라가기 쉽도록 단일 부모 `CartSelectionBar`를 `CartProductSection` JSX에 펼쳤다. PC/MO 상품 행은 구조가 달라 같은 파일의 `CartDesktopItem`과 `CartMobileItem`으로 각각 묶고, 목록에서 화면에 맞는 행을 고른다. 선택과 옵션 열기는 `CartProductSection`에서, 수량·관심 토글은 각 카드에서만 관리한다. 목록은 각 행의 값과 선택·옵션 이벤트 연결만 표시한다. 선택·관심·옵션 모달의 로컬 조작, PC/MO 마크업과 기존 Storybook의 `CartProductSection` 입력 계약은 유지한다. 추천 목록과 별도 preview URL이 사용하는 옵션 모달은 통합 범위에서 제외했다. 브라우저에서 PC 첫 상품 수량 1→2, 전체 선택 0/4→3/4와 MO 390px의 4개 행·0/4 표시를 확인했다.
 
-Figma PC 장바구니 시안과 `/cart`의 실제 렌더링을 대조해 PC 표의 2px 상단선·1px 하단선, 제목과 선택 영역 간격, 상품/수량/가격 헤더 정렬을 조정했다. PC 상품 행은 96px 이미지와 한 줄의 옵션·옵션변경, 하단 관심상품, 가운데 수량, 오른쪽 가격과 액션 열로 배치한다. 품절 투명도는 상품 내용·수량·가격에만 적용한다. 상품 목록 아래 안내문과 상품금액/배송비/결제예정금액 요약의 순서·선·간격을 시안에 맞췄다. PC 장바구니에서는 진행 단계를 숨기고 1132px 본문 폭을 사용하며, 공통 `OrderPageLayout`의 기본 단계/1100px는 유지한다. 하단 두 주문 버튼은 각각 180px이고, 기존 공통 `OrderRecommendations`의 portrait 표현은 262:328 이미지 비율·contain·PC 16px 상품 정보와 28px 제목으로 맞췄다. 이 표현은 주문완료의 동일 variant에도 적용된다. 고객센터 카드는 PC 시안의 28px 제목·34px/40px 안쪽 여백·연락처/운영시간 문구를 따른다. 준비된 4개 상품 fixture와 고정 합계는 유지해 시안의 3개 가시 행·상품명/이미지/가격과 차이가 있다. 모바일 행의 기존 구조는 유지했다. 브라우저 PC `/cart`에서 표·상품 행·이미지 로딩·금액 요약·주문 버튼·추천 상품·고객센터 카드를 확인했다. 모바일의 정밀 시각 검증은 별도다. 변경 TSX 전체 타입 검사에는 기존 `.next/types` 경로/상품 페이지 오류가 남고, 변경 파일 ESLint는 설치된 `eslint-plugin-perfectionist` 부재로 실행되지 않았다.
+Figma PC 장바구니 `1797:47269`과 `/cart`의 실제 렌더링을 대조해 PC 표의 2px 상단선·1px 하단선, 제목과 선택 영역 간격, 상품/수량/가격 헤더 정렬을 조정했다. PC 상품 행은 96px 이미지와 한 줄의 옵션·옵션변경, 하단 관심상품, 가운데 수량, 오른쪽 가격과 액션 열로 배치한다. 품절 투명도는 상품 내용·수량·가격에만 적용한다. 상품 목록 아래 안내문과 상품금액/배송비/결제예정금액 요약의 순서·선·간격을 시안에 맞췄다. PC 장바구니에서는 진행 단계를 숨기고 1132px 본문 폭을 사용하며, 공통 `OrderPageLayout`의 기본 단계/1100px는 유지한다. 하단 두 주문 버튼은 각각 180px이고, 기존 공통 `OrderRecommendations`의 portrait 표현은 262:328 이미지 비율·contain·PC 16px 상품 정보와 28px 제목으로 맞췄다. 이 표현은 주문완료의 동일 variant에도 적용된다. 고객센터 카드는 PC 시안의 28px 제목·34px/40px 안쪽 여백·연락처/운영시간 문구를 따른다. 준비된 4개 상품 fixture와 고정 합계는 유지해 시안의 3개 가시 행·상품명/이미지/가격과 차이가 있다. 모바일 행의 기존 구조는 유지했다. 브라우저 PC `/cart`에서 표·상품 행·이미지 로딩·금액 요약·주문 버튼·추천 상품·고객센터 카드를 확인했다. 모바일의 정밀 시각 검증은 별도다. 변경 TSX 전체 타입 검사에는 기존 `.next/types` 경로/상품 페이지 오류가 남고, 변경 파일 ESLint는 설치된 `eslint-plugin-perfectionist` 부재로 실행되지 않았다.
 
 PC 상품 행의 `주문하기`는 검정 `primary` 버튼을 명시한다. `주문하기`·`품절`·`삭제하기`는 액션 열 가운데 80px 폭으로 맞춘다. 공통 버튼의 기본 variant에 의존하지 않는다.
 
 모바일 하단 주문 액션은 `CartOrderActions`가 플랫폼을 확인해 모바일에서만 DOM을 반환한다. PC에서는 부모 `Stack`에 빈 자식이 남지 않아 마지막 gap이 생기지 않는다. 모바일 선택 상태 스토리도 같은 렌더링 조건을 사용한다.
 
-후속 Figma 시안(MO 옵션),(PC 옵션),(MO 제한),(PC 제한)을 반영했다. 옵션 변경은 PC 864px/MO 전체 화면, PC 이미지 300px/MO 전체 폭, PC 5열·MO 가로 스크롤 색상 74px, 두 화면 48px 하단 액션을 사용한다. 구매 제한 팝업은 PC 568px/MO 화면 폭에서 좌우 16px을 뺀 크기이며 20px 제목·14px 설명과 확인 액션을 표시한다. 옵션·제한 모달은 각각 PC/MO Storybook과 직접 URL에서 확인한다. 아래의 제한 팝업 제거 설명은 이전 기본 화면 정리 당시의 기록이며 이번 후속 시안에서 직접 미리보기 상태로 다시 추가했다.
+후속 Figma `1976:61436`(MO 옵션), `1985:76300`(PC 옵션), `1985:77485`(MO 제한), `1985:77511`(PC 제한)을 반영했다. 옵션 변경은 PC 864px/MO 전체 화면, PC 이미지 300px/MO 전체 폭, PC 5열·MO 가로 스크롤 색상 74px, 두 화면 48px 하단 액션을 사용한다. 구매 제한 팝업은 PC 568px/MO 화면 폭에서 좌우 16px을 뺀 크기이며 20px 제목·14px 설명과 확인 액션을 표시한다. 옵션·제한 모달은 각각 PC/MO Storybook과 직접 URL에서 확인한다. 아래의 제한 팝업 제거 설명은 이전 기본 화면 정리 당시의 기록이며 이번 후속 시안에서 직접 미리보기 상태로 다시 추가했다.
 
 장바구니 옵션의 사이즈 칩은 `SizeSelector`의 36px `medium` 크기를 사용하며 상품 상세의 40px `regular`는 유지한다. PC 옵션·제한 모달과 MO 제한 모달을 브라우저에서 열어 제목·버튼·레이아웃을 확인했다. MO 옵션 모달은 브라우저의 모바일 에뮬레이션 캡처가 페이지 전체 폭을 잘못 확장해 정밀 픽셀 검증은 완료하지 못했다.
 
-Figma 시안의 기본/선택/PC 화면을 기준으로 고정 fixture의 기본 선택을 0/4, 품절을 1개로 맞췄다. PC/MO 선택 표기를 `전체 (선택/전체)`로 통일하고 괄호 숫자에 `body4 medium`을 사용한다. PC 기본 결제예정금액 `3,350,000원`과 MO 3개 선택 시안의 `1,236,500원`은 각각 고정 표시 예시로 두고 Storybook의 `3개 선택` 상태를 추가했다. 로컬 선택·수량 변경으로 금액을 다시 계산하지 않는다. 선택/품절 삭제 버튼의 활성 여부만 로컬 상태를 따른다. 품절 옵션 버튼은 비활성화되어 열 수 없던 수량 제한 시연 팝업과 해당 스토리를 제거했다. 기존 옵션 변경, 관심상품, 수량 조작은 로컬 UI로 유지한다. 작업 트리 출처: `src/app/cart/cart-preview.ts`, `src/app/cart/_components/CartProductSection.tsx`, `src/app/cart/_components/CartDialogs.tsx`, `src/stories/features/cart/CartPage.scenarios.tsx`, `src/stories/features/cart/CartPage.mobile.stories.tsx`. 브라우저 시각 검증은 아직 수행하지 않았다.
+Figma `1992:85202`·`1938:45809`·`1797:47269`의 기본/선택/PC 화면을 기준으로 고정 fixture의 기본 선택을 0/4, 품절을 1개로 맞췄다. PC/MO 선택 표기를 `전체 (선택/전체)`로 통일하고 괄호 숫자에 `body4 medium`을 사용한다. PC 기본 결제예정금액 `3,350,000원`과 MO 3개 선택 시안의 `1,236,500원`은 각각 고정 표시 예시로 두고 Storybook의 `3개 선택` 상태를 추가했다. 로컬 선택·수량 변경으로 금액을 다시 계산하지 않는다. 선택/품절 삭제 버튼의 활성 여부만 로컬 상태를 따른다. 품절 옵션 버튼은 비활성화되어 열 수 없던 수량 제한 시연 팝업과 해당 스토리를 제거했다. 기존 옵션 변경, 관심상품, 수량 조작은 로컬 UI로 유지한다. 작업 트리 출처: `src/app/cart/cart-preview.ts`, `src/app/cart/_components/CartProductSection.tsx`, `src/app/cart/_components/CartDialogs.tsx`, `src/stories/features/cart/CartPage.scenarios.tsx`, `src/stories/features/cart/CartPage.mobile.stories.tsx`. 브라우저 시각 검증은 아직 수행하지 않았다.
 
 ## 최근 본 상품 Figma 적용 (2026-10-30)
 
-`/mypage/recent`와 `/mypage/recent/preview-empty`는 섹션 아래 PC 목록·빈 목록, MO 목록·빈 목록을 기준으로 한다.[^recent-figma-20261030] 작업 트리 출처는 `src/components/mypage/MyPageProductHistory.tsx`와 `src/components/common/molecules/ProductCard/ProductCard.tsx`다. 기존 IA 183·직접 URL·모바일 stories 연결을 유지한다.
+`/mypage/recent`와 `/mypage/recent/preview-empty`는 섹션 `2025:149807` 아래 PC 목록 `2025:149837`·빈 목록 `2025:150007`, MO 목록 `2025:151429`·빈 목록 `2025:151448`을 기준으로 한다.[^recent-figma-20261030] 작업 트리 출처는 `src/components/mypage/MyPageProductHistory.tsx`와 `src/components/common/molecules/ProductCard/ProductCard.tsx`다. 기존 IA 183·직접 URL·모바일 stories 연결을 유지한다.
 
 - 최근 목록 제목은 PC Pretendard Black 36px/1.2·하단 40px·2px 선, MO 22px/1.2다. PC는 최대 260px 카드 3열·가로 16px/세로 48px, MO는 전체 폭 2열·가로 8px/세로 40px다. 좁은 PC 캔버스에서는 열이 가용 폭에 맞게 줄어든다.
 - 공통 카드의 기존 `history` 옵션을 재사용한다. PC 색상 썸네일 76px·MO 34px, 사진과 정보 사이 10px, 18px 찜 버튼을 사용한다. `Wishlist`의 history 호출에는 padding 0을 지정해 네이티브 버튼 padding 때문에 아이콘이 줄어들지 않게 한다.
@@ -1189,11 +1195,11 @@ Figma 시안의 기본/선택/PC 화면을 기준으로 고정 fixture의 기본
 
 변경 파일 ESLint·Prettier, Panda 생성은 통과했다. 전체 typecheck는 비대상 AddressManagement.tsx의 Button union, ProductCard.tsx의 history variant, MyPageProductHistory.tsx의 secondary tone 오류로 실패했다. app-router 기존 검사는 production .next/server/app-paths-manifest.json 부재로 실행 실패했다. production/Storybook build는 이번에 수행하지 않았다.
 
-출처: [Figma 신청내역 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 PC·MO·모달, 위 두 작업 트리 파일과 `public/images/mypage/event-entries/`. 작성: Codex, 2026-10-30T08:21:19.889Z; 조사 기준 HEAD `44faf1e5aa491c2506db28d0741e3f27f782ad58`. 기존 개념의 source_revision은 이전 출처로 보존한다.
+출처: [Figma 신청내역 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1934-97644)의 PC `1934:98031`·MO `1934:97645`·모달 `1934:97736`, 위 두 작업 트리 파일과 `public/images/mypage/event-entries/`. 작성: Codex, 2026-10-30T08:21:19.889Z; 조사 기준 HEAD `44faf1e5aa491c2506db28d0741e3f27f782ad58`. 기존 개념의 source_revision은 이전 출처로 보존한다.
 
 ## 마이페이지 메인 디자인 반영 (2026-10-30)
 
-Figma [마이페이지 메인 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 기본 PC·모바일, 주문 없음 PC·모바일를 반영했다. 기존 1200px 프레임/좌우 34px 안에 PC 등급 카드와 240px 혜택 카드 두 개를 가로 배치한다. 카드 배경 #F7F7F9, PC 패딩 32px·모바일 20px 16px, 카드 간격 8px이다. 이름은 PC 36px·모바일 28px, ‘님’은 24px 본문, 섹션 제목은 PC 28px·모바일 22px이다.
+Figma [마이페이지 메인 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1413-131325)의 기본 PC `1533:43644`·모바일 `1413:131326`, 주문 없음 PC `1480:36896`·모바일 `1480:36472`를 반영했다. 기존 1200px 프레임/좌우 34px 안에 PC 등급 카드와 240px 혜택 카드 두 개를 가로 배치한다. 카드 배경 #F7F7F9, PC 패딩 32px·모바일 20px 16px, 카드 간격 8px이다. 이름은 PC 36px·모바일 28px, ‘님’은 24px 본문, 섹션 제목은 PC 28px·모바일 22px이다.
 
 PC 주문 표는 상품정보 가변 폭과 수량 158px·가격 200px·상태 170px, 헤더 세로 패딩 20px·행 32px·썸네일 96px을 사용한다. 메뉴는 PC 3열(가로 56px/세로 48px 간격)·모바일 1열(32px 간격), 제목 밑줄은 PC 2px·모바일 1px이다. 모바일 캐러셀 표시점 간격은 5px이다. 주문 없음은 ‘주문 배송 내역이 없습니다.’를 PC 16px·모바일 14px·#4D4D4D로 표시하고 세로 패딩 120px/64px, ‘전체 보기’ 숨김을 적용한다. 당시 로그아웃 버튼은 모바일 하단에 표시했다. 이후 2026-11-05 상단 로그아웃 보완에서 PC 버튼과 모바일 링크를 추가했다.
 
@@ -1231,7 +1237,7 @@ Panda `fonts.hoka`는 `var(--font-hoka, 'The Future HOKA'), Pretendard, Arial, s
 
 IA 191의 기존 `previewRoutes`를 통해 STATE 행이 자동 표시되므로 표 렌더러는 바꾸지 않았다. 신규 `/mypage/reviews/preview-ready`, `/mypage/reviews/preview-written`과 기존 `/preview-empty`를 디자인의 세 상태로 연결한다. 기존 빈 작성목록·작성·수정·입력 오류 링크도 유지한다. WEB에 세 디자인 상태 story를 추가하고 기존 MO에 작성한 목록을 추가했다. 각 story는 ShopShell의 명시적 web/mobile 플랫폼을 사용한다.
 
-2026-10-30 후속 실측 적용: [Figma 리뷰 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 PC 기본·작성·Empty, 모바일 기본·작성·Empty을 읽어 적용했다. PC 본문 844px·탭 42px, 모바일 전체 폭 탭 32px, 탭/도구 간격 PC 40px·MO 32px, 도구 하단 16px이다. 작성한 표는 844px 기준 340/120/300/84px 열 비율, 20px 헤더/32px 행 세로 패딩·96px 이미지이며 좁은 PC 본문에서는 열 비율을 축소한다. 모바일 이미지는 64px, 별은 16px·간격 4px, 본문은 PC 14px/MO 12px 한 줄 말줄임이다. 정렬은 기존 native Select에 14px `chevron-down-small` 에셋을 배치해 키보드 동작을 유지한다. Empty 문구는 ‘작성 가능한 상품이 없습니다.’ 16px·#4D4D4D, PC 세로 203px/모바일 탭 아래 96px 간격이다. 기존 상품명·옵션·리뷰 내용·평점·구매일 fixture와 기본 화면 건수/저장 계약은 유지한다.
+2026-10-30 후속 실측 적용: [Figma 리뷰 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1487-38311)의 PC 기본 `1487:39447`·작성 `1563:32191`·Empty `1563:31449`, 모바일 기본 `1487:38312`·작성 `1487:38397`·Empty `1487:38387`을 읽어 적용했다. PC 본문 844px·탭 42px, 모바일 전체 폭 탭 32px, 탭/도구 간격 PC 40px·MO 32px, 도구 하단 16px이다. 작성한 표는 844px 기준 340/120/300/84px 열 비율, 20px 헤더/32px 행 세로 패딩·96px 이미지이며 좁은 PC 본문에서는 열 비율을 축소한다. 모바일 이미지는 64px, 별은 16px·간격 4px, 본문은 PC 14px/MO 12px 한 줄 말줄임이다. 정렬은 기존 native Select에 14px `chevron-down-small` 에셋을 배치해 키보드 동작을 유지한다. Empty 문구는 ‘작성 가능한 상품이 없습니다.’ 16px·#4D4D4D, PC 세로 203px/모바일 탭 아래 96px 간격이다. 기존 상품명·옵션·리뷰 내용·평점·구매일 fixture와 기본 화면 건수/저장 계약은 유지한다.
 
 검증(2026-10-30, Codex): 세 URL의 PC 1920px/MO viewport 390px(clientWidth 375px) 직접 진입과 폰트 로딩 후 크기·이미지·간격을 확인했다. 실제 글리프는 한글 Pretendard Regular, 영문은 기존 HOKA face(내부명 `.`)를 사용했다. 명시적 WEB/Mobile 작성 목록 스토리도 1/2건·탭 42/32px을 표시했다. 탭 전환·정렬·수정 모달 열기/Esc 닫기·행 버튼 포커스 복귀와 screen-index 상태명/URL을 확인했다. 변경 파일 ESLint·Prettier, 타입, Panda, 최초 Next 빌드와 최종 Storybook 빌드, 기존 라우트/preview 연결 검사 7개를 통과했다. 정렬 아이콘 경로 보완 뒤 마지막 Next 빌드는 동시 수정된 비대상 ProfileContent.tsx:301의 secondary 버튼/size="sm" 타입 오류와 RunningSessionEntriesContent.tsx:192·196의 Typography tone="secondary" 타입 오류로 실패했다. 최초 통과를 최종 전체 작업 트리 통과로 간주하지 않는다. 전체 lint는 비대상 FindAccountContent·signup complete의 미사용 import 및 HelpTipsGuide 정렬 오류 5개로 실패했다. 공통 배너·로그인 fixture·Windows 세로 scrollbar 차이는 시안 본문과 구분했다. 실제 리뷰 저장 API 검증은 이번 변경 범위가 아니다.
 
@@ -1371,11 +1377,11 @@ Figma 모바일 화면 여섯 개(주문 목록·빈 상태·주문 상세·취�
 
 Storybook에는 주문/배송조회 WEB·Mobile 항목과 PC의 빈 목록·상세·취소/반품 상세·신청 상태를 추가하고, 취소/반품내역을 독립된 주문 분류 아래 WEB·Mobile 및 빈 목록으로 연결했다. 화면 인덱스에서 두 경로의 스토리 링크를 연결했으며 실제 App Router URL은 그대로다. 새 API나 업무 로직은 추가하지 않았다.
 
-모바일 주문 목록 Figma 시안에는 같은 주문 안에서 서로 다른 상품 상태가 표시된다. 표시 모델의 선택적 `OrderLine.displayStatus`·`displayExpectedDate`로 각 상품의 상태와 도착 예정일을 구분하고, 모바일 카드에 상태별 고정 버튼을 표시한다. 이 버튼은 서비스 요청을 수행하지 않는다.
+모바일 주문 목록 Figma `2059:162544`에는 같은 주문 안에서 서로 다른 상품 상태가 표시된다. 표시 모델의 선택적 `OrderLine.displayStatus`·`displayExpectedDate`로 각 상품의 상태와 도착 예정일을 구분하고, 모바일 카드에 상태별 고정 버튼을 표시한다. 이 버튼은 서비스 요청을 수행하지 않는다.
 
 주문 카드 헤더는 모바일에서 주문일자 아래 주문번호를 4px 간격으로 놓고 상세보기 버튼을 오른쪽에 둔다. PC는 날짜와 주문번호를 가로로 표시한다.
 
-출처: [주문/배송조회 PC·모바일](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design), [취소·환불 신청](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design), [취소/반품내역 PC·모바일·빈 상태](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design). 변경 출처는 `src/app/mypage/orders/_components/OrdersPage.tsx`, 주문 Storybook 파일과 `src/app/screen-index/screenConnections.ts` 작업 트리다. Prettier·Panda 생성·OKF 검사는 통과했다. 전체 TypeScript 검사는 기존 `.next` 생성 라우트 오류로 실패했고 변경 파일 오류는 남지 않았다. ESLint는 환경에 `eslint-plugin-perfectionist`가 없어 시작되지 않았다. 개발 서버는 감시 파일 한도(EMFILE) 및 포트 바인딩 권한(EPERM)으로 시작하지 못해 PC·모바일 브라우저 시각 확인은 수행하지 않았다.
+출처: [주문/배송조회 PC·모바일](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2059-162098), [취소·환불 신청](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2203-76650), [취소/반품내역 PC·모바일·빈 상태](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2134-82959). 변경 출처는 `src/app/mypage/orders/_components/OrdersPage.tsx`, 주문 Storybook 파일과 `src/app/screen-index/screenConnections.ts` 작업 트리다. Prettier·Panda 생성·OKF 검사는 통과했다. 전체 TypeScript 검사는 기존 `.next` 생성 라우트 오류로 실패했고 변경 파일 오류는 남지 않았다. ESLint는 환경에 `eslint-plugin-perfectionist`가 없어 시작되지 않았다. 개발 서버는 감시 파일 한도(EMFILE) 및 포트 바인딩 권한(EPERM)으로 시작하지 못해 PC·모바일 브라우저 시각 확인은 수행하지 않았다.
 
 ## 장바구니 컬러 선택 밑줄 두께 (2026-10-27)
 
@@ -1768,7 +1774,7 @@ HeaderSearch의 PC 검색은 178×36px 네이티브 input(TextInput)과 돋보�
 
 `src/components/features/not-found/NotFoundPage.tsx`는 중앙 정렬한 Font Awesome `faTriangleExclamation`(48px), 한국어 제목·두 줄 설명과 홈 링크로 구성한다. 공통 Icon·Typography·ButtonLink를 재사용하고 PC 버튼 너비는 180px, 모바일은 좌우 16px 여백 안에서 전체 너비·48px 높이를 사용한다. 모바일 본문 최소 높이는 화면 높이에서 헤더 높이를 빼서 푸터가 첫 화면 아래에 오도록 한다. Storybook `PAGES/NotFound`의 Default/Mobile에서 앱 레이아웃과 함께 확인한다.
 
-첨부된 404 이미지가 이번 작업의 시각적 출처다. Figma 시안는 연결 재인증 오류로 원본 수치·레이어를 조회하지 못했으므로 Figma 대조 완료로 기록하지 않는다. 아이콘은 Font Awesome을 우선 사용하고 대응 아이콘이 없을 때 export할 파일명과 저장 폴더를 안내한다.
+첨부된 404 이미지가 이번 작업의 시각적 출처다. Figma 노드 `577:11405`는 연결 재인증 오류로 원본 수치·레이어를 조회하지 못했으므로 Figma 대조 완료로 기록하지 않는다. 아이콘은 Font Awesome을 우선 사용하고 대응 아이콘이 없을 때 export할 파일명과 저장 폴더를 안내한다.
 
 Panda 생성·타입 검사·변경 TSX ESLint/Prettier·Next/Storybook 빌드가 통과했다. 브라우저에서 PC 화면과 모바일 375px 스토리를 확인했고 모바일 버튼 343×48px·홈 링크 `/`·Font Awesome SVG 48×48px를 확인했다. 기존 공통 헤더의 프로모션 배너 등 첨부 이미지와 다른 영역은 이번 수정 범위 밖이다.
 
@@ -2074,9 +2080,9 @@ AlreadyRegisteredModal은 short/fullWidth 버튼을, MarketingConsentSummaryModa
 - `organisms/Account/MarketingConsentSummaryModal`은 `open`, `items: readonly { label, value }[]`와 닫기·확인 콜백을 받는다. 회원가입의 동의값 문자열 변환과 통합 SMS·카카오 항목은 기능 내부 어댑터가 담당한다. 공용 컴포넌트는 RegistrationContent 타입에 의존하지 않으며 별도 채널 표시도 지원한다. 마이페이지 저장 흐름에 새 안내를 추가하지 않았다.
 - `organisms/Terms/TermsDialog`는 제목·표시 레이블·본문 children·선택 날짜 문구와 선택적인 `version: { previous, onChange }`를 받는다. 본문 article·모바일 fullscreen·scrollFade·footer 확인은 공용 표현에, 임시 약관 내용과 이전 약관 준비 안내·일자는 SignupTermsDetail에 남긴다. 약관 문구·날짜의 실제 서비스 연동은 추가하지 않았다.
 
-회원가입 약관 상세의 ‘이전 약관 보기’는 기능 내부 `PreviousTermsPicker`를 연다. 데스크톱은 공통 `ModalDialog` md(568px) 안에 시행일을 고르는 공통 `Radio` 목록과 확인 푸터 버튼을 제공한다. 모바일은 같은 모달의 하단 시트 배치에서 날짜 휠 형태를 유지한다. 두 화면은 Figma에 기재된 7개 날짜를 사용한다. 날짜 선택 후 기존 이전 약관 준비 안내로 전환하며, 실제 약관 본문을 날짜별로 연결하는 기능은 추가하지 않았다. `SignupTermsPage`가 열림 상태를 소유하고 `SignupTermsContent`가 두 모달을 조합한다. PC·모바일 상호작용 스토리는 날짜 선택과 확인, 닫기를 각각 검사한다. 출처는 작업 트리의 `src/components/features/signup-terms/PreviousTermsPicker.tsx`, `SignupTermsPage.tsx`, `SignupTermsContent.tsx`, `src/stories/features/signup-terms/SignupTermsPage.stories.tsx`와 Figma 시안이다.
+회원가입 약관 상세의 ‘이전 약관 보기’는 기능 내부 `PreviousTermsPicker`를 연다. 데스크톱은 공통 `ModalDialog` md(568px) 안에 시행일을 고르는 공통 `Radio` 목록과 확인 푸터 버튼을 제공한다. 모바일은 같은 모달의 하단 시트 배치에서 날짜 휠 형태를 유지한다. 두 화면은 Figma에 기재된 7개 날짜를 사용한다. 날짜 선택 후 기존 이전 약관 준비 안내로 전환하며, 실제 약관 본문을 날짜별로 연결하는 기능은 추가하지 않았다. `SignupTermsPage`가 열림 상태를 소유하고 `SignupTermsContent`가 두 모달을 조합한다. PC·모바일 상호작용 스토리는 날짜 선택과 확인, 닫기를 각각 검사한다. 출처는 작업 트리의 `src/components/features/signup-terms/PreviousTermsPicker.tsx`, `SignupTermsPage.tsx`, `SignupTermsContent.tsx`, `src/stories/features/signup-terms/SignupTermsPage.stories.tsx`와 Figma `957:30452`이다.
 
-`AccountUnlockCompletePage`는 Figma desktop·mobile 시안 기준의 완료 화면이다. 웹 본문은 최소 높이 600px, 상단 96px·좌우 144px·하단 124px, 콘텐츠 폭 500px이며 모바일은 헤더 높이를 뺀 화면 높이, 상단 40px·좌우 16px·하단 32px을 사용한다. 제목-안내 간격은 12px, 제목 아이콘은 18px, 안내-버튼 간격은 36px이다. 제목은 웹 28px·모바일 22px, 안내는 양쪽 모두 16px이다. 일회성 css 선언 대신 Panda JSX 레이아웃 속성을 사용하고 잠금 해제 아이콘은 Figma 시안의 SVG를 `Icon` 공통 자산으로 등록해 사용한다. `Atoms/Icon`의 `AllAvailableIcons` Storybook 목록에도 포함한다.
+`AccountUnlockCompletePage`는 Figma desktop `957:30471`·mobile `957:29862` 기준의 완료 화면이다. 웹 본문은 최소 높이 600px, 상단 96px·좌우 144px·하단 124px, 콘텐츠 폭 500px이며 모바일은 헤더 높이를 뺀 화면 높이, 상단 40px·좌우 16px·하단 32px을 사용한다. 제목-안내 간격은 12px, 제목 아이콘은 18px, 안내-버튼 간격은 36px이다. 제목은 웹 28px·모바일 22px, 안내는 양쪽 모두 16px이다. 일회성 css 선언 대신 Panda JSX 레이아웃 속성을 사용하고 잠금 해제 아이콘은 Figma 노드 `957:30479`의 SVG를 `Icon` 공통 자산으로 등록해 사용한다. `Atoms/Icon`의 `AllAvailableIcons` Storybook 목록에도 포함한다.
 
 새 공용 팝업 6종은 `src/stories/components/common/`에 대응 스토리를 둔다. 확인·취소/ESC, 주소 입력/다시 열기, 동의내역 확인, 약관 버전 전환을 위한 play 함수를 추가했고 PC·모바일 사례를 제공한다. AlreadyRegistered 스토리 이동에 맞춰 IA 링크를 `organisms-account-alreadyregisteredmodal--default/mobile`로 갱신했다.
 
@@ -2179,22 +2185,22 @@ Storybook은 2560·3840px 프리셋과 홈·목록·상세·런클럽 상세의 
 
 `SiteHeader`는 PC와 모바일 모두 같은 데모 데이터를 표시한다. 배너는 50px 높이를 유지하고 Carousel 내부 프레임은 현재 콘텐츠 너비에 맞춰 좌우 8px 여백을 사용한다. 모바일 안내와 링크는 12px Typography를 사용한다. 안내 문구와 경로는 데이터에서 받고 링크 문구와 가로·세로 배치는 버튼 종류에 따른다. 데모 링크는 모두 기존 `/products` 경로를 사용한다.
 
-사용자 제공 이미지와 Figma 시안을 구현 요청의 출처로 기록한다. Figma 연결은 재인증 오류로 상세 조회하지 못했으며, 첨부 이미지와 기존 스타일 기준으로 구현했다. 320px·375px Storybook 모바일 배너에서 가로 넘침 없음과 50px 높이를 확인했고, PC에서 row 방향·16px 간격·50px 높이를 확인했다. TypeScript 검사, 변경 파일 ESLint와 Panda 생성을 통과했다. Figma 원본 수치와의 일치 검증은 수행하지 않았다.
+사용자 제공 이미지와 Figma 노드 `362:44160`을 구현 요청의 출처로 기록한다. Figma 연결은 재인증 오류로 상세 조회하지 못했으며, 첨부 이미지와 기존 스타일 기준으로 구현했다. 320px·375px Storybook 모바일 배너에서 가로 넘침 없음과 50px 높이를 확인했고, PC에서 row 방향·16px 간격·50px 높이를 확인했다. TypeScript 검사, 변경 파일 ESLint와 Panda 생성을 통과했다. Figma 원본 수치와의 일치 검증은 수행하지 않았다.
 
 ## 고객센터 메인 (2026-10-16)
 
 ### 고객센터 사이드 내비게이션 갱신 (2026-10-20)
 
-`SideNavigation`의 `support` 모드는 Figma 시안을 따른다. 190px 너비에서 28px 제목과 메뉴 사이를 40px 띄우고, 그룹 사이 구분선 없이 20px medium 메뉴를 24px 간격으로 나열한다. 현재 경로의 항목만 검은 글자와 2px 아래 선을 쓰고 나머지는 `#4d4d4d` 색상이다. 메뉴 행은 비활성 42px·활성 44px 높이이며 모바일에서는 기존처럼 숨긴다. `CustomerCenterLayout`은 1200px 외곽과 좌우 34px 패딩을 유지하면서 사이드 열 190px·본문과의 간격 98px로 Figma의 844px 본문 열에 맞춘다. 출처는 작업 트리의 `src/components/common/organisms/Navigation/SideNavigation/SideNavigation.tsx`, `src/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`, `src/stories/components/common/organisms/Navigation/SideNavigation/SideNavigation.stories.tsx`와 Figma 시안이다. Panda 생성·타입 검사·ESLint·Storybook 빌드와 `/support`, `/support/faq`의 활성 항목 표시를 확인했다.
+`SideNavigation`의 `support` 모드는 Figma `1241:78801`을 따른다. 190px 너비에서 28px 제목과 메뉴 사이를 40px 띄우고, 그룹 사이 구분선 없이 20px medium 메뉴를 24px 간격으로 나열한다. 현재 경로의 항목만 검은 글자와 2px 아래 선을 쓰고 나머지는 `#4d4d4d` 색상이다. 메뉴 행은 비활성 42px·활성 44px 높이이며 모바일에서는 기존처럼 숨긴다. `CustomerCenterLayout`은 1200px 외곽과 좌우 34px 패딩을 유지하면서 사이드 열 190px·본문과의 간격 98px로 Figma의 844px 본문 열에 맞춘다. 출처는 작업 트리의 `src/components/common/organisms/Navigation/SideNavigation/SideNavigation.tsx`, `src/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`, `src/stories/components/common/organisms/Navigation/SideNavigation/SideNavigation.stories.tsx`와 Figma 노드 `1241:78795`, `1241:78801`이다. Panda 생성·타입 검사·ESLint·Storybook 빌드와 `/support`, `/support/faq`의 활성 항목 표시를 확인했다.
 
 고객센터 공통 본문 프레임은 데스크톱에서 최대 1200px 폭과 좌우 34px 패딩을 사용한다. 모바일에서는 바깥 페이지의 16px 여백을 그대로 사용한다. 출처는 작업 트리의 `src/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`다.
 
-`CustomerCenterLayout`은 고객센터 메인과 하위 화면이 공통으로 쓰는 Breadcrumb, 페이지별 제목·설명 영역, 좌측 메뉴, 본문 배치를 소유한다. 페이지마다 breadcrumb 경로와 활성 메뉴를 전달하므로 `/support`와 `/support/faq`는 독립 라우트로 유지된다. `Breadcrumb`은 기존 공통 molecule을 재사용한다. 최신 고객센터 메인 Figma 시안(웹)·(모바일)은 설명 아래 고객상담실·온라인 스토어 연락처 카드만 보여준다. `SupportContacts`는 카드를 세로로 배치하고, 각 `SupportContactCard`는 문의 설명·현재 운영 전화번호·운영시간·점심시간을 표시한다. 카드 배경은 `black.10`이며 외곽선을 추가하지 않는다. 웹 카드는 좌우 배치, 모바일 카드는 세로 배치로 전환한다. 기존 공통 Typography의 heading8(웹 22px·모바일 16px)을 쓰고 전화 링크 밑줄은 모바일에서만 보인다. 연락처와 운영시간 묶음 사이 간격은 웹 52px·모바일 32px이다. 공지·FAQ는 메인에서 제거해도 각각 독립 라우트와 기존 페이지 구성을 유지한다. PC·모바일 Customer Center route story는 카드 제목·전화번호·운영시간 및 메인에서 공지/FAQ teaser가 없는 상태를 검사한다. 화면 설명·카드 간격은 Panda JSX props를 사용한다. 출처는 작업 트리의 `src/components/features/support/SupportPage.tsx`, `SupportContacts.tsx`, `SupportContactCard.tsx`, `src/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`, `src/stories/features/support/SupportPages.stories.tsx`, `SupportPages.CustomerCenter.Mobile.stories.tsx`와 Figma 시안이다.
+`CustomerCenterLayout`은 고객센터 메인과 하위 화면이 공통으로 쓰는 Breadcrumb, 페이지별 제목·설명 영역, 좌측 메뉴, 본문 배치를 소유한다. 페이지마다 breadcrumb 경로와 활성 메뉴를 전달하므로 `/support`와 `/support/faq`는 독립 라우트로 유지된다. `Breadcrumb`은 기존 공통 molecule을 재사용한다. 최신 고객센터 메인 Figma `1322:125606`(웹)·`1368:128720`(모바일)은 설명 아래 고객상담실·온라인 스토어 연락처 카드만 보여준다. `SupportContacts`는 카드를 세로로 배치하고, 각 `SupportContactCard`는 문의 설명·현재 운영 전화번호·운영시간·점심시간을 표시한다. 카드 배경은 `black.10`이며 외곽선을 추가하지 않는다. 웹 카드는 좌우 배치, 모바일 카드는 세로 배치로 전환한다. 기존 공통 Typography의 heading8(웹 22px·모바일 16px)을 쓰고 전화 링크 밑줄은 모바일에서만 보인다. 연락처와 운영시간 묶음 사이 간격은 웹 52px·모바일 32px이다. 공지·FAQ는 메인에서 제거해도 각각 독립 라우트와 기존 페이지 구성을 유지한다. PC·모바일 Customer Center route story는 카드 제목·전화번호·운영시간 및 메인에서 공지/FAQ teaser가 없는 상태를 검사한다. 화면 설명·카드 간격은 Panda JSX props를 사용한다. 출처는 작업 트리의 `src/components/features/support/SupportPage.tsx`, `SupportContacts.tsx`, `SupportContactCard.tsx`, `src/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`, `src/stories/features/support/SupportPages.stories.tsx`, `SupportPages.CustomerCenter.Mobile.stories.tsx`와 Figma 노드 `1322:125606`, `1368:128720`이다.
 고객센터 메인의 최신 PC·모바일 구성은 설명 아래 연락처 카드 두 개만 표시한다. 공지사항/FAQ 미리보기와 운영시간·전화 아이콘은 이 메인 시안에 없으므로 넣지 않으며, 각 공지·FAQ 페이지는 독립 라우트로 유지한다. 카드 배경은 `black.10`이며 얇은 외곽선을 추가하지 않는다. PC·모바일 Customer Center route story는 카드 정보와 메인에서 공지/FAQ가 빠진 상태를 검사한다.
 
 ## FAQ (2026-10-16)
 
-FAQ 카테고리 선택은 현재 공통 `FilterTabs`의 `fill` variant를 사용한다. `FaqCategoryNav`는 카테고리 데이터와 선택 변경만 전달하며 탭 CSS를 소유하지 않는다. 출처는 작업 트리의 `src/components/common/atoms/FilterTabs/FilterTabs.tsx`, `src/components/common/molecules/Faq/FaqCategoryNav.tsx`와 Figma 시안이다.
+FAQ 카테고리 선택은 현재 공통 `FilterTabs`의 `fill` variant를 사용한다. `FaqCategoryNav`는 카테고리 데이터와 선택 변경만 전달하며 탭 CSS를 소유하지 않는다. 출처는 작업 트리의 `src/components/common/atoms/FilterTabs/FilterTabs.tsx`, `src/components/common/molecules/Faq/FaqCategoryNav.tsx`와 Figma 노드 `1056:42189`다.
 
 `SearchField` 안의 `TextInput`은 포커스 시 별도 outline을 표시하지 않고 검색창의 기존 테두리만 유지한다. 출처는 작업 트리의 `src/components/common/molecules/SearchField/SearchField.tsx`다.
 
@@ -2202,7 +2208,7 @@ FAQ 검색 영역은 공통 molecule `SearchField`를 사용한다. 입력값과
 
 `FaqList`의 섹션 상단선과 답변 배경·패딩·줄바꿈·문단 여백은 Panda Box 속성으로 표현한다. Accordion이 클래스만 받는 항목 경계선·질문 버튼 상태·아이콘 크기만 컴포넌트 내부 CSS에 남긴다. 출처는 작업 트리의 `src/components/common/organisms/Faq/FaqList.tsx`다.
 
-`FaqPage`는 별도 URL을 유지하면서 `CustomerCenterLayout`의 공통 breadcrumb·페이지 제목·사이드 메뉴를 사용한다. PC에서는 첫 질문을 열고 모바일에서는 닫아 둔다. 검색은 질문과 답변을 함께 필터링하고 카테고리 탭은 Figma의 8개 항목을 사용한다. 처음 10개를 표시하며 답변과 검색 데이터는 화면 시안용 정적 데이터다. 고객센터 메인에는 FAQ teaser를 표시하지 않는다. 간격·패딩·정렬은 Panda JSX props, 검색 필드·밑줄 탭·아코디언 경계처럼 세부 시각 규칙은 컴포넌트의 Panda CSS로 표현한다. 출처는 작업 트리의 `src/components/features/faq/FaqPage.tsx`, `src/components/features/faq/faq.data.ts`, `src/components/common/molecules/Faq/FaqControls.tsx`, `src/components/common/organisms/Faq/FaqList.tsx`, `src/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`와 Figma 시안이다.
+`FaqPage`는 별도 URL을 유지하면서 `CustomerCenterLayout`의 공통 breadcrumb·페이지 제목·사이드 메뉴를 사용한다. PC에서는 첫 질문을 열고 모바일에서는 닫아 둔다. 검색은 질문과 답변을 함께 필터링하고 카테고리 탭은 Figma의 8개 항목을 사용한다. 처음 10개를 표시하며 답변과 검색 데이터는 화면 시안용 정적 데이터다. 고객센터 메인에는 FAQ teaser를 표시하지 않는다. 간격·패딩·정렬은 Panda JSX props, 검색 필드·밑줄 탭·아코디언 경계처럼 세부 시각 규칙은 컴포넌트의 Panda CSS로 표현한다. 출처는 작업 트리의 `src/components/features/faq/FaqPage.tsx`, `src/components/features/faq/faq.data.ts`, `src/components/common/molecules/Faq/FaqControls.tsx`, `src/components/common/organisms/Faq/FaqList.tsx`, `src/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`와 Figma 노드 `991:23024`, `991:23094`, `999:5639`이다.
 
 ## 공지사항·1:1 문의 (2026-10-16)
 
@@ -2210,19 +2216,19 @@ FAQ 검색 영역은 공통 molecule `SearchField`를 사용한다. 입력값과
 
 1:1 문의의 `InquiryCautions`는 펼쳤을 때만 제목 아래 구분선을 추가하고, 닫혔을 때는 바깥 위·아래 선만 표시한다. 제목은 좌우 16px, 목록은 상하 24px의 간격을 사용하며 화살표 아이콘은 subtle 텍스트 색상 토큰을 따른다. 공통 `Accordion` 동작은 유지한다. 문의 접수완료 상태는 `SupportPages.stories.tsx`의 데스크톱 `InquiryPendingDesktop`과 모바일 `InquiryPendingMobile375`로 확인할 수 있다. 출처는 작업 트리의 `src/components/features/support/InquiryCautions.tsx`, `src/stories/features/support/SupportPages.stories.tsx`와 사용자 제공 화면 이미지다.
 
-`/support/after-sales`는 Figma 모바일과 PC에 따라 배송 안내·반품 주의사항·상품 반품 안내를 모두 선택할 수 있게 표시한다. 공통 `CustomerCenterLayout`의 제목 영역과 Base UI Tabs 기반 `SupportTabs`를 재사용한다. 세 탭의 번호 목록·불릿·문구는 각 시안을 따른다. 출처는 작업 트리의 `src/components/features/support/ShippingReturnsPage.tsx`, `src/components/common/molecules/SupportTabs/SupportTabs.tsx`, `src/stories/features/support/SupportPages.stories.tsx`와 해당 Figma 노드다.
+`/support/after-sales`는 Figma 모바일 `803:25138`, `897:48598`, `803:25411`과 PC `1066:57459`, `1066:59817`, `1066:60232`에 따라 배송 안내·반품 주의사항·상품 반품 안내를 모두 선택할 수 있게 표시한다. 공통 `CustomerCenterLayout`의 제목 영역과 Base UI Tabs 기반 `SupportTabs`를 재사용한다. 세 탭의 번호 목록·불릿·문구는 각 시안을 따른다. 출처는 작업 트리의 `src/components/features/support/ShippingReturnsPage.tsx`, `src/components/common/molecules/SupportTabs/SupportTabs.tsx`, `src/stories/features/support/SupportPages.stories.tsx`와 해당 Figma 노드다.
 
 반품 주의사항의 불릿은 표시 기호와 본문을 별도 가로 요소로 배치한다. 본문의 `<br>` 뒤에 오는 `(ex. …)`와 배송비 하위 `-` 설명은 기호 아래로 되돌아가지 않고 같은 항목의 텍스트 시작선에 맞춰진다. 출처는 작업 트리의 `src/components/features/support/ShippingReturnsPage.tsx`와 사용자 제공 비교 이미지다.
 
-`/support/store`는 Figma 모바일와 PC의 서울·인천·경기 탭, 매장 정보 행, 길 찾기 펼침 상태를 사용한다. 지도는 Figma 원본 PNG를 프로젝트 자산으로 보관해 프리뷰 영역에 표시한다. 서울은 시안의 세 매장, 경기는 금촌 매장을 사용하며 인천 목록은 제공된 자료에 없어 빈 상태로 둔다. 구현과 데이터는 `src/components/features/store-finder/`에 둔다. `/support/teamwear`는 모바일의 온라인·오프라인 고객센터 카드, 운영시간, 안내문을 표시한다. 두 페이지도 공통 고객센터 레이아웃과 제목을 사용한다. 출처는 작업 트리의 `src/components/features/store-finder/`, `src/components/features/teamwear/TeamwearPage.tsx`, `public/images/store-finder/map-preview.png`와 해당 Figma 노드다.
+`/support/store`는 Figma 모바일 `1079:49652`와 PC `1066:48028`의 서울·인천·경기 탭, 매장 정보 행, 길 찾기 펼침 상태를 사용한다. 지도는 Figma 원본 PNG를 프로젝트 자산으로 보관해 프리뷰 영역에 표시한다. 서울은 시안의 세 매장, 경기는 금촌 매장을 사용하며 인천 목록은 제공된 자료에 없어 빈 상태로 둔다. 구현과 데이터는 `src/components/features/store-finder/`에 둔다. `/support/teamwear`는 모바일 `803:25048`의 온라인·오프라인 고객센터 카드, 운영시간, 안내문을 표시한다. 두 페이지도 공통 고객센터 레이아웃과 제목을 사용한다. 출처는 작업 트리의 `src/components/features/store-finder/`, `src/components/features/teamwear/TeamwearPage.tsx`, `public/images/store-finder/map-preview.png`와 해당 Figma 노드다.
 
-`/support/care`는 Figma 모바일과 PC의 신발·의류/용품 탭을 제공한다. 각 번호 제목과 안내 문구를 `care.data.ts`에 두고 공통 `SupportTabs`와 `CustomerCenterLayout`을 재사용한다. `/support/terms`도 같은 고객센터 레이아웃으로 옮겨 이용 약관·개인정보 처리방침 탭, 시행일 선택 목록, 시안의 약관 내용 자리표시자와 개인정보 처리방침 버전 정보를 표시한다. Figma 노드는 모바일, PC 시안이다. 실제 확정 약관 본문과 시행일별 데이터는 시안에서 제공되지 않았다. `/support/member-benefits`의 좌측 메뉴와 페이지 제목 영역도 `CustomerCenterLayout`으로 통일했다. 출처는 작업 트리의 `src/components/features/care-guide/`, `src/components/features/terms/TermsPage.tsx`, `src/components/features/support/SupportExperiencePage.tsx`, `src/components/features/support/support.navigation.ts`와 해당 Figma 노드다.
+`/support/care`는 Figma 모바일 `806:25575`, `806:25793`과 PC `1066:57895`, `1066:61095`의 신발·의류/용품 탭을 제공한다. 각 번호 제목과 안내 문구를 `care.data.ts`에 두고 공통 `SupportTabs`와 `CustomerCenterLayout`을 재사용한다. `/support/terms`도 같은 고객센터 레이아웃으로 옮겨 이용 약관·개인정보 처리방침 탭, 시행일 선택 목록, 시안의 약관 내용 자리표시자와 개인정보 처리방침 버전 정보를 표시한다. Figma 노드는 모바일 `806:25898`, `897:49060`, PC `1066:58331`이다. 실제 확정 약관 본문과 시행일별 데이터는 시안에서 제공되지 않았다. `/support/member-benefits`의 좌측 메뉴와 페이지 제목 영역도 `CustomerCenterLayout`으로 통일했다. 출처는 작업 트리의 `src/components/features/care-guide/`, `src/components/features/terms/TermsPage.tsx`, `src/components/features/support/SupportExperiencePage.tsx`, `src/components/features/support/support.navigation.ts`와 해당 Figma 노드다.
 
 공통 푸터의 세탁 및 손질 방법 링크도 신규 `/support/care` 경로로 연결한다. 출처는 작업 트리의 `src/components/common/organisms/Layout/SiteFooter/footerData.ts`다.
 
 공지사항 목록은 첫 행 위에 `black.20` 1px Divider를 두고, 펼친 행은 제목과 내용 사이에도 같은 구분선을 둔다. 출처는 작업 트리의 `src/components/features/notices/NoticesPage.tsx`다.
 
-공지사항 목록은 PC 제목 아래 `black.100` 2px Divider, 각 60px 행 아래 `black.20` 1px Divider를 사용한다. 모바일에서는 상단의 진한 선을 숨기고 56px 행마다 회색 구분선을 둔다. 제목·날짜는 각각 화면 크기에 맞는 Typography variant와 tone을 사용하며, 더보기는 표시 페이지/전체 페이지를 함께 보여준다. 출처는 작업 트리의 `src/components/features/notices/NoticesPage.tsx`와 Figma 시안이다.
+공지사항 목록은 PC 제목 아래 `black.100` 2px Divider, 각 60px 행 아래 `black.20` 1px Divider를 사용한다. 모바일에서는 상단의 진한 선을 숨기고 56px 행마다 회색 구분선을 둔다. 제목·날짜는 각각 화면 크기에 맞는 Typography variant와 tone을 사용하며, 더보기는 표시 페이지/전체 페이지를 함께 보여준다. 출처는 작업 트리의 `src/components/features/notices/NoticesPage.tsx`와 Figma 노드 `1056:42533`, `991:23590`이다.
 
 문의 등록 화면은 `CustomerCenterLayout`에 전달한 1:1 문의등록 제목을 PC·모바일에서 표시한다. Breadcrumb과 좌측 메뉴도 함께 유지한다. 출처는 작업 트리의 `src/components/features/support/InquiryNewPage.tsx`와 `src/components/common/layouts/CustomerCenterLayout/CustomerCenterLayout.tsx`다.
 
@@ -2230,7 +2236,7 @@ FAQ 검색 영역은 공통 molecule `SearchField`를 사용한다. 입력값과
 
 답변된 1:1 문의 행은 공통 `Accordion`으로 답변을 접고 펼친다. 처음에는 답변을 표시하고, 기존 Q/A 행·상태 배지·PC/모바일 간격을 유지한다. 미답변 행은 펼칠 내용이 없으므로 정적 행으로 표시한다. 출처는 작업 트리의 `src/components/features/support/InquiryPage.tsx`와 `src/components/common/atoms/Accordion/Accordion.tsx`다.
 
-`/support/notices`, `/support/notices/[id]`, `/support/inquiries`, `/support/inquiries/new`는 각각 독립 라우트이며 `CustomerCenterLayout`의 breadcrumb·페이지 제목·사이드 메뉴를 재사용한다. 공지사항 목록은 PC Figma처럼 행을 펼치는 방식으로, 기존 상세 경로는 모바일 상세 Figma의 행·본문·목록보기 구조로 갱신했다. 1:1 문의는 빈 상태와 접수·답변 상태를 Q/A 구성으로 표현한다. 문의 등록은 분류·제목·내용·첨부·신청인 정보와 취소/등록 액션을 표시하고, 유의사항은 `InquiryCautions`에서 재사용한다. `InquiryCautions`는 공통 `Accordion`을 사용해 처음부터 펼친 상태를 유지하며, 별도 상태·화살표 구현 없이 접고 펼친다. `SupportExperiencePage`에 남아 있던 구형 문의 목록·등록 구현은 제거했다. 공지·문의 본문과 신청인 정보는 시안용 정적 데이터이며 서버 저장 기능은 없다. 출처는 작업 트리의 `src/components/features/notices/NoticesPage.tsx`, `NoticeDetailPage.tsx`, `src/components/features/support/InquiryPage.tsx`, `InquiryNewPage.tsx`, `InquiryCautions.tsx`, `src/components/common/atoms/Accordion/Accordion.tsx`, `SupportExperiencePage.tsx`, `src/stories/features/support/SupportPages.stories.tsx`와 Figma 시안이다.
+`/support/notices`, `/support/notices/[id]`, `/support/inquiries`, `/support/inquiries/new`는 각각 독립 라우트이며 `CustomerCenterLayout`의 breadcrumb·페이지 제목·사이드 메뉴를 재사용한다. 공지사항 목록은 PC Figma처럼 행을 펼치는 방식으로, 기존 상세 경로는 모바일 상세 Figma의 행·본문·목록보기 구조로 갱신했다. 1:1 문의는 빈 상태와 접수·답변 상태를 Q/A 구성으로 표현한다. 문의 등록은 분류·제목·내용·첨부·신청인 정보와 취소/등록 액션을 표시하고, 유의사항은 `InquiryCautions`에서 재사용한다. `InquiryCautions`는 공통 `Accordion`을 사용해 처음부터 펼친 상태를 유지하며, 별도 상태·화살표 구현 없이 접고 펼친다. `SupportExperiencePage`에 남아 있던 구형 문의 목록·등록 구현은 제거했다. 공지·문의 본문과 신청인 정보는 시안용 정적 데이터이며 서버 저장 기능은 없다. 출처는 작업 트리의 `src/components/features/notices/NoticesPage.tsx`, `NoticeDetailPage.tsx`, `src/components/features/support/InquiryPage.tsx`, `InquiryNewPage.tsx`, `InquiryCautions.tsx`, `src/components/common/atoms/Accordion/Accordion.tsx`, `SupportExperiencePage.tsx`, `src/stories/features/support/SupportPages.stories.tsx`와 Figma 노드 `885:30279`, `991:23590`, `991:23643`, `932:16817`, `991:28890`, `1003:17104`, `1003:7512`이다.
 
 2026-10-15 메뉴 변경 커밋 전 검증: TypeScript·변경 TSX ESLint·Storybook 정적 빌드·OKF 스테이징 검사 통과. Storybook play의 추가 브라우저 실행은 수행하지 않았다.
 
@@ -2280,7 +2286,7 @@ ProductDetails의 상품명·성별·가격을 담는 내부 VStack은 w=100%, m
 
 `FindAccountContent`는 제목·설명·인증번호 안내·버튼·상태 메시지의 일회성 간격을 `Stack`과 `Box`의 Panda JSX 속성으로 배치한다. 한 자식만 감싸던 필드 `Stack` 두 개는 제거했다. 글자 색상은 기존과 같은 `Typography` tone(`tertiary`, `red80`)을 사용한다. 두 인증 버튼은 공통 `Button`의 기본 `size="tall"`을 사용하며 별도 `density="auto"`로 높이를 덮어쓰지 않는다. 입력값·검증·인증번호 요청/확인 콜백은 변경하지 않았다. 출처는 작업 트리의 `src/components/features/find-account/FindAccountContent.tsx`다.
 
-아이디·비밀번호 찾기 화면은 Figma 모바일과 PC 시안 기준으로 PC 콘텐츠 폭 500px·상단 96px·제목 28px, 모바일 좌우 16px·상단 40px·제목 22px을 사용한다. 제목과 필드 사이 간격은 PC 40px·모바일 32px, 두 필드는 16px 간격이다. 제목에는 `web="heading7" mo="heading5"`를 사용하며 인증번호 요청 후에는 하나의 입력 영역만 렌더링한다. 출처는 작업 트리의 `src/components/features/find-account/FindAccountContent.tsx`와 해당 Figma 노드다.
+아이디·비밀번호 찾기 화면은 Figma 모바일 `957:29176`과 PC `957:29231` 기준으로 PC 콘텐츠 폭 500px·상단 96px·제목 28px, 모바일 좌우 16px·상단 40px·제목 22px을 사용한다. 제목과 필드 사이 간격은 PC 40px·모바일 32px, 두 필드는 16px 간격이다. 제목에는 `web="heading7" mo="heading5"`를 사용하며 인증번호 요청 후에는 하나의 입력 영역만 렌더링한다. 출처는 작업 트리의 `src/components/features/find-account/FindAccountContent.tsx`와 해당 Figma 노드다.
 
 로그인·회원가입·계정 찾기·잠금 해제·휴대폰/본인 인증 화면의 `Button`과 `ButtonLink`는 공통 기본 크기가 `tall`이므로 중복 `size="tall"`을 제거했다. `short` 등 별도 크기를 지정한 호출은 유지하며, 버튼 높이·CTA1 글자·기존 동작은 변경하지 않는다. 출처는 작업 트리의 `src/components/common/atoms/Button/Button.tsx`, 관련 feature 파일들이다.
 
@@ -2292,7 +2298,7 @@ ProductDetails의 상품명·성별·가격을 담는 내부 VStack은 w=100%, m
 
 `IdConfirmationModal`은 안내 문단 간격과 두 버튼의 너비를 Panda `Box`·`Stack` 속성으로 표현한다. 기존 8px 기본 Stack 간격과 문단의 20px·24px 여백을 유지한다. PC 버튼은 각각 160px이며 두 버튼을 함께 가운데 정렬하고 모바일에서는 전체 너비로 표시한다. 모달 폭은 공통 `ModalDialog`의 `md`(최대 568px)를 사용하고, 모바일은 공통 fullscreen 규칙을 따른다. 이름은 `userName` prop으로 받아 표시하며 값이 없으면 임의의 이름을 넣지 않는다. 제목은 플랫폼에 따라 문자열 하나를 선택하고, 공통 `ModalDialogHeader`가 `body3` 16px로 렌더링한다. 출처는 작업 트리의 `src/components/features/find-account/IdConfirmationModal.tsx`, `src/stories/features/find-account/IdConfirmationModal.stories.tsx`다.
 
-아이디 확인 모달은 모바일 Figma 시안에 맞춰 버튼 두 개를 본문의 설명 아래 8px 간격으로 배치하고, 웹에서는 같은 버튼을 공통 `ModalDialog` 푸터에 둔다. 모바일 버튼은 `short` 높이 40px·CTA2 14px과 전체 너비를 사용한다. 이름·이메일·설명 사이 모바일 간격은 각각 24px·52px이며 PC의 기존 푸터 배치는 유지한다. 출처는 작업 트리의 `src/components/features/find-account/IdConfirmationModal.tsx`와 해당 Figma 노드다.
+아이디 확인 모달은 모바일 Figma `957:29520`에 맞춰 버튼 두 개를 본문의 설명 아래 8px 간격으로 배치하고, 웹에서는 같은 버튼을 공통 `ModalDialog` 푸터에 둔다. 모바일 버튼은 `short` 높이 40px·CTA2 14px과 전체 너비를 사용한다. 이름·이메일·설명 사이 모바일 간격은 각각 24px·52px이며 PC의 기존 푸터 배치는 유지한다. 출처는 작업 트리의 `src/components/features/find-account/IdConfirmationModal.tsx`와 해당 Figma 노드다.
 
 지정 범위는 `src/components/common/`와 `src/components/features/`다. 311개 TSX에서 구조·상태·상호작용·타입 스케일을 검색하고, Panda JSX에 직접 연결된 스타일 사용 122곳을 대조했다. 48개 파일의 일회성 선언 66개를 JSX 스타일 props로 이전했다. 기존 스테이징된 메뉴·FAQ·Typography 작업은 보존했으며 새 공개 컴포넌트나 API는 추가하지 않았다. 이 점검은 모든 기능의 개별 수동 검증 완료를 의미하지 않는다.
 
@@ -2336,7 +2342,7 @@ Base UI 공식 전체 [카탈로그](https://base-ui.com/react/overview/quick-st
 | `src/components/common/layouts/`   | 공통 페이지 구조                               |
 | `src/stories/`                     | Storybook이 탐색하는 스토리                    |
 
-주문/결제 화면(`src/components/features/checkout/`)은 `Checkbox`·`Button`·`Typography`·`StepIndicator` 등을 조합한 목 화면이며 실제 결제와 연동하지 않는다. 모바일 장바구니·주문/결제는 Figma 시안의 375px 시안을 기준으로 16px 좌우 여백, 상품 카드, 배송지 정보, 3열 결제 수단, 하단 주문·결제 버튼을 구성한다. 상품 이미지는 Figma 미리보기 목 자산을 `public/images/cart/`에 저장하고, 카카오페이 로고는 `public/images/checkout/`에 저장했다. 다른 상품 항목은 카탈로그 이미지로 표시한다.
+주문/결제 화면(`src/components/features/checkout/`)은 `Checkbox`·`Button`·`Typography`·`StepIndicator` 등을 조합한 목 화면이며 실제 결제와 연동하지 않는다. 모바일 장바구니·주문/결제는 Figma `962:8877`, `1108:12627`의 375px 시안을 기준으로 16px 좌우 여백, 상품 카드, 배송지 정보, 3열 결제 수단, 하단 주문·결제 버튼을 구성한다. 상품 이미지는 Figma 미리보기 목 자산을 `public/images/cart/`에 저장하고, 카카오페이 로고는 `public/images/checkout/`에 저장했다. 다른 상품 항목은 카탈로그 이미지로 표시한다.
 
 `CarouselViewport`는 `Children.toArray`로 정규화한 슬라이드 목록을 기준으로 첫·마지막 슬라이드 여백을 정하므로 `null` 자식은 슬라이드로 세지 않는다.
 
@@ -2426,7 +2432,7 @@ Typography 검색에서는 페이지·카드·필터 내부에 직접 타입 선
 
 `Typography loginTitle`은 로그인 환영 제목의 의미를 표현한다. 기존 `headingKr6`의 PC 36px와 로컬 모바일 강제 22px를 합친 토큰이며 두 플랫폼에서 Pretendard, 굵기 900, 행간 1.2, 자간 -0.02em을 유지한다. `--type-login-title-{font-size,mobile-font-size,font-weight,line-height,letter-spacing}`를 사용한다. 호출자는 `as="h1"`을 유지하고 로컬에서는 여백만 지정한다. 가입 안내 h2의 로컬 `fontWeight: medium`도 기존 `body3`에 `weight="medium"`을 전달하도록 옮겼다.
 
-2026-10-19 Figma 로그인 화면(모바일)·(웹)에서는 아이디 저장 오른쪽의 찾기 동작이 `아이디/비밀번호 찾기` 한 버튼이다. `LoginForm`은 입력 필드 사이 16px, 옵션 행 뒤 버튼까지 24px 배치를 `Stack`과 `LoginActions`의 Panda JSX 간격으로 유지한다. 찾기 버튼은 공통 `Button variant="link" size="md"`와 `Typography body4`를 쓰며 기존 `/login/find-account`로 이동한다. 별도 비밀번호 찾기 데모 안내와 구분선은 제거했다. 변경 범위는 작업 트리의 `src/components/features/login/LoginForm.tsx`와 `src/stories/features/login/LoginPage.stories.tsx`에서 확인했다.
+2026-10-19 Figma 로그인 화면 `957:28877`(모바일)·`957:28953`(웹)에서는 아이디 저장 오른쪽의 찾기 동작이 `아이디/비밀번호 찾기` 한 버튼이다. `LoginForm`은 입력 필드 사이 16px, 옵션 행 뒤 버튼까지 24px 배치를 `Stack`과 `LoginActions`의 Panda JSX 간격으로 유지한다. 찾기 버튼은 공통 `Button variant="link" size="md"`와 `Typography body4`를 쓰며 기존 `/login/find-account`로 이동한다. 별도 비밀번호 찾기 데모 안내와 구분선은 제거했다. 변경 범위는 작업 트리의 `src/components/features/login/LoginForm.tsx`와 `src/stories/features/login/LoginPage.stories.tsx`에서 확인했다.
 
 Base UI 1.8.0 전체 exports를 기준으로 대응을 검토했다. FormField의 Field, Checkbox, Button은 기존 공용 래퍼를 유지한다. Form·Input·Separator·Toast는 설치 버전에서 지원하지만 네이티브 form/input, 장식용 구분선, 인라인 상태 안내의 기존 계약만으로 교체할 근거가 없어 유지한다. Dialog·OTP Field·Combobox 등 별도 상호작용을 추가할 관찰 근거는 없으며 의존성 업그레이드는 필요하지 않다.
 
@@ -2520,18 +2526,18 @@ Base UI 1.8.0 전체 package exports를 재확인했다. Dialog는 account-locke
 - 전역 SCSS는 폰트·전역 레이아웃 등의 기반 스타일을 담당한다.
 - 마이페이지 주문 카드 상품 사진은 공용 `ProductThumbnail`로 렌더하고 96px 정사각형 슬롯은 페이지 레이아웃에서 지정한다. Typography는 기본 `language="auto"`가 한글을 감지해 한국어 토큰을 선택하므로 호출부에서 `Kr` 접미사를 반복하지 않는다. 프로필 이동은 공용 `ButtonLink`, 구분선은 Panda `Divider`를 사용한다.
 - 마이페이지의 리뷰·등급·쿠폰·회원정보·배송지·관심상품·최근 본 상품·재입고 알림 화면은 `MyPageStatusPage`에서 기능별 화면으로 분기한다. 공통 `MyPageFrame`이 탐색 메뉴와 Breadcrumb을 소유하고 각 화면은 기존 Button, FormField, TextInput, SegmentedControl, ModalDialog, ProductCard, ProductThumbnail을 재사용한다. 현재 목록과 입력 결과는 화면 내부의 데모 상태이며 서버 저장소와 연결하지 않는다. 대응 모바일 시나리오는 `src/stories/features/mypage/MyPageDesign.stories.tsx`에 둔다.
-- 회원정보의 마케팅 정보 수신 동의 요약은 모바일 `heading7` 제목과 `body4` 세 행으로 구성한다. 제목·행 목록은 24px, 행끼리는 16px을 띄우고 각 행의 상태를 오른쪽 정렬한다. 편집 상태도 이메일·모바일 쿠폰북·문자/카카오톡 전송매체 세 행으로 표시하며, 각 행은 왼쪽 항목명과 오른쪽 `수신`/`수신안함` 라디오를 가로 배치한다. 문자와 카카오톡은 하나의 선택값을 공유한다. 근거: [Figma 수신 동의 노드](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design), 제공된 편집 상태 캡처 및 `src/components/features/mypage/MyPageProfile.tsx` 확인(2026-10-20).
+- 회원정보의 마케팅 정보 수신 동의 요약은 모바일 `heading7` 제목과 `body4` 세 행으로 구성한다. 제목·행 목록은 24px, 행끼리는 16px을 띄우고 각 행의 상태를 오른쪽 정렬한다. 편집 상태도 이메일·모바일 쿠폰북·문자/카카오톡 전송매체 세 행으로 표시하며, 각 행은 왼쪽 항목명과 오른쪽 `수신`/`수신안함` 라디오를 가로 배치한다. 문자와 카카오톡은 하나의 선택값을 공유한다. 근거: [Figma 수신 동의 노드](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=789-24649&m=dev), 제공된 편집 상태 캡처 및 `src/components/features/mypage/MyPageProfile.tsx` 확인(2026-10-20).
 - 회원정보의 섹션 사이 1px 경계선은 `borderTop` 대신 Panda `Divider`(`orientation="horizontal"`, `bg="black.20"`)로 표시한다. 선 뒤 16·24·20px 간격은 각각 바깥 `Stack`의 `gap`으로 유지한다. 근거: `src/components/features/mypage/MyPageProfile.tsx` 작업 트리 확인(2026-10-15).
-- 회원정보 하단 보기 상태는 마케팅 동의 요약, 결혼유무, 안내문과 `회원정보 수정` 버튼으로 구성한다. 편집 상태는 마케팅 동의 편집 뒤 구분선, `부가정보`의 결혼유무 라디오, 48px 취소·변경사항 저장 버튼과 회원탈퇴 안내/링크 순서로 배치한다. 라디오에서 버튼까지 24px, 저장 버튼에서 탈퇴 안내까지 40px을 두며 보기/편집의 결혼유무 값은 같은 상태를 사용한다. 근거: [Figma 회원정보 수정 노드](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design), 제공된 보기/수정 캡처 및 `src/components/features/mypage/MyPageProfile.tsx` 확인(2026-10-20).
+- 회원정보 하단 보기 상태는 마케팅 동의 요약, 결혼유무, 안내문과 `회원정보 수정` 버튼으로 구성한다. 편집 상태는 마케팅 동의 편집 뒤 구분선, `부가정보`의 결혼유무 라디오, 48px 취소·변경사항 저장 버튼과 회원탈퇴 안내/링크 순서로 배치한다. 라디오에서 버튼까지 24px, 저장 버튼에서 탈퇴 안내까지 40px을 두며 보기/편집의 결혼유무 값은 같은 상태를 사용한다. 근거: [Figma 회원정보 수정 노드](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=789-25505&m=dev), 제공된 보기/수정 캡처 및 `src/components/features/mypage/MyPageProfile.tsx` 확인(2026-10-20).
 - `MyPageReviews`의 작성 완료 목록은 읽기 전용 `RatingStars`를 본문 위에 표시한다. 초기 데모 리뷰는 4.5점으로 보여주고, 작성·수정 후에는 화면 내부 상태에 저장한 별점과 본문을 표시한다. 입력용 `RatingInput`은 모달에서 그대로 사용한다. 근거: `src/components/features/mypage/MyPageReviews.tsx`와 `src/components/common/atoms/RatingStars/RatingStars.tsx` 작업 트리 확인(2026-10-15).
 - 이 여덟 화면의 타이포는 Figma의 12·14·16·20·22px 역할을 기존 Typography variant로 표현한다. 날짜·숫자는 영문 서체, 뒤따르는 한국어 단위·라벨은 한국어 서체를 각 Typography에 명시해 한 줄에서도 언어별 굵기와 자간을 유지한다. 여백과 정렬은 Box·Stack·HStack이 담당한다.
 - `MyPageRewards`는 모바일 Figma 화면에서 결정한 Typography 값을 `mo`에 지정한다. `variant`로 두 플랫폼에 동일한 값을 적용하지 않는다. 영문·숫자만 있는 콘텐츠는 기본 `language="auto"`가 영문 변형을 고르므로 `language="en"`을 반복하지 않는다. 근거: `src/components/features/mypage/MyPageRewards.tsx`와 Typography의 언어 변형 결정 로직 작업 트리 확인(2026-10-15).
 - `MyPageRewards`의 등급 카드에서 `--tier-color`는 카드 배경과 검은 원 안 이니셜 글자색에 함께 적용한다. ELITE·ADVANCED·RUNNER는 각각 Figma color foundation의 `blue.100`·`citrus.100`·`offWhite.100` 토큰을 변수에 연결한다. 근거: `src/components/features/mypage/MyPageRewards.tsx`, `panda.config.ts` 및 생성 CSS 확인(2026-10-15).
 - 등급 혜택과 회원 공통 혜택의 순번은 `ol`의 CSS 마커 대신 `map`의 인덱스를 `Typography`로 출력한다. 주항목과 순번은 모바일 `body4`(14px), 보조 설명은 `body5`(12px)를 쓰며 설명 불릿도 텍스트로 표시한다. 목록의 의미 구조는 `ol`·`li`로 유지한다. 근거: `src/components/features/mypage/MyPageRewards.tsx` 작업 트리 확인(2026-10-15).
 - 등급 혜택 상세와 문의 등록 유의사항의 불릿은 `li`의 `HStack` 안에서 `・` 기호와 본문 `Typography`를 별도 요소로 둔다. 긴 설명이 다음 줄로 넘어가도 본문 시작선에 정렬되며, 두 목록은 각각 기존 모바일 `body5` 및 웹 `body4`·모바일 `body5` 값을 유지한다. 근거: `src/components/features/mypage/MyPageRewards.tsx`, `src/components/features/support/InquiryCautions.tsx` 작업 트리와 사용자 지정 모범 사례 확인(2026-10-19).
-- 회원 공통 혜택은 Figma 시안의 343px 폭·1px 외곽선·가로 16px/세로 24px 안쪽 여백을 따른다. 제목은 모바일 `heading6`(20px), 네 묶음 제목은 `heading7`(16px), 번호 문장은 `body4`(14px), 쿠폰 조건은 `body5`(12px)와 원형 불릿으로 구분한다. 제목과 목록·묶음 간격은 20px, 묶음 제목과 항목 간격은 12px, 번호 항목 간격은 8px다. 근거: [Figma 공통 혜택 노드](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design) 화면·세부 속성 및 `src/components/features/mypage/MyPageRewards.tsx` 작업 트리 확인(2026-10-15).
-- 쿠폰 목록의 탭과 결과 목록·결과 목록과 더보기 버튼은 각각 24px 간격을 둔다. 총 개수와 첫 카드 사이 8px, 카드끼리는 16px이다. 카드 안은 제목과 금액 사이 24px, 금액과 조건 사이 12px, 조건과 사용 기간 사이 4px을 둔다. 근거: [Figma 쿠폰 목록 노드](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design) 및 `src/components/common/organisms/MyPage/CouponManager.tsx` 작업 트리 확인(2026-10-15).
-- `EmployeeCoupons`는 쿠폰 등록과 쿠폰 내역 사이에 50%·30% 발급 안내 두 건을 나란히 표시한다. 각 항목은 `black.10` 배경, 16px 안쪽 여백, 8px 간격과 18px Font Awesome Regular `faCircleCheck` 아이콘을 사용한다. 펼침 상태나 추가 쿠폰 목록은 두지 않는다. 근거: [Figma 임직원 쿠폰 노드](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design), `src/components/common/organisms/MyPage/EmployeeCoupons.tsx` 작업 트리 확인(2026-10-20).
+- 회원 공통 혜택은 Figma 노드 `714:22146`의 343px 폭·1px 외곽선·가로 16px/세로 24px 안쪽 여백을 따른다. 제목은 모바일 `heading6`(20px), 네 묶음 제목은 `heading7`(16px), 번호 문장은 `body4`(14px), 쿠폰 조건은 `body5`(12px)와 원형 불릿으로 구분한다. 제목과 목록·묶음 간격은 20px, 묶음 제목과 항목 간격은 12px, 번호 항목 간격은 8px다. 근거: [Figma 공통 혜택 노드](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=714-22146&m=dev) 화면·세부 속성 및 `src/components/features/mypage/MyPageRewards.tsx` 작업 트리 확인(2026-10-15).
+- 쿠폰 목록의 탭과 결과 목록·결과 목록과 더보기 버튼은 각각 24px 간격을 둔다. 총 개수와 첫 카드 사이 8px, 카드끼리는 16px이다. 카드 안은 제목과 금액 사이 24px, 금액과 조건 사이 12px, 조건과 사용 기간 사이 4px을 둔다. 근거: [Figma 쿠폰 목록 노드](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=753-18722&m=dev) 및 `src/components/common/organisms/MyPage/CouponManager.tsx` 작업 트리 확인(2026-10-15).
+- `EmployeeCoupons`는 쿠폰 등록과 쿠폰 내역 사이에 50%·30% 발급 안내 두 건을 나란히 표시한다. 각 항목은 `black.10` 배경, 16px 안쪽 여백, 8px 간격과 18px Font Awesome Regular `faCircleCheck` 아이콘을 사용한다. 펼침 상태나 추가 쿠폰 목록은 두지 않는다. 근거: [Figma 임직원 쿠폰 노드](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=764-19062&m=dev), `src/components/common/organisms/MyPage/EmployeeCoupons.tsx` 작업 트리 확인(2026-10-20).
 - `SegmentedControl variant="underline"`는 리뷰·쿠폰의 동일한 전체 폭 밑줄 탭 표현을 소유한다. 옵션 수에 관계없이 버튼을 균등하게 배치하고 선택 항목에 검은 하단선을 표시한다. 기존 기본 버튼형과 `unstyled` 확장 API는 유지한다.
 
 `styled-system/`과 `src/styles/panda.css`는 생성 결과이며 Git에서 제외한다. 생성 CSS를 직접 수정하지 않고 TSX나 Panda 설정을 바꾼 뒤 `npm run panda`를 실행한다.
@@ -2641,7 +2647,7 @@ Base UI 1.8.0 전체 package exports를 재확인했다. Dialog는 account-locke
 
 ## 러닝세션 모바일 디자인 (2026-10-15)
 
-사용자가 제공한 모바일 이미지 8장을 기준으로 구현했다. Figma 시안는 재인증 오류로 읽지 못했으며 사용자가 첨부 이미지 기반 구현을 명시적으로 선택했다. 기존 세션 목 데이터와 PC의 4열 목록·2열 상세·추천 상품 영역을 유지한다. 모바일 목록 스토리는 3개 세션을 제공하며 실제 페이지는 전달된 전체 세션을 표시한다. 공통 헤더·푸터의 기존 아이콘·사업자 문구 등은 이번 작업 범위에서 변경하지 않는다.
+사용자가 제공한 모바일 이미지 8장을 기준으로 구현했다. Figma 4064:6604·6687·6728·6836·6947·7062는 재인증 오류로 읽지 못했으며 사용자가 첨부 이미지 기반 구현을 명시적으로 선택했다. 기존 세션 목 데이터와 PC의 4열 목록·2열 상세·추천 상품 영역을 유지한다. 모바일 목록 스토리는 3개 세션을 제공하며 실제 페이지는 전달된 전체 세션을 표시한다. 공통 헤더·푸터의 기존 아이콘·사업자 문구 등은 이번 작업 범위에서 변경하지 않는다.
 
 모바일 목록은 16px 제목 여백, 필터·신청내역 링크의 같은 행 배치, 화면 너비의 정사각형 이미지, 20px 카테고리 배지, 이미지 아래 제목·일정으로 구성한다. 카드 자세히 보기 버튼은 모바일에서 숨기고 이미지 링크로 상세에 진입한다. 빈 목록은 340px 높이의 중앙 상태 문구와 추가 하단 여백 없는 구성을 사용한다. 상세는 이미지→세션 정보→안내 사항→회색 세션 안내 영역 순서다. 모바일에서 PC 추천 상품과 이미지 영역 placeholder를 숨긴다.
 
@@ -2868,7 +2874,7 @@ AGENTS.md의 Styling rules는 반복 mt/marginTop이 같은 형제 간격을 나
 
 ## 공통 Breadcrumb (2026-10-20)
 
-`Breadcrumb`는 Figma 시안의 모바일 고객센터 경로를 기준으로 24px 높이 행, 항목 간 4px, 구분 아이콘과 다음 글자 간 8px을 Panda HStack props로 표현한다. 구분 아이콘은 공통 `chevron-right`를 13px로 표시하고 `#777`을 적용한다. 글자는 공통 body4(14px), 마지막 항목은 tertiary 색을 사용한다. 링크 hover와 `aria-current`는 유지하며 고객센터 조합을 Storybook에 추가했다. 출처는 `src/components/common/molecules/Breadcrumb/Breadcrumb.tsx`, `src/stories/components/common/molecules/Breadcrumb/Breadcrumb.stories.tsx`, Figma 시안이다.
+`Breadcrumb`는 Figma `1241:78730`의 모바일 고객센터 경로를 기준으로 24px 높이 행, 항목 간 4px, 구분 아이콘과 다음 글자 간 8px을 Panda HStack props로 표현한다. 구분 아이콘은 공통 `chevron-right`를 13px로 표시하고 `#777`을 적용한다. 글자는 공통 body4(14px), 마지막 항목은 tertiary 색을 사용한다. 링크 hover와 `aria-current`는 유지하며 고객센터 조합을 Storybook에 추가했다. 출처는 `src/components/common/molecules/Breadcrumb/Breadcrumb.tsx`, `src/stories/components/common/molecules/Breadcrumb/Breadcrumb.stories.tsx`, Figma `1241:78730`이다.
 
 검증: 변경 TSX ESLint·Prettier, Panda 생성, Storybook 빌드 통과. 전체 TypeScript 검사는 기존 `.next/types/app/`의 다른 페이지 props 오류로 실패했으며 Breadcrumb 관련 오류는 보고되지 않았다.
 
@@ -2882,7 +2888,7 @@ Font Awesome 아이콘 카탈로그는 `triangle-exclamation`, Regular `circle-c
 
 ## 최근 검색 Timer 아이콘 (2026-10-20)
 
-최근 검색 기록은 Figma 시안의 `Timer` 벡터를 `public/images/icon/timer.svg`로 저장하고 공통 `Icon` 이름 `timer`로 등록한다. `RecentSearchItem`은 이를 16px로 표시하며 Icon의 전체 SVG 스토리 카탈로그에 포함한다. 출처는 위 Figma 노드와 `src/icons/iconAssets.ts`, `src/components/common/organisms/Search/RecentSearchItem.tsx`, `src/stories/components/common/atoms/Icon/Icon.stories.tsx`다.
+최근 검색 기록은 Figma `901:31346`의 `Timer` 벡터를 `public/images/icon/timer.svg`로 저장하고 공통 `Icon` 이름 `timer`로 등록한다. `RecentSearchItem`은 이를 16px로 표시하며 Icon의 전체 SVG 스토리 카탈로그에 포함한다. 출처는 위 Figma 노드와 `src/icons/iconAssets.ts`, `src/components/common/organisms/Search/RecentSearchItem.tsx`, `src/stories/components/common/atoms/Icon/Icon.stories.tsx`다.
 
 `RecentSearchItem`은 `Flex as="li"`의 JSX props로 기존 수평 정렬과 8px 간격을 표현한다. IconButton은 Panda JSX 스타일 props를 받지 않으므로 모바일에서 삭제 버튼을 오른쪽으로 미는 `ml: auto`는 기존 Panda `css` class로 유지한다. 검색·삭제 콜백과 목록 항목의 HTML 의미는 그대로 둔다.
 
@@ -2926,9 +2932,9 @@ SearchForm의 검색 오류 안내는 Typography `tone="error"`로 지정해 오
 
 검증(Codex, 2026-10-26): Panda 생성·변경 TSX ESLint·Prettier·Next.js 프로덕션 빌드(내장 타입 검사 포함)를 통과했다. 이번 시각 점검은 375px 모바일 검색 결과와 상품 목록 고정 탐색을 대상으로 했으며 PC·768px·빈 결과의 추가 브라우저 점검은 완료하지 않았다. React 변경은 표현 props와 배치만 바꾸며 새 상태·이벤트·의존성을 추가하지 않았다.
 
-SearchListingLayout의 결과 없음 상태를 Figma 시안(PC)와(모바일)에 맞춘다. 안내 두 문장은 PC에서 Body3 16px, 모바일에서 Body4 14px이며 모두 regular·text secondary(`#4d4d4d`, `subtle`)를 사용한다. 문장 사이에 별도 간격을 두지 않고 연속된 두 줄로 표시한다. PC 표시 영역의 최소 높이는 470px, 모바일은 상하 96px 패딩으로 구성한다. 기존 검색 결과 제목·필터·상품 목록 동작은 이 변경에 포함하지 않는다.
+SearchListingLayout의 결과 없음 상태를 Figma `906:8115`(PC)와 `773:42681`(모바일)에 맞춘다. 안내 두 문장은 PC에서 Body3 16px, 모바일에서 Body4 14px이며 모두 regular·text secondary(`#4d4d4d`, `subtle`)를 사용한다. 문장 사이에 별도 간격을 두지 않고 연속된 두 줄로 표시한다. PC 표시 영역의 최소 높이는 470px, 모바일은 상하 96px 패딩으로 구성한다. 기존 검색 결과 제목·필터·상품 목록 동작은 이 변경에 포함하지 않는다.
 
-출처는 Figma 시안과 작업 트리의 `src/components/features/catalog/product-listing/SearchListingLayout.tsx`다. 시안 값은 해당 노드의 디자인 문맥으로 확인했다.
+출처는 Figma `906:8115`, `773:42681`과 작업 트리의 `src/components/features/catalog/product-listing/SearchListingLayout.tsx`다. 시안 값은 해당 노드의 디자인 문맥으로 확인했다.
 
 ## 인기 검색어 섹션 분리 (2026-10-21)
 
@@ -2950,9 +2956,9 @@ SearchKeywordButton은 공통 ButtonLink의 `plain` variant로 `/search?q=…&sc
 
 ## 주문서 기본 배송지 정보 라벨과 타이포 (2026-11-02)
 
-Figma 모바일 주문/결제의 기본 배송지 정보에 맞춰 읽기 전용 행을 `받는분`, `연락처`, `다른연락처`, `주소` 순서로 표시한다. 라벨은 Body3 16px, 값은 Body4 14px medium이며 82px 라벨 폭과 8px 열 간격을 사용한다. `savedAddress.otherPhone`은 선택 표시값이고 값이 있을 때만 행을 표시한다. 주소 변경 액션과 직접 입력 폼은 유지한다. 읽기 전용 표현으로 바뀌어도 배송지 id·이름·연락처·주소 등의 FormData 값을 hidden input으로 제출한다. API나 주문 처리 동작은 변경하지 않았다.
+Figma 모바일 주문/결제의 기본 배송지 정보(`1985:77563`)에 맞춰 읽기 전용 행을 `받는분`, `연락처`, `다른연락처`, `주소` 순서로 표시한다. 라벨은 Body3 16px, 값은 Body4 14px medium이며 82px 라벨 폭과 8px 열 간격을 사용한다. `savedAddress.otherPhone`은 선택 표시값이고 값이 있을 때만 행을 표시한다. 주소 변경 액션과 직접 입력 폼은 유지한다. 읽기 전용 표현으로 바뀌어도 배송지 id·이름·연락처·주소 등의 FormData 값을 hidden input으로 제출한다. API나 주문 처리 동작은 변경하지 않았다.
 
-출처: [Figma 기본 배송지 정보](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)와 작업 트리의 `src/app/checkout/_components/CheckoutShipping.tsx`, `src/context/CheckoutContext.ts`, binding stories다. Prettier, Storybook production build, `npm run okf:check`, `git diff --check`는 통과했다. 전체 타입 검사는 기존 `.next` 생성 라우트 참조 오류로 실패했고, ESLint는 환경에서 `eslint-plugin-perfectionist`를 찾지 못해 실행되지 않았다. 브라우저 시각 확인은 수행하지 않았다.
+출처: [Figma 기본 배송지 정보](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1985-77535)와 작업 트리의 `src/app/checkout/_components/CheckoutShipping.tsx`, `src/context/CheckoutContext.ts`, binding stories다. Prettier, Storybook production build, `npm run okf:check`, `git diff --check`는 통과했다. 전체 타입 검사는 기존 `.next` 생성 라우트 참조 오류로 실패했고, ESLint는 환경에서 `eslint-plugin-perfectionist`를 찾지 못해 실행되지 않았다. 브라우저 시각 확인은 수행하지 않았다.
 
 ## 장바구니·주문 결제 첨부 시안 보완 (2026-10-19)
 
@@ -2966,15 +2972,15 @@ CheckoutShipping과 CheckoutPayment는 배송지 직접 입력, 주소 찾기, �
 
 ## 회원 정보 아이디 입력과 이메일 분리 (2026-10-26)
 
-Figma 시안의 회원 정보 입력에서 첫 번째 이메일 계정 필드는 아이디와 아이디 중복확인으로 변경됐다. 아이디는 영문 소문자로 시작하고 영문·숫자·밑줄을 포함해 5~20자로 검증한다. 연락 이메일 주소·도메인·도메인 선택은 주소 입력 뒤에 별도 필드로 유지하고 이메일 중복확인 버튼은 제거했다. ID 중복확인은 현재 형식 확인만 제공하며 실제 사용 가능 여부 조회는 서비스 연결이 필요하다. PC와 Mobile 모두 같은 순서와 규격을 사용하며 Storybook에 기본·오류·입력 흐름 사례가 있다.
+Figma `957:36970`의 회원 정보 입력에서 첫 번째 이메일 계정 필드는 아이디와 아이디 중복확인으로 변경됐다. 아이디는 영문 소문자로 시작하고 영문·숫자·밑줄을 포함해 5~20자로 검증한다. 연락 이메일 주소·도메인·도메인 선택은 주소 입력 뒤에 별도 필드로 유지하고 이메일 중복확인 버튼은 제거했다. ID 중복확인은 현재 형식 확인만 제공하며 실제 사용 가능 여부 조회는 서비스 연결이 필요하다. PC와 Mobile 모두 같은 순서와 규격을 사용하며 Storybook에 기본·오류·입력 흐름 사례가 있다.
 
-출처는 Figma 시안 및 위 working_tree_sources의 회원가입 폼·검증·스토리 파일이다.
+출처는 Figma `957:36970`, `957:36971`, `957:37020`, `957:37111`, `957:37162` 및 위 working_tree_sources의 회원가입 폼·검증·스토리 파일이다.
 
 ## 회원가입 부가정보 수신 동의 갱신 (2026-10-26)
 
-Figma 시안(Mobile),(Desktop)에 맞춰 부가정보에서 결혼유무와 모바일 쿠폰북 수신 항목을 제거했다. 마케팅 수신 동의는 이메일, 문자수신(LMS, SMS), 카카오톡 알림톡 수신의 세 항목으로 구성하고, 기존에 한 행에 묶여 있던 문자와 카카오톡을 독립된 동의 값으로 분리했다. 제목 아래에는 검은색 1px 구분선을 추가하고, 항목 아래의 옅은 선은 유지한다. 가입 완료 전 동의 확인 모달과 Storybook 기본 상태도 같은 세 항목을 표시한다. PC와 모바일의 행 레이아웃은 각 Figma 프레임에 맞춰 기존 반응형 PreferenceField 조합을 유지한다.
+Figma `957:37050`(Mobile), `957:37212`(Desktop)에 맞춰 부가정보에서 결혼유무와 모바일 쿠폰북 수신 항목을 제거했다. 마케팅 수신 동의는 이메일, 문자수신(LMS, SMS), 카카오톡 알림톡 수신의 세 항목으로 구성하고, 기존에 한 행에 묶여 있던 문자와 카카오톡을 독립된 동의 값으로 분리했다. 제목 아래에는 검은색 1px 구분선을 추가하고, 항목 아래의 옅은 선은 유지한다. 가입 완료 전 동의 확인 모달과 Storybook 기본 상태도 같은 세 항목을 표시한다. PC와 모바일의 행 레이아웃은 각 Figma 프레임에 맞춰 기존 반응형 PreferenceField 조합을 유지한다.
 
-출처는 Figma 시안 및 위 working_tree_sources의 회원가입 부가정보·동의 모달·스토리 파일이다. Figma Desktop/Mobile 프레임과 Storybook production build 및 타입 검사를 확인했다.
+출처는 Figma `957:37050`, `957:37212` 및 위 working_tree_sources의 회원가입 부가정보·동의 모달·스토리 파일이다. Figma Desktop/Mobile 프레임과 Storybook production build 및 타입 검사를 확인했다.
 
 ## 회원가입 첨부 시안 대조 (2026-10-19)
 
@@ -3138,7 +3144,7 @@ CustomerCenterLayout의 바깥 main·Breadcrumb 영역·중앙 본문을 layouts
 
 PC·모바일 공지 목록의 각 행은 `/support/notices/[id]` 링크로 이동하며, 두 화면 모두 Accordion을 사용하지 않는다. 행은 PC 74px·모바일 58px이고 아래에 `black.20` 1px 선을 둔다. 상세 제목과 날짜는 세로로 배치하고 상단선은 PC 2px·모바일 1px, 본문 구분선은 `black.20` 1px이다. 목록보기는 PC 180px·모바일 전체 너비, 48px 높이로 표시한다. 공지 상세 본문 예시는 유지하고, Accordion에서만 쓰던 `NoticeContent`는 제거했다. 화면 확인용 공지 목록 fixture의 두 번째 제목은 두 줄 표시를 점검하는 긴 예시 문구다.
 
-출처는 작업 트리의 `src/components/features/notices/NoticesPage.tsx`, `NoticesList.tsx`, `NoticeDetailPage.tsx`, `notices.data.ts` 및 `src/stories/features/support/SupportPages.scenarios.tsx`, `SupportPages.NoticeDetail.Web.stories.tsx`와 Figma 시안이다.
+출처는 작업 트리의 `src/components/features/notices/NoticesPage.tsx`, `NoticesList.tsx`, `NoticeDetailPage.tsx`, `notices.data.ts` 및 `src/stories/features/support/SupportPages.scenarios.tsx`, `SupportPages.NoticeDetail.Web.stories.tsx`와 Figma 노드 `1241:82607`, `1241:82530`, `1241:82660`, `1574:34894`다.
 
 문의 읽기 파일 목록/선택은 InquiryReadAttachments, 공통 SingleActionDialog·Carousel 조합은 InquiryAttachmentPreview가 소유한다. CareInstructions는 ContentSection 기본 제목을 사용하고 TermsDocument는 선택된 시행일을, TermsDateSelect는 Popover 열림/닫힘과 Radio 선택 후 닫기를 소유한다. 문의 form/업로드 유효성 검사는 그대로 유지한다. 기능 내부 상태를 구분하는 추출이며 새 공용 atom이나 Base UI 의존성을 추가하지 않는다. 출처와 실제 검증 범위는 연결한 기록의 working_tree_sources와 검증 항목을 따른다.
 
@@ -3275,9 +3281,9 @@ CheckoutForm으로 검증·쿠폰 열림/할인·동의 상태와 form 이벤트
 
 ## 결제 주소 입력 비활성 상태 정정 (2026-10-27)
 
-Figma 시안과 사용자 정정에 따라 주소 찾기 버튼은 활성 상태로 복구하고 우편번호·주소 입력은 비활성화한다. 상세주소는 우편번호와 주소가 모두 입력된 뒤 활성화한다. 공통 AddressFields에 추가했던 검색 비활성 prop을 제거해 불필요한 API 확장을 되돌렸다. disabled 필드가 FormData에서 빠지는 동작은 hidden 우편번호·주소 필드로 보존한다.
+Figma `1159:43128`와 사용자 정정에 따라 주소 찾기 버튼은 활성 상태로 복구하고 우편번호·주소 입력은 비활성화한다. 상세주소는 우편번호와 주소가 모두 입력된 뒤 활성화한다. 공통 AddressFields에 추가했던 검색 비활성 prop을 제거해 불필요한 API 확장을 되돌렸다. disabled 필드가 FormData에서 빠지는 동작은 hidden 우편번호·주소 필드로 보존한다.
 
-출처는 `CheckoutAddressFields.tsx`, `AddressFields.tsx`, Figma `qyXJp4bnoeYSQxQULV8Wql` 노드이다. 상세주소의 활성화 조건은 controlled 우편번호·주소 상태를 사용한다. 이번 수정은 스타일 코드를 변경하지 않는다. 2026-10-28에 `npm run okf:check`, 변경 파일 ESLint와 `git diff --check`를 통과했다. 브라우저 확인은 하지 않았다.
+출처는 `CheckoutAddressFields.tsx`, `AddressFields.tsx`, Figma `qyXJp4bnoeYSQxQULV8Wql` 노드 `1159:43128`이다. 상세주소의 활성화 조건은 controlled 우편번호·주소 상태를 사용한다. 이번 수정은 스타일 코드를 변경하지 않는다. 2026-10-28에 `npm run okf:check`, 변경 파일 ESLint와 `git diff --check`를 통과했다. 브라우저 확인은 하지 않았다.
 
 ## 모바일 상품목록 디자인 보정과 설계서 대조 (2026-10-21)
 
@@ -3363,13 +3369,13 @@ HeaderCartLink에서 NotificationIcon의 bag variant와 검정색을 명시했�
 
 ## 1:1 문의 등록 상세 시안 반영 (2026-10-23)
 
-Figma 모바일·PC 시안에 맞춰 등록 제목을 `1:1 문의등록`으로 통일한다. 제목은 PC heading6(36px)·모바일 heading5(22px), 설명은 body3(16px)이며 PC black.100·모바일 black.60(`#4d4d4d`)이다. 제목/설명 간격은 PC 12px·모바일 16px, 설명과 첫 정보 영역 사이 간격은 PC 40px·모바일 24px로 둔다. 문의 유형·내용 입력과 다른 공통 컴포넌트는 변경하지 않는다.
+Figma `1241:92705`(모바일), `1241:92753`(PC)에 맞춰 등록 제목을 `1:1 문의등록`으로 통일한다. 제목은 PC heading6(36px)·모바일 heading5(22px), 설명은 body3(16px)이며 PC black.100·모바일 black.60(`#4d4d4d`)이다. 제목/설명 간격은 PC 12px·모바일 16px, 설명과 첫 정보 영역 사이 간격은 PC 40px·모바일 24px로 둔다. 문의 유형·내용 입력과 다른 공통 컴포넌트는 변경하지 않는다.
 
 신청인 정보는 muted(`#f7f7f9`) 패널에 PC 좌우 32px·상하 24px, 모바일 좌우 16px·상하 20px 여백을 둔다. PC는 라벨·값 그룹 사이 88px, 행 간격 12px이며 모바일은 82px 라벨 열, 열 간격 8px·행 간격 12px이다. 라벨은 PC·모바일 body3(16px) regular subtle(`#4d4d4d`), 값은 PC body3(16px)·모바일 body4(14px) medium black이다. PC 라벨은 `E-mail`, 모바일은 `이메일`로 표기한다. 문의 유형과 상세 유형은 처음에 선택값 없이 각각 `문의 분류를 선택해주세요`, `상세 유형을 선택해주세요`를 보여준다. 두 필드는 필수로 유지하며, 등록 시 미선택이면 해당 Dropdown 아래에 항목별 오류 문구와 오류 테두리를 표시한다. Storybook에는 모바일·데스크톱 초기 상태, 필수 오류 상태와 필수 입력·첨부 오류가 함께 보이는 상태를 둔다.
 
 첨부 섹션 제목은 PC heading8(22px black)·모바일 16px semibold이며, 제목과 안내 사이에는 16px 간격을 둔다. 기본 안내는 body5(12px) tertiary(`#777`) 두 줄로 `JPG, JPEG, PNG 파일만 첨부할 수 있습니다.`와 `최대 5개까지 첨부 가능하며, 파일당 용량은 10MB 이하입니다.`를 사용한다. 안내와 Validation은 파일찾기 버튼 바로 아래 8px 간격으로 묶으며, 오류 문구는 body5(12px) error(`#a60000`)로 표시한다. 실제 파일 선택과 오류 검사도 JPG/JPEG/PNG만 허용하며, 최대 5개·파일당 10MB 제한을 유지한다. 형식 오류는 `첨부할 수 없는 파일 형식입니다.`, 개수 초과는 `파일은 최대 5개까지 첨부할 수 있습니다.`, 용량 초과는 `첨부파일은 10MB 이하로 첨부해주세요.`를 각각 노출한다. `InquiryNew/Mobile`·`InquiryNew/Web`의 별도 스토리 모듈에 필수 입력 오류, 전체 Validation 오류와 첨부 형식·용량·개수 오류를 각각 export한다. 업로드 API는 추가하지 않는다.
 
-출처는 작업 트리의 `InquiryNewPage`, `InquiryAttachments`, `InquiryAttachmentHelp`와 Figma 시안, 오류 기획 노드이다.
+출처는 작업 트리의 `InquiryNewPage`, `InquiryAttachments`, `InquiryAttachmentHelp`와 Figma 노드 `1241:92705`, `1241:92753`, 오류 기획 노드 `1241:92895`, `1241:92822`이다.
 
 ## 수량 배지 Circle 조합 (2026-10-22)
 
@@ -3400,13 +3406,13 @@ MenuDrawerFrame의 Drawer.Viewport에 platform-mobile 클래스를 지정해 bod
 이번에는 `InquiryPage`, `InquiryCautions`, `InquiryListItem`, `InquiryQuestion`, `InquiryAnswer`, `InquiryReadAttachments`, `InquiryNewPage`, `Divider`에 역할 주석을 적용했다. 페이지 구성 지점에는 `InquiryPage`의 유의사항, `InquiryListItem`의 첨부/답변, `InquiryNewPage`의 입력 영역과 액션을 한·영 JSX 주석으로 설명했다. 출처는 `AGENTS.md`와 해당 작업 트리 TSX 파일이다.
 
 `InquiryPage`에서 `<InquiryCautions />`를 배치하는 위치와 `InquiryListItem` 안의 첨부파일·답변 렌더링 위치에 요청에 따라 사용 지점 주석을 추가했다. 문의가 답변되었는지에 따라 첨부파일 목록이 렌더링되는 두 위치를 모두 설명하고, 답변 컴포넌트에는 답변 내용임을 표시한다.
-출처는 작업 트리의 `src/components/features/support/InquiryPage.tsx`, `InquiryEmptyState.tsx`, `InquiryCautions.tsx`와 Figma 시안이다.
+출처는 작업 트리의 `src/components/features/support/InquiryPage.tsx`, `InquiryEmptyState.tsx`, `InquiryCautions.tsx`와 Figma 노드 `1241:92230`, `1241:92543`이다.
 
 ## 라운드 배지 디자인 시스템 반영 (2026-10-23)
 
-Figma 디자인 시스템의 라운드 배지를 기본 `Badge`로 반영했다. 형태는 `shape="round"`, 표면은 `variant="filled" | "line"`, 글자색은 `tone="primary" | "tertiary"`로 표현한다. 채움형은 black.20 배경, 라인형은 tertiary border, 텍스트는 bodyKr5(12px)이며 14px 고정 줄상자와 -0.02em 자간을 사용한다. `AddressList`의 기본 배송지 배지를 채움형 tertiary 텍스트로 갱신하고, `InquiryQuestion`의 접수완료·답변완료 표시도 각각 line/primary와 filled/tertiary 조합으로 공통화했다. 스토리에서 결제완료·배송완료·구매확정 세 조합을 확인할 수 있게 했다. square 형태는 추후 추가를 위해 미구현 상태로 남겼다.
+Figma 디자인 시스템 `505:2314`의 라운드 배지를 기본 `Badge`로 반영했다. 형태는 `shape="round"`, 표면은 `variant="filled" | "line"`, 글자색은 `tone="primary" | "tertiary"`로 표현한다. 채움형은 black.20 배경, 라인형은 tertiary border, 텍스트는 bodyKr5(12px)이며 14px 고정 줄상자와 -0.02em 자간을 사용한다. `AddressList`의 기본 배송지 배지를 채움형 tertiary 텍스트로 갱신하고, `InquiryQuestion`의 접수완료·답변완료 표시도 각각 line/primary와 filled/tertiary 조합으로 공통화했다. 스토리에서 결제완료·배송완료·구매확정 세 조합을 확인할 수 있게 했다. square 형태는 추후 추가를 위해 미구현 상태로 남겼다.
 
-프로모션용 `PromotionBadge`는 상품의 브랜드 라벨과 구분선 표현이라 변경하지 않았다. 출처는 Figma 시안, `Badge.tsx`, `BadgeLaunchStatus.tsx`, `AddressList.tsx`, `Badge.stories.tsx`다.
+프로모션용 `PromotionBadge`는 상품의 브랜드 라벨과 구분선 표현이라 변경하지 않았다. 출처는 Figma 노드 `505:2314`, `Badge.tsx`, `BadgeLaunchStatus.tsx`, `AddressList.tsx`, `Badge.stories.tsx`다.
 
 ## 모바일 장바구니 시안 적용 (2026-10-23)
 
@@ -3479,13 +3485,13 @@ ModalDialog의 headerProps/footerProps는 css 스타일을 전달하고 각 영�
 
 ## 라운드 배지 디자인 시스템 반영 (2026-10-23)
 
-Figma 디자인 시스템의 라운드 배지를 기본 `Badge`로 반영했다. 형태는 `shape="round"`, 표면은 `variant="filled" | "line"`, 글자색은 `tone="primary" | "tertiary"`로 표현한다. 채움형은 black.20 배경, 라인형은 tertiary border, 텍스트는 bodyKr5(12px)이며 14px 고정 줄상자와 -0.02em 자간을 사용한다. `AddressList`의 기본 배송지 배지를 채움형 tertiary 텍스트로 갱신하고, `InquiryQuestion`의 접수완료·답변완료 표시도 각각 line/primary와 filled/tertiary 조합으로 공통화했다. 스토리에서 결제완료·배송완료·구매확정 세 조합을 확인할 수 있게 했다. square 형태는 추후 추가를 위해 미구현 상태로 남겼다.
+Figma 디자인 시스템 `505:2314`의 라운드 배지를 기본 `Badge`로 반영했다. 형태는 `shape="round"`, 표면은 `variant="filled" | "line"`, 글자색은 `tone="primary" | "tertiary"`로 표현한다. 채움형은 black.20 배경, 라인형은 tertiary border, 텍스트는 bodyKr5(12px)이며 14px 고정 줄상자와 -0.02em 자간을 사용한다. `AddressList`의 기본 배송지 배지를 채움형 tertiary 텍스트로 갱신하고, `InquiryQuestion`의 접수완료·답변완료 표시도 각각 line/primary와 filled/tertiary 조합으로 공통화했다. 스토리에서 결제완료·배송완료·구매확정 세 조합을 확인할 수 있게 했다. square 형태는 추후 추가를 위해 미구현 상태로 남겼다.
 
-프로모션용 `PromotionBadge`는 상품의 브랜드 라벨과 구분선 표현이라 변경하지 않았다. 출처는 Figma 시안, `Badge.tsx`, `BadgeLaunchStatus.tsx`, `AddressList.tsx`, `Badge.stories.tsx`다.
+프로모션용 `PromotionBadge`는 상품의 브랜드 라벨과 구분선 표현이라 변경하지 않았다. 출처는 Figma 노드 `505:2314`, `Badge.tsx`, `BadgeLaunchStatus.tsx`, `AddressList.tsx`, `Badge.stories.tsx`다.
 
 ## 계정 잠금 해제 인증 화면과 로그인 스토리 분류 (2026-10-23)
 
-Figma 시안(Mobile)·(Desktop)의 계정 잠금 해제 인증 화면에 적용했던 약관 구성을 회원가입 휴대폰 인증에도 공유한다. 제목 아래 검은 1px 구분선과 16px 여백, 약관 행 사이 16px 간격, 약관 목록 뒤 옅은 구분선을 두며 구분선부터 인증 정보 제목까지 간격은 24px이다. 가입 화면 Figma 시안(Mobile)·(Desktop)도 같은 규격을 사용한다. 제목은 웹·모바일 모두 16px semibold, 항목 및 자세히 보기 텍스트는 14px이며 기존 약관 선택·오류 상태를 유지한다. 잠금 해제 안내문은 시안 문구로 갱신했다.
+Figma `957:29749`(Mobile)·`957:30226`(Desktop)의 계정 잠금 해제 인증 화면에 적용했던 약관 구성을 회원가입 휴대폰 인증에도 공유한다. 제목 아래 검은 1px 구분선과 16px 여백, 약관 행 사이 16px 간격, 약관 목록 뒤 옅은 구분선을 두며 구분선부터 인증 정보 제목까지 간격은 24px이다. 가입 화면 Figma `957:36467`(Mobile)·`957:36723`(Desktop)도 같은 규격을 사용한다. 제목은 웹·모바일 모두 16px semibold, 항목 및 자세히 보기 텍스트는 14px이며 기존 약관 선택·오류 상태를 유지한다. 잠금 해제 안내문은 시안 문구로 갱신했다.
 
 Storybook의 계정 흐름은 `5. 계정 잠금 안내` → `6. 계정 잠금 해제 인증` → `7. 계정 잠금 해제 완료` 순으로 표시한다. 인증 사례는 회원가입 휴대폰 인증 목록에서 분리해 로그인 아래에 배치했다. 출처는 Figma의 계정 잠금 해제·가입 휴대폰 인증 웹/모바일 노드와 `PhoneVerificationPage`, `PhoneVerificationContent`, `PhoneVerificationAgreements`, 관련 Storybook 모듈이다. 타입 검사·변경 파일 ESLint·Panda 생성·Storybook production build를 통과했다.
 
@@ -3495,13 +3501,13 @@ Storybook의 계정 흐름은 `5. 계정 잠금 안내` → `6. 계정 잠금 �
 
 ## 공통 FilterTabs line 디자인 시스템 규격 (2026-10-26)
 
-Figma 디자인 시스템(Mobile)·(Web)의 line 탭을 공통 `FilterTabs` variant로 구현한다. 각 탭은 동일 너비로 나뉘며 기본 하단선은 black.40(#B3B3B3) 1px, 선택선은 black.100 2px이다. 웹 탭 높이는 42px, 모바일은 32px이며 한글 BodyKr3(16px, medium)를 사용한다. 선택된 line 라벨은 검정(primary) 글자색을 사용하며 variant·선택 상태 스타일은 하나의 Panda style object로 합성해 색상 우선순위 충돌을 방지한다. 2개·3개 탭 스토리로 폭 균등 분배와 반응형 높이를 확인한다. 출처는 Figma 디자인 시스템 노드와 `FilterTabs.tsx`, 해당 Storybook 스토리다.
+Figma 디자인 시스템 `360:42125`(Mobile)·`1261:3529`(Web)의 line 탭을 공통 `FilterTabs` variant로 구현한다. 각 탭은 동일 너비로 나뉘며 기본 하단선은 black.40(#B3B3B3) 1px, 선택선은 black.100 2px이다. 웹 탭 높이는 42px, 모바일은 32px이며 한글 BodyKr3(16px, medium)를 사용한다. 선택된 line 라벨은 검정(primary) 글자색을 사용하며 variant·선택 상태 스타일은 하나의 Panda style object로 합성해 색상 우선순위 충돌을 방지한다. 2개·3개 탭 스토리로 폭 균등 분배와 반응형 높이를 확인한다. 출처는 Figma 디자인 시스템 노드와 `FilterTabs.tsx`, 해당 Storybook 스토리다.
 
 ## 1:1 문의 주문상품 조회 및 선택 (2026-10-26)
 
 주문/결제·주문/배송·반품 분류를 선택하면 문의 폼의 두 분류 드롭다운 바로 아래에 주문상품 선택 버튼을 표시한다. Figma 화면에는 `상품정보*` 라벨이 없으므로 추가하지 않는다. 버튼은 PC 180px 폭·오른쪽 정렬, 모바일 전체 폭이며 안내 문구는 PC 오른쪽·모바일 왼쪽 정렬이다. 버튼은 `/support/inquiries/new/order-products` 전용 페이지로 이동한다. 페이지는 `CustomerCenterLayout` 안에서 기간 탭, 주문 목록, 주문별 상품 체크박스, 취소·문의 등록 액션을 표시한다. 조회 기간은 공통 `FilterTabs`의 `fill` variant를 사용하며 미선택은 회색 pill, 선택은 검정 pill로 표시한다. 모바일 버튼 좌우 패딩은 8px로 조정해 다섯 탭을 읽기 쉽게 유지하고, rail inset은 소비처에서 상쇄해 본문 텍스트와 탭 시작·끝을 정렬한다. 조회 결과는 선택 주문과 상품만 문의 작성 화면으로 돌려보내며 브라우저 `sessionStorage`를 통해 이동 중 초안을 전달한다. 일반 레이아웃은 Panda JSX 컴포넌트 props로 표현한다. 스타일 시스템 props를 받을 수 없는 네이티브 요소와 선택자·반응형 조합은 필요한 경우에만 이름 있는 Panda 스타일 상수로 선언한다. `FilterTabs`, `Radio`, `Checkbox`, `Button`을 기능 내부에서 조합하며 공통 컴포넌트 API는 바꾸지 않는다. 조회 기간은 1년(기본)·6개월·3개월·1개월·직접 설정이고 목업 주문 13건을 기간에 따라 필터링한다. 한 주문번호 선택 시 해당 주문 상품을 모두 선택하고 개별 체크 해제/재선택을 허용한다. 선택 완료 후 폼에 주문일·주문번호·상품코드를 표시하며 변경/초기화가 가능하다. 필수 주문 선택이 누락된 상태로 등록하면 기존 `SingleActionDialog`에서 안내한다.
 
-조회 데이터는 `inquiryOrders.data.ts`의 화면 확인용 fixture이며 서버 조회·문의 저장·선택 날짜 API는 연결되어 있지 않다. 기간과 직접 설정 범위는 fixture를 필터링한다. Storybook Web/Mobile에 문의 폼 진입 버튼과 주문상품 조회 독립 페이지 사례를 추가했다. 신규 공통 컴포넌트는 만들지 않았다. 출처는 사용자 제공 Figma 시안, 첨부 기획 캡처와 작업 트리의 `InquiryNewPage`, `InquiryCategoryFields`, `InquiryOrderProducts`, `InquiryOrderLookupPage`, 선택 전달 helper, 주문 fixture 및 문의 Storybook 시나리오다.
+조회 데이터는 `inquiryOrders.data.ts`의 화면 확인용 fixture이며 서버 조회·문의 저장·선택 날짜 API는 연결되어 있지 않다. 기간과 직접 설정 범위는 fixture를 필터링한다. Storybook Web/Mobile에 문의 폼 진입 버튼과 주문상품 조회 독립 페이지 사례를 추가했다. 신규 공통 컴포넌트는 만들지 않았다. 출처는 사용자 제공 Figma `1241:92947`, `93018`, `93295`, `93422`, `93577`, `93733`, `93104`, `93188`, `92216`, `92523`, 첨부 기획 캡처와 작업 트리의 `InquiryNewPage`, `InquiryCategoryFields`, `InquiryOrderProducts`, `InquiryOrderLookupPage`, 선택 전달 helper, 주문 fixture 및 문의 Storybook 시나리오다.
 
 ## 모바일 주문 흐름과 신청 화면 (2026-10-23)
 
@@ -3547,7 +3553,7 @@ FilterTabs는 기존 소비자 간격을 유지하며 optional railClassName 슬
 
 ## 장바구니 체크와 상품 액션 간격 보정 (2026-10-27)
 
-Figma 시안의 모바일 카드 기준으로 체크박스와 X 삭제 버튼을 absolute 배치에서 상단 flex 행으로 옮기고 양끝 정렬했다. OrderProductSummary의 모바일 이미지 슬롯은 96×96px, 이미지와 정보 사이 간격은 16px이다. 텍스트는 성별·상품명 사이 2px, 각 정보 줄 사이 4px 간격을 두며 CartItemRow 액션은 위쪽 6px 간격과 아래쪽 8px 여백을 둔다. 현재 Wishlist 라벨은 body5로 표시한다. 전체 선택/선택 가능 상품과 품절 판정은 기존 CartPage·`isCartItemSoldOut` 계산을 그대로 사용하며, 선택 삭제는 선택 행이 있을 때, 품절 삭제는 품절 행이 있을 때 활성화한다. 상품 선택/삭제 콜백은 바꾸지 않는다.
+Figma `962:8877`·`1338:40335`의 모바일 카드 기준으로 체크박스와 X 삭제 버튼을 absolute 배치에서 상단 flex 행으로 옮기고 양끝 정렬했다. OrderProductSummary의 모바일 이미지 슬롯은 96×96px, 이미지와 정보 사이 간격은 16px이다. 텍스트는 성별·상품명 사이 2px, 각 정보 줄 사이 4px 간격을 두며 CartItemRow 액션은 위쪽 6px 간격과 아래쪽 8px 여백을 둔다. 현재 Wishlist 라벨은 body5로 표시한다. 전체 선택/선택 가능 상품과 품절 판정은 기존 CartPage·`isCartItemSoldOut` 계산을 그대로 사용하며, 선택 삭제는 선택 행이 있을 때, 품절 삭제는 품절 행이 있을 때 활성화한다. 상품 선택/삭제 콜백은 바꾸지 않는다.
 
 출처는 위 working_tree_sources의 CartItemRow, Wishlist, CartSelectionBar, CartProductSection과 Figma 노드다. Chrome에서 localhost 장바구니를 375px 모바일 뷰로 열어 상단 체크박스·X 양끝 정렬과 본문 순서를 시각 확인했다. 삭제 동작과 데스크톱 화면은 이번 확인 범위가 아니다.
 
@@ -3958,7 +3964,7 @@ Typography 가이드 코드에도 Button 가이드와 같은 태그·속성·문
 
 ## 툴팁·토글팁 공통 사용 기준 (2026-10-30)
 
-Figma의 [사용 기준](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0)과 [네 방향 컴포넌트](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0)를 기준으로 `HelpTooltip`은 짧은 보조 설명에, `HelpToggletip`은 제목·설명과 선택적 확인 액션을 담는 도움말에 사용한다. 둘 다 상·하·좌·우 방향과 i/? 안내 아이콘을 지원하며 포털에서 렌더링한다. Figma의 흰 `color/bg/secondary` 배경은 프로젝트의 `surface.default`를 사용한다. 로그인 아이디 저장 안내는 현재 `HelpToggletip`으로 제목과 설명을 표시한다. 서비스 API 연결에는 변화가 없다.
+Figma의 [사용 기준](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=274-7275&m=dev)과 [네 방향 컴포넌트](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=342-38101&m=dev)를 기준으로 `HelpTooltip`은 짧은 보조 설명에, `HelpToggletip`은 제목·설명과 선택적 확인 액션을 담는 도움말에 사용한다. 둘 다 상·하·좌·우 방향과 i/? 안내 아이콘을 지원하며 포털에서 렌더링한다. Figma의 흰 `color/bg/secondary` 배경은 프로젝트의 `surface.default`를 사용한다. 로그인 아이디 저장 안내는 현재 `HelpToggletip`으로 제목과 설명을 표시한다. 서비스 API 연결에는 변화가 없다.
 
 말풍선의 그림자를 한 번 적용하고 화살표를 본체에 1px 겹친다. 토글팁 본체 너비는 상·하단 192px, 좌·우측 164px이다. 좌·우측 화살표 이미지는 회전 후 영역의 가운데에 둔다. 현재 소스에서 좌·우측 화살표의 렌더링 영역은 8×17px이다. 퍼블리싱 가이드의 별도 탭에는 사용 기준, 두 유형의 네 방향 예시, 코드 복사와 타임라인을 제공한다. 타임라인 앵커는 사이트 헤더 높이 + 16px의 스크롤 여백을 사용한다. 출처는 `HelpTips.tsx`, `HelpTipsGuide.tsx`, 로그인 `LoginContent.tsx`, 가이드 `page.tsx`와 위 Figma 노드 및 SVG 세 개다.
 
@@ -4068,7 +4074,7 @@ STATE 행의 구분 상태·화면 코드 -·PC/MO 상태 - 셀도 같은 화면
 
 ## 회원등급 시안 적용 (2026-10-30)
 
-디자인 출처: [회원등급 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design), PC, MO의 구조·스타일을 확인했다. 디자인 시스템 파일 `0dCBZJvU7aacxImQTV843M` 접근도 확인했으며 화면별 override를 우선했다.
+디자인 출처: [회원등급 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1563-33124), PC `1563:33480`, MO `1643:17449`의 구조·스타일을 확인했다. 디자인 시스템 파일 `0dCBZJvU7aacxImQTV843M` 접근도 확인했으며 화면별 override를 우선했다.
 
 - 공통 프레임의 PC 844px 본문을 유지한다. 상단 RUNNER 36px/900, PC 배지 63×72px, 등급 안내 28px/900, PC 등급 행의 56px gap·40px 세로 패딩을 적용했다.
 - 배지는 ELITE 원형 `#009DFF`, ADVANCED 오각형 `#E1FF04`, RUNNER 육각형 `#E8EDF3` 바탕에 검정 이니셜이다. PC ELITE/ADVANCED 너비 72px, MO 48px, MO RUNNER 42×48px이다. MO 등급명은 22px/900이다.
@@ -4082,7 +4088,7 @@ STATE 행의 구분 상태·화면 코드 -·PC/MO 상태 - 셀도 같은 화면
 
 ## 관심상품 Figma 적용 (2026-10-30)
 
-출처: [관심상품 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 PC 목록·빈 목록, MO 목록·빈 목록. `MyPageProductHistory`의 wishlist 분기에만 제목·그리드·빈 상태·안내문을 적용한다. `/mypage/wishlist`와 `/mypage/wishlist/preview-empty`, IA 182 연결과 기존 histories 바인딩·최근 본 상품/재입고 기본값은 유지한다.
+출처: [관심상품 섹션 1978:74225](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1978-74225)의 PC 목록 1978:75855·빈 목록 1978:78699, MO 목록 1978:74226·빈 목록 1978:74245. `MyPageProductHistory`의 wishlist 분기에만 제목·그리드·빈 상태·안내문을 적용한다. `/mypage/wishlist`와 `/mypage/wishlist/preview-empty`, IA 182 연결과 기존 histories 바인딩·최근 본 상품/재입고 기본값은 유지한다.
 
 - PC: 본문 844px, H6 36px/900·하단 40px/2px 선, 제목 다음 32px, 이미지 260px 3열·좌우 16px·가로 16px/세로 48px.
 - MO: H5 22px/900·좌우 16px, 카드 영역 전체 폭 2열·가로 8px/세로 40px. 375px viewport에서 이미지 183.5px. 안내문은 12px·상단 16px/1px 선이며 목록에서는 32px 뒤에 표시하고 MO 빈 목록에서는 숨긴다.
@@ -4096,7 +4102,7 @@ STATE 행의 구분 상태·화면 코드 -·PC/MO 상태 - 셀도 같은 화면
 
 ## 재입고 알림 Figma 화면 적용 (2026-10-30)
 
-출처: [재입고 알림 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design). PC 목록, PC 빈 상태, 모바일 목록, 모바일 빈 상태를 기준으로 한다. 작업 트리 출처는 `src/components/mypage/MyPageProductHistory.tsx`, `src/context/MyPageDataContext.ts`, `src/stories/features/mypage/MyPage.RestockAlerts.Web.stories.tsx`, `src/app/screen-index/screenConnections.ts`다.
+출처: [재입고 알림 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2025-152235). PC 목록 `2043:58313`, PC 빈 상태 `2063:70550`, 모바일 목록 `2025:152236`, 모바일 빈 상태 `2025:152259`를 기준으로 한다. 작업 트리 출처는 `src/components/mypage/MyPageProductHistory.tsx`, `src/context/MyPageDataContext.ts`, `src/stories/features/mypage/MyPage.RestockAlerts.Web.stories.tsx`, `src/app/screen-index/screenConnections.ts`다.
 
 - 기존 `MyPageFrame`의 844px 본문을 유지하고 재입고 분기에서 제목 PC 36px/MO 22px, 표 열 544/150/150px, 헤더 상단 2px·하단 1px, 행 padding PC 32px/MO 24px, 이미지 PC 96px/MO 64px를 적용했다.
 - PC 미연결 목록은 Men's / Speedgoat 7 GTX, 2026.10.31, 알림대기·발송완료다. MO는 클리프톤 9, 2026.05.22, 두 행 모두 알림대기로 시안 차이를 `restockPreview`에 명시한다. 실제 연결 항목에는 fixture 이름·날짜·상태를 섞지 않는다.
@@ -4105,7 +4111,7 @@ STATE 행의 구분 상태·화면 코드 -·PC/MO 상태 - 셀도 같은 화면
 
 ## 배송지 관리 Figma 적용 (2026-10-30)
 
-디자인 출처: [배송지 관리 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design). MO 목록·빈 목록·추가·수정, PC 목록·빈 목록·추가·수정를 구조·스타일로 확인했다. 디자인 시스템 파일의 접근도 별도로 확인했다. PC 수정 프레임은 원본 프레임명에 '추가'가 있지만 실제 본문 '배송지 수정'과 채워진 입력 상태를 기준으로 연결했다.
+디자인 출처: [배송지 관리 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1978-60309). MO 목록 `1978:60310`·빈 목록 `1978:60415`·추가 `1978:60351`·수정 `1978:60374`, PC 목록 `1978:61923`·빈 목록 `1978:62651`·추가 `1978:63058`·수정 `1978:73542`를 구조·스타일로 확인했다. 디자인 시스템 파일의 접근도 별도로 확인했다. PC 수정 프레임은 원본 프레임명에 '추가'가 있지만 실제 본문 '배송지 수정'과 채워진 입력 상태를 기준으로 연결했다.
 
 - 기존 MyPageFrame의 PC 844px 본문과 MO 좌우 16px을 재사용하며 배송지 내부의 중복 패딩을 제거했다. PC 제목은 목록/빈 목록 '회원정보', 편집 '배송지 추가/수정', 36px/900과 아래 40px 여백·2px 검정 선이다. MO는 목록 제목을 감추고 폼 제목 22px/900을 표시한다.
 - PC 목록은 배송지명 22px/900·이름/내용 32px 간격, 전화번호와 한 줄 우편번호/주소는 16px이다. 오른쪽 40px 높이의 수정/삭제 버튼과 가운데 180×48px 추가 버튼을 사용한다. MO 배송지명은 20px/600, 정보는 14px, 우편번호/주소와 관리 링크를 세로로 배치한다. 기본 배송지 배지는 사각 테두리와 2px 반경, PC 14px/MO 12px이다.
@@ -4123,7 +4129,7 @@ STATE 행의 구분 상태·화면 코드 -·PC/MO 상태 - 셀도 같은 화면
 
 ## 회원정보 조회·수정 Figma 적용 (2026-10-30)
 
-디자인 출처는 [회원정보 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)이며 PC 조회·수정, 모바일 조회·수정을 읽었다. 기본 URL `/mypage/profile`과 고정 수정 `/mypage/profile/preview-edit`에 적용했다.
+디자인 출처는 [회원정보 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1813-89280)이며 PC 조회 1813:90122·수정 1837:93659, 모바일 조회 1813:89281·수정 1813:89337을 읽었다. 기본 URL `/mypage/profile`과 고정 수정 `/mypage/profile/preview-edit`에 적용했다.
 
 - 기존 MyPageFrame의 PC 844px 본문을 재사용한다. 조회는 178px 라벨 열과 48px 행 간격, 모바일은 라벨/값 12px·항목 24px 간격이다. 제목은 Pretendard PC 36px/900·모바일 22px/900이고 수신 동의 제목은 PC 22px/900·모바일 16px/600이다.
 - 수정은 286px 기본정보·58px 간격·500px 폼의 PC 2열, 모바일 1열이다. 공통 AddressFields에 detailLayout='columns'를 추가해 PC 주소/상세주소를 2열로 표시하며 기본 stack의 기존 DOM·배치는 유지한다. 취소/저장은 PC 각 180px·48px 높이·8px 간격, 모바일은 가용 폭을 사용한다.
@@ -4151,7 +4157,7 @@ STATE 행의 구분 상태·화면 코드 -·PC/MO 상태 - 셀도 같은 화면
 
 ## 쿠폰 Figma 적용 (2026-10-30)
 
-디자인 출처는 [쿠폰 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 MO 일반·임직원, PC 일반·임직원 시안 및 등록 완료 모달 시안이다. 본문과 카드 하위 노드를 읽고 MO 프레임 이미지도 확인했다. 구현 출처는 위 working_tree_sources의 쿠폰 구현·스토리와 사용자 제공 SVG다.
+디자인 출처는 [쿠폰 섹션 1716:80655](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1716-80655)의 MO 일반 1716:80656·임직원 1716:80770, PC 일반 1716:81489·임직원 1813:88657 및 등록 완료 모달 1716:80896이다. 본문과 카드 하위 노드를 읽고 MO 프레임 이미지도 확인했다. 구현 출처는 위 working_tree_sources의 쿠폰 구현·스토리와 사용자 제공 SVG다.
 
 - 기존 MyPageFrame의 PC 844px 본문·MO 좌우 16px를 재사용하고 중복 패딩을 제거했다. 등록 제목은 PC 36px/900·MO 22px/900, 내역 제목은 PC 28px/900·MO 22px/900이다. 등록/내역 간격은 PC 56px·MO 40px다.
 - 등록 영역은 PC #F7F7F9·상하 32px·입력 필드 590px·버튼 180×48px, MO 투명 배경·가용 폭 입력/48px 버튼이다. 등록 버튼은 빈 입력에서도 표시한다. 설명은 PC에서 두 줄로 나누고 MO에서는 자연스럽게 줄바꿈한다.
@@ -4179,7 +4185,7 @@ ProductCard와 MyPageProductHistory의 스타일 객체·타입·인계 주석 �
 
 ## 주문서 금액 요약과 쿠폰 선택 Figma 반영 (2026-11-02)
 
-Figma [PC](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)와 [모바일](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 최신 금액 요약을 반영했다. 기존 주문금액/상품 할인 행과 보유 쿠폰 조회 모달을 상품가격·쿠폰할인 행, 요약 내 쿠폰 Dropdown, 배송비, 강조된 총 결제금액 순서로 바꿨다. 할인액은 준비된 표시값을 사용하며 쿠폰 선택은 로컬 UI로 동작한다. 이 기록 뒤 주문서 제출/쿠폰 요청 연결을 제거했으며 최신 경계는 [주문서 퍼블리싱 마크업 경량화](#주문서-퍼블리싱-마크업-경량화-2026-11-02)를 따른다. 모바일/PC 레이아웃과 안내문 위치는 주문서 Grid/상위 sticky 요약 구성을 따른다.
+Figma [PC 1985:79978](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1985-79978)와 [모바일 1985:77535](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1985-77535)의 최신 금액 요약을 반영했다. 기존 주문금액/상품 할인 행과 보유 쿠폰 조회 모달을 상품가격·쿠폰할인 행, 요약 내 쿠폰 Dropdown, 배송비, 강조된 총 결제금액 순서로 바꿨다. 할인액은 준비된 표시값을 사용하며 쿠폰 선택은 로컬 UI로 동작한다. 이 기록 뒤 주문서 제출/쿠폰 요청 연결을 제거했으며 최신 경계는 [주문서 퍼블리싱 마크업 경량화](#주문서-퍼블리싱-마크업-경량화-2026-11-02)를 따른다. 모바일/PC 레이아웃과 안내문 위치는 주문서 Grid/상위 sticky 요약 구성을 따른다.
 
 작업 트리 출처: `src/app/checkout/_components/CheckoutDiscountSummary.tsx`, `CheckoutForm.tsx`, `CheckoutStatePreview.tsx`, `src/context/CheckoutContext.ts`, `src/stories/features/checkout/CheckoutPage.scenarios.tsx`, `src/stories/features/binding/DesignBinding.stories.tsx`. 브라우저 시각 확인·Storybook 실행·전체 타입 검사는 하지 않았다. `git diff --check` 및 OKF 검사를 수행한다.
 
@@ -4197,7 +4203,7 @@ Figma [PC](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)와 
 
 ## 주문완료 PC·모바일 시안 반영 (2026-11-02)
 
-디자인 출처는 [PC 주문완료](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)과 [모바일 주문완료](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)다. 두 시안에 맞춰 페이지 제목과 완료 체크 아이콘을 제거했다. 감사 문구는 20px medium, 설명은 14px이며 PC는 500px 영역과 180×48px CTA, 모바일은 가용 너비와 100% CTA를 쓴다. 모바일 CTA는 ButtonLink의 `fullWidth`로 바깥 링크와 내부 배경 프레임을 함께 늘리고 PC 너비 180px은 유지한다. 문구-CTA 간격은 32px, 완료 영역-추천상품 간격은 PC 96px·모바일 64px이다. 주문완료에서만 `OrderRecommendations`의 checkout 레이아웃을 선택해 추천 제목을 PC 36px·모바일 20px로, 카드를 PC 342.4×428.6px·5열/16px 간격, 모바일 151×189px/10px 간격으로 맞췄다. 카드 정보는 PC 16px·모바일 14px이다. 장바구니의 compact·portrait 표현은 유지한다.
+디자인 출처는 [PC 주문완료 2033:157150](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2033-157150)과 [모바일 주문완료 2033:155834](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2033-155834)다. 두 시안에 맞춰 페이지 제목과 완료 체크 아이콘을 제거했다. 감사 문구는 20px medium, 설명은 14px이며 PC는 500px 영역과 180×48px CTA, 모바일은 가용 너비와 100% CTA를 쓴다. 모바일 CTA는 ButtonLink의 `fullWidth`로 바깥 링크와 내부 배경 프레임을 함께 늘리고 PC 너비 180px은 유지한다. 문구-CTA 간격은 32px, 완료 영역-추천상품 간격은 PC 96px·모바일 64px이다. 주문완료에서만 `OrderRecommendations`의 checkout 레이아웃을 선택해 추천 제목을 PC 36px·모바일 20px로, 카드를 PC 342.4×428.6px·5열/16px 간격, 모바일 151×189px/10px 간격으로 맞췄다. 카드 정보는 PC 16px·모바일 14px이다. 장바구니의 compact·portrait 표현은 유지한다.
 
 작업 트리 출처: `src/app/checkout/_components/CheckoutComplete.tsx`, `CheckoutLayout.tsx`, `src/components/orders/OrderPageLayout.tsx`, `src/components/common/organisms/OrderRecommendations.tsx`. 추천 fixture와 요청/주문 데이터 연결은 변경하지 않았다. Panda CSS 생성, Prettier, `npm run okf:check`, `git diff --check`는 통과했다. TypeScript는 변경 파일 오류 없이 기존 `.next/types`의 누락 라우트와 상품 목록 PageProps 오류로 실패했다. ESLint는 환경에 `eslint-plugin-perfectionist`가 없어 실행되지 않았다. 연결된 브라우저 자동화가 시작되지 않고 로컬 서버도 요청 시점에 응답하지 않아 시각 캡처는 확인하지 못했다.
 
@@ -4249,7 +4255,7 @@ Storybook의 완료 제출/쿠폰 요청 재시도 사례를 제거하고 PC·�
 
 ## 상품상세 옵션 입고 알림 (2026-11-03)
 
-출처: [상품상세 Side Panel](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP), 사이즈 영역·품절 옵션 시안, 첨부 코멘트의 호버·선택·CTA 전환 요구. 기존 상품상세의 `ProductDetailContent`와 공통 `ProductSizeSelector` → `SizeSelector`를 재사용한다.
+출처: [상품상세 Side Panel 3773:5339](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP?node-id=3773-5339), 사이즈 영역 `3773:5401`·품절 옵션 `3773:5423/5427`, 첨부 코멘트의 호버·선택·CTA 전환 요구. 기존 상품상세의 `ProductDetailContent`와 공통 `ProductSizeSelector` → `SizeSelector`를 재사용한다.
 
 - 공통 선택기의 `allowSoldOutSelection` 기본값은 false다. 상품상세에서만 true로 전달해 품절 사이즈를 알림 대상으로 선택한다. 장바구니 등 다른 소비자의 disabled 의미는 유지한다. 미제공 사이즈는 계속 선택할 수 없다.
 - 품절 옵션은 #E9EAEB 배경·#B3B3B3 글자·14px 종 아이콘·4px 간격, hover/선택은 검정 1px 테두리다. Figma 관측 높이는 36px지만 기존 상세 옵션의 40px·5열·8px 간격을 유지해 별도 옵션 높이 개편으로 확대하지 않았다. 버튼은 기존 48px PC/40px MO를 재사용한다.
@@ -4289,11 +4295,11 @@ Storybook의 완료 제출/쿠폰 요청 재시도 사례를 제거하고 PC·�
 
 ## 주문 카드 PC·모바일 상태별 마크업 (2026-11-03)
 
-Figma [모바일 주문/배송조회](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)와 [PC 주문/배송조회](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 주문 카드를 기준으로 표시를 정리했다. 상태·도착 예정일은 상품별 표시 상태에 따라 묶고, 결제완료·상품준비중·배송완료·구매확정 및 취소·반품 상품을 각각 표시한다. 상태 글자는 PC 16px·모바일 14px이고 두 환경 모두 `red80` 톤이며 옵션 글자는 공통 상품 요약의 `optionTone="subtle"`을 사용한다. 각 정상 상품에는 14px 장바구니 SVG와 `장바구니 담기`를 표시한다. 주문 취소·배송 조회·환불 신청·구매 확정·리뷰 작성하기는 상태별 버튼으로 표현하며 새 요청·계산·완료 전환은 연결하지 않았다. `OrderProductSummary`의 기존 사용처는 `optionTone` 기본값으로 이전 색상을 유지한다.
+Figma [모바일 주문/배송조회 2059:162544](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2059-162544)와 [PC 주문/배송조회 2121:9281](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2121-9281)의 주문 카드를 기준으로 표시를 정리했다. 상태·도착 예정일은 상품별 표시 상태에 따라 묶고, 결제완료·상품준비중·배송완료·구매확정 및 취소·반품 상품을 각각 표시한다. 상태 글자는 PC 16px·모바일 14px이고 두 환경 모두 `red80` 톤이며 옵션 글자는 공통 상품 요약의 `optionTone="subtle"`을 사용한다. 각 정상 상품에는 14px 장바구니 SVG와 `장바구니 담기`를 표시한다. 주문 취소·배송 조회·환불 신청·구매 확정·리뷰 작성하기는 상태별 버튼으로 표현하며 새 요청·계산·완료 전환은 연결하지 않았다. `OrderProductSummary`의 기존 사용처는 `optionTone` 기본값으로 이전 색상을 유지한다.
 
 출처: 위 Figma 노드와 `src/app/mypage/orders/_components/OrdersProducts.tsx`, `src/components/common/molecules/OrderProductSummary.tsx`, `public/images/icon/orders/bag-shopping.svg`. 로컬 HTTP 응답에서 상태별 문구와 장바구니 액션 6개를 확인했다. Panda CSS 생성·변경 파일 Prettier는 통과했다. 전체 TypeScript는 기존 `.next/types` 라우트 참조 오류로 실패했고 ESLint는 설치된 `eslint-plugin-perfectionist`를 찾지 못했다. 이 시점에는 브라우저 시각 확인을 수행하지 못했다.
 
-PC 시안 재대조에서 목록 상단의 상품/옵션정보·수량·가격 3열 헤더, 536:108:200 열 비율, 첫 상태 행 안의 주문일자·주문번호, 상품 이미지 96px와 본문 16px, 그룹 상하 32px 간격을 반영했다. PC 상품 옵션에는 수량을 중복 기재하지 않고 별도 수량 열에 표시한다. 모바일은 기존 헤더·상품 옵션 구성을 유지한다. 로컬 PC 1280px과 모바일 390px 화면을 Ego 브라우저에서 확인했고 모바일 가로 넘침은 없었다. Figma와 fixture 금액은 서로 달라 표시 데이터 값은 변경하지 않았다.
+PC `2121:9281` 재대조에서 목록 상단의 상품/옵션정보·수량·가격 3열 헤더, 536:108:200 열 비율, 첫 상태 행 안의 주문일자·주문번호, 상품 이미지 96px와 본문 16px, 그룹 상하 32px 간격을 반영했다. PC 상품 옵션에는 수량을 중복 기재하지 않고 별도 수량 열에 표시한다. 모바일은 기존 헤더·상품 옵션 구성을 유지한다. 로컬 PC 1280px과 모바일 390px 화면을 Ego 브라우저에서 확인했고 모바일 가로 넘침은 없었다. Figma와 fixture 금액은 서로 달라 표시 데이터 값은 변경하지 않았다.
 
 상품별 `장바구니 담기`는 공통 `Button`의 `plain` 변형을 사용하며 PC는 `md`(14px), 모바일은 `sm`(12px) 크기다.
 
@@ -4311,7 +4317,7 @@ PC 시안 재대조에서 목록 상단의 상품/옵션정보·수량·가격 3
 
 ### 취소·반품 상세 변경 시안 (2026-11-03)
 
-Figma 시안의 본문을 대조했다. PC는 상품/옵션정보·수량·가격·진행상태 4열이고, 모바일 완료 상태는 96px 상품 이미지 높이 안의 오른쪽 아래 일반 텍스트다. 취소 상세에는 환불완료일이 없다. PC 취소사유는 별도 2행(단순변심과 긴 본문), PC 반품은 환불사유 제목 아래 취소사유/단순변심 1행, 모바일은 취소 사유 제목 아래 짧은 설명이다. 반품 회수 정보는 `claim.collection`, 환불수단은 `claim.refundMethod`에서 읽는다. 시안별 날짜·금액·상태는 `claim.previewDisplay`로 명시하며 실제 환불 계산·요청은 수행하지 않는다.
+Figma `2182:71235`, `2182:71570`, `2203:74539`, `2203:75405`의 본문을 대조했다. PC는 상품/옵션정보·수량·가격·진행상태 4열이고, 모바일 완료 상태는 96px 상품 이미지 높이 안의 오른쪽 아래 일반 텍스트다. 취소 상세에는 환불완료일이 없다. PC 취소사유는 별도 2행(단순변심과 긴 본문), PC 반품은 환불사유 제목 아래 취소사유/단순변심 1행, 모바일은 취소 사유 제목 아래 짧은 설명이다. 반품 회수 정보는 `claim.collection`, 환불수단은 `claim.refundMethod`에서 읽는다. 시안별 날짜·금액·상태는 `claim.previewDisplay`로 명시하며 실제 환불 계산·요청은 수행하지 않는다.
 
 PC 환불안내는 375px 오른쪽 합계 패널과 왼쪽 상품금액·배송비·반품비, 모바일은 세로 금액 목록과 무료반품 쿠폰 문구를 표시한다. 시안의 PC 반품 상태는 ‘취소완료’, 모바일은 ‘환불완료’로 서로 다르며 표시 fixture는 이 원문을 보존한다. ‘결제예정금액’도 PC 시안 원문이다. 모바일 제목 위 24px, 섹션 간 24px, 목록 버튼 아래 64px를 적용했다. 공용 홍보 배너·footer는 변경하지 않았다.
 
@@ -4319,17 +4325,17 @@ Ego 브라우저에서 취소·반품 각각 1920px PC와 375px 모바일의 실
 
 ### 취소·반품 상세 주문 식별 헤더 타이포 (2026-11-03)
 
-첨부 이미지와 기존 Figma 시안에 맞춰 PC는 Pretendard 16px/500, 라벨 #4d4d4d·값 #000, 라벨/값 간격 8px와 양끝 정렬로 표시한다. 모바일은 14px, 주문일·주문 #000/500, 주문번호 라벨·값 #777/400이며 숫자는 HOKA 폰트다. 모바일 항목 내부 간격 4px와 가운데 8px 구분점을 사용한다. 출처: 사용자 첨부 이미지, 기존 Figma 문맥, `OrderDetails.tsx` 작업 트리.
+첨부 이미지와 기존 Figma `2189:74486`, `2182:71242`에 맞춰 PC는 Pretendard 16px/500, 라벨 #4d4d4d·값 #000, 라벨/값 간격 8px와 양끝 정렬로 표시한다. 모바일은 14px, 주문일·주문 #000/500, 주문번호 라벨·값 #777/400이며 숫자는 HOKA 폰트다. 모바일 항목 내부 간격 4px와 가운데 8px 구분점을 사용한다. 출처: 사용자 첨부 이미지, 기존 Figma 문맥, `OrderDetails.tsx` 작업 트리.
 
 ### 배송조회 PC 팝업 크기 (2026-11-03)
 
-Figma 시안의 팝업 시안 기준으로 `OrderTrackingDialog` PC 창을 420px에서 568px(`ModalDialog.size=md`)로 수정하고 높이 804px, 헤더 56px를 지정했다. 기존 최대 높이 `100dvh - 48px`와 본문 스크롤, 모바일 Drawer는 유지한다. `/mypage/orders/preview-tracking` URL과 닫기 동작 소유권은 그대로다. 출처: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design 및 `src/app/mypage/orders/_components/OrderTrackingDialog.tsx` 작업 트리. 이번 범위는 창 크기이며 내부 텍스트·표 스타일은 별도다.
+Figma `2121:63862`의 팝업 `2121:64323` 기준으로 `OrderTrackingDialog` PC 창을 420px에서 568px(`ModalDialog.size=md`)로 수정하고 높이 804px, 헤더 56px를 지정했다. 기존 최대 높이 `100dvh - 48px`와 본문 스크롤, 모바일 Drawer는 유지한다. `/mypage/orders/preview-tracking` URL과 닫기 동작 소유권은 그대로다. 출처: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2121-63862 및 `src/app/mypage/orders/_components/OrderTrackingDialog.tsx` 작업 트리. 이번 범위는 창 크기이며 내부 텍스트·표 스타일은 별도다.
 
 ### 주문 취소 신청 진입 연결 (2026-11-03)
 
 주문 목록의 결제완료 그룹 `주문 취소` 버튼은 `OrderCardActions.onCancel(order)`를 통해 `OrdersPage`가 소유한 `cancelId`를 설정한다. 선택한 주문을 `OrderCancelRequest`에 전달하며 닫으면 원래 목록을 유지한다. `/mypage/orders/preview-cancel-request`는 기존 클레임 상세가 아닌 동일 신청 팝업을 바로 연다. 반품 신청 경로와 상세 화면은 이번 변경 범위 밖이다. screen-index IA 178의 기존 신청 링크를 유지하고 source graph를 재생성했다.
 
-Figma PC, 모바일을 기준으로 568px PC 모달·모바일 하단 팝업에 상품 체크, 수량, 사유, 상세내용, 고정 금액을 배치했다. 입력은 로컬 초안이며 실제 취소 요청·금액 계산·완료 이동은 미연결이다. 데이터는 전달된 `order.items`를 사용한다. 출처: `OrdersPage.tsx`, `OrdersProducts.tsx`, `OrderClaimRequest.tsx`, `orders/[preview]/page.tsx` 작업 트리 및 사용자 Figma 섹션`.
+Figma PC `2203:77591`, 모바일 `2203:76651`을 기준으로 568px PC 모달·모바일 하단 팝업에 상품 체크, 수량, 사유, 상세내용, 고정 금액을 배치했다. 입력은 로컬 초안이며 실제 취소 요청·금액 계산·완료 이동은 미연결이다. 데이터는 전달된 `order.items`를 사용한다. 출처: `OrdersPage.tsx`, `OrdersProducts.tsx`, `OrderClaimRequest.tsx`, `orders/[preview]/page.tsx` 작업 트리 및 사용자 Figma 섹션 `2203:76650`.
 
 주문 취소 신청의 사유 선택은 공통 `Dropdown`을 사용한다. `label="사유"`, `required`, `value={reason}`, `onValueChange={setReason}`으로 제목·필수 표시·선택 상태를 연결하고 중복 FormField와 native Select를 제거했다. 신청 진입 URL은 유지한다. 출처: `OrderClaimRequest.tsx`, `common/atoms/Dropdown.tsx` (2026-11-03).
 
@@ -4341,7 +4347,7 @@ Dropdown의 기본 `indicatorSize`는 18px이다. `indicatorWidth`·`indicatorHe
 
 ### 환불 신청 연결 (2026-11-03)
 
-OrderClaimRequest의 kind 옵션으로 취소와 반품 신청을 공유한다. 배송완료 주문의 환불 신청 버튼은 onReturn(order)를 통해 선택한 주문의 팝업을 열고, /mypage/orders/preview-return-request는 같은 화면을 직접 연다. 반품은 수량 조절 없이 상품 체크와 사유·상세내용을 입력하며 회수 안내·환불예정금액을 표시한다. 실제 환불 요청·계산은 미연결이다. 출처: OrderClaimRequest.tsx, OrdersPage.tsx, OrdersProducts.tsx 및 Figma 반품 신청 시안. IA 178의 기존 주소는 유지하고 source graph를 재생성했다.
+OrderClaimRequest의 kind 옵션으로 취소와 반품 신청을 공유한다. 배송완료 주문의 환불 신청 버튼은 onReturn(order)를 통해 선택한 주문의 팝업을 열고, /mypage/orders/preview-return-request는 같은 화면을 직접 연다. 반품은 수량 조절 없이 상품 체크와 사유·상세내용을 입력하며 회수 안내·환불예정금액을 표시한다. 실제 환불 요청·계산은 미연결이다. 출처: OrderClaimRequest.tsx, OrdersPage.tsx, OrdersProducts.tsx 및 Figma 2203:90945, 2203:76721. IA 178의 기존 주소는 유지하고 source graph를 재생성했다.
 
 환불(반품) 신청 요약에서 반품비 값인 ‘사유 선택 후 확인’만 subtle로 표시한다. 상품금액과 취소 신청의 금액은 primary를 유지한다. 출처: OrderClaimRequest.tsx (2026-11-03).
 
@@ -4349,7 +4355,7 @@ OrderClaimRequest의 kind 옵션으로 취소와 반품 신청을 공유한다. 
 
 ## 취소·반품 목록 시안 정렬 (2026-11-03)
 
-Figma 섹션의 PC, 모바일과 빈 목록를 대조했다. OrdersList는 96px 이미지, PC 20px 표 제목·16px 본문·주문번호 별도 행, 모바일 14px 본문·24px 카드 간격을 사용한다. 모바일 완료 상태는 우측 아래 회색(#777) 환불완료 텍스트, PC는 취소완료/환불완료 일반 텍스트다. 옵션은 보조색, 주문번호는 3차색으로 구분한다. 빈 목록은 PC 상하120px·16px, 모바일 상하96px·14px다.
+Figma 섹션 `2134:82959`의 PC `2134:84176`, 모바일 `2158:69893`과 빈 목록 `2134:85212`, `2134:83029`를 대조했다. OrdersList는 96px 이미지, PC 20px 표 제목·16px 본문·주문번호 별도 행, 모바일 14px 본문·24px 카드 간격을 사용한다. 모바일 완료 상태는 우측 아래 회색(#777) 환불완료 텍스트, PC는 취소완료/환불완료 일반 텍스트다. 옵션은 보조색, 주문번호는 3차색으로 구분한다. 빈 목록은 PC 상하120px·16px, 모바일 상하96px·14px다.
 
 기간 필터의 PC 순서는 1년/6개월/3개월/1개월/직접설정, 모바일은 역순 기간 뒤 직접설정이며 기본 날짜는 2026.01.01~2026.08.30이다. 일반 주문 목록의 필터 기본값은 유지한다. `/mypage/returns`와 `/mypage/returns/preview-empty` 주소 및 기존 두 건의 주문 fixture, 상세 선택 연결을 유지한다. 출처: OrdersList.tsx, OrdersStatus.tsx, OrdersContent.tsx, OrdersPage.tsx 작업 트리.
 
@@ -4399,13 +4405,13 @@ OrdersPage의 claimHistoryItems는 현재 전달된 props를 표시한다. 외�
 
 ## 런칭 캘린더 시안 적용 (2026-11-03)
 
-[런칭 캘린더 구현 기록](launch-calendar.md)은 Feed·Upcoming·In Stock·발매 예정 상세의 Figma 노드·실측·화면 URL·인계 경계를 설명한다. route-private Content/Detail은 기존 공통 ContentLayout·ContentHeader·ContentSection·Button·DescriptionList·SizeSelector·Carousel와 준비된 fixture를 재사용한다. PC는 수급 시안, MO는 사용자가 지정한 RUN Club 시안의 1열·정사각 이미지·32px 둥근 탭·단일 이미지 캐러셀 패턴이다. 독립 WEB/Mobile Storybook에 네 시나리오를 등록했고 Mockup story는 추가하지 않았다. 공통 컴포넌트의 기본 동작과 전역 플랫폼·폰트는 변경하지 않는다.
+[런칭 캘린더 구현 기록](launch-calendar.md)은 Feed·Upcoming·In Stock·발매 예정 상세의 Figma 노드·실측·화면 URL·인계 경계를 설명한다. route-private Content/Detail은 기존 공통 ContentLayout·ContentHeader·ContentSection·Button·DescriptionList·SizeSelector·Carousel와 준비된 fixture를 재사용한다. PC는 수급 시안, MO는 사용자가 지정한 RUN Club 시안 2921:5026의 1열·정사각 이미지·32px 둥근 탭·단일 이미지 캐러셀 패턴이다. 독립 WEB/Mobile Storybook에 네 시나리오를 등록했고 Mockup story는 추가하지 않았다. 공통 컴포넌트의 기본 동작과 전역 플랫폼·폰트는 변경하지 않는다.
 
 ## FAQ 펼침과 장시간 미입력 안내 상태 구현 (2026-11-03)
 
 [IA 상태 URL 대응표](routing.md#faq-펼침장시간-미입력-안내의-ia-상태-url-2026-11-03)의 두 상태를 기존 소유자에 작은 표시 옵션으로 추가했다. FAQ의 `previewExpanded`는 전용 fixture의 첫 항목만 처음부터 펼치고 기존 기본/빈 결과·검색·분류·접기 구조를 유지한다. 제목과 본문이 원래 FAQ 데이터에서 다른 항목에 있다는 디자인 차이는 표시 fixture로 명시했으며 기본 질문·답변을 바꾸지 않았다. 빈 결과와 펼침 옵션은 타입에서 동시 사용을 막는다.
 
-로그인 `showSessionTimeout`은의 제목·본문·확인 버튼과 14px 모서리, 343px 최대 너비를 기존 `ModalDialog`로 표시한다. 제목/본문/버튼 간격·모바일 표시를 Panda로 구성하고 해당 디자인에 없는 X 버튼은 이 fixture의 header CSS에서 숨긴다. 확인·Escape로 닫으며 선택적인 `finalFocus`는 Base UI의 동일 옵션을 전달해 직접 열린 안내를 닫을 때 아이디 필드로 돌아가게 한다. 공용 모달의 기존 기본값·선택하지 않은 소비자는 유지한다. 세션 판정·종료·타이머는 프론트 연동 소유자의 후속 책임이다.
+로그인 `showSessionTimeout`은 45:1394의 제목·본문·확인 버튼과 14px 모서리, 343px 최대 너비를 기존 `ModalDialog`로 표시한다. 제목/본문/버튼 간격·모바일 표시를 Panda로 구성하고 해당 디자인에 없는 X 버튼은 이 fixture의 header CSS에서 숨긴다. 확인·Escape로 닫으며 선택적인 `finalFocus`는 Base UI의 동일 옵션을 전달해 직접 열린 안내를 닫을 때 아이디 필드로 돌아가게 한다. 공용 모달의 기존 기본값·선택하지 않은 소비자는 유지한다. 세션 판정·종료·타이머는 프론트 연동 소유자의 후속 책임이다.
 
 검증은 위 대응표의 실제 PC/MO 검사·IA 클릭·기본 상태 회귀와 변경 파일 ESLint/Prettier·타입·Panda·Next/Storybook 빌드·기존 검사 7개다. 전체 모달/Storybook 실행이나 픽셀 일치 판정은 하지 않았다. 출처: 위 대응표의 Figma·구현 파일, `src/components/common/layouts/ModalDialog.tsx`와 설치된 Base UI `DialogPopup.finalFocus` 타입. 검토 HEAD `889cf058339d51f9d36103e24e0732ab37fc14ae`; 기록 codex/gpt-6, 2026-11-03T10:49:20+09:00. 기존 출처·draft 신뢰 상태를 유지한다.
 
@@ -4427,7 +4433,7 @@ Storybook 설정·스토리·시나리오·문서·fixture를 제거했다. IA�
 
 ProductCard의 PC listing에서 큰 이미지·테두리를 띄우던 Quick View를 제거했다. 기본 활동/색상·발볼 요약은 유지하고, 마우스 호버 또는 키보드 포커스 시 같은 하단 영역을 ProductOptionList의 기존 preview 캐러셀로 교체한다. 썸네일 80×53px·간격 4px·좌우 이동·스크롤바를 재사용한다. 초기 72px 최소 높이 방식은 아래 호버 높이 보정에서 콘텐츠의 실제 높이를 확보하는 Grid 방식으로 대체했다. 색상 ID는 현재 표시 옵션에서 찾고 선택 이미지를 카드 썸네일에 반영한다. Escape로 요약으로 돌아가며, 모바일의 34px 옵션 목록과 history/showcase 표현은 유지한다.
 
-요청 출처: [기본 카드](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP), [호버 카드](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP), [목록](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP). 사용자 확정 동작과 기존 캐러셀 규격으로 구현했다. 디자인 API 429와 브라우저 로그인 필요로 최신 프레임 구조·수치·이미지는 확인하지 못했으므로 시안 실측 일치를 주장하지 않는다.
+요청 출처: [기본 카드](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP?node-id=2939-4302), [호버 카드](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP?node-id=2023-3775), [목록](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP?node-id=2023-3501). 사용자 확정 동작과 기존 캐러셀 규격으로 구현했다. 디자인 API 429와 브라우저 로그인 필요로 최신 프레임 구조·수치·이미지는 확인하지 못했으므로 시안 실측 일치를 주장하지 않는다.
 
 검증: 전체 lint·typecheck와 Panda 생성, Next 프로덕션 빌드(146개 정적 페이지 생성) 통과. 실행 화면에서 PC 호버 시 별도 미리보기 section 0개, 썸네일 80×53px/간격 4px, 좌우 이동(다음 scrollLeft 108px·이전 0px), 색상 선택 이미지 변경, Escape 복귀, Tab 진입, 기본/호버 카드 높이 516.4375px 동일(1440px)을 확인했다. 390px에서는 기존 2열·활동·색상 썸네일과 가로 넘침 없음(clientWidth/scrollWidth 375px)을 확인했다. 1024px는 캐러셀 없이 모바일 표시, 1025/1199px는 기존 1200px PC 캔버스, 1200px는 clientWidth/scrollWidth 1185px 동일이었다. 검색 결과에도 적용되고 최근 본 상품 history·상세 추천 showcase에는 해당 캐러셀이 없음을 확인했다. 기존 hoka/Pretendard family와 로드된 face를 확인했으며 폰트 정의는 수정하지 않았다. 서비스 요청/저장 계약은 추가하지 않았다. 작업 트리 출처는 위 세 파일이며 기존 동시 변경은 보존했다.
 
@@ -4439,7 +4445,7 @@ ProductCard의 PC listing에서 큰 이미지·테두리를 띄우던 Quick View
 
 ## 상품 목록 프로모션 배지 색상 보정 (2026-11-03)
 
-사용자가 [배지 노드](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP)을 지정하고 색상값 `Markdown/Red-100 #E10F00`을 직접 확정했다. ProductCard listing의 프로모션 글자와 구분선을 #E10F00으로 표시한다. 저장소에서는 같은 값의 기존 red.80/--color-red-80 토큰을 재사용하며 전역 red.100이나 브랜드 텍스트 토큰을 재정의하지 않는다.
+사용자가 [배지 노드 3879:3533](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP?node-id=3879-3533)을 지정하고 색상값 `Markdown/Red-100 #E10F00`을 직접 확정했다. ProductCard listing의 프로모션 글자와 구분선을 #E10F00으로 표시한다. 저장소에서는 같은 값의 기존 red.80/--color-red-80 토큰을 재사용하며 전역 red.100이나 브랜드 텍스트 토큰을 재정의하지 않는다.
 
 Badge.promotionTone은 brand(기본값)/red80의 typed 옵션이며 프로모션 모드에서만 허용한다. 기존 ProductCard의 error override도 이 옵션으로 연결해 글자와 구분선의 색을 일치시킨다. 공통 Badge 기본값과 history의 기존 표시 override, 일반 텍스트·로고·버튼 배경은 유지한다. 앞서 원복한 전역 브랜드 텍스트 변경을 다시 적용하지 않는다.
 
@@ -4447,7 +4453,7 @@ Badge.promotionTone은 brand(기본값)/red80의 typed 옵션이며 프로모션
 
 ## 상품 타일 디자인 시스템 반영 (2026-11-03)
 
-[상품 타일 페이지](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0)의 구조화 데이터에서 모바일 기본 컴포넌트, PC 목록, PC 색상 호버를 확인했다. 별도 13pt/14pt 비교안과 가이드 판넬의 외곽선은 제품 스타일로 사용하지 않았다. 기존 사용자 확정 프로모션 #E10F00은 파란 배지 예시보다 우선해 유지했다.
+[상품 타일 페이지](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=497-774)의 구조화 데이터에서 모바일 기본 컴포넌트 1710:8200, PC 목록 1722:8380, PC 색상 호버 1722:8412를 확인했다. 별도 13pt/14pt 비교안과 가이드 판넬의 외곽선은 제품 스타일로 사용하지 않았다. 기존 사용자 확정 프로모션 #E10F00은 파란 배지 예시보다 우선해 유지했다.
 
 - ProductCard의 listing은 모바일 성별·상품명 14px/400, 가격 13px/400, 배지 아래 6px·성별/상품명 2px·가격 앞 4px로 구성한다. PC 성별·상품명·가격은 16px이며 정보 간격은 12px이다. 활동 라벨은 PC 14px/행간 1.5, 모바일 12px/행간 1.3과 세로 패딩 2px이다.
 - listing 배지는 PC 500·모바일 400이며 복수 라벨 간격은 8px, 구분선은 1.5×13px이다. 관심 아이콘과 버튼은 PC 24px·모바일 18px로 이미지 우상단의 기존 16px/10px 위치를 따른다.
@@ -4460,7 +4466,7 @@ Badge.promotionTone은 brand(기본값)/red80의 typed 옵션이며 프로모션
 
 ## 최종 상품 타일 기준과 홈 보정 (2026-11-03)
 
-사용자가 최종본으로 지정한 PC·모바일·컴포넌트를 다시 읽었다. 실제 메인, 목록, 호버와 모바일 컴포넌트를 대조했다. 컴포넌트 섹션에는 14px 기본과 13px 보조 프레임이 함께 있으며, 메인/목록 인스턴스는 14px 기본을 사용한다. 전체 모바일 본문을 13px로 바꾸지 않는다. PC 배지의 파랑 예시와 기존 빨강 결정의 충돌은 사용자 답변으로 PC/MO 모두 #E10F00 유지가 재확정됐다.
+사용자가 최종본으로 지정한 PC 1722:8232·모바일 1679:763·컴포넌트 497:864를 다시 읽었다. 실제 메인 1722:8233/1679:770, 목록 1722:8380/1679:1232, 호버 1722:8412와 모바일 컴포넌트를 대조했다. 컴포넌트 섹션에는 14px 기본 1710:4920과 13px 보조 프레임 1768:6666이 함께 있으며, 메인/목록 인스턴스는 14px 기본을 사용한다. 전체 모바일 본문을 13px로 바꾸지 않는다. PC 배지의 파랑 예시와 기존 빨강 결정의 충돌은 사용자 답변으로 PC/MO 모두 #E10F00 유지가 재확정됐다.
 
 ProductCard.showcase의 성별·상품명은 PC 16px/MO 14px/400, 모바일 가격과 원 단위는 13px/400이다. PC 성별/상품명 간격 10px·가격 앞 16px, 모바일은 2px·4px로 구성한다. 긴 상품명 말줄임, 옵션·식별자·가격 표시 데이터와 상세 링크는 기존 소유권을 유지한다. ProductThumbnail.showcase가 이미지 비율을 소유하며 PC는 관측 프레임 293.6:367.25(약 4:5), MO는 3:4다. 기본 모바일 카드 폭은 150px이고 홈의 기존 유동 슬라이드 폭은 유지한다. HomeContent의 양 플랫폼 3:4 강제 override를 제거해 홈과 상세/런클럽 추천의 공통 showcase가 같은 기준을 사용한다. listing의 정사각형 이미지, history 및 summary 모드는 유지한다.
 
@@ -4502,11 +4508,11 @@ Vertical은 OrderProductSummary의 cart/checkout, 주문 화면의 실제 OrderH
 
 사용자 첨부 실측 기준으로 listing 하트의 기본 버튼 padding(1px 6px)을 제거했다. 이미지 기준 실제 아이콘 경계를 PC 24×24px·top/right 16px, MO 19×19px·top/right 10px로 확인했다. PC 크기/여백과 MO 여백은 기존 sizes/spacing 토큰을 사용하며, 정확히 대응하는 토큰이 없는 MO 19px는 유지한다. history 18px와 다른 Wishlist 사용처의 기본 규격은 보존했다.
 
-[Carousel NAV](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0)의 구조와 SVG를 읽어 ProductOptionList preview에 적용했다. chevron 대신 원본 6×10px caret SVG를 사용하고 오른쪽만 180도 회전한다. 371px 컨테이너는 6px 화살표·6px 간격·347px 옵션 영역·6px 간격·6px 화살표로 구성된다. 48px 썸네일과 2.5px 선택 바를 포함한 높이는 50.5px다. preview의 브라우저 스크롤바와 12px 하단 여백을 제거하고, history의 thin 스크롤바는 유지한다. 크기와 간격은 기존 토큰을 사용하며 2.5px 선택 바는 정확한 토큰이 없어 직접 지정한다.
+[Carousel NAV 1722:8430](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=1722-8430)의 구조와 SVG를 읽어 ProductOptionList preview에 적용했다. chevron 대신 원본 6×10px caret SVG를 사용하고 오른쪽만 180도 회전한다. 371px 컨테이너는 6px 화살표·6px 간격·347px 옵션 영역·6px 간격·6px 화살표로 구성된다. 48px 썸네일과 2.5px 선택 바를 포함한 높이는 50.5px다. preview의 브라우저 스크롤바와 12px 하단 여백을 제거하고, history의 thin 스크롤바는 유지한다. 크기와 간격은 기존 토큰을 사용하며 2.5px 선택 바는 정확한 토큰이 없어 직접 지정한다.
 
 실행 검증: PC 가이드에서 위 치수·스크롤바 none·선택된 검정 2.5px 바·이동 끝 scrollLeft 295px·이전 0px·키보드 Tab의 파란 2px 포커스 표시를 확인했다. 원본 SVG URL은 200으로 로드됐다. 실제 /products?gender=men&sort=popular에서 호버 전후 첫 6개 카드의 y/높이가 동일했다. MO390의 하트 실측과 clientWidth/scrollWidth 375px 동일도 확인했다. 변경 파일 ESLint/Prettier, Panda와 Next 빌드(타입 검사·정적 페이지 145개 생성)가 통과했다. SVG 교체 후 별도 typecheck도 실행했다. 최종 hoka-markup-handoff 검토로 기존 owner·Panda·플랫폼·키보드·표시 데이터 경계를 유지함을 확인했다.
 
-출처: 사용자 첨부 이미지·위 Figma 노드, ProductCard.tsx·ProductOptionList.tsx·public/images/icon/product-carousel-caret.svg 작업 트리. 원본 SVG는 해당 Figma 왼쪽 caret 시안 내보내기다. 기록: codex/gpt-6, 2026-11-03.
+출처: 사용자 첨부 이미지·위 Figma 노드, ProductCard.tsx·ProductOptionList.tsx·public/images/icon/product-carousel-caret.svg 작업 트리. 원본 SVG는 해당 Figma 왼쪽 caret 1722:8431 내보내기다. 기록: codex/gpt-6, 2026-11-03.
 
 ## 주문 상품 행 병합 통합 (2026-11-03)
 
@@ -4553,7 +4559,7 @@ ProductIdentity는 기존 ProductDetailsIdentity를 공용 export로 전환한 �
 
 가이드에 ProductIdentity detail의 PC/MO 예시를 추가했다. 썸네일·옵션 선택·공유 액션을 제외한 상품 상세의 실제 정보 컴포넌트와 복사 코드를 보여 준다. 상품 상세와 같은 h1 의미·PC/MO 글자 크기·가격 표시를 사용한다.
 
-[전체 표시 인스턴스](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0)와 [원본 Mo-Product Details](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0)의 구조·스타일·표시 옵션을 읽어 전체 데이터 예시를 추가했다. 사용자 후속 요청대로 소개 다음 최상단과 우측 바로가기 첫 항목에 둔다. 제공된 원본이 모바일 컴포넌트이므로 PC 디자인을 임의로 만들지 않고 고정 mobile context의 190px 예시를 표시한다.
+[전체 표시 인스턴스 1710:7424](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=1710-7424)와 [원본 Mo-Product Details 1710:4920](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=1710-4920)의 구조·스타일·표시 옵션을 읽어 전체 데이터 예시를 추가했다. 사용자 후속 요청대로 소개 다음 최상단과 우측 바로가기 첫 항목에 둔다. 제공된 원본이 모바일 컴포넌트이므로 PC 디자인을 임의로 만들지 않고 고정 mobile context의 190px 예시를 표시한다.
 
 전체 데이터는 빨강 Best | Exclusive·2026.08.18 구매·All Gender/Speedgoat 7 GTX·레귤러/브라운/235/1개 옵션·280,000원 정상가/20%/240,000원 판매가·2026.05.22 신청일·활동 태그·34px 색상 썸네일 5개·4.5점/리뷰 본문·옵션변경/관심상품·장바구니 담기·환불완료를 모두 표시한다. 6px root 간격, 본문14px·가격13px·태그/리뷰12px·별16px/4px 간격·아이콘14px와 원본의 163px swatch viewport를 기존 토큰 및 정확한 예외값으로 사용한다. 이미지 파일은 기존 로컬 fixture이며 원본의 상품/업무 ID에 따라 추론하지 않는다.
 
@@ -4584,7 +4590,7 @@ ProductIdentity는 기존 ProductDetailsIdentity를 공용 export로 전환한 �
 
 ## Font Awesome 교체용 Figma SVG 준비 (2026-11-03)
 
-`public/images/icon/svg/`에 현재 사용하는 Font Awesome 35종의 대응 SVG를 내려받았다. 출처는 HOKA design system v1.0 (`0dCBZJvU7aacxImQTV843M`)의 Icons 시안 / FontAwesome Icons 시안이다. Regular/Solid 이름을 대응하고 각 variant 노드를 SVG로 export했다. 원본 파일은 도형·fill·크기·viewBox를 수정하지 않았다. 파일별 기존 fa 이름과 Figma 디자인 파일은 [대응표](../../public/images/icon/README.md)에 기록한다. 서비스 화면의 React 호출부·Font Awesome 의존성은 그대로이며, 교체는 별도 작업이다. 현재 설치된 패키지와 Figma의 도형 버전 동일성은 보장하지 않으므로 교체 시 PC/MO 크기·여백·색상 검증이 필요하다.
+`public/images/icon/svg/`에 현재 사용하는 Font Awesome 35종의 대응 SVG를 내려받았다. 출처는 HOKA design system v1.0 (`0dCBZJvU7aacxImQTV843M`)의 Icons `262:7807` / FontAwesome Icons `296:9192`다. Regular/Solid 이름을 대응하고 각 variant 노드를 SVG로 export했다. 원본 파일은 도형·fill·크기·viewBox를 수정하지 않았다. 파일별 기존 fa 이름과 Figma 노드 링크는 [대응표](../../public/images/icon/README.md)에 기록한다. 서비스 화면의 React 호출부·Font Awesome 의존성은 그대로이며, 교체는 별도 작업이다. 현재 설치된 패키지와 Figma의 도형 버전 동일성은 보장하지 않으므로 교체 시 PC/MO 크기·여백·색상 검증이 필요하다.
 
 검증: 35개 파일 모두 비어 있지 않은 SVG XML이고 viewBox·root 크기를 갖는다. 32개는 18×18, circle-info와 star 두 상태는 16×16이다.
 
@@ -4598,7 +4604,7 @@ IconGuide의 Font Awesome 영역 35개 카드는 다운로드한 Figma SVG 미�
 
 IconGuide의 기존 SVG 42개와 폼 상태 10개에 origin 표시를 추가했다. 26개는 Figma FontAwesome Icons의 Regular/Solid export와 로컬 SVG path 또는 크기 정규화한 도형 대조로 이름·스타일을 기록했다. 예: gift/party-horn/medal/clock-nine/ruler-horizontal Regular, filter.svg는 sliders Regular, sort-down Solid. 별점 반 개는 star-half-stroke의 두 variant 도형이 같아 스타일 구분을 보류한다. SVG 레이어명으로 확인한 check·bell·bag-shopping과 그 외 후보는 variant 미확인을 표시한다. 인증 그림·브랜드 로고·폼 조합·말풍선 화살표에 Font Awesome 이름을 임의로 부여하지 않는다.
 
-Figma 파일 0dCBZJvU7aacxImQTV843M의 Icons 시안 / FontAwesome Icons에서 기존 메타데이터 및 이번에 받은 60개 후보 variant 원본을 대조했다. 조회 도중 Figma 도구 호출 한도에 도달해 추가 원본 확인이 필요한 항목은 가이드에 명시했다. 원본 에셋·코드 사용법·서비스 화면은 변경하지 않았다. 출처: IconGuide.tsx와 public/images/icon, header, launch-calendar의 기존 SVG.
+Figma 파일 0dCBZJvU7aacxImQTV843M의 Icons 262:7807 / FontAwesome Icons 296:9192에서 기존 메타데이터 및 이번에 받은 60개 후보 variant 원본을 대조했다. 조회 도중 Figma 도구 호출 한도에 도달해 추가 원본 확인이 필요한 항목은 가이드에 명시했다. 원본 에셋·코드 사용법·서비스 화면은 변경하지 않았다. 출처: IconGuide.tsx와 public/images/icon, header, launch-calendar의 기존 SVG.
 
 2026-11-04: IconGuide의 멤버십 카드만 darkPreview 옵션으로 미리보기 배경을 black.60으로 표시한다. 밝은 원본 SVG와 배경의 대비를 확보하며 원본 아이콘 색상·서비스 화면은 유지한다. 출처: src/app/publishing-guide/_components/IconGuide.tsx.
 
@@ -4624,7 +4630,7 @@ public/images/icon 하위 폴더를 제거하고 SVG 133개를 루트에 모았�
 
 ## Font Awesome 공식 이름 적용 (2026-11-04)
 
-Figma FontAwesome Icons의 현재 메타데이터와 기존 variant 대조 자료를 기준으로 용도 이름을 공식 아이콘 이름으로 바꿨다. 확인된 스타일은 -regular/-solid로 구분하고 미확정 스타일은 기본 공식 이름을 유지한다. bag-shopping/notification-bag, fa-plus/filter-collapsed, close/tag-delete/catalog-filter-close/fa-xmark, fa-ruler-horizontal/ruler 등은 같은 자산을 공유한다. 크기는 size, 흰색·회색·파란색은 color로 유지한다. 인증 일러스트·브랜드·폼 상태 조합과 전용 도형은 임의 FA 이름을 붙이지 않는다. Icon.assets.ts는 인증 그림의 image 모드를 유지한다. 가이드 중복 예시는 사용처·코드를 합쳤다. 출처: public/images/icon/README.md, Icon.assets.ts, IconGuide.tsx 및 Figma 파일 0dCBZJvU7aacxImQTV843M. bag-shopping Regular, basket-shopping Regular, circle-star Solid은 이번 디자인 컨텍스트 export를 사용했다.
+Figma FontAwesome Icons 296:9192의 현재 메타데이터와 기존 variant 대조 자료를 기준으로 용도 이름을 공식 아이콘 이름으로 바꿨다. 확인된 스타일은 -regular/-solid로 구분하고 미확정 스타일은 기본 공식 이름을 유지한다. bag-shopping/notification-bag, fa-plus/filter-collapsed, close/tag-delete/catalog-filter-close/fa-xmark, fa-ruler-horizontal/ruler 등은 같은 자산을 공유한다. 크기는 size, 흰색·회색·파란색은 color로 유지한다. 인증 일러스트·브랜드·폼 상태 조합과 전용 도형은 임의 FA 이름을 붙이지 않는다. Icon.assets.ts는 인증 그림의 image 모드를 유지한다. 가이드 중복 예시는 사용처·코드를 합쳤다. 출처: public/images/icon/README.md, Icon.assets.ts, IconGuide.tsx 및 Figma 파일 0dCBZJvU7aacxImQTV843M. bag-shopping Regular 296:12131, basket-shopping Regular 296:13966, circle-star Solid 296:16623은 이번 디자인 컨텍스트 export를 사용했다.
 
 검증: 변경 소스 ESLint·Prettier, Panda 생성, screen-files, 폼 테스트 47개를 통과했다. 등록 경로 126개와 SVG 124개의 파일·XML을 확인했다. Ego PC 가이드에서 mask SVG 65종 요청 성공·깨진 이미지 없음·장바구니 카드 1개와 멤버십 흰색을 확인했고, 375px 헤더가 bag-shopping-regular.svg를 20px로 사용하는 것과 가로 넘침 없음을 확인했다. 전체 typecheck는 기존 .next/types 삭제 라우트 참조 오류만 남고 src 진단은 없다.
 
@@ -4670,7 +4676,7 @@ Icon 사용처와 가이드 복사 코드는 name → size → color 순서로 �
 
 ## Chevron down Regular 통일 (2026-11-04)
 
-사용자 확인에 따라 chevron-down은 Regular만 사용한다. Figma 시안의 18×18 원본을 chevron-down-regular.svg로 저장하고 기존 chevron-down 및 chevron-down-solid 파일·등록을 제거했다. 가이드 Solid 예시를 제거하고 실제 사용처·코드·README를 갱신했다. 이전 13×8 전용 도형의 높이 재정의는 제거해 size로 원본 비율을 유지한다. 다른 이름의 아이콘 스타일은 이번 범위에 포함하지 않는다. 출처: Icon.assets.ts, IconGuide.tsx, ProductListingPage.tsx 및 chevron-down 사용처.
+사용자 확인에 따라 chevron-down은 Regular만 사용한다. Figma 296:11741의 18×18 원본을 chevron-down-regular.svg로 저장하고 기존 chevron-down 및 chevron-down-solid 파일·등록을 제거했다. 가이드 Solid 예시를 제거하고 실제 사용처·코드·README를 갱신했다. 이전 13×8 전용 도형의 높이 재정의는 제거해 size로 원본 비율을 유지한다. 다른 이름의 아이콘 스타일은 이번 범위에 포함하지 않는다. 출처: Icon.assets.ts, IconGuide.tsx, ProductListingPage.tsx 및 chevron-down 사용처.
 
 검증: 변경 파일 ESLint·Prettier, screen-files·OKF 검사 통과. 소스와 에셋 목록에서 이전 chevron-down 및 Solid 참조가 없음을 확인했다. Ego 가이드에서 Regular 카드 1개·Solid 예시 없음과 원본 표시를 확인했다. 전체 typecheck는 기존 .next/types 삭제 라우트 참조 오류만 남고 src 진단은 없다.
 
@@ -4680,11 +4686,11 @@ Icon 사용처와 가이드 복사 코드는 name → size → color 순서로 �
 
 ## 2026-11-04 — 디자인팀 UI 아이콘 원본 등록
 
-Figma 디자인팀 UI 아이콘 5개 세트의 SVG 27개를 원본 그대로 등록했다. SVG 캔버스는 16×16이며 24px 버튼 프레임과 구분한다. 공통 모달 닫기에는 Action Buttons의 기본 xmark를 16px로 적용했다. 다른 화면과 상태 버튼은 사용 위치 확인 후 연결한다.
+Figma 디자인팀 UI 아이콘 5개 세트(296:25392, 296:25425, 298:25555, 298:25560, 298:25567)의 SVG 27개를 원본 그대로 등록했다. SVG 캔버스는 16×16이며 24px 버튼 프레임과 구분한다. 공통 모달 닫기에는 Action Buttons의 기본 xmark를 16px로 적용했다. 다른 화면과 상태 버튼은 사용 위치 확인 후 연결한다.
 
 장바구니 옵션 변경은 ModalDialog의 footerProps.desktopContentOffset으로 데스크탑 버튼을 오른쪽 콘텐츠 열에 맞춘다. 왼쪽 이미지 300px와 열 간격 32px를 전달하며 모바일은 기존 푸터 배치를 따른다. 출처: CartDialogs.tsx, ModalDialog.tsx, ModalGuide.tsx.
 
-장바구니 옵션 변경 및 모달 가이드의 확인 액션은 Figma 시안 기준 데스크탑 180×48px, 버튼 간격 8px, 본문과 40px, 하단 24px를 적용한다. 공통 확인 액션의 buttonProps로 Tall 규격을 전달한다. 출처: CartDialogs.tsx, ModalDialog.tsx, ModalGuide.tsx.
+장바구니 옵션 변경 및 모달 가이드의 확인 액션은 Figma 1985:76300 기준 데스크탑 180×48px, 버튼 간격 8px, 본문과 40px, 하단 24px를 적용한다. 공통 확인 액션의 buttonProps로 Tall 규격을 전달한다. 출처: CartDialogs.tsx, ModalDialog.tsx, ModalGuide.tsx.
 
 디자인팀 UI 아이콘 27개를 비교해 색상만 다른 14개를 제거하고 13개 SVG로 정리했다. 단색 액션·방향 아이콘은 Icon color로 색상을 지정한다. Echo 배너 화살표는 기본·호버 도형이 달라 각각 유지한다. 출처: public/images/icon/hoka-*.svg, Icon.assets.ts, IconGuide.tsx.
 
@@ -4708,11 +4714,11 @@ Dropdown과 FormField의 16px 정보 아이콘을 circle-info-regular로 통일�
 
 선택 태그 삭제에 사용하던 여백 포함 24px xmark Regular SVG를 hoka-action-xmark-regular 원본으로 채택했다. 기존 Regular 호출과 가이드 복사 코드를 같은 이름으로 통일하고 화면별 size 값은 유지한다. 출처: Icon.assets.ts, IconGuide.tsx, public/images/icon/hoka-action-xmark-regular.svg.
 
-Figma Navigational Buttons와 Action Buttons의 기본·원형 예시를 여백 포함 24px로 통일했다. 기본 방향·빼기 SVG는 내부 16px 도형을 중앙에 유지한다. 회색 카드는 제거하고 단색 회색은 color 토큰으로 안내한다. 출처: IconGuide.tsx 및 Icon.assets.ts.
+Figma Navigational Buttons(296:25392)와 Action Buttons(296:25425)의 기본·원형 예시를 여백 포함 24px로 통일했다. 기본 방향·빼기 SVG는 내부 16px 도형을 중앙에 유지한다. 회색 카드는 제거하고 단색 회색은 color 토큰으로 안내한다. 출처: IconGuide.tsx 및 Icon.assets.ts.
 
 방향 아이콘은 Figma 순서대로 우·좌·상·하 열과 기본·회색·흰 원·흰 원 회색 행으로 배치한다. 24px 기본 SVG와 원형 SVG의 내부 경로·배치를 공유하며 원형 회색은 Icon color로 글리프만 변경한다. 출처: IconGuide.tsx, Icon.tsx, Icon.assets.ts.
 
-디자인팀 빼기와 상하좌우 chevron은 Figma Regular 도형에 대응해 -regular를 명시한다. 원형 이름은 -regular-circle 순서를 사용한다. 24px SVG의 도형과 여백은 유지한다. 출처: Icon.assets.ts, IconGuide.tsx, Figma 시안:11741.
+디자인팀 빼기와 상하좌우 chevron은 Figma Regular 도형에 대응해 -regular를 명시한다. 원형 이름은 -regular-circle 순서를 사용한다. 24px SVG의 도형과 여백은 유지한다. 출처: Icon.assets.ts, IconGuide.tsx, Figma 296:24896·296:13816·296:11741.
 
 ## 보고서 메뉴·화면 식별 (2026-11-05)
 
@@ -4736,15 +4742,15 @@ Figma Navigational Buttons와 Action Buttons의 기본·원형 예시를 여백 
 
 - plus-regular/minus-solid/minus-regular를 디자인팀 hoka-action-plus-regular/hoka-action-minus-regular로 통일했다. NumberStepper·InquiryOrderLookup의 기존 교체를 유지하고 ProductListingPage를 변경했다. 사용처가 없어진 SVG 3개·등록·가이드 항목·README 링크를 제거했으며 기존 아이콘 크기는 유지한다.
 
-- Figma 시안의 18px 기본 xmark Regular 원본을 xmark-regular.svg로 등록했다. hoka-action-xmark-regular-20 SVG/등록을 제거하고 카트 삭제·ModalDialog 닫기를 xmark-regular size={20}으로 교체했다. 가이드에 폰트어썸 기본형 18px 카테고리와 18/20/14px 개별 복사 예시를 추가했다. 기존 24px 디자인팀 액션 아이콘은 별도로 유지한다.
+- Figma 296:19866의 18px 기본 xmark Regular 원본을 xmark-regular.svg로 등록했다. hoka-action-xmark-regular-20 SVG/등록을 제거하고 카트 삭제·ModalDialog 닫기를 xmark-regular size={20}으로 교체했다. 가이드에 폰트어썸 기본형 18px 카테고리와 18/20/14px 개별 복사 예시를 추가했다. 기존 24px 디자인팀 액션 아이콘은 별도로 유지한다.
 
-- 사용자 후속 지시에 따라 Figma 시안의 18px 원본 plus-regular/minus-regular를 다시 등록했다. 기본형 가이드에 각각 18px·16px 미리보기와 개별 복사 코드를 추가했으며 화면 사용처는 변경하지 않았다.
+- 사용자 후속 지시에 따라 Figma 296:16546/296:24896의 18px 원본 plus-regular/minus-regular를 다시 등록했다. 기본형 가이드에 각각 18px·16px 미리보기와 개별 복사 코드를 추가했으며 화면 사용처는 변경하지 않았다.
 
 - CatalogFilterTrigger에 plus-regular/minus-regular size={16}을 실제 적용했다. 가이드 적용 예정 표시를 제거하고 디자인팀 액션 아이콘 사용처에서 ProductListingPage를 제외했다. 기존 필터 접기/펼치기 동작은 유지한다.
 
 ## 마이페이지 상단 로그아웃과 빈 주문 헤더 보완 (2026-11-05)
 
-Figma [마이페이지 메인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 PC 기본·주문 없음과 모바일 기본을 기준으로 이름 오른쪽에 로그아웃을 추가했다. PC는 기존 Button secondary/short의 높이 40px, 모바일은 link/md의 밑줄·14px·400 굵기를 사용하며 모바일 하단 48px 버튼은 유지한다. 기존 ContentSection.headerProps.action과 RouteContent의 logoutOpen을 재사용해 페이지·공용 컴포넌트·상태 owner를 추가하지 않았다.
+Figma [마이페이지 메인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1413-131325)의 PC 기본 1533:43644·주문 없음 1480:36896과 모바일 기본 1413:131326을 기준으로 이름 오른쪽에 로그아웃을 추가했다. PC는 기존 Button secondary/short의 높이 40px, 모바일은 link/md의 밑줄·14px·400 굵기를 사용하며 모바일 하단 48px 버튼은 유지한다. 기존 ContentSection.headerProps.action과 RouteContent의 logoutOpen을 재사용해 페이지·공용 컴포넌트·상태 owner를 추가하지 않았다.
 
 /mypage/preview-no-orders는 PC에서 기존 상품정보·수량·가격·주문상태 헤더를 유지하고 모바일은 기존 빈 상태만 표시한다. 확인 문구의 중복 물음표를 제거해 '로그아웃 하시겠습니까?'로 표시한다. /mypage·/mypage/preview-no-orders·/mypage/preview-logout의 URL과 IA 연결, 상품·관심상품 등 예시 데이터, 기존 빈 상태 Typography는 보존한다. 로그아웃은 확인창 열기/닫기만 수행하며 실제 인증 요청·저장·완료 이동은 미연동이다. 연결 책임은 owner의 [ 개발팀 바인딩 ] 주석에 기록했다.
 
@@ -4752,7 +4758,7 @@ Figma [마이페이지 메인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8W
 
 ## 문의 제목과 마이페이지 빈 화면 시안 보완 (2026-11-05)
 
-Figma 파일 qyXJp4bnoeYSQxQULV8Wql의 [상품리뷰](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design), [배송지](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design), [관심상품](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design), [최근 본 상품](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design), [재입고](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design), 문의 등록 [모바일](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)·[PC](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)을 기준으로 보완했다.
+Figma 파일 qyXJp4bnoeYSQxQULV8Wql의 [상품리뷰 1487:38311](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1487-38311), [배송지 1978:60309](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1978-60309), [관심상품 1978:74225](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1978-74225), [최근 본 상품 2025:149807](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2025-149807), [재입고 2025:152235](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2025-152235), 문의 등록 [모바일 1241:92705](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1241-92705)·[PC 1241:92753](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1241-92753)을 기준으로 보완했다.
 
 InquiryFormLayout은 모든 선택 상태에서 페이지 제목 '1:1 문의'와 Home > 고객센터 > 1:1 문의 경로를 표시한다. 선택 여부로 제목을 나누던 orderSelected prop과 호출부만 제거했으며 문의 입력란의 제목, 안내 팝업 제목과 선택 fixture는 보존했다. 제목은 기존 PC 36px·모바일 22px·900을 유지한다.
 
@@ -4766,13 +4772,13 @@ InquiryFormLayout은 모든 선택 상태에서 페이지 제목 '1:1 문의'와
 
 ## 재입고 빈 화면 설명 가운데 정렬 (2026-11-05)
 
-Figma [시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 설명는 현재 CENTER다. MyPageProductHistory의 재입고 전용 PC 왼쪽 정렬 override를 제거해 기존 EmptyState.page의 가운데 정렬을 상속한다. 제목·설명 너비와 글자 크기·문구·예시 데이터·상태 owner는 유지한다. 이 기록이 앞선 재입고 설명 정렬 관측보다 우선한다.
+Figma [2063:70557](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2063-70557)의 설명 2498:93424는 현재 CENTER다. MyPageProductHistory의 재입고 전용 PC 왼쪽 정렬 override를 제거해 기존 EmptyState.page의 가운데 정렬을 상속한다. 제목·설명 너비와 글자 크기·문구·예시 데이터·상태 owner는 유지한다. 이 기록이 앞선 재입고 설명 정렬 관측보다 우선한다.
 
 검증: Codex가 /mypage/restock-alerts/preview-empty를 1116px·1920px·375px에서 열어 제목과 설명의 계산 text-align=center를 확인했다. PC 설명은 520px·16px, 모바일은 319px·14px이며 제목은 기존 28/22px이다. hoka-markup-handoff의 기존 EmptyState·Panda·표시 전용 경계를 점검했고 새 래퍼·서비스 연결은 없다. 출처: src/components/mypage/MyPageProductHistory.tsx 작업 트리, codex/gpt-6, 2026-11-05.
 
 ## EmptyState 모바일 내부 여백 통일 (2026-11-05)
 
-Figma [전체 빈 화면](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)과 [콘텐츠 내부 빈 상태](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 좌우 내부 12px을 공통 EmptyState 모바일 기본값으로 통일했다. page/content뿐 아니라 standard/minimal/plain도 같은 내부 여백을 사용한다. 바깥 레이아웃이 --layout-mobile-inline-gutter(현재 16px)를 소유하고 EmptyState가 내부 12px을 소유해 각 변 28px을 확보한다. page/content 텍스트 그룹의 320/520px 최대 너비는 PC에서 유지하고 모바일에서는 해제해 가용 폭을 채운다. 콘텐츠형의 기존 모바일 최소 높이 154px과 각 화면의 명시적 세로 여백·정렬·문구·액션은 유지한다.
+Figma [전체 빈 화면 2734:86819](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2734-86819)과 [콘텐츠 내부 빈 상태 2736:86820](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2736-86820)의 좌우 내부 12px을 공통 EmptyState 모바일 기본값으로 통일했다. page/content뿐 아니라 standard/minimal/plain도 같은 내부 여백을 사용한다. 바깥 레이아웃이 --layout-mobile-inline-gutter(현재 16px)를 소유하고 EmptyState가 내부 12px을 소유해 각 변 28px을 확보한다. page/content 텍스트 그룹의 320/520px 최대 너비는 PC에서 유지하고 모바일에서는 해제해 가용 폭을 채운다. 콘텐츠형의 기존 모바일 최소 높이 154px과 각 화면의 명시적 세로 여백·정렬·문구·액션은 유지한다.
 
 관심상품·최근 본 상품은 목록용 -16px 여백을 빈 상태에도 적용해 바깥 gutter를 상쇄하던 원인을 수정했다. 음수 여백과 제목의 보상 패딩은 상품이 있는 목록에서만 유지한다. 마이페이지 요약의 주문 없음은 px=0 override를 제거한다. 화면 전체 폭을 쓰는 상품 목록 무결과·검색 무결과·러닝세션 빈 상태는 해당 소유자에서 calc(var(--layout-mobile-inline-gutter) + 12px)를 적용해 바깥 gutter도 확보한다. 공통 컴포넌트에서 바깥 gutter를 이중 부여하지 않으며 PC 스타일과 데이터/콜백·서비스 경계는 변경하지 않는다.
 
@@ -4784,7 +4790,7 @@ EmptyState 직접 JSX 사용 16곳을 소스로 조사했다. 미사용 AccountD
 
 ## 주문 목록 제목 하단 간격 보정 (2026-11-05)
 
-Figma [시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 Section Header 시안 하단 패딩은 40px이다. OrdersContent의 기존 ContentSection에서 view=list·returns=false인 주문 목록만 PC gap 16px을 40px로 변경한다. 모바일 목록은 16px, 취소/반품은 PC 40px·모바일 24px, 주문 상세는 기존 gap 16px을 보존한다. 제목과 본문 사이 여백을 기존 부모에서 소유하며 추가 래퍼·자식 margin을 만들지 않는다. 라우트·fixture·콜백·서비스 경계는 변경하지 않는다.
+Figma [2121:9345](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2121-9345)의 Section Header 2121:9346 하단 패딩은 40px이다. OrdersContent의 기존 ContentSection에서 view=list·returns=false인 주문 목록만 PC gap 16px을 40px로 변경한다. 모바일 목록은 16px, 취소/반품은 PC 40px·모바일 24px, 주문 상세는 기존 gap 16px을 보존한다. 제목과 본문 사이 여백을 기존 부모에서 소유하며 추가 래퍼·자식 margin을 만들지 않는다. 라우트·fixture·콜백·서비스 경계는 변경하지 않는다.
 
 검증: Codex가 1440/375px에서 /mypage/orders와 /mypage/orders/preview-empty의 실제 제목 영역 아래 간격을 40/16px로 확인했다. /mypage/returns는 40/24px, /mypage/orders/preview-detail은 기존 section gap 16px과 본문 자체 여백을 포함한 실제 간격 40/24px를 확인했다. Panda 생성·대상 ESLint/Prettier를 수행했고, 한정된 간격 수정으로 전체 타입/빌드는 재실행하지 않았다. hoka-markup-handoff의 ContentSection·부모 간격·반응형·표시 전용 경계를 점검했다. 출처: src/app/mypage/orders/_components/OrdersContent.tsx 작업 트리, codex/gpt-6, 2026-11-05T04:29:53.252Z.
 
@@ -4792,7 +4798,7 @@ Figma [시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)
 
 마이페이지와 고객센터의 바깥 프레임은 같은 --layout-web-content-inline-space(110px)와 최대 1532px을 사용한다. 이전 마이페이지의 64px 차감 때문에 1385px에서 브레드크럼이 32px과 55px로 달랐고, 1031px의 1200px PC 캔버스에서는 사이드바와 본문도 각각 23px 차이가 났다. MyPageFrame을 고객센터와 같은 계산식으로 맞췄다. PC 안쪽 최대 1200px·34px 안쪽 여백·190px/98px 열 배치, 모바일 16px과 메뉴 숨김은 유지한다.
 
-SideNavigation 기존 그룹형은 Figma [마이페이지](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 제목 28px/900, 그룹명 20px/400·행간 26px, 항목 16px/400·행간 20.8px을 적용한다. 제목과 메뉴 사이 48px, 그룹 간 24px, 그룹명 행 상하 8px과 하위 그룹까지 10px, 항목 상하 4px과 사이 8px은 부모 Stack 및 행에서 관리한다. 현재 링크 aria-current와 검정 밑줄은 유지한다. 고객센터는 [시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 SUPPORT 28px/900, 메뉴 20px/400·행간 26px·상하 8px·사이 24px을 적용한다. 제목 높이 28px 뒤 46px을 두어 메뉴를 사이드바 시작 기준 74px에 배치한다. 영문은 기존 HOKA·한글은 Pretendard를 재사용한다. 탐색 URL, 현재/비활성 상태 계약, 데이터 및 주문 목록 간격 수정은 별개로 유지한다.
+SideNavigation 기존 그룹형은 Figma [마이페이지 2121:9344](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2121-9344)의 제목 28px/900, 그룹명 20px/400·행간 26px, 항목 16px/400·행간 20.8px을 적용한다. 제목과 메뉴 사이 48px, 그룹 간 24px, 그룹명 행 상하 8px과 하위 그룹까지 10px, 항목 상하 4px과 사이 8px은 부모 Stack 및 행에서 관리한다. 현재 링크 aria-current와 검정 밑줄은 유지한다. 고객센터는 [1973:15195](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1973-15195)의 SUPPORT 28px/900, 메뉴 20px/400·행간 26px·상하 8px·사이 24px을 적용한다. 제목 높이 28px 뒤 46px을 두어 메뉴를 사이드바 시작 기준 74px에 배치한다. 영문은 기존 HOKA·한글은 Pretendard를 재사용한다. 탐색 URL, 현재/비활성 상태 계약, 데이터 및 주문 목록 간격 수정은 별개로 유지한다.
 
 검증: Codex가 주문/배송조회와 온라인 회원등급 안내를 1031/1385/1920/375px에서 열어 두 사이드바·브레드크럼 시작점 일치, 글자 크기·굵기·행간·행 패딩·메뉴 시작점, aria-current, 모바일 숨김을 확인했다. 프레임 수정 단계에서 1024/1025·1199/1200px도 확인해 PC 1200px 캔버스와 1200px 이상 가로 넘침 없음을 검증했다. CDP에서 한글 Pretendard Black/Regular와 영문 커스텀 HOKA 글리프를 확인했다. 영문 face의 내부 family/postScript 이름은 '.'으로 표시되어 기존 hoka CSS 연결과 구분했다. 대상 ESLint/Prettier·Panda·타입·Next 빌드를 통과했다. 새 스크린샷·명시적 플랫폼·열린 overlay resize는 미실행이다. hoka-markup-handoff의 기존 탐색 owner·부모 간격·반응형·Next Link 경계를 점검했다. 출처: 위 두 작업 트리 파일, codex/gpt-6, 2026-11-05T04:45:21.116Z.
 
@@ -4820,13 +4826,13 @@ EmptyState의 page 변형은 제목과 설명 사이 16px, 버튼이 전달되�
 
 `src/components/phone-verification/phone-verification.types.ts`의 `[ 개발팀 바인딩 ]` 주석에서 제거된 `usePhoneVerification`·`PhoneVerificationContext`를 지우고 통합 소유자가 발송/검증을 연결한다고 고쳤다. 주석만 바꿨으며 UI·타입·스타일 영향은 없다. 범위와 현재 기준은 [데이터 바인딩 현재 연결 경계](data-binding.md#현재-연결-경계-2026-11-05)를 따른다.
 
-- 하트 Regular/Solid를 Figma 시안의 18px 원본으로 교체했다. Wishlist 기본 모바일 22px/데스크탑 24px, ProductCard history 14px, listing 모바일 22px로 사용하며 기존 텍스트형 관심상품 14px를 유지한다. 가이드 기존 20px 하트를 제거하고 기본형 카테고리에 18px 원본 두 상태만 표시한다.
+- 하트 Regular/Solid를 Figma 296:25330의 18px 원본으로 교체했다. Wishlist 기본 모바일 22px/데스크탑 24px, ProductCard history 14px, listing 모바일 22px로 사용하며 기존 텍스트형 관심상품 14px를 유지한다. 가이드 기존 20px 하트를 제거하고 기본형 카테고리에 18px 원본 두 상태만 표시한다.
 
 - 사용자 시안 확인에 따라 ProductCard listing 하트는 데스크탑 24px/모바일 18px로 명시했다. 기본형 하트 가이드의 모바일 22px 공통 기준을 제거하고 상품 목록 화면 기준만 기록한다. 다른 화면 크기는 이번 교정에서 변경하지 않았다.
 
 - 확정된 하트 크기: 상품 상세 데스크탑 22px/모바일 20px를 Wishlist 호출에 명시하고, 관심상품·최근 본 상품의 history 카드는 양쪽 18px로 수정했다. 장바구니 양쪽 14px와 상품 목록 데스크탑 24px/모바일 18px는 유지하며 가이드에 화면별 값을 기재했다.
 
-- 공유 아이콘 arrow-up-from-bracket-regular를 Figma 시안의 18px 원본으로 교체하고 기본형 가이드로 이동했다. 상품 상세 ShareButton 아이콘은 모바일 20px/데스크탑 22px로 적용한다.
+- 공유 아이콘 arrow-up-from-bracket-regular를 Figma 296:20401의 18px 원본으로 교체하고 기본형 가이드로 이동했다. 상품 상세 ShareButton 아이콘은 모바일 20px/데스크탑 22px로 적용한다.
 
 - check-solid는 기존 18×18 SVG 원본을 유지하고 StepIndicator 완료 단계 크기를 12px에서 14px로 수정했다. 가이드의 기존 faCheck 항목을 기본형 18px 카테고리로 이동하고 실제 14px 사용처를 명시했다.
 
@@ -4836,7 +4842,7 @@ EmptyState의 page 변형은 제목과 설명 사이 16px, 버튼이 전달되�
 
 - 최종 방향: 배송조회·주문 취소·반품 신청은 플랫폼별 BottomSheet 분기 없이 ModalDialog mobilePresentation="bottomSheet"로 통일한다. 공통 모바일 옵션은 전체 너비/상단 20px 라운드/최대 높이 화면-44px/헤더 56px/body3 타이틀/xmark-regular 24px를 제공한다. 데스크탑 모달 규격은 보존하고 가이드 예시의 별도 모바일 스타일을 제거했다.
 
-- 바텀시트 디자인 시스템 시안 기준으로 기존 selection을 default로 통합했다. appearance는 default/catalog만 제공하고 Dropdown·PreviousTermsPicker는 기본값을 사용한다. 기본형 헤더 56px(상단20/좌우24), body3, 닫기20px, 상단 라운드20px. scrollable은 화면-44px 확장 및 본문 스크롤/상단 구분선, footer는 선택 슬롯으로 48px 버튼·상단/좌우16·하단32px(+safe-area)를 제공한다. 본문 하단은 비스크롤형에 푸터가 있으면24px, 그 외에는32px이다. 가이드에 기본/스크롤 × 푸터 유무 네 사례와 catalog 예시, 각각의 복사 코드를 제공한다. ModalDialog의 bottomSheet 옵션은 이번 변경 대상이 아니다.
+- 바텀시트 디자인 시스템 1306:8008 / 1313:8442 / 1313:8517 / 1313:8543 기준으로 기존 selection을 default로 통합했다. appearance는 default/catalog만 제공하고 Dropdown·PreviousTermsPicker는 기본값을 사용한다. 기본형 헤더 56px(상단20/좌우24), body3, 닫기20px, 상단 라운드20px. scrollable은 화면-44px 확장 및 본문 스크롤/상단 구분선, footer는 선택 슬롯으로 48px 버튼·상단/좌우16·하단32px(+safe-area)를 제공한다. 본문 하단은 비스크롤형에 푸터가 있으면24px, 그 외에는32px이다. 가이드에 기본/스크롤 × 푸터 유무 네 사례와 catalog 예시, 각각의 복사 코드를 제공한다. ModalDialog의 bottomSheet 옵션은 이번 변경 대상이 아니다.
 
 - 사용자 최종 지시에 따라 별도 BottomSheet 구현과 catalog 옵션을 삭제했다. 모든 호출(상품 필터·Dropdown·PreviousTermsPicker)을 ModalDialog mobilePresentation="bottomSheet"로 통합했다. 모바일 표시 방식은 popup/fullscreen/bottomSheet이며 scrollable과 footer 유무를 독립적으로 조합한다. 가이드 네 조합도 데스크탑 중앙 팝업/모바일 하단 표시를 공유하고 FormGuide 설명을 갱신했다. 앞선 BottomSheet 독립 구성 기록은 이 결정으로 대체된다.
 
@@ -4854,7 +4860,7 @@ PC 1920px 기준 1016px 미디어와 484px 구매 패널 사이 32px를 유지�
 
 - 2026-11-06: TextInput의 비밀번호 보기·숨기기 아이콘은 18px이며 black.60 색상 토큰을 사용한다. 기본 숨김 상태는 사선 눈, 표시 상태는 일반 눈이다. 버튼의 접근성 이름은 다음 동작을 안내한다.
 
-- 2026-11-06: 상품 목록 카테고리 제목은 공통 Typography의 데스크탑 heading7(28px)·모바일 heading5(22px)를 사용한다. Figma 상품 목록 시안 기준이다.
+- 2026-11-06: 상품 목록 카테고리 제목은 공통 Typography의 데스크탑 heading7(28px)·모바일 heading5(22px)를 사용한다. Figma 1227:53005, 1559:21298.
 
 - 2026-11-06: SearchHeader의 닫기 아이콘은 xmark-regular 20px로 표시한다.
 
@@ -4868,7 +4874,7 @@ PC 1920px 기준 1016px 미디어와 484px 구매 패널 사이 32px를 유지�
 
 - 2026-11-06: 최근 검색어 훅은 패널 열림 시 전달된 예시 배열로 로컬 목록을 초기화한다.
 
-- 2026-11-06: 검색 결과 없음 화면(피그마)은 검색어와 건수를 데스크탑 28px Black, 모바일 16px Medium과 영문 서체 숫자로 표시한다. 두 줄 안내는 데스크탑 16px·모바일 14px regular, black.60이다. 고정 미리보기 /search/preview-no-results는 검색어 G45678을 사용한다. 출처: src/components/catalog/ProductListingPage.tsx, src/components/catalog/ProductListingStatePreview.tsx.
+- 2026-11-06: 검색 결과 없음 화면(피그마 773:42273, 906:2560)은 검색어와 건수를 데스크탑 28px Black, 모바일 16px Medium과 영문 서체 숫자로 표시한다. 두 줄 안내는 데스크탑 16px·모바일 14px regular, black.60이다. 고정 미리보기 /search/preview-no-results는 검색어 G45678을 사용한다. 출처: src/components/catalog/ProductListingPage.tsx, src/components/catalog/ProductListingStatePreview.tsx.
 
 - 2026-11-06: 모바일 검색 결과 입력칸은 결과 건수와 필터 상태에 관계없이 magnifying-glass-regular 16px를 사용한다.
 
@@ -4880,31 +4886,11 @@ PC 1920px 기준 1016px 미디어와 484px 구매 패널 사이 32px를 유지�
 
 - 2026-11-06: 비밀번호 상태 아이콘은 hoka-eye-slash-regular(숨김)와 hoka-eye-regular(보임) 이름으로 등록한다.
 
-- 2026-11-06: magnifying-glass-regular.svg는 디자인 시스템의 18px Regular 원본이며 SearchField는 size=16으로 표시한다.
+- 2026-11-06: magnifying-glass-regular.svg는 디자인 시스템 296:22996의 18px Regular 원본이며 SearchField는 size=16으로 표시한다.
 
-- 2026-11-06: sliders-regular.svg는 디자인 시스템의 18px Regular 원본이다.
+- 2026-11-06: sliders-regular.svg는 디자인 시스템 296:11385의 18px Regular 원본이다.
 
 - 2026-11-06: 임직원 쿠폰 디자인에 쓰이는 circle-check-solid 18px를 등록했다. 쿠폰 화면은 첫 항목 Solid, 둘째 항목 Regular를 각각 18px로 표시한다.
-
-## 상품 상세 사이즈 가이드 모달 (2026-11-09)
-
-`ModalDialog.blurBackdrop`의 기본값은 `true`다. 상품 상세의 신발 사이즈 가이드에서는 `false`로 지정해 상품이 비쳐 보이는 반투명 배경을 사용한다. PC는 최대 768px의 중앙 모달, 모바일은 기존 플랫폼 컨텍스트를 따르는 하단 시트다. 닫기와 포커스 복귀는 공통 모달에 맡긴다. [라우팅](routing.md#상품-상세-신발-사이즈-가이드-팝업-2026-11-09).
-
-출처는 사용자 첨부 PC·모바일 시안과 작업 트리의 `ModalDialog.tsx`, `ProductDetailContent.tsx`다. 기준 HEAD는 `781c2adb1fb5bb30c69f78301311728f9a3a8fbc`이며 codex/gpt-6가 2026-11-09에 기록했다.
-
-## 상품 문의 더 보기 버튼 (2026-11-09)
-
-`Button.loadMore.appearance="inline"`의 라벨과 개수를 한 요소로 묶고, 아이콘과의 간격을 Panda `gap="2"`로 8px 지정한다. 상품 문의에서 사용하는 chevron-down 아이콘은 18px다. [확인한 Figma 노드](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP).
-
-라벨과 개수는 사용자 확인에 따라 PC 15px를 적용하고 모바일은 기존 14px를 유지한다. 다른 시안 노드는 접근 제한으로 확인하지 못해 간격과 아이콘 크기는 PC·모바일에 같은 값을 적용했다. 출처는 작업 트리의 `Button.tsx`와 `ProductDetailContent.tsx`다. 기준 HEAD는 `60fdf4c47537f964833c1c4851effa9832f76763`이며 codex/gpt-6가 2026-11-09에 기록했다.
-
-## 상품 목록 그리드 썸네일 비율 (2026-11-09)
-
-PC·모바일의 상품 목록 그리드는 상품 종류에 관계없이 상품 썸네일과 그리드에 삽입된 프로모션 이미지를 371:464로 표시한다. 상품 기본·호버 이미지는 기존 중앙 정렬을, 그리드 프로모션은 기존 cover를 사용한다. 하단 전폭 배너는 375:281을 유지한다. 상품 카드의 history 변형은 독립된 썸네일 변형으로 기존 정사각형을 사용하며 showcase와 summary도 기존 규격을 따른다.
-
-Figma의 상품 이미지 프레임 371 × 464.4px와 프로모션 이미지 프레임을 확인했고, 실제 비율은 사용자 확정값 371:464를 사용했다. 작업 트리 출처는 `ProductThumbnail.tsx`, `ProductCard.tsx`, `ProductListingPage.tsx`다. 기준 HEAD는 `1118ff2e947fa489b430a8f6a8fa6e8a98479446`이며 codex/gpt-6가 2026-11-09에 기록했다. [상품 이미지 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design) · [프로모션 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design).
-
-브라우저에서 1440px와 390px의 상품 25개, 인라인 프로모션의 같은 행 정렬, 가로 넘침 부재를 확인했다. PC 호버 전후의 프레임 높이, 모바일 전폭 배너의 375:281, 검색과 품절 미리보기의 371:464, 홈 추천과 관심상품의 기존 비율도 확인했다.
 
 ## 마이페이지 고객지원 메뉴 진입 (2026-11-09)
 

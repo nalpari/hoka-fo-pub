@@ -146,12 +146,12 @@ export function LaunchCalendarDetail({
             gap="20px"
           />
           <HStack gap="8px">
-            <Icon name="clock-ten" size="18px" color="blue.100" />
+            <Icon name="clock-ten" size="18px" color="red.80" />
             <Typography
               as="p"
               variant="body3"
               weight="semibold"
-              className={css({ color: 'var(--color-blue-100)' })}
+              tone="red80"
             >
               {product.releaseLabel}
             </Typography>

@@ -4,12 +4,13 @@ title: '프로젝트 개요'
 description: '서비스 목적, 기술 버전과 구현 범위를 설명한다.'
 tags: [hoka, frontend, overview]
 status: draft
-updated: '2026-11-04T02:14:31Z'
+updated: '2026-11-09T06:14:31Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
 source_revision: c9e8b1a75bdd4a2d52308410b8ce77773464a9e6
 working_tree_sources:
+  - src/app/publishing-guide/_components/IconGuide.tsx
   - src/components/common/molecules/SupportTabs.tsx
   - src/app/support/after-sales/page.tsx
   - src/app/support/care/page.tsx
@@ -90,6 +91,8 @@ sources:
 ---
 
 # 프로젝트 개요
+
+2026-11-09: 아이콘 가이드의 문의 첨부파일 사용 화면 링크와 카드 제목을 검토했다. PDF·이미지 카드가 첨부파일 미리보기 URL을 가리키고 한글 용도명으로 표시되도록 바꿨으며, 프로젝트 목적과 구현 범위 설명에는 영향이 없다. 출처: 작업 트리의 `src/app/publishing-guide/_components/IconGuide.tsx`.
 
 ## IA 러닝세션 비고 문구 정리 (2026-11-04)
 

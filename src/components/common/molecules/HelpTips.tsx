@@ -129,7 +129,9 @@ export function HelpTooltip({ label, text, icon, side = 'top' }: TooltipProps) {
           className={positioner}
         >
           <BaseTooltip.Popup className={`${popup} ${tooltipPopup}`}>
-            <Typography variant="body5">{text}</Typography>
+            <Typography variant="body5" className={css({ whiteSpace: 'pre-line' })}>
+              {text}
+            </Typography>
             <TipArrow kind="tooltip" />
           </BaseTooltip.Popup>
         </BaseTooltip.Positioner>

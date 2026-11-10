@@ -4,7 +4,7 @@ title: '공통 상태와 데모 데이터'
 description: '로그인, 장바구니와 목 데이터의 수명 및 제약을 설명한다.'
 tags: [react, state, mock-data]
 status: draft
-updated: '2026-11-06T00:50:51Z'
+updated: '2026-11-10T00:01:00Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
@@ -356,6 +356,10 @@ CartPage는 기존 선택·관심상품·옵션 편집 상태, 상품 조회와 
 ## 로그인 헤더 관심상품 아이콘 제거 (2026-11-06)
 
 `src/context/ShopShell.tsx`의 `HeaderAccount`는 로그인 상태에서 마이페이지 링크만 표시한다. 관심상품 개수와 가방 아이콘을 표시하던 `/mypage/wishlist` 링크를 제거했다. `HeaderCartLink`는 기존 장바구니 표시를 담당하며, `wishlistCount` 표시 데이터와 호출부 타입은 유지한다.
+
+## 모바일 메뉴 로그인 헤더 링크 (2026-11-10)
+
+`src/context/ShopShell.tsx`의 `MenuDrawerHeader`는 로그인 상태 예시에서 계정 아이콘 뒤에 `김호카님 마이페이지`를 표시한다. `/mypage` 링크는 `마이페이지` 글자에만 적용하고, 메뉴 닫기는 기본형 `xmark-regular` SVG를 18px로 표시한다. 로그인 여부를 전달하는 기존 표시 상태와 닫기 동작은 그대로 사용한다. 출처: 작업 트리의 `src/context/ShopShell.tsx`, Figma `Main / PLP / PDP`의 `Mobile / Top Nav - 로그인`.
 
 ## ShopShell
 
@@ -758,3 +762,9 @@ ShopShell 알림 아이콘은 hoka- 이름의 쇼핑백·장바구니·계정 SV
 - 2026-11-06: 헤더 검색 패널은 SearchField의 기본 돋보기를 사용한다.
 
 - 2026-11-06: MenuDrawerUtilityLinks는 다섯 메뉴 아이콘 모두에 16px와 black.10을 적용한다.
+
+모바일 메뉴의 마이페이지 링크는 flex 가운데 정렬로 내부 Typography를 배치하여 링크의 별도 인라인 줄 상자로 생기는 높이 차이를 없앤다. 출처: `src/context/ShopShell.tsx` 작업 트리(2026-11-10).
+
+2026-11-10: MenuDrawerHeader의 계정 아이콘에만 `translateY(-1px)`를 적용한다. 최종 소스에서는 비로그인 헤더에 적용하며 공통 Icon 및 다른 계정 아이콘은 변경하지 않는다. 출처: `src/context/ShopShell.tsx` 작업 트리.
+
+2026-11-10: 메뉴 헤더의 마이페이지는 `ButtonLink variant="link"`로 밑줄을 표시하고 `/mypage` 탐색 시 메뉴를 닫는다. 기존 일반 Link의 정렬 스타일은 제거하고 공통 버튼 링크를 사용한다. 출처: `src/context/ShopShell.tsx` 작업 트리.

@@ -90,7 +90,7 @@ const pill = cva({
   },
 });
 
-export type SizeOptionState = 'available' | 'lowStock' | 'soldOut' | 'unavailable';
+export type SizeOptionState = 'available' | 'soldOut' | 'unavailable';
 
 export type SizeSelectorOption = { value: string; state?: SizeOptionState };
 
@@ -109,7 +109,6 @@ export type SizeSelectorProps = {
 
 const stateLabels: Record<SizeOptionState, string> = {
   available: '',
-  lowStock: '재고 부족',
   soldOut: '품절',
   unavailable: '미제공',
 };
@@ -149,7 +148,6 @@ export function SizeSelector(props: SizeSelectorProps) {
         {soldOut && allowSoldOutSelection && (
           <Icon name="bell-regular" size="14px" className={css({ order: 1 })} />
         )}
-        {state === 'lowStock' && <Icon name="clock-nine-regular" size="12px" />}
         <Typography variant="body4" style={{ color: 'inherit' }}>
           {value}
         </Typography>

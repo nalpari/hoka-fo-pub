@@ -18,7 +18,7 @@ const root = cva({
   },
   variants: {
     variant: {
-      listing: { aspectRatio: '371 / 464' },
+      listing: {},
       history: {},
       summary: { h: 'full', bg: 'black.10', _mobile: { fontSize: 'inherit' } },
       showcase: {

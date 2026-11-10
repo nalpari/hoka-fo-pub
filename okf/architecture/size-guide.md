@@ -4,7 +4,7 @@ title: '사이즈 가이드'
 description: '품목별 측정 안내, 선택 상태와 미확정 데이터의 표시 범위를 설명한다.'
 tags: [support, size-guide, storybook]
 status: draft
-updated: '2026-11-09T12:55:37+09:00'
+updated: '2026-11-09T23:53:01Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T04:46:17Z'
@@ -55,6 +55,10 @@ sources:
 ---
 
 # 사이즈 가이드
+
+## 상품 상세 사이즈 가이드 팝업 유지 (2026-11-10)
+
+상품 상세의 신발·의류 사이즈 가이드 팝업을 다시 연결했다. 성별 치수표가 있으면 현재 화면에서 PC 모달·모바일 바텀시트를 열고, 없을 때만 `/support/size-guide` 링크를 사용한다. 자 아이콘은 16px이며 원래 팝업 동작과 공통 `HelpTooltip`을 함께 유지한다. 화면 연결 그래프에는 공유 치수 데이터와 SegmentedControl 의존성을 반영했다. 아래 2026-11-09 팝업 기록의 표 구성·검증 범위를 따른다. 출처: 작업 트리의 `src/app/products/[id]/_components/ProductDetailContent.tsx`, `src/app/screen-index/sourceGraph.generated.json`.
 
 ## 고객센터 품목 통합 (2026-11-09)
 

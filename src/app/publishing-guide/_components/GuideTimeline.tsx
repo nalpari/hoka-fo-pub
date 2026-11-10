@@ -1,3 +1,7 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+
 import { css } from 'styled-system/css';
 import { Box, Stack } from 'styled-system/jsx';
 
@@ -38,6 +42,9 @@ const timelineLink = css({
     borderRadius: 'full',
     bg: 'surface.default',
   },
+  '&[aria-current=location]': { color: 'black.100' },
+  '&[aria-current=location] span': { fontWeight: '700' },
+  '&[aria-current=location]::before': { bg: 'black.100', borderColor: 'black.100' },
   _hover: { color: 'text.primary', textDecoration: 'underline' },
   _focusVisible: { outline: '2px solid var(--color-focus-ring)', outlineOffset: '2px' },
 });
@@ -56,6 +63,25 @@ export function GuideTimeline({
   title: string;
   entries: readonly GuideTimelineEntry[];
 }) {
+  const [activeId, setActiveId] = useState(entries[0]?.id);
+
+  useEffect(() => {
+    const update = () => {
+      const current = [...entries].reverse().find(({ id }) => {
+        const section = document.getElementById(id);
+        return section && section.getBoundingClientRect().top <= 180;
+      });
+      setActiveId(current?.id ?? entries[0]?.id);
+    };
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    return () => {
+      window.removeEventListener('scroll', update);
+      window.removeEventListener('resize', update);
+    };
+  }, [entries]);
+
   return (
     <Stack as="nav" className={timeline} gap="3" aria-label={`${title} 바로가기`}>
       <Typography as="h2" variant="body3" weight="medium">
@@ -63,7 +89,12 @@ export function GuideTimeline({
       </Typography>
       <Stack className={timelineItems} gap="0">
         {entries.map((item) => (
-          <a key={item.id} className={timelineLink} href={`#${item.id}`}>
+          <a
+            key={item.id}
+            className={timelineLink}
+            href={`#${item.id}`}
+            aria-current={activeId === item.id ? 'location' : undefined}
+          >
             <Typography as="span" variant="body5" weight="medium">
               {item.title}
             </Typography>
