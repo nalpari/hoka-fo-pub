@@ -1009,6 +1009,10 @@ sources:
 
 # 컴포넌트와 스타일
 
+## 상품 목록 이미지 비율 복원 (2026-11-10)
+
+상품 목록의 신발·의류 썸네일은 `ProductThumbnail.listing`에서 PC·모바일 모두 `371 / 464`를 사용한다. 목록에 삽입되는 홍보 카드의 이미지도 `ProductListingPage`에서 두 플랫폼 모두 같은 비율을 사용한다. 출처는 사용자 요청과 `src/components/common/molecules/ProductThumbnail.tsx`, `src/components/catalog/ProductListingPage.tsx`의 작업 트리다.
+
 2026-11-10: 상품 상세의 사이즈 가이드 표·단위 선택 모달을 유지하며, 상품 정보 스펙 안내에는 공통 `HelpTooltip`을 사용한다. 팝업을 여는 자 아이콘은 16px이다. 출처: 작업 트리의 `src/app/products/[id]/_components/ProductDetailContent.tsx`.
 
 ## 상품 목록 이미지 정사각형 복원 (2026-11-10)
