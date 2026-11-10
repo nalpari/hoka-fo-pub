@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-09T23:53:01Z'
+updated: '2026-11-10T04:12:35Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -4813,6 +4813,12 @@ EmptyState의 page 변형은 제목과 설명 사이 16px, 버튼이 전달되�
 검색 결과 없음은 EmptyState의 page 변형을 사용한다. 제목은 PC 28px과 모바일 22px의 900 굵기, 설명은 PC 16px과 모바일 14px이며 두 문구 사이에는 공통 16px 간격을 적용한다. PC 최소 높이 470px과 모바일 상하 96px을 검색 화면이 지정한다.
 
 1543px과 375px의 /search/preview-no-results에서 계산 스타일과 16px 간격을 확인했다. 두 폭에서 문서 가로 넘침이 없었다. 대상 ESLint·Prettier와 Panda 생성이 통과했다. 출처는 ProductListingPage.tsx 작업 트리와 사용자 브라우저 주석이다. Codex, 2026-11-05.
+
+## PC 검색 결과 정렬 (2026-11-10)
+
+PC 검색 결과 제목 오른쪽에 상품 목록과 같은 정렬 드롭다운을 배치한다. 정렬을 선택하면 검색어와 필터를 유지하고 URL의 sort를 갱신하면서 page를 지운다. 준비된 상품은 기존 정렬 함수로 재배치하며, 실제 조회는 통합 소유자가 URL 조건에 맞춰 최신 상품 목록과 조회 상태를 전달하는 경계로 남아 있다. 모바일 정렬은 필터 시트에서 제공하며, 검색 결과 없음 미리보기에는 정렬을 표시하지 않는다.
+
+Codex가 PC 브라우저에서 네 옵션, 낮은가격순 선택 시 Clifton 결과의 144,000원·240,000원 순서, 검색어 보존·page 제거와 뒤로 가기를 확인했다. 390px에서 필터 시트의 정렬을 확인했고, 빈 결과는 HTTP 응답의 안내 문구와 정렬 미노출을 확인했다. 대상 ESLint·Prettier, 타입 검사와 Panda 생성이 통과했다. 출처는 `src/components/catalog/ProductListingPage.tsx` 작업 트리다.
 
 ## 배송지 변경 모달 footer (2026-11-05)
 

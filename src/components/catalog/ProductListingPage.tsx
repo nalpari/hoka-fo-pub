@@ -1095,6 +1095,7 @@ type SearchListingLayoutProps = {
   query: string;
   resultCount: number;
   hasActiveFilters: boolean;
+  sortAction: ReactNode;
 };
 /** 검색 안내와 빈 상태를 구성하고 상품 목록·필터를 공유합니다. (Composes the search introduction and empty state with shared catalog results and filters.) */
 function SearchListingLayout({
@@ -1106,6 +1107,7 @@ function SearchListingLayout({
   query,
   resultCount,
   hasActiveFilters,
+  sortAction,
 }: SearchListingLayoutProps) {
   const [draftQuery, setDraftQuery] = useState(query);
   const hasResultsOrFilters = resultCount > 0 || hasActiveFilters;
@@ -1226,9 +1228,16 @@ function SearchListingLayout({
         <Stack as="header" gap="6" _mobile={{ px: '4', gap: '8' }}>
           {hasResultsOrFilters ? (
             <ContentHeader
+              orientation="horizontal"
               titleAs="h1"
               title={`“${query}”에 대한 ${resultCount}개의 검색결과`}
-              titleProps={{ web: 'heading6', mo: 'body3', weight: 'medium' }}
+              titleProps={{
+                web: 'heading6',
+                mo: 'body3',
+                weight: 'medium',
+                className: css({ minW: '0', overflowWrap: 'anywhere' }),
+              }}
+              action={<Box flexShrink="0">{sortAction}</Box>}
               gap="6"
               _mobile={{ gap: '4' }}
             />
@@ -1422,6 +1431,19 @@ function ProductListingLayout({
   sortPlaceholder,
 }: ProductListingLayoutProps) {
   const normalizedSearchQuery = searchQuery.trim();
+  const sortAction = (
+    <Dropdown
+      ariaLabel="상품 정렬"
+      variant="sort"
+      placeholder={sortPlaceholder}
+      onValueChange={onSortChange}
+      value={sort}
+      options={productSortOptions.map(({ label, value }) => ({
+        label: <Typography variant="eland-filter-option">{label}</Typography>,
+        value,
+      }))}
+    />
+  );
   const content = (
     <ProductListingContent
       isSearchPage={isSearchPage}
@@ -1452,6 +1474,7 @@ function ProductListingLayout({
         onClose={onCloseSearch}
         hasActiveFilters={hasActiveFilters}
         filterAction={<ProductFilterTrigger onClick={() => onFilterDrawerOpenChange(true)} />}
+        sortAction={sortAction}
       >
         {content}
       </SearchListingLayout>
@@ -1465,17 +1488,7 @@ function ProductListingLayout({
         platform === 'mobile' ? (
           <ProductFilterTrigger onClick={() => onFilterDrawerOpenChange(true)} />
         ) : (
-          <Dropdown
-            ariaLabel="상품 정렬"
-            variant="sort"
-            placeholder={sortPlaceholder}
-            onValueChange={onSortChange}
-            value={sort}
-            options={productSortOptions.map(({ label, value }) => ({
-              label: <Typography variant="eland-filter-option">{label}</Typography>,
-              value,
-            }))}
-          />
+          sortAction
         )
       }
       stickyHeader={platform === 'web'}
@@ -1494,6 +1507,10 @@ function ProductListingLayout({
     </ContentLayout>
   );
 }
+/**
+ * [ 개발팀 바인딩 ] 정렬 선택은 URL의 sort를 변경하고 준비된 예시 상품에 적용됩니다.
+ * 실제 검색 연동 시 통합 소유자가 q·sort·필터 변경을 기준으로 재조회하고, 최신 요청의 상품 목록·건수·추가 조회 가능 여부·요청 중/오류 상태를 data로 전달합니다. 실패 시 같은 조건의 재시도와 이전 응답 제외도 통합 소유자가 담당합니다.
+ */
 type ProductListingPageProps = {
   data?: {
     items: readonly Product[];
