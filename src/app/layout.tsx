@@ -54,7 +54,7 @@ export default function RootLayout({
     <html lang="ko" className={`${hoka.variable} ${pretendard.variable}`}>
       <body className="platform-web">
         <Suspense fallback={<main className="loading">화면을 불러오는 중입니다.</main>}>
-          <ShopShell>{children}</ShopShell>
+          <ShopShell state={{ isLoggedIn: true }}>{children}</ShopShell>
         </Suspense>
       </body>
     </html>

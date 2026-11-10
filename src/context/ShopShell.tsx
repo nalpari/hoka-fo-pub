@@ -37,7 +37,6 @@ import {
   VStack,
   Wrap,
 } from 'styled-system/jsx';
-import { hstack } from 'styled-system/patterns';
 
 import { Accordion, type AccordionEntry } from '@/components/common/atoms/Accordion';
 import { Button, ButtonLink } from '@/components/common/atoms/Button';
@@ -132,7 +131,6 @@ function HeaderAuthLink({ onNavigate }: HeaderAuthLinkProps) {
   );
 }
 const MenuDrawerHeaderStyles = {
-  auth: hstack({ gap: '3', color: 'inherit', textDecoration: 'none' }),
   close: css({
     display: 'flex',
     alignItems: 'center',
@@ -158,13 +156,28 @@ function MenuDrawerHeader({ close, isLoggedIn, closeButtonRef }: MenuDrawerHeade
       borderBottom="1px solid {colors.black.20}"
     >
       {isLoggedIn ? (
-        <Link className={MenuDrawerHeaderStyles.auth} href="/mypage" onClick={close}>
-          <Icon name="hoka-user-regular" size="18px" aria-hidden="true" />
-          <Typography variant="body3">마이페이지</Typography>
-        </Link>
-      ) : (
         <HStack gap="3">
           <Icon name="hoka-user-regular" size="18px" aria-hidden="true" />
+          <HStack gap="4px">
+            <Typography variant="body3">
+              <Typography variant="body3" weight="semibold">
+                김호카
+              </Typography>
+              님
+            </Typography>
+            <ButtonLink href="/mypage" variant="link" size="md" onNavigate={close}>
+              <Typography variant="body3">마이페이지</Typography>
+            </ButtonLink>
+          </HStack>
+        </HStack>
+      ) : (
+        <HStack gap="3">
+          <Icon
+            name="hoka-user-regular"
+            size="18px"
+            className={css({ transform: 'translateY(-1px)' })}
+            aria-hidden="true"
+          />
           <HeaderAuthLink onNavigate={close} />
         </HStack>
       )}
@@ -176,7 +189,7 @@ function MenuDrawerHeader({ close, isLoggedIn, closeButtonRef }: MenuDrawerHeade
         aria-label="메뉴 닫기"
         onClick={close}
       >
-        <Icon name="hoka-action-xmark-regular" size="18px" aria-hidden="true" />
+        <Icon name="xmark-regular" size="18px" aria-hidden="true" />
       </Button>
     </HStack>
   );
@@ -631,7 +644,7 @@ type MenuDrawerProps = {
   isLoggedIn?: boolean;
 };
 /** 모바일 메뉴의 탐색과 닫기 동작을 구성합니다 (Displays the menu drawer composition). */
-function MenuDrawer({ close, isLoggedIn = false }: MenuDrawerProps) {
+function MenuDrawer({ close, isLoggedIn = true }: MenuDrawerProps) {
   const [activeMenu, setActiveMenu] = useState<MegaMenu | null>(null);
   const popupRef = useRef<HTMLDivElement>(null);
   const backRef = useRef<HTMLButtonElement>(null);
@@ -1298,7 +1311,7 @@ type RecentSearchItemProps = {
   onRemove: (query: string) => void;
 };
 function RecentSearchItem({ query, onNavigateSearch, onRemove }: RecentSearchItemProps) {
-const platform = usePlatform();
+  const platform = usePlatform();
 
   return (
     <HStack as="li" gap="2" _mobile={{ justifyContent: 'space-between' }}>
@@ -2132,7 +2145,6 @@ type HeaderAccountProps = {
   wishlistCount: number;
 };
 function HeaderAccount({ isLoggedIn }: HeaderAccountProps) {
-  const platform = usePlatform();
   if (!isLoggedIn) {
     return (
       <HeaderIconLink
