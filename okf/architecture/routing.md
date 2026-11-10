@@ -1733,3 +1733,7 @@ IA STATE의 WBS·개발자·진척율이 상위 화면에 표시된 경우 STATE
 ## 로그인 헤더 표시 확인 (2026-11-10)
 
 `src/app/layout.tsx`에서 `ShopShell state={{ isLoggedIn: true }}`를 전달해 로그인 헤더 목업을 표시한다. 실제 인증 처리는 추가하지 않으며 경로 구조는 동일하다. 출처: 해당 파일 작업 트리.
+
+## 문의등록 상품 조회 전 영역 (2026-11-10)
+
+`/support/inquiries/new/preview-order-lookup`의 상품 정보 추가 영역을 최신 데스크탑·모바일 시안에 맞췄다. 제목 아래 간격은 16/12px, 테두리 박스 좌우 패딩은 16px, 상하 패딩은 32/24px, 안내문과 버튼 간격은 24px이다. 공통 secondary short 버튼은 40px이며 모바일에서 전체 너비로 표시한다. 안내문은 body4·subtle·줄 높이 1.5를 사용한다. 선택 후 카드 및 조회 동작 계약은 변경하지 않았다. 출처: `src/app/support/inquiries/new/_components/InquiryFormContent.tsx` 작업 트리와 Figma [HOKA]Design의 문의등록·주문상품 조회 전 시안. Ego에서 데스크탑 버튼 높이 40px·패딩 32/16px, 모바일 375px에서 박스 343px·버튼 309×40px·패딩 24/16px를 확인했다.

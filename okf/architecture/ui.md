@@ -4895,3 +4895,11 @@ PC 1920px 기준 1016px 미디어와 484px 구매 패널 사이 32px를 유지�
 ## 마이페이지 고객지원 메뉴 진입 (2026-11-09)
 
 마이페이지 사이드 메뉴의 FAQs·1:1문의와 대시보드의 같은 바로가기는 고객센터 URL에 `from=mypage`를 붙인다. 공유 브레드크럼에는 기존과 같이 라벨과 링크를 넘기며, 진입별 상위 항목은 [고객지원 라우트](routing.md#마이페이지고객센터-브레드크럼과-화면-제목-2026-11-09)에서 선택한다. 작업 트리 출처는 `src/components/mypage/mypage.data.ts`와 `src/app/mypage/mypage-home-data.ts`다.
+
+## 브레드크럼 링크 글자 정렬 (2026-11-10)
+
+Breadcrumb 내부 링크를 flex 가운데 정렬해 링크에 감싸인 글자와 현재 페이지 Typography의 줄 상자 높이를 맞춘다. 기존 글자 규격과 사용자 조정 간격은 유지한다. 출처: `src/components/common/molecules/Breadcrumb.tsx` 작업 트리.
+
+브레드크럼 클래스는 모듈의 `style` 객체에 묶어 `style.link`와 `style.label`로 참조한다. 두 항목 모두 flex 가운데 정렬을 사용한다.
+
+주문 내역의 장바구니 담기는 Typography web body4·mo body5 medium으로 표시하고 기존 아이콘 크기는 유지한다. 출처: `src/components/orders/OrderHistoryProduct.tsx`.

@@ -396,7 +396,7 @@ export function InquiryOrderProducts({
     </Stack>
   ) : (
     <Stack
-      gap="10px"
+      gap={{ base: '16px', _mobile: '12px' }}
       alignItems="flex-start"
       w="100%"
       pt={{ base: '24px', _mobile: '8px' }}
@@ -405,23 +405,36 @@ export function InquiryOrderProducts({
       <Typography web="heading8" mo="heading7">
         상품 정보
       </Typography>
-      <Typography as="p" variant="body4" tone={invalid ? 'error' : 'subtle'}>
-        {invalid
-          ? '문의하실 주문 상품을 선택해주세요.'
-          : '주문 상품조회 버튼을 눌러 문의하실 주문 상품을 선택해 주세요.'}
-      </Typography>
-      <Box w={{ base: '160px', _mobile: 'auto' }}>
+      <Stack
+        w="100%"
+        gap="24px"
+        alignItems="center"
+        border="1px solid token(colors.black.20)"
+        px="16px"
+        py={{ base: '32px', _mobile: '24px' }}
+      >
+        <Typography
+          as="p"
+          variant="body4"
+          tone={invalid ? 'error' : 'subtle'}
+          className={css({ lineHeight: '1.5' })}
+        >
+          {invalid
+            ? '문의하실 주문 상품을 선택해주세요.'
+            : '주문 상품조회 버튼을 눌러 문의하실 주문 상품을 선택해 주세요.'}
+        </Typography>
         <Button
-          size="tall"
+          size="short"
           variant="secondary"
           fullWidth
+          className={css({ w: { base: '110px', _mobile: '100%' } })}
           ref={lookupButtonRef}
           aria-haspopup="dialog"
           onClick={onLookup}
         >
           주문 상품 조회
         </Button>
-      </Box>
+      </Stack>
     </Stack>
   );
 }
