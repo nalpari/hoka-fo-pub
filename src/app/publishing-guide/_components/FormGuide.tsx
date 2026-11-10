@@ -10,12 +10,12 @@ import { Checkbox } from '@/components/common/atoms/Checkbox';
 import { Dropdown, type DropdownOption } from '@/components/common/atoms/Dropdown';
 import { Icon } from '@/components/common/atoms/Icon';
 import { Radio } from '@/components/common/atoms/Radio';
+import { Toast, type ToastNotice } from '@/components/common/atoms/Toast';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
 
 import { renderGuideCode } from './GuideCode';
-import { type GuideCopyNotice, GuideCopyToast } from './GuideCopyToast';
 import { GuideTimeline } from './GuideTimeline';
 
 const sections = [
@@ -173,7 +173,7 @@ function ButtonCopy({ code, onCopy }: { code: string; onCopy: (code: string) => 
 
 /** 요청된 다섯 폼 컴포넌트의 상태와 타입별 예시를 보여줍니다. (Shows state and type examples for the five requested form component categories.) */
 export function FormGuide() {
-  const [notice, setNotice] = useState<GuideCopyNotice | null>(null);
+  const [notice, setNotice] = useState<ToastNotice | null>(null);
   const nextNoticeId = useRef(0);
   const [typingValue, setTypingValue] = useState('텍스트를 입력해주세요');
   const [passwordValue, setPasswordValue] = useState('');
@@ -629,7 +629,7 @@ export function FormGuide() {
         </Stack>
       </Stack>
       <GuideTimeline title="폼 컴포넌트" entries={sections} />
-      <GuideCopyToast notice={notice} onDismiss={dismissNotice} />
+      <Toast notice={notice} onDismiss={dismissNotice} />
     </Grid>
   );
 }

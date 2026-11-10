@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { usePlatform } from '@/context/platform';
 
 import { css } from 'styled-system/css';
@@ -8,6 +8,7 @@ import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
 import { FilterTabs } from '@/components/common/atoms/FilterTabs';
+import { Toast, type ToastNotice } from '@/components/common/atoms/Toast';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { CarouselSection } from '@/components/common/molecules/CarouselSection';
@@ -75,7 +76,7 @@ const categoryCard = css({
   ))}
 </CarouselSection>`;
 
-const tabsCode = `import { useState } from 'react';
+const tabsCode = `import { useCallback, useRef, useState } from 'react';
 import { usePlatform } from '@/context/platform';
 import { css } from 'styled-system/css';
 import { CarouselSection } from '@/components/common/molecules/CarouselSection';
@@ -121,14 +122,19 @@ const items = createHomeCarouselPreviewItems(products.slice(0, 12));
 export function CarouselGuide() {
   const platform = usePlatform();
   const [selectedTab, setSelectedTab] = useState('전체');
-  const [copyNotice, setCopyNotice] = useState('');
+  const [copyNotice, setCopyNotice] = useState<ToastNotice | null>(null);
+  const nextNoticeId = useRef(0);
+  const dismissNotice = useCallback((id: number) => {
+    setCopyNotice((current) => (current?.id === id ? null : current));
+  }, []);
 
   async function copyCode(code: string) {
+    const id = ++nextNoticeId.current;
     try {
       await navigator.clipboard.writeText(code);
-      setCopyNotice('사용 코드를 복사했습니다.');
+      setCopyNotice({ id, text: '사용 코드를 복사했습니다.' });
     } catch {
-      setCopyNotice('복사하지 못했습니다. 코드를 직접 선택해 주세요.');
+      setCopyNotice({ id, text: '복사하지 못했습니다. 코드를 직접 선택해 주세요.' });
     }
   }
 
@@ -264,9 +270,6 @@ export function CarouselGuide() {
             <code>{renderGuideCode(tabsCode)}</code>
           </Box>
         </Stack>
-        <Typography as="p" variant="body5" role="status">
-          {copyNotice}
-        </Typography>
       </Stack>
       <GuideTimeline
         title="캐러셀"
@@ -281,6 +284,7 @@ export function CarouselGuide() {
           { id: 'carousel-tabs-code', title: '탭 포함형 코드', description: '필터 탭 있는 캐러셀' },
         ]}
       />
+      <Toast notice={copyNotice} onDismiss={dismissNotice} />
     </Grid>
   );
 }

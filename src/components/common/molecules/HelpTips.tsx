@@ -8,7 +8,7 @@ import { css } from 'styled-system/css';
 import { Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
-import { Icon } from '@/components/common/atoms/Icon';
+import { Icon, type IconProps } from '@/components/common/atoms/Icon';
 import { Typography } from '@/components/common/atoms/Typography';
 
 export type HelpTipSide = 'top' | 'right' | 'bottom' | 'left';
@@ -16,6 +16,9 @@ export type HelpTipSide = 'top' | 'right' | 'bottom' | 'left';
 type SignifierProps = {
   label: string;
   icon?: 'info' | 'question';
+  iconColor?: IconProps['color'];
+  /** 안내 아이콘 버튼에 적용하는 클래스입니다. */
+  className?: string;
 };
 
 type TooltipProps = SignifierProps & {
@@ -92,10 +95,14 @@ const arrow = css({
 
 const positioner = css({ zIndex: '100' });
 
-function renderSignifier({ label, icon = 'info' }: SignifierProps) {
+function renderSignifier({ label, icon = 'info', iconColor, className }: SignifierProps) {
   return (
-    <Button variant="icon" size={16} aria-label={label} type="button">
-      <Icon name={icon === 'info' ? 'circle-info-regular' : 'circle-question-regular'} size={16} />
+    <Button variant="icon" size={16} aria-label={label} type="button" className={className}>
+      <Icon
+        name={icon === 'info' ? 'circle-info-regular' : 'circle-question-regular'}
+        size={16}
+        color={iconColor}
+      />
     </Button>
   );
 }
@@ -111,14 +118,21 @@ function TipArrow({ kind }: { kind: 'tooltip' | 'toggletip' }) {
 }
 
 /** 짧은 보조 설명을 안내 아이콘에 표시합니다. (Shows brief helper text from an info icon.) */
-export function HelpTooltip({ label, text, icon, side = 'top' }: TooltipProps) {
+export function HelpTooltip({
+  label,
+  text,
+  icon,
+  iconColor,
+  className,
+  side = 'top',
+}: TooltipProps) {
   const [open, setOpen] = useState(false);
 
   return (
     <BaseTooltip.Root open={open} onOpenChange={setOpen}>
       <BaseTooltip.Trigger
         closeOnClick={false}
-        render={renderSignifier({ label, icon })}
+        render={renderSignifier({ label, icon, iconColor, className })}
         onClick={() => setOpen((current) => !current)}
       />
       <BaseTooltip.Portal>
@@ -148,11 +162,13 @@ export function HelpToggletip({
   description,
   action,
   icon,
+  iconColor,
+  className,
   side = 'top',
 }: ToggletipProps) {
   return (
     <Popover.Root defaultOpen={defaultOpen}>
-      <Popover.Trigger render={renderSignifier({ label, icon })} />
+      <Popover.Trigger render={renderSignifier({ label, icon, iconColor, className })} />
       <Popover.Portal>
         <Popover.Positioner
           side={side}

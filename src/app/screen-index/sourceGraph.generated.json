@@ -663,6 +663,7 @@
       "src/components/common/atoms/NumberStepper.tsx",
       "src/components/common/atoms/RatingStars.tsx",
       "src/components/common/atoms/SegmentedControl.tsx",
+      "src/components/common/atoms/Toast.tsx",
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/atoms/Wishlist.tsx",
       "src/components/common/layouts/ContentLayout.tsx",
@@ -721,10 +722,10 @@
     ],
     "src/app/publishing-guide/_components/ButtonGuide.tsx": [
       "src/app/publishing-guide/_components/GuideCode.tsx",
-      "src/app/publishing-guide/_components/GuideCopyToast.tsx",
       "src/app/publishing-guide/_components/GuideTimeline.tsx",
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Toast.tsx",
       "src/components/common/atoms/Typography.tsx"
     ],
     "src/app/publishing-guide/_components/CarouselGuide.tsx": [
@@ -734,6 +735,7 @@
       "src/app/publishing-guide/_components/GuideTimeline.tsx",
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/FilterTabs.tsx",
+      "src/components/common/atoms/Toast.tsx",
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/molecules/CarouselSection.tsx",
       "src/components/common/molecules/MainContentCard.tsx",
@@ -743,66 +745,84 @@
     ],
     "src/app/publishing-guide/_components/ColorGuide.tsx": [
       "src/app/publishing-guide/_components/GuideCode.tsx",
-      "src/app/publishing-guide/_components/GuideCopyToast.tsx",
       "src/app/publishing-guide/_components/GuideTimeline.tsx",
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Toast.tsx",
       "src/components/common/atoms/Typography.tsx"
+    ],
+    "src/app/publishing-guide/_components/descriptionListExamples.tsx": [
+      "src/app/launch-calendar/launchCalendar.data.ts",
+      "src/app/products/[id]/productDetailPresentation.ts",
+      "src/components/common/atoms/DescriptionList.tsx",
+      "src/components/common/atoms/Divider.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/molecules/HelpTips.tsx",
+      "src/components/orders/orders.data.ts",
+      "src/components/running-session/runningSession.data.ts",
+      "src/mocks/products.ts"
+    ],
+    "src/app/publishing-guide/_components/DescriptionListGuide.tsx": [
+      "src/app/publishing-guide/_components/GuideCode.tsx",
+      "src/app/publishing-guide/_components/GuideTimeline.tsx",
+      "src/app/publishing-guide/_components/descriptionListExamples.tsx",
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Toast.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/context/platform.tsx"
     ],
     "src/app/publishing-guide/_components/FormGuide.tsx": [
       "src/app/publishing-guide/_components/GuideCode.tsx",
-      "src/app/publishing-guide/_components/GuideCopyToast.tsx",
       "src/app/publishing-guide/_components/GuideTimeline.tsx",
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Checkbox.tsx",
       "src/components/common/atoms/Dropdown.tsx",
       "src/components/common/atoms/Icon.tsx",
       "src/components/common/atoms/Radio.tsx",
+      "src/components/common/atoms/Toast.tsx",
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/molecules/FormFields/TextFormField.tsx"
     ],
     "src/app/publishing-guide/_components/GuideCode.tsx": [],
-    "src/app/publishing-guide/_components/GuideCopyToast.tsx": [
-      "src/components/common/atoms/Typography.tsx"
-    ],
     "src/app/publishing-guide/_components/GuideTimeline.tsx": [
       "src/components/common/atoms/Typography.tsx"
     ],
     "src/app/publishing-guide/_components/HelpTipsGuide.tsx": [
       "src/app/publishing-guide/_components/GuideCode.tsx",
-      "src/app/publishing-guide/_components/GuideCopyToast.tsx",
       "src/app/publishing-guide/_components/GuideTimeline.tsx",
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Toast.tsx",
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/molecules/HelpTips.tsx"
     ],
     "src/app/publishing-guide/_components/IconGuide.tsx": [
       "src/app/publishing-guide/_components/GuideCode.tsx",
-      "src/app/publishing-guide/_components/GuideCopyToast.tsx",
       "src/app/publishing-guide/_components/GuideTimeline.tsx",
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Toast.tsx",
       "src/components/common/atoms/Typography.tsx",
       "src/context/ShopShell.tsx"
     ],
     "src/app/publishing-guide/_components/ModalGuide.tsx": [
       "src/app/publishing-guide/_components/GuideCode.tsx",
-      "src/app/publishing-guide/_components/GuideCopyToast.tsx",
       "src/app/publishing-guide/_components/GuideTimeline.tsx",
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Toast.tsx",
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/ModalDialog.tsx",
       "src/context/platform.tsx"
     ],
     "src/app/publishing-guide/_components/ProductCardGuide.tsx": [
       "src/app/publishing-guide/_components/GuideCode.tsx",
-      "src/app/publishing-guide/_components/GuideCopyToast.tsx",
       "src/app/publishing-guide/_components/GuideTimeline.tsx",
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Icon.tsx",
       "src/components/common/atoms/RatingStars.tsx",
+      "src/components/common/atoms/Toast.tsx",
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/atoms/Wishlist.tsx",
       "src/components/common/molecules/OrderProductSummary.tsx",
@@ -814,16 +834,17 @@
     ],
     "src/app/publishing-guide/_components/TypographyGuide.tsx": [
       "src/app/publishing-guide/_components/GuideCode.tsx",
-      "src/app/publishing-guide/_components/GuideCopyToast.tsx",
       "src/app/publishing-guide/_components/GuideTimeline.tsx",
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Toast.tsx",
       "src/components/common/atoms/Typography.tsx"
     ],
     "src/app/publishing-guide/page.tsx": [
       "src/app/publishing-guide/_components/ButtonGuide.tsx",
       "src/app/publishing-guide/_components/CarouselGuide.tsx",
       "src/app/publishing-guide/_components/ColorGuide.tsx",
+      "src/app/publishing-guide/_components/DescriptionListGuide.tsx",
       "src/app/publishing-guide/_components/FormGuide.tsx",
       "src/app/publishing-guide/_components/HelpTipsGuide.tsx",
       "src/app/publishing-guide/_components/IconGuide.tsx",
@@ -1343,6 +1364,7 @@
       "src/components/common/atoms/FormField.tsx",
       "src/components/common/atoms/Icon.tsx"
     ],
+    "src/components/common/atoms/Toast.tsx": ["src/components/common/atoms/Typography.tsx"],
     "src/components/common/atoms/Typography.tsx": ["src/context/platform.tsx"],
     "src/components/common/atoms/Wishlist.tsx": [
       "src/components/common/atoms/Icon.tsx",

@@ -11,6 +11,7 @@ import { type SupportTab, SupportTabs } from '@/components/common/molecules/Supp
 import { ButtonGuide } from './_components/ButtonGuide';
 import { CarouselGuide } from './_components/CarouselGuide';
 import { ColorGuide } from './_components/ColorGuide';
+import { DescriptionListGuide } from './_components/DescriptionListGuide';
 import { FormGuide } from './_components/FormGuide';
 import { HelpTipsGuide } from './_components/HelpTipsGuide';
 import { IconGuide } from './_components/IconGuide';
@@ -28,6 +29,7 @@ const guideTabs: readonly SupportTab[] = [
   { value: 'modal', label: '모달', content: <ModalGuide /> },
   { value: 'carousel', label: '캐러셀', content: <CarouselGuide /> },
   { value: 'product-tiles', label: '상품 타일', content: <ProductCardGuide /> },
+  { value: 'description-list', label: '항목과 값', content: <DescriptionListGuide /> },
 ];
 
 const pageStyle = css({ bg: 'white.0', color: 'black.100' });
@@ -45,7 +47,7 @@ export default function PublishingGuidePage() {
       as="main"
       id="top"
       className={pageStyle}
-      gap={{ base: '8', _mobile: '6' }}
+      gap={{ base: '4', _mobile: '4' }}
       minH="100vh"
       mx="auto"
       px={{ base: '6', _mobile: '4' }}
@@ -56,12 +58,14 @@ export default function PublishingGuidePage() {
         <Typography as="p" variant="body5" tone="subtle">
           PUBLISHING GUIDE / COMPONENTS
         </Typography>
-        <Typography as="h1" variant="heading8">
-          퍼블리싱 가이드
-        </Typography>
-        <Typography as="p" variant="body5" tone="subtle">
-          공통 컴포넌트의 스타일·상태를 확인하고 사용 코드를 복사합니다.
-        </Typography>
+        <HStack>
+          <Typography as="h1" variant="heading8">
+            퍼블리싱 가이드
+            <Typography as="span" variant="body5" tone="subtle">
+              &nbsp;: 공통 컴포넌트의 스타일·상태를 확인하고 사용 코드를 복사합니다.
+            </Typography>
+          </Typography>
+        </HStack>
       </Stack>
       <SupportTabs
         ariaLabel="퍼블리싱 가이드 컴포넌트 분류"

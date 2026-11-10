@@ -7,6 +7,7 @@ import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
 import { Icon } from '@/components/common/atoms/Icon';
+import { Toast, type ToastNotice } from '@/components/common/atoms/Toast';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import {
@@ -16,7 +17,6 @@ import {
 } from '@/components/common/molecules/HelpTips';
 
 import { renderGuideCode } from './GuideCode';
-import { type GuideCopyNotice, GuideCopyToast } from './GuideCopyToast';
 import { GuideTimeline } from './GuideTimeline';
 
 const sides: readonly { side: HelpTipSide; label: string }[] = [
@@ -29,6 +29,7 @@ const sides: readonly { side: HelpTipSide; label: string }[] = [
 const sections = [
   { id: 'help-tip-usage', title: '사용 기준', description: '툴팁과 토글팁을 구분합니다' },
   { id: 'help-tooltip', title: 'Tooltip', description: '짧은 보조 설명' },
+  { id: 'help-tip-color', title: '아이콘 색상', description: 'iconColor로 색상 변경' },
   { id: 'help-toggletip', title: 'Toggletip', description: '제목·설명·액션' },
 ] as const;
 
@@ -100,7 +101,7 @@ function TipExample({
 
 /** 툴팁과 토글팁의 용도·방향별 사용법을 보여줍니다. (Shows when and where to use tooltips and toggletips.) */
 export function HelpTipsGuide() {
-  const [notice, setNotice] = useState<GuideCopyNotice | null>(null);
+  const [notice, setNotice] = useState<ToastNotice | null>(null);
   const nextNoticeId = useRef(0);
   const dismissNotice = useCallback((id: number) => {
     setNotice((current) => (current?.id === id ? null : current));
@@ -201,6 +202,46 @@ export function HelpTipsGuide() {
 
         <Stack
           as="section"
+          id="help-tip-color"
+          gap="3"
+          scrollMarginTop="calc(var(--layout-site-header-height) + 16px)"
+          aria-labelledby="help-tip-color-title"
+        >
+          <Typography as="h3" id="help-tip-color-title" variant="heading8">
+            아이콘 색상
+          </Typography>
+          <Typography as="p" variant="body5" tone="subtle">
+            iconColor로 아이콘 색상을 변경합니다. 생략하면 기본 색상을 사용합니다.
+          </Typography>
+          <Grid columns={{ base: 2, _mobile: 1 }} gap="3">
+            <TipExample
+              label="Tooltip · black.60"
+              code={
+                '<HelpTooltip label="정보 안내" text="추가 정보를 확인하세요." iconColor="black.60" />'
+              }
+              onCopy={copyCode}
+            >
+              <HelpTooltip label="정보 안내" text="추가 정보를 확인하세요." iconColor="black.60" />
+            </TipExample>
+            <TipExample
+              label="Toggletip · blue.100"
+              code={
+                '<HelpToggletip label="질문 안내" icon="question" description="추가 안내 내용입니다." iconColor="blue.100" />'
+              }
+              onCopy={copyCode}
+            >
+              <HelpToggletip
+                label="질문 안내"
+                icon="question"
+                description="추가 안내 내용입니다."
+                iconColor="blue.100"
+              />
+            </TipExample>
+          </Grid>
+        </Stack>
+
+        <Stack
+          as="section"
           id="help-toggletip"
           gap="3"
           scrollMarginTop="calc(var(--layout-site-header-height) + 16px)"
@@ -228,7 +269,7 @@ export function HelpTipsGuide() {
         </Stack>
       </Stack>
       <GuideTimeline title="툴팁 · 토글팁" entries={sections} />
-      <GuideCopyToast notice={notice} onDismiss={dismissNotice} />
+      <Toast notice={notice} onDismiss={dismissNotice} />
     </Grid>
   );
 }
