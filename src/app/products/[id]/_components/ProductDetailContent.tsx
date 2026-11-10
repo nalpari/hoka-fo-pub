@@ -11,6 +11,7 @@ import {
   Fragment,
   type ReactNode,
   type Ref,
+  useCallback,
   useEffect,
   useId,
   useRef,
@@ -31,6 +32,7 @@ import { Icon } from '@/components/common/atoms/Icon';
 import { NumberStepper } from '@/components/common/atoms/NumberStepper';
 import { RatingStars } from '@/components/common/atoms/RatingStars';
 import { SegmentedControl } from '@/components/common/atoms/SegmentedControl';
+import { Toast, type ToastNotice } from '@/components/common/atoms/Toast';
 import { Typography } from '@/components/common/atoms/Typography';
 import { Wishlist } from '@/components/common/atoms/Wishlist';
 
@@ -651,7 +653,13 @@ function ProductDetailSpecificationList({ items, gap }: ProductDetailSpecificati
           <HStack as="span" gap="2" alignItems="center">
             {item.label}
             {item.help ? (
-              <HelpTooltip label={`${item.label} 안내`} text={item.help} side="bottom" />
+              <HelpTooltip
+                label={`${item.label} 안내`}
+                text={item.help}
+                side="bottom"
+                iconColor="black.50"
+                className={css({ transform: 'translateY(-1px)' })}
+              />
             ) : null}
           </HStack>
         ),
@@ -720,7 +728,13 @@ function ProductTechnicalScale({ title, labels, level, help }: ProductTechnicalS
         gap: '2',
         css: css.raw({ justifyContent: 'flex-start' }),
         action: help ? (
-          <HelpTooltip label={`${title} 안내`} text={help} side="bottom" />
+          <HelpTooltip
+            label={`${title} 안내`}
+            text={help}
+            side="bottom"
+            iconColor="black.50"
+            className={css({ transform: 'translateY(-1px)' })}
+          />
         ) : undefined,
       }}
       gap="3"
@@ -2105,6 +2119,26 @@ function ProductDetailHeaderActions({
   onWishChange,
 }: ProductDetailHeaderActionsProps) {
   const platform = usePlatform();
+  const [shareNotice, setShareNotice] = useState<ToastNotice | null>(null);
+  const nextNoticeId = useRef(0);
+  const dismissShareNotice = useCallback((id: number) => {
+    setShareNotice((current) => (current?.id === id ? null : current));
+  }, []);
+
+  async function copyProductLink() {
+    const id = ++nextNoticeId.current;
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      if (id === nextNoticeId.current) {
+        setShareNotice({ id, text: '링크가 복사되었습니다.' });
+      }
+    } catch {
+      if (id === nextNoticeId.current) {
+        setShareNotice({ id, text: '링크를 복사하지 못했습니다.' });
+      }
+    }
+  }
+
   return (
     <Flex alignItems="center" justifyContent="space-between" w="full">
       <HStack gap="10px">
@@ -2133,7 +2167,7 @@ function ProductDetailHeaderActions({
         </Button>
       </HStack>
       <HStack gap="4">
-        <ShareButton size="24px" />
+        <ShareButton size="24px" onClick={copyProductLink} />
         <Wishlist
           active={wish}
           ariaLabel="관심상품"
@@ -2141,6 +2175,7 @@ function ProductDetailHeaderActions({
           onActiveChange={onWishChange}
         />
       </HStack>
+      <Toast notice={shareNotice} onDismiss={dismissShareNotice} />
     </Flex>
   );
 }

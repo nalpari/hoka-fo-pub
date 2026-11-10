@@ -4925,3 +4925,39 @@ PC 1920px 기준 1016px 미디어와 484px 구매 패널 사이 32px를 유지�
 ## 상품 상세 사이즈 오류 타이포그래피 2026-11-10
 
 공용 `ProductSizeSelector`는 선택적 `errorVariant`로 오류 문구의 타이포그래피를 지정한다. 오류 메시지는 기존 `FormField`의 alert와 설명 연결을 사용한다. 상품 상세는 `eland-product-option-error`를 전달해 사이즈 미선택 문구를 PC 14px, 모바일 13px의 Pretendard 500으로 표시한다.
+
+## 브레드크럼 링크 글자 정렬 (2026-11-10)
+
+Breadcrumb 내부 링크를 flex 가운데 정렬해 링크에 감싸인 글자와 현재 페이지 Typography의 줄 상자 높이를 맞춘다. 기존 글자 규격과 사용자 조정 간격은 유지한다. 출처: `src/components/common/molecules/Breadcrumb.tsx` 작업 트리.
+
+브레드크럼 클래스는 모듈의 `style` 객체에 묶어 `style.link`와 `style.label`로 참조한다. 두 항목 모두 flex 가운데 정렬을 사용한다.
+
+주문 내역의 장바구니 담기는 Typography web body4·mo body5 medium으로 표시하고 기존 아이콘 크기는 유지한다. 출처: `src/components/orders/OrderHistoryProduct.tsx`.
+
+## 도움말 아이콘 색상 옵션 (2026-11-10)
+
+HelpTooltip·HelpToggletip의 `iconColor`는 Icon의 color 타입을 재사용하며 안내/질문 아이콘에만 전달한다. 생략 시 기존 Icon 기본 색상을 유지한다. 예: `iconColor="black.60"`. 출처: `src/components/common/molecules/HelpTips.tsx` 작업 트리.
+
+도움말 퍼블 가이드에 iconColor 색상 예시(Tooltip black.60, Toggletip blue.100)와 개별 복사 코드, 타임라인 항목을 추가했다. 출처: `src/app/publishing-guide/_components/HelpTipsGuide.tsx` 작업 트리(2026-11-10).
+
+## DescriptionList 퍼블 가이드 (2026-11-10)
+
+퍼블 가이드의 항목과 값 탭은 실제 화면의 표시 데이터와 DescriptionList 호출부 스타일을 기준으로 17개 예시를 제공한다. 상품·런칭·러닝·주문 데이터는 화면의 기존 데이터 모듈을 참조하고, 문의 고객 정보와 회원정보는 화면의 기본 표시 값을 그대로 사용한다. 임의 상품 무게·회원정보·주문 예시는 제거했다. 실제 호출이 없는 OrderInformationSection은 화면 예시에서 제외했다.
+
+문의등록, 상품 상세 스펙 2종·고시·상품 정보, 런칭 상세 2종, 러닝 세션 2종, 주문 수령인·취소·반품·회수·사유, 회원정보 3종을 포함한다. usePlatform으로 주문·클레임 표시와 상품 정보 항목명을 실제 화면처럼 구분하며 반품 사유 DescriptionList는 데스크탑에서만 표시한다. 글꼴·색상·간격·열 너비·구분선과 복사 코드를 실제 호출부에 맞췄다. 출처: DescriptionListGuide.tsx, descriptionListExamples.tsx와 각 예시 source에 기록한 화면 파일. 서비스 연동은 추가하지 않았다.
+
+2026-11-10: HelpTooltip·HelpToggletip의 선택적 `className`은 안내 아이콘의 트리거 Button에 전달된다. 팝업 본문 스타일과는 별개이며 생략하면 기존 스타일을 유지한다. 출처: `src/components/common/molecules/HelpTips.tsx` 작업 트리.
+
+DescriptionList 가이드의 복사 액션은 코드 영역 오른쪽 위에 기존 가이드와 같은 copy-regular 18px·32px 아이콘 버튼으로 표시한다(2026-11-10). 출처: `DescriptionListGuide.tsx` 작업 트리.
+
+2026-11-10: 항목과 값·캐러셀 가이드도 GuideCopyToast를 사용한다. 모든 복사 제공 가이드의 성공/실패 알림을 같은 상단 토스트로 표시하며 매 복사마다 새 id를 부여해 연속 복사 시 표시 시간을 갱신한다. 출처: `DescriptionListGuide.tsx`, `CarouselGuide.tsx` 작업 트리.
+
+## 복사 토스트 디자인과 모션 (2026-11-10)
+
+GuideCopyToast는 화면 하단 40px 중앙에 검정 238×40px(긴 문구는 높이 확장)·모서리 52px·흰색 body4 medium으로 표시한다. 3초 후 퇴장하며 진입은 12px 아래에서 위로+페이드 인, 퇴장은 아래로+페이드 아웃을 각각 200ms 적용한다. 모션 감소 설정에서는 전환 시간을 0으로 한다. 연속 복사는 기존 타이머와 애니메이션을 정리하고 다시 시작한다. 출처: `GuideCopyToast.tsx` 작업 트리, Figma Main / PLP / PDP의 PC PDP 공유하기 및 사용자 제공 모션 명세. 이전 상단·2초 안내를 대체한다.
+
+## 공통 Toast atom (2026-11-10)
+
+가이드 전용 GuideCopyToast를 `src/components/common/atoms/Toast.tsx`로 옮기고 `Toast`·`ToastNotice`로 변경했다. `notice: { id, text } | null`과 `onDismiss(id)`로 임의의 안내 메시지를 받으며 복사 여부와 메시지는 호출자가 결정한다. 하단 40px·3초 노출·슬라이드/페이드·모션 감소 및 연속 표시 정리 동작은 유지한다. 모든 가이드 import와 의존 그래프를 새 경로로 갱신했다. 출처: Toast.tsx와 퍼블 가이드 작업 트리.
+
+2026-11-10 검증: 변경 가이드 파일 ESLint와 OKF 검사 통과. Ego에서 데스크탑 목록 17개, 모바일 표시 목록 16개(반품 사유는 데스크탑 전용)와 상품 스펙·수령인 표시를 확인했다. TypeScript 검사에는 변경 소스 오류가 없었으나 삭제된 라우트를 가리키는 기존 .next/types 오류가 남아 전체 통과는 아니다.

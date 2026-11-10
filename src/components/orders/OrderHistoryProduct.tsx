@@ -83,15 +83,15 @@ export function OrderHistoryProduct({
         ) : null}
         {cartAction ? (
           <Box>
-            <Button
-              variant="plain"
-              size={platform === 'mobile' ? 'sm' : 'md'}
-              type="button"
-              className={css({ alignSelf: 'flex-start' })}
-            >
+            <Button variant="plain" type="button">
               <HStack gap="4px">
-                <Icon name="hoka-bag-shopping-regular" size={platform === 'mobile' ? '14px' : '18px'} />
-                장바구니 담기
+                <Icon
+                  name="hoka-bag-shopping-regular"
+                  size={platform === 'mobile' ? '14px' : '18px'}
+                />
+                <Typography web="body4" mo="body5" weight="medium">
+                  장바구니 담기
+                </Typography>
               </HStack>
             </Button>
           </Box>

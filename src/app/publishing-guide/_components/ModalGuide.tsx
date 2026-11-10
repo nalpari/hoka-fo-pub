@@ -8,12 +8,12 @@ import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
 import { Icon } from '@/components/common/atoms/Icon';
+import { Toast, type ToastNotice } from '@/components/common/atoms/Toast';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { ModalDialog, type ModalDialogProps } from '@/components/common/layouts/ModalDialog';
 
 import { renderGuideCode } from './GuideCode';
-import { type GuideCopyNotice, GuideCopyToast } from './GuideCopyToast';
 import { GuideTimeline } from './GuideTimeline';
 
 type ModalExample = {
@@ -487,7 +487,7 @@ function ModalExampleCard({
 /** 공통 모달의 데스크탑·모바일 표시와 사용 코드를 안내합니다. (Shows desktop and mobile modal presentations with copyable usage examples.) */
 export function ModalGuide() {
   const platform = usePlatform();
-  const [notice, setNotice] = useState<GuideCopyNotice | null>(null);
+  const [notice, setNotice] = useState<ToastNotice | null>(null);
   const nextNoticeId = useRef(0);
   const dismissNotice = useCallback(
     (id: number) => setNotice((current) => (current?.id === id ? null : current)),
@@ -555,7 +555,7 @@ export function ModalGuide() {
         ))}
       </Stack>
       <GuideTimeline title="모달" entries={groups} />
-      <GuideCopyToast notice={notice} onDismiss={dismissNotice} />
+      <Toast notice={notice} onDismiss={dismissNotice} />
     </Grid>
   );
 }

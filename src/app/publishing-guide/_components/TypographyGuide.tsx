@@ -7,10 +7,10 @@ import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
 import { Icon } from '@/components/common/atoms/Icon';
+import { Toast, type ToastNotice } from '@/components/common/atoms/Toast';
 import { figmaTypographyVariants, Typography } from '@/components/common/atoms/Typography';
 
 import { renderGuideCode } from './GuideCode';
-import { type GuideCopyNotice, GuideCopyToast } from './GuideCopyToast';
 import { GuideTimeline } from './GuideTimeline';
 
 type GuideVariant = keyof typeof figmaTypographyVariants;
@@ -159,7 +159,7 @@ function variantMetrics(variant: GuideVariant) {
 
 /** Typography의 실제 variant별 반응형 미리보기와 복사 코드를 제공합니다. (Shows responsive previews and copyable snippets for Typography variants.) */
 export function TypographyGuide() {
-  const [copyNotice, setCopyNotice] = useState<GuideCopyNotice | null>(null);
+  const [copyNotice, setCopyNotice] = useState<ToastNotice | null>(null);
   const nextCopyId = useRef(0);
 
   function showCopyNotice(text: string) {
@@ -266,7 +266,7 @@ export function TypographyGuide() {
           </Stack>
         ))}
       </Stack>
-      <GuideCopyToast notice={copyNotice} onDismiss={dismissCopyNotice} />
+      <Toast notice={copyNotice} onDismiss={dismissCopyNotice} />
       <GuideTimeline
         title="타이포그래피 유형"
         entries={groups.map(({ id, title, description }) => ({ id, title, description }))}

@@ -7,10 +7,10 @@ import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Button, type ButtonProps } from '@/components/common/atoms/Button';
 import { Icon } from '@/components/common/atoms/Icon';
+import { Toast, type ToastNotice } from '@/components/common/atoms/Toast';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { renderGuideCode } from './GuideCode';
-import { type GuideCopyNotice, GuideCopyToast } from './GuideCopyToast';
 import { GuideTimeline } from './GuideTimeline';
 
 const variants = [
@@ -640,7 +640,7 @@ function renderSamplePreview(preview: ReactNode, disabled: boolean) {
 
 /** 버튼 variant별 상태·크기 예시와 복사 가능한 코드를 보여줍니다. (Shows button variant examples by state and size with copyable code.) */
 export function ButtonGuide() {
-  const [copyNotice, setCopyNotice] = useState<GuideCopyNotice | null>(null);
+  const [copyNotice, setCopyNotice] = useState<ToastNotice | null>(null);
   const nextCopyId = useRef(0);
 
   function showCopyNotice(text: string) {
@@ -664,7 +664,7 @@ export function ButtonGuide() {
   return (
     <Stack gap="3">
       <ButtonCategoryPanel onCopy={copySource} />
-      <GuideCopyToast notice={copyNotice} onDismiss={dismissCopyNotice} />
+      <Toast notice={copyNotice} onDismiss={dismissCopyNotice} />
     </Stack>
   );
 }

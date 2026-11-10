@@ -8,10 +8,10 @@ import { token } from 'styled-system/tokens';
 
 import { Button } from '@/components/common/atoms/Button';
 import { Icon } from '@/components/common/atoms/Icon';
+import { Toast, type ToastNotice } from '@/components/common/atoms/Toast';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { renderGuideCode } from './GuideCode';
-import { type GuideCopyNotice, GuideCopyToast } from './GuideCopyToast';
 import { GuideTimeline } from './GuideTimeline';
 
 // Figma 196:9352의 표기 HEX와 프로젝트 토큰을 대조한 목록입니다.
@@ -209,7 +209,7 @@ function ColorCard({ color, onCopy }: { color: GuideColor; onCopy: (value: strin
 
 /** Figma 컬러와 프로젝트 토큰의 미리보기·복사 기능을 제공합니다. (Provides previews and copy actions for Figma colors and project tokens.) */
 export function ColorGuide() {
-  const [notice, setNotice] = useState<GuideCopyNotice | null>(null);
+  const [notice, setNotice] = useState<ToastNotice | null>(null);
   const nextNoticeId = useRef(0);
   const dismissNotice = useCallback((id: number) => {
     setNotice((current) => (current?.id === id ? null : current));
@@ -321,7 +321,7 @@ export function ColorGuide() {
         </Stack>
       </Stack>
       <GuideTimeline title="컬러" entries={sections} />
-      <GuideCopyToast notice={notice} onDismiss={dismissNotice} />
+      <Toast notice={notice} onDismiss={dismissNotice} />
     </Grid>
   );
 }

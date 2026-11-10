@@ -1756,3 +1756,17 @@ PC 1920px·MO 375px에서 일반·임직원 목록, 상세 직접 진입, 확인
 디자인 출처는 [HOKA Design의 마이페이지 쿠폰 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 일반·임직원 목록과 상세 프레임이다. 구현 출처는 이 문서의 작업 트리 출처에 있는 `CouponManagement.tsx`, IA 소스 그래프와 `public/images/mypage/coupon.svg`다.
 
 쿠폰 화면은 기본 `Typography` 변형을 사용한다. 쿠폰 내역 안내와 모바일 임직원 카드 문구에는 `bodyKr3`와 화면의 1.5 행간을 적용한다. 상세보기 링크, 팝업 제목과 금액의 글자 크기·굵기도 기존 Typography 옵션으로 지정한다. 섹션 제목의 모바일 굵기와 상세 본문의 1.5 행간은 화면 스타일에서 지정한다. PC 1920px·MO 375px에서 내역 안내 16px/24px, 링크 12px/400, 금액 숫자 16px/500, 팝업 제목 PC 16px/400·MO 20px/700을 실측했다.
+
+## 문의등록 상품 조회 전 영역 (2026-11-10)
+
+`/support/inquiries/new/preview-order-lookup`의 상품 정보 추가 영역을 최신 데스크탑·모바일 시안에 맞췄다. 제목 아래 간격은 16/12px, 테두리 박스 좌우 패딩은 16px, 상하 패딩은 32/24px, 안내문과 버튼 간격은 24px이다. 공통 secondary short 버튼은 40px이며 모바일에서 전체 너비로 표시한다. 안내문은 body4·subtle·줄 높이 1.5를 사용한다. 선택 후 카드 및 조회 동작 계약은 변경하지 않았다. 출처: `src/app/support/inquiries/new/_components/InquiryFormContent.tsx` 작업 트리와 Figma [HOKA]Design의 문의등록·주문상품 조회 전 시안. Ego에서 데스크탑 버튼 높이 40px·패딩 32/16px, 모바일 375px에서 박스 343px·버튼 309×40px·패딩 24/16px를 확인했다.
+
+## 항목과 값 가이드 탭 (2026-11-10)
+
+`/publishing-guide?tab=description-list`에서 DescriptionList의 화면 예시와 복사 코드를 제공한다. 출처: `src/app/publishing-guide/page.tsx` 작업 트리.
+
+2026-11-10: 퍼블 가이드의 토스트 의존성을 공통 atoms/Toast로 이동했다. 화면 URL 변경은 없다. 출처: `src/app/publishing-guide/_components/*Guide.tsx`, 화면 의존 그래프 작업 트리.
+
+## 상품 상세 링크 공유 (2026-11-10)
+
+상품 상세 헤더의 공유 버튼은 현재 URL을 클립보드에 복사하고 성공 시 공통 Toast에 “링크가 복사되었습니다.”를 전달한다. 실패는 별도 안내하며 연속 클릭의 오래된 결과는 무시한다. 데스크탑·모바일 공통이며 기존 아이콘 크기는 유지한다. 출처: `src/app/products/[id]/_components/ProductDetailContent.tsx` 작업 트리.

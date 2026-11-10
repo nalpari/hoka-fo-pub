@@ -10,6 +10,7 @@ import { token } from 'styled-system/tokens';
 import { Button } from '@/components/common/atoms/Button';
 import { Icon } from '@/components/common/atoms/Icon';
 import { RatingStars } from '@/components/common/atoms/RatingStars';
+import { Toast, type ToastNotice } from '@/components/common/atoms/Toast';
 import { Typography } from '@/components/common/atoms/Typography';
 import { Wishlist } from '@/components/common/atoms/Wishlist';
 
@@ -27,7 +28,6 @@ import type { OrderLine } from '@/components/orders/orders.types';
 import { type Product, products } from '@/mocks/products';
 
 import { renderGuideCode } from './GuideCode';
-import { type GuideCopyNotice, GuideCopyToast } from './GuideCopyToast';
 import { GuideTimeline } from './GuideTimeline';
 
 type TileExample = {
@@ -542,7 +542,7 @@ function VerticalProductExample({
  */
 /** Horizontal·Vertical 상품 타일을 데스크탑·모바일 예시와 복사 가능한 코드로 보여줍니다. (Shows horizontal and vertical product tiles with desktop/mobile examples and copyable snippets.) */
 export function ProductCardGuide() {
-  const [notice, setNotice] = useState<GuideCopyNotice | null>(null);
+  const [notice, setNotice] = useState<ToastNotice | null>(null);
   const nextNoticeId = useRef(0);
   const dismissNotice = useCallback(
     (id: number) => setNotice((current) => (current?.id === id ? null : current)),
@@ -777,7 +777,7 @@ export function ProductCardGuide() {
         ))}
       </Stack>
       <GuideTimeline title="상품 타일" entries={sections} />
-      <GuideCopyToast notice={notice} onDismiss={dismissNotice} />
+      <Toast notice={notice} onDismiss={dismissNotice} />
     </Grid>
   );
 }

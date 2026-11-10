@@ -10,10 +10,10 @@ import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
 import { Icon } from '@/components/common/atoms/Icon';
+import { Toast, type ToastNotice } from '@/components/common/atoms/Toast';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { renderGuideCode } from './GuideCode';
-import { type GuideCopyNotice, GuideCopyToast } from './GuideCopyToast';
 import { GuideTimeline } from './GuideTimeline';
 
 type IconExample = {
@@ -1689,7 +1689,7 @@ function IconExampleCard({
 
 /** 사용 중인 아이콘의 형태와 크기·색상·복사 코드를 안내합니다. (Documents active icons with size, color, and copyable usage examples.) */
 export function IconGuide() {
-  const [notice, setNotice] = useState<GuideCopyNotice | null>(null);
+  const [notice, setNotice] = useState<ToastNotice | null>(null);
   const nextNoticeId = useRef(0);
   const dismissNotice = useCallback((id: number) => {
     setNotice((current) => (current?.id === id ? null : current));
@@ -1850,7 +1850,7 @@ export function IconGuide() {
         ))}
       </Stack>
       <GuideTimeline title="아이콘" entries={sections} />
-      <GuideCopyToast notice={notice} onDismiss={dismissNotice} />
+      <Toast notice={notice} onDismiss={dismissNotice} />
     </Grid>
   );
 }
