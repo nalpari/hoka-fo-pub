@@ -383,6 +383,10 @@ function ProductActivity({ activities, variant }: ProductActivityProps) {
 type ProductVariantSummaryDisplay = 'colors' | 'widths' | 'colors-widths';
 
 type ProductVariantSummaryProps = {
+  colorSelection?: Pick<
+    NonNullable<ProductDetailsProps['colorPreview']>,
+    'selectedId' | 'onSelect'
+  >;
   colorCount: number;
   display?: ProductVariantSummaryDisplay;
   options: readonly ProductOptionThumbnail[];
@@ -393,6 +397,7 @@ type ProductVariantSummaryProps = {
 /** Product color and width option summary: text on web, swatches on mobile. */
 function ProductVariantSummary({
   colorCount,
+  colorSelection,
   display = 'colors-widths',
   history = false,
   options,
@@ -411,7 +416,14 @@ function ProductVariantSummary({
       </Typography>
     );
   }
-  return <ProductOptionList layout={history ? 'preview' : 'scroll'} options={options} />;
+  return (
+    <ProductOptionList
+      layout={history ? 'preview' : 'scroll'}
+      options={options}
+      selectedId={colorSelection?.selectedId}
+      onSelect={colorSelection?.onSelect}
+    />
+  );
 }
 
 type ProductDetailsOptionsProps = Pick<
@@ -441,6 +453,7 @@ function ProductDetailsOptions({
       )}
       <ProductVariantSummary
         colorCount={colorCount}
+        colorSelection={platform === 'mobile' ? colorPreview : undefined}
         history={variant === 'history'}
         options={optionThumbnails}
         platform={platform}
@@ -449,7 +462,7 @@ function ProductDetailsOptions({
     </>
   );
 
-  if (colorPreview) {
+  if (platform === 'web' && colorPreview) {
     // 숨긴 캐러셀도 높이 계산에 참여해 OS별 스크롤바 높이가 호버 레이아웃을 바꾸지 않게 합니다.
     return (
       <Grid gap="0" gridTemplateColumns="minmax(0, 1fr)" alignItems="start" minW="0" w="full">
@@ -632,6 +645,7 @@ const ProductCardHeaderRoot = css({
 });
 
 type ProductCardHeaderProps = {
+  platform: Platform;
   selectedImage?: string;
   product: ProductCardProduct;
   href?: string;
@@ -642,6 +656,7 @@ type ProductCardHeaderProps = {
 function ProductCardHeader({
   product,
   href,
+  platform,
   selectedImage,
   soldOut = false,
   variant,
@@ -652,9 +667,13 @@ function ProductCardHeader({
         <ProductThumbnail
           alt={product.name}
           hover
-          hoverImage={selectedImage ?? product.hoverImage}
+          hoverImage={
+            platform === 'web' ? (selectedImage ?? product.hoverImage) : product.hoverImage
+          }
           lazy
-          src={product.primaryImage}
+          src={
+            platform === 'mobile' ? (selectedImage ?? product.primaryImage) : product.primaryImage
+          }
           variant={variant}
         />
         {soldOut && (
@@ -768,9 +787,10 @@ export type ProductCardProps = {
  * [ 개발팀 바인딩 ] 목록 소유자가 product의 상품 ID·colorThumbnails 옵션 ID/이미지를 제공합니다.
  * 추천 목록은 id/name/price/primaryImage와 선택적 gender/href만 전달할 수 있으며 미제공 활동·색상·스펙을 만들어 채우지 않습니다.
  * PC 목록의 호버/키보드 포커스에서 요약을 48px 색상 캐러셀로 교체하며, 선택 ID는 현재 옵션에서 찾아 이미지 미리보기에만 사용합니다.
+ * 모바일 목록에서는 색상별 썸네일이 제공되면 선택한 이미지를 대표 이미지에 표시합니다.
  * 색상 선택은 요청·저장·재고 판정 없이 로컬로 처리합니다. 관심상품 연결과 상세 링크는 기존 소유자가 담당합니다.
  */
-/** 상품 이미지와 요약·호버 색상 캐러셀을 표시합니다. (Displays product imagery, details, and an inline color carousel on hover.) */
+/** 상품 이미지와 요약을 표시하고 목록에서 색상 미리보기를 제공합니다. (Displays product imagery, details, and color previews in listings.) */
 export function ProductCard({
   href,
   promotionTone,
@@ -791,9 +811,11 @@ export function ProductCard({
   const hasOption = (option: ProductCardOption) => options.includes(option);
   const colorOptions = productOptionThumbnails(product);
   const selectedColor = colorOptions.find((option) => option.id === selectedColorId);
-  const supportsColorPreview =
-    platform === 'web' && variant === 'listing' && hasOption('colors') && colorOptions.length > 0;
-  const showColorPreview = supportsColorPreview && previewOpen;
+  const canSelectColor =
+    variant === 'listing' &&
+    hasOption('colors') &&
+    (platform === 'web' ? colorOptions.length > 0 : !!product.colorThumbnails?.length);
+  const showColorPreview = platform === 'web' && canSelectColor && previewOpen;
   return (
     <Card
       className={root({ variant })}
@@ -823,7 +845,12 @@ export function ProductCard({
     >
       <ProductCardHeader
         href={href}
-        selectedImage={showColorPreview ? selectedColor?.image : undefined}
+        platform={platform}
+        selectedImage={
+          canSelectColor && (platform === 'mobile' || showColorPreview)
+            ? selectedColor?.image
+            : undefined
+        }
         product={product}
         soldOut={soldOut}
         variant={variant}
@@ -869,7 +896,7 @@ export function ProductCard({
 
       <ProductDetails
         colorPreview={
-          supportsColorPreview
+          canSelectColor
             ? {
                 open: showColorPreview,
                 selectedId: selectedColor?.id,

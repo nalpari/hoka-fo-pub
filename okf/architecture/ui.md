@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-10T04:12:35Z'
+updated: '2026-11-10T07:45:13Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -4823,6 +4823,12 @@ EmptyState의 page 변형은 제목과 설명 사이 16px, 버튼이 전달되�
 PC 검색 결과 제목 오른쪽에 상품 목록과 같은 정렬 드롭다운을 배치한다. 정렬을 선택하면 검색어와 필터를 유지하고 URL의 sort를 갱신하면서 page를 지운다. 준비된 상품은 기존 정렬 함수로 재배치하며, 실제 조회는 통합 소유자가 URL 조건에 맞춰 최신 상품 목록과 조회 상태를 전달하는 경계로 남아 있다. 모바일 정렬은 필터 시트에서 제공하며, 검색 결과 없음 미리보기에는 정렬을 표시하지 않는다.
 
 Codex가 PC 브라우저에서 네 옵션, 낮은가격순 선택 시 Clifton 결과의 144,000원·240,000원 순서, 검색어 보존·page 제거와 뒤로 가기를 확인했다. 390px에서 필터 시트의 정렬을 확인했고, 빈 결과는 HTTP 응답의 안내 문구와 정렬 미노출을 확인했다. 대상 ESLint·Prettier, 타입 검사와 Panda 생성이 통과했다. 출처는 `src/components/catalog/ProductListingPage.tsx` 작업 트리다.
+
+## 모바일 상품 목록과 검색 결과의 색상 선택 (2026-11-10)
+
+공통 `ProductCard`의 모바일 목록에서 `colorThumbnails`가 제공되면 썸네일을 버튼으로 표시한다. 선택한 옵션 ID로 현재 이미지 데이터를 찾아 카드 대표 이미지에 반영한다. 색상 이름만 제공되는 상품은 기존 읽기 전용 썸네일을 유지한다. 선택은 카드 안의 미리보기 상태이며 URL, 상품 상세 링크와 서비스 데이터에 영향을 주지 않는다.
+
+Codex가 473px 모바일 목록과 검색 결과에서 Summit Pace 4의 색상 버튼을 연속 선택해 대표 이미지와 `aria-pressed`가 바뀌고 URL이 유지됨을 확인했다. 1440px 목록에서 PC 호버 미리보기의 색상 선택도 확인했다. 대상 ESLint와 타입 검사를 통과했다. 출처는 사용자 브라우저 주석과 `src/components/common/molecules/ProductCard/ProductCard.tsx` 작업 트리다.
 
 ## 배송지 변경 모달 footer (2026-11-05)
 
