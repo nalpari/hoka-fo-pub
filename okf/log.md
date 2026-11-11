@@ -1,3 +1,7 @@
+## 2026-11-11 — 버튼 크기 선언 위치 정리
+
+- base의 높이·좌우 패딩을 size.tall로 이동했다. 기존 tall/short 값은 유지한다. [UI](architecture/ui.md).
+
 ## 2026-11-11 — 주문 버튼 중복 간격 제거
 
 - 장바구니 담기 버튼에서 읽히지 않는 --button-content-gap 선언을 제거했다. 공통 4px 간격은 유지한다. [UI](architecture/ui.md).

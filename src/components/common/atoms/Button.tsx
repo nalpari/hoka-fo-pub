@@ -22,8 +22,6 @@ const button = cva({
     bg: 'transparent',
     borderRadius: 'var(--button-radius, 52px)',
     cursor: 'pointer',
-    '--button-height': '48px',
-    '--button-padding-x': '24px',
     '--button-radius': '52px',
     _focusVisible: {
       outline: 'none',
@@ -60,7 +58,10 @@ const button = cva({
   },
   variants: {
     size: {
-      tall: {},
+      tall: {
+        '--button-height': '48px',
+        '--button-padding-x': '24px',
+      },
       short: {
         '--button-height': 'var(--home-body-40, 40px)',
         '--button-padding-x': 'var(--home-body-16, 16px)',

@@ -5001,3 +5001,5 @@ Button·ButtonLink의 density 공개 옵션과 auto/wide/compact 스타일 분�
 이번 전체 변경 커밋에는 사용자 작업 트리의 Typography 기본 translateY(1px) 조정도 포함한다. 모든 Typography에 적용되는 공통 위치 보정이며, 전체 화면 시각 회귀 검증은 수행하지 않았다. 출처: src/components/common/atoms/Typography.tsx.
 
 주문 내역 장바구니 담기 버튼의 미사용 --button-content-gap 선언을 제거했다. 공통 Button의 gap 4px을 그대로 사용한다. 출처: src/components/orders/OrderHistoryProduct.tsx.
+
+Button의 기본 높이 48px·좌우 패딩 24px 선언을 base에서 size.tall로 이동했다. button.raw는 항상 short 또는 tall을 전달하므로 기본값과 기존 디자인은 유지된다. 출처: src/components/common/atoms/Button.tsx.
