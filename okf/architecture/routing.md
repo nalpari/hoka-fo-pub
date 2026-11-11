@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-11T00:38:21Z'
+updated: '2026-11-11T01:09:17Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -1777,3 +1777,5 @@ PC 1920px·MO 375px에서 일반·임직원 목록, 상세 직접 진입, 확인
 ## 상품 상세 링크 공유 (2026-11-10)
 
 상품 상세 헤더의 공유 버튼은 현재 URL을 클립보드에 복사하고 성공 시 공통 Toast에 “링크가 복사되었습니다.”를 전달한다. 실패는 별도 안내하며 연속 클릭의 오래된 결과는 무시한다. 데스크탑·모바일 공통이며 기존 아이콘 크기는 유지한다. 출처: `src/app/products/[id]/_components/ProductDetailContent.tsx` 작업 트리.
+
+2026-11-11 WBS 참조 문서가 1JyQvEhb53OgXnSBcxypHGI8nxsclZDi059r1SCdFHos로 교체되어 보고 스킬과 IA 담당자 링크의 문서 URL을 갱신했다. 연결 도구로 Schedule gid 1070650770, X~AB 헤더와 FO 개발 85행의 WBS·실적 구조를 확인했다. 기존 담당자 매핑 확인일과 과거 실적 스냅샷의 출처는 해당 수집 시점을 나타낸다. 출처: hoka-main-change-report/SKILL.md, screenDevelopers.ts 작업 트리 및 새 Schedule의 B267:AB351·X3:AB4 조회.
