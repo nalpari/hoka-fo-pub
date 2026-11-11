@@ -14753,6 +14753,2450 @@
         "src/app/products/pdp-preview/[state]/page.tsx",
         "src/components/common/molecules/ProductCard/ProductCard.tsx"
       ]
+    },
+    {
+      "reportId": "inclusive-d7f8ae16c37cb0175142c9b808bdcba7932fc9ea-7359b590ad2cfce460850ee69095f99135d3b619",
+      "baseSha": "d7f8ae16c37cb0175142c9b808bdcba7932fc9ea",
+      "targetSha": "7359b590ad2cfce460850ee69095f99135d3b619",
+      "startSha": "781c2adb1fb5bb30c69f78301311728f9a3a8fbc",
+      "startTitle": "Merge commit 'f269f2b45d646b118d37cde06fcd32b15d85a340' into pub-psh-1015",
+      "collectedAtKst": "2026-11-11T10:24:17.3307334+09:00",
+      "remote": "https://github.com/nalpari/hoka-fo-pub.git",
+      "reportFile": "reports/main-changes/inclusive-d7f8ae16c37cb0175142c9b808bdcba7932fc9ea-7359b590ad2cfce460850ee69095f99135d3b619.md",
+      "status": "complete",
+      "excludedFileCounts": {
+        "markdown": 23,
+        "publishingGuide": 14,
+        "ia": 10,
+        "zeroProgress": 19
+      },
+      "excludedAuthorFiles": [],
+      "excludedAuthorHunkCount": 0,
+      "excludedZeroProgressFiles": [
+        "public/images/mypage/coupon.svg",
+        "src/app/launch-calendar/_components/LaunchCalendarContent.tsx",
+        "src/app/launch-calendar/_components/LaunchCalendarDetail.tsx",
+        "src/app/launch-calendar/clifton-11-gtx/preview-notified/page.tsx",
+        "src/app/launch-calendar/launchCalendar.data.ts",
+        "src/app/mypage/coupons/_components/CouponManagement.tsx",
+        "src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx",
+        "src/app/mypage/profile/_components/ProfileContent.tsx",
+        "src/app/mypage/profile/_components/ProfileStatePreview.tsx",
+        "src/app/mypage/reviews/_components/ReviewStatePreview.tsx",
+        "src/app/mypage/rewards/_components/RewardsContent.tsx",
+        "src/app/products/[id]/_components/ProductDetailContent.tsx",
+        "src/app/products/[id]/productSizeOptions.ts",
+        "src/app/running/running-session/[sessionId]/_components/RunningSessionSessionContent.tsx",
+        "src/app/support/after-sales/page.tsx",
+        "src/app/support/care/page.tsx",
+        "src/app/support/store/page.tsx",
+        "src/components/common/atoms/Toast.tsx",
+        "src/components/running-session/RunningSessionPage.tsx"
+      ],
+      "wbsComparison": {
+        "source": "https://docs.google.com/spreadsheets/d/1JyQvEhb53OgXnSBcxypHGI8nxsclZDi059r1SCdFHos/edit?gid=1070650770",
+        "range": "Schedule!B250:AB390",
+        "mappedCount": 46,
+        "foCount": 85,
+        "changes": [],
+        "missing": [],
+        "baselineSource": "Eland_021_일정(WBS)_20261106_v1.0/Schedule.html",
+        "recordedAtKst": "2026-11-11T10:30:14.956105+09:00"
+      },
+      "mappingRevision": "7359b590ad2cfce460850ee69095f99135d3b619",
+      "mappingWorkingTree": false,
+      "entries": [
+        {
+          "id": "F001",
+          "status": "D",
+          "file": "public/images/icon/clock-nine-regular.svg",
+          "previousFile": null,
+          "summary": "SizeSelector에서 재고 부족(lowStock) 상태와 시계 표시를 제거하고 관련 SVG·표시 타입을 정리한다.",
+          "ranges": [
+            {
+              "oldStart": 1,
+              "oldCount": 10,
+              "newStart": 0,
+              "newCount": 0
+            }
+          ],
+          "owners": [],
+          "affectedIa": [
+            170,
+            247
+          ],
+          "commits": [
+            {
+              "sha": "f69532d9e61c6830526d931af59aef9a54f1ed56",
+              "subject": "fix: 퍼블리싱 화면과 아이콘 가이드 정리"
+            }
+          ]
+        },
+        {
+          "id": "F002",
+          "status": "A",
+          "file": "public/images/icon/credit-card-regular.svg",
+          "previousFile": null,
+          "summary": "CheckoutPaymentMark의 결제수단 아이콘을 credit-card-solid에서 credit-card-regular로 교체하고 SVG 등록을 갱신한다.",
+          "ranges": [
+            {
+              "oldStart": 0,
+              "oldCount": 0,
+              "newStart": 1,
+              "newCount": 1
+            }
+          ],
+          "owners": [
+            {
+              "path": "주문|상세",
+              "href": null,
+              "iaNumber": 171
+            }
+          ],
+          "affectedIa": [
+            171
+          ],
+          "commits": [
+            {
+              "sha": "f69532d9e61c6830526d931af59aef9a54f1ed56",
+              "subject": "fix: 퍼블리싱 화면과 아이콘 가이드 정리"
+            }
+          ]
+        },
+        {
+          "id": "F003",
+          "status": "D",
+          "file": "public/images/icon/credit-card-solid.svg",
+          "previousFile": null,
+          "summary": "CheckoutPaymentMark의 결제수단 아이콘을 credit-card-solid에서 credit-card-regular로 교체하고 SVG 등록을 갱신한다.",
+          "ranges": [
+            {
+              "oldStart": 1,
+              "oldCount": 2,
+              "newStart": 0,
+              "newCount": 0
+            }
+          ],
+          "owners": [
+            {
+              "path": "주문|상세",
+              "href": null,
+              "iaNumber": 171
+            }
+          ],
+          "affectedIa": [
+            171
+          ],
+          "commits": [
+            {
+              "sha": "f69532d9e61c6830526d931af59aef9a54f1ed56",
+              "subject": "fix: 퍼블리싱 화면과 아이콘 가이드 정리"
+            }
+          ]
+        },
+        {
+          "id": "F004",
+          "status": "M",
+          "file": "src/app/checkout/_components/CheckoutPayment.tsx",
+          "previousFile": null,
+          "summary": "CheckoutPaymentMark의 결제수단 아이콘을 credit-card-solid에서 credit-card-regular로 교체하고 SVG 등록을 갱신한다.",
+          "ranges": [
+            {
+              "oldStart": 43,
+              "oldCount": 1,
+              "newStart": 43,
+              "newCount": 1
+            }
+          ],
+          "owners": [
+            {
+              "path": "주문|상세",
+              "href": null,
+              "iaNumber": 171
+            }
+          ],
+          "affectedIa": [
+            171
+          ],
+          "commits": [
+            {
+              "sha": "f69532d9e61c6830526d931af59aef9a54f1ed56",
+              "subject": "fix: 퍼블리싱 화면과 아이콘 가이드 정리"
+            }
+          ]
+        },
+        {
+          "id": "F005",
+          "status": "M",
+          "file": "src/app/layout.tsx",
+          "previousFile": null,
+          "summary": "RootLayout에서 ShopShell의 표시 초기값 isLoggedIn을 true로 전달해 로그인된 헤더를 기본 표시한다. 실제 인증 연동과 구분한다.",
+          "ranges": [
+            {
+              "oldStart": 57,
+              "oldCount": 1,
+              "newStart": 57,
+              "newCount": 1
+            }
+          ],
+          "owners": [],
+          "affectedIa": [
+            170,
+            171,
+            177,
+            178,
+            179,
+            180,
+            181,
+            185,
+            187,
+            189,
+            203,
+            204,
+            205,
+            206,
+            207,
+            208,
+            209,
+            210,
+            211,
+            223,
+            233,
+            234,
+            236,
+            237,
+            238,
+            247,
+            255,
+            256,
+            257,
+            260,
+            267
+          ],
+          "commits": [
+            {
+              "sha": "f19c82a970cdc7ab13a6a03b4dcd5f6861eafe0c",
+              "subject": "fix: 모바일 메뉴 헤더 링크와 아이콘 정리"
+            }
+          ]
+        },
+        {
+          "id": "F006",
+          "status": "M",
+          "file": "src/app/mypage/addresses/_components/AddressStatePreview.tsx",
+          "previousFile": null,
+          "summary": "AddressStatePreview의 탐색 경로를 배송지 관리로 통일하고 계정관리·추가/수정 중간 라벨을 제거한다.",
+          "ranges": [
+            {
+              "oldStart": 42,
+              "oldCount": 7,
+              "newStart": 42,
+              "newCount": 1
+            }
+          ],
+          "owners": [
+            {
+              "path": "마이페이지|계정관리|배송지 관리",
+              "href": null,
+              "iaNumber": 205
+            }
+          ],
+          "affectedIa": [
+            203,
+            204,
+            205
+          ],
+          "commits": [
+            {
+              "sha": "60fdf4c47537f964833c1c4851effa9832f76763",
+              "subject": "fix: 마이페이지와 고객센터 브레드크럼 및 제목 수정"
+            }
+          ]
+        },
+        {
+          "id": "F007",
+          "status": "M",
+          "file": "src/app/mypage/mypage-home-data.ts",
+          "previousFile": null,
+          "summary": "마이페이지 메뉴의 FAQ·1:1문의 링크에 from=mypage를 유지해 진입 경로에 맞는 브레드크럼을 표시한다.",
+          "ranges": [
+            {
+              "oldStart": 89,
+              "oldCount": 2,
+              "newStart": 89,
+              "newCount": 2
+            }
+          ],
+          "owners": [
+            {
+              "path": "마이페이지|index",
+              "href": null,
+              "iaNumber": 177
+            }
+          ],
+          "affectedIa": [
+            177
+          ],
+          "commits": [
+            {
+              "sha": "60fdf4c47537f964833c1c4851effa9832f76763",
+              "subject": "fix: 마이페이지와 고객센터 브레드크럼 및 제목 수정"
+            }
+          ]
+        },
+        {
+          "id": "F008",
+          "status": "M",
+          "file": "src/app/mypage/orders/_components/OrdersStatus.tsx",
+          "previousFile": null,
+          "summary": "OrdersDateRange를 숫자 입력과 별도 달력 버튼으로 구성한다. 입력은 YYYY.MM.DD로 표시하고 onDateChange에는 하이픈 값을 전달한다. 주문·반품의 기간 선택 순서와 달력 크기·간격을 통일한다.",
+          "ranges": [
+            {
+              "oldStart": 5,
+              "oldCount": 1,
+              "newStart": 5,
+              "newCount": 1
+            },
+            {
+              "oldStart": 79,
+              "oldCount": 1,
+              "newStart": 79,
+              "newCount": 2
+            },
+            {
+              "oldStart": 83,
+              "oldCount": 2,
+              "newStart": 84,
+              "newCount": 2
+            },
+            {
+              "oldStart": 86,
+              "oldCount": 11,
+              "newStart": 87,
+              "newCount": 1
+            },
+            {
+              "oldStart": 100,
+              "oldCount": 2,
+              "newStart": 91,
+              "newCount": 3
+            },
+            {
+              "oldStart": 103,
+              "oldCount": 1,
+              "newStart": 94,
+              "newCount": 0
+            },
+            {
+              "oldStart": 105,
+              "oldCount": 3,
+              "newStart": 96,
+              "newCount": 13
+            },
+            {
+              "oldStart": 109,
+              "oldCount": 0,
+              "newStart": 111,
+              "newCount": 5
+            },
+            {
+              "oldStart": 116,
+              "oldCount": 2,
+              "newStart": 122,
+              "newCount": 1
+            },
+            {
+              "oldStart": 121,
+              "oldCount": 1,
+              "newStart": 126,
+              "newCount": 1
+            },
+            {
+              "oldStart": 124,
+              "oldCount": 22,
+              "newStart": 129,
+              "newCount": 4
+            },
+            {
+              "oldStart": 147,
+              "oldCount": 1,
+              "newStart": 134,
+              "newCount": 9
+            },
+            {
+              "oldStart": 152,
+              "oldCount": 1,
+              "newStart": 147,
+              "newCount": 1
+            },
+            {
+              "oldStart": 158,
+              "oldCount": 2,
+              "newStart": 153,
+              "newCount": 1
+            },
+            {
+              "oldStart": 161,
+              "oldCount": 1,
+              "newStart": 154,
+              "newCount": 0
+            },
+            {
+              "oldStart": 163,
+              "oldCount": 10,
+              "newStart": 155,
+              "newCount": 0
+            },
+            {
+              "oldStart": 174,
+              "oldCount": 3,
+              "newStart": 157,
+              "newCount": 1
+            },
+            {
+              "oldStart": 179,
+              "oldCount": 22,
+              "newStart": 160,
+              "newCount": 4
+            },
+            {
+              "oldStart": 202,
+              "oldCount": 1,
+              "newStart": 165,
+              "newCount": 9
+            },
+            {
+              "oldStart": 207,
+              "oldCount": 1,
+              "newStart": 178,
+              "newCount": 1
+            },
+            {
+              "oldStart": 213,
+              "oldCount": 2,
+              "newStart": 184,
+              "newCount": 1
+            },
+            {
+              "oldStart": 216,
+              "oldCount": 1,
+              "newStart": 185,
+              "newCount": 0
+            },
+            {
+              "oldStart": 218,
+              "oldCount": 10,
+              "newStart": 186,
+              "newCount": 0
+            },
+            {
+              "oldStart": 261,
+              "oldCount": 1,
+              "newStart": 219,
+              "newCount": 0
+            },
+            {
+              "oldStart": 284,
+              "oldCount": 10,
+              "newStart": 242,
+              "newCount": 1
+            },
+            {
+              "oldStart": 296,
+              "oldCount": 1,
+              "newStart": 244,
+              "newCount": 0
+            }
+          ],
+          "owners": [
+            {
+              "path": "마이페이지|구매내역|주문배송 조회",
+              "href": null,
+              "iaNumber": 179
+            },
+            {
+              "path": "마이페이지|구매내역|취소/반품 내역",
+              "href": null,
+              "iaNumber": 181
+            }
+          ],
+          "affectedIa": [
+            178,
+            179,
+            180,
+            181
+          ],
+          "commits": [
+            {
+              "sha": "f69532d9e61c6830526d931af59aef9a54f1ed56",
+              "subject": "fix: 퍼블리싱 화면과 아이콘 가이드 정리"
+            }
+          ]
+        },
+        {
+          "id": "F009",
+          "status": "M",
+          "file": "src/app/support/faq/_components/FaqContent.tsx",
+          "previousFile": null,
+          "summary": "RouteContent가 from=mypage 쿼리에 따라 마이페이지 또는 고객센터 브레드크럼을 표시한다.",
+          "ranges": [
+            {
+              "oldStart": 1,
+              "oldCount": 0,
+              "newStart": 2,
+              "newCount": 3
+            },
+            {
+              "oldStart": 208,
+              "oldCount": 0,
+              "newStart": 212,
+              "newCount": 1
+            },
+            {
+              "oldStart": 246,
+              "oldCount": 1,
+              "newStart": 250,
+              "newCount": 3
+            }
+          ],
+          "owners": [
+            {
+              "path": "마이페이지|Q&A|FAQs|목록",
+              "href": null,
+              "iaNumber": 185
+            },
+            {
+              "path": "SUPPORT|FAQs",
+              "href": null,
+              "iaNumber": 207
+            }
+          ],
+          "affectedIa": [
+            185,
+            207
+          ],
+          "commits": [
+            {
+              "sha": "60fdf4c47537f964833c1c4851effa9832f76763",
+              "subject": "fix: 마이페이지와 고객센터 브레드크럼 및 제목 수정"
+            }
+          ]
+        },
+        {
+          "id": "F010",
+          "status": "M",
+          "file": "src/app/support/inquiries/_components/InquiryListLayout.tsx",
+          "previousFile": null,
+          "summary": "InquiryListLayout·InquiryFormLayout에서 from=mypage를 읽고 등록 링크에 보존한다. 브레드크럼과 제목을 1:1문의로 정렬한다.",
+          "ranges": [
+            {
+              "oldStart": 2,
+              "oldCount": 0,
+              "newStart": 3,
+              "newCount": 2
+            },
+            {
+              "oldStart": 24,
+              "oldCount": 0,
+              "newStart": 27,
+              "newCount": 5
+            },
+            {
+              "oldStart": 33,
+              "oldCount": 1,
+              "newStart": 40,
+              "newCount": 1
+            },
+            {
+              "oldStart": 43,
+              "oldCount": 1,
+              "newStart": 50,
+              "newCount": 1
+            },
+            {
+              "oldStart": 70,
+              "oldCount": 2,
+              "newStart": 77,
+              "newCount": 4
+            },
+            {
+              "oldStart": 77,
+              "oldCount": 1,
+              "newStart": 86,
+              "newCount": 1
+            }
+          ],
+          "owners": [
+            {
+              "path": "마이페이지|Q&A|1:1 문의|목록",
+              "href": null,
+              "iaNumber": 187
+            },
+            {
+              "path": "SUPPORT|1:1문의|목록",
+              "href": null,
+              "iaNumber": 210
+            }
+          ],
+          "affectedIa": [
+            187,
+            210
+          ],
+          "commits": [
+            {
+              "sha": "60fdf4c47537f964833c1c4851effa9832f76763",
+              "subject": "fix: 마이페이지와 고객센터 브레드크럼 및 제목 수정"
+            }
+          ]
+        },
+        {
+          "id": "F011",
+          "status": "M",
+          "file": "src/app/support/inquiries/new/_components/InquiryFormContent.tsx",
+          "previousFile": null,
+          "summary": "InquiryAttachments와 InquiryOrderProducts의 PC/MO 제목·상품코드·주문번호 타이포그래피, 선택 상품 삭제 아이콘과 재선택 버튼을 조정한다. 상품 조회 전 안내를 테두리 박스·40px 버튼으로 구성하고 모바일 버튼을 전체 너비로 표시한다.",
+          "ranges": [
+            {
+              "oldStart": 110,
+              "oldCount": 2,
+              "newStart": 110,
+              "newCount": 2
+            },
+            {
+              "oldStart": 339,
+              "oldCount": 2,
+              "newStart": 339,
+              "newCount": 4
+            },
+            {
+              "oldStart": 343,
+              "oldCount": 1,
+              "newStart": 345,
+              "newCount": 1
+            },
+            {
+              "oldStart": 352,
+              "oldCount": 1,
+              "newStart": 354,
+              "newCount": 1
+            },
+            {
+              "oldStart": 357,
+              "oldCount": 1,
+              "newStart": 359,
+              "newCount": 3
+            },
+            {
+              "oldStart": 368,
+              "oldCount": 1,
+              "newStart": 372,
+              "newCount": 3
+            },
+            {
+              "oldStart": 381,
+              "oldCount": 2,
+              "newStart": 387,
+              "newCount": 2
+            },
+            {
+              "oldStart": 386,
+              "oldCount": 7,
+              "newStart": 391,
+              "newCount": 0
+            },
+            {
+              "oldStart": 399,
+              "oldCount": 6,
+              "newStart": 398,
+              "newCount": 6
+            },
+            {
+              "oldStart": 406,
+              "oldCount": 1,
+              "newStart": 405,
+              "newCount": 21
+            },
+            {
+              "oldStart": 408,
+              "oldCount": 1,
+              "newStart": 427,
+              "newCount": 1
+            },
+            {
+              "oldStart": 410,
+              "oldCount": 0,
+              "newStart": 430,
+              "newCount": 1
+            },
+            {
+              "oldStart": 414,
+              "oldCount": 3,
+              "newStart": 433,
+              "newCount": 0
+            },
+            {
+              "oldStart": 420,
+              "oldCount": 9,
+              "newStart": 437,
+              "newCount": 2
+            }
+          ],
+          "owners": [
+            {
+              "path": "마이페이지|Q&A|1:1 문의|등록",
+              "href": null,
+              "iaNumber": 189
+            },
+            {
+              "path": "SUPPORT|1:1문의|등록",
+              "href": null,
+              "iaNumber": 211
+            }
+          ],
+          "affectedIa": [
+            189,
+            211
+          ],
+          "commits": [
+            {
+              "sha": "f69532d9e61c6830526d931af59aef9a54f1ed56",
+              "subject": "fix: 퍼블리싱 화면과 아이콘 가이드 정리"
+            },
+            {
+              "sha": "fa6c8f8c8da63eeb7bc509883368ff772dc650b2",
+              "subject": "fix: 문의 상품 정보와 탐색 링크 정렬 수정"
+            }
+          ]
+        },
+        {
+          "id": "F012",
+          "status": "M",
+          "file": "src/app/support/inquiries/new/_components/InquiryFormLayout.tsx",
+          "previousFile": null,
+          "summary": "InquiryListLayout·InquiryFormLayout에서 from=mypage를 읽고 등록 링크에 보존한다. 브레드크럼과 제목을 1:1문의로 정렬한다.",
+          "ranges": [
+            {
+              "oldStart": 1,
+              "oldCount": 0,
+              "newStart": 2,
+              "newCount": 3
+            },
+            {
+              "oldStart": 12,
+              "oldCount": 0,
+              "newStart": 16,
+              "newCount": 1
+            },
+            {
+              "oldStart": 19,
+              "oldCount": 1,
+              "newStart": 23,
+              "newCount": 1
+            },
+            {
+              "oldStart": 35,
+              "oldCount": 2,
+              "newStart": 39,
+              "newCount": 4
+            }
+          ],
+          "owners": [
+            {
+              "path": "마이페이지|Q&A|1:1 문의|등록",
+              "href": null,
+              "iaNumber": 189
+            },
+            {
+              "path": "SUPPORT|1:1문의|등록",
+              "href": null,
+              "iaNumber": 211
+            }
+          ],
+          "affectedIa": [
+            189,
+            211
+          ],
+          "commits": [
+            {
+              "sha": "60fdf4c47537f964833c1c4851effa9832f76763",
+              "subject": "fix: 마이페이지와 고객센터 브레드크럼 및 제목 수정"
+            }
+          ]
+        },
+        {
+          "id": "F013",
+          "status": "M",
+          "file": "src/app/support/size-guide/_components/SizeGuidePanel.tsx",
+          "previousFile": null,
+          "summary": "SizeGuideMeasurements가 선택적 measurement 데이터로 측정 안내를 표시한다. 신발·의류·용품으로 품목을 통합하고 용품은 양말 차트만 표시하며 성별 이미지·차트 제목을 분리한다.",
+          "ranges": [
+            {
+              "oldStart": 138,
+              "oldCount": 8,
+              "newStart": 138,
+              "newCount": 1
+            },
+            {
+              "oldStart": 150,
+              "oldCount": 1,
+              "newStart": 143,
+              "newCount": 1
+            },
+            {
+              "oldStart": 227,
+              "oldCount": 3,
+              "newStart": 220,
+              "newCount": 9
+            },
+            {
+              "oldStart": 237,
+              "oldCount": 2,
+              "newStart": 236,
+              "newCount": 2
+            },
+            {
+              "oldStart": 248,
+              "oldCount": 0,
+              "newStart": 248,
+              "newCount": 6
+            },
+            {
+              "oldStart": 251,
+              "oldCount": 2,
+              "newStart": 256,
+              "newCount": 6
+            },
+            {
+              "oldStart": 274,
+              "oldCount": 1,
+              "newStart": 283,
+              "newCount": 1
+            },
+            {
+              "oldStart": 278,
+              "oldCount": 1,
+              "newStart": 287,
+              "newCount": 1
+            }
+          ],
+          "owners": [
+            {
+              "path": "SUPPORT|사이즈가이드",
+              "href": null,
+              "iaNumber": 260
+            }
+          ],
+          "affectedIa": [
+            260
+          ],
+          "commits": [
+            {
+              "sha": "8e3af5470bb4c5eb0678a5f6e3f82b3ff9f716e8",
+              "subject": "feat: 고객센터 사이즈 가이드 품목 통합"
+            }
+          ]
+        },
+        {
+          "id": "F014",
+          "status": "M",
+          "file": "src/app/support/size-guide/page.tsx",
+          "previousFile": null,
+          "summary": "사이즈가이드 page의 개발팀 바인딩 주석을 chartTitle·measurement 데이터 계약에 맞추고 측정 데이터가 없는 품목의 표시 범위를 명시한다.",
+          "ranges": [
+            {
+              "oldStart": 4,
+              "oldCount": 1,
+              "newStart": 4,
+              "newCount": 2
+            }
+          ],
+          "owners": [
+            {
+              "path": "SUPPORT|사이즈가이드",
+              "href": "/support/size-guide",
+              "iaNumber": 260
+            }
+          ],
+          "affectedIa": [
+            260
+          ],
+          "commits": [
+            {
+              "sha": "8e3af5470bb4c5eb0678a5f6e3f82b3ff9f716e8",
+              "subject": "feat: 고객센터 사이즈 가이드 품목 통합"
+            }
+          ]
+        },
+        {
+          "id": "F015",
+          "status": "M",
+          "file": "src/app/support/size-guide/size-guide.data.ts",
+          "previousFile": null,
+          "summary": "SizeGuideMeasurements가 선택적 measurement 데이터로 측정 안내를 표시한다. 신발·의류·용품으로 품목을 통합하고 용품은 양말 차트만 표시하며 성별 이미지·차트 제목을 분리한다.",
+          "ranges": [
+            {
+              "oldStart": 19,
+              "oldCount": 2,
+              "newStart": 19,
+              "newCount": 6
+            },
+            {
+              "oldStart": 32,
+              "oldCount": 4,
+              "newStart": 36,
+              "newCount": 4
+            },
+            {
+              "oldStart": 42,
+              "oldCount": 34,
+              "newStart": 46,
+              "newCount": 18
+            },
+            {
+              "oldStart": 77,
+              "oldCount": 29,
+              "newStart": 65,
+              "newCount": 15
+            },
+            {
+              "oldStart": 107,
+              "oldCount": 45,
+              "newStart": 81,
+              "newCount": 75
+            },
+            {
+              "oldStart": 154,
+              "oldCount": 2,
+              "newStart": 157,
+              "newCount": 0
+            },
+            {
+              "oldStart": 156,
+              "oldCount": 0,
+              "newStart": 159,
+              "newCount": 6
+            },
+            {
+              "oldStart": 158,
+              "oldCount": 8,
+              "newStart": 166,
+              "newCount": 11
+            },
+            {
+              "oldStart": 193,
+              "oldCount": 1,
+              "newStart": 204,
+              "newCount": 1
+            },
+            {
+              "oldStart": 204,
+              "oldCount": 1,
+              "newStart": 215,
+              "newCount": 1
+            },
+            {
+              "oldStart": 242,
+              "oldCount": 121,
+              "newStart": 253,
+              "newCount": 3
+            }
+          ],
+          "owners": [
+            {
+              "path": "SUPPORT|사이즈가이드",
+              "href": null,
+              "iaNumber": 260
+            }
+          ],
+          "affectedIa": [
+            260
+          ],
+          "commits": [
+            {
+              "sha": "8e3af5470bb4c5eb0678a5f6e3f82b3ff9f716e8",
+              "subject": "feat: 고객센터 사이즈 가이드 품목 통합"
+            },
+            {
+              "sha": "71b48b6fd22945c220b2b391f3b54c0f157a48dc",
+              "subject": "feat: 상품 상세 신발 사이즈 가이드 팝업 추가"
+            }
+          ]
+        },
+        {
+          "id": "F016",
+          "status": "M",
+          "file": "src/components/catalog/ProductListingPage.tsx",
+          "previousFile": null,
+          "summary": "검색 결과 SearchListingLayout에 PC 정렬 Dropdown을 추가하고 sort·onSortChange를 연결한다. ProductListingContent의 이미지 비율을 PC/MO 371:464로 통일하며 필터·제목·건수의 고객사 타이포그래피를 적용한다.",
+          "ranges": [
+            {
+              "oldStart": 138,
+              "oldCount": 1,
+              "newStart": 138,
+              "newCount": 6
+            },
+            {
+              "oldStart": 212,
+              "oldCount": 1,
+              "newStart": 217,
+              "newCount": 4
+            },
+            {
+              "oldStart": 457,
+              "oldCount": 1,
+              "newStart": 465,
+              "newCount": 1
+            },
+            {
+              "oldStart": 496,
+              "oldCount": 1,
+              "newStart": 504,
+              "newCount": 8
+            },
+            {
+              "oldStart": 624,
+              "oldCount": 1,
+              "newStart": 639,
+              "newCount": 4
+            },
+            {
+              "oldStart": 818,
+              "oldCount": 2,
+              "newStart": 836,
+              "newCount": 2
+            },
+            {
+              "oldStart": 1024,
+              "oldCount": 1,
+              "newStart": 1042,
+              "newCount": 4
+            },
+            {
+              "oldStart": 1028,
+              "oldCount": 1,
+              "newStart": 1049,
+              "newCount": 10
+            },
+            {
+              "oldStart": 1038,
+              "oldCount": 1,
+              "newStart": 1067,
+              "newCount": 0
+            },
+            {
+              "oldStart": 1042,
+              "oldCount": 1,
+              "newStart": 1071,
+              "newCount": 1
+            },
+            {
+              "oldStart": 1045,
+              "oldCount": 2,
+              "newStart": 1074,
+              "newCount": 11
+            },
+            {
+              "oldStart": 1048,
+              "oldCount": 1,
+              "newStart": 1085,
+              "newCount": 0
+            },
+            {
+              "oldStart": 1060,
+              "oldCount": 0,
+              "newStart": 1098,
+              "newCount": 1
+            },
+            {
+              "oldStart": 1071,
+              "oldCount": 0,
+              "newStart": 1110,
+              "newCount": 1
+            },
+            {
+              "oldStart": 1191,
+              "oldCount": 0,
+              "newStart": 1231,
+              "newCount": 1
+            },
+            {
+              "oldStart": 1194,
+              "oldCount": 1,
+              "newStart": 1234,
+              "newCount": 7
+            },
+            {
+              "oldStart": 1227,
+              "oldCount": 1,
+              "newStart": 1273,
+              "newCount": 8
+            },
+            {
+              "oldStart": 1380,
+              "oldCount": 0,
+              "newStart": 1434,
+              "newCount": 13
+            },
+            {
+              "oldStart": 1410,
+              "oldCount": 0,
+              "newStart": 1477,
+              "newCount": 1
+            },
+            {
+              "oldStart": 1424,
+              "oldCount": 8,
+              "newStart": 1491,
+              "newCount": 1
+            },
+            {
+              "oldStart": 1436,
+              "oldCount": 5,
+              "newStart": 1496,
+              "newCount": 1
+            },
+            {
+              "oldStart": 1453,
+              "oldCount": 0,
+              "newStart": 1510,
+              "newCount": 4
+            },
+            {
+              "oldStart": 1498,
+              "oldCount": 0,
+              "newStart": 1559,
+              "newCount": 1
+            },
+            {
+              "oldStart": 1679,
+              "oldCount": 1,
+              "newStart": 1740,
+              "newCount": 1
+            }
+          ],
+          "owners": [
+            {
+              "path": "공통|검색결과|목록",
+              "href": null,
+              "iaNumber": 247
+            }
+          ],
+          "affectedIa": [
+            247
+          ],
+          "commits": [
+            {
+              "sha": "19b86f8df2013dec8f22a179bea8cdd48d1fc979",
+              "subject": "feat: 고객사 화면에 타이포그래피 적용"
+            },
+            {
+              "sha": "ec83d94a61de1997e0abd38e03a48b7fa564f43d",
+              "subject": "fix: 상품 목록 그리드 썸네일 비율 통일"
+            },
+            {
+              "sha": "d47493976c262f4fbc3b3efa595825822e1bd267",
+              "subject": "feat: PC 검색결과 정렬 추가"
+            }
+          ]
+        },
+        {
+          "id": "F017",
+          "status": "M",
+          "file": "src/components/common/atoms/Badge.tsx",
+          "previousFile": null,
+          "summary": "Badge의 러닝세션·프로모션 라벨에서 textProps.variant로 Typography를 선택할 수 있게 확장한다. 미지정 시 기존 기본값을 유지한다.",
+          "ranges": [
+            {
+              "oldStart": 82,
+              "oldCount": 1,
+              "newStart": 82,
+              "newCount": 1
+            },
+            {
+              "oldStart": 91,
+              "oldCount": 1,
+              "newStart": 91,
+              "newCount": 1
+            },
+            {
+              "oldStart": 127,
+              "oldCount": 1,
+              "newStart": 127,
+              "newCount": 4
+            },
+            {
+              "oldStart": 153,
+              "oldCount": 1,
+              "newStart": 156,
+              "newCount": 6
+            }
+          ],
+          "owners": [],
+          "affectedIa": [
+            170,
+            171,
+            187,
+            189,
+            203,
+            204,
+            205,
+            210,
+            211,
+            247
+          ],
+          "commits": [
+            {
+              "sha": "19b86f8df2013dec8f22a179bea8cdd48d1fc979",
+              "subject": "feat: 고객사 화면에 타이포그래피 적용"
+            }
+          ]
+        },
+        {
+          "id": "F018",
+          "status": "M",
+          "file": "src/components/common/atoms/Button.tsx",
+          "previousFile": null,
+          "summary": "renderLoadMoreContent에서 더 보기 라벨·건수와 표시 아이콘을 inline-flex, gap 8px로 정렬한다.",
+          "ranges": [
+            {
+              "oldStart": 232,
+              "oldCount": 4,
+              "newStart": 232,
+              "newCount": 6
+            }
+          ],
+          "owners": [],
+          "affectedIa": [
+            170,
+            171,
+            177,
+            178,
+            179,
+            180,
+            181,
+            185,
+            187,
+            189,
+            203,
+            204,
+            205,
+            206,
+            207,
+            208,
+            209,
+            210,
+            211,
+            223,
+            233,
+            234,
+            236,
+            237,
+            238,
+            247,
+            255,
+            256,
+            257,
+            260,
+            267
+          ],
+          "commits": [
+            {
+              "sha": "1118ff2e947fa489b430a8f6a8fa6e8a98479446",
+              "subject": "fix: 상품 문의 더 보기 버튼 스타일 수정"
+            }
+          ]
+        },
+        {
+          "id": "F019",
+          "status": "M",
+          "file": "src/components/common/atoms/Icon.assets.ts",
+          "previousFile": null,
+          "summary": "iconAssets에서 credit-card-regular를 등록하고 credit-card-solid·clock-nine-regular를 제거한다. 결제 아이콘 교체와 SizeSelector의 lowStock 제거를 반영한다.",
+          "ranges": [
+            {
+              "oldStart": 23,
+              "oldCount": 4,
+              "newStart": 22,
+              "newCount": 0
+            },
+            {
+              "oldStart": 367,
+              "oldCount": 2,
+              "newStart": 363,
+              "newCount": 2
+            },
+            {
+              "oldStart": 371,
+              "oldCount": 2,
+              "newStart": 367,
+              "newCount": 2
+            }
+          ],
+          "owners": [],
+          "affectedIa": [
+            170,
+            171,
+            177,
+            178,
+            179,
+            180,
+            181,
+            185,
+            187,
+            189,
+            203,
+            204,
+            205,
+            206,
+            207,
+            208,
+            209,
+            210,
+            211,
+            223,
+            233,
+            234,
+            236,
+            237,
+            238,
+            247,
+            255,
+            256,
+            257,
+            260,
+            267
+          ],
+          "commits": [
+            {
+              "sha": "f69532d9e61c6830526d931af59aef9a54f1ed56",
+              "subject": "fix: 퍼블리싱 화면과 아이콘 가이드 정리"
+            }
+          ]
+        },
+        {
+          "id": "F020",
+          "status": "A",
+          "file": "src/components/common/atoms/Typography.eland.ts",
+          "previousFile": null,
+          "summary": "elandTypographyVariants·elandTypographyRecipe를 추가하고 Typography의 variant 타입과 Panda recipe에 연결한다. 고객사 화면용 글꼴·크기·굵기·행간·모바일 변형을 명시적으로 선택한다.",
+          "ranges": [
+            {
+              "oldStart": 0,
+              "oldCount": 0,
+              "newStart": 1,
+              "newCount": 358
+            }
+          ],
+          "owners": [],
+          "affectedIa": [
+            170,
+            171,
+            177,
+            178,
+            179,
+            180,
+            181,
+            185,
+            187,
+            189,
+            203,
+            204,
+            205,
+            206,
+            207,
+            208,
+            209,
+            210,
+            211,
+            223,
+            233,
+            234,
+            236,
+            237,
+            238,
+            247,
+            255,
+            256,
+            257,
+            260,
+            267
+          ],
+          "commits": [
+            {
+              "sha": "31461671bf164547735c35cd925a5ecbeec1b502",
+              "subject": "feat: 고객사 타이포그래피 변형 추가"
+            }
+          ]
+        },
+        {
+          "id": "F021",
+          "status": "M",
+          "file": "src/components/common/atoms/Typography.tsx",
+          "previousFile": null,
+          "summary": "elandTypographyVariants·elandTypographyRecipe를 추가하고 Typography의 variant 타입과 Panda recipe에 연결한다. 고객사 화면용 글꼴·크기·굵기·행간·모바일 변형을 명시적으로 선택한다.",
+          "ranges": [
+            {
+              "oldStart": 8,
+              "oldCount": 0,
+              "newStart": 9,
+              "newCount": 4
+            },
+            {
+              "oldStart": 400,
+              "oldCount": 0,
+              "newStart": 405,
+              "newCount": 1
+            },
+            {
+              "oldStart": 466,
+              "oldCount": 1,
+              "newStart": 471,
+              "newCount": 2
+            },
+            {
+              "oldStart": 515,
+              "oldCount": 1,
+              "newStart": 521,
+              "newCount": 1
+            },
+            {
+              "oldStart": 542,
+              "oldCount": 1,
+              "newStart": 548,
+              "newCount": 1
+            }
+          ],
+          "owners": [],
+          "affectedIa": [
+            170,
+            171,
+            177,
+            178,
+            179,
+            180,
+            181,
+            185,
+            187,
+            189,
+            203,
+            204,
+            205,
+            206,
+            207,
+            208,
+            209,
+            210,
+            211,
+            223,
+            233,
+            234,
+            236,
+            237,
+            238,
+            247,
+            255,
+            256,
+            257,
+            260,
+            267
+          ],
+          "commits": [
+            {
+              "sha": "31461671bf164547735c35cd925a5ecbeec1b502",
+              "subject": "feat: 고객사 타이포그래피 변형 추가"
+            }
+          ]
+        },
+        {
+          "id": "F022",
+          "status": "M",
+          "file": "src/components/common/layouts/ModalDialog.tsx",
+          "previousFile": null,
+          "summary": "ModalDialog에 blurBackdrop 선택을 추가하고 기본 PC 모서리를 10px로 조정한다. 모바일 sheet의 손잡이·24px 상단 모서리·제목·본문/푸터 여백을 구성하고 일반 모달과 sheet 제목 처리를 분리한다.",
+          "ranges": [
+            {
+              "oldStart": 26,
+              "oldCount": 1,
+              "newStart": 26,
+              "newCount": 3
+            },
+            {
+              "oldStart": 46,
+              "oldCount": 1,
+              "newStart": 47,
+              "newCount": 0
+            },
+            {
+              "oldStart": 47,
+              "oldCount": 0,
+              "newStart": 49,
+              "newCount": 2
+            },
+            {
+              "oldStart": 49,
+              "oldCount": 7,
+              "newStart": 51,
+              "newCount": 0
+            },
+            {
+              "oldStart": 58,
+              "oldCount": 0,
+              "newStart": 55,
+              "newCount": 1
+            },
+            {
+              "oldStart": 61,
+              "oldCount": 6,
+              "newStart": 58,
+              "newCount": 10
+            },
+            {
+              "oldStart": 108,
+              "oldCount": 0,
+              "newStart": 110,
+              "newCount": 1
+            },
+            {
+              "oldStart": 114,
+              "oldCount": 0,
+              "newStart": 117,
+              "newCount": 1
+            },
+            {
+              "oldStart": 121,
+              "oldCount": 0,
+              "newStart": 125,
+              "newCount": 1
+            },
+            {
+              "oldStart": 166,
+              "oldCount": 1,
+              "newStart": 169,
+              "newCount": 0
+            },
+            {
+              "oldStart": 168,
+              "oldCount": 0,
+              "newStart": 172,
+              "newCount": 1
+            },
+            {
+              "oldStart": 182,
+              "oldCount": 1,
+              "newStart": 186,
+              "newCount": 1
+            },
+            {
+              "oldStart": 185,
+              "oldCount": 1,
+              "newStart": 189,
+              "newCount": 1
+            },
+            {
+              "oldStart": 210,
+              "oldCount": 1,
+              "newStart": 214,
+              "newCount": 1
+            },
+            {
+              "oldStart": 225,
+              "oldCount": 1,
+              "newStart": 229,
+              "newCount": 18
+            },
+            {
+              "oldStart": 271,
+              "oldCount": 0,
+              "newStart": 293,
+              "newCount": 1
+            },
+            {
+              "oldStart": 358,
+              "oldCount": 0,
+              "newStart": 381,
+              "newCount": 1
+            },
+            {
+              "oldStart": 380,
+              "oldCount": 0,
+              "newStart": 404,
+              "newCount": 1
+            },
+            {
+              "oldStart": 392,
+              "oldCount": 1,
+              "newStart": 416,
+              "newCount": 1
+            },
+            {
+              "oldStart": 400,
+              "oldCount": 1,
+              "newStart": 424,
+              "newCount": 1
+            },
+            {
+              "oldStart": 424,
+              "oldCount": 1,
+              "newStart": 448,
+              "newCount": 1
+            }
+          ],
+          "owners": [],
+          "affectedIa": [
+            170,
+            171,
+            177,
+            178,
+            179,
+            180,
+            181,
+            187,
+            189,
+            203,
+            204,
+            205,
+            210,
+            211,
+            233,
+            234,
+            236,
+            237,
+            247,
+            255,
+            256,
+            257
+          ],
+          "commits": [
+            {
+              "sha": "572f1207f24914518de0a1eba4be078bdfd10b1a",
+              "subject": "fix: 일반 모달 기본 스타일 복원"
+            },
+            {
+              "sha": "2e4e701afdd411ce1dee2a6805e50280fbb30e92",
+              "subject": "feat: PDP 기준 공통 모달 스타일 적용"
+            },
+            {
+              "sha": "71b48b6fd22945c220b2b391f3b54c0f157a48dc",
+              "subject": "feat: 상품 상세 신발 사이즈 가이드 팝업 추가"
+            }
+          ]
+        },
+        {
+          "id": "F023",
+          "status": "M",
+          "file": "src/components/common/molecules/Breadcrumb.tsx",
+          "previousFile": null,
+          "summary": "Breadcrumb 링크와 라벨을 flex 중앙 정렬하고 고정 최소 높이를 제거해 텍스트·구분 아이콘의 세로 위치를 맞춘다.",
+          "ranges": [
+            {
+              "oldStart": 11,
+              "oldCount": 5,
+              "newStart": 11,
+              "newCount": 14
+            },
+            {
+              "oldStart": 18,
+              "oldCount": 0,
+              "newStart": 28,
+              "newCount": 1
+            },
+            {
+              "oldStart": 23,
+              "oldCount": 1,
+              "newStart": 33,
+              "newCount": 1
+            },
+            {
+              "oldStart": 30,
+              "oldCount": 2,
+              "newStart": 40,
+              "newCount": 4
+            },
+            {
+              "oldStart": 37,
+              "oldCount": 0,
+              "newStart": 50,
+              "newCount": 1
+            }
+          ],
+          "owners": [],
+          "affectedIa": [
+            177,
+            178,
+            179,
+            180,
+            181,
+            185,
+            187,
+            189,
+            203,
+            204,
+            205,
+            206,
+            207,
+            208,
+            209,
+            210,
+            211,
+            247,
+            260
+          ],
+          "commits": [
+            {
+              "sha": "fa6c8f8c8da63eeb7bc509883368ff772dc650b2",
+              "subject": "fix: 문의 상품 정보와 탐색 링크 정렬 수정"
+            }
+          ]
+        },
+        {
+          "id": "F024",
+          "status": "M",
+          "file": "src/components/common/molecules/HelpTips.tsx",
+          "previousFile": null,
+          "summary": "HelpTooltip·HelpToggletip에 iconColor·className을 전달하고 Tooltip 본문의 줄바꿈을 pre-line으로 보존한다.",
+          "ranges": [
+            {
+              "oldStart": 11,
+              "oldCount": 1,
+              "newStart": 11,
+              "newCount": 1
+            },
+            {
+              "oldStart": 18,
+              "oldCount": 0,
+              "newStart": 19,
+              "newCount": 3
+            },
+            {
+              "oldStart": 95,
+              "oldCount": 1,
+              "newStart": 98,
+              "newCount": 1
+            },
+            {
+              "oldStart": 97,
+              "oldCount": 2,
+              "newStart": 100,
+              "newCount": 6
+            },
+            {
+              "oldStart": 114,
+              "oldCount": 1,
+              "newStart": 121,
+              "newCount": 8
+            },
+            {
+              "oldStart": 121,
+              "oldCount": 1,
+              "newStart": 135,
+              "newCount": 1
+            },
+            {
+              "oldStart": 132,
+              "oldCount": 1,
+              "newStart": 146,
+              "newCount": 3
+            },
+            {
+              "oldStart": 148,
+              "oldCount": 0,
+              "newStart": 165,
+              "newCount": 2
+            },
+            {
+              "oldStart": 153,
+              "oldCount": 1,
+              "newStart": 171,
+              "newCount": 1
+            }
+          ],
+          "owners": [],
+          "affectedIa": [
+            223
+          ],
+          "commits": [
+            {
+              "sha": "a924b855226a73e77b9544ad48b43614a3035273",
+              "subject": "feat: 공통 도움말과 토스트 및 실사용 가이드 확장"
+            },
+            {
+              "sha": "f69532d9e61c6830526d931af59aef9a54f1ed56",
+              "subject": "fix: 퍼블리싱 화면과 아이콘 가이드 정리"
+            }
+          ]
+        },
+        {
+          "id": "F025",
+          "status": "M",
+          "file": "src/components/common/molecules/ProductCard/ProductCard.tsx",
+          "previousFile": null,
+          "summary": "ProductCard의 모바일 색상 옵션을 선택 가능하게 하고 선택한 색상 이미지를 대표 썸네일에 반영한다. PC는 기존 호버 미리보기를 유지하며 history 썸네일 변형을 분리한다.",
+          "ranges": [
+            {
+              "oldStart": 385,
+              "oldCount": 0,
+              "newStart": 386,
+              "newCount": 4
+            },
+            {
+              "oldStart": 395,
+              "oldCount": 0,
+              "newStart": 400,
+              "newCount": 1
+            },
+            {
+              "oldStart": 414,
+              "oldCount": 1,
+              "newStart": 419,
+              "newCount": 8
+            },
+            {
+              "oldStart": 443,
+              "oldCount": 0,
+              "newStart": 456,
+              "newCount": 1
+            },
+            {
+              "oldStart": 452,
+              "oldCount": 1,
+              "newStart": 465,
+              "newCount": 1
+            },
+            {
+              "oldStart": 634,
+              "oldCount": 0,
+              "newStart": 648,
+              "newCount": 1
+            },
+            {
+              "oldStart": 644,
+              "oldCount": 0,
+              "newStart": 659,
+              "newCount": 1
+            },
+            {
+              "oldStart": 655,
+              "oldCount": 1,
+              "newStart": 670,
+              "newCount": 3
+            },
+            {
+              "oldStart": 657,
+              "oldCount": 1,
+              "newStart": 674,
+              "newCount": 3
+            },
+            {
+              "oldStart": 770,
+              "oldCount": 0,
+              "newStart": 790,
+              "newCount": 1
+            },
+            {
+              "oldStart": 773,
+              "oldCount": 1,
+              "newStart": 793,
+              "newCount": 1
+            },
+            {
+              "oldStart": 794,
+              "oldCount": 3,
+              "newStart": 814,
+              "newCount": 5
+            },
+            {
+              "oldStart": 826,
+              "oldCount": 1,
+              "newStart": 848,
+              "newCount": 6
+            },
+            {
+              "oldStart": 829,
+              "oldCount": 1,
+              "newStart": 856,
+              "newCount": 1
+            },
+            {
+              "oldStart": 872,
+              "oldCount": 1,
+              "newStart": 899,
+              "newCount": 1
+            }
+          ],
+          "owners": [],
+          "affectedIa": [
+            170,
+            171,
+            247
+          ],
+          "commits": [
+            {
+              "sha": "c905156fe26eeddae7bdf8db58ca25f68122e78a",
+              "subject": "fix: 모바일 상품 목록과 검색 결과 색상 선택 수정"
+            },
+            {
+              "sha": "ec83d94a61de1997e0abd38e03a48b7fa564f43d",
+              "subject": "fix: 상품 목록 그리드 썸네일 비율 통일"
+            }
+          ]
+        },
+        {
+          "id": "F026",
+          "status": "M",
+          "file": "src/components/common/molecules/ProductOptionSelectors/ProductSizeSelector.tsx",
+          "previousFile": null,
+          "summary": "ProductSizeSelector에 errorVariant를 추가해 화면이 오류 문구 Typography를 선택하도록 한다. 미지정 시 기존 FormField 오류 표시를 유지한다.",
+          "ranges": [
+            {
+              "oldStart": 15,
+              "oldCount": 1,
+              "newStart": 15,
+              "newCount": 1
+            },
+            {
+              "oldStart": 32,
+              "oldCount": 0,
+              "newStart": 33,
+              "newCount": 1
+            },
+            {
+              "oldStart": 46,
+              "oldCount": 0,
+              "newStart": 48,
+              "newCount": 1
+            },
+            {
+              "oldStart": 89,
+              "oldCount": 1,
+              "newStart": 91,
+              "newCount": 10
+            }
+          ],
+          "owners": [],
+          "affectedIa": [
+            170
+          ],
+          "commits": [
+            {
+              "sha": "07870260b9c2c86aa632f155ab2ce8973f348b6e",
+              "subject": "fix: 상품 상세 사이즈 오류 문구 스타일 적용"
+            }
+          ]
+        },
+        {
+          "id": "F027",
+          "status": "M",
+          "file": "src/components/common/molecules/ProductThumbnail.tsx",
+          "previousFile": null,
+          "summary": "ProductThumbnail의 listing 비율을 371:464로 지정하고 history 변형을 분리해 주문 내역 썸네일을 목록 비율과 독립적으로 유지한다.",
+          "ranges": [
+            {
+              "oldStart": 21,
+              "oldCount": 1,
+              "newStart": 21,
+              "newCount": 2
+            },
+            {
+              "oldStart": 57,
+              "oldCount": 1,
+              "newStart": 58,
+              "newCount": 1
+            }
+          ],
+          "owners": [],
+          "affectedIa": [
+            170,
+            171,
+            247
+          ],
+          "commits": [
+            {
+              "sha": "750b39b2c1ed4a9bd71296519cbbf2060be3aab8",
+              "subject": "fix: 상품 목록 이미지 비율 371 대 464 복원"
+            },
+            {
+              "sha": "ec83d94a61de1997e0abd38e03a48b7fa564f43d",
+              "subject": "fix: 상품 목록 그리드 썸네일 비율 통일"
+            }
+          ]
+        },
+        {
+          "id": "F028",
+          "status": "M",
+          "file": "src/components/common/molecules/SizeSelector/SizeSelector.tsx",
+          "previousFile": null,
+          "summary": "SizeSelector에서 재고 부족(lowStock) 상태와 시계 표시를 제거하고 관련 SVG·표시 타입을 정리한다.",
+          "ranges": [
+            {
+              "oldStart": 93,
+              "oldCount": 1,
+              "newStart": 93,
+              "newCount": 1
+            },
+            {
+              "oldStart": 112,
+              "oldCount": 1,
+              "newStart": 111,
+              "newCount": 0
+            },
+            {
+              "oldStart": 152,
+              "oldCount": 1,
+              "newStart": 150,
+              "newCount": 0
+            }
+          ],
+          "owners": [],
+          "affectedIa": [
+            170,
+            247
+          ],
+          "commits": [
+            {
+              "sha": "f69532d9e61c6830526d931af59aef9a54f1ed56",
+              "subject": "fix: 퍼블리싱 화면과 아이콘 가이드 정리"
+            }
+          ]
+        },
+        {
+          "id": "F029",
+          "status": "M",
+          "file": "src/components/mypage/mypage.data.ts",
+          "previousFile": null,
+          "summary": "마이페이지 메뉴의 FAQ·1:1문의 링크에 from=mypage를 유지해 진입 경로에 맞는 브레드크럼을 표시한다.",
+          "ranges": [
+            {
+              "oldStart": 34,
+              "oldCount": 2,
+              "newStart": 34,
+              "newCount": 2
+            }
+          ],
+          "owners": [],
+          "affectedIa": [
+            177,
+            178,
+            179,
+            180,
+            181,
+            203,
+            204,
+            205
+          ],
+          "commits": [
+            {
+              "sha": "60fdf4c47537f964833c1c4851effa9832f76763",
+              "subject": "fix: 마이페이지와 고객센터 브레드크럼 및 제목 수정"
+            }
+          ]
+        },
+        {
+          "id": "F030",
+          "status": "M",
+          "file": "src/components/orders/OrderHistoryProduct.tsx",
+          "previousFile": null,
+          "summary": "OrderHistoryProduct의 장바구니 담기 버튼에 PC body4·MO body5, medium 라벨을 적용하고 불필요한 크기·정렬 오버라이드를 제거한다.",
+          "ranges": [
+            {
+              "oldStart": 86,
+              "oldCount": 6,
+              "newStart": 86,
+              "newCount": 1
+            },
+            {
+              "oldStart": 93,
+              "oldCount": 2,
+              "newStart": 88,
+              "newCount": 7
+            }
+          ],
+          "owners": [
+            {
+              "path": "마이페이지|구매내역|주문배송 조회",
+              "href": null,
+              "iaNumber": 179
+            },
+            {
+              "path": "마이페이지|구매내역|취소/반품 내역",
+              "href": null,
+              "iaNumber": 181
+            }
+          ],
+          "affectedIa": [
+            178,
+            179,
+            180,
+            181
+          ],
+          "commits": [
+            {
+              "sha": "fa6c8f8c8da63eeb7bc509883368ff772dc650b2",
+              "subject": "fix: 문의 상품 정보와 탐색 링크 정렬 수정"
+            }
+          ]
+        },
+        {
+          "id": "F031",
+          "status": "M",
+          "file": "src/context/ShopShell.tsx",
+          "previousFile": null,
+          "summary": "MenuDrawerHeader의 로그인 이름·마이페이지 링크와 닫기 아이콘을 조정하고 관심상품 헤더 아이콘을 제거한다. GNB 런칭캘린더 링크와 키보드 포커스 이동·메뉴 닫기를 연결한다.",
+          "ranges": [
+            {
+              "oldStart": 40,
+              "oldCount": 1,
+              "newStart": 39,
+              "newCount": 0
+            },
+            {
+              "oldStart": 135,
+              "oldCount": 1,
+              "newStart": 133,
+              "newCount": 0
+            },
+            {
+              "oldStart": 161,
+              "oldCount": 1,
+              "newStart": 159,
+              "newCount": 1
+            },
+            {
+              "oldStart": 163,
+              "oldCount": 2,
+              "newStart": 161,
+              "newCount": 12
+            },
+            {
+              "oldStart": 167,
+              "oldCount": 1,
+              "newStart": 175,
+              "newCount": 6
+            },
+            {
+              "oldStart": 179,
+              "oldCount": 1,
+              "newStart": 192,
+              "newCount": 1
+            },
+            {
+              "oldStart": 634,
+              "oldCount": 1,
+              "newStart": 647,
+              "newCount": 1
+            },
+            {
+              "oldStart": 1301,
+              "oldCount": 1,
+              "newStart": 1314,
+              "newCount": 1
+            },
+            {
+              "oldStart": 2134,
+              "oldCount": 2,
+              "newStart": 2147,
+              "newCount": 1
+            },
+            {
+              "oldStart": 2153,
+              "oldCount": 11,
+              "newStart": 2164,
+              "newCount": 0
+            },
+            {
+              "oldStart": 2442,
+              "oldCount": 0,
+              "newStart": 2444,
+              "newCount": 1
+            },
+            {
+              "oldStart": 2449,
+              "oldCount": 0,
+              "newStart": 2452,
+              "newCount": 1
+            },
+            {
+              "oldStart": 2494,
+              "oldCount": 0,
+              "newStart": 2498,
+              "newCount": 12
+            },
+            {
+              "oldStart": 2571,
+              "oldCount": 0,
+              "newStart": 2587,
+              "newCount": 1
+            },
+            {
+              "oldStart": 2720,
+              "oldCount": 3,
+              "newStart": 2736,
+              "newCount": 3
+            },
+            {
+              "oldStart": 2737,
+              "oldCount": 5,
+              "newStart": 2753,
+              "newCount": 1
+            },
+            {
+              "oldStart": 2756,
+              "oldCount": 1,
+              "newStart": 2768,
+              "newCount": 1
+            }
+          ],
+          "owners": [
+            {
+              "path": "공통|전체메뉴",
+              "href": null,
+              "iaNumber": 245
+            }
+          ],
+          "affectedIa": [
+            245,
+            246
+          ],
+          "commits": [
+            {
+              "sha": "f19c82a970cdc7ab13a6a03b4dcd5f6861eafe0c",
+              "subject": "fix: 모바일 메뉴 헤더 링크와 아이콘 정리"
+            },
+            {
+              "sha": "da007d4319d3b03f3d2b869de19dae456f08674b",
+              "subject": "fix: 로그인 헤더 관심상품 아이콘 제거"
+            },
+            {
+              "sha": "77c520436b1824ea7d0be9699c06bec9cb72fe79",
+              "subject": "feat: GNB Story와 런칭캘린더 링크 반영"
+            }
+          ]
+        },
+        {
+          "id": "F032",
+          "status": "M",
+          "file": "src/data/megaMenu.ts",
+          "previousFile": null,
+          "summary": "genderMenu에서 남성·여성 액티비티 분류를 뒤로 이동하고 GNB Explore 라벨을 Story로 변경한다.",
+          "ranges": [
+            {
+              "oldStart": 64,
+              "oldCount": 12,
+              "newStart": 63,
+              "newCount": 0
+            },
+            {
+              "oldStart": 111,
+              "oldCount": 0,
+              "newStart": 100,
+              "newCount": 12
+            },
+            {
+              "oldStart": 150,
+              "oldCount": 1,
+              "newStart": 150,
+              "newCount": 1
+            }
+          ],
+          "owners": [
+            {
+              "path": "공통|전체메뉴",
+              "href": null,
+              "iaNumber": 245
+            }
+          ],
+          "affectedIa": [
+            245,
+            246
+          ],
+          "commits": [
+            {
+              "sha": "07a97b073542adbc6fb2cb1be12579628ec47d7c",
+              "subject": "fix: 남성·여성 GNB 카테고리 순서 변경"
+            },
+            {
+              "sha": "77c520436b1824ea7d0be9699c06bec9cb72fe79",
+              "subject": "feat: GNB Story와 런칭캘린더 링크 반영"
+            }
+          ]
+        },
+        {
+          "id": "F033",
+          "status": "M",
+          "file": "src/mocks/products.ts",
+          "previousFile": null,
+          "summary": "SizeSelector에서 재고 부족(lowStock) 상태와 시계 표시를 제거하고 관련 SVG·표시 타입을 정리한다.",
+          "ranges": [
+            {
+              "oldStart": 6,
+              "oldCount": 1,
+              "newStart": 5,
+              "newCount": 0
+            },
+            {
+              "oldStart": 25,
+              "oldCount": 1,
+              "newStart": 23,
+              "newCount": 0
+            }
+          ],
+          "owners": [],
+          "affectedIa": [
+            170,
+            171,
+            247
+          ],
+          "commits": [
+            {
+              "sha": "f69532d9e61c6830526d931af59aef9a54f1ed56",
+              "subject": "fix: 퍼블리싱 화면과 아이콘 가이드 정리"
+            }
+          ]
+        },
+        {
+          "id": "F034",
+          "status": "D",
+          "file": "public/images/size-guide/bottoms-measurement.png",
+          "previousFile": null,
+          "summary": "신발·의류·용품 사이즈 가이드 통합에 따라 사용하지 않는 하의·양말·베스트 측정/품목 이미지 파일을 삭제한다. 바이너리 이미지 내부 줄 번호는 없다.",
+          "ranges": [],
+          "owners": [
+            {
+              "path": "SUPPORT|사이즈가이드",
+              "href": null,
+              "iaNumber": 260
+            }
+          ],
+          "affectedIa": [
+            260
+          ],
+          "commits": [
+            {
+              "sha": "8e3af5470bb4c5eb0678a5f6e3f82b3ff9f716e8",
+              "subject": "feat: 고객센터 사이즈 가이드 품목 통합"
+            }
+          ]
+        },
+        {
+          "id": "F035",
+          "status": "D",
+          "file": "public/images/size-guide/bottoms.png",
+          "previousFile": null,
+          "summary": "신발·의류·용품 사이즈 가이드 통합에 따라 사용하지 않는 하의·양말·베스트 측정/품목 이미지 파일을 삭제한다. 바이너리 이미지 내부 줄 번호는 없다.",
+          "ranges": [],
+          "owners": [
+            {
+              "path": "SUPPORT|사이즈가이드",
+              "href": null,
+              "iaNumber": 260
+            }
+          ],
+          "affectedIa": [
+            260
+          ],
+          "commits": [
+            {
+              "sha": "8e3af5470bb4c5eb0678a5f6e3f82b3ff9f716e8",
+              "subject": "feat: 고객센터 사이즈 가이드 품목 통합"
+            }
+          ]
+        },
+        {
+          "id": "F036",
+          "status": "D",
+          "file": "public/images/size-guide/socks-measurement.png",
+          "previousFile": null,
+          "summary": "신발·의류·용품 사이즈 가이드 통합에 따라 사용하지 않는 하의·양말·베스트 측정/품목 이미지 파일을 삭제한다. 바이너리 이미지 내부 줄 번호는 없다.",
+          "ranges": [],
+          "owners": [
+            {
+              "path": "SUPPORT|사이즈가이드",
+              "href": null,
+              "iaNumber": 260
+            }
+          ],
+          "affectedIa": [
+            260
+          ],
+          "commits": [
+            {
+              "sha": "8e3af5470bb4c5eb0678a5f6e3f82b3ff9f716e8",
+              "subject": "feat: 고객센터 사이즈 가이드 품목 통합"
+            }
+          ]
+        },
+        {
+          "id": "F037",
+          "status": "D",
+          "file": "public/images/size-guide/socks.png",
+          "previousFile": null,
+          "summary": "신발·의류·용품 사이즈 가이드 통합에 따라 사용하지 않는 하의·양말·베스트 측정/품목 이미지 파일을 삭제한다. 바이너리 이미지 내부 줄 번호는 없다.",
+          "ranges": [],
+          "owners": [
+            {
+              "path": "SUPPORT|사이즈가이드",
+              "href": null,
+              "iaNumber": 260
+            }
+          ],
+          "affectedIa": [
+            260
+          ],
+          "commits": [
+            {
+              "sha": "8e3af5470bb4c5eb0678a5f6e3f82b3ff9f716e8",
+              "subject": "feat: 고객센터 사이즈 가이드 품목 통합"
+            }
+          ]
+        },
+        {
+          "id": "F038",
+          "status": "D",
+          "file": "public/images/size-guide/vest-measurement.png",
+          "previousFile": null,
+          "summary": "신발·의류·용품 사이즈 가이드 통합에 따라 사용하지 않는 하의·양말·베스트 측정/품목 이미지 파일을 삭제한다. 바이너리 이미지 내부 줄 번호는 없다.",
+          "ranges": [],
+          "owners": [
+            {
+              "path": "SUPPORT|사이즈가이드",
+              "href": null,
+              "iaNumber": 260
+            }
+          ],
+          "affectedIa": [
+            260
+          ],
+          "commits": [
+            {
+              "sha": "8e3af5470bb4c5eb0678a5f6e3f82b3ff9f716e8",
+              "subject": "feat: 고객센터 사이즈 가이드 품목 통합"
+            }
+          ]
+        },
+        {
+          "id": "F039",
+          "status": "D",
+          "file": "public/images/size-guide/vest.png",
+          "previousFile": null,
+          "summary": "신발·의류·용품 사이즈 가이드 통합에 따라 사용하지 않는 하의·양말·베스트 측정/품목 이미지 파일을 삭제한다. 바이너리 이미지 내부 줄 번호는 없다.",
+          "ranges": [],
+          "owners": [
+            {
+              "path": "SUPPORT|사이즈가이드",
+              "href": null,
+              "iaNumber": 260
+            }
+          ],
+          "affectedIa": [
+            260
+          ],
+          "commits": [
+            {
+              "sha": "8e3af5470bb4c5eb0678a5f6e3f82b3ff9f716e8",
+              "subject": "feat: 고객센터 사이즈 가이드 품목 통합"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

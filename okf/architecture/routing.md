@@ -1791,3 +1791,8 @@ PC 1920px·MO 375px에서 일반·임직원 목록, 상세 직접 진입, 확인
 2026-11-11 WBS 참조 문서가 1JyQvEhb53OgXnSBcxypHGI8nxsclZDi059r1SCdFHos로 교체되어 보고 스킬과 IA 담당자 링크의 문서 URL을 갱신했다. 연결 도구로 Schedule gid 1070650770, X~AB 헤더와 FO 개발 85행의 WBS·실적 구조를 확인했다. 기존 담당자 매핑 확인일과 과거 실적 스냅샷의 출처는 해당 수집 시점을 나타낸다. 출처: hoka-main-change-report/SKILL.md, screenDevelopers.ts 작업 트리 및 새 Schedule의 B267:AB351·X3:AB4 조회.
 
 2026-11-11 IA 런칭캘린더 In-stock 목록(eland_hla_04, IA162)은 사용자 지정 삭제 / 제외 항목이다. 기존 삭제 판정에 따라 페이지와 STATE 링크를 표시하지 않는다. 출처: screenRegistry.ts 작업 트리.
+
+
+## 2026-11-11 main 보고 실행
+
+지정 병합 커밋 781c2adb를 포함하는 첫 부모 d7f8ae16부터 origin/main 7359b590까지의 최종 변경을 보고서 모달에 추가했다. 105개 최종 변경 파일 중 Markdown·가이드·IA 자체·실적 0% 전용 66개를 제외한 39개를 담았다. 새 Schedule의 FO 실적 85개 중 유효 IA 매핑 46개를 저장 스냅샷과 비교해 변경·누락 0건을 확인했다. 미등록 사이즈가이드는 0%로 간주하지 않고 미지정으로 보존했다. 출처: `src/app/screen-index/screenChangeHistory.generated.json` 작업 트리 및 [공유 보고서](../../reports/main-changes/inclusive-d7f8ae16c37cb0175142c9b808bdcba7932fc9ea-7359b590ad2cfce460850ee69095f99135d3b619.md). 보고서 테스트 11개와 로컬 전체/담당자 모달을 확인했다.
