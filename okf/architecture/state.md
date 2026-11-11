@@ -4,7 +4,7 @@ title: '공통 상태와 데모 데이터'
 description: '로그인, 장바구니와 목 데이터의 수명 및 제약을 설명한다.'
 tags: [react, state, mock-data]
 status: draft
-updated: '2026-11-10T00:01:00Z'
+updated: '2026-11-11T00:30:46Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
@@ -242,6 +242,12 @@ sources:
 Typography의 화면 전용 variant를 표준 heading/body scale로 바꾼 변경은 표시 계층에 한정된다. 선택·필터·문의·상품·세션·장바구니 데이터와 상태 흐름은 변경하지 않았다. 관련 컴포넌트 사용처는 UI 아키텍처 문서의 Typography 전용 variant 표준화 항목에 기록했다.
 
 # 공통 상태와 데모 데이터
+
+## GNB Story와 런칭캘린더 (2026-11-11)
+
+`ShopShell.tsx`의 PC 주요 메뉴는 Men·Women·Shoes·Story 다음에 `/launch-calendar`로 이동하는 Next Link를 표시한다. Story 메가메뉴의 마지막 링크에서 Tab을 누르면 런칭캘린더로 이동하고, 검색창에서 Shift+Tab을 누르면 같은 링크로 돌아온다. 링크에 hover·focus하면 열린 메가메뉴를 닫는다. 모바일 전체메뉴는 기존 런칭캘린더 링크를 재사용하며 공통 메뉴 데이터의 Story 이름을 표시한다.
+
+기존 메뉴와 같은 `body4` 14px, 검정 글자, 높이 58px와 좌우 패딩 18px를 사용한다. PC·모바일에서 메뉴 표시와 런칭캘린더 이동, PC Story 펼침과 키보드 이동을 확인했다. 디자인 원본은 요청 제한으로 수치 대조를 완료하지 못했다. [GNB 디자인 파일](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP).
 
 Site Header의 장바구니 개수는 기존 `ShopShell.state.cartCount`에서 읽는다. `ShopShell.tsx`의 `HeaderCartLink`가 개수 배지에 검정 텍스트를 지정하며, 아이콘과 배지의 표시 여부는 기존 개수 계약을 따른다.
 

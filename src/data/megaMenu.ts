@@ -147,7 +147,7 @@ export const megaMenus: MegaMenu[] = [
   },
   {
     id: 'explore',
-    label: 'Explore',
+    label: 'Story',
     columns: [
       {
         title: 'Featured',

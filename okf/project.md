@@ -4,12 +4,13 @@ title: '프로젝트 개요'
 description: '서비스 목적, 기술 버전과 구현 범위를 설명한다.'
 tags: [hoka, frontend, overview]
 status: draft
-updated: '2026-11-09T06:14:31Z'
+updated: '2026-11-11T00:30:46Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
 source_revision: c9e8b1a75bdd4a2d52308410b8ce77773464a9e6
 working_tree_sources:
+  - src/data/megaMenu.ts
   - src/app/publishing-guide/_components/IconGuide.tsx
   - src/components/common/molecules/SupportTabs.tsx
   - src/app/support/after-sales/page.tsx
@@ -91,6 +92,10 @@ sources:
 ---
 
 # 프로젝트 개요
+
+## GNB Story 표시 데이터 (2026-11-11)
+
+`src/data/megaMenu.ts`의 기존 `explore` 메뉴 표시명을 Story로 변경했다. PC GNB와 모바일 전체메뉴가 같은 데이터를 사용한다. 메뉴 식별자와 하위 링크는 기존 연결을 따르며 런칭캘린더는 `/launch-calendar`의 탐색 링크로 제공한다. 표시·키보드 동작은 [GNB 상태 문서](architecture/state.md#gnb-story와-런칭캘린더-2026-11-11)에 기록했다.
 
 2026-11-09: 아이콘 가이드의 문의 첨부파일 사용 화면 링크와 카드 제목을 검토했다. PDF·이미지 카드가 첨부파일 미리보기 URL을 가리키고 한글 용도명으로 표시되도록 바꿨으며, 프로젝트 목적과 구현 범위 설명에는 영향이 없다. 출처: 작업 트리의 `src/app/publishing-guide/_components/IconGuide.tsx`.
 
