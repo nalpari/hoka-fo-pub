@@ -1942,6 +1942,9 @@ const ProductPurchaseActionsRoot = cva({
     gridTemplateColumns: '1fr 1fr',
   },
   variants: {
+    withWishlist: {
+      true: { gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr) 48px' },
+    },
     placement: {
       inline: { _mobile: { display: 'none' } },
       sheet: {},
@@ -1966,19 +1969,25 @@ const ProductPurchaseActionsRoot = cva({
 });
 // [ 개발팀 바인딩 ] 구매/장바구니/입고알림 CTA는 상태 확인용 표시입니다. 요청·검증·장바구니 변경·완료 이동은 연결하지 않으며 실제 연결은 상품상세 통합 소유자가 담당합니다.
 type ProductPurchaseActionsProps = {
-  placement: 'inline' | 'fixed' | 'sheet';
   onOpenOptions?: () => void;
   restock?: boolean;
-};
+} & (
+  | { placement: 'inline'; wishlist?: ReactNode }
+  | { placement: 'fixed' | 'sheet'; wishlist?: never }
+);
 
 function ProductPurchaseActions({
   placement,
   restock,
   onOpenOptions,
+  wishlist,
 }: ProductPurchaseActionsProps) {
   const platform = usePlatform();
   return (
-    <Grid className={ProductPurchaseActionsRoot({ placement })} gap="2">
+    <Grid
+      className={ProductPurchaseActionsRoot({ placement, withWishlist: Boolean(wishlist) })}
+      gap="2"
+    >
       <Button
         disabled={restock}
         onClick={onOpenOptions}
@@ -2006,6 +2015,7 @@ function ProductPurchaseActions({
           {restock ? '입고 알림 신청하기' : '구매하기'}
         </Typography>
       </Button>
+      {wishlist}
     </Grid>
   );
 }
@@ -2019,6 +2029,8 @@ type ProductDetailContentProps = {
   size: string;
   error: string;
   selectedOptions: ReactNode;
+  wish: boolean;
+  onWishChange: () => void;
   onColorChange: (color: string) => void;
   onWidthChange: (width: string) => void;
   onSizeChange: (size: string) => void;
@@ -2033,6 +2045,8 @@ function ProductDetailContent({
   size,
   error,
   selectedOptions,
+  wish,
+  onWishChange,
   onColorChange,
   onWidthChange,
   onSizeChange,
@@ -2056,7 +2070,26 @@ function ProductDetailContent({
         width={width}
       />
       {selectedOptions}
-      <ProductPurchaseActions restock={restock} placement="inline" />
+      <ProductPurchaseActions
+        restock={restock}
+        placement="inline"
+        wishlist={
+          platform === 'web' ? (
+            <Wishlist
+              active={wish}
+              ariaLabel="관심상품"
+              size="48px"
+              iconSize="18px"
+              className={css({
+                border: '1px solid var(--color-black-100)',
+                borderRadius: '52px',
+                bg: 'var(--color-white-000)',
+              })}
+              onActiveChange={onWishChange}
+            />
+          ) : undefined
+        }
+      />
       <ProductInformation
         id="product-information"
         initiallyExpanded={apparel}
@@ -2166,15 +2199,17 @@ function ProductDetailHeaderActions({
           {product.reviewCount}개 리뷰 보기
         </Button>
       </HStack>
-      <HStack gap="4">
-        <ShareButton size="24px" onClick={copyProductLink} />
-        <Wishlist
-          active={wish}
-          ariaLabel="관심상품"
-          iconSize={platform === 'mobile' ? '20px' : '22px'}
-          onActiveChange={onWishChange}
-        />
-      </HStack>
+      {platform === 'mobile' && (
+        <HStack gap="4">
+          <ShareButton size="24px" onClick={copyProductLink} />
+          <Wishlist
+            active={wish}
+            ariaLabel="관심상품"
+            iconSize="20px"
+            onActiveChange={onWishChange}
+          />
+        </HStack>
+      )}
       <Toast notice={shareNotice} onDismiss={dismissShareNotice} />
     </Flex>
   );
@@ -2591,6 +2626,8 @@ function ProductDetailPanel({
           apparel={apparel}
           restock={restock}
           selectedOptions={selectedOptions}
+          wish={wish}
+          onWishChange={onWishChange}
           color={color}
           error={error}
           gallery={gallery}

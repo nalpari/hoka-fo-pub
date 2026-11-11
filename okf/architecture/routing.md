@@ -4,12 +4,13 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-10T04:49:00Z'
+updated: '2026-11-11T00:38:21Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/products/[id]/_components/ProductDetailContent.tsx
   - src/app/publishing-guide/_components/ModalGuide.tsx
   - src/app/screen-index/sourceGraph.generated.json
   - src/app/products/pdp-preview/[state]/page.tsx
@@ -368,6 +369,12 @@ sources:
 ---
 
 # 라우팅과 플랫폼
+
+## 상품상세 PC 공유·좋아요 위치 (2026-11-11)
+
+상품상세의 PC 리뷰 행에서 공유하기와 좋아요를 제거하고, 기존 `Wishlist`를 장바구니·구매하기 오른쪽으로 옮겼다. 구매 버튼 소유자의 inline 배치에만 좋아요 슬롯을 허용한다. 좋아요는 48×48px, 흰 배경, 검정 1px 테두리와 반경 52px, 18px 하트이며 버튼 간격은 8px다. 일반 신발·의류·전체 품절 화면이 같은 배치를 사용한다. 모바일 리뷰 행의 공유·좋아요와 하단 구매 CTA 배치는 유지한다.
+
+`/products/shoe-1`, `/products/pdp-preview/apparel`, `/products/pdp-preview/sold-out`에서 PC 공유 버튼 부재·좋아요 위치·크기와 로컬 선택 상태를 확인했다. 모바일 375px에서 기존 공유·좋아요 각 한 개의 표시를 확인했다. 기존 상태 소유자와 공통 Wishlist를 재사용하고 상품별 서비스 연결 책임은 현재 통합 소유자에 둔다. 변경 파일 ESLint, 전체 타입 검사, Panda 생성과 Next.js 빌드를 통과했다. [상품상세 디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design).
 
 2026-11-10: 상품 상세의 사이즈 가이드 버튼은 성별 치수표가 있으면 같은 URL에서 팝업을 열고, 없으면 `/support/size-guide`로 이동한다. 상품 상세 URL과 IA 연결은 유지한다. [현재 사이즈 가이드 연결](size-guide.md#상품-상세-사이즈-가이드-팝업-유지-2026-11-10)을 참고한다.
 
