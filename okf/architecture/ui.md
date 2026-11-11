@@ -4,12 +4,26 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-10T07:45:13Z'
+updated: '2026-11-11T05:42:18Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/app/support/_components/SupportContacts.tsx
+  - src/app/support/notices/_components/NoticesList.tsx
+  - src/app/support/after-sales/page.tsx
+  - src/app/mypage/coupons/_components/CouponManagement.tsx
+  - src/app/mypage/reviews/_components/MyPageReviewsContent.tsx
+  - src/components/common/organisms/SystemStatusPage.tsx
+  - src/app/login/account-locked/_components/AccountLockedContent.tsx
+  - src/components/phone-verification/PhoneVerificationContent.tsx
+  - src/app/support/page.tsx
+  - src/app/support/_components/SupportQuickLinks.tsx
+  - src/app/support/notices/_components/NoticesContent.tsx
+  - src/app/support/after-sales/_components/AfterSalesContent.tsx
+  - src/app/mypage/addresses/_components/AddressManagement.tsx
+  - src/components/common/molecules/SupportTabs.tsx
   - src/app/products/[id]/productDetailPreviews.ts
   - src/components/running-session/RunningSessionPage.tsx
   - src/app/support/inquiries/new/_components/InquiryFormStatePreview.tsx
@@ -921,6 +935,9 @@ working_tree_sources:
   - src/components/common/molecules/ProductOptionList.tsx
   - src/components/common/organisms/OrderRecommendations.tsx
 sources:
+  - id: common-spacing-guide-20261111
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design
+    title: 공통 사용 가이드의 Contents·Error·Modal 예시
   - id: figma-claim-2182-71235
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2182-71235
     title: '모바일 취소 상세'
@@ -4961,3 +4978,19 @@ GuideCopyToast는 화면 하단 40px 중앙에 검정 238×40px(긴 문구는 �
 가이드 전용 GuideCopyToast를 `src/components/common/atoms/Toast.tsx`로 옮기고 `Toast`·`ToastNotice`로 변경했다. `notice: { id, text } | null`과 `onDismiss(id)`로 임의의 안내 메시지를 받으며 복사 여부와 메시지는 호출자가 결정한다. 하단 40px·3초 노출·슬라이드/페이드·모션 감소 및 연속 표시 정리 동작은 유지한다. 모든 가이드 import와 의존 그래프를 새 경로로 갱신했다. 출처: Toast.tsx와 퍼블 가이드 작업 트리.
 
 2026-11-10 검증: 변경 가이드 파일 ESLint와 OKF 검사 통과. Ego에서 데스크탑 목록 17개, 모바일 표시 목록 16개(반품 사유는 데스크탑 전용)와 상품 스펙·수령인 표시를 확인했다. TypeScript 검사에는 변경 소스 오류가 없었으나 삭제된 라우트를 가리키는 기존 .next/types 오류가 남아 전체 통과는 아니다.
+
+## 공통 가이드 간격의 선별 반영 (2026-11-11)
+
+이 항목은 현재 선택한 소스 스테이지를 설명한다. 후속 전체 구조 비교를 위해 작업 트리에 남긴 다른 수정까지 포함한 완료 기록이 아니다. 공통 가이드의 참고 출처는 이 문서의 common-spacing-guide-20261111이며, 아래 구현 출처는 선택한 Git 스테이지다.
+
+- 고객센터는 제목/설명 간격 PC 12px·MO 16px, 카드 앞 40/32px, 카드/바로가기 사이 8px을 적용한다. MO 카드 상하 36px·제목 그룹과 정보 사이 48px·정보 그룹 사이 32px, TEL 20px와 모바일 운영시간 표현을 보정한다. 첫 PC 정보 영역 196px 및 양끝 정렬, 두 번째 정보 간격 52px을 적용한다. 바로가기의 본문/버튼 간격은 24px이다. 기존 연락처 데이터와 tel 링크를 유지한다.
+- 공지는 MO 제목 24px·목록 상단선 1px, 제목/목록 40/32px·더보기 앞 24px을 반영한다. 한 줄 말줄임과 제목의 MO 타이포그래피 변경은 이 커밋에 포함하지 않는다.
+- 문의 폼은 고객정보/필드 24px·필드/첨부 40/24px·액션 앞 40/32px을 기존 부모 Stack이 소유한다. 분류 필드 높이 63px, 입력 제어 높이 24px, textarea 카운터 배치와 MO 액션 높이 44px을 반영한다. 배송지 편집은 MO 제목 아래 구분선/16px 여백과 폼/액션 40/32px·MO 버튼 높이 44px을 반영하되 제목/폼의 후속 구조 변경은 제외한다.
+- 배송/반품은 shipping-returns 탭 아래 40/32px과 패널의 중복 상단 간격을 정리한다. 반품 본문 그룹은 32/24px, 바로가기 앞 간격은 24px이다. 공유 절차 배열의 문구/배열 순서는 변경하지만 기존 플랫폼별 목록 표현은 유지한다. 회색 STEP 카드 표현은 미스테이징 상태다.
+- 리뷰는 MO 제목과 제목/탭 24px·탭 높이 44px을 적용한다. 쿠폰은 본문 행간 1.5, 카드 PC 414×195px·MO 343×170px, 혜택 숫자 굵기와 원 표시 행간을 보정한다. 고객센터·공지·문의·배송/반품·쿠폰·리뷰의 선택된 화면 소유자에 본문 행간 1.5를 적용하며 전역 토큰은 유지한다.
+- 잠금 안내는 설명을 body3로 변경한다. 팝업 폭·제목·안쪽 여백의 후속 수정은 제외한다. 전체 약관은 MO 본문 그룹/테두리/내부 여백·문단 간격·날짜 13px과 확인 앞 32px·높이 44px을 반영하며, 헤더 및 팝업 본문 토큰의 후속 수정은 제외한다.
+- 404는 제목 그룹과 하단 액션의 간격, PC 설명 한 줄/MO 두 줄, PC 버튼 180×48px·MO 가로 전체 폭×48px을 반영한다. 제목 크기의 후속 변경은 포함하지 않는다. 점검/일시 장애 화면의 기존 표현 옵션은 유지한다.
+
+소스의 표시 데이터·폼·로컬 입력 수명·콜백·기존 고정 상태 URL은 유지했다. 화면 의존 그래프에는 고객센터 연락처의 플랫폼 참조를 반영한다. 선택되지 않은 소스와 전체 검증 기록은 작업 트리에 그대로 남긴다.
+
+검증 경계: 앞선 타입·Panda·Next 빌드와 PC/MO 캡처는 후속 미스테이징 수정까지 포함한 전체 작업 트리에서 수행했다. 현재 부분 스테이지의 별도 빌드·시각 검증을 수행했다고 기록하지 않는다. 이 커밋 준비에서는 스테이지 공백 검사와 필수 OKF 검사를 실행하며, 기존 전체 lint의 테스트 전역 선언 오류는 수정하지 않는다. 출처: 관련 작업 트리의 전체 검증 이력과 선택한 Git 스테이지, Codex, 2026-11-11.

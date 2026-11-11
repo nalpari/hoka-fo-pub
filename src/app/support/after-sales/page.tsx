@@ -21,7 +21,7 @@ import { tabs } from './_components/AfterSalesContent';
 export default function Page() {
   return (
     <CustomerCenterLayout
-      className={css({ color: 'black.100' })}
+      className={css({ color: 'black.100', '--line-heights-body': '1.5', _mobile: { pb: '16!' } })}
       title="배송 및 반품 안내"
       mobileTitleVariant="heading5"
       activePath="/support/after-sales"

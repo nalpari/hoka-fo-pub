@@ -1,5 +1,7 @@
 'use client';
 
+import { usePlatform } from '@/context/platform';
+
 import { css } from 'styled-system/css';
 import { HStack, Stack } from 'styled-system/jsx';
 
@@ -39,6 +41,8 @@ function SupportContactCard({
   lunchBreak,
   closedDays,
 }: Props) {
+  const mobile = usePlatform() === 'mobile';
+
   return (
     <Stack
       as="section"
@@ -46,12 +50,10 @@ function SupportContactCard({
       bg="black.10"
       direction={{ base: 'row', _mobile: 'column' }}
       alignItems="flex-start"
-      justifyContent="space-between"
       gap={{ base: '40', _mobile: '12' }}
       px="8"
       py="10"
-      _mobile={{ px: '4', pt: '6', pb: '8' }}
-      css={{ '&:first-child': { _mobile: { minH: '322px', gap: '0' } } }}
+      _mobile={{ px: '4', py: '9' }}
     >
       <ContentHeader
         title={title}
@@ -65,23 +67,27 @@ function SupportContactCard({
       />
 
       <Stack
-        gap={{ base: '52px', _mobile: '32px' }}
+        gap={{ base: note ? '52px' : '0', _mobile: '8' }}
+        justifyContent={!mobile && !note ? 'space-between' : undefined}
         flex={{ base: '1', _mobile: 'none' }}
         minW="0"
-        minH={{ base: '196px', _mobile: '0' }}
+        _mobile={{ w: 'full' }}
+        h={{ base: note ? 'auto' : '196px', _mobile: 'auto' }}
       >
-        <Stack gap="3">
-          <Typography variant="body3">호카/호카 키즈</Typography>
-          <HStack gap="1" alignItems="baseline">
-            <Typography as="span" web="body2" mo="body3" language="en">
-              TEL.
-            </Typography>
-            <a className={phoneLink} href={phoneHref}>
-              <Typography as="span" web="body2" mo="body3" language="en">
-                {phone}
+        <Stack gap={{ base: '6', _mobile: '3' }}>
+          <Stack gap="3">
+            {!mobile && <Typography variant="body3">전화번호</Typography>}
+            <HStack gap="1" alignItems="baseline">
+              <Typography as="span" variant="body2" language="en">
+                TEL.
               </Typography>
-            </a>
-          </HStack>
+              <a className={phoneLink} href={phoneHref}>
+                <Typography as="span" variant="body2" language="en">
+                  {phone}
+                </Typography>
+              </a>
+            </HStack>
+          </Stack>
           {note && (
             <Typography as="p" variant="body4" tone="subtle">
               {note}
@@ -89,10 +95,11 @@ function SupportContactCard({
           )}
         </Stack>
 
-        <Stack gap="3">
-          <Typography variant="body3">{operatingHoursTitle}</Typography>
-          <Stack gap={{ base: '2', _mobile: '10px' }}>
+        <Stack gap={{ base: '3', _mobile: '2' }}>
+          <Typography variant="body3">{mobile ? '운영시간' : operatingHoursTitle}</Typography>
+          <Stack gap={{ base: '2', _mobile: note ? '10px' : '2' }}>
             <HStack gap="1" alignItems="baseline" flexWrap="wrap">
+              {mobile && <Typography variant="body3">평일</Typography>}
               <Typography as="span" web="body2" mo="body3" language="en">
                 {operatingHours}
               </Typography>
@@ -126,7 +133,12 @@ export function SupportContacts() {
   return (
     <Stack as="section" aria-label="고객센터 연락처" gap="2">
       {supportContacts.map((contact) => (
-        <SupportContactCard key={contact.headingId} {...contact} {...supportContactHours} />
+        <SupportContactCard
+          key={contact.headingId}
+          {...contact}
+          {...supportContactHours}
+          operatingHoursTitle={contact.note ? '평일 일반 유선상담 운영시간' : '운영시간'}
+        />
       ))}
     </Stack>
   );

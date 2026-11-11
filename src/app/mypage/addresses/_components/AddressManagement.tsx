@@ -56,7 +56,7 @@ export function AddressEditor({
         titleProps: { web: 'headingKr6', mo: 'headingKr5' },
         pb: '10',
         borderBottom: '2px solid black',
-        _mobile: { pb: '0', borderBottom: '0' },
+        _mobile: { pb: '4' },
       }}
     >
       <form
@@ -66,7 +66,7 @@ export function AddressEditor({
           save?.();
         }}
       >
-        <Stack gap="12" _mobile={{ gap: '6' }}>
+        <Stack gap="10" _mobile={{ gap: '8' }}>
           <Stack w="500px" maxW="100%" mx="auto" gap="6">
             <Stack gap="4">
               <TextFormField
@@ -191,7 +191,13 @@ export function AddressEditor({
           </Stack>
           {editingId === 'new' ? (
             <Box w="180px" mx="auto" _mobile={{ w: '100%' }}>
-              <Button fullWidth size="tall" variant="primary" type="submit">
+              <Button
+                fullWidth
+                size="tall"
+                variant="primary"
+                type="submit"
+                className={css({ _mobile: { '--button-height': '44px' } })}
+              >
                 {mobile ? '저장' : '배송지 추가'}
               </Button>
             </Box>
@@ -204,6 +210,7 @@ export function AddressEditor({
               maxW="100%"
               mx="auto"
               _mobile={{ w: '100%' }}
+              className={css({ _mobile: { '& button': { '--button-height': '44px!' } } })}
             />
           )}
         </Stack>

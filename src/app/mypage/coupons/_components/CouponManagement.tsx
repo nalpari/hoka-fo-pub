@@ -141,13 +141,15 @@ function CouponCard({ coupon, onDetails }: CouponCardProps) {
         pos: 'relative',
         minW: '0',
         minH: '195px',
+        h: '195px',
+        '& > *': { flexShrink: '0' },
         py: '8',
         pl: '33px',
         pr: '25px',
         gap: '8',
         backgroundSize: '100% 100%',
         backgroundRepeat: 'no-repeat',
-        _mobile: { minH: '170px', py: '25px', gap: '6' },
+        _mobile: { minH: '170px', h: '170px', py: '25px', gap: '6' },
       })}
       style={{ backgroundImage: 'url(/images/mypage/coupon.svg)' }}
     >
@@ -180,13 +182,13 @@ function CouponCard({ coupon, onDetails }: CouponCardProps) {
           <Typography
             variant="body3"
             language="en"
-            weight="medium"
+            weight="bold"
             className={css({ lineHeight: 'hoka!' })}
           >
             {coupon.benefit.endsWith('원') ? coupon.benefit.slice(0, -1) : coupon.benefit}
           </Typography>
           {coupon.benefit.endsWith('원') ? (
-            <Typography variant="bodyKr3" weight="semibold" className={css({ lineHeight: '1.2' })}>
+            <Typography variant="bodyKr3" weight="semibold" className={css({ lineHeight: '1.2!' })}>
               원
             </Typography>
           ) : null}
@@ -521,7 +523,7 @@ function CouponManager({ coupons, preview, employee = false }: CouponManagerProp
     preview === 'detail' ? (coupons[1] ?? coupons[0] ?? null) : null,
   );
   return (
-    <Stack gap={{ base: '12', _mobile: '8' }}>
+    <Stack gap={{ base: '12', _mobile: '8' }} css={{ '--line-heights-body': '1.5' }}>
       <ContentHeader
         title="쿠폰"
         titleAs="h1"

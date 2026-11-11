@@ -4,12 +4,24 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-11T01:09:17Z'
+updated: '2026-11-11T05:42:18Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/support/_components/SupportContacts.tsx
+  - src/app/support/notices/_components/NoticesList.tsx
+  - src/app/support/after-sales/page.tsx
+  - src/app/support/inquiries/new/_components/InquiryFormLayout.tsx
+  - src/app/mypage/coupons/_components/CouponManagement.tsx
+  - src/app/mypage/reviews/_components/MyPageReviewsContent.tsx
+  - src/app/login/account-locked/_components/AccountLockedContent.tsx
+  - src/app/support/page.tsx
+  - src/app/support/notices/_components/NoticesContent.tsx
+  - src/app/support/inquiries/new/_components/InquiryFormStatePreview.tsx
+  - src/app/support/after-sales/_components/AfterSalesContent.tsx
+  - src/app/mypage/addresses/_components/AddressManagement.tsx
   - src/app/launch-calendar/_components/LaunchCalendarContent.tsx
   - src/app/launch-calendar/_components/LaunchCalendarDetail.tsx
   - src/app/launch-calendar/launchCalendar.data.ts
@@ -1791,3 +1803,9 @@ PC 1920px·MO 375px에서 일반·임직원 목록, 상세 직접 진입, 확인
 2026-11-11 WBS 참조 문서가 1JyQvEhb53OgXnSBcxypHGI8nxsclZDi059r1SCdFHos로 교체되어 보고 스킬과 IA 담당자 링크의 문서 URL을 갱신했다. 연결 도구로 Schedule gid 1070650770, X~AB 헤더와 FO 개발 85행의 WBS·실적 구조를 확인했다. 기존 담당자 매핑 확인일과 과거 실적 스냅샷의 출처는 해당 수집 시점을 나타낸다. 출처: hoka-main-change-report/SKILL.md, screenDevelopers.ts 작업 트리 및 새 Schedule의 B267:AB351·X3:AB4 조회.
 
 2026-11-11 IA 런칭캘린더 In-stock 목록(eland_hla_04, IA162)은 사용자 지정 삭제 / 제외 항목이다. 기존 삭제 판정에 따라 페이지와 STATE 링크를 표시하지 않는다. 출처: screenRegistry.ts 작업 트리.
+
+## 공통 가이드 간격의 선별 커밋 범위 (2026-11-11)
+
+현재 선별 스테이지는 기존 고객센터·공지·문의 작성·배송지 편집·배송/반품 안내·쿠폰·리뷰·404·잠금 안내·약관 확인 경로를 재사용한다. 새 URL·IA 상태·서비스 요청 계약은 추가하지 않는다. 문의 입력과 취소창, 리뷰 탭, 약관 스크롤의 소유자도 유지한다.
+
+이번 커밋에는 준비된 작업 전체가 아니라 선택된 소스 부분만 포함한다. 잠금 팝업의 폭/제목 스타일, 배송지의 모바일 제목/입력 높이, 반품 STEP 카드, 공지 제목 말줄임, 404 제목 크기, 전체 약관 헤더 스타일은 미스테이징 상태로 남긴다. 세부 구현은 [선별 UI 기록](ui.md#공통-가이드-간격의-선별-반영-2026-11-11)을 따른다. 앞선 전체 작업 트리의 PC/MO 캡처 결과를 이 부분 커밋의 시각 검증 결과로 간주하지 않는다. 출처: 현재 선택한 라우트 및 관련 컴포넌트의 Git 스테이지, Codex, 2026-11-11.

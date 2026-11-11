@@ -21,7 +21,10 @@ export function NoticesContent({ previewEmpty = false }: { previewEmpty?: boolea
   const [shown, setShown] = useState(10);
   return (
     <CustomerCenterLayout
-      className={css({ _mobile: { pb: '72px!' } })}
+      className={css({
+        '--line-heights-body': '1.5',
+        _mobile: { pb: '72px!', '& h1': { fontSize: '24px' } },
+      })}
       title="공지사항"
       mobileTitleVariant="heading5"
       activePath="/support/notices"
@@ -33,7 +36,7 @@ export function NoticesContent({ previewEmpty = false }: { previewEmpty?: boolea
       groups={supportNavigation}
       footer={
         shown < items.length ? (
-          <Box pt={{ base: '9', _mobile: '6' }} mx="auto">
+          <Box pt="6" mx="auto">
             <Button
               variant="plain"
               className={css({ p: '0', minH: '0' })}
@@ -58,7 +61,7 @@ export function NoticesContent({ previewEmpty = false }: { previewEmpty?: boolea
         ) : null
       }
     >
-      <Stack gap="0" pt={{ base: '10', _mobile: '6' }}>
+      <Stack gap="0" pt={{ base: '10', _mobile: '8' }}>
         <NoticesList
           notices={items}
           shown={shown}

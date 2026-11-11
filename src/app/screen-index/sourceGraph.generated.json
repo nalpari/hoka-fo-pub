@@ -1003,6 +1003,7 @@
     "src/app/support/_components/SupportContacts.tsx": [
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/molecules/ContentHeader.tsx",
+      "src/context/platform.tsx",
       "src/data/supportContacts.ts"
     ],
     "src/app/support/_components/SupportQuickLinks.tsx": [

@@ -1,4 +1,5 @@
-import { Box, Grid } from 'styled-system/jsx';
+import { css } from 'styled-system/css';
+import { Box, Grid, Stack } from 'styled-system/jsx';
 
 import { ButtonLink } from '@/components/common/atoms/Button';
 import { Icon } from '@/components/common/atoms/Icon';
@@ -13,8 +14,8 @@ const messages = {
     title: '요청하신 페이지를 찾을 수 없습니다.',
     description: (
       <>
-        존재하지 않거나, 사용할 수 없는 페이지입니다.
-        <br />
+        존재하지 않거나, 사용할 수 없는 페이지입니다.{' '}
+        <br className={css({ display: 'none', _mobile: { display: 'initial' } })} />
         주소가 정확한지 다시 확인해 주세요.
       </>
     ),
@@ -43,25 +44,27 @@ export type SystemStatusPageProps = {
 /** 서비스 오류와 점검 안내를 표시합니다 (Shared error presentation. Maintenance schedule data belongs to the caller). */
 export function SystemStatusPage({ status, maintenance }: SystemStatusPageProps) {
   const message = messages[status];
+  const notFound = status === 'not-found';
 
   return (
     <ContentSection
       as="main"
-      gap="8"
+      gap={notFound ? { base: '8', _mobile: '6' } : '8'}
+      css={notFound ? { '--line-heights-body': '1.5' } : undefined}
       alignItems="center"
       minH="412px"
       justifyContent="center"
       py="16"
-      px="3"
+      px={notFound ? '4' : '3'}
       textAlign="center"
       color="black.100"
       // The existing promotion banner occupies 50px above the site header.
       _mobile={{ minH: 'calc(100svh - var(--layout-site-header-height) - 50px)', py: '8' }}
       header={
-        <>
+        <Stack alignItems="center" gap={notFound ? { base: '6', _mobile: '8' } : '8'} w="100%">
           <Icon name="triangle-exclamation-solid" size={48} color="black.100" />
           <ContentHeader
-            gap="4"
+            gap={notFound ? { base: '3', _mobile: '4' } : '4'}
             titleAs="h1"
             title={message.title}
             titleProps={{ variant: 'bodyKr2', weight: 'semibold' }}
@@ -70,12 +73,12 @@ export function SystemStatusPage({ status, maintenance }: SystemStatusPageProps)
             w="100%"
             maxW="520px"
           />
-        </>
+        </Stack>
       }
       footer={
         status !== 'maintenance' ? (
-          <Box w="100%" maxW="180px">
-            <ButtonLink href="/" variant="primary" size="short" fullWidth>
+          <Box w="100%" maxW="180px" _mobile={notFound ? { maxW: 'none' } : undefined}>
+            <ButtonLink href="/" variant="primary" size={notFound ? 'tall' : 'short'} fullWidth>
               홈으로
             </ButtonLink>
           </Box>

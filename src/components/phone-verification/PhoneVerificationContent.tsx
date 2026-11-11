@@ -144,40 +144,55 @@ function PhoneVerificationDesignDialogs({
         closeLabel="안내 닫기"
         size="md"
         mobilePresentation="fullscreen"
+        footerProps={{
+          css: css.raw({
+            _mobile: { pt: '8', '& > button': { '--button-height': '44px' } },
+          }),
+        }}
         actions={{ kind: 'single', onConfirm: close }}
       >
-        <Stack gap="6">
-          <Box display="flex" justifyContent="space-between" alignItems="center" gap="4">
-            <Typography variant="body3" weight="semibold">
-              {`${optional ? '(선택)' : '(필수)'} ${detail ?? ''}`}
-            </Typography>
-            {!optional && (
-              <Button
-                ref={previousTermsTrigger}
-                variant="link"
-                size="sm"
-                onClick={() => setPickerOpen(true)}
+        <Stack gap={{ base: '6', _mobile: '2' }}>
+          <Stack gap={{ base: '6', _mobile: '4' }}>
+            <Box display="flex" justifyContent="space-between" alignItems="center" gap="4">
+              <Typography
+                variant="body3"
+                className={css({ fontWeight: 'semibold', _mobile: { fontWeight: 'normal' } })}
               >
-                이전 약관 보기
-              </Button>
-            )}
-          </Box>
-          {version ? (
-            <Typography variant="body5">{version} 시행 약관은 등록 준비 중입니다.</Typography>
-          ) : (
-            [1, 2].map((number) => (
-              <ContentHeader
-                key={number}
-                titleAs="h2"
-                title={`약관 타이틀${number}`}
-                titleProps={{ variant: 'body4' }}
-                description={'약관내용'.repeat(155)}
-                descriptionProps={{ variant: 'body4' }}
-                gap="4"
-              />
-            ))
-          )}
-          <Typography variant="body5">
+                {`${optional ? '(선택)' : '(필수)'} ${detail ?? ''}`}
+              </Typography>
+              {!optional && (
+                <Button
+                  ref={previousTermsTrigger}
+                  variant="link"
+                  size="sm"
+                  onClick={() => setPickerOpen(true)}
+                >
+                  이전 약관 보기
+                </Button>
+              )}
+            </Box>
+            <Stack
+              gap={{ base: '6', _mobile: '5' }}
+              _mobile={{ px: '4', py: '6', border: '1px solid token(colors.black.20)' }}
+            >
+              {version ? (
+                <Typography variant="body5">{version} 시행 약관은 등록 준비 중입니다.</Typography>
+              ) : (
+                [1, 2].map((number) => (
+                  <ContentHeader
+                    key={number}
+                    titleAs="h2"
+                    title={`약관 타이틀${number}`}
+                    titleProps={{ variant: 'body4' }}
+                    description={'약관내용'.repeat(155)}
+                    descriptionProps={{ variant: 'body4' }}
+                    gap={{ base: '4', _mobile: '3' }}
+                  />
+                ))
+              )}
+            </Stack>
+          </Stack>
+          <Typography variant="body5" className={css({ '&&': { _mobile: { fontSize: '13px' } } })}>
             공고일자 : 2025년 08월 25일 / 시행일자 : 2025년 09월 01일
           </Typography>
         </Stack>

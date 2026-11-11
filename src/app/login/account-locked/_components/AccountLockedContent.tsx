@@ -38,7 +38,7 @@ export function AccountLockedContent({ onClose, onConfirm }: Props) {
             </Typography>
           </>
         }
-        descriptionProps={{ variant: 'body4' }}
+        descriptionProps={{ variant: 'body3' }}
       />
     </ModalDialog>
   );
