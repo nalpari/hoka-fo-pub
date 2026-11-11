@@ -20,10 +20,14 @@ export type ScreenConnection = {
 const connections: Record<number, ScreenConnection> = {
   159: {
     route: '/launch-calendar',
-    previewRoutes: [{ label: '발매 예정 상품 상세', href: '/launch-calendar/clifton-11-gtx' }],
+    previewRoutes: [
+      { label: '발매 예정 상품 상세', href: '/launch-calendar/clifton-11-gtx' },
+      { label: '입고 알림 신청 완료', href: '/launch-calendar/clifton-11-gtx/preview-notified' },
+    ],
     sourceFiles: [
       'src/app/launch-calendar/page.tsx',
       'src/app/launch-calendar/clifton-11-gtx/page.tsx',
+      'src/app/launch-calendar/clifton-11-gtx/preview-notified/page.tsx',
     ],
   },
   160: {

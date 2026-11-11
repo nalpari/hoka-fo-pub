@@ -74,7 +74,7 @@ export const launchCalendarItems: Record<LaunchCalendarMode, readonly LaunchCale
       },
       action: 'buy',
       href: '/products/shoe-1',
-      priceLabel: '240,000원',
+      releaseLabel: '아라히 9',
     },
     {
       id: '3696-9802',
@@ -89,7 +89,7 @@ export const launchCalendarItems: Record<LaunchCalendarMode, readonly LaunchCale
       },
       action: 'buy',
       href: '/products/shoe-1',
-      priceLabel: '240,000원',
+      releaseLabel: '로켓 X3 존 엘리엇',
     },
     {
       id: '3696-9813',
@@ -104,7 +104,7 @@ export const launchCalendarItems: Record<LaunchCalendarMode, readonly LaunchCale
       },
       action: 'buy',
       href: '/products/shoe-1',
-      priceLabel: '240,000원',
+      releaseLabel: '아라히 9',
     },
     {
       id: '3696-9824',
@@ -119,7 +119,7 @@ export const launchCalendarItems: Record<LaunchCalendarMode, readonly LaunchCale
       },
       action: 'sold-out',
       href: '/products/shoe-1',
-      priceLabel: '240,000원',
+      releaseLabel: '엑스림 콜라보레이션',
     },
     {
       id: '3696-9835',
@@ -134,7 +134,7 @@ export const launchCalendarItems: Record<LaunchCalendarMode, readonly LaunchCale
       },
       action: 'buy',
       href: '/products/shoe-1',
-      priceLabel: '240,000원',
+      releaseLabel: '마라톤 팩',
     },
     {
       id: '3696-9847',
@@ -149,7 +149,7 @@ export const launchCalendarItems: Record<LaunchCalendarMode, readonly LaunchCale
       },
       action: 'buy',
       href: '/products/shoe-1',
-      priceLabel: '240,000원',
+      releaseLabel: '아라히 9',
     },
     {
       id: '3696-9858',
@@ -164,7 +164,7 @@ export const launchCalendarItems: Record<LaunchCalendarMode, readonly LaunchCale
       },
       action: 'sold-out',
       href: '/products/shoe-1',
-      priceLabel: '240,000원',
+      releaseLabel: '클리프턴 11',
     },
     {
       id: '3696-9869',
@@ -179,7 +179,7 @@ export const launchCalendarItems: Record<LaunchCalendarMode, readonly LaunchCale
       },
       action: 'buy',
       href: '/products/shoe-1',
-      priceLabel: '240,000원',
+      releaseLabel: '아라히 9',
     },
     {
       id: '3696-9880',
@@ -194,7 +194,7 @@ export const launchCalendarItems: Record<LaunchCalendarMode, readonly LaunchCale
       },
       action: 'buy',
       href: '/products/shoe-1',
-      priceLabel: '240,000원',
+      releaseLabel: '아라히 9',
     },
   ],
   'in-stock': [
@@ -453,9 +453,34 @@ export const launchCalendarItems: Record<LaunchCalendarMode, readonly LaunchCale
 
 export const launchCalendarTabs = [
   { label: 'Feed', mode: 'feed', href: '/launch-calendar' },
-  { label: 'In Stock', mode: 'in-stock', href: '/launch-calendar/in-stock' },
   { label: 'Upcoming', mode: 'upcoming', href: '/launch-calendar/upcoming' },
 ] as const;
+
+// 모바일 시안은 PC 목록과 다른 준비된 상품 조합이며 실제 응답을 선별하는 규칙이 아닙니다.
+export const launchCalendarMobileItems: Record<LaunchCalendarMode, readonly LaunchCalendarItem[]> =
+  {
+    feed: [
+      launchCalendarItems.feed[0],
+      launchCalendarItems.feed[1],
+      { ...launchCalendarItems.feed[2], releaseLabel: '1월 29일 오전 11:00 출시' },
+      { ...launchCalendarItems.feed[4], priceLabel: undefined, releaseLabel: '로켓 X3 존 엘리엇' },
+      {
+        ...launchCalendarItems.feed[6],
+        priceLabel: undefined,
+        releaseLabel: '엑스림 콜라보레이션',
+      },
+      { ...launchCalendarItems.feed[7], priceLabel: undefined, releaseLabel: '마라톤 팩' },
+    ],
+    upcoming: [
+      launchCalendarItems.upcoming[0],
+      { ...launchCalendarItems.upcoming[1], name: 'HOKA x XLIM Mafate Speed 2 TS' },
+      { ...launchCalendarItems.upcoming[2], name: 'Arahi 9', dateLabel: '1월 29일' },
+      launchCalendarItems.upcoming[3],
+      launchCalendarItems.upcoming[4],
+      { ...launchCalendarItems.upcoming[5], dateLabel: '2월 5일' },
+    ],
+    'in-stock': launchCalendarItems['in-stock'],
+  };
 
 export const launchDetail = {
   id: 'clifton-11-gtx',
@@ -476,7 +501,17 @@ export const launchDetail = {
     { term: '러닝 유형', description: '데일리 러닝' },
   ],
   releaseInformation: [
-    { term: '발매 매장 및 발매 정보', description: '공식 온라인 스토어, 성수 직영점, 더현대서울' },
-    { term: '마일리지 및 쿠폰', description: '마일리지 사용 가능, 쿠폰 사용 가능' },
+    {
+      term: '발매 사이즈',
+      description:
+        '250, 255, 260, 265, 270, 275, 280, 285, 290, 250, 255, 260, 265, 270, 275, 280, 285, 290',
+    },
+    {
+      term: '발매 매장',
+      description:
+        '공식 온라인 스토어, 성수 직영점, 더현대서울, 롯데 부산, 롯데 잠실, 신세계 대구, 공식 온라인 스토어, 성수 직영점, 더현대서울, 공식 온라인 스토어, 성수 직영점',
+    },
+    { term: '쿠폰 적용', description: '쿠폰 사용 가능' },
   ],
+  campaignPlaceholder: 'IMC 기획전 이미지 영역',
 };

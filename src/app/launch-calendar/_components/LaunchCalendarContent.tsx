@@ -20,6 +20,7 @@ import { ContentLayout } from '@/components/common/layouts/ContentLayout';
 import {
   type LaunchCalendarItem,
   launchCalendarItems,
+  launchCalendarMobileItems,
   type LaunchCalendarMode,
   launchCalendarTabs,
 } from '@/app/launch-calendar/launchCalendar.data';
@@ -35,7 +36,15 @@ const actionStyle = css({
   _mobile: { '--button-label-size': '14px' },
 });
 
-function LaunchCalendarCard({ item, eager }: { item: LaunchCalendarItem; eager: boolean }) {
+function LaunchCalendarCard({
+  item,
+  eager,
+  compact = false,
+}: {
+  item: LaunchCalendarItem;
+  eager: boolean;
+  compact?: boolean;
+}) {
   const platform = usePlatform();
   const imageScale = item.crop.width / 100;
   const notified = item.action === 'notified';
@@ -51,7 +60,23 @@ function LaunchCalendarCard({ item, eager }: { item: LaunchCalendarItem; eager: 
   ) : undefined;
 
   return (
-    <Stack as="article" gap="26px" minW="0" _mobile={{ gap: '0' }}>
+    <Stack
+      as="article"
+      gap="26px"
+      minW="0"
+      _mobile={
+        compact
+          ? {
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: '16px',
+              pr: '16px',
+              pb: '8px',
+              borderBottom: '1px solid var(--color-black-20)',
+            }
+          : { gap: '20px', pb: '54px' }
+      }
+    >
       <Box
         as="figure"
         pos="relative"
@@ -59,8 +84,8 @@ function LaunchCalendarCard({ item, eager }: { item: LaunchCalendarItem; eager: 
         aspectRatio="4 / 5"
         bg="var(--color-black-10)"
         overflow="hidden"
-        borderRadius="9.315px"
-        _mobile={{ aspectRatio: '1', borderRadius: 0 }}
+        borderRadius="0"
+        _mobile={compact ? { w: 'calc((100% + 16px) * 0.48)', flexShrink: 0 } : { w: '100%' }}
       >
         <Link
           href={item.href}
@@ -88,13 +113,13 @@ function LaunchCalendarCard({ item, eager }: { item: LaunchCalendarItem; eager: 
               loading={eager ? 'eager' : 'lazy'}
               sizes={
                 platform === 'mobile'
-                  ? `${Math.ceil(1024 * imageScale)}px`
+                  ? `calc(${compact ? '48vw' : '100vw'} * ${imageScale})`
                   : `(min-width: 1920px) ${Math.ceil(432 * imageScale)}px, (min-width: 1200px) calc((100vw - 192px) * ${imageScale / 4}), ${Math.ceil(252 * imageScale)}px`
               }
               style={{ objectFit: item.imageFit }}
             />
           </Box>
-          {item.dateLabel && (
+          {item.dateLabel && !compact && (
             <Typography
               as="span"
               variant="eland-launch-date"
@@ -110,10 +135,23 @@ function LaunchCalendarCard({ item, eager }: { item: LaunchCalendarItem; eager: 
           )}
         </Link>
       </Box>
-      <Flex gap="16px" px="8px" align="start" _mobile={{ gap: '16px', p: '16px' }}>
-        <Stack gap="16px" flex="1" minW="0" _mobile={{ gap: '8px' }}>
+      <Flex
+        gap="16px"
+        px="8px"
+        align="start"
+        _mobile={
+          compact
+            ? { flexDirection: 'column', gap: '24px', p: 0, minW: 0, flex: 1 }
+            : { gap: '16px', px: '16px', w: '100%' }
+        }
+      >
+        <Stack gap="16px" flex="1" minW="0">
           {item.releaseLabel && (
-            <Typography as="p" variant="eland-body">
+            <Typography
+              as="p"
+              variant="eland-body"
+              className={css({ _mobile: { fontSize: '14px', lineHeight: '21px' } })}
+            >
               {item.releaseLabel}
             </Typography>
           )}
@@ -122,6 +160,7 @@ function LaunchCalendarCard({ item, eager }: { item: LaunchCalendarItem; eager: 
             titleAs="h2"
             titleProps={{
               variant: 'eland-launch-card-title',
+              className: css({ _mobile: { fontSize: '20px', lineHeight: '26px' } }),
             }}
             description={item.priceLabel}
             descriptionProps={{ variant: 'body3', mo: 'body4', weight: 'medium' }}
@@ -137,6 +176,8 @@ function LaunchCalendarCard({ item, eager }: { item: LaunchCalendarItem; eager: 
             className={actionStyle}
             style={
               {
+                '--button-height': platform === 'mobile' ? (compact ? '36px' : '44px') : '48px',
+                width: platform === 'mobile' ? (compact ? '96px' : '110px') : '120px',
                 '--button-padding-x': '12px',
                 '--button-label-size': platform === 'mobile' ? '14px' : '16px',
               } as CSSProperties
@@ -156,6 +197,8 @@ function LaunchCalendarCard({ item, eager }: { item: LaunchCalendarItem; eager: 
             style={
               {
                 '--button-disabled-bg': 'var(--color-black-20)',
+                '--button-height': platform === 'mobile' ? (compact ? '36px' : '44px') : '48px',
+                width: platform === 'mobile' ? (compact ? '96px' : '110px') : '120px',
                 '--button-disabled-color': 'var(--color-black-40)',
                 '--button-padding-x': '12px',
                 '--button-label-size': platform === 'mobile' ? '14px' : '16px',
@@ -174,12 +217,22 @@ function LaunchCalendarCard({ item, eager }: { item: LaunchCalendarItem; eager: 
 /** 시안에 준비된 런칭 목록과 독립 URL 탭을 표시합니다. (Displays prepared launch listings and independently addressable tabs.) */
 export function LaunchCalendarContent({
   mode = 'feed',
-  items = launchCalendarItems[mode],
+  items,
 }: {
   mode?: LaunchCalendarMode;
   items?: readonly LaunchCalendarItem[];
 }) {
   const platform = usePlatform();
+  const displayItems =
+    items ?? (platform === 'mobile' ? launchCalendarMobileItems[mode] : launchCalendarItems[mode]);
+  const grouped = platform === 'mobile' && mode === 'upcoming';
+  const groups = new Map<string, LaunchCalendarItem[]>();
+  for (const item of displayItems) {
+    const date = item.dateLabel ?? '';
+    const entries = groups.get(date) ?? [];
+    entries.push(item);
+    groups.set(date, entries);
+  }
 
   return (
     <ContentLayout
@@ -187,7 +240,7 @@ export function LaunchCalendarContent({
         w: 'min(calc(100% - 144px), 1776px)',
         mx: 'auto',
         py: '96px',
-        _mobile: { w: '100%', pt: '48px', pb: '72px' },
+        _mobile: { w: '100%', pt: '48px', pb: mode === 'feed' ? '0' : '72px' },
       })}
     >
       <Stack gap="60px" _mobile={{ gap: '0' }}>
@@ -195,7 +248,7 @@ export function LaunchCalendarContent({
           as="header"
           gap="40px"
           alignItems="center"
-          _mobile={{ gap: '24px', alignItems: 'stretch', px: '16px', pb: '0' }}
+          _mobile={{ gap: '32px', alignItems: 'center', px: '16px', pb: '32px' }}
         >
           <ContentHeader
             title="Launch Calendar"
@@ -206,7 +259,7 @@ export function LaunchCalendarContent({
             as="nav"
             aria-label="런칭 캘린더 목록"
             gap="16px"
-            _mobile={{ gap: '6px', w: '100%', py: '16px' }}
+            _mobile={{ gap: '8px', justifyContent: 'center' }}
           >
             {launchCalendarTabs.map((tab) => (
               <ButtonLink
@@ -228,28 +281,59 @@ export function LaunchCalendarContent({
                 className={css({
                   w: '120px',
                   '& > span': { w: '100%' },
-                  _mobile: { w: 'auto', minW: '0' },
+                  _mobile: { w: '99px', minW: '0' },
                 })}
               >
-                <Typography variant="eland-launch-tabs">{tab.label}</Typography>
+                <Typography
+                  variant="eland-launch-tabs"
+                  className={css({ _mobile: { fontSize: '14px' } })}
+                >
+                  {tab.label}
+                </Typography>
               </ButtonLink>
             ))}
           </HStack>
         </Stack>
-        <Grid
-          gridTemplateColumns="repeat(4, minmax(0, 1fr))"
-          columnGap="16px"
-          rowGap="96px"
-          aria-label="런칭 상품"
-          _mobile={{
-            gridTemplateColumns: '1fr',
-            rowGap: '16px',
-          }}
-        >
-          {items.map((item, index) => (
-            <LaunchCalendarCard key={item.id} item={item} eager={index < 4} />
-          ))}
-        </Grid>
+        {grouped ? (
+          <Stack gap="40px" aria-label="런칭 상품">
+            {[...groups].map(([date, entries]) => (
+              <Stack key={date} gap="16px">
+                {date && (
+                  <ContentHeader
+                    title={date}
+                    titleAs="h2"
+                    px="16px"
+                    titleProps={{
+                      variant: 'body3',
+                      weight: 'bold',
+                      className: css({ fontSize: '18px', lineHeight: '27px' }),
+                    }}
+                  />
+                )}
+                <Stack gap="8px">
+                  {entries.map((item, index) => (
+                    <LaunchCalendarCard key={item.id} item={item} eager={index < 2} compact />
+                  ))}
+                </Stack>
+              </Stack>
+            ))}
+          </Stack>
+        ) : (
+          <Grid
+            gridTemplateColumns="repeat(4, minmax(0, 1fr))"
+            columnGap="16px"
+            rowGap="96px"
+            aria-label="런칭 상품"
+            _mobile={{
+              gridTemplateColumns: '1fr',
+              rowGap: 0,
+            }}
+          >
+            {displayItems.map((item, index) => (
+              <LaunchCalendarCard key={item.id} item={item} eager={index < 4} />
+            ))}
+          </Grid>
+        )}
       </Stack>
     </ContentLayout>
   );

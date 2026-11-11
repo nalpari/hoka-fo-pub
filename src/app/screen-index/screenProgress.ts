@@ -46,12 +46,11 @@ export type ScreenProgressOverrides = Readonly<Partial<Record<number, Partial<Sc
 const confirmedDesignReceipts: Partial<
   Record<number, Pick<ScreenProgress, 'pcDesign' | 'moDesign'>>
 > = {
-  // 2026-11-03 사용자 재확인: 런칭 캘린더 디자인 미확정으로 PC 수정예정·MO 미수급.
-  // 앞서 확인한 PC 프레임은 최종 확정본이 아니며 아래 사용자 확인값을 우선합니다.
-  // https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP?node-id=3696-9496
-  159: { pcDesign: 'revision-planned', moDesign: 'missing' },
-  160: { pcDesign: 'revision-planned', moDesign: 'missing' },
-  161: { pcDesign: 'revision-planned', moDesign: 'missing' },
+  // 2026-11-11 런칭 캘린더 PC 수정 및 모바일 Feed·Upcoming·상세 시안을 수급했습니다.
+  // https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design
+  159: { pcDesign: 'received', moDesign: 'received' },
+  160: { pcDesign: 'received', moDesign: 'received' },
+  161: { pcDesign: 'received', moDesign: 'received' },
   162: { pcDesign: 'revision-planned', moDesign: 'missing' },
   // 2026-10-30 사용자 확인: 국가선택은 디자인 미해당입니다.
   267: { pcDesign: 'not-applicable', moDesign: 'not-applicable' },

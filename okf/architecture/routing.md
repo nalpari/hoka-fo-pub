@@ -10,6 +10,10 @@ generated:
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/launch-calendar/_components/LaunchCalendarContent.tsx
+  - src/app/launch-calendar/_components/LaunchCalendarDetail.tsx
+  - src/app/launch-calendar/launchCalendar.data.ts
+  - src/app/launch-calendar/clifton-11-gtx/preview-notified/page.tsx
   - src/app/products/[id]/_components/ProductDetailContent.tsx
   - src/app/publishing-guide/_components/ModalGuide.tsx
   - src/app/screen-index/sourceGraph.generated.json
@@ -369,6 +373,12 @@ sources:
 ---
 
 # 라우팅과 플랫폼
+
+## 런칭 캘린더 새 시안 (2026-11-11)
+
+기존 Feed·Upcoming·상품 상세 URL을 재사용해 PC 수정과 새 모바일 시안을 반영했다. 목록의 현재 items prop은 플랫폼에 관계없이 그대로 표시하며, 기본 시안 데이터만 PC/MO 조합을 구분한다. 상세는 발매 사양을 DescriptionList로 모으고 모바일 공유·알림 CTA를 고정한다. 완료 표시 전용 `/launch-calendar/clifton-11-gtx/preview-notified`는 기존 상세의 notificationStatus 옵션을 재사용하고 IA159 previewRoutes·sourceFiles에 연결한다. 실제 신청/공유 요청은 실행하지 않는다. 새 기획전 이미지는 미제공 슬롯으로 구분한다. [규격과 실제 검증](launch-calendar.md)을 참고한다.
+
+출처: `src/app/launch-calendar/`·`screenConnections.ts`·`screenProgress.ts` 작업 트리와 [Launch Calendar PC/MO 디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design). 공통 플랫폼·헤더·푸터 소스 및 다른 상품 상세 계약에는 변경이 없다. PC/MO 디자인 수급은 IA159~161에만 기록하고 In Stock의 기존 미확정 상태를 보존한다.
 
 ## 상품상세 PC 공유·좋아요 위치 (2026-11-11)
 

@@ -2,6 +2,11 @@
 
 - IA162를 삭제 / 제외로 표시했다.
 
+## 2026-11-11 — 런칭 캘린더 PC 수정과 모바일 시안
+
+- Feed·Upcoming 두 탭, PC 카드 보조 문구와 반경, 모바일 세로 Feed·날짜별 Upcoming을 새 시안에 맞췄다. 상세 발매 사양과 고정 공유·알림 CTA, 신청 완료 직접 URL을 IA159에 연결했다. IA159~161 PC/MO 디자인 수급을 갱신했다.
+- PC client1920px와 모바일375·768px 뷰포트에서 카드·버튼·넘침·상태·푸터 가림을 확인했다. ESLint·Prettier·타입·Panda·Next.js 빌드와 관련26개 검사를 통과했다. 실제 신청·공유와 IMC 이미지는 연결 전이다. [런칭 캘린더](architecture/launch-calendar.md), [라우팅](architecture/routing.md).
+
 ## 2026-11-11 WBS 참조 문서 변경
 
 - 새 Schedule의 계층·헤더를 확인하고 수집 스킬과 IA WBS 링크를 갱신했다.
