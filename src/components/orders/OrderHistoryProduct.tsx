@@ -87,7 +87,6 @@ export function OrderHistoryProduct({
               type="button"
               iconLeft="hoka-bag-shopping-regular"
               iconSize={platform === 'mobile' ? '14px' : '18px'}
-              className={css({ '&&': { '--button-content-gap': '4px' } })}
             >
               <Typography web="body4" mo="body5" weight="medium">
                 장바구니 담기

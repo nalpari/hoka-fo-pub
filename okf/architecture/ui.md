@@ -4999,3 +4999,5 @@ Button·ButtonLink의 density 공개 옵션과 auto/wide/compact 스타일 분�
 사용자 요청으로 이번에 추가한 checkButtonSizeOnlyTypes 테스트는 제거했다. 기존 타입 테스트는 유지한다.
 
 이번 전체 변경 커밋에는 사용자 작업 트리의 Typography 기본 translateY(1px) 조정도 포함한다. 모든 Typography에 적용되는 공통 위치 보정이며, 전체 화면 시각 회귀 검증은 수행하지 않았다. 출처: src/components/common/atoms/Typography.tsx.
+
+주문 내역 장바구니 담기 버튼의 미사용 --button-content-gap 선언을 제거했다. 공통 Button의 gap 4px을 그대로 사용한다. 출처: src/components/orders/OrderHistoryProduct.tsx.
