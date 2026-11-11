@@ -237,7 +237,7 @@ const rawScreens: RawScreenDefinition[] = [
   [159, ['런칭 캘린더', '', '', '', ''], 'page', '1', false, 'eland_hla_01', ''],
   [160, ['', 'Feed', '목록', '', ''], 'page', '1', false, 'eland_hla_02', ''],
   [161, ['', 'Coming', '목록', '', ''], 'page', '1', false, 'eland_hla_03', ''],
-  [162, ['', 'In-stock', '목록', '', ''], 'page', '1', false, 'eland_hla_04', ''],
+  [162, ['', 'In-stock', '목록', '', ''], 'page', '1', false, 'eland_hla_04', '삭제 / 제외'],
   [
     163,
     ['', '키즈', 'Feed', '목록', ''],
