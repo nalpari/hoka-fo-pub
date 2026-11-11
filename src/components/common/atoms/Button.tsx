@@ -11,7 +11,7 @@ import { css, cva } from 'styled-system/css';
 import { HStack } from 'styled-system/jsx';
 import { circle } from 'styled-system/patterns';
 
-import { Icon } from '@/components/common/atoms/Icon';
+import { Icon, type IconProps } from '@/components/common/atoms/Icon';
 import { Typography, type TypographyProps } from '@/components/common/atoms/Typography';
 
 const button = cva({
@@ -24,9 +24,7 @@ const button = cva({
     cursor: 'pointer',
     '--button-height': '48px',
     '--button-padding-x': '24px',
-    '--button-label-size': '16px',
     '--button-radius': '52px',
-    '--button-content-gap': '8px',
     _focusVisible: {
       outline: 'none',
       '& > span': {
@@ -61,19 +59,11 @@ const button = cva({
     },
   },
   variants: {
-    density: {
-      auto: {
-        _mobile: {
-          '--button-height': 'var(--home-body-40, 40px)',
-          '--button-padding-x': 'var(--home-body-16, 16px)',
-          '--button-label-size': 'var(--home-body-14, 14px)',
-        },
-      },
-      wide: {},
-      compact: {
+    size: {
+      tall: {},
+      short: {
         '--button-height': 'var(--home-body-40, 40px)',
         '--button-padding-x': 'var(--home-body-16, 16px)',
-        '--button-label-size': 'var(--home-body-14, 14px)',
       },
     },
     fullWidth: { true: { w: '100%', '& > span': { w: '100%' } } },
@@ -116,37 +106,11 @@ const content = css.raw({
   justifyContent: 'center',
   boxSizing: 'border-box',
   w: '100%',
-  gap: 'var(--button-content-gap)',
+  gap: '4px',
   px: 'var(--button-padding-x)',
   py: 'var(--button-padding-y, 0px)',
   minH: 'var(--button-height)',
   whiteSpace: 'nowrap',
-});
-
-const label = css.raw({
-  fontSize: 'var(--button-label-size)',
-  fontWeight: 'var(--button-label-weight, inherit)',
-  lineHeight: 'body',
-  color: 'inherit',
-});
-
-const iconStyle = css({
-  display: 'flex',
-  flexShrink: '0',
-  w: 'var(--button-icon-size)',
-  h: 'var(--button-icon-size)',
-  color: 'inherit',
-});
-
-const iconOnlyButtonStyle = css.raw({
-  w: '6',
-  h: '6',
-  minW: '6',
-  '--button-height': '24px',
-  '--button-padding-x': '0px',
-  '--button-content-gap': '0px',
-  '& > span': { w: '100%', h: '100%', minH: '0' },
-  '& > span > span': { w: '100%', h: '100%', minH: '0', gap: '0', px: '0' },
 });
 
 const secondaryContentColor = css.raw({
@@ -176,7 +140,6 @@ const iconButton = css.raw({
 });
 
 const socialLogin = cva({
-  base: { '--button-icon-size': '18px' },
   variants: {
     provider: {
       kakao: {
@@ -274,37 +237,29 @@ function renderLoadMoreContent({
 }
 
 export type ButtonVariant =
-  | 'primary'
-  | 'secondary'
-  | 'brand'
-  | 'link'
-  | 'plain'
-  | 'chip'
-  | 'filterTrigger'
-  | 'headerSearch'
-  | 'unstyled'
-  | 'icon';
+  'primary' | 'secondary' | 'link' | 'plain' | 'chip' | 'filterTrigger' | 'unstyled' | 'icon';
 
 export type ButtonSizingProps =
   | { variant: 'link'; size?: 'sm' | 'md' | 'lg' }
   | { variant: 'plain'; size?: 'sm' | 'md' | 'lg' }
   | { variant: 'chip'; size?: never }
-  | { variant: 'filterTrigger'; size?: 'compact' | 'regular' }
-  | { variant: 'headerSearch'; size?: never }
+  | { variant: 'filterTrigger'; size?: 'compact' }
   | {
       variant?: Exclude<
         ButtonVariant,
-        'link' | 'plain' | 'chip' | 'filterTrigger' | 'headerSearch' | 'unstyled' | 'icon'
+        'link' | 'plain' | 'chip' | 'filterTrigger' | 'unstyled' | 'icon'
       >;
       size?: 'tall' | 'short';
     };
 
 type ButtonTextBaseProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children'> & {
-  density?: 'auto' | 'wide' | 'compact';
   colorway?: 'black' | 'white';
   language?: 'kr' | 'en';
   fullWidth?: boolean;
-  icon?: ReactNode;
+  iconLeft?: IconProps['name'];
+  iconRight?: IconProps['name'];
+  iconSize?: IconProps['size'];
+  iconColor?: IconProps['color'];
   loading?: boolean;
   invalid?: boolean;
   render?: BaseButtonProps['render'];
@@ -316,12 +271,25 @@ type ButtonContentProps =
 
 export type ButtonTextProps =
   | (ButtonTextBaseProps & ButtonSizingProps & ButtonContentProps & { social?: never })
-  | (Omit<ButtonTextBaseProps, 'icon' | 'fullWidth' | 'className' | 'style' | 'colorway'> & {
+  | (Omit<
+      ButtonTextBaseProps,
+      | 'fullWidth'
+      | 'className'
+      | 'style'
+      | 'colorway'
+      | 'iconLeft'
+      | 'iconRight'
+      | 'iconSize'
+      | 'iconColor'
+    > & {
       social: ButtonSocial;
+      iconLeft?: never;
+      iconRight?: never;
+      iconSize?: never;
+      iconColor?: never;
       children?: ReactNode;
       size?: 'short' | 'tall';
       variant?: never;
-      icon?: never;
       fullWidth?: never;
       className?: never;
       style?: never;
@@ -418,7 +386,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
 
   const {
     variant = props.social ? 'primary' : 'secondary',
-    density,
     colorway = 'black',
     language = 'kr',
     size = variant === 'filterTrigger'
@@ -429,8 +396,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     fullWidth = props.social !== undefined,
     loading = false,
     invalid = false,
-    icon: customIcon,
     social,
+    iconLeft,
+    iconRight,
+    iconSize = 16,
+    iconColor,
     loadMore,
     className,
     children,
@@ -439,31 +409,27 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     disabled,
     ...buttonProps
   } = props;
-  const icon = social ? <Icon name={`${social.provider}`} size="18px" /> : customIcon;
   const resolvedChildren = loadMore ? renderLoadMoreContent(loadMore) : children;
-  const iconOnly = Boolean(icon && resolvedChildren == null);
   const primary = variant === 'primary';
   const white = colorway === 'white';
   const unframed = variant === 'link' || variant === 'plain';
-  const labelTypographyVariant =
-    variant === 'chip'
+  const labelTypographyVariant = unframed
+    ? typeof resolvedChildren === 'string' || typeof resolvedChildren === 'number'
+      ? size === 'sm'
+        ? 'body5'
+        : size === 'lg'
+          ? 'body3'
+          : 'body4'
+      : undefined
+    : variant === 'chip'
       ? 'body4'
-      : variant === 'headerSearch' || variant === 'filterTrigger'
+      : variant === 'filterTrigger'
         ? undefined
         : size === 'short'
           ? 'cta2'
           : size === 'tall'
             ? 'cta1'
             : undefined;
-  const resolvedDensity =
-    density ??
-    (variant === 'filterTrigger'
-      ? 'wide'
-      : size
-        ? size === 'tall' || size === 'lg'
-          ? 'wide'
-          : 'compact'
-        : 'auto');
   const variables: Record<string, string> = {
     '--button-bg': primary
       ? white
@@ -512,11 +478,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     Object.assign(variables, {
       '--button-height': size === 'sm' ? '16px' : 'auto',
       '--button-padding-x': '0px',
-      '--button-label-weight': '500',
     });
-  if (size === 'sm' && (variant === 'link' || variant === 'plain')) {
-    variables['--button-label-size'] = '12px';
-  }
   if (variant === 'chip')
     Object.assign(variables, {
       '--button-height': '36px',
@@ -533,25 +495,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       '--button-disabled-bg': 'var(--color-black-20)',
       '--button-disabled-color': 'var(--color-black-40)',
     });
-  if (variant === 'brand')
-    Object.assign(variables, {
-      '--button-bg': 'var(--color-blue-100)',
-      '--button-color': 'var(--color-white-000)',
-      '--button-border-width': '0px',
-    });
   if (variant === 'filterTrigger')
     Object.assign(variables, {
       '--button-height': '40px',
-      '--button-padding-x': size === 'regular' ? '24px' : '14px',
+      '--button-padding-x': '14px',
       '--button-radius': '46.8px',
-      '--button-border-width': size === 'regular' ? '1px' : '0.9px',
-      ...(size === 'regular' ? { '--button-icon-size': '20px' } : {}),
-    });
-  if (variant === 'headerSearch')
-    Object.assign(variables, {
-      '--button-height': '40px',
-      '--button-padding-x': '15px',
-      '--button-radius': '999px',
+      '--button-border-width': '0.9px',
     });
   if (invalid) variables['--button-border-color'] = 'var(--color-red-100)';
   if (social?.appearance === 'signup')
@@ -573,15 +522,13 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       className={[
         css(
           button.raw({
-            density: resolvedDensity,
+            size: size === 'short' ? 'short' : 'tall',
             fullWidth,
             language,
             unframed,
           }),
-          iconOnly && iconOnlyButtonStyle,
           variant === 'secondary' && secondaryContentColor,
           variant === 'link' && { textDecoration: 'underline', textUnderlineOffset: '3px' },
-          variant === 'headerSearch' && { w: '178px' },
           social &&
             social.appearance !== 'signup' &&
             socialLogin.raw({ provider: social.provider }),
@@ -592,39 +539,24 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
         .join(' ')}
     >
       <span className={frame}>
-        <span
-          className={css(
-            content,
-            variant === 'plain' && { justifyContent: 'flex-start' },
-            variant === 'headerSearch' && { justifyContent: 'space-between' },
-          )}
-        >
-          {iconOnly ? null : (
-            <span
-              className={css(
-                label,
-                (variant === 'link' || variant === 'plain') && {
-                  lineHeight: '1.3',
-                },
-              )}
+        <span className={css(content, variant === 'plain' && { justifyContent: 'flex-start' })}>
+          {iconLeft ? <Icon name={iconLeft} size={iconSize} color={iconColor} /> : null}
+          {labelTypographyVariant ? (
+            <Typography
+              as="span"
+              variant={labelTypographyVariant}
+              // The former count wrapper kept the outer scale independent of its label.
+              language={loadMore ? 'en' : undefined}
+              weight={unframed || variant === 'chip' ? 'medium' : undefined}
+              style={{ color: 'inherit' }}
             >
-              {labelTypographyVariant ? (
-                <Typography
-                  as="span"
-                  variant={labelTypographyVariant}
-                  // The former count wrapper kept the outer scale independent of its label.
-                  language={loadMore ? 'en' : undefined}
-                  weight={variant === 'chip' ? 'medium' : undefined}
-                  style={{ color: 'inherit' }}
-                >
-                  {resolvedChildren}
-                </Typography>
-              ) : (
-                resolvedChildren
-              )}
-            </span>
+              {resolvedChildren}
+            </Typography>
+          ) : (
+            resolvedChildren
           )}
-          {icon ? <span className={iconStyle}>{icon}</span> : null}
+          {iconRight ? <Icon name={iconRight} size={iconSize} color={iconColor} /> : null}
+          {social ? <Icon name={social.provider} size={18} /> : null}
         </span>
       </span>
     </BaseButton>
@@ -639,11 +571,13 @@ export type ButtonLinkProps = Pick<
     ButtonTextBaseProps,
     | 'className'
     | 'style'
-    | 'density'
     | 'colorway'
     | 'language'
     | 'fullWidth'
-    | 'icon'
+    | 'iconLeft'
+    | 'iconRight'
+    | 'iconSize'
+    | 'iconColor'
     | 'loading'
     | 'invalid'
     | 'onMouseDown'

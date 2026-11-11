@@ -246,7 +246,7 @@ function ReturnQuickLinks() {
             },
           }}
           footer={
-            <ButtonLink href={item.href} variant="secondary" size="short" density="compact">
+            <ButtonLink href={item.href} variant="secondary" size="short">
               {item.label}
             </ButtonLink>
           }

@@ -776,7 +776,7 @@ export function OrderClaimDetail({
         alignSelf={{ base: 'center', _mobile: 'stretch' }}
         w={{ base: '180px', _mobile: '100%' }}
       >
-        <Button variant="primary" density="wide" fullWidth onClick={onList}>
+        <Button variant="primary" size="tall" fullWidth onClick={onList}>
           목록
         </Button>
       </Box>

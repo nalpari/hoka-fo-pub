@@ -290,7 +290,6 @@ export function InquiryOrderLookup({
                 <Button
                   variant="secondary"
                   size="short"
-                  density="compact"
                   loadMore={{
                     counter: {
                       current: Math.min(visibleCount, filteredOrders.length),

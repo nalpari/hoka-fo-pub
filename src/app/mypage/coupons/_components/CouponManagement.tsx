@@ -105,7 +105,6 @@ function CouponRegistrationSection({
           fullWidth
           type="submit"
           size="tall"
-          density="wide"
           variant="primary"
           className={css({ w: '180px', _mobile: { w: '100%' } })}
         >

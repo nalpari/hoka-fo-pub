@@ -1,10 +1,9 @@
 import { usePlatform } from '@/context/platform';
 
 import { css } from 'styled-system/css';
-import { Box, HStack } from 'styled-system/jsx';
+import { Box } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
-import { Icon } from '@/components/common/atoms/Icon';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { OrderProductSummary } from '@/components/common/molecules/OrderProductSummary';
@@ -83,16 +82,16 @@ export function OrderHistoryProduct({
         ) : null}
         {cartAction ? (
           <Box>
-            <Button variant="plain" type="button">
-              <HStack gap="4px">
-                <Icon
-                  name="hoka-bag-shopping-regular"
-                  size={platform === 'mobile' ? '14px' : '18px'}
-                />
-                <Typography web="body4" mo="body5" weight="medium">
-                  장바구니 담기
-                </Typography>
-              </HStack>
+            <Button
+              variant="plain"
+              type="button"
+              iconLeft="hoka-bag-shopping-regular"
+              iconSize={platform === 'mobile' ? '14px' : '18px'}
+              className={css({ '&&': { '--button-content-gap': '4px' } })}
+            >
+              <Typography web="body4" mo="body5" weight="medium">
+                장바구니 담기
+              </Typography>
             </Button>
           </Box>
         ) : null}

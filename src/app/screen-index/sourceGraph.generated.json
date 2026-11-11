@@ -176,7 +176,6 @@
     "src/app/launch-calendar/_components/LaunchCalendarContent.tsx": [
       "src/app/launch-calendar/launchCalendar.data.ts",
       "src/components/common/atoms/Button.tsx",
-      "src/components/common/atoms/Icon.tsx",
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/ContentLayout.tsx",
       "src/components/common/molecules/ContentHeader.tsx",
@@ -1583,7 +1582,6 @@
     "src/components/orders/order-policy.ts": [],
     "src/components/orders/OrderHistoryProduct.tsx": [
       "src/components/common/atoms/Button.tsx",
-      "src/components/common/atoms/Icon.tsx",
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/molecules/OrderProductSummary.tsx",
       "src/context/platform.tsx"

@@ -4961,3 +4961,41 @@ GuideCopyToast는 화면 하단 40px 중앙에 검정 238×40px(긴 문구는 �
 가이드 전용 GuideCopyToast를 `src/components/common/atoms/Toast.tsx`로 옮기고 `Toast`·`ToastNotice`로 변경했다. `notice: { id, text } | null`과 `onDismiss(id)`로 임의의 안내 메시지를 받으며 복사 여부와 메시지는 호출자가 결정한다. 하단 40px·3초 노출·슬라이드/페이드·모션 감소 및 연속 표시 정리 동작은 유지한다. 모든 가이드 import와 의존 그래프를 새 경로로 갱신했다. 출처: Toast.tsx와 퍼블 가이드 작업 트리.
 
 2026-11-10 검증: 변경 가이드 파일 ESLint와 OKF 검사 통과. Ego에서 데스크탑 목록 17개, 모바일 표시 목록 16개(반품 사유는 데스크탑 전용)와 상품 스펙·수령인 표시를 확인했다. TypeScript 검사에는 변경 소스 오류가 없었으나 삭제된 라우트를 가리키는 기존 .next/types 오류가 남아 전체 통과는 아니다.
+
+## 버튼 이름 기반 아이콘 (2026-11-11)
+
+Button·ButtonLink의 iconLeft·iconRight에는 IconProps.name 등록명을 전달한다. iconSize(기본 16px)와 iconColor(생략 시 currentColor)는 양쪽 아이콘에 공통 적용한다. 내부 Icon은 추가 아이콘 래퍼 없이 라벨 앞/뒤에 직접 렌더한다. 기존 icon·iconPosition은 사용하지 않는다. 소셜 버튼은 기존 전용 로고를 유지하고 새 아이콘 옵션을 받지 않는다. unstyled 및 아이콘 단독 variant는 기존 children 방식을 유지한다.
+
+런칭 알림은 왼쪽 종/체크 18px와 상태별 색상, 상품 필터는 오른쪽 16/20px, 주문 장바구니 담기는 왼쪽 모바일14/데스크탑18px·간격4px, 상품 상세 사이즈 가이드는 왼쪽16px로 전환했다. 가이드에는 좌우18px 및 크기20px·blue.100 예시와 각 복사 코드를 제공한다. 출처: Button.tsx, LaunchCalendarContent.tsx, ProductListingPage.tsx, OrderHistoryProduct.tsx, ProductDetailContent.tsx, ButtonGuide.tsx.
+
+2026-11-11: Button의 link·plain 라벨 래퍼에서 lineHeight:1.3 강제값을 제거했다. Typography 자식은 해당 variant 줄 높이를 사용하고 일반 문자열은 부모 줄 높이를 상속한다. 자동 Typography 매핑이나 사용자 아이콘 위치 보정은 변경하지 않았다. 출처: src/components/common/atoms/Button.tsx.
+
+2026-11-11: Button 내부에서 주석 처리된 label 스타일·변수 gap과 더 이상 읽히지 않는 --button-label-size/--button-label-weight/--button-content-gap 선언을 제거했다. 외부 화면에 남은 변수 지정은 이번 범위에서 변경하지 않았다. 실제 content gap 4px·아이콘 translateY(-1px), 타입·variant·상태 스타일은 유지한다. 출처: Button.tsx와 src 변수 참조 검색.
+
+## 미사용 Header Search 버튼 제거 (2026-11-11)
+
+실제 화면 호출이 없는 headerSearch variant를 Button·ButtonLink의 타입, 크기·배치·Typography 분기에서 제거했다. 버튼 가이드 예시와 타임라인 항목, 관련 타입 테스트만 함께 삭제했다. filterTrigger와 나머지 실제 버튼은 유지한다. 출처: Button.tsx, ButtonGuide.tsx, Button.type-test.tsx 및 src 전역 참조 검색.
+
+## 미사용 필터 regular 옵션 제거 (2026-11-11)
+
+filterTrigger의 size는 compact만 허용하며 생략 시에도 compact다. 실제 호출이 없던 regular·검색 전용 appearance 분기와 가이드 예시, 해당 타입 테스트를 삭제했다. ProductFilterTrigger는 기존 문구·Typography를 유지하고 compact 및 16px 아이콘을 명시한다. 높이40px·좌우14px·테두리0.9px·반경46.8px는 유지한다. 출처: Button.tsx, ProductListingPage.tsx, ButtonGuide.tsx, Button.type-test.tsx.
+
+## 미사용 Brand 버튼 제거 (2026-11-11)
+
+실제 화면 호출이 없고 가이드에서만 사용하는 Button의 brand variant와 파란색 전용 변수 분기, Tall/Short 가이드·복사 코드·타임라인을 삭제했다. 버튼 타입 테스트에는 해당 사례가 없었다. Badge·Typography·상품 카드의 brand 색상 설정은 별개이므로 유지한다. 출처: Button.tsx, ButtonGuide.tsx 및 src TS/TSX 참조 검색.
+
+## 링크 버튼 Typography 크기 연결 (2026-11-11)
+
+Button·ButtonLink의 link/plain 문자열·숫자 라벨은 sm→body5(12px), md→body4(14px), lg→body3(16px)의 Typography medium으로 표시한다. 기본 md와 PC/모바일 동일 규격을 적용한다. 직접 전달된 Typography·복합 children·더보기 구조는 호출자 소유로 유지한다. 별도 lineHeight CSS는 복원하지 않는다. 출처: Button.tsx, ButtonGuide.tsx.
+
+## 버튼 크기 size 통일 (2026-11-11)
+
+Button·ButtonLink의 density 공개 옵션과 auto/wide/compact 스타일 분기를 제거했다. 일반 버튼은 기존 기본값 tall(48px·좌우24px·CTA1), short(40px·좌우16px·CTA2)를 유지한다. short의 home-body CSS 변수도 유지한다. link/plain·chip·filterTrigger의 전용 높이와 여백은 기존 인라인 변수로 유지한다. ModalDialog 액션 타입과 가이드에서도 density를 제거했다.
+
+장바구니 수량 제한 모달의 기존 short+wide 조합은 tall과 자식 Typography cta2로 옮겨 높이와 글자 규격을 보존했다. 기존 size 없이 wide만 지정한 주문 버튼은 이미 내부 기본값이 tall이었으므로 size=tall로 명시했다. 출처: 작업 트리 Button.tsx, ModalDialog.tsx, CartDialogs.tsx 및 해당 가이드와 사용처. 브라우저 실측은 수행하지 않았다.
+
+검증: 변경 TSX ESLint, OKF 검사와 diff 공백 검사를 통과했다. TypeScript 검사에서 src 오류와 제거한 density 허용 회귀는 없었으며, 전체 검사는 기존 .next/types의 삭제된 라우트 참조 오류로 실패했다.
+
+사용자 요청으로 이번에 추가한 checkButtonSizeOnlyTypes 테스트는 제거했다. 기존 타입 테스트는 유지한다.
+
+이번 전체 변경 커밋에는 사용자 작업 트리의 Typography 기본 translateY(1px) 조정도 포함한다. 모든 Typography에 적용되는 공통 위치 보정이며, 전체 화면 시각 회귀 검증은 수행하지 않았다. 출처: src/components/common/atoms/Typography.tsx.

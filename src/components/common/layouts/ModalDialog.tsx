@@ -255,7 +255,7 @@ export type ModalOverlayTone = 'dark' | 'light';
 
 type ModalActionButtonTextProps = Pick<
   ButtonTextProps,
-  'className' | 'disabled' | 'fullWidth' | 'density' | 'type' | 'form'
+  'className' | 'disabled' | 'fullWidth' | 'type' | 'form'
 > & { size?: 'short' | 'tall' };
 
 export type ModalDialogActions =
@@ -268,7 +268,7 @@ export type ModalDialogActions =
     }
   | {
       kind: 'confirm';
-      buttonProps?: Pick<ModalActionButtonTextProps, 'size' | 'density' | 'className'>;
+      buttonProps?: Pick<ModalActionButtonTextProps, 'size' | 'className'>;
       onConfirm: () => void;
       confirmLabel?: string;
       confirmDisabled?: boolean;

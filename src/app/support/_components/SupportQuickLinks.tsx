@@ -49,7 +49,7 @@ export function SupportQuickLinks() {
             descriptionProps: { variant: 'body4', tone: 'subtle' },
           }}
           footer={
-            <ButtonLink href={item.href} variant="secondary" size="short" density="compact">
+            <ButtonLink href={item.href} variant="secondary" size="short">
               {item.label}
             </ButtonLink>
           }

@@ -220,7 +220,7 @@ export function OrderClaimRequest({
       footer={
         <Button
           variant="primary"
-          density="wide"
+          size="tall"
           fullWidth
           type="button"
           className={css({ w: '160px!', _mobile: { w: '100%!' } })}
