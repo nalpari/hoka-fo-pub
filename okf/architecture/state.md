@@ -4,7 +4,7 @@ title: '공통 상태와 데모 데이터'
 description: '로그인, 장바구니와 목 데이터의 수명 및 제약을 설명한다.'
 tags: [react, state, mock-data]
 status: draft
-updated: '2026-11-11T00:30:46Z'
+updated: '2026-11-12T00:00:00+09:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
@@ -242,6 +242,10 @@ sources:
 Typography의 화면 전용 variant를 표준 heading/body scale로 바꾼 변경은 표시 계층에 한정된다. 선택·필터·문의·상품·세션·장바구니 데이터와 상태 흐름은 변경하지 않았다. 관련 컴포넌트 사용처는 UI 아키텍처 문서의 Typography 전용 variant 표준화 항목에 기록했다.
 
 # 공통 상태와 데모 데이터
+
+## GNB 드롭다운의 마우스 이탈 닫기 (2026-11-12)
+
+PC GNB와 펼쳐진 메뉴 내부에서는 기존 hover 상태를 유지한다. 화면 전체를 덮는 메뉴 배경 overlay도 헤더의 자식이라 헤더 onMouseLeave만으로 아래 본문 이탈을 감지하지 못하므로, MegaMenuPanel의 배경 onMouseEnter에서 기존 onClose를 호출한다. 배경 클릭·헤더 이탈·메뉴 전환·Escape와 모바일 메뉴의 기존 상태 소유권은 유지한다. 1440px 브라우저에서 메뉴 내부 이동 유지, 아래 배경/헤더 위쪽 이동 시 닫기, Men→Women 전환과 Escape 닫기를 실제 포인터/키보드로 확인했다. 출처: src/context/ShopShell.tsx 작업 트리, Codex, 2026-11-12.
 
 ## GNB Story와 런칭캘린더 (2026-11-11)
 

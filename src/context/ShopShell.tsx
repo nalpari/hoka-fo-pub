@@ -1925,6 +1925,7 @@ function MegaMenuPanel({ menu, onClose, onFocusBoundary }: MegaMenuPanelProps) {
         type="button"
         aria-label="메뉴 닫기"
         className={MegaMenuPanelStyles.overlay}
+        onMouseEnter={onClose}
         onClick={onClose}
         tabIndex={-1}
       />
