@@ -232,7 +232,7 @@ export function AddressList({
     <Stack gap="6">
       <ContentSection
         title="배송지 관리"
-        gap={addresses.length ? '8' : '0'}
+        gap={addresses.length ? '8px' : '0'}
         _mobile={{ gap: addresses.length ? '6' : '0' }}
         headerProps={{
           titleAs: 'h1',
@@ -256,7 +256,7 @@ export function AddressList({
         }}
       >
         {addresses.length ? (
-          <Stack gap="8" _mobile={{ gap: '6', borderTop: '1px solid var(--colors-black-20)' }}>
+          <Stack gap="8px" _mobile={{ borderTop: '1px solid var(--colors-black-20)' }}>
             <Box>
               {addresses.map((address) => (
                 <Stack
