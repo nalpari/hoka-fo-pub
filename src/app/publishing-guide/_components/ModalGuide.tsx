@@ -275,7 +275,6 @@ ${example.sheetFooter ? '    footer={<Button variant="primary" onClick={() => se
     onConfirm: () => setOpen(false),
     buttonProps: {
       size: 'tall',
-      density: 'wide',
       className: css({ maxW: { base: '180px', _mobile: 'none' } }),
     },
   }}`
@@ -329,7 +328,6 @@ function ModalExampleCard({
               example.id === 'large'
                 ? {
                     size: 'tall',
-                    density: 'wide',
                     className: css({ maxW: { base: '180px', _mobile: 'none' } }),
                   }
                 : undefined,

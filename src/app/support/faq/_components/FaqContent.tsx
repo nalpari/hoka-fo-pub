@@ -258,7 +258,6 @@ export function RouteContent({ previewEmpty = false, previewExpanded = false }: 
             <Button
               variant="secondary"
               size="short"
-              density="compact"
               className={css({ w: '180px', '& > span': { w: '100%' }, _mobile: { w: 'auto' } })}
               loadMore={{
                 counter: { current: displayed.length, total },

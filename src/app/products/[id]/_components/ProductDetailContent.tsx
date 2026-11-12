@@ -1678,20 +1678,12 @@ function ProductSizeSelector({
                 setGuideUnit('cm');
                 setGuideOpen(true);
               }}
+              iconLeft="ruler-horizontal-regular"
+              iconSize="16px"
             >
-              <Flex as="span" display="inline-flex" gap="2" align="center">
-                <Icon name="ruler-horizontal-regular" size="16px" />
-                <span>사이즈 가이드</span>
-              </Flex>
+              사이즈 가이드
             </Button>
-          ) : (
-            <Flex gap="2" align="center">
-              <Icon name="ruler-horizontal-regular" size="16px" />
-              <ButtonLink variant="link" size="md" href="/support/size-guide">
-                사이즈 가이드
-              </ButtonLink>
-            </Flex>
-          )
+          ) : null
         }
         allowSoldOutSelection
         error={error}

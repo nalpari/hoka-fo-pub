@@ -1253,22 +1253,17 @@ function SearchListingLayout({
 type ProductFilterTriggerProps = {
   onClick: () => void;
   label?: string;
-  appearance?: 'catalog' | 'search';
 };
-/** 목록과 검색 시안에 맞는 버튼으로 모바일 필터를 엽니다. (Opens mobile filters with the catalog or search presentation.) */
-function ProductFilterTrigger({
-  onClick,
-  label = '필터',
-  appearance = 'catalog',
-}: ProductFilterTriggerProps) {
-  const isSearch = appearance === 'search';
+/** 공통 compact 버튼으로 모바일 필터를 엽니다. (Opens mobile filters with the shared compact button.) */
+function ProductFilterTrigger({ onClick, label = '필터' }: ProductFilterTriggerProps) {
   return (
     <Button
       aria-haspopup="dialog"
-      icon={<Icon name="sliders-regular" size={isSearch ? 20 : undefined} />}
       onClick={onClick}
       variant="filterTrigger"
-      size={isSearch ? 'regular' : 'compact'}
+      size="compact"
+      iconRight="sliders-regular"
+      iconSize={16}
     >
       <Typography
         variant="bodyKr4"

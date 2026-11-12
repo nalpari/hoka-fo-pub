@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-11T05:42:18Z'
+updated: '2026-11-12T00:00:00+09:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -1803,6 +1803,12 @@ PC 1920px·MO 375px에서 일반·임직원 목록, 상세 직접 진입, 확인
 2026-11-11 WBS 참조 문서가 1JyQvEhb53OgXnSBcxypHGI8nxsclZDi059r1SCdFHos로 교체되어 보고 스킬과 IA 담당자 링크의 문서 URL을 갱신했다. 연결 도구로 Schedule gid 1070650770, X~AB 헤더와 FO 개발 85행의 WBS·실적 구조를 확인했다. 기존 담당자 매핑 확인일과 과거 실적 스냅샷의 출처는 해당 수집 시점을 나타낸다. 출처: hoka-main-change-report/SKILL.md, screenDevelopers.ts 작업 트리 및 새 Schedule의 B267:AB351·X3:AB4 조회.
 
 2026-11-11 IA 런칭캘린더 In-stock 목록(eland_hla_04, IA162)은 사용자 지정 삭제 / 제외 항목이다. 기존 삭제 판정에 따라 페이지와 STATE 링크를 표시하지 않는다. 출처: screenRegistry.ts 작업 트리.
+
+## 버튼 정리와 상품 상세 사이즈 가이드 연결 (2026-11-12)
+
+상품 상세는 치수표가 있을 때만 사이즈 가이드 버튼으로 기존 모달을 열며, 치수표가 없을 때의 `/support/size-guide` 이동 버튼을 제거했다. 고객센터 사이즈 가이드 경로와 런칭 상세의 링크는 유지한다. 런칭 목록은 공통 Button의 이름 기반 아이콘 옵션을 사용하며 알림 상태와 기존 클릭 소유자를 유지한다. 쿠폰·주문·고객센터·문의 상품 조회의 density 제거는 size 옵션으로 반영하며 새 경로나 서비스 계약을 추가하지 않는다.
+
+출처: 스테이징된 `src/app/products/[id]/_components/ProductDetailContent.tsx`, `src/app/launch-calendar/_components/LaunchCalendarContent.tsx`와 관련 버튼 사용처, Codex, 2026-11-12. 커밋 준비 중 소스 차이를 검토했으며 브라우저 검증은 수행하지 않았다. 버튼 계약은 [UI 기록](ui.md#버튼-크기-size-통일-2026-11-11)을 따른다.
 
 ## 공통 가이드 간격의 선별 커밋 범위 (2026-11-11)
 
