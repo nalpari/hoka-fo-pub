@@ -79,6 +79,21 @@ const emptyShippingDraft = {
 
 type ShippingDraft = typeof emptyShippingDraft;
 
+export type AddressEditorPreview = { kind: 'edit'; address: Address } | { kind: 'new' };
+
+function shippingDraftFromAddress(address: Address): ShippingDraft {
+  return {
+    name: address.recipient,
+    email: '',
+    phone: address.phone,
+    otherPhone: address.alternatePhone,
+    postalCode: address.zip,
+    address: address.address,
+    addressDetail: address.detail,
+    isDefault: address.isDefault,
+  };
+}
+
 function CheckoutShippingForm({
   draft,
   onDraftChange,
@@ -296,7 +311,7 @@ function CheckoutDeliveryRequest({ initialRequest = '' }: { initialRequest?: str
 export type ShippingErrors = Partial<Record<'name' | 'phone' | 'address', string>>;
 
 /**
- * [ 개발팀 바인딩 ] initialEditing·initialAddressChangeOpen·initialDeliveryRequest는 고정 preview seed입니다.
+ * [ 개발팀 바인딩 ] initialEditing·initialAddressChangeOpen·initialAddressEditor·initialDeliveryRequest는 고정 preview seed입니다.
  * 배송지변경은 마이페이지와 공유하는 목록을 먼저 표시하고 수정·추가를 누를 때만 입력 화면으로 전환합니다.
  * 미연결 preview 목록은 initialAddresses이며 연결된 현재 목록은 CheckoutContext.addresses에서 매 렌더 읽습니다.
  * 주문서 연동 소유자는 Address.id(현재 number)와 수령인·배송지명·연락처·주소·기본배송지 여부를 전달해야 합니다.
@@ -309,21 +324,29 @@ export function CheckoutShipping({
   errors,
   initialEditing = false,
   initialAddressChangeOpen = false,
+  initialAddressEditor,
   initialDeliveryRequest,
 }: {
   errors?: ShippingErrors;
   initialEditing?: boolean;
   initialAddressChangeOpen?: boolean;
+  initialAddressEditor?: AddressEditorPreview;
   initialDeliveryRequest?: string;
 }) {
   const binding = useContext(CheckoutContext);
   const hasSavedAddress = !binding || binding.savedAddress !== null;
   const [addressChangeOpen, setAddressChangeOpen] = useState(initialAddressChangeOpen);
-  const [addressView, setAddressView] = useState<'list' | 'edit' | 'new'>('list');
+  const [addressView, setAddressView] = useState<'list' | 'edit' | 'new'>(
+    initialAddressEditor?.kind ?? 'list',
+  );
   const addressTitleRef = useRef<HTMLSpanElement>(null);
   const addresses = binding ? (binding.addresses ?? []) : initialAddresses;
   const editButtonRef = useRef<HTMLButtonElement>(null);
-  const [draft, setDraft] = useState(emptyShippingDraft);
+  const [draft, setDraft] = useState(() =>
+    initialAddressEditor?.kind === 'edit'
+      ? shippingDraftFromAddress(initialAddressEditor.address)
+      : emptyShippingDraft,
+  );
   const showInlineForm = initialEditing || !hasSavedAddress;
 
   function closeAddressChange() {
@@ -337,16 +360,7 @@ export function CheckoutShipping({
   }, [addressChangeOpen, addressView]);
 
   function editAddress(address: Address) {
-    setDraft({
-      name: address.recipient,
-      email: '',
-      phone: address.phone,
-      otherPhone: address.alternatePhone,
-      postalCode: address.zip,
-      address: address.address,
-      addressDetail: address.detail,
-      isDefault: address.isDefault,
-    });
+    setDraft(shippingDraftFromAddress(address));
     setAddressView('edit');
   }
 

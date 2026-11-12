@@ -148,7 +148,6 @@ const connections: Record<number, ScreenConnection> = {
       { label: '입력·동의 오류', href: '/checkout/preview-error' },
       { label: '주문 완료', href: '/checkout/preview-complete' },
       { label: '기본배송지 주소가 없는 사용자', href: '/checkout/preview-shipping' },
-      { label: '배송지 변경 모달', href: '/checkout/preview-address-change' },
       { label: '배송 요청사항 직접입력', href: '/checkout/preview-delivery-request' },
     ],
     sourceFiles: [
@@ -157,8 +156,21 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/checkout/preview-error/page.tsx',
       'src/app/checkout/preview-complete/page.tsx',
       'src/app/checkout/preview-shipping/page.tsx',
-      'src/app/checkout/preview-address-change/page.tsx',
       'src/app/checkout/preview-delivery-request/page.tsx',
+    ],
+  },
+  '172': {
+    previewRoutes: [{ label: '배송지 목록 팝업', href: '/checkout/preview-address-change' }],
+    sourceFiles: ['src/app/checkout/preview-address-change/page.tsx'],
+  },
+  '173': {
+    previewRoutes: [
+      { label: '배송지 수정 팝업', href: '/checkout/preview-address-edit' },
+      { label: '배송지 추가 팝업', href: '/checkout/preview-address-new' },
+    ],
+    sourceFiles: [
+      'src/app/checkout/preview-address-edit/page.tsx',
+      'src/app/checkout/preview-address-new/page.tsx',
     ],
   },
   '177': {

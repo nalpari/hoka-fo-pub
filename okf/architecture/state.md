@@ -243,6 +243,10 @@ Typography의 화면 전용 variant를 표준 heading/body scale로 바꾼 변�
 
 # 공통 상태와 데모 데이터
 
+## 배송지 수정·추가 팝업의 preview seed (2026-11-12)
+
+CheckoutStatePreview의 address-edit/address-new는 기존 CheckoutContent→CheckoutShipping에 initialAddressEditor seed를 전달한다. edit는 공유 fixture의 직장 배송지를 채우고 new는 빈 draft로 시작한다. shippingDraftFromAddress를 클릭 전환과 초기 seed에서 공유하며 폼 JSX를 복제하지 않는다. seed는 최초 마운트용이고 서비스 저장·조회·성공 전환을 실행하지 않는다. [IA와 고정 URL](routing.md#배송지-팝업의-기존-ia-연결과-직접-확인-2026-11-12). 출처: 관련 작업 트리, Codex, 2026-11-12T04:34:19Z.
+
 ## 주문서 배송지 목록의 표시 상태 (2026-11-12)
 
 `CheckoutContext.addresses`는 기존 Address 모델의 현재 표시 목록이다. 연결된 context는 매 렌더에서 현재 값을 읽고 preview fixture로 대체하지 않는다. context가 없는 미리보기만 공유 `initialAddresses`를 표시한다. 목록/수정/추가 전환과 입력 draft는 CheckoutShipping에서 소유하고 수정 클릭 때 선택한 항목을 draft로 복사한다. 이후 목록 교체가 편집 중 draft를 덮어쓰는 effect는 없다. 닫으면 목록 상태와 빈 draft로 초기화한다. inline 입력은 기존 initialEditing 표시 seed 또는 savedAddress 부재로 결정하며 기존 배송지 사용 버튼의 별도 editing state와 예시 배송지 복귀 동작은 제거했다. 이 목록은 조회 요청 상태나 저장 계약을 새로 구현한 것이 아니다. 외부 목록 교체·비예시 ID의 실행 검증은 수행하지 않았다. 출처: 해당 작업 트리 소스 검토, Codex, 2026-11-12T04:25:50Z.

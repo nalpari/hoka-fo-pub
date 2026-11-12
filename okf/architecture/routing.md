@@ -10,6 +10,8 @@ generated:
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/checkout/preview-address-new/page.tsx
+  - src/app/checkout/preview-address-edit/page.tsx
   - src/app/support/_components/SupportContacts.tsx
   - src/app/support/notices/_components/NoticesList.tsx
   - src/app/support/after-sales/page.tsx
@@ -385,6 +387,20 @@ sources:
 ---
 
 # 라우팅과 플랫폼
+
+## 배송지 팝업의 기존 IA 연결과 직접 확인 (2026-11-12)
+
+주문서 IA171 아래에 중복 등록한 배송지 변경 STATE를 제거하고 기존 IA172 ‘배송지 변경’을 목록 팝업, IA173 ‘주소 변경 팝업’을 수정 팝업에 연결했다. IA 번호·진행률·담당자는 바꾸지 않는다. 수정 팝업의 추가 상태는 같은 IA173 아래에 둔다. 기존 previewRoutes의 상태명·URL 검색을 재사용해 ‘배송지 목록’ 검색으로 IA172 원본 행과 연결 경로를 찾을 수 있다. IA 검색 UI를 별도 수정하지 않았다.
+
+| 화면/IA | 상태와 근거 | 기존 URL | 분리 판단 | 확인 URL |
+| --- | --- | --- | --- | --- |
+| 배송지 변경 / 172 | 기존 AddressList 목록 팝업 | `/checkout/preview-address-change` | 기존 URL 재사용·원본 IA 연결 | `/checkout/preview-address-change` |
+| 주소 변경 팝업 / 173 | 기존 배송지 수정 폼 | 클릭 후에만 표시 | 주요 팝업을 직접 확인하도록 분리 | `/checkout/preview-address-edit` |
+| 주소 변경 팝업 / 173 | 기존 빈 배송지 추가 폼 | 클릭 후에만 표시 | 같은 IA의 추가 상태로 분리 | `/checkout/preview-address-new` |
+
+CheckoutShipping의 initialAddressEditor는 편집/추가 확인용 seed이며 저장 요청이나 실데이터 동기화 계약이 아니다. 기존 목록→수정/추가 로컬 전환, 입력, 체크, 닫기/포커스 복귀는 유지하고 저장·삭제·완료 이동은 연결하지 않는다. 새 서버 요청·타이머·저장소를 추가하지 않았다.
+
+검증: 브라우저에서 목록·수정·추가 직접 진입, 수정·추가 새로고침, 수정 폼의 fixture 입력값과 추가 폼의 빈 값, 모바일 수정·PC 추가의 시각 표시 및 모바일 추가의 문서 가로 넘침 없음을 확인했다. PC·375px IA에서 목록 상태명 검색→IA172의 링크와 수정 URL 검색→IA173의 수정·추가 링크를 확인했다. 변경 소스 lint/Prettier, Panda·IA 소스 그래프 생성은 통과했다. 전체 타입 검사와 Next 빌드는 기존 LaunchCalendarDetail.tsx:68의 Button.icon 오류로 실패했다. Next 번들 컴파일은 성공했다. 출처: checkout 및 screen-index 작업 트리, Codex, 2026-11-12T04:34:19Z.
 
 ## 주문서 배송지 목록 팝업 (2026-11-12)
 

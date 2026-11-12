@@ -139,7 +139,8 @@
       "src/app/cart/cart-preview.ts",
       "src/app/checkout/_components/CheckoutComplete.tsx",
       "src/app/checkout/_components/CheckoutForm.tsx",
-      "src/app/checkout/_components/CheckoutLayout.tsx"
+      "src/app/checkout/_components/CheckoutLayout.tsx",
+      "src/data/addressPreview.ts"
     ],
     "src/app/checkout/_components/CheckoutSummary.tsx": [
       "src/components/common/atoms/Typography.tsx",
@@ -155,6 +156,12 @@
       "src/app/checkout/_components/CheckoutLayout.tsx"
     ],
     "src/app/checkout/preview-address-change/page.tsx": [
+      "src/app/checkout/_components/CheckoutStatePreview.tsx"
+    ],
+    "src/app/checkout/preview-address-edit/page.tsx": [
+      "src/app/checkout/_components/CheckoutStatePreview.tsx"
+    ],
+    "src/app/checkout/preview-address-new/page.tsx": [
       "src/app/checkout/_components/CheckoutStatePreview.tsx"
     ],
     "src/app/checkout/preview-complete/page.tsx": [
