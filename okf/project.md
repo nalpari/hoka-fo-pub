@@ -4,12 +4,13 @@ title: '프로젝트 개요'
 description: '서비스 목적, 기술 버전과 구현 범위를 설명한다.'
 tags: [hoka, frontend, overview]
 status: draft
-updated: '2026-11-11T01:09:17Z'
+updated: '2026-11-12T04:25:50Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
 source_revision: c9e8b1a75bdd4a2d52308410b8ce77773464a9e6
 working_tree_sources:
+  - src/data/addressPreview.ts
   - src/app/launch-calendar/_components/LaunchCalendarContent.tsx
   - src/app/launch-calendar/_components/LaunchCalendarDetail.tsx
   - src/app/launch-calendar/launchCalendar.data.ts
@@ -95,6 +96,10 @@ sources:
 ---
 
 # 프로젝트 개요
+
+## 주문서와 마이페이지의 배송지 예시 공유 (2026-11-12)
+
+두 화면의 동일한 목록 표시를 위해 `initialAddresses`를 `src/data/addressPreview.ts`로 이동했다. 마이페이지 목록과 주문서 배송지 목록 팝업이 같은 표시 fixture와 AddressList를 사용한다. 기존 항목과 ID·전화번호·주소는 유지하며 저장·삭제·주문 배송지 선택 API를 구현하지 않는다. [공유 목록](architecture/ui.md#주문서마이페이지-공유-배송지-목록-2026-11-12). 출처: 관련 작업 트리, Codex, 2026-11-12T04:25:50Z.
 
 ## GNB Story 표시 데이터 (2026-11-11)
 

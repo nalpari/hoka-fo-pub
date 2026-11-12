@@ -4,7 +4,7 @@ title: '공통 상태와 데모 데이터'
 description: '로그인, 장바구니와 목 데이터의 수명 및 제약을 설명한다.'
 tags: [react, state, mock-data]
 status: draft
-updated: '2026-11-12T00:00:00+09:00'
+updated: '2026-11-12T04:25:50Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
@@ -242,6 +242,10 @@ sources:
 Typography의 화면 전용 variant를 표준 heading/body scale로 바꾼 변경은 표시 계층에 한정된다. 선택·필터·문의·상품·세션·장바구니 데이터와 상태 흐름은 변경하지 않았다. 관련 컴포넌트 사용처는 UI 아키텍처 문서의 Typography 전용 variant 표준화 항목에 기록했다.
 
 # 공통 상태와 데모 데이터
+
+## 주문서 배송지 목록의 표시 상태 (2026-11-12)
+
+`CheckoutContext.addresses`는 기존 Address 모델의 현재 표시 목록이다. 연결된 context는 매 렌더에서 현재 값을 읽고 preview fixture로 대체하지 않는다. context가 없는 미리보기만 공유 `initialAddresses`를 표시한다. 목록/수정/추가 전환과 입력 draft는 CheckoutShipping에서 소유하고 수정 클릭 때 선택한 항목을 draft로 복사한다. 이후 목록 교체가 편집 중 draft를 덮어쓰는 effect는 없다. 닫으면 목록 상태와 빈 draft로 초기화한다. inline 입력은 기존 initialEditing 표시 seed 또는 savedAddress 부재로 결정하며 기존 배송지 사용 버튼의 별도 editing state와 예시 배송지 복귀 동작은 제거했다. 이 목록은 조회 요청 상태나 저장 계약을 새로 구현한 것이 아니다. 외부 목록 교체·비예시 ID의 실행 검증은 수행하지 않았다. 출처: 해당 작업 트리 소스 검토, Codex, 2026-11-12T04:25:50Z.
 
 ## GNB 드롭다운의 마우스 이탈 닫기 (2026-11-12)
 

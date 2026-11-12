@@ -147,7 +147,7 @@ const connections: Record<number, ScreenConnection> = {
       { label: '상품 없음', href: '/checkout/preview-empty' },
       { label: '입력·동의 오류', href: '/checkout/preview-error' },
       { label: '주문 완료', href: '/checkout/preview-complete' },
-      { label: '배송지 수동입력', href: '/checkout/preview-shipping' },
+      { label: '기본배송지 주소가 없는 사용자', href: '/checkout/preview-shipping' },
       { label: '배송지 변경 모달', href: '/checkout/preview-address-change' },
       { label: '배송 요청사항 직접입력', href: '/checkout/preview-delivery-request' },
     ],

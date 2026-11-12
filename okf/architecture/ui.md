@@ -4,12 +4,13 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-11T05:42:18Z'
+updated: '2026-11-12T04:25:50Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/components/common/organisms/Address/AddressList.tsx
   - src/app/support/_components/SupportContacts.tsx
   - src/app/support/notices/_components/NoticesList.tsx
   - src/app/support/after-sales/page.tsx
@@ -1025,6 +1026,12 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 주문서·마이페이지 공유 배송지 목록 (2026-11-12)
+
+배송지 목록을 `src/components/common/organisms/Address/AddressList.tsx`로 옮겨 마이페이지와 주문서 팝업에서 재사용한다. 기본 호출의 제목·추가·수정·삭제·더보기와 PC/MO 스타일을 유지하고 embedded 옵션으로 팝업의 중복 제목을 생략한다. 삭제 callback이 없는 주문서에서는 삭제 버튼을 비활성화한다. 수정/추가 후 저장은 기존처럼 비활성이며 실제 요청은 없다. 기본배송지가 없는 preview의 기존 배송지 사용 버튼과 예시 카드 복귀 전환은 제거하고 빈 입력 화면을 유지한다.
+
+브라우저에서 PC 목록과 375px 모바일 목록·수정·목록 복귀·빈 추가 폼, 선택한 배송지의 폼 초기값, Escape 후 포커스 복귀, 직접 preview 및 빈 배송지 preview를 확인했다. 모바일 수정 화면의 문서 가로 넘침은 없었다. 마이페이지 기본 목록은 PC·모바일에서 시각 확인했다. 변경 소스 ESLint, Panda 생성과 소스 그래프 생성이 통과했다. 전체 타입 검사는 기존 `LaunchCalendarDetail.tsx`의 `Button.icon` 타입 오류로 실패했고 빌드는 수행하지 않았다. 실제 서비스의 pending/실패/재시도·저장 성공은 미연결로 검증 대상이 아니다. 출처: 해당 작업 트리와 localhost 브라우저, Codex, 2026-11-12T04:25:50Z.
 
 ## 상품 목록 이미지 비율 복원 (2026-11-10)
 

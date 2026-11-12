@@ -131,7 +131,9 @@
       "src/components/common/molecules/FormFields/CharacterCount.tsx",
       "src/components/common/molecules/FormFields/TextFormField.tsx",
       "src/components/common/organisms/Address/AddressFields.tsx",
-      "src/context/CheckoutContext.ts"
+      "src/components/common/organisms/Address/AddressList.tsx",
+      "src/context/CheckoutContext.ts",
+      "src/data/addressPreview.ts"
     ],
     "src/app/checkout/_components/CheckoutStatePreview.tsx": [
       "src/app/cart/cart-preview.ts",
@@ -336,14 +338,11 @@
       "src/context/platform.tsx"
     ],
     "src/app/mypage/addresses/_components/AddressManagement.tsx": [
-      "src/components/common/atoms/Badge.tsx",
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Checkbox.tsx",
-      "src/components/common/atoms/EmptyState.tsx",
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/ContentSection.tsx",
       "src/components/common/layouts/ModalDialog.tsx",
-      "src/components/common/molecules/ContentHeader.tsx",
       "src/components/common/molecules/FormActionGroup.tsx",
       "src/components/common/molecules/FormFields/TextFormField.tsx",
       "src/components/common/organisms/Address/AddressFields.tsx",
@@ -351,7 +350,9 @@
     ],
     "src/app/mypage/addresses/_components/AddressStatePreview.tsx": [
       "src/app/mypage/addresses/_components/AddressManagement.tsx",
-      "src/components/mypage/MyPageFrame.tsx"
+      "src/components/common/organisms/Address/AddressList.tsx",
+      "src/components/mypage/MyPageFrame.tsx",
+      "src/data/addressPreview.ts"
     ],
     "src/app/mypage/addresses/page.tsx": [
       "src/app/mypage/addresses/_components/AddressStatePreview.tsx"
@@ -1535,6 +1536,15 @@
       "src/components/common/layouts/ModalDialog.tsx",
       "src/components/common/molecules/FormFields/TextFormField.tsx"
     ],
+    "src/components/common/organisms/Address/AddressList.tsx": [
+      "src/components/common/atoms/Badge.tsx",
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/EmptyState.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ContentSection.tsx",
+      "src/components/common/molecules/ContentHeader.tsx",
+      "src/context/platform.tsx"
+    ],
     "src/components/common/organisms/EmailAddressFields.tsx": [
       "src/components/common/atoms/Dropdown.tsx",
       "src/components/common/atoms/Typography.tsx",
@@ -1666,6 +1676,7 @@
       "src/hooks/useRecentSearches.ts",
       "src/lib/useScrollPin.ts"
     ],
+    "src/data/addressPreview.ts": [],
     "src/data/footerData.ts": [],
     "src/data/headerPromotionData.ts": [],
     "src/data/megaMenu.ts": [],

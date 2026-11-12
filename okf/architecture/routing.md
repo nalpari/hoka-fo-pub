@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-12T00:00:00+09:00'
+updated: '2026-11-12T04:25:50Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -385,6 +385,14 @@ sources:
 ---
 
 # 라우팅과 플랫폼
+
+## 주문서 배송지 목록 팝업 (2026-11-12)
+
+`/checkout`의 배송지변경은 ‘배송지 목록’을 먼저 열고 목록의 수정하기(모바일 수정)에서 선택한 배송지 정보를 채운 ‘배송지 수정’ 화면으로 전환한다. 목록으로·닫기·Escape를 제공하며 닫은 뒤 배송지변경 버튼으로 포커스가 돌아온다. `/checkout/preview-address-change`도 목록 팝업으로 직접 진입한다. `/checkout/preview-shipping`의 빈 입력 상태와 마이페이지 URL은 유지한다. IA 소스 그래프를 `npm run screen-files`로 재생성했다. [공유 UI와 검증](ui.md#주문서마이페이지-공유-배송지-목록-2026-11-12). 출처: 해당 작업 트리, Codex, 2026-11-12T04:25:50Z.
+
+## 주문서 배송지 상태명 (2026-11-12)
+
+IA171의 `/checkout/preview-shipping` 표시명을 ‘기본배송지 주소가 없는 사용자’로 변경했다. shipping preview는 빈 배송지 입력 폼을 표시하며 기존 배송지 사용 버튼과 예시 배송지로 복귀하는 로컬 전환을 제거했다. URL은 유지한다. 출처: `src/app/screen-index/screenConnections.ts`, `src/app/checkout/_components/CheckoutStatePreview.tsx`, `CheckoutShipping.tsx` 작업 트리 검토, Codex, 2026-11-12. 후속 확인에서 PC·375px 모바일의 빈 수령인 입력과 기존 배송지 사용 버튼 미표시를 브라우저로 확인했다. 모바일 문서의 가로 넘침은 없었다.
 
 ## 런칭 캘린더 새 시안 (2026-11-11)
 
