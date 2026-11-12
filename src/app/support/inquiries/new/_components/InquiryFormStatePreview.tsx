@@ -84,45 +84,51 @@ export function InquiryFormStatePreview({
   return (
     <InquiryFormLayout>
       <form
-        className={css({ mt: { base: '10', _mobile: '6' } })}
+        className={css({ mt: { base: '10', _mobile: '8' } })}
         noValidate
         onSubmit={(event) => event.preventDefault()}
       >
-        <Stack gap="6">
-          <InquiryCustomerInfo />
-          <Stack gap="4">
-            <InquiryCategoryFields
-              fixedErrors={state === 'error'}
-              category={category}
-              detailCategory={detailCategory}
-              invalid={invalid}
-              onCategoryChange={setCategory}
-              onDetailCategoryChange={setDetailCategory}
-            />
-            {(orderState || ['주문/결제', '주문/배송', '반품'].includes(category)) && (
-              <InquiryOrderProducts
-                invalid={state === 'order-required'}
-                selection={selection}
-                onSelectionChange={setSelection}
-                lookupButtonRef={lookupTrigger}
-                onLookup={() => setLookupOpen(true)}
+        <Stack gap={{ base: '10', _mobile: '8' }}>
+          <Stack gap="6">
+            <Stack gap={{ base: '10', _mobile: '6' }}>
+              <Stack gap="6">
+                <InquiryCustomerInfo />
+                <Stack gap="4">
+                  <InquiryCategoryFields
+                    fixedErrors={state === 'error'}
+                    category={category}
+                    detailCategory={detailCategory}
+                    invalid={invalid}
+                    onCategoryChange={setCategory}
+                    onDetailCategoryChange={setDetailCategory}
+                  />
+                  {(orderState || ['주문/결제', '주문/배송', '반품'].includes(category)) && (
+                    <InquiryOrderProducts
+                      invalid={state === 'order-required'}
+                      selection={selection}
+                      onSelectionChange={setSelection}
+                      lookupButtonRef={lookupTrigger}
+                      onLookup={() => setLookupOpen(true)}
+                    />
+                  )}
+                  <InquiryMessageFields
+                    fixedErrors={state === 'error'}
+                    title={title}
+                    body={body}
+                    invalid={invalid}
+                    onTitleChange={setTitle}
+                    onBodyChange={setBody}
+                  />
+                </Stack>
+              </Stack>
+              <InquiryAttachments
+                files={files}
+                onFilesChange={setFiles}
+                previewError={attachmentError}
               />
-            )}
-            <InquiryMessageFields
-              fixedErrors={state === 'error'}
-              title={title}
-              body={body}
-              invalid={invalid}
-              onTitleChange={setTitle}
-              onBodyChange={setBody}
-            />
+            </Stack>
+            <InquiryCautions />
           </Stack>
-          <InquiryAttachments
-            files={files}
-            onFilesChange={setFiles}
-            previewError={attachmentError}
-          />
-          <InquiryCautions />
           <InquiryFormActions
             onCancel={() => {
               setCancelDialog(true);

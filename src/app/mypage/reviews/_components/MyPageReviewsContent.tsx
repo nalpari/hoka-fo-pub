@@ -129,7 +129,7 @@ function MyPageReviewTabs({ value, onChange }: MyPageReviewTabsProps) {
           minH: '42px',
           borderBottomWidth: selected ? '2px' : '1px',
           borderBottomColor: selected ? 'black.100' : 'black.20',
-          _mobile: { minH: '8' },
+          _mobile: { minH: '44px' },
         })
       }
       itemRender={(option) => (
@@ -373,13 +373,13 @@ export function MyPageReviewsContent({
 }: MyPageReviewsContentProps) {
   return (
     <ContentSection
+      css={{ '--line-heights-body': '1.5' }}
       title="상품리뷰"
       gap="10"
-      _mobile={{ gap: '0' }}
+      _mobile={{ gap: '6' }}
       headerProps={{
         titleAs: 'h1',
         titleProps: { web: 'headingKr6', mo: 'headingKr5' },
-        className: css({ _mobile: { srOnly: true } }),
       }}
     >
       <Stack gap="0">

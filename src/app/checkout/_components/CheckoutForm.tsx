@@ -14,12 +14,17 @@ import { type CheckoutRow } from '@/app/checkout/checkout-summary';
 import { CheckoutAgreement } from './CheckoutAgreement';
 import { CheckoutDiscountSummary } from './CheckoutDiscountSummary';
 import { CheckoutPayment, type PaymentMethod } from './CheckoutPayment';
-import { CheckoutShipping, type ShippingErrors } from './CheckoutShipping';
+import {
+  type AddressEditorPreview,
+  CheckoutShipping,
+  type ShippingErrors,
+} from './CheckoutShipping';
 import { CheckoutSummary } from './CheckoutSummary';
 
 type CheckoutContentProps = {
   editShipping?: boolean;
   initialAddressChangeOpen?: boolean;
+  initialAddressEditor?: AddressEditorPreview;
   initialDeliveryRequest?: string;
   rows: readonly CheckoutRow[];
   payment: PaymentMethod;
@@ -32,6 +37,7 @@ type CheckoutContentProps = {
 export function CheckoutContent({
   editShipping = false,
   initialAddressChangeOpen,
+  initialAddressEditor,
   initialDeliveryRequest,
   rows,
   payment,
@@ -52,6 +58,7 @@ export function CheckoutContent({
           errors={errors}
           initialEditing={editShipping}
           initialAddressChangeOpen={initialAddressChangeOpen}
+          initialAddressEditor={initialAddressEditor}
           initialDeliveryRequest={initialDeliveryRequest}
         />
       </Box>

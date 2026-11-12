@@ -4,12 +4,17 @@ title: '프로젝트 개요'
 description: '서비스 목적, 기술 버전과 구현 범위를 설명한다.'
 tags: [hoka, frontend, overview]
 status: draft
-updated: '2026-11-09T06:14:31Z'
+updated: '2026-11-12T04:25:50Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
 source_revision: c9e8b1a75bdd4a2d52308410b8ce77773464a9e6
 working_tree_sources:
+  - src/data/addressPreview.ts
+  - src/app/launch-calendar/_components/LaunchCalendarContent.tsx
+  - src/app/launch-calendar/_components/LaunchCalendarDetail.tsx
+  - src/app/launch-calendar/launchCalendar.data.ts
+  - src/data/megaMenu.ts
   - src/app/publishing-guide/_components/IconGuide.tsx
   - src/components/common/molecules/SupportTabs.tsx
   - src/app/support/after-sales/page.tsx
@@ -91,6 +96,14 @@ sources:
 ---
 
 # 프로젝트 개요
+
+## 주문서와 마이페이지의 배송지 예시 공유 (2026-11-12)
+
+두 화면의 동일한 목록 표시를 위해 `initialAddresses`를 `src/data/addressPreview.ts`로 이동했다. 마이페이지 목록과 주문서 배송지 목록 팝업이 같은 표시 fixture와 AddressList를 사용한다. 기존 항목과 ID·전화번호·주소는 유지하며 저장·삭제·주문 배송지 선택 API를 구현하지 않는다. [공유 목록](architecture/ui.md#주문서마이페이지-공유-배송지-목록-2026-11-12). 출처: 관련 작업 트리, Codex, 2026-11-12T04:25:50Z.
+
+## GNB Story 표시 데이터 (2026-11-11)
+
+`src/data/megaMenu.ts`의 기존 `explore` 메뉴 표시명을 Story로 변경했다. PC GNB와 모바일 전체메뉴가 같은 데이터를 사용한다. 메뉴 식별자와 하위 링크는 기존 연결을 따르며 런칭캘린더는 `/launch-calendar`의 탐색 링크로 제공한다. 표시·키보드 동작은 [GNB 상태 문서](architecture/state.md#gnb-story와-런칭캘린더-2026-11-11)에 기록했다.
 
 2026-11-09: 아이콘 가이드의 문의 첨부파일 사용 화면 링크와 카드 제목을 검토했다. PDF·이미지 카드가 첨부파일 미리보기 URL을 가리키고 한글 용도명으로 표시되도록 바꿨으며, 프로젝트 목적과 구현 범위 설명에는 영향이 없다. 출처: 작업 트리의 `src/app/publishing-guide/_components/IconGuide.tsx`.
 
@@ -304,3 +317,9 @@ src/mocks/products.ts의 Promotions 타입 출처를 통합된 src/components/co
 출처: 사용자 확정 14개 상태와 앞선 디자인 조사 노드, 현재 변경 소스·고정 fixture. 작업 기준 HEAD: `eee69f7b80ddde079e0b634997df7f047f8e1809`. 기록: codex/gpt-6, 2026-11-02T09:59:35Z.
 
 - 2026-11-06: 검색 패널 예시 최근 검색어는 피그마 순서대로 트레일 러닝화, 러닝화, 본디 7이다.
+
+## 런칭 캘린더 새 시안 (2026-11-11)
+
+PC 수정과 모바일 Feed·Upcoming·상세를 반영했다. 목록은 현재 items와 명시적 플랫폼별 fixture를 구분하고, 상세는 실제 신청 없이 알림 가능/완료 상태를 직접 URL로 확인한다. 공통 표시 컴포넌트와 기존 route-private 소유권을 재사용한다. 원본 IA 행의 삭제/제외 정책은 이번 시안 구현의 변경 범위가 아니다. 규격·검증·미제공 기획전 이미지 경계는 [런칭 캘린더](architecture/launch-calendar.md)에 기록했다. 출처: 위 작업 트리와 사용자 제공 [PC/MO 디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design), 기록 주체 codex/gpt-6, 2026-11-11T01:09:17Z.
+
+2026-11-11 IA162 런칭캘린더 In-stock 목록은 사용자 지정 삭제 / 제외 화면으로 표시한다. 출처: screenRegistry.ts 작업 트리.

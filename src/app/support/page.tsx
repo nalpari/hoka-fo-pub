@@ -21,13 +21,18 @@ import { SupportQuickLinks } from './_components/SupportQuickLinks';
 export default function Page() {
   return (
     <CustomerCenterLayout
+      className={css({ '--line-heights-body': '1.5', _mobile: { pb: '16!' } })}
       header={
         <ContentHeader
-          gap={{ base: '4', _mobile: '6' }}
-          mb={{ base: '14', _mobile: '10' }}
+          gap={{ base: '3', _mobile: '4' }}
+          mb={{ base: '10', _mobile: '8' }}
           title="고객센터"
           titleAs="h1"
-          titleProps={{ web: 'heading6', mo: 'heading4' }}
+          titleProps={{
+            web: 'heading6',
+            mo: 'heading4',
+            className: css({ _mobile: { h: '32px' } }),
+          }}
           description="문의 유형에 따라 상담 채널을 선택해 주세요. "
           descriptionProps={{
             variant: 'body3',
@@ -41,7 +46,7 @@ export default function Page() {
       groups={supportNavigation}
       breadcrumbItems={[{ label: 'Home', href: '/' }, { label: '고객센터' }]}
     >
-      <Stack gap={{ base: '8', _mobile: '2' }} _mobile={{ pb: '6' }}>
+      <Stack gap="2">
         <SupportContacts />
         <SupportQuickLinks />
       </Stack>

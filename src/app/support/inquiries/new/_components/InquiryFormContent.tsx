@@ -203,6 +203,7 @@ export function InquiryCategoryFields({
       <Grid columns={2} gap="2" _mobile={{ gridTemplateColumns: '1fr', gap: '4' }}>
         <Dropdown
           ariaLabel="문의 유형"
+          className={css({ '&&': { h: '63px', pb: '8px' } })}
           label="문의 유형"
           required
           name="inquiry-category"
@@ -226,6 +227,7 @@ export function InquiryCategoryFields({
         />
         <Dropdown
           ariaLabel="상세 유형"
+          className={css({ '&&': { h: '63px', pb: '8px' } })}
           label="상세 유형"
           required
           name="inquiry-detail-category"
@@ -291,7 +293,7 @@ export function InquiryMessageFields({
         renderControl={(control) => (
           <Stack gap="2" w="100%">
             {control}
-            <Box textAlign="right">
+            <Box textAlign="right" lineHeight="0">
               <CharacterCount length={body.length} limit={1000} spaced tone="tertiary" />
             </Box>
           </Stack>
@@ -311,11 +313,11 @@ export function InquiryFormActions({ onCancel }: InquiryFormActionsProps) {
       submitLabel="문의 등록"
       size="tall"
       justifyContent="center"
-      pt="6"
       maxW="368px"
       w="100%"
       mx="auto"
-      _mobile={{ pt: '0', maxW: 'none' }}
+      css={{ _mobile: { '& button': { '--button-height': '44px' } } }}
+      _mobile={{ maxW: 'none' }}
     />
   );
 }

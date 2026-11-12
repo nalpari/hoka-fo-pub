@@ -3,7 +3,7 @@ import type { ScreenDefinition } from '@/data/screenRegistry';
 import { isScreenDeleted } from './screenConnections';
 
 export const developerWbsSource = {
-  url: 'https://docs.google.com/spreadsheets/d/1BAxtSHBSp8DguH0gv2EbnEpqHZhZEez66eyTSmAcG6w/edit?gid=1070650770',
+  url: 'https://docs.google.com/spreadsheets/d/1JyQvEhb53OgXnSBcxypHGI8nxsclZDi059r1SCdFHos/edit?gid=1070650770',
   checkedAt: '2026-11-04',
 };
 

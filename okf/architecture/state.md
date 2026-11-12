@@ -4,7 +4,7 @@ title: '공통 상태와 데모 데이터'
 description: '로그인, 장바구니와 목 데이터의 수명 및 제약을 설명한다.'
 tags: [react, state, mock-data]
 status: draft
-updated: '2026-11-10T00:01:00Z'
+updated: '2026-11-12T04:25:50Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
@@ -242,6 +242,24 @@ sources:
 Typography의 화면 전용 variant를 표준 heading/body scale로 바꾼 변경은 표시 계층에 한정된다. 선택·필터·문의·상품·세션·장바구니 데이터와 상태 흐름은 변경하지 않았다. 관련 컴포넌트 사용처는 UI 아키텍처 문서의 Typography 전용 variant 표준화 항목에 기록했다.
 
 # 공통 상태와 데모 데이터
+
+## 배송지 수정·추가 팝업의 preview seed (2026-11-12)
+
+CheckoutStatePreview의 address-edit/address-new는 기존 CheckoutContent→CheckoutShipping에 initialAddressEditor seed를 전달한다. edit는 공유 fixture의 직장 배송지를 채우고 new는 빈 draft로 시작한다. shippingDraftFromAddress를 클릭 전환과 초기 seed에서 공유하며 폼 JSX를 복제하지 않는다. seed는 최초 마운트용이고 서비스 저장·조회·성공 전환을 실행하지 않는다. [IA와 고정 URL](routing.md#배송지-팝업의-기존-ia-연결과-직접-확인-2026-11-12). 출처: 관련 작업 트리, Codex, 2026-11-12T04:34:19Z.
+
+## 주문서 배송지 목록의 표시 상태 (2026-11-12)
+
+`CheckoutContext.addresses`는 기존 Address 모델의 현재 표시 목록이다. 연결된 context는 매 렌더에서 현재 값을 읽고 preview fixture로 대체하지 않는다. context가 없는 미리보기만 공유 `initialAddresses`를 표시한다. 목록/수정/추가 전환과 입력 draft는 CheckoutShipping에서 소유하고 수정 클릭 때 선택한 항목을 draft로 복사한다. 이후 목록 교체가 편집 중 draft를 덮어쓰는 effect는 없다. 닫으면 목록 상태와 빈 draft로 초기화한다. inline 입력은 기존 initialEditing 표시 seed 또는 savedAddress 부재로 결정하며 기존 배송지 사용 버튼의 별도 editing state와 예시 배송지 복귀 동작은 제거했다. 이 목록은 조회 요청 상태나 저장 계약을 새로 구현한 것이 아니다. 외부 목록 교체·비예시 ID의 실행 검증은 수행하지 않았다. 출처: 해당 작업 트리 소스 검토, Codex, 2026-11-12T04:25:50Z.
+
+## GNB 드롭다운의 마우스 이탈 닫기 (2026-11-12)
+
+PC GNB와 펼쳐진 메뉴 내부에서는 기존 hover 상태를 유지한다. 화면 전체를 덮는 메뉴 배경 overlay도 헤더의 자식이라 헤더 onMouseLeave만으로 아래 본문 이탈을 감지하지 못하므로, MegaMenuPanel의 배경 onMouseEnter에서 기존 onClose를 호출한다. 배경 클릭·헤더 이탈·메뉴 전환·Escape와 모바일 메뉴의 기존 상태 소유권은 유지한다. 1440px 브라우저에서 메뉴 내부 이동 유지, 아래 배경/헤더 위쪽 이동 시 닫기, Men→Women 전환과 Escape 닫기를 실제 포인터/키보드로 확인했다. 출처: src/context/ShopShell.tsx 작업 트리, Codex, 2026-11-12.
+
+## GNB Story와 런칭캘린더 (2026-11-11)
+
+`ShopShell.tsx`의 PC 주요 메뉴는 Men·Women·Shoes·Story 다음에 `/launch-calendar`로 이동하는 Next Link를 표시한다. Story 메가메뉴의 마지막 링크에서 Tab을 누르면 런칭캘린더로 이동하고, 검색창에서 Shift+Tab을 누르면 같은 링크로 돌아온다. 링크에 hover·focus하면 열린 메가메뉴를 닫는다. 모바일 전체메뉴는 기존 런칭캘린더 링크를 재사용하며 공통 메뉴 데이터의 Story 이름을 표시한다.
+
+기존 메뉴와 같은 `body4` 14px, 검정 글자, 높이 58px와 좌우 패딩 18px를 사용한다. PC·모바일에서 메뉴 표시와 런칭캘린더 이동, PC Story 펼침과 키보드 이동을 확인했다. 디자인 원본은 요청 제한으로 수치 대조를 완료하지 못했다. [GNB 디자인 파일](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP).
 
 Site Header의 장바구니 개수는 기존 `ShopShell.state.cartCount`에서 읽는다. `ShopShell.tsx`의 `HeaderCartLink`가 개수 배지에 검정 텍스트를 지정하며, 아이콘과 배지의 표시 여부는 기존 개수 계약을 따른다.
 
