@@ -529,6 +529,13 @@ function InquiryBoard({
   const limit = pageSize === undefined ? visibleItems.length : shownCount;
   const displayedItems = visibleItems.slice(0, limit);
   const nextCount = Math.min(loadMoreSize, visibleItems.length - limit);
+  const more =
+    nextCount > 0
+      ? {
+          counter: { current: displayedItems.length, total: visibleItems.length },
+          onLoadMore: () => setShownCount((count) => count + nextCount),
+        }
+      : undefined;
   return (
     <Box as="section" w="100%" minW="0" aria-labelledby={headingId} className={className}>
       <InquiryBoardHeader
@@ -578,20 +585,17 @@ function InquiryBoard({
           }}
         />
       )}
-      {nextCount > 0 && (
-        <Flex justifyContent="center" py="5">
+      {more ? (
+        <VStack mt="24px">
           <Button
             variant="plain"
-            onClick={() => setShownCount((count) => count + nextCount)}
-            loadMore={{
-              appearance: 'inline',
-              count: nextCount,
-              label: '더 보기',
-              indicator: <Icon name="chevron-down-regular" size="16px" />,
-            }}
+            size="lg"
+            onClick={more.onLoadMore}
+            disabled={!more.onLoadMore}
+            loadMore={{ counter: more.counter }}
           />
-        </Flex>
-      )}
+        </VStack>
+      ) : null}
     </Box>
   );
 }

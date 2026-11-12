@@ -4,12 +4,14 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-10T04:49:00Z'
+updated: '2026-11-11T23:41:46Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/support/inquiries/_components/InquiryListLayout.tsx
+  - src/app/support/inquiries/new/order-products/_components/InquiryOrderLookup.tsx
   - src/app/publishing-guide/_components/ModalGuide.tsx
   - src/app/screen-index/sourceGraph.generated.json
   - src/app/products/pdp-preview/[state]/page.tsx
@@ -389,6 +391,8 @@ sources:
 
 ## 배송지 관리 목록 (2026-11-05)
 
+더보기 버튼은 배송지가 있는 목록 분기 안에서 `more`가 전달될 때 표시한다.
+
 `/mypage/addresses`는 PC와 모바일에서 `배송지 관리` 제목 오른쪽에 추가 액션을 배치한다. PC는 40px 외곽선 버튼, 모바일은 밑줄 버튼을 사용한다. 목록 끝에서 24px 띄워 공통 Button의 `더보기 (1/10)`를 표시한다. PC는 160×40px, 모바일은 본문 너비 × 40px이다. 빈 상태 URL은 안내문 아래의 추가 버튼을 사용한다.
 
 기본 목록의 1/10은 디자인 표시용 값이다. 미리보기의 더보기는 비활성이다. 실제 연동 소유자가 다음 페이지가 있을 때 카운터와 추가 조회 콜백을 전달하고 응답·실패·재시도를 관리한다.
@@ -494,6 +498,8 @@ IA 표에 고정 개발담당자 열을 추가했다. `screenDevelopers.ts`는 [
 `/cart`는 기존 App Router 경로와 page export를 유지한다. Figma `1992:85202`(MO 기본), `1938:45809`(MO 선택), `1797:47269`(PC)의 장바구니 상태를 검토했다. 페이지의 제목 개수는 고정 표시 행 4개에서 가져오며, 기본 행은 선택 0개·품절 1개다. 선택·수량·관심상품·옵션 팝업은 화면 확인용 로컬 UI 상태이고 주문·삭제·저장 이동이나 요청은 연결하지 않는다. 새 URL은 추가하지 않았다. 작업 트리 출처: `src/app/cart/page.tsx`, `src/app/cart/cart-preview.ts`, `src/app/cart/_components/CartProductSection.tsx`, `src/app/cart/_components/CartDialogs.tsx`.
 
 ## 러닝세션 신청내역 Figma 실측 보정 (2026-10-30)
+
+신청내역 목록은 `more.counter`로 더보기 카운터를 표시하고, `more.onLoadMore`를 클릭에 연결한다. 기본 화면과 취소 미리보기는 카운터만 전달해 버튼이 비활성이다.
 
 기본 /mypage/event-entries와 preview-empty·preview-cancel은 기존 RunningSessionEntriesContent를 공유한다. URL·App Router 경계·IA 200·공통 MyPageFrame·GNB·footer는 유지하며 route-private 목록과 모달 스타일 및 표시 fixture만 보정했다. PC 본문 844px, 이미지 96px, 취소 링크는 상세 정보 우측 하단이며 MO에서는 다음 행 우측이다. [디자인 값과 검증](ui.md#러닝세션-신청내역-figma-실측-보정-2026-10-30)을 참고한다.
 
@@ -860,6 +866,16 @@ RootLayout은 next/font/local의 CSS 변수만 HTML 루트에 부여하며 기�
 작성: codex/gpt-6, 2026-10-28T10:35:32.416Z. 출처는 위 working_tree_sources의 이번 작업 트리 변경이며 기존 source_revision의 검증 기록과 구분한다.
 
 ## 더보기·소셜 버튼의 부모 표시 옵션 통합 (2026-10-28)
+
+공지사항의 더보기는 `more`가 있을 때 공통 `plain`·`lg` 버튼으로 현재 페이지와 전체 페이지를 표시한다. 클릭하면 최대 10건을 더 보여준다.
+
+FAQ 더보기도 공통 `more` 패턴을 사용하며, 현재 표시 건수와 필터 결과의 전체 건수를 카운터로 표시한다.
+
+문의 등록의 주문 상품 조회도 공통 `more` 패턴으로 현재 표시 건수와 전체 주문 건수를 표시한다. 클릭하면 나머지 주문을 모두 보여준다.
+
+상품 상세의 상품문의는 공통 `more` 패턴으로 현재 표시 건수와 필터 결과의 전체 건수를 보여준다. 클릭하면 최대 16건을 추가로 표시한다.
+
+쿠폰 관리도 공통 `more` 패턴으로 현재 페이지와 전체 페이지를 표시하고, 클릭하면 최대 5건을 더 보여준다.
 
 로그인·가입의 SocialAuthButton은 Button.social로, 쿠폰·리뷰의 LoadMoreButton은 Button.loadMore로 전환했다. URL·라우트 소유권·서버/클라이언트 경계·화면 상태와 이벤트 처리 책임은 바뀌지 않는다. 카카오·네이버 미연결 안내, 가입 수단 선택과 쿠폰·리뷰 더보기의 기존 상태 갱신을 유지한다. 공통 표시 API는 [UI 계약](ui.md#더보기소셜-버튼의-부모-표시-옵션-통합-2026-10-28)을 참고한다.
 
@@ -1782,3 +1798,7 @@ PC 1920px·MO 375px에서 일반·임직원 목록, 상세 직접 진입, 확인
 ## 버튼 크기 옵션 통일 (2026-11-11)
 
 장바구니·주문/클레임·쿠폰·고객센터와 퍼블리싱 가이드의 버튼에서 density를 제거하고 기존 size를 유지하거나 tall로 명시했다. 장바구니 수량 제한 모달은 tall+Typography cta2로 기존 48px 높이와 작은 라벨을 보존한다. URL·동작은 변경하지 않았다. [UI 계약](ui.md#버튼-크기-size-통일-2026-11-11). 출처: 해당 라우트 작업 트리.
+
+## 문의 버튼 내부 레이아웃 선택자 (2026-11-12)
+
+공통 Button에서 별도 frame span을 제거한 뒤 문의 목록의 버튼 크기 변수를 버튼 루트에 두고, 문의 주문 조회의 주문 행 안쪽 콘텐츠 선택자를 새 DOM 깊이에 맞췄다. 라우트와 상호작용은 바꾸지 않았다. 구현은 [Button 시각 프레임 제거](ui.md#button-시각-프레임-제거-2026-11-12)에 기록한다. 출처: 문의 목록/주문 조회 작업 트리.

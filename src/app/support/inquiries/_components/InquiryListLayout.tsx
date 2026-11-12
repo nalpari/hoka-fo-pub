@@ -52,7 +52,7 @@ export function InquiryListLayout({
               size="short"
               className={css({
                 flexShrink: '0',
-                '& > span': {
+                '&&': {
                   '--button-height': '36px',
                   '--button-label-size': '12px',
                   '--button-padding-x': '24px',

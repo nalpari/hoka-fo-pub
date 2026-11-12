@@ -417,10 +417,12 @@
       "src/components/running-session/runningSession.data.ts"
     ],
     "src/app/mypage/event-entries/page.tsx": [
-      "src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx"
+      "src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx",
+      "src/app/mypage/event-entries/eventEntries.data.ts"
     ],
     "src/app/mypage/event-entries/preview-cancel/page.tsx": [
-      "src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx"
+      "src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx",
+      "src/app/mypage/event-entries/eventEntries.data.ts"
     ],
     "src/app/mypage/event-entries/preview-empty/page.tsx": [
       "src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx"
@@ -1181,7 +1183,6 @@
       "src/app/support/notices/notices.data.ts",
       "src/app/support/support.navigation.ts",
       "src/components/common/atoms/Button.tsx",
-      "src/components/common/atoms/Icon.tsx",
       "src/components/support/CustomerCenterLayout.tsx",
       "src/context/platform.tsx"
     ],
@@ -1310,7 +1311,8 @@
     ],
     "src/components/common/atoms/Button.tsx": [
       "src/components/common/atoms/Icon.tsx",
-      "src/components/common/atoms/Typography.tsx"
+      "src/components/common/atoms/Typography.tsx",
+      "src/context/platform.tsx"
     ],
     "src/components/common/atoms/Card.tsx": ["src/components/common/atoms/Typography.tsx"],
     "src/components/common/atoms/Checkbox.tsx": [

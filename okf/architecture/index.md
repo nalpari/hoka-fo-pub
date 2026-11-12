@@ -42,7 +42,7 @@
 
 - [공통 선택 UI와 정렬 variant](ui.md#공통-선택-ui와-정렬-variant-2026-11-04) - PC 정렬 Dropdown·모바일 정렬 시트·상품 필터 예외·약관 시행일과 추가 전환 후보. [아이콘 계약 복구](ui.md#정렬-dropdown-아이콘-계약-복구-2026-11-04)와 [PC indicator 시안 복구](ui.md#pc-정렬-dropdown-indicator-시안-복구-2026-11-04)에 수정과 검증을 기록한다.
 
-- [컴포넌트와 스타일](ui.md) - 공통 UI·Panda·기능별 구현 및 검증 이력. 모바일 fullWidth 버튼의 375px 최대 너비 제한은 원복했다.
+- [컴포넌트와 스타일](ui.md) - 공통 UI·Panda·기능별 구현 및 검증 이력. 모바일 fullWidth 버튼의 375px 최대 너비 제한은 원복했다. Button 프레임·상태 스타일·[마이페이지 더보기](ui.md#마이페이지-더보기-비활성-스타일-정리-2026-11-12)·[리뷰 더보기](ui.md#리뷰-내역-더보기-공통-disabled-스타일-사용-2026-11-12)·[링크/Plain 크기 variant](ui.md#button-linkplain-크기-variant-정리-2026-11-12)·[더보기 반응형 디자인](ui.md#더보기-버튼-반응형-디자인-2026-11-12)을 참고한다.
 - [공통 UI 재사용 조사](common-reuse-audit.md) - 공통 API, 재사용 판단과 잔여 스타일 정리.
 - [Organisms 재사용](organisms.md) - 메뉴·FAQ와 공통 조합의 책임.
 - [콘텐츠 섹션](content-sections.md) - 레일·제목·카드·본문 구성.

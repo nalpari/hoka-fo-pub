@@ -3,7 +3,7 @@
 import { usePlatform } from '@/context/platform';
 
 import { css } from 'styled-system/css';
-import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
+import { Box, Grid, HStack, Stack, VStack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
 import { Dropdown } from '@/components/common/atoms/Dropdown';
@@ -349,63 +349,15 @@ function MyPageReviewList({ entries, tab, onEdit }: MyPageReviewListProps) {
   );
 }
 
-type MyPageReviewLoadMoreProps = {
-  visibleCount: number;
-  totalCount: number;
-  pageInfo?: { current: number; total: number };
-  onLoadMore?: () => void;
-};
-
-function MyPageReviewLoadMore({
-  visibleCount,
-  totalCount,
-  pageInfo,
-  onLoadMore,
-}: MyPageReviewLoadMoreProps) {
-  return (
-    <Box mt="6" w="160px" mx="auto" _mobile={{ w: '100%' }}>
-      <Button
-        fullWidth
-        variant="secondary"
-        size="short"
-        onClick={onLoadMore}
-        disabled={!onLoadMore}
-        className={
-          !onLoadMore
-            ? css({
-                '&&:disabled > span': {
-                  bg: 'white!',
-                  color: 'black.100!',
-                  boxShadow: 'inset 0 0 0 1px var(--color-black-100)!',
-                },
-              })
-            : undefined
-        }
-        loadMore={{
-          counter: pageInfo ?? {
-            current: Math.ceil(visibleCount / 10),
-            total: Math.ceil(totalCount / 10),
-          },
-          labelProps: { mo: 'ctaKr2' },
-          counterProps: { mo: 'body5' },
-        }}
-      />
-    </Box>
-  );
-}
-
 type MyPageReviewsContentProps = {
   tab: ReviewTab;
   sort: string;
   totalCount: number;
-  visibleCount: number;
   entries: readonly ReviewListEntry[];
-  hasMore: boolean;
-  pageInfo?: { current: number; total: number };
+  more?: { counter: { current: number; total: number }; onLoadMore?: () => void };
   onTabChange: (value: ReviewTab) => void;
   onSortChange: (value: string) => void;
   onEdit: (id: ReviewListEntry['id']) => void;
-  onLoadMore?: () => void;
 };
 
 /** 리뷰 목록과 조회 도구를 구성합니다. (Composes review lists and query controls.) */
@@ -413,14 +365,11 @@ export function MyPageReviewsContent({
   tab,
   sort,
   totalCount,
-  visibleCount,
   entries,
-  hasMore,
-  pageInfo,
+  more,
   onTabChange,
   onSortChange,
   onEdit,
-  onLoadMore,
 }: MyPageReviewsContentProps) {
   return (
     <ContentSection
@@ -439,13 +388,16 @@ export function MyPageReviewsContent({
           <Box>
             <MyPageReviewToolbar count={totalCount} sort={sort} onSortChange={onSortChange} />
             <MyPageReviewList entries={entries} tab={tab} onEdit={onEdit} />
-            {hasMore ? (
-              <MyPageReviewLoadMore
-                visibleCount={visibleCount}
-                totalCount={totalCount}
-                pageInfo={pageInfo}
-                onLoadMore={onLoadMore}
-              />
+            {more ? (
+              <VStack mt="24px">
+                <Button
+                  variant="plain"
+                  size="lg"
+                  onClick={more.onLoadMore}
+                  disabled={!more.onLoadMore}
+                  loadMore={{ counter: more.counter }}
+                />
+              </VStack>
             ) : null}
           </Box>
         ) : (

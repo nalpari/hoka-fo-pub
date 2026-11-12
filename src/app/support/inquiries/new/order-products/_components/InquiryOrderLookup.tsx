@@ -3,7 +3,7 @@
 import { type RefObject, useState } from 'react';
 
 import { css } from 'styled-system/css';
-import { Box, Flex, Stack } from 'styled-system/jsx';
+import { Box, Flex, Stack, VStack } from 'styled-system/jsx';
 
 import { Badge } from '@/components/common/atoms/Badge';
 import { Button } from '@/components/common/atoms/Button';
@@ -30,7 +30,7 @@ const orderHeading = css({
   flex: '1',
   minW: '0',
   textAlign: 'left',
-  '& > span > span > span:first-child': {
+  '& > span > span:first-child': {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -79,6 +79,13 @@ export function InquiryOrderLookup({
     : inquiryOrders.map((order, index) =>
         index === 0 ? { ...order, products: order.products.slice(0, 4) } : order,
       );
+  const more =
+    visibleCount < filteredOrders.length
+      ? {
+          counter: { current: visibleCount, total: filteredOrders.length },
+          onLoadMore: () => setVisibleCount(filteredOrders.length),
+        }
+      : undefined;
   const selectOrder = (order: InquiryOrder) => {
     if (selection?.order.id === order.id) {
       setSelection(null);
@@ -285,22 +292,17 @@ export function InquiryOrderLookup({
                 </Typography>
               </Flex>
             )}
-            {visibleCount < filteredOrders.length && (
-              <Flex justifyContent="center" pt={{ _mobile: '1' }}>
+            {more ? (
+              <VStack>
                 <Button
-                  variant="secondary"
-                  size="short"
-                  loadMore={{
-                    counter: {
-                      current: Math.min(visibleCount, filteredOrders.length),
-                      total: filteredOrders.length,
-                    },
-                  }}
-                  disabled={false}
-                  onClick={() => setVisibleCount(filteredOrders.length)}
+                  variant="plain"
+                  size="lg"
+                  onClick={more.onLoadMore}
+                  disabled={!more.onLoadMore}
+                  loadMore={{ counter: more.counter }}
                 />
-              </Flex>
-            )}
+              </VStack>
+            ) : null}
           </Stack>
         </Stack>
       </Stack>

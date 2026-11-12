@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { usePlatform } from '@/context/platform';
 
 import { css } from 'styled-system/css';
-import { Grid, HStack, Stack } from 'styled-system/jsx';
+import { Grid, HStack, Stack, VStack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
 import { Card } from '@/components/common/atoms/Card';
@@ -211,6 +211,16 @@ type CouponHistorySectionProps = {
 function CouponHistorySection({ coupons, onDetails }: CouponHistorySectionProps) {
   const [visibleCount, setVisibleCount] = useState(5);
   const visibleCoupons = coupons;
+  const more =
+    visibleCount < visibleCoupons.length
+      ? {
+          counter: {
+            current: Math.ceil(visibleCount / 5),
+            total: Math.ceil(visibleCoupons.length / 5),
+          },
+          onLoadMore: () => setVisibleCount((count) => count + 5),
+        }
+      : undefined;
   return (
     <ContentSection
       as="section"
@@ -228,22 +238,16 @@ function CouponHistorySection({ coupons, onDetails }: CouponHistorySectionProps)
         },
       }}
       footer={
-        visibleCount < visibleCoupons.length ? (
-          <Button
-            className={css({ alignSelf: 'center' })}
-            variant="plain"
-            onClick={() => {
-              setVisibleCount((count) => count + 5);
-            }}
-            loadMore={{
-              counter: {
-                current: Math.ceil(visibleCount / 5),
-                total: Math.ceil(visibleCoupons.length / 5),
-              },
-              labelProps: { mo: 'ctaKr2' },
-              counterProps: { mo: 'body5' },
-            }}
-          />
+        more ? (
+          <VStack>
+            <Button
+              variant="plain"
+              size="lg"
+              onClick={more.onLoadMore}
+              disabled={!more.onLoadMore}
+              loadMore={{ counter: more.counter }}
+            />
+          </VStack>
         ) : null
       }
     >

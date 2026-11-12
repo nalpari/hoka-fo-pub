@@ -6,6 +6,7 @@ import type { LinkProps } from 'next/link';
 import { Button as BaseButton, type ButtonProps as BaseButtonProps } from '@base-ui/react/button';
 import { forwardRef } from 'react';
 import type { ButtonHTMLAttributes, ComponentPropsWithRef, CSSProperties, ReactNode } from 'react';
+import { type Platform, usePlatform } from '@/context/platform';
 
 import { css, cva } from 'styled-system/css';
 import { HStack } from 'styled-system/jsx';
@@ -19,41 +20,50 @@ const button = cva({
     display: 'inline-flex',
     border: '0',
     p: '0',
-    bg: 'transparent',
     borderRadius: 'var(--button-radius, 52px)',
     cursor: 'pointer',
+    alignItems: 'center',
+    justifyContent: 'center',
+    boxSizing: 'border-box',
+    minH: 'var(--button-height)',
+    bg: 'var(--button-bg)',
+    color: 'var(--button-color)',
+    boxShadow:
+      'inset 0 0 0 var(--button-border-width, 0px) var(--button-border-color, transparent)',
+    transition: 'background-color 160ms ease, color 160ms ease, box-shadow 160ms ease',
     '--button-radius': '52px',
     _focusVisible: {
-      outline: 'none',
-      '& > span': {
-        bg: 'var(--button-bg-active, var(--button-bg))',
-        color: 'var(--button-color-active, var(--button-color))',
-        boxShadow: 'inset 0 0 0 4px var(--button-focus-ring)',
-      },
-    },
-    '&:active:not(:disabled):not([data-disabled]) > span': {
+      outline: '4px solid var(--button-focus-ring)',
+      outlineOffset: '0px',
       bg: 'var(--button-bg-active, var(--button-bg))',
       color: 'var(--button-color-active, var(--button-color))',
-      boxShadow: 'inset 0 0 0 4px var(--button-focus-ring)',
+      boxShadow: 'none',
     },
-    '&:hover:not(:active):not(:focus-visible):not(:disabled):not([data-disabled]) > span': {
+    '&:active:not(:disabled):not([data-disabled])': {
+      outline: '4px solid var(--button-focus-ring)',
+      outlineOffset: '0px',
+      bg: 'var(--button-bg-active, var(--button-bg))',
+      color: 'var(--button-color-active, var(--button-color))',
+      boxShadow: 'none',
+    },
+    '&:hover:not(:active):not(:focus-visible):not(:disabled):not([data-disabled])': {
       bg: 'var(--button-bg-hover, var(--button-bg))',
       color: 'var(--button-color-hover, var(--button-color))',
       boxShadow:
         'inset 0 0 0 var(--button-border-width-hover, var(--button-border-width, 0px)) var(--button-border-color-hover, var(--button-border-color))',
     },
-    '&:hover:focus-visible > span': {
+    '&:hover:focus-visible': {
+      outline: '4px solid var(--button-focus-ring)',
+      outlineOffset: '0px',
       bg: 'var(--button-bg-active, var(--button-bg))',
       color: 'var(--button-color-active, var(--button-color))',
-      boxShadow: 'inset 0 0 0 4px var(--button-focus-ring)',
+      boxShadow: 'none',
     },
     '&:disabled, &[data-disabled]': {
       cursor: 'not-allowed',
-      '& > span': {
-        bg: 'var(--button-disabled-bg)!',
-        color: 'var(--button-disabled-color)!',
-        boxShadow: 'none!',
-      },
+      bg: 'var(--button-disabled-bg)!',
+      color: 'var(--button-disabled-color)!',
+      boxShadow: 'none!',
     },
   },
   variants: {
@@ -66,6 +76,9 @@ const button = cva({
         '--button-height': 'var(--home-body-40, 40px)',
         '--button-padding-x': 'var(--home-body-16, 16px)',
       },
+      sm: { '--button-height': '16px' },
+      md: { '--button-height': 'auto' },
+      lg: { '--button-height': 'auto' },
     },
     fullWidth: { true: { w: '100%', '& > span': { w: '100%' } } },
     language: {
@@ -74,31 +87,22 @@ const button = cva({
     },
     unframed: {
       true: {
+        '--button-padding-x': '0px',
         '--button-disabled-bg': 'transparent',
         '--button-disabled-color': 'var(--color-black-40)',
         _focusVisible: {
           outline: '2px solid var(--button-focus-ring)',
           outlineOffset: '2px',
-          '& > span': { boxShadow: 'none' },
+          boxShadow: 'none',
         },
-        '&:active:not(:disabled):not([data-disabled]) > span': { boxShadow: 'none' },
-        '&:hover:focus-visible > span': { boxShadow: 'none' },
+        '&:active:not(:disabled):not([data-disabled])': {
+          outline: 'none',
+          boxShadow: 'none',
+        },
+        '&:hover:focus-visible': { boxShadow: 'none' },
       },
     },
   },
-});
-
-const frame = css({
-  display: 'inline-flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  boxSizing: 'border-box',
-  minH: 'var(--button-height)',
-  borderRadius: 'inherit',
-  bg: 'var(--button-bg)',
-  color: 'var(--button-color)',
-  boxShadow: 'inset 0 0 0 var(--button-border-width, 0px) var(--button-border-color, transparent)',
-  transition: 'background-color 160ms ease, color 160ms ease, box-shadow 160ms ease',
 });
 
 const content = css.raw({
@@ -110,7 +114,6 @@ const content = css.raw({
   gap: '4px',
   px: 'var(--button-padding-x)',
   py: 'var(--button-padding-y, 0px)',
-  minH: 'var(--button-height)',
   whiteSpace: 'nowrap',
 });
 
@@ -168,9 +171,19 @@ export type ButtonLoadMore = (
   labelProps?: Pick<TypographyProps, 'variant' | 'mo' | 'web' | 'weight'>;
   counterProps?: Pick<TypographyProps, 'variant' | 'mo' | 'web'>;
 } & (
-    | { appearance?: never; countPlacement?: never; indicator?: never }
-    | { appearance: 'text'; countPlacement?: 'inline' | 'separate'; indicator?: ReactNode }
-    | { appearance: 'inline'; countPlacement?: never; indicator?: ReactNode }
+    | {
+        appearance?: never;
+        countPlacement?: never;
+        direction?: 'up' | 'down';
+        indicator?: never;
+      }
+    | {
+        appearance: 'text';
+        countPlacement?: 'inline' | 'separate';
+        direction?: never;
+        indicator?: ReactNode;
+      }
+    | { appearance: 'inline'; countPlacement?: never; direction?: never; indicator?: ReactNode }
   );
 
 export type ButtonSocial = {
@@ -178,17 +191,21 @@ export type ButtonSocial = {
   appearance?: 'login' | 'signup';
 };
 
-function renderLoadMoreContent({
-  remaining,
-  counter,
-  label = '더보기',
-  labelProps,
-  counterProps,
-  count,
-  appearance,
-  countPlacement = 'separate',
-  indicator,
-}: ButtonLoadMore) {
+function renderLoadMoreContent(
+  {
+    remaining,
+    counter,
+    label = '더보기',
+    labelProps,
+    counterProps,
+    count,
+    appearance,
+    countPlacement = 'separate',
+    indicator,
+    direction = 'down',
+  }: ButtonLoadMore,
+  platform: Platform,
+) {
   const countLabel = counter ? `${counter.current}/${counter.total}` : (count ?? remaining);
 
   if (appearance === 'inline') {
@@ -228,11 +245,25 @@ function renderLoadMoreContent({
     );
 
   return (
-    <HStack gap="1" justifyContent="center">
-      <Typography {...(labelProps ?? { variant: 'cta2', weight: 'semibold' })}>{label}</Typography>
-      <Typography {...(counterProps ?? { variant: 'body5' })} tone="tertiary">
-        ({counter.current}/{counter.total})
-      </Typography>
+    <HStack
+      as="span"
+      gap={{ base: '8px', _mobile: '6px' }}
+      // alignItems="center"
+      // justifyContent="center"
+    >
+      <HStack as="span" gap="0" alignItems="center">
+        <Typography {...(labelProps ?? { web: 'cta1', mo: 'cta2', weight: 'regular' })}>
+          {label}
+        </Typography>
+        <Typography {...(counterProps ?? { web: 'cta1', mo: 'cta2', weight: 'regular' })}>
+          ({counter.current}/{counter.total})
+        </Typography>
+      </HStack>
+      <Icon
+        name="chevron-down-regular"
+        size={platform === 'mobile' ? '14px' : '18px'}
+        style={direction === 'up' ? { transform: 'rotate(180deg)' } : undefined}
+      />
     </HStack>
   );
 }
@@ -282,8 +313,12 @@ export type ButtonTextProps =
       | 'iconRight'
       | 'iconSize'
       | 'iconColor'
+      | 'disabled'
+      | 'loading'
     > & {
       social: ButtonSocial;
+      disabled?: never;
+      loading?: never;
       iconLeft?: never;
       iconRight?: never;
       iconSize?: never;
@@ -323,6 +358,8 @@ export type ButtonProps = ButtonTextProps | ButtonIconProps | ButtonUnstyledProp
 
 /** 공통 크기·상태와 접근 가능한 동작을 제공하는 버튼입니다. (Provides a button with shared sizing, states, and accessible behavior.) */
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(props, ref) {
+  const platform = usePlatform();
+
   if (props.variant === 'unstyled') {
     const { variant: _variant, loading, disabled, type = 'button', ...nativeProps } = props;
     void _variant;
@@ -410,7 +447,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     disabled,
     ...buttonProps
   } = props;
-  const resolvedChildren = loadMore ? renderLoadMoreContent(loadMore) : children;
+  const resolvedChildren = loadMore ? renderLoadMoreContent(loadMore, platform) : children;
   const primary = variant === 'primary';
   const white = colorway === 'white';
   const unframed = variant === 'link' || variant === 'plain';
@@ -456,12 +493,16 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     '--button-border-width-hover': white && !primary ? '2px' : '0px',
     '--button-focus-ring':
       white && !primary ? 'var(--color-white-000)' : 'var(--color-border-tertiary)',
-    '--button-disabled-bg': unframed ? 'transparent' : 'var(--color-bg-disabled)',
+    '--button-disabled-bg': unframed
+      ? 'transparent'
+      : white
+        ? 'var(--color-black-40)'
+        : 'var(--color-black-20)',
     '--button-disabled-color': unframed
       ? 'var(--color-black-40)'
       : white
         ? 'var(--color-white-000)'
-        : 'var(--color-black-100)',
+        : 'var(--color-black-40)',
   };
   if (unframed)
     Object.assign(variables, {
@@ -474,11 +515,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       '--button-border-width': '0px',
       '--button-border-width-hover': '0px',
       '--button-radius': '0px',
-    });
-  if (variant === 'link' || variant === 'plain')
-    Object.assign(variables, {
-      '--button-height': size === 'sm' ? '16px' : 'auto',
-      '--button-padding-x': '0px',
     });
   if (variant === 'chip')
     Object.assign(variables, {
@@ -523,7 +559,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       className={[
         css(
           button.raw({
-            size: size === 'short' ? 'short' : 'tall',
+            size:
+              size === 'short' || size === 'sm' || size === 'md' || size === 'lg' ? size : 'tall',
             fullWidth,
             language,
             unframed,
@@ -539,26 +576,24 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
         .filter(Boolean)
         .join(' ')}
     >
-      <span className={frame}>
-        <span className={css(content, variant === 'plain' && { justifyContent: 'flex-start' })}>
-          {iconLeft ? <Icon name={iconLeft} size={iconSize} color={iconColor} /> : null}
-          {labelTypographyVariant ? (
-            <Typography
-              as="span"
-              variant={labelTypographyVariant}
-              // The former count wrapper kept the outer scale independent of its label.
-              language={loadMore ? 'en' : undefined}
-              weight={unframed || variant === 'chip' ? 'medium' : undefined}
-              style={{ color: 'inherit' }}
-            >
-              {resolvedChildren}
-            </Typography>
-          ) : (
-            resolvedChildren
-          )}
-          {iconRight ? <Icon name={iconRight} size={iconSize} color={iconColor} /> : null}
-          {social ? <Icon name={social.provider} size={18} /> : null}
-        </span>
+      <span className={css(content, variant === 'plain' && { justifyContent: 'flex-start' })}>
+        {iconLeft ? <Icon name={iconLeft} size={iconSize} color={iconColor} /> : null}
+        {labelTypographyVariant ? (
+          <Typography
+            as="span"
+            variant={labelTypographyVariant}
+            // The former count wrapper kept the outer scale independent of its label.
+            language={loadMore ? 'en' : undefined}
+            weight={unframed || variant === 'chip' ? 'medium' : undefined}
+            style={{ color: 'inherit' }}
+          >
+            {resolvedChildren}
+          </Typography>
+        ) : (
+          resolvedChildren
+        )}
+        {iconRight ? <Icon name={iconRight} size={iconSize} color={iconColor} /> : null}
+        {social ? <Icon name={social.provider} size={18} /> : null}
       </span>
     </BaseButton>
   );

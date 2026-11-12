@@ -3,7 +3,7 @@
 import { usePlatform } from '@/context/platform';
 
 import { css } from 'styled-system/css';
-import { Box, Stack } from 'styled-system/jsx';
+import { Box, Stack, VStack } from 'styled-system/jsx';
 
 import { Badge } from '@/components/common/atoms/Badge';
 import { Button } from '@/components/common/atoms/Button';
@@ -256,93 +256,103 @@ export function AddressList({
         }}
       >
         {addresses.length ? (
-          <Stack
-            gap="8"
-            _mobile={{ gap: '6', pt: '6', borderTop: '1px solid var(--colors-black-20)' }}
-          >
-            {addresses.map((address) => (
-              <Stack
-                as="article"
-                key={address.id}
-                direction="row"
-                alignItems="center"
-                justifyContent="space-between"
-                gap="6"
-                pb="6"
-                borderBottom="1px solid var(--colors-black-20)"
-                _mobile={{ flexDirection: 'column', alignItems: 'stretch' }}
-              >
-                <Stack gap="8" minW="0" _mobile={{ gap: '3' }}>
-                  <ContentHeader
-                    title={address.name}
-                    titleAs="h2"
-                    titleProps={{ web: 'headingKr8', mo: 'headingKr6' }}
-                    orientation="horizontal"
-                    justifyContent="flex-start"
-                    gap="3"
-                    _mobile={{ gap: '2' }}
-                    action={
-                      address.isDefault ? (
-                        <Badge
-                          variant="line"
-                          tone="primary"
-                          className={css({
-                            borderRadius: '2px',
-                            px: '1',
-                            py: '3px',
-                            '& > span': {
-                              fontSize: '14px',
-                              lineHeight: '1.3!',
-                              _mobile: { fontSize: '12px' },
-                            },
-                          })}
-                        >
-                          기본 배송지
-                        </Badge>
-                      ) : null
-                    }
-                  />
-                  <Stack gap="3" _mobile={{ gap: '4' }}>
-                    <Typography web="body3" mo="body4" language="en" tone="tertiary">
-                      {address.phone}
-                    </Typography>
-                    <Stack direction="row" gap="1" _mobile={{ flexDirection: 'column' }}>
+          <Stack gap="8" _mobile={{ gap: '6', borderTop: '1px solid var(--colors-black-20)' }}>
+            <Box>
+              {addresses.map((address) => (
+                <Stack
+                  as="article"
+                  key={address.id}
+                  direction="row"
+                  alignItems="center"
+                  justifyContent="space-between"
+                  gap="6"
+                  py="24px"
+                  borderBottom="1px solid var(--colors-black-20)"
+                  _mobile={{ flexDirection: 'column', alignItems: 'stretch', py: '24px' }}
+                >
+                  <Stack gap="8" minW="0" _mobile={{ gap: '3' }}>
+                    <ContentHeader
+                      title={address.name}
+                      titleAs="h2"
+                      titleProps={{ web: 'headingKr8', mo: 'headingKr6' }}
+                      orientation="horizontal"
+                      justifyContent="flex-start"
+                      gap="3"
+                      _mobile={{ gap: '2' }}
+                      action={
+                        address.isDefault ? (
+                          <Badge
+                            variant="line"
+                            tone="primary"
+                            className={css({
+                              borderRadius: '2px',
+                              px: '1',
+                              py: '3px',
+                              '& > span': {
+                                fontSize: '14px',
+                                lineHeight: '1.3!',
+                                _mobile: { fontSize: '12px' },
+                              },
+                            })}
+                          >
+                            기본 배송지
+                          </Badge>
+                        ) : null
+                      }
+                    />
+                    <Stack gap="3" _mobile={{ gap: '4' }}>
                       <Typography web="body3" mo="body4" language="en" tone="tertiary">
-                        {address.zip}
+                        {address.phone}
                       </Typography>
-                      <Typography web="body3" mo="body4" tone="tertiary">
-                        {address.address} {address.detail}
-                      </Typography>
+                      <Stack direction="row" gap="1" _mobile={{ flexDirection: 'column' }}>
+                        <Typography web="body3" mo="body4" language="en" tone="tertiary">
+                          {address.zip}
+                        </Typography>
+                        <Typography web="body3" mo="body4" tone="tertiary">
+                          {address.address} {address.detail}
+                        </Typography>
+                      </Stack>
                     </Stack>
                   </Stack>
-                </Stack>
-                <Stack
-                  gap="2"
-                  alignItems="end"
-                  flexShrink="0"
-                  _mobile={{ flexDirection: 'row', gap: '4', alignItems: 'start' }}
-                >
-                  <Button
-                    {...(mobile
-                      ? ({ size: 'md', variant: 'link' } as const)
-                      : ({ size: 'short', variant: 'primary' } as const))}
-                    onClick={() => onEdit(address)}
+                  <Stack
+                    gap="2"
+                    alignItems="end"
+                    flexShrink="0"
+                    _mobile={{ flexDirection: 'row', gap: '4', alignItems: 'start' }}
                   >
-                    {mobile ? '수정' : '수정하기'}
-                  </Button>
-                  {!address.isDefault ? (
                     <Button
                       {...(mobile
                         ? ({ size: 'md', variant: 'link' } as const)
-                        : ({ size: 'short', variant: 'secondary' } as const))}
-                      onClick={() => onDelete(address.id)}
+                        : ({ size: 'short', variant: 'primary' } as const))}
+                      onClick={() => onEdit(address)}
                     >
-                      {mobile ? '삭제' : '삭제하기'}
+                      {mobile ? '수정' : '수정하기'}
                     </Button>
-                  ) : null}
+                    {!address.isDefault ? (
+                      <Button
+                        {...(mobile
+                          ? ({ size: 'md', variant: 'link' } as const)
+                          : ({ size: 'short', variant: 'secondary' } as const))}
+                        onClick={() => onDelete(address.id)}
+                      >
+                        {mobile ? '삭제' : '삭제하기'}
+                      </Button>
+                    ) : null}
+                  </Stack>
                 </Stack>
-              </Stack>
-            ))}
+              ))}
+              {more ? (
+                <VStack mt="24px">
+                  <Button
+                    variant="plain"
+                    size="lg"
+                    loadMore={{ counter: more.counter }}
+                    onClick={more.onLoadMore}
+                    disabled={!more.onLoadMore}
+                  />
+                </VStack>
+              ) : null}
+            </Box>
           </Stack>
         ) : (
           <EmptyState
@@ -377,26 +387,6 @@ export function AddressList({
           />
         )}
       </ContentSection>
-      {addresses.length > 0 && more ? (
-        <Button
-          fullWidth
-          variant="secondary"
-          size="short"
-          className={css({
-            alignSelf: 'center',
-            w: '160px',
-            _mobile: { w: '100%' },
-            '&&:disabled > span': {
-              bg: 'white!',
-              color: 'black.100!',
-              boxShadow: 'inset 0 0 0 1px var(--color-black-100)!',
-            },
-          })}
-          loadMore={{ counter: more.counter, labelProps: { variant: 'ctaKr2' } }}
-          onClick={more.onLoadMore}
-          disabled={!more.onLoadMore}
-        />
-      ) : null}
     </Stack>
   );
 }

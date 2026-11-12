@@ -2,7 +2,7 @@ import type { RunningSessionEntry } from '@/components/running-session/runningSe
 import { runningSessionSessions } from '@/components/running-session/runningSession.data';
 export const eventEntryPreview = {
   totalCount: 62,
-  pageInfo: { current: 1, total: 10 },
+  more: { counter: { current: 1, total: 10 } },
   items: [
     {
       id: 'preview-entry-bukhansan',

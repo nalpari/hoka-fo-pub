@@ -4,12 +4,14 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-10T07:45:13Z'
+updated: '2026-11-12T06:03:00Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/components/common/atoms/Button.tsx
+  - src/app/support/inquiries/_components/InquiryListLayout.tsx
   - src/app/products/[id]/productDetailPreviews.ts
   - src/components/running-session/RunningSessionPage.tsx
   - src/app/support/inquiries/new/_components/InquiryFormStatePreview.tsx
@@ -31,6 +33,7 @@ working_tree_sources:
   - src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx
   - src/app/screen-index/screenDevelopers.ts
   - src/app/support/inquiries/new/order-products/_components/InquiryOrderLookup.tsx
+  - src/app/publishing-guide/_components/ButtonGuide.tsx
 
   - src/components/common/atoms/Icon.tsx
   - src/components/common/atoms/Icon.assets.ts
@@ -5003,3 +5006,47 @@ Button·ButtonLink의 density 공개 옵션과 auto/wide/compact 스타일 분�
 주문 내역 장바구니 담기 버튼의 미사용 --button-content-gap 선언을 제거했다. 공통 Button의 gap 4px을 그대로 사용한다. 출처: src/components/orders/OrderHistoryProduct.tsx.
 
 Button의 기본 높이 48px·좌우 패딩 24px 선언을 base에서 size.tall로 이동했다. button.raw는 항상 short 또는 tall을 전달하므로 기본값과 기존 디자인은 유지된다. 출처: src/components/common/atoms/Button.tsx.
+
+## Button 시각 프레임 제거 (2026-11-12)
+
+Button의 별도 frame span을 제거하고 높이·정렬·배경·색·테두리 그림자·transition을 BaseButton에 적용했다. hover/active/focus-visible/disabled 상태의 색과 그림자 선택자를 버튼 루트 대상으로 옮겼으며, link/plain의 unframed focus outline 및 그림자 예외를 유지한다. content span은 아이콘·라벨 간격과 내부 정렬을 위해 남기고 중복 minH를 제거했다. fullWidth의 content 폭은 유지한다.
+
+기존 내부 frame을 대상으로 한 외부 사용처는 `InquiryListLayout.tsx`의 버튼 변수 선언을 루트로 이동하고, `InquiryOrderLookup.tsx`의 주문 행 안쪽 HStack 선택자를 한 단계 얕게 맞췄다. 다른 Button 소비자의 `& > span` 폭·공백 스타일은 새 직접 content span 구조에서도 같은 대상을 가리키므로 유지했다.
+
+출처: `src/components/common/atoms/Button.tsx`, `src/app/support/inquiries/_components/InquiryListLayout.tsx`, `src/app/support/inquiries/new/order-products/_components/InquiryOrderLookup.tsx`. 검증 항목은 primary/secondary, link/plain, chip/filterTrigger, social, disabled 및 hover/active/focus-visible 상태의 크기·색·테두리 표현이다.
+
+검증: 변경된 세 TSX 파일의 ESLint를 통과했다. 로컬 퍼블리싱 가이드의 데스크톱과 375px 모바일에서 tall/short 높이와 라벨 크기, secondary·disabled 표시를 확인했고, primary hover와 focus-visible 링도 확인했다. active 선택자는 버튼 루트에 적용된 것을 코드에서 확인했으나 브라우저에서 눌림 상태의 시각 결과는 확인하지 않았다. 모든 variant의 전체 상태 조합을 검증한 것은 아니다.
+
+## Button 비활성·active 상태 시안 반영 (2026-11-12)
+
+디자인팀 버튼 상태 시안에 맞춰 Black 버튼의 disabled 배경/라벨을 `black.20`(`#E9EAEB`)/`black.40`(`#B3B3B3`)으로, White 버튼은 `black.40`(`#B3B3B3`)/`white.0`으로 표시한다. 기본 Secondary Black 라벨은 `black.100`을 유지한다. active 및 keyboard focus-visible 강조는 버튼 내부 inset 그림자 대신 4px 외곽 outline으로 표시하며, outline offset은 0px이다. 기존 버튼 상자 크기는 바뀌지 않는다. Link·plain의 focus 예외는 유지한다.
+
+퍼블리싱 가이드의 크기·상태 안내에 Black/White disabled 색상과 외곽선 규칙을 추가했다. 출처: Button 시각 상태에 대한 디자인팀 시안, `src/components/common/atoms/Button.tsx`, `src/app/publishing-guide/_components/ButtonGuide.tsx`.
+
+검증: `npm run panda`, 변경 TSX ESLint, Prettier, `npm run okf:check`, `git diff --check`를 통과했다. 모바일 퍼블리싱 가이드에서 disabled 버튼의 계산된 색을 확인했다. Active 마우스 누름의 브라우저 시각 확인은 하지 않았으며, 생성 CSS에서 버튼 루트 active 선택자가 4px outline·0px offset·그림자 없음으로 생성된 것을 확인했다.
+
+## 더보기 버튼 반응형 디자인 (2026-11-12)
+
+디자인 출처는 [HOKA 디자인 시스템](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0)이다. `Button`·`ButtonLink`의 기본 `loadMore.counter` 콘텐츠는 regular 굵기의 CTA 라벨·카운터, 아래 화살표를 표시한다. PC는 글자 16px·화살표 18px·간격 8px, 모바일은 글자 14px·화살표 14px·간격 6px이다. `direction="up"`은 화살표를 위로 회전하며 기본값은 아래 방향이다. 아이콘 크기는 `usePlatform()` 삼항식으로 직접 지정한다. 사용자 지정 labelProps/counterProps, 기존 `text`·`inline`·남은 수량 표현, 호출부의 variant·버튼 크기는 유지한다. 퍼블리싱 가이드에는 펼침·접힘 코드를 각각 복사할 수 있도록 예시를 분리했다. 출처: `Button.tsx`, `ButtonGuide.tsx` 작업 트리.
+
+검증: Panda CSS 생성, 변경 파일 ESLint·Prettier, OKF 검사와 diff 공백 검사를 통과했다. 전체 TypeScript 검사는 이 변경과 무관한 `.next/types`의 삭제된 collection·마이페이지·러닝 라우트 참조 14건으로 실패했다. 브라우저 시각 확인은 수행하지 않았다.
+
+## Button link/plain 크기 variant 정리 (2026-11-12)
+
+`link`·`plain` 버튼의 높이는 `size` CVA variant에서 `sm` 16px, `md`·`lg` auto로 지정하고, 좌우 padding 0은 `unframed` variant에서 관리한다. 기존 tall·short 버튼과 chip·filterTrigger의 렌더링 규칙은 유지한다. 화면별 색상·disabled 값처럼 실행 중 달라지는 CSS 변수는 기존 계산을 유지한다. 출처: `src/components/common/atoms/Button.tsx`.
+
+검증: Panda CSS 생성, Button ESLint·Prettier, OKF 검사와 diff 공백 검사는 통과했다. 전체 TypeScript 검사는 `.next/types`가 삭제된 collection·마이페이지·러닝 라우트 7개의 페이지 모듈을 참조해 실패했다. 이번 Button 변경에서 발생한 오류는 확인되지 않았다.
+
+## 마이페이지 더보기 비활성 스타일 정리 (2026-11-12)
+
+배송지 관리, 리뷰 내역, 러닝 세션 신청 내역의 더보기는 `plain`·`lg`로 공통 비활성 버튼 스타일을 사용한다. 출처: `AddressManagement.tsx`, `MyPageReviewsContent.tsx`, `RunningSessionEntriesContent.tsx`.
+
+## 리뷰 내역 더보기 공통 disabled 스타일 사용 (2026-11-12)
+
+리뷰 내역의 더보기 버튼을 `plain`·`lg`로 변경해 Button의 공통 비활성 스타일을 사용한다. 단일 사용인 `MyPageReviewLoadMore` 래퍼를 없애고 화면 소유자가 `more={{ counter, onLoadMore }}` 묶음으로 값을 전달하도록 한다. 버튼은 `loadMore={{ counter: more.counter }}`로 표시한다. 현재 고정 preview는 요청 콜백 없이 counter만 넘기므로 버튼이 비활성이다. 출처: `MyPageReviewsContent.tsx`, `ReviewStatePreview.tsx`.
+
+검증: 두 변경 TSX 파일 ESLint·Prettier, OKF 검사와 diff 공백 검사는 통과했다. 전체 TypeScript 검사는 `.next/types`가 삭제된 collection·마이페이지·러닝 라우트 7개를 참조해 실패했으며 이번 변경 파일 오류는 없었다.
+
+## 소셜 버튼 가이드 상태 정리 (2026-11-12)
+
+소셜 로그인 버튼은 현재 로그인·회원가입에서 기본 상태로만 사용하므로 퍼블리싱 가이드에서 비활성 상태 예시를 제외하고, 카카오·네이버 카드를 한 줄에 나란히 배치한다. `Button`의 `social` 사용 타입에는 `disabled`·`loading`을 허용하지 않는다. 다른 일반 버튼의 비활성 처리는 품절·요청 중 상태 등에 사용하므로 유지한다. 출처: `Button.tsx`, `LoginContent.tsx`, `SignupContent.tsx`, `ButtonGuide.tsx`.

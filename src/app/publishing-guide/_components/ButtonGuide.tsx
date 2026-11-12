@@ -200,14 +200,30 @@ const auxiliaryVariants = [
   },
   {
     id: 'button-load-more',
-    title: 'Load More',
-    description: '목록의 현재 진행 수를 표시하는 버튼 옵션',
+    title: '더보기',
+    description: 'PC 글자 16px·화살표 18px·간격 8px · 모바일 글자 14px·화살표 14px·간격 6px',
     samples: [
       {
-        label: '진행 수 표시',
-        note: '높이 48px · 글자 16px · 좌우 24px',
-        code: '<Button loadMore={{ counter: { current: 1, total: 3 } }} />',
-        preview: <Button loadMore={{ counter: { current: 1, total: 3 } }} />,
+        label: '펼침 · 아래 화살표',
+        note: '기본 상태 · PC/MO 화면 너비에 맞춰 글자·화살표 크기 변경',
+        code: '<Button variant="plain" loadMore={{ counter: { current: 1, total: 10 }, direction: "down" }} />',
+        preview: (
+          <Button
+            variant="plain"
+            loadMore={{ counter: { current: 1, total: 10 }, direction: 'down' }}
+          />
+        ),
+      },
+      {
+        label: '접힘 · 위 화살표',
+        note: '접힌 상태 · PC/MO 화면 너비에 맞춰 글자·화살표 크기 변경',
+        code: '<Button variant="plain" loadMore={{ counter: { current: 1, total: 10 }, direction: "up" }} />',
+        preview: (
+          <Button
+            variant="plain"
+            loadMore={{ counter: { current: 1, total: 10 }, direction: 'up' }}
+          />
+        ),
       },
     ],
   },
@@ -496,6 +512,18 @@ function ButtonSizingGuide() {
             colorway는 Black / White 조합을 선택합니다.
           </Typography>
         </Stack>
+        <Stack className={sizeCard} gap="2">
+          <Typography as="h3" variant="body4" weight="medium">
+            상태 표현
+          </Typography>
+          <Typography as="p" variant="body5" tone="subtle">
+            Black 비활성: 배경 black.20 (#E9EAEB) · 글자 black.40 (#B3B3B3)
+            <br />
+            White 비활성: 배경 black.40 (#B3B3B3) · 글자 white.0
+            <br />
+            Active·focus-visible: 버튼 바깥쪽 4px 외곽선
+          </Typography>
+        </Stack>
       </Grid>
     </Stack>
   );
@@ -521,7 +549,11 @@ function AuxiliaryButtonsGuide({ onCopy }: { onCopy: (code: string) => void }) {
               {item.description}
             </Typography>
           </HStack>
-          <Stack gap={{ base: '3', _mobile: '2' }} mt="3">
+          <Grid
+            columns={item.id === 'button-social' ? { base: 2, _mobile: 1 } : 1}
+            gap={{ base: '3', _mobile: '2' }}
+            mt="3"
+          >
             {item.samples.map((sample) => (
               <Stack key={sample.label} className={sizeCard} gap="3">
                 <HStack
@@ -537,8 +569,8 @@ function AuxiliaryButtonsGuide({ onCopy }: { onCopy: (code: string) => void }) {
                     {sample.note}
                   </Typography>
                 </HStack>
-                <Grid columns={{ base: 2, _mobile: 1 }} gap="2">
-                  {states.map((state) => {
+                <Grid columns={item.id === 'button-social' ? 1 : { base: 2, _mobile: 1 }} gap="2">
+                  {(item.id === 'button-social' ? [states[0]] : states).map((state) => {
                     const code =
                       state.value === 'disabled' ? withDisabledAttribute(sample.code) : sample.code;
 
@@ -558,7 +590,13 @@ function AuxiliaryButtonsGuide({ onCopy }: { onCopy: (code: string) => void }) {
                         >
                           {state.label}
                         </Typography>
-                        <Box display="flex" justifyContent="center" minH="16" p="3">
+                        <Box
+                          display="flex"
+                          alignItems="center"
+                          justifyContent="center"
+                          minH="16"
+                          p="3"
+                        >
                           {renderSamplePreview(sample.preview, state.value === 'disabled')}
                         </Box>
                         <HStack as="code" className={codeLine} gap="3">
@@ -583,7 +621,7 @@ function AuxiliaryButtonsGuide({ onCopy }: { onCopy: (code: string) => void }) {
                 </Grid>
               </Stack>
             ))}
-          </Stack>
+          </Grid>
         </Stack>
       ))}
     </>
