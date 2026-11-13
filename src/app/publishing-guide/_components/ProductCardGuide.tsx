@@ -245,7 +245,7 @@ function GuideExampleFrame({
   return (
     <Stack className={exampleCard} gap="4" _mobile={mobile ? undefined : { display: 'none' }}>
       <HStack justifyContent="space-between" alignItems="baseline" gap="2" flexWrap="wrap">
-        <Typography variant="body4" weight="semibold">
+<Typography variant="body4Semibold">
           {mobile ? '모바일' : '데스크탑'}
         </Typography>
         <Typography variant="body5" tone="subtle">
@@ -642,7 +642,7 @@ export function ProductCardGuide() {
               <FullDetailsPreview />
             </GuideExampleFrame>
             <Stack gap="3" p="4" border="1px solid token(colors.black.20)">
-              <Typography variant="body4" weight="semibold">
+<Typography variant="body4Semibold">
                 표시 데이터와 항목
               </Typography>
               {[

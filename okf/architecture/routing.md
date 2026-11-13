@@ -14,6 +14,8 @@ status: draft
 
 `Typography` variant와 `/publishing-guide` 표시는 최신 Figma 타이포그래피 토큰을 반영하지만 App Router 경로, URL 상태, preview 진입점과 플랫폼 선택 책임은 변경하지 않는다. 출처: `src/components/common/atoms/Typography.tsx`, `src/app/publishing-guide/_components/TypographyGuide.tsx`, Codex, 2026-11-13.
 
+10회 이상 반복된 Body weight 조합을 고정 variant로 바꾼 호출부는 기존 화면·URL·preview 경로를 그대로 유지한다. `web`·`mo` 선택은 Typography 표시 책임에만 속하며 라우팅 상태를 만들거나 변경하지 않는다. 출처: `src/app/cart/`, `src/app/checkout/`, `src/app/login/`, `src/app/mypage/`, `src/app/publishing-guide/`, Codex, 2026-11-13.
+
 ## 홈 배너 언어별 폰트 (2026-11-13)
 
 HomeContent.tsx의 HeroCopy 제목에서 강제 korean 폰트·행간·자간을 제거해 Typography heading1의 언어 판별을 사용한다. 설명은 기존 bodyKr 크기·행간·자간을 유지하며 `--font-family-base`로 영문 HOKA·한글 Pretendard를 조합한다. 다른 화면과 라우트·데이터 계약은 변경하지 않는다. 기존 모바일42px 선언은 보존했지만 현재 계산 크기는50px으로 관측했다.

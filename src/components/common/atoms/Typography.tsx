@@ -160,6 +160,20 @@ export const figmaTypographyVariants = {
     lineHeight: 'body',
     letterSpacing: '0',
   },
+  body3Medium: {
+    fontFamily: 'hoka',
+    fontSize: 'var(--font-sizes-16)',
+    fontWeight: 'medium',
+    lineHeight: 'body',
+    letterSpacing: '0',
+  },
+  body3Semibold: {
+    fontFamily: 'hoka',
+    fontSize: 'var(--font-sizes-16)',
+    fontWeight: 'semibold',
+    lineHeight: 'body',
+    letterSpacing: '0',
+  },
   'body3-2': {
     fontFamily: 'hoka',
     fontSize: 'var(--font-sizes-15)',
@@ -171,6 +185,20 @@ export const figmaTypographyVariants = {
     fontFamily: 'hoka',
     fontSize: 'var(--font-sizes-14)',
     fontWeight: 'normal',
+    lineHeight: 'body',
+    letterSpacing: '0',
+  },
+  body4Medium: {
+    fontFamily: 'hoka',
+    fontSize: 'var(--font-sizes-14)',
+    fontWeight: 'medium',
+    lineHeight: 'body',
+    letterSpacing: '0',
+  },
+  body4Semibold: {
+    fontFamily: 'hoka',
+    fontSize: 'var(--font-sizes-14)',
+    fontWeight: 'semibold',
     lineHeight: 'body',
     letterSpacing: '0',
   },
@@ -374,7 +402,7 @@ export const figmaTypographyVariants = {
   headingKr10: {
     fontFamily: 'korean',
     fontSize: 'var(--font-sizes-16)',
-    fontWeight: 'black',
+    fontWeight: 'semibold',
     lineHeight: 'koreanHeading',
     letterSpacing: 'korean',
     _mobile: {
@@ -410,6 +438,20 @@ export const figmaTypographyVariants = {
     lineHeight: 'body',
     letterSpacing: 'korean',
   },
+  bodyKr3Medium: {
+    fontFamily: 'korean',
+    fontSize: 'var(--font-sizes-16)',
+    fontWeight: 'medium',
+    lineHeight: 'body',
+    letterSpacing: 'korean',
+  },
+  bodyKr3Semibold: {
+    fontFamily: 'korean',
+    fontSize: 'var(--font-sizes-16)',
+    fontWeight: 'semibold',
+    lineHeight: 'body',
+    letterSpacing: 'korean',
+  },
   'bodyKr3-2': {
     fontFamily: 'korean',
     fontSize: 'var(--font-sizes-15)',
@@ -421,6 +463,20 @@ export const figmaTypographyVariants = {
     fontFamily: 'korean',
     fontSize: 'var(--font-sizes-14)',
     fontWeight: 'normal',
+    lineHeight: 'body',
+    letterSpacing: 'korean',
+  },
+  bodyKr4Medium: {
+    fontFamily: 'korean',
+    fontSize: 'var(--font-sizes-14)',
+    fontWeight: 'medium',
+    lineHeight: 'body',
+    letterSpacing: 'korean',
+  },
+  bodyKr4Semibold: {
+    fontFamily: 'korean',
+    fontSize: 'var(--font-sizes-14)',
+    fontWeight: 'semibold',
     lineHeight: 'body',
     letterSpacing: 'korean',
   },
@@ -591,7 +647,9 @@ export type TypographyVariant =
   | `heading${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | '6B'}`
   | `headingKr${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | '6B'}`
   | `body${1 | 2 | 3 | 4 | 5 | 6 | '2-2' | '3-2' | '4-2'}`
+  | `body${3 | 4}${'Medium' | 'Semibold'}`
   | `bodyKr${1 | 2 | 3 | 4 | 5 | 6 | '2-2' | '3-2' | '4-2'}`
+  | `bodyKr${3 | 4}${'Medium' | 'Semibold'}`
   | 'ctaKr1'
   | 'ctaKr1-1'
   | 'ctaKr2'
@@ -650,11 +708,13 @@ function resolveLanguageVariant(
 ): TypographyVariant | undefined {
   if (!variant || !language) return variant;
 
-  const pair = /^(heading|body|caption|cta|textLink)(?:Kr)?(\d+(?:-\d+)?B?)$/.exec(variant);
+  const pair = /^(heading|body|caption|cta|textLink)(?:Kr)?(\d+(?:-\d+)?B?)(Medium|Semibold)?$/.exec(
+    variant,
+  );
   if (!pair) return variant;
 
   const korean = language === 'ko' || (language === 'auto' && containsHangul(children));
-  const resolved = `${pair[1]}${korean ? 'Kr' : ''}${pair[2]}`;
+  const resolved = `${pair[1]}${korean ? 'Kr' : ''}${pair[2]}${pair[3] ?? ''}`;
 
   return resolved in figmaTypographyVariants ? (resolved as TypographyVariant) : variant;
 }

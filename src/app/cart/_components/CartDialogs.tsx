@@ -140,7 +140,7 @@ function CartOptionsDialog({
             />
             <Box display={{ base: 'none', _mobile: 'block' }}>
               <Stack gap="3" alignItems="flex-start">
-                <Typography variant="body4" weight="semibold">
+<Typography variant="body4Semibold">
                   수량
                 </Typography>
                 <NumberStepper

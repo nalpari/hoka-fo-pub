@@ -374,7 +374,7 @@ function ModalExampleCard({
 
   return (
     <Stack minW="0" gap="3" p="4" border="1px solid token(colors.black.20)">
-      <Typography as="h4" variant="body3" weight="semibold">
+<Typography as="h4" variant="body3Semibold">
         {example.title}
       </Typography>
       <Stack gap="1">

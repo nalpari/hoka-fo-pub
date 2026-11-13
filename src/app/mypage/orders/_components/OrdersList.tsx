@@ -53,8 +53,8 @@ function ClaimHistoryList({
           <Stack as="li" key={item.key} gap="0" borderBottom="1px solid var(--color-black-100)">
             <Box display="flex" pb="16px" borderBottom="1px solid var(--color-border-subtle)">
               <Typography variant="body4" tone="tertiary">
-                <Typography as="span" variant="body4" weight="medium" tone="primary">
-                  <Typography as="span" variant="body4" language="en" weight="medium">
+<Typography as="span" variant="body4Medium" tone="primary">
+<Typography as="span" variant="body4Medium" language="en">
                     {item.orderDate}
                   </Typography>{' '}
                   주문
@@ -124,30 +124,29 @@ function ClaimHistoryList({
                 onClick={() => onDetail(item.orderId, item.claimId)}
               />
             </Box>
-            <Typography
-              variant="body3"
+<Typography
+              variant="body3Medium"
               language="en"
-              weight="medium"
               className={css({ textAlign: 'center' })}
             >
               {item.orderDate}
             </Typography>
-            <Typography variant="body3" weight="medium" className={css({ textAlign: 'center' })}>
+<Typography variant="body3Medium" className={css({ textAlign: 'center' })}>
               {item.line.quantity}개
             </Typography>
-            <Typography variant="body3" weight="medium" className={css({ textAlign: 'center' })}>
+<Typography variant="body3Medium" className={css({ textAlign: 'center' })}>
               {item.line.displayAmount === undefined ? (
                 '-'
               ) : (
                 <>
-                  <Typography as="span" variant="body3" language="en" weight="medium">
+<Typography as="span" variant="body3Medium" language="en">
                     {item.line.displayAmount.toLocaleString()}
                   </Typography>
                   원
                 </>
               )}
             </Typography>
-            <Typography variant="body3" weight="medium" className={css({ textAlign: 'center' })}>
+<Typography variant="body3Medium" className={css({ textAlign: 'center' })}>
               {item.status.web}
             </Typography>
           </Grid>
@@ -203,13 +202,13 @@ export function OrdersListContent({
             borderBottom="1px solid var(--colors-black-20)"
             _mobile={{ display: 'none' }}
           >
-            <Typography variant="body3" weight="medium" className={css({ textAlign: 'center' })}>
+<Typography variant="body3Medium" className={css({ textAlign: 'center' })}>
               상품/옵션정보
             </Typography>
-            <Typography variant="body3" weight="medium" className={css({ textAlign: 'center' })}>
+<Typography variant="body3Medium" className={css({ textAlign: 'center' })}>
               수량
             </Typography>
-            <Typography variant="body3" weight="medium" className={css({ textAlign: 'center' })}>
+<Typography variant="body3Medium" className={css({ textAlign: 'center' })}>
               가격
             </Typography>
           </Grid>

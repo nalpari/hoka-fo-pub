@@ -16,7 +16,7 @@ export function IdConfirmationMessage({
     <Stack gap={{ base: '2', _mobile: '0' }}>
       <Typography as="p" variant="body3">
         {displayName ? (
-          <Typography as="span" variant="body3" weight="medium">
+<Typography as="span" variant="body3Medium">
             {displayName}
           </Typography>
         ) : null}

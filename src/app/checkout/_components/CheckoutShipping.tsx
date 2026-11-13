@@ -214,7 +214,7 @@ function CheckoutSavedAddress({ errors, editButtonRef, onEdit }: CheckoutSavedAd
     <Box key={JSON.stringify(saved)} border="1px solid var(--colors-black-20)">
       <HStack justifyContent="space-between" alignItems="center" bg="black.10" px="4" h="56px">
         <HStack gap="2">
-          <Typography variant="body3" weight="medium">
+<Typography variant="body3Medium">
             {saved.label}
           </Typography>
           <Box border="1px solid var(--colors-black-20)" px="1" py="0.5" borderRadius="2px">
@@ -241,7 +241,7 @@ function CheckoutSavedAddress({ errors, editButtonRef, onEdit }: CheckoutSavedAd
                 </Typography>
               </Box>
               <Stack flex="1" gap="1" minW="0">
-                <Typography variant="body4" weight="medium">
+<Typography variant="body4Medium">
                   {value}
                 </Typography>
                 {label === '주소' && errors?.address ? (

@@ -135,7 +135,7 @@ function FormExample({ title, description, code, onCopy, children, className }: 
   return (
     <Stack className={[exampleCard, className].filter(Boolean).join(' ')} gap="3">
       <HStack alignItems="baseline" justifyContent="space-between" gap="2" flexWrap="wrap">
-        <Typography variant="body4" weight="semibold">
+<Typography variant="body4Semibold">
           {title}
         </Typography>
         <Typography variant="body5" tone="subtle">

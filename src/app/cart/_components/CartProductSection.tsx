@@ -147,7 +147,7 @@ function CartDesktopItem({ row, selected, onSelect }: CartItemProps) {
         </fieldset>
       </HStack>
       <HStack justifyContent="flex-end" opacity={soldOut ? '0.4' : '1'}>
-        <Typography variant="body3" weight="medium">
+<Typography variant="body3Medium">
           {amount.toLocaleString()}원
         </Typography>
       </HStack>
@@ -278,26 +278,26 @@ export function CartProductSection({ rows }: CartProductSectionProps) {
         <Grid gridTemplateColumns="minmax(0, 1fr) 375px" border="1px solid var(--colors-black-100)">
           <Stack gap="5" p="8" justifyContent="center">
             <HStack justifyContent="space-between">
-              <Typography variant="body3" weight="medium">
+<Typography variant="body3Medium">
                 상품금액
               </Typography>
-              <Typography variant="body3" weight="medium">
+<Typography variant="body3Medium">
                 {cartPreviewAmounts.product.toLocaleString()}원
               </Typography>
             </HStack>
             <Box borderTop="1px solid var(--colors-black-20)" />
             <HStack justifyContent="space-between">
-              <Typography variant="body3" weight="medium">
+<Typography variant="body3Medium">
                 배송비
               </Typography>
-              <Typography variant="body3" weight="medium">
+<Typography variant="body3Medium">
                 {cartPreviewAmounts.shipping.toLocaleString()}원
               </Typography>
             </HStack>
           </Stack>
           <Stack alignItems="flex-end" gap="6" p="8" borderLeft="1px solid var(--colors-black-100)">
             <Stack alignItems="flex-end" gap="0.5">
-              <Typography variant="body3" weight="medium">
+<Typography variant="body3Medium">
                 결제예정금액
               </Typography>
               <Typography variant="body5" tone="tertiary">

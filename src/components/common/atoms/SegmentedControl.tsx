@@ -130,7 +130,7 @@ export function SegmentedControl<T extends string = string>({
           render={
             itemRender?.(option) ??
             (unstyled ? undefined : variant === 'underline' ? (
-              <Typography as="button" variant="body3" weight="medium" tone="primary">
+<Typography as="button" variant="body3Medium" tone="primary">
                 {option.label}
               </Typography>
             ) : (

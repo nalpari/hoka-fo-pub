@@ -147,7 +147,7 @@ function MyPageReviewCount({ count }: MyPageReviewCountProps) {
   return (
     <HStack gap="0.5">
       <Typography variant="body4">총</Typography>
-      <Typography variant="body4" weight="medium">
+<Typography variant="body4Medium">
         {count}
         <Typography variant="bodyKr4">건</Typography>
       </Typography>

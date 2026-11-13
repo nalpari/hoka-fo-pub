@@ -1599,7 +1599,7 @@ function IconExampleCard({
       borderRadius="2"
       bg="surface.default"
     >
-      <Typography as="h4" variant="body4" weight="semibold">
+<Typography as="h4" variant="body4Semibold">
         {example.label}
       </Typography>
       {example.registeredName ? (

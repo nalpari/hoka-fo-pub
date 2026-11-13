@@ -83,7 +83,7 @@ export function DescriptionListGuide() {
               {example.description}
             </Typography>
             {example.preview}
-            <Typography variant="body4" weight="semibold">
+<Typography variant="body4Semibold">
               사용 코드
             </Typography>
             <HStack alignItems="flex-start" gap="3" p="4" bg="surface.subtle" minW="0">

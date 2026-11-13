@@ -32,7 +32,11 @@ status: draft
 
 Heading Compact H6·영문 H7과 Wide H9·H10의 weight를 최신 Figma 규격으로 맞췄다. Figma에 Compact 정의가 없는 기존 H8~H10 모바일 fallback과 Text Link 의미 variant는 기존 화면 호환성을 위해 보존한다. `/publishing-guide`는 실제 variant와 PC·모바일 계산 값을 표시하고 복사 코드를 제공한다. 경로, 서비스 요청과 데이터 계약은 변경하지 않는다.
 
+Wide H10은 영문 Bold(700), 한글 Semibold(600)로 구분한다.
+
 Primary·Secondary의 framed Button 라벨은 CTA 크기 체계를 유지하되 고객사 요청에 따라 언어와 크기에 관계없이 Bold(700)로 override한다. CTA 자체와 Link·Plain·Chip·Filter Trigger의 기존 weight 계약은 변경하지 않는다.
+
+Body 직접 호출을 조사해 10회 이상 반복된 조합만 고정 weight variant로 승격했다. `body3Medium`(29회), `body3Semibold`(11회), `body4Medium`(30회), `body4Semibold`(11회)는 각각 한글 대응 variant도 제공하며, 기존 `web`·`mo` prop으로 PC/MO 조합을 명시할 수 있다. 그 외 조합은 기존 `weight` prop으로 유지해 variant 수를 불필요하게 늘리지 않는다.
 
 검증: 로컬 `/publishing-guide?tab=button`에서 Primary·Secondary Tall/Short의 Black·White 기본 예시 라벨 계산 `font-weight`가 모두 700임을 확인했다.
 

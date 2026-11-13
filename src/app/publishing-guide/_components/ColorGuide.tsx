@@ -179,7 +179,7 @@ function ColorCard({ color, onCopy }: { color: GuideColor; onCopy: (value: strin
         style={{ backgroundColor: token.var(`colors.${color.panda}`) }}
         aria-hidden="true"
       />
-      <Typography as="h4" variant="body3" weight="semibold">
+<Typography as="h4" variant="body3Semibold">
         {color.name}
       </Typography>
       {'description' in color ? (

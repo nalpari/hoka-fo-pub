@@ -181,7 +181,7 @@ export function HelpToggletip({
               {title ? (
                 <Popover.Title
                   render={(props) => (
-                    <Typography {...props} as="h2" variant="body4" weight="medium">
+<Typography {...props} as="h2" variant="body4Medium">
                       {props.children}
                     </Typography>
                   )}

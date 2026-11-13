@@ -203,16 +203,14 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
                   <Box px="24px">
                     <OrderHistoryProduct line={line} showAmount={false} cartAction />
                   </Box>
-                  <Typography
-                    variant="body3"
-                    weight="medium"
+<Typography
+                    variant="body3Medium"
                     className={css({ textAlign: 'center' })}
                   >
                     {line.quantity}개
                   </Typography>
-                  <Typography
-                    variant="body3"
-                    weight="medium"
+<Typography
+                    variant="body3Medium"
                     className={css({ textAlign: 'right', px: '24px' })}
                   >
                     {line.displayAmount === undefined ? '-' : line.displayAmount.toLocaleString()}
@@ -288,7 +286,7 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
       {order.claims.map((claim) => (
         <Stack key={claim.id} gap="16px" py="24px" borderBottom="1px solid var(--colors-black-20)">
           <HStack justifyContent="space-between" alignItems="center">
-            <Typography variant="body4" tone="subtle" weight="medium">
+<Typography variant="body4Medium" tone="subtle">
               {claim.kind === 'cancel' ? '구매취소' : '반품요청'}
             </Typography>
             <Button variant="link" size="sm" onClick={() => actions.onClaimDetail(order, claim)}>

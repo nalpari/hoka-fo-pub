@@ -227,7 +227,7 @@ function MyPageOrderTile({ item }: { item: MyPageOrderItem }) {
                   <Typography variant="body4">{item.gender}</Typography>
                   <Typography variant="body4">{item.name}</Typography>
                 </Stack>
-                <Typography variant="body4" weight="semibold">
+<Typography variant="body4Semibold">
                   {item.price}
                 </Typography>
               </Stack>

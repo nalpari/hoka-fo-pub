@@ -326,7 +326,7 @@ function ButtonVariantPanel({ variant, onCopy }: ButtonVariantPanelProps) {
             aria-label={`${size.label} 버튼 예시`}
           >
             <HStack justifyContent="space-between" alignItems="flex-start" gap="3">
-              <Typography as="h3" variant="body4" weight="medium">
+<Typography as="h3" variant="body4Medium">
                 {size.label}
               </Typography>
               <Typography as="span" variant="body5" tone="subtle">
@@ -342,7 +342,7 @@ function ButtonVariantPanel({ variant, onCopy }: ButtonVariantPanelProps) {
                   gap="3"
                   aria-label={colorway === 'black' ? 'Black 버튼' : 'White 버튼'}
                 >
-                  <Typography as="h4" variant="body4" weight="medium">
+<Typography as="h4" variant="body4Medium">
                     {colorway === 'black' ? 'Black' : 'White'}
                   </Typography>
                   <Grid columns={1} gap="3">
@@ -456,7 +456,7 @@ function ButtonSizingGuide() {
       </Typography>
       <Grid columns={{ base: 2, _mobile: 1 }} gap="3">
         <Stack className={sizeCard} gap="2">
-          <Typography as="h3" variant="body4" weight="medium">
+<Typography as="h3" variant="body4Medium">
             크기 기준
           </Typography>
           <Typography as="p" variant="body5" tone="subtle">
@@ -466,7 +466,7 @@ function ButtonSizingGuide() {
           </Typography>
         </Stack>
         <Stack className={sizeCard} gap="2">
-          <Typography as="h3" variant="body4" weight="medium">
+<Typography as="h3" variant="body4Medium">
             size와 타이포
           </Typography>
           <Typography as="p" variant="body5" tone="subtle">
@@ -476,7 +476,7 @@ function ButtonSizingGuide() {
           </Typography>
         </Stack>
         <Stack className={sizeCard} gap="2">
-          <Typography as="h3" variant="body4" weight="medium">
+<Typography as="h3" variant="body4Medium">
             크기 지정
           </Typography>
           <Typography as="p" variant="body5" tone="subtle">
@@ -486,7 +486,7 @@ function ButtonSizingGuide() {
           </Typography>
         </Stack>
         <Stack className={sizeCard} gap="2">
-          <Typography as="h3" variant="body4" weight="medium">
+<Typography as="h3" variant="body4Medium">
             높이 예외
           </Typography>
           <Typography as="p" variant="body5" tone="subtle">
@@ -496,7 +496,7 @@ function ButtonSizingGuide() {
           </Typography>
         </Stack>
         <Stack className={sizeCard} gap="2">
-          <Typography as="h3" variant="body4" weight="medium">
+<Typography as="h3" variant="body4Medium">
             라벨 크기
           </Typography>
           <Typography as="p" variant="body5" tone="subtle">
@@ -505,7 +505,7 @@ function ButtonSizingGuide() {
           </Typography>
         </Stack>
         <Stack className={sizeCard} gap="2">
-          <Typography as="h3" variant="body4" weight="medium">
+<Typography as="h3" variant="body4Medium">
             색상
           </Typography>
           <Typography as="p" variant="body5" tone="subtle">
@@ -513,7 +513,7 @@ function ButtonSizingGuide() {
           </Typography>
         </Stack>
         <Stack className={sizeCard} gap="2">
-          <Typography as="h3" variant="body4" weight="medium">
+<Typography as="h3" variant="body4Medium">
             상태 표현
           </Typography>
           <Typography as="p" variant="body5" tone="subtle">
@@ -562,7 +562,7 @@ function AuxiliaryButtonsGuide({ onCopy }: { onCopy: (code: string) => void }) {
                   flexWrap="wrap"
                   gap="2"
                 >
-                  <Typography as="h3" variant="body4" weight="medium">
+<Typography as="h3" variant="body4Medium">
                     {sample.label}
                   </Typography>
                   <Typography as="span" variant="body5" tone="subtle">

@@ -71,9 +71,8 @@ export function OrderHistoryProduct({
         optionTone="subtle"
       >
         {statusText ? (
-          <Typography
-            variant="body4"
-            weight="medium"
+<Typography
+            variant="body4Medium"
             tone="tertiary"
             className={css({ mt: 'auto', textAlign: 'right' })}
           >

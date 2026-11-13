@@ -116,7 +116,7 @@ function OrderProductSummaryContent({
         {!hideAmount && amount !== undefined ? (
           <Typography variant="body4" weight={variant === 'coupon' ? undefined : 'medium'}>
             {typeof amount === 'number' && amountLanguage === 'en' ? (
-              <Typography as="span" variant="body4" language="en" weight="medium">
+<Typography as="span" variant="body4Medium" language="en">
                 {amount.toLocaleString()}
               </Typography>
             ) : typeof amount === 'number' ? (

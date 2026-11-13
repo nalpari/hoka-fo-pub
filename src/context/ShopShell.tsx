@@ -160,7 +160,7 @@ function MenuDrawerHeader({ close, isLoggedIn, closeButtonRef }: MenuDrawerHeade
           <Icon name="hoka-user-regular" size="18px" aria-hidden="true" />
           <HStack gap="4px">
             <Typography variant="body3">
-              <Typography variant="body3" weight="semibold">
+<Typography variant="body3Semibold">
                 김호카
               </Typography>
               님
@@ -629,7 +629,7 @@ function MenuDrawerUtilityLinks({ onNavigate }: { onNavigate: () => void }) {
               >
                 <Icon name={item.icon} size={16} color="black.10" aria-hidden="true" />
               </Flex>
-              <Typography variant="body4" weight="semibold">
+<Typography variant="body4Semibold">
                 {item.label}
               </Typography>
             </Link>

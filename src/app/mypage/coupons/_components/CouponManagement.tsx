@@ -275,7 +275,7 @@ function CouponHistorySection({ coupons, onDetails }: CouponHistorySectionProps)
           <HStack justifyContent="flex-end">
             <HStack gap="0.5">
               <Typography variant="body4">총</Typography>
-              <Typography variant="body4" weight="medium">
+<Typography variant="body4Medium">
                 {visibleCoupons.length}
                 <Typography variant="bodyKr4">건</Typography>
               </Typography>
