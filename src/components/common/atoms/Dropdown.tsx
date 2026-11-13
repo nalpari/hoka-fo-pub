@@ -293,6 +293,7 @@ export function Dropdown({
   return (
     <Stack gap="8px" minW="0">
       <BaseSelect.Root
+        modal={false}
         open={platform === 'mobile' ? false : popupOpen}
         onOpenChange={(nextOpen) => {
           if (platform === 'mobile') {

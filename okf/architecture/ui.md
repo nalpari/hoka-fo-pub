@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-10T07:45:13Z'
+updated: '2026-11-13T00:47:01Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -1008,6 +1008,14 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 공통 Dropdown PC 스크롤 잠금 해제 (2026-11-13)
+
+`src/components/common/atoms/Dropdown.tsx`의 `BaseSelect.Root`에 `modal={false}`를 지정한다. 설치된 Base UI의 기본 modal=true에 따른 PC 페이지 스크롤 잠금을 해제하며, 기본/정렬 variant가 같은 설정을 사용한다. 모바일 선택은 기존 별도 ModalDialog 바텀시트를 유지한다. options/value/onValueChange와 서비스 연결 계약은 변경하지 않는다.
+
+검증: 로컬 Ego 브라우저 PC1440px 상품 목록과 검색 결과에서 열기 전후 clientWidth1425px(스크롤바15px) 및 트리거 x좌표가 동일했다. 검색 결과1199/1200px에서도 열기 전후 폭·좌표가 동일했으며 1200/1440px에서 가로 넘침이 없었다. 1025px 전환 직후 측정은 레이아웃 안정화 전 값이 섞여 경계 검증 완료로 기록하지 않는다. PC 낮은가격순 선택 반영과 Escape 닫기, 모바일375px 퍼블리싱 가이드 정렬 시트의 배경 overflow:hidden, 과거순 선택 즉시 반영/닫기/포커스 복귀, 재열기 후 Escape 취소와 선택값 유지/포커스 복귀를 확인했다. 상품 목록·검색 결과 모바일은 기존 필터 내 정렬을 사용하므로 모바일 공통 Dropdown 시트는 가이드에서 검증했다.
+
+대상 ESLint와 Prettier를 확인했다. 전체 typecheck는 기존 `.next/types/validator.ts`의 삭제된 checkout preview 경로7개 참조로 실패했다. production build는 실행하지 않았다. 출처: 위 Dropdown 작업 트리와 설치된 `@base-ui/react/select/root/SelectRoot` 구현. 기록: codex/gpt-6, 2026-11-13T00:47:01Z. 기존 provenance와 draft 상태를 유지한다.
 
 ## 상품 목록 이미지 비율 복원 (2026-11-10)
 
