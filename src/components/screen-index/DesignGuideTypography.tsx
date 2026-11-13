@@ -33,12 +33,22 @@ const columnLabels = [
 
 const comparisonColumnLabels = ['Variant', 'Lang', ...columnLabels.slice(1), 'Example'];
 
+const lineHeightValues: Record<string, string> = {
+  body: '130%',
+  hoka: '100%',
+  koreanHeading: '120%',
+};
+
 function getFontSize(value: string) {
   const size = value.replace(/^var\(--font-sizes-(.+)\)$/, '$1');
 
   const rem = token(`fontSizes.${size}` as Extract<Token, `fontSizes.${string}`>);
 
   return `${Number.parseFloat(rem) * 16}px / ${rem}`;
+}
+
+function getLineHeight(value: string) {
+  return lineHeightValues[value] ?? value;
 }
 
 function getTypographyValues(variant: GuideVariant) {
@@ -56,7 +66,7 @@ function getTypographyValues(variant: GuideVariant) {
         ? webWeight
         : `${webWeight} / 모바일 ${mobileWeight}`,
     definition.fontFamily === 'korean' ? 'Pretendard' : 'The Future HOKA',
-    `${Number(token(`lineHeights.${definition.lineHeight}`)) * 100}%`,
+    getLineHeight(definition.lineHeight),
     definition.letterSpacing === '0' ? '0' : token(`letterSpacings.${definition.letterSpacing}`),
   ];
 }

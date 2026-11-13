@@ -1,9 +1,14 @@
 ---
+
 type: Architecture
 title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
+
+## 타이포그래피 토큰 동기화의 경로 영향 검토 (2026-11-13)
+
+`Typography` variant와 `/publishing-guide` 표시는 최신 Figma 타이포그래피 토큰을 반영하지만 App Router 경로, URL 상태, preview 진입점과 플랫폼 선택 책임은 변경하지 않는다. 출처: `src/components/common/atoms/Typography.tsx`, `src/app/publishing-guide/_components/TypographyGuide.tsx`, Codex, 2026-11-13.
 
 ## 홈 배너 언어별 폰트 (2026-11-13)
 

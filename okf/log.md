@@ -1,3 +1,7 @@
+## 2026-11-13 Figma 타이포그래피 토큰 동기화
+
+- Figma 디자인 시스템의 Heading 6B, Body 보조 단계·Body 6, CTA 보조 단계와 Caption 한글·영문 variant를 공통 Typography와 퍼블리싱 가이드에 추가했다. 10·15·30px Panda 토큰 및 최신 Heading weight를 반영하고 기존 Compact fallback·Text Link는 보존했다. 고객사 요청으로 Primary·Secondary 버튼 라벨은 CTA 크기를 유지하면서 Bold(700)로 통일했고, 가이드 Tall/Short Black·White 기본 예시의 계산 weight를 700으로 확인했다. Panda 생성·대상 ESLint·OKF 검사는 통과했으며, 전체 검사에 남은 기존 lint·type 오류는 UI 기록에 분리했다. [UI 규격과 검증 범위](architecture/ui.md#figma-타이포그래피-토큰-동기화-2026-11-13), [경로 영향 검토](architecture/routing.md#타이포그래피-토큰-동기화의-경로-영향-검토-2026-11-13). 출처: HOKA 디자인 시스템·관련 작업 트리, Codex, 2026-11-13.
+
 ## 2026-11-13 주문서 배송지 팝업 디자인 반영
 
 - 공통 ModalDialog에 `address` 스타일 변형을 추가하고 CheckoutShipping의 중복 팝업 스타일 전달을 제거했다.

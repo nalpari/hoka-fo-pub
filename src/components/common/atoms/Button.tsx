@@ -584,7 +584,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
             variant={labelTypographyVariant}
             // The former count wrapper kept the outer scale independent of its label.
             language={loadMore ? 'en' : undefined}
-            weight={unframed || variant === 'chip' ? 'medium' : undefined}
+            weight={unframed || variant === 'chip' ? 'medium' : 'bold'}
             style={{ color: 'inherit' }}
           >
             {resolvedChildren}

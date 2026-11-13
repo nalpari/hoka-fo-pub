@@ -25,37 +25,65 @@ const groups: readonly {
     id: 'typography-heading-en',
     title: '영문 헤딩',
     description: '영문 제목 계층',
-    examples: Array.from({ length: 10 }, (_, index) => ({
-      variant: `heading${index + 1}` as GuideVariant,
-      text: `Heading ${index + 1}`,
-    })),
+    examples: [
+      ...Array.from({ length: 6 }, (_, index) => ({
+        variant: `heading${index + 1}` as GuideVariant,
+        text: `Heading ${index + 1}`,
+      })),
+      { variant: 'heading6B', text: 'Heading 6B' },
+      ...Array.from({ length: 4 }, (_, index) => ({
+        variant: `heading${index + 7}` as GuideVariant,
+        text: `Heading ${index + 7}`,
+      })),
+    ],
   },
   {
     id: 'typography-heading-ko',
     title: '한글 헤딩',
     description: '한글 제목 계층',
-    examples: Array.from({ length: 10 }, (_, index) => ({
-      variant: `headingKr${index + 1}` as GuideVariant,
-      text: `한글 헤딩 ${index + 1}`,
-    })),
+    examples: [
+      ...Array.from({ length: 6 }, (_, index) => ({
+        variant: `headingKr${index + 1}` as GuideVariant,
+        text: `한글 헤딩 ${index + 1}`,
+      })),
+      { variant: 'headingKr6B', text: '한글 헤딩 6B' },
+      ...Array.from({ length: 4 }, (_, index) => ({
+        variant: `headingKr${index + 7}` as GuideVariant,
+        text: `한글 헤딩 ${index + 7}`,
+      })),
+    ],
   },
   {
     id: 'typography-body-en',
     title: '영문 본문',
     description: '영문 본문 계층',
-    examples: Array.from({ length: 5 }, (_, index) => ({
-      variant: `body${index + 1}` as GuideVariant,
-      text: `Body text ${index + 1}: The future starts here.`,
-    })),
+    examples: [
+      { variant: 'body1', text: 'Body text 1: The future starts here.' },
+      { variant: 'body2', text: 'Body text 2: The future starts here.' },
+      { variant: 'body2-2', text: 'Body text 2-2: The future starts here.' },
+      { variant: 'body3', text: 'Body text 3: The future starts here.' },
+      { variant: 'body3-2', text: 'Body text 3-2: The future starts here.' },
+      { variant: 'body4', text: 'Body text 4: The future starts here.' },
+      { variant: 'body4-2', text: 'Body text 4-2: The future starts here.' },
+      { variant: 'body5', text: 'Body text 5: The future starts here.' },
+      { variant: 'body6', text: 'Body text 6: The future starts here.' },
+    ],
   },
   {
     id: 'typography-body-ko',
     title: '한글 본문',
     description: '한글 본문 계층',
-    examples: Array.from({ length: 5 }, (_, index) => ({
-      variant: `bodyKr${index + 1}` as GuideVariant,
-      text: `본문 텍스트 ${index + 1}: 새로운 움직임을 시작하세요.`,
-    })),
+    examples: [
+      { variant: 'bodyKr1', text: '본문 텍스트 1: 새로운 움직임을 시작하세요.' },
+      { variant: 'bodyKr2', text: '본문 텍스트 2: 새로운 움직임을 시작하세요.' },
+      { variant: 'bodyKr2-2', text: '본문 텍스트 2-2: 새로운 움직임을 시작하세요.' },
+      { variant: 'bodyKr3', text: '본문 텍스트 3: 새로운 움직임을 시작하세요.' },
+      { variant: 'bodyKr3-2', text: '본문 텍스트 3-2: 새로운 움직임을 시작하세요.' },
+      { variant: 'bodyKr4', text: '본문 텍스트 4: 새로운 움직임을 시작하세요.' },
+      { variant: 'bodyKr4-2', text: '본문 텍스트 4-2: 새로운 움직임을 시작하세요.' },
+      { variant: 'bodyKr5', text: '본문 텍스트 5: 새로운 움직임을 시작하세요.' },
+      { variant: 'bodyKr6', text: '본문 텍스트 6: 새로운 움직임을 시작하세요.' },
+    ],
   },
   {
     id: 'typography-cta',
@@ -63,9 +91,24 @@ const groups: readonly {
     description: '액션 텍스트',
     examples: [
       { variant: 'cta1', text: 'Shop now' },
+      { variant: 'cta1-1', text: 'Shop now' },
       { variant: 'cta2', text: 'Shop now' },
+      { variant: 'cta3', text: 'Shop now' },
       { variant: 'ctaKr1', text: '구매하기' },
+      { variant: 'ctaKr1-1', text: '구매하기' },
       { variant: 'ctaKr2', text: '구매하기' },
+      { variant: 'ctaKr3', text: '구매하기' },
+    ],
+  },
+  {
+    id: 'typography-caption',
+    title: '캡션',
+    description: '보조 텍스트',
+    examples: [
+      { variant: 'caption1', text: 'Caption text 1' },
+      { variant: 'caption2', text: 'Caption text 2' },
+      { variant: 'captionKr1', text: '한글 캡션 1' },
+      { variant: 'captionKr2', text: '한글 캡션 2' },
     ],
   },
   {

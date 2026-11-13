@@ -470,7 +470,7 @@ function ButtonSizingGuide() {
             size와 타이포
           </Typography>
           <Typography as="p" variant="body5" tone="subtle">
-            일반 버튼: tall → CTA1, short → CTA2
+            일반 버튼: tall → CTA1 Bold(700), short → CTA2 Bold(700)
             <br />
             Link: sm 12px · md 14px · lg 16px
           </Typography>

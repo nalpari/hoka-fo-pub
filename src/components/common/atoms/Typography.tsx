@@ -10,7 +10,6 @@ import { elandTypographyRecipe, elandTypographyVariants } from './Typography.ela
 
 export { elandTypographyVariants };
 
-// Compact EN H7 uses the approved guide (500); the Figma style currently says 700.
 export const figmaTypographyVariants = {
   heading1: {
     fontFamily: 'hoka',
@@ -75,6 +74,17 @@ export const figmaTypographyVariants = {
     letterSpacing: '0',
     _mobile: {
       fontSize: 'var(--font-sizes-20)',
+      fontWeight: 'bold',
+    },
+  },
+  heading6B: {
+    fontFamily: 'hoka',
+    fontSize: 'var(--font-sizes-30)',
+    fontWeight: 'black',
+    lineHeight: 'hoka',
+    letterSpacing: '0',
+    _mobile: {
+      fontSize: 'var(--font-sizes-20)',
       fontWeight: 'black',
     },
   },
@@ -86,7 +96,7 @@ export const figmaTypographyVariants = {
     letterSpacing: '0',
     _mobile: {
       fontSize: 'var(--font-sizes-16)',
-      fontWeight: 'medium',
+      fontWeight: 'bold',
     },
   },
   heading8: {
@@ -103,7 +113,7 @@ export const figmaTypographyVariants = {
   heading9: {
     fontFamily: 'hoka',
     fontSize: 'var(--font-sizes-20)',
-    fontWeight: 'semibold',
+    fontWeight: 'bold',
     lineHeight: 'hoka',
     letterSpacing: '0',
     _mobile: {
@@ -114,7 +124,7 @@ export const figmaTypographyVariants = {
   heading10: {
     fontFamily: 'hoka',
     fontSize: 'var(--font-sizes-16)',
-    fontWeight: 'medium',
+    fontWeight: 'bold',
     lineHeight: 'hoka',
     letterSpacing: '0',
     _mobile: {
@@ -136,9 +146,23 @@ export const figmaTypographyVariants = {
     lineHeight: 'body',
     letterSpacing: '0',
   },
+  'body2-2': {
+    fontFamily: 'hoka',
+    fontSize: 'var(--font-sizes-18)',
+    fontWeight: 'normal',
+    lineHeight: 'body',
+    letterSpacing: '0',
+  },
   body3: {
     fontFamily: 'hoka',
     fontSize: 'var(--font-sizes-16)',
+    fontWeight: 'normal',
+    lineHeight: 'body',
+    letterSpacing: '0',
+  },
+  'body3-2': {
+    fontFamily: 'hoka',
+    fontSize: 'var(--font-sizes-15)',
     fontWeight: 'normal',
     lineHeight: 'body',
     letterSpacing: '0',
@@ -150,9 +174,23 @@ export const figmaTypographyVariants = {
     lineHeight: 'body',
     letterSpacing: '0',
   },
+  'body4-2': {
+    fontFamily: 'hoka',
+    fontSize: 'var(--font-sizes-13)',
+    fontWeight: 'normal',
+    lineHeight: 'body',
+    letterSpacing: '0',
+  },
   body5: {
     fontFamily: 'hoka',
     fontSize: 'var(--font-sizes-12)',
+    fontWeight: 'normal',
+    lineHeight: 'body',
+    letterSpacing: '0',
+  },
+  body6: {
+    fontFamily: 'hoka',
+    fontSize: 'var(--font-sizes-10)',
     fontWeight: 'normal',
     lineHeight: 'body',
     letterSpacing: '0',
@@ -164,11 +202,39 @@ export const figmaTypographyVariants = {
     lineHeight: 'body',
     letterSpacing: '0',
   },
+  'cta1-1': {
+    fontFamily: 'hoka',
+    fontSize: 'var(--font-sizes-15)',
+    fontWeight: 'medium',
+    lineHeight: 'body',
+    letterSpacing: '0',
+  },
   cta2: {
     fontFamily: 'hoka',
     fontSize: '14',
     fontWeight: 'medium',
     lineHeight: 'body',
+    letterSpacing: '0',
+  },
+  cta3: {
+    fontFamily: 'hoka',
+    fontSize: 'var(--font-sizes-12)',
+    fontWeight: 'medium',
+    lineHeight: 'body',
+    letterSpacing: '0',
+  },
+  caption1: {
+    fontFamily: 'hoka',
+    fontSize: 'var(--font-sizes-14)',
+    fontWeight: 'normal',
+    lineHeight: '170%',
+    letterSpacing: '0',
+  },
+  caption2: {
+    fontFamily: 'hoka',
+    fontSize: 'var(--font-sizes-13)',
+    fontWeight: 'normal',
+    lineHeight: '165%',
     letterSpacing: '0',
   },
   textLink1: {
@@ -258,7 +324,18 @@ export const figmaTypographyVariants = {
     letterSpacing: 'korean',
     _mobile: {
       fontSize: 'var(--font-sizes-20)',
-      fontWeight: 'semibold',
+      fontWeight: 'bold',
+    },
+  },
+  headingKr6B: {
+    fontFamily: 'korean',
+    fontSize: 'var(--font-sizes-30)',
+    fontWeight: 'black',
+    lineHeight: 'koreanHeading',
+    letterSpacing: 'korean',
+    _mobile: {
+      fontSize: 'var(--font-sizes-20)',
+      fontWeight: 'black',
     },
   },
   headingKr7: {
@@ -286,7 +363,7 @@ export const figmaTypographyVariants = {
   headingKr9: {
     fontFamily: 'korean',
     fontSize: 'var(--font-sizes-20)',
-    fontWeight: 'semibold',
+    fontWeight: 'bold',
     lineHeight: 'koreanHeading',
     letterSpacing: 'korean',
     _mobile: {
@@ -297,7 +374,7 @@ export const figmaTypographyVariants = {
   headingKr10: {
     fontFamily: 'korean',
     fontSize: 'var(--font-sizes-16)',
-    fontWeight: 'semibold',
+    fontWeight: 'black',
     lineHeight: 'koreanHeading',
     letterSpacing: 'korean',
     _mobile: {
@@ -319,9 +396,23 @@ export const figmaTypographyVariants = {
     lineHeight: 'body',
     letterSpacing: 'korean',
   },
+  'bodyKr2-2': {
+    fontFamily: 'korean',
+    fontSize: 'var(--font-sizes-18)',
+    fontWeight: 'normal',
+    lineHeight: 'body',
+    letterSpacing: 'korean',
+  },
   bodyKr3: {
     fontFamily: 'korean',
     fontSize: 'var(--font-sizes-16)',
+    fontWeight: 'normal',
+    lineHeight: 'body',
+    letterSpacing: 'korean',
+  },
+  'bodyKr3-2': {
+    fontFamily: 'korean',
+    fontSize: 'var(--font-sizes-15)',
     fontWeight: 'normal',
     lineHeight: 'body',
     letterSpacing: 'korean',
@@ -333,9 +424,23 @@ export const figmaTypographyVariants = {
     lineHeight: 'body',
     letterSpacing: 'korean',
   },
+  'bodyKr4-2': {
+    fontFamily: 'korean',
+    fontSize: 'var(--font-sizes-13)',
+    fontWeight: 'normal',
+    lineHeight: 'body',
+    letterSpacing: 'korean',
+  },
   bodyKr5: {
     fontFamily: 'korean',
     fontSize: 'var(--font-sizes-12)',
+    fontWeight: 'normal',
+    lineHeight: 'body',
+    letterSpacing: 'korean',
+  },
+  bodyKr6: {
+    fontFamily: 'korean',
+    fontSize: 'var(--font-sizes-10)',
     fontWeight: 'normal',
     lineHeight: 'body',
     letterSpacing: 'korean',
@@ -347,11 +452,39 @@ export const figmaTypographyVariants = {
     lineHeight: 'body',
     letterSpacing: 'korean',
   },
+  'ctaKr1-1': {
+    fontFamily: 'korean',
+    fontSize: 'var(--font-sizes-15)',
+    fontWeight: 'semibold',
+    lineHeight: 'body',
+    letterSpacing: 'korean',
+  },
   ctaKr2: {
     fontFamily: 'korean',
     fontSize: '14',
     fontWeight: 'semibold',
     lineHeight: 'body',
+    letterSpacing: 'korean',
+  },
+  ctaKr3: {
+    fontFamily: 'korean',
+    fontSize: 'var(--font-sizes-12)',
+    fontWeight: 'semibold',
+    lineHeight: 'body',
+    letterSpacing: 'korean',
+  },
+  captionKr1: {
+    fontFamily: 'korean',
+    fontSize: 'var(--font-sizes-14)',
+    fontWeight: 'normal',
+    lineHeight: '170%',
+    letterSpacing: 'korean',
+  },
+  captionKr2: {
+    fontFamily: 'korean',
+    fontSize: 'var(--font-sizes-13)',
+    fontWeight: 'normal',
+    lineHeight: '165%',
     letterSpacing: 'korean',
   },
   textLinkKr1: {
@@ -455,17 +588,25 @@ const typography = cva({
 });
 
 export type TypographyVariant =
-  | `heading${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10}`
-  | `headingKr${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10}`
-  | `body${1 | 2 | 3 | 4 | 5}`
-  | `bodyKr${1 | 2 | 3 | 4 | 5}`
+  | `heading${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | '6B'}`
+  | `headingKr${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | '6B'}`
+  | `body${1 | 2 | 3 | 4 | 5 | 6 | '2-2' | '3-2' | '4-2'}`
+  | `bodyKr${1 | 2 | 3 | 4 | 5 | 6 | '2-2' | '3-2' | '4-2'}`
   | 'ctaKr1'
+  | 'ctaKr1-1'
   | 'ctaKr2'
+  | 'ctaKr3'
+  | 'captionKr1'
+  | 'captionKr2'
   | 'textLinkKr1'
   | 'textLinkKr2'
   | 'textLinkKr3'
   | 'cta1'
+  | 'cta1-1'
   | 'cta2'
+  | 'cta3'
+  | 'caption1'
+  | 'caption2'
   | 'textLink1'
   | 'textLink2'
   | 'textLink3'
@@ -509,7 +650,7 @@ function resolveLanguageVariant(
 ): TypographyVariant | undefined {
   if (!variant || !language) return variant;
 
-  const pair = /^(heading|body|cta|textLink)(?:Kr)?(\d+)$/.exec(variant);
+  const pair = /^(heading|body|caption|cta|textLink)(?:Kr)?(\d+(?:-\d+)?B?)$/.exec(variant);
   if (!pair) return variant;
 
   const korean = language === 'ko' || (language === 'auto' && containsHangul(children));
