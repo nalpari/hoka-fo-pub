@@ -86,7 +86,7 @@ function ClaimHistoryList({
       <Grid
         gridTemplateColumns={columns}
         alignItems="center"
-        py="5"
+        py="20px"
         borderTop="2px solid var(--color-black-100)"
         borderBottom="1px solid var(--colors-black-100)"
       >
@@ -177,7 +177,7 @@ export function OrdersListContent({
 }: OrdersListContentProps) {
   if (returns) {
     return (
-      <Stack gap="6" css={{ '--color-text-primary': '#000' }}>
+      <Stack gap="24px" css={{ '--color-text-primary': '#000' }}>
         {/* 취소·반품 조회 기간 필터 */}
         <OrdersFilters {...props} returns />
         {/* 취소·반품 내역 목록 및 빈 화면 */}
@@ -187,14 +187,14 @@ export function OrdersListContent({
   }
 
   return (
-    <Stack gap="6">
+    <Stack gap="24px">
       {/* 주문·배송 현황 */}
       <OrderStatusTracker items={statusItems} />
       {/* 주문 조회 기간 필터 */}
       <OrdersFilters {...props} />
       {/* 주문 상품 목록 및 빈 화면 */}
       {orders.length ? (
-        <Stack gap="0px">
+        <Stack gap="0">
           <Grid
             gridTemplateColumns="minmax(0, 536fr) minmax(0, 108fr) minmax(0, 200fr)"
             alignItems="center"
@@ -213,7 +213,7 @@ export function OrdersListContent({
               가격
             </Typography>
           </Grid>
-          <Stack as="ul" gap={{ base: '0px', _mobile: '32px' }} listStyleType="none">
+          <Stack as="ul" gap={{ base: '0', _mobile: '32px' }} listStyleType="none">
             {orders.map((order) => (
               <OrderCard key={order.id} order={order} {...props} />
             ))}

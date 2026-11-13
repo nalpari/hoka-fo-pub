@@ -73,7 +73,7 @@ export function OrderClaimRequest({
                   )
                 }
               />
-              <Stack flex="1" minW="0" gap="4">
+              <Stack flex="1" minW="0" gap="16px">
                 <OrderHistoryProduct
                   line={line}
                   imageSize="claim"
@@ -81,7 +81,7 @@ export function OrderClaimRequest({
                   showQuantity
                 />
                 {!returning ? (
-                  <Box pl="28" _mobile={{ pl: '0' }}>
+                  <Box pl="112px" _mobile={{ pl: '0' }}>
                     <NumberStepper
                       value={quantities[line.key] ?? 1}
                       min={1}
@@ -195,7 +195,7 @@ export function OrderClaimRequest({
       onOpenChange={(open) => !open && onClose()}
       title={title}
       closeLabel={`${title} 닫기`}
-      size="md"
+      size="sm"
       mobilePresentation="bottomSheet"
       popupClassName={css({ '& > div': { p: '24px!' } })}
       headerProps={{

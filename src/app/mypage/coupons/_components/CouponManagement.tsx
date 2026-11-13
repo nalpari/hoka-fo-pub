@@ -48,11 +48,11 @@ function CouponRegistrationSection({
   return (
     <ContentSection
       as="section"
-      gap="6"
+      gap="24px"
       aria-label="쿠폰 등록"
       title="쿠폰 등록"
       headerProps={{
-        gap: { base: '3', _mobile: '4' },
+        gap: { base: '12px', _mobile: '16px' },
         titleAs: 'h1',
         titleProps: { web: 'headingKr6', mo: 'headingKr5' },
         description: (
@@ -72,9 +72,9 @@ function CouponRegistrationSection({
         className={css({
           display: 'flex',
           flexDirection: 'column',
-          gap: '6',
+          gap: '24px',
           alignItems: 'center',
-          py: '8',
+          py: '32px',
           bg: 'black.10',
           _mobile: { p: '0', bg: 'transparent' },
         })}
@@ -142,13 +142,13 @@ function CouponCard({ coupon, onDetails }: CouponCardProps) {
         minH: '195px',
         h: '195px',
         '& > *': { flexShrink: '0' },
-        py: '8',
+        py: '32px',
         pl: '33px',
         pr: '25px',
-        gap: '8',
+        gap: '32px',
         backgroundSize: '100% 100%',
         backgroundRepeat: 'no-repeat',
-        _mobile: { minH: '170px', h: '170px', py: '25px', gap: '6' },
+        _mobile: { minH: '170px', h: '170px', py: '25px', gap: '24px' },
       })}
       style={{ backgroundImage: 'url(/images/mypage/coupon.svg)' }}
     >
@@ -161,7 +161,7 @@ function CouponCard({ coupon, onDetails }: CouponCardProps) {
           className: couponSectionTitle.className,
         }}
         orientation="horizontal"
-        gap="2"
+        gap="8px"
         alignItems="flex-start"
         action={
           <Button
@@ -176,7 +176,7 @@ function CouponCard({ coupon, onDetails }: CouponCardProps) {
           </Button>
         }
       />
-      <Stack gap="3">
+      <Stack gap="12px">
         <HStack gap="0" alignItems="center">
           <Typography
             variant="body3"
@@ -192,7 +192,7 @@ function CouponCard({ coupon, onDetails }: CouponCardProps) {
             </Typography>
           ) : null}
         </HStack>
-        <Stack gap="6px" _mobile={{ gap: '1' }}>
+        <Stack gap="6px" _mobile={{ gap: '4px' }}>
           <Typography variant="body4">{coupon.condition}</Typography>
           <Typography variant="body4" language="en" tone="tertiary">
             {coupon.expiresAt}
@@ -226,11 +226,11 @@ function CouponHistorySection({ coupons, onDetails }: CouponHistorySectionProps)
   return (
     <ContentSection
       as="section"
-      gap="6"
+      gap="24px"
       aria-label="쿠폰 내역"
       title="쿠폰 내역"
       headerProps={{
-        gap: { base: '3', _mobile: '4' },
+        gap: { base: '12px', _mobile: '16px' },
         titleAs: 'h2',
         titleProps: couponSectionTitle,
         description: '쿠폰별 사용조건이 상이하니 사용 전에 반드시 확인하시기 바랍니다.',
@@ -253,7 +253,7 @@ function CouponHistorySection({ coupons, onDetails }: CouponHistorySectionProps)
         ) : null
       }
     >
-      <Stack gap={{ base: '3', _mobile: '6' }}>
+      <Stack gap={{ base: '12px', _mobile: '24px' }}>
         {/* 1차 개발 범위 제외: 전체 / 상품할인 / 배송할인 탭.
         <SegmentedControl
           ariaLabel="쿠폰 종류"
@@ -271,9 +271,9 @@ function CouponHistorySection({ coupons, onDetails }: CouponHistorySectionProps)
           value={category}
         />
         */}
-        <Stack gap="2">
+        <Stack gap="8px">
           <HStack justifyContent="flex-end">
-            <HStack gap="0.5">
+            <HStack gap="2px">
               <Typography variant="body4">총</Typography>
               <Typography variant="body4" weight="medium">
                 {visibleCoupons.length}
@@ -286,8 +286,8 @@ function CouponHistorySection({ coupons, onDetails }: CouponHistorySectionProps)
           ) : null}
           <Grid
             gridTemplateColumns={{ base: 'repeat(2, minmax(0, 1fr))', _mobile: '1fr' }}
-            columnGap="4"
-            rowGap={{ base: '5', _mobile: '4' }}
+            columnGap="16px"
+            rowGap={{ base: '20px', _mobile: '16px' }}
             w="100%"
           >
             {visibleCoupons.slice(0, visibleCount).map((coupon) => (
@@ -376,7 +376,7 @@ function CouponDetailsDialog({ coupon, onOpenChange }: CouponDetailsDialogProps)
       closeLabel="쿠폰 상세 닫기"
       open={coupon !== null}
       onOpenChange={onOpenChange}
-      size="md"
+      size="sm"
       mobilePresentation="fullscreen"
       blurBackdrop={false}
       title={
@@ -399,7 +399,7 @@ function CouponDetailsDialog({ coupon, onOpenChange }: CouponDetailsDialogProps)
           '& h2': { h: 'auto' },
           _mobile: {
             minH: '0',
-            pt: '6',
+            pt: '24px',
             borderBottom: '0',
             '& button, & button svg': { w: '18px', h: '18px' },
           },
@@ -414,17 +414,17 @@ function CouponDetailsDialog({ coupon, onOpenChange }: CouponDetailsDialogProps)
       footerProps={{
         css: css.raw({
           pt: '0',
-          pb: '8',
+          pb: '32px',
           '& > button': { w: '180px', '--button-height': '48px', _mobile: { w: '100%' } },
-          _mobile: { p: '0', pt: '8' },
+          _mobile: { p: '0', pt: '32px' },
         }),
       }}
     >
       {coupon ? (
-        <Stack gap="6" css={{ '& :is(dt, dd, h3, p, dd > span)': { lineHeight: '1.5' } }}>
-          <Stack as="dl" gap="6" pb="6" borderBottom="1px solid token(colors.black.20)">
+        <Stack gap="24px" css={{ '& :is(dt, dd, h3, p, dd > span)': { lineHeight: '6px' } }}>
+          <Stack as="dl" gap="24px" pb="24px" borderBottom="1px solid token(colors.black.20)">
             {rows.map(({ label, value }) => (
-              <HStack key={label} justifyContent="space-between" alignItems="baseline" gap="3">
+              <HStack key={label} justifyContent="space-between" alignItems="baseline" gap="12px">
                 <Typography
                   as="dt"
                   variant="bodyKr4"
@@ -442,7 +442,7 @@ function CouponDetailsDialog({ coupon, onOpenChange }: CouponDetailsDialogProps)
               </HStack>
             ))}
           </Stack>
-          <Stack gap="4">
+          <Stack gap="16px">
             <Typography as="h3" variant="bodyKr4" className={css({ color: '#4D4D4D' })}>
               상세조건
             </Typography>
@@ -453,7 +453,7 @@ function CouponDetailsDialog({ coupon, onOpenChange }: CouponDetailsDialogProps)
               as="p"
               variant="bodyKr5"
               tone="tertiary"
-              className={css({ pt: '4', borderTop: '1px solid token(colors.black.20)' })}
+              className={css({ pt: '16px', borderTop: '1px solid token(colors.black.20)' })}
             >
               {coupon.detailNotice}
             </Typography>
@@ -475,18 +475,18 @@ function EmployeeCoupons() {
   return (
     <ContentSection
       as="section"
-      gap={{ base: '6', _mobile: '4' }}
+      gap={{ base: '24px', _mobile: '16px' }}
       aria-label="임직원 쿠폰"
       title="임직원 쿠폰"
       headerProps={{ titleAs: 'h2', titleProps: couponSectionTitle }}
     >
-      <Grid gridTemplateColumns="repeat(2, minmax(0, 1fr))" gap={{ base: '4', _mobile: '2' }}>
+      <Grid gridTemplateColumns="repeat(2, minmax(0, 1fr))" gap={{ base: '16px', _mobile: '8px' }}>
         {employeeCoupons.map(({ label, icon }) => (
           <HStack
             key={icon}
             justifyContent="space-between"
-            gap="2"
-            p={{ base: '8', _mobile: '4' }}
+            gap="8px"
+            p={{ base: '32px', _mobile: '16px' }}
             bg="black.10"
           >
             <Typography
@@ -526,7 +526,7 @@ function CouponManager({ coupons, preview, employee = false }: CouponManagerProp
     preview === 'detail' ? (coupons[1] ?? coupons[0] ?? null) : null,
   );
   return (
-    <Stack gap={{ base: '12', _mobile: '8' }} css={{ '--line-heights-body': '1.5' }}>
+    <Stack gap={{ base: '48px', _mobile: '32px' }} css={{ '--line-heights-body': '6px' }}>
       <ContentHeader
         title="쿠폰"
         titleAs="h1"
@@ -546,7 +546,7 @@ function CouponManager({ coupons, preview, employee = false }: CouponManagerProp
       </fieldset>
       */}
 
-      <Stack gap={{ base: '12', _mobile: '10' }}>
+      <Stack gap={{ base: '48px', _mobile: '40px' }}>
         {employee ? <EmployeeCoupons /> : null}
         <CouponHistorySection coupons={coupons} onDetails={setSelectedCoupon} />
       </Stack>
