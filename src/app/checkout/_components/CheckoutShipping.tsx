@@ -28,7 +28,10 @@ import { AddressList } from '@/components/common/organisms/Address/AddressList';
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
-import { initialAddresses } from '@/data/addressPreview';
+import {
+  checkoutAddressPagePreview,
+  checkoutAddressPreview,
+} from '@/app/checkout/checkout-address-preview';
 import type { Address } from '@/types/mypage-address.types';
 
 const fields = [
@@ -69,6 +72,7 @@ const fields = [
 const emptyShippingDraft = {
   name: '',
   email: '',
+  addressName: '',
   phone: '',
   otherPhone: '',
   postalCode: '',
@@ -85,6 +89,7 @@ function shippingDraftFromAddress(address: Address): ShippingDraft {
   return {
     name: address.recipient,
     email: '',
+    addressName: address.name,
     phone: address.phone,
     otherPhone: address.alternatePhone,
     postalCode: address.zip,
@@ -98,7 +103,9 @@ function CheckoutShippingForm({
   draft,
   onDraftChange,
   errors,
+  dialog = false,
 }: {
+  dialog?: boolean;
   draft: ShippingDraft;
   onDraftChange: Dispatch<SetStateAction<ShippingDraft>>;
   errors?: ShippingErrors;
@@ -109,7 +116,21 @@ function CheckoutShippingForm({
 
   return (
     <Stack gap="4">
-      {fields.map((field) => (
+      {(dialog
+        ? [
+            { ...fields[0], label: '이름', placeholder: '이름을 입력해 주세요' },
+            {
+              ...fields[0],
+              name: 'addressName' as const,
+              label: '배송지명',
+              placeholder: '배송지명을 입력해 주세요',
+              autoComplete: 'off',
+            },
+            { ...fields[2], placeholder: '‘-’없이 입력해 주세요' },
+            { ...fields[3], placeholder: '‘-’없이 입력해 주세요', required: true },
+          ]
+        : fields
+      ).map((field) => (
         <TextFormField
           key={field.name}
           id={`shipping-${field.name}`}
@@ -129,11 +150,13 @@ function CheckoutShippingForm({
       ))}
       <AddressFields
         variant="boxed"
+        searchLabel={dialog ? '우편번호 찾기' : undefined}
         fieldOptions={{
           postalCode: { disabled: true, inputProps: { name: 'postalCode', readOnly: true } },
-          address: { disabled: true, inputProps: { name: 'address', readOnly: true } },
+          address: { disabled: !dialog, inputProps: { name: 'address', readOnly: !dialog } },
           addressDetail: {
             disabled: addressDetailDisabled,
+            required: dialog,
             inputProps: { name: 'addressDetail' },
           },
         }}
@@ -145,7 +168,12 @@ function CheckoutShippingForm({
         onSearchOpenChange={setSearchOpen}
       />
       <Checkbox
-        label="기본배송지로 등록"
+        label={dialog ? '기본 배송지로 저장' : '기본배송지로 등록'}
+        className={
+          dialog
+            ? css({ mt: '2', lineHeight: '21px', '& > span:last-child': { lineHeight: '21px' } })
+            : undefined
+        }
         checked={draft.isDefault}
         onCheckedChange={(isDefault) => onDraftChange({ ...draft, isDefault })}
       />
@@ -313,11 +341,11 @@ export type ShippingErrors = Partial<Record<'name' | 'phone' | 'address', string
 /**
  * [ 개발팀 바인딩 ] initialEditing·initialAddressChangeOpen·initialAddressEditor·initialDeliveryRequest는 고정 preview seed입니다.
  * 배송지변경은 마이페이지와 공유하는 목록을 먼저 표시하고 수정·추가를 누를 때만 입력 화면으로 전환합니다.
- * 미연결 preview 목록은 initialAddresses이며 연결된 현재 목록은 CheckoutContext.addresses에서 매 렌더 읽습니다.
+ * 미연결 preview 목록은 checkoutAddressPreview의 네 행과 고정 더보기 카운터이며 연결된 현재 목록은 CheckoutContext.addresses에서 매 렌더 읽습니다.
  * 주문서 연동 소유자는 Address.id(현재 number)와 수령인·배송지명·연락처·주소·기본배송지 여부를 전달해야 합니다.
  * 저장·삭제 요청은 미연결입니다. 향후 소유자가 전체 입력 payload와 ID로 요청하고 pending 중 중복 제출 방지,
  * 실패 시 draft 유지·재시도, 성공 시 목록/savedAddress 갱신 및 닫기, 오래된 조회 응답 폐기를 담당합니다.
- * 현재 입력·닫기는 로컬 UI입니다. 저장 버튼은 연동 전까지 비활성이며 배송 요청 전송도 연결하지 않습니다.
+ * 현재 입력·닫기는 로컬 UI입니다. 저장·삭제·더보기는 표시만 제공하고 요청 handler를 연결하지 않습니다. 주소명(addressName)을 포함한 draft는 로컬 입력이며 실제 저장을 실행하지 않습니다. 배송 요청 전송도 연결하지 않습니다.
  */
 /** 주문자와 배송지 입력 및 배송 요청을 표시합니다. (Displays checkout shipping details and delivery requests.) */
 export function CheckoutShipping({
@@ -340,7 +368,7 @@ export function CheckoutShipping({
     initialAddressEditor?.kind ?? 'list',
   );
   const addressTitleRef = useRef<HTMLSpanElement>(null);
-  const addresses = binding ? (binding.addresses ?? []) : initialAddresses;
+  const addresses = binding ? (binding.addresses ?? []) : checkoutAddressPreview;
   const editButtonRef = useRef<HTMLButtonElement>(null);
   const [draft, setDraft] = useState(() =>
     initialAddressEditor?.kind === 'edit'
@@ -384,12 +412,13 @@ export function CheckoutShipping({
             title={
               <span ref={addressTitleRef} tabIndex={-1}>
                 {addressView === 'list'
-                  ? '배송지 목록'
+                  ? '배송지 관리'
                   : addressView === 'edit'
                     ? '배송지 수정'
                     : '배송지 추가'}
               </span>
             }
+            variant="address"
             mobilePresentation="fullscreen"
             closeLabel="배송지 변경 닫기"
             open={addressChangeOpen}
@@ -398,12 +427,23 @@ export function CheckoutShipping({
             }}
             finalFocus={editButtonRef}
             footer={
-              addressView === 'list' ? undefined : (
+              addressView === 'list' ? (
+                <Button
+                  variant="primary"
+                  size="tall"
+                  onClick={() => {
+                    setDraft(emptyShippingDraft);
+                    setAddressView('new');
+                  }}
+                >
+                  배송지 추가
+                </Button>
+              ) : (
                 <>
                   <Button variant="secondary" size="tall" onClick={() => setAddressView('list')}>
-                    목록으로
+                    취소
                   </Button>
-                  <Button variant="primary" size="tall" disabled>
+                  <Button variant="primary" size="tall">
                     저장
                   </Button>
                 </>
@@ -414,6 +454,7 @@ export function CheckoutShipping({
               <AddressList
                 embedded
                 addresses={addresses}
+                more={!binding ? { counter: checkoutAddressPagePreview } : undefined}
                 onEdit={editAddress}
                 onAdd={() => {
                   setDraft(emptyShippingDraft);
@@ -421,7 +462,12 @@ export function CheckoutShipping({
                 }}
               />
             ) : (
-              <CheckoutShippingForm key={addressView} draft={draft} onDraftChange={setDraft} />
+              <CheckoutShippingForm
+                dialog
+                key={addressView}
+                draft={draft}
+                onDraftChange={setDraft}
+              />
             )}
           </ModalDialog>
         </>

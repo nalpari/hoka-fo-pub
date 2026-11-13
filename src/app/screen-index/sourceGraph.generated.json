@@ -122,6 +122,7 @@
       "src/components/common/layouts/ContentSection.tsx"
     ],
     "src/app/checkout/_components/CheckoutShipping.tsx": [
+      "src/app/checkout/checkout-address-preview.ts",
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Checkbox.tsx",
       "src/components/common/atoms/Dropdown.tsx",
@@ -132,8 +133,7 @@
       "src/components/common/molecules/FormFields/TextFormField.tsx",
       "src/components/common/organisms/Address/AddressFields.tsx",
       "src/components/common/organisms/Address/AddressList.tsx",
-      "src/context/CheckoutContext.ts",
-      "src/data/addressPreview.ts"
+      "src/context/CheckoutContext.ts"
     ],
     "src/app/checkout/_components/CheckoutStatePreview.tsx": [
       "src/app/cart/cart-preview.ts",
@@ -148,6 +148,7 @@
       "src/components/common/molecules/OrderProductSummary.tsx",
       "src/mocks/cartDisplay.ts"
     ],
+    "src/app/checkout/checkout-address-preview.ts": ["src/data/addressPreview.ts"],
     "src/app/checkout/checkout-coupons.ts": [],
     "src/app/checkout/checkout-summary.ts": [],
     "src/app/checkout/page.tsx": [

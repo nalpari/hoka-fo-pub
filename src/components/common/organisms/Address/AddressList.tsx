@@ -68,10 +68,10 @@ export function AddressList({
         {addresses.length ? (
           <Box>
             <Stack
-              gap={embedded ? '8' : '8px'}
+              gap={embedded ? '6' : '8px'}
               _mobile={{
-                ...(embedded ? { gap: '6', pt: '6' } : {}),
-                borderTop: '1px solid var(--colors-black-20)',
+                ...(embedded ? { gap: '6' } : {}),
+                borderTop: embedded ? undefined : '1px solid var(--colors-black-20)',
               }}
             >
               {addresses.map((address) => (
@@ -91,7 +91,13 @@ export function AddressList({
                     <ContentHeader
                       title={address.name}
                       titleAs="h2"
-                      titleProps={{ web: 'headingKr8', mo: 'headingKr6' }}
+                      titleProps={{
+                        web: 'headingKr8',
+                        mo: 'headingKr6',
+                        className: embedded
+                          ? css({ lineHeight: '1.2', _mobile: { lineHeight: '1.3' } })
+                          : undefined,
+                      }}
                       orientation="horizontal"
                       justifyContent="flex-start"
                       gap="3"
@@ -103,11 +109,13 @@ export function AddressList({
                             tone="primary"
                             className={css({
                               borderRadius: '2px',
+                              h: embedded ? '29px' : undefined,
+                              minH: embedded ? '0' : undefined,
                               px: '1',
                               py: '3px',
                               '& > span': {
                                 fontSize: '14px',
-                                lineHeight: '1.3!',
+                                lineHeight: embedded ? '1.5!' : '1.3!',
                                 _mobile: { fontSize: '12px' },
                               },
                             })}
@@ -117,12 +125,43 @@ export function AddressList({
                         ) : null
                       }
                     />
-                    <Stack gap="3" _mobile={{ gap: '4' }}>
-                      <Typography web="body3" mo="body4" language="en" tone="tertiary">
+                    <Stack
+                      gap="3"
+                      _mobile={{ gap: '4' }}
+                      className={
+                        embedded
+                          ? css({
+                              '& span': { lineHeight: '24px!' },
+                              _mobile: { '& span': { lineHeight: '21px!' } },
+                            })
+                          : undefined
+                      }
+                    >
+                      <Typography
+                        web="body3"
+                        mo="body4"
+                        language="en"
+                        tone="tertiary"
+                        className={
+                          embedded
+                            ? css({ lineHeight: '24px', _mobile: { lineHeight: '21px' } })
+                            : undefined
+                        }
+                      >
                         {address.phone}
                       </Typography>
                       <Stack direction="row" gap="1" _mobile={{ flexDirection: 'column' }}>
-                        <Typography web="body3" mo="body4" language="en" tone="tertiary">
+                        <Typography
+                          web="body3"
+                          mo="body4"
+                          language="en"
+                          tone="tertiary"
+                          className={
+                            embedded
+                              ? css({ lineHeight: '24px', _mobile: { lineHeight: '21px' } })
+                              : undefined
+                          }
+                        >
                           {address.zip}
                         </Typography>
                         <Typography web="body3" mo="body4" tone="tertiary">
@@ -150,8 +189,8 @@ export function AddressList({
                         {...(mobile
                           ? ({ size: 'md', variant: 'link' } as const)
                           : ({ size: 'short', variant: 'secondary' } as const))}
-                        onClick={() => onDelete?.(address.id)}
-                        disabled={!onDelete}
+                        onClick={onDelete ? () => onDelete(address.id) : undefined}
+                        disabled={!embedded && !onDelete}
                       >
                         {mobile ? '삭제' : '삭제하기'}
                       </Button>
@@ -167,7 +206,7 @@ export function AddressList({
                   size="lg"
                   loadMore={{ counter: more.counter }}
                   onClick={more.onLoadMore}
-                  disabled={!more.onLoadMore}
+                  disabled={!embedded && !more.onLoadMore}
                 />
               </VStack>
             ) : null}
@@ -205,11 +244,6 @@ export function AddressList({
           />
         )}
       </ContentSection>
-      {embedded && addresses.length > 0 ? (
-        <Button size="short" variant="secondary" onClick={onAdd}>
-          배송지 추가
-        </Button>
-      ) : null}
     </Stack>
   );
 }

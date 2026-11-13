@@ -20,3 +20,9 @@ HomeContent.tsx의 HeroCopy 제목에서 강제 korean 폰트·행간·자간을
 ## 회원정보 브레드크럼 명칭 통일 (2026-11-13)
 
 ProfileContent와 ProfileStatePreview의 MyPageFrame breadcrumb 표시를 ‘회원정보 관리’로 통일했다. 기존 `/mypage/profile` activePath와 기본·편집·오류 preview 경로 및 입력 상태는 유지한다. 문자열 diff로 확인했으며 브라우저 실행 검증은 수행하지 않았다. 출처: `src/app/mypage/profile/_components/ProfileContent.tsx`, `src/app/mypage/profile/_components/ProfileStatePreview.tsx` 작업 트리, Codex, 2026-11-13.
+
+## 주문서 배송지 팝업 시안 반영 (2026-11-13)
+
+`/checkout/preview-address-change`, `/checkout/preview-address-edit`, `/checkout/preview-address-new`의 기존 URL과 IA172·173 연결을 유지한다. 목록 제목은 배송지 관리이며 네 행·고정 더보기 1/10과 하단 추가 액션을 표시한다. 추가·수정은 같은 폼의 dialog 옵션으로 이름·배송지명·전화·주소를 표시하고 취소는 목록으로 돌아간다. 일반 주문서의 inline 배송지 입력과 마이페이지 목록은 기존 표현을 유지한다. 새 상태 URL·API·PG를 만들지 않는다.
+
+PC 폭 640px, 입력 팝업 836px 높이, 본문 좌우 32px·상단 24px, 위쪽 2px 선·내부 24px, 필드 63px·간격 16px, 액션 전후 40px·버튼 180×48px을 적용했다. 모바일은 기존 fullscreen·16px gutter·44px 버튼과 본문 스크롤을 재사용한다. [공유 목록과 검증](ui.md#배송지-목록과-입력-팝업의-국소-디자인-옵션-2026-11-13). 출처: [HOKA 화면 디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design), CheckoutShipping.tsx·checkout-address-preview.ts 작업 트리, Codex, 2026-11-13.

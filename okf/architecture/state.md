@@ -4,12 +4,13 @@ title: '공통 상태와 데모 데이터'
 description: '로그인, 장바구니와 목 데이터의 수명 및 제약을 설명한다.'
 tags: [react, state, mock-data]
 status: draft
-updated: '2026-11-12T04:25:50Z'
+updated: '2026-11-13T01:38:58Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
 source_revision: 84b1d96781349d795089b9e2f737aad11a02172d
 working_tree_sources:
+  - src/app/checkout/checkout-address-preview.ts
   - src/context/ShopShell.tsx
   - src/types/component-contracts/context-ShopShell.d.ts
   - src/components/common/molecules/ProductCard/ProductCard.tsx
@@ -786,3 +787,9 @@ ShopShell 알림 아이콘은 hoka- 이름의 쇼핑백·장바구니·계정 SV
 2026-11-10: MenuDrawerHeader의 계정 아이콘에만 `translateY(-1px)`를 적용한다. 최종 소스에서는 비로그인 헤더에 적용하며 공통 Icon 및 다른 계정 아이콘은 변경하지 않는다. 출처: `src/context/ShopShell.tsx` 작업 트리.
 
 2026-11-10: 메뉴 헤더의 마이페이지는 `ButtonLink variant="link"`로 밑줄을 표시하고 `/mypage` 탐색 시 메뉴를 닫는다. 기존 일반 Link의 정렬 스타일은 제거하고 공통 버튼 링크를 사용한다. 출처: `src/context/ShopShell.tsx` 작업 트리.
+
+## 배송지 팝업 입력과 표시 경계 보완 (2026-11-13)
+
+CheckoutShipping의 dialog 폼은 기존 ShippingDraft에 addressName을 추가하고 Address.name으로 초기화한다. inline 폼의 이메일·필드 구성은 유지한다. 시안의 목록 네 행과 1/10은 checkoutAddressPreview·checkoutAddressPagePreview에 명시하며, 연결된 context가 있으면 현재 addresses를 그대로 읽는다. 편집 중 들어온 데이터로 draft를 덮어쓰는 effect는 추가하지 않는다.
+
+추가·수정·취소·입력·체크·닫기는 기존 로컬 UI다. 저장·삭제·더보기 버튼은 시안의 활성 외형만 표시하며 미연결 handler는 만들지 않는다. 저장·삭제·추가 조회·완료 이동은 실행하지 않는다. 브라우저에서 저장 클릭 후 팝업·초안 유지, 취소 시 목록 복귀, 추가 시 빈 배송지명, Escape 후 포커스 복귀를 확인했다. 실제 API와 submission payload는 주문서 연결 소유자가 구현할 경계이며 이번 디자인 변경을 서비스 구현으로 보지 않는다. 출처: CheckoutShipping.tsx·checkout-address-preview.ts 작업 트리 및 localhost, Codex, 2026-11-13.
