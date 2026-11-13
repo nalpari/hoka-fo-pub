@@ -38,7 +38,7 @@ const groups: { id: string; title: string; description: string; items: ModalExam
   {
     id: 'modal-size',
     title: '기본 크기',
-    description: 'sm · md · lg',
+    description: 'sm · lg',
     items: [
       {
         id: 'small',
@@ -46,20 +46,10 @@ const groups: { id: string; title: string; description: string; items: ModalExam
           '동일 크기 사용: 마이페이지 쿠폰 상세·재입고 알림 취소. 본문·버튼 구성은 화면마다 다릅니다.',
         source: 'CouponManagement.tsx / MyPageProductHistory.tsx',
         title: '작은 모달 · sm',
-        desktop: '최대 너비 420px',
+        desktop: '최대 너비 640px',
         mobile: '화면 너비 − 32px',
         options: { size: 'sm' },
         action: 'single',
-      },
-      {
-        id: 'medium',
-        usage: '동일 크기 사용: 주문 배송조회·우편번호 찾기. 본문·버튼 구성은 화면마다 다릅니다.',
-        source: 'OrderTrackingDialog.tsx / AddressFields.tsx',
-        title: '기본 모달 · md',
-        desktop: '최대 너비 568px (기본값)',
-        mobile: '화면 너비 − 32px',
-        options: { size: 'md' },
-        action: 'confirm',
       },
       {
         id: 'large',
@@ -68,7 +58,7 @@ const groups: { id: string; title: string; description: string; items: ModalExam
         source: 'cart/_components/CartDialogs.tsx',
         title: '큰 모달 · lg',
         desktop:
-          '최대 너비 864px · 오른쪽 열 중앙 · 버튼 180×48px · 버튼 간격 8px · 본문과 40px · 하단 24px',
+          '최대 너비 800px · 오른쪽 열 중앙 · 버튼 180×48px · 버튼 간격 8px · 본문과 40px · 하단 24px',
         mobile: '전체화면 · 하단 버튼',
         options: { size: 'lg', mobilePresentation: 'fullscreen', mobileFixedFooter: true },
         action: 'confirm',
@@ -145,7 +135,7 @@ const groups: { id: string; title: string; description: string; items: ModalExam
           '기본 팝업 방식 사용: 쿠폰 상세·재입고 알림 취소·우편번호 찾기. 크기·본문·버튼은 화면별로 다릅니다.',
         source: 'CouponManagement.tsx / MyPageProductHistory.tsx / AddressFields.tsx',
         title: '팝업 · popup',
-        desktop: '중앙 팝업 · 최대 568px',
+        desktop: '중앙 팝업 · 최대 640px',
         mobile: '중앙 팝업 · 화면 너비 − 32px',
         options: { mobilePresentation: 'popup' },
         action: 'single',
@@ -157,7 +147,7 @@ const groups: { id: string; title: string; description: string; items: ModalExam
         source:
           'PhoneVerificationContent.tsx / SignupTermsContent.tsx / CartDialogs.tsx / InquiryOrderLookup.tsx',
         title: '전체화면 · fullscreen',
-        desktop: '중앙 팝업 · 최대 568px',
+        desktop: '중앙 팝업 · 최대 640px',
         mobile: '화면 전체 너비·높이',
         options: { mobilePresentation: 'fullscreen' },
         action: 'single',
@@ -168,7 +158,7 @@ const groups: { id: string; title: string; description: string; items: ModalExam
           '배송조회, 주문 취소·반품 신청, 문의 첨부파일 미리보기. ModalDialog를 모바일에서 바텀시트처럼 표시한 형태입니다. 데스크탑에서는 중앙 팝업, 모바일에서는 하단 시트로 보여주되 같은 모달 안에서 본문·입력 상태·열기/닫기를 유지하기 위해 사용합니다. bottomSheet 옵션이 모바일 전체 너비·상단 모서리 24px·손잡이 36×4px·헤더 최소 56px·타이틀 headingKr9·닫기 xmark-regular 20px를 공통 적용합니다. 본문·버튼·세부 여백은 화면별로 다릅니다.',
         source: 'OrderTrackingDialog.tsx / OrderClaimRequest.tsx / InquiryListContent.tsx',
         title: '바텀시트형 모달 · bottomSheet',
-        desktop: '중앙 팝업 · 최대 568px',
+        desktop: '중앙 팝업 · 최대 640px',
         mobile: '하단 정렬 · 전체 너비 · 상단 모서리 24px',
         options: { mobilePresentation: 'bottomSheet' },
         action: 'confirm',
@@ -191,7 +181,7 @@ const groups: { id: string; title: string; description: string; items: ModalExam
         usage:
           'Dropdown의 모바일 선택·정렬, 이전 약관 선택에서 사용하는 기본형입니다. 분홍 영역은 피그마의 본문 자리 표시이며 실제 화면의 콘텐츠를 넣습니다.',
         source: 'Dropdown.tsx / PreviousTermsPicker.tsx',
-        desktop: '중앙 팝업 · 최대 568px',
+        desktop: '중앙 팝업 · 최대 640px',
         mobile: `상단 모서리 24px · 손잡이 36×4px · 헤더 최소 56px · headingKr9 · 닫기 20px · ${item.long ? '화면 높이까지 확장 · 본문 스크롤 · 헤더 구분선' : '본문 예시 높이 334px'} · ${item.sheetFooter ? '푸터 좌우 16px · 아래 32px' : '푸터 없음 · 본문 아래 32px'}`,
       })),
     ],
@@ -520,7 +510,7 @@ export function ModalGuide() {
             모달을 확인합니다.
           </Typography>
           <Typography as="p" variant="body5" tone="subtle">
-            ModalDialog의 기본값은 md · popup · dark입니다. PC 기본 모달은 최대 너비 568px와 모서리
+            ModalDialog의 기본값은 sm · popup · dark입니다. PC 기본 모달은 최대 너비 640px와 모서리
             10px를 사용합니다. bottomSheet는 모바일에서 하단에 표시됩니다.
           </Typography>
           <Typography as="p" variant="body5" tone="subtle">

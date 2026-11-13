@@ -61,8 +61,8 @@ export function RunningSessionEntriesContent({
           title="러닝세션 신청내역"
           titleAs="h1"
           titleProps={{ web: 'headingKr6', mo: 'headingKr5' }}
-          mb="10"
-          _mobile={{ mb: '8' }}
+          mb="40px"
+          _mobile={{ mb: '32px' }}
           gap="0"
         />
         <SegmentedControl
@@ -71,15 +71,15 @@ export function RunningSessionEntriesContent({
           value={category}
           onValueChange={setCategory}
           className={css({
-            mb: '10',
-            _mobile: { mb: '6' },
+            mb: '40px',
+            _mobile: { mb: '24px' },
             '& > button': { minH: '40px', _mobile: { minH: '32px', fontSize: '14px' } },
           })}
           options={['전체', '신청완료', '취소'].map((value) => ({ value, label: value }))}
         />
         <HStack
           justifyContent="space-between"
-          pb="4"
+          pb="16px"
           borderBottom="1px solid var(--color-black-100)"
         >
           <Dropdown
@@ -101,12 +101,12 @@ export function RunningSessionEntriesContent({
             <Stack
               as="li"
               key={entry.id}
-              gap="4"
-              py="8"
+              gap="16px"
+              py="32px"
               borderBottom="1px solid var(--color-black-20)"
-              _mobile={{ py: '6' }}
+              _mobile={{ py: '24px' }}
             >
-              <HStack justifyContent="space-between" h="7" gap="3">
+              <HStack justifyContent="space-between" h="28px" gap="12px">
                 <Link
                   href={`/running/running-session/${entry.session.id}`}
                   className={css({ minW: '0', flex: '1' })}
@@ -138,11 +138,11 @@ export function RunningSessionEntriesContent({
               </HStack>
               <Grid
                 gridTemplateColumns="minmax(0, 1fr) auto"
-                gap="3"
+                gap="12px"
                 alignItems="end"
                 _mobile={{ gridTemplateColumns: 'minmax(0, 1fr)' }}
               >
-                <HStack alignItems="stretch" gap="4" minW="0">
+                <HStack alignItems="stretch" gap="16px" minW="0">
                   <Box position="relative" w="96px" h="96px" flexShrink="0">
                     <Image
                       src={runningSessionImage(entry.session.image)}
@@ -152,7 +152,7 @@ export function RunningSessionEntriesContent({
                       className={css({ objectFit: 'cover' })}
                     />
                   </Box>
-                  <Stack gap="3" minW="0" flex="1" _mobile={{ gap: '2' }}>
+                  <Stack gap="12px" minW="0" flex="1" _mobile={{ gap: '8px' }}>
                     <HStack gap="6px" flexWrap="wrap">
                       <Typography web="body3" mo="body4">
                         {entry.session.location}
@@ -162,7 +162,7 @@ export function RunningSessionEntriesContent({
                         {entry.session.distance}
                       </Typography>
                     </HStack>
-                    <Stack gap="1">
+                    <Stack gap="4px">
                       {entry.appliedAt ? (
                         <Typography web="body3" mo="body4" tone="subtle">
                           신청일 : {entry.appliedAt}
@@ -215,7 +215,7 @@ export function RunningSessionEntriesContent({
         headerProps={{ css: { bg: 'white', borderBottom: '1px solid var(--color-black-20)' } }}
         popupClassName={css({
           '& > header h2': { h: 'auto' },
-          '& > div': { p: '6', _mobile: { px: '4' } },
+          '& > div': { p: '24px', _mobile: { px: '16px' } },
         })}
         actions={{
           kind: 'confirm',
@@ -223,7 +223,7 @@ export function RunningSessionEntriesContent({
           onConfirm: () => setSelected(null),
         }}
       >
-        <Stack gap="4">
+        <Stack gap="16px">
           <Typography variant="body3">신청을 취소 하시겠습니까?</Typography>
         </Stack>
       </ModalDialog>

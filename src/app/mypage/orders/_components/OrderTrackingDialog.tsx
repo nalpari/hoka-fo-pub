@@ -18,7 +18,7 @@ const trackingTable = css({
   '&&': {
     tableLayout: 'fixed',
     fontSize: '12px',
-    '& th, & td': { h: '40px', px: '1', borderBottom: '1px solid var(--color-black-20)' },
+    '& th, & td': { h: '40px', px: '4px', borderBottom: '1px solid var(--color-black-20)' },
     '& thead th': {
       h: '42px',
       bg: 'transparent',
@@ -34,7 +34,7 @@ const trackingTable = css({
 function OrderTrackingHistory({ date }: { date: string }) {
   return (
     <ContentSection
-      gap="3"
+      gap="12px"
       title="상품추적"
       headerProps={{ titleAs: 'h2', titleProps: { variant: 'body3', weight: 'semibold' } }}
     >
@@ -87,7 +87,7 @@ export function OrderTrackingDialog({
           ? 1
           : 4;
   const content = (
-    <Stack gap="8">
+    <Stack gap="32px">
       <ContentHeader
         title={`${order.expectedDate} 도착예정`}
         titleAs="h2"
@@ -125,7 +125,7 @@ export function OrderTrackingDialog({
       onOpenChange={(open) => !open && onClose()}
       title="배송조회"
       closeLabel="배송조회 닫기"
-      size="md"
+      size="sm"
       mobilePresentation="bottomSheet"
       popupClassName={css({ h: '804px', _mobile: { h: 'auto' } })}
       headerProps={{ css: { h: '56px', flexShrink: '0' } }}

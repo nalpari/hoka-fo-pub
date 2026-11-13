@@ -21,7 +21,7 @@ const statusLink = css({
   textAlign: 'center',
   borderRight: '1px solid var(--color-black-20)',
   '&:last-child': {
-    borderRight: '0px',
+    borderRight: '0',
   },
   '.platform-web &': {
     my: '44.5px',
@@ -29,7 +29,7 @@ const statusLink = css({
   _mobile: {
     pt: '20px',
     pb: '18px',
-    borderRight: '0px',
+    borderRight: '0',
     '& > span:last-child': { whiteSpace: 'pre-line' },
   },
 });
@@ -121,7 +121,7 @@ function OrdersDateRange({
   onDateSearch,
 }: Pick<OrdersFiltersProps, 'dates' | 'error' | 'onDateChange' | 'onDateSearch'>) {
   return (
-    <Stack gap="2">
+    <Stack gap="8px">
       <HStack alignItems="center" justify="space-between" gap="24px">
         <HStack alignItems="center" gap="6px">
           <Box pos="relative" flexShrink="0">

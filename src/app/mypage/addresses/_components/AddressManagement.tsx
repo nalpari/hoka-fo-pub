@@ -45,15 +45,15 @@ export function AddressEditor({
 
   return (
     <ContentSection
-      gap="8"
-      _mobile={{ gap: '6', pt: '6' }}
+      gap="32px"
+      _mobile={{ gap: '24px', pt: '24px' }}
       title={<>{editingId === 'new' ? '배송지 추가' : '배송지 수정'}</>}
       headerProps={{
         titleAs: 'h1',
         titleProps: { web: 'headingKr6', mo: 'headingKr5' },
-        pb: '10',
+        pb: '40px',
         borderBottom: '2px solid black',
-        _mobile: { pb: '4' },
+        _mobile: { pb: '16px' },
       }}
     >
       <form
@@ -63,9 +63,9 @@ export function AddressEditor({
           save?.();
         }}
       >
-        <Stack gap="10" _mobile={{ gap: '8' }}>
-          <Stack w="500px" maxW="100%" mx="auto" gap="6">
-            <Stack gap="4">
+        <Stack gap="40px" _mobile={{ gap: '32px' }}>
+          <Stack w="500px" maxW="100%" mx="auto" gap="24px">
+            <Stack gap="16px">
               <TextFormField
                 id="address-recipient"
                 label="이름"

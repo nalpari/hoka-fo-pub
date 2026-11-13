@@ -172,7 +172,7 @@ export function CartLimitDialog({ onClose }: { onClose: () => void }) {
       }}
       title="장바구니"
       closeLabel="구매 수량 제한 안내 닫기"
-      size="md"
+      size="sm"
       headerProps={{
         css: css.raw({ bg: 'white', borderBottom: '1px solid var(--colors-black-20)' }),
       }}

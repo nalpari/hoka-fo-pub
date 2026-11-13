@@ -35,7 +35,7 @@ export function OrderInformationSection({
       headerProps={{
         titleAs: 'h2',
         titleProps: { web: 'heading10', mo: 'heading7' },
-        css: css.raw({ pb: '3', borderBottom: '1px solid var(--colors-black-100)' }),
+        css: css.raw({ pb: '12px', borderBottom: '1px solid var(--colors-black-100)' }),
       }}
     >
       <DescriptionList
@@ -47,8 +47,8 @@ export function OrderInformationSection({
           row: css.raw({
             display: 'grid',
             gridTemplateColumns: '88px minmax(0, 1fr)',
-            gap: '3',
-            py: '4',
+            gap: '12px',
+            py: '16px',
             borderBottom: '1px solid var(--colors-black-20)',
           }),
         }}
@@ -100,7 +100,7 @@ function DetailProduct({ line }: { line: OrderLine }) {
 
 function DetailAmountRow({ label, amount }: { label: string; amount: number }) {
   return (
-    <HStack justifyContent="space-between" gap="4">
+    <HStack justifyContent="space-between" gap="16px">
       <Typography variant="body4" tone="subtle">
         {label}
       </Typography>
@@ -372,7 +372,11 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
                   <DetailAmountRow label="환불금액" amount={entry.refund} />
                 </Stack>
               ) : (
-                <Grid gridTemplateColumns="minmax(0, 1fr) 200px 140px" gap="0" alignItems="center">
+                <Grid
+                  gridTemplateColumns="minmax(0, 1fr) 200px 140px"
+                  gap="0"
+                  alignItems="center"
+                >
                   <Stack gap="16px">
                     {entry.items.map((line) => (
                       <OrderHistoryProduct

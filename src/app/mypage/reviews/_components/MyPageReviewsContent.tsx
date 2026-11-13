@@ -70,7 +70,7 @@ export function MyPageReviewDialog({
       }}
     >
       <fieldset disabled={pending}>
-        <Stack gap="5">
+        <Stack gap="20px">
           <BindingFeedback
             error={error}
             pending={pending}
@@ -145,7 +145,7 @@ type MyPageReviewCountProps = { count: number };
 
 function MyPageReviewCount({ count }: MyPageReviewCountProps) {
   return (
-    <HStack gap="0.5">
+    <HStack gap="2px">
       <Typography variant="body4">총</Typography>
 <Typography variant="body4Medium">
         {count}
@@ -167,9 +167,9 @@ function MyPageReviewToolbar({ count, sort, onSortChange }: MyPageReviewToolbarP
     <HStack
       justifyContent="space-between"
       alignItems="center"
-      pb="4"
-      mt="10"
-      _mobile={{ mt: '8' }}
+      pb="16px"
+      mt="40px"
+      _mobile={{ mt: '32px' }}
       borderBottom="1px solid var(--color-black-100)"
     >
       <Dropdown
@@ -211,7 +211,7 @@ function MyPageReviewItem({
       borderBottom="1px solid var(--color-black-20)"
       alignItems="center"
       gap="0"
-      py={tab === 'written' ? '8' : '4'}
+      py={tab === 'written' ? '32px' : '16px'}
       gridTemplateColumns={
         tab === 'written'
           ? 'minmax(0, 340fr) minmax(96px, 120fr) minmax(0, 300fr) 84px'
@@ -219,14 +219,14 @@ function MyPageReviewItem({
       }
       _mobile={{
         gridTemplateColumns: '64px minmax(0, 1fr)',
-        columnGap: '4',
-        rowGap: '2',
-        py: '4',
+        columnGap: '16px',
+        rowGap: '8px',
+        py: '16px',
         alignItems: 'start',
       }}
     >
       <HStack
-        gap="4"
+        gap="16px"
         minW="0"
         alignItems="center"
         _mobile={{ gridColumn: '1 / -1', alignItems: 'flex-start' }}
@@ -237,14 +237,14 @@ function MyPageReviewItem({
           image={product.imageSrc}
           imageSize={{ web: tab === 'written' ? 96 : 64, mobile: 64 }}
           content={
-            <Stack minW="0" gap="1.5">
-              <HStack gap="0.5" display="none" _mobile={{ display: 'flex', pr: '18' }}>
+            <Stack minW="0" gap="6px">
+              <HStack gap="2px" display="none" _mobile={{ display: 'flex', pr: '18px' }}>
                 <Typography variant="body4" language="en">
                   {purchasedAt}
                 </Typography>
                 <Typography variant="body4">구매</Typography>
               </HStack>
-              <Stack gap={tab === 'written' ? '0.5' : '1'}>
+              <Stack gap={tab === 'written' ? '2px' : '4px'}>
                 {tab === 'written' ? (
                   <Box display="block" _mobile={{ display: 'none' }}>
                     {product.gender ? (
@@ -275,12 +275,12 @@ function MyPageReviewItem({
         <Box
           lineHeight="0"
           textAlign="center"
-          _mobile={{ gridColumn: '2', textAlign: 'left', mt: '0.5' }}
+          _mobile={{ gridColumn: '2', textAlign: 'left', mt: '2px' }}
         >
           <RatingStars
             value={review?.rating ?? 0}
             size="16px"
-            className={css({ '&&': { gap: '1' } })}
+            className={css({ '&&': { gap: '4px' } })}
           />
         </Box>
       ) : null}
@@ -291,7 +291,7 @@ function MyPageReviewItem({
           tone="primary"
           className={css({
             lineClamp: 1,
-            mx: '4',
+            mx: '16px',
             _mobile: { gridColumn: '2', mx: '0', lineClamp: 1 },
           })}
         >
@@ -329,7 +329,7 @@ function MyPageReviewList({ entries, tab, onEdit }: MyPageReviewListProps) {
           textAlign="center"
           borderTop="2px solid var(--color-black-100)"
           borderBottom="1px solid var(--color-black-100)"
-          py="5"
+          py="20px"
         >
           <Typography variant="heading9">상품정보</Typography>
           <Typography variant="heading9">평점</Typography>
@@ -375,8 +375,8 @@ export function MyPageReviewsContent({
     <ContentSection
       css={{ '--line-heights-body': '1.5' }}
       title="상품리뷰"
-      gap="10"
-      _mobile={{ gap: '6' }}
+      gap="40px"
+      _mobile={{ gap: '24px' }}
       headerProps={{
         titleAs: 'h1',
         titleProps: { web: 'headingKr6', mo: 'headingKr5' },

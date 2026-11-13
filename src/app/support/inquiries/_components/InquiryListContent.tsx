@@ -148,7 +148,7 @@ function InquiryAttachmentPreview({
       onOpenChange={(open) => !open && onClose()}
       title="첨부파일 미리보기"
       closeLabel="첨부파일 미리보기 닫기"
-      size="md"
+      size="sm"
       mobilePresentation="bottomSheet"
       popupClassName={previewDialog}
     >

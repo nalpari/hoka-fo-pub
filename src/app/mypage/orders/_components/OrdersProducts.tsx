@@ -26,8 +26,8 @@ export function OrderCardHeader({
     <HStack
       alignItems={compact ? 'center' : 'flex-end'}
       justifyContent="space-between"
-      gap="2"
-      pb="3"
+      gap="8px"
+      pb="12px"
       borderBottom="1px solid var(--colors-black-100)"
     >
       {compact ? (
@@ -38,7 +38,7 @@ export function OrderCardHeader({
           주문 · 주문번호 {order.id}
         </Typography>
       ) : (
-        <Stack gap="1">
+        <Stack gap="4px">
           <Typography variant="body2" weight="semibold">
             {order.date.replaceAll('-', '.')}
           </Typography>
@@ -68,8 +68,8 @@ export function OrderClaimGroup({
 }) {
   return (
     <ContentSection
-      gap="4"
-      pt="6"
+      gap="16px"
+      pt="24px"
       borderTop="1px solid var(--colors-black-20)"
       title={claim.kind === 'cancel' ? '구매취소' : '반품접수'}
       headerProps={{
@@ -83,7 +83,7 @@ export function OrderClaimGroup({
         ),
       }}
     >
-      <Stack gap="4">
+      <Stack gap="16px">
         {getClaimLines(order, claim).map((line) => (
           <OrderHistoryProduct key={line.key} line={line} />
         ))}
@@ -123,7 +123,7 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
   }, []);
 
   return (
-    <Stack as="li" gap="0px" listStyleType="none">
+    <Stack as="li" gap="0" listStyleType="none">
       {platform === 'mobile' ? (
         <HStack
           justifyContent="space-between"
@@ -161,8 +161,8 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
         >
           <Stack
             gap="16px"
-            py={{ base: '16px', _mobile: '0px' }}
-            borderBottom={{ base: '1px solid var(--colors-black-20)', _mobile: '0px' }}
+            py={{ base: '16px', _mobile: '0' }}
+            borderBottom={{ base: '1px solid var(--colors-black-20)', _mobile: '0' }}
           >
             {platform !== 'mobile' && index === 0 ? (
               <HStack gap="12px" px="24px" alignItems="baseline">
@@ -172,7 +172,7 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
                 </Typography>
               </HStack>
             ) : null}
-            <HStack justifyContent="space-between" px={{ base: '24px', _mobile: '0px' }}>
+            <HStack justifyContent="space-between" px={{ base: '24px', _mobile: '0' }}>
               <HStack gap="2px" flexWrap="wrap">
                 <Typography web="body3" mo="body4" weight="medium" tone="red80">
                   {orderStatusLabels[group.status]}
@@ -189,7 +189,7 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
             </HStack>
           </Stack>
 
-          <Stack gap="16px" mt={{ base: '16px', _mobile: '0px' }}>
+          <Stack gap="16px" mt={{ base: '16px', _mobile: '0' }}>
             {group.lines.map((line) =>
               platform === 'mobile' ? (
                 <OrderHistoryProduct key={line.key} line={line} cartAction />
@@ -198,7 +198,7 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
                   key={line.key}
                   gridTemplateColumns="minmax(0, 536fr) minmax(0, 108fr) minmax(0, 200fr)"
                   alignItems="center"
-                  gap="0px"
+                  gap="0"
                 >
                   <Box px="24px">
                     <OrderHistoryProduct line={line} showAmount={false} cartAction />
@@ -224,7 +224,7 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
           <HStack
             gap="8px"
             justifyContent="flex-end"
-            px={{ base: '8px', _mobile: '0px' }}
+            px={{ base: '8px', _mobile: '0' }}
             _mobile={{ flexDirection: 'column', alignItems: 'stretch' }}
           >
             {['preparing', 'shipping', 'delivered', 'purchased'].includes(group.status) ? (

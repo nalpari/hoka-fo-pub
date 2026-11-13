@@ -53,3 +53,39 @@ embedded 목록은 검은 2px 상단 선·상단 24px·행 간격 24px·하단 2
 검증: 세 URL의 PC 이미지·위치/크기, 375px 모바일 이미지·본문 스크롤, 추가·수정의 배송지명 입력과 63px 필드, 취소→목록→추가와 Escape 후 배송지변경 포커스 복귀를 확인했다. 실제 제목 글리프의 로드된 폰트는 Pretendard Black이었다. PC 입력 팝업은 640×836px, 액션 180×48px이다. 안정화된 자동 플랫폼에서 1024px은 fullscreen, 1025·1199px은 640px 팝업과 1200px PC canvas, 1200px은 문서 가로 넘침 없음, 375px은 375px 팝업을 확인했다. 명시적 preview 플랫폼·전체 공용 모달 회귀는 이번 범위에서 검증하지 않았다.
 
 변경 소스 lint/Prettier, Panda와 소스 그래프 생성 및 Next route type 생성으로 확인한다. 전체 타입 검사는 기존 LaunchCalendarDetail.tsx의 Button.icon 오류로 실패했다. 초기 타입 검사에 남아 있던 삭제 route 캐시는 typegen 후 사라졌다. 전체 Next 빌드는 이번 국소 스타일 변경에서 재실행하지 않았다. 출처: [HOKA 화면 디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design), 관련 작업 트리와 localhost 브라우저, Codex, 2026-11-13.
+
+- src/components/common/organisms/Address/AddressList.tsx
+- src/app/support/_components/SupportContacts.tsx
+- src/app/support/notices/_components/NoticesList.tsx
+- src/app/support/after-sales/page.tsx
+- src/app/mypage/coupons/_components/CouponManagement.tsx
+- src/app/mypage/reviews/_components/MyPageReviewsContent.tsx
+- src/components/common/organisms/SystemStatusPage.tsx
+- src/app/login/account-locked/_components/AccountLockedContent.tsx
+- src/components/phone-verification/PhoneVerificationContent.tsx
+- src/app/support/page.tsx
+- src/app/support/_components/SupportQuickLinks.tsx
+- src/app/support/notices/_components/NoticesContent.tsx
+- src/app/support/after-sales/_components/AfterSalesContent.tsx
+- src/app/mypage/addresses/_components/AddressManagement.tsx
+- src/components/common/molecules/SupportTabs.tsx
+
+## 마이페이지 간격 표기 (2026-11-13)
+
+마이페이지 전용 공통 컴포넌트의 간격은 기본 글자 크기 16px 기준으로 환산한 픽셀값으로 표기한다.
+
+마이페이지 주문 상품은 OrderProductSummary의 alignStart 옵션으로 이미지와 내용을 상단 정렬한다. 출처: 작업 트리, Codex, 2026-11-13.
+
+공통 모달 헤더는 데스크탑 상단 40px·좌우 32px, 모바일 상단 24px·좌우 16px과 18px 닫기 아이콘을 사용한다. 팝업과 바텀시트는 각각 둥근 상단 모서리를 사용하고 모바일 전체 화면은 각진 형태다. 출처: ModalDialog.tsx 작업 트리와 디자인 시스템 시안, Codex, 2026-11-13.
+
+모달 제목은 body 크기에 bold 굵기를 적용한다. 출처: ModalDialog.tsx 작업 트리, Codex, 2026-11-13.
+
+모바일 중앙 팝업은 데스크탑과 동일하게 10px 모서리를 사용하며 전체 화면과 바텀시트는 기존 표현을 따른다. 출처: ModalDialog.tsx 작업 트리, Codex, 2026-11-13.
+
+공통 모달 크기는 sm과 lg로 구성되며 기본값은 sm이다. 출처: ModalDialog.tsx 및 가이드 작업 트리, Codex, 2026-11-13.
+
+마이페이지 모바일 브레드크럼의 아래 간격은 레이아웃 종류와 관계없이 8px이다. 출처: MyPageFrame.tsx 작업 트리, Codex, 2026-11-13.
+
+공통 Breadcrumb은 여백, 모바일 가로 스크롤과 12px 레이블을 기본으로 적용한다.
+
+주문·취소·반품 상세에서도 모바일 브레드크럼을 표시한다. 출처: Breadcrumb.tsx, MyPageFrame.tsx, OrdersContent.tsx 작업 트리.

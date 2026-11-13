@@ -21,6 +21,19 @@ status: draft
 HomeContent.tsx의 HeroCopy 제목에서 강제 korean 폰트·행간·자간을 제거해 Typography heading1의 언어 판별을 사용한다. 설명은 기존 bodyKr 크기·행간·자간을 유지하며 `--font-family-base`로 영문 HOKA·한글 Pretendard를 조합한다. 다른 화면과 라우트·데이터 계약은 변경하지 않는다. 기존 모바일42px 선언은 보존했지만 현재 계산 크기는50px으로 관측했다.
 
 검증: PC1440px·모바일375px에서 영문 제목 HOKA와 혼합 설명의 HOKA/Pretendard-Regular 실제 렌더링을 CDP로 확인했다. HOKA 파일의 내부 이름은 점으로 보고되며 CSS family는 hoka다. 임시 한글 제목은 두 폭에서 Pretendard Black을 확인한 뒤 원래 TECTON X 4로 복원했다. 사용자 IAB 제목의 계산 font-family도 hoka 우선임을 확인했다. Panda 생성과 대상 ESLint를 통과했다. 출처: src/app/_components/HomeContent.tsx 작업 트리, Typography.tsx와 layout.tsx. 기록: Codex, 2026-11-13. 기존 provenance와 신뢰 상태를 유지한다.
+마이페이지 로그아웃 확인창은 전체 너비 확인 버튼 하나를 표시한다. 출처: MyPageContent.tsx 작업 트리, 2026-11-13.
+
+## 마이페이지 간격 표기 (2026-11-13)
+
+모바일 하단 로그아웃 버튼을 제거하고 상단 콘텐츠 헤더에서 로그아웃 확인창을 연다. 출처: MyPageContent.tsx 작업 트리, Codex, 2026-11-13.
+
+쿠폰과 관심상품 카드의 숫자는 가운데 정렬한다. 출처: MyPageContent.tsx 작업 트리, Codex, 2026-11-13.
+
+마이페이지와 전용 공통 컴포넌트에서 간격 토큰을 기본 글자 크기 16px 기준의 픽셀값으로 풀어 쓴다. 데스크탑·모바일 분기와 경로는 유지한다.
+
+## 마이페이지 메인 간격과 메뉴 아이콘 (2026-11-13)
+
+마이페이지 메인의 프로필과 메뉴는 기존 `/mypage` 경로와 링크를 유지한다. 데스크탑·모바일 시안을 대조해 프로필 및 메뉴 이동 화살표에 공통 24px 아이콘을 사용하고 등급 안내의 상단 정렬을 반영했다. 경로와 데이터 연결에는 영향이 없다. 출처: `src/app/mypage/_components/MyPageContent.tsx` 작업 트리, HOKA 디자인 시안, Codex, 2026-11-13.
 
 ## 공통 가이드 간격의 선별 커밋 범위 (2026-11-11)
 
@@ -37,3 +50,10 @@ ProfileContent와 ProfileStatePreview의 MyPageFrame breadcrumb 표시를 ‘회
 `/checkout/preview-address-change`, `/checkout/preview-address-edit`, `/checkout/preview-address-new`의 기존 URL과 IA172·173 연결을 유지한다. 목록 제목은 배송지 관리이며 네 행·고정 더보기 1/10과 하단 추가 액션을 표시한다. 추가·수정은 같은 폼의 dialog 옵션으로 이름·배송지명·전화·주소를 표시하고 취소는 목록으로 돌아간다. 일반 주문서의 inline 배송지 입력과 마이페이지 목록은 기존 표현을 유지한다. 새 상태 URL·API·PG를 만들지 않는다.
 
 PC 폭 640px, 입력 팝업 836px 높이, 본문 좌우 32px·상단 24px, 위쪽 2px 선·내부 24px, 필드 63px·간격 16px, 액션 전후 40px·버튼 180×48px을 적용했다. 모바일은 기존 fullscreen·16px gutter·44px 버튼과 본문 스크롤을 재사용한다. [공유 목록과 검증](ui.md#배송지-목록과-입력-팝업의-국소-디자인-옵션-2026-11-13). 출처: [HOKA 화면 디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design), CheckoutShipping.tsx·checkout-address-preview.ts 작업 트리, Codex, 2026-11-13.
+로그아웃 확인창 데스크탑은 최대 640px, 제목 본문 heading7과 180×48px 확인 버튼을 사용한다. 출처: MyPageContent.tsx 작업 트리 및 로그아웃 시안, 2026-11-13.
+
+마이페이지 로그아웃 확인 버튼은 데스크탑 48px, 모바일 44px 높이다. 출처: MyPageContent.tsx 작업 트리, 2026-11-13.
+
+마이페이지 주문 상품 예시는 기존가와 할인율을 선택적으로 표시하며 실제 표시 가격은 연동 소유자가 전달한다. 출처: 마이페이지 작업 트리 및 디자인 시안, 2026-11-13.
+
+공통 모달의 기존 md 사용처는 sm으로 전환한다. 출처: 관련 화면 작업 트리, Codex, 2026-11-13.
