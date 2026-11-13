@@ -6,6 +6,10 @@ description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
 
+## 매장 찾기 모바일 전화 링크 (2026-11-13)
+
+매장 목록의 번호는 모바일에서만 밑줄로 전화 연결 가능함을 표시하며, native `tel:` 링크로 기기의 전화 앱을 요청한다. `StoreResult.phoneHref`는 표시용 `phone`과 별도로 고정 fixture에 명시해 향후 매장 데이터 연결 시 두 값을 함께 제공해야 한다. PC는 기존 비링크 텍스트와 레이아웃을 유지했다. 출처: `src/app/support/store/_components/StoreContent.tsx`, `src/app/support/store/store.data.ts`, `src/types/component-contracts/app-support-store-page.d.ts` 작업 트리, Codex, 2026-11-13.
+
 - src/components/common/organisms/Address/AddressList.tsx
 - src/app/support/_components/SupportContacts.tsx
 - src/app/support/notices/_components/NoticesList.tsx

@@ -1,3 +1,7 @@
+## 2026-11-13 매장 찾기 모바일 전화 연결
+
+- `/support/store`의 매장 전화번호에 `tel:` 주소를 연결하고 모바일에서 밑줄로 표시했다. `phoneHref` fixture를 표시 번호와 분리해 확정 매장 데이터 연결 책임을 명시했으며, 경로·PC 표시·조회/지도 요청은 바꾸지 않았다. [경로 영향](architecture/routing.md#매장-찾기-모바일-전화-연결-2026-11-13), [표시·데이터 경계](architecture/ui.md#매장-찾기-모바일-전화-링크-2026-11-13). 출처: 관련 작업 트리, Codex, 2026-11-13.
+
 ## 2026-11-13 Figma 타이포그래피 토큰 동기화
 
 - Figma 디자인 시스템의 Heading 6B, Body 보조 단계·Body 6, CTA 보조 단계와 Caption 한글·영문 variant를 공통 Typography와 퍼블리싱 가이드에 추가했다. 10·15·30px Panda 토큰 및 최신 Heading weight를 반영하고 기존 Compact fallback·Text Link는 보존했다. 고객사 요청으로 Primary·Secondary 버튼 라벨은 CTA 크기를 유지하면서 Bold(700)로 통일했고, 가이드 Tall/Short Black·White 기본 예시의 계산 weight를 700으로 확인했다. Panda 생성·대상 ESLint·OKF 검사는 통과했으며, 전체 검사에 남은 기존 lint·type 오류는 UI 기록에 분리했다. [UI 규격과 검증 범위](architecture/ui.md#figma-타이포그래피-토큰-동기화-2026-11-13), [경로 영향 검토](architecture/routing.md#타이포그래피-토큰-동기화의-경로-영향-검토-2026-11-13). 출처: HOKA 디자인 시스템·관련 작업 트리, Codex, 2026-11-13.

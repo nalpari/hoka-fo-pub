@@ -6,6 +6,10 @@ description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설
 tags: [nextjs, routing, platform]
 status: draft
 
+## 매장 찾기 모바일 전화 연결 (2026-11-13)
+
+`/support/store`의 기존 경로와 목록 표시를 유지하면서 모바일의 매장 전화번호만 `tel:` 링크로 연결한다. 전화 연결 주소는 표시 번호와 분리된 `phoneHref` fixture 필드가 소유하며, PC에서는 같은 전화번호를 비링크 텍스트로 유지한다. 새 URL·조회·지도 요청은 추가하지 않았다. 출처: `src/app/support/store/_components/StoreContent.tsx`, `src/app/support/store/store.data.ts`, `src/types/component-contracts/app-support-store-page.d.ts` 작업 트리, Codex, 2026-11-13.
+
 ## 타이포그래피 토큰 동기화의 경로 영향 검토 (2026-11-13)
 
 `Typography` variant와 `/publishing-guide` 표시는 최신 Figma 타이포그래피 토큰을 반영하지만 App Router 경로, URL 상태, preview 진입점과 플랫폼 선택 책임은 변경하지 않는다. 출처: `src/components/common/atoms/Typography.tsx`, `src/app/publishing-guide/_components/TypographyGuide.tsx`, Codex, 2026-11-13.
