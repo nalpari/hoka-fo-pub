@@ -229,11 +229,11 @@ type HeroCopyProps = {
 };
 const title = css({
   m: '0',
-  '&&': { fontFamily: 'korean', lineHeight: '1.2', letterSpacing: '-0.02em' },
 });
 const mobileHeroTitle = css({ '&&': { fontSize: '42px' } });
 const description = css({
   m: '0',
+  '&&': { fontFamily: 'var(--font-family-base)' },
   w: 'auto',
   _mobile: { w: '100%', maxW: '100%', overflowWrap: 'anywhere' },
 });
