@@ -238,6 +238,10 @@ sources:
     title: 'src/app/cart/page.tsx'
 ---
 
+## 헤더 메뉴 항목 강조 (2026-11-13)
+
+데스크탑 메뉴 항목은 마우스를 올리거나 누르는 동안, 키보드 포커스 또는 현재 경로에 해당할 때 글자 굵기 700을 사용한다. 메뉴의 기존 링크와 경로 판정은 유지한다. 링크 상태에 따른 굵기는 메뉴 레이블의 Typography에서 지정하고 현재 경로 강조와 합친다. 출처: `src/context/ShopShell.tsx` 작업 트리, Codex, 2026-11-13. 브라우저에서 일반 항목의 hover 굵기 700과 검정색을 확인했다.
+
 ## Typography variant 정리의 상태 경계 (2026-10-27)
 
 Typography의 화면 전용 variant를 표준 heading/body scale로 바꾼 변경은 표시 계층에 한정된다. 선택·필터·문의·상품·세션·장바구니 데이터와 상태 흐름은 변경하지 않았다. 관련 컴포넌트 사용처는 UI 아키텍처 문서의 Typography 전용 variant 표준화 항목에 기록했다.
