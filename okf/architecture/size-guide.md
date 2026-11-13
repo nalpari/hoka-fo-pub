@@ -58,7 +58,7 @@ sources:
 
 ## 상품 상세 사이즈 가이드 팝업 유지 (2026-11-10)
 
-상품 상세의 신발·의류 사이즈 가이드 팝업을 다시 연결했다. 성별 치수표가 있으면 현재 화면에서 PC 모달·모바일 바텀시트를 열고, 없을 때만 `/support/size-guide` 링크를 사용한다. 자 아이콘은 16px이며 원래 팝업 동작과 공통 `HelpTooltip`을 함께 유지한다. 화면 연결 그래프에는 공유 치수 데이터와 SegmentedControl 의존성을 반영했다. 아래 2026-11-09 팝업 기록의 표 구성·검증 범위를 따른다. 출처: 작업 트리의 `src/app/products/[id]/_components/ProductDetailContent.tsx`, `src/app/screen-index/sourceGraph.generated.json`.
+상품 상세의 신발·의류 사이즈 가이드 팝업을 다시 연결했다. 성별 치수표가 있으면 현재 화면에서 PC 모달·모바일 바텀시트를 열고, 치수표가 없으면 버튼을 표시하지 않는다. 2026-11-11 사용자 요청으로 `/support/size-guide` 이동 분기를 제거했다. 자 아이콘은 16px이며 원래 팝업 동작과 공통 `HelpTooltip`을 함께 유지한다. 화면 연결 그래프에는 공유 치수 데이터와 SegmentedControl 의존성을 반영했다. 아래 2026-11-09 팝업 기록의 표 구성·검증 범위를 따른다. 출처: 작업 트리의 `src/app/products/[id]/_components/ProductDetailContent.tsx`, `src/app/screen-index/sourceGraph.generated.json`.
 
 ## 고객센터 품목 통합 (2026-11-09)
 

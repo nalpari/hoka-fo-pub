@@ -1,16 +1,14 @@
 'use client';
 import { useState } from 'react';
 
+import { AddressList } from '@/components/common/organisms/Address/AddressList';
+
 import { MyPageFrame } from '@/components/mypage/MyPageFrame';
+import { initialAddresses } from '@/data/addressPreview';
 import { type Address } from '@/types/mypage-address.types';
 
-import {
-  AddressEditor,
-  AddressList,
-  emptyAddress,
-  initialAddresses,
-  MyPageAddressDeleteDialog,
-} from './AddressManagement';
+import { AddressEditor, emptyAddress, MyPageAddressDeleteDialog } from './AddressManagement';
+
 const editPreviewAddress: Address = {
   ...initialAddresses[1],
   phone: '01066040606',

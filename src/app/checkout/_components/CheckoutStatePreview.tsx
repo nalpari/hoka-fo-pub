@@ -3,6 +3,7 @@
 import { useState } from 'react';
 
 import { cartPreviewRows } from '@/app/cart/cart-preview';
+import { initialAddresses } from '@/data/addressPreview';
 
 import { CheckoutComplete } from './CheckoutComplete';
 import { CheckoutContent, CheckoutEmptyState } from './CheckoutForm';
@@ -17,7 +18,15 @@ import type { PaymentMethod } from './CheckoutPayment';
 export function CheckoutStatePreview({
   state,
 }: {
-  state: 'empty' | 'error' | 'complete' | 'shipping' | 'address-change' | 'delivery-request';
+  state:
+    | 'empty'
+    | 'error'
+    | 'complete'
+    | 'shipping'
+    | 'address-change'
+    | 'address-edit'
+    | 'address-new'
+    | 'delivery-request';
 }) {
   const [payment, setPayment] = useState<PaymentMethod>(
     state === 'address-change' ? 'kakao' : 'card',
@@ -32,7 +41,16 @@ export function CheckoutStatePreview({
       ) : (
         <CheckoutContent
           editShipping={state === 'shipping' || state === 'error'}
-          initialAddressChangeOpen={state === 'address-change'}
+          initialAddressChangeOpen={
+            state === 'address-change' || state === 'address-edit' || state === 'address-new'
+          }
+          initialAddressEditor={
+            state === 'address-edit'
+              ? { kind: 'edit', address: initialAddresses[1] }
+              : state === 'address-new'
+                ? { kind: 'new' }
+                : undefined
+          }
           initialDeliveryRequest={state === 'delivery-request' ? 'custom' : undefined}
           rows={cartPreviewRows}
           payment={payment}

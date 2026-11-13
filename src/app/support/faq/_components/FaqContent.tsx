@@ -6,7 +6,7 @@ import { type ReactNode, useMemo, useState } from 'react';
 import { usePlatform } from '@/context/platform';
 
 import { css } from 'styled-system/css';
-import { Box, Flex, HStack, Stack } from 'styled-system/jsx';
+import { Box, Flex, HStack, Stack, VStack } from 'styled-system/jsx';
 
 import { Accordion } from '@/components/common/atoms/Accordion';
 import { Button } from '@/components/common/atoms/Button';
@@ -231,7 +231,13 @@ export function RouteContent({ previewEmpty = false, previewExpanded = false }: 
     [category, query, previewEmpty, sourceEntries],
   );
   const displayed = entries.slice(0, shown);
-  const total = entries.length;
+  const more =
+    shown < entries.length
+      ? {
+          counter: { current: displayed.length, total: entries.length },
+          onLoadMore: () => setShown((count) => count + 10),
+        }
+      : undefined;
   const changeCategory = (next: FaqCategory) => {
     setCategory(next);
     setShown(10);
@@ -253,21 +259,16 @@ export function RouteContent({ previewEmpty = false, previewExpanded = false }: 
         { label: 'FAQs' },
       ]}
       footer={
-        shown < entries.length ? (
-          <Flex justifyContent="center" pt="10" _mobile={{ pt: '6' }}>
+        more ? (
+          <VStack mt="24px">
             <Button
-              variant="secondary"
-              size="short"
-              density="compact"
-              className={css({ w: '180px', '& > span': { w: '100%' }, _mobile: { w: 'auto' } })}
-              loadMore={{
-                counter: { current: displayed.length, total },
-              }}
-              onClick={() => {
-                setShown((count) => count + 10);
-              }}
+              variant="plain"
+              size="lg"
+              onClick={more.onLoadMore}
+              disabled={!more.onLoadMore}
+              loadMore={{ counter: more.counter }}
             />
-          </Flex>
+          </VStack>
         ) : null
       }
     >

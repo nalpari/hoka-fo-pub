@@ -408,6 +408,10 @@ sources:
 
 `/mypage/addresses`는 PC와 모바일에서 `배송지 관리` 제목 오른쪽에 추가 액션을 배치한다. PC는 40px 외곽선 버튼, 모바일은 밑줄 버튼을 사용한다. 목록 끝에서 24px 띄워 공통 Button의 `더보기 (1/10)`를 표시한다. PC는 160×40px, 모바일은 본문 너비 × 40px이다. 빈 상태 URL은 안내문 아래의 추가 버튼을 사용한다.
 
+## 주문서 배송지 팝업 시안 반영 (2026-11-13)
+
+`/checkout/preview-address-change`, `/checkout/preview-address-edit`, `/checkout/preview-address-new`은 기존 IA172·173 연결을 유지한다. 목록은 배송지 관리 제목, 네 행과 고정 더보기 1/10, 하단 추가 액션을 표시한다. 추가·수정은 이름·배송지명·전화·주소를 표시하며 취소는 목록으로 돌아간다. 서비스 요청과 결제 흐름은 연결하지 않는다.
+
 기본 목록의 1/10은 디자인 표시용 값이다. 미리보기의 더보기는 비활성이다. 실제 연동 소유자가 다음 페이지가 있을 때 카운터와 추가 조회 콜백을 전달하고 응답·실패·재시도를 관리한다.
 
 출처는 [PC 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1978-61923), [모바일 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1978-60310) 및 `src/app/mypage/addresses/_components/`의 AddressManagement.tsx·AddressStatePreview.tsx 작업 트리다.

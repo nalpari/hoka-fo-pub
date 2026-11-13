@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 import { css } from 'styled-system/css';
-import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
+import { Box, Grid, HStack, Stack, VStack } from 'styled-system/jsx';
 
 import { Badge } from '@/components/common/atoms/Badge';
 import { Button } from '@/components/common/atoms/Button';
@@ -28,7 +28,8 @@ import { runningSessionImage } from '@/components/running-session/runningSession
 export function RunningSessionEntriesContent({
   previewEmpty = false,
   preview,
-}:
+  more,
+}: { more?: { counter: { current: number; total: number }; onLoadMore?: () => void } } & (
   | {
       previewEmpty?: boolean;
       preview?: never;
@@ -36,7 +37,8 @@ export function RunningSessionEntriesContent({
   | {
       previewEmpty?: never;
       preview: 'cancel';
-    }) {
+    }
+)) {
   const [category, setCategory] = useState('전체');
   const [sort, setSort] = useState<'latest' | 'oldest'>('latest');
   const [selected, setSelected] = useState<string | null>(() =>
@@ -52,7 +54,6 @@ export function RunningSessionEntriesContent({
     : category === '전체'
       ? eventEntryPreview.totalCount
       : items.length;
-  const pageInfo = eventEntryPreview.pageInfo;
   return (
     <MyPageFrame activePath="/mypage/event-entries" breadcrumbs={[{ label: '러닝세션 신청내역' }]}>
       <Stack gap="0" minW="0">
@@ -191,24 +192,16 @@ export function RunningSessionEntriesContent({
         </Stack>
         {!items.length ? <EmptyState title="신청한 러닝세션이 없습니다." /> : null}
 
-        {items.length > 0 ? (
-          <Box alignSelf="center" pt="6" w="160px" _mobile={{ w: '100%' }}>
+        {items.length > 0 && more ? (
+          <VStack mt="24px">
             <Button
-              variant="secondary"
-              size="short"
-              fullWidth
-              loadMore={{ counter: pageInfo }}
-              className={css({
-                '&&:disabled > span': {
-                  bg: 'white!',
-                  color: 'black.100!',
-                  boxShadow: 'inset 0 0 0 1px var(--color-black-100)!',
-                },
-              })}
-              disabled={true}
-              onClick={() => {}}
+              variant="plain"
+              size="lg"
+              loadMore={{ counter: more.counter }}
+              onClick={more.onLoadMore}
+              disabled={!more.onLoadMore}
             />
-          </Box>
+          </VStack>
         ) : null}
       </Stack>
       <ModalDialog

@@ -226,6 +226,53 @@ const popupWithFooter = css.raw({
   overflowY: 'hidden',
 });
 
+const addressPopup = css.raw({
+  maxW: '640px',
+  borderRadius: '10px',
+  _mobile: { maxW: '100%', borderRadius: '0' },
+});
+
+const addressHeader = css.raw({
+  minH: '0',
+  flexShrink: '0',
+  pt: '40px',
+  px: '32px',
+  pb: '0',
+  _mobile: { pt: '24px', px: '16px', pb: '0' },
+  '& h2': { h: 'auto', m: '0' },
+  '& h2 > span': {
+    display: 'block',
+    fontSize: '24px',
+    lineHeight: '36px',
+    fontWeight: '700',
+    _mobile: { fontSize: '20px', lineHeight: '30px' },
+  },
+});
+
+const addressContent = css({
+  p: '24px 32px 0!',
+  flex: '0 1 auto!',
+  '&::before': { content: '""', display: 'block', borderTop: '2px solid black', mb: '24px' },
+  scrollbarGutter: 'auto',
+  scrollbarWidth: 'none',
+  '&::-webkit-scrollbar': { display: 'none' },
+  '& input': { h: '24px!', minH: '24px!', lineHeight: '24px!' },
+  '& [data-disabled] label': { color: 'black.100' },
+  _mobile: { p: '24px 16px 0!' },
+});
+
+const addressFooter = css.raw({
+  pt: '40px',
+  px: '32px',
+  pb: '40px',
+  _mobile: { pt: '32px', px: '0', pb: '24px' },
+  '&& > button': {
+    w: '180px',
+    '--button-height': '48px',
+    _mobile: { w: '100%', '--button-height': '44px' },
+  },
+});
+
 const sheetPopup = css.raw({
   display: 'flex',
   flexDirection: 'column',
@@ -249,13 +296,15 @@ const scrollableContent = css({ flex: '1', minH: '0', overflowY: 'auto' });
 
 export type ModalSize = 'sm' | 'md' | 'lg';
 
+export type ModalDialogVariant = 'address' | undefined;
+
 export type ModalMobilePresentation = 'popup' | 'fullscreen' | 'bottomSheet';
 
 export type ModalOverlayTone = 'dark' | 'light';
 
 type ModalActionButtonTextProps = Pick<
   ButtonTextProps,
-  'className' | 'disabled' | 'fullWidth' | 'density' | 'type' | 'form'
+  'className' | 'disabled' | 'fullWidth' | 'type' | 'form'
 > & { size?: 'short' | 'tall' };
 
 export type ModalDialogActions =
@@ -268,7 +317,7 @@ export type ModalDialogActions =
     }
   | {
       kind: 'confirm';
-      buttonProps?: Pick<ModalActionButtonTextProps, 'size' | 'density' | 'className'>;
+      buttonProps?: Pick<ModalActionButtonTextProps, 'size' | 'className'>;
       onConfirm: () => void;
       confirmLabel?: string;
       confirmDisabled?: boolean;
@@ -286,6 +335,7 @@ type ModalDialogBaseProps = {
   onOpenChange: (open: boolean) => void;
   open: boolean;
   size?: ModalSize;
+  variant?: ModalDialogVariant;
   mobilePresentation?: ModalMobilePresentation;
   /** Keep the footer outside the scroll area on mobile fullscreen dialogs. */
   mobileFixedFooter?: boolean;
@@ -375,6 +425,7 @@ export function ModalDialog({
   onOpenChange,
   open,
   size = 'md',
+  variant,
   mobilePresentation = 'popup',
   mobileFixedFooter = false,
   overlayTone = 'dark',
@@ -401,6 +452,7 @@ export function ModalDialog({
   const footerContent = resolvedFooter ? (
     <ModalDialogFooter
       {...footerProps}
+      css={variant === 'address' ? { ...addressFooter, ...footerProps?.css } : footerProps?.css}
       bottomSheet={sheet}
       inContent={footerInContent}
       scrollFade={scrollFade && !footerInContent}
@@ -420,6 +472,7 @@ export function ModalDialog({
               className={[
                 css(
                   popup.raw({ size, mobilePresentation }),
+                  variant === 'address' && addressPopup,
                   Boolean(resolvedFooter) && popupWithFooter,
                   sheet && sheetPopup,
                   sheet && scrollable && { h: 'calc(100dvh - 44px)' },
@@ -430,7 +483,11 @@ export function ModalDialog({
                 .join(' ')}
             >
               <ModalDialogHeader
-                {...headerProps}
+                css={
+                  variant === 'address'
+                    ? { ...addressHeader, ...headerProps?.css }
+                    : headerProps?.css
+                }
                 title={title}
                 closeLabel={closeLabel}
                 bottomSheet={sheet}
@@ -447,6 +504,7 @@ export function ModalDialog({
                       overflowY: 'auto',
                       p: resolvedFooter && !scrollable ? '24px 16px' : '24px 16px 32px',
                     }),
+                  variant === 'address' ? addressContent : undefined,
                   contentClassName,
                 ]
                   .filter(Boolean)

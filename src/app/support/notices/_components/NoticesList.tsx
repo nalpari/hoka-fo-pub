@@ -66,7 +66,7 @@ export function NoticesList({ notices, shown, platform, pending, error }: Notice
       gap="0"
       borderTopColor="black.100"
       borderTopStyle="solid"
-      borderTopWidth={{ base: '2px', _mobile: '0' }}
+      borderTopWidth={{ base: '2px', _mobile: '1px' }}
     >
       <HStack
         aria-hidden="true"

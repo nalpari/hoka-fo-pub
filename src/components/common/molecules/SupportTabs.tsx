@@ -171,8 +171,8 @@ export function SupportTabs({ syncQuery = false, ...props }: SupportTabsProps) {
           className={
             variant === 'care' || variant === 'shipping-returns'
               ? css({
-                  pt: variant === 'shipping-returns' && value === 'shipping' ? '3' : '10',
-                  _mobile: { pt: '6' },
+                  pt: '10',
+                  _mobile: { pt: variant === 'shipping-returns' ? '8' : '6' },
                 })
               : undefined
           }

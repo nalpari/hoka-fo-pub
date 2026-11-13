@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { usePlatform } from '@/context/platform';
 
 import { css } from 'styled-system/css';
-import { Grid, HStack, Stack } from 'styled-system/jsx';
+import { Grid, HStack, Stack, VStack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
 import { Card } from '@/components/common/atoms/Card';
@@ -105,7 +105,6 @@ function CouponRegistrationSection({
           fullWidth
           type="submit"
           size="tall"
-          density="wide"
           variant="primary"
           className={css({ w: '180px', _mobile: { w: '100%' } })}
         >
@@ -141,13 +140,15 @@ function CouponCard({ coupon, onDetails }: CouponCardProps) {
         pos: 'relative',
         minW: '0',
         minH: '195px',
+        h: '195px',
+        '& > *': { flexShrink: '0' },
         py: '8',
         pl: '33px',
         pr: '25px',
         gap: '8',
         backgroundSize: '100% 100%',
         backgroundRepeat: 'no-repeat',
-        _mobile: { minH: '170px', py: '25px', gap: '6' },
+        _mobile: { minH: '170px', h: '170px', py: '25px', gap: '6' },
       })}
       style={{ backgroundImage: 'url(/images/mypage/coupon.svg)' }}
     >
@@ -180,13 +181,13 @@ function CouponCard({ coupon, onDetails }: CouponCardProps) {
           <Typography
             variant="body3"
             language="en"
-            weight="medium"
+            weight="bold"
             className={css({ lineHeight: 'hoka!' })}
           >
             {coupon.benefit.endsWith('원') ? coupon.benefit.slice(0, -1) : coupon.benefit}
           </Typography>
           {coupon.benefit.endsWith('원') ? (
-            <Typography variant="bodyKr3" weight="semibold" className={css({ lineHeight: '1.2' })}>
+            <Typography variant="bodyKr3" weight="semibold" className={css({ lineHeight: '1.2!' })}>
               원
             </Typography>
           ) : null}
@@ -212,6 +213,16 @@ type CouponHistorySectionProps = {
 function CouponHistorySection({ coupons, onDetails }: CouponHistorySectionProps) {
   const [visibleCount, setVisibleCount] = useState(5);
   const visibleCoupons = coupons;
+  const more =
+    visibleCount < visibleCoupons.length
+      ? {
+          counter: {
+            current: Math.ceil(visibleCount / 5),
+            total: Math.ceil(visibleCoupons.length / 5),
+          },
+          onLoadMore: () => setVisibleCount((count) => count + 5),
+        }
+      : undefined;
   return (
     <ContentSection
       as="section"
@@ -229,22 +240,16 @@ function CouponHistorySection({ coupons, onDetails }: CouponHistorySectionProps)
         },
       }}
       footer={
-        visibleCount < visibleCoupons.length ? (
-          <Button
-            className={css({ alignSelf: 'center' })}
-            variant="plain"
-            onClick={() => {
-              setVisibleCount((count) => count + 5);
-            }}
-            loadMore={{
-              counter: {
-                current: Math.ceil(visibleCount / 5),
-                total: Math.ceil(visibleCoupons.length / 5),
-              },
-              labelProps: { mo: 'ctaKr2' },
-              counterProps: { mo: 'body5' },
-            }}
-          />
+        more ? (
+          <VStack>
+            <Button
+              variant="plain"
+              size="lg"
+              onClick={more.onLoadMore}
+              disabled={!more.onLoadMore}
+              loadMore={{ counter: more.counter }}
+            />
+          </VStack>
         ) : null
       }
     >
@@ -521,7 +526,7 @@ function CouponManager({ coupons, preview, employee = false }: CouponManagerProp
     preview === 'detail' ? (coupons[1] ?? coupons[0] ?? null) : null,
   );
   return (
-    <Stack gap={{ base: '12', _mobile: '8' }}>
+    <Stack gap={{ base: '12', _mobile: '8' }} css={{ '--line-heights-body': '1.5' }}>
       <ContentHeader
         title="쿠폰"
         titleAs="h1"

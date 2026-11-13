@@ -28,19 +28,11 @@ export function checkButtonSizingTypes() {
       <Button variant="filterTrigger" size="compact">
         Filter
       </Button>
-      <Button variant="filterTrigger" size="regular">
-        Filter &amp; Sort
-      </Button>
-      <Button variant="headerSearch">Search</Button>
       <ButtonLink href="/" variant="filterTrigger">
         Filter
       </ButtonLink>
-      <ButtonLink href="/" variant="headerSearch">
-        Search
-      </ButtonLink>
 
       <Button loadMore={{ remaining: 10 }} variant="filterTrigger" />
-      <Button loadMore={{ remaining: 10 }} variant="headerSearch" />
     </>
   );
 
@@ -89,24 +81,8 @@ export function checkButtonSizingTypes() {
   // @ts-expect-error Link load-more buttons reject short.
   const moreShort = <Button loadMore={{ remaining: 10 }} variant="link" size="short" />;
 
-  // @ts-expect-error Filter triggers accept compact/regular, not tall/short.
+  // @ts-expect-error Filter triggers accept compact, not tall/short.
   const fixedFilter = <Button variant="filterTrigger" size="tall" />;
-
-  // @ts-expect-error Fixed search buttons reject explicit sizing.
-  const fixedSearch = <Button variant="headerSearch" size="short" />;
-
-  // @ts-expect-error Fixed variants also reject link sizes.
-  const fixedSmall = <Button variant="headerSearch" size="sm" />;
-
-  const fixedNavigation = (
-    // @ts-expect-error ButtonLink preserves the fixed-size constraint.
-    <ButtonLink href="/" variant="headerSearch" size="tall">
-      Search
-    </ButtonLink>
-  );
-
-  // @ts-expect-error Button loadMore preserves the fixed-size constraint.
-  const fixedMore = <Button loadMore={{ remaining: 10 }} variant="headerSearch" size="tall" />;
 
   // @ts-expect-error Icon-only shape options do not belong to text variants.
   const textShape = <Button variant="primary" shape="circle" />;
@@ -134,10 +110,6 @@ export function checkButtonSizingTypes() {
     moreSmall,
     moreShort,
     fixedFilter,
-    fixedSearch,
-    fixedSmall,
-    fixedNavigation,
-    fixedMore,
   ];
 }
 

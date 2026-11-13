@@ -1015,6 +1015,10 @@ sources:
 
 검증: 로컬 Ego 브라우저 PC1440px 상품 목록과 검색 결과에서 열기 전후 clientWidth1425px(스크롤바15px) 및 트리거 x좌표가 동일했다. 검색 결과1199/1200px에서도 열기 전후 폭·좌표가 동일했으며 1200/1440px에서 가로 넘침이 없었다. 1025px 전환 직후 측정은 레이아웃 안정화 전 값이 섞여 경계 검증 완료로 기록하지 않는다. PC 낮은가격순 선택 반영과 Escape 닫기, 모바일375px 퍼블리싱 가이드 정렬 시트의 배경 overflow:hidden, 과거순 선택 즉시 반영/닫기/포커스 복귀, 재열기 후 Escape 취소와 선택값 유지/포커스 복귀를 확인했다. 상품 목록·검색 결과 모바일은 기존 필터 내 정렬을 사용하므로 모바일 공통 Dropdown 시트는 가이드에서 검증했다.
 
+## 배송지 목록과 입력 팝업의 국소 디자인 옵션 (2026-11-13)
+
+공통 ModalDialog의 `address` 변형이 주문서 배송지 팝업의 640px 폭, 제목·본문 여백, 상단 2px 구분선과 180×48px footer 버튼을 소유한다. CheckoutShipping은 제목·표시 데이터·전환만 소유한다. 목록은 embedded AddressList와 주문서 전용 네 행 fixture를 사용하며 마이페이지 목록은 유지한다.
+
 대상 ESLint와 Prettier를 확인했다. 전체 typecheck는 기존 `.next/types/validator.ts`의 삭제된 checkout preview 경로7개 참조로 실패했다. production build는 실행하지 않았다. 출처: 위 Dropdown 작업 트리와 설치된 `@base-ui/react/select/root/SelectRoot` 구현. 기록: codex/gpt-6, 2026-11-13T00:47:01Z. 기존 provenance와 draft 상태를 유지한다.
 
 ## 상품 목록 이미지 비율 복원 (2026-11-10)

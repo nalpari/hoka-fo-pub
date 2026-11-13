@@ -74,7 +74,6 @@ function CartOptionsDialog({
         onCancel: onClose,
         buttonProps: {
           size: 'tall',
-          density: 'wide',
           className: css({ maxW: { base: '180px', _mobile: 'none' } }),
         },
       }}
@@ -186,13 +185,12 @@ export function CartLimitDialog({ onClose }: { onClose: () => void }) {
         <HStack justifyContent="center" mt="2" w="100%">
           <Button
             variant="primary"
-            size="short"
-            density="wide"
+            size="tall"
             fullWidth
             className={css({ w: { base: '160px', _mobile: '100%' } })}
             onClick={onClose}
           >
-            확인
+            <Typography variant="cta2">확인</Typography>
           </Button>
         </HStack>
       </Stack>

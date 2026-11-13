@@ -398,7 +398,7 @@ const typographyTones = {
 const typographyTone = cva({ variants: { tone: typographyTones } });
 
 const typography = cva({
-  base: { fontFamily: 'var(--font-family-base)' },
+  base: { fontFamily: 'var(--font-family-base)', transform: 'translateY(1px)' },
   variants: {
     variant: {
       ...figmaTypographyVariants,

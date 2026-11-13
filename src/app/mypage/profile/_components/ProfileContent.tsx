@@ -643,7 +643,7 @@ export function ProfileContent({
   const dismissNotice = () => setNotice(null);
   const saveProfile = () => setNotice(null);
   return (
-    <MyPageFrame activePath="/mypage/profile" breadcrumbs={[{ label: '회원정보 확인 및 수정' }]}>
+    <MyPageFrame activePath="/mypage/profile" breadcrumbs={[{ label: '회원정보 관리' }]}>
       {editing ? (
         <ProfileEditForm
           emailLocal={emailLocal}

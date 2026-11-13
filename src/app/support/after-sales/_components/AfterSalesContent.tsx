@@ -70,7 +70,8 @@ function ShippingReturnsGuidePanel({
       headerProps={{ titleAs: 'h3', titleProps: { variant: 'heading10', weight: 'semibold' } }}
       gap={compact ? '3' : '4'}
       px="2"
-      py={{ base: '0', _mobile: '4' }}
+      pt="0"
+      pb={{ base: '0', _mobile: '4' }}
     >
       {children}
     </ContentSection>
@@ -246,7 +247,7 @@ function ReturnQuickLinks() {
             },
           }}
           footer={
-            <ButtonLink href={item.href} variant="secondary" size="short" density="compact">
+            <ButtonLink href={item.href} variant="secondary" size="short">
               {item.label}
             </ButtonLink>
           }
@@ -255,7 +256,7 @@ function ReturnQuickLinks() {
           flex="1"
           minW="0"
           alignItems="flex-start"
-          gap={{ base: '6', _mobile: '5' }}
+          gap="6"
           px="9"
           css={{
             '&:first-child': { pl: '0' },
@@ -311,10 +312,10 @@ const returnSteps = [
     <br />
     (신청 완료후 2~3일내 지정택배사 수거 방문)
   </>,
-  '수령 상태 동일하게 이중 포장 후 기사님 전달',
-  '반품 완료 및 결제수단 환불 진행',
-  '요청 및 상품 확인',
+  '최초 수령 상태와 동일하게 이중포장하여 방문 기사님께 전달',
   '물류센터에 상품 도착',
+  '요청 및 상품 확인',
+  '반품 완료 및 결제수단 환불 진행',
 ] as const;
 
 function ProductReturnsPanel() {
@@ -331,7 +332,7 @@ function ProductReturnsPanel() {
       ]
     : returnSteps;
   return (
-    <Stack px="2" py="4" gap="4">
+    <Stack gap={{ base: '8', _mobile: '6' }}>
       <ContentSection
         title="호카 반품 안내"
         gap={{ base: '4', _mobile: '3' }}

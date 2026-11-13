@@ -10,7 +10,6 @@ import { css } from 'styled-system/css';
 import { Box, Flex, Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Button, ButtonLink } from '@/components/common/atoms/Button';
-import { Icon } from '@/components/common/atoms/Icon';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
@@ -28,12 +27,7 @@ import {
 const actionStyle = css({
   w: '120px',
   flexShrink: 0,
-  '& > span': { w: '100%' },
-  '& > span > span': { flexDirection: 'row-reverse' },
-  '--button-padding-x': '12px',
-  '--button-disabled-bg': 'var(--color-black-20)',
-  '--button-disabled-color': 'var(--color-black-40)',
-  _mobile: { '--button-label-size': '14px' },
+  // '& > span': { w: '100%' },
 });
 
 function LaunchCalendarCard({
@@ -51,13 +45,6 @@ function LaunchCalendarCard({
   const notify = item.action === 'notify' || notified;
   const disabled = notified || item.action === 'sold-out';
   const label = notified ? '신청 완료' : notify ? '알림 신청' : disabled ? 'Sold Out' : '구매하기';
-  const icon = notify ? (
-    <Icon
-      name={notified ? 'check-regular' : 'bell-regular'}
-      size="18px"
-      color={notified ? 'black.40' : 'white'}
-    />
-  ) : undefined;
 
   return (
     <Stack
@@ -192,20 +179,22 @@ function LaunchCalendarCard({
             size={platform === 'mobile' ? 'short' : 'tall'}
             className={actionStyle}
             disabled={disabled}
+            iconLeft={notify ? (notified ? 'check-regular' : 'bell-regular') : undefined}
+            iconSize={18}
+            iconColor={notified ? 'black.40' : 'white'}
             aria-label={`${item.name} ${label}`}
-            icon={icon}
             style={
               {
                 '--button-disabled-bg': 'var(--color-black-20)',
                 '--button-height': platform === 'mobile' ? (compact ? '36px' : '44px') : '48px',
                 width: platform === 'mobile' ? (compact ? '96px' : '110px') : '120px',
                 '--button-disabled-color': 'var(--color-black-40)',
-                '--button-padding-x': '12px',
-                '--button-label-size': platform === 'mobile' ? '14px' : '16px',
+                '--button-padding-x': '20px',
+                '--button-label-size': platform === 'mobile' ? '15px' : '16px',
               } as CSSProperties
             }
           >
-            <Typography variant="eland-event-action">{label}</Typography>
+            {label}
           </Button>
         )}
       </Flex>

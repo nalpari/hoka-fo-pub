@@ -32,36 +32,9 @@ const colorways = ['black', 'white'] as const;
 
 const auxiliaryVariants = [
   {
-    id: 'button-brand',
-    title: 'Brand',
-    description: '브랜드 블루를 강조하는 버튼',
-    samples: [
-      {
-        label: 'Tall',
-        note: '높이 48px · 글자 16px · 좌우 24px',
-        code: '<Button variant="brand" size="tall">버튼명 텍스트</Button>',
-        preview: (
-          <Button variant="brand" size="tall">
-            버튼명 텍스트
-          </Button>
-        ),
-      },
-      {
-        label: 'Short',
-        note: '높이 40px · 글자 14px · 좌우 16px',
-        code: '<Button variant="brand" size="short">버튼명 텍스트</Button>',
-        preview: (
-          <Button variant="brand" size="short">
-            버튼명 텍스트
-          </Button>
-        ),
-      },
-    ],
-  },
-  {
     id: 'button-link',
     title: 'Link',
-    description: '밑줄로 표시하는 텍스트 링크',
+    description: '밑줄 링크 · 문자열 라벨 SM 12px / MD 14px / LG 16px',
     samples: [
       {
         label: 'SM',
@@ -98,7 +71,7 @@ const auxiliaryVariants = [
   {
     id: 'button-plain',
     title: 'Plain',
-    description: '밑줄 없이 텍스트로 표시하는 버튼',
+    description: '밑줄 없는 버튼 · 문자열 라벨 SM 12px / MD 14px / LG 16px',
     samples: [
       {
         label: 'SM',
@@ -146,6 +119,33 @@ const auxiliaryVariants = [
     ],
   },
   {
+    id: 'button-icon-position',
+    title: '아이콘 위치',
+    description: 'iconLeft·iconRight에 이름 지정 · iconSize·iconColor로 크기와 색상 변경',
+    samples: [
+      {
+        label: '왼쪽',
+        note: '높이 48px · 아이콘 18px',
+        code: '<Button variant="primary" size="tall" iconLeft="bell-regular" iconSize={18}>알림 신청</Button>',
+        preview: (
+          <Button variant="primary" size="tall" iconLeft="bell-regular" iconSize={18}>
+            알림 신청
+          </Button>
+        ),
+      },
+      {
+        label: '오른쪽',
+        note: '높이 48px · 아이콘 18px',
+        code: '<Button variant="primary" size="tall" iconRight="bell-regular" iconSize={18}>알림 신청</Button>',
+        preview: (
+          <Button variant="primary" size="tall" iconRight="bell-regular" iconSize={18}>
+            알림 신청
+          </Button>
+        ),
+      },
+    ],
+  },
+  {
     id: 'button-icon',
     title: 'Icon',
     description: '아이콘만 표시하는 버튼으로 접근성 이름이 필요',
@@ -170,44 +170,10 @@ const auxiliaryVariants = [
       {
         label: 'Compact',
         note: '높이 40px · 글자 14px · 좌우 14px',
-        code: '<Button variant="filterTrigger" icon={<Icon name="sliders-regular" />}><Typography variant="body4">필터</Typography></Button>',
+        code: '<Button variant="filterTrigger" iconRight="sliders-regular"><Typography variant="body4">필터</Typography></Button>',
         preview: (
-          <Button variant="filterTrigger" icon={<Icon name="sliders-regular" />}>
+          <Button variant="filterTrigger" iconRight="sliders-regular">
             <Typography variant="body4">필터</Typography>
-          </Button>
-        ),
-      },
-      {
-        label: 'Regular',
-        note: '높이 40px · 글자 16px · 좌우 24px',
-        code: '<Button variant="filterTrigger" size="regular" icon={<Icon name="sliders-regular" size={20} />}><Typography variant="cta1">Filter & Sort</Typography></Button>',
-        preview: (
-          <Button
-            variant="filterTrigger"
-            size="regular"
-            icon={<Icon name="sliders-regular" size={20} />}
-          >
-            <Typography variant="cta1">Filter &amp; Sort</Typography>
-          </Button>
-        ),
-      },
-    ],
-  },
-  {
-    id: 'button-header-search',
-    title: 'Header Search',
-    description: '헤더 검색 진입에 사용하는 고정 크기 버튼',
-    samples: [
-      {
-        label: '고정 크기',
-        note: '높이 36px · 글자 16px · 좌우 15px',
-        code: '<Button variant="headerSearch" icon={<Icon name="magnifying-glass-regular" size="16px" />}>검색어를 입력하세요</Button>',
-        preview: (
-          <Button
-            variant="headerSearch"
-            icon={<Icon name="magnifying-glass-regular" size="16px" />}
-          >
-            검색어를 입력하세요
           </Button>
         ),
       },
@@ -234,14 +200,30 @@ const auxiliaryVariants = [
   },
   {
     id: 'button-load-more',
-    title: 'Load More',
-    description: '목록의 현재 진행 수를 표시하는 버튼 옵션',
+    title: '더보기',
+    description: 'PC 글자 16px·화살표 18px·간격 8px · 모바일 글자 14px·화살표 14px·간격 6px',
     samples: [
       {
-        label: '진행 수 표시',
-        note: '높이 48px · 글자 16px · 좌우 24px',
-        code: '<Button loadMore={{ counter: { current: 1, total: 3 } }} />',
-        preview: <Button loadMore={{ counter: { current: 1, total: 3 } }} />,
+        label: '펼침 · 아래 화살표',
+        note: '기본 상태 · PC/MO 화면 너비에 맞춰 글자·화살표 크기 변경',
+        code: '<Button variant="plain" loadMore={{ counter: { current: 1, total: 10 }, direction: "down" }} />',
+        preview: (
+          <Button
+            variant="plain"
+            loadMore={{ counter: { current: 1, total: 10 }, direction: 'down' }}
+          />
+        ),
+      },
+      {
+        label: '접힘 · 위 화살표',
+        note: '접힌 상태 · PC/MO 화면 너비에 맞춰 글자·화살표 크기 변경',
+        code: '<Button variant="plain" loadMore={{ counter: { current: 1, total: 10 }, direction: "up" }} />',
+        preview: (
+          <Button
+            variant="plain"
+            loadMore={{ counter: { current: 1, total: 10 }, direction: 'up' }}
+          />
+        ),
       },
     ],
   },
@@ -495,12 +477,12 @@ function ButtonSizingGuide() {
         </Stack>
         <Stack className={sizeCard} gap="2">
           <Typography as="h3" variant="body4" weight="medium">
-            속성 우선순위
+            크기 지정
           </Typography>
           <Typography as="p" variant="body5" tone="subtle">
-            density → size → auto
+            size="tall": 높이 48px · 좌우 24px
             <br />
-            auto는 기본 wide, .platform-mobile 안에서는 compact입니다.
+            size="short": 높이 40px · 좌우 16px. 기본값은 tall입니다.
           </Typography>
         </Stack>
         <Stack className={sizeCard} gap="2">
@@ -510,10 +492,6 @@ function ButtonSizingGuide() {
           <Typography as="p" variant="body5" tone="subtle">
             FilterTrigger compact: 높이 40px · 글자 14px · 좌우 14px
             <br />
-            FilterTrigger regular: 높이 40px · 글자 16px · 좌우 24px
-            <br />
-            HeaderSearch: 높이 36px · 글자 16px · 좌우 15px
-            <br />
             Icon: 샘플 높이 36px · 글자 없음 · 좌우 0px
           </Typography>
         </Stack>
@@ -522,8 +500,8 @@ function ButtonSizingGuide() {
             라벨 크기
           </Typography>
           <Typography as="p" variant="body5" tone="subtle">
-            일반 버튼의 size는 라벨 Typography도 선택합니다. density와 함께 사용하면 높이와 글자
-            크기가 달라질 수 있습니다.
+            일반 버튼의 size는 높이와 기본 라벨 Typography를 함께 선택합니다. 글자 크기만 별도로
+            유지해야 하는 경우 자식 Typography에 variant를 지정합니다.
           </Typography>
         </Stack>
         <Stack className={sizeCard} gap="2">
@@ -532,6 +510,18 @@ function ButtonSizingGuide() {
           </Typography>
           <Typography as="p" variant="body5" tone="subtle">
             colorway는 Black / White 조합을 선택합니다.
+          </Typography>
+        </Stack>
+        <Stack className={sizeCard} gap="2">
+          <Typography as="h3" variant="body4" weight="medium">
+            상태 표현
+          </Typography>
+          <Typography as="p" variant="body5" tone="subtle">
+            Black 비활성: 배경 black.20 (#E9EAEB) · 글자 black.40 (#B3B3B3)
+            <br />
+            White 비활성: 배경 black.40 (#B3B3B3) · 글자 white.0
+            <br />
+            Active·focus-visible: 버튼 바깥쪽 4px 외곽선
           </Typography>
         </Stack>
       </Grid>
@@ -559,7 +549,11 @@ function AuxiliaryButtonsGuide({ onCopy }: { onCopy: (code: string) => void }) {
               {item.description}
             </Typography>
           </HStack>
-          <Stack gap={{ base: '3', _mobile: '2' }} mt="3">
+          <Grid
+            columns={item.id === 'button-social' ? { base: 2, _mobile: 1 } : 1}
+            gap={{ base: '3', _mobile: '2' }}
+            mt="3"
+          >
             {item.samples.map((sample) => (
               <Stack key={sample.label} className={sizeCard} gap="3">
                 <HStack
@@ -575,8 +569,8 @@ function AuxiliaryButtonsGuide({ onCopy }: { onCopy: (code: string) => void }) {
                     {sample.note}
                   </Typography>
                 </HStack>
-                <Grid columns={{ base: 2, _mobile: 1 }} gap="2">
-                  {states.map((state) => {
+                <Grid columns={item.id === 'button-social' ? 1 : { base: 2, _mobile: 1 }} gap="2">
+                  {(item.id === 'button-social' ? [states[0]] : states).map((state) => {
                     const code =
                       state.value === 'disabled' ? withDisabledAttribute(sample.code) : sample.code;
 
@@ -596,7 +590,13 @@ function AuxiliaryButtonsGuide({ onCopy }: { onCopy: (code: string) => void }) {
                         >
                           {state.label}
                         </Typography>
-                        <Box display="flex" justifyContent="center" minH="16" p="3">
+                        <Box
+                          display="flex"
+                          alignItems="center"
+                          justifyContent="center"
+                          minH="16"
+                          p="3"
+                        >
                           {renderSamplePreview(sample.preview, state.value === 'disabled')}
                         </Box>
                         <HStack as="code" className={codeLine} gap="3">
@@ -621,7 +621,7 @@ function AuxiliaryButtonsGuide({ onCopy }: { onCopy: (code: string) => void }) {
                 </Grid>
               </Stack>
             ))}
-          </Stack>
+          </Grid>
         </Stack>
       ))}
     </>

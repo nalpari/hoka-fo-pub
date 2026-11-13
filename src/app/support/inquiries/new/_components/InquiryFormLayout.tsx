@@ -16,6 +16,11 @@ export function InquiryFormLayout({ children }: { children: ReactNode }) {
   const fromMyPage = useSearchParams().get('from') === 'mypage';
   return (
     <CustomerCenterLayout
+      className={css({
+        '--line-heights-body': '1.5',
+        '& input[type="text"]:not([role="combobox"])': { h: '24px', minH: '24px' },
+        _mobile: { pb: '16!' },
+      })}
       header={
         /* 문의 등록 제목과 안내 문구 (Inquiry submission heading and guidance). */
         <ContentHeader

@@ -49,7 +49,7 @@ export function SupportQuickLinks() {
             descriptionProps: { variant: 'body4', tone: 'subtle' },
           }}
           footer={
-            <ButtonLink href={item.href} variant="secondary" size="short" density="compact">
+            <ButtonLink href={item.href} variant="secondary" size="short">
               {item.label}
             </ButtonLink>
           }
@@ -57,7 +57,7 @@ export function SupportQuickLinks() {
           flex="1"
           minW="0"
           alignItems="flex-start"
-          gap={{ base: '4', _mobile: '5' }}
+          gap="6"
           position="relative"
           _mobile={{ px: '4' }}
           css={
@@ -79,7 +79,7 @@ export function SupportQuickLinks() {
                       height: '1px',
                     },
                   },
-                  _mobile: { pt: '6' },
+                  _mobile: { pt: '25px' },
                 }
               : undefined
           }

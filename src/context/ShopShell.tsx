@@ -1796,7 +1796,7 @@ const MegaMenuListStyles = {
   activeItemHeading: css({
     '&&': {
       fontSize: '20px',
-      fontWeight: 'semibold',
+      fontWeight: 'bold',
       lineHeight: '1.2',
     },
   }),
@@ -1813,19 +1813,7 @@ function MegaMenuList({ columns, onClose }: MegaMenuListProps) {
   return (
     <Grid gridTemplateColumns="repeat(5, minmax(110px, 1fr))" gap="4">
       {columns.map((column) => (
-        <Flex
-          minW={0}
-          css={{
-            '&&': {
-              '& a:hover [data-sale], & a:focus-visible [data-sale]': {
-                color: 'sale',
-              },
-            },
-          }}
-          direction="column"
-          gap="30px"
-          key={column.title}
-        >
+        <Flex minW={0} direction="column" gap="30px" key={column.title}>
           <Typography as="h2" variant="heading8" className={MegaMenuListStyles.title}>
             {column.to ? (
               <Link href={column.to} onClick={onClose}>
@@ -1845,20 +1833,23 @@ function MegaMenuList({ columns, onClose }: MegaMenuListProps) {
                     className={css({
                       display: 'inline-flex',
                       gap: '5px',
-                      _hover: { textDecoration: 'underline', textUnderlineOffset: '3px' },
-                      _focusVisible: { textDecoration: 'underline', textUnderlineOffset: '3px' },
                     })}
                   >
                     <Typography
                       variant="body3"
                       tone={item.label === 'Sale' ? 'red80' : 'primary'}
-                      className={
+                      className={cx(
+                        css({
+                          'a:hover > &, a:active > &, a:focus-visible > &': {
+                            fontWeight: 'bold',
+                          },
+                        }),
                         currentPath === item.to
                           ? column.activeItemEmphasis === 'heading'
                             ? MegaMenuListStyles.activeItemHeading
                             : MegaMenuListStyles.activeItemLabel
-                          : undefined
-                      }
+                          : undefined,
+                      )}
                       data-sale={item.label === 'Sale'}
                     >
                       {item.label}
@@ -1925,6 +1916,7 @@ function MegaMenuPanel({ menu, onClose, onFocusBoundary }: MegaMenuPanelProps) {
         type="button"
         aria-label="메뉴 닫기"
         className={MegaMenuPanelStyles.overlay}
+        onMouseEnter={onClose}
         onClick={onClose}
         tabIndex={-1}
       />
