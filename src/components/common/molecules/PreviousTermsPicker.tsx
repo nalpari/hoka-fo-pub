@@ -105,7 +105,7 @@ export function PreviousTermsPicker({
       }}
       title="이전 약관 보기"
       closeLabel="이전 약관 보기 닫기"
-      size="md"
+      size="sm"
       mobilePresentation="bottomSheet"
       popupClassName={popup}
       finalFocus={finalFocus}

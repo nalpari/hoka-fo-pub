@@ -51,7 +51,7 @@ function PhoneVerificationDetailDialog({ open, onOpenChange }: Props) {
       onOpenChange={onOpenChange}
       title="알뜰폰 사업자"
       closeLabel="안내 닫기"
-      size="md"
+      size="sm"
       mobilePresentation="fullscreen"
       actions={{ kind: 'single', onConfirm: () => onOpenChange(false) }}
     >
@@ -87,7 +87,7 @@ function PhoneVerificationDialogs({ detail, onDetail }: PhoneVerificationDialogs
       onOpenChange={onOpenChange}
       title={detail ?? ''}
       closeLabel="안내 닫기"
-      size="md"
+      size="sm"
       mobilePresentation="fullscreen"
       actions={{ kind: 'single', onConfirm: () => onDetail(null) }}
     >
@@ -142,7 +142,7 @@ function PhoneVerificationDesignDialogs({
         }}
         title="HOKA Korea 이용약관"
         closeLabel="안내 닫기"
-        size="md"
+        size="sm"
         mobilePresentation="fullscreen"
         footerProps={{
           css: css.raw({

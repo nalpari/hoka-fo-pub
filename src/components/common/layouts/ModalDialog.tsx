@@ -16,14 +16,13 @@ const header = css.raw({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  minH: '14',
-  px: '4',
-  _mobile: {
-    px: '4',
-  },
+  gap: '6px',
+  pt: '40px',
+  px: '32px',
+  _mobile: { pt: '24px', px: '16px' },
 });
 
-const titleStyle = css({ h: '32px' });
+const titleStyle = css({ m: '0', minW: '0', flex: '1' });
 
 const sheetTitleStyle = css({ m: '0', minW: '0' });
 
@@ -56,10 +55,13 @@ function ModalDialogHeader({
       )}
     >
       <Dialog.Title className={bottomSheet ? sheetTitleStyle : titleStyle}>
-        {!bottomSheet ? (
-          <Typography variant="body3">{title}</Typography>
-        ) : typeof title === 'string' || typeof title === 'number' ? (
-          <Typography variant="headingKr9" weight="semibold">
+        {typeof title === 'string' || typeof title === 'number' ? (
+          <Typography
+            web="body1"
+            mo="body2"
+            weight="bold"
+            className={css({ '&&': { fontWeight: 'bold' } })}
+          >
             {title}
           </Typography>
         ) : (
@@ -68,8 +70,8 @@ function ModalDialogHeader({
       </Dialog.Title>
       <Dialog.Close
         render={
-          <Button aria-label={closeLabel} variant="icon" size={20}>
-            <Icon name="xmark-regular" size={20} />
+          <Button aria-label={closeLabel} variant="icon" size={18}>
+            <Icon name="xmark-regular" size={18} />
           </Button>
         }
       />
@@ -150,11 +152,11 @@ const viewport = cva({
     zIndex: '100',
     display: 'grid',
     placeItems: 'center',
-    p: '6',
+    p: '24px',
   },
   variants: {
     mobilePresentation: {
-      popup: { _mobile: { p: '4' } },
+      popup: { _mobile: { p: '16px' } },
       fullscreen: { _mobile: { p: '0' } },
       bottomSheet: { _mobile: { alignItems: 'end', p: '0' } },
     },
@@ -186,17 +188,16 @@ const popup = cva({
     borderRadius: '10px',
     bg: 'var(--color-white-000)',
     boxShadow: '0 4px 4px color-mix(in srgb, var(--color-black-100) 25%, transparent)',
-    _mobile: { maxH: 'calc(100dvh - 32px)', borderRadius: '0' },
+    _mobile: { maxH: 'calc(100dvh - 32px)' },
   },
   variants: {
     size: {
-      sm: { maxW: '420px' },
-      md: { maxW: '568px' },
-      lg: { maxW: '864px' },
+      sm: { maxW: '640px' },
+      lg: { maxW: '800px' },
     },
     mobilePresentation: {
       popup: {
-        _mobile: { w: 'calc(100vw - 32px)!', maxW: 'none' },
+        _mobile: { w: 'calc(100vw - 32px)!', maxW: 'none', borderRadius: '24px' },
       },
       fullscreen: {
         _mobile: {
@@ -216,7 +217,7 @@ const popup = cva({
       },
     },
   },
-  defaultVariants: { size: 'md', mobilePresentation: 'popup' },
+  defaultVariants: { size: 'sm', mobilePresentation: 'popup' },
 });
 
 const popupWithFooter = css.raw({
@@ -239,7 +240,7 @@ const sheetPopup = css.raw({
     borderRadius: 'full',
     bg: '#E9EAEB',
     mx: 'auto',
-    mt: '2',
+    mt: '8px',
   },
 });
 
@@ -247,7 +248,7 @@ const content = css({ p: '24px 24px 16px', _mobile: { p: '24px 16px 16px' } });
 
 const scrollableContent = css({ flex: '1', minH: '0', overflowY: 'auto' });
 
-export type ModalSize = 'sm' | 'md' | 'lg';
+export type ModalSize = 'sm' | 'lg';
 
 export type ModalMobilePresentation = 'popup' | 'fullscreen' | 'bottomSheet';
 
@@ -374,7 +375,7 @@ export function ModalDialog({
   actions,
   onOpenChange,
   open,
-  size = 'md',
+  size = 'sm',
   mobilePresentation = 'popup',
   mobileFixedFooter = false,
   overlayTone = 'dark',
