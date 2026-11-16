@@ -38,34 +38,42 @@ function LogoutDialog({ open, onOpenChange, onConfirm }: LogoutDialogProps) {
       onOpenChange={onOpenChange}
       open={open}
       size="sm"
+      popupClassName={css({ maxW: '640px' })}
+      contentClassName={css({ '&&': { p: '24px 32px 40px', _mobile: { p: '24px 16px 16px' } } })}
       title="로그아웃"
-      actions={{ kind: 'confirm', onConfirm: onConfirm }}
+      actions={{ kind: 'single', onConfirm, buttonProps: { size: 'tall' } }}
+      footerProps={{
+        css: css.raw({
+          pb: '40px',
+          _mobile: { pb: '24px' },
+          '& > button': {
+            w: '180px',
+            '--button-height': '48px',
+            _mobile: { w: '100%', '--button-height': '44px' },
+          },
+        }),
+      }}
     >
-      <Typography as="p" variant="body3">
+      <Typography as="p" web="heading7" mo="body3">
         로그아웃 하시겠습니까?
       </Typography>
     </ModalDialog>
   );
 }
 
-const membershipLink = css({
-  color: 'inherit',
-  textDecoration: 'underline',
-  textUnderlineOffset: '2px',
-});
 function MyPageMembership() {
   return (
-    <Box bg="black.10" p="8" minW="0" _mobile={{ px: '4', py: '5' }}>
-      <Stack gap="3">
-        <HStack justifyContent="space-between">
-          <HStack gap="3" _mobile={{ gap: '2' }}>
+    <Box bg="black.10" p="32px" minW="0" _mobile={{ px: '16px', py: '20px' }}>
+      <Stack gap="12px">
+        <HStack justifyContent="space-between" alignItems="flex-start">
+          <HStack gap="12px" _mobile={{ gap: '8px' }}>
             <HStack
               as="span"
               justifyContent="center"
               gap="0"
-              w="12"
-              h="12"
-              _mobile={{ w: '8', h: '8' }}
+              w="48px"
+              h="48px"
+              _mobile={{ w: '32px', h: '32px' }}
               borderRadius="full"
               bg="black.100"
               color="offWhite.100"
@@ -78,11 +86,11 @@ function MyPageMembership() {
               {'RUNNER'}
             </Typography>
           </HStack>
-          <Link className={membershipLink} href="/mypage/rewards">
-            <Typography variant="body5">등급안내</Typography>
-          </Link>
+          <ButtonLink href="/mypage/rewards" size="sm" variant="link">
+            등급안내
+          </ButtonLink>
         </HStack>
-        <Box w="full" pl="60px" boxSizing="border-box" _mobile={{ pl: '10' }}>
+        <Box w="full" pl="60px" boxSizing="border-box" _mobile={{ pl: '40px' }}>
           <Typography as="p" web="body3" mo="body5">
             {'다음 등급까지 300,000원 구매시 등급 업 혜택 제공'}
           </Typography>
@@ -102,10 +110,10 @@ type MyPageBenefitItemProps = {
 const benefitLink = css({
   minW: '0',
   bg: 'black.10',
-  p: '8',
+  p: '32px',
   color: 'inherit',
   textDecoration: 'none',
-  _mobile: { px: '4', py: '5' },
+  _mobile: { px: '16px', py: '20px' },
 });
 function MyPageBenefitItem({ href, label, count, unit }: MyPageBenefitItemProps) {
   return (
@@ -114,7 +122,7 @@ function MyPageBenefitItem({ href, label, count, unit }: MyPageBenefitItemProps)
         <Typography web="body2" mo="body4">
           {label}
         </Typography>
-        <HStack gap="0.5" justifyContent="flex-end" alignItems="baseline">
+        <HStack gap="2px" justifyContent="flex-end" alignItems="center">
           <Typography web="heading7" mo="heading5" language="en">
             {count}
           </Typography>
@@ -129,7 +137,7 @@ function MyPageBenefitItem({ href, label, count, unit }: MyPageBenefitItemProps)
 
 function MyPageBenefits() {
   return (
-    <Grid columns={2} gap="2" h="full">
+    <Grid columns={2} gap="8px" h="full">
       <MyPageBenefitItem href="/mypage/coupons" label="내 쿠폰" count={3} unit="개" />
       <MyPageBenefitItem href="/mypage/wishlist" label="관심상품" count={6} unit="건" />
     </Grid>
@@ -138,7 +146,7 @@ function MyPageBenefits() {
 
 const profileLink = css({
   display: 'inline-flex',
-  alignSelf: 'flex-start',
+  alignItems: 'center',
   color: 'inherit',
   textDecoration: 'none',
 });
@@ -147,29 +155,20 @@ function MyPageOverviewProfile({ onLogout }: { onLogout: () => void }) {
 
   return (
     <ContentSection
-      gap="8"
-      _mobile={{ gap: '4' }}
+      gap="32px"
+      _mobile={{ gap: '16px' }}
       title={
-        <>
-          <Link className={profileLink} href="/mypage/profile">
-            <HStack as="span" gap="1">
-              <HStack as="span" gap="0.5" alignItems="flex-end">
-                <Typography
-                  as="span"
-                  web="heading6"
-                  mo="heading4"
-                  className={css({ lineHeight: '1', _mobile: { lineHeight: '1.2' } })}
-                >
-                  {'박연진'}
-                </Typography>
-                <Typography as="span" variant="body1">
-                  님
-                </Typography>
-              </HStack>
-              <Icon name="chevron-right" size="16px" className={css({ m: '1' })} />
-            </HStack>
-          </Link>
-        </>
+        <Link className={profileLink} href="/mypage/profile">
+          <HStack as="span" gap="2px" alignItems="center">
+            <Typography as="span" web="heading6" mo="heading4">
+              {'박연진'}
+            </Typography>
+            <Typography as="span" variant="body1">
+              님
+            </Typography>
+          </HStack>
+          <Icon name="hoka-nav-chevron-right-regular" size={24} />
+        </Link>
       }
       headerProps={{
         orientation: 'horizontal',
@@ -195,7 +194,7 @@ function MyPageOverviewProfile({ onLogout }: { onLogout: () => void }) {
     >
       <Grid
         gridTemplateColumns="minmax(0, 1fr) 488px"
-        gap="2"
+        gap="8px"
         _mobile={{ gridTemplateColumns: '1fr' }}
       >
         <MyPageMembership />
@@ -207,13 +206,14 @@ function MyPageOverviewProfile({ onLogout }: { onLogout: () => void }) {
 
 function MyPageOrderTile({ item }: { item: MyPageOrderItem }) {
   return (
-    <HStack position="relative" alignItems="flex-start" gap="4">
+    <HStack position="relative" alignItems="flex-start" gap="16px">
       <OrderProductSummary
+        alignStart
         variant="cart"
         image={item.image}
         name={item.name}
         content={
-          <Stack minW="0" flex="1" gap="1.5" pr="0">
+          <Stack minW="0" flex="1" gap="6px" pr="0">
             <HStack minH="18px">
               {item.isNew ? (
                 <Typography variant="body4" tone="red80">
@@ -221,15 +221,41 @@ function MyPageOrderTile({ item }: { item: MyPageOrderItem }) {
                 </Typography>
               ) : null}
             </HStack>
-            <Stack gap="2.5">
-              <Stack gap="1">
-                <Stack gap="0.5">
+            <Stack gap="10px">
+              <Stack gap="4px">
+                <Stack gap="2px">
                   <Typography variant="body4">{item.gender}</Typography>
                   <Typography variant="body4">{item.name}</Typography>
                 </Stack>
-                <Typography variant="body4" weight="semibold">
-                  {item.price}
-                </Typography>
+                <Stack gap="4px" pt="2px">
+                  {item.originalPrice && (
+                    <Typography
+                      variant="body5"
+                      tone="tertiary"
+                      className={css({ fontSize: '13px', textDecoration: 'line-through' })}
+                    >
+                      {item.originalPrice}
+                    </Typography>
+                  )}
+                  <HStack gap="8px">
+                    {item.discountLabel && (
+                      <Typography
+                        variant="body5"
+                        tone="red80"
+                        className={css({ fontSize: '13px' })}
+                      >
+                        {item.discountLabel}
+                      </Typography>
+                    )}
+                    <Typography
+                      variant="body5"
+                      weight="medium"
+                      className={css({ fontSize: '13px' })}
+                    >
+                      {item.price}
+                    </Typography>
+                  </HStack>
+                </Stack>
               </Stack>
               <Typography variant="body5">{item.description}</Typography>
             </Stack>
@@ -242,8 +268,8 @@ function MyPageOrderTile({ item }: { item: MyPageOrderItem }) {
         right="0"
         border="1px solid var(--color-border-tertiary)"
         borderRadius="full"
-        px="2"
-        py="1.5"
+        px="8px"
+        py="6px"
         bg="white.0"
       >
         <Typography variant="body5">{item.status}</Typography>
@@ -252,14 +278,14 @@ function MyPageOrderTile({ item }: { item: MyPageOrderItem }) {
   );
 }
 
-function MyPageRecentOrders({ empty = false }: { empty?: boolean }) {
+function MyPageRecentOrders({ empty = true }: { empty?: boolean }) {
   const platform = usePlatform();
   const items = empty ? [] : orderItems;
   const emptyState = (
     <EmptyState
       variant="content"
-      title="주문 배송 내역이 없습니다."
-      titleProps={{ as: 'p', web: 'heading9', mo: 'heading7', weight: 'semibold' }}
+      description="주문 배송 내역이 없습니다."
+      descriptionProps={{ web: 'body3', mo: 'body4' }}
       layoutProps={{
         borderBottom: '1px solid var(--colors-black-20)',
       }}
@@ -269,12 +295,12 @@ function MyPageRecentOrders({ empty = false }: { empty?: boolean }) {
   return (
     <ContentSection
       as="section"
-      gap="6"
+      gap="24px"
       aria-label="주문 배송 내역"
       title="주문 배송 내역"
       headerProps={{
         orientation: 'horizontal',
-        gap: '2',
+        gap: '8px',
         titleProps: { web: 'heading7', mo: 'heading5' },
         action:
           items.length > 0 ? (
@@ -290,7 +316,7 @@ function MyPageRecentOrders({ empty = false }: { empty?: boolean }) {
             gridTemplateColumns="minmax(0, 1fr) 158px 200px 170px"
             borderTop="2px solid var(--colors-black-100)"
             borderBottom="1px solid var(--colors-black-100)"
-            py="5"
+            py="20px"
             textAlign="center"
             gap="0"
           >
@@ -307,24 +333,35 @@ function MyPageRecentOrders({ empty = false }: { empty?: boolean }) {
                   gridTemplateColumns="minmax(0, 1fr) 158px 200px 170px"
                   alignItems="center"
                   gap="0"
-                  py="8"
+                  py="32px"
                   borderBottom="1px solid var(--colors-black-20)"
                 >
-                  <Box px="6" minW="0">
+                  <Box px="24px" minW="0">
                     <OrderProductSummary
                       variant="cart"
                       image={item.image}
                       name={item.name}
                       gender={item.gender}
-                      amount={item.price}
+                      hideAmount
                     />
                   </Box>
                   <Typography variant="body3" className={css({ textAlign: 'center' })}>
                     {item.quantity ?? '-'}
                   </Typography>
-                  <Typography variant="body3" className={css({ textAlign: 'right', px: '6' })}>
-                    {item.price}
-                  </Typography>
+                  <Stack gap="0" alignItems="flex-end" px="24px">
+                    {item.originalPrice && (
+                      <Typography
+                        variant="body4"
+                        tone="tertiary"
+                        className={css({ textDecoration: 'line-through' })}
+                      >
+                        {item.originalPrice}
+                      </Typography>
+                    )}
+                    <Typography variant="body3" weight="medium">
+                      {item.price}
+                    </Typography>
+                  </Stack>
                   <Typography variant="body3" className={css({ textAlign: 'center' })}>
                     {item.status}
                   </Typography>
@@ -340,12 +377,10 @@ function MyPageRecentOrders({ empty = false }: { empty?: boolean }) {
               <MyPageOrderTile item={item} key={`${item.name}-${index}`} />
             ))}
           </CarouselViewport>
-          <Box mt="6">
-            <CarouselPagination
-              label="주문 상품 선택"
-              className={css({ display: 'flex', justifyContent: 'center', gap: '5px' })}
-            />
-          </Box>
+          <CarouselPagination
+            label="주문 상품 선택"
+            className={css({ display: 'flex', justifyContent: 'center', gap: '5px' })}
+          />
         </Carousel>
       )}
       {items.length > 0 ? <Divider display="none" _mobile={{ display: 'block' }} /> : null}
@@ -362,9 +397,9 @@ const menuLink = css({ display: 'block', borderBottom: '1px solid var(--color-bo
 function MyPageMenuItem({ label, to }: MyPageMenuItemProps) {
   return (
     <Link className={menuLink} href={to}>
-      <HStack minH="14" justifyContent="space-between">
+      <HStack minH="56px" justifyContent="space-between">
         <Typography variant="body3">{label}</Typography>
-        <Icon name="chevron-right" size="16px" className={css({ m: '1' })} />
+        <Icon name="hoka-nav-chevron-right-regular" size={24} />
       </HStack>
     </Link>
   );
@@ -374,15 +409,15 @@ function MyPageMenuSection({ title, items }: { title: string; items: MyPageMenuI
   return (
     <ContentSection
       as="section"
-      gap="4"
+      gap="16px"
       aria-label={title}
-      title={<>{title}</>}
+      title={title}
       headerProps={{
         titleAs: 'h2',
         className: css({
-          pb: '6',
+          pb: '24px',
           borderBottom: '2px solid var(--colors-black-100)',
-          _mobile: { pb: '4', borderBottomWidth: '1px' },
+          _mobile: { pb: '16px', borderBottomWidth: '1px' },
         }),
         titleProps: { web: 'heading7', mo: 'heading5' },
       }}
@@ -396,7 +431,7 @@ function MyPageMenuSection({ title, items }: { title: string; items: MyPageMenuI
   );
 }
 
-/** [ 개발팀 바인딩 ] PC·모바일 상단 및 모바일 하단 로그아웃은 이 owner의 logoutOpen을 공유합니다. previewLogout은 확인창의 초기 표시만 지정하며, 확인·취소는 인증 변경·로그아웃 요청 없이 확인창만 닫습니다. 실제 인증 종료 요청과 pending·실패 처리 및 완료 후 화면 갱신은 인증 연동 소유자가 연결해야 하는 미연동 경계입니다. */
+/** [ 개발팀 바인딩 ] PC·모바일 상단 로그아웃은 이 owner의 logoutOpen을 공유합니다. previewLogout은 확인창의 초기 표시만 지정하며, 확인·취소는 인증 변경·로그아웃 요청 없이 확인창만 닫습니다. 실제 인증 종료 요청과 pending·실패 처리 및 완료 후 화면 갱신은 인증 연동 소유자가 연결해야 하는 미연동 경계입니다. */
 /** 마이페이지 요약과 메뉴를 구성하고 로그아웃을 연결합니다. (Composes the account overview and menus and connects logout.) */
 export function RouteContent({
   previewNoOrders = false,
@@ -409,30 +444,20 @@ export function RouteContent({
   return (
     <>
       <MyPageFrame activePath="/mypage" layout="centered">
-        <Stack gap="14" _mobile={{ pt: '6', gap: '8' }}>
+        <Stack gap="56px" _mobile={{ pt: '24px', gap: '32px' }}>
           <MyPageOverviewProfile onLogout={() => setLogoutOpen(true)} />
           <MyPageRecentOrders empty={previewNoOrders} />
 
           <Grid
             columns={3}
-            columnGap="14"
-            rowGap="12"
-            _mobile={{ gridTemplateColumns: '1fr', gap: '8' }}
+            columnGap="56px"
+            rowGap="48px"
+            _mobile={{ gridTemplateColumns: '1fr', gap: '32px' }}
           >
             {menuSections.map((section) => (
               <MyPageMenuSection items={section.items} key={section.title} title={section.title} />
             ))}
           </Grid>
-
-          <Button
-            className={css({ display: 'none', _mobile: { display: 'inline-flex', mt: '2' } })}
-            fullWidth
-            size="tall"
-            variant="secondary"
-            onClick={() => setLogoutOpen(true)}
-          >
-            로그아웃
-          </Button>
         </Stack>
       </MyPageFrame>
       <LogoutDialog

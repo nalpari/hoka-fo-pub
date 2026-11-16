@@ -50,7 +50,7 @@ function ProfilePhoneVerification({ phone, error, verified, previewState, onPhon
   const codeError = '';
   const dismissNotice = () => setNotice(null);
   return (
-    <Stack gap="6" alignItems="stretch">
+    <Stack gap="24px" alignItems="stretch">
       <TextFormField
         id="profile-phone"
         label="휴대폰 번호"
@@ -78,7 +78,7 @@ function ProfilePhoneVerification({ phone, error, verified, previewState, onPhon
         {requested ? '인증번호 재요청' : '인증번호 요청'}
       </Button>
       {requested ? (
-        <Stack gap="3">
+        <Stack gap="12px">
           <TextFormField
             label="인증번호"
             id="profile-verification-code"
@@ -173,7 +173,7 @@ export function ProfileEditForm({
   return (
     <form noValidate onSubmit={submit}>
       <ContentSection
-        gap={{ base: '10', _mobile: '6' }}
+        gap={{ base: '40px', _mobile: '24px' }}
         title="회원정보 수정"
         headerProps={{ titleAs: 'h1', titleProps: { web: 'heading6', mo: 'heading5' } }}
       >
@@ -182,10 +182,15 @@ export function ProfileEditForm({
           gap="58px"
           borderTop="2px solid"
           borderColor="black.100"
-          pt="8"
-          _mobile={{ gridTemplateColumns: 'minmax(0, 1fr)', gap: '6', borderTop: '0', pt: '0' }}
+          pt="32px"
+          _mobile={{
+            gridTemplateColumns: 'minmax(0, 1fr)',
+            gap: '24px',
+            borderTop: '0',
+            pt: '0',
+          }}
         >
-          <Stack gap="0" _mobile={{ gap: '6' }}>
+          <Stack gap="0" _mobile={{ gap: '24px' }}>
             <DescriptionList
               items={(details ?? profileDetails.slice(0, 4)).map(([term, description]) => ({
                 term,
@@ -194,21 +199,25 @@ export function ProfileEditForm({
               termProps={{ variant: 'body3', weight: 'semibold' }}
               descriptionProps={{ variant: 'body3', tone: 'subtle' }}
               slotStyles={{
-                root: css.raw({ gridTemplateColumns: 'none', gap: '0', _mobile: { gap: '6' } }),
+                root: css.raw({
+                  gridTemplateColumns: 'none',
+                  gap: '0',
+                  _mobile: { gap: '24px' },
+                }),
                 row: css.raw({
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: '4',
-                  py: '6',
-                  pr: '4',
+                  gap: '16px',
+                  py: '24px',
+                  pr: '16px',
                   borderBottom: '1px solid var(--colors-black-20)',
                   _first: { pt: '0' },
-                  _mobile: { gap: '3', p: '0', borderBottom: '0' },
+                  _mobile: { gap: '12px', p: '0', borderBottom: '0' },
                 }),
                 description: css.raw({ m: '0' }),
               }}
             />
-            <Stack gap="6" py="8" pr="4" className={css({ _mobile: { display: 'none' } })}>
+            <Stack gap="24px" py="32px" pr="16px" className={css({ _mobile: { display: 'none' } })}>
               <Typography variant="body4">탈퇴를 원하실 경우 회원탈퇴를 눌러주세요.</Typography>
               <Button
                 size="short"
@@ -221,7 +230,7 @@ export function ProfileEditForm({
               </Button>
             </Stack>
           </Stack>
-          <Stack gap="4">
+          <Stack gap="16px">
             <TextFormField
               id="profile-inline-password"
               label="비밀번호"
@@ -290,13 +299,13 @@ export function ProfileEditForm({
               onDomainChange={onEmailDomainChange}
               onDomainChoice={onDomainChoice}
             />
-            <Stack gap="8" pt="4" pb="8" borderBottom="1px solid" borderColor="black.10">
+            <Stack gap="32px" pt="16px" pb="32px" borderBottom="1px solid" borderColor="black.10">
               <ContentSection
-                gap={{ base: '8', _mobile: '6' }}
+                gap={{ base: '32px', _mobile: '24px' }}
                 title="마케팅 정보 수신 동의"
                 headerProps={{ titleAs: 'h2', titleProps: { web: 'heading8', mo: 'heading7' } }}
               >
-                <Stack gap={{ base: '6', _mobile: '4' }}>
+                <Stack gap={{ base: '24px', _mobile: '16px' }}>
                   <Radio
                     ariaLabel="이메일 수신"
                     name="email-preference"
@@ -336,7 +345,7 @@ export function ProfileEditForm({
             <FormActionGroup
               size="tall"
               disabled={pending}
-              pt="6"
+              pt="24px"
               onCancel={onCancel}
               submitLabel="변경사항 저장"
               w="368px"
@@ -345,8 +354,8 @@ export function ProfileEditForm({
               _mobile={{ w: '100%', pt: '0' }}
             />
             <Stack
-              gap="4"
-              pt="4"
+              gap="16px"
+              pt="16px"
               className={css({ display: 'none', _mobile: { display: 'flex' } })}
             >
               <Typography variant="body4">탈퇴를 원하실 경우 회원탈퇴를 눌러주세요.</Typography>
@@ -363,13 +372,13 @@ export function ProfileEditForm({
 /** 회원정보와 수신 동의의 현재 값을 표시합니다. (Displays current profile details and communication preferences.) */
 function ProfileReadView({ emailPreference, smsPreference, kakaoPreference }: ProfileValues) {
   return (
-    <Stack gap="4">
+    <Stack gap="16px">
       <ContentSection
-        gap={{ base: '8', _mobile: '6' }}
+        gap={{ base: '32px', _mobile: '24px' }}
         title="마케팅 정보 수신 동의"
         borderBottom="1px solid var(--colors-black-20)"
-        pb="8"
-        _mobile={{ pb: '6' }}
+        pb="32px"
+        _mobile={{ pb: '24px' }}
         headerProps={{ titleAs: 'h2', titleProps: { web: 'heading8', mo: 'heading7' } }}
       >
         <DescriptionList
@@ -381,7 +390,7 @@ function ProfileReadView({ emailPreference, smsPreference, kakaoPreference }: Pr
           termProps={{ variant: 'body3', mo: 'body4' }}
           descriptionProps={{ variant: 'body3', mo: 'body4', tone: 'subtle' }}
           slotStyles={{
-            root: css.raw({ gridTemplateColumns: 'none', gap: '6', _mobile: { gap: '4' } }),
+            root: css.raw({ gridTemplateColumns: 'none', gap: '24px', _mobile: { gap: '16px' } }),
             row: css.raw({
               display: 'flex',
               alignItems: 'center',
@@ -445,7 +454,7 @@ export function ProfilePasswordDialog({
     >
       {step === 'input' ? (
         <form id="profile-password-form" noValidate onSubmit={(event) => event.preventDefault()}>
-          <Stack gap="4">
+          <Stack gap="16px">
             <TextFormField
               id="profile-new-password"
               label="비밀번호"
@@ -453,7 +462,7 @@ export function ProfilePasswordDialog({
               variant="boxed"
               error={errors.password}
               hint="연속적인 숫자나 생일, 전화번호등 추측하기 쉬운 개인정보 및 아이디와 비슷한 전화번호 사용을 피하시기 바랍니다. 비밀번호는 특수기호를 포함한 3가지 이상을 혼합하여 입력하세요."
-              hintProps={{ variant: 'body4', className: css({ pt: '2' }) }}
+              hintProps={{ variant: 'body4', className: css({ pt: '8px' }) }}
               inputProps={{
                 placeholder: '비밀번호를 입력해 주세요',
                 type: 'password',
@@ -583,7 +592,7 @@ function MyPageWithdrawalDialog({
       }}
     >
       <ContentHeader
-        gap="4"
+        gap="16px"
         titleAs="h2"
         title="회원탈퇴를 진행 하시겠습니까?"
         titleProps={{ variant: 'heading10' }}
@@ -691,16 +700,16 @@ export function ProfileContent({
         />
       ) : (
         <ContentSection
-          gap={{ base: '8', _mobile: '6' }}
+          gap={{ base: '32px', _mobile: '24px' }}
           title="회원정보 확인"
           headerProps={{
             titleAs: 'h1',
-            pb: { base: '10', _mobile: '0' },
+            pb: { base: '40px', _mobile: '0' },
             borderBottom: { base: '2px solid var(--colors-black-100)', _mobile: '0' },
             titleProps: { web: 'heading6', mo: 'heading5' },
           }}
         >
-          <Stack gap={{ base: '10', _mobile: '6' }}>
+          <Stack gap={{ base: '40px', _mobile: '24px' }}>
             <DescriptionList
               items={[
                 ...profileDetails.slice(0, 3).map(([term, description]) => ({ term, description })),
@@ -716,15 +725,15 @@ export function ProfileContent({
               slotStyles={{
                 root: css.raw({
                   gridTemplateColumns: 'none',
-                  gap: '12',
-                  pb: '8',
+                  gap: '48px',
+                  pb: '32px',
                   borderBottom: '1px solid var(--colors-black-20)',
-                  _mobile: { gap: '6', pb: '6' },
+                  _mobile: { gap: '24px', pb: '24px' },
                 }),
                 row: css.raw({
                   display: 'flex',
                   gap: '0',
-                  _mobile: { flexDirection: 'column', gap: '3' },
+                  _mobile: { flexDirection: 'column', gap: '12px' },
                 }),
                 term: css.raw({ w: '178px', flexShrink: '0', _mobile: { w: 'auto' } }),
                 description: css.raw({ m: '0' }),

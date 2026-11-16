@@ -116,7 +116,7 @@ function OrderProductSummaryContent({
         {!hideAmount && amount !== undefined ? (
           <Typography variant="body4" weight={variant === 'coupon' ? undefined : 'medium'}>
             {typeof amount === 'number' && amountLanguage === 'en' ? (
-              <Typography as="span" variant="body4" language="en" weight="medium">
+<Typography as="span" variant="body4Medium" language="en">
                 {amount.toLocaleString()}
               </Typography>
             ) : typeof amount === 'number' ? (
@@ -133,7 +133,7 @@ function OrderProductSummaryContent({
   );
 }
 
-export type OrderProductSummaryProps = SummaryImageProps &
+export type OrderProductSummaryProps = SummaryImageProps & { alignStart?: boolean } &
   (
     | (OrderProductSummaryContentProps & { content?: never })
     | {
@@ -154,6 +154,7 @@ export type OrderProductSummaryProps = SummaryImageProps &
 export function OrderProductSummary({
   image,
   imageSize,
+  alignStart = false,
   content,
   name,
   optionText,
@@ -171,7 +172,7 @@ export function OrderProductSummary({
       minW="0"
       w="full"
       gap={variant === 'cart' ? { base: '4', _mobile: '4' } : '4'}
-      alignItems={variant === 'cart' ? { base: 'flex-start', _mobile: 'center' } : 'flex-start'}
+      alignItems={alignStart ? 'flex-start' : variant === 'cart' ? { base: 'flex-start', _mobile: 'center' } : 'flex-start'}
       py={variant === 'checkout' ? '6' : '0'}
     >
       <OrderProductSummaryImage image={image} name={name} variant={variant} imageSize={imageSize} />

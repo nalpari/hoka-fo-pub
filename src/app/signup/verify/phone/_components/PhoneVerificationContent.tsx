@@ -21,7 +21,7 @@ export function AlreadyRegisteredModal({ onOpenChange, onConfirm }: AlreadyRegis
       onOpenChange={onOpenChange}
       title="회원가입"
       closeLabel="이미 가입한 회원 안내 닫기"
-      size="md"
+      size="sm"
       actions={{ kind: 'single', onConfirm: onConfirm }}
     >
       <ContentHeader

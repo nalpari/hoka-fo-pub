@@ -35,7 +35,7 @@ export function CartSupportInfo() {
           py={{ base: '10', _mobile: '4' }}
         >
           <Stack gap="3" display={{ base: 'flex', _mobile: 'none' }}>
-            <Typography variant="body3" weight="medium">
+<Typography variant="body3Medium">
               호카/호카 키즈
             </Typography>
             <Typography variant="body2" weight="medium">
@@ -61,7 +61,7 @@ export function CartSupportInfo() {
         >
           <Stack gap="3" display={{ base: 'flex', _mobile: 'none' }}>
             <HStack gap="2" alignItems="flex-start">
-              <Typography variant="body3" weight="medium">
+<Typography variant="body3Medium">
                 평일 운영시간
               </Typography>
               <Typography variant="body4" tone="subtle">

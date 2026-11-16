@@ -1009,6 +1009,10 @@ sources:
 
 # 컴포넌트와 스타일
 
+## PDP 장바구니 추가 완료 팝업 제외 (2026-11-16)
+
+기획 제외에 따라 `ProductDetailContent`의 장바구니 추가 완료 모달과 전용 상품·추천 표시 fixture를 제거했다. 옵션 선택용 `ModalDialog`와 일반 상품 상세의 로컬 선택 UI는 유지하며, 장바구니 CTA의 실제 요청·장바구니 갱신은 상품 상세 통합 소유자가 연결할 범위로 남는다. 출처: `src/app/products/[id]/_components/ProductDetailContent.tsx`, `src/app/products/[id]/productDetailPreviews.ts` 작업 트리, Codex, 2026-11-16.
+
 ## 공통 Dropdown PC 스크롤 잠금 해제 (2026-11-13)
 
 `src/components/common/atoms/Dropdown.tsx`의 `BaseSelect.Root`에 `modal={false}`를 지정한다. 설치된 Base UI의 기본 modal=true에 따른 PC 페이지 스크롤 잠금을 해제하며, 기본/정렬 variant가 같은 설정을 사용한다. 모바일 선택은 기존 별도 ModalDialog 바텀시트를 유지한다. options/value/onValueChange와 서비스 연결 계약은 변경하지 않는다.

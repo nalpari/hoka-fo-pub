@@ -5,7 +5,7 @@ import { Box, Grid, Stack } from 'styled-system/jsx';
 import { Typography, type TypographyProps } from '@/components/common/atoms/Typography';
 
 type EmptyStateProps = {
-  title: ReactNode;
+  title?: ReactNode;
   description?: ReactNode;
   action?: ReactNode;
   variant?: 'standard' | 'minimal' | 'plain' | 'page' | 'content';
@@ -103,7 +103,7 @@ function EmptyStateRoot({
           maxW={variant === 'content' ? '320px' : '520px'}
           _mobile={{ maxW: 'none' }}
         >
-          {titleContent}
+          {title ? titleContent : null}
           {descriptionContent}
         </Stack>
         {actionContent}
@@ -143,11 +143,7 @@ function EmptyStateRoot({
         _mobile={{ px: '3', ...layoutProps?._mobile }}
       >
         {titleContent}
-        {description ? (
-          <Box mx="0" mb="0">
-            {descriptionContent}
-          </Box>
-        ) : null}
+        {description ? descriptionContent : null}
         {actionContent}
       </Stack>
     );
@@ -171,7 +167,7 @@ function EmptyStateRoot({
       _mobile={{ px: '3', ...layoutProps?._mobile }}
     >
       {titleContent}
-      {description ? <Box>{descriptionContent}</Box> : null}
+      {description ? descriptionContent : null}
       {actionContent}
     </Stack>
   );

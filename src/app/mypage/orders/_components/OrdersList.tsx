@@ -53,8 +53,8 @@ function ClaimHistoryList({
           <Stack as="li" key={item.key} gap="0" borderBottom="1px solid var(--color-black-100)">
             <Box display="flex" pb="16px" borderBottom="1px solid var(--color-border-subtle)">
               <Typography variant="body4" tone="tertiary">
-                <Typography as="span" variant="body4" weight="medium" tone="primary">
-                  <Typography as="span" variant="body4" language="en" weight="medium">
+<Typography as="span" variant="body4Medium" tone="primary">
+<Typography as="span" variant="body4Medium" language="en">
                     {item.orderDate}
                   </Typography>{' '}
                   주문
@@ -86,7 +86,7 @@ function ClaimHistoryList({
       <Grid
         gridTemplateColumns={columns}
         alignItems="center"
-        py="5"
+        py="20px"
         borderTop="2px solid var(--color-black-100)"
         borderBottom="1px solid var(--colors-black-100)"
       >
@@ -124,30 +124,29 @@ function ClaimHistoryList({
                 onClick={() => onDetail(item.orderId, item.claimId)}
               />
             </Box>
-            <Typography
-              variant="body3"
+<Typography
+              variant="body3Medium"
               language="en"
-              weight="medium"
               className={css({ textAlign: 'center' })}
             >
               {item.orderDate}
             </Typography>
-            <Typography variant="body3" weight="medium" className={css({ textAlign: 'center' })}>
+<Typography variant="body3Medium" className={css({ textAlign: 'center' })}>
               {item.line.quantity}개
             </Typography>
-            <Typography variant="body3" weight="medium" className={css({ textAlign: 'center' })}>
+<Typography variant="body3Medium" className={css({ textAlign: 'center' })}>
               {item.line.displayAmount === undefined ? (
                 '-'
               ) : (
                 <>
-                  <Typography as="span" variant="body3" language="en" weight="medium">
+<Typography as="span" variant="body3Medium" language="en">
                     {item.line.displayAmount.toLocaleString()}
                   </Typography>
                   원
                 </>
               )}
             </Typography>
-            <Typography variant="body3" weight="medium" className={css({ textAlign: 'center' })}>
+<Typography variant="body3Medium" className={css({ textAlign: 'center' })}>
               {item.status.web}
             </Typography>
           </Grid>
@@ -177,7 +176,7 @@ export function OrdersListContent({
 }: OrdersListContentProps) {
   if (returns) {
     return (
-      <Stack gap="6" css={{ '--color-text-primary': '#000' }}>
+      <Stack gap="24px" css={{ '--color-text-primary': '#000' }}>
         {/* 취소·반품 조회 기간 필터 */}
         <OrdersFilters {...props} returns />
         {/* 취소·반품 내역 목록 및 빈 화면 */}
@@ -187,14 +186,14 @@ export function OrdersListContent({
   }
 
   return (
-    <Stack gap="6">
+    <Stack gap="24px">
       {/* 주문·배송 현황 */}
       <OrderStatusTracker items={statusItems} />
       {/* 주문 조회 기간 필터 */}
       <OrdersFilters {...props} />
       {/* 주문 상품 목록 및 빈 화면 */}
       {orders.length ? (
-        <Stack gap="0px">
+        <Stack gap="0">
           <Grid
             gridTemplateColumns="minmax(0, 536fr) minmax(0, 108fr) minmax(0, 200fr)"
             alignItems="center"
@@ -203,17 +202,17 @@ export function OrdersListContent({
             borderBottom="1px solid var(--colors-black-20)"
             _mobile={{ display: 'none' }}
           >
-            <Typography variant="body3" weight="medium" className={css({ textAlign: 'center' })}>
+<Typography variant="body3Medium" className={css({ textAlign: 'center' })}>
               상품/옵션정보
             </Typography>
-            <Typography variant="body3" weight="medium" className={css({ textAlign: 'center' })}>
+<Typography variant="body3Medium" className={css({ textAlign: 'center' })}>
               수량
             </Typography>
-            <Typography variant="body3" weight="medium" className={css({ textAlign: 'center' })}>
+<Typography variant="body3Medium" className={css({ textAlign: 'center' })}>
               가격
             </Typography>
           </Grid>
-          <Stack as="ul" gap={{ base: '0px', _mobile: '32px' }} listStyleType="none">
+          <Stack as="ul" gap={{ base: '0', _mobile: '32px' }} listStyleType="none">
             {orders.map((order) => (
               <OrderCard key={order.id} order={order} {...props} />
             ))}

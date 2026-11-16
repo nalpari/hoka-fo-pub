@@ -133,7 +133,7 @@ export function LoginContent({ showErrors = false, showHelp = false }: LoginForm
             aria-labelledby="membership-title"
           >
             <Stack gap="2">
-              <Typography as="h2" variant="body3" id="membership-title" weight="medium">
+<Typography as="h2" variant="body3Medium" id="membership-title">
                 가입과 동시에 시작되는 혜택!
               </Typography>
               <Typography as="p" variant="body4">

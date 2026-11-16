@@ -374,6 +374,10 @@ sources:
 
 # 라우팅과 플랫폼
 
+## PDP 장바구니 추가 완료 팝업 제외 (2026-11-16)
+
+기획 제외 결정에 따라 `/products/pdp-preview/cart-added`와 `/products/pdp-preview/cart-added-scroll` 상태 URL을 제거했다. `productDetailPreviews`가 screen-index의 상품 상세 상태 링크를 생성하므로 두 링크도 함께 사라진다. 일반 `/products/[id]`와 옵션 선택 preview URL은 유지하며, 장바구니 CTA의 실제 요청·장바구니 갱신은 여전히 상품 상세 통합 소유자 범위 밖이다. 출처: `src/app/products/[id]/_components/ProductDetailContent.tsx`, `src/app/products/[id]/productDetailPreviews.ts` 작업 트리, Codex, 2026-11-16.
+
 ## 런칭 캘린더 새 시안 (2026-11-11)
 
 기존 Feed·Upcoming·상품 상세 URL을 재사용해 PC 수정과 새 모바일 시안을 반영했다. 목록의 현재 items prop은 플랫폼에 관계없이 그대로 표시하며, 기본 시안 데이터만 PC/MO 조합을 구분한다. 상세는 발매 사양을 DescriptionList로 모으고 모바일 공유·알림 CTA를 고정한다. 완료 표시 전용 `/launch-calendar/clifton-11-gtx/preview-notified`는 기존 상세의 notificationStatus 옵션을 재사용하고 IA159 previewRoutes·sourceFiles에 연결한다. 실제 신청/공유 요청은 실행하지 않는다. 새 기획전 이미지는 미제공 슬롯으로 구분한다. [규격과 실제 검증](launch-calendar.md)을 참고한다.

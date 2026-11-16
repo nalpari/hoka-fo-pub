@@ -73,7 +73,7 @@ function TipExample({
 }) {
   return (
     <Stack className={card} gap="3">
-      <Typography variant="body4" weight="semibold">
+<Typography variant="body4Semibold">
         {label}
       </Typography>
       <HStack justifyContent="center" alignItems="center" minH="120px">

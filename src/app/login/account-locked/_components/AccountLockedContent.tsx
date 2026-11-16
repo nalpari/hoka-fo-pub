@@ -22,7 +22,7 @@ export function AccountLockedContent({ onClose, onConfirm }: Props) {
       onOpenChange={(open) => !open && onClose()}
       title="아이디 / 비밀번호 찾기"
       closeLabel="안내 닫기"
-      size="md"
+      size="sm"
       actions={{ kind: 'single', onConfirm: onConfirm }}
     >
       <ContentHeader

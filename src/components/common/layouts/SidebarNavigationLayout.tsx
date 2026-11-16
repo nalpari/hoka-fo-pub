@@ -252,11 +252,7 @@ export function SidebarNavigationLayout({
       pb="24"
       _mobile={{ w: '100%', px: '4', pb: '10' }}
     >
-      {breadcrumbItems?.length ? (
-        <Box h="14" pt="6" pb="2">
-          <Breadcrumb items={breadcrumbItems} />
-        </Box>
-      ) : null}
+      {breadcrumbItems?.length ? <Breadcrumb items={breadcrumbItems} /> : null}
       <Box w="1200px" maxW="100%" mx="auto" px="34px" _mobile={{ px: '0' }}>
         {columns}
       </Box>

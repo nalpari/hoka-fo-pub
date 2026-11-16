@@ -14,7 +14,7 @@ export default function Page() {
   return (
     <ModalDialog
       open
-      size="md"
+      size="sm"
       onOpenChange={(open) => !open && router.push('/login/find-account')}
       title={platform === 'mobile' ? 'HOKA Korea 회원 안내' : '아이디 / 비밀번호 찾기'}
       closeLabel="안내 닫기"

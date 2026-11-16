@@ -137,7 +137,7 @@ export function PasswordResetCompleteModal({
       onOpenChange={onOpenChange}
       title="비밀번호 재설정"
       closeLabel="비밀번호 변경 완료 안내 닫기"
-      size="md"
+      size="sm"
       actions={{ kind: 'single', onConfirm: onConfirm }}
     >
       <ContentHeader

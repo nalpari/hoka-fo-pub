@@ -352,7 +352,7 @@ function MarketingConsentSummaryModal({
       onOpenChange={onOpenChange}
       title="마케팅 정보 수신내역 안내"
       closeLabel="마케팅 정보 수신내역 안내 닫기"
-      size="md"
+      size="sm"
       actions={{ kind: 'single', onConfirm: onConfirm, buttonProps: { disabled: pending } }}
     >
       <BindingFeedback pending={pending} error={error} />

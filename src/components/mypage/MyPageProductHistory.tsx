@@ -51,7 +51,7 @@ function MyPageRestockList({ items, onCancelRequest, entries }: Props) {
         display={{ base: 'grid', _mobile: 'none' }}
         borderTop="2px solid black"
         borderBottom="1px solid black"
-        py="5"
+        py="20px"
         textAlign="center"
       >
         {['상품정보', '신청일', '상태'].map((label) => (
@@ -77,10 +77,10 @@ function MyPageRestockList({ items, onCancelRequest, entries }: Props) {
             alignItems="center"
             borderBottom="1px solid token(colors.black.20)"
             gap="0"
-            py="8"
-            _mobile={{ py: '6', columnGap: '2' }}
+            py="32px"
+            _mobile={{ py: '24px', columnGap: '8px' }}
           >
-            <Box px="6" _mobile={{ px: '0' }} minW="0">
+            <Box px="24px" _mobile={{ px: '0' }} minW="0">
               <OrderProductSummary
                 variant="cart"
                 name={name ?? ''}
@@ -171,11 +171,11 @@ function MyPageProductHistoryGrid({
         base: recent ? 'repeat(3, minmax(0, 260px))' : 'repeat(3, minmax(0, 1fr))',
         _mobile: 'repeat(2, minmax(0, 1fr))',
       }}
-      px={wishlist ? '4' : '0'}
+      px={wishlist ? '16px' : '0'}
       justifyContent={recent ? 'center' : undefined}
-      columnGap={wishlist || recent ? '4' : '2'}
-      rowGap={wishlist || recent ? '12' : '6'}
-      _mobile={{ px: '0', columnGap: '2', rowGap: wishlist || recent ? '10' : '4' }}
+      columnGap={wishlist || recent ? '16px' : '8px'}
+      rowGap={wishlist || recent ? '48px' : '24px'}
+      _mobile={{ px: '0', columnGap: '8px', rowGap: wishlist || recent ? '40px' : '16px' }}
     >
       {items.map((id) => (
         <ProductCard
@@ -222,11 +222,11 @@ function MyPageProductHistoryNote({
       <Box
         borderTop="1px solid var(--colors-black-10)"
         mt={empty ? '-16px' : undefined}
-        pt="4"
+        pt="16px"
         _mobile={{
           mt: '0',
-          mx: '4',
-          pt: empty ? '4' : '0',
+          mx: '16px',
+          pt: empty ? '16px' : '0',
           borderTop: empty ? '1px solid var(--colors-black-10)' : '0',
         }}
       >
@@ -238,12 +238,12 @@ function MyPageProductHistoryNote({
   }
   return (
     <Box
-      px={wishlist ? '0' : '4'}
-      pb={wishlist ? '0' : '16'}
-      _mobile={wishlist ? { px: '4', display: empty ? 'none' : 'block' } : undefined}
+      px={wishlist ? '0' : '16px'}
+      pb={wishlist ? '0' : '64px'}
+      _mobile={wishlist ? { px: '16px', display: empty ? 'none' : 'block' } : undefined}
     >
       <Divider />
-      <Box pt="4" whiteSpace="pre-line">
+      <Box pt="16px" whiteSpace="pre-line">
         <Typography as="p" variant={wishlist ? 'body5' : 'body4'} tone="tertiary">
           {note}
         </Typography>
@@ -373,7 +373,7 @@ export function MyPageProductHistory({
       breadcrumbs={[{ label: '상품내역', href: '/mypage' }, { label: current.title }]}
     >
       <Stack
-        gap={restock || !items.length ? '0' : '8'}
+        gap={restock || !items.length ? '0' : '32px'}
         mx={
           items.length > 0 && (kind === 'wishlist' || kind === 'recent')
             ? { _mobile: '-16px' }
@@ -382,12 +382,12 @@ export function MyPageProductHistory({
         _mobile={
           kind === 'recent'
             ? {
-                gap: items.length ? '6' : '0',
-                pb: items.length ? '2' : '0',
+                gap: items.length ? '24px' : '0',
+                pb: items.length ? '8px' : '0',
                 mt: items.length ? '0' : '-24px',
               }
             : kind === 'wishlist'
-              ? { gap: '6', pb: '2' }
+              ? { gap: '24px', pb: '8px' }
               : undefined
         }
       >
@@ -397,10 +397,10 @@ export function MyPageProductHistory({
             titleAs="h1"
             titleProps={{ web: 'heading6', mo: 'heading5' }}
             gap="0"
-            pb="10"
+            pb="40px"
             borderBottom="2px solid var(--colors-black-100)"
             _mobile={{
-              px: items.length ? '4' : '0',
+              px: items.length ? '16px' : '0',
               pt: '0',
               pb: '0',
               borderBottom: '0',
@@ -413,11 +413,11 @@ export function MyPageProductHistory({
             title={current.title}
             titleAs="h1"
             titleProps={{ web: 'heading6', mo: 'heading5' }}
-            pb="10"
+            pb="40px"
             borderBottom={items.length ? undefined : '2px solid black'}
             _mobile={{
               pb: '0',
-              mb: items.length ? '6' : '0',
+              mb: items.length ? '24px' : '0',
               display: items.length ? 'flex' : 'none',
             }}
           />
@@ -461,7 +461,7 @@ export function MyPageProductHistory({
           <MyPageRestockList entries={entries} items={items} onCancelRequest={setPendingCancel} />
         ) : (
           <ContentSection
-            gap={kind === 'wishlist' ? '8' : '6'}
+            gap={kind === 'wishlist' ? '32px' : '24px'}
             footer={
               kind === 'wishlist' ? (
                 <MyPageProductHistoryNote note={current.note} wishlist />
@@ -491,11 +491,11 @@ export function MyPageProductHistory({
 
         {restock && items.length > 0 ? (
           <Box
-            mt="4"
-            pt={items.length ? '0' : '4'}
+            mt="16px"
+            pt={items.length ? '0' : '16px'}
             borderTop={items.length ? undefined : '1px solid token(colors.black.20)'}
             whiteSpace="pre-line"
-            _mobile={{ pt: items.length ? '0' : '4', pb: items.length ? '2' : '4' }}
+            _mobile={{ pt: items.length ? '0' : '16px', pb: items.length ? '8px' : '16px' }}
           >
             {items.length > 0 && (
               <Typography

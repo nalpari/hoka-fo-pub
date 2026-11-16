@@ -1,3 +1,7 @@
+## 2026-11-16 PDP 장바구니 추가 완료 팝업 제외
+
+- 기획 제외에 따라 PDP의 장바구니 추가 완료 팝업 마크업·전용 fixture와 두 고정 상태 URL을 제거했다. 상품 상세 screen-index 상태 목록은 `productDetailPreviews`를 사용하므로 해당 링크도 함께 제거된다. [경로 영향](architecture/routing.md#pdp-장바구니-추가-완료-팝업-제외-2026-11-16). 출처: 관련 작업 트리, Codex, 2026-11-16.
+
 ## 2026-11-13 공통 Dropdown 스크롤 잠금 해제
 
 - 공통 BaseSelect.Root에 modal=false를 적용했다. PC 상품 목록·검색 결과의 스크롤바와 가로 위치 유지, 모바일 가이드 시트의 배경 잠금·즉시 선택·Escape·포커스 복귀를 확인했다. 전체 타입 검사는 기존 생성 타입의 checkout preview 경로 참조 오류로 실패했다. [구현과 검증 범위](architecture/ui.md#공통-dropdown-pc-스크롤-잠금-해제-2026-11-13).

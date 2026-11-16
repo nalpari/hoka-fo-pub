@@ -194,7 +194,7 @@ export function CarouselGuide() {
         </Box>
         <Stack id="carousel-basic-code" gap="3" minW="0" scrollMarginTop="100px">
           <HStack justifyContent="space-between">
-            <Typography as="h3" variant="body3" weight="semibold">
+<Typography as="h3" variant="body3Semibold">
               기본형 사용 코드
             </Typography>
             <Button
@@ -250,7 +250,7 @@ export function CarouselGuide() {
         </Box>
         <Stack id="carousel-tabs-code" gap="3" minW="0" scrollMarginTop="100px">
           <HStack justifyContent="space-between">
-            <Typography as="h3" variant="body3" weight="semibold">
+<Typography as="h3" variant="body3Semibold">
               탭 포함형 사용 코드
             </Typography>
             <Button

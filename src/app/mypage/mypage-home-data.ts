@@ -7,6 +7,8 @@ export type MyPageOrderItem = {
   name: string;
   gender: string;
   price: string;
+  originalPrice?: string;
+  discountLabel?: string;
   quantity?: number;
   description: string;
   status: string;
@@ -19,6 +21,8 @@ export const orderItems: MyPageOrderItem[] = [
     name: 'Speedgoat 7 GTX',
     gender: "Men's",
     price: '240,000원',
+    originalPrice: '280,000원',
+    discountLabel: '20%',
     description: '데일리 러닝, 워킹',
     status: '배송중',
     image: '/images/mypage/speedgoat-7-gtx.png',

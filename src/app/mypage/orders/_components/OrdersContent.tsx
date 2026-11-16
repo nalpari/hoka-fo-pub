@@ -57,11 +57,10 @@ export function OrdersContent({
     <MyPageFrame
       activePath={returns ? '/mypage/returns' : '/mypage/orders'}
       breadcrumbs={[{ label: '구매내역', href: '/mypage' }, { label: title }]}
-      hideMobileBreadcrumbs={view === 'detail' || view === 'claim'}
     >
       <Stack
         pt={view === 'claim' ? { base: '0', _mobile: '24px' } : undefined}
-        pb={{ base: '0', _mobile: view === 'claim' || returns ? '0' : '18' }}
+        pb={{ base: '0', _mobile: view === 'claim' || returns ? '0' : '18px' }}
         gap="0"
       >
         <ContentSection

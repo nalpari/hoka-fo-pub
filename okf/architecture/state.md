@@ -246,6 +246,8 @@ sources:
 
 Typography의 화면 전용 variant를 표준 heading/body scale로 바꾼 변경은 표시 계층에 한정된다. 선택·필터·문의·상품·세션·장바구니 데이터와 상태 흐름은 변경하지 않았다. 관련 컴포넌트 사용처는 UI 아키텍처 문서의 Typography 전용 variant 표준화 항목에 기록했다.
 
+2026-11-13: `body3/body4`의 반복 Medium·Semibold 호출을 고정 variant로 치환했지만, conditional weight 다섯 곳과 화면별 상태 판정은 유지했다. `ShopShell`을 포함한 호출부의 메뉴·장바구니·주문 상태와 데이터 흐름은 변경하지 않는다. 출처: `src/components/common/atoms/Typography.tsx`, 관련 호출부 작업 트리, Codex.
+
 # 공통 상태와 데모 데이터
 
 ## 배송지 수정·추가 팝업의 preview seed (2026-11-12)
