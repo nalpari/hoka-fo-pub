@@ -374,6 +374,10 @@ sources:
 
 # 라우팅과 플랫폼
 
+## 공통 Back to Top의 라우팅 영향 검토 (2026-11-16)
+
+`ShopShell`이 모든 일반 경로에 `BackToTop` atom을 렌더링하지만 URL, page export, query/hash 상태와 preview 경로는 추가하거나 변경하지 않는다. `/screen-index`의 기존 셸 제외와 `/wh`의 기존 셸 우회도 유지한다. 출처: `src/context/ShopShell.tsx`, `src/components/common/atoms/BackToTop.tsx` 작업 트리, Codex, 2026-11-16.
+
 ## PDP 장바구니 추가 완료 팝업 제외 (2026-11-16)
 
 기획 제외 결정에 따라 `/products/pdp-preview/cart-added`와 `/products/pdp-preview/cart-added-scroll` 상태 URL을 제거했다. `productDetailPreviews`가 screen-index의 상품 상세 상태 링크를 생성하므로 두 링크도 함께 사라진다. 일반 `/products/[id]`와 옵션 선택 preview URL은 유지하며, 장바구니 CTA의 실제 요청·장바구니 갱신은 여전히 상품 상세 통합 소유자 범위 밖이다. 출처: `src/app/products/[id]/_components/ProductDetailContent.tsx`, `src/app/products/[id]/productDetailPreviews.ts` 작업 트리, Codex, 2026-11-16.

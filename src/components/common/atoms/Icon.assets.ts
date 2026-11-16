@@ -20,6 +20,10 @@ export const iconAssets = {
     src: '/images/icon/arrow-up-from-bracket-regular.svg',
     mode: 'mask',
   },
+  'arrow-up-regular': {
+    src: '/images/icon/arrow-up-regular.svg',
+    mode: 'mask',
+  },
   'ruler-horizontal-regular': {
     src: '/images/icon/ruler-horizontal-regular.svg',
     mode: 'mask',

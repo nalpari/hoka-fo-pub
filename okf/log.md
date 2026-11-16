@@ -1,3 +1,7 @@
+## 2026-11-16 공통 Back to Top 시안 적용
+
+- `BackToTop` atom에 Figma Back To Top의 56px 원형·흰색·그림자·레이블·축이 있는 위쪽 화살표를 적용하고, `ShopShell`은 이를 공통 셸에 렌더링한다. 문서가 뷰포트의 1.5배 이상이고 위로 스크롤할 때만 노출하며, 클릭은 모션 환경설정을 존중해 최상단으로 이동한다. [상태 소유권과 규격](architecture/state.md#공통-back-to-top의-표시-상태-2026-11-16). API·인증·저장·표시 데이터 계약은 변경하지 않았다.
+
 ## 2026-11-16 PDP 장바구니 추가 완료 팝업 제외
 
 - 기획 제외에 따라 PDP의 장바구니 추가 완료 팝업 마크업·전용 fixture와 두 고정 상태 URL을 제거했다. 상품 상세 screen-index 상태 목록은 `productDetailPreviews`를 사용하므로 해당 링크도 함께 제거된다. [경로 영향](architecture/routing.md#pdp-장바구니-추가-완료-팝업-제외-2026-11-16). 출처: 관련 작업 트리, Codex, 2026-11-16.

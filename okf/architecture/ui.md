@@ -1009,6 +1009,10 @@ sources:
 
 # 컴포넌트와 스타일
 
+## 공통 Back to Top atom 분리 (2026-11-16)
+
+전역 표시와 스크롤 제어를 `src/components/common/atoms/BackToTop.tsx`로 분리하고, `ShopShell`은 공통 셸 조합만 소유한다. atom은 56px 원형 버튼의 Figma 스타일과 표시 상태·상단 이동을 함께 소유하며, `arrow-up-regular` 18px 아이콘으로 축이 있는 위쪽 화살표를 표시한다. API·표시 데이터·라우트별 서비스 계약은 만들지 않는다. 출처: `BackToTop.tsx`, `Icon.assets.ts`, `arrow-up-regular.svg`, `ShopShell.tsx` 작업 트리와 [HOKA design system v1.0](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0), Codex, 2026-11-16.
+
 ## PDP 장바구니 추가 완료 팝업 제외 (2026-11-16)
 
 기획 제외에 따라 `ProductDetailContent`의 장바구니 추가 완료 모달과 전용 상품·추천 표시 fixture를 제거했다. 옵션 선택용 `ModalDialog`와 일반 상품 상세의 로컬 선택 UI는 유지하며, 장바구니 CTA의 실제 요청·장바구니 갱신은 상품 상세 통합 소유자가 연결할 범위로 남는다. 출처: `src/app/products/[id]/_components/ProductDetailContent.tsx`, `src/app/products/[id]/productDetailPreviews.ts` 작업 트리, Codex, 2026-11-16.

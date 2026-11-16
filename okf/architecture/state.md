@@ -4,7 +4,7 @@ title: '공통 상태와 데모 데이터'
 description: '로그인, 장바구니와 목 데이터의 수명 및 제약을 설명한다.'
 tags: [react, state, mock-data]
 status: draft
-updated: '2026-11-13T01:38:58Z'
+updated: '2026-11-16T01:01:50Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
@@ -221,6 +221,9 @@ working_tree_sources:
   - src/components/login/LoginMembership.tsx
 
 sources:
+  - id: figma-hoka-design-system
+    resource: https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0
+    title: 'HOKA design system v1.0'
   - id: src-shared-shopshell-tsx
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/src/shared/ShopShell.tsx
     title: 'src/context/ShopShell.tsx'
@@ -237,6 +240,12 @@ sources:
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/src/app/cart/page.tsx
     title: 'src/app/cart/page.tsx'
 ---
+
+## 공통 Back to Top의 표시 상태 (2026-11-16)
+
+`ShopShell`은 모든 공통 셸 화면에 공통 Back to Top을 렌더링하고, `BackToTop` atom이 표시 상태를 로컬로 소유한다. 문서 높이가 뷰포트의 1.5배 이상이고, 현재 위치가 반 뷰포트보다 아래이면서 사용자가 위로 스크롤할 때만 표시한다. 아래로 이동하거나 상단 복귀를 시작하면 숨긴다. 클릭은 reduced-motion 환경을 존중해 최상단으로 이동하며, API·인증·저장·표시 데이터 계약을 만들거나 바꾸지 않는다.
+
+Figma Back To Top 컴포넌트의 56px 흰색 원형, 4px/16px 그림자, 12px `Top` 레이블 및 18px 위쪽 화살표를 적용한다. 모바일에서는 기존 플랫폼 조건으로 하단·우측 여백을 16px으로 조정한다. 출처: [HOKA design system v1.0](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0), `src/components/common/atoms/BackToTop.tsx`, `src/context/ShopShell.tsx` 작업 트리, Codex, 2026-11-16T01:01:50Z.
 
 ## 헤더 메뉴 항목 강조 (2026-11-13)
 

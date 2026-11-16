@@ -1316,6 +1316,10 @@
       "src/components/common/atoms/Icon.tsx",
       "src/components/common/atoms/Typography.tsx"
     ],
+    "src/components/common/atoms/BackToTop.tsx": [
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Typography.tsx"
+    ],
     "src/components/common/atoms/Badge.tsx": [
       "src/components/common/atoms/Divider.tsx",
       "src/components/common/atoms/Typography.tsx"
@@ -1667,6 +1671,7 @@
     "src/context/RunningSessionSessionContext.ts": [],
     "src/context/ShopShell.tsx": [
       "src/components/common/atoms/Accordion.tsx",
+      "src/components/common/atoms/BackToTop.tsx",
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Divider.tsx",
       "src/components/common/atoms/Icon.tsx",
