@@ -88,6 +88,17 @@ type ModalDialogContentProps =
       description?: ReactNode;
       feedback?: ReactNode;
       children?: never;
+      intro?: never;
+      noticeLayout?: never;
+    }
+  | {
+      variant: 'confirm';
+      noticeLayout: 'result';
+      intro: ReactNode;
+      message: ReactNode;
+      description?: ReactNode;
+      feedback?: ReactNode;
+      children?: never;
     }
   | {
       variant: Exclude<ModalDialogVariant, 'alert' | 'confirm'>;
@@ -95,6 +106,8 @@ type ModalDialogContentProps =
       message?: never;
       description?: never;
       feedback?: never;
+      intro?: never;
+      noticeLayout?: never;
     };
 
 export type ModalDialogProps = ModalDialogBaseProps &
@@ -156,6 +169,8 @@ export function ModalDialog({
   message,
   description,
   feedback,
+  intro,
+  noticeLayout,
   closeLabel,
   footer,
   actions,
@@ -204,6 +219,7 @@ export function ModalDialog({
         (actions.direction === 'vertical' || (actions.fullWidth ?? true)),
       structured,
       formLayout,
+      noticeLayout,
     },
     { header: headerProps?.css, footer: footerProps?.css },
   );
@@ -256,6 +272,7 @@ export function ModalDialog({
                 {structured ? (
                   <>
                     {feedback}
+                    {intro !== undefined && <p className={classes.intro}>{intro}</p>}
                     <h3 className={classes.message}>{message}</h3>
                     {description !== undefined && description !== null && (
                       <Dialog.Description className={classes.description}>

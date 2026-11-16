@@ -303,7 +303,6 @@
     ],
     "src/app/login/find-account/id-confirmation-modal/page.tsx": [
       "src/components/common/layouts/ModalDialog.tsx",
-      "src/components/find-account/IdConfirmationMessage.tsx",
       "src/context/platform.tsx"
     ],
     "src/app/login/find-account/page.tsx": [
@@ -1587,9 +1586,6 @@
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/ContentSection.tsx",
       "src/components/common/molecules/ContentHeader.tsx"
-    ],
-    "src/components/find-account/IdConfirmationMessage.tsx": [
-      "src/components/common/atoms/Typography.tsx"
     ],
     "src/components/mypage/mypage.data.ts": [],
     "src/components/mypage/MyPageFrame.tsx": [

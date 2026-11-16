@@ -4,12 +4,13 @@ title: "컴포넌트와 스타일"
 description: "공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다."
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-16T09:46:05.479Z'
+updated: '2026-11-16T10:01:10.202Z'
 generated:
   by: codex/gpt-6
   at: "2026-11-03T06:11:12Z"
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/app/login/find-account/id-confirmation-modal/page.tsx
   - src/app/mypage/coupons/preview-complete/page.tsx
   - src/app/signup/information/_components/RegistrationContent.tsx
   - src/components/common/layouts/ModalDialog.recipe.tsx
@@ -5048,3 +5049,13 @@ IA는 [STATE별 실제 모달 유형과 검색](routing.md#state-모달-유형-�
 CouponManager가 임직원 전용 등록 안내의 open과 열기 버튼 ref를 소유한다. 두 발급 버튼은 준비된 팝업을 열람하고 확인·닫기·Escape는 닫기만 수행한다. 실제 발급·등록 요청·쿠폰 개수/목록 갱신·인증·저장은 구현하지 않는다. 일반 일련번호 등록 UI와 오류 상태의 기존 개발 제외는 유지한다. 실제 발급 성공 뒤 이 표시를 열고 실패·pending·재시도와 목록 갱신을 연결하는 책임은 기존 마이페이지 통합 소유자에게 있다.
 
 PC1440/MO375에서 두 버튼의 열기·닫기, 각각으로 포커스 복귀와 직접 preview의 첫 버튼 복귀를 확인했다. PC640px·본문28px·버튼180×48px, MO 가용 폭375px일 때 팝업343px·본문20px·버튼311×44px을 확인했다. Windows classic scrollbar 예약15px이 생기는 캡처에서는 가용 폭과 팝업/CTA가15px 좁아질 수 있다. 일반 쿠폰 화면은 임직원 영역과 팝업을 표시하지 않는 것도 확인했다. 쿠폰 등록 서비스를 구현한 검증은 아니다. 출처: 위 디자인, 사용자 요청, 현재 CouponManagement 작업 트리와 Codex 확인.
+
+## 아이디 확인 confirm 결과형 (2026-11-16)
+
+사용자 PC/MO 주석을 기준으로 아이디 조회 결과를 confirm의 noticeLayout="result"로 표현한다. 필수 intro, 강조 message, 선택 description을 공통 슬롯에 두고 독립 IdConfirmationMessage의 Typography/여백 구현을 제거했다. 단일 사용처를 기존 라우트에 합쳤으며 별도 wrapper나 새 variant는 추가하지 않는다. 결과형은 confirm에만 허용하고 일반 안내 및 다른 variant의 intro 전달은 타입으로 막는다.
+
+제목은 양쪽 모두 아이디 / 비밀번호 찾기이며 PC24px/MO20px·700·행간1.5다. intro는16px·400·행간1.5·검정, intro와 아이디 간24px, 아이디는 HOKA28px/22px·700·행간1, 설명은14px·400·행간1.5·#777777이다. 아이디와 설명 간격은 기존 PC32px, 사용자 지정 MO52px이며 버튼 간격8px과 PC 수평/MO 수직 배치·fullscreen을 유지한다. 일반 alert/confirm 본문28px/20px·900 규칙은 그대로다. 출처: 사용자 첨부 주석·현재 작업 트리·Codex 실행 확인.
+
+후속 사용자 주석으로 intro 앞에 이름 span과 님을 추가했다. 현재 OOO는 표시 fixture이며 이름 span만 PC/MO16px·500·행간1.5를 적용하고 나머지 문구는400을 유지한다.
+
+PC 설명→버튼은 후속 사용자 주석에 따라40px로 정정했다. result 설명의 PC 아래24px 여백을 제거해 공통 content의 아래40px만 사용한다. MO는 후속 지정32px에 맞춰 설명 아래16px·인라인 푸터 위16px을 사용한다.

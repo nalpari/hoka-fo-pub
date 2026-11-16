@@ -909,7 +909,7 @@ const stateModalVariants: Readonly<Record<string, readonly ModalDialogVariant[]>
   '/mypage/profile/preview-cancel': ['confirm'],
   // Recovery and phone verification. Ordinary signup expiry is inline, not a modal.
   '/login/account-locked': ['alert'],
-  '/login/find-account/id-confirmation-modal': ['detail'],
+  '/login/find-account/id-confirmation-modal': ['confirm'],
   '/login/find-account/password-reset/preview-complete': ['alert'],
   '/login/account-locked/verification/preview-expired': ['alert'],
   '/login/account-locked/verification/preview-carriers': ['detail'],

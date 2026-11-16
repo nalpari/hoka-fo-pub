@@ -4,7 +4,7 @@ title: "변경 검증"
 description: "변경 범위에 맞는 정적 검사, 빌드와 수동 검증을 안내한다."
 tags: [verification, testing, build]
 status: draft
-updated: '2026-11-16T09:46:06.205Z'
+updated: '2026-11-16T10:01:11.191Z'
 generated:
   by: codex/gpt-6
   at: "2026-11-02T09:59:35Z"
@@ -728,3 +728,11 @@ STATE variant 계약 검사에 `/mypage/coupons/preview-complete`의 alert를 �
 선별한 런칭 신규 안내까지의 스테이지 사본에서 Next route typegen 후 전체 TypeScript와 모달/검색/고정 preview 관련3개 검사가 통과했다. 쿠폰 등록 안내는 별도 커밋으로 검사한다.
 
 최종 세 범위의 선별 스테이지 사본은 Next route typegen 후 전체 TypeScript, 쿠폰 변경 ESLint와 STATE/검색/고정 preview/링크4개 검사가 통과했다. 런칭 신규 소스2개의 Prettier도 Git blob과 동일한 내용에서 통과했다. 전체 빌드는 재실행하지 않았다.
+
+## 아이디 확인 result 계약 검증 (2026-11-16)
+
+noticeLayout=result를 confirm과 필수 intro 조합에서만 허용하는 타입 검사, intro 누락·alert 결과형·일반 안내 intro 거부 검사가 통과했다. TypeScript·변경 ESLint·Panda414개 파일 생성이 통과했다. PC1224/MO496·375에서 헤더24/20px·700, intro16px·400, 아이디28/22px·700·행간1, 설명14px·#777777, intro→아이디24px·MO 아이디→설명52px·버튼간8px·버튼48/44px과 가로 넘침 없음을 확인했다. PC 아이디→설명32px은 기존 표현을 유지한다. 출처: 사용자 주석·관련 소스·브라우저 계산 스타일과 캡처, Codex. 전체 빌드는 다시 실행하지 않았다.
+
+PC1224/MO496에서 확인→로그인, 재설정→비밀번호 재설정, 닫기/Escape→아이디 찾기 이동을 확인했다. 일반 alert/confirm의 모바일 본문20px·900도 유지됐다. 아이디 실제 글리프는 커스텀 웹폰트이며 내부 이름은 점으로 반환됐다. 기존 HOKA 등록과 로드된 face를 함께 확인했다. STATE/검색 검사2개도 통과했다.
+
+후속 확인: 이름 span은 PC1224/MO496에서16px·500·행간24px, 나머지 안내문400으로 확인했다. PC 설명→버튼 간격은40px로 보정하고 모바일은 후속 지정32px로 정정하고 브라우저에서 실제32px을 확인했다.

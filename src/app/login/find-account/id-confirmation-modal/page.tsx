@@ -6,18 +6,24 @@ import { usePlatform } from '@/context/platform';
 
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
-import { IdConfirmationMessage } from '@/components/find-account/IdConfirmationMessage';
 /** 독립 아이디 확인 팝업과 로그인·비밀번호 재설정 이동을 구성합니다. (Composes the standalone account lookup dialog and its navigation.) */
 export default function Page() {
   const router = useRouter();
   const platform = usePlatform();
   return (
     <ModalDialog
-      variant="detail"
+      variant="confirm"
+      noticeLayout="result"
       open
-
       onOpenChange={(open) => !open && router.push('/login/find-account')}
-      title={platform === 'mobile' ? 'HOKA Korea 회원 안내' : '아이디 / 비밀번호 찾기'}
+      title="아이디 / 비밀번호 찾기"
+      intro={
+        <>
+          <span>OOO</span>님 가입하신 아이디입니다
+        </>
+      }
+      message="honggildong"
+      description="비밀번호가 생각나지 않으시는 경우 임시비밀번호를 통해 재설정하실 수 있습니다."
       closeLabel="안내 닫기"
       mobilePresentation="fullscreen"
       actions={{
@@ -28,8 +34,6 @@ export default function Page() {
         onCancel: () => router.push('/login/find-account/password-reset'),
         onConfirm: () => router.push('/login'),
       }}
-    >
-      <IdConfirmationMessage />
-    </ModalDialog>
+    />
   );
 }

@@ -516,6 +516,8 @@ function ModalExampleCard({
           {...(example.variant === 'alert' || example.variant === 'confirm'
             ? {
                 variant: example.variant,
+                noticeLayout: undefined,
+                intro: undefined,
                 message: '안내 제목입니다.',
                 description: '표시 데이터와 콜백은 호출 화면에서 전달합니다.',
               }

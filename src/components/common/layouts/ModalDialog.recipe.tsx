@@ -45,6 +45,7 @@ export const modalDialogRecipe = sva({
     'header',
     'title',
     'content',
+    'intro',
     'message',
     'description',
     'footer',
@@ -254,6 +255,33 @@ export const modalDialogRecipe = sva({
     },
     fullWidthActions: { true: { actions: { '& button': { flex: '1', minW: '0' } } } },
     structured: { true: { content: { display: 'flex', flexDirection: 'column', gap: '16px' } } },
+    noticeLayout: {
+      result: {
+        content: { gap: '0' },
+        intro: {
+          m: '0',
+          mb: '24px',
+          fontFamily: 'korean',
+          fontSize: '16px',
+          fontWeight: '400',
+          lineHeight: '1.5',
+          letterSpacing: '-0.02em',
+          color: 'black.100',
+          '& > span': { fontWeight: '500' },
+          _mobile: { mb: '24px' },
+        },
+        message: {
+          fontFamily: 'hoka',
+          fontSize: '28px',
+          fontWeight: '700',
+          lineHeight: '1',
+          letterSpacing: '0',
+          mb: '32px',
+          _mobile: { fontSize: '22px', fontWeight: '700', lineHeight: '1', mb: '52px' },
+        },
+        description: { fontSize: '14px', color: '#777777', _mobile: { mb: '16px' } },
+      },
+    },
     formLayout: {
       divided: {
         popup: { _mobile: { borderRadius: '0' } },

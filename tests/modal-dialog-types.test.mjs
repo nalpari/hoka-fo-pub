@@ -19,6 +19,13 @@ variants.map(variant => <ModalDialog {...base} variant={variant}><p>본문</p></
 const alert = <ModalDialog {...base} variant="alert" message="완료" description="설명" actions={{ kind: 'single', onConfirm: () => {} }} />;
 const confirm = <ModalDialog {...base} variant="confirm" message="진행할까요?" actions={{ kind: 'confirm', onConfirm: () => {}, confirmDisabled: true }} />;
 const feedback = <ModalDialog {...base} variant="alert" message="안내" feedback={<span role="alert">요청 실패</span>} />;
+const result = <ModalDialog {...base} variant="confirm" noticeLayout="result" intro="조회 결과" message="account" description="설명" />;
+// @ts-expect-error Result layout requires an introduction.
+const resultWithoutIntro = <ModalDialog {...base} variant="confirm" noticeLayout="result" message="account" />;
+// @ts-expect-error Result presentation belongs to confirm.
+const alertResult = <ModalDialog {...base} variant="alert" noticeLayout="result" intro="결과" message="account" />;
+// @ts-expect-error Intro cannot silently change ordinary notice layout.
+const ordinaryIntro = <ModalDialog {...base} variant="confirm" intro="결과" message="account" />;
 const form = <ModalDialog {...base} variant="form" formLayout="divided" actions={{ kind: 'single', buttonProps: { type: 'submit', form: 'editor', disabled: true } }}><form id="editor" /></ModalDialog>;
 // @ts-expect-error Structured content and custom children are exclusive.
 const mixedContent = <ModalDialog {...base} variant="alert" message="안내"><p>중복 본문</p></ModalDialog>;

@@ -4,12 +4,14 @@ title: "라우팅과 플랫폼"
 description: "App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다."
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-16T09:46:05.858Z'
+updated: '2026-11-16T10:01:10.667Z'
 generated:
   by: codex/gpt-6
   at: "2026-11-03T06:11:12Z"
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/components/common/layouts/ModalDialog.recipe.tsx
+  - src/components/common/layouts/ModalDialog.tsx
   - src/app/mypage/coupons/preview-complete/page.tsx
   - src/app/launch-calendar/clifton-11-gtx/preview-phone-required/page.tsx
   - src/app/launch-calendar/_components/LaunchCalendarContent.tsx
@@ -1856,3 +1858,7 @@ IA159에 휴대폰 번호 입력 안내(/launch-calendar/clifton-11-gtx/preview-
 ## 런칭캘린더 알림 신청 팝업 (2026-11-16)
 
 기존 `/launch-calendar/clifton-11-gtx`에서 입고 알림 신청 버튼으로 PC 팝업·모바일 바텀시트를 연다. 기존 완료 preview URL은 유지한다. 신규 route는 추가하지 않았으며 구조·디자인·실제 검증 및 미연결 서비스 경계는 [런칭 캘린더](launch-calendar.md#알림-신청-팝업-시안-적용-2026-11-16)에 기록했다. 출처: `src/app/launch-calendar/_components/LaunchCalendarDetail.tsx`, `src/app/launch-calendar/launchCalendar.data.ts`의 이번 작업 트리. 기록: codex/gpt-6, 2026-11-16.
+
+## 아이디 확인 팝업 결과형 전환 (2026-11-16)
+
+/login/find-account/id-confirmation-modal의 STATE 유형을 detail에서 confirm으로 정정했다. 기존 직접 URL·PC 팝업/MO fullscreen을 유지하며 조회 안내·아이디·설명을 공통 result 슬롯에 전달한다. 현재 honggildong은 기존 표시 fixture다. 확인의 로그인 이동, 비밀번호 재설정 이동, 닫기/Escape의 아이디 찾기 이동을 보존하며 실제 조회·인증 API는 추가하지 않았다. 삭제된 IdConfirmationMessage 참조는 소스 그래프에서도 제거했다. 출처: 관련 작업 트리와 사용자 PC/MO 주석.

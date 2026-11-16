@@ -1,3 +1,7 @@
+## 2026-11-16 아이디 확인 팝업 confirm 결과형 적용
+
+- 공통 confirm에 result 레이아웃과 intro 슬롯을 추가하고 기존 단일 사용 본문 컴포넌트를 통합했다. PC/MO 제목·굵기·간격과 STATE 유형을 수정했다. [규격](architecture/ui.md#아이디-확인-confirm-결과형-2026-11-16) · [검증](development/verification.md#아이디-확인-result-계약-검증-2026-11-16).
+
 ## 2026-11-16 임직원 쿠폰 등록 안내 팝업 추가
 
 - 임직원 발급 버튼과 기존 완료 URL에서 공통 alert를 열고 확인·닫기·Escape 및 포커스 복귀를 제공한다. 실제 발급·요청·목록 갱신은 미연결이다. [UI](architecture/ui.md#임직원-쿠폰-등록-안내-팝업-2026-11-16) · [확인 경로](architecture/routing.md#임직원-쿠폰-등록-팝업-확인-경로-2026-11-16).
