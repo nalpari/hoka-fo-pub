@@ -11,35 +11,51 @@ export type CartPreviewRow = {
 };
 
 const optionColors = [
-  '스타더스트 / 멜로우 라일락',
-  '베이지',
-  '화이트',
-  '블랙 / 퍼플',
-  '블루',
-  '그레이',
-  '민트',
-  '블랙',
-  '핑크',
-  '네이비',
+  '(19)Black',
+  'Beige',
+  'White',
+  'Black / Purple',
+  'Blue',
+  'Sand',
+  'Grey',
+  'Purple',
+  'Sky Blue',
 ];
 
 /** 옵션 모달 시안용 표시 데이터입니다. (Display data for the option dialog preview.) */
 export const cartOptionPreview: { item: CartItem; product: Product } = {
-  item: {
-    ...cartPreviewItem(),
-    color: optionColors[0],
-    size: '250',
-  },
+  item: { ...cartPreviewItem(), color: optionColors[0], size: '250' },
   product: {
     ...products[0],
-    name: '클리프톤 11 GTX',
+    name: 'Clifton 11 GTX',
     colors: optionColors,
+    sizes: Array.from({ length: 17 }, (_, index) => String(220 + index * 5)),
+    soldOut: ['295', '300'],
     colorThumbnails: optionColors.map((label, index) => ({
       id: `preview-${index + 1}`,
       label,
-      image: `/images/cart/options/color-${index === 7 ? 1 : index > 7 ? index : index + 1}.png`,
+      image: `/images/cart/options/color-${index < 5 ? index + 1 : index - 3}.png`,
     })),
     colorOptions: undefined,
+  },
+};
+
+/** 의류 옵션 시안용 고정 표시 데이터입니다. (Fixed apparel display data for the option preview.) */
+export const cartApparelOptionPreview: { item: CartItem; product: Product } = {
+  item: { ...cartPreviewItem(), id: 'everyrun', color: '(19)Black', size: 'S' },
+  product: {
+    ...products[0],
+    id: 'everyrun',
+    name: 'EveryRun 긴팔티',
+    colors: ['(19)Black', 'Pink', 'Red', 'Blue'],
+    sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
+    soldOut: ['L'],
+    colorOptions: undefined,
+    colorThumbnails: [94538, 94650, 94653, 94655].map((id, index) => ({
+      id: `apparel-${index}`,
+      label: ['(19)Black', 'Pink', 'Red', 'Blue'][index],
+      image: `/images/products/everyrun/pdp-${id}.png`,
+    })),
   },
 };
 

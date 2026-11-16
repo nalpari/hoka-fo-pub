@@ -4,7 +4,7 @@ title: "변경 검증"
 description: "변경 범위에 맞는 정적 검사, 빌드와 수동 검증을 안내한다."
 tags: [verification, testing, build]
 status: draft
-updated: '2026-11-16T10:54:58.120Z'
+updated: '2026-11-16T11:43:47.967041+00:00'
 generated:
   by: codex/gpt-6
   at: "2026-11-02T09:59:35Z"
@@ -756,3 +756,7 @@ PC1440×1251에서 자연 높이696.5px, 본문21px·공고19.5px, 숫자3종14p
 대상 ESLint·전체 TypeScript와 STATE/고정 preview/링크3개 검사가 통과했다. 브라우저에서 신규 URL의 알림 신청 form과 IA 검색 결과의 입고 알림 신청 보기 링크·variant=form 행 표시를 확인했다. 실제 신청 API는 실행하지 않았다. 최종 선별 사본 검사는 아래 후속 기록을 따른다.
 
 최종 네 범위만 담은 인덱스 사본에서 Next route typegen·전체 TypeScript·변경12개 파일 ESLint가 통과했다. 기존 모달 타입 계약1개와 STATE/검색/고정 preview/링크4개 검사도 모두 통과했다. 공유 작업 트리의 비대상 IA 계층 변경과 이전 문서 잔여 diff는 포함하지 않은 검사다.
+
+## 상품 옵션 전용 모달 검증 (2026-11-16)
+
+신발·의류 PC/MO 캡처, 선택 시 변경 버튼 활성화·품절 선택 불가, 열린 상태1024/1025·1199/1200px resize의 선택 유지·팝업 내부 가로 넘침 없음, 짧은 모바일 화면의 본문 스크롤·고정 푸터·Escape/닫기를 확인했다. 이미지 로드를 확인한 뒤 실제 캡처로 썸네일 비율과 순서를 보정했다. 모달 타입 계약·대상 ESLint/Prettier·TypeScript·Panda는 통과했다. preview-links는 15개 통과·기존 배송지 수동입력 링크 기대값1개 실패로 구분했다.

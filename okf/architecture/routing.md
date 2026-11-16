@@ -4,12 +4,13 @@ title: "라우팅과 플랫폼"
 description: "App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다."
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-16T11:13:37.563955+00:00'
+updated: '2026-11-16T11:43:47.967041+00:00'
 generated:
   by: codex/gpt-6
   at: "2026-11-03T06:11:12Z"
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/cart/preview-options-apparel/page.tsx
   - src/app/launch-calendar/clifton-11-gtx/preview-notification/page.tsx
   - src/components/common/layouts/ModalDialog.recipe.tsx
   - src/components/common/layouts/ModalDialog.tsx
@@ -1881,3 +1882,9 @@ IA159에서 발매 예정 상세·신청 완료·번호 입력 안내와 구별�
 ## 문의 첨부파일 이미지 모달 (2026-11-16)
 
 기존 `/support/inquiries/preview-attachment`와 문의 첨부파일 버튼은 같은 `InquiryListContent.tsx`의 image 모달을 사용한다. 미리보기·페이지 표시를 공통 이미지 recipe로 연결하고, 모바일 하단 시트의 손잡이·헤더 구분선을 제거했다. 모달 가이드의 image 예시도 다섯 슬라이드와 같은 recipe를 사용하며 확인 푸터는 생성하지 않는다. 라우트·표시 데이터·열기/닫기 소유권은 유지한다. [규격과 검증](ui.md#이미지-모달-시안-적용-2026-11-16)을 참고한다.
+
+## 신발·의류 옵션 변경 확인 경로 (2026-11-16)
+
+/cart/preview-options는 신발, /cart/preview-options-apparel은 의류 고정 시안이다. IA170에 두 STATE를 등록하고 실제 유형을 productOption으로 표시한다. CartModalPreview가 준비된 표시 데이터를 CartDialogs의 optionType과 unavailableColors로 전달한다. 컬러·발볼·사이즈 초안은 기존 소유자에 남기고 서비스 저장은 추가하지 않는다. 모달 가이드의 큰 크기·전체화면 설명도 새 전용 유형과 구별한다.
+
+옵션 STATE의 생성 소스 그래프는 기존 직렬화 형식을 유지하며 신발·의류 소스 연결만 갱신한다.

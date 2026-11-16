@@ -4,7 +4,7 @@ title: "컴포넌트와 스타일"
 description: "공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다."
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-16T11:13:37.474790+00:00'
+updated: '2026-11-16T11:43:47.967041+00:00'
 generated:
   by: codex/gpt-6
   at: "2026-11-03T06:11:12Z"
@@ -5084,3 +5084,9 @@ terms와 selection/form/tracking/detail이 공통 contentModal 외형을 공유�
 제목은 구조화된 시안의 400과 달리 사용자 확정 공통 기준·첨부 화면의 700을 유지하며 PC 24px/MO 20px·행간 150%다. [화면 디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)을 기준으로 한다.
 
 검증: 문의 첨부파일에서 PC 640×409px, MO 375×379px, 프레임 240×240px과 간격 40px/24px을 계산 스타일로 확인했다. 실제 글리프는 Pretendard-Bold다. 페이지 표시 전환, 열린 상태 1024/1025·1199/1200px resize의 선택 유지·팝업 내부 가로 넘침 없음, Escape·다시 열기·트리거 포커스 복귀를 확인했다. 타입 검사·대상 ESLint/Prettier·Panda·기존 모달 타입 계약 검사가 통과했다. 브라우저 스크린샷은 PC/MO 각 한 차례 재시도 후에도 캡처 시간 초과로 비교하지 못했다. 실제 첨부 이미지의 가로/세로 비율 및 명시적 preview 플랫폼·프로덕션 빌드는 이번에 별도로 실행하지 않았다.
+
+## 상품 옵션 전용 모달 (2026-11-16)
+
+ModalDialog의 열 번째 유형 productOption은 PC 640px 한 열·모바일 손잡이 있는 하단 시트다. shell과 본문은 ModalDialog.recipe.tsx의 productOption 및 modalProductOptionRecipe 슬롯 className으로 관리한다. CartDialogs의 optionType은 shoes/apparel이며 이름이나 사이즈로 상품 종류를 추정하지 않는다. 신발만 발볼을 표시하고 공통 컬러·사이즈 라디오는 기존 Radio를 직접 사용한다. 큰 상품 이미지와 수량 입력은 제공된 팝업 시안에 따라 제거했다.
+
+PC 컬러 7열·74px, 사이즈 7열·36px, 모바일 5열·정사각 썸네일·38px 사이즈를 적용했다. 발볼은 PC48px/MO44px, 액션은 PC238×48px 두 개·MO 전체 폭44px 변경 버튼 하나다. 변경 전·품절 선택은 비활성이고 저장 요청은 미연결이다. 첨부 썸네일의 intrinsic height가 모바일에서 늘어나지 않게 height:auto를 적용했다. [디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)과 실제 PC/MO 캡처로 열 수·비율·품절·선택을 비교했다. 명시적 고정 플랫폼은 별도 실행하지 않았다.

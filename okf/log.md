@@ -1,3 +1,7 @@
+## 2026-11-16 상품 옵션 전용 모달
+
+- productOption 유형·본문 슬롯 recipe와 신발/의류 확인 STATE를 추가했다. 시안에 맞게 한 열·하단 시트·품절/초기 비활성·정사각 썸네일과 이미지 순서를 적용했다. 관련 타입·IA 계약 및 실제 PC/MO 캡처를 확인했다.
+
 ## 2026-11-16 런칭 입고 알림 신청 IA 등록
 
 - 기존 form 팝업을 직접 여는 preview-notification을 추가하고 IA159에 등록했다. [연결](architecture/launch-calendar.md#입고-알림-신청-팝업-ia-등록-2026-11-16).
@@ -2734,3 +2738,5 @@ Figma Navigational Buttons(296:25392)와 Action Buttons(296:25425)의 기본·�
 
 - image 모달의 PC/MO shell과 240px 이미지·페이지 표시 recipe를 문의 첨부파일과 가이드에 연결했다. 라우트·첨부 데이터 계약을 유지했다.
 - 계산 스타일·실제 Pretendard Bold·페이지 전환·경계 resize·Escape/포커스 복귀, 타입·대상 lint/format·Panda·모달 타입 계약을 확인했다. PC/MO 캡처 시간 초과와 미실행 항목은 UI 문서에 구분했다.
+
+옵션 모달 소스 그래프의 기존 직렬화 형식을 유지했다.

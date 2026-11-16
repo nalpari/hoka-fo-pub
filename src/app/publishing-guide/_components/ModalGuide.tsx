@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+
 import { useCallback, useRef, useState } from 'react';
 import { usePlatform } from '@/context/platform';
 
@@ -106,8 +108,8 @@ const groups: { id: string; title: string; description: string; items: ModalExam
       {
         id: 'large',
         usage:
-          '동일 크기 사용: 장바구니 옵션 변경. 실제 화면은 모바일 전체화면과 별도 헤더·버튼 스타일을 적용합니다.',
-        source: 'cart/_components/CartDialogs.tsx',
+          'lg 크기 옵션의 가이드 예시입니다. 장바구니 옵션 변경은 별도 productOption 유형을 사용합니다.',
+        source: 'components/common/layouts/ModalDialog.tsx',
         title: '큰 모달 · lg',
         desktop:
           '최대 너비 800px · 오른쪽 열 중앙 · 버튼 180×48px · 버튼 간격 8px · 본문과 40px · 하단 24px',
@@ -194,10 +196,8 @@ const groups: { id: string; title: string; description: string; items: ModalExam
       },
       {
         id: 'fullscreen',
-        usage:
-          '모바일 본인인증 약관·회원가입 약관·장바구니 옵션 변경·문의 주문상품 조회에서 사용합니다.',
-        source:
-          'PhoneVerificationContent.tsx / SignupTermsContent.tsx / CartDialogs.tsx / InquiryOrderLookup.tsx',
+        usage: '모바일 본인인증 약관·회원가입 약관·문의 주문상품 조회에서 사용합니다.',
+        source: 'PhoneVerificationContent.tsx / SignupTermsContent.tsx / InquiryOrderLookup.tsx',
         title: '전체화면 · fullscreen',
         desktop: '중앙 팝업 · 최대 640px',
         mobile: '화면 전체 너비·높이',
@@ -635,6 +635,19 @@ export function ModalGuide() {
             바텀시트형 모달은 모바일 드롭다운·이전 약관 선택에서 사용합니다. 예시의 확인 버튼은
             닫기만 수행합니다.
           </Typography>
+        </Stack>
+        <Stack as="section" gap="3" p="4" border="1px solid token(colors.black.20)">
+          <Typography as="h3" variant="body3Semibold">
+            상품 옵션 · productOption
+          </Typography>
+          <Typography as="p" variant="body4">
+            옵션 변경 전용 유형입니다. PC 640px · 모바일 하단 시트이며 신발은 발볼·컬러·사이즈,
+            의류는 컬러·사이즈를 표시합니다. 본문은 modalProductOptionRecipe의 className을
+            사용합니다.
+          </Typography>
+          <Link href="/cart/preview-options">신발 옵션 변경 보기</Link>
+          <Link href="/cart/preview-options-apparel">의류 옵션 변경 보기</Link>
+          <code>{'<ModalDialog variant="productOption" mobilePresentation="bottomSheet">'}</code>
         </Stack>
         {groups.map((group) => (
           <Stack

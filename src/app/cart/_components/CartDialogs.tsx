@@ -3,143 +3,153 @@
 import Image from 'next/image';
 
 import { useState } from 'react';
+import { usePlatform } from '@/context/platform';
 
-import { css } from 'styled-system/css';
-import { Box, Grid, Stack } from 'styled-system/jsx';
+import { Radio } from '@/components/common/atoms/Radio';
 
-import { NumberStepper } from '@/components/common/atoms/NumberStepper';
-import { Typography } from '@/components/common/atoms/Typography';
-
-import { ProductColorSelector } from '@/components/common/molecules/ProductOptionSelectors/ProductColorSelector';
-import { ProductSizeSelector } from '@/components/common/molecules/ProductOptionSelectors/ProductSizeSelector';
-import { ProductWidthSelector } from '@/components/common/molecules/ProductOptionSelectors/ProductWidthSelector';
-
-import { ContentSection } from '@/components/common/layouts/ContentSection';
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
+import { modalProductOptionRecipe } from '@/components/common/layouts/ModalDialog.recipe';
 
-import { getCartImage } from '@/mocks/cartDisplay';
 import { type Product } from '@/mocks/products';
 import { type CartItem } from '@/types/cart';
 
-/** 상품 옵션의 선택과 닫기를 확인합니다. (Previews product option selection and dismissal.) */
+type CartOptionType = 'shoes' | 'apparel';
+
+const optionStyles = modalProductOptionRecipe();
+
+type CartOptionsDialogProps = {
+  item: CartItem;
+  product: Product;
+  optionType?: CartOptionType;
+  unavailableColors?: readonly string[];
+  onClose: () => void;
+};
+
+/** 상품 유형에 맞는 옵션 선택과 닫기를 확인합니다. (Previews option selection and dismissal for each product type.) */
 function CartOptionsDialog({
   item,
   product,
+  optionType = 'shoes',
+  unavailableColors = [],
   onClose,
-}: {
-  item: CartItem;
-  product: Product;
-  onClose: () => void;
-}) {
+}: CartOptionsDialogProps) {
+  const platform = usePlatform();
   const [draft, setDraft] = useState(item);
   const color = product.colorOptions?.find((option) => option.color === draft.color);
   const widths = color?.widths;
   const width = widths?.find((option) => option.label === draft.width);
   const sizes = width?.sizes ?? product.sizes;
   const soldOut = width?.soldOut ?? product.soldOut;
+  const changed =
+    draft.color !== item.color ||
+    draft.size !== item.size ||
+    (optionType === 'shoes' && draft.width !== item.width);
+  const valid =
+    sizes.includes(draft.size) &&
+    !soldOut.includes(draft.size) &&
+    !unavailableColors.includes(draft.color);
 
+  // [ 개발팀 바인딩 ] item/product와 optionType, unavailableColors는 장바구니 소유자가 전달하는 표시 데이터입니다.
+  // 현재는 선택 초안과 닫기만 확인하며 변경 저장 요청은 연결하지 않았습니다. 실제 연결 시 소유자가 상품/옵션 ID와
+  // draft의 color/width/size를 저장 payload로 매핑하고 pending 중 중복 제출 방지, 실패 시 초안 유지·재시도,
+  // 성공 시 목록 갱신과 닫기를 연결해야 합니다. 상품 종류는 이름이나 사이즈 문자열로 추정하지 않습니다.
   return (
     <ModalDialog
-      variant="selection"
+      variant="productOption"
       open
       onOpenChange={(open) => {
         if (!open) onClose();
       }}
-      title="옵션 변경하기"
+      title={platform === 'mobile' ? '옵션 변경' : '옵션 변경하기'}
       closeLabel="옵션 변경 닫기"
-      size="lg"
-      mobilePresentation="fullscreen"
-      mobileFixedFooter
-      footerProps={{ desktopContentOffset: 332 }}
+      mobilePresentation="bottomSheet"
+      blurBackdrop={false}
       actions={{
         kind: 'confirm',
         onConfirm: onClose,
         onCancel: onClose,
-        buttonProps: {
-          size: 'tall',
-          className: css({ maxW: { base: '180px', _mobile: 'none' } }),
-        },
+        cancelLabel: '취소하기',
+        confirmLabel: '변경하기',
+        confirmDisabled: !changed || !valid,
       }}
     >
-      <Grid
-        gridTemplateColumns={{ base: '300px minmax(0, 1fr)', _mobile: 'minmax(0, 1fr)' }}
-        gap={{ base: '8', _mobile: '6' }}
-        alignItems="start"
-      >
-        <Image
-          src={getCartImage(
-            draft,
-            product.colorThumbnails?.find((option) => option.label === draft.color)?.image ??
-              product.primaryImage,
-          )}
-          alt={product.name}
-          width={600}
-          height={600}
-          sizes="(max-width: 1024px) 100vw, 300px"
-          className={css({
-            w: '100%',
-            maxW: 'none',
-            h: { base: '300px', _mobile: '100vw' },
-            aspectRatio: '1',
-            objectFit: 'contain',
-            bg: 'black.10',
-            _mobile: { w: 'calc(100% + 32px)', mx: '-4', mt: '-6' },
-          })}
-        />
-        <ContentSection
-          gap="10"
-          _mobile={{ gap: '6' }}
-          title={<>{product.name}</>}
-          headerProps={{ titleAs: 'h2', titleProps: { web: 'heading7', mo: 'heading5' } }}
-        >
-          <Stack gap="10">
-            <ProductWidthSelector
-              appearance="cart"
+      <div className={optionStyles.root} data-product-type={optionType}>
+        <h3 className={optionStyles.productName}>{product.name}</h3>
+        <div className={optionStyles.options}>
+          {optionType === 'shoes' && (
+            <Radio
+              variant="custom"
+              ariaLabel="발볼"
               value={draft.width}
-              options={widths?.map((option) => option.label) ?? ['Regular', 'Wide', 'X-Wide']}
+              className={optionStyles.widths}
+              optionClassName={optionStyles.width}
+              options={(widths?.map((option) => option.label) ?? ['Regular', 'Wide', 'X-Wide']).map(
+                (value) => ({ value, label: value }),
+              )}
               onValueChange={(width) => setDraft({ ...draft, width })}
             />
-
-            <ProductColorSelector
-              appearance="cart"
+          )}
+          <section className={optionStyles.section} aria-label="컬러 선택">
+            <h4 className={optionStyles.label}>
+              컬러: <span className={optionStyles.colorName}>{draft.color}</span>
+            </h4>
+            <Radio
+              variant="custom"
+              ariaLabel="컬러"
               value={draft.color}
-              options={product.colors.map((value) => ({
-                id: value,
-                label: value,
-                image:
-                  product.colorThumbnails?.find((option) => option.label === value)?.image ??
-                  product.primaryImage,
-              }))}
+              className={optionStyles.colors}
+              optionClassName={optionStyles.color}
               onValueChange={(color) => setDraft({ ...draft, color })}
+              options={product.colors.map((value) => ({
+                value,
+                disabled: unavailableColors.includes(value),
+                label: (
+                  <>
+                    <Image
+                      src={
+                        product.colorThumbnails?.find((option) => option.label === value)?.image ??
+                        product.primaryImage
+                      }
+                      alt={value}
+                      width={74}
+                      height={74}
+                      sizes={platform === 'mobile' ? 'calc((100vw - 64px) / 5)' : '74px'}
+                      className={optionStyles.thumbnail}
+                    />
+                    {unavailableColors.includes(value) && (
+                      <span className={optionStyles.soldOut}>Sold Out</span>
+                    )}
+                  </>
+                ),
+              }))}
             />
-            <ProductSizeSelector
-              appearance="cart"
+          </section>
+          <section className={optionStyles.section} aria-label="사이즈 선택">
+            <h4 className={optionStyles.label}>사이즈</h4>
+            <Radio
+              variant="custom"
+              ariaLabel="사이즈"
               value={draft.size}
+              className={optionStyles.sizes}
+              optionClassName={optionStyles.size}
               options={sizes.map((value) => ({
                 value,
-                state: soldOut.includes(value) ? 'soldOut' : 'available',
+                label: value,
+                disabled: soldOut.includes(value),
               }))}
               onValueChange={(size) => setDraft({ ...draft, size })}
             />
-            <Box display={{ base: 'none', _mobile: 'block' }}>
-              <Stack gap="3" alignItems="flex-start">
-                <Typography variant="body4Semibold">수량</Typography>
-                <NumberStepper
-                  min={1}
-                  value={draft.quantity}
-                  onChange={(quantity) => setDraft({ ...draft, quantity })}
-                />
-              </Stack>
-            </Box>
-          </Stack>
-        </ContentSection>
-      </Grid>
+          </section>
+        </div>
+      </div>
     </ModalDialog>
   );
 }
 
 type CartDialogsProps = {
   editingRow: { item: CartItem; product: Product } | null;
+  optionType?: CartOptionType;
+  unavailableColors?: readonly string[];
   onEditClose: () => void;
 };
 
@@ -163,8 +173,19 @@ export function CartLimitDialog({ onClose }: { onClose: () => void }) {
 }
 
 /** 장바구니 옵션 편집 화면을 표시합니다. (Displays the cart option editing dialog.) */
-export function CartDialogs({ editingRow, onEditClose }: CartDialogsProps) {
+export function CartDialogs({
+  editingRow,
+  optionType = 'shoes',
+  unavailableColors,
+  onEditClose,
+}: CartDialogsProps) {
   return editingRow ? (
-    <CartOptionsDialog item={editingRow.item} product={editingRow.product} onClose={onEditClose} />
+    <CartOptionsDialog
+      item={editingRow.item}
+      product={editingRow.product}
+      optionType={optionType}
+      unavailableColors={unavailableColors}
+      onClose={onEditClose}
+    />
   ) : null;
 }

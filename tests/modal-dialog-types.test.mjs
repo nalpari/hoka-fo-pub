@@ -7,14 +7,14 @@ import ts from 'typescript';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 
-test('modal callers can select nine variants while incompatible content and action slots are rejected', () => {
+test('modal callers can select ten variants while incompatible content and action slots are rejected', () => {
   const config = ts.readConfigFile(path.join(root, 'tsconfig.json'), ts.sys.readFile);
   const parsed = ts.parseJsonConfigFileContent(config.config, ts.sys, root);
   const filename = path.join(root, 'tests', '__modal-dialog-contract__.tsx').replaceAll('\\', '/');
   const source = `
 import { ModalDialog, type ModalDialogProps, type ModalDialogVariant } from '@/components/common/layouts/ModalDialog';
 const base = { open: true, onOpenChange: (_open: boolean) => {}, title: '제목', closeLabel: '닫기' };
-const variants: Exclude<ModalDialogVariant, 'alert' | 'confirm'>[] = ['terms', 'form', 'selection', 'tracking', 'detail', 'image', 'sizeGuide'];
+const variants: Exclude<ModalDialogVariant, 'alert' | 'confirm'>[] = ['terms', 'form', 'selection', 'productOption', 'tracking', 'detail', 'image', 'sizeGuide'];
 variants.map(variant => <ModalDialog {...base} variant={variant}><p>본문</p></ModalDialog>);
 const alert = <ModalDialog {...base} variant="alert" message="완료" description="설명" actions={{ kind: 'single', onConfirm: () => {} }} />;
 const confirm = <ModalDialog {...base} variant="confirm" message="진행할까요?" actions={{ kind: 'confirm', onConfirm: () => {}, confirmDisabled: true }} />;

@@ -27,14 +27,10 @@
       "src/mocks/products.ts"
     ],
     "src/app/cart/_components/CartDialogs.tsx": [
-      "src/components/common/atoms/NumberStepper.tsx",
-      "src/components/common/atoms/Typography.tsx",
-      "src/components/common/layouts/ContentSection.tsx",
+      "src/components/common/atoms/Radio.tsx",
+      "src/components/common/layouts/ModalDialog.recipe.tsx",
       "src/components/common/layouts/ModalDialog.tsx",
-      "src/components/common/molecules/ProductOptionSelectors/ProductColorSelector.tsx",
-      "src/components/common/molecules/ProductOptionSelectors/ProductSizeSelector.tsx",
-      "src/components/common/molecules/ProductOptionSelectors/ProductWidthSelector.tsx",
-      "src/mocks/cartDisplay.ts"
+      "src/context/platform.tsx"
     ],
     "src/app/cart/_components/CartEmptyContent.tsx": [
       "src/app/cart/_components/CartEmptyState.tsx",
@@ -88,6 +84,10 @@
       "src/app/cart/_components/CartModalPreview.tsx"
     ],
     "src/app/cart/preview-options/page.tsx": [
+      "src/app/cart/_components/CartContent.tsx",
+      "src/app/cart/_components/CartModalPreview.tsx"
+    ],
+    "src/app/cart/preview-options-apparel/page.tsx": [
       "src/app/cart/_components/CartContent.tsx",
       "src/app/cart/_components/CartModalPreview.tsx"
     ],
@@ -1727,6 +1727,7 @@
   },
   "bindingFiles": [
     "src/app/cart/_components/CartContent.tsx",
+    "src/app/cart/_components/CartDialogs.tsx",
     "src/app/cart/_components/CartOrderActions.tsx",
     "src/app/cart/_components/CartProductSection.tsx",
     "src/app/cart/cart-preview.ts",

@@ -140,13 +140,15 @@ const connections: Record<number, ScreenConnection> = {
     defaultStateLabel: '목록 있음',
     previewRoutes: [
       { label: '빈 목록', href: '/cart/preview-empty' },
-      { label: '옵션 변경', href: '/cart/preview-options' },
+      { label: '옵션 변경 · 신발', href: '/cart/preview-options' },
+      { label: '옵션 변경 · 의류', href: '/cart/preview-options-apparel' },
       { label: '수량 제한 안내', href: '/cart/preview-limit' },
     ],
     sourceFiles: [
       'src/app/cart/page.tsx',
       'src/app/cart/preview-empty/page.tsx',
       'src/app/cart/preview-options/page.tsx',
+      'src/app/cart/preview-options-apparel/page.tsx',
       'src/app/cart/preview-limit/page.tsx',
     ],
   },
@@ -880,7 +882,8 @@ const stateModalVariants: Readonly<Record<string, readonly ModalDialogVariant[]>
   '/launch-calendar/clifton-11-gtx/preview-notification': ['form'],
   '/launch-calendar/clifton-11-gtx/preview-phone-required': ['alert'],
   // CartDialogs and CheckoutStatePreview.
-  '/cart/preview-options': ['selection'],
+  '/cart/preview-options': ['productOption'],
+  '/cart/preview-options-apparel': ['productOption'],
   '/cart/preview-limit': ['alert'],
   '/checkout/preview-address-change': ['form'],
   '/checkout/preview-address-edit': ['form'],
