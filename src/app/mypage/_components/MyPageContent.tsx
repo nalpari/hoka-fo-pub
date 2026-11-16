@@ -190,68 +190,42 @@ function MyPageOverviewProfile({ onLogout }: { onLogout: () => void }) {
   );
 }
 
+function MyPageOrderInfo({ item }: { item: MyPageOrderItem }) {
+  const platform = usePlatform();
+
+  return (
+    <Stack minW="0" flex="1" gap="6px">
+      {item.badge ? (
+        <Typography web="body4" mo="body4-2" tone="red80">
+          {item.badge[platform]}
+        </Typography>
+      ) : null}
+      <Stack gap={{ base: 0, _mobile: '2px' }}>
+        <Typography web="body3" mo="body4-2">
+          {item.gender}
+        </Typography>
+        <Typography web="body3" mo="body4-2">
+          {item.name}
+        </Typography>
+      </Stack>
+      <Typography web="body4" mo="body5" className={css({ pt: '6px', _mobile: { pt: '2px' } })}>
+        {item.description}
+      </Typography>
+    </Stack>
+  );
+}
+
 function MyPageOrderTile({ item }: { item: MyPageOrderItem }) {
   return (
-    <HStack position="relative" alignItems="flex-start" gap="16px">
+    <Grid gridTemplateColumns="minmax(0, 1fr) auto" alignItems="start" gap="24px">
       <OrderProductSummary
         alignStart
         variant="cart"
         image={item.image}
         name={item.name}
-        content={
-          <Stack minW="0" flex="1" gap="6px" pr="0">
-            <HStack minH="18px">
-              {item.isNew ? (
-                <Typography variant="body4" tone="red80">
-                  New
-                </Typography>
-              ) : null}
-            </HStack>
-            <Stack gap="10px">
-              <Stack gap="4px">
-                <Stack gap="2px">
-                  <Typography variant="body4">{item.gender}</Typography>
-                  <Typography variant="body4">{item.name}</Typography>
-                </Stack>
-                <Stack gap="4px" pt="2px">
-                  {item.originalPrice && (
-                    <Typography
-                      variant="body5"
-                      tone="tertiary"
-                      className={css({ fontSize: '13px', textDecoration: 'line-through' })}
-                    >
-                      {item.originalPrice}
-                    </Typography>
-                  )}
-                  <HStack gap="8px">
-                    {item.discountLabel && (
-                      <Typography
-                        variant="body5"
-                        tone="red80"
-                        className={css({ fontSize: '13px' })}
-                      >
-                        {item.discountLabel}
-                      </Typography>
-                    )}
-                    <Typography
-                      variant="body5"
-                      weight="medium"
-                      className={css({ fontSize: '13px' })}
-                    >
-                      {item.price}
-                    </Typography>
-                  </HStack>
-                </Stack>
-              </Stack>
-              <Typography variant="body5">{item.description}</Typography>
-            </Stack>
-          </Stack>
-        }
+        content={<MyPageOrderInfo item={item} />}
       />
       <Box
-        position="absolute"
-        top="0"
-        right="0"
         border="1px solid var(--color-border-tertiary)"
         borderRadius="full"
         px="8px"
@@ -260,7 +234,7 @@ function MyPageOrderTile({ item }: { item: MyPageOrderItem }) {
       >
         <Typography variant="body5">{item.status}</Typography>
       </Box>
-    </HStack>
+    </Grid>
   );
 }
 
@@ -326,9 +300,10 @@ function MyPageRecentOrders({ empty = true }: { empty?: boolean }) {
                     <OrderProductSummary
                       variant="cart"
                       image={item.image}
+                      imageSize={{ web: 144, mobile: 96 }}
                       name={item.name}
-                      gender={item.gender}
-                      hideAmount
+                      alignStart
+                      content={<MyPageOrderInfo item={item} />}
                     />
                   </Box>
                   <Typography variant="body3" className={css({ textAlign: 'center' })}>

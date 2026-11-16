@@ -111,83 +111,13 @@ export function MyPageReviewDialog({
   );
 }
 
-type MyPageReviewTabsProps = { value: ReviewTab; onChange: (value: ReviewTab) => void };
+const reviewProductText = css({
+  '&&': { lineHeight: '1.5' },
+});
 
-function MyPageReviewTabs({ value, onChange }: MyPageReviewTabsProps) {
-  return (
-    <SegmentedControl
-      ariaLabel="상품리뷰 구분"
-      onValueChange={onChange}
-      options={[
-        { value: 'ready', label: '작성 가능한 리뷰' },
-        { value: 'written', label: '내가 작성한 리뷰' },
-      ]}
-      variant="underline"
-      value={value}
-      className={css({ borderBottom: '0', _mobile: { w: 'calc(100% + 32px)', mx: '-4' } })}
-      itemClassName={(_, selected) =>
-        css({
-          minH: '42px',
-          borderBottomWidth: selected ? '2px' : '1px',
-          borderBottomColor: selected ? 'black.100' : 'black.20',
-          _mobile: { minH: '44px' },
-        })
-      }
-      itemRender={(option) => (
-        <Typography as="button" variant="body3" weight="regular">
-          {option.label}
-        </Typography>
-      )}
-    />
-  );
-}
-
-type MyPageReviewCountProps = { count: number };
-
-function MyPageReviewCount({ count }: MyPageReviewCountProps) {
-  return (
-    <HStack gap="2px">
-      <Typography variant="body4">총</Typography>
-      <Typography variant="body4Medium">
-        {count}
-        <Typography variant="bodyKr4">건</Typography>
-      </Typography>
-    </HStack>
-  );
-}
-
-type MyPageReviewToolbarProps = {
-  count: number;
-  sort: string;
-  onSortChange: (value: string) => void;
-};
-
-// [ 개발팀 바인딩 ] 리뷰 화면 소유자가 sort와 onSortChange로 recent/oldest 선택을 연결합니다. PC는 즉시, 모바일은 공통 시트에서 확인할 때만 콜백을 전달하며 닫기는 유지합니다. 이 도구 모음은 서버 정렬 조회나 목록 갱신을 실행하지 않습니다.
-function MyPageReviewToolbar({ count, sort, onSortChange }: MyPageReviewToolbarProps) {
-  return (
-    <HStack
-      justifyContent="space-between"
-      alignItems="center"
-      pb="16px"
-      mt="40px"
-      _mobile={{ mt: '32px' }}
-      borderBottom="1px solid var(--color-black-100)"
-    >
-      <Dropdown
-        variant="sort"
-        popupAlign="start"
-        ariaLabel="리뷰 정렬"
-        value={sort}
-        onValueChange={onSortChange}
-        options={[
-          { value: 'recent', label: '최근 구매순' },
-          { value: 'oldest', label: '오래된 구매순' },
-        ]}
-      />
-      <MyPageReviewCount count={count} />
-    </HStack>
-  );
-}
+const reviewDateAndName = css({
+  '&&': { lineHeight: '1.5', _mobile: { fontSize: '13px' } },
+});
 
 type MyPageReviewItemProps = {
   entry: ReviewListEntry;
@@ -219,8 +149,8 @@ function MyPageReviewItem({
           : 'minmax(0, 1fr) auto'
       }
       _mobile={{
-        gridTemplateColumns: '64px minmax(0, 1fr)',
-        columnGap: '16px',
+        gridTemplateColumns: tab === 'ready' ? 'minmax(0, 1fr) auto' : '64px minmax(0, 1fr)',
+        columnGap: tab === 'ready' ? '8px' : '16px',
         rowGap: '8px',
         py: '16px',
         alignItems: 'start',
@@ -230,42 +160,30 @@ function MyPageReviewItem({
         gap="16px"
         minW="0"
         alignItems="center"
-        _mobile={{ gridColumn: '1 / -1', alignItems: 'flex-start' }}
+        _mobile={{ gridColumn: tab === 'ready' ? '1' : '1 / -1', alignItems: 'flex-start' }}
       >
         <OrderProductSummary
           variant="cart"
           name={product.name}
           image={product.imageSrc}
-          imageSize={{ web: tab === 'written' ? 96 : 64, mobile: 64 }}
+          alignStart
+          imageSize={{ web: 64, mobile: 64 }}
           content={
             <Stack minW="0" gap="6px">
-              <HStack gap="2px" display="none" _mobile={{ display: 'flex', pr: '18px' }}>
-                <Typography variant="body4" language="en">
+              <HStack gap="2px" _mobile={{ pr: tab === 'written' ? '64px' : '0' }}>
+                <Typography variant="body3" language="en" className={reviewDateAndName}>
                   {purchasedAt}
                 </Typography>
-                <Typography variant="body4">구매</Typography>
+                <Typography variant="body3" className={reviewDateAndName}>
+                  구매
+                </Typography>
               </HStack>
-              <Stack gap={tab === 'written' ? '2px' : '4px'}>
-                {tab === 'written' ? (
-                  <Box display="block" _mobile={{ display: 'none' }}>
-                    {product.gender ? (
-                      <Typography variant="body4">{product.gender}</Typography>
-                    ) : null}
-                  </Box>
-                ) : null}
-                <Typography variant="body4">{product.name}</Typography>
-                {tab === 'written' && product.price ? (
-                  <Typography variant="body4" className={css({ _mobile: { display: 'none' } })}>
-                    {product.price}
-                  </Typography>
-                ) : null}
-                <Typography
-                  variant="body4"
-                  className={css(
-                    tab === 'written' ? { display: 'none', _mobile: { display: 'block' } } : {},
-                  )}
-                >
-                  옵션 : {product.optionLabel}
+              <Stack gap="4px">
+                <Typography variant="body3" className={reviewDateAndName}>
+                  {product.name}
+                </Typography>
+                <Typography web="body3" mo="body5" tone="subtle" className={reviewProductText}>
+                  {product.optionLabel.replaceAll(' / ', ', ')}
                 </Typography>
               </Stack>
             </Stack>
@@ -276,7 +194,7 @@ function MyPageReviewItem({
         <Box
           lineHeight="0"
           textAlign="center"
-          _mobile={{ gridColumn: '2', textAlign: 'left', mt: '2px' }}
+          _mobile={{ gridColumn: '2', textAlign: 'left', pt: '4px' }}
         >
           <RatingStars
             value={review?.rating ?? 0}
@@ -291,6 +209,7 @@ function MyPageReviewItem({
           mo="body5"
           tone="primary"
           className={css({
+            '&&': { lineHeight: '1.5' },
             lineClamp: 1,
             mx: '16px',
             _mobile: { gridColumn: '2', mx: '0', lineClamp: 1 },
@@ -303,50 +222,16 @@ function MyPageReviewItem({
         {...actionProps}
         className={css({
           justifySelf: 'end',
-          _mobile: { position: 'absolute', top: '4', right: '0' },
+          _mobile:
+            tab === 'ready'
+              ? { gridColumn: '2', gridRow: '1', alignSelf: 'center' }
+              : { position: 'absolute', top: '16px', right: '0' },
         })}
         onClick={() => onEdit(id)}
       >
         {tab === 'ready' ? '리뷰 작성' : '수정하기'}
       </Button>
     </Grid>
-  );
-}
-
-type MyPageReviewListProps = {
-  entries: readonly ReviewListEntry[];
-  tab: ReviewTab;
-  onEdit: (id: ReviewListEntry['id']) => void;
-};
-
-function MyPageReviewList({ entries, tab, onEdit }: MyPageReviewListProps) {
-  return (
-    <Stack gap="0">
-      {tab === 'written' ? (
-        <Grid
-          display={{ base: 'grid', _mobile: 'none' }}
-          gridTemplateColumns="minmax(0, 340fr) minmax(96px, 120fr) minmax(0, 300fr) 84px"
-          gap="0"
-          textAlign="center"
-          borderTop="2px solid var(--color-black-100)"
-          borderBottom="1px solid var(--color-black-100)"
-          py="20px"
-        >
-          <Typography variant="heading9">상품정보</Typography>
-          <Typography variant="heading9">평점</Typography>
-          <Typography variant="heading9">리뷰</Typography>
-        </Grid>
-      ) : null}
-      <Stack
-        as="ul"
-        gap="0"
-        aria-label={tab === 'ready' ? '작성 가능한 리뷰 목록' : '내가 작성한 리뷰'}
-      >
-        {entries.map((entry) => (
-          <MyPageReviewItem key={entry.id} entry={entry} tab={tab} onEdit={onEdit} />
-        ))}
-      </Stack>
-    </Stack>
   );
 }
 
@@ -377,18 +262,98 @@ export function MyPageReviewsContent({
       css={{ '--line-heights-body': '1.5' }}
       title="상품리뷰"
       gap="40px"
-      _mobile={{ gap: '24px' }}
+      _mobile={{ gap: '24px', pt: '24px' }}
       headerProps={{
         titleAs: 'h1',
         titleProps: { web: 'headingKr6', mo: 'headingKr5' },
       }}
     >
       <Stack gap="0">
-        <MyPageReviewTabs value={tab} onChange={onTabChange} />
+        {/* [ 개발팀 바인딩 ] 정렬 선택은 onSortChange로 전달하며 서버 조회와 목록 갱신은 호출자가 담당합니다. */}
+        <SegmentedControl
+          ariaLabel="상품리뷰 구분"
+          onValueChange={onTabChange}
+          options={[
+            { value: 'ready', label: '작성 가능한 리뷰' },
+            { value: 'written', label: '내가 작성한 리뷰' },
+          ]}
+          variant="underline"
+          value={tab}
+          className={css({ borderBottom: '0', _mobile: { w: 'calc(100% + 32px)', mx: '-4' } })}
+          itemClassName={(_, selected) =>
+            css({
+              minH: '42px',
+              borderBottomWidth: selected ? '2px' : '1px',
+              borderBottomColor: selected ? 'black.100' : 'black.20',
+              _mobile: { minH: '44px' },
+            })
+          }
+          itemRender={(option) => (
+            <Typography
+              as="button"
+              mo="body4"
+              web="body3"
+              weight={option.value === tab ? 'bold' : 'regular'}
+            >
+              {option.label}
+            </Typography>
+          )}
+        />
         {totalCount ? (
           <Box>
-            <MyPageReviewToolbar count={totalCount} sort={sort} onSortChange={onSortChange} />
-            <MyPageReviewList entries={entries} tab={tab} onEdit={onEdit} />
+            <HStack
+              justifyContent="space-between"
+              alignItems="center"
+              pb="16px"
+              pt="40px"
+              _mobile={{ pt: '32px' }}
+              borderBottom="1px solid var(--color-black-100)"
+            >
+              <Dropdown
+                variant="sort"
+                popupAlign="start"
+                ariaLabel="리뷰 정렬"
+                value={sort}
+                onValueChange={onSortChange}
+                options={[
+                  { value: 'recent', label: '최근 구매순' },
+                  { value: 'oldest', label: '오래된 구매순' },
+                ]}
+              />
+              <HStack gap="2px">
+                <Typography variant="body4">총</Typography>
+                <Typography variant="body4Medium">
+                  {totalCount}
+                  <Typography variant="bodyKr4">건</Typography>
+                </Typography>
+              </HStack>
+            </HStack>
+            <Stack gap="0">
+              {tab === 'written' ? (
+                <Grid
+                  display={{ base: 'grid', _mobile: 'none' }}
+                  gridTemplateColumns="minmax(0, 340fr) minmax(96px, 120fr) minmax(0, 300fr) 84px"
+                  gap="0"
+                  textAlign="center"
+                  borderTop="2px solid var(--color-black-100)"
+                  borderBottom="1px solid var(--color-black-100)"
+                  py="20px"
+                >
+                  <Typography variant="headingKr9">상품정보</Typography>
+                  <Typography variant="headingKr9">평점</Typography>
+                  <Typography variant="headingKr9">리뷰</Typography>
+                </Grid>
+              ) : null}
+              <Stack
+                as="ul"
+                gap="0"
+                aria-label={tab === 'ready' ? '작성 가능한 리뷰 목록' : '내가 작성한 리뷰'}
+              >
+                {entries.map((entry) => (
+                  <MyPageReviewItem key={entry.id} entry={entry} tab={tab} onEdit={onEdit} />
+                ))}
+              </Stack>
+            </Stack>
             {more ? (
               <VStack mt="24px">
                 <Button

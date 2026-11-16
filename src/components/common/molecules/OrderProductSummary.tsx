@@ -11,7 +11,7 @@ import { token } from 'styled-system/tokens';
 
 import { Typography } from '@/components/common/atoms/Typography';
 
-type SummaryImageSize = 64 | 76 | 80 | 88 | 96;
+type SummaryImageSize = 64 | 76 | 80 | 88 | 96 | 144;
 
 type SummaryImageProps = {
   image: string;
@@ -26,6 +26,7 @@ const summaryImageSizes = {
   80: token.var('sizes.20'),
   88: '88px',
   96: token.var('sizes.24'),
+  144: '144px',
 } as const;
 
 function OrderProductSummaryImage({
@@ -116,7 +117,7 @@ function OrderProductSummaryContent({
         {!hideAmount && amount !== undefined ? (
           <Typography variant="body4" weight={variant === 'coupon' ? undefined : 'medium'}>
             {typeof amount === 'number' && amountLanguage === 'en' ? (
-<Typography as="span" variant="body4Medium" language="en">
+              <Typography as="span" variant="body4Medium" language="en">
                 {amount.toLocaleString()}
               </Typography>
             ) : typeof amount === 'number' ? (
@@ -133,8 +134,7 @@ function OrderProductSummaryContent({
   );
 }
 
-export type OrderProductSummaryProps = SummaryImageProps & { alignStart?: boolean } &
-  (
+export type OrderProductSummaryProps = SummaryImageProps & { alignStart?: boolean } & (
     | (OrderProductSummaryContentProps & { content?: never })
     | {
         content: ReactNode;
@@ -172,7 +172,13 @@ export function OrderProductSummary({
       minW="0"
       w="full"
       gap={variant === 'cart' ? { base: '4', _mobile: '4' } : '4'}
-      alignItems={alignStart ? 'flex-start' : variant === 'cart' ? { base: 'flex-start', _mobile: 'center' } : 'flex-start'}
+      alignItems={
+        alignStart
+          ? 'flex-start'
+          : variant === 'cart'
+            ? { base: 'flex-start', _mobile: 'center' }
+            : 'flex-start'
+      }
       py={variant === 'checkout' ? '6' : '0'}
     >
       <OrderProductSummaryImage image={image} name={name} variant={variant} imageSize={imageSize} />

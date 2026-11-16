@@ -5110,3 +5110,21 @@ tracking은 PC640px·콘텐츠 자연 높이, MO 반경20px·손잡이 있는 �
 OrderTrackingDialog의 도착일·기본정보·이력은 ModalDialog.recipe.tsx의 modalTrackingContentRecipe className으로 구성하고 기존 StepIndicator connected를 재사용한다. 도착일 PC28px/900·MO22px/900, 정보행12px 상하 여백·96px 라벨 열과8px 간격, 추적 표 PC14px/MO12px과 숫자 HOKA700을 적용한다. 처리일자는 강제 br 없이 점 구분 날짜와 시간을 표시한다. 내용 스크롤은 유지하며 시안처럼 스크롤바를 숨겨 작은 화면의 표 공간을 확보한다.
 
 [디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design) 및 실제 PC/MO 캡처를 비교했다. PC 폭640px, MO375×812에서 시트 top44px·footer93px(top719px), 480×1251에서 콘텐츠602px·내부 root602.375px로 큰 잔여 공간이 없음을 확인했다. classic scrollbar 때문에375 viewport의 유효 client 폭은360px이다. 도착일·배송 단계·처리 날짜는 기존 주문 fixture 값이므로 시안의12월/두 단계와 다를 수 있다. 서비스 요청이나 새로운 배송 상태는 추가하지 않았다.
+
+Dropdown 정렬 버튼은 데스크탑 글자 16px·화살표 18px, 모바일 글자·화살표 14px과 공통 줄높이 1.3을 사용한다.
+
+## 회원등급 화면 표시 정리 (2026-11-16)
+
+회원등급은 PC와 모바일 시안에 맞춰 등급별 구매 조건과 구매금액 산정 안내를 표시한다. 등급별 혜택의 이전 추가 설명을 제거하고 PC·모바일 안내 문구 및 간격을 조정했다. PC 공통 혜택은 두 행 각각에 하단 구분선을 표시하고 모바일은 구분선 없이 표시한다. 기존 회원 정보와 진행률 데이터 소유권은 유지한다. 출처: 회원등급 화면 및 표시 데이터, 2026-11-16.
+
+마이페이지 주문 요약은 상품 정보와 배송 상태 배지를 두 열로 배치하고 16px 간격을 둔다. 배지는 일반 배치 흐름을 사용해 상품 내용과 겹치지 않는다. 출처: `src/app/mypage/_components/MyPageContent.tsx`, 2026-11-16.
+
+마이페이지 주문 상품은 PC와 모바일에서 준비된 상품 배지·성별·상품명·용도를 표시한다. 모바일 요약은 상품 가격 대신 배송 상태를 표시하며, PC 주문 목록의 가격과 수량은 기존 별도 열에 유지한다. 출처: 마이페이지 화면 및 표시 데이터, 2026-11-16.
+
+임직원 쿠폰 미리보기는 공통 secondary 버튼을 사용한다. 병합 시 사용자 확정 표현을 보존해 PC는 50% 두 항목·180×48px·간격16px, 모바일은50%·30%·가용 폭 분할·42px 높이·간격8px과700 라벨을 유지했다. 버튼은 공통 alert 등록 안내를 열며 닫은 뒤 해당 버튼으로 포커스를 복귀한다. 실제 발급 요청은 미연결이다. 출처: `src/app/mypage/coupons/_components/CouponManagement.tsx`, 2026-11-16.
+
+쿠폰 상세는 공통 detail 모달의 기본 PC640px 및 모바일 전체 화면 표시를 사용한다. 병합 시 개별 제목·본문 padding·footer override를 재도입하지 않고 공통 배치와 숫자700·행간1.5를 보존했다. 출처: `src/app/mypage/coupons/_components/CouponManagement.tsx`, 2026-11-16.
+
+쿠폰 화면의 제목, 임직원 쿠폰, 쿠폰 내역과 더보기 상태는 RouteContent에서 직접 구성한다. 쿠폰 카드와 상세 모달은 기존 역할을 유지한다. 출처: `src/app/mypage/coupons/_components/CouponManagement.tsx`, 2026-11-16.
+
+상품리뷰 화면은 탭·정렬·건수·목록 구조를 MyPageReviewsContent에서 직접 구성하고, 반복되는 리뷰 항목과 리뷰 작성 모달은 유지한다. 출처: `src/app/mypage/reviews/_components/MyPageReviewsContent.tsx`, 2026-11-16.
