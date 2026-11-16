@@ -4,12 +4,13 @@ title: "컴포넌트와 스타일"
 description: "공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다."
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-16T11:43:47.967041+00:00'
+updated: '2026-11-16T11:46:14.121504+00:00'
 generated:
   by: codex/gpt-6
   at: "2026-11-03T06:11:12Z"
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/app/mypage/orders/_components/OrderTrackingDialog.tsx
   - src/app/publishing-guide/_components/ModalGuide.tsx
   - src/app/login/find-account/id-confirmation-modal/page.tsx
   - src/app/mypage/coupons/preview-complete/page.tsx
@@ -5090,3 +5091,11 @@ terms와 selection/form/tracking/detail이 공통 contentModal 외형을 공유�
 ModalDialog의 열 번째 유형 productOption은 PC 640px 한 열·모바일 손잡이 있는 하단 시트다. shell과 본문은 ModalDialog.recipe.tsx의 productOption 및 modalProductOptionRecipe 슬롯 className으로 관리한다. CartDialogs의 optionType은 shoes/apparel이며 이름이나 사이즈로 상품 종류를 추정하지 않는다. 신발만 발볼을 표시하고 공통 컬러·사이즈 라디오는 기존 Radio를 직접 사용한다. 큰 상품 이미지와 수량 입력은 제공된 팝업 시안에 따라 제거했다.
 
 PC 컬러 7열·74px, 사이즈 7열·36px, 모바일 5열·정사각 썸네일·38px 사이즈를 적용했다. 발볼은 PC48px/MO44px, 액션은 PC238×48px 두 개·MO 전체 폭44px 변경 버튼 하나다. 변경 전·품절 선택은 비활성이고 저장 요청은 미연결이다. 첨부 썸네일의 intrinsic height가 모바일에서 늘어나지 않게 height:auto를 적용했다. [디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)과 실제 PC/MO 캡처로 열 수·비율·품절·선택을 비교했다. 명시적 고정 플랫폼은 별도 실행하지 않았다.
+
+## 배송조회 상세 시안과 자연 높이 (2026-11-16)
+
+tracking은 PC640px·콘텐츠 자연 높이, MO 반경20px·손잡이 있는 하단 시트이며 최대 높이만 viewport-44px로 제한한다. 모바일에 고정 높이를 강제하지 않아 내용이 짧은 큰 화면에서 빈 공간이 생기지 않는다. 본문 flex:0 1 auto로 필요한 경우에만 내부 스크롤하고 닫기 푸터를 유지한다. PC 헤더 아래24px·본문 그룹24px·본문과 푸터40px, MO 헤더 아래32px·본문 그룹24px·footer 위 경계선과16px 여백·하단32px을 적용한다. MO 버튼44px·PC180×48px이며 헤더700을 유지한다.
+
+OrderTrackingDialog의 도착일·기본정보·이력은 ModalDialog.recipe.tsx의 modalTrackingContentRecipe className으로 구성하고 기존 StepIndicator connected를 재사용한다. 도착일 PC28px/900·MO22px/900, 정보행12px 상하 여백·96px 라벨 열과8px 간격, 추적 표 PC14px/MO12px과 숫자 HOKA700을 적용한다. 처리일자는 강제 br 없이 점 구분 날짜와 시간을 표시한다. 내용 스크롤은 유지하며 시안처럼 스크롤바를 숨겨 작은 화면의 표 공간을 확보한다.
+
+[디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design) 및 실제 PC/MO 캡처를 비교했다. PC 폭640px, MO375×812에서 시트 top44px·footer93px(top719px), 480×1251에서 콘텐츠602px·내부 root602.375px로 큰 잔여 공간이 없음을 확인했다. classic scrollbar 때문에375 viewport의 유효 client 폭은360px이다. 도착일·배송 단계·처리 날짜는 기존 주문 fixture 값이므로 시안의12월/두 단계와 다를 수 있다. 서비스 요청이나 새로운 배송 상태는 추가하지 않았다.

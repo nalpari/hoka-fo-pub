@@ -4,12 +4,13 @@ title: "변경 검증"
 description: "변경 범위에 맞는 정적 검사, 빌드와 수동 검증을 안내한다."
 tags: [verification, testing, build]
 status: draft
-updated: '2026-11-16T11:43:47.967041+00:00'
+updated: '2026-11-16T11:46:14.121504+00:00'
 generated:
   by: codex/gpt-6
   at: "2026-11-02T09:59:35Z"
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/mypage/orders/_components/OrderTrackingDialog.tsx
   - src/app/launch-calendar/clifton-11-gtx/preview-notification/page.tsx
   - src/app/mypage/coupons/_components/CouponManagement.tsx
   - tests/modal-dialog-types.test.mjs
@@ -760,3 +761,9 @@ PC1440×1251에서 자연 높이696.5px, 본문21px·공고19.5px, 숫자3종14p
 ## 상품 옵션 전용 모달 검증 (2026-11-16)
 
 신발·의류 PC/MO 캡처, 선택 시 변경 버튼 활성화·품절 선택 불가, 열린 상태1024/1025·1199/1200px resize의 선택 유지·팝업 내부 가로 넘침 없음, 짧은 모바일 화면의 본문 스크롤·고정 푸터·Escape/닫기를 확인했다. 이미지 로드를 확인한 뒤 실제 캡처로 썸네일 비율과 순서를 보정했다. 모달 타입 계약·대상 ESLint/Prettier·TypeScript·Panda는 통과했다. preview-links는 15개 통과·기존 배송지 수동입력 링크 기대값1개 실패로 구분했다.
+
+## 배송조회와 옵션 모달 최종 검증 (2026-11-16)
+
+실제 PC/MO 캡처로 배송조회와 옵션 변경을 비교하고 모바일 정사각 썸네일·이미지 순서·배송조회 표와 고정 푸터를 보정했다. 배송조회 480×1251px에서 본문 잔여 공간0px(소수점 반올림)을 확인했고375×812에서는 긴 본문 스크롤과93px 푸터를 확인했다. user-owned 브라우저 탭의 임시 viewport override는 복원했다.
+
+시안 보정 후 TypeScript·대상 ESLint/Prettier·Panda 및 Next 프로덕션 빌드(159 정적 페이지)가 통과했다. 이후 tracking recipe를 공통 파일로 그대로 이동하고 타입·lint·Panda를 다시 확인했다. 기존 모달 타입 계약은 열 번째 유형을 포함해 통과했다. IA 관련16검사 중15통과·기존 배송지 수동입력 기대값1실패를 유지한다. 명시적 고정 플랫폼 및 배송조회 전 단계의 시각 회귀는 별도로 실행하지 않았다.

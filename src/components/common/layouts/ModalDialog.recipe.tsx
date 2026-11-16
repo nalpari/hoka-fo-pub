@@ -298,6 +298,107 @@ export const modalProductOptionRecipe = sva({
   },
 });
 
+export const modalTrackingContentRecipe = sva({
+  slots: [
+    'root',
+    'arrival',
+    'steps',
+    'heading',
+    'information',
+    'row',
+    'term',
+    'value',
+    'number',
+    'table',
+    'date',
+    'caption',
+  ],
+  base: {
+    root: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '24px',
+      minW: '0',
+      color: 'black.100',
+      fontFamily: 'korean',
+      fontSize: '14px',
+      lineHeight: '1.5',
+      letterSpacing: '-0.02em',
+    },
+    arrival: {
+      m: '0',
+      pt: '16px',
+      fontFamily: 'korean',
+      fontSize: '28px',
+      fontWeight: '900',
+      lineHeight: '1.2',
+      textAlign: 'center',
+      _mobile: { pt: '0', fontFamily: 'hoka', fontSize: '22px', lineHeight: '1' },
+    },
+    steps: {
+      '&&': { w: '100%', maxW: '496px', mx: 'auto', py: '8px', minH: '74px' },
+      '& li::after': { top: '13px', h: '2px', left: 'calc(50% + 14px)', w: 'calc(100% - 28px)' },
+      '& li > div': { gap: '10px' },
+      '& li p': { fontSize: '14px', _mobile: { fontSize: '12px' } },
+    },
+    heading: {
+      m: '0',
+      pb: '12px',
+      fontFamily: 'korean',
+      fontSize: '16px',
+      fontWeight: '600',
+      lineHeight: '1.2',
+      _mobile: { pb: '16px' },
+    },
+    information: { m: '0', borderTop: '1px solid black' },
+    row: {
+      display: 'grid',
+      gridTemplateColumns: '96px minmax(0, 1fr)',
+      gap: '8px',
+      py: '12px',
+      borderBottom: '1px solid #E9EAEB',
+      alignItems: 'center',
+    },
+    term: { m: '0', color: '#555555', fontWeight: '400' },
+    value: { m: '0', minW: '0', overflowWrap: 'anywhere', fontWeight: '500' },
+    number: { fontFamily: 'hoka', fontWeight: '700', letterSpacing: '0' },
+    table: {
+      w: '100%',
+      tableLayout: 'fixed',
+      borderCollapse: 'collapse',
+      textAlign: 'center',
+      fontSize: '14px',
+      '--tracking-column': '104px',
+      _mobile: { fontSize: '12px', '--tracking-column': '20%' },
+      '& th, & td': {
+        px: '2px',
+        py: '12px',
+        borderBottom: '1px solid #E9EAEB',
+        overflowWrap: 'anywhere',
+      },
+      '& th': {
+        py: '16px',
+        borderTop: '2px solid black',
+        borderBottom: '1px solid black',
+        fontWeight: '400',
+        _mobile: { py: '12px' },
+      },
+      '& th:nth-child(-n+3)': { w: 'var(--tracking-column)' },
+    },
+    date: { fontFamily: 'hoka', fontWeight: '700', letterSpacing: '0' },
+    caption: {
+      position: 'absolute',
+      w: '1px',
+      h: '1px',
+      p: '0',
+      m: '-1px',
+      overflow: 'hidden',
+      clipPath: 'inset(50%)',
+      whiteSpace: 'nowrap',
+    },
+  },
+});
+
 export const modalDialogRecipe = sva({
   slots: [
     'viewport',
@@ -436,7 +537,30 @@ export const modalDialogRecipe = sva({
           },
         },
       },
-      tracking: { ...contentModal, popup: { h: '804px', _mobile: { h: 'auto' } } },
+      tracking: {
+        ...contentModal,
+        header: { mb: '24px', _mobile: { mb: '32px' } },
+        content: {
+          ...contentModal.content,
+          scrollbarWidth: 'none',
+          '&::-webkit-scrollbar': { display: 'none' },
+        },
+        footer: {
+          ...contentModal.footer,
+          '& button': {
+            ...contentModal.footer['& button'],
+            _mobile: { w: '100%', maxW: 'none', h: '44px', minH: '44px' },
+          },
+          '& button > span > span': {
+            fontFamily: 'korean',
+            fontSize: '16px',
+            fontWeight: '700',
+            lineHeight: '1.3',
+            letterSpacing: '-0.02em',
+            _mobile: { fontSize: '15px' },
+          },
+        },
+      },
       detail: contentModal,
       image: {
         popup: {
@@ -669,6 +793,20 @@ export const modalDialogRecipe = sva({
       variant: 'productOption',
       sheet: true,
       css: { content: { p: '0px 16px', _mobile: { p: '0px 16px' } } },
+    },
+    {
+      variant: 'tracking',
+      sheet: true,
+      css: {
+        popup: { _mobile: { borderRadius: '20px 20px 0 0' } },
+        content: { p: '0px 16px', flex: '0 1 auto', _mobile: { p: '0px 16px' } },
+        footer: {
+          mt: '0',
+          borderTop: '1px solid #E9EAEB',
+          _mobile: { mt: '0', pt: '16px', px: '16px', pb: '32px' },
+        },
+        actions: { '& button': { _mobile: { h: '44px', minH: '44px' } } },
+      },
     },
     {
       variant: 'form',

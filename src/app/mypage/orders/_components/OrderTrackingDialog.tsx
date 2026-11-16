@@ -1,74 +1,23 @@
-import { css } from 'styled-system/css';
-import { Stack } from 'styled-system/jsx';
-
-import { DataTable } from '@/components/common/atoms/DataTable';
-import { Typography } from '@/components/common/atoms/Typography';
-
-import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { StepIndicator } from '@/components/common/molecules/StepIndicator';
 
-import { ContentSection } from '@/components/common/layouts/ContentSection';
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
+import { modalTrackingContentRecipe } from '@/components/common/layouts/ModalDialog.recipe';
 
 import type { OrderRecord } from '@/components/orders/orders.types';
 
-import { OrderInformationSection } from './OrderDetails';
+const styles = modalTrackingContentRecipe();
 
-const trackingTable = css({
-  '&&': {
-    tableLayout: 'fixed',
-    fontSize: '12px',
-    '& th, & td': { h: '40px', px: '4px', borderBottom: '1px solid var(--color-black-20)' },
-    '& thead th': {
-      h: '42px',
-      bg: 'transparent',
-      borderTop: '1px solid var(--color-black-100)',
-      borderBottom: '1px solid var(--color-black-100)',
-      fontWeight: 'normal',
-    },
-    '& tbody td + td': { borderLeft: '0' },
-  },
-});
+const trackingStages = [
+  { label: '배송예약' },
+  { label: '상품이동중' },
+  { label: '배송중' },
+  { label: '배송완료' },
+];
 
-/** 상품 배송 추적 표를 표시합니다. (Displays the shipment tracking history table.) */
-function OrderTrackingHistory({ date }: { date: string }) {
-  return (
-    <ContentSection
-      gap="12px"
-      title="상품추적"
-      headerProps={{ titleAs: 'h2', titleProps: { variant: 'body3', weight: 'semibold' } }}
-    >
-      <DataTable caption="상품 배송 추적 이력" className={trackingTable}>
-        <thead>
-          <tr>
-            {['처리장소', '상대장소', '구분', '처리일자'].map((label) => (
-              <th key={label}>
-                <Typography variant="body5">{label}</Typography>
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {[
-            ['옥천HUB', '군포HUB', '집하처리'],
-            ['군포HUB', '대구동', '간선하차'],
-          ].map(([place, destination, state]) => (
-            <tr key={`${place}-${destination}`}>
-              <td>{place}</td>
-              <td>{destination}</td>
-              <td>{state}</td>
-              <td>
-                {date}
-                <br />
-                11:31
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </DataTable>
-    </ContentSection>
-  );
-}
+const trackingHistory = [
+  { place: '옥천HUB', destination: '군포HUB', state: '집하처리', time: '11:31:21' },
+  { place: '군포HUB', destination: '대구동', state: '간선하차', time: '11:31:21' },
+];
 
 /** 배송 단계·송장 정보와 상품 추적 이력을 표시합니다. (Displays delivery progress, shipment details, and tracking events.) */
 export function OrderTrackingDialog({
@@ -86,39 +35,23 @@ export function OrderTrackingDialog({
         : order.status === 'paid'
           ? 1
           : 4;
-  const content = (
-    <Stack gap="32px">
-      <ContentHeader
-        title={`${order.expectedDate} 도착예정`}
-        titleAs="h2"
-        titleProps={{ web: 'heading7', mo: 'heading5' }}
-        textAlign="center"
-      />
-      <StepIndicator
-        variant="connected"
-        current={current}
-        ariaLabel="배송 진행 단계"
-        items={[
-          { label: '배송예약' },
-          { label: '상품이동중' },
-          { label: '배송중' },
-          { label: '배송완료' },
-        ]}
-      />
-      <OrderInformationSection
-        title="기본정보"
-        items={[
-          { term: '운송장번호', description: '0000-0000-0000' },
-          { term: '상품정보', description: order.items[0]?.name },
-          { term: '보내는 분', description: '황**' },
-          { term: '받는 분', description: '박**' },
-          { term: '배송기사', description: '김길규 (010-1234-5678)' },
-        ]}
-      />
-      <OrderTrackingHistory date={order.date} />
-    </Stack>
-  );
-
+  // [ 개발팀 바인딩 ] order의 도착 예정일·상품명·날짜·단계를 표시합니다. 송장·송수신인·기사와 trackingHistory는
+  // 기존 퍼블리싱 fixture이며 실제 조회가 아닙니다. 배송 조회 소유자가 해당 표시 데이터와 주문/송장 식별자,
+  // 조회 pending/실패/재시도 및 최신 응답 갱신을 연결해야 합니다. 이 컴포넌트는 원격 요청을 실행하지 않습니다.
+  const information = [
+    { term: '운송장번호', value: <span className={styles.number}>0000-0000-0000</span> },
+    { term: '상품정보', value: order.items[0]?.name },
+    { term: '보내는 분', value: '황**' },
+    { term: '받는 분', value: '박**' },
+    {
+      term: '배송기사',
+      value: (
+        <>
+          김길규 <span className={styles.number}>(010-1234-5678)</span>
+        </>
+      ),
+    },
+  ];
   return (
     <ModalDialog
       variant="tracking"
@@ -126,12 +59,58 @@ export function OrderTrackingDialog({
       onOpenChange={(open) => !open && onClose()}
       title="배송조회"
       closeLabel="배송조회 닫기"
-
       mobilePresentation="bottomSheet"
-
+      blurBackdrop={false}
       actions={{ kind: 'single', label: '닫기', onConfirm: onClose }}
     >
-      {content}
+      <div className={styles.root}>
+        <h3 className={styles.arrival}>{order.expectedDate} 도착예정</h3>
+        <StepIndicator
+          variant="connected"
+          current={current}
+          ariaLabel="배송 진행 단계"
+          items={trackingStages}
+          className={styles.steps}
+        />
+        <section aria-label="기본정보">
+          <h3 className={styles.heading}>기본정보</h3>
+          <dl className={styles.information}>
+            {information.map(({ term, value }) => (
+              <div key={term} className={styles.row}>
+                <dt className={styles.term}>{term}</dt>
+                <dd className={styles.value}>{value}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+        <section aria-label="상품추적">
+          <h3 className={styles.heading}>상품추적</h3>
+          <table className={styles.table}>
+            <caption className={styles.caption}>상품 배송 추적 이력</caption>
+            <thead>
+              <tr>
+                {['처리장소', '상대장소', '구분', '처리일자'].map((label) => (
+                  <th key={label} scope="col">
+                    {label}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {trackingHistory.map((event) => (
+                <tr key={`${event.place}-${event.destination}`}>
+                  <td>{event.place}</td>
+                  <td>{event.destination}</td>
+                  <td>{event.state}</td>
+                  <td className={styles.date}>
+                    {order.date.replaceAll('-', '.')} {event.time}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
+      </div>
     </ModalDialog>
   );
 }

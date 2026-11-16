@@ -4,12 +4,13 @@ title: "라우팅과 플랫폼"
 description: "App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다."
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-16T11:43:47.967041+00:00'
+updated: '2026-11-16T11:46:14.121504+00:00'
 generated:
   by: codex/gpt-6
   at: "2026-11-03T06:11:12Z"
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/mypage/orders/_components/OrderTrackingDialog.tsx
   - src/app/cart/preview-options-apparel/page.tsx
   - src/app/launch-calendar/clifton-11-gtx/preview-notification/page.tsx
   - src/components/common/layouts/ModalDialog.recipe.tsx
@@ -1888,3 +1889,7 @@ IA159에서 발매 예정 상세·신청 완료·번호 입력 안내와 구별�
 /cart/preview-options는 신발, /cart/preview-options-apparel은 의류 고정 시안이다. IA170에 두 STATE를 등록하고 실제 유형을 productOption으로 표시한다. CartModalPreview가 준비된 표시 데이터를 CartDialogs의 optionType과 unavailableColors로 전달한다. 컬러·발볼·사이즈 초안은 기존 소유자에 남기고 서비스 저장은 추가하지 않는다. 모달 가이드의 큰 크기·전체화면 설명도 새 전용 유형과 구별한다.
 
 옵션 STATE의 생성 소스 그래프는 기존 직렬화 형식을 유지하며 신발·의류 소스 연결만 갱신한다.
+
+## 배송조회 모달 시안 갱신 (2026-11-16)
+
+기존 /mypage/orders/preview-tracking과 OrdersPage의 열기/닫기 소유권을 유지한다. tracking 유형의 PC/MO 외형과 OrderTrackingDialog 본문 슬롯을 보정하고 생성 그래프에서 사라진 개별 표·정보 wrapper 의존성을 갱신했다. 송장·송수신인·기사·이력은 기존 퍼블리싱 표시값이며 배송 조회 API를 구현한 것이 아니다.
