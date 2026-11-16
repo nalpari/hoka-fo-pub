@@ -15,8 +15,10 @@ export type OrderLine = {
   color: string;
   size: string;
   quantity: number;
+  mobileQuantity?: number;
   price: number;
   displayAmount?: number;
+  mobileDisplayAmount?: number;
 };
 
 export type OrderClaim = {
@@ -125,6 +127,7 @@ export type ClaimHistoryItem = {
   orderId: string;
   claimId: string;
   orderDate: string;
+  mobileOrderDate?: string;
   orderNumber: string;
   line: OrderLine;
   status: { web: string; mobile: string };

@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import { usePlatform } from '@/context/platform';
 
-import { css } from 'styled-system/css';
+import { css, cx } from 'styled-system/css';
 import { Grid, HStack, Stack, VStack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
@@ -21,6 +22,15 @@ const couponDescription = css({
   color: 'black.100',
   lineHeight: '1.5!',
   _mobile: { color: '#4D4D4D' },
+});
+
+const couponDetailNumber = css({
+  '&&': {
+    display: 'inline-flex',
+    alignItems: 'center',
+    fontWeight: '700',
+    lineHeight: '1.5',
+  },
 });
 
 const couponSectionTitle = {
@@ -168,7 +178,7 @@ function CouponCard({ coupon, onDetails }: CouponCardProps) {
             onClick={() => onDetails(coupon)}
             className={css({ flexShrink: '0' })}
           >
-            <Typography variant="bodyKr5" weight="regular">
+            <Typography variant="cta3" weight="regular" className={css({ lineHeight: '1.3!' })}>
               상세보기
             </Typography>
           </Button>
@@ -240,7 +250,7 @@ function CouponDetailsDialog({ coupon, onOpenChange }: CouponDetailsDialogProps)
           label: '수량',
           value: (
             <>
-              <Typography variant="body4" language="en" className={css({ lineHeight: '1.5' })}>
+              <Typography variant="body4" language="en" className={couponDetailNumber}>
                 {coupon.quantity}
               </Typography>
               개
@@ -251,7 +261,7 @@ function CouponDetailsDialog({ coupon, onOpenChange }: CouponDetailsDialogProps)
           label: '혜택',
           value: coupon.benefit.endsWith('원') ? (
             <>
-              <Typography variant="body4" language="en" className={css({ lineHeight: '1.5' })}>
+              <Typography variant="body4" language="en" className={couponDetailNumber}>
                 {coupon.benefit.slice(0, -1)}
               </Typography>
               원
@@ -264,7 +274,11 @@ function CouponDetailsDialog({ coupon, onOpenChange }: CouponDetailsDialogProps)
         {
           label: '사용기간',
           value: (
-            <Typography variant="body4" language="en" className={css({ lineHeight: '1.5' })}>
+            <Typography
+              variant="body4"
+              language="en"
+              className={cx(couponDetailNumber, css({ color: '#040404' }))}
+            >
               {coupon.expiresAt}
             </Typography>
           ),
@@ -275,39 +289,22 @@ function CouponDetailsDialog({ coupon, onOpenChange }: CouponDetailsDialogProps)
 
   return (
     <ModalDialog
+      variant="detail"
       closeLabel="쿠폰 상세 닫기"
       open={coupon !== null}
       onOpenChange={onOpenChange}
-      size="sm"
+
       mobilePresentation="fullscreen"
       blurBackdrop={false}
-      title={
-        <Typography
-          web="bodyKr1"
-          mo="bodyKr2"
-          weight="regular"
-          className={css({ lineHeight: '1.5' })}
-        >
-          쿠폰 상세보기
-        </Typography>
-      }
-      contentClassName={css({ p: '24px 32px 0', _mobile: { p: '24px 16px 32px' } })}
+      title="쿠폰 상세보기"
       actions={{
         kind: 'single',
         onConfirm: () => onOpenChange(false),
         buttonProps: { size: 'tall' },
       }}
-      footerProps={{
-        css: css.raw({
-          pt: '32px',
-          pb: '40px',
-          '& > button': { w: '180px', '--button-height': '44px', _mobile: { w: '100%' } },
-          _mobile: { p: '0', pt: '32px' },
-        }),
-      }}
     >
       {coupon ? (
-        <Stack gap="24px">
+        <Stack gap="24px" css={{ '--line-heights-body': '1.5' }}>
           <Stack as="dl" gap="24px" pb="24px" borderBottom="1px solid token(colors.black.20)">
             {rows.map(({ label, value }) => (
               <HStack key={label} justifyContent="space-between" alignItems="baseline" gap="12px">
@@ -356,8 +353,8 @@ function CouponDetailsDialog({ coupon, onOpenChange }: CouponDetailsDialogProps)
               variant="bodyKr4-2"
               tone="tertiary"
               className={css({
+                '&&': { fontSize: '13px', lineHeight: '1.5' },
                 pt: '16px',
-                lineHeight: '1.5',
                 borderTop: '1px solid token(colors.black.20)',
               })}
             >
@@ -370,7 +367,10 @@ function CouponDetailsDialog({ coupon, onOpenChange }: CouponDetailsDialogProps)
   );
 }
 
-const employeeCoupons = ['50% 쿠폰 발급', '30% 쿠폰 발급'] as const;
+const employeeCoupons = [
+  { desktop: '50% 쿠폰 발급', mobile: '50% 쿠폰 발급' },
+  { desktop: '50% 쿠폰 발급', mobile: '30% 쿠폰 발급' },
+] as const;
 
 const couponSamples: Pick<
   CouponItem,
@@ -427,14 +427,15 @@ const detailPreviewCoupons = coupons.map((coupon, index) =>
 );
 /**
  * [ 개발팀 바인딩 ] RouteContent의 쿠폰 목록과 상세 표시 데이터는 미리보기 fixture입니다.
- * 더보기와 상세 열기/닫기는 로컬 조작이며, 임직원 발급 표시는 employee 미리보기 데이터입니다.
+ * 더보기와 상세·임직원 등록 안내 열기/닫기는 로컬 조작이며, employee와 preview는 미리보기 seed입니다.
+ * 임직원 안내를 닫으면 실제 열기 버튼으로 포커스를 복귀하며 발급 요청이나 목록 갱신은 수행하지 않습니다.
  * 실제 연동 소유자가 회원별 쿠폰 조회와 추가 조회, pending·실패·재시도·최신 응답 반영을 연결합니다.
  * 현재 외부 요청 callback과 쿠폰 등록 계약은 없습니다.
  */
 /** 분류 없이 보유 쿠폰 전체와 상세 상태를 표시합니다. (Displays all owned coupons and their details without category tabs.) */
 export function RouteContent({
   preview,
-  employee,
+  employee = false,
 }: {
   preview?: 'error' | 'complete' | 'detail' | 'empty';
   employee?: boolean;
@@ -442,6 +443,12 @@ export function RouteContent({
   const displayedCoupons =
     preview === 'empty' ? [] : preview === 'detail' ? detailPreviewCoupons : coupons;
 
+  const platform = usePlatform();
+  const [employeeRegistrationOpen, setEmployeeRegistrationOpen] = useState(
+    employee && preview === 'complete',
+  );
+  const registrationTrigger = useRef<HTMLButtonElement | null>(null);
+  const firstEmployeeButton = useRef<HTMLButtonElement>(null);
   const [selectedCoupon, setSelectedCoupon] = useState<CouponItem | null>(
     preview === 'detail' ? (displayedCoupons[1] ?? displayedCoupons[0] ?? null) : null,
   );
@@ -460,7 +467,11 @@ export function RouteContent({
 
   return (
     <MyPageFrame activePath="/mypage/coupons" breadcrumbs={[{ label: '쿠폰' }]}>
-      <Stack gap="48px" _mobile={{ gap: '32px', pt: '24px' }}>
+      <Stack
+        gap="48px"
+        _mobile={{ gap: '32px', pt: '24px' }}
+        css={{ '--line-heights-body': '1.5' }}
+      >
         <ContentHeader
           title="쿠폰"
           titleAs="h1"
@@ -475,19 +486,30 @@ export function RouteContent({
               title="임직원 쿠폰"
               headerProps={{ titleAs: 'h2', titleProps: couponSectionTitle }}
             >
-              <HStack gap="16px" _mobile={{ gap: '8px' }}>
-                {employeeCoupons.map((label) => (
+              <HStack gap={{ base: '4', _mobile: '2' }}>
+                {employeeCoupons.map((label, index) => (
                   <Button
-                    key={label}
+                    key={index}
+                    ref={index === 0 ? firstEmployeeButton : undefined}
+                    type="button"
                     variant="secondary"
-                    size="tall"
+                    size={platform === 'mobile' ? 'short' : 'tall'}
+                    onClick={(event) => {
+                      registrationTrigger.current = event.currentTarget;
+                      setEmployeeRegistrationOpen(true);
+                    }}
                     className={css({
                       w: '180px',
-                      _mobile: { flex: '1', minW: '0', '--button-height': '44px' },
+                      _mobile: { flex: '1', minW: '0', w: 'auto', '--button-height': '42px' },
                     })}
                   >
-                    <Typography web="ctaKr1" mo="ctaKr1-1" weight="regular">
-                      {label}
+                    <Typography
+                      web="cta1"
+                      mo="cta1-1"
+                      weight="bold"
+                      className={css({ lineHeight: '1.3!' })}
+                    >
+                      {platform === 'mobile' ? label.mobile : label.desktop}
                     </Typography>
                   </Button>
                 ))}
@@ -568,6 +590,18 @@ export function RouteContent({
             </Stack>
           </ContentSection>
         </Stack>
+        {employee && (
+          <ModalDialog
+            variant="alert"
+            open={employeeRegistrationOpen}
+            onOpenChange={setEmployeeRegistrationOpen}
+            title="쿠폰등록"
+            closeLabel="쿠폰 등록 안내 닫기"
+            message="쿠폰이 등록되었습니다."
+            finalFocus={() => registrationTrigger.current ?? firstEmployeeButton.current}
+            actions={{ kind: 'single', onConfirm: () => setEmployeeRegistrationOpen(false) }}
+          />
+        )}
         <CouponDetailsDialog
           coupon={selectedCoupon}
           onOpenChange={(open) => {

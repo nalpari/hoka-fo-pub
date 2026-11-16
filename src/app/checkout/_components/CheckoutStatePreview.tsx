@@ -1,8 +1,9 @@
 'use client';
 
 import { useState } from 'react';
+import { usePlatform } from '@/context/platform';
 
-import { cartPreviewRows } from '@/app/cart/cart-preview';
+import { checkoutPreviewRows, mobileCheckoutPreviewRows } from '@/app/checkout/checkout-summary';
 import { initialAddresses } from '@/data/addressPreview';
 
 import { CheckoutComplete } from './CheckoutComplete';
@@ -19,6 +20,7 @@ export function CheckoutStatePreview({
   state,
 }: {
   state:
+    | 'coupons'
     | 'empty'
     | 'error'
     | 'complete'
@@ -28,9 +30,8 @@ export function CheckoutStatePreview({
     | 'address-new'
     | 'delivery-request';
 }) {
-  const [payment, setPayment] = useState<PaymentMethod>(
-    state === 'address-change' ? 'kakao' : 'card',
-  );
+  const platform = usePlatform();
+  const [payment, setPayment] = useState<PaymentMethod>('kakao');
   return (
     <CheckoutLayout completed={state === 'complete'}>
       {state === 'complete' ? (
@@ -40,6 +41,7 @@ export function CheckoutStatePreview({
         <CheckoutEmptyState />
       ) : (
         <CheckoutContent
+          initialCouponOpen={state === 'coupons'}
           editShipping={state === 'shipping' || state === 'error'}
           initialAddressChangeOpen={
             state === 'address-change' || state === 'address-edit' || state === 'address-new'
@@ -52,7 +54,7 @@ export function CheckoutStatePreview({
                 : undefined
           }
           initialDeliveryRequest={state === 'delivery-request' ? 'custom' : undefined}
-          rows={cartPreviewRows}
+          rows={platform === 'mobile' ? mobileCheckoutPreviewRows : checkoutPreviewRows}
           payment={payment}
           errors={
             state === 'error'

@@ -56,7 +56,7 @@ export function OrdersContent({
   return (
     <MyPageFrame
       activePath={returns ? '/mypage/returns' : '/mypage/orders'}
-      breadcrumbs={[{ label: '구매내역', href: '/mypage' }, { label: title }]}
+      breadcrumbs={[{ label: title }]}
     >
       <Stack
         pt={view === 'claim' ? { base: '0', _mobile: '24px' } : undefined}

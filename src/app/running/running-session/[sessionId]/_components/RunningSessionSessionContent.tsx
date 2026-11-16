@@ -437,9 +437,6 @@ export function RunningSessionRecommendations({
     </Box>
   );
 }
-const RunningSessionApplicationNoticeStyles = {
-  modalText: css({ m: '0 0 24px' }),
-};
 type RunningSessionApplicationNoticeProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -453,21 +450,15 @@ export function RunningSessionApplicationNotice({
 }: RunningSessionApplicationNoticeProps) {
   return (
     <ModalDialog
+      variant="alert"
       open={open}
       onOpenChange={onOpenChange}
       title="세션 신청 안내"
       closeLabel="세션 신청 안내 닫기"
-      size="sm"
+
       actions={{ kind: 'single', onConfirm: () => onOpenChange(false) }}
-    >
-      <Typography
-        as="p"
-        variant="body3"
-        className={RunningSessionApplicationNoticeStyles.modalText}
-      >
-        {registered ? '세션 신청이 접수되었습니다.' : '신청 기능 준비 중입니다.'}
-      </Typography>
-    </ModalDialog>
+      message={<>{registered ? '세션 신청이 접수되었습니다.' : '신청 기능 준비 중입니다.'}</>}
+    />
   );
 }
 type RunningSessionDetailLayoutProps = {

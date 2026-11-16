@@ -266,12 +266,13 @@ function MyPageRestockCancelDialog({
 }: MyPageRestockCancelDialogProps) {
   return (
     <ModalDialog
+      variant="confirm"
       closeLabel="재입고 알림 취소창 닫기"
       onOpenChange={(nextOpen) => {
         if (!nextOpen && !pending) onClose();
       }}
       open={open}
-      size="sm"
+
       title="재입고 알림 취소"
       actions={{
         kind: 'confirm',
@@ -279,11 +280,8 @@ function MyPageRestockCancelDialog({
         fullWidth: false,
         confirmDisabled: pending,
       }}
-    >
-      <Typography as="p" variant="body3">
-        재입고 알림 신청을 취소하시겠습니까?
-      </Typography>
-    </ModalDialog>
+      message={<>재입고 알림 신청을 취소하시겠습니까?</>}
+    />
   );
 }
 type ProductHistoryKind = 'wishlist' | 'recent' | 'restock-alerts';

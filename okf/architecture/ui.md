@@ -4,12 +4,19 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-13T00:47:01Z'
+updated: '2026-11-16T12:56:30.717659+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/components/common/atoms/NumberStepper.tsx
+  - src/app/checkout/_components/CheckoutSummary.tsx
+  - src/app/mypage/orders/_components/OrderTrackingDialog.tsx
+  - src/app/login/find-account/id-confirmation-modal/page.tsx
+  - src/app/signup/information/_components/RegistrationContent.tsx
+  - src/app/publishing-guide/_components/ModalGuide.tsx
+  - src/components/common/layouts/ModalDialog.recipe.tsx
   - src/app/products/[id]/productDetailPreviews.ts
   - src/components/running-session/RunningSessionPage.tsx
   - src/app/support/inquiries/new/_components/InquiryFormStatePreview.tsx
@@ -921,6 +928,9 @@ working_tree_sources:
   - src/components/common/molecules/ProductOptionList.tsx
   - src/components/common/organisms/OrderRecommendations.tsx
 sources:
+  - id: orders-design-review
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql
+    title: 장바구니·주문·취소·반품 최신 화면 시안
   - id: figma-claim-2182-71235
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2182-71235
     title: '모바일 취소 상세'
@@ -4982,6 +4992,130 @@ GuideCopyToast는 화면 하단 40px 중앙에 검정 238×40px(긴 문구는 �
 
 2026-11-10 검증: 변경 가이드 파일 ESLint와 OKF 검사 통과. Ego에서 데스크탑 목록 17개, 모바일 표시 목록 16개(반품 사유는 데스크탑 전용)와 상품 스펙·수령인 표시를 확인했다. TypeScript 검사에는 변경 소스 오류가 없었으나 삭제된 라우트를 가리키는 기존 .next/types 오류가 남아 전체 통과는 아니다.
 
+## 장바구니·주문/결제·주문/배송조회 시안 갱신 (2026-11-16)
+
+장바구니 본문은 PC에서 720px 목록·360px 요약 패널을 위한 1136px 내부 폭과 72px 상단 여백을 사용한다. 빈 장바구니는 “장바구니가 비어 있습니다.” 문구, PC 가로 180px 버튼 두 개와 모바일 전체 폭 세로 버튼으로 관심상품·베스트 상품 탐색을 제공하며, 동일 preview에서 추천 상품 캐러셀을 표시한다. 실제 장바구니 조회·삭제·주문 요청은 연결하지 않았다.
+
+주문/결제는 PC 720px 본문·56px 열 간격·360px 요약 패널을 사용하고, 요약 패널은 24px 패딩·28px 간격의 연한 배경으로 표시한다. 완료 안내는 PC 상단 160px, 모바일 64px에서 시작하며 제목·설명·180px 확인 버튼을 기존 탐색 링크로 유지한다. 배송지·쿠폰·결제 수단·동의는 기존 고정 표시 데이터 및 로컬 UI 상태를 그대로 사용한다.
+
+주문/배송조회 빈 목록은 상태 현황과 기간 필터를 유지하고, PC 빈 표 영역의 최소 높이는 267px, 모바일은 192px이다. 상태 수량은 preview fixture이며 서버 조회 결과가 아니다. 배송 조회 모달의 기존 PC·모바일 공통 `ModalDialog`/바텀시트 소유권은 변경하지 않았다.
+
+PC 기본 폭 및 모바일 375px에서 `/cart/preview-empty`, `/checkout`, `/mypage/orders/preview-empty`를 직접 열어 문구·버튼·추천 상품·열 배치·빈 목록을 확인했다. 대상 ESLint, Panda 생성, 의존 그래프 생성을 통과했다. 전체 TypeScript 검사는 이번 변경과 무관한 삭제된 `collection` 라우트와 기존 Button/ModalDialog 타입 오류로 실패했다. 디자인 출처는 [HOKA Design](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)와 작업 트리의 `CartEmptyContent.tsx`, `CheckoutForm.tsx`, `OrdersList.tsx`다.
+
+## 상품 목록 필터 순서와 명칭 (2026-11-16)
+
+`ProductListingFilterPanel`은 정렬, 성별, 카테고리, 사이즈, 발볼, 색상, 컬렉션, 신발유형, 가격 순서로 필터를 표시한다. 기존 `액티비티` 필터는 같은 `activity` 값·URL 처리·선택 상태를 유지한 채 `카테고리`로 이름만 바꿨다. 기존 `러닝 타입`·`주행감`·`안정성` 섹션은 삭제하고, 시안 확인용 `쿠셔닝화`·`안정화`·`스피드화` 고정 선택지를 신발유형에 표시한다. 이 선택지는 아직 결과 조회나 URL과 연결하지 않는다.
+
+브라우저에서 `/products?gender=men&sort=popular`의 PC 필터 순서와 변경된 두 명칭을 확인했다. 변경 파일 ESLint·Prettier를 통과했다. 출처: 사용자 지정 순서와 `src/components/catalog/ProductListingPage.tsx` 작업 트리.
+
+## 인증 색상 의미 토큰 보정 (2026-11-16)
+
+로그인 오류의 테두리와 문구는 컬러 스케일 `red.100`이 아니라 의미 토큰 `error`를 사용한다. `error`는 최종 화면 기준 #CC0000이며, 기존 `red.100`과 퍼블리싱 컬러 가이드 값은 변경하지 않았다. FormField의 invalid 테두리와 Typography의 error tone만 의미 토큰을 참조한다.
+
+인증번호 남은 시간은 검증 오류가 아니므로 `error` 대신 의미 토큰 `accent`를 사용한다. `accent`는 red.80(#E10F00)을 참조하며 로그인 계정 찾기·휴대폰 인증·회원정보 인증의 공통 VerificationCountdown에 적용된다. 실제 오류의 `error`(#CC0000)와 red.100 컬러 스케일은 변경하지 않는다.
+
+## ModalDialog 9개 유형과 슬롯 recipe (2026-11-16)
+
+`ModalDialog`의 필수 `variant`는 alert·confirm·terms·form·selection·tracking·detail·image·sizeGuide다. 안내·선택 확인·약관·입력·목록 선택·배송조회·상세 정보·이미지·사이즈 가이드를 구분하며 content 및 address variant는 사용하지 않는다. 기존 모바일 popup/fullscreen/bottomSheet는 유형과 별개다. 31개 파일의 42개 JSX 사용처를 전환했으며 가이드의 동적 예시는 준비된 variant 값을 전달한다.
+
+이번 사용자의 명시적 스타일 분리 요청을 해당 TSX 내부 스타일 원칙의 예외로 적용해 `ModalDialog.recipe.tsx`에 Panda sva와 슬롯별 클래스 생성을 둔다. viewport·backdrop·popup·header·title·content·message·description·footer·actions를 관리하고, alert/confirm 및 문서형의 공통 정의를 공유한다. header/footer의 기존 css 예외는 recipe의 raw 스타일과 병합한 뒤 클래스를 생성한다. 도메인 폼·상품·약관 본문의 고유 스타일과 상태는 기존 소유자에 남긴다. 숫자로 전달하는 푸터 열 offset은 기존 CSS 변수 계약을 유지한다.
+
+alert/confirm의 `message`·선택적 `description`과 자유 본문 `children`은 상호 배타적이다. 기본 actions와 custom footer도 배타적이며 기존 폼의 type/form/disabled와 콜백을 유지한다. 공통 모달은 요청·완료 판정·자동 성공 닫기를 추가하지 않는다. 기존 주소 모달은 form의 `formLayout="divided"`로 구분선·입력 높이·푸터 배치를 보존한다. 기본 폭은 640px, lg는 800px이고 sizeGuide는 크기 옵션이 없을 때 768px이다. 과거 존재하지 않던 md 사용은 기본 폭으로 전환했다.
+
+[HOKA Design](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 모달 모음에서 구조화된 레이아웃·타이포·버튼 정보를 읽었다. 일반 PC 헤더 상단40/좌우32px·제목24px Regular·행간1.5, 정형 본문 제목28px Black·행간1.2, 설명16px·행간1.5, 기본 확인 버튼180×48px을 recipe로 표현한다. 모바일 제목20px, 정형 본문 제목20px, 기본 CTA44px과 표시 방식별 viewport 제한을 적용한다. 화면별 기존 예외는 전부 같은 디자인이라고 단정하지 않는다.
+
+브라우저에서 9개 가이드 유형의 PC1440/MO375 열기·닫기, 긴 약관 스크롤, Escape 포커스 복귀와 disabled 액션을 확인했다. 실제 화면 10개를 각 폭에서 확인해 본문 가로 넘침이 없었으며 주소 편집 값은 resize 후 유지됐다. 실제 의류 사이즈 가이드는 모바일 표343px·PC 팝업768px, inch 전환과 포커스 복귀를 확인했다. 열린 모달에서 1024/1025·1199/1200 전환과 PC1200px 캔버스 규칙도 확인했다. 데스크톱 엔진의 scrollbar-gutter 예약 여부에 따라 MO375의 가용 폭은 360px 또는375px이며, 팝업은 가용 폭에서32px를 뺀다. 새 고정 플랫폼 브라우저 시나리오는 추가하지 않았고 기존 명시적 플랫폼 SSR 검사는 통과했다. [검증 한계](../development/verification.md#modaldialog-유형-계약과-검증-2026-11-16).
+
+출처는 위 디자인과 해당 작업 트리이며, 검증 주체는 Codex다. 이전 모달 치수·유형 기록보다 이 절과 현재 소스를 우선한다.
+
+## Alert·Confirm 상세 스타일 보정 (2026-11-16)
+
+사용자 브라우저 주석의 상세 수치를 현재 우선 기준으로 적용했다. `ModalDialog.recipe.tsx`의 공유 notice 정의에서 alert와 confirm의 헤더를 PC24px/MO20px·700·행간1.5·자간-0.02em·검정으로 지정한다. 정형 본문 제목은 PC28px/MO20px·900·행간1.2, 설명은16px·400·행간1.5다. PC10px/MO24px 팝업 반경과 본문 아래/버튼 아래 PC40px·MO24px 간격은 유지한다.
+
+notice 푸터의 버튼은 PC180×48px·최대180px, MO는 가용 너비·높이/최소높이44px·반경52px·패딩12px 24px을 사용한다. 두 버튼은 모바일에서 기존 수평/수직 액션 배치를 따른다. 라벨은 PC16px/MO15px·700·행간1.3·자간-0.02em이며 Primary의 흰색과 Secondary의 기존 검정색을 유지한다. 공통 Button 및 다른 variant의 recipe는 변경하지 않았다.
+
+PC1408/MO517에서 두 유형의 계산 스타일·버튼 크기·간격·반경과 가로 넘침 없음을 확인했다. 본문/버튼 앞뒤 간격은 정확히40px/24px이고, detail 제목은400을 유지했다. 실제 글리프는 헤더·버튼에서 Pretendard-Bold, 본문 제목에서 Pretendard-Black을 사용한다. 변경 recipe의 ESLint·Prettier, Panda 생성과 모달 타입 계약 검사1개가 통과했다. 구조·요청·콜백·폼·서비스 연결 계약을 변경하지 않아 전체 빌드는 다시 실행하지 않았다. 출처: 사용자 제공 상세 주석, 현재 recipe 작업 트리, Codex의 브라우저 확인.
+
+## IA 유형 칸의 모달 variant 표시 (2026-11-16)
+
+계정 잠금 안내 모달의 기본 STATE 행에서 상태 아래에 `variant="alert"`를 표시한다. 부모 popup 행에는 표시하지 않는다. 연결 메타데이터의 선택적 modalVariant를 읽고, 대괄호는 표시하지 않는다. 기존 행·STATE·접기·링크는 유지한다. 출처: screenConnections.ts·IaStructurePage.tsx 작업 트리와 사용자 주석.
+
+## Alert·Confirm 정형 본문 누락 보정과 STATE 표시 (2026-11-16)
+
+계정 잠금 인증 만료·마케팅 수신내역·비밀번호 변경 확인/완료·배송지 삭제 확인은 variant만 지정하고 개별 Stack/ContentHeader/Typography 본문을 남겨 공통 message 스타일을 우회하고 있었다. 이 본문을 message/description으로 전환했다. 수신내역3줄의 줄바꿈과 입력 화면의 form id·submit 버튼 연결, 닫기·확인 콜백은 유지한다. 정형 모달의 선택적 feedback 슬롯은 기존 pending/error 표시를 전달하며 children 계약과 배타적이다. 수신내역 pending은 기존 확인 버튼 disabled를 유지하고, 공통 모달은 요청·성공 판정·자동 닫기를 추가하지 않는다.
+
+인증 만료와 수신내역은 PC1440/MO375에서 제목28px/20px·900·왼쪽 정렬, 설명16px, 버튼48px/44px, 본문→버튼 및 하단40px/24px과 가로 넘침 없음을 확인했다. 비밀번호 확인·완료와 주소 삭제도 같은 제목 치수·굵기로 확인했다. 실제 비밀번호 입력의 form="profile-password-form"·type="submit"은 보존됐다. 서비스 실패/재시도 요청은 새로 실행하지 않았고 feedback 연결은 기존 표시 계약이다.
+
+IA는 [STATE별 실제 모달 유형과 검색](routing.md#state-모달-유형-전수-표시와-검색-2026-11-16)을 사용한다. 사용자 제공 예시 이미지·브라우저 주석과 관련 작업 트리가 출처이며 Codex가 위 범위를 확인했다.
+
+## 임직원 쿠폰 등록 안내 팝업 (2026-11-16)
+
+[HOKA Design](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 제공된 모바일 프레임에서 쿠폰등록 헤더, 쿠폰이 등록되었습니다. 본문, 확인 버튼을 읽었다. 본문20px·900·행간1.2, 본문/버튼 간격24px·좌우16px, Medium CTA와18px 닫기 아이콘을 기존 ModalDialog alert로 표현한다. 시안의8px 반경·일부 Regular 라벨은 앞서 사용자가 확정한 공통 alert의 MO24px 반경·헤더/CTA700 규칙을 우선한다. PC는 별도 시안을 추정하지 않고 공통640px·180×48px CTA를 사용한다.
+
+CouponManager가 임직원 전용 등록 안내의 open과 열기 버튼 ref를 소유한다. 두 발급 버튼은 준비된 팝업을 열람하고 확인·닫기·Escape는 닫기만 수행한다. 실제 발급·등록 요청·쿠폰 개수/목록 갱신·인증·저장은 구현하지 않는다. 일반 일련번호 등록 UI와 오류 상태의 기존 개발 제외는 유지한다. 실제 발급 성공 뒤 이 표시를 열고 실패·pending·재시도와 목록 갱신을 연결하는 책임은 기존 마이페이지 통합 소유자에게 있다.
+
+PC1440/MO375에서 두 버튼의 열기·닫기, 각각으로 포커스 복귀와 직접 preview의 첫 버튼 복귀를 확인했다. PC640px·본문28px·버튼180×48px, MO 가용 폭375px일 때 팝업343px·본문20px·버튼311×44px을 확인했다. Windows classic scrollbar 예약15px이 생기는 캡처에서는 가용 폭과 팝업/CTA가15px 좁아질 수 있다. 일반 쿠폰 화면은 임직원 영역과 팝업을 표시하지 않는 것도 확인했다. 쿠폰 등록 서비스를 구현한 검증은 아니다. 출처: 위 디자인, 사용자 요청, 현재 CouponManagement 작업 트리와 Codex 확인.
+
+## alert·confirm 전체 사용처 점검 (2026-11-16)
+
+정적·조건부·props spread를 포함한 production 사용처20곳과 가이드1곳을 추적했다. 계정 잠금 안내 설명의 중첩 Typography를 일반 span으로 바꿔 공통16px 스타일 상속을 보장했다. alert/confirm은 message 정형 본문만 허용하고 당시 custom children은 나머지7개 variant만 허용했다. 이후 productOption 추가로 현재는8개다. 타입 회귀 검사로 개별 본문 재도입을 막는다. feedback·폼 제출 및 액션 계약은 보존한다. 이후 추가한 런칭 안내까지 production21곳에서 개별 본문/헤더/푸터 override와 중첩 Typography 누락이 없음을 재확인했다.
+
+PC1440/MO375의 고정 STATE25개씩에서 제목·설명·버튼·여백의 계산 스타일과 넘침을 확인했다. 소셜 가입 안내2개, 재입고 취소, 가이드 alert/confirm도 각 플랫폼에서 열기·Escape를 확인했다. 출처는 사용자 요청과 관련 작업 트리이며 Codex가 실제 확인했다.
+
+## 아이디 확인 confirm 결과형 (2026-11-16)
+
+사용자 PC/MO 주석을 기준으로 아이디 조회 결과를 confirm의 noticeLayout="result"로 표현한다. 필수 intro, 강조 message, 선택 description을 공통 슬롯에 두고 독립 IdConfirmationMessage의 Typography/여백 구현을 제거했다. 단일 사용처를 기존 라우트에 합쳤으며 별도 wrapper나 새 variant는 추가하지 않는다. 결과형은 confirm에만 허용하고 일반 안내 및 다른 variant의 intro 전달은 타입으로 막는다.
+
+제목은 양쪽 모두 아이디 / 비밀번호 찾기이며 PC24px/MO20px·700·행간1.5다. intro는16px·400·행간1.5·검정, intro와 아이디 간24px, 아이디는 HOKA28px/22px·700·행간1, 설명은14px·400·행간1.5·#777777이다. 아이디와 설명 간격은 기존 PC32px, 사용자 지정 MO52px이며 버튼 간격8px과 PC 수평/MO 수직 배치·fullscreen을 유지한다. 일반 alert/confirm 본문28px/20px·900 규칙은 그대로다. 출처: 사용자 첨부 주석·현재 작업 트리·Codex 실행 확인.
+
+후속 사용자 주석으로 intro 앞에 이름 span과 님을 추가했다. 현재 OOO는 표시 fixture이며 이름 span만 PC/MO16px·500·행간1.5를 적용하고 나머지 문구는400을 유지한다.
+
+PC 설명→버튼은 후속 사용자 주석에 따라40px로 정정했다. result 설명의 PC 아래24px 여백을 제거해 공통 content의 아래40px만 사용한다. MO는 후속 지정32px에 맞춰 설명 아래16px·인라인 푸터 위16px을 사용한다.
+
+## Terms 모달 상세 규격 (2026-11-16)
+
+사용자 지정 [HOKA Design](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 PC/MO 알뜰폰 사업자 팝업을 사용자의 명시적 확인에 따라 terms 공통 외형 기준으로 적용했다. 추가 선택 약관 PC/MO 시안에서 실제 문서 구성을 읽어 보완했다. 제목은 Pretendard24px/20px·400·행간1.5, PC640px·반경10px, 헤더40px 32px 0/MO24px 16px 0, 본문24px 32px 40px/MO24px 16px을 사용한다. 본문→확인 PC40px/MO32px, 버튼 아래40px/24px이다.
+
+확인 버튼은 PC180×48px, 모바일 가용 폭·42px이다. 모바일 시안의 고정 내부18px와 상하12px padding을 읽은 관측값이며 alert/confirm의44px 버튼을 변경하지 않는다. 버튼 label은16px/15px·400·행간1.3·자간-0.02em, 반경52px이다. terms에만 적용하고 다른 variant나 공통 Button 기본값은 유지한다.
+
+modalTermsContentRecipe에 약관명16px·400, 문서 테두리#E9EAEB·내부24px 16px·문단 간20px, 문단 제목→본문12px, 문서→공고일8px과 공고일14px/13px·#777777을 모았다. 본인확인 필수·선택/이전 약관과 가입 약관이 이 className을 사용한다. 실제 약관 원문·표·링크·본문 fixture는 각 소유자가 유지한다. 도메인 글자나 알뜰폰 업체 목록을 공통 컴포넌트에 넣지 않았다.
+
+가입 약관과 가이드의 개별 확인 버튼을 공통 actions로 옮겨 규격이 우회되지 않게 했다. 가입 약관의 기존 확인은 본문에 직접 있었으므로 모바일에서 계속 본문 마지막에 스크롤된다. 기존 footer가 없어 동작하지 않던 mobileFixedFooter 지정은 제거했다. 명시적인 고정 footer 옵션 자체는 가이드에서 계속 제공한다. 사용자 주석·위 디자인·관련 작업 트리가 출처이며 Codex가 확인했다.
+
+사용자 후속 주석이 위 최초 시안값보다 우선한다. terms 제목은 PC24px/MO20px 모두700, 본문 항목/문단 그룹 간격은PC/MO24px이다. 세로 구획 간격은 content padding이 아니라 header의 margin-bottom24px과 footer의 margin-top40px/MO32px로 소유한다. footer가 있는 외부 배치에서 content 세로 padding은0이고 좌우32px/MO16px만 유지한다. 모바일 본문 내 footer는 마지막 하단24px을 기존 content가 소유한다. 긴 스크롤과 고정 footer에서도 구획 사이 margin이 남는다.
+
+사용자 요청으로 알뜰폰 사업자 팝업도 detail에서 terms로 전환했다. 업체 표시 데이터·본문·모바일 fullscreen·확인/닫기 콜백은 유지하고 공통 terms 헤더/여백/버튼 규격을 적용한다.
+
+## 문서형 모달 공통 외형 확장 (2026-11-16)
+
+사용자 요청으로 selection/form/tracking/detail의 기본 shell을 terms와 동일한 contentModal 정의로 공유한다. header 아래 margin24px, 제목 PC24px/MO20px·700, content 좌우32px/16px·기본 세로padding0, footer 위 margin40px/32px과 아래40px/24px을 사용한다. 기본 확인은 PC180×48px·MO가용폭×42px이다. 바텀시트의 기존 상단padding이 새 margin과 중복되지 않게 compound 스타일을 정리했다. 약관 문서 테두리·공고일 슬롯을 다른 도메인에 강제로 넣지 않는다.
+
+공통 외형 확장 당시 tracking의804px PC 높이를 유지했으나, 후속 배송조회 보정에서 콘텐츠 기반 자연 높이로 변경했다. 모바일 표시 방식, size 옵션·본문 스크롤·액션 콜백은 유지한다. 주소 formLayout=divided의 구분선/입력 및 footer 예외(모바일44px·700)는 유지한다. 당시 보존한 장바구니 상품열 정렬 offset은 후속 productOption 전환에서 제거했다. 주문 신청·런칭 알림·쿠폰 상세·이전 약관 선택의 개별 padding/헤더/푸터 치수는 공통 margin과 중복되지 않게 정리했다.
+
+쿠폰 상세의 본문 line-height6px 강제를 제거하고 portal 내부에서만 body 행간1.5를 적용해 문장 겹침과 압축된 높이를 수정했다. 본문14px·21px, 공고13px·19.5px·#777777, 행 간24px·상세조건 간16px을 사용하며 고정 높이는 추가하지 않는다. 사용자 추가 주석에 따라 PC/MO 수량·혜택 금액·사용기간 숫자는 HOKA14px·700·21px, 사용기간#040404·우측 정렬로 표현한다. [HOKA Design](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 쿠폰 상세 PC/MO와 사용자 첨부 이미지·주석이 출처다. 헤더·footer 공통 규격은 앞선 사용자 확정값이 개별 디자인의 Regular/버튼 높이 관측보다 우선한다.
+
+## 이미지 모달 시안 적용 (2026-11-16)
+
+`ModalDialog.recipe.tsx`의 image 슬롯과 `modalImageContentRecipe`를 문의 첨부파일 및 모달 가이드에서 공유한다. PC는 폭 640px·반경 10px, 모바일은 반경 20px의 손잡이 없는 하단 시트다. 헤더 아래 margin 24px, 미리보기 240×240px, 이미지와 페이지 표시 간격 PC 40px/MO 24px, 하단 여백 PC 24px/MO 32px을 적용한다. 페이지 표시는 5px 점·활성 너비 21px·간격 5px이다. 이미지 원본은 contain으로 비율을 보존하며 업로드 미리보기의 unoptimized 예외를 유지한다.
+
+제목은 구조화된 시안의 400과 달리 사용자 확정 공통 기준·첨부 화면의 700을 유지하며 PC 24px/MO 20px·행간 150%다. [화면 디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)을 기준으로 한다.
+
+검증: 문의 첨부파일에서 PC 640×409px, MO 375×379px, 프레임 240×240px과 간격 40px/24px을 계산 스타일로 확인했다. 실제 글리프는 Pretendard-Bold다. 페이지 표시 전환, 열린 상태 1024/1025·1199/1200px resize의 선택 유지·팝업 내부 가로 넘침 없음, Escape·다시 열기·트리거 포커스 복귀를 확인했다. 타입 검사·대상 ESLint/Prettier·Panda·기존 모달 타입 계약 검사가 통과했다. 브라우저 스크린샷은 PC/MO 각 한 차례 재시도 후에도 캡처 시간 초과로 비교하지 못했다. 실제 첨부 이미지의 가로/세로 비율 및 명시적 preview 플랫폼·프로덕션 빌드는 이번에 별도로 실행하지 않았다.
+
+## 상품 옵션 전용 모달 (2026-11-16)
+
+ModalDialog의 열 번째 유형 productOption은 PC 640px 한 열·모바일 손잡이 있는 하단 시트다. shell과 본문은 ModalDialog.recipe.tsx의 productOption 및 modalProductOptionRecipe 슬롯 className으로 관리한다. CartDialogs의 optionType은 shoes/apparel이며 이름이나 사이즈로 상품 종류를 추정하지 않는다. 신발만 발볼을 표시하고 공통 컬러·사이즈 라디오는 기존 Radio를 직접 사용한다. 큰 상품 이미지와 수량 입력은 제공된 팝업 시안에 따라 제거했다.
+
+PC 컬러 7열·74px, 사이즈 7열·36px, 모바일 5열·정사각 썸네일·38px 사이즈를 적용했다. 발볼은 PC48px/MO44px, 액션은 PC238×48px 두 개·MO 전체 폭44px 변경 버튼 하나다. 변경 전·품절 선택은 비활성이고 저장 요청은 미연결이다. 첨부 썸네일의 intrinsic height가 모바일에서 늘어나지 않게 height:auto를 적용했다. [디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)과 실제 PC/MO 캡처로 열 수·비율·품절·선택을 비교했다. 명시적 고정 플랫폼은 별도 실행하지 않았다.
+
+## 배송조회 상세 시안과 자연 높이 (2026-11-16)
+
+tracking은 PC640px·콘텐츠 자연 높이, MO 반경20px·손잡이 있는 하단 시트이며 최대 높이만 viewport-44px로 제한한다. 모바일에 고정 높이를 강제하지 않아 내용이 짧은 큰 화면에서 빈 공간이 생기지 않는다. 본문 flex:0 1 auto로 필요한 경우에만 내부 스크롤하고 닫기 푸터를 유지한다. PC 헤더 아래24px·본문 그룹24px·본문과 푸터40px, MO 헤더 아래32px·본문 그룹24px·footer 위 경계선과16px 여백·하단32px을 적용한다. MO 버튼44px·PC180×48px이며 헤더700을 유지한다.
+
+OrderTrackingDialog의 도착일·기본정보·이력은 ModalDialog.recipe.tsx의 modalTrackingContentRecipe className으로 구성하고 기존 StepIndicator connected를 재사용한다. 도착일 PC28px/900·MO22px/900, 정보행12px 상하 여백·96px 라벨 열과8px 간격, 추적 표 PC14px/MO12px과 숫자 HOKA700을 적용한다. 처리일자는 강제 br 없이 점 구분 날짜와 시간을 표시한다. 내용 스크롤은 유지하며 시안처럼 스크롤바를 숨겨 작은 화면의 표 공간을 확보한다.
+
+[디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design) 및 실제 PC/MO 캡처를 비교했다. PC 폭640px, MO375×812에서 시트 top44px·footer93px(top719px), 480×1251에서 콘텐츠602px·내부 root602.375px로 큰 잔여 공간이 없음을 확인했다. classic scrollbar 때문에375 viewport의 유효 client 폭은360px이다. 도착일·배송 단계·처리 날짜는 기존 주문 fixture 값이므로 시안의12월/두 단계와 다를 수 있다. 서비스 요청이나 새로운 배송 상태는 추가하지 않았다.
+
 Dropdown 정렬 버튼은 데스크탑 글자 16px·화살표 18px, 모바일 글자·화살표 14px과 공통 줄높이 1.3을 사용한다.
 
 ## 회원등급 화면 표시 정리 (2026-11-16)
@@ -4992,10 +5126,19 @@ Dropdown 정렬 버튼은 데스크탑 글자 16px·화살표 18px, 모바일 �
 
 마이페이지 주문 상품은 PC와 모바일에서 준비된 상품 배지·성별·상품명·용도를 표시한다. 모바일 요약은 상품 가격 대신 배송 상태를 표시하며, PC 주문 목록의 가격과 수량은 기존 별도 열에 유지한다. 출처: 마이페이지 화면 및 표시 데이터, 2026-11-16.
 
-임직원 쿠폰 미리보기는 공통 secondary 버튼으로 50%·30% 발급 항목을 표시한다. PC는 180×48px에 16px 간격, 모바일은 같은 폭의 44px 높이 버튼에 8px 간격을 사용한다. 발급 요청은 연결되지 않은 미리보기다. 출처: `src/app/mypage/coupons/_components/CouponManagement.tsx`, 2026-11-16.
+임직원 쿠폰 미리보기는 공통 secondary 버튼을 사용한다. 병합 시 사용자 확정 표현을 보존해 PC는 50% 두 항목·180×48px·간격16px, 모바일은50%·30%·가용 폭 분할·42px 높이·간격8px과700 라벨을 유지했다. 버튼은 공통 alert 등록 안내를 열며 닫은 뒤 해당 버튼으로 포커스를 복귀한다. 실제 발급 요청은 미연결이다. 출처: `src/app/mypage/coupons/_components/CouponManagement.tsx`, 2026-11-16.
 
-쿠폰 상세는 공통 sm 모달과 모바일 전체 화면 표시를 사용한다. 상세 정보의 줄높이와 버튼 간격을 조정하고 PC 모달의 기본 둥근 모서리를 유지한다. 출처: `src/app/mypage/coupons/_components/CouponManagement.tsx`, 2026-11-16.
+쿠폰 상세는 공통 detail 모달의 기본 PC640px 및 모바일 전체 화면 표시를 사용한다. 병합 시 개별 제목·본문 padding·footer override를 재도입하지 않고 공통 배치와 숫자700·행간1.5를 보존했다. 출처: `src/app/mypage/coupons/_components/CouponManagement.tsx`, 2026-11-16.
 
 쿠폰 화면의 제목, 임직원 쿠폰, 쿠폰 내역과 더보기 상태는 RouteContent에서 직접 구성한다. 쿠폰 카드와 상세 모달은 기존 역할을 유지한다. 출처: `src/app/mypage/coupons/_components/CouponManagement.tsx`, 2026-11-16.
 
 상품리뷰 화면은 탭·정렬·건수·목록 구조를 MyPageReviewsContent에서 직접 구성하고, 반복되는 리뷰 항목과 리뷰 작성 모달은 유지한다. 출처: `src/app/mypage/reviews/_components/MyPageReviewsContent.tsx`, 2026-11-16.
+
+## 장바구니·주문 영역 표시 규격 (2026-11-16)
+
+- 장바구니 PC는 본문720px·요약360px·열 간격56px, 상품 이미지144px이다. 모바일은 이미지96px, 바깥 여백16px, 상품 옆 수량·가격과 하단 결제 바를 사용한다. 품절·기존 가격·관심상품·수량1의 휴지통 표현과 준비된 합계를 표시한다. NumberStepper의 선택적 `minimumControl`은 최솟값에서만 기본 감소 버튼을 교체하며 기존 소비자의 기본 동작은 유지한다.
+- 추천 목록은 PC1776px 영역에 5개 카드와 다음 카드 일부를 표시한다. 모바일 추천 순서·성별 문구는 별도 준비된 표시 목록이다. 상품 탐색은 각 항목의 명시적 href를 사용한다.
+- 주문서는 PC720/360px·56px 간격, 제목·섹션 간격48px, 수량 열158px을 따른다. 공통 OrderPageLayout에 `headerSpacing="relaxed"`만 추가해 기존 기본40px·none0px 소비자를 보존했다. 결제 수단6개는 PC한 줄·모바일3열2행이며 원본 브랜드 이미지를 사용한다.
+- 보유 쿠폰은 PC640px·모바일 하단 시트다. 상품별 펼침·라디오 초안과 disabled 표시, 장바구니 쿠폰 요약을 구성한다. 적용 버튼은 요청하지 않는다. 취소·반품 신청은 PC640px, 이미지96px/모바일64px, 취소 수량·사유·상세 입력과 고정 환불액을 표시한다.
+- 주문/배송 목록은 상태별 버튼과 주문 상품별 상태 그룹을 유지한다. 취소·반품 목록은 상품·주문일자·금액·처리상태4열이며 옵션·수량 열을 숨긴다. OrderHistoryProduct의 `showOptions` 기본값은 true로 기존 소비자를 유지한다.
+- 각 route의 page-private UI, Panda TSX, semantic button/link와 기존 모달 focus/닫기 소유권을 유지했다. API·인증·가격/재고 계산을 추가하지 않았다. `[ 개발팀 바인딩 ]` 주석은 표시 모델·초안·식별자와 향후 연결 소유자를 구분한다.

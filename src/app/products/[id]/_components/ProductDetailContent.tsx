@@ -1703,28 +1703,15 @@ function ProductSizeSelector({
       />
       {guideGender && chart && (
         <ModalDialog
-          title={
-            <Typography variant="headingKr9" weight="bold">
-              사이즈 가이드
-            </Typography>
-          }
+          title="사이즈 가이드"
+          variant="sizeGuide"
+
           closeLabel="사이즈 가이드 닫기"
           open={guideOpen}
           onOpenChange={setGuideOpen}
           finalFocus={guideButton}
           mobilePresentation="bottomSheet"
           blurBackdrop={false}
-          size="lg"
-          popupClassName={css({
-            maxW: '768px!',
-            borderRadius: '12px',
-            _mobile: { maxW: '100vw!', borderRadius: '24px 24px 0 0' },
-          })}
-          headerProps={{ css: { px: '8', mt: '3', _mobile: { px: '4', mt: '2' } } }}
-          contentClassName={css({
-            p: '12px 32px 38px!',
-            _mobile: { p: '8px 16px calc(44px + env(safe-area-inset-bottom))!' },
-          })}
         >
           <ProductSizeGuideChart
             apparel={apparel}
@@ -1967,8 +1954,7 @@ type ProductPurchaseActionsProps = {
   onOpenOptions?: () => void;
   restock?: boolean;
 } & (
-  | { placement: 'inline'; wishlist?: ReactNode }
-  | { placement: 'fixed' | 'sheet'; wishlist?: never }
+  { placement: 'inline'; wishlist?: ReactNode } | { placement: 'fixed' | 'sheet'; wishlist?: never }
 );
 
 function ProductPurchaseActions({
@@ -2974,6 +2960,7 @@ export function RouteContent({ preview }: { preview?: ProductDetailPreview }) {
       />
       {platform === 'mobile' && revised && (
         <ModalDialog
+          variant="selection"
           open={optionsOpen}
           onOpenChange={setOptionsOpen}
           finalFocus={() =>

@@ -153,6 +153,7 @@ function AddressSearchModal({
 
   return (
     <ModalDialog
+      variant="form"
       open={open}
       onOpenChange={(nextOpen) => {
         if (!nextOpen) setSubmitted(false);

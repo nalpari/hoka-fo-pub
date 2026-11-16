@@ -40,8 +40,8 @@ const boxedField = cva({
   variants: {
     invalid: {
       true: {
-        boxShadow: 'inset 0 0 0 2px var(--colors-red-100)',
-        _focusWithin: { boxShadow: 'inset 0 0 0 2px var(--colors-red-100)' },
+        boxShadow: 'inset 0 0 0 2px var(--colors-error)',
+        _focusWithin: { boxShadow: 'inset 0 0 0 2px var(--colors-error)' },
       },
     },
     disabled: { true: { bg: 'black.10', color: 'black.40' } },

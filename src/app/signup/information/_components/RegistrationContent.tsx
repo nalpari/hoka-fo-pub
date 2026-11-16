@@ -1,5 +1,4 @@
 'use client';
-import { css } from 'styled-system/css';
 import { Box, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
@@ -8,7 +7,6 @@ import { StatusMessage } from '@/components/common/atoms/StatusMessage';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
-import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
 
 import { AddressFields } from '@/components/common/organisms/Address/AddressFields';
@@ -337,7 +335,7 @@ type MarketingConsentSummaryModalProps = {
   pending?: boolean;
   error?: string;
 };
-const summaryStyle = css({ m: '0', whiteSpace: 'pre-line' });
+/** [ 개발팀 바인딩 ] 가입 화면 소유자가 수신내역 items와 pending/error, onConfirm/onOpenChange를 전달합니다. 정형 message/description은 표시만 하며 feedback은 기존 요청 상태를 유지합니다. 실제 저장·성공 판정·실패 시 입력 유지와 재시도·성공 후 닫기는 연결 소유자가 처리합니다. */
 function MarketingConsentSummaryModal({
   open,
   items,
@@ -348,23 +346,22 @@ function MarketingConsentSummaryModal({
 }: MarketingConsentSummaryModalProps) {
   return (
     <ModalDialog
+      variant="alert"
       open={open}
       onOpenChange={onOpenChange}
       title="마케팅 정보 수신내역 안내"
       closeLabel="마케팅 정보 수신내역 안내 닫기"
-      size="sm"
+
       actions={{ kind: 'single', onConfirm: onConfirm, buttonProps: { disabled: pending } }}
-    >
-      <BindingFeedback pending={pending} error={error} />
-      <ContentHeader
-        gap="4"
-        titleAs="h2"
-        title="마케팅 정보 수신 내역"
-        titleProps={{ variant: 'body2', className: css({ m: '0' }) }}
-        description={<>{items.map(({ label, value }) => `${label} : ${value}`).join('\n')}</>}
-        descriptionProps={{ variant: 'body4', className: summaryStyle }}
-      />
-    </ModalDialog>
+      message="마케팅 정보 수신 내역"
+      description={items.map(({ label, value }, index) => (
+        <span key={label}>
+          {index > 0 && <br />}
+          {label} : {value}
+        </span>
+      ))}
+      feedback={<BindingFeedback pending={pending} error={error} />}
+    />
   );
 }
 type RegistrationMarketingConsentSummaryModalProps = {

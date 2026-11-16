@@ -1,5 +1,9 @@
 # 개발
 
+- [주문 영역 PC·모바일 재검수](verification.md#주문-영역-pc모바일-재검수-2026-11-16) - 52개 캡처·시안 수치·조작·경계값과 기존 검사 실패 구분.
+
+- [ModalDialog 타입 계약 검사](verification.md#modaldialog-유형-계약과-검증-2026-11-16) - 9개 유형과 배타적 본문·액션 계약, 실제 검증과 기존 실패.
+
 [main 변경 보고 스킬](../../.agents/skills/hoka-main-change-report/SKILL.md)은 수동 호출 시 지정 커밋을 포함하거나 마지막 성공 SHA 이후부터 최신 origin/main까지 최종 유효 변경을 분석해 IA 구조도의 날짜·담당자별 모달과 개발자 공유 보고서를 만든다. 담당자는 기존 IA 매핑을 사용한다. 현재 WBS 문서(1JyQvEhb53OgXnSBcxypHGI8nxsclZDi059r1SCdFHos)의 Schedule FO 개발 실적과 IA 저장값을 WBS 번호로 비교해 공유 보고서에 별도로 기록한다.
 
 [파일 diff 요약 로딩](verification.md#파일-diff-요약-로딩-표시-2026-11-04)은 `/wh` 콜아웃의 로딩 상태와 검증 범위를 기록한다.
@@ -39,3 +43,9 @@ RatingStars 표시·선택 모드의 회귀 검사 범위는 [별점 통합 검�
 [Storybook 제거](setup.md#storybook-제거-2026-11-03) 이후 앱 실행과 고정 상태 URL로 검증한다. 이전 기록은 이력으로 보존한다.
 
 아이콘 의존성은 [로컬 실행](setup.md)의 SVG 레지스트리 안내를 따른다.
+
+[모달 전수 점검·런칭 안내 검증](verification.md#공통-안내확인-전수-점검과-런칭-안내-2026-11-16)은 타입 제약과 PC/MO 실행 확인 및 범위 밖 실패를 기록한다.
+
+[상품 옵션 모달 검증](verification.md#상품-옵션-전용-모달-검증-2026-11-16)은 PC/MO 캡처·선택·경계 resize와 기존 IA 검사 실패를 구분한다.
+
+[배송조회·옵션 모달 최종 검증](verification.md#배송조회와-옵션-모달-최종-검증-2026-11-16)은 실제 캡처와 최종 빌드·기존 IA 검사 실패를 구분한다.

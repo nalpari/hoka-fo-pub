@@ -1,5 +1,7 @@
 'use client';
 
+import { usePlatform } from '@/context/platform';
+
 import { css } from 'styled-system/css';
 import { Stack } from 'styled-system/jsx';
 
@@ -8,10 +10,12 @@ import { Typography } from '@/components/common/atoms/Typography';
 
 import { OrderRecommendations } from '@/components/common/organisms/OrderRecommendations';
 
-import { orderRecommendations } from '@/mocks/orderRecommendations';
+import { mobileOrderRecommendations, orderRecommendations } from '@/mocks/orderRecommendations';
 
 /** 주문 접수 완료 안내와 추천 상품을 표시합니다. (Displays order completion and recommended products.) */
 export function CheckoutComplete() {
+  const recommendations =
+    usePlatform() === 'mobile' ? mobileOrderRecommendations : orderRecommendations;
   return (
     <Stack gap={{ base: '24', _mobile: '16' }}>
       {/* 주문완료 안내 */}
@@ -20,15 +24,15 @@ export function CheckoutComplete() {
         alignItems="center"
         alignSelf="center"
         w={{ base: '500px', _mobile: '100%' }}
-        pt={{ base: '10', _mobile: '10' }}
+        pt="0"
         gap="8"
         textAlign="center"
       >
         <Stack alignItems="center" gap="4">
-          <Typography as="p" variant="body2" weight="medium">
+          <Typography as="p" web="heading7" mo="heading5">
             구매해 주셔서 감사합니다.
           </Typography>
-          <Typography as="p" variant="body4">
+          <Typography as="p" web="body3" mo="body4">
             주문이 정상적으로 접수되었습니다.
             <br />
             앞으로도 만족스러운 서비스로 보답하겠습니다.
@@ -45,11 +49,7 @@ export function CheckoutComplete() {
         </ButtonLink>
       </Stack>
       {/* 추천 상품 */}
-      <OrderRecommendations
-        items={orderRecommendations}
-        layout="checkout"
-        title="함께 구매하면 좋은 상품"
-      />
+      <OrderRecommendations items={recommendations} layout="checkout" title="추천 상품" />
     </Stack>
   );
 }

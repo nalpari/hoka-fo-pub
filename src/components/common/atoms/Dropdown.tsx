@@ -190,6 +190,7 @@ export function Dropdown({
 
   const mobileSheet = sheetOpen ? (
     <ModalDialog
+      variant="selection"
       open
       mobilePresentation="bottomSheet"
       closeLabel="닫기"

@@ -1,3 +1,5 @@
+import type { ModalDialogVariant } from '@/components/common/layouts/ModalDialog';
+
 import { productDetailPreviews } from '@/app/products/[id]/productDetailPreviews';
 import {
   getProductListingIaKey,
@@ -22,12 +24,19 @@ const connections: Record<number, ScreenConnection> = {
     route: '/launch-calendar',
     previewRoutes: [
       { label: '발매 예정 상품 상세', href: '/launch-calendar/clifton-11-gtx' },
+      { label: '입고 알림 신청', href: '/launch-calendar/clifton-11-gtx/preview-notification' },
       { label: '입고 알림 신청 완료', href: '/launch-calendar/clifton-11-gtx/preview-notified' },
+      {
+        label: '휴대폰 번호 입력 안내',
+        href: '/launch-calendar/clifton-11-gtx/preview-phone-required',
+      },
     ],
     sourceFiles: [
       'src/app/launch-calendar/page.tsx',
       'src/app/launch-calendar/clifton-11-gtx/page.tsx',
+      'src/app/launch-calendar/clifton-11-gtx/preview-notification/page.tsx',
       'src/app/launch-calendar/clifton-11-gtx/preview-notified/page.tsx',
+      'src/app/launch-calendar/clifton-11-gtx/preview-phone-required/page.tsx',
     ],
   },
   160: {
@@ -131,13 +140,17 @@ const connections: Record<number, ScreenConnection> = {
     defaultStateLabel: '목록 있음',
     previewRoutes: [
       { label: '빈 목록', href: '/cart/preview-empty' },
-      { label: '옵션 변경', href: '/cart/preview-options' },
+      { label: '옵션 변경 · 신발', href: '/cart/preview-options' },
+      { label: '옵션 변경 · 의류', href: '/cart/preview-options-apparel' },
+      { label: '옵션 변경 · 의류 변경됨', href: '/cart/preview-options-apparel-changed' },
       { label: '수량 제한 안내', href: '/cart/preview-limit' },
     ],
     sourceFiles: [
       'src/app/cart/page.tsx',
       'src/app/cart/preview-empty/page.tsx',
       'src/app/cart/preview-options/page.tsx',
+      'src/app/cart/preview-options-apparel/page.tsx',
+      'src/app/cart/preview-options-apparel-changed/page.tsx',
       'src/app/cart/preview-limit/page.tsx',
     ],
   },
@@ -149,6 +162,7 @@ const connections: Record<number, ScreenConnection> = {
       { label: '주문 완료', href: '/checkout/preview-complete' },
       { label: '기본배송지 주소가 없는 사용자', href: '/checkout/preview-shipping' },
       { label: '배송 요청사항 직접입력', href: '/checkout/preview-delivery-request' },
+      { label: '보유 쿠폰 조회', href: '/checkout/preview-coupons' },
     ],
     sourceFiles: [
       'src/app/checkout/page.tsx',
@@ -157,6 +171,7 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/checkout/preview-complete/page.tsx',
       'src/app/checkout/preview-shipping/page.tsx',
       'src/app/checkout/preview-delivery-request/page.tsx',
+      'src/app/checkout/preview-coupons/page.tsx',
     ],
   },
   '172': {
@@ -328,8 +343,7 @@ const connections: Record<number, ScreenConnection> = {
       { label: '빈 목록', href: '/mypage/coupons/preview-empty' },
       // 1차 개발 범위 제외: 쿠폰 등록.
       // { label: '등록 오류', href: '/mypage/coupons/preview-error' },
-      // 1차 개발 범위 제외: 쿠폰 등록.
-      // { label: '등록 완료', href: '/mypage/coupons/preview-complete' },
+      { label: '임직원 쿠폰 등록 팝업', href: '/mypage/coupons/preview-complete' },
       { label: '임직원 쿠폰', href: '/mypage/coupons/preview-employee' },
     ],
     sourceFiles: [
@@ -864,6 +878,83 @@ export function getScreenStatePreviews(connection: ScreenConnection | undefined)
         ...previews.filter(({ href }) => href !== connection.route),
       ]
     : previews;
+}
+
+// Only dialogs opened by the route's prepared state are listed; shared imports and closed
+// interaction dialogs do not establish a modal state. Keep nested dialogs together.
+const stateModalVariants: Readonly<Record<string, readonly ModalDialogVariant[]>> = {
+  '/launch-calendar/clifton-11-gtx/preview-notification': ['form'],
+  '/launch-calendar/clifton-11-gtx/preview-phone-required': ['alert'],
+  // CartDialogs and CheckoutStatePreview.
+  '/cart/preview-options': ['productOption'],
+  '/cart/preview-options-apparel': ['productOption'],
+  '/cart/preview-options-apparel-changed': ['productOption'],
+  '/cart/preview-limit': ['alert'],
+  '/checkout/preview-coupons': ['selection'],
+  '/checkout/preview-address-change': ['form'],
+  '/checkout/preview-address-edit': ['form'],
+  '/checkout/preview-address-new': ['form'],
+  // MyPageContent, OrdersPage, ReviewStatePreview and their dialog owners.
+  '/mypage/preview-logout': ['confirm'],
+  '/mypage/orders/preview-cancel-request': ['form'],
+  '/mypage/orders/preview-return-request': ['form'],
+  '/mypage/orders/preview-tracking': ['tracking'],
+  '/mypage/orders/preview-purchase-confirm': ['confirm'],
+  '/mypage/orders/preview-delete-confirm': ['confirm'],
+  '/mypage/reviews/preview-new': ['form'],
+  '/mypage/reviews/preview-edit': ['form'],
+  '/mypage/reviews/preview-error': ['form'],
+  '/mypage/coupons/preview-detail': ['detail'],
+  '/mypage/coupons/preview-complete': ['alert'],
+  '/mypage/event-entries/preview-cancel': ['confirm'],
+  '/mypage/addresses/preview-delete': ['confirm'],
+  // ProfileContent and ProfileStatePreview select distinct variants for each step.
+  '/mypage/profile/preview-expired': ['alert'],
+  '/mypage/profile/preview-password': ['form'],
+  '/mypage/profile/preview-password-confirm': ['confirm'],
+  '/mypage/profile/preview-password-complete': ['alert'],
+  '/mypage/profile/preview-save': ['confirm'],
+  '/mypage/profile/preview-save-complete': ['alert'],
+  '/mypage/profile/preview-phone-required': ['alert'],
+  '/mypage/profile/preview-withdraw': ['confirm'],
+  '/mypage/profile/preview-withdraw-complete': ['alert'],
+  '/mypage/profile/preview-cancel': ['confirm'],
+  // Recovery and phone verification. Ordinary signup expiry is inline, not a modal.
+  '/login/account-locked': ['alert'],
+  '/login/find-account/id-confirmation-modal': ['confirm'],
+  '/login/find-account/password-reset/preview-complete': ['alert'],
+  '/login/account-locked/verification/preview-expired': ['alert'],
+  '/login/account-locked/verification/preview-carriers': ['terms'],
+  '/login/account-locked/verification/preview-required-terms': ['terms'],
+  '/login/account-locked/verification/preview-optional-terms': ['terms'],
+  '/login/account-locked/verification/preview-previous-terms': ['selection'],
+  '/signup/verify/phone/preview-already-registered': ['alert'],
+  '/signup/terms/preview-detail': ['terms'],
+  '/signup/information/preview-marketing-consent': ['alert'],
+  // InquiryFormStatePreview and InquiryAttachmentPreview.
+  '/support/inquiries/preview-attachment': ['image'],
+  '/support/inquiries/new/preview-cancel': ['confirm'],
+  '/support/inquiries/new/preview-order-required': ['alert'],
+  '/support/inquiries/new/order-products': ['selection'],
+  '/support/inquiries/new/order-products/preview-empty': ['selection'],
+  '/support/inquiries/new/order-products/preview-custom': ['selection'],
+  // These PDP option sheets open only in the existing mobile presentation.
+  '/products/pdp-preview/options-selected': ['selection'],
+  '/products/pdp-preview/options-scroll': ['selection'],
+  '/running/running-session/preview-application': ['alert'],
+  '/running/running-session/preview-application-complete': ['alert'],
+};
+
+/** 지정 STATE URL에서 처음 열리는 모달 유형을 반환합니다. */
+export function getScreenStateModalVariants(href: string): readonly ModalDialogVariant[] {
+  return stateModalVariants[href] ?? [];
+}
+
+export function getScreenModalSearchText(connection: ScreenConnection): string {
+  const variants = new Set(
+    getScreenStatePreviews(connection).flatMap(({ href }) => getScreenStateModalVariants(href)),
+  );
+  return Array.from(variants, (variant) => `variant="${variant}"`).join(' ');
 }
 
 /** [ 개발팀 바인딩 ] 두 개 이상의 상태 URL이 사용하는 공통 인계 파일은 상위 화면에 표시합니다.

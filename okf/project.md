@@ -4,12 +4,15 @@ title: '프로젝트 개요'
 description: '서비스 목적, 기술 버전과 구현 범위를 설명한다.'
 tags: [hoka, frontend, overview]
 status: draft
-updated: '2026-11-12T04:25:50Z'
+updated: '2026-11-16T12:56:30.717659+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
 source_revision: c9e8b1a75bdd4a2d52308410b8ce77773464a9e6
 working_tree_sources:
+  - src/app/cart/cart-preview.ts
+  - src/app/checkout/checkout-summary.ts
+  - src/components/orders/orders.data.ts
   - src/data/addressPreview.ts
   - src/app/launch-calendar/_components/LaunchCalendarContent.tsx
   - src/app/launch-calendar/_components/LaunchCalendarDetail.tsx
@@ -81,6 +84,9 @@ working_tree_sources:
   - src/shared/Mockup/teamwear/TeamwearPage.tsx
   - src/app/support/support.navigation.ts
 sources:
+  - id: orders-design-review
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql
+    title: 장바구니·주문·취소·반품 최신 화면 시안
   - id: package-json
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/package.json
     title: 'package.json'
@@ -323,3 +329,18 @@ src/mocks/products.ts의 Promotions 타입 출처를 통합된 src/components/co
 PC 수정과 모바일 Feed·Upcoming·상세를 반영했다. 목록은 현재 items와 명시적 플랫폼별 fixture를 구분하고, 상세는 실제 신청 없이 알림 가능/완료 상태를 직접 URL로 확인한다. 공통 표시 컴포넌트와 기존 route-private 소유권을 재사용한다. 원본 IA 행의 삭제/제외 정책은 이번 시안 구현의 변경 범위가 아니다. 규격·검증·미제공 기획전 이미지 경계는 [런칭 캘린더](architecture/launch-calendar.md)에 기록했다. 출처: 위 작업 트리와 사용자 제공 [PC/MO 디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design), 기록 주체 codex/gpt-6, 2026-11-11T01:09:17Z.
 
 2026-11-11 IA162 런칭캘린더 In-stock 목록은 사용자 지정 삭제 / 제외 화면으로 표시한다. 출처: screenRegistry.ts 작업 트리.
+
+## 계정 잠금 안내 모달 D3 승격 (2026-11-16)
+
+사용자 요청으로 내부 IA251 계정 잠금 안내 모달을 로그인 → 아이디찾기 아래 D3로 옮겼다. 자식 IA253 계정 잠금 해제와 IA254 해제 완료도 같은 모달 아래 D4로 한 단계 올렸다. 휴대폰번호 화면의 자식으로 두지 않으며 IA 번호·담당자·화면 코드·기존 URL·preview 상태는 유지한다. 출처는 `src/data/screenRegistry.ts` 작업 트리다. 정규화된 실제 screens 데이터의 D3/D4/D4와 부모 경로를 확인했고, 계층·상태 연결 관련 기존 테스트5개와 대상 ESLint가 통과했다. Codex가 확인했으며 브라우저 재확인은 수행하지 않았다.
+
+## 런칭캘린더 알림 번호 표시 fixture (2026-11-16)
+
+`src/app/launch-calendar/launchCalendar.data.ts`의 `launchNotificationPreview.maskedPhone`은 팝업 디자인 확인용 등록 번호다. 실제 회원정보나 알림 신청 API와 연결하지 않았다. 사용 위치와 검증은 [런칭 캘린더](architecture/launch-calendar.md#알림-신청-팝업-시안-적용-2026-11-16)에 기록했다. 기록: codex/gpt-6, 2026-11-16.
+
+## 주문 영역의 플랫폼별 표시 fixture (2026-11-16)
+
+- [HOKA 화면 디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql)의 상품 이미지·결제 브랜드 원본을 로컬 자산으로 사용한다. 추천 표시 모델은 Speedgoat 상품6개와 유효한 기존 상품 href를 준비하며 모바일 순서·성별 표시는 별도로 명시한다. 실제 추천 결과나 상품 ID로 추론하지 않는다.
+- 장바구니5행은 일반3개·품절2개, 독립적인 주문서 fixture는 PC2행(수량2/1), 모바일3행(각1개·정상가280,000원/판매가240,000원)이다. 금액·옵션은 현재 표시 데이터를 사용하며 장바구니 선택과 주문서 금액을 자동 계산하지 않는다.
+- 주문 목록·상세·취소/반품 내역은 Speedgoat 검정 이미지와 레귤러/브라운235 표시를 사용한다. 내역4행의 PC298,000원·취소완료와 모바일240,000원·환불완료는 서로 다른 시안 값이다. 반품 신청의 두 상품도 명시적 fixture이며 실제 주문 목록을 변형하지 않는다.
+- 실제 서비스 연결 소유자가 상품·주문·쿠폰 식별자와 요청 payload, pending·실패 초안 유지·재시도·성공 후 상태 갱신을 연결해야 한다. 이번 작업은 조회/저장/삭제/결제/환불 API와 성공 이동을 구현하지 않았다. [화면 경로](architecture/routing.md#장바구니주문-영역-시안-재검수-2026-11-16).

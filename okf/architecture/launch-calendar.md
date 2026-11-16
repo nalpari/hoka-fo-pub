@@ -4,12 +4,14 @@ title: 런칭 캘린더
 description: 런칭 캘린더 시안과 직접 URL 및 표시 전용 인계 경계를 설명한다.
 tags: [launch-calendar, figma, publishing, ia]
 status: draft
-updated: '2026-11-11T01:09:17Z'
+updated: '2026-11-16T10:45:08.077Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-11T01:09:17Z'
 source_revision: b4fac81f1ba16d76585e64264941c0e35fcecb7f
 working_tree_sources:
+  - src/app/launch-calendar/clifton-11-gtx/preview-phone-required/page.tsx
+  - src/app/launch-calendar/clifton-11-gtx/preview-notification/page.tsx
   - src/app/launch-calendar/page.tsx
   - src/app/launch-calendar/in-stock/page.tsx
   - src/app/launch-calendar/upcoming/page.tsx
@@ -26,13 +28,23 @@ working_tree_sources:
 sources:
   - id: launch-calendar-revised-design
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design
-    title: Launch Calendar PC 수정 및 모바일 Feed·Upcoming·상세
+    title: Launch Calendar PC 수정 및 모바일 Feed·Upcoming·상세·알림 신청 팝업
   - id: launch-calendar-design
     resource: https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP
     title: Launch Calendar
 ---
 
 # 런칭 캘린더
+
+## 알림 신청 팝업 시안 적용 (2026-11-16)
+
+출처: [HOKA 디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 런칭캘린더 알림 신청 PC·모바일 화면. `LaunchCalendarDetail.tsx`의 기존 CTA가 공통 ModalDialog를 열며 PC 640px·제목24px·반경10px, 모바일 바텀시트·반경24px를 사용한다. 출시 정시/15분 전/30분 전 라디오는16px 간격이며 PC 본문24px 32px 40px, 신청 버튼160×48px를 적용했다. 모바일은 본문 좌우16px, 전체 폭 버튼과 구분된 하단 액션을 사용한다.
+
+등록 번호는 `launchCalendar.data.ts`의 명시적 `launchNotificationPreview` fixture다. 변경 버튼은 공통 FormField·TextInput의 번호 입력으로 전환한다. 선택·입력 draft는 팝업을 닫거나 열린 상태로 플랫폼을 바꿔도 유지한다. 서비스 신청 버튼은 미연결이며 실제 저장·알림톡·완료 전환을 실행하지 않는다. 회원 번호와 신청 payload·요청 상태 및 성공 후 갱신은 상품 통합 소유자가 연결할 책임으로 인계 주석에 기록했다. 기존 완료 URL과 외부 notificationStatus를 유지한다.
+
+실제 검증: PC1920에서 팝업640px·버튼160px·제목24px·반경10px, 로드된 HOKA/Pretendard face를 확인했다. MO375×815에서 바텀시트가 하단815px에 닿고 가로 넘침이 없으며 기존 scrollbar 예약으로 콘텐츠 가용 폭360px·버튼328px였다. 시점 선택·번호 변경 입력·열린 상태 PC/MO 전환·닫기/Escape·닫기 버튼 사용 후 CTA 포커스 복귀와 완료 URL의 비활성 CTA를 확인했다. 수정 파일 ESLint/Prettier·TypeScript·Panda 생성은 통과했다. 전체 lint는 범위 밖 `tests/wh-file-summary.test.mjs`의 URL/Request/Response 전역 선언 오류8건으로 실패했다.
+
+최종 인계 검토: 기존 route-private 소유권, 공유 모달/라디오/폼 직접 재사용, Panda 스타일, 단일 overlay 트리와 플랫폼 소유권 및 표시 fixture/미연결 서비스 경계를 점검했다. 공통 모달·플랫폼·폰트 정의는 수정하지 않았다. 번호 입력 요청 alert와 별도 회원 유형별 직접 preview URL은 이번 버튼 연결에 추가하지 않았다.
 
 ## PC 수정 및 모바일 시안 반영 (2026-11-11)
 
@@ -97,3 +109,17 @@ PC 1920px에서 Feed12/Upcoming8/In Stock8과 4열, 제목44px·탭120×40px·�
 사용자가 지목한 [RUN Club 모바일](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP)의 Category Button Group과 버튼을 기준으로 수정했다. 기존 서비스의 사각 분할 탭을 참조했던 최초 구현 대신 높이32px, radius52px, 가로padding16px, 간격6px, 글자14px/500의 내용 너비 pill을 사용한다. 선택은 검정/흰 글자, 미선택은 흰 배경/검정 1px 테두리다. 탭 행은 상하16px이며 제목은28px/30.72px이다. PC 120×40px 탭과44px 제목, 세 상태 URL·탐색·1열 카드/상세는 유지한다.
 
 정정 검증: MO375px의 세 목록에서 높이32px·반경52px·간격6px·선택 색상과 넘침 없음을 측정했다. PC1920px에서는44px 제목과120×40px 탭을 유지한다. TypeScript·변경 ESLint/Prettier·Panda·링크/진행 상태16개 검사를 통과했다.
+
+검증 추가(2026-11-16): Next.js 프로덕션 빌드와 156개 정적 페이지 생성이 통과했다. 기존 아키텍처 인덱스의 런칭 캘린더 링크에서 이번 알림 팝업 기록까지 접근할 수 있다.
+
+## 휴대폰 번호 입력 안내 팝업 (2026-11-16)
+
+사용자가 첨부한 이미지의 런칭캘린더 헤더, 휴대폰 번호를 입력해주세요 메시지, 알림을 받을 휴대폰 번호를 입력해 주세요. 설명을 공통 alert로 추가했다. 이미지의2배 표현을 기준으로 PC640px 팝업, 제목24px·메시지28px/900·설명16px·확인180×48px을 사용한다. 모바일은 기존 공통 규칙인 메시지20px·버튼44px·반경24px을 따른다.
+
+직접 확인 경로는 /launch-calendar/clifton-11-gtx/preview-phone-required이며 IA159 STATE에 alert 유형과 검색을 연결한다. LaunchCalendarDetail의 preview seed가 최초 open만 소유한다. 확인/닫기는 안내만 닫으며 실제 신청 조건·회원 번호 검증·API·저장·완료 전환은 미연결이다. 기존 신청 form과 완료 상태는 보존한다.
+
+PC1440/MO375에서 실제 문구·메시지28px/20px·900, 버튼180×48px/가용 폭×44px, 확인과 신청CTA 포커스 복귀를 확인했다. PC Escape 닫기와 IA 검색·STATE 유형 표시도 확인했다. Windows classic scrollbar 예약이 있는 MO375 캡처의 CTA 가용 폭은296px이다. 첨부 이미지와 계산 스타일·PC/MO 캡처가 검증 근거이며 별도 Figma 구조 측정은 하지 않았다.
+
+## 알림 신청 팝업 IA 직접 확인 (2026-11-16)
+
+알림 신청은 기존 상세 CTA로만 열리던 UI여서 IA159의 열린 STATE가 누락돼 있었다. /launch-calendar/clifton-11-gtx/preview-notification에서 기존 LaunchCalendarDetail에 preview=notification 초기 seed만 전달하고 form 팝업을 처음부터 연다. IA159에 입고 알림 신청 링크·작업 파일·variant=form 검색/표시를 등록했다. 선택·번호 변경·닫기 동작과 미연결 신청 API 경계는 유지하며 새 성공/저장 흐름은 추가하지 않았다.

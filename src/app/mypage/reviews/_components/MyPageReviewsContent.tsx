@@ -57,10 +57,11 @@ export function MyPageReviewDialog({
 }: Props) {
   return (
     <ModalDialog
+      variant="form"
       closeLabel="리뷰 작성창 닫기"
       onOpenChange={onOpenChange}
       open={open}
-      size="sm"
+
       title={title}
       actions={{
         kind: 'single',

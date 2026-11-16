@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+
 import { useCallback, useRef, useState } from 'react';
 import { usePlatform } from '@/context/platform';
 
@@ -11,13 +13,25 @@ import { Icon } from '@/components/common/atoms/Icon';
 import { Toast, type ToastNotice } from '@/components/common/atoms/Toast';
 import { Typography } from '@/components/common/atoms/Typography';
 
-import { ModalDialog, type ModalDialogProps } from '@/components/common/layouts/ModalDialog';
+import {
+  Carousel,
+  CarouselPagination,
+  CarouselViewport,
+} from '@/components/common/molecules/Carousel/Carousel';
+
+import {
+  ModalDialog,
+  type ModalDialogProps,
+  type ModalDialogVariant,
+} from '@/components/common/layouts/ModalDialog';
+import { modalImageContentRecipe } from '@/components/common/layouts/ModalDialog.recipe';
 
 import { renderGuideCode } from './GuideCode';
 import { GuideTimeline } from './GuideTimeline';
 
 type ModalExample = {
   id: string;
+  variant?: ModalDialogVariant;
   title: string;
   usage: string;
   source: string;
@@ -34,7 +48,47 @@ type ModalExample = {
   long?: boolean;
 };
 
+const variantExamples: { variant: ModalDialogVariant; title: string; usage: string }[] = [
+  { variant: 'alert', title: '안내 · alert', usage: '완료·오류·수량 제한 안내' },
+  { variant: 'confirm', title: '선택 확인 · confirm', usage: '로그아웃·취소·탈퇴 확인' },
+  { variant: 'terms', title: '약관 · terms', usage: '필수·선택·이전 약관 문서' },
+  { variant: 'form', title: '입력 · form', usage: '주소·알림·취소·반품 입력' },
+  { variant: 'selection', title: '선택 · selection', usage: '상품 옵션·쿠폰·주문 상품 선택' },
+  { variant: 'tracking', title: '배송조회 · tracking', usage: '배송 정보와 이력' },
+  { variant: 'detail', title: '상세 정보 · detail', usage: '쿠폰·사업자 등 상세 정보' },
+  { variant: 'image', title: '이미지 · image', usage: '첨부 이미지 미리보기' },
+  { variant: 'sizeGuide', title: '사이즈 가이드 · sizeGuide', usage: '신발·의류 치수 표' },
+];
+
 const groups: { id: string; title: string; description: string; items: ModalExample[] }[] = [
+  {
+    id: 'modal-variants',
+    title: '모달 유형',
+    description: '유형은 구조와 스타일, mobilePresentation은 모바일 표시 방식을 지정합니다.',
+    items: variantExamples.map(({ variant, title, usage }) => ({
+      id: `variant-${variant}`,
+      variant,
+      title,
+      usage,
+      source: 'ModalDialog.tsx / ModalDialog.recipe.tsx',
+      desktop: variant === 'sizeGuide' ? '최대 너비 768px' : '최대 너비 640px',
+      mobile: ['terms', 'form'].includes(variant)
+        ? '전체화면'
+        : ['tracking', 'selection', 'image', 'sizeGuide'].includes(variant)
+          ? '하단 시트'
+          : '중앙 팝업',
+      options: {
+        mobilePresentation: ['terms', 'form'].includes(variant)
+          ? 'fullscreen'
+          : ['tracking', 'selection', 'image', 'sizeGuide'].includes(variant)
+            ? 'bottomSheet'
+            : 'popup',
+        mobileFixedFooter: true,
+      },
+      action: variant === 'image' ? undefined : variant === 'confirm' ? 'confirm' : 'single',
+      long: variant === 'terms',
+    })),
+  },
   {
     id: 'modal-size',
     title: '기본 크기',
@@ -54,8 +108,8 @@ const groups: { id: string; title: string; description: string; items: ModalExam
       {
         id: 'large',
         usage:
-          '동일 크기 사용: 장바구니 옵션 변경. 실제 화면은 모바일 전체화면과 별도 헤더·버튼 스타일을 적용합니다.',
-        source: 'cart/_components/CartDialogs.tsx',
+          'lg 크기 옵션의 가이드 예시입니다. 장바구니 옵션 변경은 별도 productOption 유형을 사용합니다.',
+        source: 'components/common/layouts/ModalDialog.tsx',
         title: '큰 모달 · lg',
         desktop:
           '최대 너비 800px · 오른쪽 열 중앙 · 버튼 180×48px · 버튼 간격 8px · 본문과 40px · 하단 24px',
@@ -142,10 +196,8 @@ const groups: { id: string; title: string; description: string; items: ModalExam
       },
       {
         id: 'fullscreen',
-        usage:
-          '모바일 본인인증 약관·회원가입 약관·장바구니 옵션 변경·문의 주문상품 조회에서 사용합니다.',
-        source:
-          'PhoneVerificationContent.tsx / SignupTermsContent.tsx / CartDialogs.tsx / InquiryOrderLookup.tsx',
+        usage: '모바일 본인인증 약관·회원가입 약관·문의 주문상품 조회에서 사용합니다.',
+        source: 'PhoneVerificationContent.tsx / SignupTermsContent.tsx / InquiryOrderLookup.tsx',
         title: '전체화면 · fullscreen',
         desktop: '중앙 팝업 · 최대 640px',
         mobile: '화면 전체 너비·높이',
@@ -189,10 +241,40 @@ const groups: { id: string; title: string; description: string; items: ModalExam
 ];
 
 function exampleCode(example: ModalExample) {
+  if (example.variant === 'image')
+    return `import Image from 'next/image';
+import { Carousel, CarouselPagination, CarouselViewport } from '@/components/common/molecules/Carousel/Carousel';
+import { ModalDialog } from '@/components/common/layouts/ModalDialog';
+import { modalImageContentRecipe } from '@/components/common/layouts/ModalDialog.recipe';
+
+const styles = modalImageContentRecipe();
+
+<ModalDialog variant="image" open={open} onOpenChange={setOpen}
+  title="첨부파일 미리보기" mobilePresentation="bottomSheet">
+  <Carousel itemCount={attachments.length}>
+    <div className={styles.root}>
+      <CarouselViewport mode="mobile" mobileItemGutter={0} freeMode={false} showScrollbar={false}>
+        {attachments.map((attachment) => (
+          <div key={attachment.name} className={styles.slide}>
+            <div className={styles.frame}>
+              <Image unoptimized src={attachment.previewUrl} width={240} height={240}
+                alt={attachment.name} className={styles.image} />
+            </div>
+          </div>
+        ))}
+      </CarouselViewport>
+      <CarouselPagination className={styles.pagination} label="첨부파일 선택"
+        renderItem={(index, isActive, select) => (
+          <button key={index} type="button" aria-label={\`\${index + 1}번 이미지\`}
+            aria-pressed={isActive} className={styles.paginationItem}
+            onClick={() => select(index)} />
+        )} />
+    </div>
+  </Carousel>
+</ModalDialog>`;
   if (example.contentAction)
     return `import { useRef, useState } from 'react';
-import { css } from 'styled-system/css';
-import { HStack, Stack } from 'styled-system/jsx';
+import { Stack } from 'styled-system/jsx';
 import { Button } from '@/components/common/atoms/Button';
 import { Typography } from '@/components/common/atoms/Typography';
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
@@ -202,15 +284,16 @@ const triggerRef = useRef<HTMLButtonElement>(null);
 
 <Button ref={triggerRef} onClick={() => setOpen(true)}>열기</Button>
 <ModalDialog
+  variant="${example.variant ?? (example.contentAction ? 'terms' : 'detail')}"
   open={open}
   onOpenChange={setOpen}
   title="약관 상세"
   closeLabel="약관 닫기"
   mobilePresentation="fullscreen"
   finalFocus={triggerRef}
+  actions={{ kind: 'single', onConfirm: () => setOpen(false) }}
 >
-  <Stack gap="6">
-    <Stack gap="4">
+  <Stack gap="24px">
       {Array.from({ length: 12 }, (_, index) => (
         <Typography key={index} as="p" variant="body4">
           {index + 1}. 약관 내용입니다. 확인 버튼은 본문 마지막에 함께 스크롤됩니다.
@@ -219,18 +302,6 @@ const triggerRef = useRef<HTMLButtonElement>(null);
       <Typography as="p" variant="body5" tone="subtle">
         공고일자 : 2025년 08월 25일 / 시행일자 : 2025년 09월 01일
       </Typography>
-    </Stack>
-    <HStack justifyContent="center">
-      <Button
-        variant="primary"
-        size="tall"
-        fullWidth
-        onClick={() => setOpen(false)}
-        className={css({ maxW: '180px', _mobile: { maxW: 'none' } })}
-      >
-        확인
-      </Button>
-    </HStack>
   </Stack>
 </ModalDialog>`;
 
@@ -245,6 +316,7 @@ const [open, setOpen] = useState(false);
 <Button onClick={() => setOpen(true)}>열기</Button>
 {open && (
   <ModalDialog
+  variant="${example.variant ?? (example.contentAction ? 'terms' : 'detail')}"
     open={open}
     mobilePresentation="bottomSheet"
     closeLabel="닫기"
@@ -255,6 +327,17 @@ ${example.sheetFooter ? '    footer={<Button variant="primary" onClick={() => se
     <Box h=${example.long ? '"900px"' : `{{ base: '294px', _mobile: '${example.sheetFooter ? '286px' : '278px'}' }}`} bg="rgba(255, 0, 0, 0.2)" />
   </ModalDialog>
 )}`;
+  if (example.variant === 'alert' || example.variant === 'confirm')
+    return `<ModalDialog
+  variant="${example.variant}"
+  open={open}
+  onOpenChange={setOpen}
+  title="${example.title}"
+  closeLabel="닫기"
+  message="안내 제목입니다."
+  description="표시 데이터와 콜백은 호출 화면에서 전달합니다."
+  actions={{ kind: '${example.variant === 'confirm' ? 'confirm' : 'single'}', onConfirm: () => setOpen(false) }}
+/>`;
   const options = Object.entries(example.options ?? {})
     .map(([key, value]) => (typeof value === 'boolean' ? `  ${key}` : `  ${key}="${value}"`))
     .join('\n');
@@ -283,6 +366,7 @@ const triggerRef = useRef<HTMLButtonElement>(null);
 
 <Button ref={triggerRef} onClick={() => setOpen(true)}>열기</Button>
 <ModalDialog
+  variant="${example.variant ?? (example.contentAction ? 'terms' : 'detail')}"
   open={open}
   onOpenChange={setOpen}
   title="${example.title}"
@@ -306,7 +390,7 @@ function ModalExampleCard({
   const triggerRef = useRef<HTMLButtonElement>(null);
   const code = exampleCode(example);
   const actions: ModalDialogProps['actions'] =
-    example.action === 'single'
+    example.contentAction || example.action === 'single'
       ? { kind: 'single', label: '확인', onConfirm: () => setOpen(false) }
       : example.action
         ? {
@@ -323,9 +407,43 @@ function ModalExampleCard({
                 : undefined,
           }
         : undefined;
-  const content = example.contentAction ? (
-    <Stack gap="6">
-      <Stack gap="4">
+  const imageStyles = modalImageContentRecipe();
+  const content =
+    example.variant === 'image' ? (
+      <Carousel itemCount={5}>
+        <div className={imageStyles.root}>
+          <CarouselViewport
+            mode="mobile"
+            mobileItemGutter={0}
+            freeMode={false}
+            showScrollbar={false}
+          >
+            {Array.from({ length: 5 }, (_, index) => (
+              <div key={index} className={imageStyles.slide}>
+                <div className={imageStyles.frame}>
+                  <Icon name="image-solid" size="40px" color="black.20" />
+                </div>
+              </div>
+            ))}
+          </CarouselViewport>
+          <CarouselPagination
+            className={imageStyles.pagination}
+            label="첨부파일 선택"
+            renderItem={(index, isActive, select) => (
+              <button
+                key={index}
+                type="button"
+                aria-label={`${index + 1}번 이미지`}
+                aria-pressed={isActive}
+                className={imageStyles.paginationItem}
+                onClick={() => select(index)}
+              />
+            )}
+          />
+        </div>
+      </Carousel>
+    ) : example.contentAction ? (
+      <Stack gap="24px">
         {Array.from({ length: 12 }, (_, index) => (
           <Typography key={index} as="p" variant="body4">
             {index + 1}. 약관 내용입니다. 확인 버튼은 본문 마지막에 함께 스크롤됩니다.
@@ -335,36 +453,24 @@ function ModalExampleCard({
           공고일자 : 2025년 08월 25일 / 시행일자 : 2025년 09월 01일
         </Typography>
       </Stack>
-      <HStack justifyContent="center">
-        <Button
-          variant="primary"
-          size="tall"
-          fullWidth
-          onClick={() => setOpen(false)}
-          className={css({ maxW: '180px', _mobile: { maxW: 'none' } })}
-        >
-          확인
-        </Button>
-      </HStack>
-    </Stack>
-  ) : example.long ? (
-    <Stack gap="4">
-      {Array.from({ length: 32 }, (_, index) => (
-        <Typography key={index} as="p" variant="body4">
-          {index + 1}. 긴 내용의 스크롤을 확인하는 예시입니다. 본문을 내려도 하단 확인 버튼은
-          유지됩니다.
-        </Typography>
-      ))}
-    </Stack>
-  ) : (
-    <Typography as="p" variant="body4">
-      안내 내용입니다. 이 예시는 모달의 표시와 열기·닫기만 확인합니다.
-    </Typography>
-  );
+    ) : example.long ? (
+      <Stack gap={example.variant === 'terms' ? '24px' : '4'}>
+        {Array.from({ length: 32 }, (_, index) => (
+          <Typography key={index} as="p" variant="body4">
+            {index + 1}. 긴 내용의 스크롤을 확인하는 예시입니다. 본문을 내려도 하단 확인 버튼은
+            유지됩니다.
+          </Typography>
+        ))}
+      </Stack>
+    ) : (
+      <Typography as="p" variant="body4">
+        안내 내용입니다. 이 예시는 모달의 표시와 열기·닫기만 확인합니다.
+      </Typography>
+    );
 
   return (
     <Stack minW="0" gap="3" p="4" border="1px solid token(colors.black.20)">
-<Typography as="h4" variant="body3Semibold">
+      <Typography as="h4" variant="body3Semibold">
         {example.title}
       </Typography>
       <Stack gap="1">
@@ -423,6 +529,7 @@ function ModalExampleCard({
       {example.sheet ? (
         open && (
           <ModalDialog
+            variant="detail"
             open={open}
             mobilePresentation="bottomSheet"
             closeLabel="닫기"
@@ -453,6 +560,18 @@ function ModalExampleCard({
       ) : (
         <ModalDialog
           {...example.options}
+          {...(example.variant === 'alert' || example.variant === 'confirm'
+            ? {
+                variant: example.variant,
+                noticeLayout: undefined,
+                intro: undefined,
+                message: '안내 제목입니다.',
+                description: '표시 데이터와 콜백은 호출 화면에서 전달합니다.',
+              }
+            : {
+                variant: example.variant ?? (example.contentAction ? 'terms' : 'detail'),
+                children: content,
+              })}
           footerProps={
             example.id === 'large'
               ? { desktopContentOffset: 332, css: { pt: '6', _mobile: { pt: '4' } } }
@@ -464,9 +583,7 @@ function ModalExampleCard({
           closeLabel="닫기"
           finalFocus={triggerRef}
           actions={actions}
-        >
-          {content}
-        </ModalDialog>
+        />
       )}
     </Stack>
   );
@@ -510,14 +627,27 @@ export function ModalGuide() {
             모달을 확인합니다.
           </Typography>
           <Typography as="p" variant="body5" tone="subtle">
-            ModalDialog의 기본값은 sm · popup · dark입니다. PC 기본 모달은 최대 너비 640px와 모서리
-            10px를 사용합니다. bottomSheet는 모바일에서 하단에 표시됩니다.
+            variant는 필수이며 기본 표시 방식은 popup · dark입니다. PC 기본 모달은 최대 너비 640px와
+            모서리 10px를 사용합니다. bottomSheet는 모바일에서 하단에 표시됩니다.
           </Typography>
           <Typography as="p" variant="body5" tone="subtle">
             사용처: 전체화면은 본인인증·약관, 바텀시트형 모달은 배송조회·주문 취소·반품 신청,
             바텀시트형 모달은 모바일 드롭다운·이전 약관 선택에서 사용합니다. 예시의 확인 버튼은
             닫기만 수행합니다.
           </Typography>
+        </Stack>
+        <Stack as="section" gap="3" p="4" border="1px solid token(colors.black.20)">
+          <Typography as="h3" variant="body3Semibold">
+            상품 옵션 · productOption
+          </Typography>
+          <Typography as="p" variant="body4">
+            옵션 변경 전용 유형입니다. PC 640px · 모바일 하단 시트이며 신발은 발볼·컬러·사이즈,
+            의류는 컬러·사이즈를 표시합니다. 본문은 modalProductOptionRecipe의 className을
+            사용합니다.
+          </Typography>
+          <Link href="/cart/preview-options">신발 옵션 변경 보기</Link>
+          <Link href="/cart/preview-options-apparel">의류 옵션 변경 보기</Link>
+          <code>{'<ModalDialog variant="productOption" mobilePresentation="bottomSheet">'}</code>
         </Stack>
         {groups.map((group) => (
           <Stack

@@ -234,18 +234,16 @@ export function MyPageAddressDeleteDialog({
 }: Props) {
   return (
     <ModalDialog
+      variant="confirm"
       closeLabel="배송지 삭제 확인창 닫기"
       open={open}
       onOpenChange={onOpenChange}
-      size="sm"
+
       title="배송지 관리"
       actions={{ kind: 'confirm', onConfirm, confirmDisabled: pending }}
-    >
-      <Typography as="p" variant="body3">
-        배송지를 삭제 하시겠습니까?
-      </Typography>
-      {error && <Typography role="alert">{error}</Typography>}
-    </ModalDialog>
+      message="배송지를 삭제 하시겠습니까?"
+      feedback={error && <Typography role="alert">{error}</Typography>}
+    />
   );
 }
 

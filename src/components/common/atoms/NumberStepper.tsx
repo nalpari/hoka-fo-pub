@@ -59,6 +59,7 @@ export type NumberStepperProps = {
   ariaLabel?: string;
   className?: string;
   formatValue?: (value: number) => ReactNode;
+  minimumControl?: ReactNode;
 };
 
 /** 범위 내 수량을 입력하거나 증감합니다. (Controls quantity entry and increment within bounds.) */
@@ -71,6 +72,7 @@ export function NumberStepper({
   ariaLabel = '수량 선택',
   className,
   formatValue,
+  minimumControl,
 }: NumberStepperProps) {
   const field = useFormFieldContext();
 
@@ -84,9 +86,13 @@ export function NumberStepper({
       step={step}
       value={value}
     >
-      <BaseNumberField.Decrement aria-label="감소" className={control}>
-        <Icon name="hoka-action-minus-regular" size={24} />
-      </BaseNumberField.Decrement>
+      {value === min && minimumControl ? (
+        minimumControl
+      ) : (
+        <BaseNumberField.Decrement aria-label="감소" className={control}>
+          <Icon name="hoka-action-minus-regular" size={24} />
+        </BaseNumberField.Decrement>
+      )}
       <BaseNumberField.Input
         aria-describedby={field?.describedBy}
         aria-label={ariaLabel}

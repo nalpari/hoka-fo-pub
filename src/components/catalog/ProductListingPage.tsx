@@ -62,7 +62,6 @@ import {
   genderLabels,
   labelsToValues,
   productListingPriceRange,
-  runningTypeValues,
   sizeValues,
   stabilityLabels,
   valuesToLabels,
@@ -572,6 +571,10 @@ const selectedFilterItems = (
     label: labels[value] ?? value,
     onRemove: () => onChange(values.filter((selected) => selected !== value)),
   }));
+
+// [ 개발팀 바인딩 ] 신발유형은 현재 시안 확인용 고정 선택지이며 상품 결과를 다시 필터링하지 않습니다. 실제 운영 필터가 준비되면 상품 목록 통합 소유자가 선택 ID와 URL/조회 계약을 별도로 연결합니다.
+const shoeTypeValues = ['쿠셔닝화', '안정화', '스피드화'];
+
 /** 상품 필터와 모바일 정렬을 구성하고 선택 항목을 태그로 표시합니다. (Composes product facets and mobile sorting with removable selection tags.) */
 function ProductListingFilterPanel({
   gender,
@@ -649,6 +652,12 @@ function ProductListingFilterPanel({
         selected={valuesToLabels(gender, genderLabels)}
         onChange={(values) => onFilterChange('gender', labelsToValues(values, genderLabels))}
       />
+      <CatalogFilterGroup
+        title="카테고리"
+        values={Object.values(activityLabels)}
+        selected={valuesToLabels(activity, activityLabels)}
+        onChange={(values) => onFilterChange('activity', labelsToValues(values, activityLabels))}
+      />
       <FilterPillGroup
         title="사이즈"
         values={sizeValues}
@@ -669,37 +678,12 @@ function ProductListingFilterPanel({
         />
       </CatalogFilterSection>
       <CatalogFilterGroup
-        title="액티비티"
-        values={Object.values(activityLabels)}
-        selected={valuesToLabels(activity, activityLabels)}
-        onChange={(values) => onFilterChange('activity', labelsToValues(values, activityLabels))}
-      />
-      <CatalogFilterGroup
         title="컬렉션"
         values={collectionValues}
         selected={collection}
         onChange={(values) => onFilterChange('collection', values)}
       />
-      <CatalogFilterGroup
-        title="러닝 타입"
-        values={runningTypeValues}
-        selected={runningType}
-        onChange={(values) => onFilterChange('runningType', values)}
-      />
-      <CatalogFilterGroup
-        title="주행감"
-        values={Object.values(cushioningLabels)}
-        selected={valuesToLabels(cushioning, cushioningLabels)}
-        onChange={(values) =>
-          onFilterChange('cushioning', labelsToValues(values, cushioningLabels))
-        }
-      />
-      <CatalogFilterGroup
-        title="안정성"
-        values={Object.values(stabilityLabels)}
-        selected={valuesToLabels(stability, stabilityLabels)}
-        onChange={(values) => onFilterChange('support', labelsToValues(values, stabilityLabels))}
-      />
+      <CatalogFilterGroup title="신발유형" values={shoeTypeValues} />
       <CatalogFilterSection title="가격">
         <PriceRange
           min={productListingPriceRange.min}
@@ -1034,6 +1018,7 @@ function ProductListingContent({
       </Grid>
       {platform === 'mobile' && filterDrawerOpen && (
         <ModalDialog
+          variant="selection"
           open
           mobilePresentation="bottomSheet"
           closeLabel="닫기"

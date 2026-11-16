@@ -4,19 +4,29 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-11T01:09:17Z'
+updated: '2026-11-16T12:56:30.717659+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/cart/preview-options-apparel-changed/page.tsx
+  - src/app/checkout/preview-coupons/page.tsx
+  - src/app/checkout/_components/CheckoutCouponDialog.tsx
+  - src/app/mypage/orders/[preview]/page.tsx
+  - src/app/mypage/orders/_components/OrderTrackingDialog.tsx
+  - src/app/cart/preview-options-apparel/page.tsx
+  - src/app/launch-calendar/clifton-11-gtx/preview-notification/page.tsx
+  - src/components/common/layouts/ModalDialog.recipe.tsx
+  - src/components/common/layouts/ModalDialog.tsx
+  - src/app/launch-calendar/clifton-11-gtx/preview-phone-required/page.tsx
+  - src/app/mypage/coupons/preview-complete/page.tsx
   - src/app/launch-calendar/_components/LaunchCalendarContent.tsx
   - src/app/launch-calendar/_components/LaunchCalendarDetail.tsx
   - src/app/launch-calendar/launchCalendar.data.ts
   - src/app/launch-calendar/clifton-11-gtx/preview-notified/page.tsx
   - src/app/products/[id]/_components/ProductDetailContent.tsx
   - src/app/publishing-guide/_components/ModalGuide.tsx
-  - src/app/screen-index/sourceGraph.generated.json
   - src/app/products/pdp-preview/[state]/page.tsx
   - src/app/products/[id]/productDetailPreviews.ts
   - src/app/checkout/preview-address-change/page.tsx
@@ -31,7 +41,6 @@ working_tree_sources:
   - src/app/screen-index/page.tsx
   - src/app/screen-index/screenChangeHistory.ts
   - src/app/screen-index/screenChangeHistory.generated.json
-  - src/app/screen-index/sourceGraph.generated.json
   - src/app/support/inquiries/new/_components/InquiryFormContent.tsx
   - src/app/checkout/_components/CheckoutPayment.tsx
   - src/app/publishing-guide/_components/FormGuide.tsx
@@ -322,6 +331,9 @@ working_tree_sources:
   - src/stories/features/Mockup/signup/SignupSteps.stories.tsx
   - src/app/locales/page.tsx
 sources:
+  - id: orders-design-review
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql
+    title: 장바구니·주문·취소·반품 최신 화면 시안
   - id: coupons-figma-20261030
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1716-80655
     title: 쿠폰 일반·임직원 PC/MO 시안
@@ -1804,10 +1816,96 @@ PC 1920px·MO 375px에서 일반·임직원 목록, 상세 직접 진입, 확인
 
 2026-11-11 IA 런칭캘린더 In-stock 목록(eland_hla_04, IA162)은 사용자 지정 삭제 / 제외 항목이다. 기존 삭제 판정에 따라 페이지와 STATE 링크를 표시하지 않는다. 출처: screenRegistry.ts 작업 트리.
 
-
 ## 2026-11-11 main 보고 실행
 
 지정 병합 커밋 781c2adb를 포함하는 첫 부모 d7f8ae16부터 origin/main 7359b590까지의 최종 변경을 보고서 모달에 추가했다. 105개 최종 변경 파일 중 Markdown·가이드·IA 자체·실적 0% 전용 66개를 제외한 39개를 담았다. 새 Schedule의 FO 실적 85개 중 유효 IA 매핑 46개를 저장 스냅샷과 비교해 변경·누락 0건을 확인했다. 미등록 사이즈가이드는 0%로 간주하지 않고 미지정으로 보존했다. 출처: `src/app/screen-index/screenChangeHistory.generated.json` 작업 트리 및 [공유 보고서](../../reports/main-changes/inclusive-d7f8ae16c37cb0175142c9b808bdcba7932fc9ea-7359b590ad2cfce460850ee69095f99135d3b619.md). 보고서 테스트 11개와 로컬 전체/담당자 모달을 확인했다.
+
+## 장바구니·주문 화면 시안 갱신 경로 (2026-11-16)
+
+기본 경로 `/cart`, `/checkout`, `/mypage/orders`와 기존 직접 확인 경로 `/cart/preview-empty`, `/checkout/preview-empty`, `/checkout/preview-complete`, `/checkout/preview-shipping`, `/checkout/preview-delivery-request`, `/mypage/orders/preview-empty`, `/mypage/orders/preview-tracking`를 유지했다. 새 빈 장바구니 표시와 추천 상품은 `/cart/preview-empty`에서 직접 확인하며, 새로고침·주소 직접 입력에도 같은 fixture를 표시한다. screen-index의 기존 IA 연결과 생성 의존 그래프는 이 경로 구성을 반영한다. 서비스 조회·결제·배송 추적 요청은 구현하지 않았다.
+
+## ModalDialog 사용처 전환과 확인 경로 (2026-11-16)
+
+9개 variant 전환은 기존 URL·상태 소유권·이동 콜백을 보존한다. `/publishing-guide?tab=modal`에 유형별 열기 버튼과 복사 코드를 추가했다. 안내·확인은 message/description으로 단순화하고, 회원정보의 입력/확인/완료는 해당 상태에 따라 form/confirm/alert를 지정한다. 사용되지 않는 문의 모달 표시 옵션 상수는 제거했다. IA의 소스 의존 그래프는 기존 생성기가 새 recipe 연결과 제거된 import를 반영한다.
+
+PC1440/MO375에서 `/login/account-locked`, `/login/find-account/password-reset/preview-complete`, `/mypage/preview-logout`, `/checkout/preview-address-change`, `/checkout/preview-address-edit`, `/mypage/orders/preview-tracking`, `/mypage/orders/preview-cancel-request`, `/support/inquiries/preview-attachment`, `/support/inquiries/new/preview-order-required`, `/login/account-locked/verification/preview-required-terms`를 직접 열어 표시와 본문 가로 넘침 없음을 확인했다. `/products/pdp-preview/apparel`에서는 실제 사이즈 가이드의 cm/inch와 PC/MO 배치를 확인했다. 신규 서비스·라우트·성공 이동은 추가하지 않았다. 출처: 관련 작업 트리, Codex.
+
+## 임직원 쿠폰 버튼과 목록 간격 보정 (2026-11-16)
+
+최신 [HOKA Design](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 PC·모바일 임직원 쿠폰 시안을 반영했다. 이 절은 앞선 쿠폰 기록의 회색 임직원 카드·체크 아이콘 및 PC 행 간격 20px 설명을 대체한다. 출처는 `src/app/mypage/coupons/_components/CouponManagement.tsx`의 현재 작업 트리다. 기존 라우트와 상세 모달 소유권은 유지한다.
+
+- 임직원 영역은 기존 secondary Button을 직접 사용한다. PC는 180×48px·간격 16px, MO는 같은 너비 2열·높이 42px·간격 8px이다. 라벨은 PC 16px/20.8px·MO 15px/19.5px bold(700), 두 번째 예시 문구는 PC 50%·MO 30%를 유지한다.
+- 총 건수와 카드 Grid는 `Stack gap="2"`로 8px를 확보한다. 카드 Grid의 행·열 간격은 PC 16px, MO 1열의 행 간격은 16px다. 총 건수 숫자는 영어 medium(500) 본문을 사용한다.
+- 화면 본문 행간을 6px로 덮어쓰던 값을 1.5로 복원했다. 카드 조건·기간은 14px/21px, 상세보기는 CTA 12px/15.6px다. 제목과 혜택 사이 32px/24px, 금액과 설명 사이 12px, 조건과 기간 사이 6px/4px를 유지한다. 제목은 PC 22px/900·MO 20px/700, 금액은 숫자 16px/700·원 16px/600이다.
+- 발급 버튼은 미리보기 표시이며 요청·완료 전환은 연결하지 않는다. 기존 상세 열기/닫기와 더보기 소유권, 일반 회원의 임직원 영역 비노출을 유지한다. 실제 쿠폰 조회·발급 연결은 마이페이지 연동 소유자 범위다.
+
+검증: PC 1920px·MO 375px의 스크린샷과 계산 스타일로 위 크기·행간·간격을 확인했다. MO는 Windows 스크롤바를 제외한 카드 가용 폭 328px·높이 170px이며 가로 넘침이 없다. PC 카드는 414×195px다. 모바일 상세 열기·Esc 닫기 및 일반 목록 5개·임직원 영역 비노출을 확인했다. 실제 글리프는 Pretendard Black/SemiBold/Regular와 사용자 정의 HOKA face를 사용했고, HOKA 내부 이름은 점으로 보고되어 로드된 TheFutureHOKA Regular/Bold 자산 및 layout 등록과 연결해 확인했다.
+
+Panda 생성·수정 파일 ESLint/Prettier 검사를 통과했다. 전체 타입 검사는 비대상 `LaunchCalendarDetail.tsx`의 Button `icon` prop 오류로 실패했다. Next/Storybook 빌드는 실행하지 않았다. 최종 마크업 인계 검토에서 기존 route-private 소유권, Panda·Stack 간격, 공통 Button 직접 사용, 표시 fixture와 미연결 발급 경계 및 다른 채팅의 모달 변경 보존을 확인했다.
+
+쿠폰 굵기 후속 보정: 사용자 시각 검토를 우선해 임직원 발급 버튼의 regular 지정은 bold(700)로 변경했고, 총 건수 숫자는 기존 medium(500)으로 복원했다. 디자인 구조 데이터의 regular 관측값과 구분되는 사용자 확정 사항이다. PC 1328px·MO 375px에서 라벨 700·숫자 500, 실제 Pretendard-Bold 글리프와 기존 크기·행간을 확인했다. 공통 Button·Typography 기본값은 변경하지 않았다.
+
+## IA 모달 유형 표시 (2026-11-16)
+
+계정 잠금 안내 모달의 연결 메타데이터에 `modalVariant: 'alert'`를 추가했다. IA 구조도의 부모 유형 칸은 popup만 표시하고, 해당 route와 일치하는 기본 STATE 행의 유형 칸에서 상태 아래에 대괄호 없이 `variant="alert"`를 표시한다. 자식 화면이나 다른 preview URL에는 상속하지 않는다. 타입은 기존 ModalDialogVariant를 재사용하며 메타데이터가 없는 행에는 별도 문구를 만들지 않는다. D3 승격 및 해제·완료 자식 D4 연결은 screenRegistry가 소유하며, URL은 변경하지 않았다. 대상 ESLint와 계층·상태 연결 테스트5개가 통과했다. 출처: screenConnections.ts·IaStructurePage.tsx 작업 트리, 사용자 브라우저 확인과 표시 형식 수정 요청, Codex.
+
+비밀번호 변경완료 모달(내부 IA252)도 `modalVariant: 'alert'`를 명시해 해당 모달의 기본 STATE 유형 칸에 `variant="alert"`를 표시한다. 부모 popup 행에는 표시하지 않는다. 기존 비밀번호 재설정 화면의 변경 완료 preview는 별개 소유권을 유지한다. 출처: screenConnections.ts 작업 트리와 사용자 브라우저 주석(2026-11-16).
+
+## STATE 모달 유형 전수 표시와 검색 (2026-11-16)
+
+앞선 개별 connection.modalVariant는 URL 단위의 typed `stateModalVariants` 목록으로 통합했다. `getScreenStateModalVariants(href)`는 준비된 상태에서 처음 열리는 실제 ModalDialog variant 배열을 반환한다. STATE 행은 상태 아래에 variant 속성을 각각 표시하고 부모 page/popup 행은 유형만 유지한다. 장바구니·배송지·주문·리뷰·쿠폰·회원정보·가입·계정복구·문의·PDP·러닝의 열린 모달 STATE48개를 등록했다. 이전 약관 선택은 부모 terms와 선택창 selection을 함께 표시하며, PDP 옵션 선택2개는 기존 모바일 전용 표시를 그대로 따른다.
+
+닫혀 있는 공통 Dropdown·우편번호·사이즈 가이드 같은 상호작용용 모달은 import만 보고 기본 페이지의 열린 모달이라고 표시하지 않는다. 신규 상태 URL을 만들지 않았다. signup 인증 만료·계정 찾기 만료·계정 잠금 해제 완료·런칭 알림 완료는 실제 모달이 없어 표시하지 않는다. 외부 상태 이름이나 원본 화면의 popup 분류로 variant를 추정하지 않는다.
+
+`getScreenModalSearchText`는 화면의 기본·preview URL에서 사용하는 variant 속성 문자열을 기존 검색 텍스트에 합친다. alert, tracking, variant="alert", variant="image" 검색을 지원하며 기존 화면 단위 검색과 자식 STATE 문맥은 유지한다. 검색 안내에 variant를 추가했다. 브라우저에서48개 URL의 실제 모달과 metadata가 일치하고, IA의207개 STATE 행 중 등록된48개 URL의 variant가 누락 없이 표시되는 것을 확인했다. 위 검색4건도 결과를 반환한다. 출처: 연결·컴포넌트·직접 진입 fixture 작업 트리, Codex의 실제 확인.
+
+## 임직원 쿠폰 등록 팝업 확인 경로 (2026-11-16)
+
+기존 `/mypage/coupons/preview-complete`를 임직원 쿠폰 등록 안내의 열린 상태로 재사용한다. `/mypage/coupons/preview-employee`는 두 발급 버튼에서 같은 팝업을 열 수 있다. 일반 `/mypage/coupons`에는 임직원 영역을 추가하지 않는다. IA196에 임직원 쿠폰 등록 팝업 STATE를 연결하고 `variant="alert"`를 표시했다. 기존 미노출이던 완료 URL을 재사용해 새 URL은 만들지 않았으며 일반 일련번호 등록 입력·등록 오류의 제외는 유지한다. 이 사용자 요청은 이전 등록 완료 팝업 제외 중 임직원 안내 범위만 대체한다.
+
+브라우저에서 해당 IA STATE 행의 label·URL·variant, PC/MO 직접 진입과 닫기·포커스 복귀를 확인했다. 등록된 모달 상태 URL은49개다. 출처: 해당 page·연결·쿠폰 소유자 작업 트리, Codex.
+
+## 런칭캘린더 알림 신청 팝업 (2026-11-16)
+
+기존 `/launch-calendar/clifton-11-gtx`에서 입고 알림 신청 버튼으로 PC 팝업·모바일 바텀시트를 연다. 기존 완료 preview URL은 유지한다. 신규 route는 추가하지 않았으며 구조·디자인·실제 검증 및 미연결 서비스 경계는 [런칭 캘린더](launch-calendar.md#알림-신청-팝업-시안-적용-2026-11-16)에 기록했다. 출처: `src/app/launch-calendar/_components/LaunchCalendarDetail.tsx`, `src/app/launch-calendar/launchCalendar.data.ts`의 이번 작업 트리. 기록: codex/gpt-6, 2026-11-16.
+
+## 런칭 안내 STATE와 모달 점검 (2026-11-16)
+
+IA159에 휴대폰 번호 입력 안내(/launch-calendar/clifton-11-gtx/preview-phone-required)를 추가하고 STATE 아래 variant="alert"와 variant 검색에 연결했다. page는 기존 LaunchCalendarDetail에 명시적 preview만 전달한다. 기존 알림 신청·완료 경로와 서비스 미연결 경계는 유지한다. alert/confirm 고정 STATE25개를 PC/MO에서 확인했으며 런칭 안내도 양쪽에서 별도로 확인했다. 출처: 사용자 첨부 이미지·관련 작업 트리·Codex 실행 확인.
+
+## 아이디 확인 팝업 결과형 전환 (2026-11-16)
+
+/login/find-account/id-confirmation-modal의 STATE 유형을 detail에서 confirm으로 정정했다. 기존 직접 URL·PC 팝업/MO fullscreen을 유지하며 조회 안내·아이디·설명을 공통 result 슬롯에 전달한다. 현재 honggildong은 기존 표시 fixture다. 확인의 로그인 이동, 비밀번호 재설정 이동, 닫기/Escape의 아이디 찾기 이동을 보존하며 실제 조회·인증 API는 추가하지 않았다. 삭제된 IdConfirmationMessage 참조는 소스 그래프에서도 제거했다. 출처: 관련 작업 트리와 사용자 PC/MO 주석.
+
+## Terms 상세 스타일 사용처 (2026-11-16)
+
+본인확인 공통 약관 팝업2종과 가입 약관 상세가 terms 외형·본문 className을 공유한다. 기존 필수·선택·이전 약관 URL, 본문 fixture·버전 선택 상태·콜백을 유지하고 새 라우트나 서비스 요청을 추가하지 않았다. 가입 약관의 확인은 공통 actions로 표현하면서 모바일 본문 마지막 스크롤 배치를 유지한다. 가이드 예시와 복사 코드도 개별 버튼 대신 같은 actions를 사용한다. 외형·문서 수치와 출처는 [Terms 규격](ui.md#terms-모달-상세-규격-2026-11-16)을 따른다.
+
+알뜰폰 사업자 preview-carriers의 실제 공통 모달과 IA STATE 유형을 terms로 일치시켰다. 기존 경로·데이터·콜백은 유지한다.
+
+## 이전 약관 선택 독립 STATE (2026-11-16)
+
+/login/account-locked/verification/preview-previous-terms는 초기 previous picker seed가 있으면 PreviousTermsPicker 하나만 반환한다. IA 보기에서 terms와 selection이 겹쳐 열리던 준비 상태를 selection 단독으로 바꿨다. 확인·닫기/Escape는 선택창을 닫고 약관 본문을 새로 열지 않는다. 필수 약관에서 이전 약관 버튼을 직접 누르는 기존 중첩 흐름은 그대로다. STATE variant 목록과 회귀 기대값도 selection 하나로 맞췄다. 다른 경로와 조회·동의 계약은 변경하지 않았다.
+
+주문 신청·런칭 알림·장바구니 옵션·쿠폰 상세의 shell override를 공통 배치로 흡수했으며 상태·입력/선택 owner와 콜백은 유지한다. 쿠폰 상세 데이터와 서비스 동작은 수정하지 않고 타입·본문 스타일만 보정했다.
+
+## 런칭 알림 신청 STATE 등록 (2026-11-16)
+
+IA159 런칭캘린더에 입고 알림 신청 직접 URL /launch-calendar/clifton-11-gtx/preview-notification을 추가했다. 실제 열린 modal variant는 form으로 표시하며 기존 발매 상세·신청 완료·번호 입력 안내와 구별한다. 기존 UI 소유자에 초기 open seed만 전달하고 소스 그래프와 링크 회귀 기대값을 갱신했다.
+
+## 문의 첨부파일 이미지 모달 (2026-11-16)
+
+기존 `/support/inquiries/preview-attachment`와 문의 첨부파일 버튼은 같은 `InquiryListContent.tsx`의 image 모달을 사용한다. 미리보기·페이지 표시를 공통 이미지 recipe로 연결하고, 모바일 하단 시트의 손잡이·헤더 구분선을 제거했다. 모달 가이드의 image 예시도 다섯 슬라이드와 같은 recipe를 사용하며 확인 푸터는 생성하지 않는다. 라우트·표시 데이터·열기/닫기 소유권은 유지한다. [규격과 검증](ui.md#이미지-모달-시안-적용-2026-11-16)을 참고한다.
+
+## 신발·의류 옵션 변경 확인 경로 (2026-11-16)
+
+/cart/preview-options는 신발, /cart/preview-options-apparel은 의류 고정 시안이다. IA170에 두 STATE를 등록하고 실제 유형을 productOption으로 표시한다. CartModalPreview가 준비된 표시 데이터를 CartDialogs의 optionType과 unavailableColors로 전달한다. 컬러·발볼·사이즈 초안은 기존 소유자에 남기고 서비스 저장은 추가하지 않는다. 모달 가이드의 큰 크기·전체화면 설명도 새 전용 유형과 구별한다.
+
+옵션 STATE의 생성 소스 그래프는 기존 직렬화 형식을 유지하며 신발·의류 소스 연결만 갱신한다.
+
+## 배송조회 모달 시안 갱신 (2026-11-16)
+
+기존 /mypage/orders/preview-tracking과 OrdersPage의 열기/닫기 소유권을 유지한다. tracking 유형의 PC/MO 외형과 OrderTrackingDialog 본문 슬롯을 보정하고 생성 그래프에서 사라진 개별 표·정보 wrapper 의존성을 갱신했다. 송장·송수신인·기사·이력은 기존 퍼블리싱 표시값이며 배송 조회 API를 구현한 것이 아니다.
 
 ## 상품리뷰 탭 선택 스타일 (2026-11-16)
 
@@ -1816,3 +1914,12 @@ PC 1920px·MO 375px에서 일반·임직원 목록, 상세 직접 진입, 확인
 상품리뷰 작성 가능 목록은 구매일·상품명 데스크탑 16px, 모바일 13px과 옵션 데스크탑 16px, 모바일 12px을 사용한다. 출처: 상품리뷰 Product 시안 및 작업 트리.
 
 작성한 리뷰 목록도 구매일·상품명 데스크탑 16px, 모바일 13px과 옵션 데스크탑 16px, 모바일 12px을 적용한다. 데스크탑 표 머리글은 20px Bold를 사용한다. 출처: 작성한 리뷰 시안 및 작업 트리.
+
+## 장바구니·주문 영역 시안 재검수 (2026-11-16)
+
+- 기준은 [HOKA 화면 디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql)의 장바구니, 주문/결제, 주문/배송조회, 취소·반품 신청과 내역이다. 원본 구조·스타일·이미지를 읽어 PC와 모바일을 각각 대조했다.
+- `/cart/preview-options-apparel-changed`는 M을 선택해 변경 버튼이 활성화된 의류 옵션 상태다. 기존 `/cart/preview-options-apparel`은 S 초기 선택과 비활성 상태를 유지한다. 초기 크기는 preview seed이며 저장 결과가 아니다.
+- `/checkout/preview-coupons`는 상품별 쿠폰과 장바구니 쿠폰이 열린 상태다. 주문내역의 조회하기 버튼에서도 같은 모달을 연다. IA170·IA171의 STATE와 소스 그래프에 신규 경로를 등록했다.
+- 기본·빈 장바구니, 신발/의류 옵션·수량 제한, 기본·직접 입력·배송 요청·오류·빈 주문서·완료·쿠폰·배송지 목록/추가/수정, 주문/반품 목록과 빈 상태, 주문·취소·반품 상세, 취소/반품 신청·배송조회 등 26개 상태를 PC/MO 총52개 화면으로 캡처했다. 기존 직접 URL을 재사용했다.
+- 기간 선택은 PC에서 1년→6개월→3개월→1개월→직접설정, 모바일에서는 1개월→3개월→6개월→1년→직접설정이다. 초기 직접설정 날짜는 2026.01.01~2026.08.30이고 모바일 날짜 입력은 직접설정에서만 표시한다. 실제 서버 조회는 실행하지 않는다.
+- 검증 세부와 미연결 경계는 [검증 기록](../development/verification.md#주문-영역-pc모바일-재검수-2026-11-16), 구조·수치는 [UI 기록](ui.md#장바구니주문-영역-표시-규격-2026-11-16)을 따른다.

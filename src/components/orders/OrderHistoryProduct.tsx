@@ -13,6 +13,7 @@ import type { OrderLine } from '@/components/orders/orders.types';
 type OrderHistoryProductProps = {
   line: OrderLine;
   showAmount?: boolean;
+  showOptions?: boolean;
   showQuantity?: boolean;
   imageSize?: 'standard' | 'claim';
   statusText?: string;
@@ -23,6 +24,7 @@ type OrderHistoryProductProps = {
 export function OrderHistoryProduct({
   line,
   showAmount = true,
+  showOptions = true,
   showQuantity = showAmount,
   imageSize = 'standard',
   cartAction = false,
@@ -57,21 +59,31 @@ export function OrderHistoryProduct({
         image={line.image}
         name={line.name}
         optionText={
-          '옵션 : ' +
-          line.width +
-          ' / ' +
-          line.color +
-          ' / ' +
-          line.size +
-          (showQuantity ? ' / ' + line.quantity + '개' : '')
+          showOptions
+            ? '' +
+              line.width +
+              ', ' +
+              line.color +
+              ', ' +
+              line.size +
+              (showQuantity
+                ? ', ' +
+                  (platform === 'mobile' ? (line.mobileQuantity ?? line.quantity) : line.quantity) +
+                  '개'
+                : '')
+            : undefined
         }
-        amount={line.displayAmount ?? 0}
+        amount={
+          (platform === 'mobile'
+            ? (line.mobileDisplayAmount ?? line.displayAmount)
+            : line.displayAmount) ?? 0
+        }
         amountLanguage={onClick ? 'en' : undefined}
         hideAmount={!showAmount || line.displayAmount === undefined}
         optionTone="subtle"
       >
         {statusText ? (
-<Typography
+          <Typography
             variant="body4Medium"
             tone="tertiary"
             className={css({ mt: 'auto', textAlign: 'right' })}

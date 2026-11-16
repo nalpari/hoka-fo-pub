@@ -7,39 +7,59 @@ export type CartPreviewRow = {
   amount: number;
   soldOut: boolean;
   initialSelected: boolean;
-  optionPreview?: { item: CartItem; product: Product };
+  originalAmount?: number;
+  mobileAmount?: number;
+  initialFavorite?: boolean;
+  optionQuantity?: number;
+  optionPreview?: { item: CartItem; product: Product; unavailableColors?: readonly string[] };
 };
 
 const optionColors = [
-  '스타더스트 / 멜로우 라일락',
-  '베이지',
-  '화이트',
-  '블랙 / 퍼플',
-  '블루',
-  '그레이',
-  '민트',
-  '블랙',
-  '핑크',
-  '네이비',
+  '(19)Black',
+  'Beige',
+  'White',
+  'Black / Purple',
+  'Blue',
+  'Sand',
+  'Grey',
+  'Purple',
+  'Sky Blue',
 ];
 
 /** 옵션 모달 시안용 표시 데이터입니다. (Display data for the option dialog preview.) */
 export const cartOptionPreview: { item: CartItem; product: Product } = {
-  item: {
-    ...cartPreviewItem(),
-    color: optionColors[0],
-    size: '250',
-  },
+  item: { ...cartPreviewItem(), color: optionColors[0], size: '250' },
   product: {
     ...products[0],
-    name: '클리프톤 11 GTX',
+    name: 'Clifton 11 GTX',
     colors: optionColors,
+    sizes: Array.from({ length: 17 }, (_, index) => String(220 + index * 5)),
+    soldOut: ['295', '300'],
     colorThumbnails: optionColors.map((label, index) => ({
       id: `preview-${index + 1}`,
       label,
-      image: `/images/cart/options/color-${index === 7 ? 1 : index > 7 ? index : index + 1}.png`,
+      image: `/images/cart/options/color-${index < 5 ? index + 1 : index - 3}.png`,
     })),
     colorOptions: undefined,
+  },
+};
+
+/** 의류 옵션 시안용 고정 표시 데이터입니다. (Fixed apparel display data for the option preview.) */
+export const cartApparelOptionPreview: { item: CartItem; product: Product } = {
+  item: { ...cartPreviewItem(), id: 'everyrun', color: '(19)Black', size: 'S' },
+  product: {
+    ...products[0],
+    id: 'everyrun',
+    name: 'EveryRun 긴팔티',
+    colors: ['(19)Black', 'Pink', 'Red', 'Blue'],
+    sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
+    soldOut: ['L'],
+    colorOptions: undefined,
+    colorThumbnails: [94538, 94650, 94653, 94655].map((id, index) => ({
+      id: `apparel-${index}`,
+      label: ['(19)Black', 'Pink', 'Red', 'Blue'][index],
+      image: `/images/products/everyrun/pdp-${id}.png`,
+    })),
   },
 };
 
@@ -60,62 +80,30 @@ function cartPreviewItem(): CartItem {
  * 실제 상품/옵션 식별자와 표시 금액·재고 상태, 삭제·저장·주문 요청은 개발팀 장바구니 소유자에서 연결합니다.
  * 요청 성공/실패/pending 및 목록 갱신은 미연결이며 이 예시는 ShopShell 상태를 읽거나 변경하지 않습니다.
  */
-export const cartPreviewRows: CartPreviewRow[] = [
-  {
-    item: cartPreviewItem(),
-    product: products[0],
-    amount: 240000,
-    soldOut: false,
-    initialSelected: false,
-    optionPreview: cartOptionPreview,
+export const cartPreviewRows: CartPreviewRow[] = [0, 1, 2, 3, 4].map((index) => ({
+  item: {
+    ...cartPreviewItem(),
+    id: `cart-shoe-${index + 1}`,
+    width: '레귤러',
+    imageSrc: '/images/cart/speedgoat-black.png',
+    quantity: index === 0 || index === 4 ? 2 : 1,
   },
-  {
-    item: {
-      id: products[1].id,
-      imageSrc: '/images/cart/clifton-preview.png',
-      color: '레드',
-      width: 'X-Wide',
-      size: '225',
-      quantity: 2,
-    },
-    product: products[1],
-    amount: 288000,
-    soldOut: false,
-    initialSelected: false,
-  },
-  {
-    item: {
-      id: products[2].id,
-      imageSrc: '/images/cart/clifton-preview.png',
-      color: '화이트',
-      width: 'Wide',
-      size: '270',
-      quantity: 5,
-    },
-    product: products[2],
-    amount: 720000,
-    soldOut: false,
-    initialSelected: false,
-  },
-  {
-    item: {
-      id: products[3].id,
-      imageSrc: '/images/cart/clifton-preview.png',
-      color: '옐로우골드',
-      width: 'X-Wide',
-      size: '250',
-      quantity: 4,
-    },
-    product: products[3],
-    amount: 928000,
-    soldOut: true,
-    initialSelected: false,
-  },
-];
+  product: { ...products[0], name: 'Speedgoat 7 GTX', gender: 'All Gender' },
+  amount: 240000,
+  mobileAmount: index === 4 ? 139000 : undefined,
+  originalAmount: index === 1 ? 280000 : undefined,
+  soldOut: index > 2,
+  initialSelected: index < 3,
+  initialFavorite: index === 1,
+  optionQuantity: 1,
+  optionPreview: { ...cartOptionPreview, unavailableColors: ['White'] },
+}));
 
 export const cartPreviewAmounts = {
-  product: 3350000,
-  shipping: 0,
-  total: 3350000,
-  selectedTotal: 1236500,
+  product: 349000,
+  discount: 17450,
+  shipping: 3000,
+  total: 334550,
+  mobileTotal: 240000,
+  selectedTotal: 240000,
 };

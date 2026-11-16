@@ -53,9 +53,11 @@ function ClaimHistoryList({
           <Stack as="li" key={item.key} gap="0" borderBottom="1px solid var(--color-black-100)">
             <Box display="flex" pb="16px" borderBottom="1px solid var(--color-border-subtle)">
               <Typography variant="body4" tone="tertiary">
-<Typography as="span" variant="body4Medium" tone="primary">
-<Typography as="span" variant="body4Medium" language="en">
-                    {item.orderDate}
+                <Typography as="span" variant="body4Medium" tone="primary">
+                  <Typography as="span" variant="body4Medium" language="en">
+                    {platform === 'mobile'
+                      ? (item.mobileOrderDate ?? item.orderDate)
+                      : item.orderDate}
                   </Typography>{' '}
                   주문
                 </Typography>
@@ -68,6 +70,7 @@ function ClaimHistoryList({
             <Box py="16px">
               <OrderHistoryProduct
                 line={item.line}
+                showOptions={false}
                 statusText={item.status.mobile}
                 onClick={() => onDetail(item.orderId, item.claimId)}
               />
@@ -78,8 +81,7 @@ function ClaimHistoryList({
     );
   }
 
-  const columns =
-    'minmax(0, 344fr) minmax(0, 120fr) minmax(0, 120fr) minmax(0, 140fr) minmax(0, 120fr)';
+  const columns = 'minmax(0, 464fr) minmax(0, 120fr) minmax(0, 140fr) minmax(0, 120fr)';
 
   return (
     <Stack gap="0">
@@ -90,7 +92,7 @@ function ClaimHistoryList({
         borderTop="2px solid var(--color-black-100)"
         borderBottom="1px solid var(--colors-black-100)"
       >
-        {['상품정보', '주문일자', '수량', '금액', '처리상태'].map((label) => (
+        {['상품정보', '주문일자', '금액', '처리상태'].map((label) => (
           <Typography
             key={label}
             variant="heading9"
@@ -120,33 +122,31 @@ function ClaimHistoryList({
             <Box px="24px">
               <OrderHistoryProduct
                 line={item.line}
+                showOptions={false}
                 showAmount={false}
                 onClick={() => onDetail(item.orderId, item.claimId)}
               />
             </Box>
-<Typography
+            <Typography
               variant="body3Medium"
               language="en"
               className={css({ textAlign: 'center' })}
             >
               {item.orderDate}
             </Typography>
-<Typography variant="body3Medium" className={css({ textAlign: 'center' })}>
-              {item.line.quantity}개
-            </Typography>
-<Typography variant="body3Medium" className={css({ textAlign: 'center' })}>
+            <Typography variant="body3Medium" className={css({ textAlign: 'center' })}>
               {item.line.displayAmount === undefined ? (
                 '-'
               ) : (
                 <>
-<Typography as="span" variant="body3Medium" language="en">
+                  <Typography as="span" variant="body3Medium" language="en">
                     {item.line.displayAmount.toLocaleString()}
                   </Typography>
                   원
                 </>
               )}
             </Typography>
-<Typography variant="body3Medium" className={css({ textAlign: 'center' })}>
+            <Typography variant="body3Medium" className={css({ textAlign: 'center' })}>
               {item.status.web}
             </Typography>
           </Grid>
@@ -186,7 +186,7 @@ export function OrdersListContent({
   }
 
   return (
-    <Stack gap="24px">
+    <Stack gap={{ base: '48px', _mobile: '24px' }}>
       {/* 주문·배송 현황 */}
       <OrderStatusTracker items={statusItems} />
       {/* 주문 조회 기간 필터 */}
@@ -202,13 +202,13 @@ export function OrdersListContent({
             borderBottom="1px solid var(--colors-black-20)"
             _mobile={{ display: 'none' }}
           >
-<Typography variant="body3Medium" className={css({ textAlign: 'center' })}>
+            <Typography variant="body3Medium" className={css({ textAlign: 'center' })}>
               상품/옵션정보
             </Typography>
-<Typography variant="body3Medium" className={css({ textAlign: 'center' })}>
+            <Typography variant="body3Medium" className={css({ textAlign: 'center' })}>
               수량
             </Typography>
-<Typography variant="body3Medium" className={css({ textAlign: 'center' })}>
+            <Typography variant="body3Medium" className={css({ textAlign: 'center' })}>
               가격
             </Typography>
           </Grid>
@@ -219,7 +219,7 @@ export function OrdersListContent({
           </Stack>
         </Stack>
       ) : (
-        <Box minH="300px" className={emptyOrderState}>
+        <Box minH={{ base: '267px', _mobile: '192px' }} className={emptyOrderState}>
           <EmptyState variant="standard" title="주문한 상품이 없습니다." />
         </Box>
       )}
