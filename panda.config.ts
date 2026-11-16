@@ -54,7 +54,8 @@ export default defineConfig({
             tertiary: { value: '{colors.black.40}' },
             strong: { value: '#111' },
           },
-          error: { value: '{colors.red.100}' },
+          accent: { value: '{colors.red.80}' },
+          error: { value: '#CC0000' },
           focus: {
             default: { value: '#000' },
           },

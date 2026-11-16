@@ -4997,3 +4997,9 @@ PC 기본 폭 및 모바일 375px에서 `/cart/preview-empty`, `/checkout`, `/my
 `ProductListingFilterPanel`은 정렬, 성별, 카테고리, 사이즈, 발볼, 색상, 컬렉션, 신발유형, 가격 순서로 필터를 표시한다. 기존 `액티비티` 필터는 같은 `activity` 값·URL 처리·선택 상태를 유지한 채 `카테고리`로 이름만 바꿨다. 기존 `러닝 타입`·`주행감`·`안정성` 섹션은 삭제하고, 시안 확인용 `쿠셔닝화`·`안정화`·`스피드화` 고정 선택지를 신발유형에 표시한다. 이 선택지는 아직 결과 조회나 URL과 연결하지 않는다.
 
 브라우저에서 `/products?gender=men&sort=popular`의 PC 필터 순서와 변경된 두 명칭을 확인했다. 변경 파일 ESLint·Prettier를 통과했다. 출처: 사용자 지정 순서와 `src/components/catalog/ProductListingPage.tsx` 작업 트리.
+
+## 인증 색상 의미 토큰 보정 (2026-11-16)
+
+로그인 오류의 테두리와 문구는 컬러 스케일 `red.100`이 아니라 의미 토큰 `error`를 사용한다. `error`는 최종 화면 기준 #CC0000이며, 기존 `red.100`과 퍼블리싱 컬러 가이드 값은 변경하지 않았다. FormField의 invalid 테두리와 Typography의 error tone만 의미 토큰을 참조한다.
+
+인증번호 남은 시간은 검증 오류가 아니므로 `error` 대신 의미 토큰 `accent`를 사용한다. `accent`는 red.80(#E10F00)을 참조하며 로그인 계정 찾기·휴대폰 인증·회원정보 인증의 공통 VerificationCountdown에 적용된다. 실제 오류의 `error`(#CC0000)와 red.100 컬러 스케일은 변경하지 않는다.
