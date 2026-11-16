@@ -4,7 +4,7 @@ title: "라우팅과 플랫폼"
 description: "App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다."
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-16T10:53:30.262Z'
+updated: '2026-11-16T10:54:10.828Z'
 generated:
   by: codex/gpt-6
   at: "2026-11-03T06:11:12Z"
@@ -1870,3 +1870,7 @@ IA159에 휴대폰 번호 입력 안내(/launch-calendar/clifton-11-gtx/preview-
 ## 이전 약관 선택 STATE 단독 표시 (2026-11-16)
 
 /login/account-locked/verification/preview-previous-terms의 IA 보기에서는 selection 하나만 열리도록 초기 fixture 분기를 분리했다. stateModalVariants와 회귀 기대값도 selection만 표시한다. 경로·서비스·기존 약관 본문의 선택/닫기 계약은 유지한다.
+
+## 쿠폰 상세 스타일 보정 경계 (2026-11-16)
+
+기존 /mypage/coupons/preview-detail과 일반 목록 상세 열기의 데이터·id·더보기·확인/닫기 계약을 유지한다. 별도 wrapper나 서비스는 추가하지 않고 개별 상세 shell을 공통 detail 배치로 통합했다. 상세조건·공고일과 숫자 font 스타일만 현재 소유자에서 보정한다.

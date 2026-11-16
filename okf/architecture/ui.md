@@ -4,7 +4,7 @@ title: "컴포넌트와 스타일"
 description: "공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다."
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-16T10:53:29.932Z'
+updated: '2026-11-16T10:54:10.548Z'
 generated:
   by: codex/gpt-6
   at: "2026-11-03T06:11:12Z"
@@ -5070,3 +5070,9 @@ terms와 selection/form/tracking/detail이 공통 contentModal 외형을 공유�
 ## 이전 약관 선택 단독 미리보기 (2026-11-16)
 
 초기 previous picker가 지정된 준비 상태는 부모 terms를 렌더링하지 않고 PreviousTermsPicker만 직접 표시한다. 확인·닫기/Escape는 해당 STATE를 닫고 약관 본문을 추가로 열지 않는다. 필수 약관 본문에서 이전 약관 버튼을 누르는 기존 중첩 사용은 유지한다.
+
+## 쿠폰 상세 본문 높이와 숫자 보정 (2026-11-16)
+
+쿠폰 상세의 line-height6px 강제와 개별 shell override를 제거했다. portal 본문에서 body 행간1.5를 적용하고 일반 본문14px·21px, 공고13px·19.5px을 사용한다. 행 간24px·상세조건간16px을 보존하고 고정 높이는 추가하지 않는다. 내용과 viewport 제한으로 높이를 결정한다.
+
+사용자 PC/MO 주석을 우선해 수량·혜택 금액·사용기간 숫자는 HOKA14px·700·21px로 표시하고 사용기간은#040404·오른쪽 정렬이다. 다른 한국어 본문의 굵기는 유지한다. [HOKA Design](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 쿠폰 상세 PC/MO와 사용자 첨부 이미지가 출처다. header/footer는 앞서 확정한 공통 detail 규격을 따른다.

@@ -3,7 +3,7 @@
 import { type Ref, useRef, useState } from 'react';
 import { usePlatform } from '@/context/platform';
 
-import { css } from 'styled-system/css';
+import { css, cx } from 'styled-system/css';
 import { Grid, HStack, Stack, VStack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
@@ -22,6 +22,15 @@ const couponDescription = css({
   color: 'black.100',
   lineHeight: '1.5!',
   _mobile: { color: '#4D4D4D' },
+});
+
+const couponDetailNumber = css({
+  '&&': {
+    display: 'inline-flex',
+    alignItems: 'center',
+    fontWeight: '700',
+    lineHeight: '1.5',
+  },
 });
 
 const couponSectionTitle = {
@@ -329,15 +338,13 @@ type CouponDetailsDialogProps = {
 };
 
 function CouponDetailsDialog({ coupon, onOpenChange }: CouponDetailsDialogProps) {
-  const platform = usePlatform();
-
   const rows = coupon
     ? [
         {
           label: '수량',
           value: (
             <>
-              <Typography variant="body4" language="en">
+              <Typography variant="body4" language="en" className={couponDetailNumber}>
                 {coupon.quantity}
               </Typography>
               개
@@ -348,7 +355,7 @@ function CouponDetailsDialog({ coupon, onOpenChange }: CouponDetailsDialogProps)
           label: '혜택',
           value: coupon.benefit.endsWith('원') ? (
             <>
-              <Typography variant="body4" language="en">
+              <Typography variant="body4" language="en" className={couponDetailNumber}>
                 {coupon.benefit.slice(0, -1)}
               </Typography>
               원
@@ -361,7 +368,11 @@ function CouponDetailsDialog({ coupon, onOpenChange }: CouponDetailsDialogProps)
         {
           label: '사용기간',
           value: (
-            <Typography variant="body4" language="en">
+            <Typography
+              variant="body4"
+              language="en"
+              className={cx(couponDetailNumber, css({ color: '#040404' }))}
+            >
               {coupon.expiresAt}
             </Typography>
           ),
@@ -379,49 +390,15 @@ function CouponDetailsDialog({ coupon, onOpenChange }: CouponDetailsDialogProps)
 
       mobilePresentation="fullscreen"
       blurBackdrop={false}
-      title={
-        <Typography
-          web="bodyKr3"
-          mo="bodyKr2"
-          weight={platform === 'mobile' ? 'bold' : undefined}
-          className={css({ _mobile: { lineHeight: '1.5' } })}
-        >
-          쿠폰 상세보기
-        </Typography>
-      }
-      popupClassName={css({
-        '&[role="dialog"]': { borderRadius: '0', boxShadow: 'none', _mobile: { maxW: 'none' } },
-      })}
-      headerProps={{
-        css: css.raw({
-          flexShrink: '0',
-          borderBottom: '1px solid token(colors.black.20)',
-          '& h2': { h: 'auto' },
-          _mobile: {
-            minH: '0',
-            pt: '24px',
-            borderBottom: '0',
-            '& button, & button svg': { w: '18px', h: '18px' },
-          },
-        }),
-      }}
-      contentClassName={css({ p: '24px 16px 32px', _mobile: { p: '24px 16px 32px' } })}
+      title="쿠폰 상세보기"
       actions={{
         kind: 'single',
         onConfirm: () => onOpenChange(false),
         buttonProps: { size: 'tall' },
       }}
-      footerProps={{
-        css: css.raw({
-          pt: '0',
-          pb: '32px',
-          '& > button': { w: '180px', '--button-height': '48px', _mobile: { w: '100%' } },
-          _mobile: { p: '0', pt: '32px' },
-        }),
-      }}
     >
       {coupon ? (
-        <Stack gap="24px" css={{ '& :is(dt, dd, h3, p, dd > span)': { lineHeight: '6px' } }}>
+        <Stack gap="24px" css={{ '--line-heights-body': '1.5' }}>
           <Stack as="dl" gap="24px" pb="24px" borderBottom="1px solid token(colors.black.20)">
             {rows.map(({ label, value }) => (
               <HStack key={label} justifyContent="space-between" alignItems="baseline" gap="12px">
@@ -453,7 +430,11 @@ function CouponDetailsDialog({ coupon, onOpenChange }: CouponDetailsDialogProps)
               as="p"
               variant="bodyKr5"
               tone="tertiary"
-              className={css({ pt: '16px', borderTop: '1px solid token(colors.black.20)' })}
+              className={css({
+                '&&': { fontSize: '13px', lineHeight: '1.5' },
+                pt: '16px',
+                borderTop: '1px solid token(colors.black.20)',
+              })}
             >
               {coupon.detailNotice}
             </Typography>
