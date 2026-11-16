@@ -4981,3 +4981,21 @@ GuideCopyToast는 화면 하단 40px 중앙에 검정 238×40px(긴 문구는 �
 가이드 전용 GuideCopyToast를 `src/components/common/atoms/Toast.tsx`로 옮기고 `Toast`·`ToastNotice`로 변경했다. `notice: { id, text } | null`과 `onDismiss(id)`로 임의의 안내 메시지를 받으며 복사 여부와 메시지는 호출자가 결정한다. 하단 40px·3초 노출·슬라이드/페이드·모션 감소 및 연속 표시 정리 동작은 유지한다. 모든 가이드 import와 의존 그래프를 새 경로로 갱신했다. 출처: Toast.tsx와 퍼블 가이드 작업 트리.
 
 2026-11-10 검증: 변경 가이드 파일 ESLint와 OKF 검사 통과. Ego에서 데스크탑 목록 17개, 모바일 표시 목록 16개(반품 사유는 데스크탑 전용)와 상품 스펙·수령인 표시를 확인했다. TypeScript 검사에는 변경 소스 오류가 없었으나 삭제된 라우트를 가리키는 기존 .next/types 오류가 남아 전체 통과는 아니다.
+
+Dropdown 정렬 버튼은 데스크탑 글자 16px·화살표 18px, 모바일 글자·화살표 14px과 공통 줄높이 1.3을 사용한다.
+
+## 회원등급 화면 표시 정리 (2026-11-16)
+
+회원등급은 PC와 모바일 시안에 맞춰 등급별 구매 조건과 구매금액 산정 안내를 표시한다. 등급별 혜택의 이전 추가 설명을 제거하고 PC·모바일 안내 문구 및 간격을 조정했다. PC 공통 혜택은 두 행 각각에 하단 구분선을 표시하고 모바일은 구분선 없이 표시한다. 기존 회원 정보와 진행률 데이터 소유권은 유지한다. 출처: 회원등급 화면 및 표시 데이터, 2026-11-16.
+
+마이페이지 주문 요약은 상품 정보와 배송 상태 배지를 두 열로 배치하고 16px 간격을 둔다. 배지는 일반 배치 흐름을 사용해 상품 내용과 겹치지 않는다. 출처: `src/app/mypage/_components/MyPageContent.tsx`, 2026-11-16.
+
+마이페이지 주문 상품은 PC와 모바일에서 준비된 상품 배지·성별·상품명·용도를 표시한다. 모바일 요약은 상품 가격 대신 배송 상태를 표시하며, PC 주문 목록의 가격과 수량은 기존 별도 열에 유지한다. 출처: 마이페이지 화면 및 표시 데이터, 2026-11-16.
+
+임직원 쿠폰 미리보기는 공통 secondary 버튼으로 50%·30% 발급 항목을 표시한다. PC는 180×48px에 16px 간격, 모바일은 같은 폭의 44px 높이 버튼에 8px 간격을 사용한다. 발급 요청은 연결되지 않은 미리보기다. 출처: `src/app/mypage/coupons/_components/CouponManagement.tsx`, 2026-11-16.
+
+쿠폰 상세는 공통 sm 모달과 모바일 전체 화면 표시를 사용한다. 상세 정보의 줄높이와 버튼 간격을 조정하고 PC 모달의 기본 둥근 모서리를 유지한다. 출처: `src/app/mypage/coupons/_components/CouponManagement.tsx`, 2026-11-16.
+
+쿠폰 화면의 제목, 임직원 쿠폰, 쿠폰 내역과 더보기 상태는 RouteContent에서 직접 구성한다. 쿠폰 카드와 상세 모달은 기존 역할을 유지한다. 출처: `src/app/mypage/coupons/_components/CouponManagement.tsx`, 2026-11-16.
+
+상품리뷰 화면은 탭·정렬·건수·목록 구조를 MyPageReviewsContent에서 직접 구성하고, 반복되는 리뷰 항목과 리뷰 작성 모달은 유지한다. 출처: `src/app/mypage/reviews/_components/MyPageReviewsContent.tsx`, 2026-11-16.
