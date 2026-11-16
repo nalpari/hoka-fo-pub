@@ -4,7 +4,7 @@ title: "라우팅과 플랫폼"
 description: "App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다."
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-16T10:01:10.667Z'
+updated: '2026-11-16T10:52:46.515Z'
 generated:
   by: codex/gpt-6
   at: "2026-11-03T06:11:12Z"
@@ -1862,3 +1862,7 @@ IA159에 휴대폰 번호 입력 안내(/launch-calendar/clifton-11-gtx/preview-
 ## 아이디 확인 팝업 결과형 전환 (2026-11-16)
 
 /login/find-account/id-confirmation-modal의 STATE 유형을 detail에서 confirm으로 정정했다. 기존 직접 URL·PC 팝업/MO fullscreen을 유지하며 조회 안내·아이디·설명을 공통 result 슬롯에 전달한다. 현재 honggildong은 기존 표시 fixture다. 확인의 로그인 이동, 비밀번호 재설정 이동, 닫기/Escape의 아이디 찾기 이동을 보존하며 실제 조회·인증 API는 추가하지 않았다. 삭제된 IdConfirmationMessage 참조는 소스 그래프에서도 제거했다. 출처: 관련 작업 트리와 사용자 PC/MO 주석.
+
+## 모달 기본 배치 적용 사용처 (2026-11-16)
+
+약관/인증/가입과 가이드, 장바구니 옵션·주문 신청·런칭 신청의 중복 header/content/footer override를 공통 shell로 흡수한다. 상태 owner·입력·콜백·모바일 표시 방식은 유지한다. 알뜰폰 사업자 STATE 유형은 실제와 동일하게 terms로 수정했다. 쿠폰 본문 보정·이전 약관 단독 표시·런칭 신규 STATE는 후속 별도 커밋 범위다.

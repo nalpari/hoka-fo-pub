@@ -912,7 +912,7 @@ const stateModalVariants: Readonly<Record<string, readonly ModalDialogVariant[]>
   '/login/find-account/id-confirmation-modal': ['confirm'],
   '/login/find-account/password-reset/preview-complete': ['alert'],
   '/login/account-locked/verification/preview-expired': ['alert'],
-  '/login/account-locked/verification/preview-carriers': ['detail'],
+  '/login/account-locked/verification/preview-carriers': ['terms'],
   '/login/account-locked/verification/preview-required-terms': ['terms'],
   '/login/account-locked/verification/preview-optional-terms': ['terms'],
   '/login/account-locked/verification/preview-previous-terms': ['terms', 'selection'],

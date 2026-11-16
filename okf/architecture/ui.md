@@ -4,12 +4,13 @@ title: "컴포넌트와 스타일"
 description: "공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다."
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-16T10:01:10.202Z'
+updated: '2026-11-16T10:52:46.240Z'
 generated:
   by: codex/gpt-6
   at: "2026-11-03T06:11:12Z"
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/app/publishing-guide/_components/ModalGuide.tsx
   - src/app/login/find-account/id-confirmation-modal/page.tsx
   - src/app/mypage/coupons/preview-complete/page.tsx
   - src/app/signup/information/_components/RegistrationContent.tsx
@@ -5059,3 +5060,9 @@ PC1440/MO375에서 두 버튼의 열기·닫기, 각각으로 포커스 복귀�
 후속 사용자 주석으로 intro 앞에 이름 span과 님을 추가했다. 현재 OOO는 표시 fixture이며 이름 span만 PC/MO16px·500·행간1.5를 적용하고 나머지 문구는400을 유지한다.
 
 PC 설명→버튼은 후속 사용자 주석에 따라40px로 정정했다. result 설명의 PC 아래24px 여백을 제거해 공통 content의 아래40px만 사용한다. MO는 후속 지정32px에 맞춰 설명 아래16px·인라인 푸터 위16px을 사용한다.
+
+## 모달 기본 shell과 약관 스타일 통일 (2026-11-16)
+
+terms와 selection/form/tracking/detail이 공통 contentModal 외형을 공유한다. 제목24px/20px·700, header 아래 margin24px, content 좌우32px/16px·기본 세로padding0, footer 위 margin40px/32px·아래40px/24px, 기본 버튼180×48px/MO가용폭×42px을 적용한다. 바텀시트 중복 padding과 개별 모달 shell override를 정리하고 tracking804px 높이·주소 formLayout=divided·상품열 정렬 offset은 유지한다.
+
+약관 문서 슬롯은 테두리#E9EAEB·내부24px 16px·문단간24px·제목/본문12px·공고일14px/13px을 공유한다. 가입/가이드의 확인은 공통 actions를 사용하고 가입 약관의 모바일 본문 마지막 배치를 유지한다. 알뜰폰 사업자도 사용자 요청에 따라 terms를 사용한다. [HOKA Design](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)과 사용자 후속 수치가 출처이며, 헤더700과 margin 배치는 사용자의 최신 지정이 우선한다. 약관 고유 테두리·문서는 다른 도메인에 강제하지 않는다.

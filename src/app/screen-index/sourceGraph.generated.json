@@ -963,6 +963,7 @@
       "src/components/common/atoms/StatusMessage.tsx",
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/AccountPageLayout.tsx",
+      "src/components/common/layouts/ModalDialog.recipe.tsx",
       "src/components/common/layouts/ModalDialog.tsx",
       "src/components/common/molecules/ContentHeader.tsx",
       "src/components/common/molecules/PreviousTermsPicker.tsx"
@@ -1628,6 +1629,7 @@
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/AccountPageLayout.tsx",
       "src/components/common/layouts/ContentSection.tsx",
+      "src/components/common/layouts/ModalDialog.recipe.tsx",
       "src/components/common/layouts/ModalDialog.tsx",
       "src/components/common/molecules/ContentHeader.tsx",
       "src/components/common/molecules/FormFields/TextFormField.tsx",

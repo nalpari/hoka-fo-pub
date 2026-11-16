@@ -62,6 +62,7 @@ const { getScreenDeveloperNames, getScreenDevelopers, matchesScreenDeveloper } =
 
 test('STATE modal variants follow explicit route states and preserve nested dialogs', () => {
   const expected = {
+    '/login/account-locked/verification/preview-carriers': ['terms'],
     '/login/find-account/id-confirmation-modal': ['confirm'],
     '/launch-calendar/clifton-11-gtx/preview-phone-required': ['alert'],
     '/cart/preview-options': ['selection'],

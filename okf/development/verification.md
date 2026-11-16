@@ -4,7 +4,7 @@ title: "변경 검증"
 description: "변경 범위에 맞는 정적 검사, 빌드와 수동 검증을 안내한다."
 tags: [verification, testing, build]
 status: draft
-updated: '2026-11-16T10:01:11.191Z'
+updated: '2026-11-16T10:52:46.745Z'
 generated:
   by: codex/gpt-6
   at: "2026-11-02T09:59:35Z"
@@ -736,3 +736,7 @@ noticeLayout=result를 confirm과 필수 intro 조합에서만 허용하는 타�
 PC1224/MO496에서 확인→로그인, 재설정→비밀번호 재설정, 닫기/Escape→아이디 찾기 이동을 확인했다. 일반 alert/confirm의 모바일 본문20px·900도 유지됐다. 아이디 실제 글리프는 커스텀 웹폰트이며 내부 이름은 점으로 반환됐다. 기존 HOKA 등록과 로드된 face를 함께 확인했다. STATE/검색 검사2개도 통과했다.
 
 후속 확인: 이름 span은 PC1224/MO496에서16px·500·행간24px, 나머지 안내문400으로 확인했다. PC 설명→버튼 간격은40px로 보정하고 모바일은 후속 지정32px로 정정하고 브라우저에서 실제32px을 확인했다.
+
+## 모달 기본 배치 통일 검사 (2026-11-16)
+
+전체 작업 트리에서 변경 ESLint·Prettier·TypeScript·Panda414개 추출과 기존 모달 타입 계약1개·STATE/검색2개가 통과했다. 가이드 PC4종과 실제 주문/배송/약관/쿠폰 PC·MO를 계산 스타일로 확인했고 중복 padding을 제거했다. header24px·footer40px/32px 및 약관 문서 간격·폰트를 확인했다. 긴 약관 스크롤·Escape·포커스 복귀·열린 모달1024/1025·1199/1200 전환과 명시적 고정 footer도 확인했다. 빌드는 재실행하지 않았다. 선별 커밋 사본의 검사는 최종 묶음에서 별도로 수행한다.

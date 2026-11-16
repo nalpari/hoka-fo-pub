@@ -15,6 +15,7 @@ import { PreviousTermsPicker } from '@/components/common/molecules/PreviousTerms
 
 import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout';
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
+import { modalTermsContentRecipe } from '@/components/common/layouts/ModalDialog.recipe';
 const signupTerms = [
   { label: 'HOKA Korea 이용약관 동의', required: true },
   { label: '개인정보 수집 및 이용 동의', required: true },
@@ -100,6 +101,7 @@ function TermsDialog({
   dates,
   version,
 }: TermsDialogProps) {
+  const termsClasses = modalTermsContentRecipe();
   return (
     <ModalDialog
       variant="terms"
@@ -108,47 +110,26 @@ function TermsDialog({
       title={title}
       closeLabel="약관 닫기"
       mobilePresentation="fullscreen"
-      mobileFixedFooter
+      actions={{ kind: 'single', onConfirm: () => onOpenChange(false) }}
     >
-      <Stack gap="0">
-        <HStack justify="space-between" gap="2" mb="4">
-          <Typography variant="body3">{label}</Typography>
-          {version ? (
-            <Button variant="link" size="sm" className={termsLink} onClick={version.onChange}>
-              <Typography variant="body5">
-                {version.previous ? '현재 약관 보기' : '이전 약관 보기'}
-              </Typography>
-            </Button>
-          ) : null}
-        </HStack>
-        <Box
-          as="article"
-          p="4"
-          border="1px solid var(--color-black-20)"
-          tabIndex={0}
-          aria-label="약관 내용"
-        >
-          {children}
-        </Box>
-        {dates ? (
-          <Box mt="2">
-            <Typography as="p" variant="body5" tone="subtle">
-              {dates}
-            </Typography>
-          </Box>
-        ) : null}
-        <HStack justifyContent="center" pt="6">
-          <Button
-            variant="primary"
-            size="tall"
-            fullWidth
-            onClick={() => onOpenChange(false)}
-            className={css({ maxW: '180px', _mobile: { maxW: 'none' } })}
-          >
-            확인
-          </Button>
-        </HStack>
-      </Stack>
+      <div className={termsClasses.root}>
+        <div className={termsClasses.details}>
+          <div className={termsClasses.heading}>
+            <p className={termsClasses.label}>{label}</p>
+            {version ? (
+              <Button variant="link" size="sm" className={termsLink} onClick={version.onChange}>
+                <Typography variant="body5">
+                  {version.previous ? '현재 약관 보기' : '이전 약관 보기'}
+                </Typography>
+              </Button>
+            ) : null}
+          </div>
+          <article className={termsClasses.document} tabIndex={0} aria-label="약관 내용">
+            {children}
+          </article>
+        </div>
+        {dates ? <p className={termsClasses.date}>{dates}</p> : null}
+      </div>
     </ModalDialog>
   );
 }
@@ -192,8 +173,7 @@ function SignupTermsDetail({ selected, previous, onClose, onPrevious }: Props) {
         [1, 2].map((number) => (
           <ContentHeader
             key={number}
-            gap="4"
-            mb="4"
+            gap="12px"
             titleAs="h2"
             title={<>약관 타이틀{number}</>}
             titleProps={{ variant: 'body4' }}

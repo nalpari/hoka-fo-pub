@@ -1,3 +1,7 @@
+## 2026-11-16 모달 기본 레이아웃과 약관 스타일 통일
+
+- 공통 recipe·약관 문서 슬롯과 사용처/가이드의 중복 여백을 정리했다. [UI](architecture/ui.md#모달-기본-shell과-약관-스타일-통일-2026-11-16) · [검증](development/verification.md#모달-기본-배치-통일-검사-2026-11-16).
+
 ## 2026-11-16 아이디 확인 팝업 confirm 결과형 적용
 
 - 공통 confirm에 result 레이아웃과 intro 슬롯을 추가하고 기존 단일 사용 본문 컴포넌트를 통합했다. PC/MO 제목·굵기·간격과 STATE 유형을 수정했다. [규격](architecture/ui.md#아이디-확인-confirm-결과형-2026-11-16) · [검증](development/verification.md#아이디-확인-result-계약-검증-2026-11-16).

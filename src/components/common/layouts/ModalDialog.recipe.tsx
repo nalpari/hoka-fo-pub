@@ -33,9 +33,85 @@ const notice = {
   },
 } satisfies Record<string, SystemStyleObject>;
 
-const document = {
-  content: { p: '24px 32px 40px', _mobile: { p: '24px 16px 32px' } },
+const contentModal = {
+  header: { mb: '24px' },
+  title: { fontWeight: '700', color: 'black.100' },
+  content: {
+    p: '0px 32px 40px',
+    fontFamily: 'korean',
+    fontSize: '14px',
+    fontWeight: '400',
+    lineHeight: '1.5',
+    letterSpacing: '-0.02em',
+    color: 'black.100',
+    _mobile: { p: '0px 16px 32px' },
+  },
+  footer: {
+    px: '32px',
+    pb: '40px',
+    _mobile: { px: '16px', pb: '24px' },
+    '& button': {
+      p: '12px 24px',
+      w: '180px',
+      maxW: '180px',
+      h: '48px',
+      minH: '48px',
+      borderRadius: '52px',
+      _mobile: { w: '100%', maxW: 'none', h: '42px', minH: '42px' },
+    },
+    '& button > span': { p: '0' },
+    '& button > span > span': {
+      fontFamily: 'korean',
+      fontWeight: '400',
+      fontSize: '16px',
+      lineHeight: '1.3',
+      letterSpacing: '-0.02em',
+      _mobile: { fontSize: '15px', fontWeight: '400' },
+    },
+  },
 } satisfies Record<string, SystemStyleObject>;
+
+export const modalTermsContentRecipe = sva({
+  slots: ['root', 'details', 'heading', 'label', 'document', 'date'],
+  base: {
+    root: { display: 'flex', flexDirection: 'column', gap: '8px', minW: '0' },
+    details: { display: 'flex', flexDirection: 'column', gap: '16px', minW: '0' },
+    heading: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '8px' },
+    label: {
+      m: '0',
+      fontFamily: 'korean',
+      fontSize: '16px',
+      fontWeight: '400',
+      lineHeight: '1.5',
+      letterSpacing: '-0.02em',
+      color: 'black.100',
+    },
+    document: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '24px',
+      p: '24px 16px',
+      border: '1px solid #E9EAEB',
+      minW: '0',
+      fontFamily: 'korean',
+      fontSize: '14px',
+      fontWeight: '400',
+      lineHeight: '1.5',
+      letterSpacing: '-0.02em',
+      color: 'black.100',
+    },
+    date: {
+      m: '0',
+      fontFamily: 'korean',
+      fontSize: '14px',
+      fontWeight: '400',
+      lineHeight: '1.5',
+      letterSpacing: '-0.02em',
+      color: '#777777',
+      _mobile: { fontSize: '13px' },
+    },
+  },
+});
 
 export const modalDialogRecipe = sva({
   slots: [
@@ -135,11 +211,11 @@ export const modalDialogRecipe = sva({
     variant: {
       alert: notice,
       confirm: notice,
-      terms: document,
-      form: document,
-      selection: document,
-      tracking: { ...document, popup: { h: '804px', _mobile: { h: 'auto' } } },
-      detail: document,
+      terms: contentModal,
+      form: contentModal,
+      selection: contentModal,
+      tracking: { ...contentModal, popup: { h: '804px', _mobile: { h: 'auto' } } },
+      detail: contentModal,
       image: {
         popup: {
           border: '1px solid token(colors.black.20)',
@@ -312,6 +388,22 @@ export const modalDialogRecipe = sva({
   },
   compoundVariants: [
     {
+      variant: ['terms', 'selection', 'form', 'tracking', 'detail'],
+      hasFooter: true,
+      css: {
+        content: { pb: '0', _mobile: { pb: '0' } },
+        footer: { mt: '40px', pt: '0', _mobile: { mt: '32px', pt: '0' } },
+      },
+    },
+    {
+      variant: ['terms', 'selection', 'form', 'tracking', 'detail'],
+      inContent: true,
+      css: {
+        content: { _mobile: { pb: '24px' } },
+        footer: { _mobile: { px: '0', pt: '0', pb: '0' } },
+      },
+    },
+    {
       sheet: true,
       scrollable: true,
       css: {
@@ -325,6 +417,34 @@ export const modalDialogRecipe = sva({
       scrollable: false,
       hasFooter: true,
       css: { content: { p: '24px 16px', _mobile: { p: '24px 16px' } } },
+    },
+    {
+      variant: ['terms', 'selection', 'form', 'tracking', 'detail'],
+      sheet: true,
+      css: {
+        content: { p: '0px 16px 32px', _mobile: { p: '0px 16px 32px' } },
+        footer: { _mobile: { pb: '24px' } },
+      },
+    },
+    {
+      variant: ['terms', 'selection', 'form', 'tracking', 'detail'],
+      sheet: true,
+      hasFooter: true,
+      css: { content: { pb: '0', _mobile: { pb: '0' } } },
+    },
+    {
+      variant: 'form',
+      formLayout: 'divided',
+      css: {
+        header: { mb: '0' },
+        footer: {
+          mt: '0',
+          pt: '40px',
+          _mobile: { mt: '0', pt: '32px' },
+          '& button': { _mobile: { h: '44px', minH: '44px' } },
+          '& button > span > span': { fontWeight: '700', _mobile: { fontWeight: '700' } },
+        },
+      },
     },
   ],
 });

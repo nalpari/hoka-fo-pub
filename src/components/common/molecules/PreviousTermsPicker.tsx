@@ -22,12 +22,6 @@ const previousTerms = [
   '2019-07-23',
 ] as const;
 
-const popup = css({
-  border: '1px solid var(--color-border-subtle, var(--colors-black-20))',
-  '& > header + div': { pb: '0' },
-  '& > footer': { px: '6', pt: '4' },
-});
-
 /** 약관 시행일을 PC 라디오 목록과 모바일 선택 시트에서 표시·선택합니다. (Displays and selects terms versions in a desktop radio list or mobile selection sheet.) */
 export function PreviousTermsPicker({
   open,
@@ -109,7 +103,6 @@ export function PreviousTermsPicker({
       closeLabel="이전 약관 보기 닫기"
 
       mobilePresentation="bottomSheet"
-      popupClassName={popup}
       finalFocus={finalFocus}
       actions={{
         kind: 'single',

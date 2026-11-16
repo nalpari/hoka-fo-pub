@@ -50,24 +50,7 @@ function CartOptionsDialog({
       size="lg"
       mobilePresentation="fullscreen"
       mobileFixedFooter
-      headerProps={{
-        css: css.raw({
-          bg: 'white',
-          flexShrink: '0',
-          borderBottom: '1px solid var(--colors-black-20)',
-        }),
-      }}
-      footerProps={{
-        desktopContentOffset: 300 + 32,
-        css: css.raw({
-          pt: '6',
-          _mobile: {
-            borderTop: '1px solid var(--colors-black-20)',
-            pt: '4',
-            pb: 'max(32px, env(safe-area-inset-bottom))',
-          },
-        }),
-      }}
+      footerProps={{ desktopContentOffset: 332 }}
       actions={{
         kind: 'confirm',
         onConfirm: onClose,

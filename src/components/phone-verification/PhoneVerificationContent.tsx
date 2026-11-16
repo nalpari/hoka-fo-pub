@@ -17,6 +17,7 @@ import { PreviousTermsPicker } from '@/components/common/molecules/PreviousTerms
 import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout';
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
+import { modalTermsContentRecipe } from '@/components/common/layouts/ModalDialog.recipe';
 
 import {
   type PhoneInformation,
@@ -47,7 +48,7 @@ type Props = {
 function PhoneVerificationDetailDialog({ open, onOpenChange }: Props) {
   return (
     <ModalDialog
-      variant="detail"
+      variant="terms"
       open={open}
       onOpenChange={onOpenChange}
       title="알뜰폰 사업자"
@@ -77,6 +78,7 @@ function PhoneVerificationDetailDialog({ open, onOpenChange }: Props) {
 type PhoneVerificationDialogsProps = Pick<PhoneVerificationContentProps, 'detail' | 'onDetail'>;
 function PhoneVerificationDialogs({ detail, onDetail }: PhoneVerificationDialogsProps) {
   const [previous, setPrevious] = useState(false);
+  const termsClasses = modalTermsContentRecipe();
   const onOpenChange = (open: boolean) => {
     if (!open) onDetail(null);
   };
@@ -93,20 +95,28 @@ function PhoneVerificationDialogs({ detail, onDetail }: PhoneVerificationDialogs
       mobilePresentation="fullscreen"
       actions={{ kind: 'single', onConfirm: () => onDetail(null) }}
     >
-      <Stack gap="6">
-        <Typography variant="heading7">{detail}</Typography>
-        <Box minH="240px" overflowY="auto" maxH="50vh" whiteSpace="pre-line" p="4" bg="black.10">
-          <Typography variant="body4">
-            본인확인 서비스 이용을 위한 약관입니다. 개인정보의 수집 및 이용, 고유식별정보 처리,
-            통신사 이용 및 본인확인 서비스에 관한 동의 내용을 확인해 주세요. 이 영역은 화면
-            미리보기용 본문이며 실제 약관 전문은 인증 서비스 제공자가 전달한 내용으로 표시합니다.
-          </Typography>
-        </Box>
+      <div className={termsClasses.root}>
+        <div className={termsClasses.details}>
+          <p className={termsClasses.label}>{detail}</p>
+          <article
+            className={
+              termsClasses.document +
+              ' ' +
+              css({ minH: '240px', overflowY: 'auto', maxH: '50vh', whiteSpace: 'pre-line' })
+            }
+          >
+            <Typography variant="body4">
+              본인확인 서비스 이용을 위한 약관입니다. 개인정보의 수집 및 이용, 고유식별정보 처리,
+              통신사 이용 및 본인확인 서비스에 관한 동의 내용을 확인해 주세요. 이 영역은 화면
+              미리보기용 본문이며 실제 약관 전문은 인증 서비스 제공자가 전달한 내용으로 표시합니다.
+            </Typography>
+          </article>
+        </div>
         <Button variant="link" onClick={() => setPrevious(!previous)}>
           이전 약관 보기
         </Button>
         {previous ? <Typography variant="body5">이전 약관이 없습니다.</Typography> : null}
-      </Stack>
+      </div>
     </ModalDialog>
   );
 }
@@ -126,6 +136,7 @@ function PhoneVerificationDesignDialogs({
   const [version, setVersion] = useState<string>();
   const close = () => onDetail(null);
   const optional = designTermKind === 'optional';
+  const termsClasses = modalTermsContentRecipe();
   if (detail === '알뜰폰 사업자')
     return (
       <PhoneVerificationDetailDialog
@@ -147,22 +158,14 @@ function PhoneVerificationDesignDialogs({
         closeLabel="안내 닫기"
 
         mobilePresentation="fullscreen"
-        footerProps={{
-          css: css.raw({
-            _mobile: { pt: '8', '& > button': { '--button-height': '44px' } },
-          }),
-        }}
         actions={{ kind: 'single', onConfirm: close }}
       >
-        <Stack gap={{ base: '6', _mobile: '2' }}>
-          <Stack gap={{ base: '6', _mobile: '4' }}>
-            <Box display="flex" justifyContent="space-between" alignItems="center" gap="4">
-              <Typography
-                variant="body3"
-                className={css({ fontWeight: 'semibold', _mobile: { fontWeight: 'normal' } })}
-              >
+        <div className={termsClasses.root}>
+          <div className={termsClasses.details}>
+            <div className={termsClasses.heading}>
+              <p className={termsClasses.label}>
                 {`${optional ? '(선택)' : '(필수)'} ${detail ?? ''}`}
-              </Typography>
+              </p>
               {!optional && (
                 <Button
                   ref={previousTermsTrigger}
@@ -173,11 +176,8 @@ function PhoneVerificationDesignDialogs({
                   이전 약관 보기
                 </Button>
               )}
-            </Box>
-            <Stack
-              gap={{ base: '6', _mobile: '5' }}
-              _mobile={{ px: '4', py: '6', border: '1px solid token(colors.black.20)' }}
-            >
+            </div>
+            <article className={termsClasses.document}>
               {version ? (
                 <Typography variant="body5">{version} 시행 약관은 등록 준비 중입니다.</Typography>
               ) : (
@@ -189,16 +189,16 @@ function PhoneVerificationDesignDialogs({
                     titleProps={{ variant: 'body4' }}
                     description={'약관내용'.repeat(155)}
                     descriptionProps={{ variant: 'body4' }}
-                    gap={{ base: '4', _mobile: '3' }}
+                    gap="12px"
                   />
                 ))
               )}
-            </Stack>
-          </Stack>
-          <Typography variant="body5" className={css({ '&&': { _mobile: { fontSize: '13px' } } })}>
+            </article>
+          </div>
+          <p className={termsClasses.date}>
             공고일자 : 2025년 08월 25일 / 시행일자 : 2025년 09월 01일
-          </Typography>
-        </Stack>
+          </p>
+        </div>
         <PreviousTermsPicker
           finalFocus={previousTermsTrigger}
           open={pickerOpen}

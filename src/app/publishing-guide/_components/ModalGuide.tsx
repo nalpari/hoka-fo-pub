@@ -236,8 +236,7 @@ const groups: { id: string; title: string; description: string; items: ModalExam
 function exampleCode(example: ModalExample) {
   if (example.contentAction)
     return `import { useRef, useState } from 'react';
-import { css } from 'styled-system/css';
-import { HStack, Stack } from 'styled-system/jsx';
+import { Stack } from 'styled-system/jsx';
 import { Button } from '@/components/common/atoms/Button';
 import { Typography } from '@/components/common/atoms/Typography';
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
@@ -254,9 +253,9 @@ const triggerRef = useRef<HTMLButtonElement>(null);
   closeLabel="약관 닫기"
   mobilePresentation="fullscreen"
   finalFocus={triggerRef}
+  actions={{ kind: 'single', onConfirm: () => setOpen(false) }}
 >
-  <Stack gap="6">
-    <Stack gap="4">
+  <Stack gap="24px">
       {Array.from({ length: 12 }, (_, index) => (
         <Typography key={index} as="p" variant="body4">
           {index + 1}. 약관 내용입니다. 확인 버튼은 본문 마지막에 함께 스크롤됩니다.
@@ -265,18 +264,6 @@ const triggerRef = useRef<HTMLButtonElement>(null);
       <Typography as="p" variant="body5" tone="subtle">
         공고일자 : 2025년 08월 25일 / 시행일자 : 2025년 09월 01일
       </Typography>
-    </Stack>
-    <HStack justifyContent="center">
-      <Button
-        variant="primary"
-        size="tall"
-        fullWidth
-        onClick={() => setOpen(false)}
-        className={css({ maxW: '180px', _mobile: { maxW: 'none' } })}
-      >
-        확인
-      </Button>
-    </HStack>
   </Stack>
 </ModalDialog>`;
 
@@ -365,7 +352,7 @@ function ModalExampleCard({
   const triggerRef = useRef<HTMLButtonElement>(null);
   const code = exampleCode(example);
   const actions: ModalDialogProps['actions'] =
-    example.action === 'single'
+    example.contentAction || example.action === 'single'
       ? { kind: 'single', label: '확인', onConfirm: () => setOpen(false) }
       : example.action
         ? {
@@ -383,31 +370,18 @@ function ModalExampleCard({
           }
         : undefined;
   const content = example.contentAction ? (
-    <Stack gap="6">
-      <Stack gap="4">
-        {Array.from({ length: 12 }, (_, index) => (
-          <Typography key={index} as="p" variant="body4">
-            {index + 1}. 약관 내용입니다. 확인 버튼은 본문 마지막에 함께 스크롤됩니다.
-          </Typography>
-        ))}
-        <Typography as="p" variant="body5" tone="subtle">
-          공고일자 : 2025년 08월 25일 / 시행일자 : 2025년 09월 01일
+    <Stack gap="24px">
+      {Array.from({ length: 12 }, (_, index) => (
+        <Typography key={index} as="p" variant="body4">
+          {index + 1}. 약관 내용입니다. 확인 버튼은 본문 마지막에 함께 스크롤됩니다.
         </Typography>
-      </Stack>
-      <HStack justifyContent="center">
-        <Button
-          variant="primary"
-          size="tall"
-          fullWidth
-          onClick={() => setOpen(false)}
-          className={css({ maxW: '180px', _mobile: { maxW: 'none' } })}
-        >
-          확인
-        </Button>
-      </HStack>
+      ))}
+      <Typography as="p" variant="body5" tone="subtle">
+        공고일자 : 2025년 08월 25일 / 시행일자 : 2025년 09월 01일
+      </Typography>
     </Stack>
   ) : example.long ? (
-    <Stack gap="4">
+    <Stack gap={example.variant === 'terms' ? '24px' : '4'}>
       {Array.from({ length: 32 }, (_, index) => (
         <Typography key={index} as="p" variant="body4">
           {index + 1}. 긴 내용의 스크롤을 확인하는 예시입니다. 본문을 내려도 하단 확인 버튼은

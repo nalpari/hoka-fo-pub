@@ -195,34 +195,8 @@ export function OrderClaimRequest({
       closeLabel={`${title} 닫기`}
 
       mobilePresentation="bottomSheet"
-      popupClassName={css({ '& > div': { p: '24px!' } })}
-      headerProps={{
-        css: css.raw({
-          h: '56px',
-          flexShrink: '0',
-          bg: 'white.0',
-          borderBottom: '1px solid var(--colors-black-20)',
-        }),
-      }}
-      footerProps={{
-        css: css.raw({
-          '& > button': { w: '160px', '--button-height': '48px' },
-          _mobile: {
-            pt: '16px',
-            pb: '32px',
-            borderTop: '1px solid token(colors.black.20)',
-            '& > button': { w: '100%' },
-          },
-        }),
-      }}
       footer={
-        <Button
-          variant="primary"
-          size="tall"
-          fullWidth
-          type="button"
-          className={css({ w: '160px!', _mobile: { w: '100%!' } })}
-        >
+        <Button variant="primary" size="tall" fullWidth type="button">
           신청하기
         </Button>
       }

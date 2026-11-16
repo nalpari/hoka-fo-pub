@@ -125,20 +125,11 @@ export function LaunchCalendarDetail({
         variant="form"
         mobilePresentation="bottomSheet"
         blurBackdrop={false}
-        contentClassName={css({ p: '24px 32px 40px', _mobile: { p: '16px 16px 24px' } })}
-        footerProps={{
-          css: {
-            pb: '40px',
-            _mobile: { pt: '16px', pb: '32px', borderTop: '1px solid #E9EAEB' },
-            '& button': { w: '160px', _mobile: { w: '100%' } },
-          },
-        }}
         footer={
           <Button
             type="button"
             variant="primary"
             size="tall"
-            className={css({ '&&': { w: '160px', _mobile: { w: '100%' } } })}
             disabled={!timing || (editingPhone && !phone.trim())}
           >
             신청하기
