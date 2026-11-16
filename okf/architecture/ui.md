@@ -4,7 +4,7 @@ title: "컴포넌트와 스타일"
 description: "공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다."
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-16T10:52:46.240Z'
+updated: '2026-11-16T10:53:29.932Z'
 generated:
   by: codex/gpt-6
   at: "2026-11-03T06:11:12Z"
@@ -5066,3 +5066,7 @@ PC 설명→버튼은 후속 사용자 주석에 따라40px로 정정했다. res
 terms와 selection/form/tracking/detail이 공통 contentModal 외형을 공유한다. 제목24px/20px·700, header 아래 margin24px, content 좌우32px/16px·기본 세로padding0, footer 위 margin40px/32px·아래40px/24px, 기본 버튼180×48px/MO가용폭×42px을 적용한다. 바텀시트 중복 padding과 개별 모달 shell override를 정리하고 tracking804px 높이·주소 formLayout=divided·상품열 정렬 offset은 유지한다.
 
 약관 문서 슬롯은 테두리#E9EAEB·내부24px 16px·문단간24px·제목/본문12px·공고일14px/13px을 공유한다. 가입/가이드의 확인은 공통 actions를 사용하고 가입 약관의 모바일 본문 마지막 배치를 유지한다. 알뜰폰 사업자도 사용자 요청에 따라 terms를 사용한다. [HOKA Design](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)과 사용자 후속 수치가 출처이며, 헤더700과 margin 배치는 사용자의 최신 지정이 우선한다. 약관 고유 테두리·문서는 다른 도메인에 강제하지 않는다.
+
+## 이전 약관 선택 단독 미리보기 (2026-11-16)
+
+초기 previous picker가 지정된 준비 상태는 부모 terms를 렌더링하지 않고 PreviousTermsPicker만 직접 표시한다. 확인·닫기/Escape는 해당 STATE를 닫고 약관 본문을 추가로 열지 않는다. 필수 약관 본문에서 이전 약관 버튼을 누르는 기존 중첩 사용은 유지한다.

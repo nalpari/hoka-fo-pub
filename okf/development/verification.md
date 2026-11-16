@@ -4,7 +4,7 @@ title: "변경 검증"
 description: "변경 범위에 맞는 정적 검사, 빌드와 수동 검증을 안내한다."
 tags: [verification, testing, build]
 status: draft
-updated: '2026-11-16T10:52:46.745Z'
+updated: '2026-11-16T10:53:30.501Z'
 generated:
   by: codex/gpt-6
   at: "2026-11-02T09:59:35Z"
@@ -740,3 +740,7 @@ PC1224/MO496에서 확인→로그인, 재설정→비밀번호 재설정, 닫�
 ## 모달 기본 배치 통일 검사 (2026-11-16)
 
 전체 작업 트리에서 변경 ESLint·Prettier·TypeScript·Panda414개 추출과 기존 모달 타입 계약1개·STATE/검색2개가 통과했다. 가이드 PC4종과 실제 주문/배송/약관/쿠폰 PC·MO를 계산 스타일로 확인했고 중복 padding을 제거했다. header24px·footer40px/32px 및 약관 문서 간격·폰트를 확인했다. 긴 약관 스크롤·Escape·포커스 복귀·열린 모달1024/1025·1199/1200 전환과 명시적 고정 footer도 확인했다. 빌드는 재실행하지 않았다. 선별 커밋 사본의 검사는 최종 묶음에서 별도로 수행한다.
+
+## 이전 약관 단독 팝업 확인 (2026-11-16)
+
+PC1440/MO375에서 직접 STATE의 selection1개·terms0개를 확인했다. Escape와 확인 후 모든 모달이0개가 되는 것을 확인했고 기존 STATE/검색 회귀2개가 통과했다. source와 직접 연결 metadata만 선별했다.

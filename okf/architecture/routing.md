@@ -4,7 +4,7 @@ title: "라우팅과 플랫폼"
 description: "App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다."
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-16T10:52:46.515Z'
+updated: '2026-11-16T10:53:30.262Z'
 generated:
   by: codex/gpt-6
   at: "2026-11-03T06:11:12Z"
@@ -1866,3 +1866,7 @@ IA159에 휴대폰 번호 입력 안내(/launch-calendar/clifton-11-gtx/preview-
 ## 모달 기본 배치 적용 사용처 (2026-11-16)
 
 약관/인증/가입과 가이드, 장바구니 옵션·주문 신청·런칭 신청의 중복 header/content/footer override를 공통 shell로 흡수한다. 상태 owner·입력·콜백·모바일 표시 방식은 유지한다. 알뜰폰 사업자 STATE 유형은 실제와 동일하게 terms로 수정했다. 쿠폰 본문 보정·이전 약관 단독 표시·런칭 신규 STATE는 후속 별도 커밋 범위다.
+
+## 이전 약관 선택 STATE 단독 표시 (2026-11-16)
+
+/login/account-locked/verification/preview-previous-terms의 IA 보기에서는 selection 하나만 열리도록 초기 fixture 분기를 분리했다. stateModalVariants와 회귀 기대값도 selection만 표시한다. 경로·서비스·기존 약관 본문의 선택/닫기 계약은 유지한다.

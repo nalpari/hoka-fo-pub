@@ -124,7 +124,7 @@ type PhoneVerificationDesignDialogsProps = Pick<
   PhoneVerificationContentProps,
   'detail' | 'onDetail' | 'initialPreviousPickerOpen' | 'designTermKind'
 >;
-/** [ 개발팀 바인딩 ] 약관 본문·시행일은 디자인 표시 fixture입니다. 운영 약관 전문·선택 동의 정책·버전별 본문은 인증 연결 소유자가 제공하며 이 팝업은 조회·동의 제출을 수행하지 않습니다. */
+/** [ 개발팀 바인딩 ] 약관 본문·시행일은 디자인 표시 fixture입니다. initialPreviousPickerOpen 직접 STATE는 선택창만 표시하고 확인/닫기로 종료하며, 일반 약관의 이전 버전 열기와 선택 draft는 기존 소유자가 유지합니다. 운영 약관 전문·선택 동의 정책·버전별 본문은 인증 연결 소유자가 제공하며 이 팝업은 조회·동의 제출을 수행하지 않습니다. */
 function PhoneVerificationDesignDialogs({
   detail,
   onDetail,
@@ -137,6 +137,22 @@ function PhoneVerificationDesignDialogs({
   const close = () => onDetail(null);
   const optional = designTermKind === 'optional';
   const termsClasses = modalTermsContentRecipe();
+  if (initialPreviousPickerOpen) {
+    return (
+      <PreviousTermsPicker
+        open={pickerOpen}
+        onClose={() => {
+          setPickerOpen(false);
+          close();
+        }}
+        onSelect={(id) => {
+          setVersion(id);
+          setPickerOpen(false);
+          close();
+        }}
+      />
+    );
+  }
   if (detail === '알뜰폰 사업자')
     return (
       <PhoneVerificationDetailDialog

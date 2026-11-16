@@ -915,7 +915,7 @@ const stateModalVariants: Readonly<Record<string, readonly ModalDialogVariant[]>
   '/login/account-locked/verification/preview-carriers': ['terms'],
   '/login/account-locked/verification/preview-required-terms': ['terms'],
   '/login/account-locked/verification/preview-optional-terms': ['terms'],
-  '/login/account-locked/verification/preview-previous-terms': ['terms', 'selection'],
+  '/login/account-locked/verification/preview-previous-terms': ['selection'],
   '/signup/verify/phone/preview-already-registered': ['alert'],
   '/signup/terms/preview-detail': ['terms'],
   '/signup/information/preview-marketing-consent': ['alert'],

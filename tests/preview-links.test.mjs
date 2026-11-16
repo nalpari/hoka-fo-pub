@@ -75,7 +75,7 @@ test('STATE modal variants follow explicit route states and preserve nested dial
     '/mypage/coupons/preview-detail': ['detail'],
     '/mypage/coupons/preview-complete': ['alert'],
     '/support/inquiries/preview-attachment': ['image'],
-    '/login/account-locked/verification/preview-previous-terms': ['terms', 'selection'],
+    '/login/account-locked/verification/preview-previous-terms': ['selection'],
   };
   for (const [href, variants] of Object.entries(expected))
     assert.deepEqual(getScreenStateModalVariants(href), variants, href);
