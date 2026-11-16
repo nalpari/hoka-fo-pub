@@ -482,6 +482,8 @@ export const launchCalendarMobileItems: Record<LaunchCalendarMode, readonly Laun
     'in-stock': launchCalendarItems['in-stock'],
   };
 
+export const launchNotificationPreview = { maskedPhone: '010-****-5678' };
+
 export const launchDetail = {
   id: 'clifton-11-gtx',
   name: 'Clifton 11 GTX',

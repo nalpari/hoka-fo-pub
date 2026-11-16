@@ -1852,3 +1852,7 @@ IA159에 휴대폰 번호 입력 안내(/launch-calendar/clifton-11-gtx/preview-
 기존 `/mypage/coupons/preview-complete`를 임직원 쿠폰 등록 안내의 열린 상태로 재사용한다. `/mypage/coupons/preview-employee`는 두 발급 버튼에서 같은 팝업을 열 수 있다. 일반 `/mypage/coupons`에는 임직원 영역을 추가하지 않는다. IA196에 임직원 쿠폰 등록 팝업 STATE를 연결하고 `variant="alert"`를 표시했다. 기존 미노출이던 완료 URL을 재사용해 새 URL은 만들지 않았으며 일반 일련번호 등록 입력·등록 오류의 제외는 유지한다. 이 사용자 요청은 이전 등록 완료 팝업 제외 중 임직원 안내 범위만 대체한다.
 
 브라우저에서 해당 IA STATE 행의 label·URL·variant, PC/MO 직접 진입과 닫기·포커스 복귀를 확인했다. 등록된 모달 상태 URL은49개다. 출처: 해당 page·연결·쿠폰 소유자 작업 트리, Codex.
+
+## 런칭캘린더 알림 신청 팝업 (2026-11-16)
+
+기존 `/launch-calendar/clifton-11-gtx`에서 입고 알림 신청 버튼으로 PC 팝업·모바일 바텀시트를 연다. 기존 완료 preview URL은 유지한다. 신규 route는 추가하지 않았으며 구조·디자인·실제 검증 및 미연결 서비스 경계는 [런칭 캘린더](launch-calendar.md#알림-신청-팝업-시안-적용-2026-11-16)에 기록했다. 출처: `src/app/launch-calendar/_components/LaunchCalendarDetail.tsx`, `src/app/launch-calendar/launchCalendar.data.ts`의 이번 작업 트리. 기록: codex/gpt-6, 2026-11-16.

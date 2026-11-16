@@ -10,7 +10,10 @@ import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
 import { DescriptionList } from '@/components/common/atoms/DescriptionList';
+import { FormField } from '@/components/common/atoms/FormField';
 import { Icon } from '@/components/common/atoms/Icon';
+import { Radio } from '@/components/common/atoms/Radio';
+import { TextInput } from '@/components/common/atoms/TextInput';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import {
@@ -23,7 +26,7 @@ import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
-import { launchDetail } from '@/app/launch-calendar/launchCalendar.data';
+import { launchDetail, launchNotificationPreview } from '@/app/launch-calendar/launchCalendar.data';
 
 // [ 개발팀 바인딩 ] product와 notificationStatus는 준비된 표시 데이터이며 실제 신청·인증·공유 요청을 실행하지 않습니다. 상품 통합 소유자가 상품/발매 ID, 알림 신청 payload와 pending/실패/재시도, 성공 후 상태 갱신을 연결합니다. campaignPlaceholder는 시안의 미제공 기획전 이미지 슬롯으로 실제 콘텐츠가 아닙니다.
 /** 발매 예정 상품과 발매 사양 및 플랫폼별 알림 CTA를 표시합니다. (Displays an upcoming product, release specifications, and platform-specific notification actions.) */
@@ -39,7 +42,11 @@ export function LaunchCalendarDetail({
   const platform = usePlatform();
   const mobile = platform === 'mobile';
   const notified = notificationStatus === 'notified';
+  const [notificationOpen, setNotificationOpen] = useState(false);
   const [phoneRequiredOpen, setPhoneRequiredOpen] = useState(preview === 'phone-required');
+  const [timing, setTiming] = useState('');
+  const [editingPhone, setEditingPhone] = useState(false);
+  const [phone, setPhone] = useState('');
   const notificationTrigger = useRef<HTMLButtonElement>(null);
   const gallery = product.images.map((src, index) => (
     <Box key={src} pos="relative" aspectRatio="1" w="100%" bg="var(--color-black-10)">
@@ -71,6 +78,7 @@ export function LaunchCalendarDetail({
       fullWidth
       size="tall"
       disabled={notified}
+      onClick={() => setNotificationOpen(true)}
       iconRight={notified ? 'check-regular' : undefined}
       iconSize="18px"
       iconColor="black.40"
@@ -107,6 +115,102 @@ export function LaunchCalendarDetail({
         description="알림을 받을 휴대폰 번호를 입력해 주세요."
         actions={{ kind: 'single', onConfirm: () => setPhoneRequiredOpen(false) }}
       />
+      {/* [ 개발팀 바인딩 ] 등록 번호는 명시적 확인용 fixture입니다. 현재는 선택·번호 입력·열기/닫기만 제공합니다. 상품 통합 소유자가 실제 회원 번호/등록 여부와 상품·발매 식별자, 선택 시점 및 변경 번호 payload를 연결해야 합니다. 신청 버튼은 미연결이며 요청·저장·완료 전환을 수행하지 않습니다. 연결 시 pending 중 중복 신청을 막고 실패 시 입력을 유지하며 오류/재시도를 제공하고, 성공 응답 이후에만 닫기와 notificationStatus 갱신을 수행해야 합니다. */}
+      <ModalDialog
+        open={notificationOpen}
+        finalFocus={notificationTrigger}
+        onOpenChange={setNotificationOpen}
+        title="알림 신청"
+        closeLabel="알림 신청 닫기"
+        variant="form"
+        mobilePresentation="bottomSheet"
+        blurBackdrop={false}
+        contentClassName={css({ p: '24px 32px 40px', _mobile: { p: '16px 16px 24px' } })}
+        footerProps={{
+          css: {
+            pb: '40px',
+            _mobile: { pt: '16px', pb: '32px', borderTop: '1px solid #E9EAEB' },
+            '& button': { w: '160px', _mobile: { w: '100%' } },
+          },
+        }}
+        footer={
+          <Button
+            type="button"
+            variant="primary"
+            size="tall"
+            className={css({ '&&': { w: '160px', _mobile: { w: '100%' } } })}
+            disabled={!timing || (editingPhone && !phone.trim())}
+          >
+            신청하기
+          </Button>
+        }
+      >
+        <Stack gap="24px" _mobile={{ gap: '16px' }}>
+          <Stack gap="16px" pb="24px" borderBottom="1px solid #E9EAEB" _mobile={{ pb: '16px' }}>
+            <Typography as="p" variant="body3">
+              출시 알림을 받을 시점을 선택해 주세요.
+            </Typography>
+            <Radio
+              ariaLabel="출시 알림 시점"
+              name="launch-notification-timing"
+              value={timing}
+              onValueChange={setTiming}
+              className={css({ gap: '16px' })}
+              options={[
+                { value: 'release', label: '출시 정시' },
+                { value: '15-minutes', label: '출시 15분 전' },
+                { value: '30-minutes', label: '출시 30분 전' },
+              ]}
+            />
+          </Stack>
+          <Stack gap={editingPhone ? '16px' : '0'}>
+            <HStack justifyContent="space-between">
+              <Typography variant="body3">알림 받을 번호</Typography>
+              {!editingPhone && (
+                <Button
+                  type="button"
+                  variant="secondary"
+                  size="short"
+                  onClick={() => setEditingPhone(true)}
+                >
+                  변경
+                </Button>
+              )}
+            </HStack>
+            <Stack gap="8px">
+              {editingPhone ? (
+                <FormField
+                  htmlFor="launch-notification-phone"
+                  label="휴대폰 번호"
+                  required
+                  variant="boxed"
+                >
+                  <TextInput
+                    id="launch-notification-phone"
+                    type="tel"
+                    autoComplete="tel"
+                    placeholder="‘-’ 없이 숫자만 입력"
+                    value={phone}
+                    onChange={(event) => setPhone(event.target.value)}
+                  />
+                </FormField>
+              ) : (
+                <Typography
+                  variant="body2"
+                  className={css({ fontFamily: 'english', fontSize: '20px' })}
+                >
+                  {launchNotificationPreview.maskedPhone}
+                </Typography>
+              )}
+              <Typography as="p" variant="body4" className={css({ color: '#777777' })}>
+                {editingPhone
+                  ? '* 입력한 번호로 알림톡이 발송되며, 회원정보에 저장됩니다.'
+                  : '* 회원정보에 등록된 휴대폰 번호로 알림톡이 발송됩니다.'}
+              </Typography>
+            </Stack>
+          </Stack>
+        </Stack>
+      </ModalDialog>
       <Box
         as="main"
         pt="56px"

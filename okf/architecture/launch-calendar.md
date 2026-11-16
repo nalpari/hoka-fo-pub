@@ -27,13 +27,23 @@ working_tree_sources:
 sources:
   - id: launch-calendar-revised-design
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design
-    title: Launch Calendar PC 수정 및 모바일 Feed·Upcoming·상세
+    title: Launch Calendar PC 수정 및 모바일 Feed·Upcoming·상세·알림 신청 팝업
   - id: launch-calendar-design
     resource: https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP
     title: Launch Calendar
 ---
 
 # 런칭 캘린더
+
+## 알림 신청 팝업 시안 적용 (2026-11-16)
+
+출처: [HOKA 디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 런칭캘린더 알림 신청 PC·모바일 화면. `LaunchCalendarDetail.tsx`의 기존 CTA가 공통 ModalDialog를 열며 PC 640px·제목24px·반경10px, 모바일 바텀시트·반경24px를 사용한다. 출시 정시/15분 전/30분 전 라디오는16px 간격이며 PC 본문24px 32px 40px, 신청 버튼160×48px를 적용했다. 모바일은 본문 좌우16px, 전체 폭 버튼과 구분된 하단 액션을 사용한다.
+
+등록 번호는 `launchCalendar.data.ts`의 명시적 `launchNotificationPreview` fixture다. 변경 버튼은 공통 FormField·TextInput의 번호 입력으로 전환한다. 선택·입력 draft는 팝업을 닫거나 열린 상태로 플랫폼을 바꿔도 유지한다. 서비스 신청 버튼은 미연결이며 실제 저장·알림톡·완료 전환을 실행하지 않는다. 회원 번호와 신청 payload·요청 상태 및 성공 후 갱신은 상품 통합 소유자가 연결할 책임으로 인계 주석에 기록했다. 기존 완료 URL과 외부 notificationStatus를 유지한다.
+
+실제 검증: PC1920에서 팝업640px·버튼160px·제목24px·반경10px, 로드된 HOKA/Pretendard face를 확인했다. MO375×815에서 바텀시트가 하단815px에 닿고 가로 넘침이 없으며 기존 scrollbar 예약으로 콘텐츠 가용 폭360px·버튼328px였다. 시점 선택·번호 변경 입력·열린 상태 PC/MO 전환·닫기/Escape·닫기 버튼 사용 후 CTA 포커스 복귀와 완료 URL의 비활성 CTA를 확인했다. 수정 파일 ESLint/Prettier·TypeScript·Panda 생성은 통과했다. 전체 lint는 범위 밖 `tests/wh-file-summary.test.mjs`의 URL/Request/Response 전역 선언 오류8건으로 실패했다.
+
+최종 인계 검토: 기존 route-private 소유권, 공유 모달/라디오/폼 직접 재사용, Panda 스타일, 단일 overlay 트리와 플랫폼 소유권 및 표시 fixture/미연결 서비스 경계를 점검했다. 공통 모달·플랫폼·폰트 정의는 수정하지 않았다. 번호 입력 요청 alert와 별도 회원 유형별 직접 preview URL은 이번 버튼 연결에 추가하지 않았다.
 
 ## PC 수정 및 모바일 시안 반영 (2026-11-11)
 
@@ -106,3 +116,5 @@ PC 1920px에서 Feed12/Upcoming8/In Stock8과 4열, 제목44px·탭120×40px·�
 직접 확인 경로는 /launch-calendar/clifton-11-gtx/preview-phone-required이며 IA159 STATE에 alert 유형과 검색을 연결한다. LaunchCalendarDetail의 preview seed가 최초 open만 소유한다. 확인/닫기는 안내만 닫으며 실제 신청 조건·회원 번호 검증·API·저장·완료 전환은 미연결이다. 기존 신청 form과 완료 상태는 보존한다.
 
 PC1440/MO375에서 실제 문구·메시지28px/20px·900, 버튼180×48px/가용 폭×44px, 확인과 신청CTA 포커스 복귀를 확인했다. PC Escape 닫기와 IA 검색·STATE 유형 표시도 확인했다. Windows classic scrollbar 예약이 있는 MO375 캡처의 CTA 가용 폭은296px이다. 첨부 이미지와 계산 스타일·PC/MO 캡처가 검증 근거이며 별도 Figma 구조 측정은 하지 않았다.
+
+검증 추가(2026-11-16): Next.js 프로덕션 빌드와 156개 정적 페이지 생성이 통과했다.
