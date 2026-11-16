@@ -10,6 +10,9 @@ generated:
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/collection/page.tsx
+  - src/app/collection/_components/SpecialExhibitionContent.tsx
+  - src/app/collection/_components/specialExhibition.data.ts
   - src/components/common/atoms/EmptyState.recipe.tsx
   - src/app/mypage/rewards/rewards-data.ts
   - src/components/common/molecules/ContentHeader.tsx
@@ -390,6 +393,14 @@ sources:
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2780-94996
     title: '장바구니 추가 완료'
 ---
+
+## 기획전 목록 원복 (2026-11-16)
+
+`/collection`은 IA 166 기획전 목록의 직접 진입 경로다. route-private `SpecialExhibitionContent`가 대표 이미지 준비 영역, `Winter Trail Collection` 제목, 스크롤 고정 카테고리 앵커와 상품 그리드를 소유하고, `page.tsx`는 그 화면만 연결한다. PC는 1532px 콘텐츠 폭·4열·16px 열 간격·96px 카테고리 간격, 모바일은 2열·8px 열 간격·가로 스크롤 탭을 사용한다.
+
+IA 166의 원본/보정 비고는 `[ 11/16 기획 원복 ] 기획전 목록 페이지 복원`으로 통일했고, screen-index의 기본 보기와 파일 그래프를 `/collection`에 연결했다. IA 167 상세는 이번 목록 복원 범위에 포함하지 않아 기존 미수급 상태와 연결 없음이 유지된다. 대표 이미지는 제공 시안에서 이미지가 아닌 준비 영역으로 표시되어 실제 이미지·기획전 카테고리·상품 조회는 연결하지 않았다. Figma 근거는 사용자 제공 [HOKA Design 파일](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)이다.
+
+검증: 로컬 `/collection`에서 PC와 375px 모바일의 대표 영역·그리드·탭, 모바일 아우터 레이어 앵커 이동과 가로 넘침 없음을 확인했다. `/screen-index` 기획전 필터에서 원복 비고와 `/collection` 보기 링크도 확인했다. 실제 상품 조회·기획전 상세·대표 이미지 업로드는 미연결이다.
 
 # 라우팅과 플랫폼
 

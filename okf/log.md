@@ -3448,3 +3448,8 @@ Figma Navigational Buttons(296:25392)와 Action Buttons(296:25425)의 기본·�
 - 주문 상세 화면의 제목과 본문 사이 데스크탑 간격을 40px로 맞추고 모바일 16px을 유지했다.
 
 - 주문 상세의 PC 배송 조회·리뷰 작성 버튼을 최소 너비 107px, 높이 40px, 버튼 간 8px, 오른쪽 여백 8px으로 맞추고 상품과 버튼 사이 16px을 적용했다.
+## 2026-11-16 — 기획전 목록 IA 원복과 시안 적용
+
+- IA 166을 `[ 11/16 기획 원복 ]` 비고로 복원하고 `/collection` 기본 보기 및 작업 파일 그래프를 screen-index에 연결했다. IA 167 상세의 미수급·미연결 상태는 유지했다.
+- 제공된 PC/MO 시안에 따라 대표 이미지 준비 영역, 1532px PC 4열/모바일 2열 상품 그리드, 고정 앵커 탭과 스크롤에 따른 활성 상태를 구현했다. 대표 이미지·실제 카테고리와 상품 조회는 고정 fixture로 남겼다.
+- 로컬 PC·375px 모바일 화면, 모바일 앵커 이동 및 `/screen-index` 기획전 필터의 비고·보기 링크를 확인했다. 타입 검사는 이번 화면 외 기존 `LaunchCalendarDetail`, `InquiryFormStatePreview`, `PhoneVerificationContent` 타입 오류로 전체 통과하지 못했다.

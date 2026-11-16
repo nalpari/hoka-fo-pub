@@ -204,6 +204,14 @@
     "src/app/checkout/preview-shipping/page.tsx": [
       "src/app/checkout/_components/CheckoutStatePreview.tsx"
     ],
+    "src/app/collection/_components/specialExhibition.data.ts": ["src/mocks/products.ts"],
+    "src/app/collection/_components/SpecialExhibitionContent.tsx": [
+      "src/app/collection/_components/specialExhibition.data.ts",
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/molecules/ProductCard/ProductCard.tsx"
+    ],
+    "src/app/collection/page.tsx": ["src/app/collection/_components/SpecialExhibitionContent.tsx"],
     "src/app/error.tsx": ["src/components/common/organisms/SystemStatusPage.tsx"],
     "src/app/homeCarouselPreview.ts": [],
     "src/app/homeContent.ts": [],
@@ -1769,6 +1777,7 @@
     "src/app/checkout/_components/CheckoutDiscountSummary.tsx",
     "src/app/checkout/_components/CheckoutShipping.tsx",
     "src/app/checkout/checkout-summary.ts",
+    "src/app/collection/_components/specialExhibition.data.ts",
     "src/app/homeContent.ts",
     "src/app/launch-calendar/_components/LaunchCalendarContent.tsx",
     "src/app/launch-calendar/_components/LaunchCalendarDetail.tsx",

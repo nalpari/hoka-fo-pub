@@ -20,6 +20,10 @@ export type ScreenConnection = {
   sourceFiles: string[];
 };
 const connections: Record<number, ScreenConnection> = {
+  166: {
+    route: '/collection',
+    sourceFiles: ['src/app/collection/page.tsx'],
+  },
   159: {
     route: '/launch-calendar',
     previewRoutes: [
