@@ -8,8 +8,6 @@ export const productDetailPreviews = [
   { state: 'sold-out', label: '전체 품절' },
   { state: 'options-selected', label: '옵션 선택' },
   { state: 'options-scroll', label: '옵션 선택 · 최대 높이' },
-  { state: 'cart-added', label: '장바구니 추가 완료' },
-  { state: 'cart-added-scroll', label: '장바구니 추가 완료 · 최대 높이' },
 ] as const;
 
 export type ProductDetailPreview =
@@ -81,16 +79,6 @@ export const apparelFeatures = [
   { image: apparelImage(94569), title: '밑단 절개 디테일' },
   { image: apparelImage(94574), title: '리플렉티브 로고 디자인' },
 ];
-
-const addedItem = {
-  color: '(19)Black',
-  size: '250',
-  width: 'Regular',
-  quantity: 1,
-  amount: 139000,
-};
-
-export const cartAddedPreviewItems = [addedItem, { ...addedItem, quantity: 2 }];
 
 const selectedOptions = [
   { color: 'Black / Outer Orbit', size: '250', quantity: 1, amount: 240000 },

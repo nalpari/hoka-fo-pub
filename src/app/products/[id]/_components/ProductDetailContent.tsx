@@ -68,7 +68,6 @@ import {
 } from '@/app/products/[id]/productDetailPresentation';
 import {
   apparelFeatures,
-  cartAddedPreviewItems,
   getSelectedOptionsPreview,
   prepareProductDetailPreview,
   type ProductDetailPreview,
@@ -2791,47 +2790,8 @@ function ProductSelectedOptions({
   );
 }
 
-function CartAddedRecommendations({ products }: { products: Product[] }) {
-  return (
-    <ContentSection
-      title="추천 상품"
-      gap="4"
-      headerProps={{ titleAs: 'h3', titleProps: { variant: 'bodyKr2', weight: 'semibold' } }}
-    >
-      <Flex
-        as="ul"
-        m="0"
-        p="0"
-        pb="2"
-        listStyleType="none"
-        gap="4"
-        overflowX="auto"
-        _mobile={{ gap: '2' }}
-      >
-        {products.map((product) => (
-          <Box as="li" key={product.id} flexShrink="0" w="120px" _mobile={{ w: '104px' }}>
-            <ProductCard product={product} variant="showcase" />
-          </Box>
-        ))}
-      </Flex>
-    </ContentSection>
-  );
-}
-
 const maxProductSheet = css({
   _mobile: { maxH: 'calc(100dvh - 92px)' },
-});
-
-const cartScrollPopup = css({ maxH: 'min(720px, calc(100dvh - 48px))' });
-
-const cartAddedPopup = css({ maxW: '640px', _mobile: { maxW: '100vw' } });
-
-const cartAddedContent = css({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '8',
-  px: '8',
-  _mobile: { px: '4' },
 });
 
 /** 상품 옵션과 입고알림 선택 및 이미지 열람을 로컬로 표시합니다. (Displays local product-option and restock selections and image viewing.) */
@@ -2848,8 +2808,6 @@ export function RouteContent({ preview }: { preview?: ProductDetailPreview }) {
   const revised = baseProduct?.id === 'shoe-1';
   const allSoldOut = preview === 'sold-out';
   const optionsPreview = preview === 'options-selected' || preview === 'options-scroll';
-  const cartPreview = preview === 'cart-added' || preview === 'cart-added-scroll';
-  const scrollPreview = preview === 'options-scroll' || preview === 'cart-added-scroll';
   const inquiriesEmpty = revised && preview !== undefined && preview !== 'inquiries-expanded';
   const inquiriesExpanded = preview === 'inquiries-expanded';
   const initialColor = product?.colorThumbnails?.[0]?.label ?? product?.colors[0] ?? '';
@@ -2867,7 +2825,6 @@ export function RouteContent({ preview }: { preview?: ProductDetailPreview }) {
     })),
   );
   const [optionsOpen, setOptionsOpen] = useState(optionsPreview);
-  const [cartOpen, setCartOpen] = useState(cartPreview);
   const returnFocus = useRef<HTMLElement | null>(null);
   const [wish, setWish] = useState(false);
   const error = preview === 'selection-required' ? '사이즈를 선택해주세요.' : '';
@@ -3046,101 +3003,6 @@ export function RouteContent({ preview }: { preview?: ProductDetailPreview }) {
             )}
             {selectedOptions}
           </Stack>
-        </ModalDialog>
-      )}
-      {cartPreview && (
-        <ModalDialog
-          open={cartOpen}
-          onOpenChange={setCartOpen}
-          finalFocus={() => document.querySelector<HTMLElement>('[data-pdp-panel]')}
-          closeLabel="장바구니 추가 완료 닫기"
-          title={
-            <HStack as="span" gap="2">
-              <Icon name="circle-check-regular" size="22px" />
-              <Typography variant="eland-cart-confirmation">장바구니 추가 완료</Typography>
-            </HStack>
-          }
-          mobilePresentation="bottomSheet"
-          scrollable={scrollPreview}
-          scrollFade={scrollPreview}
-          popupClassName={`${cartAddedPopup} ${scrollPreview ? `${cartScrollPopup} ${maxProductSheet}` : ''}`}
-          contentClassName={cartAddedContent}
-          headerProps={{
-            css: { px: '8', pt: '8', pb: '2', _mobile: { px: '4', pt: '0', pb: '0' } },
-          }}
-          footerProps={{ css: { px: '8', pb: '10', _mobile: { px: '4', pb: '8' } } }}
-          footer={
-            <Stack gap="8" minW="0" w="100%">
-              <Grid w="100%" maxW="484px" mx="auto" gridTemplateColumns="1fr 1fr" gap="2">
-                <Button
-                  variant="secondary"
-                  size={platform === 'web' ? 'tall' : 'short'}
-                  fullWidth
-                  onClick={() => setCartOpen(false)}
-                >
-                  <Typography variant="eland-purchase-action">쇼핑 계속하기</Typography>
-                </Button>
-                <ButtonLink
-                  variant="primary"
-                  size={platform === 'web' ? 'tall' : 'short'}
-                  fullWidth
-                  href="/cart"
-                >
-                  <Typography variant="eland-purchase-action">장바구니 확인하기</Typography>
-                </ButtonLink>
-              </Grid>
-              {platform === 'web' && <CartAddedRecommendations products={recommendations} />}
-            </Stack>
-          }
-        >
-          <Stack gap="4">
-            {(scrollPreview ? cartAddedPreviewItems : cartAddedPreviewItems.slice(0, 1)).map(
-              (row) => (
-                <Flex
-                  key={row.quantity}
-                  gap="4"
-                  align="start"
-                  py="4"
-                  borderBottom="1px solid token(colors.black.20)"
-                >
-                  <Image
-                    src={product.primaryImage}
-                    alt=""
-                    width={120}
-                    height={150}
-                    sizes="(max-width: 1024px) 104px, 120px"
-                    className={css({
-                      bg: 'black.10',
-                      objectFit: 'contain',
-                      flexShrink: '0',
-                      _mobile: { w: '104px', h: '130px' },
-                    })}
-                  />
-                  <Stack gap="1">
-                    <Typography variant="eland-cart-item" tone="tertiary">
-                      {product.gender}
-                    </Typography>
-                    <Typography variant="eland-cart-item">{product.name}</Typography>
-                    <Typography variant="eland-cart-item-option">
-                      {row.color}, {row.size}, {row.width}, {row.quantity}개
-                    </Typography>
-                    <Typography variant="eland-cart-item">
-                      {row.amount.toLocaleString('ko-KR')}
-                      <Typography
-                        variant="bodyKr4"
-                        language="ko"
-                        weight="bold"
-                        style={{ fontFamily: 'var(--font-family-korean)' }}
-                      >
-                        원
-                      </Typography>
-                    </Typography>
-                  </Stack>
-                </Flex>
-              ),
-            )}
-          </Stack>
-          {platform === 'mobile' && <CartAddedRecommendations products={recommendations} />}
         </ModalDialog>
       )}
     </ProductDetailLayout>
