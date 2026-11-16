@@ -24,6 +24,7 @@ const connections: Record<number, ScreenConnection> = {
     route: '/launch-calendar',
     previewRoutes: [
       { label: '발매 예정 상품 상세', href: '/launch-calendar/clifton-11-gtx' },
+      { label: '입고 알림 신청', href: '/launch-calendar/clifton-11-gtx/preview-notification' },
       { label: '입고 알림 신청 완료', href: '/launch-calendar/clifton-11-gtx/preview-notified' },
       {
         label: '휴대폰 번호 입력 안내',
@@ -33,6 +34,7 @@ const connections: Record<number, ScreenConnection> = {
     sourceFiles: [
       'src/app/launch-calendar/page.tsx',
       'src/app/launch-calendar/clifton-11-gtx/page.tsx',
+      'src/app/launch-calendar/clifton-11-gtx/preview-notification/page.tsx',
       'src/app/launch-calendar/clifton-11-gtx/preview-notified/page.tsx',
       'src/app/launch-calendar/clifton-11-gtx/preview-phone-required/page.tsx',
     ],
@@ -875,6 +877,7 @@ export function getScreenStatePreviews(connection: ScreenConnection | undefined)
 // Only dialogs opened by the route's prepared state are listed; shared imports and closed
 // interaction dialogs do not establish a modal state. Keep nested dialogs together.
 const stateModalVariants: Readonly<Record<string, readonly ModalDialogVariant[]>> = {
+  '/launch-calendar/clifton-11-gtx/preview-notification': ['form'],
   '/launch-calendar/clifton-11-gtx/preview-phone-required': ['alert'],
   // CartDialogs and CheckoutStatePreview.
   '/cart/preview-options': ['selection'],

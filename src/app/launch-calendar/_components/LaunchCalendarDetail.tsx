@@ -37,12 +37,12 @@ export function LaunchCalendarDetail({
 }: {
   product?: typeof launchDetail;
   notificationStatus?: 'available' | 'notified';
-  preview?: 'phone-required';
+  preview?: 'phone-required' | 'notification';
 }) {
   const platform = usePlatform();
   const mobile = platform === 'mobile';
   const notified = notificationStatus === 'notified';
-  const [notificationOpen, setNotificationOpen] = useState(false);
+  const [notificationOpen, setNotificationOpen] = useState(preview === 'notification');
   const [phoneRequiredOpen, setPhoneRequiredOpen] = useState(preview === 'phone-required');
   const [timing, setTiming] = useState('');
   const [editingPhone, setEditingPhone] = useState(false);

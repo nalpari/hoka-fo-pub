@@ -1,3 +1,7 @@
+## 2026-11-16 런칭 입고 알림 신청 IA 등록
+
+- 기존 form 팝업을 직접 여는 preview-notification을 추가하고 IA159에 등록했다. [연결](architecture/launch-calendar.md#입고-알림-신청-팝업-ia-등록-2026-11-16).
+
 ## 2026-11-16 쿠폰 상세 본문 높이와 숫자 보정
 
 - 줄 겹침을 유발하던6px 행간과 개별 shell override를 제거하고 PC/MO 숫자700 규격을 적용했다. 데이터·서비스·닫기 계약은 유지한다. [UI](architecture/ui.md#쿠폰-상세-본문-높이와-숫자-보정-2026-11-16).

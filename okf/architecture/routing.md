@@ -4,12 +4,13 @@ title: "라우팅과 플랫폼"
 description: "App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다."
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-16T10:54:10.828Z'
+updated: '2026-11-16T10:54:57.879Z'
 generated:
   by: codex/gpt-6
   at: "2026-11-03T06:11:12Z"
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/launch-calendar/clifton-11-gtx/preview-notification/page.tsx
   - src/components/common/layouts/ModalDialog.recipe.tsx
   - src/components/common/layouts/ModalDialog.tsx
   - src/app/mypage/coupons/preview-complete/page.tsx
@@ -1874,3 +1875,7 @@ IA159에 휴대폰 번호 입력 안내(/launch-calendar/clifton-11-gtx/preview-
 ## 쿠폰 상세 스타일 보정 경계 (2026-11-16)
 
 기존 /mypage/coupons/preview-detail과 일반 목록 상세 열기의 데이터·id·더보기·확인/닫기 계약을 유지한다. 별도 wrapper나 서비스는 추가하지 않고 개별 상세 shell을 공통 detail 배치로 통합했다. 상세조건·공고일과 숫자 font 스타일만 현재 소유자에서 보정한다.
+
+## 런칭 알림 신청 IA 직접 경로 (2026-11-16)
+
+IA159에서 발매 예정 상세·신청 완료·번호 입력 안내와 구별되는 입고 알림 신청 STATE를 등록했다. 직접 URL은 /launch-calendar/clifton-11-gtx/preview-notification이며 열린 modal은 form이다. 새 성공/인증/저장 동작은 추가하지 않는다. 생성 소스 그래프와 URL별 variant 회귀 기대값을 함께 갱신했다.

@@ -4,12 +4,13 @@ title: 런칭 캘린더
 description: 런칭 캘린더 시안과 직접 URL 및 표시 전용 인계 경계를 설명한다.
 tags: [launch-calendar, figma, publishing, ia]
 status: draft
-updated: '2026-11-16T09:44:34.726Z'
+updated: '2026-11-16T10:54:57.660Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-11T01:09:17Z'
 source_revision: b4fac81f1ba16d76585e64264941c0e35fcecb7f
 working_tree_sources:
+  - src/app/launch-calendar/clifton-11-gtx/preview-notification/page.tsx
   - src/app/launch-calendar/clifton-11-gtx/preview-phone-required/page.tsx
   - src/app/launch-calendar/page.tsx
   - src/app/launch-calendar/in-stock/page.tsx
@@ -118,3 +119,7 @@ PC 1920px에서 Feed12/Upcoming8/In Stock8과 4열, 제목44px·탭120×40px·�
 PC1440/MO375에서 실제 문구·메시지28px/20px·900, 버튼180×48px/가용 폭×44px, 확인과 신청CTA 포커스 복귀를 확인했다. PC Escape 닫기와 IA 검색·STATE 유형 표시도 확인했다. Windows classic scrollbar 예약이 있는 MO375 캡처의 CTA 가용 폭은296px이다. 첨부 이미지와 계산 스타일·PC/MO 캡처가 검증 근거이며 별도 Figma 구조 측정은 하지 않았다.
 
 검증 추가(2026-11-16): Next.js 프로덕션 빌드와 156개 정적 페이지 생성이 통과했다.
+
+## 입고 알림 신청 팝업 IA 등록 (2026-11-16)
+
+기존 상품 상세 버튼에만 연결된 신청 form에 /launch-calendar/clifton-11-gtx/preview-notification 직접 STATE를 추가했다. 기존 LaunchCalendarDetail에 preview=notification 초기 open seed만 전달하고 UI를 재사용한다. IA159에 입고 알림 신청·작업 파일·variant=form 표시와 검색을 등록했다. 기존 입력 draft·선택·닫기·신청 API 미연결 경계는 유지한다.

@@ -4,12 +4,13 @@ title: "변경 검증"
 description: "변경 범위에 맞는 정적 검사, 빌드와 수동 검증을 안내한다."
 tags: [verification, testing, build]
 status: draft
-updated: '2026-11-16T10:54:11.049Z'
+updated: '2026-11-16T10:54:58.120Z'
 generated:
   by: codex/gpt-6
   at: "2026-11-02T09:59:35Z"
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/launch-calendar/clifton-11-gtx/preview-notification/page.tsx
   - src/app/mypage/coupons/_components/CouponManagement.tsx
   - tests/modal-dialog-types.test.mjs
   - src/app/screen-index/page.tsx
@@ -749,3 +750,9 @@ PC1440/MO375에서 직접 STATE의 selection1개·terms0개를 확인했다. Esc
 ## 쿠폰 상세 보정 확인 (2026-11-16)
 
 PC1440×1251에서 자연 높이696.5px, 본문21px·공고19.5px, 숫자3종14px·700·21px과 사용기간#040404·오른쪽 정렬을 확인했다. 소수점 반올림에 따른 scrollHeight/clientHeight차1px과 실제 넘침을 구분한다. MO375×812는 fullscreen812px이고 같은 숫자 스타일·가로 넘침 없음이 확인됐다. 변경 ESLint/Prettier·전체 TypeScript·Panda 생성은 통과했다. 브라우저 PC 캡처가 navigation timeout으로 실패해 최종 이미지 확보와 계산 스타일 검증은 구분한다. 전체 빌드는 재실행하지 않았다.
+
+## 런칭 알림 신청 IA 등록 확인 (2026-11-16)
+
+대상 ESLint·전체 TypeScript와 STATE/고정 preview/링크3개 검사가 통과했다. 브라우저에서 신규 URL의 알림 신청 form과 IA 검색 결과의 입고 알림 신청 보기 링크·variant=form 행 표시를 확인했다. 실제 신청 API는 실행하지 않았다. 최종 선별 사본 검사는 아래 후속 기록을 따른다.
+
+최종 네 범위만 담은 인덱스 사본에서 Next route typegen·전체 TypeScript·변경12개 파일 ESLint가 통과했다. 기존 모달 타입 계약1개와 STATE/검색/고정 preview/링크4개 검사도 모두 통과했다. 공유 작업 트리의 비대상 IA 계층 변경과 이전 문서 잔여 diff는 포함하지 않은 검사다.
