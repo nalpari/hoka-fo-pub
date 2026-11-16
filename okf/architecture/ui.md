@@ -4,7 +4,7 @@ title: "컴포넌트와 스타일"
 description: "공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다."
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-16T10:54:10.548Z'
+updated: '2026-11-16T11:13:37.474790+00:00'
 generated:
   by: codex/gpt-6
   at: "2026-11-03T06:11:12Z"
@@ -5076,3 +5076,11 @@ terms와 selection/form/tracking/detail이 공통 contentModal 외형을 공유�
 쿠폰 상세의 line-height6px 강제와 개별 shell override를 제거했다. portal 본문에서 body 행간1.5를 적용하고 일반 본문14px·21px, 공고13px·19.5px을 사용한다. 행 간24px·상세조건간16px을 보존하고 고정 높이는 추가하지 않는다. 내용과 viewport 제한으로 높이를 결정한다.
 
 사용자 PC/MO 주석을 우선해 수량·혜택 금액·사용기간 숫자는 HOKA14px·700·21px로 표시하고 사용기간은#040404·오른쪽 정렬이다. 다른 한국어 본문의 굵기는 유지한다. [HOKA Design](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 쿠폰 상세 PC/MO와 사용자 첨부 이미지가 출처다. header/footer는 앞서 확정한 공통 detail 규격을 따른다.
+
+## 이미지 모달 시안 적용 (2026-11-16)
+
+`ModalDialog.recipe.tsx`의 image 슬롯과 `modalImageContentRecipe`를 문의 첨부파일 및 모달 가이드에서 공유한다. PC는 폭 640px·반경 10px, 모바일은 반경 20px의 손잡이 없는 하단 시트다. 헤더 아래 margin 24px, 미리보기 240×240px, 이미지와 페이지 표시 간격 PC 40px/MO 24px, 하단 여백 PC 24px/MO 32px을 적용한다. 페이지 표시는 5px 점·활성 너비 21px·간격 5px이다. 이미지 원본은 contain으로 비율을 보존하며 업로드 미리보기의 unoptimized 예외를 유지한다.
+
+제목은 구조화된 시안의 400과 달리 사용자 확정 공통 기준·첨부 화면의 700을 유지하며 PC 24px/MO 20px·행간 150%다. [화면 디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)을 기준으로 한다.
+
+검증: 문의 첨부파일에서 PC 640×409px, MO 375×379px, 프레임 240×240px과 간격 40px/24px을 계산 스타일로 확인했다. 실제 글리프는 Pretendard-Bold다. 페이지 표시 전환, 열린 상태 1024/1025·1199/1200px resize의 선택 유지·팝업 내부 가로 넘침 없음, Escape·다시 열기·트리거 포커스 복귀를 확인했다. 타입 검사·대상 ESLint/Prettier·Panda·기존 모달 타입 계약 검사가 통과했다. 브라우저 스크린샷은 PC/MO 각 한 차례 재시도 후에도 캡처 시간 초과로 비교하지 못했다. 실제 첨부 이미지의 가로/세로 비율 및 명시적 preview 플랫폼·프로덕션 빌드는 이번에 별도로 실행하지 않았다.

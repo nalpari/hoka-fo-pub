@@ -18,6 +18,7 @@ import {
 } from '@/components/common/molecules/Carousel/Carousel';
 
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
+import { modalImageContentRecipe } from '@/components/common/layouts/ModalDialog.recipe';
 
 import { type InquiryView } from '@/app/support/inquiries/inquiry.types';
 type Props = {
@@ -104,17 +105,8 @@ type InquiryAttachment = {
   kind: 'image' | 'document';
   previewUrl?: string;
 };
-const paginationItem = css({
-  w: '6px',
-  h: '6px',
-  flexShrink: 0,
-  p: '0',
-  border: '0',
-  borderRadius: '4px',
-  bg: 'black.40',
-  cursor: 'pointer',
-  '&[aria-pressed="true"]': { bg: 'black.100' },
-});
+const imagePreview = modalImageContentRecipe();
+
 type InquiryAttachmentPreviewProps = {
   attachments: readonly InquiryAttachment[];
   initialIndex: number;
@@ -137,49 +129,51 @@ function InquiryAttachmentPreview({
       mobilePresentation="bottomSheet"
     >
       <Carousel itemCount={attachments.length} initialIndex={initialIndex}>
-        <CarouselViewport mode="mobile" mobileItemGutter={0} freeMode={false} showScrollbar={false}>
-          {attachments.map((attachment) => (
-            <Stack key={attachment.name} alignItems="center">
-              <Square
-                size="240px"
-                maxW="100%"
-                bg="black.10"
-                border="1px solid token(colors.black.40)"
-              >
-                {attachment.previewUrl ? (
-                  <Image
-                    unoptimized
-                    src={attachment.previewUrl}
-                    width={240}
-                    height={240}
-                    alt={attachment.name}
-                    className={css({ w: '100%', h: '100%', objectFit: 'contain' })}
-                  />
-                ) : (
-                  <Icon
-                    name={attachment.kind === 'document' ? 'file-pdf-solid' : 'image-solid'}
-                    size="40px"
-                    color="black.20"
-                  />
-                )}
-              </Square>
-            </Stack>
-          ))}
-        </CarouselViewport>
-        <CarouselPagination
-          className={css({ display: 'flex', justifyContent: 'center', gap: '2', pt: '6' })}
-          label="첨부파일 선택"
-          renderItem={(index, isActive, select) => (
-            <button
-              key={index}
-              type="button"
-              aria-label={`${index + 1}번 이미지`}
-              aria-pressed={isActive}
-              className={paginationItem}
-              onClick={() => select(index)}
-            />
-          )}
-        />
+        <div className={imagePreview.root}>
+          <CarouselViewport
+            mode="mobile"
+            mobileItemGutter={0}
+            freeMode={false}
+            showScrollbar={false}
+          >
+            {attachments.map((attachment) => (
+              <div key={attachment.name} className={imagePreview.slide}>
+                <div className={imagePreview.frame}>
+                  {attachment.previewUrl ? (
+                    <Image
+                      unoptimized
+                      src={attachment.previewUrl}
+                      width={240}
+                      height={240}
+                      alt={attachment.name}
+                      className={imagePreview.image}
+                    />
+                  ) : (
+                    <Icon
+                      name={attachment.kind === 'document' ? 'file-pdf-solid' : 'image-solid'}
+                      size="40px"
+                      color="black.20"
+                    />
+                  )}
+                </div>
+              </div>
+            ))}
+          </CarouselViewport>
+          <CarouselPagination
+            className={imagePreview.pagination}
+            label="첨부파일 선택"
+            renderItem={(index, isActive, select) => (
+              <button
+                key={index}
+                type="button"
+                aria-label={`${index + 1}번 이미지`}
+                aria-pressed={isActive}
+                className={imagePreview.paginationItem}
+                onClick={() => select(index)}
+              />
+            )}
+          />
+        </div>
       </Carousel>
     </ModalDialog>
   );

@@ -834,7 +834,9 @@
       "src/components/common/atoms/Icon.tsx",
       "src/components/common/atoms/Toast.tsx",
       "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ModalDialog.recipe.tsx",
       "src/components/common/layouts/ModalDialog.tsx",
+      "src/components/common/molecules/Carousel/Carousel.tsx",
       "src/context/platform.tsx"
     ],
     "src/app/publishing-guide/_components/ProductCardGuide.tsx": [
@@ -1080,6 +1082,7 @@
       "src/components/common/atoms/Badge.tsx",
       "src/components/common/atoms/Icon.tsx",
       "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ModalDialog.recipe.tsx",
       "src/components/common/layouts/ModalDialog.tsx",
       "src/components/common/molecules/Carousel/Carousel.tsx"
     ],

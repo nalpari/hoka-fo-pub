@@ -113,6 +113,36 @@ export const modalTermsContentRecipe = sva({
   },
 });
 
+export const modalImageContentRecipe = sva({
+  slots: ['root', 'slide', 'frame', 'image', 'pagination', 'paginationItem'],
+  base: {
+    root: { display: 'flex', flexDirection: 'column', gap: '40px', _mobile: { gap: '24px' } },
+    slide: { display: 'flex', justifyContent: 'center', minW: '0' },
+    frame: {
+      display: 'grid',
+      placeItems: 'center',
+      w: '240px',
+      maxW: '100%',
+      aspectRatio: '1',
+      bg: '#F7F7F9',
+      border: '1px solid #B3B3B3',
+    },
+    image: { w: '100%', h: '100%', minH: '0', objectFit: 'contain' },
+    pagination: { display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '5px' },
+    paginationItem: {
+      w: '5px',
+      h: '5px',
+      flexShrink: '0',
+      p: '0',
+      border: '0',
+      borderRadius: '50px',
+      bg: '#B3B3B3',
+      cursor: 'pointer',
+      '&[aria-pressed="true"]': { w: '21px', bg: 'black.100' },
+    },
+  },
+});
+
 export const modalDialogRecipe = sva({
   slots: [
     'viewport',
@@ -218,12 +248,12 @@ export const modalDialogRecipe = sva({
       detail: contentModal,
       image: {
         popup: {
-          border: '1px solid token(colors.black.20)',
           boxShadow: 'none',
           _mobile: { maxH: '100dvh', borderRadius: '20px 20px 0 0' },
         },
-        header: { bg: 'white.0', borderBottom: '1px solid token(colors.black.20)' },
-        content: { p: '24px', _mobile: { p: '24px 16px 32px' } },
+        header: { mb: '24px' },
+        title: { fontWeight: '700', color: 'black.100' },
+        content: { p: '0px 32px 24px', _mobile: { p: '0px 16px 32px' } },
       },
       sizeGuide: {
         popup: { maxW: '768px' },
@@ -387,6 +417,17 @@ export const modalDialogRecipe = sva({
     },
   },
   compoundVariants: [
+    {
+      variant: 'image',
+      sheet: true,
+      css: {
+        popup: {
+          '&::before': { display: 'none' },
+          _mobile: { borderRadius: '20px 20px 0 0' },
+        },
+        content: { p: '0px 16px 32px', _mobile: { p: '0px 16px 32px' } },
+      },
+    },
     {
       variant: ['terms', 'selection', 'form', 'tracking', 'detail'],
       hasFooter: true,

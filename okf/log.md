@@ -2729,3 +2729,8 @@ Figma Navigational Buttons(296:25392)와 Action Buttons(296:25425)의 기본·�
 - 수정 파일 ESLint/Prettier·TypeScript·Panda 통과. PC/MO 표시·선택·입력·resize·닫기·포커스 복귀·기존 완료 CTA 확인. 전체 lint는 범위 밖 테스트 파일의 전역 선언 오류8건으로 실패했다. 기록 주체: codex/gpt-6.
 
 런칭캘린더 팝업 검증 추가: 프로덕션 빌드와 156개 정적 페이지 생성 통과(2026-11-16).
+
+## 2026-11-16 이미지 모달 스타일 적용
+
+- image 모달의 PC/MO shell과 240px 이미지·페이지 표시 recipe를 문의 첨부파일과 가이드에 연결했다. 라우트·첨부 데이터 계약을 유지했다.
+- 계산 스타일·실제 Pretendard Bold·페이지 전환·경계 resize·Escape/포커스 복귀, 타입·대상 lint/format·Panda·모달 타입 계약을 확인했다. PC/MO 캡처 시간 초과와 미실행 항목은 UI 문서에 구분했다.

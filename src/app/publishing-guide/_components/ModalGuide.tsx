@@ -12,10 +12,17 @@ import { Toast, type ToastNotice } from '@/components/common/atoms/Toast';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import {
+  Carousel,
+  CarouselPagination,
+  CarouselViewport,
+} from '@/components/common/molecules/Carousel/Carousel';
+
+import {
   ModalDialog,
   type ModalDialogProps,
   type ModalDialogVariant,
 } from '@/components/common/layouts/ModalDialog';
+import { modalImageContentRecipe } from '@/components/common/layouts/ModalDialog.recipe';
 
 import { renderGuideCode } from './GuideCode';
 import { GuideTimeline } from './GuideTimeline';
@@ -76,7 +83,7 @@ const groups: { id: string; title: string; description: string; items: ModalExam
             : 'popup',
         mobileFixedFooter: true,
       },
-      action: variant === 'confirm' ? 'confirm' : 'single',
+      action: variant === 'image' ? undefined : variant === 'confirm' ? 'confirm' : 'single',
       long: variant === 'terms',
     })),
   },
@@ -234,6 +241,37 @@ const groups: { id: string; title: string; description: string; items: ModalExam
 ];
 
 function exampleCode(example: ModalExample) {
+  if (example.variant === 'image')
+    return `import Image from 'next/image';
+import { Carousel, CarouselPagination, CarouselViewport } from '@/components/common/molecules/Carousel/Carousel';
+import { ModalDialog } from '@/components/common/layouts/ModalDialog';
+import { modalImageContentRecipe } from '@/components/common/layouts/ModalDialog.recipe';
+
+const styles = modalImageContentRecipe();
+
+<ModalDialog variant="image" open={open} onOpenChange={setOpen}
+  title="첨부파일 미리보기" mobilePresentation="bottomSheet">
+  <Carousel itemCount={attachments.length}>
+    <div className={styles.root}>
+      <CarouselViewport mode="mobile" mobileItemGutter={0} freeMode={false} showScrollbar={false}>
+        {attachments.map((attachment) => (
+          <div key={attachment.name} className={styles.slide}>
+            <div className={styles.frame}>
+              <Image unoptimized src={attachment.previewUrl} width={240} height={240}
+                alt={attachment.name} className={styles.image} />
+            </div>
+          </div>
+        ))}
+      </CarouselViewport>
+      <CarouselPagination className={styles.pagination} label="첨부파일 선택"
+        renderItem={(index, isActive, select) => (
+          <button key={index} type="button" aria-label={\`\${index + 1}번 이미지\`}
+            aria-pressed={isActive} className={styles.paginationItem}
+            onClick={() => select(index)} />
+        )} />
+    </div>
+  </Carousel>
+</ModalDialog>`;
   if (example.contentAction)
     return `import { useRef, useState } from 'react';
 import { Stack } from 'styled-system/jsx';
@@ -369,31 +407,66 @@ function ModalExampleCard({
                 : undefined,
           }
         : undefined;
-  const content = example.contentAction ? (
-    <Stack gap="24px">
-      {Array.from({ length: 12 }, (_, index) => (
-        <Typography key={index} as="p" variant="body4">
-          {index + 1}. 약관 내용입니다. 확인 버튼은 본문 마지막에 함께 스크롤됩니다.
+  const imageStyles = modalImageContentRecipe();
+  const content =
+    example.variant === 'image' ? (
+      <Carousel itemCount={5}>
+        <div className={imageStyles.root}>
+          <CarouselViewport
+            mode="mobile"
+            mobileItemGutter={0}
+            freeMode={false}
+            showScrollbar={false}
+          >
+            {Array.from({ length: 5 }, (_, index) => (
+              <div key={index} className={imageStyles.slide}>
+                <div className={imageStyles.frame}>
+                  <Icon name="image-solid" size="40px" color="black.20" />
+                </div>
+              </div>
+            ))}
+          </CarouselViewport>
+          <CarouselPagination
+            className={imageStyles.pagination}
+            label="첨부파일 선택"
+            renderItem={(index, isActive, select) => (
+              <button
+                key={index}
+                type="button"
+                aria-label={`${index + 1}번 이미지`}
+                aria-pressed={isActive}
+                className={imageStyles.paginationItem}
+                onClick={() => select(index)}
+              />
+            )}
+          />
+        </div>
+      </Carousel>
+    ) : example.contentAction ? (
+      <Stack gap="24px">
+        {Array.from({ length: 12 }, (_, index) => (
+          <Typography key={index} as="p" variant="body4">
+            {index + 1}. 약관 내용입니다. 확인 버튼은 본문 마지막에 함께 스크롤됩니다.
+          </Typography>
+        ))}
+        <Typography as="p" variant="body5" tone="subtle">
+          공고일자 : 2025년 08월 25일 / 시행일자 : 2025년 09월 01일
         </Typography>
-      ))}
-      <Typography as="p" variant="body5" tone="subtle">
-        공고일자 : 2025년 08월 25일 / 시행일자 : 2025년 09월 01일
+      </Stack>
+    ) : example.long ? (
+      <Stack gap={example.variant === 'terms' ? '24px' : '4'}>
+        {Array.from({ length: 32 }, (_, index) => (
+          <Typography key={index} as="p" variant="body4">
+            {index + 1}. 긴 내용의 스크롤을 확인하는 예시입니다. 본문을 내려도 하단 확인 버튼은
+            유지됩니다.
+          </Typography>
+        ))}
+      </Stack>
+    ) : (
+      <Typography as="p" variant="body4">
+        안내 내용입니다. 이 예시는 모달의 표시와 열기·닫기만 확인합니다.
       </Typography>
-    </Stack>
-  ) : example.long ? (
-    <Stack gap={example.variant === 'terms' ? '24px' : '4'}>
-      {Array.from({ length: 32 }, (_, index) => (
-        <Typography key={index} as="p" variant="body4">
-          {index + 1}. 긴 내용의 스크롤을 확인하는 예시입니다. 본문을 내려도 하단 확인 버튼은
-          유지됩니다.
-        </Typography>
-      ))}
-    </Stack>
-  ) : (
-    <Typography as="p" variant="body4">
-      안내 내용입니다. 이 예시는 모달의 표시와 열기·닫기만 확인합니다.
-    </Typography>
-  );
+    );
 
   return (
     <Stack minW="0" gap="3" p="4" border="1px solid token(colors.black.20)">

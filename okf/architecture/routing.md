@@ -4,7 +4,7 @@ title: "라우팅과 플랫폼"
 description: "App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다."
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-16T10:54:57.879Z'
+updated: '2026-11-16T11:13:37.563955+00:00'
 generated:
   by: codex/gpt-6
   at: "2026-11-03T06:11:12Z"
@@ -21,7 +21,6 @@ working_tree_sources:
   - src/app/launch-calendar/clifton-11-gtx/preview-notified/page.tsx
   - src/app/products/[id]/_components/ProductDetailContent.tsx
   - src/app/publishing-guide/_components/ModalGuide.tsx
-  - src/app/screen-index/sourceGraph.generated.json
   - src/app/products/pdp-preview/[state]/page.tsx
   - src/app/products/[id]/productDetailPreviews.ts
   - src/app/checkout/preview-address-change/page.tsx
@@ -36,7 +35,6 @@ working_tree_sources:
   - src/app/screen-index/page.tsx
   - src/app/screen-index/screenChangeHistory.ts
   - src/app/screen-index/screenChangeHistory.generated.json
-  - src/app/screen-index/sourceGraph.generated.json
   - src/app/support/inquiries/new/_components/InquiryFormContent.tsx
   - src/app/checkout/_components/CheckoutPayment.tsx
   - src/app/publishing-guide/_components/FormGuide.tsx
@@ -1879,3 +1877,7 @@ IA159에 휴대폰 번호 입력 안내(/launch-calendar/clifton-11-gtx/preview-
 ## 런칭 알림 신청 IA 직접 경로 (2026-11-16)
 
 IA159에서 발매 예정 상세·신청 완료·번호 입력 안내와 구별되는 입고 알림 신청 STATE를 등록했다. 직접 URL은 /launch-calendar/clifton-11-gtx/preview-notification이며 열린 modal은 form이다. 새 성공/인증/저장 동작은 추가하지 않는다. 생성 소스 그래프와 URL별 variant 회귀 기대값을 함께 갱신했다.
+
+## 문의 첨부파일 이미지 모달 (2026-11-16)
+
+기존 `/support/inquiries/preview-attachment`와 문의 첨부파일 버튼은 같은 `InquiryListContent.tsx`의 image 모달을 사용한다. 미리보기·페이지 표시를 공통 이미지 recipe로 연결하고, 모바일 하단 시트의 손잡이·헤더 구분선을 제거했다. 모달 가이드의 image 예시도 다섯 슬라이드와 같은 recipe를 사용하며 확인 푸터는 생성하지 않는다. 라우트·표시 데이터·열기/닫기 소유권은 유지한다. [규격과 검증](ui.md#이미지-모달-시안-적용-2026-11-16)을 참고한다.
