@@ -18,6 +18,7 @@ type CartOptionType = 'shoes' | 'apparel';
 const optionStyles = modalProductOptionRecipe();
 
 type CartOptionsDialogProps = {
+  initialSize?: string;
   item: CartItem;
   product: Product;
   optionType?: CartOptionType;
@@ -27,6 +28,7 @@ type CartOptionsDialogProps = {
 
 /** 상품 유형에 맞는 옵션 선택과 닫기를 확인합니다. (Previews option selection and dismissal for each product type.) */
 function CartOptionsDialog({
+  initialSize,
   item,
   product,
   optionType = 'shoes',
@@ -34,7 +36,7 @@ function CartOptionsDialog({
   onClose,
 }: CartOptionsDialogProps) {
   const platform = usePlatform();
-  const [draft, setDraft] = useState(item);
+  const [draft, setDraft] = useState({ ...item, size: initialSize ?? item.size });
   const color = product.colorOptions?.find((option) => option.color === draft.color);
   const widths = color?.widths;
   const width = widths?.find((option) => option.label === draft.width);
@@ -50,7 +52,7 @@ function CartOptionsDialog({
     !unavailableColors.includes(draft.color);
 
   // [ 개발팀 바인딩 ] item/product와 optionType, unavailableColors는 장바구니 소유자가 전달하는 표시 데이터입니다.
-  // 현재는 선택 초안과 닫기만 확인하며 변경 저장 요청은 연결하지 않았습니다. 실제 연결 시 소유자가 상품/옵션 ID와
+  // initialSize는 변경된 선택을 처음부터 표시하는 preview seed입니다. 현재는 선택 초안과 닫기만 확인하며 변경 저장 요청은 연결하지 않았습니다. 실제 연결 시 소유자가 상품/옵션 ID와
   // draft의 color/width/size를 저장 payload로 매핑하고 pending 중 중복 제출 방지, 실패 시 초안 유지·재시도,
   // 성공 시 목록 갱신과 닫기를 연결해야 합니다. 상품 종류는 이름이나 사이즈 문자열로 추정하지 않습니다.
   return (
@@ -147,6 +149,7 @@ function CartOptionsDialog({
 }
 
 type CartDialogsProps = {
+  initialSize?: string;
   editingRow: { item: CartItem; product: Product } | null;
   optionType?: CartOptionType;
   unavailableColors?: readonly string[];
@@ -174,6 +177,7 @@ export function CartLimitDialog({ onClose }: { onClose: () => void }) {
 
 /** 장바구니 옵션 편집 화면을 표시합니다. (Displays the cart option editing dialog.) */
 export function CartDialogs({
+  initialSize,
   editingRow,
   optionType = 'shoes',
   unavailableColors,
@@ -181,6 +185,7 @@ export function CartDialogs({
 }: CartDialogsProps) {
   return editingRow ? (
     <CartOptionsDialog
+      initialSize={initialSize}
       item={editingRow.item}
       product={editingRow.product}
       optionType={optionType}

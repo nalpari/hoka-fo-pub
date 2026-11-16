@@ -4,12 +4,15 @@ title: '변경 검증'
 description: '변경 범위에 맞는 정적 검사, 빌드와 수동 검증을 안내한다.'
 tags: [verification, testing, build]
 status: draft
-updated: '2026-11-16T11:46:14.121504+00:00'
+updated: '2026-11-16T12:59:22.941263+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/cart/_components/CartProductSection.tsx
+  - src/app/checkout/_components/CheckoutCouponDialog.tsx
+  - src/app/checkout/checkout-summary.ts
   - src/app/mypage/orders/_components/OrderTrackingDialog.tsx
   - src/app/cart/_components/CartDialogs.tsx
   - src/app/launch-calendar/_components/LaunchCalendarDetail.tsx
@@ -784,3 +787,14 @@ preview-notification의 form 유형과 IA 직접 경로·생성 소스 그래프
 최종 세 범위의 선별 스테이지 사본은 Next route typegen 후 전체 TypeScript, 쿠폰 변경 ESLint와 STATE/검색/고정 preview/링크4개 검사가 통과했다. 런칭 신규 소스2개의 Prettier도 Git blob과 동일한 내용에서 통과했다. 전체 빌드는 재실행하지 않았다.
 
 최종 네 범위만 담은 인덱스 사본에서 Next route typegen·전체 TypeScript·변경12개 파일 ESLint가 통과했다. 기존 모달 타입 계약1개와 STATE/검색/고정 preview/링크4개 검사도 모두 통과했다. 공유 작업 트리의 비대상 IA 계층 변경과 이전 문서 잔여 diff는 포함하지 않은 검사다.
+
+## 주문 영역 PC·모바일 재검수 (2026-11-16)
+
+- Figma 원본 프레임·구조·스타일·이미지와 PC1920px/모바일375px 실행 캡처를 대조했다. 기본7화면과 옵션·쿠폰·주소·입력/오류·빈 상태·완료·신청·배송조회 등26개 상태, PC/MO52개 화면을 확보했다. 긴 쿠폰·신청 모달은 viewport 내부 스크롤과 전체 시안 대조용 긴 높이 캡처를 구분했다.
+- 장바구니 PC720/360px·56px 간격·144px 이미지와 모바일96px 이미지를 확인했다. 주문서 수량 열158px·섹션48px, 쿠폰/신청 PC모달640px을 비교했다. 모바일 주문서3행·각1개·정상가와 PC2행·수량2/1을 별도 fixture로 확인했다. 의류M 선택의 변경 버튼 활성, 초기S의 비활성, 닫기를 확인했다.
+- 장바구니 첫 수량2→3, 상품 체크 해제, 쿠폰 라디오 선택과 펼침/접기 후 선택 유지, 모달 닫기를 실제 조작했다. 조회·신청·금액 계산·저장은 실행하지 않았다. 변경한 바인딩 경계는 fixture/초안이며 서비스 pending·실패·재시도·성공 요청은 미구현이라 서비스 성공을 검증했다고 기록하지 않는다.
+- 열린 쿠폰 모달과 일반 주문서에서1024/1025px 및1199/1200px resize를 확인했다. 모바일→PC 전환이1024/1025px에서 일어나며,1025~1199px의1200px canvas와1200px의 가로 넘침 없음(client1185/scroll1185)을 확인했다. PC1920 및 모바일375 기본 화면도 가로 넘침이 없었다. 플랫폼 공통 구현은 변경하지 않았다.
+- 한국어 제목의 계산 글꼴 Pretendard와 크기·굵기, 본문 이미지/결제 브랜드 로드를 확인했다. 브라우저 도구가 글리프별 실제 폰트 정보를 제공하지 않아 그 부분은 미확인이다. 공통 홍보 배너·헤더/푸터와 Figma의 iOS 상태 바 차이는 대조 자료에 명시했다. 고정 하단 버튼은 전체 페이지 캡처에서도 실제 viewport 하단에 남으므로 문서 높이 전체와 혼동하지 않는다. 픽셀 일치율은 산출하지 않았다.
+- `npm run build`: 성공,161개 정적 페이지 생성. `npm run typecheck`, `npx eslint src`, 변경한 TS/TSX의 Prettier와 `git diff --check`: 통과. Panda와 IA 소스 그래프를 다시 생성했다.
+- 관련69개 검사(cart display·checkout summary·order policy·form controls·preview links·screen files·modal types)는 전부 통과했다. 전체127개 중126개 통과,1개는 기존 `inquiry-binding` 검사가 범위 밖 `src/app/wh`의 fetch5곳을 금지 대상으로 잡는 실패다. 전체 `npm run lint`도 변경하지 않은 `tests/wh-file-summary.test.mjs`의 URL/Request/Response 전역8건 때문에 실패한다. 해당 파일과 `/wh` 소스는 기준 HEAD 대비 변경 없음으로 구분했다. 초기 App Router manifest 불일치는 신규 페이지를 포함한 빌드 후 해소했다.
+- 최종 hoka-markup-handoff 점검에서 route-private 소유권, 단일 반응형 상품 트리, 폼/모달 의미 구조, 준비된 데이터와 표시 전용 버튼, 명시적 fixture override, 기존 기본 props를 확인했다. 실제 요청을 흉내 내는 타이머·저장소·API를 추가하지 않았다.

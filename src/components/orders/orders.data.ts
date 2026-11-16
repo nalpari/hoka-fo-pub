@@ -1,16 +1,18 @@
 /** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 주문 연결 소유자가 표시 모델과 식별자·입력/선택 payload, 요청 중/실패/성공/재시도 및 응답 갱신을 별도로 구현해야 합니다. */
 import type { ClaimHistoryItem, OrderDetailDisplay, OrderLine, OrderRecord } from './orders.types';
-const line = (key: string, quantity = 1): OrderLine => ({
+const line = (key: string, quantity = 2): OrderLine => ({
   key,
   productId: 'shoe-1',
-  name: '클리프톤 9',
-  image: '/images/mypage/speedgoat-7-gtx.png',
-  width: 'X-Wide',
-  color: '레드',
-  size: '225',
+  name: 'Speedgoat 7 GTX',
+  image: '/images/cart/speedgoat-black.png',
+  width: '레귤러',
+  color: '브라운',
+  size: '235',
   quantity,
-  price: 230000,
-  displayAmount: 230000,
+  mobileQuantity: 1,
+  price: 240000,
+  displayAmount: 360000,
+  mobileDisplayAmount: 240000,
 });
 
 /** 주문 상세 시안용 고정 데이터. 실제 주문으로부터 분류하거나 금액을 계산하지 않습니다. */
@@ -24,8 +26,8 @@ const orderDetailFixtures: Record<string, { web: OrderDetailDisplay; mobile: Ord
         expectedDate: '10월 20일 (화)',
         reviewHref: '/mypage/reviews?order=202610210192',
         activeItems: [
-          { ...line('paid-1', 2), width: 'X-Wide', displayAmount: 230000 },
-          { ...line('paid-2', 2), width: 'X-Wide', displayAmount: 230000 },
+          { ...line('paid-1', 2), width: '레귤러', displayAmount: 240000 },
+          { ...line('paid-2', 2), width: '레귤러', displayAmount: 240000 },
         ],
         claimGroups: [],
         history: [],
@@ -48,8 +50,8 @@ const orderDetailFixtures: Record<string, { web: OrderDetailDisplay; mobile: Ord
         expectedDate: '10월 20일 (화)',
         reviewHref: '/mypage/reviews?order=202610210192',
         activeItems: [
-          { ...line('paid-1', 2), width: 'X-Wide', displayAmount: 230000 },
-          { ...line('paid-2', 2), width: 'X-Wide', displayAmount: 230000 },
+          { ...line('paid-1', 2), width: '레귤러', displayAmount: 240000 },
+          { ...line('paid-2', 2), width: '레귤러', displayAmount: 240000 },
         ],
         claimGroups: [],
         history: [],
@@ -74,11 +76,11 @@ const orderDetailFixtures: Record<string, { web: OrderDetailDisplay; mobile: Ord
         expectedDate: '10월 11일 (일)',
         reviewHref: '/mypage/reviews?order=202610080192',
         activeItems: [
-          { ...line('preparing-1', 1), width: 'X-Wide', displayAmount: 230000 },
+          { ...line('preparing-1', 1), width: '레귤러', displayAmount: 240000 },
           {
             ...line('preparing-2', 1),
-            width: 'X-Wide',
-            displayAmount: 230000,
+            width: '레귤러',
+            displayAmount: 360000,
             displayStatus: 'paid',
             displayExpectedDate: '10월 19일 (월)',
           },
@@ -104,11 +106,11 @@ const orderDetailFixtures: Record<string, { web: OrderDetailDisplay; mobile: Ord
         expectedDate: '10월 11일 (일)',
         reviewHref: '/mypage/reviews?order=202610080192',
         activeItems: [
-          { ...line('preparing-1', 1), width: 'X-Wide', displayAmount: 230000 },
+          { ...line('preparing-1', 1), width: '레귤러', displayAmount: 240000 },
           {
             ...line('preparing-2', 1),
-            width: 'X-Wide',
-            displayAmount: 230000,
+            width: '레귤러',
+            displayAmount: 360000,
             displayStatus: 'paid',
             displayExpectedDate: '10월 19일 (월)',
           },
@@ -135,7 +137,7 @@ const orderDetailFixtures: Record<string, { web: OrderDetailDisplay; mobile: Ord
         status: '배송완료',
         expectedDate: '10월 20일 (화)',
         reviewHref: '/mypage/reviews?order=202610010192',
-        activeItems: [{ ...line('delivered-1', 1), width: 'X-Wide', displayAmount: 230000 }],
+        activeItems: [{ ...line('delivered-1', 1), width: '레귤러', displayAmount: 240000 }],
         claimGroups: [],
         history: [],
         recipient: {
@@ -156,7 +158,7 @@ const orderDetailFixtures: Record<string, { web: OrderDetailDisplay; mobile: Ord
         status: '배송완료',
         expectedDate: '10월 20일 (화)',
         reviewHref: '/mypage/reviews?order=202610010192',
-        activeItems: [{ ...line('delivered-1', 1), width: 'X-Wide', displayAmount: 230000 }],
+        activeItems: [{ ...line('delivered-1', 1), width: '레귤러', displayAmount: 240000 }],
         claimGroups: [],
         history: [],
         recipient: {
@@ -179,19 +181,19 @@ const orderDetailFixtures: Record<string, { web: OrderDetailDisplay; mobile: Ord
         status: '구매확정',
         expectedDate: '07월 29일 (화)',
         reviewHref: '/mypage/reviews?order=202609250192',
-        activeItems: [{ ...line('purchased-1', 2), width: 'X-와이드', displayAmount: 360000 }],
+        activeItems: [{ ...line('purchased-1', 2), width: '레귤러', displayAmount: 360000 }],
         claimGroups: [
           {
             id: '912375821759832',
             label: '구매취소',
             detailLabel: '취소상세보기',
-            items: [{ ...line('cancelled-1', 2), width: 'X-와이드', displayAmount: 360000 }],
+            items: [{ ...line('cancelled-1', 2), width: '레귤러', displayAmount: 360000 }],
           },
           {
             id: '912375821759833',
             label: '반품요청',
             detailLabel: '반품상세보기',
-            items: [{ ...line('returned-1', 2), width: 'X-와이드', displayAmount: 360000 }],
+            items: [{ ...line('returned-1', 2), width: '레귤러', displayAmount: 360000 }],
           },
         ],
         history: [
@@ -200,7 +202,7 @@ const orderDetailFixtures: Record<string, { web: OrderDetailDisplay; mobile: Ord
             requestedAt: '2026.10.18',
             status: '취소완료',
             refund: 360000,
-            items: [{ ...line('cancelled-1', 2), width: 'X-와이드', displayAmount: 230000 }],
+            items: [{ ...line('cancelled-1', 2), width: '레귤러', displayAmount: 240000 }],
           },
           {
             id: '912375821759833',
@@ -208,8 +210,8 @@ const orderDetailFixtures: Record<string, { web: OrderDetailDisplay; mobile: Ord
             status: '환불완료',
             refund: 360000,
             items: [
-              { ...line('returned-1', 2), width: 'X-와이드', displayAmount: 230000 },
-              { ...line('returned-1-preview-2', 2), width: 'X-와이드', displayAmount: 230000 },
+              { ...line('returned-1', 2), width: '레귤러', displayAmount: 240000 },
+              { ...line('returned-1-preview-2', 2), width: '레귤러', displayAmount: 240000 },
             ],
           },
         ],
@@ -231,19 +233,19 @@ const orderDetailFixtures: Record<string, { web: OrderDetailDisplay; mobile: Ord
         status: '구매확정',
         expectedDate: '07월 29일 (화)',
         reviewHref: '/mypage/reviews?order=202609250192',
-        activeItems: [{ ...line('purchased-1', 2), width: 'X-와이드', displayAmount: 230000 }],
+        activeItems: [{ ...line('purchased-1', 2), width: '레귤러', displayAmount: 240000 }],
         claimGroups: [
           {
             id: '912375821759832',
             label: '구매취소',
             detailLabel: '취소상세보기',
-            items: [{ ...line('cancelled-1', 2), width: 'X-와이드', displayAmount: 230000 }],
+            items: [{ ...line('cancelled-1', 2), width: '레귤러', displayAmount: 240000 }],
           },
           {
             id: '912375821759833',
             label: '반품요청',
             detailLabel: '반품상세보기',
-            items: [{ ...line('returned-1', 2), width: 'X-와이드', displayAmount: 230000 }],
+            items: [{ ...line('returned-1', 2), width: '레귤러', displayAmount: 240000 }],
           },
         ],
         history: [
@@ -252,7 +254,7 @@ const orderDetailFixtures: Record<string, { web: OrderDetailDisplay; mobile: Ord
             requestedAt: '2026.05.02',
             status: '취소완료',
             refund: 95000,
-            items: [{ ...line('cancelled-1', 2), width: 'X-와이드', displayAmount: 230000 }],
+            items: [{ ...line('cancelled-1', 2), width: '레귤러', displayAmount: 240000 }],
           },
         ],
         recipient: {
@@ -291,7 +293,9 @@ export const previewOrders: OrderRecord[] = [
     displayAmounts: { total: 230000, claimed: 0, remaining: 230000 },
     items: [
       line('preparing-1'),
-      { ...line('preparing-2'), displayStatus: 'paid', displayExpectedDate: '10월 19일 (월)' },
+      { ...line('preparing-2'), displayStatus: 'paid', displayExpectedDate: '10월 11일 (일)' },
+      { ...line('preparing-3'), displayStatus: 'paid', displayExpectedDate: '10월 11일 (일)' },
+      { ...line('preparing-4'), displayStatus: 'paid', displayExpectedDate: '10월 11일 (일)' },
     ],
     claims: [],
   },
@@ -330,7 +334,7 @@ export const previewOrders: OrderRecord[] = [
             reason: '단순변심',
             details:
               '주문 후 상품 정보를 다시 확인하는 과정에서 제가 원했던 색상과 사이즈가 잘못 선택된 것을 확인했습니다. 상품이 발송되기 전이라면 주문을 취소하고 싶습니다. 동일한 상품을 올바른 옵션으로 다시 주문할 예정이며, 기존 주문에 대한 취소 및 결제 금액 환불 처리를 요청드립니다. 또한 취소가 정상적으로 접수되었는지 확인 부탁드립니다. 주문 과정에서 옵션을 꼼꼼하게 확인하지 못한 점 양해 부탁드리며, 빠른 처리와 안내를 부탁드립니다. 감사합니다. 번거로우시겠지만 확인 후 처리 결과를 안내해 주시면 감사하겠습니다.',
-            items: [{ ...line('cancelled-1', 2), width: 'X-와이드', displayAmount: 360000 }],
+            items: [{ ...line('cancelled-1', 2), width: '레귤러', displayAmount: 360000 }],
             productAmount: 3350000,
             fee: 0,
             refund: 3300000,
@@ -345,7 +349,7 @@ export const previewOrders: OrderRecord[] = [
             refundedAt: '2026. 10. 05',
             reason: '단순 변심',
             details: '색상이 마음에 들지 않아서 환불합니다.',
-            items: [{ ...line('cancelled-1', 2), width: 'X-와이드', displayAmount: 230000 }],
+            items: [{ ...line('cancelled-1', 2), width: '레귤러', displayAmount: 240000 }],
             productAmount: 776000,
             fee: 5000,
             refund: 716000,
@@ -353,13 +357,13 @@ export const previewOrders: OrderRecord[] = [
         },
         kind: 'cancel',
         state: 'complete',
-        quantities: { 'cancelled-1': 1 },
+        quantities: { 'cancelled-1': 2 },
         reason: 'mind',
         details: '색상이 마음에 들지 않아 반품합니다.',
         requestedAt: '2026-10-02',
         completedAt: '2026-10-05',
         fee: 5000,
-        displayAmount: 230000,
+        displayAmount: 360000,
         displayRefund: 225000,
       },
       {
@@ -384,7 +388,7 @@ export const previewOrders: OrderRecord[] = [
             refundedAt: '2026. 10. 20',
             reason: '단순변심',
             details: '',
-            items: [{ ...line('returned-1', 2), width: 'X-와이드', displayAmount: 360000 }],
+            items: [{ ...line('returned-1', 2), width: '레귤러', displayAmount: 360000 }],
             productAmount: 3350000,
             fee: 0,
             refund: 3300000,
@@ -399,7 +403,7 @@ export const previewOrders: OrderRecord[] = [
             refundedAt: '2026. 10. 05',
             reason: '단순 변심',
             details: '색상이 마음에 들지 않아서 환불합니다.',
-            items: [{ ...line('returned-1', 2), width: 'X-와이드', displayAmount: 230000 }],
+            items: [{ ...line('returned-1', 2), width: '레귤러', displayAmount: 240000 }],
             productAmount: 776000,
             fee: 0,
             refund: 776000,
@@ -408,13 +412,13 @@ export const previewOrders: OrderRecord[] = [
         },
         kind: 'return',
         state: 'complete',
-        quantities: { 'returned-1': 1 },
+        quantities: { 'returned-1': 2 },
         reason: 'damage',
         details: '스크래치가 있어 반품하고 환불 신청합니다.',
         requestedAt: '2026-10-02',
         completedAt: '2026-10-05',
         fee: 0,
-        displayAmount: 230000,
+        displayAmount: 360000,
         displayRefund: 230000,
       },
     ],
@@ -422,23 +426,19 @@ export const previewOrders: OrderRecord[] = [
 ];
 
 /** 취소·반품 목록 시안용 고정 행입니다. 상품 추출·수량 계산·상태 판단을 하지 않습니다. */
-export const previewClaimHistory: readonly ClaimHistoryItem[] = [
-  {
-    key: 'cancel-history-1',
-    orderId: '202609250192',
-    claimId: '912375821759832',
-    orderDate: '2026.07.25',
-    orderNumber: '202609250192',
-    line: line('cancelled-1', 1),
-    status: { web: '취소완료', mobile: '환불완료' },
-  },
-  {
-    key: 'return-history-1',
-    orderId: '202609250192',
-    claimId: '912375821759833',
-    orderDate: '2026.07.25',
-    orderNumber: '202609250192',
-    line: line('returned-1', 1),
-    status: { web: '환불완료', mobile: '환불완료' },
-  },
-];
+export const previewClaimHistory: readonly ClaimHistoryItem[] = [1, 2, 3, 4].map((index) => ({
+  key: `claim-history-${index}`,
+  orderId: '202609250192',
+  claimId: index % 2 ? '912375821759832' : '912375821759833',
+  orderDate: '2026.10.08',
+  mobileOrderDate: '2026.12.22',
+  orderNumber: 'HK2026091635153701',
+  line: { ...line(`claim-history-${index}`), displayAmount: 298000, mobileDisplayAmount: 240000 },
+  status: { web: '취소완료', mobile: '환불완료' },
+}));
+
+/** 반품 신청 시안의 두 상품을 표시하는 명시적 fixture입니다. 실제 주문 목록을 변형하지 않습니다. */
+export const previewReturnRequestOrder: OrderRecord = {
+  ...previewOrders[2],
+  items: [line('return-request-1', 1), line('return-request-2', 1)],
+};

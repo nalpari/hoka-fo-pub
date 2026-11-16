@@ -7,15 +7,24 @@ import { cartApparelOptionPreview, cartOptionPreview } from '@/app/cart/cart-pre
 import { CartDialogs, CartLimitDialog } from './CartDialogs';
 
 /** 장바구니 모달의 고정 시안 상태를 엽니다. (Opens a fixed cart dialog preview state.) */
-export function CartModalPreview({ kind }: { kind: 'options' | 'apparelOptions' | 'limit' }) {
+export function CartModalPreview({
+  kind,
+}: {
+  kind: 'options' | 'apparelOptions' | 'apparelChanged' | 'limit';
+}) {
   const [open, setOpen] = useState(true);
 
   if (!open) return null;
 
   return kind !== 'limit' ? (
     <CartDialogs
-      editingRow={kind === 'apparelOptions' ? cartApparelOptionPreview : cartOptionPreview}
-      optionType={kind === 'apparelOptions' ? 'apparel' : 'shoes'}
+      initialSize={kind === 'apparelChanged' ? 'M' : undefined}
+      editingRow={
+        kind === 'apparelOptions' || kind === 'apparelChanged'
+          ? cartApparelOptionPreview
+          : cartOptionPreview
+      }
+      optionType={kind === 'apparelOptions' || kind === 'apparelChanged' ? 'apparel' : 'shoes'}
       unavailableColors={kind === 'options' ? ['White'] : undefined}
       onEditClose={() => setOpen(false)}
     />

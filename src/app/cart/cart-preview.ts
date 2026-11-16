@@ -7,7 +7,11 @@ export type CartPreviewRow = {
   amount: number;
   soldOut: boolean;
   initialSelected: boolean;
-  optionPreview?: { item: CartItem; product: Product };
+  originalAmount?: number;
+  mobileAmount?: number;
+  initialFavorite?: boolean;
+  optionQuantity?: number;
+  optionPreview?: { item: CartItem; product: Product; unavailableColors?: readonly string[] };
 };
 
 const optionColors = [
@@ -76,62 +80,30 @@ function cartPreviewItem(): CartItem {
  * 실제 상품/옵션 식별자와 표시 금액·재고 상태, 삭제·저장·주문 요청은 개발팀 장바구니 소유자에서 연결합니다.
  * 요청 성공/실패/pending 및 목록 갱신은 미연결이며 이 예시는 ShopShell 상태를 읽거나 변경하지 않습니다.
  */
-export const cartPreviewRows: CartPreviewRow[] = [
-  {
-    item: cartPreviewItem(),
-    product: products[0],
-    amount: 240000,
-    soldOut: false,
-    initialSelected: false,
-    optionPreview: cartOptionPreview,
+export const cartPreviewRows: CartPreviewRow[] = [0, 1, 2, 3, 4].map((index) => ({
+  item: {
+    ...cartPreviewItem(),
+    id: `cart-shoe-${index + 1}`,
+    width: '레귤러',
+    imageSrc: '/images/cart/speedgoat-black.png',
+    quantity: index === 0 || index === 4 ? 2 : 1,
   },
-  {
-    item: {
-      id: products[1].id,
-      imageSrc: '/images/cart/clifton-preview.png',
-      color: '레드',
-      width: 'X-Wide',
-      size: '225',
-      quantity: 2,
-    },
-    product: products[1],
-    amount: 288000,
-    soldOut: false,
-    initialSelected: false,
-  },
-  {
-    item: {
-      id: products[2].id,
-      imageSrc: '/images/cart/clifton-preview.png',
-      color: '화이트',
-      width: 'Wide',
-      size: '270',
-      quantity: 5,
-    },
-    product: products[2],
-    amount: 720000,
-    soldOut: false,
-    initialSelected: false,
-  },
-  {
-    item: {
-      id: products[3].id,
-      imageSrc: '/images/cart/clifton-preview.png',
-      color: '옐로우골드',
-      width: 'X-Wide',
-      size: '250',
-      quantity: 4,
-    },
-    product: products[3],
-    amount: 928000,
-    soldOut: true,
-    initialSelected: false,
-  },
-];
+  product: { ...products[0], name: 'Speedgoat 7 GTX', gender: 'All Gender' },
+  amount: 240000,
+  mobileAmount: index === 4 ? 139000 : undefined,
+  originalAmount: index === 1 ? 280000 : undefined,
+  soldOut: index > 2,
+  initialSelected: index < 3,
+  initialFavorite: index === 1,
+  optionQuantity: 1,
+  optionPreview: { ...cartOptionPreview, unavailableColors: ['White'] },
+}));
 
 export const cartPreviewAmounts = {
-  product: 3350000,
-  shipping: 0,
-  total: 3350000,
-  selectedTotal: 1236500,
+  product: 349000,
+  discount: 17450,
+  shipping: 3000,
+  total: 334550,
+  mobileTotal: 240000,
+  selectedTotal: 240000,
 };

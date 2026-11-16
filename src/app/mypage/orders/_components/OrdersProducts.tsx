@@ -203,13 +203,10 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
                   <Box px="24px">
                     <OrderHistoryProduct line={line} showAmount={false} cartAction />
                   </Box>
-<Typography
-                    variant="body3Medium"
-                    className={css({ textAlign: 'center' })}
-                  >
+                  <Typography variant="body3Medium" className={css({ textAlign: 'center' })}>
                     {line.quantity}개
                   </Typography>
-<Typography
+                  <Typography
                     variant="body3Medium"
                     className={css({ textAlign: 'right', px: '24px' })}
                   >
@@ -237,7 +234,7 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
                 배송 조회
               </Button>
             ) : null}
-            {group.status === 'paid' ? (
+            {group.status === 'paid' || group.status === 'preparing' ? (
               <Button
                 variant="secondary"
                 size="short"
@@ -285,17 +282,39 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
 
       {order.claims.map((claim) => (
         <Stack key={claim.id} gap="16px" py="24px" borderBottom="1px solid var(--colors-black-20)">
-          <HStack justifyContent="space-between" alignItems="center">
-<Typography variant="body4Medium" tone="subtle">
+          <HStack gap="16px" alignItems="center">
+            <Typography variant="body4Medium" tone="red80">
               {claim.kind === 'cancel' ? '구매취소' : '반품요청'}
             </Typography>
             <Button variant="link" size="sm" onClick={() => actions.onClaimDetail(order, claim)}>
               {claim.kind === 'cancel' ? '취소상세보기' : '반품상세보기'}
             </Button>
           </HStack>
-          {getClaimLines(order, claim).map((line) => (
-            <OrderHistoryProduct key={line.key} line={line} />
-          ))}
+          {getClaimLines(order, claim).map((line) =>
+            platform === 'mobile' ? (
+              <OrderHistoryProduct key={line.key} line={line} />
+            ) : (
+              <Grid
+                key={line.key}
+                gridTemplateColumns="minmax(0, 536fr) minmax(0, 108fr) minmax(0, 200fr)"
+                alignItems="center"
+                gap="0"
+              >
+                <Box px="24px">
+                  <OrderHistoryProduct line={line} showAmount={false} cartAction />
+                </Box>
+                <Typography variant="body3Medium" className={css({ textAlign: 'center' })}>
+                  {line.quantity}개
+                </Typography>
+                <Typography
+                  variant="body3Medium"
+                  className={css({ textAlign: 'right', px: '24px' })}
+                >
+                  {line.displayAmount?.toLocaleString()}원
+                </Typography>
+              </Grid>
+            ),
+          )}
         </Stack>
       ))}
     </Stack>

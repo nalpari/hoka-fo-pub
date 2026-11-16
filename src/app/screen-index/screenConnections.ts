@@ -142,6 +142,7 @@ const connections: Record<number, ScreenConnection> = {
       { label: '빈 목록', href: '/cart/preview-empty' },
       { label: '옵션 변경 · 신발', href: '/cart/preview-options' },
       { label: '옵션 변경 · 의류', href: '/cart/preview-options-apparel' },
+      { label: '옵션 변경 · 의류 변경됨', href: '/cart/preview-options-apparel-changed' },
       { label: '수량 제한 안내', href: '/cart/preview-limit' },
     ],
     sourceFiles: [
@@ -149,6 +150,7 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/cart/preview-empty/page.tsx',
       'src/app/cart/preview-options/page.tsx',
       'src/app/cart/preview-options-apparel/page.tsx',
+      'src/app/cart/preview-options-apparel-changed/page.tsx',
       'src/app/cart/preview-limit/page.tsx',
     ],
   },
@@ -160,6 +162,7 @@ const connections: Record<number, ScreenConnection> = {
       { label: '주문 완료', href: '/checkout/preview-complete' },
       { label: '기본배송지 주소가 없는 사용자', href: '/checkout/preview-shipping' },
       { label: '배송 요청사항 직접입력', href: '/checkout/preview-delivery-request' },
+      { label: '보유 쿠폰 조회', href: '/checkout/preview-coupons' },
     ],
     sourceFiles: [
       'src/app/checkout/page.tsx',
@@ -168,6 +171,7 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/checkout/preview-complete/page.tsx',
       'src/app/checkout/preview-shipping/page.tsx',
       'src/app/checkout/preview-delivery-request/page.tsx',
+      'src/app/checkout/preview-coupons/page.tsx',
     ],
   },
   '172': {
@@ -884,7 +888,9 @@ const stateModalVariants: Readonly<Record<string, readonly ModalDialogVariant[]>
   // CartDialogs and CheckoutStatePreview.
   '/cart/preview-options': ['productOption'],
   '/cart/preview-options-apparel': ['productOption'],
+  '/cart/preview-options-apparel-changed': ['productOption'],
   '/cart/preview-limit': ['alert'],
+  '/checkout/preview-coupons': ['selection'],
   '/checkout/preview-address-change': ['form'],
   '/checkout/preview-address-edit': ['form'],
   '/checkout/preview-address-new': ['form'],

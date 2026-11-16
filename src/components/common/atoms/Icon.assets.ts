@@ -1,5 +1,9 @@
 /** 공통 Icon의 SVG 경로입니다. Font Awesome은 공식 이름과 스타일을 사용합니다. */
 export const iconAssets = {
+  'hoka-trash-regular': {
+    src: '/images/icon/hoka-trash-regular.svg',
+    mode: 'mask',
+  },
   'plus-regular': {
     src: '/images/icon/plus-regular.svg',
     mode: 'mask',

@@ -16,15 +16,12 @@
     "src/app/cart/_components/CartContent.tsx": [
       "src/app/cart/_components/CartOrderActions.tsx",
       "src/app/cart/_components/CartProductSection.tsx",
-      "src/app/cart/_components/CartSupportInfo.tsx",
       "src/app/cart/cart-preview.ts",
-      "src/components/common/atoms/Button.tsx",
       "src/components/common/molecules/CarouselSection.tsx",
       "src/components/common/molecules/ContentHeader.tsx",
       "src/components/common/molecules/ProductCard/ProductCard.tsx",
-      "src/components/orders/OrderPageLayout.tsx",
       "src/context/platform.tsx",
-      "src/mocks/products.ts"
+      "src/mocks/orderRecommendations.ts"
     ],
     "src/app/cart/_components/CartDialogs.tsx": [
       "src/components/common/atoms/Radio.tsx",
@@ -37,10 +34,11 @@
       "src/components/common/molecules/CarouselSection.tsx",
       "src/components/common/molecules/ProductCard/ProductCard.tsx",
       "src/context/platform.tsx",
-      "src/mocks/products.ts"
+      "src/mocks/orderRecommendations.ts"
     ],
     "src/app/cart/_components/CartEmptyState.tsx": [
       "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Icon.tsx",
       "src/components/common/atoms/Typography.tsx"
     ],
     "src/app/cart/_components/CartModalPreview.tsx": [
@@ -50,21 +48,20 @@
     "src/app/cart/_components/CartOrderActions.tsx": [
       "src/app/cart/cart-preview.ts",
       "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/OrderActionBar.tsx",
       "src/components/common/molecules/AmountRow.tsx",
       "src/context/platform.tsx"
     ],
     "src/app/cart/_components/CartProductSection.tsx": [
+      "src/app/cart/_components/CartDialogs.tsx",
       "src/app/cart/cart-item.ts",
-      "src/app/cart/cart-preview.ts",
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Checkbox.tsx",
       "src/components/common/atoms/Icon.tsx",
       "src/components/common/atoms/NumberStepper.tsx",
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/atoms/Wishlist.tsx",
-      "src/components/common/molecules/OrderProductSummary.tsx",
-      "src/context/platform.tsx",
       "src/mocks/cartDisplay.ts"
     ],
     "src/app/cart/_components/CartSupportInfo.tsx": [
@@ -76,7 +73,6 @@
     "src/app/cart/page.tsx": ["src/app/cart/_components/CartContent.tsx"],
     "src/app/cart/preview-empty/page.tsx": [
       "src/app/cart/_components/CartEmptyContent.tsx",
-      "src/components/common/molecules/ContentHeader.tsx",
       "src/components/orders/OrderPageLayout.tsx"
     ],
     "src/app/cart/preview-limit/page.tsx": [
@@ -91,6 +87,10 @@
       "src/app/cart/_components/CartContent.tsx",
       "src/app/cart/_components/CartModalPreview.tsx"
     ],
+    "src/app/cart/preview-options-apparel-changed/page.tsx": [
+      "src/app/cart/_components/CartContent.tsx",
+      "src/app/cart/_components/CartModalPreview.tsx"
+    ],
     "src/app/checkout/_components/CheckoutAgreement.tsx": [
       "src/components/common/atoms/Checkbox.tsx",
       "src/components/common/atoms/Typography.tsx"
@@ -99,13 +99,25 @@
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/organisms/OrderRecommendations.tsx",
+      "src/context/platform.tsx",
       "src/mocks/orderRecommendations.ts"
     ],
-    "src/app/checkout/_components/CheckoutDiscountSummary.tsx": [
+    "src/app/checkout/_components/CheckoutCouponDialog.tsx": [
       "src/app/checkout/checkout-coupons.ts",
-      "src/components/common/atoms/Dropdown.tsx",
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Icon.tsx",
+      "src/components/common/atoms/Radio.tsx",
       "src/components/common/atoms/Typography.tsx",
-      "src/components/common/molecules/AmountRow.tsx"
+      "src/components/common/layouts/ModalDialog.tsx",
+      "src/components/common/molecules/AmountRow.tsx",
+      "src/components/common/molecules/OrderProductSummary.tsx"
+    ],
+    "src/app/checkout/_components/CheckoutDiscountSummary.tsx": [
+      "src/app/checkout/_components/CheckoutCouponDialog.tsx",
+      "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/molecules/AmountRow.tsx",
+      "src/context/platform.tsx"
     ],
     "src/app/checkout/_components/CheckoutForm.tsx": [
       "src/app/checkout/_components/CheckoutAgreement.tsx",
@@ -142,25 +154,28 @@
       "src/context/CheckoutContext.ts"
     ],
     "src/app/checkout/_components/CheckoutStatePreview.tsx": [
-      "src/app/cart/cart-preview.ts",
       "src/app/checkout/_components/CheckoutComplete.tsx",
       "src/app/checkout/_components/CheckoutForm.tsx",
       "src/app/checkout/_components/CheckoutLayout.tsx",
+      "src/app/checkout/checkout-summary.ts",
+      "src/context/platform.tsx",
       "src/data/addressPreview.ts"
     ],
     "src/app/checkout/_components/CheckoutSummary.tsx": [
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/ContentSection.tsx",
       "src/components/common/molecules/OrderProductSummary.tsx",
+      "src/context/platform.tsx",
       "src/mocks/cartDisplay.ts"
     ],
     "src/app/checkout/checkout-address-preview.ts": ["src/data/addressPreview.ts"],
     "src/app/checkout/checkout-coupons.ts": [],
     "src/app/checkout/checkout-summary.ts": [],
     "src/app/checkout/page.tsx": [
-      "src/app/cart/cart-preview.ts",
       "src/app/checkout/_components/CheckoutForm.tsx",
-      "src/app/checkout/_components/CheckoutLayout.tsx"
+      "src/app/checkout/_components/CheckoutLayout.tsx",
+      "src/app/checkout/checkout-summary.ts",
+      "src/context/platform.tsx"
     ],
     "src/app/checkout/preview-address-change/page.tsx": [
       "src/app/checkout/_components/CheckoutStatePreview.tsx"
@@ -172,6 +187,9 @@
       "src/app/checkout/_components/CheckoutStatePreview.tsx"
     ],
     "src/app/checkout/preview-complete/page.tsx": [
+      "src/app/checkout/_components/CheckoutStatePreview.tsx"
+    ],
+    "src/app/checkout/preview-coupons/page.tsx": [
       "src/app/checkout/_components/CheckoutStatePreview.tsx"
     ],
     "src/app/checkout/preview-delivery-request/page.tsx": [
@@ -457,7 +475,7 @@
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/ModalDialog.tsx",
       "src/components/common/molecules/FormFields/TextFormField.tsx",
-      "src/components/orders/OrderHistoryProduct.tsx",
+      "src/components/common/molecules/OrderProductSummary.tsx",
       "src/context/platform.tsx"
     ],
     "src/app/mypage/orders/_components/OrderDetails.tsx": [
@@ -1712,7 +1730,7 @@
     "src/lib/useScrollPin.ts": [],
     "src/lib/validation.ts": [],
     "src/mocks/cartDisplay.ts": [],
-    "src/mocks/orderRecommendations.ts": ["src/mocks/cartDisplay.ts", "src/mocks/products.ts"],
+    "src/mocks/orderRecommendations.ts": [],
     "src/mocks/products.ts": [],
     "src/types/binding.ts": [],
     "src/types/cart.ts": [],
@@ -1727,6 +1745,8 @@
     "src/app/cart/_components/CartOrderActions.tsx",
     "src/app/cart/_components/CartProductSection.tsx",
     "src/app/cart/cart-preview.ts",
+    "src/app/checkout/_components/CheckoutCouponDialog.tsx",
+    "src/app/checkout/_components/CheckoutDiscountSummary.tsx",
     "src/app/checkout/_components/CheckoutShipping.tsx",
     "src/app/checkout/checkout-summary.ts",
     "src/app/homeContent.ts",

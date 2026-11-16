@@ -64,14 +64,14 @@ export function OrdersPage({
     initialOverlay === 'purchase' || initialOverlay === 'delete',
   );
   const [filters, setFilters] = useState<OrderFilters>({
-    period: returns ? 'custom' : '1',
-    start: returns ? '2026-01-01' : '2026-09-23',
-    end: returns ? '2026-08-30' : '2026-10-23',
+    period: 'custom',
+    start: '2026-01-01',
+    end: '2026-08-30',
     query: '',
   });
   const [dates, setDates] = useState({
-    start: returns ? '2026-01-01' : '2026-09-23',
-    end: returns ? '2026-08-30' : '2026-10-23',
+    start: '2026-01-01',
+    end: '2026-08-30',
   });
   const selectedOrder = orders.find((order) => order.id === (selectedId ?? orders[0]?.id));
   const selectedClaim = selectedOrder?.claims.find(

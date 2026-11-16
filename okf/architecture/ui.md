@@ -4,12 +4,14 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-16T11:46:14.121504+00:00'
+updated: '2026-11-16T12:56:30.717659+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/components/common/atoms/NumberStepper.tsx
+  - src/app/checkout/_components/CheckoutSummary.tsx
   - src/app/mypage/orders/_components/OrderTrackingDialog.tsx
   - src/app/login/find-account/id-confirmation-modal/page.tsx
   - src/app/signup/information/_components/RegistrationContent.tsx
@@ -926,6 +928,9 @@ working_tree_sources:
   - src/components/common/molecules/ProductOptionList.tsx
   - src/components/common/organisms/OrderRecommendations.tsx
 sources:
+  - id: orders-design-review
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql
+    title: 장바구니·주문·취소·반품 최신 화면 시안
   - id: figma-claim-2182-71235
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2182-71235
     title: '모바일 취소 상세'
@@ -5128,3 +5133,12 @@ Dropdown 정렬 버튼은 데스크탑 글자 16px·화살표 18px, 모바일 �
 쿠폰 화면의 제목, 임직원 쿠폰, 쿠폰 내역과 더보기 상태는 RouteContent에서 직접 구성한다. 쿠폰 카드와 상세 모달은 기존 역할을 유지한다. 출처: `src/app/mypage/coupons/_components/CouponManagement.tsx`, 2026-11-16.
 
 상품리뷰 화면은 탭·정렬·건수·목록 구조를 MyPageReviewsContent에서 직접 구성하고, 반복되는 리뷰 항목과 리뷰 작성 모달은 유지한다. 출처: `src/app/mypage/reviews/_components/MyPageReviewsContent.tsx`, 2026-11-16.
+
+## 장바구니·주문 영역 표시 규격 (2026-11-16)
+
+- 장바구니 PC는 본문720px·요약360px·열 간격56px, 상품 이미지144px이다. 모바일은 이미지96px, 바깥 여백16px, 상품 옆 수량·가격과 하단 결제 바를 사용한다. 품절·기존 가격·관심상품·수량1의 휴지통 표현과 준비된 합계를 표시한다. NumberStepper의 선택적 `minimumControl`은 최솟값에서만 기본 감소 버튼을 교체하며 기존 소비자의 기본 동작은 유지한다.
+- 추천 목록은 PC1776px 영역에 5개 카드와 다음 카드 일부를 표시한다. 모바일 추천 순서·성별 문구는 별도 준비된 표시 목록이다. 상품 탐색은 각 항목의 명시적 href를 사용한다.
+- 주문서는 PC720/360px·56px 간격, 제목·섹션 간격48px, 수량 열158px을 따른다. 공통 OrderPageLayout에 `headerSpacing="relaxed"`만 추가해 기존 기본40px·none0px 소비자를 보존했다. 결제 수단6개는 PC한 줄·모바일3열2행이며 원본 브랜드 이미지를 사용한다.
+- 보유 쿠폰은 PC640px·모바일 하단 시트다. 상품별 펼침·라디오 초안과 disabled 표시, 장바구니 쿠폰 요약을 구성한다. 적용 버튼은 요청하지 않는다. 취소·반품 신청은 PC640px, 이미지96px/모바일64px, 취소 수량·사유·상세 입력과 고정 환불액을 표시한다.
+- 주문/배송 목록은 상태별 버튼과 주문 상품별 상태 그룹을 유지한다. 취소·반품 목록은 상품·주문일자·금액·처리상태4열이며 옵션·수량 열을 숨긴다. OrderHistoryProduct의 `showOptions` 기본값은 true로 기존 소비자를 유지한다.
+- 각 route의 page-private UI, Panda TSX, semantic button/link와 기존 모달 focus/닫기 소유권을 유지했다. API·인증·가격/재고 계산을 추가하지 않았다. `[ 개발팀 바인딩 ]` 주석은 표시 모델·초안·식별자와 향후 연결 소유자를 구분한다.

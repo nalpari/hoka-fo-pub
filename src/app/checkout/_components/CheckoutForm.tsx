@@ -22,6 +22,7 @@ import {
 import { CheckoutSummary } from './CheckoutSummary';
 
 type CheckoutContentProps = {
+  initialCouponOpen?: boolean;
   editShipping?: boolean;
   initialAddressChangeOpen?: boolean;
   initialAddressEditor?: AddressEditorPreview;
@@ -35,6 +36,7 @@ type CheckoutContentProps = {
 
 /** 주문서 섹션과 입력·선택 UI를 배치합니다. (Arranges checkout sections and input controls.) */
 export function CheckoutContent({
+  initialCouponOpen,
   editShipping = false,
   initialAddressChangeOpen,
   initialAddressEditor,
@@ -48,7 +50,7 @@ export function CheckoutContent({
   return (
     <Grid
       gridTemplateColumns={{ base: '720px 360px', _mobile: '1fr' }}
-      rowGap={{ base: '10', _mobile: '8' }}
+      rowGap={{ base: '12', _mobile: '8' }}
       columnGap={{ base: '14', _mobile: '0' }}
       alignItems="start"
     >
@@ -83,16 +85,23 @@ export function CheckoutContent({
       >
         <Box gridColumn="1" gridRow={{ base: 'auto', _mobile: '3' }}>
           {/* 주문금액·할인금액·배송비·총 결제 금액 */}
-          <CheckoutDiscountSummary />
+          <CheckoutDiscountSummary initialCouponOpen={initialCouponOpen} />
         </Box>
         <Stack gap="6" gridColumn="1" gridRow="5">
           {/* 결제 동의 */}
-          <CheckoutAgreement showError={showAgreementError} />
+          <Box display={{ base: showAgreementError ? 'block' : 'none', _mobile: 'block' }}>
+            <CheckoutAgreement showError={showAgreementError} />
+          </Box>
           {/* 결제하기 액션 */}
           <OrderActionBar>
             <Button type="button" variant="primary" fullWidth>
               결제하기
             </Button>
+            <Box display={{ base: 'block', _mobile: 'none' }} mt="8px">
+              <Button type="button" variant="secondary" fullWidth>
+                취소하기
+              </Button>
+            </Box>
           </OrderActionBar>
         </Stack>
       </Stack>

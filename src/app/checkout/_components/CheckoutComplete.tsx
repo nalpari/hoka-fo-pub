@@ -1,5 +1,7 @@
 'use client';
 
+import { usePlatform } from '@/context/platform';
+
 import { css } from 'styled-system/css';
 import { Stack } from 'styled-system/jsx';
 
@@ -8,10 +10,12 @@ import { Typography } from '@/components/common/atoms/Typography';
 
 import { OrderRecommendations } from '@/components/common/organisms/OrderRecommendations';
 
-import { orderRecommendations } from '@/mocks/orderRecommendations';
+import { mobileOrderRecommendations, orderRecommendations } from '@/mocks/orderRecommendations';
 
 /** 주문 접수 완료 안내와 추천 상품을 표시합니다. (Displays order completion and recommended products.) */
 export function CheckoutComplete() {
+  const recommendations =
+    usePlatform() === 'mobile' ? mobileOrderRecommendations : orderRecommendations;
   return (
     <Stack gap={{ base: '24', _mobile: '16' }}>
       {/* 주문완료 안내 */}
@@ -45,11 +49,7 @@ export function CheckoutComplete() {
         </ButtonLink>
       </Stack>
       {/* 추천 상품 */}
-      <OrderRecommendations
-        items={orderRecommendations}
-        layout="checkout"
-        title="함께 구매하면 좋은 상품"
-      />
+      <OrderRecommendations items={recommendations} layout="checkout" title="추천 상품" />
     </Stack>
   );
 }

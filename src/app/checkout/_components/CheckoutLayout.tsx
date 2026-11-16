@@ -16,6 +16,7 @@ export function CheckoutLayout({
 }) {
   return (
     <OrderPageLayout
+      headerSpacing="relaxed"
       title={
         completed ? null : (
           /** 주문/결제 페이지 제목 */

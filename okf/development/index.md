@@ -1,5 +1,7 @@
 # 개발
 
+- [주문 영역 PC·모바일 재검수](verification.md#주문-영역-pc모바일-재검수-2026-11-16) - 52개 캡처·시안 수치·조작·경계값과 기존 검사 실패 구분.
+
 - [ModalDialog 타입 계약 검사](verification.md#modaldialog-유형-계약과-검증-2026-11-16) - 9개 유형과 배타적 본문·액션 계약, 실제 검증과 기존 실패.
 
 [main 변경 보고 스킬](../../.agents/skills/hoka-main-change-report/SKILL.md)은 수동 호출 시 지정 커밋을 포함하거나 마지막 성공 SHA 이후부터 최신 origin/main까지 최종 유효 변경을 분석해 IA 구조도의 날짜·담당자별 모달과 개발자 공유 보고서를 만든다. 담당자는 기존 IA 매핑을 사용한다. 현재 WBS 문서(1JyQvEhb53OgXnSBcxypHGI8nxsclZDi059r1SCdFHos)의 Schedule FO 개발 실적과 IA 저장값을 WBS 번호로 비교해 공유 보고서에 별도로 기록한다.

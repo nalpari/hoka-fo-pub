@@ -6,7 +6,7 @@ import { ContentSection } from '@/components/common/layouts/ContentSection';
 
 type Props = {
   title: ReactNode | null;
-  headerSpacing?: 'default' | 'none';
+  headerSpacing?: 'default' | 'relaxed' | 'none';
   maxWidth?: string;
   paddingX?: { base: string; _mobile: string };
   paddingTop?: { base: string; _mobile: string };
@@ -36,7 +36,11 @@ export function OrderPageLayout({
       ) : (
         <ContentSection
           gap={
-            headerSpacing === 'default' ? { base: '10', _mobile: '6' } : { base: '0', _mobile: '6' }
+            headerSpacing === 'relaxed'
+              ? { base: '12', _mobile: '6' }
+              : headerSpacing === 'default'
+                ? { base: '10', _mobile: '6' }
+                : { base: '0', _mobile: '6' }
           }
           header={
             <Flex as="header" alignItems="center">

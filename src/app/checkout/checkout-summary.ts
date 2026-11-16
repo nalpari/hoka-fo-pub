@@ -9,4 +9,32 @@ export type CheckoutRow = {
     primaryImage?: string;
   };
   amount: number;
+  originalAmount?: number;
 };
+
+/** 주문서의 독립적인 시안 표시 데이터입니다. (Independent checkout display fixtures.) */
+export const checkoutPreviewRows: CheckoutRow[] = [1, 2].map((index) => ({
+  item: {
+    id: `checkout-shoe-${index}`,
+    imageSrc: '/images/cart/speedgoat-black.png',
+    color: '브라운',
+    width: '레귤러',
+    size: '235',
+    quantity: index === 1 ? 2 : 1,
+  },
+  product: {
+    id: `checkout-shoe-${index}`,
+    name: 'Speedgoat 7 GTX',
+    price: 240000,
+    primaryImage: '/images/cart/speedgoat-black.png',
+  },
+  amount: 240000,
+  originalAmount: index === 1 ? 280000 : undefined,
+}));
+
+/** 모바일 주문서에 명시된 세 상품의 준비된 표시값입니다. */
+export const mobileCheckoutPreviewRows: CheckoutRow[] = [1, 2, 3].map((index) => ({
+  ...checkoutPreviewRows[0],
+  item: { ...checkoutPreviewRows[0].item, id: `mobile-checkout-shoe-${index}`, quantity: 1 },
+  originalAmount: 280000,
+}));

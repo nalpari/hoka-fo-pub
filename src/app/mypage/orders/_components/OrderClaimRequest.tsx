@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { usePlatform } from '@/context/platform';
 
 import { css } from 'styled-system/css';
-import { Box, HStack, Stack } from 'styled-system/jsx';
+import { HStack, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
 import { Checkbox } from '@/components/common/atoms/Checkbox';
@@ -13,10 +13,10 @@ import { NumberStepper } from '@/components/common/atoms/NumberStepper';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
+import { OrderProductSummary } from '@/components/common/molecules/OrderProductSummary';
 
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
-import { OrderHistoryProduct } from '@/components/orders/OrderHistoryProduct';
 import type { OrderRecord } from '@/components/orders/orders.types';
 
 /** [ 개발팀 바인딩 ] order는 현재 선택한 주문 표시 데이터다. 선택 상품 key·수량·사유·상세내용은 로컬 초안이며 금액은 고정 시안 값이다. 실제 취소·반품 API와 계산은 미연결이다. 연결 소유자는 order.id와 선택 상품 payload를 제출하고 pending/실패/재시도·성공 후 목록 갱신을 구현해야 한다. 신청 버튼은 요청이나 완료 이동을 실행하지 않는다. */
@@ -73,27 +73,36 @@ export function OrderClaimRequest({
                   )
                 }
               />
-              <Stack flex="1" minW="0" gap="16px">
-                <OrderHistoryProduct
-                  line={line}
-                  imageSize="claim"
-                  showAmount={false}
-                  showQuantity
-                />
-                {!returning ? (
-                  <Box pl="112px" _mobile={{ pl: '0' }}>
-                    <NumberStepper
-                      value={quantities[line.key] ?? 1}
-                      min={1}
-                      max={line.quantity}
-                      ariaLabel={`${line.name} ${line.key} ${name} 수량`}
-                      onChange={(value) =>
-                        setQuantities((previous) => ({ ...previous, [line.key]: value }))
-                      }
-                    />
-                  </Box>
-                ) : null}
-              </Stack>
+              <OrderProductSummary
+                variant="coupon"
+                name={line.name}
+                image={line.image}
+                imageSize={{ web: 96, mobile: 64 }}
+                content={
+                  <Stack minW="0" flex="1" gap="6px">
+                    <Typography variant="body4Medium">{line.name}</Typography>
+                    <Typography variant="body4" tone="subtle">
+                      {line.width}, {line.color}, {line.size}, 1개
+                    </Typography>
+                    {!returning ? (
+                      <NumberStepper
+                        value={quantities[line.key] ?? 1}
+                        min={1}
+                        max={line.quantity}
+                        ariaLabel={`${line.name} ${line.key} ${name} 수량`}
+                        onChange={(value) =>
+                          setQuantities((previous) => ({ ...previous, [line.key]: value }))
+                        }
+                        className={css({
+                          w: '122px',
+                          h: '36px',
+                          _mobile: { mt: '24px', ml: '-80px', w: '122px', h: '36px' },
+                        })}
+                      />
+                    ) : null}
+                  </Stack>
+                }
+              />
             </HStack>
           ))}
         </Stack>
@@ -144,7 +153,7 @@ export function OrderClaimRequest({
         />
         <Typography variant="body5" tone="tertiary">
           {returning
-            ? '*단순 변심·주문 실수 등 고객님 사유의 반품는 반품비 5,000원을 부담하셔야 하며 환불 금액에서 차감됩니다. 상품 불량/파손·오배송·구성품 누락 등 회사 사유는 반품 비가 무료입니다. 상품 수령 후 7일 이내에 신청할 수 있으며, 접수 후 회수 일정은 안내해 드립니다. 착용하거나 세탁한 상품은 반품이 어렵습니다.'
+            ? '*단순 변심·주문 실수 등 고객님 사유의 반품은 반품비 5,000원을 부담하셔야 하며 환불 금액에서 차감됩니다. 상품 불량/파손·오배송·구성품 누락 등 회사 사유는 반품비가 무료입니다. 상품 수령 후 7일 이내에 신청할 수 있으며, 접수 후 회수 일정은 안내해 드립니다. 착용하거나 세탁한 상품은 반품이 어렵습니다.'
             : '*단순 변심·주문 실수 등 고객님 사유의 취소는 반품비 5,000원을 부담하셔야 하며 환불 금액에서 차감됩니다. 배송 지연 등 회사 사유는 반품비가 무료입니다.'}
         </Typography>
       </Stack>
@@ -193,10 +202,16 @@ export function OrderClaimRequest({
       onOpenChange={(open) => !open && onClose()}
       title={title}
       closeLabel={`${title} 닫기`}
-
+      blurBackdrop={false}
       mobilePresentation="bottomSheet"
       footer={
-        <Button variant="primary" size="tall" fullWidth type="button">
+        <Button
+          variant="primary"
+          size="tall"
+          fullWidth
+          type="button"
+          className={css({ w: '160px!', maxW: '160px!', _mobile: { w: '100%!', maxW: 'none!' } })}
+        >
           신청하기
         </Button>
       }

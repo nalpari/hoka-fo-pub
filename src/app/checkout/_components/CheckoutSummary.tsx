@@ -1,5 +1,9 @@
 'use client';
-import { Box, Grid, Stack } from 'styled-system/jsx';
+
+import { usePlatform } from '@/context/platform';
+
+import { css } from 'styled-system/css';
+import { Grid, Stack } from 'styled-system/jsx';
 
 import { Typography } from '@/components/common/atoms/Typography';
 
@@ -9,59 +13,90 @@ import { ContentSection } from '@/components/common/layouts/ContentSection';
 
 import { type CheckoutRow } from '@/app/checkout/checkout-summary';
 import { getCartImage } from '@/mocks/cartDisplay';
-type CheckoutProductListProps = {
-  rows: readonly CheckoutRow[];
-};
-function CheckoutProductList({ rows }: CheckoutProductListProps) {
-  return (
-    <Stack borderTop="1px solid var(--colors-black-100)">
-      <Grid
-        gridTemplateColumns="minmax(0, 1fr) 158px 200px"
-        display={{ base: 'grid', _mobile: 'none' }}
-        py="3"
-        borderBottom="1px solid var(--colors-black-20)"
-      >
-        <Typography variant="heading9">상품/옵션정보</Typography>
-        <Typography variant="heading9">수량</Typography>
-        <Typography variant="heading9">가격</Typography>
-      </Grid>
-      {rows.map(({ item, product, amount }) => (
-        <Grid
-          key={`${item.id}-${item.color}-${item.width}-${item.size}`}
-          gridTemplateColumns={{ base: 'minmax(0, 1fr) 158px 200px', _mobile: '1fr' }}
-          gap="4"
-          alignItems="center"
-          borderBottom="1px solid var(--colors-black-20)"
-        >
-          <OrderProductSummary
-            image={getCartImage(item, product.primaryImage ?? '/images/mypage/speedgoat-7-gtx.png')}
-            name={product.name}
-            optionText={`옵션 : ${item.width} / ${item.color} / ${item.size} / ${item.quantity}개`}
-            amount={amount}
-          />
-          <Box display={{ _mobile: 'none' }}>
-            <Typography variant="body4">{item.quantity}개</Typography>
-          </Box>
-          <Box display={{ _mobile: 'none' }}>
-            <Typography variant="body4">
-              {(product.price * item.quantity).toLocaleString()}원
-            </Typography>
-          </Box>
-        </Grid>
-      ))}
-    </Stack>
-  );
-}
-/** 주문 상품과 할인 및 결제 금액을 표시합니다. (Displays ordered products, discounts, and payment totals.) */
+
+/** 주문 상품의 준비된 수량·정상가·판매가를 표시합니다. (Displays prepared checkout quantities, original prices, and selling prices.) */
 export function CheckoutSummary({ rows }: { rows: readonly CheckoutRow[] }) {
+  const mobile = usePlatform() === 'mobile';
   return (
     <ContentSection
       as="section"
-      gap="4"
+      gap="24px"
       title="주문상품 정보 및 할인 적용"
       headerProps={{ titleAs: 'h2', titleProps: { web: 'heading7', mo: 'heading6' } }}
     >
-      <CheckoutProductList rows={rows} />
+      <Stack gap="0" borderTop="1px solid black">
+        {!mobile ? (
+          <Grid
+            gridTemplateColumns="minmax(0, 1fr) 158px 200px"
+            py="20px"
+            borderBottom="1px solid black"
+          >
+            {['상품/옵션정보', '수량', '가격'].map((label) => (
+              <Typography key={label} variant="heading9" className={css({ textAlign: 'center' })}>
+                {label}
+              </Typography>
+            ))}
+          </Grid>
+        ) : null}
+        {rows.map(({ item, product, amount, originalAmount }) => (
+          <Grid
+            key={item.id}
+            gridTemplateColumns={{ base: 'minmax(0, 1fr) 158px 200px', _mobile: '1fr' }}
+            gap="0"
+            py={{ base: '32px', _mobile: '24px' }}
+            borderBottom="1px solid var(--colors-black-20)"
+            alignItems="center"
+          >
+            <OrderProductSummary
+              variant="history"
+              imageSize={{ web: 96, mobile: 80 }}
+              image={getCartImage(item, product.primaryImage ?? '/images/cart/speedgoat-black.png')}
+              {...(mobile
+                ? {
+                    content: (
+                      <Stack gap="4px" minW="0">
+                        <Typography variant="body4Medium">{product.name}</Typography>
+                        <Typography variant="body5" tone="subtle">
+                          {item.width}, {item.color}, {item.size}, {item.quantity}개
+                        </Typography>
+                        {originalAmount ? (
+                          <Typography
+                            variant="body5"
+                            tone="subtle"
+                            className={css({ textDecoration: 'line-through' })}
+                          >
+                            {originalAmount.toLocaleString()}원
+                          </Typography>
+                        ) : null}
+                        <Typography variant="body4Medium">{amount.toLocaleString()}원</Typography>
+                      </Stack>
+                    ),
+                  }
+                : { optionText: `${item.width}, ${item.color}, ${item.size}`, hideAmount: true })}
+              name={product.name}
+            />
+            {!mobile ? (
+              <>
+                <Typography variant="body4" className={css({ textAlign: 'center' })}>
+                  {item.quantity}개
+                </Typography>
+                <Stack gap="0" alignItems="flex-end" pr="24px">
+                  {originalAmount ? (
+                    <Typography
+                      variant="body4"
+                      tone="subtle"
+                      className={css({ textDecoration: 'line-through' })}
+                    >
+                      {originalAmount.toLocaleString()}원
+                    </Typography>
+                  ) : null}
+                  <Typography variant="body4Medium">{amount.toLocaleString()}원</Typography>
+                </Stack>
+              </>
+            ) : null}
+          </Grid>
+        ))}
+      </Stack>
       <Typography variant="body5" tone="subtle">
         * 상품수량 변경은 상품상세 또는 장바구니에서 하실 수 있습니다.
       </Typography>

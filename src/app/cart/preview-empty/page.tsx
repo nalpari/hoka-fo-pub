@@ -1,5 +1,3 @@
-import { ContentHeader } from '@/components/common/molecules/ContentHeader';
-
 import { CartEmptyContent } from '@/app/cart/_components/CartEmptyContent';
 import { OrderPageLayout } from '@/components/orders/OrderPageLayout';
 
@@ -7,18 +5,9 @@ import { OrderPageLayout } from '@/components/orders/OrderPageLayout';
 export default function Page() {
   return (
     <OrderPageLayout
-      title={
-        <ContentHeader
-          title="장바구니"
-          titleAs="h1"
-          titleProps={{ web: 'heading6', mo: 'heading5' }}
-          orientation="horizontal"
-          gap="1"
-          alignItems="baseline"
-          justifyContent="flex-start"
-        />
-      }
-      maxWidth="1204px"
+      title={null}
+      maxWidth="none"
+      paddingX={{ base: '0', _mobile: '0' }}
       paddingTop={{ base: '72px', _mobile: '40px' }}
     >
       <CartEmptyContent />

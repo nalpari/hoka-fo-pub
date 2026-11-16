@@ -239,14 +239,26 @@ export function OrdersFilters({
         variant="fill"
         value={filters.period}
         onValueChange={onPeriodChange}
-        options={platform === 'mobile' ? periodOptions : [...periodOptions].reverse()}
+        options={
+          platform === 'mobile'
+            ? periodOptions
+            : [
+                periodOptions[3],
+                periodOptions[2],
+                periodOptions[1],
+                periodOptions[0],
+                periodOptions[4],
+              ]
+        }
       />
-      <OrdersDateRange
-        dates={dates}
-        error={error}
-        onDateChange={onDateChange}
-        onDateSearch={onDateSearch}
-      />
+      <Box display={{ base: 'block', _mobile: filters.period === 'custom' ? 'block' : 'none' }}>
+        <OrdersDateRange
+          dates={dates}
+          error={error}
+          onDateChange={onDateChange}
+          onDateSearch={onDateSearch}
+        />
+      </Box>
     </HStack>
   );
 }

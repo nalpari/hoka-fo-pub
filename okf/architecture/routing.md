@@ -4,12 +4,16 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-16T11:46:14.121504+00:00'
+updated: '2026-11-16T12:56:30.717659+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/cart/preview-options-apparel-changed/page.tsx
+  - src/app/checkout/preview-coupons/page.tsx
+  - src/app/checkout/_components/CheckoutCouponDialog.tsx
+  - src/app/mypage/orders/[preview]/page.tsx
   - src/app/mypage/orders/_components/OrderTrackingDialog.tsx
   - src/app/cart/preview-options-apparel/page.tsx
   - src/app/launch-calendar/clifton-11-gtx/preview-notification/page.tsx
@@ -327,6 +331,9 @@ working_tree_sources:
   - src/stories/features/Mockup/signup/SignupSteps.stories.tsx
   - src/app/locales/page.tsx
 sources:
+  - id: orders-design-review
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql
+    title: 장바구니·주문·취소·반품 최신 화면 시안
   - id: coupons-figma-20261030
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1716-80655
     title: 쿠폰 일반·임직원 PC/MO 시안
@@ -1907,3 +1914,12 @@ IA159 런칭캘린더에 입고 알림 신청 직접 URL /launch-calendar/clifto
 상품리뷰 작성 가능 목록은 구매일·상품명 데스크탑 16px, 모바일 13px과 옵션 데스크탑 16px, 모바일 12px을 사용한다. 출처: 상품리뷰 Product 시안 및 작업 트리.
 
 작성한 리뷰 목록도 구매일·상품명 데스크탑 16px, 모바일 13px과 옵션 데스크탑 16px, 모바일 12px을 적용한다. 데스크탑 표 머리글은 20px Bold를 사용한다. 출처: 작성한 리뷰 시안 및 작업 트리.
+
+## 장바구니·주문 영역 시안 재검수 (2026-11-16)
+
+- 기준은 [HOKA 화면 디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql)의 장바구니, 주문/결제, 주문/배송조회, 취소·반품 신청과 내역이다. 원본 구조·스타일·이미지를 읽어 PC와 모바일을 각각 대조했다.
+- `/cart/preview-options-apparel-changed`는 M을 선택해 변경 버튼이 활성화된 의류 옵션 상태다. 기존 `/cart/preview-options-apparel`은 S 초기 선택과 비활성 상태를 유지한다. 초기 크기는 preview seed이며 저장 결과가 아니다.
+- `/checkout/preview-coupons`는 상품별 쿠폰과 장바구니 쿠폰이 열린 상태다. 주문내역의 조회하기 버튼에서도 같은 모달을 연다. IA170·IA171의 STATE와 소스 그래프에 신규 경로를 등록했다.
+- 기본·빈 장바구니, 신발/의류 옵션·수량 제한, 기본·직접 입력·배송 요청·오류·빈 주문서·완료·쿠폰·배송지 목록/추가/수정, 주문/반품 목록과 빈 상태, 주문·취소·반품 상세, 취소/반품 신청·배송조회 등 26개 상태를 PC/MO 총52개 화면으로 캡처했다. 기존 직접 URL을 재사용했다.
+- 기간 선택은 PC에서 1년→6개월→3개월→1개월→직접설정, 모바일에서는 1개월→3개월→6개월→1년→직접설정이다. 초기 직접설정 날짜는 2026.01.01~2026.08.30이고 모바일 날짜 입력은 직접설정에서만 표시한다. 실제 서버 조회는 실행하지 않는다.
+- 검증 세부와 미연결 경계는 [검증 기록](../development/verification.md#주문-영역-pc모바일-재검수-2026-11-16), 구조·수치는 [UI 기록](ui.md#장바구니주문-영역-표시-규격-2026-11-16)을 따른다.
