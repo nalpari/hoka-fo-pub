@@ -4,7 +4,7 @@ title: "변경 검증"
 description: "변경 범위에 맞는 정적 검사, 빌드와 수동 검증을 안내한다."
 tags: [verification, testing, build]
 status: draft
-updated: "2026-11-16T09:41:05.388Z"
+updated: '2026-11-16T09:44:34.457Z'
 generated:
   by: codex/gpt-6
   at: "2026-11-02T09:59:35Z"
@@ -714,3 +714,7 @@ preview-links 검사에 URL별 실제 variant·복수 모달·모달이 없는 �
 ## 안내·확인 전수 점검 검증 (2026-11-16)
 
 공통 폼·모달 타입 검사48개, 변경 lint·Panda와 전체 작업 트리 TypeScript 재검사가 통과했다. 정형 alert/confirm children 거부를 검사한다. 고정 STATE25개×PC/MO 계산 스타일50건과 버튼으로 여는 소셜2종·재입고 취소·가이드2종10건을 확인했다. 선별 커밋은 전체 작업 트리와 별도로 검사한다. 출처: 실제 검사와 작업 트리, Codex.
+
+## 런칭 신규 안내 선별 검증 (2026-11-16)
+
+공통 alert에 휴대폰 번호 안내 STATE를 추가하고 PC1440/MO375의 문구·메시지28/20px·버튼48/44px·확인 후 포커스 복귀, PC Escape와 IA 검색을 확인했다. 신규 팝업만 선별하고 별도 알림 신청 form 작업은 제외한다. 기존 런칭 CTA의 폐기된 Button.icon은 같은 체크 표시를 유지하는 iconRight/iconSize/iconColor로 맞춘다. 앞선 공통 모달 선별 사본의63개 검사 중62개 통과와 범위 밖 배송지 IA171 실패1건을 구분한다. 출처: 사용자 첨부 이미지·작업 트리·실제 확인, Codex.

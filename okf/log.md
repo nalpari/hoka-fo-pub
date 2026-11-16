@@ -1,3 +1,7 @@
+## 2026-11-16 런칭 캘린더 휴대폰 번호 안내 추가
+
+- 첨부 이미지의 신규 alert와 직접 STATE·IA 유형·검색을 추가했다. 별도 신청 form은 제외하며 안내 확인은 닫기만 수행한다. 기존 CTA 체크 아이콘을 지원 Button API로 맞췄다. [화면과 확인](architecture/launch-calendar.md#휴대폰-번호-입력-안내-팝업-2026-11-16).
+
 ## 2026-11-16 안내·확인 공통 모달 스타일 적용
 
 - 공통 슬롯 recipe와 필수 variant를 적용하고 alert/confirm의 정형 본문·버튼·타이포그래피를 통일했다. 기존 사용처의 필수 API 호환 전환과 STATE 유형 표시·검색을 포함한다. 쿠폰 신규 팝업·런칭 신규 안내·IA 계층 변경은 이 커밋에서 제외한다. [UI](architecture/ui.md#modaldialog-9개-유형과-슬롯-recipe-2026-11-16) · [검증](development/verification.md#안내확인-전수-점검-검증-2026-11-16).

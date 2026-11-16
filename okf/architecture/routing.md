@@ -4,12 +4,13 @@ title: "라우팅과 플랫폼"
 description: "App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다."
 tags: [nextjs, routing, platform]
 status: draft
-updated: "2026-11-16T09:41:05.132Z"
+updated: '2026-11-16T09:44:34.164Z'
 generated:
   by: codex/gpt-6
   at: "2026-11-03T06:11:12Z"
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/launch-calendar/clifton-11-gtx/preview-phone-required/page.tsx
   - src/app/launch-calendar/_components/LaunchCalendarContent.tsx
   - src/app/launch-calendar/_components/LaunchCalendarDetail.tsx
   - src/app/launch-calendar/launchCalendar.data.ts
@@ -1840,3 +1841,7 @@ PC1440/MO375에서 `/login/account-locked`, `/login/find-account/password-reset/
 닫혀 있는 공통 Dropdown·우편번호·사이즈 가이드 같은 상호작용용 모달은 import만 보고 기본 페이지의 열린 모달이라고 표시하지 않는다. 신규 상태 URL을 만들지 않았다. signup 인증 만료·계정 찾기 만료·계정 잠금 해제 완료·런칭 알림 완료는 실제 모달이 없어 표시하지 않는다. 외부 상태 이름이나 원본 화면의 popup 분류로 variant를 추정하지 않는다.
 
 `getScreenModalSearchText`는 화면의 기본·preview URL에서 사용하는 variant 속성 문자열을 기존 검색 텍스트에 합친다. alert, tracking, variant="alert", variant="image" 검색을 지원하며 기존 화면 단위 검색과 자식 STATE 문맥은 유지한다. 검색 안내에 variant를 추가했다. 브라우저에서48개 URL의 실제 모달과 metadata가 일치하고, IA의207개 STATE 행 중 등록된48개 URL의 variant가 누락 없이 표시되는 것을 확인했다. 위 검색4건도 결과를 반환한다. 출처: 연결·컴포넌트·직접 진입 fixture 작업 트리, Codex의 실제 확인.
+
+## 런칭 안내 STATE와 모달 점검 (2026-11-16)
+
+IA159에 휴대폰 번호 입력 안내(/launch-calendar/clifton-11-gtx/preview-phone-required)를 추가하고 STATE 아래 variant="alert"와 variant 검색에 연결했다. page는 기존 LaunchCalendarDetail에 명시적 preview만 전달한다. 기존 알림 신청·완료 경로와 서비스 미연결 경계는 유지한다. alert/confirm 고정 STATE25개를 PC/MO에서 확인했으며 런칭 안내도 양쪽에서 별도로 확인했다. 출처: 사용자 첨부 이미지·관련 작업 트리·Codex 실행 확인.

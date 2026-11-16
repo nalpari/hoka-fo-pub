@@ -4,12 +4,13 @@ title: 런칭 캘린더
 description: 런칭 캘린더 시안과 직접 URL 및 표시 전용 인계 경계를 설명한다.
 tags: [launch-calendar, figma, publishing, ia]
 status: draft
-updated: '2026-11-11T01:09:17Z'
+updated: '2026-11-16T09:44:34.726Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-11T01:09:17Z'
 source_revision: b4fac81f1ba16d76585e64264941c0e35fcecb7f
 working_tree_sources:
+  - src/app/launch-calendar/clifton-11-gtx/preview-phone-required/page.tsx
   - src/app/launch-calendar/page.tsx
   - src/app/launch-calendar/in-stock/page.tsx
   - src/app/launch-calendar/upcoming/page.tsx
@@ -97,3 +98,11 @@ PC 1920px에서 Feed12/Upcoming8/In Stock8과 4열, 제목44px·탭120×40px·�
 사용자가 지목한 [RUN Club 모바일](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP)의 Category Button Group과 버튼을 기준으로 수정했다. 기존 서비스의 사각 분할 탭을 참조했던 최초 구현 대신 높이32px, radius52px, 가로padding16px, 간격6px, 글자14px/500의 내용 너비 pill을 사용한다. 선택은 검정/흰 글자, 미선택은 흰 배경/검정 1px 테두리다. 탭 행은 상하16px이며 제목은28px/30.72px이다. PC 120×40px 탭과44px 제목, 세 상태 URL·탐색·1열 카드/상세는 유지한다.
 
 정정 검증: MO375px의 세 목록에서 높이32px·반경52px·간격6px·선택 색상과 넘침 없음을 측정했다. PC1920px에서는44px 제목과120×40px 탭을 유지한다. TypeScript·변경 ESLint/Prettier·Panda·링크/진행 상태16개 검사를 통과했다.
+
+## 휴대폰 번호 입력 안내 팝업 (2026-11-16)
+
+사용자가 첨부한 이미지의 런칭캘린더 헤더, 휴대폰 번호를 입력해주세요 메시지, 알림을 받을 휴대폰 번호를 입력해 주세요. 설명을 공통 alert로 추가했다. 이미지의2배 표현을 기준으로 PC640px 팝업, 제목24px·메시지28px/900·설명16px·확인180×48px을 사용한다. 모바일은 기존 공통 규칙인 메시지20px·버튼44px·반경24px을 따른다.
+
+직접 확인 경로는 /launch-calendar/clifton-11-gtx/preview-phone-required이며 IA159 STATE에 alert 유형과 검색을 연결한다. LaunchCalendarDetail의 preview seed가 최초 open만 소유한다. 확인/닫기는 안내만 닫으며 실제 신청 조건·회원 번호 검증·API·저장·완료 전환은 미연결이다. 기존 신청 form과 완료 상태는 보존한다.
+
+PC1440/MO375에서 실제 문구·메시지28px/20px·900, 버튼180×48px/가용 폭×44px, 확인과 신청CTA 포커스 복귀를 확인했다. PC Escape 닫기와 IA 검색·STATE 유형 표시도 확인했다. Windows classic scrollbar 예약이 있는 MO375 캡처의 CTA 가용 폭은296px이다. 첨부 이미지와 계산 스타일·PC/MO 캡처가 검증 근거이며 별도 Figma 구조 측정은 하지 않았다.

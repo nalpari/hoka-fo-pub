@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 
-import type { CSSProperties } from 'react';
+import { type CSSProperties, useRef, useState } from 'react';
 import { usePlatform } from '@/context/platform';
 
 import { css } from 'styled-system/css';
@@ -21,6 +21,7 @@ import {
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
+import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
 import { launchDetail } from '@/app/launch-calendar/launchCalendar.data';
 
@@ -29,13 +30,17 @@ import { launchDetail } from '@/app/launch-calendar/launchCalendar.data';
 export function LaunchCalendarDetail({
   product = launchDetail,
   notificationStatus = 'available',
+  preview,
 }: {
   product?: typeof launchDetail;
   notificationStatus?: 'available' | 'notified';
+  preview?: 'phone-required';
 }) {
   const platform = usePlatform();
   const mobile = platform === 'mobile';
   const notified = notificationStatus === 'notified';
+  const [phoneRequiredOpen, setPhoneRequiredOpen] = useState(preview === 'phone-required');
+  const notificationTrigger = useRef<HTMLButtonElement>(null);
   const gallery = product.images.map((src, index) => (
     <Box key={src} pos="relative" aspectRatio="1" w="100%" bg="var(--color-black-10)">
       <Box
@@ -60,12 +65,15 @@ export function LaunchCalendarDetail({
   ));
   const action = (
     <Button
+      ref={notificationTrigger}
       type="button"
       variant="primary"
       fullWidth
       size="tall"
       disabled={notified}
-      icon={notified ? <Icon name="check-regular" size="18px" color="black.40" /> : undefined}
+      iconRight={notified ? 'check-regular' : undefined}
+      iconSize="18px"
+      iconColor="black.40"
       style={
         {
           '--button-height': mobile ? '44px' : '48px',
@@ -87,6 +95,18 @@ export function LaunchCalendarDetail({
 
   return (
     <>
+      {/* [ 개발팀 바인딩 ] 휴대폰 번호 안내는 독립 STATE fixture입니다. 실제 신청 시 표시 조건은 상품 통합 소유자가 연결하며, 확인/닫기는 안내만 닫고 요청·저장·신청 완료 전환을 수행하지 않습니다. */}
+      <ModalDialog
+        variant="alert"
+        open={phoneRequiredOpen}
+        onOpenChange={setPhoneRequiredOpen}
+        finalFocus={notificationTrigger}
+        title="런칭캘린더"
+        closeLabel="런칭캘린더 안내 닫기"
+        message="휴대폰 번호를 입력해주세요"
+        description="알림을 받을 휴대폰 번호를 입력해 주세요."
+        actions={{ kind: 'single', onConfirm: () => setPhoneRequiredOpen(false) }}
+      />
       <Box
         as="main"
         pt="56px"
