@@ -1018,6 +1018,7 @@ function ProductListingContent({
       </Grid>
       {platform === 'mobile' && filterDrawerOpen && (
         <ModalDialog
+          variant="selection"
           open
           mobilePresentation="bottomSheet"
           closeLabel="닫기"

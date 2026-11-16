@@ -104,22 +104,6 @@ type InquiryAttachment = {
   kind: 'image' | 'document';
   previewUrl?: string;
 };
-const previewDialog = css({
-  '&&': {
-    border: '1px solid token(colors.black.20)',
-    boxShadow: 'none',
-    _mobile: {
-      w: '100vw!',
-      maxH: '100dvh',
-      borderTopLeftRadius: '20px',
-      borderTopRightRadius: '20px',
-      borderBottomLeftRadius: '0',
-      borderBottomRightRadius: '0',
-    },
-  },
-  '& > header': { bg: 'white.0', borderBottom: '1px solid token(colors.black.20)' },
-  '& > div:nth-child(2)': { p: '24px', _mobile: { p: '24px 16px 32px' } },
-});
 const paginationItem = css({
   w: '6px',
   h: '6px',
@@ -144,13 +128,13 @@ function InquiryAttachmentPreview({
 }: InquiryAttachmentPreviewProps) {
   return (
     <ModalDialog
+      variant="image"
       open
       onOpenChange={(open) => !open && onClose()}
       title="첨부파일 미리보기"
       closeLabel="첨부파일 미리보기 닫기"
-      size="sm"
+
       mobilePresentation="bottomSheet"
-      popupClassName={previewDialog}
     >
       <Carousel itemCount={attachments.length} initialIndex={initialIndex}>
         <CarouselViewport mode="mobile" mobileItemGutter={0} freeMode={false} showScrollbar={false}>

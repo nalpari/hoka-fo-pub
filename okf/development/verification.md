@@ -1,15 +1,16 @@
 ---
 type: Playbook
-title: '변경 검증'
-description: '변경 범위에 맞는 정적 검사, 빌드와 수동 검증을 안내한다.'
+title: "변경 검증"
+description: "변경 범위에 맞는 정적 검사, 빌드와 수동 검증을 안내한다."
 tags: [verification, testing, build]
 status: draft
-updated: '2026-11-06T03:37:38Z'
+updated: "2026-11-16T09:41:05.388Z"
 generated:
   by: codex/gpt-6
-  at: '2026-11-02T09:59:35Z'
+  at: "2026-11-02T09:59:35Z"
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - tests/modal-dialog-types.test.mjs
   - src/app/screen-index/page.tsx
   - src/app/screen-index/screenChangeHistory.ts
   - src/app/screen-index/screenChangeHistory.generated.json
@@ -131,13 +132,13 @@ working_tree_sources:
 sources:
   - id: package-json
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/package.json
-    title: 'package.json'
+    title: "package.json"
   - id: tests-app-router-test-mjs
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/tests/app-router.test.mjs
-    title: 'tests/app-router.test.mjs'
+    title: "tests/app-router.test.mjs"
   - id: -storybook-preview-ts
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/.storybook/preview.ts
-    title: '.storybook/preview.ts'
+    title: ".storybook/preview.ts"
 ---
 
 # 변경 검증
@@ -672,7 +673,6 @@ ProductCard.tsx·ProductOptionList.tsx·관련 타입 선언을 검토했다. �
 
 별점 반 개의 공식 이름 star-half-stroke로 테스트 기대값을 갱신했다. 폼 회귀 테스트 47개 통과. 전체 typecheck는 기존 .next/types 삭제 라우트 참조 오류만 남으며 src 진단은 없다.
 
-
 디자인팀 아이콘의 hoka- 이름에 맞춘 별점 회귀 검사 기대값을 갱신했다. 폼 회귀 테스트 47개 통과. 출처: tests/form-controls.test.mjs.
 
 ## 보고서 메뉴·화면 식별 (2026-11-05)
@@ -696,3 +696,21 @@ URL의 developer=ALL을 담당자 이름으로 해석하던 원인을 수정한�
 ## WBS 실적을 반영한 퍼블 변경 보고 검증 (2026-11-06)
 
 11월 6일 보고에서 실적 0%인 상품상세 전용 변경 18개를 제외했다. 로컬 모달에서 보고 대상 7개, 상품상세 항목 제외, 검색 결과 유지와 담당자 표시를 확인했다. main-change-history.test.mjs의 11개 검사를 통과했다. 출처: screenChangeHistory.ts, screenChangeHistory.generated.json 및 main-change-history.test.mjs 작업 트리.
+
+## ModalDialog 유형 계약과 검증 (2026-11-16)
+
+`node --test tests/modal-dialog-types.test.mjs`는 실제 TypeScript 설정과 공통 모달을 읽어 9개 variant, 정형 안내, 폼 submit/form/disabled 전달의 호환성을 검사한다. message와 children, 기본 actions와 custom footer의 혼용, message 없는 description, 도메인형의 message, 누락·폐기된 variant는 컴파일 오류여야 한다. 메모리상의 fixture를 사용하며 저장소에 임시 TSX를 쓰지 않는다.
+
+계약 검사와 변경 소스 ESLint, Panda 생성은 통과했다. 기존 관련 검사 65개 중63개가 통과했고, 나머지는 변경하지 않은 wh의 fetch 사용 검사와 배송지 수동입력 IA 링크 검사다. 기존 명시적 web/mobile 플랫폼 SSR 검사도 이 검사에 포함된다. 전체 lint는 기존 wh-file-summary 테스트의 URL/Request/Response 전역 선언 오류8건, 전체 타입 검사와 Next build는 기존 LaunchCalendarDetail의 Button.icon 오류1건으로 미통과다. Next 최적화 컴파일은 성공했지만 최종 빌드 성공은 아니다.
+
+브라우저 검증 범위와 classic scrollbar 예약 공간은 [UI 기록](../architecture/ui.md#modaldialog-9개-유형과-슬롯-recipe-2026-11-16)을 참고한다. 모든 모달의 모든 도메인 상태나 실제 모바일 기기 검증, 전체 Figma 픽셀 일치를 주장하지 않는다. 서비스 요청·성공·실패 흐름은 새로 구현하지 않았고 기존 소유자가 관리한다. 출처: 해당 작업 트리와 실제 실행 결과, Codex.
+
+## STATE 모달 유형·검색 회귀 검사 (2026-11-16)
+
+preview-links 검사에 URL별 실제 variant·복수 모달·모달이 없는 상태, 이름 및 속성 표기 검색 회귀2개를 추가했다. 관련 계층·URL 검사와 함께8개가 통과했다. modal-dialog-types는 정형 feedback 허용과 custom children과의 혼용 거부를 추가했고 공통 폼 검사와48개가 통과했다. 변경 소스 ESLint·Prettier와 Panda 생성은 통과했다. 전체 타입 검사는 변경 범위 밖 LaunchCalendarDetail의 기존 Button.icon 오류1건으로 미통과이며 전체 빌드는 다시 실행하지 않았다.
+
+브라우저에서 등록된48개 모달 URL을 MO375에서 대조했고 비모달4개도 확인했다. IA 행 표시48개와 검색4건을 확인했다. 사용자 지적 스타일5개 화면은 PC1440/MO375로 별도 확인했다. 개별 요청·API 성공/실패를 모의 실행하지 않았으며, 초기 표시와 기존 입력/액션 계약 검증이다. 출처: 관련 검사·연결·모달 작업 트리와 실제 실행 결과, Codex.
+
+## 안내·확인 전수 점검 검증 (2026-11-16)
+
+공통 폼·모달 타입 검사48개, 변경 lint·Panda와 전체 작업 트리 TypeScript 재검사가 통과했다. 정형 alert/confirm children 거부를 검사한다. 고정 STATE25개×PC/MO 계산 스타일50건과 버튼으로 여는 소셜2종·재입고 취소·가이드2종10건을 확인했다. 선별 커밋은 전체 작업 트리와 별도로 검사한다. 출처: 실제 검사와 작업 트리, Codex.

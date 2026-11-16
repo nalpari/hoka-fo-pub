@@ -102,6 +102,7 @@ function TermsDialog({
 }: TermsDialogProps) {
   return (
     <ModalDialog
+      variant="terms"
       open={open}
       onOpenChange={onOpenChange}
       title={title}

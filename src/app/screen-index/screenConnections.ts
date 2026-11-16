@@ -1,3 +1,5 @@
+import type { ModalDialogVariant } from '@/components/common/layouts/ModalDialog';
+
 import { productDetailPreviews } from '@/app/products/[id]/productDetailPreviews';
 import {
   getProductListingIaKey,
@@ -864,6 +866,77 @@ export function getScreenStatePreviews(connection: ScreenConnection | undefined)
         ...previews.filter(({ href }) => href !== connection.route),
       ]
     : previews;
+}
+
+// Only dialogs opened by the route's prepared state are listed; shared imports and closed
+// interaction dialogs do not establish a modal state. Keep nested dialogs together.
+const stateModalVariants: Readonly<Record<string, readonly ModalDialogVariant[]>> = {
+  // CartDialogs and CheckoutStatePreview.
+  '/cart/preview-options': ['selection'],
+  '/cart/preview-limit': ['alert'],
+  '/checkout/preview-address-change': ['form'],
+  '/checkout/preview-address-edit': ['form'],
+  '/checkout/preview-address-new': ['form'],
+  // MyPageContent, OrdersPage, ReviewStatePreview and their dialog owners.
+  '/mypage/preview-logout': ['confirm'],
+  '/mypage/orders/preview-cancel-request': ['form'],
+  '/mypage/orders/preview-return-request': ['form'],
+  '/mypage/orders/preview-tracking': ['tracking'],
+  '/mypage/orders/preview-purchase-confirm': ['confirm'],
+  '/mypage/orders/preview-delete-confirm': ['confirm'],
+  '/mypage/reviews/preview-new': ['form'],
+  '/mypage/reviews/preview-edit': ['form'],
+  '/mypage/reviews/preview-error': ['form'],
+  '/mypage/coupons/preview-detail': ['detail'],
+  '/mypage/event-entries/preview-cancel': ['confirm'],
+  '/mypage/addresses/preview-delete': ['confirm'],
+  // ProfileContent and ProfileStatePreview select distinct variants for each step.
+  '/mypage/profile/preview-expired': ['alert'],
+  '/mypage/profile/preview-password': ['form'],
+  '/mypage/profile/preview-password-confirm': ['confirm'],
+  '/mypage/profile/preview-password-complete': ['alert'],
+  '/mypage/profile/preview-save': ['confirm'],
+  '/mypage/profile/preview-save-complete': ['alert'],
+  '/mypage/profile/preview-phone-required': ['alert'],
+  '/mypage/profile/preview-withdraw': ['confirm'],
+  '/mypage/profile/preview-withdraw-complete': ['alert'],
+  '/mypage/profile/preview-cancel': ['confirm'],
+  // Recovery and phone verification. Ordinary signup expiry is inline, not a modal.
+  '/login/account-locked': ['alert'],
+  '/login/find-account/id-confirmation-modal': ['detail'],
+  '/login/find-account/password-reset/preview-complete': ['alert'],
+  '/login/account-locked/verification/preview-expired': ['alert'],
+  '/login/account-locked/verification/preview-carriers': ['detail'],
+  '/login/account-locked/verification/preview-required-terms': ['terms'],
+  '/login/account-locked/verification/preview-optional-terms': ['terms'],
+  '/login/account-locked/verification/preview-previous-terms': ['terms', 'selection'],
+  '/signup/verify/phone/preview-already-registered': ['alert'],
+  '/signup/terms/preview-detail': ['terms'],
+  '/signup/information/preview-marketing-consent': ['alert'],
+  // InquiryFormStatePreview and InquiryAttachmentPreview.
+  '/support/inquiries/preview-attachment': ['image'],
+  '/support/inquiries/new/preview-cancel': ['confirm'],
+  '/support/inquiries/new/preview-order-required': ['alert'],
+  '/support/inquiries/new/order-products': ['selection'],
+  '/support/inquiries/new/order-products/preview-empty': ['selection'],
+  '/support/inquiries/new/order-products/preview-custom': ['selection'],
+  // These PDP option sheets open only in the existing mobile presentation.
+  '/products/pdp-preview/options-selected': ['selection'],
+  '/products/pdp-preview/options-scroll': ['selection'],
+  '/running/running-session/preview-application': ['alert'],
+  '/running/running-session/preview-application-complete': ['alert'],
+};
+
+/** 지정 STATE URL에서 처음 열리는 모달 유형을 반환합니다. */
+export function getScreenStateModalVariants(href: string): readonly ModalDialogVariant[] {
+  return stateModalVariants[href] ?? [];
+}
+
+export function getScreenModalSearchText(connection: ScreenConnection): string {
+  const variants = new Set(
+    getScreenStatePreviews(connection).flatMap(({ href }) => getScreenStateModalVariants(href)),
+  );
+  return Array.from(variants, (variant) => `variant="${variant}"`).join(' ');
 }
 
 /** [ 개발팀 바인딩 ] 두 개 이상의 상태 URL이 사용하는 공통 인계 파일은 상위 화면에 표시합니다.

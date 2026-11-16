@@ -372,10 +372,10 @@ function CouponDetailsDialog({ coupon, onOpenChange }: CouponDetailsDialogProps)
 
   return (
     <ModalDialog
+      variant="detail"
       closeLabel="쿠폰 상세 닫기"
       open={coupon !== null}
       onOpenChange={onOpenChange}
-      size="sm"
       mobilePresentation="fullscreen"
       blurBackdrop={false}
       title={

@@ -56,6 +56,7 @@ export function PreviousTermsPicker({
     if (!open) return null;
     return (
       <ModalDialog
+        variant="selection"
         open
         mobilePresentation="bottomSheet"
         closeLabel="닫기"
@@ -99,13 +100,14 @@ export function PreviousTermsPicker({
   }
   return (
     <ModalDialog
+      variant="selection"
       open={open}
       onOpenChange={(nextOpen) => {
         if (!nextOpen) onClose();
       }}
       title="이전 약관 보기"
       closeLabel="이전 약관 보기 닫기"
-      size="sm"
+
       mobilePresentation="bottomSheet"
       popupClassName={popup}
       finalFocus={finalFocus}

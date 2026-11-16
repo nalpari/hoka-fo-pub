@@ -205,28 +205,21 @@ export function RunningSessionEntriesContent({
         ) : null}
       </Stack>
       <ModalDialog
+        variant="confirm"
         open={selected !== null}
         onOpenChange={(open) => {
           if (!open) setSelected(null);
         }}
         title="러닝세션 신청 취소"
         closeLabel="신청 취소 닫기"
-        size="sm"
-        headerProps={{ css: { bg: 'white', borderBottom: '1px solid var(--color-black-20)' } }}
-        popupClassName={css({
-          '& > header h2': { h: 'auto' },
-          '& > div': { p: '24px', _mobile: { px: '16px' } },
-        })}
+
         actions={{
           kind: 'confirm',
           confirmDisabled: false,
           onConfirm: () => setSelected(null),
         }}
-      >
-        <Stack gap="16px">
-          <Typography variant="body3">신청을 취소 하시겠습니까?</Typography>
-        </Stack>
-      </ModalDialog>
+        message="신청을 취소 하시겠습니까?"
+      />
     </MyPageFrame>
   );
 }

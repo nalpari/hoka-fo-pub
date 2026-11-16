@@ -121,14 +121,14 @@ export function OrderTrackingDialog({
 
   return (
     <ModalDialog
+      variant="tracking"
       open
       onOpenChange={(open) => !open && onClose()}
       title="배송조회"
       closeLabel="배송조회 닫기"
-      size="sm"
+
       mobilePresentation="bottomSheet"
-      popupClassName={css({ h: '804px', _mobile: { h: 'auto' } })}
-      headerProps={{ css: { h: '56px', flexShrink: '0' } }}
+
       actions={{ kind: 'single', label: '닫기', onConfirm: onClose }}
     >
       {content}

@@ -4,8 +4,6 @@ import { useRef, useState } from 'react';
 import { css } from 'styled-system/css';
 import { Stack } from 'styled-system/jsx';
 
-import { Typography } from '@/components/common/atoms/Typography';
-
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
 import { inquiryOrders } from '@/app/support/inquiries/new/inquiryOrders.data';
@@ -17,7 +15,6 @@ import {
 import { InquiryCautions } from '@/components/support/InquiryCautions';
 
 import {
-  inquiryAlertPresentation,
   InquiryAttachments,
   InquiryCategoryFields,
   InquiryCustomerInfo,
@@ -150,7 +147,8 @@ export function InquiryFormStatePreview({
         />
       )}
       <ModalDialog
-        {...inquiryAlertPresentation}
+        variant={cancelDialog ? 'confirm' : 'alert'}
+
         open={open}
         onOpenChange={setOpen}
         title="1:1 문의등록"
@@ -160,11 +158,8 @@ export function InquiryFormStatePreview({
             ? { kind: 'confirm', fullWidth: false, onConfirm: () => setOpen(false) }
             : { kind: 'single', onConfirm: () => setOpen(false) }
         }
-      >
-        <Typography as="p" variant={cancelDialog ? 'body2' : 'body3'}>
-          {cancelDialog ? '문의 작성을 취소하시겠습니까?' : '주문번호를 선택해주세요.'}
-        </Typography>
-      </ModalDialog>
+        message={<>{cancelDialog ? '문의 작성을 취소하시겠습니까?' : '주문번호를 선택해주세요.'}</>}
+      />
     </InquiryFormLayout>
   );
 }

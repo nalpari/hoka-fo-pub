@@ -51,7 +51,7 @@ export function OrderClaimRequest({
           : '일부만 취소(부분취소)할 수 있으며, 배송비는 주문의 남은 상품이 모두 취소될 때 함께 환불됩니다.'}
       </Typography>
       <Stack gap="12px">
-<Typography as="h2" variant="body3Semibold">
+        <Typography as="h2" variant="body3Semibold">
           상품 선택
         </Typography>
         <Stack gap="0" borderY="1px solid black">
@@ -156,7 +156,7 @@ export function OrderClaimRequest({
           ].map(([label, value]) => (
             <HStack key={label} justifyContent="space-between">
               <Typography variant="body4">{label}</Typography>
-<Typography
+              <Typography
                 variant="body4Medium"
                 tone={returning && label === '반품비' ? 'subtle' : 'primary'}
               >
@@ -172,16 +172,14 @@ export function OrderClaimRequest({
           bg="black.10"
           borderTop="1px solid var(--colors-black-20)"
         >
-<Typography variant="body4Medium">
+          <Typography variant="body4Medium">
             {returning ? '환불예정금액' : '취소예정금액'}
           </Typography>
           <HStack gap="2px" alignItems="baseline">
             <Typography web="heading10" mo="heading7" weight="semibold">
               {returning && mobile ? '0' : '3,300,000'}
             </Typography>
-<Typography variant="body3Medium">
-              원
-            </Typography>
+            <Typography variant="body3Medium">원</Typography>
           </HStack>
         </HStack>
       </Stack>
@@ -190,11 +188,12 @@ export function OrderClaimRequest({
 
   return (
     <ModalDialog
+      variant="form"
       open
       onOpenChange={(open) => !open && onClose()}
       title={title}
       closeLabel={`${title} 닫기`}
-      size="sm"
+
       mobilePresentation="bottomSheet"
       popupClassName={css({ '& > div': { p: '24px!' } })}
       headerProps={{

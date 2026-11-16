@@ -57,10 +57,11 @@ export function MyPageReviewDialog({
 }: Props) {
   return (
     <ModalDialog
+      variant="form"
       closeLabel="리뷰 작성창 닫기"
       onOpenChange={onOpenChange}
       open={open}
-      size="sm"
+
       title={title}
       actions={{
         kind: 'single',
@@ -147,7 +148,7 @@ function MyPageReviewCount({ count }: MyPageReviewCountProps) {
   return (
     <HStack gap="2px">
       <Typography variant="body4">총</Typography>
-<Typography variant="body4Medium">
+      <Typography variant="body4Medium">
         {count}
         <Typography variant="bodyKr4">건</Typography>
       </Typography>

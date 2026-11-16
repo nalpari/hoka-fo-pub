@@ -11,13 +11,18 @@ import { Icon } from '@/components/common/atoms/Icon';
 import { Toast, type ToastNotice } from '@/components/common/atoms/Toast';
 import { Typography } from '@/components/common/atoms/Typography';
 
-import { ModalDialog, type ModalDialogProps } from '@/components/common/layouts/ModalDialog';
+import {
+  ModalDialog,
+  type ModalDialogProps,
+  type ModalDialogVariant,
+} from '@/components/common/layouts/ModalDialog';
 
 import { renderGuideCode } from './GuideCode';
 import { GuideTimeline } from './GuideTimeline';
 
 type ModalExample = {
   id: string;
+  variant?: ModalDialogVariant;
   title: string;
   usage: string;
   source: string;
@@ -34,7 +39,47 @@ type ModalExample = {
   long?: boolean;
 };
 
+const variantExamples: { variant: ModalDialogVariant; title: string; usage: string }[] = [
+  { variant: 'alert', title: '안내 · alert', usage: '완료·오류·수량 제한 안내' },
+  { variant: 'confirm', title: '선택 확인 · confirm', usage: '로그아웃·취소·탈퇴 확인' },
+  { variant: 'terms', title: '약관 · terms', usage: '필수·선택·이전 약관 문서' },
+  { variant: 'form', title: '입력 · form', usage: '주소·알림·취소·반품 입력' },
+  { variant: 'selection', title: '선택 · selection', usage: '상품 옵션·쿠폰·주문 상품 선택' },
+  { variant: 'tracking', title: '배송조회 · tracking', usage: '배송 정보와 이력' },
+  { variant: 'detail', title: '상세 정보 · detail', usage: '쿠폰·사업자 등 상세 정보' },
+  { variant: 'image', title: '이미지 · image', usage: '첨부 이미지 미리보기' },
+  { variant: 'sizeGuide', title: '사이즈 가이드 · sizeGuide', usage: '신발·의류 치수 표' },
+];
+
 const groups: { id: string; title: string; description: string; items: ModalExample[] }[] = [
+  {
+    id: 'modal-variants',
+    title: '모달 유형',
+    description: '유형은 구조와 스타일, mobilePresentation은 모바일 표시 방식을 지정합니다.',
+    items: variantExamples.map(({ variant, title, usage }) => ({
+      id: `variant-${variant}`,
+      variant,
+      title,
+      usage,
+      source: 'ModalDialog.tsx / ModalDialog.recipe.tsx',
+      desktop: variant === 'sizeGuide' ? '최대 너비 768px' : '최대 너비 640px',
+      mobile: ['terms', 'form'].includes(variant)
+        ? '전체화면'
+        : ['tracking', 'selection', 'image', 'sizeGuide'].includes(variant)
+          ? '하단 시트'
+          : '중앙 팝업',
+      options: {
+        mobilePresentation: ['terms', 'form'].includes(variant)
+          ? 'fullscreen'
+          : ['tracking', 'selection', 'image', 'sizeGuide'].includes(variant)
+            ? 'bottomSheet'
+            : 'popup',
+        mobileFixedFooter: true,
+      },
+      action: variant === 'confirm' ? 'confirm' : 'single',
+      long: variant === 'terms',
+    })),
+  },
   {
     id: 'modal-size',
     title: '기본 크기',
@@ -202,6 +247,7 @@ const triggerRef = useRef<HTMLButtonElement>(null);
 
 <Button ref={triggerRef} onClick={() => setOpen(true)}>열기</Button>
 <ModalDialog
+  variant="${example.variant ?? (example.contentAction ? 'terms' : 'detail')}"
   open={open}
   onOpenChange={setOpen}
   title="약관 상세"
@@ -245,6 +291,7 @@ const [open, setOpen] = useState(false);
 <Button onClick={() => setOpen(true)}>열기</Button>
 {open && (
   <ModalDialog
+  variant="${example.variant ?? (example.contentAction ? 'terms' : 'detail')}"
     open={open}
     mobilePresentation="bottomSheet"
     closeLabel="닫기"
@@ -255,6 +302,17 @@ ${example.sheetFooter ? '    footer={<Button variant="primary" onClick={() => se
     <Box h=${example.long ? '"900px"' : `{{ base: '294px', _mobile: '${example.sheetFooter ? '286px' : '278px'}' }}`} bg="rgba(255, 0, 0, 0.2)" />
   </ModalDialog>
 )}`;
+  if (example.variant === 'alert' || example.variant === 'confirm')
+    return `<ModalDialog
+  variant="${example.variant}"
+  open={open}
+  onOpenChange={setOpen}
+  title="${example.title}"
+  closeLabel="닫기"
+  message="안내 제목입니다."
+  description="표시 데이터와 콜백은 호출 화면에서 전달합니다."
+  actions={{ kind: '${example.variant === 'confirm' ? 'confirm' : 'single'}', onConfirm: () => setOpen(false) }}
+/>`;
   const options = Object.entries(example.options ?? {})
     .map(([key, value]) => (typeof value === 'boolean' ? `  ${key}` : `  ${key}="${value}"`))
     .join('\n');
@@ -283,6 +341,7 @@ const triggerRef = useRef<HTMLButtonElement>(null);
 
 <Button ref={triggerRef} onClick={() => setOpen(true)}>열기</Button>
 <ModalDialog
+  variant="${example.variant ?? (example.contentAction ? 'terms' : 'detail')}"
   open={open}
   onOpenChange={setOpen}
   title="${example.title}"
@@ -364,7 +423,7 @@ function ModalExampleCard({
 
   return (
     <Stack minW="0" gap="3" p="4" border="1px solid token(colors.black.20)">
-<Typography as="h4" variant="body3Semibold">
+      <Typography as="h4" variant="body3Semibold">
         {example.title}
       </Typography>
       <Stack gap="1">
@@ -423,6 +482,7 @@ function ModalExampleCard({
       {example.sheet ? (
         open && (
           <ModalDialog
+            variant="detail"
             open={open}
             mobilePresentation="bottomSheet"
             closeLabel="닫기"
@@ -453,6 +513,16 @@ function ModalExampleCard({
       ) : (
         <ModalDialog
           {...example.options}
+          {...(example.variant === 'alert' || example.variant === 'confirm'
+            ? {
+                variant: example.variant,
+                message: '안내 제목입니다.',
+                description: '표시 데이터와 콜백은 호출 화면에서 전달합니다.',
+              }
+            : {
+                variant: example.variant ?? (example.contentAction ? 'terms' : 'detail'),
+                children: content,
+              })}
           footerProps={
             example.id === 'large'
               ? { desktopContentOffset: 332, css: { pt: '6', _mobile: { pt: '4' } } }
@@ -464,9 +534,7 @@ function ModalExampleCard({
           closeLabel="닫기"
           finalFocus={triggerRef}
           actions={actions}
-        >
-          {content}
-        </ModalDialog>
+        />
       )}
     </Stack>
   );
@@ -510,8 +578,8 @@ export function ModalGuide() {
             모달을 확인합니다.
           </Typography>
           <Typography as="p" variant="body5" tone="subtle">
-            ModalDialog의 기본값은 sm · popup · dark입니다. PC 기본 모달은 최대 너비 640px와 모서리
-            10px를 사용합니다. bottomSheet는 모바일에서 하단에 표시됩니다.
+            variant는 필수이며 기본 표시 방식은 popup · dark입니다. PC 기본 모달은 최대 너비 640px와
+            모서리 10px를 사용합니다. bottomSheet는 모바일에서 하단에 표시됩니다.
           </Typography>
           <Typography as="p" variant="body5" tone="subtle">
             사용처: 전체화면은 본인인증·약관, 바텀시트형 모달은 배송조회·주문 취소·반품 신청,

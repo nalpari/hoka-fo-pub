@@ -10,8 +10,6 @@ import { useRouter } from 'next/navigation';
 
 import { useState } from 'react';
 
-import { Typography } from '@/components/common/atoms/Typography';
-
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
 import {
@@ -42,19 +40,21 @@ export default function Page() {
         <SignupMethodStep methods={signupMethods} onSelect={startSignup} />
       </SignupLayout>
       <ModalDialog
+        variant="alert"
         open={selectedMethod !== undefined}
         onOpenChange={(open) => {
           if (!open) setUnavailableMethod(null);
         }}
         title="회원가입 안내"
         closeLabel="회원가입 안내 닫기"
-        size="sm"
+
         actions={{ kind: 'single', onConfirm: () => setUnavailableMethod(null) }}
-      >
-        <Typography as="p" variant="body3">
-          {selectedMethod?.label.replace('로 가입', '')} 회원가입 기능은 현재 연결되지 않았습니다.
-        </Typography>
-      </ModalDialog>
+        message={
+          <>
+            {selectedMethod?.label.replace('로 가입', '')} 회원가입 기능은 현재 연결되지 않았습니다.
+          </>
+        }
+      />
     </>
   );
 }

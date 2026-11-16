@@ -135,17 +135,19 @@ export function OrdersPage({
             <OrderTrackingDialog order={trackingOrder} onClose={() => setTrackingId(null)} />
           ) : null}
           <ModalDialog
+            variant="confirm"
             open={confirmOpen}
             onOpenChange={setConfirmOpen}
             title={initialOverlay === 'delete' ? '주문 내역 삭제' : '구매 확정'}
             closeLabel="확인 닫기"
-            size="sm"
+
             actions={{ kind: 'confirm', onConfirm: () => setConfirmOpen(false) }}
-          >
-            {initialOverlay === 'delete'
-              ? '주문 내역을 삭제하시겠습니까?'
-              : '상품을 수령하셨나요? 구매를 확정하시겠습니까?'}
-          </ModalDialog>
+            message={
+              initialOverlay === 'delete'
+                ? '주문 내역을 삭제하시겠습니까?'
+                : '상품을 수령하셨나요? 구매를 확정하시겠습니까?'
+            }
+          />
         </>
       }
     />

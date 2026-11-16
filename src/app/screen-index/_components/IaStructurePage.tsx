@@ -32,6 +32,8 @@ import {
   getRouteSourceFiles,
   getScreenComponentFiles,
   getScreenConnection,
+  getScreenModalSearchText,
+  getScreenStateModalVariants,
   getScreenStatePreviews,
   getSharedStateSourceFiles,
   getSiblingScreenSourceFiles,
@@ -459,6 +461,7 @@ export function IaStructurePage() {
           String(screen.sourceIaNumber ?? ''),
           String(screen.iaNumber),
           getScreenConnection(screen).route ?? '',
+          getScreenModalSearchText(getScreenConnection(screen)),
           ...(getScreenConnection(screen).previewRoutes ?? []).flatMap(({ label, href }) => [
             label,
             href,
@@ -654,7 +657,7 @@ export function IaStructurePage() {
               className={styles.search}
               value={query}
               onChange={(event) => setQuery(event.target.value)}
-              placeholder="화면명, 담당자, IA 번호, 코드, URL, 파일 경로 검색"
+              placeholder="화면명, variant, 담당자, IA 번호, 코드, URL, 파일 경로 검색"
               aria-label="IA 화면 검색"
             />
             <Select
@@ -1078,6 +1081,7 @@ function StatePreviewRows({
             (preview) => preview.href === href,
           ),
         );
+        const modalVariants = getScreenStateModalVariants(href);
         const showAssignment = owners.some((screen) => {
           const parentAssignments = getScreenDevelopers(screen);
           const stateAssignments = getScreenDevelopers(screen, href);
@@ -1098,7 +1102,14 @@ function StatePreviewRows({
                 <Typography as="span">{label}</Typography>
               </div>
             </td>
-            <td>상태</td>
+            <td>
+              <Stack gap="1">
+                <span>상태</span>
+                {modalVariants.map((variant) => (
+                  <code key={variant}>{`variant="${variant}"`}</code>
+                ))}
+              </Stack>
+            </td>
             <td>
               <div className={styles.preview}>
                 <Link
@@ -1285,6 +1296,7 @@ function MainChangeReportDialog({
   }));
   return (
     <ModalDialog
+      variant="detail"
       open={open}
       onOpenChange={onOpenChange}
       finalFocus={finalFocus}

@@ -48,6 +48,8 @@ const {
   getRouteSourceFiles,
   getScreenComponentFiles,
   getScreenConnection,
+  getScreenModalSearchText,
+  getScreenStateModalVariants,
   getScreenStatePreviews,
   getSiblingScreenSourceFiles,
   getSharedStateSourceFiles,
@@ -57,6 +59,41 @@ const {
 const { getScreenDeveloperNames, getScreenDevelopers, matchesScreenDeveloper } = load(
   'src/app/screen-index/screenDevelopers.ts',
 );
+
+test('STATE modal variants follow explicit route states and preserve nested dialogs', () => {
+  const expected = {
+    '/cart/preview-options': ['selection'],
+    '/cart/preview-limit': ['alert'],
+    '/checkout/preview-address-new': ['form'],
+    '/mypage/orders/preview-tracking': ['tracking'],
+    '/mypage/profile/preview-password': ['form'],
+    '/mypage/profile/preview-password-confirm': ['confirm'],
+    '/mypage/profile/preview-password-complete': ['alert'],
+    '/mypage/coupons/preview-detail': ['detail'],
+    '/support/inquiries/preview-attachment': ['image'],
+    '/login/account-locked/verification/preview-previous-terms': ['terms', 'selection'],
+  };
+  for (const [href, variants] of Object.entries(expected))
+    assert.deepEqual(getScreenStateModalVariants(href), variants, href);
+  for (const href of [
+    '/cart',
+    '/signup/verify/phone/preview-expired',
+    '/login/account-locked/complete',
+    '/unknown',
+  ])
+    assert.deepEqual(getScreenStateModalVariants(href), [], href);
+});
+
+test('IA modal search includes both variant names and the displayed attribute syntax', () => {
+  const screen = screens.find((item) => item.iaNumber === 253);
+  const searchable = getScreenModalSearchText(getScreenConnection(screen));
+  for (const query of ['alert', 'variant="alert"', 'terms', 'selection'])
+    assert.ok(searchable.includes(query), query);
+  assert.equal(
+    getScreenModalSearchText({ route: '/login/account-locked/complete', sourceFiles: [] }),
+    '',
+  );
+});
 
 test('screenless parent groups own sibling files without moving them to a broader ancestor', () => {
   const siblings = [178, 179, 180, 181].map((ia) =>

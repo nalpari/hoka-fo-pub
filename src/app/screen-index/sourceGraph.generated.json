@@ -27,7 +27,6 @@
       "src/mocks/products.ts"
     ],
     "src/app/cart/_components/CartDialogs.tsx": [
-      "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/NumberStepper.tsx",
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/ContentSection.tsx",
@@ -245,9 +244,7 @@
       "src/components/common/molecules/HelpTips.tsx"
     ],
     "src/app/login/account-locked/_components/AccountLockedContent.tsx": [
-      "src/components/common/atoms/Typography.tsx",
-      "src/components/common/layouts/ModalDialog.tsx",
-      "src/components/common/molecules/ContentHeader.tsx"
+      "src/components/common/layouts/ModalDialog.tsx"
     ],
     "src/app/login/account-locked/complete/page.tsx": [
       "src/components/common/atoms/Button.tsx",
@@ -391,7 +388,6 @@
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Card.tsx",
       "src/components/common/atoms/EmptyState.tsx",
-      "src/components/common/atoms/Icon.tsx",
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/ContentSection.tsx",
       "src/components/common/layouts/ModalDialog.tsx",
@@ -543,7 +539,6 @@
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/ContentSection.tsx",
       "src/components/common/layouts/ModalDialog.tsx",
-      "src/components/common/molecules/ContentHeader.tsx",
       "src/components/common/molecules/FormActionGroup.tsx",
       "src/components/common/molecules/FormFields/TextFormField.tsx",
       "src/components/common/molecules/FormFields/VerificationCountdown.tsx",
@@ -934,7 +929,6 @@
       "src/components/common/layouts/ContentSection.tsx",
       "src/components/common/layouts/ModalDialog.tsx",
       "src/components/common/molecules/BindingFeedback.tsx",
-      "src/components/common/molecules/ContentHeader.tsx",
       "src/components/common/molecules/FormFields/TextFormField.tsx",
       "src/components/common/organisms/Address/AddressFields.tsx",
       "src/components/common/organisms/EmailAddressFields.tsx"
@@ -954,7 +948,6 @@
     "src/app/signup/information/registration.types.ts": [],
     "src/app/signup/page.tsx": [
       "src/app/signup/_components/SignupContent.tsx",
-      "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/ModalDialog.tsx"
     ],
     "src/app/signup/terms/_components/SignupTermsContent.tsx": [
@@ -996,8 +989,7 @@
       "src/components/phone-verification/PhoneVerificationStatePreview.tsx"
     ],
     "src/app/signup/verify/phone/_components/PhoneVerificationContent.tsx": [
-      "src/components/common/layouts/ModalDialog.tsx",
-      "src/components/common/molecules/ContentHeader.tsx"
+      "src/components/common/layouts/ModalDialog.tsx"
     ],
     "src/app/signup/verify/phone/page.tsx": [
       "src/components/phone-verification/PhoneVerificationStatePreview.tsx"
@@ -1123,7 +1115,6 @@
       "src/app/support/inquiries/new/_components/InquiryFormLayout.tsx",
       "src/app/support/inquiries/new/inquiryOrders.data.ts",
       "src/app/support/inquiries/new/order-products/_components/InquiryOrderLookup.tsx",
-      "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/ModalDialog.tsx",
       "src/components/support/InquiryCautions.tsx"
     ],
@@ -1412,10 +1403,11 @@
     "src/components/common/layouts/MainSection.tsx": [
       "src/components/common/layouts/ContentSection.tsx"
     ],
+    "src/components/common/layouts/ModalDialog.recipe.tsx": [],
     "src/components/common/layouts/ModalDialog.tsx": [
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Icon.tsx",
-      "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ModalDialog.recipe.tsx",
       "src/context/platform.tsx"
     ],
     "src/components/common/layouts/OrderActionBar.tsx": [],
@@ -1770,6 +1762,7 @@
     "src/app/running/running-session/page.tsx",
     "src/app/search/page.tsx",
     "src/app/signup/complete/page.tsx",
+    "src/app/signup/information/_components/RegistrationContent.tsx",
     "src/app/signup/information/page.tsx",
     "src/app/signup/information/registration.types.ts",
     "src/app/signup/page.tsx",

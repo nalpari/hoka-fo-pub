@@ -34,30 +34,16 @@ type LogoutDialogProps = {
 function LogoutDialog({ open, onOpenChange, onConfirm }: LogoutDialogProps) {
   return (
     <ModalDialog
+      variant="confirm"
       closeLabel="로그아웃 확인창 닫기"
       onOpenChange={onOpenChange}
       open={open}
-      size="sm"
-      popupClassName={css({ maxW: '640px' })}
-      contentClassName={css({ '&&': { p: '24px 32px 40px', _mobile: { p: '24px 16px 16px' } } })}
+
       title="로그아웃"
       actions={{ kind: 'single', onConfirm, buttonProps: { size: 'tall' } }}
-      footerProps={{
-        css: css.raw({
-          pb: '40px',
-          _mobile: { pb: '24px' },
-          '& > button': {
-            w: '180px',
-            '--button-height': '48px',
-            _mobile: { w: '100%', '--button-height': '44px' },
-          },
-        }),
-      }}
-    >
-      <Typography as="p" web="heading7" mo="body3">
-        로그아웃 하시겠습니까?
-      </Typography>
-    </ModalDialog>
+
+      message={<>로그아웃 하시겠습니까?</>}
+    />
   );
 }
 

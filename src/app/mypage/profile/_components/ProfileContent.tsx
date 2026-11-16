@@ -10,7 +10,6 @@ import { Radio } from '@/components/common/atoms/Radio';
 import { StatusMessage } from '@/components/common/atoms/StatusMessage';
 import { Typography } from '@/components/common/atoms/Typography';
 
-import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { FormActionGroup } from '@/components/common/molecules/FormActionGroup';
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
 import { VerificationCountdown } from '@/components/common/molecules/FormFields/VerificationCountdown';
@@ -110,21 +109,23 @@ function ProfilePhoneVerification({ phone, error, verified, previewState, onPhon
       ) : null}
       {notice ? (
         <ModalDialog
+          variant="alert"
           open
-          size="sm"
+
           title={notice === 'mismatch' ? '인증번호 불일치' : '인증번호 입력시간 초과'}
           closeLabel="인증번호 안내 닫기"
           onOpenChange={(open) => {
             if (!open) dismissNotice();
           }}
           actions={{ kind: 'single', onConfirm: dismissNotice }}
-        >
-          <Typography as="p" variant="body3">
-            {notice === 'mismatch'
-              ? '인증번호가 일치하지 않습니다. 다시 입력해주세요.'
-              : '인증번호 입력 시간이 초과하였습니다. 인증번호 재전송 후 이용해주세요.'}
-          </Typography>
-        </ModalDialog>
+          message={
+            <>
+              {notice === 'mismatch'
+                ? '인증번호가 일치하지 않습니다. 다시 입력해주세요.'
+                : '인증번호 입력 시간이 초과하였습니다. 인증번호 재전송 후 이용해주세요.'}
+            </>
+          }
+        />
       ) : null}
     </Stack>
   );
@@ -431,15 +432,69 @@ export function ProfilePasswordDialog({
   const errors: Errors = {};
   const changeField = (field: FieldName, value: string) =>
     field === 'password' ? setPassword(value) : setConfirmation(value);
+  const content =
+    step === 'input'
+      ? {
+          variant: 'form' as const,
+          children: (
+            <form
+              id="profile-password-form"
+              noValidate
+              onSubmit={(event) => event.preventDefault()}
+            >
+              <Stack gap="16px">
+                <TextFormField
+                  id="profile-new-password"
+                  label="비밀번호"
+                  required
+                  variant="boxed"
+                  error={errors.password}
+                  hint="연속적인 숫자나 생일, 전화번호등 추측하기 쉬운 개인정보 및 아이디와 비슷한 전화번호 사용을 피하시기 바랍니다. 비밀번호는 특수기호를 포함한 3가지 이상을 혼합하여 입력하세요."
+                  hintProps={{ variant: 'body4', className: css({ pt: '8px' }) }}
+                  inputProps={{
+                    placeholder: '비밀번호를 입력해 주세요',
+                    type: 'password',
+                    autoComplete: 'new-password',
+                    value: password,
+                    onChange: (event) => changeField('password', event.target.value),
+                  }}
+                />
+                <TextFormField
+                  id="profile-password-confirmation"
+                  label="비밀번호 재입력"
+                  required
+                  variant="boxed"
+                  error={errors.confirmation}
+                  inputProps={{
+                    type: 'password',
+                    autoComplete: 'new-password',
+                    placeholder: '비밀번호를 다시 입력해 주세요',
+                    value: confirmation,
+                    onChange: (event) => changeField('confirmation', event.target.value),
+                  }}
+                />
+              </Stack>
+            </form>
+          ),
+        }
+      : {
+          variant: step === 'confirm' ? ('confirm' as const) : ('alert' as const),
+          message: (
+            <span role="status">
+              {step === 'confirm' ? '비밀번호를 변경하시겠습니까?' : '비밀번호가 변경되었습니다.'}
+            </span>
+          ),
+        };
   return (
     <ModalDialog
+      {...content}
       open
       onOpenChange={(open) => {
         if (!open) onClose();
       }}
       title={titles[step]}
       closeLabel="비밀번호 설정 닫기"
-      size="sm"
+
       actions={{
         kind: 'single',
         label: step === 'input' ? '비밀번호 설정' : '확인',
@@ -451,48 +506,7 @@ export function ProfilePasswordDialog({
           disabled: false,
         },
       }}
-    >
-      {step === 'input' ? (
-        <form id="profile-password-form" noValidate onSubmit={(event) => event.preventDefault()}>
-          <Stack gap="16px">
-            <TextFormField
-              id="profile-new-password"
-              label="비밀번호"
-              required
-              variant="boxed"
-              error={errors.password}
-              hint="연속적인 숫자나 생일, 전화번호등 추측하기 쉬운 개인정보 및 아이디와 비슷한 전화번호 사용을 피하시기 바랍니다. 비밀번호는 특수기호를 포함한 3가지 이상을 혼합하여 입력하세요."
-              hintProps={{ variant: 'body4', className: css({ pt: '8px' }) }}
-              inputProps={{
-                placeholder: '비밀번호를 입력해 주세요',
-                type: 'password',
-                autoComplete: 'new-password',
-                value: password,
-                onChange: (event) => changeField('password', event.target.value),
-              }}
-            />
-            <TextFormField
-              id="profile-password-confirmation"
-              label="비밀번호 재입력"
-              required
-              variant="boxed"
-              error={errors.confirmation}
-              inputProps={{
-                type: 'password',
-                autoComplete: 'new-password',
-                placeholder: '비밀번호를 다시 입력해 주세요',
-                value: confirmation,
-                onChange: (event) => changeField('confirmation', event.target.value),
-              }}
-            />
-          </Stack>
-        </form>
-      ) : (
-        <Typography variant="body3" role="status">
-          {step === 'confirm' ? '비밀번호를 변경하시겠습니까?' : '비밀번호가 변경되었습니다.'}
-        </Typography>
-      )}
-    </ModalDialog>
+    />
   );
 }
 type ProfileEditNotice = 'cancel' | 'save' | 'complete' | 'unverified';
@@ -522,18 +536,13 @@ function ProfileEditDialogs({ notice, onDismiss, onConfirm, pending }: ProfileEd
     onOpenChange: (open: boolean) => {
       if (!open && !pending) onDismiss();
     },
-    children: (
-      <>
-        <Typography as="p" variant="body3">
-          {message}
-        </Typography>
-      </>
-    ),
+    message,
   };
   return (
     <ModalDialog
+      variant={notice === 'cancel' || notice === 'save' ? 'confirm' : 'alert'}
       {...props}
-      size="sm"
+
       actions={
         notice === 'cancel' || notice === 'save'
           ? { kind: 'confirm', onConfirm, confirmDisabled: pending }
@@ -552,16 +561,14 @@ function MyPageWithdrawalCompleteDialog({
 }: MyPageWithdrawalCompleteDialogProps) {
   return (
     <ModalDialog
+      variant="alert"
       closeLabel="회원탈퇴 안내 닫기"
       onOpenChange={onOpenChange}
       open={open}
-      size="sm"
+
       title="회원탈퇴"
-    >
-      <Typography as="p" variant="body3">
-        회원탈퇴 요청을 확인했습니다.
-      </Typography>
-    </ModalDialog>
+      message={<>회원탈퇴 요청을 확인했습니다.</>}
+    />
   );
 }
 type MyPageWithdrawalDialogProps = {
@@ -579,10 +586,11 @@ function MyPageWithdrawalDialog({
 }: MyPageWithdrawalDialogProps) {
   return (
     <ModalDialog
+      variant="confirm"
       closeLabel="회원탈퇴 확인창 닫기"
       onOpenChange={onOpenChange}
       open={open}
-      size="sm"
+
       title="회원탈퇴"
       actions={{
         kind: 'confirm',
@@ -590,16 +598,9 @@ function MyPageWithdrawalDialog({
         fullWidth: false,
         confirmDisabled: pending,
       }}
-    >
-      <ContentHeader
-        gap="16px"
-        titleAs="h2"
-        title="회원탈퇴를 진행 하시겠습니까?"
-        titleProps={{ variant: 'heading10' }}
-        description="탈퇴 후에는 회원정보 및 이용내역을 복구할 수 없으며, 탈퇴 후 6개월간 재가입이 불가합니다."
-        descriptionProps={{ variant: 'body3' }}
-      />
-    </ModalDialog>
+      message="회원탈퇴를 진행 하시겠습니까?"
+      description="탈퇴 후에는 회원정보 및 이용내역을 복구할 수 없으며, 탈퇴 후 6개월간 재가입이 불가합니다."
+    />
   );
 }
 const profileDetails = [

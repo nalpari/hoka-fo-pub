@@ -5,9 +5,8 @@ import Image from 'next/image';
 import { useState } from 'react';
 
 import { css } from 'styled-system/css';
-import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
+import { Box, Grid, Stack } from 'styled-system/jsx';
 
-import { Button } from '@/components/common/atoms/Button';
 import { NumberStepper } from '@/components/common/atoms/NumberStepper';
 import { Typography } from '@/components/common/atoms/Typography';
 
@@ -41,6 +40,7 @@ function CartOptionsDialog({
 
   return (
     <ModalDialog
+      variant="selection"
       open
       onOpenChange={(open) => {
         if (!open) onClose();
@@ -140,9 +140,7 @@ function CartOptionsDialog({
             />
             <Box display={{ base: 'none', _mobile: 'block' }}>
               <Stack gap="3" alignItems="flex-start">
-<Typography variant="body4Semibold">
-                  수량
-                </Typography>
+                <Typography variant="body4Semibold">수량</Typography>
                 <NumberStepper
                   min={1}
                   value={draft.quantity}
@@ -166,35 +164,18 @@ type CartDialogsProps = {
 export function CartLimitDialog({ onClose }: { onClose: () => void }) {
   return (
     <ModalDialog
+      variant="alert"
       open
       onOpenChange={(open) => {
         if (!open) onClose();
       }}
       title="장바구니"
       closeLabel="구매 수량 제한 안내 닫기"
-      size="sm"
-      headerProps={{
-        css: css.raw({ bg: 'white', borderBottom: '1px solid var(--colors-black-20)' }),
-      }}
-    >
-      <Stack gap="4" pb="2">
-        <Typography variant="body2" weight="medium">
-          변경할 수 없습니다
-        </Typography>
-        <Typography variant="body4">구매 수량이 제한된 상품입니다.</Typography>
-        <HStack justifyContent="center" mt="2" w="100%">
-          <Button
-            variant="primary"
-            size="tall"
-            fullWidth
-            className={css({ w: { base: '160px', _mobile: '100%' } })}
-            onClick={onClose}
-          >
-            <Typography variant="cta2">확인</Typography>
-          </Button>
-        </HStack>
-      </Stack>
-    </ModalDialog>
+
+      message="변경할 수 없습니다"
+      description="구매 수량이 제한된 상품입니다."
+      actions={{ kind: 'single', onConfirm: onClose }}
+    />
   );
 }
 

@@ -105,6 +105,7 @@ export function InquiryOrderLookup({
   };
   return (
     <ModalDialog
+      variant="selection"
       open
       onOpenChange={(open) => {
         if (!open) onClose();

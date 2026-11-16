@@ -47,11 +47,12 @@ type Props = {
 function PhoneVerificationDetailDialog({ open, onOpenChange }: Props) {
   return (
     <ModalDialog
+      variant="detail"
       open={open}
       onOpenChange={onOpenChange}
       title="알뜰폰 사업자"
       closeLabel="안내 닫기"
-      size="sm"
+
       mobilePresentation="fullscreen"
       actions={{ kind: 'single', onConfirm: () => onOpenChange(false) }}
     >
@@ -83,11 +84,12 @@ function PhoneVerificationDialogs({ detail, onDetail }: PhoneVerificationDialogs
     return <PhoneVerificationDetailDialog open onOpenChange={onOpenChange} />;
   return (
     <ModalDialog
+      variant="terms"
       open={detail !== null}
       onOpenChange={onOpenChange}
       title={detail ?? ''}
       closeLabel="안내 닫기"
-      size="sm"
+
       mobilePresentation="fullscreen"
       actions={{ kind: 'single', onConfirm: () => onDetail(null) }}
     >
@@ -136,13 +138,14 @@ function PhoneVerificationDesignDialogs({
   return (
     <>
       <ModalDialog
+        variant="terms"
         open={detail !== null}
         onOpenChange={(open) => {
           if (!open) close();
         }}
         title="HOKA Korea 이용약관"
         closeLabel="안내 닫기"
-        size="sm"
+
         mobilePresentation="fullscreen"
         footerProps={{
           css: css.raw({
@@ -490,29 +493,25 @@ export function PhoneVerificationContent(props: PhoneVerificationContentProps) {
           )}
 
           <ModalDialog
+            variant="alert"
             open={props.expired ?? false}
             onOpenChange={(open) => {
               if (!open) props.onExpiredClose?.();
             }}
             title={props.title === '계정 잠금 해제' ? '계정잠금해제' : '인증시간 만료'}
             closeLabel="인증시간 만료 안내 닫기"
-            size={props.title === '계정 잠금 해제' ? 'md' : 'sm'}
             actions={{ kind: 'single', onConfirm: () => props.onExpiredClose?.() }}
-          >
-            {props.title === '계정 잠금 해제' ? (
-              <Stack gap="4" textAlign="center">
-                <Typography variant="body2">입력시간이 만료되었습니다</Typography>
-                <Typography variant="body4">
-                  인증번호 입력 시간이 만료되었습니다. 인증번호 재요청 버튼을 눌러 인증을 다시
-                  시도해주세요.
-                </Typography>
-              </Stack>
-            ) : (
-              <Typography variant="body3">
-                인증 시간이 만료되었습니다. 인증번호를 재요청해 주세요.
-              </Typography>
-            )}
-          </ModalDialog>
+            message={
+              props.title === '계정 잠금 해제'
+                ? '입력시간이 만료되었습니다'
+                : '인증 시간이 만료되었습니다. 인증번호를 재요청해 주세요.'
+            }
+            description={
+              props.title === '계정 잠금 해제'
+                ? '인증번호 입력 시간이 만료되었습니다. 인증번호 재요청 버튼을 눌러 인증을 다시 시도해주세요.'
+                : undefined
+            }
+          />
         </>
       }
     >

@@ -1,13 +1,13 @@
 ---
 type: Architecture
-title: '라우팅과 플랫폼'
-description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
+title: "라우팅과 플랫폼"
+description: "App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다."
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-11T01:09:17Z'
+updated: "2026-11-16T09:41:05.132Z"
 generated:
   by: codex/gpt-6
-  at: '2026-11-03T06:11:12Z'
+  at: "2026-11-03T06:11:12Z"
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/app/launch-calendar/_components/LaunchCalendarContent.tsx
@@ -100,7 +100,7 @@ working_tree_sources:
   - src/app/cart/_components/CartModalPreview.tsx
   - id: design-state-link-audit
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=957-29748
-    title: '사용자 지정 계정 잠금 해제 디자인과 본문의 나머지 9개 영역 링크'
+    title: "사용자 지정 계정 잠금 해제 디자인과 본문의 나머지 9개 영역 링크"
   - src/app/checkout/_components/CheckoutShipping.tsx
   - src/app/mypage/profile/profilePreviews.ts
   - src/components/phone-verification/PhoneVerificationStatePreview.tsx
@@ -327,49 +327,49 @@ sources:
     title: 쿠폰 일반·임직원 PC/MO 시안
   - id: figma-orders-lookup-20261102
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2059-162098
-    title: 'Figma 주문/배송조회 PC·모바일 목록과 상세'
+    title: "Figma 주문/배송조회 PC·모바일 목록과 상세"
   - id: figma-order-claim-application-20261102
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2203-76650
-    title: 'Figma 주문 취소·환불 신청 PC 모달과 모바일 시트'
+    title: "Figma 주문 취소·환불 신청 PC 모달과 모바일 시트"
   - id: figma-claim-history-20261102
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2134-82959
-    title: 'Figma 취소/반품내역 PC 표·모바일 목록·빈 상태'
+    title: "Figma 취소/반품내역 PC 표·모바일 목록·빈 상태"
   - id: src-app-layout-tsx
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/src/app/layout.tsx
-    title: 'src/app/layout.tsx'
+    title: "src/app/layout.tsx"
   - id: src-shared-lib-device-ts
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/src/shared/lib/device.ts
-    title: 'src/lib/device.ts'
+    title: "src/lib/device.ts"
   - id: src-app-products-id-page-tsx
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/src/app/products/[id]/page.tsx
-    title: 'src/app/products/[id]/page.tsx'
+    title: "src/app/products/[id]/page.tsx"
   - id: src-shared-features-catalog-productlistingpage-tsx
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/src/shared/features/catalog/ProductListingPage.tsx
-    title: 'src/components/features/catalog/ProductListingPage.tsx'
+    title: "src/components/features/catalog/ProductListingPage.tsx"
   - id: tests-app-router-test-mjs
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/tests/app-router.test.mjs
-    title: 'tests/app-router.test.mjs'
+    title: "tests/app-router.test.mjs"
   - id: pdp-104663
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2780-104663
-    title: 'PDP 신발'
+    title: "PDP 신발"
   - id: pdp-93347
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2780-93347
-    title: 'PDP 의류'
+    title: "PDP 의류"
   - id: pdp-103439
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2780-103439
-    title: 'Sale Price'
+    title: "Sale Price"
   - id: pdp-100884
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2780-100884
-    title: '품절'
+    title: "품절"
   - id: pdp-98879
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2780-98879
-    title: 'Option Selection'
+    title: "Option Selection"
   - id: pdp-97663
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2780-97663
-    title: 'No Size Selected Error'
+    title: "No Size Selected Error"
   - id: pdp-94996
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2780-94996
-    title: '장바구니 추가 완료'
+    title: "장바구니 추가 완료"
 ---
 
 # 라우팅과 플랫폼
@@ -1825,5 +1825,18 @@ PC 1920px·MO 375px에서 일반·임직원 목록, 상세 직접 진입, 확인
 
 Panda 생성·수정 파일 ESLint/Prettier 검사를 통과했다. 전체 타입 검사는 비대상 `LaunchCalendarDetail.tsx`의 Button `icon` prop 오류로 실패했다. Next/Storybook 빌드는 실행하지 않았다. 최종 마크업 인계 검토에서 기존 route-private 소유권, Panda·Stack 간격, 공통 Button 직접 사용, 표시 fixture와 미연결 발급 경계 및 다른 채팅의 모달 변경 보존을 확인했다.
 
-
 쿠폰 굵기 후속 보정: 사용자 시각 검토를 우선해 임직원 발급 버튼의 regular 지정은 bold(700)로 변경했고, 총 건수 숫자는 기존 medium(500)으로 복원했다. 디자인 구조 데이터의 regular 관측값과 구분되는 사용자 확정 사항이다. PC 1328px·MO 375px에서 라벨 700·숫자 500, 실제 Pretendard-Bold 글리프와 기존 크기·행간을 확인했다. 공통 Button·Typography 기본값은 변경하지 않았다.
+
+## ModalDialog 사용처 전환과 확인 경로 (2026-11-16)
+
+9개 variant 전환은 기존 URL·상태 소유권·이동 콜백을 보존한다. `/publishing-guide?tab=modal`에 유형별 열기 버튼과 복사 코드를 추가했다. 안내·확인은 message/description으로 단순화하고, 회원정보의 입력/확인/완료는 해당 상태에 따라 form/confirm/alert를 지정한다. 사용되지 않는 문의 모달 표시 옵션 상수는 제거했다. IA의 소스 의존 그래프는 기존 생성기가 새 recipe 연결과 제거된 import를 반영한다.
+
+PC1440/MO375에서 `/login/account-locked`, `/login/find-account/password-reset/preview-complete`, `/mypage/preview-logout`, `/checkout/preview-address-change`, `/checkout/preview-address-edit`, `/mypage/orders/preview-tracking`, `/mypage/orders/preview-cancel-request`, `/support/inquiries/preview-attachment`, `/support/inquiries/new/preview-order-required`, `/login/account-locked/verification/preview-required-terms`를 직접 열어 표시와 본문 가로 넘침 없음을 확인했다. `/products/pdp-preview/apparel`에서는 실제 사이즈 가이드의 cm/inch와 PC/MO 배치를 확인했다. 신규 서비스·라우트·성공 이동은 추가하지 않았다. 출처: 관련 작업 트리, Codex.
+
+## STATE 모달 유형 전수 표시와 검색 (2026-11-16)
+
+앞선 개별 connection.modalVariant는 URL 단위의 typed `stateModalVariants` 목록으로 통합했다. `getScreenStateModalVariants(href)`는 준비된 상태에서 처음 열리는 실제 ModalDialog variant 배열을 반환한다. STATE 행은 상태 아래에 variant 속성을 각각 표시하고 부모 page/popup 행은 유형만 유지한다. 장바구니·배송지·주문·리뷰·쿠폰·회원정보·가입·계정복구·문의·PDP·러닝의 열린 모달 STATE48개를 등록했다. 이전 약관 선택은 부모 terms와 선택창 selection을 함께 표시하며, PDP 옵션 선택2개는 기존 모바일 전용 표시를 그대로 따른다.
+
+닫혀 있는 공통 Dropdown·우편번호·사이즈 가이드 같은 상호작용용 모달은 import만 보고 기본 페이지의 열린 모달이라고 표시하지 않는다. 신규 상태 URL을 만들지 않았다. signup 인증 만료·계정 찾기 만료·계정 잠금 해제 완료·런칭 알림 완료는 실제 모달이 없어 표시하지 않는다. 외부 상태 이름이나 원본 화면의 popup 분류로 variant를 추정하지 않는다.
+
+`getScreenModalSearchText`는 화면의 기본·preview URL에서 사용하는 variant 속성 문자열을 기존 검색 텍스트에 합친다. alert, tracking, variant="alert", variant="image" 검색을 지원하며 기존 화면 단위 검색과 자식 STATE 문맥은 유지한다. 검색 안내에 variant를 추가했다. 브라우저에서48개 URL의 실제 모달과 metadata가 일치하고, IA의207개 STATE 행 중 등록된48개 URL의 variant가 누락 없이 표시되는 것을 확인했다. 위 검색4건도 결과를 반환한다. 출처: 연결·컴포넌트·직접 진입 fixture 작업 트리, Codex의 실제 확인.
