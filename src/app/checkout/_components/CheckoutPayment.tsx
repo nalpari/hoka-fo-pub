@@ -24,34 +24,26 @@ function CheckoutPaymentMethodNotice({ label }: { label: string | undefined }) {
   );
 }
 
-const marks = { naver: 'N pay', toss: 'toss', samsung: 'SAMSUNG pay', payco: 'PAYCO' } as const;
-
-/** 결제 타일의 브랜드 표시 영역을 구성합니다. (Displays the payment tile brand mark.) */
+/** 결제 타일의 원본 브랜드 이미지를 표시합니다. (Displays the original payment brand artwork.) */
 function CheckoutPaymentMark({ method }: { method: PaymentMethod }) {
+  const height = method === 'toss' ? 30 : method === 'card' ? 18 : 14;
   return (
-    <Box h="4" display="flex" alignItems="center" justifyContent="center" aria-hidden="true">
-      {method === 'kakao' ? (
-        <Image
-          src="/images/checkout/kakaopay.png"
-          alt=""
-          width={28}
-          height={16}
-          sizes="28px"
-          className={css({ w: '28px', h: '16px', objectFit: 'contain' })}
-        />
-      ) : method === 'card' ? (
-        <Icon name="credit-card-regular" size={16} />
-      ) : (
-        <Typography
-          variant="body5"
-          weight="bold"
-          className={css({
-            color: method === 'payco' ? 'red.100' : method === 'naver' ? '#00a949' : '#2357c9',
-          })}
-        >
-          {marks[method]}
-        </Typography>
-      )}
+    <Box h="14px" w="60px" pos="relative" aria-hidden="true">
+      <Image
+        src={`/images/checkout/payment-${method}.png`}
+        alt=""
+        width={60}
+        height={height}
+        sizes="60px"
+        className={css({
+          w: '60px',
+          maxW: 'none',
+          display: 'block',
+          position: 'absolute',
+          top: '50%',
+          transform: 'translateY(-50%)',
+        })}
+      />
     </Box>
   );
 }
@@ -82,9 +74,13 @@ function CheckoutPaymentMethods({
       variant="custom"
       value={payment}
       onValueChange={onPaymentChange}
-      className={css({ gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: '1!' })}
+      className={css({
+        gridTemplateColumns: 'repeat(6, minmax(0, 1fr))',
+        _mobile: { gridTemplateColumns: 'repeat(3, minmax(0, 1fr))' },
+        gap: '8px!',
+      })}
       optionClassName={css({
-        minH: '88px',
+        minH: '80px',
         _mobile: { minH: '110px' },
         p: '0',
         bg: 'transparent',
@@ -96,13 +92,26 @@ function CheckoutPaymentMethods({
       options={paymentMethods.map((method) => ({
         value: method.value,
         label: (
-          <Stack h="100%" alignItems="center" justifyContent="center" gap="1">
+          <Stack
+            h="100%"
+            alignItems={{ base: 'flex-start', _mobile: 'center' }}
+            justifyContent="center"
+            gap="4px"
+            pos="relative"
+            pl={{ base: '42px', _mobile: '0' }}
+          >
             <CheckoutPaymentMark method={method.value} />
             <Typography variant="body5">{method.label}</Typography>
             <Icon
               name={`hoka-radio-${payment === method.value ? 'checked' : 'unchecked'}`}
               size={16}
               alt=""
+              className={css({
+                pos: 'absolute',
+                left: '16px',
+                top: '20px',
+                _mobile: { pos: 'static', order: '3' },
+              })}
             />
           </Stack>
         ),
@@ -124,7 +133,11 @@ export function CheckoutPayment({
       as="section"
       gap="4"
       title="결제 정보"
-      headerProps={{ titleAs: 'h2', titleProps: { web: 'heading7', mo: 'heading6' } }}
+      headerProps={{
+        titleAs: 'h2',
+        titleProps: { web: 'heading7', mo: 'heading6' },
+        className: css({ pb: { base: '8px', _mobile: '0' } }),
+      }}
     >
       <CheckoutPaymentMethods payment={payment} onPaymentChange={onPaymentChange} />
       <CheckoutPaymentMethodNotice

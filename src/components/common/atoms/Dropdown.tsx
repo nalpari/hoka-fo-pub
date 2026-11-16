@@ -148,15 +148,17 @@ export function Dropdown({
   defaultValue,
   className,
   indicator,
-  indicatorSize = variant === 'sort' ? '14px' : '18px',
-  indicatorWidth = indicatorSize,
-  indicatorHeight = indicatorSize,
+  indicatorSize,
+  indicatorWidth,
+  indicatorHeight,
   indicatorColor = 'currentColor',
   disabled: disabledProp = false,
   onValueChange,
   value: controlledValue,
 }: DropdownProps) {
   const platform = usePlatform();
+  const resolvedIndicatorSize =
+    indicatorSize ?? (variant === 'sort' && platform === 'mobile' ? '14px' : '18px');
   const triggerRef = useRef<HTMLButtonElement>(null);
   const sheetOptionsRef = useRef<HTMLDivElement>(null);
   const [popupOpen, setPopupOpen] = useState(false);
@@ -188,6 +190,7 @@ export function Dropdown({
 
   const mobileSheet = sheetOpen ? (
     <ModalDialog
+      variant="selection"
       open
       mobilePresentation="bottomSheet"
       closeLabel="닫기"
@@ -273,14 +276,17 @@ export function Dropdown({
             .join(' ')}
         >
           {selectedOption?.prefix}
-          <Typography variant="body3" className={css({ lineHeight: '20px' })}>
+          <Typography variant="body4" className={css({ '&&': { lineHeight: '1.3' } })}>
             {placeholder ?? selectedLabel}
           </Typography>
           {indicator ?? (
             <Icon
               name="chevron-down-regular"
               color={disabled ? 'var(--color-black-40)' : indicatorColor}
-              style={{ width: indicatorWidth, height: indicatorHeight }}
+              style={{
+                width: indicatorWidth ?? resolvedIndicatorSize,
+                height: indicatorHeight ?? resolvedIndicatorSize,
+              }}
             />
           )}
         </Button>
@@ -401,7 +407,7 @@ export function Dropdown({
                 variant="body3"
                 className={[
                   styles.label({ disabled }),
-                  isSort ? css({ lineHeight: '1.3', letterSpacing: '-0.02em' }) : '',
+                  isSort ? css({ '&&': { lineHeight: '1.3' } }) : '',
                 ]
                   .filter(Boolean)
                   .join(' ')}
@@ -426,7 +432,10 @@ export function Dropdown({
                   name={isSort ? 'chevron-down-regular' : 'sort-down-solid'}
                   color={disabled ? 'var(--color-black-40)' : indicatorColor}
                   className={styles.indicator}
-                  style={{ width: indicatorWidth, height: indicatorHeight }}
+                  style={{
+                    width: indicatorWidth ?? resolvedIndicatorSize,
+                    height: indicatorHeight ?? resolvedIndicatorSize,
+                  }}
                 />
               )}
             </BaseSelect.Icon>

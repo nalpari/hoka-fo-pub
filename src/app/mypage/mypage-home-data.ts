@@ -13,7 +13,7 @@ export type MyPageOrderItem = {
   description: string;
   status: string;
   image: string;
-  isNew?: boolean;
+  badge?: { web: string; mobile: string };
 };
 
 export const orderItems: MyPageOrderItem[] = [
@@ -26,7 +26,7 @@ export const orderItems: MyPageOrderItem[] = [
     description: '데일리 러닝, 워킹',
     status: '배송중',
     image: '/images/mypage/speedgoat-7-gtx.png',
-    isNew: true,
+    badge: { web: 'New', mobile: 'Best' },
   },
   {
     name: 'Clifton 11 GTX',
@@ -97,7 +97,7 @@ export const menuSections = [
   {
     title: '계정관리',
     items: [
-      { label: '회원 정보 확인 및 수정', to: '/mypage/profile' },
+      { label: '회원 정보 관리', to: '/mypage/profile' },
       { label: '배송지 관리', to: '/mypage/addresses' },
     ],
   },

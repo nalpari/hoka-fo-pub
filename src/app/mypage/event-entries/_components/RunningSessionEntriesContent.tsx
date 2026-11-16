@@ -56,14 +56,11 @@ export function RunningSessionEntriesContent({
       : items.length;
   return (
     <MyPageFrame activePath="/mypage/event-entries" breadcrumbs={[{ label: '러닝세션 신청내역' }]}>
-      <Stack gap="0" minW="0">
+      <Stack gap="48px" _mobile={{ gap: '32px', pt: '24px' }}>
         <ContentHeader
           title="러닝세션 신청내역"
           titleAs="h1"
           titleProps={{ web: 'headingKr6', mo: 'headingKr5' }}
-          mb="40px"
-          _mobile={{ mb: '32px' }}
-          gap="0"
         />
         <SegmentedControl
           ariaLabel="신청 상태"
@@ -205,28 +202,21 @@ export function RunningSessionEntriesContent({
         ) : null}
       </Stack>
       <ModalDialog
+        variant="confirm"
         open={selected !== null}
         onOpenChange={(open) => {
           if (!open) setSelected(null);
         }}
         title="러닝세션 신청 취소"
         closeLabel="신청 취소 닫기"
-        size="sm"
-        headerProps={{ css: { bg: 'white', borderBottom: '1px solid var(--color-black-20)' } }}
-        popupClassName={css({
-          '& > header h2': { h: 'auto' },
-          '& > div': { p: '24px', _mobile: { px: '16px' } },
-        })}
+
         actions={{
           kind: 'confirm',
           confirmDisabled: false,
           onConfirm: () => setSelected(null),
         }}
-      >
-        <Stack gap="16px">
-          <Typography variant="body3">신청을 취소 하시겠습니까?</Typography>
-        </Stack>
-      </ModalDialog>
+        message="신청을 취소 하시겠습니까?"
+      />
     </MyPageFrame>
   );
 }

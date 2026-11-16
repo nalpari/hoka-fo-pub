@@ -1,20 +1,21 @@
-/**
- * [개발팀 바인딩]
- * 아래 추천은 시안 생성 목록입니다. 운영 추천 응답은 OrderRecommendations.items의 id/name/price/href/imageSrc 표시 모델로 변환합니다.
- * 현재 cart/checkout에서 이 고정 배열을 참조하는 위치가 추천 서비스 연결 소유자입니다. 목록을 임의 반복하지 말고 실제 응답만 전달합니다.
- */
-
-import { recommendationImages } from '@/mocks/cartDisplay';
-import { products } from '@/mocks/products';
 import type { OrderRecommendation } from '@/types/component-contracts/components-common-organisms-OrderRecommendations-OrderRecommendations';
 
-export const orderRecommendations: readonly OrderRecommendation[] = products
-  .slice(0, 4)
-  .map((product, index) => ({
-    id: product.id,
-    name: product.name,
-    gender: product.gender,
-    price: product.price,
-    href: `/products/${product.id}`,
-    imageSrc: recommendationImages[index] ?? product.primaryImage,
-  }));
+/** [ 개발팀 바인딩 ] 추천 화면 시안용 고정 표시 데이터이며 실제 추천 서비스와 로딩·오류·목록 갱신은 호출 화면 소유자가 연결합니다. */
+export const orderRecommendations: readonly OrderRecommendation[] = [1, 2, 3, 4, 5, 6].map(
+  (index) => ({
+    id: `order-recommendation-${index}`,
+    name: 'Speedgoat 7 GTX',
+    gender: 'All Gender',
+    price: 240000,
+    href: '/products/shoe-1',
+    imageSrc: `/images/cart/recommendation-${index}.png`,
+  }),
+);
+
+/** 모바일 시안에 명시된 추천 순서와 성별 표시입니다. */
+export const mobileOrderRecommendations: readonly OrderRecommendation[] = [
+  orderRecommendations[1],
+  { ...orderRecommendations[2], gender: "Women's" },
+  { ...orderRecommendations[0], gender: "Men's" },
+  ...orderRecommendations.slice(3),
+];

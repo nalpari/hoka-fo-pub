@@ -20,13 +20,6 @@ import { ContentSection } from '@/components/common/layouts/ContentSection';
 
 import { type InquiryOrderSelection } from '@/app/support/inquiries/new/inquiryOrders.data';
 
-export const inquiryAlertPresentation = {
-  size: 'md' as const,
-  headerProps: {
-    css: css.raw({ bg: 'white.0', borderBottom: '1px solid token(colors.black.20)' }),
-  },
-  popupClassName: css({ '& > div:nth-child(2)': { py: '6' } }),
-};
 type InquiryAttachmentListProps = {
   files: File[];
   onRemove: (index: number) => void;

@@ -148,7 +148,7 @@ const sectionHeading = css({
 export function RewardBenefits() {
   const platform = usePlatform();
   return (
-    <Stack gap="56px" _mobile={{ gap: '16px' }}>
+    <Stack gap="48px" _mobile={{ gap: '16px' }}>
       <ContentSection
         as="section"
         gap="0"
@@ -185,7 +185,7 @@ export function RewardBenefits() {
               }}
             >
               <Stack
-                gap="16px"
+                gap={tier.name === 'RUNNER' ? '8px' : '16px'}
                 w="160px"
                 flexShrink="0"
                 alignItems="center"
@@ -199,29 +199,31 @@ export function RewardBenefits() {
                   gap="0"
                 />
               </Stack>
-              <Stack as="ol" gap="12px" listStyleType="none" flex="1" _mobile={{ gap: '8px' }}>
-                {tier.benefits.map((benefit, index) => (
-                  <HStack as="li" key={benefit.title} gap="4px" alignItems="flex-start">
-                    <Typography web="body3" mo="body4">
-                      {index + 1}.
-                    </Typography>
-                    <Stack gap="8px" minW="0">
-                      <Typography as="p" web="body3" mo="body4">
-                        {'mobileTitle' in benefit && platform === 'mobile'
-                          ? benefit.mobileTitle
-                          : benefit.title}
+              <Stack gap="16px" flex="1">
+                <Typography as="p" web="body2" mo="body3" weight="medium">
+                  {tier.requirement}
+                </Typography>
+                <Stack
+                  as="ol"
+                  gap={tier.name === 'ELITE' ? '12px' : '8px'}
+                  listStyleType="none"
+                  _mobile={{ gap: '8px' }}
+                >
+                  {tier.benefits.map((benefit, index) => (
+                    <HStack as="li" key={benefit.title} gap="4px" alignItems="flex-start">
+                      <Typography web="body3" mo="body4">
+                        {index + 1}.
                       </Typography>
-                      {benefit.detail ? (
-                        <Typography as="p" web="body4" mo="body5" className={css({ pl: '12px' })}>
-                          ・{' '}
-                          {'mobileDetail' in benefit && platform === 'mobile'
-                            ? benefit.mobileDetail
-                            : benefit.detail}
+                      <Stack gap="8px" minW="0">
+                        <Typography as="p" web="body3" mo="body4">
+                          {'mobileTitle' in benefit && platform === 'mobile'
+                            ? benefit.mobileTitle
+                            : benefit.title}
                         </Typography>
-                      ) : null}
-                    </Stack>
-                  </HStack>
-                ))}
+                      </Stack>
+                    </HStack>
+                  ))}
+                </Stack>
               </Stack>
             </HStack>
           ))}
@@ -237,36 +239,39 @@ export function RewardBenefits() {
           titleProps: { web: 'heading7', mo: 'heading6', className: sectionHeading },
         }}
       >
-        <Grid
-          gridTemplateColumns="repeat(2,minmax(0,1fr))"
-          columnGap="40px"
-          rowGap="64px"
-          py="32px"
-          borderBottom="1px solid var(--colors-black-20)"
-          _mobile={{
-            gridTemplateColumns: 'minmax(0,1fr)',
-            gap: '20px',
-            py: '0',
-            borderBottom: '0',
-          }}
-        >
-          {commonBenefits.map((benefit) => (
-            <ContentHeader
-              as="section"
-              key={benefit.title}
-              gap="16px"
-              title={benefit.title}
-              titleAs="h3"
-              titleProps={{ web: 'body2', mo: 'heading7' }}
-              description={benefit.description}
-              descriptionProps={{ variant: 'body4' }}
-              css={{
-                '&:nth-child(odd)': { borderRight: '1px solid var(--colors-black-20)', pr: '40px' },
+        <Stack gap="0" _mobile={{ gap: '20px' }}>
+          {[commonBenefits.slice(0, 2), commonBenefits.slice(2, 4)].map((row) => (
+            <Grid
+              key={row[0].title}
+              gridTemplateColumns="repeat(2, minmax(0, 1fr))"
+              columnGap="40px"
+              py="32px"
+              borderBottom="1px solid var(--colors-black-20)"
+              _mobile={{
+                gridTemplateColumns: 'minmax(0, 1fr)',
+                gap: '20px',
+                py: 0,
+                borderBottom: 0,
               }}
-              _mobile={{ gap: '12px', '&:nth-child(odd)': { borderRight: '0', pr: '0' } }}
-            />
+            >
+              {row.map((benefit, index) => (
+                <ContentHeader
+                  as="section"
+                  key={benefit.title}
+                  gap="16px"
+                  title={benefit.title}
+                  titleAs="h3"
+                  titleProps={{ web: 'body2', mo: 'heading7' }}
+                  description={benefit.description}
+                  descriptionProps={{ variant: 'body4' }}
+                  borderRight={index === 0 ? '1px solid var(--colors-black-20)' : undefined}
+                  pr={index === 0 ? '40px' : undefined}
+                  _mobile={{ gap: '12px', borderRight: 0, pr: 0 }}
+                />
+              ))}
+            </Grid>
           ))}
-        </Grid>
+        </Stack>
       </ContentSection>
     </Stack>
   );
@@ -287,13 +292,8 @@ export function RewardsPageContent({
         pending={preview === 'loading'}
         error={preview === 'error' ? '회원등급을 불러오지 못했습니다.' : undefined}
       />
-      <Stack gap="56px" _mobile={{ gap: '40px', pt: '24px' }}>
-        <Stack gap="24px">
-          <ContentHeader
-            title="회원등급"
-            titleAs="h1"
-            titleProps={{ web: 'heading6', mo: 'heading5' }}
-          />
+      <Stack gap="48px" _mobile={{ gap: '40px', pt: '24px' }}>
+        <Stack gap="32px" _mobile={{ gap: '24px' }}>
           <HStack gap="16px" alignItems="flex-start">
             <Box display={{ base: 'block', _mobile: 'none' }} aria-hidden="true">
               <TierBadge tier={summary?.tier} initial={summary?.tierInitial} />
@@ -314,35 +314,44 @@ export function RewardsPageContent({
               _mobile={{ gap: '8px', pt: '0' }}
             />
           </HStack>
-          <HStack gap="8px" alignItems="stretch">
-            {summary?.tierProgress ? <RewardProgress progress={summary.tierProgress} /> : null}
-            <Stack
-              bg="black.10"
-              p="32px"
-              gap="12px"
-              w={summary?.tierProgress ? '240px' : 'full'}
-              minH="133px"
-              justifyContent="space-between"
-              _mobile={{
-                w: 'full',
-                minH: '0',
-                px: '16px',
-                py: '20px',
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}
-            >
-              <Typography web="body3" mo="body4">
-                구매금액
-              </Typography>
-              <HStack gap="2px" justifyContent="flex-end" alignItems="baseline">
-                <Typography web="heading8" mo="heading7" weight="black">
-                  {summary?.purchaseAmount}
+          <Stack gap="12px">
+            <HStack gap="8px" alignItems="stretch">
+              {summary?.tierProgress ? <RewardProgress progress={summary.tierProgress} /> : null}
+              <Stack
+                bg="black.10"
+                p="32px"
+                gap="12px"
+                w={summary?.tierProgress ? '240px' : 'full'}
+                minH="133px"
+                justifyContent="space-between"
+                _mobile={{
+                  w: 'full',
+                  minH: '0',
+                  px: '16px',
+                  py: '20px',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}
+              >
+                <Typography web="body3" mo="body4">
+                  구매금액
                 </Typography>
-                <Typography variant="body3">원</Typography>
-              </HStack>
-            </Stack>
-          </HStack>
+                <HStack gap="2px" justifyContent="flex-end" alignItems="baseline">
+                  <Typography
+                    web="heading8"
+                    mo="heading7"
+                    weight={platform === 'mobile' ? 'bold' : 'black'}
+                  >
+                    {summary?.purchaseAmount}
+                  </Typography>
+                  <Typography variant="body3">원</Typography>
+                </HStack>
+              </Stack>
+            </HStack>
+            <Typography as="p" web="body4" mo="body4-2" tone="tertiary">
+              * 매월 1일, 전월 말일자부터 최근 1년 내 구매 금액으로 산정
+            </Typography>
+          </Stack>
         </Stack>
         <RewardBenefits />
       </Stack>

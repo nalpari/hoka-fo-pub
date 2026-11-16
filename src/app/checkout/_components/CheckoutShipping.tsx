@@ -191,8 +191,8 @@ const demoSavedAddress = {
   id: 'demo',
   label: '홍길동집',
   name: '홍길동',
-  phone: '010-1234-5678',
-  otherPhone: '010-1234-5678',
+  phone: '010. 1234. 1234',
+  otherPhone: '010. 1234. 1234',
   address: '서울시 강남구 역삼동 234-1',
   postalCode: '',
   addressDetail: '',
@@ -212,11 +212,15 @@ function CheckoutSavedAddress({ errors, editButtonRef, onEdit }: CheckoutSavedAd
 
   return (
     <Box key={JSON.stringify(saved)} border="1px solid var(--colors-black-20)">
-      <HStack justifyContent="space-between" alignItems="center" bg="black.10" px="4" h="56px">
+      <HStack
+        justifyContent="space-between"
+        alignItems="center"
+        bg="black.10"
+        px={{ base: '32px', _mobile: '16px' }}
+        h={{ base: '72px', _mobile: '56px' }}
+      >
         <HStack gap="2">
-<Typography variant="body3Medium">
-            {saved.label}
-          </Typography>
+          <Typography variant="body3Medium">{saved.label}</Typography>
           <Box border="1px solid var(--colors-black-20)" px="1" py="0.5" borderRadius="2px">
             <Typography variant="body5">기본 배송지</Typography>
           </Box>
@@ -231,19 +235,22 @@ function CheckoutSavedAddress({ errors, editButtonRef, onEdit }: CheckoutSavedAd
           배송지변경
         </Button>
       </HStack>
-      <Stack gap="3" px="4" py="5" borderTop="1px solid var(--colors-black-20)">
+      <Stack
+        gap="3"
+        px={{ base: '32px', _mobile: '16px' }}
+        py={{ base: '24px', _mobile: '20px' }}
+        borderTop="1px solid var(--colors-black-20)"
+      >
         <Stack gap="3">
           {infoItems.map(({ label, value }) => (
             <HStack key={label} gap="2" alignItems="center">
-              <Box w="82px" flexShrink="0">
+              <Box w={{ base: '144px', _mobile: '82px' }} flexShrink="0">
                 <Typography variant="body3" tone="subtle">
                   {label}
                 </Typography>
               </Box>
               <Stack flex="1" gap="1" minW="0">
-<Typography variant="body4Medium">
-                  {value}
-                </Typography>
+                <Typography variant="body4Medium">{value}</Typography>
                 {label === '주소' && errors?.address ? (
                   <Typography variant="body5" tone="subtle">
                     {errors.address}
@@ -313,6 +320,7 @@ function CheckoutDeliveryRequestSelect({
       value={value}
       onValueChange={onValueChange}
       options={[
+        { value: 'default', label: '택배기사님께 전달하는 내용입니다' },
         { value: 'door', label: '문 앞에 놓아주세요' },
         { value: 'call', label: '배송 전 연락주세요' },
         { value: 'security', label: '경비실에 맡겨주세요' },
@@ -323,7 +331,7 @@ function CheckoutDeliveryRequestSelect({
 }
 
 /** 배송 요청 선택과 직접 입력을 관리합니다. (Manages delivery instructions and custom text.) */
-function CheckoutDeliveryRequest({ initialRequest = '' }: { initialRequest?: string }) {
+function CheckoutDeliveryRequest({ initialRequest = 'default' }: { initialRequest?: string }) {
   const [request, setRequest] = useState(initialRequest);
   const [message, setMessage] = useState('');
   return (
@@ -397,7 +405,11 @@ export function CheckoutShipping({
       as="section"
       gap="4"
       title="주문자 및 배송지 정보"
-      headerProps={{ titleAs: 'h2', titleProps: { web: 'heading7', mo: 'heading6' } }}
+      headerProps={{
+        titleAs: 'h2',
+        titleProps: { web: 'heading7', mo: 'heading6' },
+        className: css({ pb: { base: '8px', _mobile: '0' } }),
+      }}
     >
       {showInlineForm ? (
         <CheckoutShippingForm draft={draft} onDraftChange={setDraft} errors={errors} />
@@ -418,7 +430,8 @@ export function CheckoutShipping({
                     : '배송지 추가'}
               </span>
             }
-            variant="address"
+            variant="form"
+            formLayout="divided"
             mobilePresentation="fullscreen"
             closeLabel="배송지 변경 닫기"
             open={addressChangeOpen}

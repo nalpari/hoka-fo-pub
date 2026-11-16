@@ -16,6 +16,7 @@ export function CheckoutLayout({
 }) {
   return (
     <OrderPageLayout
+      headerSpacing="relaxed"
       title={
         completed ? null : (
           /** 주문/결제 페이지 제목 */
@@ -26,8 +27,9 @@ export function CheckoutLayout({
           />
         )
       }
-      maxWidth={completed ? 'none' : undefined}
+      maxWidth={completed ? 'none' : '1204px'}
       paddingX={completed ? { base: '72px', _mobile: '16px' } : undefined}
+      paddingTop={completed ? { base: '160px', _mobile: '64px' } : undefined}
     >
       {children}
     </OrderPageLayout>

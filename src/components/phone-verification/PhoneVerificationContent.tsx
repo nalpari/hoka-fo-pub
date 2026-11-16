@@ -17,6 +17,7 @@ import { PreviousTermsPicker } from '@/components/common/molecules/PreviousTerms
 import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout';
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
+import { modalTermsContentRecipe } from '@/components/common/layouts/ModalDialog.recipe';
 
 import {
   type PhoneInformation,
@@ -47,11 +48,12 @@ type Props = {
 function PhoneVerificationDetailDialog({ open, onOpenChange }: Props) {
   return (
     <ModalDialog
+      variant="terms"
       open={open}
       onOpenChange={onOpenChange}
       title="알뜰폰 사업자"
       closeLabel="안내 닫기"
-      size="sm"
+
       mobilePresentation="fullscreen"
       actions={{ kind: 'single', onConfirm: () => onOpenChange(false) }}
     >
@@ -76,6 +78,7 @@ function PhoneVerificationDetailDialog({ open, onOpenChange }: Props) {
 type PhoneVerificationDialogsProps = Pick<PhoneVerificationContentProps, 'detail' | 'onDetail'>;
 function PhoneVerificationDialogs({ detail, onDetail }: PhoneVerificationDialogsProps) {
   const [previous, setPrevious] = useState(false);
+  const termsClasses = modalTermsContentRecipe();
   const onOpenChange = (open: boolean) => {
     if (!open) onDetail(null);
   };
@@ -83,28 +86,37 @@ function PhoneVerificationDialogs({ detail, onDetail }: PhoneVerificationDialogs
     return <PhoneVerificationDetailDialog open onOpenChange={onOpenChange} />;
   return (
     <ModalDialog
+      variant="terms"
       open={detail !== null}
       onOpenChange={onOpenChange}
       title={detail ?? ''}
       closeLabel="안내 닫기"
-      size="sm"
+
       mobilePresentation="fullscreen"
       actions={{ kind: 'single', onConfirm: () => onDetail(null) }}
     >
-      <Stack gap="6">
-        <Typography variant="heading7">{detail}</Typography>
-        <Box minH="240px" overflowY="auto" maxH="50vh" whiteSpace="pre-line" p="4" bg="black.10">
-          <Typography variant="body4">
-            본인확인 서비스 이용을 위한 약관입니다. 개인정보의 수집 및 이용, 고유식별정보 처리,
-            통신사 이용 및 본인확인 서비스에 관한 동의 내용을 확인해 주세요. 이 영역은 화면
-            미리보기용 본문이며 실제 약관 전문은 인증 서비스 제공자가 전달한 내용으로 표시합니다.
-          </Typography>
-        </Box>
+      <div className={termsClasses.root}>
+        <div className={termsClasses.details}>
+          <p className={termsClasses.label}>{detail}</p>
+          <article
+            className={
+              termsClasses.document +
+              ' ' +
+              css({ minH: '240px', overflowY: 'auto', maxH: '50vh', whiteSpace: 'pre-line' })
+            }
+          >
+            <Typography variant="body4">
+              본인확인 서비스 이용을 위한 약관입니다. 개인정보의 수집 및 이용, 고유식별정보 처리,
+              통신사 이용 및 본인확인 서비스에 관한 동의 내용을 확인해 주세요. 이 영역은 화면
+              미리보기용 본문이며 실제 약관 전문은 인증 서비스 제공자가 전달한 내용으로 표시합니다.
+            </Typography>
+          </article>
+        </div>
         <Button variant="link" onClick={() => setPrevious(!previous)}>
           이전 약관 보기
         </Button>
         {previous ? <Typography variant="body5">이전 약관이 없습니다.</Typography> : null}
-      </Stack>
+      </div>
     </ModalDialog>
   );
 }
@@ -112,7 +124,7 @@ type PhoneVerificationDesignDialogsProps = Pick<
   PhoneVerificationContentProps,
   'detail' | 'onDetail' | 'initialPreviousPickerOpen' | 'designTermKind'
 >;
-/** [ 개발팀 바인딩 ] 약관 본문·시행일은 디자인 표시 fixture입니다. 운영 약관 전문·선택 동의 정책·버전별 본문은 인증 연결 소유자가 제공하며 이 팝업은 조회·동의 제출을 수행하지 않습니다. */
+/** [ 개발팀 바인딩 ] 약관 본문·시행일은 디자인 표시 fixture입니다. initialPreviousPickerOpen 직접 STATE는 선택창만 표시하고 확인/닫기로 종료하며, 일반 약관의 이전 버전 열기와 선택 draft는 기존 소유자가 유지합니다. 운영 약관 전문·선택 동의 정책·버전별 본문은 인증 연결 소유자가 제공하며 이 팝업은 조회·동의 제출을 수행하지 않습니다. */
 function PhoneVerificationDesignDialogs({
   detail,
   onDetail,
@@ -124,6 +136,23 @@ function PhoneVerificationDesignDialogs({
   const [version, setVersion] = useState<string>();
   const close = () => onDetail(null);
   const optional = designTermKind === 'optional';
+  const termsClasses = modalTermsContentRecipe();
+  if (initialPreviousPickerOpen) {
+    return (
+      <PreviousTermsPicker
+        open={pickerOpen}
+        onClose={() => {
+          setPickerOpen(false);
+          close();
+        }}
+        onSelect={(id) => {
+          setVersion(id);
+          setPickerOpen(false);
+          close();
+        }}
+      />
+    );
+  }
   if (detail === '알뜰폰 사업자')
     return (
       <PhoneVerificationDetailDialog
@@ -136,30 +165,23 @@ function PhoneVerificationDesignDialogs({
   return (
     <>
       <ModalDialog
+        variant="terms"
         open={detail !== null}
         onOpenChange={(open) => {
           if (!open) close();
         }}
         title="HOKA Korea 이용약관"
         closeLabel="안내 닫기"
-        size="sm"
+
         mobilePresentation="fullscreen"
-        footerProps={{
-          css: css.raw({
-            _mobile: { pt: '8', '& > button': { '--button-height': '44px' } },
-          }),
-        }}
         actions={{ kind: 'single', onConfirm: close }}
       >
-        <Stack gap={{ base: '6', _mobile: '2' }}>
-          <Stack gap={{ base: '6', _mobile: '4' }}>
-            <Box display="flex" justifyContent="space-between" alignItems="center" gap="4">
-              <Typography
-                variant="body3"
-                className={css({ fontWeight: 'semibold', _mobile: { fontWeight: 'normal' } })}
-              >
+        <div className={termsClasses.root}>
+          <div className={termsClasses.details}>
+            <div className={termsClasses.heading}>
+              <p className={termsClasses.label}>
                 {`${optional ? '(선택)' : '(필수)'} ${detail ?? ''}`}
-              </Typography>
+              </p>
               {!optional && (
                 <Button
                   ref={previousTermsTrigger}
@@ -170,11 +192,8 @@ function PhoneVerificationDesignDialogs({
                   이전 약관 보기
                 </Button>
               )}
-            </Box>
-            <Stack
-              gap={{ base: '6', _mobile: '5' }}
-              _mobile={{ px: '4', py: '6', border: '1px solid token(colors.black.20)' }}
-            >
+            </div>
+            <article className={termsClasses.document}>
               {version ? (
                 <Typography variant="body5">{version} 시행 약관은 등록 준비 중입니다.</Typography>
               ) : (
@@ -186,16 +205,16 @@ function PhoneVerificationDesignDialogs({
                     titleProps={{ variant: 'body4' }}
                     description={'약관내용'.repeat(155)}
                     descriptionProps={{ variant: 'body4' }}
-                    gap={{ base: '4', _mobile: '3' }}
+                    gap="12px"
                   />
                 ))
               )}
-            </Stack>
-          </Stack>
-          <Typography variant="body5" className={css({ '&&': { _mobile: { fontSize: '13px' } } })}>
+            </article>
+          </div>
+          <p className={termsClasses.date}>
             공고일자 : 2025년 08월 25일 / 시행일자 : 2025년 09월 01일
-          </Typography>
-        </Stack>
+          </p>
+        </div>
         <PreviousTermsPicker
           finalFocus={previousTermsTrigger}
           open={pickerOpen}
@@ -490,29 +509,25 @@ export function PhoneVerificationContent(props: PhoneVerificationContentProps) {
           )}
 
           <ModalDialog
+            variant="alert"
             open={props.expired ?? false}
             onOpenChange={(open) => {
               if (!open) props.onExpiredClose?.();
             }}
             title={props.title === '계정 잠금 해제' ? '계정잠금해제' : '인증시간 만료'}
             closeLabel="인증시간 만료 안내 닫기"
-            size={props.title === '계정 잠금 해제' ? 'md' : 'sm'}
             actions={{ kind: 'single', onConfirm: () => props.onExpiredClose?.() }}
-          >
-            {props.title === '계정 잠금 해제' ? (
-              <Stack gap="4" textAlign="center">
-                <Typography variant="body2">입력시간이 만료되었습니다</Typography>
-                <Typography variant="body4">
-                  인증번호 입력 시간이 만료되었습니다. 인증번호 재요청 버튼을 눌러 인증을 다시
-                  시도해주세요.
-                </Typography>
-              </Stack>
-            ) : (
-              <Typography variant="body3">
-                인증 시간이 만료되었습니다. 인증번호를 재요청해 주세요.
-              </Typography>
-            )}
-          </ModalDialog>
+            message={
+              props.title === '계정 잠금 해제'
+                ? '입력시간이 만료되었습니다'
+                : '인증 시간이 만료되었습니다. 인증번호를 재요청해 주세요.'
+            }
+            description={
+              props.title === '계정 잠금 해제'
+                ? '인증번호 입력 시간이 만료되었습니다. 인증번호 재요청 버튼을 눌러 인증을 다시 시도해주세요.'
+                : undefined
+            }
+          />
         </>
       }
     >

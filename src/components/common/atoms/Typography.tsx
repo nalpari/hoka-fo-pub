@@ -570,7 +570,8 @@ export const figmaTypographyVariants = {
 } as const;
 
 const typographyTones = {
-  error: { color: 'red.100' },
+  accent: { color: 'accent' },
+  error: { color: 'error' },
   inherit: { color: 'inherit' },
   primary: { color: 'var(--color-text-primary)' },
   inverse: { color: 'var(--color-text-inverse)' },

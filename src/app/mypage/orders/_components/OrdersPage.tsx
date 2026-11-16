@@ -64,14 +64,14 @@ export function OrdersPage({
     initialOverlay === 'purchase' || initialOverlay === 'delete',
   );
   const [filters, setFilters] = useState<OrderFilters>({
-    period: returns ? 'custom' : '1',
-    start: returns ? '2026-01-01' : '2026-09-23',
-    end: returns ? '2026-08-30' : '2026-10-23',
+    period: 'custom',
+    start: '2026-01-01',
+    end: '2026-08-30',
     query: '',
   });
   const [dates, setDates] = useState({
-    start: returns ? '2026-01-01' : '2026-09-23',
-    end: returns ? '2026-08-30' : '2026-10-23',
+    start: '2026-01-01',
+    end: '2026-08-30',
   });
   const selectedOrder = orders.find((order) => order.id === (selectedId ?? orders[0]?.id));
   const selectedClaim = selectedOrder?.claims.find(
@@ -100,7 +100,7 @@ export function OrdersPage({
         setClaimId(claimId);
         setView('claim');
       }}
-      statusItems={initialOrders ? [] : previewOrderStatusItems}
+      statusItems={previewOrderStatusItems}
       view={view}
       selectedOrder={selectedOrder}
       selectedClaim={selectedClaim}
@@ -135,17 +135,19 @@ export function OrdersPage({
             <OrderTrackingDialog order={trackingOrder} onClose={() => setTrackingId(null)} />
           ) : null}
           <ModalDialog
+            variant="confirm"
             open={confirmOpen}
             onOpenChange={setConfirmOpen}
             title={initialOverlay === 'delete' ? '주문 내역 삭제' : '구매 확정'}
             closeLabel="확인 닫기"
-            size="sm"
+
             actions={{ kind: 'confirm', onConfirm: () => setConfirmOpen(false) }}
-          >
-            {initialOverlay === 'delete'
-              ? '주문 내역을 삭제하시겠습니까?'
-              : '상품을 수령하셨나요? 구매를 확정하시겠습니까?'}
-          </ModalDialog>
+            message={
+              initialOverlay === 'delete'
+                ? '주문 내역을 삭제하시겠습니까?'
+                : '상품을 수령하셨나요? 구매를 확정하시겠습니까?'
+            }
+          />
         </>
       }
     />

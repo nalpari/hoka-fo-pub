@@ -48,6 +48,8 @@ const {
   getRouteSourceFiles,
   getScreenComponentFiles,
   getScreenConnection,
+  getScreenModalSearchText,
+  getScreenStateModalVariants,
   getScreenStatePreviews,
   getSiblingScreenSourceFiles,
   getSharedStateSourceFiles,
@@ -57,6 +59,47 @@ const {
 const { getScreenDeveloperNames, getScreenDevelopers, matchesScreenDeveloper } = load(
   'src/app/screen-index/screenDevelopers.ts',
 );
+
+test('STATE modal variants follow explicit route states and preserve nested dialogs', () => {
+  const expected = {
+    '/launch-calendar/clifton-11-gtx/preview-notification': ['form'],
+    '/login/account-locked/verification/preview-carriers': ['terms'],
+    '/login/find-account/id-confirmation-modal': ['confirm'],
+    '/launch-calendar/clifton-11-gtx/preview-phone-required': ['alert'],
+    '/cart/preview-options': ['productOption'],
+    '/cart/preview-options-apparel': ['productOption'],
+    '/cart/preview-limit': ['alert'],
+    '/checkout/preview-address-new': ['form'],
+    '/mypage/orders/preview-tracking': ['tracking'],
+    '/mypage/profile/preview-password': ['form'],
+    '/mypage/profile/preview-password-confirm': ['confirm'],
+    '/mypage/profile/preview-password-complete': ['alert'],
+    '/mypage/coupons/preview-detail': ['detail'],
+    '/mypage/coupons/preview-complete': ['alert'],
+    '/support/inquiries/preview-attachment': ['image'],
+    '/login/account-locked/verification/preview-previous-terms': ['selection'],
+  };
+  for (const [href, variants] of Object.entries(expected))
+    assert.deepEqual(getScreenStateModalVariants(href), variants, href);
+  for (const href of [
+    '/cart',
+    '/signup/verify/phone/preview-expired',
+    '/login/account-locked/complete',
+    '/unknown',
+  ])
+    assert.deepEqual(getScreenStateModalVariants(href), [], href);
+});
+
+test('IA modal search includes both variant names and the displayed attribute syntax', () => {
+  const screen = screens.find((item) => item.iaNumber === 253);
+  const searchable = getScreenModalSearchText(getScreenConnection(screen));
+  for (const query of ['alert', 'variant="alert"', 'terms', 'selection'])
+    assert.ok(searchable.includes(query), query);
+  assert.equal(
+    getScreenModalSearchText({ route: '/login/account-locked/complete', sourceFiles: [] }),
+    '',
+  );
+});
 
 test('screenless parent groups own sibling files without moving them to a broader ancestor', () => {
   const siblings = [178, 179, 180, 181].map((ia) =>
@@ -270,8 +313,8 @@ test('every fixed preview page is reachable from an active IA row and its source
         connection.previewRoutes?.some((item) => item.href.split('#')[0] === href)
       );
     });
-    // 1차 개발 범위 제외: 등록 preview 파일은 보관하지만 IA에 노출하지 않습니다.
-    if (href === '/mypage/coupons/preview-error' || href === '/mypage/coupons/preview-complete') {
+    // 일반 일련번호 등록 오류는 제외하고 임직원 등록 안내는 활성 STATE로 확인합니다.
+    if (href === '/mypage/coupons/preview-error') {
       assert.equal(owners.length, 0, `Excluded coupon registration preview is active: ${href}`);
       continue;
     }
@@ -322,7 +365,7 @@ test('session history is connected to its active IA without reviving the deleted
 test('design states have fourteen direct IA links on their existing owners', () => {
   const expected = {
     171: [
-      ['배송지 수동입력', '/checkout/preview-shipping'],
+      ['기본배송지 주소가 없는 사용자', '/checkout/preview-shipping'],
       ['배송 요청사항 직접입력', '/checkout/preview-delivery-request'],
     ],
     177: [['로그아웃 확인', '/mypage/preview-logout']],
