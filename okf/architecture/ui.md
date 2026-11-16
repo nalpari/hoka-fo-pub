@@ -4981,3 +4981,9 @@ GuideCopyToast는 화면 하단 40px 중앙에 검정 238×40px(긴 문구는 �
 가이드 전용 GuideCopyToast를 `src/components/common/atoms/Toast.tsx`로 옮기고 `Toast`·`ToastNotice`로 변경했다. `notice: { id, text } | null`과 `onDismiss(id)`로 임의의 안내 메시지를 받으며 복사 여부와 메시지는 호출자가 결정한다. 하단 40px·3초 노출·슬라이드/페이드·모션 감소 및 연속 표시 정리 동작은 유지한다. 모든 가이드 import와 의존 그래프를 새 경로로 갱신했다. 출처: Toast.tsx와 퍼블 가이드 작업 트리.
 
 2026-11-10 검증: 변경 가이드 파일 ESLint와 OKF 검사 통과. Ego에서 데스크탑 목록 17개, 모바일 표시 목록 16개(반품 사유는 데스크탑 전용)와 상품 스펙·수령인 표시를 확인했다. TypeScript 검사에는 변경 소스 오류가 없었으나 삭제된 라우트를 가리키는 기존 .next/types 오류가 남아 전체 통과는 아니다.
+
+## 상품 목록 필터 순서와 명칭 (2026-11-16)
+
+`ProductListingFilterPanel`은 정렬, 성별, 카테고리, 사이즈, 발볼, 색상, 컬렉션, 신발유형, 가격 순서로 필터를 표시한다. 기존 `액티비티` 필터는 같은 `activity` 값·URL 처리·선택 상태를 유지한 채 `카테고리`로 이름만 바꿨다. 기존 `러닝 타입`·`주행감`·`안정성` 섹션은 삭제하고, 시안 확인용 `쿠셔닝화`·`안정화`·`스피드화` 고정 선택지를 신발유형에 표시한다. 이 선택지는 아직 결과 조회나 URL과 연결하지 않는다.
+
+브라우저에서 `/products?gender=men&sort=popular`의 PC 필터 순서와 변경된 두 명칭을 확인했다. 변경 파일 ESLint·Prettier를 통과했다. 출처: 사용자 지정 순서와 `src/components/catalog/ProductListingPage.tsx` 작업 트리.
