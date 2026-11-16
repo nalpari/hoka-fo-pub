@@ -1811,3 +1811,19 @@ PC 1920px·MO 375px에서 일반·임직원 목록, 상세 직접 진입, 확인
 ## 장바구니·주문 화면 시안 갱신 경로 (2026-11-16)
 
 기본 경로 `/cart`, `/checkout`, `/mypage/orders`와 기존 직접 확인 경로 `/cart/preview-empty`, `/checkout/preview-empty`, `/checkout/preview-complete`, `/checkout/preview-shipping`, `/checkout/preview-delivery-request`, `/mypage/orders/preview-empty`, `/mypage/orders/preview-tracking`를 유지했다. 새 빈 장바구니 표시와 추천 상품은 `/cart/preview-empty`에서 직접 확인하며, 새로고침·주소 직접 입력에도 같은 fixture를 표시한다. screen-index의 기존 IA 연결과 생성 의존 그래프는 이 경로 구성을 반영한다. 서비스 조회·결제·배송 추적 요청은 구현하지 않았다.
+
+## 임직원 쿠폰 버튼과 목록 간격 보정 (2026-11-16)
+
+최신 [HOKA Design](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 PC·모바일 임직원 쿠폰 시안을 반영했다. 이 절은 앞선 쿠폰 기록의 회색 임직원 카드·체크 아이콘 및 PC 행 간격 20px 설명을 대체한다. 출처는 `src/app/mypage/coupons/_components/CouponManagement.tsx`의 현재 작업 트리다. 기존 라우트와 상세 모달 소유권은 유지한다.
+
+- 임직원 영역은 기존 secondary Button을 직접 사용한다. PC는 180×48px·간격 16px, MO는 같은 너비 2열·높이 42px·간격 8px이다. 라벨은 PC 16px/20.8px·MO 15px/19.5px bold(700), 두 번째 예시 문구는 PC 50%·MO 30%를 유지한다.
+- 총 건수와 카드 Grid는 `Stack gap="2"`로 8px를 확보한다. 카드 Grid의 행·열 간격은 PC 16px, MO 1열의 행 간격은 16px다. 총 건수 숫자는 영어 medium(500) 본문을 사용한다.
+- 화면 본문 행간을 6px로 덮어쓰던 값을 1.5로 복원했다. 카드 조건·기간은 14px/21px, 상세보기는 CTA 12px/15.6px다. 제목과 혜택 사이 32px/24px, 금액과 설명 사이 12px, 조건과 기간 사이 6px/4px를 유지한다. 제목은 PC 22px/900·MO 20px/700, 금액은 숫자 16px/700·원 16px/600이다.
+- 발급 버튼은 미리보기 표시이며 요청·완료 전환은 연결하지 않는다. 기존 상세 열기/닫기와 더보기 소유권, 일반 회원의 임직원 영역 비노출을 유지한다. 실제 쿠폰 조회·발급 연결은 마이페이지 연동 소유자 범위다.
+
+검증: PC 1920px·MO 375px의 스크린샷과 계산 스타일로 위 크기·행간·간격을 확인했다. MO는 Windows 스크롤바를 제외한 카드 가용 폭 328px·높이 170px이며 가로 넘침이 없다. PC 카드는 414×195px다. 모바일 상세 열기·Esc 닫기 및 일반 목록 5개·임직원 영역 비노출을 확인했다. 실제 글리프는 Pretendard Black/SemiBold/Regular와 사용자 정의 HOKA face를 사용했고, HOKA 내부 이름은 점으로 보고되어 로드된 TheFutureHOKA Regular/Bold 자산 및 layout 등록과 연결해 확인했다.
+
+Panda 생성·수정 파일 ESLint/Prettier 검사를 통과했다. 전체 타입 검사는 비대상 `LaunchCalendarDetail.tsx`의 Button `icon` prop 오류로 실패했다. Next/Storybook 빌드는 실행하지 않았다. 최종 마크업 인계 검토에서 기존 route-private 소유권, Panda·Stack 간격, 공통 Button 직접 사용, 표시 fixture와 미연결 발급 경계 및 다른 채팅의 모달 변경 보존을 확인했다.
+
+
+쿠폰 굵기 후속 보정: 사용자 시각 검토를 우선해 임직원 발급 버튼의 regular 지정은 bold(700)로 변경했고, 총 건수 숫자는 기존 medium(500)으로 복원했다. 디자인 구조 데이터의 regular 관측값과 구분되는 사용자 확정 사항이다. PC 1328px·MO 375px에서 라벨 700·숫자 500, 실제 Pretendard-Bold 글리프와 기존 크기·행간을 확인했다. 공통 Button·Typography 기본값은 변경하지 않았다.

@@ -9,7 +9,6 @@ import { Grid, HStack, Stack, VStack } from 'styled-system/jsx';
 import { Button } from '@/components/common/atoms/Button';
 import { Card } from '@/components/common/atoms/Card';
 import { EmptyState } from '@/components/common/atoms/EmptyState';
-import { Icon } from '@/components/common/atoms/Icon';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
@@ -170,7 +169,7 @@ function CouponCard({ coupon, onDetails }: CouponCardProps) {
             onClick={() => onDetails(coupon)}
             className={css({ flexShrink: '0' })}
           >
-            <Typography variant="bodyKr5" weight="regular">
+            <Typography variant="cta3" weight="regular" className={css({ lineHeight: '1.3!' })}>
               상세보기
             </Typography>
           </Button>
@@ -271,11 +270,11 @@ function CouponHistorySection({ coupons, onDetails }: CouponHistorySectionProps)
           value={category}
         />
         */}
-        <Stack gap="8px">
+        <Stack gap="2">
           <HStack justifyContent="flex-end">
             <HStack gap="2px">
               <Typography variant="body4">총</Typography>
-<Typography variant="body4Medium">
+              <Typography variant="body4Medium" language="en">
                 {visibleCoupons.length}
                 <Typography variant="bodyKr4">건</Typography>
               </Typography>
@@ -287,7 +286,7 @@ function CouponHistorySection({ coupons, onDetails }: CouponHistorySectionProps)
           <Grid
             gridTemplateColumns={{ base: 'repeat(2, minmax(0, 1fr))', _mobile: '1fr' }}
             columnGap="16px"
-            rowGap={{ base: '20px', _mobile: '16px' }}
+            rowGap="4"
             w="100%"
           >
             {visibleCoupons.slice(0, visibleCount).map((coupon) => (
@@ -465,8 +464,8 @@ function CouponDetailsDialog({ coupon, onOpenChange }: CouponDetailsDialogProps)
 }
 
 const employeeCoupons = [
-  { label: { desktop: '50% 쿠폰 발급', mobile: '50% 쿠폰 발급' }, icon: 'circle-check-solid' },
-  { label: { desktop: '50% 쿠폰 발급', mobile: '30% 쿠폰 발급' }, icon: 'circle-check-regular' },
+  { desktop: '50% 쿠폰 발급', mobile: '50% 쿠폰 발급' },
+  { desktop: '50% 쿠폰 발급', mobile: '30% 쿠폰 발급' },
 ] as const;
 
 function EmployeeCoupons() {
@@ -480,33 +479,37 @@ function EmployeeCoupons() {
       title="임직원 쿠폰"
       headerProps={{ titleAs: 'h2', titleProps: couponSectionTitle }}
     >
-      <Grid gridTemplateColumns="repeat(2, minmax(0, 1fr))" gap={{ base: '16px', _mobile: '8px' }}>
-        {employeeCoupons.map(({ label, icon }) => (
-          <HStack
-            key={icon}
-            justifyContent="space-between"
-            gap="8px"
-            p={{ base: '32px', _mobile: '16px' }}
-            bg="black.10"
+      <HStack gap={{ base: '4', _mobile: '2' }}>
+        {employeeCoupons.map((label, index) => (
+          <Button
+            key={index}
+            type="button"
+            variant="secondary"
+            size={platform === 'mobile' ? 'short' : 'tall'}
+            className={css({
+              w: '180px',
+              _mobile: { flex: '1', minW: '0', w: 'auto', '--button-height': '42px' },
+            })}
           >
             <Typography
-              web="headingKr8"
-              mo="bodyKr3"
-              className={css({ _mobile: { lineHeight: '1.5!' } })}
+              web="cta1"
+              mo="cta1-1"
+              weight="bold"
+              className={css({ lineHeight: '1.3!' })}
             >
               {platform === 'mobile' ? label.mobile : label.desktop}
             </Typography>
-            <Icon name={icon} size={18} />
-          </HStack>
+          </Button>
         ))}
-      </Grid>
+      </HStack>
     </ContentSection>
   );
 }
+
 /**
  * [ 개발팀 바인딩 ] RouteContent가 목록과 상세 표시용 fixture를 CouponManager의 coupons로 전달합니다.
  * 카드의 id와 상세 수량·혜택·사용기간·사용가능처·상세조건·안내문은 같은 쿠폰 표시 모델에 속합니다.
- * 더보기와 상세 열기/닫기는 로컬 조작이며, 임직원 발급 표시는 employee 미리보기 데이터입니다.
+ * 더보기와 상세 열기/닫기는 로컬 조작이며, 임직원 발급 버튼은 employee 미리보기 데이터이며 발급 요청은 연결되어 있지 않습니다.
  * 실제 연동 소유자가 회원별 쿠폰 조회와 추가 조회, pending·실패·재시도·최신 응답 반영을 연결합니다.
  * 현재 외부 요청 callback과 쿠폰 등록 계약은 없습니다.
  */
@@ -526,7 +529,7 @@ function CouponManager({ coupons, preview, employee = false }: CouponManagerProp
     preview === 'detail' ? (coupons[1] ?? coupons[0] ?? null) : null,
   );
   return (
-    <Stack gap={{ base: '48px', _mobile: '32px' }} css={{ '--line-heights-body': '6px' }}>
+    <Stack gap={{ base: '48px', _mobile: '32px' }} css={{ '--line-heights-body': '1.5' }}>
       <ContentHeader
         title="쿠폰"
         titleAs="h1"
