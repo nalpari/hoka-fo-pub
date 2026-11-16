@@ -1,13 +1,13 @@
 ---
 type: Architecture
-title: "라우팅과 플랫폼"
-description: "App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다."
+title: '라우팅과 플랫폼'
+description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
 updated: '2026-11-16T11:46:14.121504+00:00'
 generated:
   by: codex/gpt-6
-  at: "2026-11-03T06:11:12Z"
+  at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/app/mypage/orders/_components/OrderTrackingDialog.tsx
@@ -15,8 +15,8 @@ working_tree_sources:
   - src/app/launch-calendar/clifton-11-gtx/preview-notification/page.tsx
   - src/components/common/layouts/ModalDialog.recipe.tsx
   - src/components/common/layouts/ModalDialog.tsx
-  - src/app/mypage/coupons/preview-complete/page.tsx
   - src/app/launch-calendar/clifton-11-gtx/preview-phone-required/page.tsx
+  - src/app/mypage/coupons/preview-complete/page.tsx
   - src/app/launch-calendar/_components/LaunchCalendarContent.tsx
   - src/app/launch-calendar/_components/LaunchCalendarDetail.tsx
   - src/app/launch-calendar/launchCalendar.data.ts
@@ -105,7 +105,7 @@ working_tree_sources:
   - src/app/cart/_components/CartModalPreview.tsx
   - id: design-state-link-audit
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=957-29748
-    title: "사용자 지정 계정 잠금 해제 디자인과 본문의 나머지 9개 영역 링크"
+    title: '사용자 지정 계정 잠금 해제 디자인과 본문의 나머지 9개 영역 링크'
   - src/app/checkout/_components/CheckoutShipping.tsx
   - src/app/mypage/profile/profilePreviews.ts
   - src/components/phone-verification/PhoneVerificationStatePreview.tsx
@@ -332,49 +332,49 @@ sources:
     title: 쿠폰 일반·임직원 PC/MO 시안
   - id: figma-orders-lookup-20261102
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2059-162098
-    title: "Figma 주문/배송조회 PC·모바일 목록과 상세"
+    title: 'Figma 주문/배송조회 PC·모바일 목록과 상세'
   - id: figma-order-claim-application-20261102
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2203-76650
-    title: "Figma 주문 취소·환불 신청 PC 모달과 모바일 시트"
+    title: 'Figma 주문 취소·환불 신청 PC 모달과 모바일 시트'
   - id: figma-claim-history-20261102
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2134-82959
-    title: "Figma 취소/반품내역 PC 표·모바일 목록·빈 상태"
+    title: 'Figma 취소/반품내역 PC 표·모바일 목록·빈 상태'
   - id: src-app-layout-tsx
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/src/app/layout.tsx
-    title: "src/app/layout.tsx"
+    title: 'src/app/layout.tsx'
   - id: src-shared-lib-device-ts
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/src/shared/lib/device.ts
-    title: "src/lib/device.ts"
+    title: 'src/lib/device.ts'
   - id: src-app-products-id-page-tsx
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/src/app/products/[id]/page.tsx
-    title: "src/app/products/[id]/page.tsx"
+    title: 'src/app/products/[id]/page.tsx'
   - id: src-shared-features-catalog-productlistingpage-tsx
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/src/shared/features/catalog/ProductListingPage.tsx
-    title: "src/components/features/catalog/ProductListingPage.tsx"
+    title: 'src/components/features/catalog/ProductListingPage.tsx'
   - id: tests-app-router-test-mjs
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/tests/app-router.test.mjs
-    title: "tests/app-router.test.mjs"
+    title: 'tests/app-router.test.mjs'
   - id: pdp-104663
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2780-104663
-    title: "PDP 신발"
+    title: 'PDP 신발'
   - id: pdp-93347
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2780-93347
-    title: "PDP 의류"
+    title: 'PDP 의류'
   - id: pdp-103439
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2780-103439
-    title: "Sale Price"
+    title: 'Sale Price'
   - id: pdp-100884
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2780-100884
-    title: "품절"
+    title: '품절'
   - id: pdp-98879
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2780-98879
-    title: "Option Selection"
+    title: 'Option Selection'
   - id: pdp-97663
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2780-97663
-    title: "No Size Selected Error"
+    title: 'No Size Selected Error'
   - id: pdp-94996
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2780-94996
-    title: "장바구니 추가 완료"
+    title: '장바구니 추가 완료'
 ---
 
 # 라우팅과 플랫폼
@@ -1817,6 +1817,12 @@ PC 1920px·MO 375px에서 일반·임직원 목록, 상세 직접 진입, 확인
 
 기본 경로 `/cart`, `/checkout`, `/mypage/orders`와 기존 직접 확인 경로 `/cart/preview-empty`, `/checkout/preview-empty`, `/checkout/preview-complete`, `/checkout/preview-shipping`, `/checkout/preview-delivery-request`, `/mypage/orders/preview-empty`, `/mypage/orders/preview-tracking`를 유지했다. 새 빈 장바구니 표시와 추천 상품은 `/cart/preview-empty`에서 직접 확인하며, 새로고침·주소 직접 입력에도 같은 fixture를 표시한다. screen-index의 기존 IA 연결과 생성 의존 그래프는 이 경로 구성을 반영한다. 서비스 조회·결제·배송 추적 요청은 구현하지 않았다.
 
+## ModalDialog 사용처 전환과 확인 경로 (2026-11-16)
+
+9개 variant 전환은 기존 URL·상태 소유권·이동 콜백을 보존한다. `/publishing-guide?tab=modal`에 유형별 열기 버튼과 복사 코드를 추가했다. 안내·확인은 message/description으로 단순화하고, 회원정보의 입력/확인/완료는 해당 상태에 따라 form/confirm/alert를 지정한다. 사용되지 않는 문의 모달 표시 옵션 상수는 제거했다. IA의 소스 의존 그래프는 기존 생성기가 새 recipe 연결과 제거된 import를 반영한다.
+
+PC1440/MO375에서 `/login/account-locked`, `/login/find-account/password-reset/preview-complete`, `/mypage/preview-logout`, `/checkout/preview-address-change`, `/checkout/preview-address-edit`, `/mypage/orders/preview-tracking`, `/mypage/orders/preview-cancel-request`, `/support/inquiries/preview-attachment`, `/support/inquiries/new/preview-order-required`, `/login/account-locked/verification/preview-required-terms`를 직접 열어 표시와 본문 가로 넘침 없음을 확인했다. `/products/pdp-preview/apparel`에서는 실제 사이즈 가이드의 cm/inch와 PC/MO 배치를 확인했다. 신규 서비스·라우트·성공 이동은 추가하지 않았다. 출처: 관련 작업 트리, Codex.
+
 ## 임직원 쿠폰 버튼과 목록 간격 보정 (2026-11-16)
 
 최신 [HOKA Design](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 PC·모바일 임직원 쿠폰 시안을 반영했다. 이 절은 앞선 쿠폰 기록의 회색 임직원 카드·체크 아이콘 및 PC 행 간격 20px 설명을 대체한다. 출처는 `src/app/mypage/coupons/_components/CouponManagement.tsx`의 현재 작업 트리다. 기존 라우트와 상세 모달 소유권은 유지한다.
@@ -1832,11 +1838,11 @@ Panda 생성·수정 파일 ESLint/Prettier 검사를 통과했다. 전체 타�
 
 쿠폰 굵기 후속 보정: 사용자 시각 검토를 우선해 임직원 발급 버튼의 regular 지정은 bold(700)로 변경했고, 총 건수 숫자는 기존 medium(500)으로 복원했다. 디자인 구조 데이터의 regular 관측값과 구분되는 사용자 확정 사항이다. PC 1328px·MO 375px에서 라벨 700·숫자 500, 실제 Pretendard-Bold 글리프와 기존 크기·행간을 확인했다. 공통 Button·Typography 기본값은 변경하지 않았다.
 
-## ModalDialog 사용처 전환과 확인 경로 (2026-11-16)
+## IA 모달 유형 표시 (2026-11-16)
 
-9개 variant 전환은 기존 URL·상태 소유권·이동 콜백을 보존한다. `/publishing-guide?tab=modal`에 유형별 열기 버튼과 복사 코드를 추가했다. 안내·확인은 message/description으로 단순화하고, 회원정보의 입력/확인/완료는 해당 상태에 따라 form/confirm/alert를 지정한다. 사용되지 않는 문의 모달 표시 옵션 상수는 제거했다. IA의 소스 의존 그래프는 기존 생성기가 새 recipe 연결과 제거된 import를 반영한다.
+계정 잠금 안내 모달의 연결 메타데이터에 `modalVariant: 'alert'`를 추가했다. IA 구조도의 부모 유형 칸은 popup만 표시하고, 해당 route와 일치하는 기본 STATE 행의 유형 칸에서 상태 아래에 대괄호 없이 `variant="alert"`를 표시한다. 자식 화면이나 다른 preview URL에는 상속하지 않는다. 타입은 기존 ModalDialogVariant를 재사용하며 메타데이터가 없는 행에는 별도 문구를 만들지 않는다. D3 승격 및 해제·완료 자식 D4 연결은 screenRegistry가 소유하며, URL은 변경하지 않았다. 대상 ESLint와 계층·상태 연결 테스트5개가 통과했다. 출처: screenConnections.ts·IaStructurePage.tsx 작업 트리, 사용자 브라우저 확인과 표시 형식 수정 요청, Codex.
 
-PC1440/MO375에서 `/login/account-locked`, `/login/find-account/password-reset/preview-complete`, `/mypage/preview-logout`, `/checkout/preview-address-change`, `/checkout/preview-address-edit`, `/mypage/orders/preview-tracking`, `/mypage/orders/preview-cancel-request`, `/support/inquiries/preview-attachment`, `/support/inquiries/new/preview-order-required`, `/login/account-locked/verification/preview-required-terms`를 직접 열어 표시와 본문 가로 넘침 없음을 확인했다. `/products/pdp-preview/apparel`에서는 실제 사이즈 가이드의 cm/inch와 PC/MO 배치를 확인했다. 신규 서비스·라우트·성공 이동은 추가하지 않았다. 출처: 관련 작업 트리, Codex.
+비밀번호 변경완료 모달(내부 IA252)도 `modalVariant: 'alert'`를 명시해 해당 모달의 기본 STATE 유형 칸에 `variant="alert"`를 표시한다. 부모 popup 행에는 표시하지 않는다. 기존 비밀번호 재설정 화면의 변경 완료 preview는 별개 소유권을 유지한다. 출처: screenConnections.ts 작업 트리와 사용자 브라우저 주석(2026-11-16).
 
 ## STATE 모달 유형 전수 표시와 검색 (2026-11-16)
 
@@ -1845,10 +1851,6 @@ PC1440/MO375에서 `/login/account-locked`, `/login/find-account/password-reset/
 닫혀 있는 공통 Dropdown·우편번호·사이즈 가이드 같은 상호작용용 모달은 import만 보고 기본 페이지의 열린 모달이라고 표시하지 않는다. 신규 상태 URL을 만들지 않았다. signup 인증 만료·계정 찾기 만료·계정 잠금 해제 완료·런칭 알림 완료는 실제 모달이 없어 표시하지 않는다. 외부 상태 이름이나 원본 화면의 popup 분류로 variant를 추정하지 않는다.
 
 `getScreenModalSearchText`는 화면의 기본·preview URL에서 사용하는 variant 속성 문자열을 기존 검색 텍스트에 합친다. alert, tracking, variant="alert", variant="image" 검색을 지원하며 기존 화면 단위 검색과 자식 STATE 문맥은 유지한다. 검색 안내에 variant를 추가했다. 브라우저에서48개 URL의 실제 모달과 metadata가 일치하고, IA의207개 STATE 행 중 등록된48개 URL의 variant가 누락 없이 표시되는 것을 확인했다. 위 검색4건도 결과를 반환한다. 출처: 연결·컴포넌트·직접 진입 fixture 작업 트리, Codex의 실제 확인.
-
-## 런칭 안내 STATE와 모달 점검 (2026-11-16)
-
-IA159에 휴대폰 번호 입력 안내(/launch-calendar/clifton-11-gtx/preview-phone-required)를 추가하고 STATE 아래 variant="alert"와 variant 검색에 연결했다. page는 기존 LaunchCalendarDetail에 명시적 preview만 전달한다. 기존 알림 신청·완료 경로와 서비스 미연결 경계는 유지한다. alert/confirm 고정 STATE25개를 PC/MO에서 확인했으며 런칭 안내도 양쪽에서 별도로 확인했다. 출처: 사용자 첨부 이미지·관련 작업 트리·Codex 실행 확인.
 
 ## 임직원 쿠폰 등록 팝업 확인 경로 (2026-11-16)
 
@@ -1860,25 +1862,29 @@ IA159에 휴대폰 번호 입력 안내(/launch-calendar/clifton-11-gtx/preview-
 
 기존 `/launch-calendar/clifton-11-gtx`에서 입고 알림 신청 버튼으로 PC 팝업·모바일 바텀시트를 연다. 기존 완료 preview URL은 유지한다. 신규 route는 추가하지 않았으며 구조·디자인·실제 검증 및 미연결 서비스 경계는 [런칭 캘린더](launch-calendar.md#알림-신청-팝업-시안-적용-2026-11-16)에 기록했다. 출처: `src/app/launch-calendar/_components/LaunchCalendarDetail.tsx`, `src/app/launch-calendar/launchCalendar.data.ts`의 이번 작업 트리. 기록: codex/gpt-6, 2026-11-16.
 
+## 런칭 안내 STATE와 모달 점검 (2026-11-16)
+
+IA159에 휴대폰 번호 입력 안내(/launch-calendar/clifton-11-gtx/preview-phone-required)를 추가하고 STATE 아래 variant="alert"와 variant 검색에 연결했다. page는 기존 LaunchCalendarDetail에 명시적 preview만 전달한다. 기존 알림 신청·완료 경로와 서비스 미연결 경계는 유지한다. alert/confirm 고정 STATE25개를 PC/MO에서 확인했으며 런칭 안내도 양쪽에서 별도로 확인했다. 출처: 사용자 첨부 이미지·관련 작업 트리·Codex 실행 확인.
+
 ## 아이디 확인 팝업 결과형 전환 (2026-11-16)
 
 /login/find-account/id-confirmation-modal의 STATE 유형을 detail에서 confirm으로 정정했다. 기존 직접 URL·PC 팝업/MO fullscreen을 유지하며 조회 안내·아이디·설명을 공통 result 슬롯에 전달한다. 현재 honggildong은 기존 표시 fixture다. 확인의 로그인 이동, 비밀번호 재설정 이동, 닫기/Escape의 아이디 찾기 이동을 보존하며 실제 조회·인증 API는 추가하지 않았다. 삭제된 IdConfirmationMessage 참조는 소스 그래프에서도 제거했다. 출처: 관련 작업 트리와 사용자 PC/MO 주석.
 
-## 모달 기본 배치 적용 사용처 (2026-11-16)
+## Terms 상세 스타일 사용처 (2026-11-16)
 
-약관/인증/가입과 가이드, 장바구니 옵션·주문 신청·런칭 신청의 중복 header/content/footer override를 공통 shell로 흡수한다. 상태 owner·입력·콜백·모바일 표시 방식은 유지한다. 알뜰폰 사업자 STATE 유형은 실제와 동일하게 terms로 수정했다. 쿠폰 본문 보정·이전 약관 단독 표시·런칭 신규 STATE는 후속 별도 커밋 범위다.
+본인확인 공통 약관 팝업2종과 가입 약관 상세가 terms 외형·본문 className을 공유한다. 기존 필수·선택·이전 약관 URL, 본문 fixture·버전 선택 상태·콜백을 유지하고 새 라우트나 서비스 요청을 추가하지 않았다. 가입 약관의 확인은 공통 actions로 표현하면서 모바일 본문 마지막 스크롤 배치를 유지한다. 가이드 예시와 복사 코드도 개별 버튼 대신 같은 actions를 사용한다. 외형·문서 수치와 출처는 [Terms 규격](ui.md#terms-모달-상세-규격-2026-11-16)을 따른다.
 
-## 이전 약관 선택 STATE 단독 표시 (2026-11-16)
+알뜰폰 사업자 preview-carriers의 실제 공통 모달과 IA STATE 유형을 terms로 일치시켰다. 기존 경로·데이터·콜백은 유지한다.
 
-/login/account-locked/verification/preview-previous-terms의 IA 보기에서는 selection 하나만 열리도록 초기 fixture 분기를 분리했다. stateModalVariants와 회귀 기대값도 selection만 표시한다. 경로·서비스·기존 약관 본문의 선택/닫기 계약은 유지한다.
+## 이전 약관 선택 독립 STATE (2026-11-16)
 
-## 쿠폰 상세 스타일 보정 경계 (2026-11-16)
+/login/account-locked/verification/preview-previous-terms는 초기 previous picker seed가 있으면 PreviousTermsPicker 하나만 반환한다. IA 보기에서 terms와 selection이 겹쳐 열리던 준비 상태를 selection 단독으로 바꿨다. 확인·닫기/Escape는 선택창을 닫고 약관 본문을 새로 열지 않는다. 필수 약관에서 이전 약관 버튼을 직접 누르는 기존 중첩 흐름은 그대로다. STATE variant 목록과 회귀 기대값도 selection 하나로 맞췄다. 다른 경로와 조회·동의 계약은 변경하지 않았다.
 
-기존 /mypage/coupons/preview-detail과 일반 목록 상세 열기의 데이터·id·더보기·확인/닫기 계약을 유지한다. 별도 wrapper나 서비스는 추가하지 않고 개별 상세 shell을 공통 detail 배치로 통합했다. 상세조건·공고일과 숫자 font 스타일만 현재 소유자에서 보정한다.
+주문 신청·런칭 알림·장바구니 옵션·쿠폰 상세의 shell override를 공통 배치로 흡수했으며 상태·입력/선택 owner와 콜백은 유지한다. 쿠폰 상세 데이터와 서비스 동작은 수정하지 않고 타입·본문 스타일만 보정했다.
 
-## 런칭 알림 신청 IA 직접 경로 (2026-11-16)
+## 런칭 알림 신청 STATE 등록 (2026-11-16)
 
-IA159에서 발매 예정 상세·신청 완료·번호 입력 안내와 구별되는 입고 알림 신청 STATE를 등록했다. 직접 URL은 /launch-calendar/clifton-11-gtx/preview-notification이며 열린 modal은 form이다. 새 성공/인증/저장 동작은 추가하지 않는다. 생성 소스 그래프와 URL별 variant 회귀 기대값을 함께 갱신했다.
+IA159 런칭캘린더에 입고 알림 신청 직접 URL /launch-calendar/clifton-11-gtx/preview-notification을 추가했다. 실제 열린 modal variant는 form으로 표시하며 기존 발매 상세·신청 완료·번호 입력 안내와 구별한다. 기존 UI 소유자에 초기 open seed만 전달하고 소스 그래프와 링크 회귀 기대값을 갱신했다.
 
 ## 문의 첨부파일 이미지 모달 (2026-11-16)
 

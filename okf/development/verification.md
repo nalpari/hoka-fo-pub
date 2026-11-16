@@ -1,18 +1,22 @@
 ---
 type: Playbook
-title: "변경 검증"
-description: "변경 범위에 맞는 정적 검사, 빌드와 수동 검증을 안내한다."
+title: '변경 검증'
+description: '변경 범위에 맞는 정적 검사, 빌드와 수동 검증을 안내한다.'
 tags: [verification, testing, build]
 status: draft
 updated: '2026-11-16T11:46:14.121504+00:00'
 generated:
   by: codex/gpt-6
-  at: "2026-11-02T09:59:35Z"
+  at: '2026-11-02T09:59:35Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/app/mypage/orders/_components/OrderTrackingDialog.tsx
-  - src/app/launch-calendar/clifton-11-gtx/preview-notification/page.tsx
+  - src/app/cart/_components/CartDialogs.tsx
+  - src/app/launch-calendar/_components/LaunchCalendarDetail.tsx
+  - src/app/mypage/orders/_components/OrderClaimRequest.tsx
   - src/app/mypage/coupons/_components/CouponManagement.tsx
+  - src/app/publishing-guide/_components/ModalGuide.tsx
+  - src/components/common/layouts/ModalDialog.recipe.tsx
   - tests/modal-dialog-types.test.mjs
   - src/app/screen-index/page.tsx
   - src/app/screen-index/screenChangeHistory.ts
@@ -135,13 +139,13 @@ working_tree_sources:
 sources:
   - id: package-json
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/package.json
-    title: "package.json"
+    title: 'package.json'
   - id: tests-app-router-test-mjs
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/tests/app-router.test.mjs
-    title: "tests/app-router.test.mjs"
+    title: 'tests/app-router.test.mjs'
   - id: -storybook-preview-ts
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/.storybook/preview.ts
-    title: ".storybook/preview.ts"
+    title: '.storybook/preview.ts'
 ---
 
 # 변경 검증
@@ -714,23 +718,17 @@ preview-links 검사에 URL별 실제 variant·복수 모달·모달이 없는 �
 
 브라우저에서 등록된48개 모달 URL을 MO375에서 대조했고 비모달4개도 확인했다. IA 행 표시48개와 검색4건을 확인했다. 사용자 지적 스타일5개 화면은 PC1440/MO375로 별도 확인했다. 개별 요청·API 성공/실패를 모의 실행하지 않았으며, 초기 표시와 기존 입력/액션 계약 검증이다. 출처: 관련 검사·연결·모달 작업 트리와 실제 실행 결과, Codex.
 
-## 안내·확인 전수 점검 검증 (2026-11-16)
-
-공통 폼·모달 타입 검사48개, 변경 lint·Panda와 전체 작업 트리 TypeScript 재검사가 통과했다. 정형 alert/confirm children 거부를 검사한다. 고정 STATE25개×PC/MO 계산 스타일50건과 버튼으로 여는 소셜2종·재입고 취소·가이드2종10건을 확인했다. 선별 커밋은 전체 작업 트리와 별도로 검사한다. 출처: 실제 검사와 작업 트리, Codex.
-
-## 런칭 신규 안내 선별 검증 (2026-11-16)
-
-공통 alert에 휴대폰 번호 안내 STATE를 추가하고 PC1440/MO375의 문구·메시지28/20px·버튼48/44px·확인 후 포커스 복귀, PC Escape와 IA 검색을 확인했다. 신규 팝업만 선별하고 별도 알림 신청 form 작업은 제외한다. 기존 런칭 CTA의 폐기된 Button.icon은 같은 체크 표시를 유지하는 iconRight/iconSize/iconColor로 맞춘다. 앞선 공통 모달 선별 사본의63개 검사 중62개 통과와 범위 밖 배송지 IA171 실패1건을 구분한다. 출처: 사용자 첨부 이미지·작업 트리·실제 확인, Codex.
-
 ## 임직원 쿠폰 등록 안내 검증 (2026-11-16)
 
 STATE variant 계약 검사에 `/mypage/coupons/preview-complete`의 alert를 추가했다. 관련 STATE·검색·링크 검사5개, 변경 소스 ESLint/Prettier와 Panda 생성이 통과했다. 전체 타입 검사는 기존 LaunchCalendarDetail의 Button.icon 오류1건으로 미통과다. Next 전체 빌드는 다시 실행하지 않았다. PC1440/MO375에서 임직원 버튼2개, 준비된 완료 URL, 확인/닫기/Escape, 포커스 복귀와 일반 회원 비노출을 확인했다. IA의 직접 링크와 alert 표시도 확인했다. 실제 API 발급·등록이나 서비스 성공/실패는 연결하지 않았고 시험하지 않았다. 출처: 관련 작업 트리와 실제 확인, Codex.
 
+## 공통 안내·확인 전수 점검과 런칭 안내 (2026-11-16)
 
+조건부 variant·spread를 포함한 production21곳과 가이드1곳의 정형 본문/스타일 소유권을 검사했다. custom alert/confirm children의 타입 거부를 추가했고 모달 타입/폼 관련48개 검사가 통과했다. 고정 STATE25개×PC/MO의 계산 스타일 검사50건과 소셜2종·재입고 취소·가이드2종의 열기/닫기10건을 확인했다. 런칭 신규 STATE는 PC/MO 문구·메시지/버튼 규격·확인 후 포커스 복귀, PC Escape, IA 검색·variant 표시를 별도 확인했다.
 
-선별한 런칭 신규 안내까지의 스테이지 사본에서 Next route typegen 후 전체 TypeScript와 모달/검색/고정 preview 관련3개 검사가 통과했다. 쿠폰 등록 안내는 별도 커밋으로 검사한다.
+변경 파일 ESLint/Prettier와 Panda415개 파일 생성이 통과했다. 전체 preview-links 포함63개 첫 실행은61개 통과,2개 실패였다. 새 임직원 쿠폰 안내를 과거 제외로 취급하던 조건은 수정했고 고정 preview/variant/검색 관련3개 재검사는 통과했다. 범위 밖 배송지 수동입력 IA171 기대값 실패는 그대로 구분한다. 최종 TypeScript 결과는 아래 후속 기록을 따른다. 프로덕션 빌드는 이번 점검에서 다시 실행하지 않았다. 출처: 작업 트리와 실제 검사 결과, Codex.
 
-최종 세 범위의 선별 스테이지 사본은 Next route typegen 후 전체 TypeScript, 쿠폰 변경 ESLint와 STATE/검색/고정 preview/링크4개 검사가 통과했다. 런칭 신규 소스2개의 Prettier도 Git blob과 동일한 내용에서 통과했다. 전체 빌드는 재실행하지 않았다.
+최종 TypeScript 재검사는 통과했다. 이전 점검에서 관측한 런칭 Button.icon 오류는 현재 작업 트리에 남아 있지 않다.
 
 ## 아이디 확인 result 계약 검증 (2026-11-16)
 
@@ -740,23 +738,31 @@ PC1224/MO496에서 확인→로그인, 재설정→비밀번호 재설정, 닫�
 
 후속 확인: 이름 span은 PC1224/MO496에서16px·500·행간24px, 나머지 안내문400으로 확인했다. PC 설명→버튼 간격은40px로 보정하고 모바일은 후속 지정32px로 정정하고 브라우저에서 실제32px을 확인했다.
 
-## 모달 기본 배치 통일 검사 (2026-11-16)
+## Terms 상세 스타일 검증 (2026-11-16)
 
-전체 작업 트리에서 변경 ESLint·Prettier·TypeScript·Panda414개 추출과 기존 모달 타입 계약1개·STATE/검색2개가 통과했다. 가이드 PC4종과 실제 주문/배송/약관/쿠폰 PC·MO를 계산 스타일로 확인했고 중복 padding을 제거했다. header24px·footer40px/32px 및 약관 문서 간격·폰트를 확인했다. 긴 약관 스크롤·Escape·포커스 복귀·열린 모달1024/1025·1199/1200 전환과 명시적 고정 footer도 확인했다. 빌드는 재실행하지 않았다. 선별 커밋 사본의 검사는 최종 묶음에서 별도로 수행한다.
+PC1440/MO375에서 본인확인 필수·선택 약관과 가입 약관 상세를 확인했다. 제목24/20px·400, 문서14px·행간21px·테두리·24px 16px padding·문단간20px, 공고일14/13px, 확인180×48px/가용 폭×42px·label400과 가로 넘침 없음을 측정했다. 스크롤 끝에서 본문→확인40px/32px, 모바일 확인 아래24px을 확인했다. Windows classic scrollbar 예약 때문에 MO375의 실제 가용 폭은360px, 본문/버튼은328px로 나타날 수 있다.
 
-## 이전 약관 단독 팝업 확인 (2026-11-16)
+실제 가입 상세 버튼의 열기→Escape 후 포커스 복귀, 이전 약관 selection의 Escape 후 terms 유지와 이전 약관 보기 포커스 복귀, 열린 약관의1024/1025·1199/1200 전환 및 가이드 Escape를 확인했다. 이 경계에서 terms 내부 가로 넘침은 없고 PC팝업640px을 유지한다. explicit platform 모드는 이번에 별도로 다시 검사하지 않았다. 변경 ESLint·Prettier·TypeScript·Panda414개 파일 생성과 기존 모달 타입 계약1개가 통과했다. 전체 빌드와 실제 약관 조회·동의 API는 실행하지 않았다. 출처: 위 작업 트리·디자인과 실제 브라우저 계산 스타일, Codex.
 
-PC1440/MO375에서 직접 STATE의 selection1개·terms0개를 확인했다. Escape와 확인 후 모든 모달이0개가 되는 것을 확인했고 기존 STATE/검색 회귀2개가 통과했다. source와 직접 연결 metadata만 선별했다.
+추가 확인: 제목·문서·확인 라벨의 실제 글리프는 Pretendard-Regular 커스텀 웹폰트다. MO375×812 가이드의 명시적 고정 footer는 본문 스크롤 전후 하단812px을 유지하고 Escape 후 열기 버튼으로 포커스가 돌아갔다. 자동 스크롤로 가이드 버튼이 보이지 않았던 검사1회는 큰 높이에서 연 뒤812px로 resize해 재검증했다. 마지막 인계 검토에서 공통 recipe·도메인 문서 책임·기존 상태와 콜백·모바일 스크롤 배치를 확인했다.
 
-## 쿠폰 상세 보정 확인 (2026-11-16)
+후속 주석 검증: 가이드 terms의 PC1440/MO375에서 제목700, header margin-bottom24px·실제 header→content24px, footer margin-top40px/32px·실제 content→footer40px/32px, content 세로 padding0·좌우32px/16px, 본문 항목간24px을 측정했다. 앞선 padding 기반 구획 간격 설명은 이 기록으로 대체한다.
 
-PC1440×1251에서 자연 높이696.5px, 본문21px·공고19.5px, 숫자3종14px·700·21px과 사용기간#040404·오른쪽 정렬을 확인했다. 소수점 반올림에 따른 scrollHeight/clientHeight차1px과 실제 넘침을 구분한다. MO375×812는 fullscreen812px이고 같은 숫자 스타일·가로 넘침 없음이 확인됐다. 변경 ESLint/Prettier·전체 TypeScript·Panda 생성은 통과했다. 브라우저 PC 캡처가 navigation timeout으로 실패해 최종 이미지 확보와 계산 스타일 검증은 구분한다. 전체 빌드는 재실행하지 않았다.
+알뜰폰 사업자 STATE의 terms 기대값을 기존 모달 유형 회귀 검사에 추가했다. 대상 ESLint 및 STATE 모달 유형 검사를 실행해 확인한다.
 
-## 런칭 알림 신청 IA 등록 확인 (2026-11-16)
+## 공통 shell·이전 약관·쿠폰 상세 후속 검증 (2026-11-16)
 
-대상 ESLint·전체 TypeScript와 STATE/고정 preview/링크3개 검사가 통과했다. 브라우저에서 신규 URL의 알림 신청 form과 IA 검색 결과의 입고 알림 신청 보기 링크·variant=form 행 표시를 확인했다. 실제 신청 API는 실행하지 않았다. 최종 선별 사본 검사는 아래 후속 기록을 따른다.
+가이드 PC1440의 selection/form/tracking/detail4종에서 header margin24px·제목700·content세로padding0·footer margin40px을 확인했다. 실제 PC/MO의 이전 약관·주문 신청·배송조회·쿠폰 상세도 확인했고 초기 관측에서 남은 개별 padding/푸터 예외는 이후 제거했다. 이전 약관 직접 STATE는 양쪽에서 selection 하나만 표시하며 Escape로 모든 모달이 닫혔다. STATE/검색 회귀2개와 기존 모달 타입 계약1개, 변경 ESLint·Prettier·전체 TypeScript·Panda414개 파일 생성이 통과했다. 프로덕션 빌드는 이번에 다시 실행하지 않았다.
 
-최종 네 범위만 담은 인덱스 사본에서 Next route typegen·전체 TypeScript·변경12개 파일 ESLint가 통과했다. 기존 모달 타입 계약1개와 STATE/검색/고정 preview/링크4개 검사도 모두 통과했다. 공유 작업 트리의 비대상 IA 계층 변경과 이전 문서 잔여 diff는 포함하지 않은 검사다.
+쿠폰 PC1440×1251에서 자연 높이696.5px, 본문행21px·공고19.5px, 수량/혜택/사용기간14px·700·21px과 색상/오른쪽 정렬, 가로 넘침 없음을 확인했다. scrollHeight/clientHeight차1px은 소수점 반올림으로 기록한다. 최종 PC 스크린샷은 브라우저 캡처 도중 navigation timeout이 반복돼 확보하지 못했으며 계산 스타일 검증과 구분한다. 마지막 인계 검토에서 슬롯 공유·구분선 form 예외·본문 데이터/콜백과 스크롤 owner 보존을 확인했다. 출처: 사용자 PC/MO 주석·디자인·현재 작업 트리와 실제 브라우저 확인, Codex.
+
+최종 재확인: MO375 쿠폰 상세는 fullscreen812px이며 숫자3종 모두14px·700·21px과 사용기간#040404, 가로 넘침 없음을 확인했다. 주문 신청과 이전 약관 선택은PC/MO 모두content 세로padding0·header margin24px·footer margin40px/32px이며, 이전 약관은selection1개만 표시되고 확인 뒤0개가 된다.
+
+## 런칭 알림 신청 IA 연결 검사 (2026-11-16)
+
+preview-notification의 form 유형과 IA 직접 경로·생성 소스 그래프를 기존 STATE/고정 preview/링크 회귀 검사로 검증한다. 실제 신청 API나 성공 전환은 구현·시험하지 않는다.
+
+런칭 신규 STATE 검증 결과: 대상 ESLint와 기존 STATE/고정 preview/링크3개 검사가 통과했다. 브라우저에서 직접 URL의 알림 신청 form과 IA 검색 결과의 입고 알림 신청 보기 링크·variant=form 행 표시를 확인했다.
 
 ## 상품 옵션 전용 모달 검증 (2026-11-16)
 
@@ -767,3 +773,14 @@ PC1440×1251에서 자연 높이696.5px, 본문21px·공고19.5px, 숫자3종14p
 실제 PC/MO 캡처로 배송조회와 옵션 변경을 비교하고 모바일 정사각 썸네일·이미지 순서·배송조회 표와 고정 푸터를 보정했다. 배송조회 480×1251px에서 본문 잔여 공간0px(소수점 반올림)을 확인했고375×812에서는 긴 본문 스크롤과93px 푸터를 확인했다. user-owned 브라우저 탭의 임시 viewport override는 복원했다.
 
 시안 보정 후 TypeScript·대상 ESLint/Prettier·Panda 및 Next 프로덕션 빌드(159 정적 페이지)가 통과했다. 이후 tracking recipe를 공통 파일로 그대로 이동하고 타입·lint·Panda를 다시 확인했다. 기존 모달 타입 계약은 열 번째 유형을 포함해 통과했다. IA 관련16검사 중15통과·기존 배송지 수동입력 기대값1실패를 유지한다. 명시적 고정 플랫폼 및 배송조회 전 단계의 시각 회귀는 별도로 실행하지 않았다.
+
+
+## 이전 선별 커밋 사본 검증 기록 보존
+
+잔여 변경 일괄 정리에서 런칭 번호 안내 alert 기대값을 복구하고 배송지 직접 상태의 오래된 기대 화면명을 현재 IA 표기로 갱신했다. `node --test tests/preview-links.test.mjs`의15개 검사가 모두 통과했다(2026-11-16). 위 과거 실패 기록은 당시 관측이며 이 재검사로 해소됐다. 브라우저·빌드는 재실행하지 않았다.
+
+선별한 런칭 신규 안내까지의 스테이지 사본에서 Next route typegen 후 전체 TypeScript와 모달/검색/고정 preview 관련3개 검사가 통과했다. 쿠폰 등록 안내는 별도 커밋으로 검사한다.
+
+최종 세 범위의 선별 스테이지 사본은 Next route typegen 후 전체 TypeScript, 쿠폰 변경 ESLint와 STATE/검색/고정 preview/링크4개 검사가 통과했다. 런칭 신규 소스2개의 Prettier도 Git blob과 동일한 내용에서 통과했다. 전체 빌드는 재실행하지 않았다.
+
+최종 네 범위만 담은 인덱스 사본에서 Next route typegen·전체 TypeScript·변경12개 파일 ESLint가 통과했다. 기존 모달 타입 계약1개와 STATE/검색/고정 preview/링크4개 검사도 모두 통과했다. 공유 작업 트리의 비대상 IA 계층 변경과 이전 문서 잔여 diff는 포함하지 않은 검사다.

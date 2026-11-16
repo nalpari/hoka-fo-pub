@@ -1,20 +1,19 @@
 ---
 type: Architecture
-title: "컴포넌트와 스타일"
-description: "공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다."
+title: '컴포넌트와 스타일'
+description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
 updated: '2026-11-16T11:46:14.121504+00:00'
 generated:
   by: codex/gpt-6
-  at: "2026-11-03T06:11:12Z"
+  at: '2026-11-03T06:11:12Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
   - src/app/mypage/orders/_components/OrderTrackingDialog.tsx
-  - src/app/publishing-guide/_components/ModalGuide.tsx
   - src/app/login/find-account/id-confirmation-modal/page.tsx
-  - src/app/mypage/coupons/preview-complete/page.tsx
   - src/app/signup/information/_components/RegistrationContent.tsx
+  - src/app/publishing-guide/_components/ModalGuide.tsx
   - src/components/common/layouts/ModalDialog.recipe.tsx
   - src/app/products/[id]/productDetailPreviews.ts
   - src/components/running-session/RunningSessionPage.tsx
@@ -929,88 +928,88 @@ working_tree_sources:
 sources:
   - id: figma-claim-2182-71235
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2182-71235
-    title: "모바일 취소 상세"
+    title: '모바일 취소 상세'
   - id: figma-claim-2182-71570
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2182-71570
-    title: "PC 취소 상세"
+    title: 'PC 취소 상세'
   - id: figma-claim-2203-74539
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2203-74539
-    title: "모바일 반품 상세"
+    title: '모바일 반품 상세'
   - id: figma-claim-2203-75405
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2203-75405
-    title: "PC 반품 상세"
+    title: 'PC 반품 상세'
   - id: figma-order-detail-mobile-20261103
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2158-12142
-    title: "모바일 주문 상세 시안"
+    title: '모바일 주문 상세 시안'
   - id: figma-order-detail-desktop-20261103
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2203-92526
-    title: "PC 주문 상세 시안"
+    title: 'PC 주문 상세 시안'
   - id: final-product-tiles-pc-20261103
     resource: https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=1722-8232
-    title: "최종 상품 타일 PC 예시"
+    title: '최종 상품 타일 PC 예시'
   - id: final-product-tiles-mobile-20261103
     resource: https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=1679-763
-    title: "최종 상품 타일 모바일 예시"
+    title: '최종 상품 타일 모바일 예시'
   - id: final-product-tiles-components-20261103
     resource: https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=497-864
-    title: "최종 상품 타일 모바일 컴포넌트"
+    title: '최종 상품 타일 모바일 컴포넌트'
   - id: product-tiles-figma-20261103
     resource: https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=497-774
-    title: "상품 타일 디자인 시스템 — 모바일 기본·PC 목록·PC 호버"
+    title: '상품 타일 디자인 시스템 — 모바일 기본·PC 목록·PC 호버'
   - id: coupons-figma-20261030
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1716-80655
     title: 쿠폰 일반·임직원 PC/MO 시안
   - id: recent-figma-20261030
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2025-149807
-    title: "최근 본 상품 PC/MO 목록·빈 목록"
+    title: '최근 본 상품 PC/MO 목록·빈 목록'
   - id: figma-orders-list-updates
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1482-20706
-    title: "Figma 주문/배송 조회 목록"
+    title: 'Figma 주문/배송 조회 목록'
   - id: figma-orders-empty
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1423-57168
-    title: "Figma 주문/배송 조회 빈 상태"
+    title: 'Figma 주문/배송 조회 빈 상태'
   - id: figma-order-detail
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1423-58823
-    title: "Figma 주문 상세"
+    title: 'Figma 주문 상세'
   - id: figma-order-cancel-detail
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1510-36283
-    title: "Figma 취소 상세"
+    title: 'Figma 취소 상세'
   - id: figma-order-return-detail
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1527-40225
-    title: "Figma 반품 상세"
+    title: 'Figma 반품 상세'
   - id: figma-order-tracking
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1653-57244
-    title: "Figma 배송조회 하단 시트"
+    title: 'Figma 배송조회 하단 시트'
   - id: figma-orders-lookup-20261102
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2059-162098
-    title: "Figma 주문/배송조회 PC·모바일 목록과 상세"
+    title: 'Figma 주문/배송조회 PC·모바일 목록과 상세'
   - id: figma-order-claim-application-20261102
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2203-76650
-    title: "Figma 주문 취소·환불 신청 PC 모달과 모바일 시트"
+    title: 'Figma 주문 취소·환불 신청 PC 모달과 모바일 시트'
   - id: figma-claim-history-20261102
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2134-82959
-    title: "Figma 취소/반품내역 PC 표·모바일 목록·빈 상태"
+    title: 'Figma 취소/반품내역 PC 표·모바일 목록·빈 상태'
   - id: base-ui-jsx-audit
     resource: https://base-ui.com/react/overview/quick-start
-    title: "Base UI 공식 카탈로그 (2026-10-15 JSX 스타일 점검)"
+    title: 'Base UI 공식 카탈로그 (2026-10-15 JSX 스타일 점검)'
   - id: agents-md
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/AGENTS.md
-    title: "AGENTS.md"
+    title: 'AGENTS.md'
   - id: panda-config-ts
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/panda.config.ts
-    title: "panda.config.ts"
+    title: 'panda.config.ts'
   - id: src-shared-styles-global-scss
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/src/shared/styles/global.scss
-    title: "src/styles/global.scss"
+    title: 'src/styles/global.scss'
   - id: -storybook-main-ts
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/.storybook/main.ts
-    title: ".storybook/main.ts"
+    title: '.storybook/main.ts'
   - id: -storybook-preview-ts
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/.storybook/preview.ts
-    title: ".storybook/preview.ts"
+    title: '.storybook/preview.ts'
   - id: -codex-skills-component-reusability-skill-md
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/.codex/skills/component-reusability/SKILL.md
-    title: ".codex/skills/component-reusability/SKILL.md"
+    title: '.codex/skills/component-reusability/SKILL.md'
 ---
 
 # 컴포넌트와 스타일
@@ -5032,6 +5031,10 @@ notice 푸터의 버튼은 PC180×48px·최대180px, MO는 가용 너비·높이
 
 PC1408/MO517에서 두 유형의 계산 스타일·버튼 크기·간격·반경과 가로 넘침 없음을 확인했다. 본문/버튼 앞뒤 간격은 정확히40px/24px이고, detail 제목은400을 유지했다. 실제 글리프는 헤더·버튼에서 Pretendard-Bold, 본문 제목에서 Pretendard-Black을 사용한다. 변경 recipe의 ESLint·Prettier, Panda 생성과 모달 타입 계약 검사1개가 통과했다. 구조·요청·콜백·폼·서비스 연결 계약을 변경하지 않아 전체 빌드는 다시 실행하지 않았다. 출처: 사용자 제공 상세 주석, 현재 recipe 작업 트리, Codex의 브라우저 확인.
 
+## IA 유형 칸의 모달 variant 표시 (2026-11-16)
+
+계정 잠금 안내 모달의 기본 STATE 행에서 상태 아래에 `variant="alert"`를 표시한다. 부모 popup 행에는 표시하지 않는다. 연결 메타데이터의 선택적 modalVariant를 읽고, 대괄호는 표시하지 않는다. 기존 행·STATE·접기·링크는 유지한다. 출처: screenConnections.ts·IaStructurePage.tsx 작업 트리와 사용자 주석.
+
 ## Alert·Confirm 정형 본문 누락 보정과 STATE 표시 (2026-11-16)
 
 계정 잠금 인증 만료·마케팅 수신내역·비밀번호 변경 확인/완료·배송지 삭제 확인은 variant만 지정하고 개별 Stack/ContentHeader/Typography 본문을 남겨 공통 message 스타일을 우회하고 있었다. 이 본문을 message/description으로 전환했다. 수신내역3줄의 줄바꿈과 입력 화면의 form id·submit 버튼 연결, 닫기·확인 콜백은 유지한다. 정형 모달의 선택적 feedback 슬롯은 기존 pending/error 표시를 전달하며 children 계약과 배타적이다. 수신내역 pending은 기존 확인 버튼 disabled를 유지하고, 공통 모달은 요청·성공 판정·자동 닫기를 추가하지 않는다.
@@ -5040,10 +5043,6 @@ PC1408/MO517에서 두 유형의 계산 스타일·버튼 크기·간격·반경
 
 IA는 [STATE별 실제 모달 유형과 검색](routing.md#state-모달-유형-전수-표시와-검색-2026-11-16)을 사용한다. 사용자 제공 예시 이미지·브라우저 주석과 관련 작업 트리가 출처이며 Codex가 위 범위를 확인했다.
 
-## alert·confirm 전체 사용처 점검 (2026-11-16)
-
-조건부 variant와 props spread를 포함해 안내·확인 사용처를 점검했다. 계정 잠금 설명의 중첩 Typography를 일반 span으로 바꾸고 정형 message/description을 우회하는 children을 타입으로 막았다. 고정 STATE25개를 PC/MO에서 계산 스타일 검사하고 소셜2종·재입고 취소·가이드2종도 각 플랫폼에서 열기·Escape를 확인했다. 이 검증은 전체 작업 트리에서 수행했으며 쿠폰 신규 팝업과 런칭 신규 안내는 별도 커밋 범위다. 출처: 사용자 상세 주석·관련 작업 트리·Codex 확인.
-
 ## 임직원 쿠폰 등록 안내 팝업 (2026-11-16)
 
 [HOKA Design](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 제공된 모바일 프레임에서 쿠폰등록 헤더, 쿠폰이 등록되었습니다. 본문, 확인 버튼을 읽었다. 본문20px·900·행간1.2, 본문/버튼 간격24px·좌우16px, Medium CTA와18px 닫기 아이콘을 기존 ModalDialog alert로 표현한다. 시안의8px 반경·일부 Regular 라벨은 앞서 사용자가 확정한 공통 alert의 MO24px 반경·헤더/CTA700 규칙을 우선한다. PC는 별도 시안을 추정하지 않고 공통640px·180×48px CTA를 사용한다.
@@ -5051,6 +5050,12 @@ IA는 [STATE별 실제 모달 유형과 검색](routing.md#state-모달-유형-�
 CouponManager가 임직원 전용 등록 안내의 open과 열기 버튼 ref를 소유한다. 두 발급 버튼은 준비된 팝업을 열람하고 확인·닫기·Escape는 닫기만 수행한다. 실제 발급·등록 요청·쿠폰 개수/목록 갱신·인증·저장은 구현하지 않는다. 일반 일련번호 등록 UI와 오류 상태의 기존 개발 제외는 유지한다. 실제 발급 성공 뒤 이 표시를 열고 실패·pending·재시도와 목록 갱신을 연결하는 책임은 기존 마이페이지 통합 소유자에게 있다.
 
 PC1440/MO375에서 두 버튼의 열기·닫기, 각각으로 포커스 복귀와 직접 preview의 첫 버튼 복귀를 확인했다. PC640px·본문28px·버튼180×48px, MO 가용 폭375px일 때 팝업343px·본문20px·버튼311×44px을 확인했다. Windows classic scrollbar 예약15px이 생기는 캡처에서는 가용 폭과 팝업/CTA가15px 좁아질 수 있다. 일반 쿠폰 화면은 임직원 영역과 팝업을 표시하지 않는 것도 확인했다. 쿠폰 등록 서비스를 구현한 검증은 아니다. 출처: 위 디자인, 사용자 요청, 현재 CouponManagement 작업 트리와 Codex 확인.
+
+## alert·confirm 전체 사용처 점검 (2026-11-16)
+
+정적·조건부·props spread를 포함한 production 사용처20곳과 가이드1곳을 추적했다. 계정 잠금 안내 설명의 중첩 Typography를 일반 span으로 바꿔 공통16px 스타일 상속을 보장했다. alert/confirm은 message 정형 본문만 허용하고 당시 custom children은 나머지7개 variant만 허용했다. 이후 productOption 추가로 현재는8개다. 타입 회귀 검사로 개별 본문 재도입을 막는다. feedback·폼 제출 및 액션 계약은 보존한다. 이후 추가한 런칭 안내까지 production21곳에서 개별 본문/헤더/푸터 override와 중첩 Typography 누락이 없음을 재확인했다.
+
+PC1440/MO375의 고정 STATE25개씩에서 제목·설명·버튼·여백의 계산 스타일과 넘침을 확인했다. 소셜 가입 안내2개, 재입고 취소, 가이드 alert/confirm도 각 플랫폼에서 열기·Escape를 확인했다. 출처는 사용자 요청과 관련 작업 트리이며 Codex가 실제 확인했다.
 
 ## 아이디 확인 confirm 결과형 (2026-11-16)
 
@@ -5062,21 +5067,27 @@ PC1440/MO375에서 두 버튼의 열기·닫기, 각각으로 포커스 복귀�
 
 PC 설명→버튼은 후속 사용자 주석에 따라40px로 정정했다. result 설명의 PC 아래24px 여백을 제거해 공통 content의 아래40px만 사용한다. MO는 후속 지정32px에 맞춰 설명 아래16px·인라인 푸터 위16px을 사용한다.
 
-## 모달 기본 shell과 약관 스타일 통일 (2026-11-16)
+## Terms 모달 상세 규격 (2026-11-16)
 
-terms와 selection/form/tracking/detail이 공통 contentModal 외형을 공유한다. 제목24px/20px·700, header 아래 margin24px, content 좌우32px/16px·기본 세로padding0, footer 위 margin40px/32px·아래40px/24px, 기본 버튼180×48px/MO가용폭×42px을 적용한다. 바텀시트 중복 padding과 개별 모달 shell override를 정리하고 tracking804px 높이·주소 formLayout=divided·상품열 정렬 offset은 유지한다.
+사용자 지정 [HOKA Design](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 PC/MO 알뜰폰 사업자 팝업을 사용자의 명시적 확인에 따라 terms 공통 외형 기준으로 적용했다. 추가 선택 약관 PC/MO 시안에서 실제 문서 구성을 읽어 보완했다. 제목은 Pretendard24px/20px·400·행간1.5, PC640px·반경10px, 헤더40px 32px 0/MO24px 16px 0, 본문24px 32px 40px/MO24px 16px을 사용한다. 본문→확인 PC40px/MO32px, 버튼 아래40px/24px이다.
 
-약관 문서 슬롯은 테두리#E9EAEB·내부24px 16px·문단간24px·제목/본문12px·공고일14px/13px을 공유한다. 가입/가이드의 확인은 공통 actions를 사용하고 가입 약관의 모바일 본문 마지막 배치를 유지한다. 알뜰폰 사업자도 사용자 요청에 따라 terms를 사용한다. [HOKA Design](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)과 사용자 후속 수치가 출처이며, 헤더700과 margin 배치는 사용자의 최신 지정이 우선한다. 약관 고유 테두리·문서는 다른 도메인에 강제하지 않는다.
+확인 버튼은 PC180×48px, 모바일 가용 폭·42px이다. 모바일 시안의 고정 내부18px와 상하12px padding을 읽은 관측값이며 alert/confirm의44px 버튼을 변경하지 않는다. 버튼 label은16px/15px·400·행간1.3·자간-0.02em, 반경52px이다. terms에만 적용하고 다른 variant나 공통 Button 기본값은 유지한다.
 
-## 이전 약관 선택 단독 미리보기 (2026-11-16)
+modalTermsContentRecipe에 약관명16px·400, 문서 테두리#E9EAEB·내부24px 16px·문단 간20px, 문단 제목→본문12px, 문서→공고일8px과 공고일14px/13px·#777777을 모았다. 본인확인 필수·선택/이전 약관과 가입 약관이 이 className을 사용한다. 실제 약관 원문·표·링크·본문 fixture는 각 소유자가 유지한다. 도메인 글자나 알뜰폰 업체 목록을 공통 컴포넌트에 넣지 않았다.
 
-초기 previous picker가 지정된 준비 상태는 부모 terms를 렌더링하지 않고 PreviousTermsPicker만 직접 표시한다. 확인·닫기/Escape는 해당 STATE를 닫고 약관 본문을 추가로 열지 않는다. 필수 약관 본문에서 이전 약관 버튼을 누르는 기존 중첩 사용은 유지한다.
+가입 약관과 가이드의 개별 확인 버튼을 공통 actions로 옮겨 규격이 우회되지 않게 했다. 가입 약관의 기존 확인은 본문에 직접 있었으므로 모바일에서 계속 본문 마지막에 스크롤된다. 기존 footer가 없어 동작하지 않던 mobileFixedFooter 지정은 제거했다. 명시적인 고정 footer 옵션 자체는 가이드에서 계속 제공한다. 사용자 주석·위 디자인·관련 작업 트리가 출처이며 Codex가 확인했다.
 
-## 쿠폰 상세 본문 높이와 숫자 보정 (2026-11-16)
+사용자 후속 주석이 위 최초 시안값보다 우선한다. terms 제목은 PC24px/MO20px 모두700, 본문 항목/문단 그룹 간격은PC/MO24px이다. 세로 구획 간격은 content padding이 아니라 header의 margin-bottom24px과 footer의 margin-top40px/MO32px로 소유한다. footer가 있는 외부 배치에서 content 세로 padding은0이고 좌우32px/MO16px만 유지한다. 모바일 본문 내 footer는 마지막 하단24px을 기존 content가 소유한다. 긴 스크롤과 고정 footer에서도 구획 사이 margin이 남는다.
 
-쿠폰 상세의 line-height6px 강제와 개별 shell override를 제거했다. portal 본문에서 body 행간1.5를 적용하고 일반 본문14px·21px, 공고13px·19.5px을 사용한다. 행 간24px·상세조건간16px을 보존하고 고정 높이는 추가하지 않는다. 내용과 viewport 제한으로 높이를 결정한다.
+사용자 요청으로 알뜰폰 사업자 팝업도 detail에서 terms로 전환했다. 업체 표시 데이터·본문·모바일 fullscreen·확인/닫기 콜백은 유지하고 공통 terms 헤더/여백/버튼 규격을 적용한다.
 
-사용자 PC/MO 주석을 우선해 수량·혜택 금액·사용기간 숫자는 HOKA14px·700·21px로 표시하고 사용기간은#040404·오른쪽 정렬이다. 다른 한국어 본문의 굵기는 유지한다. [HOKA Design](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 쿠폰 상세 PC/MO와 사용자 첨부 이미지가 출처다. header/footer는 앞서 확정한 공통 detail 규격을 따른다.
+## 문서형 모달 공통 외형 확장 (2026-11-16)
+
+사용자 요청으로 selection/form/tracking/detail의 기본 shell을 terms와 동일한 contentModal 정의로 공유한다. header 아래 margin24px, 제목 PC24px/MO20px·700, content 좌우32px/16px·기본 세로padding0, footer 위 margin40px/32px과 아래40px/24px을 사용한다. 기본 확인은 PC180×48px·MO가용폭×42px이다. 바텀시트의 기존 상단padding이 새 margin과 중복되지 않게 compound 스타일을 정리했다. 약관 문서 테두리·공고일 슬롯을 다른 도메인에 강제로 넣지 않는다.
+
+공통 외형 확장 당시 tracking의804px PC 높이를 유지했으나, 후속 배송조회 보정에서 콘텐츠 기반 자연 높이로 변경했다. 모바일 표시 방식, size 옵션·본문 스크롤·액션 콜백은 유지한다. 주소 formLayout=divided의 구분선/입력 및 footer 예외(모바일44px·700)는 유지한다. 당시 보존한 장바구니 상품열 정렬 offset은 후속 productOption 전환에서 제거했다. 주문 신청·런칭 알림·쿠폰 상세·이전 약관 선택의 개별 padding/헤더/푸터 치수는 공통 margin과 중복되지 않게 정리했다.
+
+쿠폰 상세의 본문 line-height6px 강제를 제거하고 portal 내부에서만 body 행간1.5를 적용해 문장 겹침과 압축된 높이를 수정했다. 본문14px·21px, 공고13px·19.5px·#777777, 행 간24px·상세조건 간16px을 사용하며 고정 높이는 추가하지 않는다. 사용자 추가 주석에 따라 PC/MO 수량·혜택 금액·사용기간 숫자는 HOKA14px·700·21px, 사용기간#040404·우측 정렬로 표현한다. [HOKA Design](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 쿠폰 상세 PC/MO와 사용자 첨부 이미지·주석이 출처다. 헤더·footer 공통 규격은 앞선 사용자 확정값이 개별 디자인의 Regular/버튼 높이 관측보다 우선한다.
 
 ## 이미지 모달 시안 적용 (2026-11-16)
 

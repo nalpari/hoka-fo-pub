@@ -6,37 +6,47 @@
 
 - productOption 유형·본문 슬롯 recipe와 신발/의류 확인 STATE를 추가했다. 시안에 맞게 한 열·하단 시트·품절/초기 비활성·정사각 썸네일과 이미지 순서를 적용했다. 관련 타입·IA 계약 및 실제 PC/MO 캡처를 확인했다.
 
-## 2026-11-16 런칭 입고 알림 신청 IA 등록
+## 2026-11-16 모달 공통 shell 확장·이전 약관 단독 표시·쿠폰 상세 보정
 
-- 기존 form 팝업을 직접 여는 preview-notification을 추가하고 IA159에 등록했다. [연결](architecture/launch-calendar.md#입고-알림-신청-팝업-ia-등록-2026-11-16).
+- selection/form/tracking/detail 기본 레이아웃을 terms와 공유하고 중복 여백 override를 정리했다. 이전 약관 직접 STATE는 selection 하나만 열리도록 수정했다. 쿠폰 상세의6px 행간을 복원하고 PC/MO 숫자700 규격을 적용했다. [UI](architecture/ui.md#문서형-모달-공통-외형-확장-2026-11-16) · [상태](architecture/routing.md#이전-약관-선택-독립-state-2026-11-16) · [검증](development/verification.md#공통-shell이전-약관쿠폰-상세-후속-검증-2026-11-16).
 
-## 2026-11-16 쿠폰 상세 본문 높이와 숫자 보정
+## 2026-11-16 Terms 모달 상세 시안 적용
 
-- 줄 겹침을 유발하던6px 행간과 개별 shell override를 제거하고 PC/MO 숫자700 규격을 적용했다. 데이터·서비스·닫기 계약은 유지한다. [UI](architecture/ui.md#쿠폰-상세-본문-높이와-숫자-보정-2026-11-16).
-
-## 2026-11-16 이전 약관 선택 STATE 단독 표시
-
-- IA 직접 경로에서 selection 하나만 표시하고 확인/닫기로 종료한다. 기존 약관 본문의 중첩 선택 동작은 유지한다. [경로](architecture/routing.md#이전-약관-선택-state-단독-표시-2026-11-16).
-
-## 2026-11-16 모달 기본 레이아웃과 약관 스타일 통일
-
-- 공통 recipe·약관 문서 슬롯과 사용처/가이드의 중복 여백을 정리했다. [UI](architecture/ui.md#모달-기본-shell과-약관-스타일-통일-2026-11-16) · [검증](development/verification.md#모달-기본-배치-통일-검사-2026-11-16).
+- 지정 팝업을 terms 기준으로 사용한다는 사용자 확인과 추가 약관 시안을 반영했다. 공통 footer·본문/문서 recipe를 적용하고 가입·가이드의 개별 확인 버튼을 공통 actions로 전환했다. [규격](architecture/ui.md#terms-모달-상세-규격-2026-11-16) · [검증](development/verification.md#terms-상세-스타일-검증-2026-11-16).
 
 ## 2026-11-16 아이디 확인 팝업 confirm 결과형 적용
 
 - 공통 confirm에 result 레이아웃과 intro 슬롯을 추가하고 기존 단일 사용 본문 컴포넌트를 통합했다. PC/MO 제목·굵기·간격과 STATE 유형을 수정했다. [규격](architecture/ui.md#아이디-확인-confirm-결과형-2026-11-16) · [검증](development/verification.md#아이디-확인-result-계약-검증-2026-11-16).
 
+## 2026-11-16 모달 전수 점검과 런칭 번호 안내 추가
+
+- alert/confirm 정형 본문 타입을 강화하고 계정 잠금 설명의 중첩 Typography를 제거했다. production21곳과 PC/MO 고정·버튼 열기 상태를 확인했다. [UI 점검](architecture/ui.md#alertconfirm-전체-사용처-점검-2026-11-16).
+- 첨부 이미지의 런칭 번호 안내를 공통 alert와 IA159 직접 STATE로 추가했다. 실제 신청 판정은 미연결이다. [런칭 안내](architecture/launch-calendar.md#휴대폰-번호-입력-안내-팝업-2026-11-16) · [검증](development/verification.md#공통-안내확인-전수-점검과-런칭-안내-2026-11-16).
+
 ## 2026-11-16 임직원 쿠폰 등록 안내 팝업 추가
 
-- 임직원 발급 버튼과 기존 완료 URL에서 공통 alert를 열고 확인·닫기·Escape 및 포커스 복귀를 제공한다. 실제 발급·요청·목록 갱신은 미연결이다. [UI](architecture/ui.md#임직원-쿠폰-등록-안내-팝업-2026-11-16) · [확인 경로](architecture/routing.md#임직원-쿠폰-등록-팝업-확인-경로-2026-11-16).
+- 임직원 쿠폰 버튼에서 공통 alert 등록 안내를 열고 확인·닫기로 닫도록 연결했다. 기존 완료 URL을 임직원 열린 상태로 재사용하고 IA에 variant 표시를 추가했다. 실제 발급·등록과 목록 갱신은 연결하지 않는다. [UI 규격](architecture/ui.md#임직원-쿠폰-등록-안내-팝업-2026-11-16) · [확인 경로](architecture/routing.md#임직원-쿠폰-등록-팝업-확인-경로-2026-11-16).
 
-## 2026-11-16 런칭 캘린더 휴대폰 번호 안내 추가
+## 2026-11-16 STATE 모달 유형 전수 표시·검색과 정형 본문 보정
 
-- 첨부 이미지의 신규 alert와 직접 STATE·IA 유형·검색을 추가했다. 별도 신청 form은 제외하며 안내 확인은 닫기만 수행한다. 기존 CTA 체크 아이콘을 지원 Button API로 맞췄다. [화면과 확인](architecture/launch-calendar.md#휴대폰-번호-입력-안내-팝업-2026-11-16).
+- 실제 모달 STATE48개 URL을 대조해 유형을 상태 아래에 표시하고 variant 이름·속성 표기 검색을 연결했다. 복수 모달을 함께 표시하며 비모달 상태는 제외한다. [연결과 검증](architecture/routing.md#state-모달-유형-전수-표시와-검색-2026-11-16).
+- 인증 만료·수신내역·비밀번호 확인/완료·주소 삭제의 개별 본문을 공통 alert/confirm 슬롯으로 전환했다. feedback·입력·액션 계약을 보존하고 PC/MO를 확인했다. [UI 보정](architecture/ui.md#alertconfirm-정형-본문-누락-보정과-state-표시-2026-11-16) · [검사](development/verification.md#state-모달-유형검색-회귀-검사-2026-11-16).
 
-## 2026-11-16 안내·확인 공통 모달 스타일 적용
+## 2026-11-16 비밀번호 변경완료 모달 유형 표시
 
-- 공통 슬롯 recipe와 필수 variant를 적용하고 alert/confirm의 정형 본문·버튼·타이포그래피를 통일했다. 기존 사용처의 필수 API 호환 전환과 STATE 유형 표시·검색을 포함한다. 쿠폰 신규 팝업·런칭 신규 안내·IA 계층 변경은 이 커밋에서 제외한다. [UI](architecture/ui.md#modaldialog-9개-유형과-슬롯-recipe-2026-11-16) · [검증](development/verification.md#안내확인-전수-점검-검증-2026-11-16).
+- 비밀번호 변경완료 모달의 기본 STATE 행에 `variant="alert"` 표시를 추가했다. 기존 URL·부모 행·다른 preview는 유지한다. 출처: screenConnections.ts 작업 트리와 사용자 요청.
+
+## 2026-11-16 IA 모달 variant 표시
+
+- 계정 잠금 안내 모달의 기본 STATE 행 유형 칸에 대괄호 없이 `variant="alert"`를 표시한다. 부모 popup 행에는 표시하지 않는다. 선택적 연결 메타데이터와 기존 ModalDialogVariant 타입을 사용한다. [표시 계약](architecture/routing.md#ia-모달-유형-표시-2026-11-16).
+
+## 2026-11-16 계정 잠금 안내 모달 D3 승격
+
+- 계정 잠금 안내 모달을 로그인 → 아이디찾기 아래 D3로 승격하고 해제·해제 완료 자식을 D4로 함께 이동했다. URL과 IA 식별자는 유지했다. [데이터 변경과 검증](project.md#계정-잠금-안내-모달-d3-승격-2026-11-16).
+
+## 2026-11-16 Alert·Confirm 상세 스타일 보정
+
+- 두 유형의 헤더700, 버튼 라벨 PC16px/MO15px·700, PC 버튼 최대180px과 패딩·높이를 전용 notice recipe에 적용했다. PC/MO의 실제 치수·간격·폰트와 비대상 detail 제목을 확인했다. [상세 규격과 검증](architecture/ui.md#alertconfirm-상세-스타일-보정-2026-11-16). 다른 유형·공통 Button·서비스 계약은 변경하지 않았다.
 
 ## 2026-11-16 쿠폰 버튼과 총 건수 굵기 후속 보정
 
@@ -45,6 +55,10 @@
 ## 2026-11-16 임직원 쿠폰 시안과 카드 간격 보정
 
 - 임직원 쿠폰을 PC·모바일 테두리 버튼으로 바꾸고, 총 건수 아래 Stack 8px 및 카드 본문 14px/21px 행간·CTA를 정리했다. PC·MO 화면과 모바일 상세 열기/닫기, 일반 목록을 확인했다. Panda·수정 파일 lint/format 통과, 전체 타입 검사는 비대상 Button prop 오류로 실패했다. [구현·검증 기록](architecture/routing.md#임직원-쿠폰-버튼과-목록-간격-보정-2026-11-16).
+
+## 2026-11-16 ModalDialog 9개 유형 개편
+
+- 공통 모달을 9개 필수 variant와 별도 Panda 슬롯 recipe로 정리하고 31개 파일의 42개 JSX 사용처를 전환했다. 정형 본문·액션 배타 타입, 가이드 예시와 계약 검사를 추가했다. 기존 상태·콜백·폼 소유권을 보존한다. [UI 규격](architecture/ui.md#modaldialog-9개-유형과-슬롯-recipe-2026-11-16) · [경로](architecture/routing.md#modaldialog-사용처-전환과-확인-경로-2026-11-16) · [검증과 기존 실패](development/verification.md#modaldialog-유형-계약과-검증-2026-11-16). 출처: 관련 작업 트리와 디자인, Codex.
 
 ## 2026-11-16 인증 색상 의미 토큰 보정
 
@@ -2738,9 +2752,21 @@ Figma Navigational Buttons(296:25392)와 Action Buttons(296:25425)의 기본·�
 
 런칭캘린더 팝업 검증 추가: 프로덕션 빌드와 156개 정적 페이지 생성 통과(2026-11-16).
 
+## 2026-11-16 알뜰폰 사업자 terms 전환
+
+- 사용자 요청으로 알뜰폰 사업자 팝업과 IA STATE 유형을 terms로 변경하고 기존 표시 데이터와 닫기 동작을 유지했다.
+
+## 2026-11-16 런칭 알림 신청 IA 누락 보완
+
+- 기존 버튼 전용 팝업을 직접 여는 preview-notification을 추가하고 IA159에 입고 알림 신청·variant=form을 등록했다. 기존 신청 UI와 서비스 미연결 경계는 유지한다.
+
 ## 2026-11-16 이미지 모달 스타일 적용
 
 - image 모달의 PC/MO shell과 240px 이미지·페이지 표시 recipe를 문의 첨부파일과 가이드에 연결했다. 라우트·첨부 데이터 계약을 유지했다.
 - 계산 스타일·실제 Pretendard Bold·페이지 전환·경계 resize·Escape/포커스 복귀, 타입·대상 lint/format·Panda·모달 타입 계약을 확인했다. PC/MO 캡처 시간 초과와 미실행 항목은 UI 문서에 구분했다.
 
 옵션 모달 소스 그래프의 기존 직렬화 형식을 유지했다.
+## 2026-11-16 잔여 IA 계층과 모달 기록 일괄 정리
+
+- 사용자 요청으로 남은 변경을 일괄 커밋한다. 계정 잠금 안내 D3·자식 D4 승격과 모달 작업 기록·인덱스를 정리하고 과거 선별 사본 검증 기록을 보존했다.
+- 런칭 번호 안내 alert 검증 삭제는 복구하고 배송지 직접 상태의 기대 화면명을 현재 IA 표시와 일치시켰다. preview-links 테스트15개가 모두 통과했다. 이번 정리에서 브라우저와 프로덕션 빌드는 재실행하지 않았다.

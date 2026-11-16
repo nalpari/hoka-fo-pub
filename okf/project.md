@@ -4,7 +4,7 @@ title: '프로젝트 개요'
 description: '서비스 목적, 기술 버전과 구현 범위를 설명한다.'
 tags: [hoka, frontend, overview]
 status: draft
-updated: '2026-11-12T04:25:50Z'
+updated: '2026-11-16T08:38:16Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
@@ -323,6 +323,10 @@ src/mocks/products.ts의 Promotions 타입 출처를 통합된 src/components/co
 PC 수정과 모바일 Feed·Upcoming·상세를 반영했다. 목록은 현재 items와 명시적 플랫폼별 fixture를 구분하고, 상세는 실제 신청 없이 알림 가능/완료 상태를 직접 URL로 확인한다. 공통 표시 컴포넌트와 기존 route-private 소유권을 재사용한다. 원본 IA 행의 삭제/제외 정책은 이번 시안 구현의 변경 범위가 아니다. 규격·검증·미제공 기획전 이미지 경계는 [런칭 캘린더](architecture/launch-calendar.md)에 기록했다. 출처: 위 작업 트리와 사용자 제공 [PC/MO 디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design), 기록 주체 codex/gpt-6, 2026-11-11T01:09:17Z.
 
 2026-11-11 IA162 런칭캘린더 In-stock 목록은 사용자 지정 삭제 / 제외 화면으로 표시한다. 출처: screenRegistry.ts 작업 트리.
+
+## 계정 잠금 안내 모달 D3 승격 (2026-11-16)
+
+사용자 요청으로 내부 IA251 계정 잠금 안내 모달을 로그인 → 아이디찾기 아래 D3로 옮겼다. 자식 IA253 계정 잠금 해제와 IA254 해제 완료도 같은 모달 아래 D4로 한 단계 올렸다. 휴대폰번호 화면의 자식으로 두지 않으며 IA 번호·담당자·화면 코드·기존 URL·preview 상태는 유지한다. 출처는 `src/data/screenRegistry.ts` 작업 트리다. 정규화된 실제 screens 데이터의 D3/D4/D4와 부모 경로를 확인했고, 계층·상태 연결 관련 기존 테스트5개와 대상 ESLint가 통과했다. Codex가 확인했으며 브라우저 재확인은 수행하지 않았다.
 
 ## 런칭캘린더 알림 번호 표시 fixture (2026-11-16)
 

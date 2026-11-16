@@ -4,14 +4,14 @@ title: 런칭 캘린더
 description: 런칭 캘린더 시안과 직접 URL 및 표시 전용 인계 경계를 설명한다.
 tags: [launch-calendar, figma, publishing, ia]
 status: draft
-updated: '2026-11-16T10:54:57.660Z'
+updated: '2026-11-16T10:45:08.077Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-11T01:09:17Z'
 source_revision: b4fac81f1ba16d76585e64264941c0e35fcecb7f
 working_tree_sources:
-  - src/app/launch-calendar/clifton-11-gtx/preview-notification/page.tsx
   - src/app/launch-calendar/clifton-11-gtx/preview-phone-required/page.tsx
+  - src/app/launch-calendar/clifton-11-gtx/preview-notification/page.tsx
   - src/app/launch-calendar/page.tsx
   - src/app/launch-calendar/in-stock/page.tsx
   - src/app/launch-calendar/upcoming/page.tsx
@@ -110,6 +110,8 @@ PC 1920px에서 Feed12/Upcoming8/In Stock8과 4열, 제목44px·탭120×40px·�
 
 정정 검증: MO375px의 세 목록에서 높이32px·반경52px·간격6px·선택 색상과 넘침 없음을 측정했다. PC1920px에서는44px 제목과120×40px 탭을 유지한다. TypeScript·변경 ESLint/Prettier·Panda·링크/진행 상태16개 검사를 통과했다.
 
+검증 추가(2026-11-16): Next.js 프로덕션 빌드와 156개 정적 페이지 생성이 통과했다. 기존 아키텍처 인덱스의 런칭 캘린더 링크에서 이번 알림 팝업 기록까지 접근할 수 있다.
+
 ## 휴대폰 번호 입력 안내 팝업 (2026-11-16)
 
 사용자가 첨부한 이미지의 런칭캘린더 헤더, 휴대폰 번호를 입력해주세요 메시지, 알림을 받을 휴대폰 번호를 입력해 주세요. 설명을 공통 alert로 추가했다. 이미지의2배 표현을 기준으로 PC640px 팝업, 제목24px·메시지28px/900·설명16px·확인180×48px을 사용한다. 모바일은 기존 공통 규칙인 메시지20px·버튼44px·반경24px을 따른다.
@@ -118,8 +120,6 @@ PC 1920px에서 Feed12/Upcoming8/In Stock8과 4열, 제목44px·탭120×40px·�
 
 PC1440/MO375에서 실제 문구·메시지28px/20px·900, 버튼180×48px/가용 폭×44px, 확인과 신청CTA 포커스 복귀를 확인했다. PC Escape 닫기와 IA 검색·STATE 유형 표시도 확인했다. Windows classic scrollbar 예약이 있는 MO375 캡처의 CTA 가용 폭은296px이다. 첨부 이미지와 계산 스타일·PC/MO 캡처가 검증 근거이며 별도 Figma 구조 측정은 하지 않았다.
 
-검증 추가(2026-11-16): Next.js 프로덕션 빌드와 156개 정적 페이지 생성이 통과했다.
+## 알림 신청 팝업 IA 직접 확인 (2026-11-16)
 
-## 입고 알림 신청 팝업 IA 등록 (2026-11-16)
-
-기존 상품 상세 버튼에만 연결된 신청 form에 /launch-calendar/clifton-11-gtx/preview-notification 직접 STATE를 추가했다. 기존 LaunchCalendarDetail에 preview=notification 초기 open seed만 전달하고 UI를 재사용한다. IA159에 입고 알림 신청·작업 파일·variant=form 표시와 검색을 등록했다. 기존 입력 draft·선택·닫기·신청 API 미연결 경계는 유지한다.
+알림 신청은 기존 상세 CTA로만 열리던 UI여서 IA159의 열린 STATE가 누락돼 있었다. /launch-calendar/clifton-11-gtx/preview-notification에서 기존 LaunchCalendarDetail에 preview=notification 초기 seed만 전달하고 form 팝업을 처음부터 연다. IA159에 입고 알림 신청 링크·작업 파일·variant=form 검색/표시를 등록했다. 선택·번호 변경·닫기 동작과 미연결 신청 API 경계는 유지하며 새 성공/저장 흐름은 추가하지 않았다.

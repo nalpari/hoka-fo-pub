@@ -365,7 +365,7 @@ test('session history is connected to its active IA without reviving the deleted
 test('design states have fourteen direct IA links on their existing owners', () => {
   const expected = {
     171: [
-      ['배송지 수동입력', '/checkout/preview-shipping'],
+      ['기본배송지 주소가 없는 사용자', '/checkout/preview-shipping'],
       ['배송 요청사항 직접입력', '/checkout/preview-delivery-request'],
     ],
     177: [['로그아웃 확인', '/mypage/preview-logout']],
