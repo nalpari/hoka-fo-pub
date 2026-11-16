@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { type Ref, useRef, useState } from 'react';
 import { usePlatform } from '@/context/platform';
 
 import { css } from 'styled-system/css';
@@ -376,6 +376,7 @@ function CouponDetailsDialog({ coupon, onOpenChange }: CouponDetailsDialogProps)
       closeLabel="쿠폰 상세 닫기"
       open={coupon !== null}
       onOpenChange={onOpenChange}
+
       mobilePresentation="fullscreen"
       blurBackdrop={false}
       title={
@@ -468,7 +469,13 @@ const employeeCoupons = [
   { desktop: '50% 쿠폰 발급', mobile: '30% 쿠폰 발급' },
 ] as const;
 
-function EmployeeCoupons() {
+function EmployeeCoupons({
+  firstButtonRef,
+  onPreviewRegistration,
+}: {
+  firstButtonRef: Ref<HTMLButtonElement>;
+  onPreviewRegistration: (trigger: HTMLButtonElement) => void;
+}) {
   const platform = usePlatform();
 
   return (
@@ -483,9 +490,11 @@ function EmployeeCoupons() {
         {employeeCoupons.map((label, index) => (
           <Button
             key={index}
+            ref={index === 0 ? firstButtonRef : undefined}
             type="button"
             variant="secondary"
             size={platform === 'mobile' ? 'short' : 'tall'}
+            onClick={(event) => onPreviewRegistration(event.currentTarget)}
             className={css({
               w: '180px',
               _mobile: { flex: '1', minW: '0', w: 'auto', '--button-height': '42px' },
@@ -509,7 +518,7 @@ function EmployeeCoupons() {
 /**
  * [ 개발팀 바인딩 ] RouteContent가 목록과 상세 표시용 fixture를 CouponManager의 coupons로 전달합니다.
  * 카드의 id와 상세 수량·혜택·사용기간·사용가능처·상세조건·안내문은 같은 쿠폰 표시 모델에 속합니다.
- * 더보기와 상세 열기/닫기는 로컬 조작이며, 임직원 발급 버튼은 employee 미리보기 데이터이며 발급 요청은 연결되어 있지 않습니다.
+ * 더보기와 상세·등록 안내 열기/닫기는 로컬 조작입니다. 임직원 발급 버튼은 준비된 등록 완료 팝업을 열람하며 실제 발급 요청이나 쿠폰 목록/수량 갱신은 수행하지 않습니다.
  * 실제 연동 소유자가 회원별 쿠폰 조회와 추가 조회, pending·실패·재시도·최신 응답 반영을 연결합니다.
  * 현재 외부 요청 callback과 쿠폰 등록 계약은 없습니다.
  */
@@ -520,6 +529,11 @@ type CouponManagerProps = {
 };
 
 function CouponManager({ coupons, preview, employee = false }: CouponManagerProps) {
+  const [employeeRegistrationOpen, setEmployeeRegistrationOpen] = useState(
+    employee && preview === 'complete',
+  );
+  const registrationTrigger = useRef<HTMLButtonElement | null>(null);
+  const firstEmployeeButton = useRef<HTMLButtonElement>(null);
   /* 1차 개발 범위 제외: 쿠폰 등록 상태.
   const [code, setCode] = useState('');
   const error = '';
@@ -550,13 +564,33 @@ function CouponManager({ coupons, preview, employee = false }: CouponManagerProp
       */}
 
       <Stack gap={{ base: '48px', _mobile: '40px' }}>
-        {employee ? <EmployeeCoupons /> : null}
+        {employee ? (
+          <EmployeeCoupons
+            firstButtonRef={firstEmployeeButton}
+            onPreviewRegistration={(trigger) => {
+              registrationTrigger.current = trigger;
+              setEmployeeRegistrationOpen(true);
+            }}
+          />
+        ) : null}
         <CouponHistorySection coupons={coupons} onDetails={setSelectedCoupon} />
       </Stack>
 
       {/* 1차 개발 범위 제외: 쿠폰 등록 완료 상태.
       <CouponRegistrationDialog open={registered} onOpenChange={setRegistered} />
       */}
+      {employee && (
+        <ModalDialog
+          variant="alert"
+          open={employeeRegistrationOpen}
+          onOpenChange={setEmployeeRegistrationOpen}
+          title="쿠폰등록"
+          closeLabel="쿠폰 등록 안내 닫기"
+          message="쿠폰이 등록되었습니다."
+          finalFocus={() => registrationTrigger.current ?? firstEmployeeButton.current}
+          actions={{ kind: 'single', onConfirm: () => setEmployeeRegistrationOpen(false) }}
+        />
+      )}
       <CouponDetailsDialog
         coupon={selectedCoupon}
         onOpenChange={(open) => {

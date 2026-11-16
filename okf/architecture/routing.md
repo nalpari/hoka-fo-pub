@@ -4,12 +4,13 @@ title: "라우팅과 플랫폼"
 description: "App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다."
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-16T09:44:34.164Z'
+updated: '2026-11-16T09:46:05.858Z'
 generated:
   by: codex/gpt-6
   at: "2026-11-03T06:11:12Z"
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/mypage/coupons/preview-complete/page.tsx
   - src/app/launch-calendar/clifton-11-gtx/preview-phone-required/page.tsx
   - src/app/launch-calendar/_components/LaunchCalendarContent.tsx
   - src/app/launch-calendar/_components/LaunchCalendarDetail.tsx
@@ -1845,3 +1846,9 @@ PC1440/MO375에서 `/login/account-locked`, `/login/find-account/password-reset/
 ## 런칭 안내 STATE와 모달 점검 (2026-11-16)
 
 IA159에 휴대폰 번호 입력 안내(/launch-calendar/clifton-11-gtx/preview-phone-required)를 추가하고 STATE 아래 variant="alert"와 variant 검색에 연결했다. page는 기존 LaunchCalendarDetail에 명시적 preview만 전달한다. 기존 알림 신청·완료 경로와 서비스 미연결 경계는 유지한다. alert/confirm 고정 STATE25개를 PC/MO에서 확인했으며 런칭 안내도 양쪽에서 별도로 확인했다. 출처: 사용자 첨부 이미지·관련 작업 트리·Codex 실행 확인.
+
+## 임직원 쿠폰 등록 팝업 확인 경로 (2026-11-16)
+
+기존 `/mypage/coupons/preview-complete`를 임직원 쿠폰 등록 안내의 열린 상태로 재사용한다. `/mypage/coupons/preview-employee`는 두 발급 버튼에서 같은 팝업을 열 수 있다. 일반 `/mypage/coupons`에는 임직원 영역을 추가하지 않는다. IA196에 임직원 쿠폰 등록 팝업 STATE를 연결하고 `variant="alert"`를 표시했다. 기존 미노출이던 완료 URL을 재사용해 새 URL은 만들지 않았으며 일반 일련번호 등록 입력·등록 오류의 제외는 유지한다. 이 사용자 요청은 이전 등록 완료 팝업 제외 중 임직원 안내 범위만 대체한다.
+
+브라우저에서 해당 IA STATE 행의 label·URL·variant, PC/MO 직접 진입과 닫기·포커스 복귀를 확인했다. 등록된 모달 상태 URL은49개다. 출처: 해당 page·연결·쿠폰 소유자 작업 트리, Codex.

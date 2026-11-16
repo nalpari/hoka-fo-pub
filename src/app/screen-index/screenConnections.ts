@@ -335,8 +335,7 @@ const connections: Record<number, ScreenConnection> = {
       { label: '빈 목록', href: '/mypage/coupons/preview-empty' },
       // 1차 개발 범위 제외: 쿠폰 등록.
       // { label: '등록 오류', href: '/mypage/coupons/preview-error' },
-      // 1차 개발 범위 제외: 쿠폰 등록.
-      // { label: '등록 완료', href: '/mypage/coupons/preview-complete' },
+      { label: '임직원 쿠폰 등록 팝업', href: '/mypage/coupons/preview-complete' },
       { label: '임직원 쿠폰', href: '/mypage/coupons/preview-employee' },
     ],
     sourceFiles: [
@@ -894,6 +893,7 @@ const stateModalVariants: Readonly<Record<string, readonly ModalDialogVariant[]>
   '/mypage/reviews/preview-edit': ['form'],
   '/mypage/reviews/preview-error': ['form'],
   '/mypage/coupons/preview-detail': ['detail'],
+  '/mypage/coupons/preview-complete': ['alert'],
   '/mypage/event-entries/preview-cancel': ['confirm'],
   '/mypage/addresses/preview-delete': ['confirm'],
   // ProfileContent and ProfileStatePreview select distinct variants for each step.

@@ -4,7 +4,7 @@ title: "변경 검증"
 description: "변경 범위에 맞는 정적 검사, 빌드와 수동 검증을 안내한다."
 tags: [verification, testing, build]
 status: draft
-updated: '2026-11-16T09:44:34.457Z'
+updated: '2026-11-16T09:46:06.205Z'
 generated:
   by: codex/gpt-6
   at: "2026-11-02T09:59:35Z"
@@ -718,3 +718,13 @@ preview-links 검사에 URL별 실제 variant·복수 모달·모달이 없는 �
 ## 런칭 신규 안내 선별 검증 (2026-11-16)
 
 공통 alert에 휴대폰 번호 안내 STATE를 추가하고 PC1440/MO375의 문구·메시지28/20px·버튼48/44px·확인 후 포커스 복귀, PC Escape와 IA 검색을 확인했다. 신규 팝업만 선별하고 별도 알림 신청 form 작업은 제외한다. 기존 런칭 CTA의 폐기된 Button.icon은 같은 체크 표시를 유지하는 iconRight/iconSize/iconColor로 맞춘다. 앞선 공통 모달 선별 사본의63개 검사 중62개 통과와 범위 밖 배송지 IA171 실패1건을 구분한다. 출처: 사용자 첨부 이미지·작업 트리·실제 확인, Codex.
+
+## 임직원 쿠폰 등록 안내 검증 (2026-11-16)
+
+STATE variant 계약 검사에 `/mypage/coupons/preview-complete`의 alert를 추가했다. 관련 STATE·검색·링크 검사5개, 변경 소스 ESLint/Prettier와 Panda 생성이 통과했다. 전체 타입 검사는 기존 LaunchCalendarDetail의 Button.icon 오류1건으로 미통과다. Next 전체 빌드는 다시 실행하지 않았다. PC1440/MO375에서 임직원 버튼2개, 준비된 완료 URL, 확인/닫기/Escape, 포커스 복귀와 일반 회원 비노출을 확인했다. IA의 직접 링크와 alert 표시도 확인했다. 실제 API 발급·등록이나 서비스 성공/실패는 연결하지 않았고 시험하지 않았다. 출처: 관련 작업 트리와 실제 확인, Codex.
+
+
+
+선별한 런칭 신규 안내까지의 스테이지 사본에서 Next route typegen 후 전체 TypeScript와 모달/검색/고정 preview 관련3개 검사가 통과했다. 쿠폰 등록 안내는 별도 커밋으로 검사한다.
+
+최종 세 범위의 선별 스테이지 사본은 Next route typegen 후 전체 TypeScript, 쿠폰 변경 ESLint와 STATE/검색/고정 preview/링크4개 검사가 통과했다. 런칭 신규 소스2개의 Prettier도 Git blob과 동일한 내용에서 통과했다. 전체 빌드는 재실행하지 않았다.

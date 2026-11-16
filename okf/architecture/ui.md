@@ -4,12 +4,13 @@ title: "컴포넌트와 스타일"
 description: "공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다."
 tags: [components, panda-css]
 status: draft
-updated: "2026-11-16T09:41:04.790Z"
+updated: '2026-11-16T09:46:05.479Z'
 generated:
   by: codex/gpt-6
   at: "2026-11-03T06:11:12Z"
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/app/mypage/coupons/preview-complete/page.tsx
   - src/app/signup/information/_components/RegistrationContent.tsx
   - src/components/common/layouts/ModalDialog.recipe.tsx
   - src/app/products/[id]/productDetailPreviews.ts
@@ -5039,3 +5040,11 @@ IA는 [STATE별 실제 모달 유형과 검색](routing.md#state-모달-유형-�
 ## alert·confirm 전체 사용처 점검 (2026-11-16)
 
 조건부 variant와 props spread를 포함해 안내·확인 사용처를 점검했다. 계정 잠금 설명의 중첩 Typography를 일반 span으로 바꾸고 정형 message/description을 우회하는 children을 타입으로 막았다. 고정 STATE25개를 PC/MO에서 계산 스타일 검사하고 소셜2종·재입고 취소·가이드2종도 각 플랫폼에서 열기·Escape를 확인했다. 이 검증은 전체 작업 트리에서 수행했으며 쿠폰 신규 팝업과 런칭 신규 안내는 별도 커밋 범위다. 출처: 사용자 상세 주석·관련 작업 트리·Codex 확인.
+
+## 임직원 쿠폰 등록 안내 팝업 (2026-11-16)
+
+[HOKA Design](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 제공된 모바일 프레임에서 쿠폰등록 헤더, 쿠폰이 등록되었습니다. 본문, 확인 버튼을 읽었다. 본문20px·900·행간1.2, 본문/버튼 간격24px·좌우16px, Medium CTA와18px 닫기 아이콘을 기존 ModalDialog alert로 표현한다. 시안의8px 반경·일부 Regular 라벨은 앞서 사용자가 확정한 공통 alert의 MO24px 반경·헤더/CTA700 규칙을 우선한다. PC는 별도 시안을 추정하지 않고 공통640px·180×48px CTA를 사용한다.
+
+CouponManager가 임직원 전용 등록 안내의 open과 열기 버튼 ref를 소유한다. 두 발급 버튼은 준비된 팝업을 열람하고 확인·닫기·Escape는 닫기만 수행한다. 실제 발급·등록 요청·쿠폰 개수/목록 갱신·인증·저장은 구현하지 않는다. 일반 일련번호 등록 UI와 오류 상태의 기존 개발 제외는 유지한다. 실제 발급 성공 뒤 이 표시를 열고 실패·pending·재시도와 목록 갱신을 연결하는 책임은 기존 마이페이지 통합 소유자에게 있다.
+
+PC1440/MO375에서 두 버튼의 열기·닫기, 각각으로 포커스 복귀와 직접 preview의 첫 버튼 복귀를 확인했다. PC640px·본문28px·버튼180×48px, MO 가용 폭375px일 때 팝업343px·본문20px·버튼311×44px을 확인했다. Windows classic scrollbar 예약15px이 생기는 캡처에서는 가용 폭과 팝업/CTA가15px 좁아질 수 있다. 일반 쿠폰 화면은 임직원 영역과 팝업을 표시하지 않는 것도 확인했다. 쿠폰 등록 서비스를 구현한 검증은 아니다. 출처: 위 디자인, 사용자 요청, 현재 CouponManagement 작업 트리와 Codex 확인.

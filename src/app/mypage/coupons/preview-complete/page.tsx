@@ -1,6 +1,6 @@
 import { RouteContent } from '@/app/mypage/coupons/_components/CouponManagement';
 
-/** 고정 상태의 퍼블리싱 마크업을 직접 표시합니다. (Displays fixed publishing state markup directly.) */
+/** 임직원 쿠폰 등록 안내를 열린 상태로 표시합니다. (Displays the employee coupon registration notice open.) */
 export default function Page() {
-  return <RouteContent preview="complete" />;
+  return <RouteContent employee preview="complete" />;
 }
