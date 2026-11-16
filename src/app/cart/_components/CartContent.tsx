@@ -36,7 +36,8 @@ export function CartContent() {
         />
       }
       headerSpacing="none"
-      maxWidth="1132px"
+      maxWidth="1204px"
+      paddingTop={{ base: '72px', _mobile: '24px' }}
     >
       <Stack gap={{ base: '14', _mobile: '8' }} mt={{ base: '6', _mobile: '0' }}>
         <Stack gap="0" pt={{ base: '8', _mobile: '0' }}>

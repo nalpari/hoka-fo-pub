@@ -47,9 +47,9 @@ export function CheckoutContent({
 }: CheckoutContentProps) {
   return (
     <Grid
-      gridTemplateColumns={{ base: 'minmax(0, 1fr) 367px', _mobile: '1fr' }}
+      gridTemplateColumns={{ base: '720px 360px', _mobile: '1fr' }}
       rowGap={{ base: '10', _mobile: '8' }}
-      columnGap={{ base: '4', _mobile: '0' }}
+      columnGap={{ base: '14', _mobile: '0' }}
       alignItems="start"
     >
       <Box gridColumn="1" gridRow={{ base: 'auto', _mobile: '1' }}>
@@ -71,14 +71,15 @@ export function CheckoutContent({
         <CheckoutPayment payment={payment} onPaymentChange={onPaymentChange} />
       </Box>
       <Stack
-        gap="6"
+        gap={{ base: '7', _mobile: '6' }}
         display={{ base: 'flex', _mobile: 'contents' }}
         gridColumn={{ base: '2', _mobile: '1' }}
         gridRow={{ base: '1 / span 3', _mobile: 'auto' }}
         pos={{ base: 'sticky', _mobile: 'static' }}
         top="120px"
-        border={{ base: '1px solid var(--colors-black-20)', _mobile: '0' }}
-        p={{ base: '4', _mobile: '0' }}
+        bg={{ base: 'black.10', _mobile: 'transparent' }}
+        border="0"
+        p={{ base: '6', _mobile: '0' }}
       >
         <Box gridColumn="1" gridRow={{ base: 'auto', _mobile: '3' }}>
           {/* 주문금액·할인금액·배송비·총 결제 금액 */}

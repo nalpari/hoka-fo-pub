@@ -9,6 +9,7 @@ type Props = {
   headerSpacing?: 'default' | 'none';
   maxWidth?: string;
   paddingX?: { base: string; _mobile: string };
+  paddingTop?: { base: string; _mobile: string };
   children: ReactNode;
 };
 
@@ -18,6 +19,7 @@ export function OrderPageLayout({
   headerSpacing = 'default',
   maxWidth = '1200px',
   paddingX = { base: '34px', _mobile: '16px' },
+  paddingTop = { base: '56px', _mobile: '24px' },
   children,
 }: Props) {
   return (
@@ -25,7 +27,7 @@ export function OrderPageLayout({
       as="main"
       maxW={maxWidth}
       mx="auto"
-      pt={{ base: '56px', _mobile: '24px' }}
+      pt={paddingTop}
       px={paddingX}
       pb={{ base: '96px', _mobile: '64px' }}
     >

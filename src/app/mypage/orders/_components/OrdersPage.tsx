@@ -100,7 +100,7 @@ export function OrdersPage({
         setClaimId(claimId);
         setView('claim');
       }}
-      statusItems={initialOrders ? [] : previewOrderStatusItems}
+      statusItems={previewOrderStatusItems}
       view={view}
       selectedOrder={selectedOrder}
       selectedClaim={selectedClaim}

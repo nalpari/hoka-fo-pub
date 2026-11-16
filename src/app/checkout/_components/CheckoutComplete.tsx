@@ -20,15 +20,15 @@ export function CheckoutComplete() {
         alignItems="center"
         alignSelf="center"
         w={{ base: '500px', _mobile: '100%' }}
-        pt={{ base: '10', _mobile: '10' }}
+        pt="0"
         gap="8"
         textAlign="center"
       >
         <Stack alignItems="center" gap="4">
-          <Typography as="p" variant="body2" weight="medium">
+          <Typography as="p" web="heading7" mo="heading5">
             구매해 주셔서 감사합니다.
           </Typography>
-          <Typography as="p" variant="body4">
+          <Typography as="p" web="body3" mo="body4">
             주문이 정상적으로 접수되었습니다.
             <br />
             앞으로도 만족스러운 서비스로 보답하겠습니다.

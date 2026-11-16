@@ -37,6 +37,13 @@
       "src/components/common/molecules/ProductOptionSelectors/ProductWidthSelector.tsx",
       "src/mocks/cartDisplay.ts"
     ],
+    "src/app/cart/_components/CartEmptyContent.tsx": [
+      "src/app/cart/_components/CartEmptyState.tsx",
+      "src/components/common/molecules/CarouselSection.tsx",
+      "src/components/common/molecules/ProductCard/ProductCard.tsx",
+      "src/context/platform.tsx",
+      "src/mocks/products.ts"
+    ],
     "src/app/cart/_components/CartEmptyState.tsx": [
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Typography.tsx"
@@ -73,7 +80,7 @@
     "src/app/cart/cart-preview.ts": ["src/mocks/products.ts"],
     "src/app/cart/page.tsx": ["src/app/cart/_components/CartContent.tsx"],
     "src/app/cart/preview-empty/page.tsx": [
-      "src/app/cart/_components/CartEmptyState.tsx",
+      "src/app/cart/_components/CartEmptyContent.tsx",
       "src/components/common/molecules/ContentHeader.tsx",
       "src/components/orders/OrderPageLayout.tsx"
     ],

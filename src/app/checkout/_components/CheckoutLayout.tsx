@@ -26,8 +26,9 @@ export function CheckoutLayout({
           />
         )
       }
-      maxWidth={completed ? 'none' : undefined}
+      maxWidth={completed ? 'none' : '1204px'}
       paddingX={completed ? { base: '72px', _mobile: '16px' } : undefined}
+      paddingTop={completed ? { base: '160px', _mobile: '64px' } : undefined}
     >
       {children}
     </OrderPageLayout>

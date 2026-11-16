@@ -1804,7 +1804,10 @@ PC 1920px·MO 375px에서 일반·임직원 목록, 상세 직접 진입, 확인
 
 2026-11-11 IA 런칭캘린더 In-stock 목록(eland_hla_04, IA162)은 사용자 지정 삭제 / 제외 항목이다. 기존 삭제 판정에 따라 페이지와 STATE 링크를 표시하지 않는다. 출처: screenRegistry.ts 작업 트리.
 
-
 ## 2026-11-11 main 보고 실행
 
 지정 병합 커밋 781c2adb를 포함하는 첫 부모 d7f8ae16부터 origin/main 7359b590까지의 최종 변경을 보고서 모달에 추가했다. 105개 최종 변경 파일 중 Markdown·가이드·IA 자체·실적 0% 전용 66개를 제외한 39개를 담았다. 새 Schedule의 FO 실적 85개 중 유효 IA 매핑 46개를 저장 스냅샷과 비교해 변경·누락 0건을 확인했다. 미등록 사이즈가이드는 0%로 간주하지 않고 미지정으로 보존했다. 출처: `src/app/screen-index/screenChangeHistory.generated.json` 작업 트리 및 [공유 보고서](../../reports/main-changes/inclusive-d7f8ae16c37cb0175142c9b808bdcba7932fc9ea-7359b590ad2cfce460850ee69095f99135d3b619.md). 보고서 테스트 11개와 로컬 전체/담당자 모달을 확인했다.
+
+## 장바구니·주문 화면 시안 갱신 경로 (2026-11-16)
+
+기본 경로 `/cart`, `/checkout`, `/mypage/orders`와 기존 직접 확인 경로 `/cart/preview-empty`, `/checkout/preview-empty`, `/checkout/preview-complete`, `/checkout/preview-shipping`, `/checkout/preview-delivery-request`, `/mypage/orders/preview-empty`, `/mypage/orders/preview-tracking`를 유지했다. 새 빈 장바구니 표시와 추천 상품은 `/cart/preview-empty`에서 직접 확인하며, 새로고침·주소 직접 입력에도 같은 fixture를 표시한다. screen-index의 기존 IA 연결과 생성 의존 그래프는 이 경로 구성을 반영한다. 서비스 조회·결제·배송 추적 요청은 구현하지 않았다.
