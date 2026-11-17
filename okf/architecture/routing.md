@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-17T02:01:27.580754+00:00'
+updated: '2026-11-17T03:34:46.347025+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -1959,3 +1959,15 @@ ProfileContent의 비밀번호 설정 모달에서 안내문 padding-top8px를 �
 ## 주문 상품 조회 orderLookup 연결 (2026-11-17)
 
 /support/inquiries/new/order-products와 preview-empty/preview-custom의 기존 직접 진입 경로는 유지하고 IA 모달 유형만 orderLookup으로 갱신했다. 가이드에 전용 유형과 모바일 전체화면을 추가하고 selection의 사용 설명에서 주문 상품 조회를 분리했다. 모달 타입은11개이며 주문 조회는 기존 선택·기간·다중 상품 선택·onSelect·onClose·finalFocus 소유자를 유지한다. API 조회·요청·저장·완료 흐름은 추가하지 않았다. 작업 트리 출처: src/app/screen-index/screenConnections.ts, src/app/screen-index/sourceGraph.generated.json, src/app/support/inquiries/new/order-products/_components/InquiryOrderLookup.tsx, src/app/publishing-guide/_components/ModalGuide.tsx.
+
+## 주문 조회 상품 수 표시 (2026-11-17)
+
+주문 상품 조회는 상품 수 숫자를 기존 countNumber 슬롯으로 분리한다. 경로·선택 상태·조회 및 제출 계약은 유지하며 PC HOKA 16px/700, 모바일 Pretendard 14px/400을 적용한다. 1764px와 375px에서 계산 스타일을 확인했다.
+
+## 공통 날짜 범위 입력 (2026-11-17)
+
+주문/배송조회의 날짜 입력을 DateRangeSearch로 추출해 주문 상품 조회 직접설정에도 적용했다. Panda 컴포넌트, 130×36px 둥근 입력, 점 구분 날짜 표시·숫자 편집·네이티브 달력을 유지한다. 조회 버튼은 날짜 입력 컴포넌트에서 분리하고 각 화면 소유자가 배치한다. 문의 화면은 오른쪽에 조회 링크를 표시한다. 날짜 초안과 오류는 호출자가 소유하며 날짜 변경 콜백만 전달한다. 실제 요청은 이 공통 컴포넌트가 실행하지 않는다. 주문 화면의 조회 링크는 기존 onDateSearch를 호출하며 문의 미리보기의 조회 링크는 요청을 실행하지 않는다.
+
+1764px·375px 두 화면에서 숫자 입력의 점 구분 표시, 달력 입력 존재, 입력 크기와 문서 가로 넘침 없음을 확인했다.
+
+날짜 입력의 내부 여백은 좌측 12px·우측 36px, 달력은 우측 12px로 보정했다. 기존 72px 글자 공간보다 넓은 HOKA 날짜 문자열이 잘리던 문제를 80px 글자 공간으로 해소한다.

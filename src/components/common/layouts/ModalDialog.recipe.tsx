@@ -408,8 +408,6 @@ export const modalOrderLookupContentRecipe = sva({
     'filters',
     'tabs',
     'tab',
-    'dateRange',
-    'dateInput',
     'results',
     'count',
     'countNumber',
@@ -466,8 +464,6 @@ export const modalOrderLookupContentRecipe = sva({
       h: '37px!',
       '& span': { fontSize: '14px!', fontWeight: '400', lineHeight: '1.3' },
     },
-    dateRange: { alignItems: 'center', gap: '8px', flexWrap: 'wrap' },
-    dateInput: { h: '40px', border: '1px solid token(colors.black.40)', px: '8px' },
     results: { gap: '8px' },
     count: {
       justifyContent: 'flex-end',
@@ -527,7 +523,17 @@ export const modalOrderLookupContentRecipe = sva({
         _mobile: { fontSize: '14px' },
       },
     },
-    orderNumber: { '&&': { fontSize: '14px', color: '#777777', lineHeight: '1.5!' } },
+    orderNumber: {
+      '&&': {
+        fontFamily: 'hoka',
+        fontStyle: 'normal',
+        fontWeight: '400',
+        fontSize: '14px',
+        color: '#777777',
+        lineHeight: '1.5!',
+        _mobile: { fontFamily: 'korean', fontWeight: '400' },
+      },
+    },
     items: {
       gap: '16px',
       py: '24px',

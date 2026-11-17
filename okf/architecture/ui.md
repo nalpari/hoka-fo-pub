@@ -4,12 +4,13 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-17T02:09:09.624952+00:00'
+updated: '2026-11-17T03:34:46.331142+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/components/common/molecules/DateRangeSearch.tsx
   - src/app/checkout/_components/CheckoutPayment.tsx
   - src/components/common/atoms/NumberStepper.tsx
   - src/app/checkout/_components/CheckoutSummary.tsx
@@ -5216,3 +5217,21 @@ AGENTS.md에 스타일 추출만을 이유로 기존 Panda 레이아웃 컴포�
 추가 PC 안내문 검수(Codex, 2026-11-17): 1764×1251에서 첫 문구 Pretendard16px/400/24px·검정·자간-0.32px, 보조 문구14px/400/21px·#777·자간-0.28px·normal을 실측했다. 모바일375px는 기존14px/21px와12px/18px를 유지한다. 두 슬롯에 굵기·자간·normal을 명시했다.
 
 총 건수 숫자는 독립 countNumber 슬롯으로 분리했다. PC1764×1251에서 기존 영문 커스텀 face·16px·700·24px·검정을 실측했고 글리프2개가 커스텀 face로 렌더링됨을 확인했다. 총/건 한글과 모바일14px·400·21px 표기는 유지한다.
+
+## 주문 조회 숫자와 공통 더보기 글꼴 보정 (2026-11-17)
+
+주문 상품 수의 숫자는 PC에서 HOKA 16px/700/24px, 주문번호 행은 HOKA 14px/400/21px와 #777777로 표시한다. 모바일은 기존 Pretendard 14px/400/21px를 유지한다. 공통 Button의 기본 counter 더보기 라벨은 PC에서 16px/700/130%로 표시하며 숫자는 HOKA 16px/130%와 부모 굵기 상속을 사용한다. 모바일과 명시적인 labelProps/counterProps는 유지한다. 스타일 정리 시 기존 Panda 컴포넌트를 보존했다.
+
+1764px·375px 브라우저 계산 스타일과 쿠폰 목록의 공통 더보기 적용을 확인했다. 대상 ESLint와 TypeScript 검사를 통과했다.
+
+## 공통 날짜 범위 입력 (2026-11-17)
+
+주문/배송조회의 날짜 입력을 DateRangeSearch로 추출해 주문 상품 조회 직접설정에도 적용했다. Panda 컴포넌트, 130×36px 둥근 입력, 점 구분 날짜 표시·숫자 편집·네이티브 달력을 유지한다. 조회 버튼은 날짜 입력 컴포넌트에서 분리하고 각 화면 소유자가 배치한다. 문의 화면은 오른쪽에 조회 링크를 표시한다. 날짜 초안과 오류는 호출자가 소유하며 날짜 변경 콜백만 전달한다. 실제 요청은 이 공통 컴포넌트가 실행하지 않는다. 주문 화면의 조회 링크는 기존 onDateSearch를 호출하며 문의 미리보기의 조회 링크는 요청을 실행하지 않는다.
+
+1764px·375px 두 화면에서 숫자 입력의 점 구분 표시, 달력 입력 존재, 입력 크기와 문서 가로 넘침 없음을 확인했다.
+
+날짜 입력의 내부 여백은 좌측 12px·우측 36px, 달력은 우측 12px로 보정했다. 기존 72px 글자 공간보다 넓은 HOKA 날짜 문자열이 잘리던 문제를 80px 글자 공간으로 해소한다.
+
+## 더보기 숫자 굵기 상속 (2026-11-17)
+
+공통 counter 더보기 숫자는 Typography weight="inherit"로 부모 버튼의 굵기를 따른다. HOKA 글꼴과 크기·줄높이는 유지하며 PC 숫자에 별도의 700을 강제하지 않는다.

@@ -12,6 +12,7 @@ import { Icon } from '@/components/common/atoms/Icon';
 import { Radio } from '@/components/common/atoms/Radio';
 import { Typography } from '@/components/common/atoms/Typography';
 
+import { DateRangeSearch } from '@/components/common/molecules/DateRangeSearch';
 import { OrderProductSummary } from '@/components/common/molecules/OrderProductSummary';
 
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
@@ -135,23 +136,15 @@ export function InquiryOrderLookup({
             itemClassName={() => classes.tab}
           />
           {period === 'custom' && (
-            <Flex css={styles.dateRange}>
-              <input
-                aria-label="조회 시작일"
-                type="date"
-                value={dateFrom}
-                onChange={(event) => setDateFrom(event.target.value)}
-                className={classes.dateInput}
+            <Flex alignItems="center" justifyContent="space-between" gap="16px">
+              <DateRangeSearch
+                dates={{ start: dateFrom, end: dateTo }}
+                onDateChange={(key, value) => {
+                  if (key === 'start') setDateFrom(value);
+                  else setDateTo(value);
+                }}
               />
-              <span>~</span>
-              <input
-                aria-label="조회 종료일"
-                type="date"
-                value={dateTo}
-                onChange={(event) => setDateTo(event.target.value)}
-                className={classes.dateInput}
-              />
-              <Button size="short" variant="secondary">
+              <Button variant="link" size="md">
                 조회
               </Button>
             </Flex>
@@ -218,7 +211,10 @@ export function InquiryOrderLookup({
                     {isExpanded && (
                       <Stack css={styles.items}>
                         <Typography variant="body5" className={classes.itemCount}>
-                          {order.products.length}개 상품
+                          <Typography variant="body3" language="en" className={classes.countNumber}>
+                            {order.products.length}
+                          </Typography>
+                          개 상품
                         </Typography>
                         {order.products.map((item) => (
                           <Flex key={item.id} css={styles.product}>
