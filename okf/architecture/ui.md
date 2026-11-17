@@ -5301,3 +5301,9 @@ CheckoutDiscountSummary에서 실 결제금액 최대30% 사용 안내와5,000�
 `src/app/support/store/_components/StoreContent.tsx`의 정적 레이아웃 스타일을 같은 파일 상단 `styles`의 storeList·storeItem·storeDetails·contactDetails·contactRow로 모았다. Stack·HStack·ContentSection과 기존 의미 태그를 유지하며 패턴/기본 gap과의 병합 순서를 보존하도록 css.raw 객체를 css prop에 전달한다. body·phoneLink는 기존 className을 유지한다. 라우트·표시 데이터·전화 링크·영업시간 조건은 변경하지 않았다.
 
 변경 파일 ESLint·Prettier, Panda 생성과 전체 타입 검사를 통과했다. 브라우저에서 375px·1920px 각각 목록 하위 36개 요소의 태그·내용·위치·크기와 display·방향·gap·padding·margin·구분선·font·color를 변경 전후 비교해 동일함을 확인했다.
+
+## 매장 목록 검수 타이포 보정 (2026-11-17)
+
+사용자 브라우저 주석 규격에 따라 StoreContent의 매장명 색상을 #000000으로 명시하고 본문·전화번호·운영시간을 language="ko"로 지정해 숫자도 Pretendard Regular·자간 -0.02em으로 표시한다. body·phoneLink의 색상은 #4D4D4D, 행간은 1.5다. 기존 레이아웃·표시 데이터·전화 링크·영업시간 조건과 경로는 유지한다. 작업 트리 출처: src/app/support/store/_components/StoreContent.tsx.
+
+PC 1305px에서 매장명22px/900/26.4px·자간-0.44px, 본문16px/24px·자간-0.32px와 간격20/12/6px를 확인했다. 모바일375px에서 매장명20px/700/24px·자간-0.4px, 본문14px/21px·자간-0.28px와 간격16/8/4px를 확인했다. 두 플랫폼의 제목색은 검정, 정보색은 rgb(77,77,77)이며 모바일 전화번호 실제 글리프는 Pretendard-Regular다. 변경 파일 ESLint·Prettier, Panda 생성·전체 타입 검사를 통과했다.

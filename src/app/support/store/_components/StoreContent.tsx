@@ -28,9 +28,10 @@ const styles = {
   storeDetails: css.raw({ gap: { base: '3', _mobile: '2' } }),
   contactDetails: css.raw({ gap: { base: '1.5', _mobile: '1' } }),
   contactRow: css.raw({ gap: '2' }),
-  body: css({ '&': { lineHeight: '1.5' } }),
+  storeName: css({ '&': { color: '#000000' } }),
+  body: css({ '&': { lineHeight: '1.5', color: '#4D4D4D' } }),
   phoneLink: css({
-    '&': { lineHeight: '1.5' },
+    '&': { lineHeight: '1.5', color: '#4D4D4D' },
     _mobile: { textDecoration: 'underline', textUnderlineOffset: '2px' },
   }),
 };
@@ -49,21 +50,34 @@ export function StoreResults({ stores }: { stores: readonly StoreResult[] }) {
           title={store.name}
           headerProps={{
             titleAs: 'h3',
-            titleProps: { web: 'headingKr8', mo: 'headingKr6' },
+            titleProps: { web: 'headingKr8', mo: 'headingKr6', className: styles.storeName },
           }}
         >
           <Stack css={styles.storeDetails}>
-            <Typography web="body3" mo="body4" className={styles.body} tone="tertiary">
+            <Typography
+              language="ko"
+              web="body3"
+              mo="body4"
+              className={styles.body}
+              tone="tertiary"
+            >
               {store.address}
             </Typography>
             <Stack css={styles.contactDetails}>
               <HStack css={styles.contactRow}>
-                <Typography web="body3" mo="body4" className={styles.body} tone="tertiary">
+                <Typography
+                  language="ko"
+                  web="body3"
+                  mo="body4"
+                  className={styles.body}
+                  tone="tertiary"
+                >
                   전화번호
                 </Typography>
                 {mobile ? (
                   <Typography
                     as="a"
+                    language="ko"
                     web="body3"
                     mo="body4"
                     href={store.phoneHref}
@@ -72,17 +86,23 @@ export function StoreResults({ stores }: { stores: readonly StoreResult[] }) {
                     {store.phone}
                   </Typography>
                 ) : (
-                  <Typography web="body3" mo="body4" className={styles.body}>
+                  <Typography language="ko" web="body3" mo="body4" className={styles.body}>
                     {store.phone}
                   </Typography>
                 )}
               </HStack>
               {store.hours && (
                 <HStack css={styles.contactRow}>
-                  <Typography web="body3" mo="body4" className={styles.body} tone="tertiary">
+                  <Typography
+                    language="ko"
+                    web="body3"
+                    mo="body4"
+                    className={styles.body}
+                    tone="tertiary"
+                  >
                     운영시간
                   </Typography>
-                  <Typography web="body3" mo="body4" className={styles.body}>
+                  <Typography language="ko" web="body3" mo="body4" className={styles.body}>
                     {store.hours}
                   </Typography>
                 </HStack>

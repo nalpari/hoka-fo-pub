@@ -1,3 +1,8 @@
+## 2026-11-17 매장 목록 브라우저 주석 반영
+
+- 매장명 검정과 정보 전체 Pretendard Regular·자간 -0.02em·#4D4D4D를 적용했다. 기존 간격은 유지했다.
+- PC1305·모바일375 계산 스타일과 전화번호 실제 Regular 글리프 확인, ESLint·Prettier·Panda·타입 검사 통과. 상세: architecture/ui.md, architecture/routing.md.
+
 ## 2026-11-17 매장 목록 스타일 네이밍
 
 - StoreContent의 정적 Panda 스타일을 상단 styles 객체로 모으고 기본 gap 병합을 보존했다.
