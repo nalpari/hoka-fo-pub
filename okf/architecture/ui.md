@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-17T00:33:46.943237+00:00'
+updated: '2026-11-17T00:40:39.339866+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -5164,3 +5164,12 @@ Dropdown 정렬 버튼은 데스크탑 글자 16px·화살표 18px, 모바일 �
 사용자 PC·모바일 검수 의견에 따라 PhoneVerificationContent의 디자인 약관 제목을 Pretendard16px/500/24px, 이전 약관 링크를12px/500/130%·밑줄, 문서 제목을14px/500/21px, 본문을14px/400/21px로 보정했다. 모두 검정과 자간-0.02em을 사용한다. PC 문서 사이 간격은20px이며 모바일24px를 유지한다. 날짜는 기존 PC14px·모바일13px·400·150%·#777과 문서 아래8px를 유지한다. 표시 fixture와 버전 선택 소유권은 그대로다. 작업 트리 출처: src/components/phone-verification/PhoneVerificationContent.tsx.
 
 Codex 검증: 1276×1251 PC, 587×1251·375×812 모바일의 실제 계산 스타일과 캡처를 대조했다. 제목500·본문400, 요청한 줄높이·색상·자간, PC20px·모바일24px·날짜8px를 확인했다. 실제 렌더링 글꼴은 Pretendard Medium/Regular다. 타입 검사와 관련 기존 테스트5개, 변경 파일 ESLint·Prettier를 통과했다.
+
+
+## 중첩 모달 배경과 이전 약관 시트 보정 (2026-11-17)
+
+ModalDialog는 설치된 Base UI의 Backdrop forceRender 옵션을 사용해 중첩 모달에도 배경을 표시한다. 각 portal의 기존 플랫폼 컨테이너에 상대 위치·z-index100을 적용하여 모달 단위 stacking context를 만들고, 내부 backdrop99·viewport100을 유지한다. 뒤에 열린 배경이 부모 팝업 위에 놓인다. 기본50% 배경과 blur48px는 유지한다. 문서형 모달 공통 footer 버튼 글꼴을 PC·모바일700으로 변경했으며 PreviousTermsPicker의 개별 footer 굵기 지정은 사용하지 않는다.
+
+이전 약관 모바일 시트의 본문334px 고정 높이를 제거하고 내용에 맞춰 늘어나며 작은 화면에서는 본문만 줄어들도록 flex0 1 auto를 사용한다. 안내문은 Pretendard16px/500/24px, 날짜는 Pretendard14px/400/21px·자간-0.02em·검정이다. 날짜 표시의 영문 글꼴 기준1px 이동을 제거하여 목록 끝의 미세한 넘침도 해소했다. 선택·확인·닫기 계약과 PC 날짜 목록 표시는 유지한다. 작업 트리 출처: src/components/common/layouts/ModalDialog.tsx, src/components/common/layouts/ModalDialog.recipe.tsx, src/components/common/molecules/PreviousTermsPicker.tsx.
+
+Codex 검증: PC1276×1251·모바일513×1251에서 부모 약관 위50% 배경과 자식 모달, 닫기 후 부모 유지·이전 약관 버튼 포커스를 캡처와 DOM으로 확인했다. 모바일513×1251·375×812에서는 본문 clientHeight/scrollHeight가283/283으로 스크롤이 없고, 375×400에서는168/283으로 필요한 본문 스크롤과 화면 안 footer를 유지했다. 모바일 안내문16/500/24·날짜14/400/21·버튼700, PC 버튼700을 실제 스타일로 확인했다. 변경 파일 ESLint·Prettier, 타입 검사와 모달 타입 계약 테스트를 확인했다.

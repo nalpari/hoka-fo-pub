@@ -62,11 +62,11 @@ const contentModal = {
     '& button > span': { p: '0' },
     '& button > span > span': {
       fontFamily: 'korean',
-      fontWeight: '400',
+      fontWeight: '700',
       fontSize: '16px',
       lineHeight: '1.3',
       letterSpacing: '-0.02em',
-      _mobile: { fontSize: '15px', fontWeight: '400' },
+      _mobile: { fontSize: '15px' },
     },
   },
 } satisfies Record<string, SystemStyleObject>;

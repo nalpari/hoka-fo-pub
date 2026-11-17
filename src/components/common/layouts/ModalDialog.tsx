@@ -4,7 +4,7 @@ import { Dialog } from '@base-ui/react/dialog';
 import { type ComponentProps, type CSSProperties, type ReactNode } from 'react';
 import { usePlatform } from '@/context/platform';
 
-import { cx } from 'styled-system/css';
+import { css, cx } from 'styled-system/css';
 import { type SystemStyleObject } from 'styled-system/types';
 
 import { Button, type ButtonTextProps } from '@/components/common/atoms/Button';
@@ -251,8 +251,8 @@ export function ModalDialog({
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
-        <div className={`platform-${platform}`}>
-          <Dialog.Backdrop className={classes.backdrop} />
+        <div className={cx(`platform-${platform}`, css({ position: 'relative', zIndex: '100' }))}>
+          <Dialog.Backdrop forceRender className={classes.backdrop} />
           <Dialog.Viewport className={classes.viewport}>
             <Dialog.Popup
               finalFocus={finalFocus}

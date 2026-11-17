@@ -61,7 +61,7 @@ export function PreviousTermsPicker({
           onClose();
         }}
         finalFocus={finalFocus}
-        contentClassName={css({ h: '334px' })}
+        contentClassName={css({ flex: '0 1 auto' })}
         footer={
           <Button
             variant="primary"
@@ -77,7 +77,12 @@ export function PreviousTermsPicker({
         }
       >
         <Stack gap="16px">
-          <Typography as="p" variant="body3">
+          <Typography
+            as="p"
+            variant="body3Medium"
+            language="ko"
+            className={css({ lineHeight: '1.5!', color: 'black.100' })}
+          >
             약관 시행일을 선택해주세요
           </Typography>
           <Radio
@@ -86,7 +91,20 @@ export function PreviousTermsPicker({
             value={selectedDate}
             onValueChange={setSelectedDate}
             options={dates.map((date) => ({ value: date, label: label(date) }))}
-            className={css({ gap: '16px' })}
+            className={css({
+              gap: '16px',
+              '& label > span:last-child': {
+                display: 'flex',
+                alignItems: 'center',
+                fontFamily: 'korean',
+                fontSize: '14px',
+                fontWeight: '400',
+                lineHeight: '21px',
+                letterSpacing: '-0.02em',
+                color: 'black.100',
+                transform: 'none',
+              },
+            })}
           />
         </Stack>
       </ModalDialog>
