@@ -2,6 +2,8 @@
 
 import Image from 'next/image';
 
+import { usePlatform } from '@/context/platform';
+
 import { css } from 'styled-system/css';
 import { Box, Stack } from 'styled-system/jsx';
 
@@ -26,11 +28,12 @@ function CheckoutPaymentMethodNotice({ label }: { label: string | undefined }) {
 
 /** 결제 타일의 원본 브랜드 이미지를 표시합니다. (Displays the original payment brand artwork.) */
 function CheckoutPaymentMark({ method }: { method: PaymentMethod }) {
+  const mobile = usePlatform() === 'mobile';
   const height = method === 'toss' ? 30 : method === 'card' ? 18 : 14;
   return (
     <Box h="14px" w="60px" pos="relative" aria-hidden="true">
       <Image
-        src={`/images/checkout/payment-${method}.png`}
+        src={`/images/checkout/payment-${mobile ? 'mobile-' : ''}${method}.png`}
         alt=""
         width={60}
         height={height}
@@ -77,7 +80,7 @@ function CheckoutPaymentMethods({
       className={css({
         gridTemplateColumns: 'repeat(6, minmax(0, 1fr))',
         _mobile: { gridTemplateColumns: 'repeat(3, minmax(0, 1fr))' },
-        gap: '8px!',
+        gap: { base: '8px!', _mobile: '4px!' },
       })}
       optionClassName={css({
         minH: '80px',
@@ -96,12 +99,14 @@ function CheckoutPaymentMethods({
             h="100%"
             alignItems={{ base: 'flex-start', _mobile: 'center' }}
             justifyContent="center"
-            gap="4px"
+            gap={{ base: '4px', _mobile: '10px' }}
             pos="relative"
             pl={{ base: '42px', _mobile: '0' }}
           >
             <CheckoutPaymentMark method={method.value} />
-            <Typography variant="body5">{method.label}</Typography>
+            <Typography web="body5" mo="body4">
+              {method.label}
+            </Typography>
             <Icon
               name={`hoka-radio-${payment === method.value ? 'checked' : 'unchecked'}`}
               size={16}
@@ -131,7 +136,7 @@ export function CheckoutPayment({
   return (
     <ContentSection
       as="section"
-      gap="4"
+      gap={{ base: '16px', _mobile: '12px' }}
       title="결제 정보"
       headerProps={{
         titleAs: 'h2',

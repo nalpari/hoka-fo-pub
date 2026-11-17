@@ -4,12 +4,13 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-16T12:56:30.717659+00:00'
+updated: '2026-11-16T23:52:36.103269+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/app/checkout/_components/CheckoutPayment.tsx
   - src/components/common/atoms/NumberStepper.tsx
   - src/app/checkout/_components/CheckoutSummary.tsx
   - src/app/mypage/orders/_components/OrderTrackingDialog.tsx
@@ -5142,3 +5143,10 @@ Dropdown 정렬 버튼은 데스크탑 글자 16px·화살표 18px, 모바일 �
 - 보유 쿠폰은 PC640px·모바일 하단 시트다. 상품별 펼침·라디오 초안과 disabled 표시, 장바구니 쿠폰 요약을 구성한다. 적용 버튼은 요청하지 않는다. 취소·반품 신청은 PC640px, 이미지96px/모바일64px, 취소 수량·사유·상세 입력과 고정 환불액을 표시한다.
 - 주문/배송 목록은 상태별 버튼과 주문 상품별 상태 그룹을 유지한다. 취소·반품 목록은 상품·주문일자·금액·처리상태4열이며 옵션·수량 열을 숨긴다. OrderHistoryProduct의 `showOptions` 기본값은 true로 기존 소비자를 유지한다.
 - 각 route의 page-private UI, Panda TSX, semantic button/link와 기존 모달 focus/닫기 소유권을 유지했다. API·인증·가격/재고 계산을 추가하지 않았다. `[ 개발팀 바인딩 ]` 주석은 표시 모델·초안·식별자와 향후 연결 소유자를 구분한다.
+
+## 모바일 결제 수단 중앙 정렬 (2026-11-17)
+
+- 출처: [HOKA 화면 디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql)의 모바일 결제 정보 영역. 기존 PC용 PNG는 60px 프레임 안의 그림이 왼쪽에 있어 프레임만 가운데 정렬해도 로고의 시각 중심이 어긋났다.
+- CheckoutPaymentMark는 모바일에서만 원본의 중앙 정렬된 `payment-mobile-*.png`6개를 사용한다. 로고 프레임60×14px, 타일 높이110px, 내부 간격10px, 레이블14px, 3열2행의 타일 간격4px·영역 간격12px을 적용했다. PC는 기존 자산·간격8px·6열을 유지한다.
+- 375px 및707px 모바일,1920px PC를 실제 캡처하고 로고 프레임·문구·라디오의 수평 중심과 위치를 비교했다. 브라우저의 세로 스크롤바15px은 시안 폭과 별도로 구분했다. 모바일6개 이미지의 로드, 실제 글리프 Pretendard-Regular, 네이버페이 선택 후 단일 선택 상태를 확인했다.
+- 최종 hoka-markup-handoff 검수에서 기존 route-private 소유권·Panda 스타일·공통 Radio와 선택 콜백·PC 기본값을 유지함을 확인했다. 타입 검사와 변경 파일 ESLint·Prettier, Panda 생성, 폼·상태 링크 관련62개 검사가 통과했다. 공통 플랫폼·서비스 요청은 변경하지 않았다.
