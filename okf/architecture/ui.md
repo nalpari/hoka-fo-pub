@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-17T03:54:09.762982+00:00'
+updated: '2026-11-17T03:58:43.861757+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -5239,4 +5239,4 @@ AGENTS.md에 스타일 추출만을 이유로 기존 Panda 레이아웃 컴포�
 
 ## 쿠폰 조회와 취소 반품 전용 모달 (2026-11-17)
 
-보유 쿠폰 조회는 couponLookup, 주문 취소 신청은 orderCancelRequest, 환불(반품) 신청은 orderReturnRequest를 사용한다. 공통 selection/form의 기본 호출자는 유지한다. 기존 모달 외형과 버튼 너비를 ModalDialog.recipe.tsx로 옮겼다. 쿠폰 버튼 PC238×48px, 취소·반품 버튼 PC160×48px이며 모바일은343×42px(375px 화면)이다. PC640px 너비·10px 모서리와 모바일 하단 시트24px 모서리, 본문 PC32px/MO16px 여백을 보존한다. 취소·반품은 같은 orderClaimModal 스타일 객체를 사용하고 의미별 variant를 유지한다. 기존 Panda 컴포넌트·상태·fixture·요청 미연결 계약은 그대로다.
+보유 쿠폰 조회·주문 취소 신청·환불(반품) 신청은 모두 productSelection 하나를 사용한다. 공통 selection/form의 기본 호출자는 유지한다. 기존 모달 외형과 버튼 너비를 ModalDialog.recipe.tsx로 옮겼다. 쿠폰 버튼 PC238×48px, 취소·반품 버튼 PC160×48px이며 모바일은343×42px(375px 화면)이다. PC640px 너비·10px 모서리와 모바일 하단 시트24px 모서리, 본문 PC32px/MO16px 여백을 보존한다. 세 팝업은 productSelectionModal 스타일 객체를 공유하고 쿠폰의 PC 버튼 너비만 --modal-product-button-width로 지정한다. 기존 Panda 컴포넌트·상태·fixture·요청 미연결 계약은 그대로다.

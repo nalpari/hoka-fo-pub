@@ -1,3 +1,7 @@
+## 2026-11-17 상품 선택 입력 모달 통합
+
+- 사용자 의도에 맞춰 쿠폰 조회·주문 취소·환불(반품)을 productSelection 단일 variant로 통합했다. 기존 세 variant는 제거하고 가이드·IA·12유형 계약을 갱신했다. PC 버튼 너비 차이는 쿠폰 화면의 CSS 변수로 전달한다.
+
 ## 2026-11-17 쿠폰 조회와 취소 반품 전용 모달
 
 - couponLookup·orderCancelRequest·orderReturnRequest를 추가하고 기존 개별 모달 스타일을 recipe로 옮겼다. IA·가이드·타입 계약과 직접 관련 UI·경로·검증 문서를 갱신했다. PC/MO 6개 상태의 외형 일치와 대상 lint·타입·Panda·모달 계약 검사를 확인했다.

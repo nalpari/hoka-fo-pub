@@ -60,19 +60,9 @@ const variantExamples: { variant: ModalDialogVariant; title: string; usage: stri
     usage: '문의 대상 주문과 상품 선택 전용',
   },
   {
-    variant: 'couponLookup',
-    title: '보유 쿠폰 조회 · couponLookup',
-    usage: '상품·장바구니 쿠폰 선택 전용',
-  },
-  {
-    variant: 'orderCancelRequest',
-    title: '주문 취소 신청 · orderCancelRequest',
-    usage: '선택 상품의 취소 신청 전용',
-  },
-  {
-    variant: 'orderReturnRequest',
-    title: '환불(반품) 신청 · orderReturnRequest',
-    usage: '선택 상품의 환불·반품 신청 전용',
+    variant: 'productSelection',
+    title: '상품 선택 입력 · productSelection',
+    usage: '보유 쿠폰 조회·주문 취소·환불(반품) 신청 공통',
   },
   { variant: 'tracking', title: '배송조회 · tracking', usage: '배송 정보와 이력' },
   { variant: 'detail', title: '상세 정보 · detail', usage: '쿠폰·사업자 등 상세 정보' },
@@ -94,29 +84,13 @@ const groups: { id: string; title: string; description: string; items: ModalExam
       desktop: variant === 'sizeGuide' ? '최대 너비 768px' : '최대 너비 640px',
       mobile: ['terms', 'form', 'orderLookup'].includes(variant)
         ? '전체화면'
-        : [
-              'tracking',
-              'selection',
-              'image',
-              'sizeGuide',
-              'couponLookup',
-              'orderCancelRequest',
-              'orderReturnRequest',
-            ].includes(variant)
+        : ['tracking', 'selection', 'image', 'sizeGuide', 'productSelection'].includes(variant)
           ? '하단 시트'
           : '중앙 팝업',
       options: {
         mobilePresentation: ['terms', 'form', 'orderLookup'].includes(variant)
           ? 'fullscreen'
-          : [
-                'tracking',
-                'selection',
-                'image',
-                'sizeGuide',
-                'couponLookup',
-                'orderCancelRequest',
-                'orderReturnRequest',
-              ].includes(variant)
+          : ['tracking', 'selection', 'image', 'sizeGuide', 'productSelection'].includes(variant)
             ? 'bottomSheet'
             : 'popup',
         mobileFixedFooter: variant !== 'orderLookup',

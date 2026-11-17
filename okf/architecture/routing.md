@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-17T03:54:09.779103+00:00'
+updated: '2026-11-17T03:58:43.881139+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -1974,4 +1974,4 @@ ProfileContent의 비밀번호 설정 모달에서 안내문 padding-top8px를 �
 
 ## 쿠폰 조회와 취소 반품 유형 연결 (2026-11-17)
 
-/checkout/preview-coupons, /mypage/orders/preview-cancel-request, /mypage/orders/preview-return-request의 경로와 직접 진입 상태는 그대로 유지한다. IA 표시와 모달 가이드에 각각 couponLookup·orderCancelRequest·orderReturnRequest를 연결했다. 모달 variant는14개다.
+/checkout/preview-coupons, /mypage/orders/preview-cancel-request, /mypage/orders/preview-return-request의 경로와 직접 진입 상태는 그대로 유지한다. IA 표시와 모달 가이드에 모두 productSelection을 연결했다. 모달 variant는12개다.

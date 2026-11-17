@@ -197,7 +197,7 @@ export function OrderClaimRequest({
 
   return (
     <ModalDialog
-      variant={returning ? 'orderReturnRequest' : 'orderCancelRequest'}
+      variant="productSelection"
       open
       onOpenChange={(open) => !open && onClose()}
       title={title}

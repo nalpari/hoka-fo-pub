@@ -71,14 +71,14 @@ const contentModal = {
   },
 } satisfies Record<string, SystemStyleObject>;
 
-const orderClaimModal = {
+const productSelectionModal = {
   ...contentModal,
   footer: {
     ...contentModal.footer,
     '& button': {
       ...contentModal.footer['& button'],
-      w: '160px',
-      maxW: '160px',
+      w: 'var(--modal-product-button-width, 160px)',
+      maxW: 'var(--modal-product-button-width, 160px)',
     },
   },
 } satisfies Record<string, SystemStyleObject>;
@@ -699,16 +699,7 @@ export const modalDialogRecipe = sva({
       terms: contentModal,
       form: contentModal,
       selection: contentModal,
-      couponLookup: {
-        ...contentModal,
-        popup: { w: '640px', maxW: 'calc(100vw - 32px)', _mobile: { w: '100%', maxW: '100%' } },
-        footer: {
-          ...contentModal.footer,
-          '& button': { ...contentModal.footer['& button'], w: '238px', maxW: '238px' },
-        },
-      },
-      orderCancelRequest: orderClaimModal,
-      orderReturnRequest: orderClaimModal,
+      productSelection: productSelectionModal,
       orderLookup: {
         ...contentModal,
         backdrop: { bg: 'color-mix(in srgb, var(--color-black-100) 40%, transparent)' },
@@ -985,16 +976,7 @@ export const modalDialogRecipe = sva({
       },
     },
     {
-      variant: [
-        'terms',
-        'selection',
-        'form',
-        'tracking',
-        'detail',
-        'couponLookup',
-        'orderCancelRequest',
-        'orderReturnRequest',
-      ],
+      variant: ['terms', 'selection', 'form', 'tracking', 'detail', 'productSelection'],
       hasFooter: true,
       css: {
         content: { pb: '0', _mobile: { pb: '0' } },
@@ -1002,16 +984,7 @@ export const modalDialogRecipe = sva({
       },
     },
     {
-      variant: [
-        'terms',
-        'selection',
-        'form',
-        'tracking',
-        'detail',
-        'couponLookup',
-        'orderCancelRequest',
-        'orderReturnRequest',
-      ],
+      variant: ['terms', 'selection', 'form', 'tracking', 'detail', 'productSelection'],
       inContent: true,
       css: {
         content: { _mobile: { pb: '24px' } },
@@ -1034,16 +1007,7 @@ export const modalDialogRecipe = sva({
       css: { content: { p: '24px 16px', _mobile: { p: '24px 16px' } } },
     },
     {
-      variant: [
-        'terms',
-        'selection',
-        'form',
-        'tracking',
-        'detail',
-        'couponLookup',
-        'orderCancelRequest',
-        'orderReturnRequest',
-      ],
+      variant: ['terms', 'selection', 'form', 'tracking', 'detail', 'productSelection'],
       sheet: true,
       css: {
         content: { p: '0px 16px 32px', _mobile: { p: '0px 16px 32px' } },
@@ -1051,16 +1015,7 @@ export const modalDialogRecipe = sva({
       },
     },
     {
-      variant: [
-        'terms',
-        'selection',
-        'form',
-        'tracking',
-        'detail',
-        'couponLookup',
-        'orderCancelRequest',
-        'orderReturnRequest',
-      ],
+      variant: ['terms', 'selection', 'form', 'tracking', 'detail', 'productSelection'],
       sheet: true,
       hasFooter: true,
       css: { content: { pb: '0', _mobile: { pb: '0' } } },

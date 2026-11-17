@@ -17,6 +17,10 @@ import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
 import { checkoutCouponGroups } from '@/app/checkout/checkout-coupons';
 
+const styles = {
+  footer: css({ '--modal-product-button-width': '238px' }),
+};
+
 /** 상품별 쿠폰 초안과 고정 할인 내역을 표시합니다. (Displays per-product coupon drafts and prepared discount totals.) */
 export function CheckoutCouponDialog({ onClose }: { onClose: () => void }) {
   const [expanded, setExpanded] = useState<string[]>(['coupon-product-1', 'cart']);
@@ -30,13 +34,14 @@ export function CheckoutCouponDialog({ onClose }: { onClose: () => void }) {
   // [ 개발팀 바인딩 ] 상품별 사용 가능 개수·옵션·할인금액은 고정 fixture입니다. 펼침·라디오 초안만 변경합니다. 실제 주문 연결 소유자가 상품/쿠폰 ID별 선택 payload, 적용 요청의 pending·실패 초안 유지·재시도·성공 후 견적 갱신과 닫기를 담당하며 현재 적용 버튼은 요청하지 않습니다.
   return (
     <ModalDialog
-      variant="couponLookup"
+      variant="productSelection"
       open
       onOpenChange={(open) => !open && onClose()}
       title="보유 쿠폰 조회"
       closeLabel="보유 쿠폰 조회 닫기"
       mobilePresentation="bottomSheet"
       blurBackdrop={false}
+      footerProps={{ className: styles.footer }}
       footer={
         <Button variant="primary" size="tall">
           쿠폰 적용하기
