@@ -2014,3 +2014,11 @@ CheckoutDiscountSummary의 마일리지 안내 두 문구 삭제를 검토했다
 검토 범위는 CheckoutForm·CheckoutShipping·CheckoutCouponDialog와 기존 /checkout, /checkout/preview-coupons, /checkout/preview-delivery-request다. 경로·IA 연결·라우터 상태·플랫폼 판별에는 영향이 없다. 기본 배송 요청 seed만 door로 변경하고 custom 직접 입력 seed는 유지한다.
 
 출처: 사용자 첨부 Slack 대화·화면과 위 working_tree_sources의 checkout 소스. 기록: codex/gpt-6, 2026-11-17T07:38:24Z. 기존 generated·source_revision·draft 및 과거 검증 이력은 보존한다.
+
+## 매장 찾기 지역 탭 제외 (2026-11-17)
+
+`/support/store` 경로와 기존 IA 연결을 유지한다. 사용자 최종 요청에 따라 지역 탭 및 tab 쿼리 연결을 추가하지 않고 준비된 세 매장 목록을 표시한다. page는 라우트 구성, `_components/StoreContent.tsx`는 목록 UI, `store.data.ts`는 표시 fixture를 소유한다. API·지도·길 찾기는 연결하지 않는다. 1920px·375px 직접 진입에서 탭 없는 목록을 확인했다. 상세 규격과 검증 범위는 [목록 시안 보정](ui.md#매장-찾기-목록-시안-보정-2026-11-17)을 따른다.
+
+## 매장 찾기 표기 통일 (2026-11-17)
+
+/support/store의 PC·모바일 제목과 breadcrumb를 `매장 찾기`로 통일해 기존 고객센터 내비게이션과 일치시켰다. 제목 분기에만 쓰던 usePlatform 호출을 제거했으며 경로·목록·반응형 스타일은 유지한다. 작업 트리 출처: src/app/support/store/page.tsx. 기록: codex/gpt-6, 2026-11-17T07:58:26.211800+00:00.
