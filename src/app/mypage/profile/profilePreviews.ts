@@ -35,6 +35,11 @@ export const profilePreviews = [
     state: 'input',
   },
   {
+    href: '/mypage/profile/preview-password-error',
+    label: '비밀번호 입력 오류',
+    state: 'error',
+  },
+  {
     href: '/mypage/profile/preview-password-confirm',
     label: '비밀번호 변경 확인',
     state: 'confirm',

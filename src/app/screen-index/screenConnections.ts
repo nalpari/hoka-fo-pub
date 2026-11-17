@@ -381,6 +381,7 @@ const connections: Record<number, ScreenConnection> = {
       { label: '탈퇴 완료', href: '/mypage/profile/preview-withdraw-complete' },
       { label: '수정 취소 확인', href: '/mypage/profile/preview-cancel' },
       { label: '비밀번호 입력', href: '/mypage/profile/preview-password' },
+      { label: '비밀번호 입력 오류', href: '/mypage/profile/preview-password-error' },
       { label: '비밀번호 변경 확인', href: '/mypage/profile/preview-password-confirm' },
     ],
     sourceFiles: [
@@ -911,6 +912,7 @@ const stateModalVariants: Readonly<Record<string, readonly ModalDialogVariant[]>
   // ProfileContent and ProfileStatePreview select distinct variants for each step.
   '/mypage/profile/preview-expired': ['alert'],
   '/mypage/profile/preview-password': ['form'],
+  '/mypage/profile/preview-password-error': ['form'],
   '/mypage/profile/preview-password-confirm': ['confirm'],
   '/mypage/profile/preview-password-complete': ['alert'],
   '/mypage/profile/preview-save': ['confirm'],

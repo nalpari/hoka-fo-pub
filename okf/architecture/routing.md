@@ -1932,3 +1932,15 @@ IA159 런칭캘린더에 입고 알림 신청 직접 URL /launch-calendar/clifto
 ## 쿠폰 상세 글꼴 변경의 라우팅 검토 (2026-11-17)
 
 작업 트리 출처 src/app/mypage/coupons/_components/CouponManagement.tsx의 상세 글꼴·색상과 className 선언 위치를 검토했다. /mypage/coupons/preview-detail 직접 진입, 모달 열림과 닫기 소유권, 쿠폰 데이터·조회 계약 및 기존 import 경로에는 변경이 없다. PC1176·모바일513px 직접 진입과 캡처를 확인했다.
+
+
+## 비밀번호 설정 안내 간격 보정 (2026-11-17)
+
+ProfileContent의 비밀번호 설정 모달에서 안내문 padding-top8px를 제거하고 공통 FormField의 gap8px를 사용한다. 안내문 Typography의1px 이동도 해당 사용처에서 해제하여 입력 상자와 안내문 실제 간격이8px가 되도록 했다. 입력·확인·닫기와 고정 상태 URL 계약은 유지한다. 작업 트리 출처: src/app/mypage/profile/_components/ProfileContent.tsx. Codex가 /mypage/profile/preview-password의 PC1068×1251·모바일506×1251에서 실제 bounding rect 간격8px·안내문 padding-top0과 캡처를 확인했다.
+
+
+## 비밀번호 입력 오류 고정 상태 (2026-11-17)
+
+/mypage/profile/preview-password-error를 profilePreviews와 기존 동적 preview 라우트에 추가하고 IA 회원정보 관리 하위에 비밀번호 입력 오류·form 모달로 연결했다. ProfileStatePreview의 passwordState='error'가 기존 ProfilePasswordDialog를 열며 새 화면 래퍼를 만들지 않는다. 생성된 화면 소스 목록을 동기화했다. 작업 트리 출처: src/app/mypage/profile/profilePreviews.ts, src/app/mypage/profile/[preview]/page.tsx, src/app/mypage/profile/_components/ProfileStatePreview.tsx, src/app/mypage/profile/_components/ProfileContent.tsx, src/app/screen-index/screenConnections.ts, src/app/screen-index/sourceGraph.generated.json.
+
+사용자가 제공한 오류 화면 이미지를 기준으로 두 필드 오류를 고정 표시하며 서비스 검증·요청·저장·성공 이동은 구현하지 않는다. Codex가 PC1176×1251·모바일375×812에서 직접 진입·두 오류 문구·aria-invalid=true와 닫기를 확인했다.

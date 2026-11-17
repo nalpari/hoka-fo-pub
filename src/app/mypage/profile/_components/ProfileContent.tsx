@@ -1,5 +1,6 @@
 'use client';
 import { type FormEvent, useRef, useState } from 'react';
+import { usePlatform } from '@/context/platform';
 
 import { css } from 'styled-system/css';
 import { Grid, Stack } from 'styled-system/jsx';
@@ -29,6 +30,33 @@ import {
 import { MyPageFrame } from '@/components/mypage/MyPageFrame';
 import { type Errors, type FieldName } from '@/lib/passwordValidation';
 import { getPhoneDigits } from '@/lib/phoneNumber';
+
+const passwordDialogStyles = {
+  errorContent: css({
+    flex: '0 1 auto!',
+    '& .form-field__message': { transform: 'none' },
+    _mobile: { pb: '2px!' },
+  }),
+  errorFooter: css({
+    _mobile: { borderTop: '1px solid #E9EAEB', mt: '28px', pt: '16px', pb: '32px' },
+  }),
+  hint: css({
+    transform: 'none',
+    _mobile: {
+      '&&': {
+        fontFamily: 'korean',
+        fontStyle: 'normal',
+        fontWeight: '400',
+        lineHeight: '18px',
+        letterSpacing: '-0.02em',
+        color: 'black.100',
+        display: 'flex',
+        alignItems: 'center',
+      },
+    },
+  }),
+};
+
 type Props = {
   phone: string;
   error?: string;
@@ -412,79 +440,90 @@ function ProfileReadView({ emailPreference, smsPreference, kakaoPreference }: Pr
 }
 type ProfilePasswordDialogProps = {
   previewComplete?: boolean;
-  previewState?: 'input' | 'confirm' | 'complete';
+  previewState?: 'input' | 'error' | 'confirm' | 'complete';
   onClose: () => void;
 };
 const titles = {
   input: '비밀번호 설정',
+  error: '비밀번호 설정',
   confirm: '비밀번호 변경 확인',
   complete: '비밀번호 변경 완료',
 };
-/** 비밀번호 변경 입력과 완료 상태를 표시합니다. (Displays password editing and completion states.) */
+/** [ 개발팀 바인딩 ] previewState='error'는 고정 오류 문구·테두리를 검수하는 표시 fixture입니다. 입력 초안은 로컬로 유지하며 submit은 요청·검증·저장·성공 전환을 실행하지 않습니다. 실제 비밀번호 변경 요청과 오류 응답 연결은 회원정보 통합 소유자가 담당합니다. */
+/** 비밀번호 변경 입력·오류와 완료 상태를 표시합니다. (Displays password editing, fixed errors and completion states.) */
 export function ProfilePasswordDialog({
   previewComplete = false,
   previewState,
   onClose,
 }: ProfilePasswordDialogProps) {
+  const platform = usePlatform();
   const step = previewState ?? (previewComplete ? 'complete' : 'input');
   const [password, setPassword] = useState('');
   const [confirmation, setConfirmation] = useState('');
-  const errors: Errors = {};
+  const errors: Errors =
+    step === 'error'
+      ? {
+          password: '올바른 비밀번호를 입력해주세요.',
+          confirmation: '비밀번호가 일치하지 않습니다. 다시 확인해주세요.',
+        }
+      : {};
+  const inputStep = step === 'input' || step === 'error';
   const changeField = (field: FieldName, value: string) =>
     field === 'password' ? setPassword(value) : setConfirmation(value);
-  const content =
-    step === 'input'
-      ? {
-          variant: 'form' as const,
-          children: (
-            <form
-              id="profile-password-form"
-              noValidate
-              onSubmit={(event) => event.preventDefault()}
-            >
-              <Stack gap="16px">
-                <TextFormField
-                  id="profile-new-password"
-                  label="비밀번호"
-                  required
-                  variant="boxed"
-                  error={errors.password}
-                  hint="연속적인 숫자나 생일, 전화번호등 추측하기 쉬운 개인정보 및 아이디와 비슷한 전화번호 사용을 피하시기 바랍니다. 비밀번호는 특수기호를 포함한 3가지 이상을 혼합하여 입력하세요."
-                  hintProps={{ variant: 'body4', className: css({ pt: '8px' }) }}
-                  inputProps={{
-                    placeholder: '비밀번호를 입력해 주세요',
-                    type: 'password',
-                    autoComplete: 'new-password',
-                    value: password,
-                    onChange: (event) => changeField('password', event.target.value),
-                  }}
-                />
-                <TextFormField
-                  id="profile-password-confirmation"
-                  label="비밀번호 재입력"
-                  required
-                  variant="boxed"
-                  error={errors.confirmation}
-                  inputProps={{
-                    type: 'password',
-                    autoComplete: 'new-password',
-                    placeholder: '비밀번호를 다시 입력해 주세요',
-                    value: confirmation,
-                    onChange: (event) => changeField('confirmation', event.target.value),
-                  }}
-                />
-              </Stack>
-            </form>
-          ),
-        }
-      : {
-          variant: step === 'confirm' ? ('confirm' as const) : ('alert' as const),
-          message: (
-            <span role="status">
-              {step === 'confirm' ? '비밀번호를 변경하시겠습니까?' : '비밀번호가 변경되었습니다.'}
-            </span>
-          ),
-        };
+  const content = inputStep
+    ? {
+        variant: 'form' as const,
+        children: (
+          <form id="profile-password-form" noValidate onSubmit={(event) => event.preventDefault()}>
+            <Stack gap="16px">
+              <TextFormField
+                id="profile-new-password"
+                label="비밀번호"
+                required
+                variant="boxed"
+                error={errors.password}
+                hint="연속적인 숫자나 생일, 전화번호등 추측하기 쉬운 개인정보 및 아이디와 비슷한 전화번호 사용을 피하시기 바랍니다. 비밀번호는 특수기호를 포함한 3가지 이상을 혼합하여 입력하세요."
+                hintProps={{
+                  variant: platform === 'mobile' ? 'body5' : 'body4',
+                  className: passwordDialogStyles.hint,
+                }}
+                inputProps={{
+                  placeholder: '비밀번호를 입력해 주세요',
+                  type: 'password',
+                  autoComplete: 'new-password',
+                  value: password,
+                  onChange: (event) => changeField('password', event.target.value),
+                }}
+              />
+              <TextFormField
+                id="profile-password-confirmation"
+                label="비밀번호 재입력"
+                required
+                variant="boxed"
+                error={errors.confirmation}
+                inputProps={{
+                  type: 'password',
+                  autoComplete: 'new-password',
+                  placeholder:
+                    step === 'error'
+                      ? '비밀번호를 재입력해 주세요'
+                      : '비밀번호를 다시 입력해 주세요',
+                  value: confirmation,
+                  onChange: (event) => changeField('confirmation', event.target.value),
+                }}
+              />
+            </Stack>
+          </form>
+        ),
+      }
+    : {
+        variant: step === 'confirm' ? ('confirm' as const) : ('alert' as const),
+        message: (
+          <span role="status">
+            {step === 'confirm' ? '비밀번호를 변경하시겠습니까?' : '비밀번호가 변경되었습니다.'}
+          </span>
+        ),
+      };
   return (
     <ModalDialog
       {...content}
@@ -492,16 +531,20 @@ export function ProfilePasswordDialog({
       onOpenChange={(open) => {
         if (!open) onClose();
       }}
+      mobilePresentation={step === 'error' ? 'bottomSheet' : 'popup'}
+      blurBackdrop={step !== 'error'}
+      contentClassName={step === 'error' ? passwordDialogStyles.errorContent : undefined}
+      footerProps={step === 'error' ? { className: passwordDialogStyles.errorFooter } : undefined}
       title={titles[step]}
       closeLabel="비밀번호 설정 닫기"
 
       actions={{
         kind: 'single',
-        label: step === 'input' ? '비밀번호 설정' : '확인',
-        onConfirm: step === 'input' ? undefined : onClose,
+        label: step === 'error' ? '확인' : inputStep ? '비밀번호 설정' : '확인',
+        onConfirm: inputStep ? undefined : onClose,
         buttonProps: {
-          type: step === 'input' ? 'submit' : 'button',
-          form: step === 'input' ? 'profile-password-form' : undefined,
+          type: inputStep ? 'submit' : 'button',
+          form: inputStep ? 'profile-password-form' : undefined,
           size: 'tall',
           disabled: false,
         },
