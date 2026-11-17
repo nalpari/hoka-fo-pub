@@ -28,7 +28,7 @@ const styles = {
 
 /** 상품별 쿠폰 초안과 고정 할인 내역을 표시합니다. (Displays per-product coupon drafts and prepared discount totals.) */
 export function CheckoutCouponDialog({ onClose }: { onClose: () => void }) {
-  const [expanded, setExpanded] = useState<string[]>(['coupon-product-1', 'cart']);
+  const [expanded, setExpanded] = useState<string[]>(['coupon-product-1']);
   const [selections, setSelections] = useState<Record<string, string>>({
     'coupon-product-1': 'family-shoes',
   });
@@ -36,7 +36,7 @@ export function CheckoutCouponDialog({ onClose }: { onClose: () => void }) {
     setExpanded((items) =>
       items.includes(id) ? items.filter((item) => item !== id) : [...items, id],
     );
-  // [ 개발팀 바인딩 ] 상품별 사용 가능 개수·옵션·할인금액은 고정 fixture입니다. 펼침·라디오 초안만 변경합니다. 실제 주문 연결 소유자가 상품/쿠폰 ID별 선택 payload, 적용 요청의 pending·실패 초안 유지·재시도·성공 후 견적 갱신과 닫기를 담당하며 현재 적용 버튼은 요청하지 않습니다.
+  // [ 개발팀 바인딩 ] 상품별 사용 가능 개수·옵션·할인금액은 고정 fixture입니다. 상품 쿠폰 펼침·라디오 초안만 변경하며 장바구니 금액 요약은 항상 표시합니다. 실제 주문 연결 소유자가 상품/쿠폰 ID별 선택 payload, 적용 요청의 pending·실패 초안 유지·재시도·성공 후 견적 갱신과 닫기를 담당하며 현재 적용 버튼은 요청하지 않습니다.
   return (
     <ModalDialog
       variant="productSelection"
@@ -124,38 +124,25 @@ export function CheckoutCouponDialog({ onClose }: { onClose: () => void }) {
             ) : null}
           </Stack>
         ))}
-        <Button
-          variant="unstyled"
-          onClick={() => toggle('cart')}
-          aria-expanded={expanded.includes('cart')}
-          className={css(contentStyles.toggle, contentStyles.cartToggle)}
-        >
+        <Box className={css(contentStyles.toggle, contentStyles.cartToggle)}>
           <Typography variant="heading9" className={classes.sectionTitle}>
             장바구니 쿠폰
           </Typography>
-          <Icon
-            name={
-              expanded.includes('cart') ? 'hoka-action-minus-regular' : 'hoka-action-plus-regular'
-            }
-            size={20}
-          />
-        </Button>
-        {expanded.includes('cart') ? (
-          <Stack css={contentStyles.summary}>
-            <Stack css={contentStyles.summaryBody}>
-              <AmountRow label="주문금액 (상품2개)" amount={3350000} />
-              <AmountRow label="할인금액" amount={15000} discount />
-              <AmountRow label="상품할인" amount={0} />
-              <AmountRow label="장바구니 (남은 한도 11,000원)" amount={0} />
-            </Stack>
-            <AmountRow
-              label="총 결제 금액"
-              amount={3200000}
-              emphasis
-              css={contentStyles.summaryTotal}
-            />
+        </Box>
+        <Stack css={contentStyles.summary}>
+          <Stack css={contentStyles.summaryBody}>
+            <AmountRow label="주문금액 (상품2개)" amount={3350000} />
+            <AmountRow label="할인금액" amount={15000} discount />
+            <AmountRow label="상품할인" amount={0} />
+            <AmountRow label="장바구니 (남은 한도 11,000원)" amount={0} />
           </Stack>
-        ) : null}
+          <AmountRow
+            label="총 결제 금액"
+            amount={3200000}
+            emphasis
+            css={contentStyles.summaryTotal}
+          />
+        </Stack>
       </Stack>
     </ModalDialog>
   );

@@ -1,3 +1,40 @@
+## 2026-11-17
+
+- 모바일 전체 검색 결과를 PC와 같은 일반 결과 페이지로 통일하고 공통 헤더·푸터를 복원했다. 모바일 필터와 PC 정렬은 유지한다. TypeScript·대상 ESLint/Prettier 및 브라우저 결과 표시를 확인했다. 출처: ProductListingPage.tsx·ShopShell.tsx 작업 트리.
+
+## 2026-11-17 매장 목록 브라우저 주석 반영
+
+- 매장명 검정과 정보 전체 Pretendard Regular·자간 -0.02em·#4D4D4D를 적용했다. 기존 간격은 유지했다.
+- PC1305·모바일375 계산 스타일과 전화번호 실제 Regular 글리프 확인, ESLint·Prettier·Panda·타입 검사 통과. 상세: architecture/ui.md, architecture/routing.md.
+
+## 2026-11-17 매장 목록 스타일 네이밍
+
+- StoreContent의 정적 Panda 스타일을 상단 styles 객체로 모으고 기본 gap 병합을 보존했다.
+- ESLint·Prettier·Panda·타입 검사 통과, 375px·1920px 각 36개 요소의 계산 스타일과 위치·크기 동일 확인.
+
+## 2026-11-17 매장 찾기 시안과 표기 반영
+
+- 매장 세 곳의 시안 fixture·PC/모바일 글꼴·간격·구분선을 반영하고 지역 탭은 사용자 요청으로 제외했다.
+- PC·모바일 제목과 breadcrumb를 `매장 찾기`로 통일했다. 실제 매장 정보는 미확정이며 API·지도는 미연결이다.
+- PC 1920px·모바일 375px 화면 확인, ESLint·Prettier·Panda·타입 검사·Next production build 통과. 상세: architecture/ui.md, architecture/routing.md.
+
+## 2026-11-17 주문서 피드백 반영
+
+- 장바구니 쿠폰의 접기 버튼을 제거해 금액 요약을 항상 표시하고 PC 결제 동의 숨김 조건을 제거했다. 배송 요청 기본값은 door(문 앞에 놓아주세요)이며 안내 문구 선택지를 제거했다. 기존 스테이징의 마일리지 안내 두 문구 삭제는 보존했다.
+- 대상 ESLint·Prettier와 전체 typecheck 통과. 로컬 PC·모바일375에서 동의·쿠폰 합계·배송 기본값과 직접 입력 preview를 확인했다. 출처: 사용자 첨부 Slack 화면과 checkout 작업 트리. 기록: codex/gpt-6, 2026-11-17T07:38:24Z. 상세: architecture/routing.md, architecture/ui.md, development/verification.md.
+
+## 2026-11-17 전화번호 하이픈 표기 통일
+
+- 주문서·주문내역 fixture 11곳의 점·공백 구분을 하이픈으로 변경했다. AGENTS.md에 디자인보다 우선하는 기본 표기 규칙을 추가하고 관련 UI·라우팅 문서와 인덱스를 갱신했다. src 정규식 재검색으로 기존 표기가 남지 않음을 확인했다.
+
+## 2026-11-17 주문내역 마일리지 안내 삭제
+
+- CheckoutDiscountSummary의 마일리지 안내 두 문구를 삭제하고 쿠폰 안내·금액·조회 UI를 유지했다. 라우팅·검증 절차 영향 없음과 로컬 PC·모바일 문구 부재 확인을 관련 문서에 기록했다. 출처: 사용자 첨부 Slack 화면과 해당 소스 작업 트리. 기록: codex/gpt-6, 2026-11-17T07:42:10.485Z.
+
+## 2026-11-17 환불(반품) 신청 수량 노출
+
+- 주문 취소와 동일하게 반품 신청에도 상품별 수량 조절을 표시하고 기존 초안·최소/최대 제한을 유지했다. 대상 ESLint·Prettier를 통과했다. 출처: OrderClaimRequest.tsx 작업 트리, 상세: architecture/routing.md.
+
 ## 2026-11-17 검색 결과 닫기 복귀 수정
 
 - 검색 결과 닫기의 /products 고정 이동을 router.back()으로 바꿨다. 주문·FAQ에서 검색 결과 닫기 후 원래 URL 복귀와 일반 검색 팝업 닫기의 URL 유지를 확인했다.
@@ -2914,3 +2951,7 @@ Figma Navigational Buttons(296:25392)와 Action Buttons(296:25425)의 기본·�
 ## 2026-11-17 FAQ 검색 스타일 className 정리
 
 - 검색 영역 스타일을 기존 FaqContent 상단 styles에 모아 className으로 연결하고 Panda 요소를 보존했다. PC/MO 치수·글자 크기·placeholder·넘침 재측정과 타입·lint·Panda 검사를 통과했다. 관련 상세는 architecture/routing.md에 기록했다.
+
+## 2026-11-17 런칭 캘린더 Feed·Upcoming 빈 화면
+
+- 공통 목록 소유자와 EmptyState를 재사용해 빈 배열의 문구·PC/MO 배치를 적용하고 두 직접 URL을 IA160·161에 등록했다. 정상 목록·탭·서비스 미연결 경계를 유지했다. 타입·대상 lint/format·Panda·PC/MO 실측을 통과했고 비대상 문의 첨부파일 그래프 검사1실패를 구분했다. 상세는 architecture/launch-calendar.md에 기록했다.

@@ -63,6 +63,11 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - Record the index and relevant working-tree contents before changing files shared with other chats. Treat another chat's changes as concurrent work; do not reset, overwrite, or include them merely because they share a file.
 - When staging is requested, preserve the current index and add only the authorized change and directly related OKF updates. Use partial patches or equivalent index operations for mixed files, inspect the staged result, and avoid whole-file staging that captures unrelated unstaged work. Do not commit or push without that authorization.
 
+## Phone number display policy
+
+- 전화번호는 공백 없이 하이픈으로 구분한다. 예: `010-1234-5678`, `02-123-4567`, `1661-1919`. 원래 번호와 지역번호·대표번호의 자리수는 유지한다.
+- 디자인/Figma에 점이나 공백 구분 전화번호가 있어도 이 규칙을 우선한다. 화면 문구, placeholder, 표시 fixture와 새 구현 모두 동일하게 적용한다.
+
 ## Styling rules
 
 - Runtime platform selection belongs to `src/context/platform.tsx`: automatic mode is mobile through 1024px, while explicit preview platforms remain fixed. Keep `usePlatform()`, app/body/portal classes and responsive styles consistent; preserve server/first-hydration compatibility and state owners without duplicating interactive trees.

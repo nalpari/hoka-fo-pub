@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-17T04:54:44.153044+00:00'
+updated: '2026-11-17T07:55:05.559Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -5270,3 +5270,46 @@ ProductListingPage의 검색 결과 닫기는 /products 고정 push 대신 Next 
 ## ModalDialog 기본 유형 (2026-11-17)
 
 사용자 요청으로 ModalDialog의 variant를 생략하거나 undefined로 전달하면 alert로 해석한다. 후속 호환 요청으로 기존 children 본문도 모든 유형에서 허용하며 생략 시 alert shell을 적용한다. message/description 정형 본문과 children은 동시에 전달할 수 없다. 정형 본문의 feedback과 confirm 결과형 intro 계약 및 기존 액션 계약은 유지한다. children은 호출자가 지정한 요소와 개별 스타일을 그대로 렌더링하고 message용 h3·description 슬롯으로 재구성하지 않는다. 출처: 사용자 요청 및 `src/components/common/layouts/ModalDialog.tsx` 작업 트리, Codex 작성(2026-11-17). 이전의 필수 variant 및 alert/confirm custom children 금지 설명은 이 호환 계약으로 대체한다.
+
+
+## 주문내역 마일리지 안내 삭제 (2026-11-17)
+
+CheckoutDiscountSummary에서 실 결제금액 최대30% 사용 안내와5,000점 이상·100점 단위 사용 안내를 삭제했다. 기존 쿠폰 안내 두 문구와 준비된 금액·조회 버튼은 유지한다.
+
+출처: 사용자 첨부 Slack 화면과 src/app/checkout/_components/CheckoutDiscountSummary.tsx 작업 트리. 기록: codex/gpt-6, 2026-11-17T07:42:10.485Z. 기존 generated·source_revision·draft 이력은 보존한다.
+
+## 전화번호 하이픈 표기 규칙 (2026-11-17)
+
+전화번호는 공백 없는 하이픈 표기를 기본으로 하며 디자인의 점·공백 구분보다 우선한다. 번호 자체와 지역번호·대표번호 자리수는 유지한다. 주문서 CheckoutShipping의 연락처 2곳과 orders.data.ts의 주문내역 연락처 9곳을 변경했다. 라우트·상호작용·스타일은 변경하지 않았다. 작업 트리 출처: AGENTS.md, src/app/checkout/_components/CheckoutShipping.tsx, src/components/orders/orders.data.ts. 정규식으로 src를 재검색하여 점 구분 전화번호가 남지 않았음을 확인했다.
+
+## 주문서 피드백 반영 (2026-11-17)
+
+장바구니 쿠폰 제목은 정적 Box로 표시하고 접기 버튼·아이콘·cart 펼침 상태를 제거했다. 금액 요약은 항상 렌더하며 상품 쿠폰의 개별 접기와 라디오는 유지한다. CheckoutForm의 PC 동의 숨김 wrapper를 제거해 기존 동의 두 항목을 PC·모바일 모두 표시한다. 배송 요청 기본값은 door(문 앞에 놓아주세요)이며 택배기사 안내 문구는 선택지에서 제거했다. CheckoutDiscountSummary의 마일리지 두 문구 삭제는 작업 시작 전부터 스테이징되어 있어 그대로 보존했다. 주문 요청·계산·동의 검증은 추가하지 않았다. 별도 최신 설계서는 제공되지 않아 기존 동의 컴포넌트를 복원한 범위이며 설계서와의 세부 대조는 수행하지 않았다.
+
+출처: 사용자 첨부 Slack 대화·화면과 위 working_tree_sources의 checkout 소스. 기록: codex/gpt-6, 2026-11-17T07:38:24Z. 기존 generated·source_revision·draft 및 과거 검증 이력은 보존한다.
+
+## 매장 찾기 목록 시안 보정 (2026-11-17)
+
+[HOKA 디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/)의 매장 찾기를 반영하되 사용자 최종 요청으로 서울·인천·경기 지역 탭은 표시하지 않는다. 공통 SupportTabs는 변경하지 않았다. 서울 예시 매장 세 곳의 명칭·주소·전화번호·영업시간은 미확정 표시 fixture이며 실제 영업 정보로 확정하지 않는다. 화면 데이터 소유자의 `[ 개발팀 바인딩 ]` 주석에 교체 책임과 API·지도 미연결을 명시했다.
+
+매장명은 PC Pretendard 22px·900·26.4px, 모바일 20px·700·24px이다. 본문은 PC 16px·24px, 모바일 14px·21px이며 구분선은 #E9EAEB 1px이다. 목록 행은 PC 40px(첫 행 상단 0), 모바일 32px 여백이며 제목과 정보 사이 20px/16px, 주소와 연락처 사이 12px/8px이다. 모바일 전화 밑줄·tel 링크를 유지한다.
+
+검증: 1920px·375px 브라우저에서 지역 탭 0개·매장 3개, 실제 계산 글꼴·행간·구분선을 확인하고 양쪽 스크린샷을 시각 검토했다. 모바일 매장명 글리프는 로컬 Pretendard-Bold face를 사용한다. 기존 홍보 배너·공통 헤더/푸터는 유지하여 Figma 전체 프레임과 상단 시작 위치는 다를 수 있다. 변경 파일 ESLint·Prettier, Panda 생성·전체 타입 검사·최종 Next production build를 통과했다. 서비스 조회·요청 상태 검증은 이번 표시 작업 범위가 아니다.
+
+## 매장 목록 Panda 스타일 이름 정리 (2026-11-17)
+
+`src/app/support/store/_components/StoreContent.tsx`의 정적 레이아웃 스타일을 같은 파일 상단 `styles`의 storeList·storeItem·storeDetails·contactDetails·contactRow로 모았다. Stack·HStack·ContentSection과 기존 의미 태그를 유지하며 패턴/기본 gap과의 병합 순서를 보존하도록 css.raw 객체를 css prop에 전달한다. body·phoneLink는 기존 className을 유지한다. 라우트·표시 데이터·전화 링크·영업시간 조건은 변경하지 않았다.
+
+변경 파일 ESLint·Prettier, Panda 생성과 전체 타입 검사를 통과했다. 브라우저에서 375px·1920px 각각 목록 하위 36개 요소의 태그·내용·위치·크기와 display·방향·gap·padding·margin·구분선·font·color를 변경 전후 비교해 동일함을 확인했다.
+
+## 매장 목록 검수 타이포 보정 (2026-11-17)
+
+사용자 브라우저 주석 규격에 따라 StoreContent의 매장명 색상을 #000000으로 명시하고 본문·전화번호·운영시간을 language="ko"로 지정해 숫자도 Pretendard Regular·자간 -0.02em으로 표시한다. body·phoneLink의 색상은 #4D4D4D, 행간은 1.5다. 기존 레이아웃·표시 데이터·전화 링크·영업시간 조건과 경로는 유지한다. 작업 트리 출처: src/app/support/store/_components/StoreContent.tsx.
+
+PC 1305px에서 매장명22px/900/26.4px·자간-0.44px, 본문16px/24px·자간-0.32px와 간격20/12/6px를 확인했다. 모바일375px에서 매장명20px/700/24px·자간-0.4px, 본문14px/21px·자간-0.28px와 간격16/8/4px를 확인했다. 두 플랫폼의 제목색은 검정, 정보색은 rgb(77,77,77)이며 모바일 전화번호 실제 글리프는 Pretendard-Regular다. 변경 파일 ESLint·Prettier, Panda 생성·전체 타입 검사를 통과했다.
+
+## 모바일 전체 검색 결과 페이지 통일 (2026-11-17)
+
+모바일 `/search?q=...`는 PC와 같은 일반 상품 검색 결과 레이아웃을 사용한다. 검색 전용 fixed 전체 화면·입력창·닫기 버튼을 제거하고 공통 헤더와 푸터를 표시한다. 재검색은 공통 헤더 검색 팝업에서 수행한다. 모바일 결과 제목 옆 필터 버튼과 필터 시트의 정렬·적용, PC 정렬 및 준비된 표시 데이터 경계는 유지한다. 이전 검색 결과 닫기 복귀 설명은 이 변경으로 대체하며 일반 검색 팝업의 로컬 닫기는 유지한다.
+
+출처: `src/components/catalog/ProductListingPage.tsx`, `src/context/ShopShell.tsx` 작업 트리; Codex 작성, 2026-11-17. TypeScript와 대상 ESLint·Prettier를 통과했다. 브라우저에서 PC Clifton 결과 2건과 정렬, 390px 모바일 일반 결과·필터 버튼 및 검색 패널 미표시를 확인했다. 실제 검색 API는 연결하지 않았다.

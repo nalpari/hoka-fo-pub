@@ -4,7 +4,7 @@ title: '공통 상태와 데모 데이터'
 description: '로그인, 장바구니와 목 데이터의 수명 및 제약을 설명한다.'
 tags: [react, state, mock-data]
 status: draft
-updated: '2026-11-16T01:01:50Z'
+updated: '2026-11-17T06:02:07.510649+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
@@ -808,3 +808,9 @@ ShopShell 알림 아이콘은 hoka- 이름의 쇼핑백·장바구니·계정 SV
 CheckoutShipping의 dialog 폼은 기존 ShippingDraft에 addressName을 추가하고 Address.name으로 초기화한다. inline 폼의 이메일·필드 구성은 유지한다. 시안의 목록 네 행과 1/10은 checkoutAddressPreview·checkoutAddressPagePreview에 명시하며, 연결된 context가 있으면 현재 addresses를 그대로 읽는다. 편집 중 들어온 데이터로 draft를 덮어쓰는 effect는 추가하지 않는다.
 
 추가·수정·취소·입력·체크·닫기는 기존 로컬 UI다. 저장·삭제·더보기 버튼은 시안의 활성 외형만 표시하며 미연결 handler는 만들지 않는다. 저장·삭제·추가 조회·완료 이동은 실행하지 않는다. 브라우저에서 저장 클릭 후 팝업·초안 유지, 취소 시 목록 복귀, 추가 시 빈 배송지명, Escape 후 포커스 복귀를 확인했다. 실제 API와 submission payload는 주문서 연결 소유자가 구현할 경계이며 이번 디자인 변경을 서비스 구현으로 보지 않는다. 출처: CheckoutShipping.tsx·checkout-address-preview.ts 작업 트리 및 localhost, Codex, 2026-11-13.
+
+## 모바일 전체 검색 결과 페이지 통일 (2026-11-17)
+
+모바일 `/search?q=...`는 PC와 같은 일반 상품 검색 결과 레이아웃을 사용한다. 검색 전용 fixed 전체 화면·입력창·닫기 버튼을 제거하고 공통 헤더와 푸터를 표시한다. 재검색은 공통 헤더 검색 팝업에서 수행한다. 모바일 결과 제목 옆 필터 버튼과 필터 시트의 정렬·적용, PC 정렬 및 준비된 표시 데이터 경계는 유지한다. 이전 검색 결과 닫기 복귀 설명은 이 변경으로 대체하며 일반 검색 팝업의 로컬 닫기는 유지한다.
+
+출처: `src/components/catalog/ProductListingPage.tsx`, `src/context/ShopShell.tsx` 작업 트리; Codex 작성, 2026-11-17. TypeScript와 대상 ESLint·Prettier를 통과했다. 브라우저에서 PC Clifton 결과 2건과 정렬, 390px 모바일 일반 결과·필터 버튼 및 검색 패널 미표시를 확인했다. 실제 검색 API는 연결하지 않았다.
