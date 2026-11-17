@@ -158,18 +158,30 @@ export function OrderClaimRequest({
             ['반품비', returning ? '사유 선택 후 확인' : '- 5,000원'],
           ].map(([label, value]) => (
             <HStack key={label} css={styles.summaryRow}>
-              <Typography variant="body4">{label}</Typography>
+              <Typography variant="body4" className={classes.summaryLabel}>
+                {label}
+              </Typography>
               <Typography
-                variant="body4Medium"
-                tone={returning && label === '반품비' ? 'subtle' : 'primary'}
+                variant="body4"
+                className={classes.summaryValue}
+                data-summary-text={value.endsWith('원') ? undefined : ''}
               >
-                {value}
+                {value.endsWith('원') ? (
+                  <>
+                    <Typography variant="body4" language="en" className={classes.summaryNumber}>
+                      {value.slice(0, -1)}
+                    </Typography>
+                    원
+                  </>
+                ) : (
+                  value
+                )}
               </Typography>
             </HStack>
           ))}
         </Stack>
         <HStack css={styles.summaryTotal}>
-          <Typography variant="body4Medium">
+          <Typography variant="body4" className={classes.summaryLabel}>
             {returning ? '환불예정금액' : '취소예정금액'}
           </Typography>
           <HStack css={styles.totalAmount}>

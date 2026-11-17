@@ -5248,3 +5248,17 @@ productSelection 세 팝업의 본문은 ModalDialog.recipe.tsx의 modalProductS
 [디자인 파일](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 해당 페이지와 쿠폰 PC/MO·취소 PC·반품 MO 본문 구조를 읽었다. 공통 상품 행 간격16px·상하16px, 섹션 간격12px(모바일16px), 필드 간격8px·상하8px, 합계 배경#F7F7F9·테두리#E9EAEB를 반영했다. 쿠폰 상품 정보 시작 여백은 PC20px/MO16px, 쿠폰 선택 행은 최소60px이며 목록은 하단8px이다. 쿠폰 제목은 PC20px/700/24px·하단20px, MO16px/600/19.2px·하단16px이다. 취소·반품 주의문은 PC14px/21px, MO13px/19.5px와 #777777를 적용했다. 요약 내부 좌우 여백은 쿠폰20px·신청16px로 구분한다. fixture 상품·수량·금액은 시안 값으로 일괄 교체하지 않았다.
 
 검증: 1920px/375px에서 세 팝업의 계산 스타일·가로 넘침 없음과 캡처를 확인했다. 1764px/375px에서 쿠폰 접기, 신청 상품 체크와 닫기를 확인했고 실제 Pretendard 사용자 폰트 렌더링을 확인했다. 대상 ESLint·TypeScript·Panda 생성·12유형 모달 계약 검사를 통과했다. 마지막 hoka-markup-handoff 점검에서 Panda 유지, 불필요한 래퍼/서비스 추가 없음, 본문 스타일 소유권·간격·폼 경계 보존을 확인했다. 이번 작업에서 프로덕션 빌드는 실행하지 않았다.
+
+## 상품 선택 입력 글꼴 상세 보정 (2026-11-17)
+
+사용자 검수 기준으로 productSelection 제목은 Pretendard PC24px/700/36px·MO20px/700/30px, 안내는 양쪽14px/400/21px·#4D4D4D·자간-0.02em을 명시했다. 신청 본문의 상품 선택 제목은 PC16px/600/19.2px, MO20px/700/24px이며 쿠폰 제목의 별도 규격은 유지한다. 주의문은 PC14px/400/21px, MO13px/400/19.5px·#777777이다. 금액 라벨과 사유 선택 후 확인은 Pretendard14px/400/21px·검정이며, 준비된 금액 문자열에서 숫자와 원 단위를 분리해 숫자만 HOKA14px/500/21px로 표시한다. 단위·안내 문구는 한국어 폰트를 유지하며 계산과 데이터 값은 변경하지 않았다.
+
+1764px·512px에서 취소·반품 및 쿠폰 직접 상태의 계산 스타일과 가로 넘침 없음을 확인했다. 안내문14px·#4D4D4D, 모바일 상품 선택20px·700, 상품금액 숫자14px·500, 라벨/사유14px·400·검정을 실측했다. ESLint·TypeScript·Panda 생성을 통과했다.
+
+## 상품 선택 입력 합계 글꼴 (2026-11-17)
+
+공통 summaryTotal 슬롯은 합계 라벨을 Pretendard14px/500/21px·자간-0.02em·검정으로 표시한다. 합계 숫자는 PC Pretendard16px/600/19.2px·자간-0.02em, 모바일 HOKA16px/700/16px·기본 자간으로 표시하며 오른쪽 정렬한다. 기존 AmountRow와 신청 화면의 합계 구조를 그대로 사용하며 공유 AmountRow의 다른 사용처나 준비된 금액은 변경하지 않는다. 1764px·512px 쿠폰·반품 화면에서 라벨과 숫자의 계산 스타일을 확인했다. 대상 ESLint·TypeScript·Panda 생성을 통과했다.
+
+쿠폰 장바구니 요약의 일반 금액(주문금액·할인금액·상품할인·장바구니 할인)은 공통 summaryBody에서 font-weight500을 적용하며 취소·반품의 일반 금액도 동일하게 적용한다. 총 결제 금액의 PC600/MO700은 유지하고 전역 AmountRow 기본값은 변경하지 않는다.
+
+일반 금액 굵기500은 productSelection 공통 summaryBody가 소유한다. 쿠폰 전용 옵션에는 합계 내부 여백 차이만 유지한다. 숫자 슬롯의 HOKA500과 총액 PC600/MO700 규격은 유지한다.

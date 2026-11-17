@@ -1979,3 +1979,5 @@ ProfileContent의 비밀번호 설정 모달에서 안내문 padding-top8px를 �
 ## 상품 선택 입력 본문 recipe 연결 (2026-11-17)
 
 보유 쿠폰·주문 취소·환불(반품)의 기존 직접 경로와 productSelection 유형을 유지하고 각 본문을 modalProductSelectionContentRecipe에 연결했다. 쿠폰은 coupon 표시 옵션, 취소·반품은 기본 claim 옵션을 사용하며 라우트·초안 상태·선택·닫기 소유자를 변경하지 않았다. 작업 트리 출처: src/app/checkout/_components/CheckoutCouponDialog.tsx, src/app/mypage/orders/_components/OrderClaimRequest.tsx, src/components/common/layouts/ModalDialog.recipe.tsx, src/app/screen-index/sourceGraph.generated.json.
+
+상품 선택 입력 글꼴 검수에서는 기존 취소·반품·쿠폰 경로와 상태를 유지하고, 신청 화면의 준비된 금액 문자열을 숫자/원 표시로만 분리했다. 요청·계산·제출 연결 변경은 없다.
