@@ -5269,4 +5269,4 @@ ProductListingPage의 검색 결과 닫기는 /products 고정 push 대신 Next 
 
 ## ModalDialog 기본 유형 (2026-11-17)
 
-사용자 요청으로 ModalDialog의 variant를 생략하거나 undefined로 전달하면 alert로 해석한다. 정형 message 본문에서 variant를 선택적으로 받으며 confirm 결과형과 나머지 유형은 명시적 variant를 유지한다. alert의 message/description·children 배타 계약과 기존 액션 계약은 변경하지 않는다. 출처: 사용자 요청 및 `src/components/common/layouts/ModalDialog.tsx` 작업 트리, Codex 작성(2026-11-17). 이전의 모든 호출부 필수 variant 설명은 이 기본값 계약으로 대체한다.
+사용자 요청으로 ModalDialog의 variant를 생략하거나 undefined로 전달하면 alert로 해석한다. 후속 호환 요청으로 기존 children 본문도 모든 유형에서 허용하며 생략 시 alert shell을 적용한다. message/description 정형 본문과 children은 동시에 전달할 수 없다. 정형 본문의 feedback과 confirm 결과형 intro 계약 및 기존 액션 계약은 유지한다. children은 호출자가 지정한 요소와 개별 스타일을 그대로 렌더링하고 message용 h3·description 슬롯으로 재구성하지 않는다. 출처: 사용자 요청 및 `src/components/common/layouts/ModalDialog.tsx` 작업 트리, Codex 작성(2026-11-17). 이전의 필수 variant 및 alert/confirm custom children 금지 설명은 이 호환 계약으로 대체한다.

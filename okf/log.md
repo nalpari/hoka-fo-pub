@@ -2903,3 +2903,7 @@ Figma Navigational Buttons(296:25392)와 Action Buttons(296:25425)의 기본·�
 ## 2026-11-17 ModalDialog 기본 alert 적용
 
 - 사용자 요청에 따라 variant 생략 시 alert를 적용하도록 타입과 런타임 기본값을 수정했다. 기존 정형 본문 제약은 유지하고 생략/undefined 호출의 타입 회귀 검사를 통과했다. 출처: ModalDialog와 모달 타입 검사 작업 트리, Codex.
+
+## 2026-11-17 ModalDialog 기존 children 호환
+
+- 사용자 요청으로 children 본문을 생략·명시적 alert/confirm에서도 허용했다. variant 생략의 alert 기본값, 정형 본문과 children 배타 계약 및 액션 계약은 유지한다. 전체 타입·타입 계약 검사와 children 기본 alert 렌더 비교12조합을 통과했다. 브라우저 실측과 구분하며 관련 UI·검증 문서를 갱신했다.

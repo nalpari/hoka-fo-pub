@@ -103,7 +103,8 @@ type ModalDialogContentProps =
       children?: never;
     }
   | {
-      variant: Exclude<ModalDialogVariant, 'alert' | 'confirm'>;
+      /** Legacy custom content keeps the default alert shell when variant is omitted. */
+      variant?: ModalDialogVariant;
       children: ReactNode;
       message?: never;
       description?: never;

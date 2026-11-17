@@ -819,3 +819,5 @@ PC1920·모바일375×812에서 체크박스 두 개 선택, 주문 접기/펼�
 ## ModalDialog 기본 alert 타입 검사 (2026-11-17)
 
 `tests/modal-dialog-types.test.mjs`에 variant 생략과 명시적 undefined의 정형 alert 호출을 추가했다. 기본 alert에서도 custom children은 거부하며 기존12개 유형·본문/액션 배타 검사1개가 통과했다. 출처: 해당 테스트와 ModalDialog 작업 트리, Codex 실제 실행(2026-11-17). 브라우저·빌드는 이번 기본값 수정에서 재실행하지 않았다.
+
+후속 children 호환(2026-11-17): 사용자의 추가 요청으로 앞선 custom children 금지 계약을 대체했다. 생략·undefined·명시적 alert/confirm의 children 호출을 허용하고 message와 children 동시 전달은 거부하는 타입 검사를 통과했다. 전체 TypeScript도 통과했다. 실제 ModalDialog/Panda recipe의 React 정적 렌더에서 web/mobile×popup/fullscreen/bottomSheet×생략/undefined의12조합이 명시적 alert children 마크업·클래스와 동일하고 자식 본문 및 data-modal-variant=alert가 유지됨을 확인했다. Dialog·포털·버튼·아이콘은 검사 대역이므로 브라우저 레이아웃·포커스 실측은 아니다. 출처: ModalDialog·모달 타입 테스트 작업 트리와 Codex 실제 실행, 브라우저·빌드는 재실행하지 않았다.
