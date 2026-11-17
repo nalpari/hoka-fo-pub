@@ -34,7 +34,7 @@ const item = cva({
       underline: {
         flex: '1',
         minW: '0',
-        minH: '32px',
+        minH: '44px',
         border: '0',
         borderBottom: '2px solid transparent',
         bg: 'transparent',
@@ -130,7 +130,13 @@ export function SegmentedControl<T extends string = string>({
           render={
             itemRender?.(option) ??
             (unstyled ? undefined : variant === 'underline' ? (
-<Typography as="button" variant="body3Medium" tone="primary">
+              <Typography
+                as="button"
+                web="body3"
+                mo="body4"
+                weight={option.value === value ? 'bold' : 'regular'}
+                tone="primary"
+              >
                 {option.label}
               </Typography>
             ) : (

@@ -4,12 +4,13 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-16T12:56:30.717659+00:00'
+updated: '2026-11-17T04:10:00Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/mypage/reviews/_components/ReviewsContent.tsx
   - src/app/cart/preview-options-apparel-changed/page.tsx
   - src/app/checkout/preview-coupons/page.tsx
   - src/app/checkout/_components/CheckoutCouponDialog.tsx
@@ -67,7 +68,6 @@ working_tree_sources:
   - src/components/mypage/MyPageFrame.tsx
   - src/app/publishing-guide/page.tsx
   - src/app/publishing-guide/_components/ProductCardGuide.tsx
-  - src/components/orders/OrderHistoryProduct.tsx
   - src/app/mypage/orders/_components/OrdersList.tsx
   - src/components/common/molecules/ProductCard/ProductCard.tsx
   - src/components/common/molecules/ProductOptionList.tsx
@@ -1923,3 +1923,39 @@ IA159 런칭캘린더에 입고 알림 신청 직접 URL /launch-calendar/clifto
 - 기본·빈 장바구니, 신발/의류 옵션·수량 제한, 기본·직접 입력·배송 요청·오류·빈 주문서·완료·쿠폰·배송지 목록/추가/수정, 주문/반품 목록과 빈 상태, 주문·취소·반품 상세, 취소/반품 신청·배송조회 등 26개 상태를 PC/MO 총52개 화면으로 캡처했다. 기존 직접 URL을 재사용했다.
 - 기간 선택은 PC에서 1년→6개월→3개월→1개월→직접설정, 모바일에서는 1개월→3개월→6개월→1년→직접설정이다. 초기 직접설정 날짜는 2026.01.01~2026.08.30이고 모바일 날짜 입력은 직접설정에서만 표시한다. 실제 서버 조회는 실행하지 않는다.
 - 검증 세부와 미연결 경계는 [검증 기록](../development/verification.md#주문-영역-pc모바일-재검수-2026-11-16), 구조·수치는 [UI 기록](ui.md#장바구니주문-영역-표시-규격-2026-11-16)을 따른다.
+
+## 상품리뷰 미리보기 분기 정리 (2026-11-17)
+
+리뷰 화면의 내부 상태 분기를 정리했으며 기본 화면과 기존 목록·빈 상태·팝업 미리보기 URL은 변경하지 않았다. 출처: `src/app/mypage/reviews/_components/ReviewsContent.tsx` 및 리뷰 라우트 작업 트리, 2026-11-17.
+
+## 상품 타일 가이드의 리뷰 표시 (2026-11-17)
+
+`/publishing-guide`의 상품 타일 탭의 전체 데이터 예시와 복사 코드가 `/mypage/reviews`의 작성 목록과 별점·본문 표시를 공유한다. 작성 목록은 PC·모바일 모두 `OrderProductSummary`에 표시값을 전달하며 기존 주소에서 확인할 수 있다. 출처: `src/app/publishing-guide/_components/ProductCardGuide.tsx`, `src/app/mypage/reviews/_components/ReviewsContent.tsx` 작업 트리, 2026-11-17.
+
+`/publishing-guide?tab=product-tiles#tile-mypage-written-reviews`에서 작성한 리뷰의 PC·모바일 예시와 코드를 확인할 수 있다. 전체 화면 링크는 기존 `/mypage/reviews/preview-written`으로 연결된다. 출처: `src/app/publishing-guide/_components/ProductCardGuide.tsx` 작업 트리, 2026-11-17.
+
+상품 타일 가이드의 마이페이지 작성 리뷰 예시는 `OrderProductSummary`의 `review` 유형과 구매일·옵션 props를 직접 사용한다. 출처: 상품 타일 가이드 작업 트리, 2026-11-17.
+
+
+## 주문 상품 요약 직접 사용 (2026-11-17)
+
+주문/배송·취소/반품 목록과 상세는 기존 경로·상태 소유자를 유지하고 `OrderProductSummary`를 직접 사용한다. 클릭 가능한 상품의 `onClick`은 기존 orderId/claimId 상세 열기 콜백으로 연결한다. 상품 타일 가이드도 같은 props를 사용하며 새 라우트나 서비스 동작은 추가하지 않았다. 출처: `src/app/mypage/orders/_components/OrdersList.tsx`, `OrdersProducts.tsx`, `OrderDetails.tsx`, `src/app/publishing-guide/_components/ProductCardGuide.tsx` 작업 트리. UI 계약은 [주문 상품 요약](ui.md#주문-상품-요약-직접-사용-2026-11-17)에 기록한다.
+
+
+2026-11-17 상품 리뷰 조건부 렌더링 정리: 상품 타일 가이드의 별점·리뷰 예시와 복사 코드에서 제거된 ProductReviewSummary 참조를 정리했다. 기존 상품리뷰·가이드 경로와 화면 상태는 유지한다. 출처: ProductCardGuide.tsx, OrderProductSummary.tsx 작업 트리.
+
+## 리뷰·러닝세션 화면 소스 정리 (2026-11-17)
+
+리뷰 목록의 중복 줄높이 선언은 ContentSection 한 곳에 유지한다. 상품 옵션 문구는 reviewFixtures에서 완성해 ReviewsContent와 ProductCardGuide에 그대로 전달하며, 수정 미리보기와 목록의 수정 버튼은 demoWrittenReview.rating을 같은 초기값으로 사용한다. 파일 내부 부품은 ReviewDialog·ReviewItem으로 명명하고 두 화면의 ContentSection·Dropdown 속성 순서를 맞췄다. 새 컴포넌트나 상태 URL은 추가하지 않았다. 출처: ReviewsContent.tsx, reviewFixtures.ts, RunningSessionEntriesContent.tsx, ProductCardGuide.tsx 작업 트리. 변경 파일 ESLint와 Prettier, Panda 생성을 통과했다. 전체 타입 검사는 기존 .next/types의 삭제된 라우트 참조 오류로 실패했으며 src 오류는 없었다. 이번 정리는 브라우저에서 재검증하지 않았다.
+
+리뷰 화면은 선택된 display에서 items·totalCount·more를 구조 분해해 목록·건수·더보기·팝업 상품명에 직접 사용한다. 러닝세션과 동일한 참조 방식이며 상태 선택과 표시 동작은 유지한다(2026-11-17).
+
+- 2026-11-17: 리뷰와 러닝세션 신청내역의 SegmentedControl은 모바일에서 화면 컨테이너의 좌우 16px 여백을 상쇄해 탭과 하단 라인을 화면 끝까지 표시한다. 각 화면의 탭 루트에만 폭 calc(100% + 32px)·좌우 마진 -16px을 적용하며 PC 및 제목·목록 여백은 유지한다.
+
+- 2026-11-17: 리뷰·러닝세션 더보기는 목록/빈 화면 및 탭과 무관하게 항상 표시한다. 모든 고정 fixture에 more를 제공하며 실제 노출 조건과 추가 조회는 개발 연동 소유자가 연결한다. 공통 plain·lg 버튼과 기존 미연결 콜백의 비활성 표현을 유지한다.
+
+- 2026-11-17: 러닝세션 신청내역은 탭의 고정 데이터를 사용하고 빈 미리보기는 JSX에서만 분기한다. 더보기는 분기 밖에서 표시한다.
+
+- 2026-11-17: 러닝세션 더보기를 목록 분기 안에 두고 showLoadMore 값으로 미리보기 표시를 전환한다.
+
+- 2026-11-17: 러닝세션 신청내역은 빈 미리보기 데이터를 다시 사용하고 items.length로 목록과 빈 화면을 구분한다. 더보기는 목록에 포함한다.

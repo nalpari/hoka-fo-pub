@@ -10,9 +10,10 @@ import {
 } from '@/components/common/atoms/DescriptionList';
 import { Typography } from '@/components/common/atoms/Typography';
 
+import { OrderProductSummary } from '@/components/common/molecules/OrderProductSummary';
+
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 
-import { OrderHistoryProduct } from '@/components/orders/OrderHistoryProduct';
 import type {
   ClaimDetailDisplay,
   OrderClaim,
@@ -86,12 +87,18 @@ function DetailProduct({ line }: { line: OrderLine }) {
   return (
     <>
       <Box gridColumn="1" minW="0" pl="24px">
-        <OrderHistoryProduct line={line} showAmount={false} cartAction />
+        <OrderProductSummary
+          variant="history"
+          image={line.image}
+          name={line.name}
+          optionText={`${line.width}, ${line.color}, ${line.size}`}
+          cartAction
+        />
       </Box>
-<Typography variant="body4Medium" className={css({ textAlign: 'center' })}>
+      <Typography variant="body4Medium" className={css({ textAlign: 'center' })}>
         {line.quantity}개
       </Typography>
-<Typography variant="body4Medium" className={css({ textAlign: 'center' })}>
+      <Typography variant="body4Medium" className={css({ textAlign: 'center' })}>
         {line.displayAmount === undefined ? '-' : `${line.displayAmount.toLocaleString()}원`}
       </Typography>
     </>
@@ -104,9 +111,7 @@ function DetailAmountRow({ label, amount }: { label: string; amount: number }) {
       <Typography variant="body4" tone="subtle">
         {label}
       </Typography>
-<Typography variant="body4Medium">
-        {amount.toLocaleString()}원
-      </Typography>
+      <Typography variant="body4Medium">{amount.toLocaleString()}원</Typography>
     </HStack>
   );
 }
@@ -125,7 +130,7 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
           borderY="1px solid var(--colors-black-100)"
         >
           {['상품/옵션정보', '수량', '가격'].map((label) => (
-<Typography
+            <Typography
               key={label}
               variant="body3Semibold"
               className={css({ textAlign: 'center' })}
@@ -141,7 +146,7 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
           py={{ base: '32px', _mobile: '16px' }}
           borderBottom={{ base: '0', _mobile: '1px solid var(--colors-black-100)' }}
         >
-<Typography variant="body4Semibold">
+          <Typography variant="body4Semibold">
             {display.date}
             {mobile ? ' 주문' : ''}
           </Typography>
@@ -162,7 +167,7 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
               pr={{ base: '24px', _mobile: '0' }}
             >
               <Typography variant="body4">
-<Typography as="span" variant="body4Semibold" tone="red80">
+                <Typography as="span" variant="body4Semibold" tone="red80">
                   {display.status}
                 </Typography>
                 {' · '}
@@ -176,7 +181,21 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
             </HStack>
             {display.activeItems.map((line) =>
               mobile ? (
-                <OrderHistoryProduct key={line.key} line={line} cartAction />
+                <OrderProductSummary
+                  variant="history"
+                  key={line.key}
+                  image={line.image}
+                  name={line.name}
+                  optionText={`${line.width}, ${line.color}, ${line.size}, ${mobile ? (line.mobileQuantity ?? line.quantity) : line.quantity}개`}
+                  amount={
+                    line.displayAmount === undefined
+                      ? undefined
+                      : mobile
+                        ? (line.mobileDisplayAmount ?? line.displayAmount)
+                        : line.displayAmount
+                  }
+                  cartAction
+                />
               ) : (
                 <Grid
                   key={line.key}
@@ -221,7 +240,20 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
             </HStack>
             {group.items.map((line) =>
               mobile ? (
-                <OrderHistoryProduct key={line.key} line={line} />
+                <OrderProductSummary
+                  variant="history"
+                  key={line.key}
+                  image={line.image}
+                  name={line.name}
+                  optionText={`${line.width}, ${line.color}, ${line.size}, ${mobile ? (line.mobileQuantity ?? line.quantity) : line.quantity}개`}
+                  amount={
+                    line.displayAmount === undefined
+                      ? undefined
+                      : mobile
+                        ? (line.mobileDisplayAmount ?? line.displayAmount)
+                        : line.displayAmount
+                  }
+                />
               ) : (
                 <Grid
                   key={line.key}
@@ -269,9 +301,7 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
           <Typography variant="body4" tone="tertiary">
             결제수단
           </Typography>
-<Typography variant="body4Medium">
-            {display.paymentMethod}
-          </Typography>
+          <Typography variant="body4Medium">{display.paymentMethod}</Typography>
         </HStack>
         <HStack
           alignItems="stretch"
@@ -302,7 +332,7 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
                 결제예정금액
               </Typography>
               {mobile ? (
-<Typography variant="body3Semibold">
+                <Typography variant="body3Semibold">
                   {display.payableAmount.toLocaleString()}원
                 </Typography>
               ) : null}
@@ -332,7 +362,7 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
               borderBottom="1px solid var(--colors-black-100)"
             >
               {['상품/옵션정보', '환불금액', '처리상태'].map((label) => (
-<Typography
+                <Typography
                   key={label}
                   variant="body3Semibold"
                   className={css({ textAlign: 'center' })}
@@ -362,41 +392,33 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
               {mobile ? (
                 <Stack gap="16px">
                   {entry.items.map((line) => (
-                    <OrderHistoryProduct
+                    <OrderProductSummary
+                      variant="history"
                       key={line.key}
-                      line={line}
-                      showAmount={false}
-                      showQuantity
+                      image={line.image}
+                      name={line.name}
+                      optionText={`${line.width}, ${line.color}, ${line.size}, ${mobile ? (line.mobileQuantity ?? line.quantity) : line.quantity}개`}
                     />
                   ))}
                   <DetailAmountRow label="환불금액" amount={entry.refund} />
                 </Stack>
               ) : (
-                <Grid
-                  gridTemplateColumns="minmax(0, 1fr) 200px 140px"
-                  gap="0"
-                  alignItems="center"
-                >
+                <Grid gridTemplateColumns="minmax(0, 1fr) 200px 140px" gap="0" alignItems="center">
                   <Stack gap="16px">
                     {entry.items.map((line) => (
-                      <OrderHistoryProduct
+                      <OrderProductSummary
+                        variant="history"
                         key={line.key}
-                        line={line}
-                        showAmount={false}
-                        showQuantity
+                        image={line.image}
+                        name={line.name}
+                        optionText={`${line.width}, ${line.color}, ${line.size}, ${mobile ? (line.mobileQuantity ?? line.quantity) : line.quantity}개`}
                       />
                     ))}
                   </Stack>
-<Typography
-                    variant="body4Medium"
-                    className={css({ textAlign: 'center' })}
-                  >
+                  <Typography variant="body4Medium" className={css({ textAlign: 'center' })}>
                     {entry.refund.toLocaleString()}원
                   </Typography>
-<Typography
-                    variant="body4Medium"
-                    className={css({ textAlign: 'center' })}
-                  >
+                  <Typography variant="body4Medium" className={css({ textAlign: 'center' })}>
                     {entry.status}
                   </Typography>
                 </Grid>
@@ -525,7 +547,7 @@ export function OrderClaimDetail({
       >
         <HStack gap={mobile ? '4px' : '8px'} flexShrink="0">
           {!mobile ? (
-<Typography variant="body3Medium" tone="subtle">
+            <Typography variant="body3Medium" tone="subtle">
               주문일자
             </Typography>
           ) : null}
@@ -539,7 +561,7 @@ export function OrderClaimDetail({
             {date}
           </Typography>
           {mobile ? (
-<Typography variant="body4Medium" tone="primary">
+            <Typography variant="body4Medium" tone="primary">
               주문
             </Typography>
           ) : null}
@@ -574,14 +596,28 @@ export function OrderClaimDetail({
       {mobile ? (
         <Stack gap="0" py="16px" borderBottom="1px solid var(--colors-black-20)">
           {items.map((line) => (
-            <OrderHistoryProduct key={line.key} line={line} statusText={status} />
+            <OrderProductSummary
+              variant="history"
+              key={line.key}
+              image={line.image}
+              name={line.name}
+              optionText={`${line.width}, ${line.color}, ${line.size}, ${mobile ? (line.mobileQuantity ?? line.quantity) : line.quantity}개`}
+              amount={
+                line.displayAmount === undefined
+                  ? undefined
+                  : mobile
+                    ? (line.mobileDisplayAmount ?? line.displayAmount)
+                    : line.displayAmount
+              }
+              statusText={status}
+            />
           ))}
         </Stack>
       ) : (
         <Stack gap="0" borderBottom="1px solid var(--colors-black-100)">
           <Grid gridTemplateColumns={columns} gap="0" py="20px" borderBottom="1px solid black">
             {['상품/옵션정보', '수량', '가격', '진행상태'].map((label) => (
-<Typography
+              <Typography
                 key={label}
                 variant="body3Semibold"
                 className={css({ textAlign: 'center' })}
@@ -599,21 +635,23 @@ export function OrderClaimDetail({
               py="32px"
             >
               <Box px="24px">
-                <OrderHistoryProduct line={line} showAmount={false} />
+                <OrderProductSummary
+                  variant="history"
+                  image={line.image}
+                  name={line.name}
+                  optionText={`${line.width}, ${line.color}, ${line.size}`}
+                />
               </Box>
               <Typography variant="body3" className={css({ textAlign: 'center' })}>
-<Typography as="span" variant="body3Medium" language="en">
+                <Typography as="span" variant="body3Medium" language="en">
                   {line.quantity}
                 </Typography>
                 개
               </Typography>
-<Typography
-                variant="body3Medium"
-                className={css({ textAlign: 'right', px: '24px' })}
-              >
+              <Typography variant="body3Medium" className={css({ textAlign: 'right', px: '24px' })}>
                 {money(line.displayAmount)}
               </Typography>
-<Typography variant="body3Medium" className={css({ textAlign: 'center' })}>
+              <Typography variant="body3Medium" className={css({ textAlign: 'center' })}>
                 {status}
               </Typography>
             </Grid>
@@ -734,9 +772,7 @@ export function OrderClaimDetail({
                 <Typography variant="body4" tone="subtle">
                   총 환불금액
                 </Typography>
-<Typography variant="body3Semibold">
-                  {refund?.toLocaleString() ?? '-'}원
-                </Typography>
+                <Typography variant="body3Semibold">{refund?.toLocaleString() ?? '-'}원</Typography>
               </HStack>
             ) : null}
           </Stack>
@@ -749,9 +785,7 @@ export function OrderClaimDetail({
               justifyContent="center"
               gap="24px"
             >
-<Typography variant="body3Medium">
-                결제예정금액
-              </Typography>
+              <Typography variant="body3Medium">결제예정금액</Typography>
               <HStack gap="2px" alignItems="flex-end">
                 <Typography variant="heading7" language="en">
                   {refund?.toLocaleString() ?? '-'}

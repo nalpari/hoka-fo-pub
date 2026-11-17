@@ -15,7 +15,7 @@ export function createReviewFixture(
     product: {
       name: '클리프톤 9',
       imageSrc: '/images/mypage/speedgoat-7-gtx.png',
-      optionLabel: '블루 코랄 / 270',
+      optionLabel: '블루 코랄, 270',
       gender: "Men's",
       price: '240,000원',
     },
@@ -24,23 +24,39 @@ export function createReviewFixture(
   };
 }
 
-export const demoWrittenReview: WrittenReview = {
-  rating: 5,
+export const demoWrittenReview = {
+  rating: 5 as const,
   body: '쿠션감이 좋아서 잘 달리고 있어요.',
+} satisfies WrittenReview;
+
+const readyReviews = Array.from({ length: 10 }, (_, index) =>
+  createReviewFixture(`preview-purchase-${index}`),
+);
+
+const writtenReviews = Array.from({ length: 2 }, (_, index) => ({
+  ...createReviewFixture(`preview-written-${index}`, demoWrittenReview),
+  product: { ...readyReviews[0].product, name: 'Speedgoat 7 GTX' },
+}));
+
+const more = { counter: { current: 1, total: 10 }, onLoadMore: undefined };
+
+/** 탭별 목록과 총 건수, 더보기 표시를 위한 고정 예시입니다. */
+export const reviewListPreview = {
+  ready: {
+    items: readyReviews,
+    totalCount: 62,
+    more,
+  },
+  written: { items: writtenReviews, totalCount: 2, more },
 };
 
-/** 디자인의 목록 길이·건수·더보기 표시는 서로 독립적인 고정 fixture입니다. */
-export const reviewListPreview = {
-  totalCount: 62,
-  hasMore: true,
-  pageInfo: { current: 1, total: 10 },
-  writtenMobile: { totalCount: 2, hasMore: false },
-  ready: Array.from({ length: 10 }, (_, index) => createReviewFixture(`preview-purchase-${index}`)),
-  written: Array.from({ length: 2 }, (_, index) => ({
-    ...createReviewFixture(`preview-written-${index}`, demoWrittenReview),
-    product: {
-      ...createReviewFixture(`preview-written-${index}`).product,
-      name: 'Speedgoat 7 GTX',
-    },
-  })),
+/** 빈 화면과 팝업을 바로 확인하기 위한 고정 예시입니다. */
+export const reviewStatePreview = {
+  empty: { items: [], totalCount: 0, more },
+  new: { items: [readyReviews[0]], totalCount: 1, more },
+  edit: {
+    items: [{ ...readyReviews[0], review: demoWrittenReview }],
+    totalCount: 1,
+    more,
+  },
 };

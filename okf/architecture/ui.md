@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-16T12:56:30.717659+00:00'
+updated: '2026-11-17T04:10:00Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -51,7 +51,6 @@ working_tree_sources:
   - src/components/orders/orders.types.ts
   - public/images/icon/product-carousel-caret.svg
   - src/app/publishing-guide/_components/ProductCardGuide.tsx
-  - src/components/orders/OrderHistoryProduct.tsx
   - src/components/common/atoms/Badge.tsx
   - src/types/component-contracts/components-common-molecules-ProductCard-ProductCard.d.ts
   - src/app/screen-index/screenProgress.ts
@@ -158,8 +157,7 @@ working_tree_sources:
   - src/app/publishing-guide/_components/TypographyGuide.tsx
   - src/app/publishing-guide/_components/ButtonGuide.tsx
   - src/app/publishing-guide/_components/FormGuide.tsx
-  - src/app/mypage/reviews/_components/MyPageReviewsContent.tsx
-  - src/app/mypage/reviews/_components/ReviewStatePreview.tsx
+  - src/app/mypage/reviews/_components/ReviewsContent.tsx
   - src/app/mypage/reviews/reviewFixtures.ts
   - src/stories/features/mypage/MyPage.Reviews.Web.stories.tsx
   - src/stories/features/mypage/MyPage.Reviews.Mobile.stories.tsx
@@ -913,7 +911,6 @@ working_tree_sources:
   - src/components/product/ProductDetailHeaderTitle.tsx
   - src/components/orders/OrderCardHeader.tsx
   - src/components/orders/OrderClaimGroup.tsx
-  - src/components/orders/OrderHistoryProduct.tsx
   - src/components/orders/OrdersLayout.tsx
   - src/components/orders/OrdersListContent.tsx
   - src/components/orders/OrderTrackingDialog.tsx
@@ -4597,7 +4594,11 @@ ProductIdentity는 기존 ProductDetailsIdentity를 공용 export로 전환한 �
 
 전체 데이터는 빨강 Best | Exclusive·2026.08.18 구매·All Gender/Speedgoat 7 GTX·레귤러/브라운/235/1개 옵션·280,000원 정상가/20%/240,000원 판매가·2026.05.22 신청일·활동 태그·34px 색상 썸네일 5개·4.5점/리뷰 본문·옵션변경/관심상품·장바구니 담기·환불완료를 모두 표시한다. 6px root 간격, 본문14px·가격13px·태그/리뷰12px·별16px/4px 간격·아이콘14px와 원본의 163px swatch viewport를 기존 토큰 및 정확한 예외값으로 사용한다. 이미지 파일은 기존 로컬 fixture이며 원본의 상품/업무 ID에 따라 추론하지 않는다.
 
-공통 ProductIdentity·ProductOptionList·RatingStars·Wishlist·Button을 조합한 가이드 전용 fixture와 항목 표, 실제 구성/스타일에 대응하는 복사 코드를 제공한다. 서로 다른 화면의 표시 옵션을 동시에 켠 검토 예시이며 실제 환불 상태·요청 결과가 아니다. 하트만 로컬 전환하고 옵션변경/장바구니 버튼은 미연결 표시라고 명시한다. 190px 너비·6px 간격·가격 13px·썸네일34px 5개·전체 텍스트와 코드 복사/하트 전환, 상세 정보 예시의 이미지 0개를 실행 화면에서 확인했다.
+공통 상품 정보와 옵션, 리뷰, 관심상품, 버튼을 조합한 가이드용 예시와 복사 코드를 제공한다. 서로 다른 화면의 표시 항목을 함께 확인하는 용도이며 하트는 로컬에서 전환된다. 기존 검수에서 190px 너비·6px 간격·가격 13px·썸네일 34px 5개·전체 텍스트와 코드 복사 및 하트 전환, 상세 정보 예시의 이미지 0개를 확인했다.
+
+2026-11-17 갱신. 모바일 상품 타일 가이드와 마이페이지의 작성한 리뷰 목록은 가이드의 기존 별점과 본문 표시를 `ProductReviewSummary`로 공유한다. 마이페이지에서는 `OrderProductSummary`의 선택적 `rating`과 `review`로 전달하며, 별점과 본문은 상품 정보 아래에 상품명 시작선에 맞춰 표시한다. 출처: `src/components/common/molecules/OrderProductSummary.tsx`, `src/components/common/molecules/ProductCard/ProductReviewSummary.tsx`, `src/app/publishing-guide/_components/ProductCardGuide.tsx`, `src/app/mypage/reviews/_components/ReviewsContent.tsx` 작업 트리.
+
+상품 타일 가이드의 마이페이지 작성 리뷰 예시는 `OrderProductSummary`를 직접 사용하며 PC·모바일 사용 코드와 전체 화면 링크를 제공한다. 리뷰 목록은 리뷰 화면이 소유한다. 출처: `src/app/mypage/reviews/_components/ReviewsContent.tsx`, `src/app/publishing-guide/_components/ProductCardGuide.tsx` 작업 트리, 2026-11-17.
 
 출처: 위 사용자 지정 Figma 두 노드, ProductCardGuide.tsx·ProductCard.tsx 작업 트리. 기록: codex/gpt-6, 2026-11-03.
 
@@ -5142,3 +5143,91 @@ Dropdown 정렬 버튼은 데스크탑 글자 16px·화살표 18px, 모바일 �
 - 보유 쿠폰은 PC640px·모바일 하단 시트다. 상품별 펼침·라디오 초안과 disabled 표시, 장바구니 쿠폰 요약을 구성한다. 적용 버튼은 요청하지 않는다. 취소·반품 신청은 PC640px, 이미지96px/모바일64px, 취소 수량·사유·상세 입력과 고정 환불액을 표시한다.
 - 주문/배송 목록은 상태별 버튼과 주문 상품별 상태 그룹을 유지한다. 취소·반품 목록은 상품·주문일자·금액·처리상태4열이며 옵션·수량 열을 숨긴다. OrderHistoryProduct의 `showOptions` 기본값은 true로 기존 소비자를 유지한다.
 - 각 route의 page-private UI, Panda TSX, semantic button/link와 기존 모달 focus/닫기 소유권을 유지했다. API·인증·가격/재고 계산을 추가하지 않았다. `[ 개발팀 바인딩 ]` 주석은 표시 모델·초안·식별자와 향후 연결 소유자를 구분한다.
+
+러닝세션 신청내역과 쿠폰 페이지는 상단 제목 및 본문을 공통 ContentSection으로 구성한다. 기존 PC·모바일 간격과 탭 및 상세 상태 소유자는 유지한다. 출처: 마이페이지 화면 작업 트리, 2026-11-17.
+
+상품리뷰의 표시와 미리보기 상태는 route-private `ReviewsContent.tsx`에서 관리한다. 기본 및 상태별 URL은 같은 화면을 상태별로 표시한다. 출처: 리뷰 화면 작업 트리, 2026-11-17.
+
+상품리뷰의 제목·탭·목록은 `ReviewsContent`에서 직접 구성하며 상태와 편집 동작도 같은 화면에서 관리한다. 출처: 리뷰 화면 작업 트리, 2026-11-17.
+
+러닝세션 신청내역은 제목에서 탭까지 PC 40px·모바일 32px, 탭에서 정렬 영역까지 PC 40px·모바일 32px을 각각 한 곳에서 지정한다. 리뷰와 러닝세션의 SegmentedControl 속성은 접근성 이름, 표시 방식, 값, 변경 핸들러, 옵션, 스타일 순으로 배치한다. 출처: 신청내역 화면과 HOKA 디자인, 2026-11-17.
+
+공통 SegmentedControl의 underline 탭은 선택된 텍스트에 bold, 선택되지 않은 텍스트에 regular를 적용한다. 상품리뷰와 러닝세션 신청내역은 공통 상태 스타일을 사용한다. 출처: SegmentedControl.tsx 및 상품리뷰 화면, 2026-11-17.
+
+밑줄형 SegmentedControl의 항목 최소 높이는 PC·모바일 44px이며, 공통 회색 하단선과 선택된 검정 하단선을 사용한다. 리뷰와 러닝세션 화면의 별도 높이·선 지정은 제거했다. 출처: SegmentedControl.tsx 및 마이페이지 화면, 2026-11-17.
+
+상품리뷰와 러닝세션 신청내역의 선택 탭 상태는 tab/setTab으로 표현하고, 탭 옵션은 value·label 객체 배열을 직접 사용한다. 러닝세션의 상태 필터 값은 기존 표시 데이터와 동일하게 유지한다. 출처: 마이페이지 화면 작업 트리, 2026-11-17.
+
+상품리뷰와 러닝세션 신청내역의 정렬 선택은 동일한 sort 상태와 변경 방식으로 관리한다. 리뷰 작성 오류는 직접 진입하는 고정 표시 상태이며 서비스 요청 상태와 입력값 기반 검증은 연결하지 않는다. 출처: 마이페이지 리뷰·신청내역 작업 트리, 2026-11-17.
+
+상품리뷰와 러닝세션 신청내역은 표시할 항목 배열의 길이로 목록과 빈 상태를 분기한다. 러닝세션의 정렬·총 건수는 빈 상태에서도 표시하며, 총 건수와 미리보기 목록 길이는 별도 값으로 유지한다. 출처: 마이페이지 화면 작업 트리, 2026-11-17.
+
+상품리뷰와 러닝세션 신청내역은 목록이 있는 분기에서 목록 다음에 공통 더보기 버튼을 배치하고 more가 있을 때 표시한다. 빈 상태에서는 표시하지 않는다. 출처: 마이페이지 화면 작업 트리, 2026-11-17.
+
+상품리뷰 작성·수정 버튼은 선택 ID 조회 없이 탭에 준비된 고정 예시 팝업을 연다. 탭 선택과 입력은 로컬 상태로 유지하며 미리보기 주소별 목록·빈 상태·팝업 표시를 제공한다. 출처: 리뷰 화면 작업 트리, 2026-11-17.
+
+상품리뷰 고정 상태는 목록과 빈 화면 여부를 직접 구분하고, 나머지는 팝업을 연 상태로 시작한다. 별도 미리보기 상태 설정 객체와 변경 가능한 목록 변수는 사용하지 않는다. 출처: `src/app/mypage/reviews/_components/ReviewsContent.tsx` 작업 트리, 2026-11-17.
+
+작성한 리뷰의 고정 목록은 PC와 모바일 모두 동일한 2건과 총 2건을 표시하며 더보기를 표시하지 않는다. 이전 PC 1건·총 62건 예시와 모바일 전용 목록 분기는 이 변경으로 대체한다. 출처: `src/app/mypage/reviews/_components/ReviewsContent.tsx`, `src/app/mypage/reviews/reviewFixtures.ts` 작업 트리, 2026-11-17.
+
+상품리뷰 탭별 목록·총 건수·더보기는 준비된 표시 데이터에서 읽고, 빈 화면과 열린 팝업도 고정 예시로 표시한다. 탭·정렬 선택과 팝업 입력은 로컬 상태로 유지하며 실제 조회·저장 동작은 연결하지 않는다. 출처: `src/app/mypage/reviews/_components/ReviewsContent.tsx`, `src/app/mypage/reviews/reviewFixtures.ts` 작업 트리, 2026-11-17.
+
+러닝세션 신청내역의 탭별 목록·건수·더보기는 고정 표시 데이터로 준비한다. 취소 팝업은 선택 ID를 조회하지 않고 열림 상태만 관리한다. 탭과 정렬 선택, 팝업 열기·닫기는 유지하며 실제 조회와 취소 요청은 실행하지 않는다. 출처: `src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx`, `src/app/mypage/event-entries/eventEntries.data.ts` 작업 트리, 2026-11-17.
+
+상품리뷰의 목록 행은 Flex를 사용한다. 모바일에서 리뷰 작성과 수정하기 버튼은 상품 정보 오른쪽에서 상단을 맞춘다. 작성한 리뷰의 별점과 본문은 상품 정보 아래에서 상품명 시작선에 맞춘다. 출처: `src/app/mypage/reviews/_components/ReviewsContent.tsx` 작업 트리, 2026-11-17.
+
+작성한 리뷰의 별점과 본문을 PC와 모바일에서 모두 `OrderProductSummary`에 전달한다. PC는 `reviewLayout="columns"`로 상품 정보·평점·본문을 열로 표시하고, 모바일은 기본 `stack`으로 상품 정보 아래에 표시한다. 두 표현은 `ProductReviewSummary`의 별점 표시를 공유한다. 출처: `src/components/common/molecules/OrderProductSummary.tsx`, `src/components/common/molecules/ProductCard/ProductReviewSummary.tsx`, `src/app/mypage/reviews/_components/ReviewsContent.tsx` 작업 트리, 2026-11-17.
+
+`OrderProductSummary`의 `review` 유형은 구매일 `orderDate`와 `optionText`를 직접 받아 리뷰 화면의 상품 정보를 표시한다. `optionText`는 받은 그대로 표시하며 작성 리뷰의 PC 열·모바일 세로 배치는 플랫폼에 따라 적용한다. 출처: `src/components/common/molecules/OrderProductSummary.tsx`, 리뷰 화면과 상품 타일 가이드 작업 트리, 2026-11-17.
+
+리뷰 유형의 상품명과 옵션도 주문 상품 요약의 공통 표시 구조에서 렌더링하며 구매일과 리뷰 유형의 타이포그래피만 해당 값으로 지정한다. 출처: `src/components/common/molecules/OrderProductSummary.tsx` 작업 트리, 2026-11-17.
+
+
+## 주문 상품 요약 직접 사용 (2026-11-17)
+
+주문 목록·상세·취소/반품 내역과 상품 타일 가이드는 `OrderHistoryProduct` 래퍼 없이 `OrderProductSummary variant="history"`를 직접 사용한다. 호출자는 `image`, `name`, 준비된 옵션 문구 `optionText`와 표시 `amount`를 전달한다. PC/MO 수량·금액 선택과 PC 표의 별도 수량·가격 열은 주문 화면에 남고 공통 컴포넌트는 `OrderLine`에 의존하지 않는다. 누락 금액은 표시하지 않으며 기존 모바일 표시값 우선순위를 보존한다.
+
+공통 컴포넌트의 `statusText`는 상태 문구, `cartAction`은 기존 장바구니 버튼 표시를 맡는다. 장바구니 서비스는 미연결이다. `onClick`은 호출자 소유의 상세 열기이며 내부 버튼이나 커스텀 슬롯과 함께 전달할 수 없도록 타입으로 제한한다. 리뷰의 기본 64px 이미지·상단 정렬은 기존 review 유형에 맡기고 사용처와 복사 코드의 중복 props를 제거했다. `ProductIdentity`는 변경하지 않았다.
+
+출처: `src/components/common/molecules/OrderProductSummary.tsx`, `src/app/mypage/orders/_components/OrdersProducts.tsx`, `OrdersList.tsx`, `OrderDetails.tsx`, 리뷰 화면, 상품 타일·아이콘 가이드 작업 트리. 기존 URL은 유지하고 의존 그래프를 정식 명령으로 재생성했다.
+
+검증: 대상 ESLint·Prettier, Panda 생성, 의존 그래프 생성, diff 공백 검사와 OKF 검사(스테이징 없음 및 전체 작업 트리 누락 문서 없음)를 통과했다. 전체 타입 검사는 기존 `.next/types`의 삭제된 라우트 참조 오류로 실패했으며 `src/` 오류는 없었다. 브라우저에서 PC1440px 주문 목록·상세·취소/반품 목록, 모바일375px 동일 화면과 작성 리뷰·장바구니·주문하기의 가로 넘침/중첩 버튼 없음 및 주문 이미지 96px을 확인했다. 모바일 상품 버튼의 Enter 입력으로 취소 상세 진입과 상태 표시를 확인했다. 모든 디자인의 픽셀 일치나 실제 장바구니 요청을 검증한 것은 아니다.
+
+
+## 별점·리뷰 조건부 표시 소유권 (2026-11-17)
+
+`ProductReviewSummary` 분리 컴포넌트를 제거했다. `OrderProductSummary` 내부에서 rating이 undefined가 아닐 때 공통 RatingStars를, review 문구가 있을 때 Typography를 직접 표시한다. 0점은 유효한 별점으로 표시하며 둘 다 없으면 리뷰 영역을 생성하지 않는다. PC 열 배치와 모바일 상품명 시작선·8px 간격·별점 위 4px은 유지한다. 상품 타일 전체 정보 예시와 복사 코드도 직접 조건부 표시로 갱신했다. 마이페이지 호출부의 rating/review props와 ProductIdentity는 유지한다. 앞선 ProductReviewSummary 공유 기록은 이 변경 전의 이력이다. 출처: OrderProductSummary.tsx, ProductCardGuide.tsx 작업 트리.
+
+검증: 대상 ESLint·Prettier, Panda·의존 그래프 생성과 diff 검사를 통과했다. 전체 타입 검사는 기존 `.next/types`의 삭제 라우트 참조 오류로 실패했으며 변경한 src 소스 오류는 없었다. 이번 통합 후 브라우저 시각 확인은 재실행하지 않았다.
+
+
+## 리뷰 상품 타이포그래피 설정 (2026-11-17)
+
+선택된 마이페이지 작성 리뷰 PC/MO 시안에 맞춰 OrderProductSummary의 reviewTypography에 구매일·상품명, 옵션, 리뷰 본문 설정을 모았다. 크기는 Typography web/mo로 지정하며 구매일·상품명은 PC16/MO13px, 옵션은 PC16/MO12px, 본문은 PC14/MO12px이다. 모두 regular, 줄높이 1.5이며 색상은 primary와 옵션 subtle(#4D4D4D) tone을 사용한다. reviewStyle은 줄높이와 PC 본문 말줄임/여백을 담당한다. 공용 Typography와 다른 상품 유형의 기본값은 변경하지 않았다. 출처: 사용자 선택 [HOKA Design](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql), src/components/common/molecules/OrderProductSummary.tsx 작업 트리.
+
+브라우저 PC1440/MO375에서 위 크기·줄높이·400 굵기·색상을 계산된 스타일로 확인했고 가로 넘침이 없었다. 대상 린트·포맷·Panda 생성 검사를 수행했다. 기존 fixture의 상품명·옵션·날짜·리뷰 문구 및 페이지 헤더/버튼 스타일은 이번 타이포그래피 변경 범위 밖이다.
+
+
+## 별점·리뷰의 콘텐츠 소유권 정정 (2026-11-17)
+
+사용자 요청에 따라 별점·리뷰와 PC 열/MO 세로 배치는 OrderProductSummaryContent 내부에서 처리한다. OrderProductSummary는 이미지와 콘텐츠를 한 번 렌더링하고 rating/review/reviewLayout을 콘텐츠로 전달한다. 바깥의 summary/result 조립, 리뷰 영역을 이미지 너비만큼 들여쓰던 calc, 중복 플랫폼별 리뷰 마크업은 제거했다. 모바일은 텍스트 콘텐츠 내부에 별점과 본문이 이어져 상품명 시작선에 자연스럽게 정렬된다. PC는 이미지 64px·간격 16px을 제외한 상품 텍스트 260:별점120:본문300의 flex 비율을 사용한다. 기존 Typography와 tone, 별점 0 표시 및 누락 리뷰 조건은 유지한다. custom content와 생성형 리뷰 props는 함께 전달하지 않는다. 출처: src/components/common/molecules/OrderProductSummary.tsx 작업 트리.
+
+검증: 대상 ESLint·Prettier·Panda 생성·OKF·diff 검사를 통과했다. 전체 타입 검사는 기존 .next/types의 삭제 라우트 참조 오류로 실패했으며 src 오류는 없었다. 브라우저 PC1440/MO375에서 작성 리뷰의 텍스트와 64px 이미지 영역 및 가로 넘침 없음을 확인했고, 모바일 취소/반품 상품 클릭의 상세 진입과 중첩 버튼 없음을 확인했다.
+
+
+2026-11-17 사용자 후속 요청으로 리뷰 전용 reviewTypography/reviewStyle과 Typography의 isReview spread 분기를 제거했다. 구매일·상품명·옵션은 기존 공통 타이포그래피, 리뷰 본문은 body5를 사용한다. PC 본문 말줄임/여백과 별점·리뷰 조건부 표시, PC/MO 배치는 유지한다. 앞선 시안 타이포그래피 설정 기록은 제거 전 이력이다. 출처: OrderProductSummary.tsx 작업 트리.
+
+
+## 주문 상품 요약 조건 중복 정리 (2026-11-17)
+
+사용처가 없는 reviewLayout 옵션을 제거했다. 별점/본문이 있는 review 유형의 PC는 열 배치, 그 외는 세로 배치를 콘텐츠 내부에서 직접 결정한다. 실제로 마이페이지 cart 유형에서 사용하는 alignStart는 유지한다. 이미지 기본 PC/MO 크기는 defaultImageSizes에 모으고 기존 명시적 imageSize override와 sizes 토큰 매핑을 보존한다. 공통 variant 타입과 history 판정을 공유하고 숫자 금액 포맷을 한 번만 계산한다. 클릭 루트의 padding은 클릭 스타일 한 곳에서 설정한다. review 전용 타이포그래피는 다시 추가하지 않았다. 출처: src/components/common/molecules/OrderProductSummary.tsx 작업 트리.
+
+이미지 기본/명시 크기와 금액 undefined/0/숫자/문자열 23개 조합의 변경 전후 표시값이 같음을 확인했다.
+
+검증: 대상 ESLint·Prettier·Panda·OKF·diff 검사를 통과했다. 전체 타입 검사는 기존 .next/types의 삭제 라우트 참조 오류로 실패했으며 src 오류는 없었다. 브라우저 PC1440/MO375에서 작성 리뷰·주문 목록·장바구니의 진입과 가로 넘침/중첩 버튼 없음을 확인했다.
+
+
+2026-11-17 구매일과 구매 문구는 리뷰 조건 없이 Typography web="body3" mo="body4-2"를 직접 사용한다. PC16px/MO13px이며 날짜의 language="en"은 유지한다. 출처: OrderProductSummary.tsx 작업 트리.
+
+
+2026-11-17 사용자 요청으로 상품명도 유형 조건 없이 Typography web="body3" mo="body4-2"를 직접 사용한다. 모든 OrderProductSummary 기본 상품명은 PC16px/MO13px이며 기존 medium 굵기와 cart의 두 줄 제한은 유지한다. 옵션 타이포그래피는 변경하지 않았다. 출처: OrderProductSummary.tsx 작업 트리.

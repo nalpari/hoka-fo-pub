@@ -6,12 +6,14 @@ import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 import { Button, ButtonLink } from '@/components/common/atoms/Button';
 import { Typography } from '@/components/common/atoms/Typography';
 
+import { OrderProductSummary } from '@/components/common/molecules/OrderProductSummary';
+
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 
 import { getClaimLines, orderStatusLabels } from '@/components/orders/order-policy';
-import { OrderHistoryProduct } from '@/components/orders/OrderHistoryProduct';
 import type { OrderClaim, OrderLine, OrderRecord } from '@/components/orders/orders.types';
 
+/** [ 개발팀 바인딩 ] 주문 화면 소유자가 제공한 line의 옵션·PC/MO 수량·표시 금액을 OrderProductSummary에 전달합니다. 공통 컴포넌트는 OrderLine을 해석하거나 금액을 계산하지 않으며 cartAction은 미연결 표시 버튼입니다. */
 /** 주문 일자·번호와 상세 진입을 표시합니다. (Displays order identification and its detail action.) */
 export function OrderCardHeader({
   order,
@@ -66,6 +68,7 @@ export function OrderClaimGroup({
   claim: OrderClaim;
   onDetail: () => void;
 }) {
+  const platform = usePlatform();
   return (
     <ContentSection
       gap="16px"
@@ -85,7 +88,20 @@ export function OrderClaimGroup({
     >
       <Stack gap="16px">
         {getClaimLines(order, claim).map((line) => (
-          <OrderHistoryProduct key={line.key} line={line} />
+          <OrderProductSummary
+            variant="history"
+            key={line.key}
+            image={line.image}
+            name={line.name}
+            optionText={`${line.width}, ${line.color}, ${line.size}, ${platform === 'mobile' ? (line.mobileQuantity ?? line.quantity) : line.quantity}개`}
+            amount={
+              line.displayAmount === undefined
+                ? undefined
+                : platform === 'mobile'
+                  ? (line.mobileDisplayAmount ?? line.displayAmount)
+                  : line.displayAmount
+            }
+          />
         ))}
       </Stack>
     </ContentSection>
@@ -192,7 +208,21 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
           <Stack gap="16px" mt={{ base: '16px', _mobile: '0' }}>
             {group.lines.map((line) =>
               platform === 'mobile' ? (
-                <OrderHistoryProduct key={line.key} line={line} cartAction />
+                <OrderProductSummary
+                  variant="history"
+                  key={line.key}
+                  image={line.image}
+                  name={line.name}
+                  optionText={`${line.width}, ${line.color}, ${line.size}, ${platform === 'mobile' ? (line.mobileQuantity ?? line.quantity) : line.quantity}개`}
+                  amount={
+                    line.displayAmount === undefined
+                      ? undefined
+                      : platform === 'mobile'
+                        ? (line.mobileDisplayAmount ?? line.displayAmount)
+                        : line.displayAmount
+                  }
+                  cartAction
+                />
               ) : (
                 <Grid
                   key={line.key}
@@ -201,7 +231,13 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
                   gap="0"
                 >
                   <Box px="24px">
-                    <OrderHistoryProduct line={line} showAmount={false} cartAction />
+                    <OrderProductSummary
+                      variant="history"
+                      image={line.image}
+                      name={line.name}
+                      optionText={`${line.width}, ${line.color}, ${line.size}`}
+                      cartAction
+                    />
                   </Box>
                   <Typography variant="body3Medium" className={css({ textAlign: 'center' })}>
                     {line.quantity}개
@@ -292,7 +328,20 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
           </HStack>
           {getClaimLines(order, claim).map((line) =>
             platform === 'mobile' ? (
-              <OrderHistoryProduct key={line.key} line={line} />
+              <OrderProductSummary
+                variant="history"
+                key={line.key}
+                image={line.image}
+                name={line.name}
+                optionText={`${line.width}, ${line.color}, ${line.size}, ${platform === 'mobile' ? (line.mobileQuantity ?? line.quantity) : line.quantity}개`}
+                amount={
+                  line.displayAmount === undefined
+                    ? undefined
+                    : platform === 'mobile'
+                      ? (line.mobileDisplayAmount ?? line.displayAmount)
+                      : line.displayAmount
+                }
+              />
             ) : (
               <Grid
                 key={line.key}
@@ -301,7 +350,13 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
                 gap="0"
               >
                 <Box px="24px">
-                  <OrderHistoryProduct line={line} showAmount={false} cartAction />
+                  <OrderProductSummary
+                    variant="history"
+                    image={line.image}
+                    name={line.name}
+                    optionText={`${line.width}, ${line.color}, ${line.size}`}
+                    cartAction
+                  />
                 </Box>
                 <Typography variant="body3Medium" className={css({ textAlign: 'center' })}>
                   {line.quantity}개
