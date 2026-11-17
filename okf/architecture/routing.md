@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-17T07:55:05.559Z'
+updated: '2026-11-17T08:52:43.078169+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -2038,3 +2038,13 @@ PC 1305px에서 매장명22px/900/26.4px·자간-0.44px, 본문16px/24px·자간
 ## 모바일 검색 결과 IA 연결 (2026-11-17)
 
 IA247은 기존 `/search`와 `/search/preview-no-results`를 유지하며 모바일도 일반 검색 결과 페이지로 표시한다. 소스 그래프에서 제거된 검색 입력·검색 헤더 의존성을 정식 생성 명령으로 갱신했다. 출처: `src/app/screen-index/sourceGraph.generated.json`, `src/components/catalog/ProductListingPage.tsx`, `src/context/ShopShell.tsx` 작업 트리; Codex, 2026-11-17.
+
+## EmptyState 기본 variant 생략 (2026-11-17)
+
+사용자 요청으로 OrdersList.tsx의 EmptyState에서 variant="standard"를 생략했다. EmptyState의 컴포넌트 기본값과 recipe defaultVariants가 같은 standard를 사용하므로 주문 빈 목록의 제목·부모 선택자·PC/MO 여백·라우트·상태 소유권은 유지한다. 다른 page/content/minimal/plain 호출은 변경하지 않았다. 출처: 사용자 요청과 src/app/mypage/orders/_components/OrdersList.tsx 작업 트리.
+
+검증: 변경 OrdersList.tsx ESLint·Prettier와 npm run typecheck 통과. variant 생략은 기존 standard 파라미터 기본값을 사용하며 스타일 선언 변경이 없어 브라우저·빌드는 다시 실행하지 않았다.
+
+## EmptyState layout 선택 연결 (2026-11-17)
+
+앞선 기본 standard 생략 정리는 사용자의 후속 지시로 취소했다. 주문 목록은 variant="standard"를 명시하고 layout="orders"만 추가한다. 런칭 launch, 리뷰 reviews, 마이페이지 주문 요약 orderSummary, FAQ faq, 문의 inquiries와 상품 문의 productInquiry/inquiryBoard를 기존 EmptyState에 연결했다. 상품내역·배송지·러닝세션·상품/검색 목록의 공유 UI도 같은 layout 계약을 사용한다. 숫자 스타일은 recipe가 소유하며 표시 데이터·상태·URL·콜백·태그/폼 경계와 부모 컴포넌트는 유지한다. 새 route나 상태 URL은 추가하지 않았다. 19개 기존 URL의1440/375px 비교38개 경우에서 측정 결과가 동일했고 가로 넘침이 없었다. 상세 계약·검사와 미검증 분기는 [UI 문서](ui.md#emptystate-화면별-layout-통합-2026-11-17)를 따른다. 출처: 위 작업 트리와 사용자 요청, Codex 검사.

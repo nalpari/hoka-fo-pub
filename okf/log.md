@@ -1,3 +1,17 @@
+## 2026-11-17 EmptyState 화면별 layout 통합
+
+- 호출부 layoutProps·EmptyState 전용 클래스·주문 부모 제목 선택자를 recipe의 layout 및 title/description 슬롯으로 이동했다. variant와 layout은 선택적 기본값 standard/default를 유지하고 기존 명시 standard는 사용자 후속 지시에 따라 복원했다. 이전 생략 정리 기록은 이 지시로 대체한다.
+- 기존19개 URL·PC1440/MO375 총38개 경우의 측정 위치·치수·스타일이 일치하고 가로 넘침이 없었다. 전체 TypeScript·대상 ESLint/Prettier·Panda·타입 검사2개와 production build(정적 페이지164개)를 통과했다. 전체 lint의 기존 wh-file-summary 미정의 전역8건은 남는다. 출처: EmptyState·recipe·호출부·타입 검사 작업 트리, 상세: architecture/ui.md·architecture/error-empty-guide.md·architecture/routing.md·development/verification.md.
+
+## 2026-11-17 EmptyState 기본 variant 생략
+
+- 주문 목록의 명시적 standard를 생략하여 기본값을 사용하는4개 운영 호출로 정리했다. 다른 표현의 variant와 기존 화면 스타일은 유지한다. 대상 ESLint·Prettier와 TypeScript 검사를 통과했다. 출처: OrdersList.tsx 작업 트리, 상세: architecture/routing.md·architecture/error-empty-guide.md.
+
+## 2026-11-17 EmptyState 전체 사용처 스타일 감사
+
+- src의16개 파일·17개 호출과 남은 className/props/부모 선택자를 검토했다. 기존19개 URL의 PC1440/MO375 총38개 경우에서 viewport·플랫폼 일치와 가로 넘침 없음을 확인했다. FAQ py15의 실제 상하0px과 런칭 모바일 제목의900 선언/실제600 충돌을 기록했다. 앱 소스는 수정하지 않았다.
+- 운영 소비처 없는 AccountDataList, URL에 연결되지 않은 문의 미리보기 빈 분기, 체크아웃 embedded 빈 배송지와 상품 문의 default 분기는 실행 검증과 구분했다. 출처: 현재 호출부 소스·Codex 브라우저 측정, 상세: architecture/error-empty-guide.md.
+
 ## 2026-11-17
 
 - 모바일 전체 검색 결과를 PC와 같은 일반 결과 페이지로 통일하고 공통 헤더·푸터를 복원했다. 모바일 필터와 PC 정렬은 유지한다. TypeScript·대상 ESLint/Prettier 및 브라우저 결과 표시를 확인했다. 출처: ProductListingPage.tsx·ShopShell.tsx 작업 트리.
@@ -30,6 +44,11 @@
 ## 2026-11-17 주문내역 마일리지 안내 삭제
 
 - CheckoutDiscountSummary의 마일리지 안내 두 문구를 삭제하고 쿠폰 안내·금액·조회 UI를 유지했다. 라우팅·검증 절차 영향 없음과 로컬 PC·모바일 문구 부재 확인을 관련 문서에 기록했다. 출처: 사용자 첨부 Slack 화면과 해당 소스 작업 트리. 기록: codex/gpt-6, 2026-11-17T07:42:10.485Z.
+
+## 2026-11-17 EmptyState recipe와 기본값 규칙
+
+- EmptyState의 표시 스타일을 EmptyState.recipe.tsx로 옮기고 기존 props·compound API·화면을 유지했다. 컴포넌트와 recipe의 기본 variant는 standard이며 생략/undefined 호출을 허용한다. AGENTS.md와 인계 스킬에 선택적 표시 기본값·호환 검사 규칙을 추가했다.
+- PC/MO5개 화면 총10개 경우의 측정 위치·치수·스타일이 변경 전과 일치했다. 대상 lint/format·TypeScript·Panda·타입 검사2개와 production build(정적 페이지164개)를 통과했다. 전체 lint는 기존 wh-file-summary 테스트의 미정의 전역8건으로 실패했다. 출처: EmptyState·recipe·타입 검사·규칙 작업 트리와 Codex 검증, 상세: architecture/ui.md·architecture/error-empty-guide.md·development/verification.md.
 
 ## 2026-11-17 환불(반품) 신청 수량 노출
 

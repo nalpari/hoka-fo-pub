@@ -1,17 +1,24 @@
 import type { ComponentProps, ComponentPropsWithoutRef, ReactNode } from 'react';
 
+import { css } from 'styled-system/css';
 import { Box, Grid, Stack } from 'styled-system/jsx';
 
 import { Typography, type TypographyProps } from '@/components/common/atoms/Typography';
+
+import { type EmptyStateLayout, emptyStateRecipe } from './EmptyState.recipe';
 
 type EmptyStateProps = {
   title?: ReactNode;
   description?: ReactNode;
   action?: ReactNode;
+  /** 생략하거나 undefined이면 standard를 적용합니다. (Defaults to standard when omitted or undefined.) */
   variant?: 'standard' | 'minimal' | 'plain' | 'page' | 'content';
+  /** 화면별 배치를 선택하며 생략 시 variant 기본값을 유지합니다. (Defaults to the variant layout.) */
+  layout?: EmptyStateLayout;
   className?: string;
   as?: 'div' | 'section';
   role?: ComponentPropsWithoutRef<'div'>['role'];
+  /** 기존 외부 호출의 스타일 override를 유지하며 준비된 배치는 layout을 사용합니다. (Retains legacy overrides; prepared layouts use layout.) */
   layoutProps?: Pick<
     ComponentProps<typeof Box>,
     | 'py'
@@ -58,6 +65,7 @@ function EmptyStateRoot({
   description,
   action,
   variant = 'standard',
+  layout = 'default',
   className,
   titleProps,
   layoutProps,
@@ -66,109 +74,63 @@ function EmptyStateRoot({
   descriptionProps,
 }: EmptyStateProps) {
   const label = typeof title === 'string' ? title : undefined;
-  const titleContent = <EmptyStateTitle {...titleProps}>{title}</EmptyStateTitle>;
+  const slots = emptyStateRecipe.raw({ variant, layout, hasAction: Boolean(action) });
+  const titleContent = (
+    <EmptyStateTitle
+      {...titleProps}
+      className={withClassName(css(slots.title), titleProps?.className)}
+    >
+      {title}
+    </EmptyStateTitle>
+  );
   const descriptionContent = description ? (
-    <Typography as="p" variant="body3" {...descriptionProps}>
+    <Typography
+      as="p"
+      variant="body3"
+      {...descriptionProps}
+      className={withClassName(css(slots.description), descriptionProps?.className)}
+    >
       {description}
     </Typography>
   ) : null;
+  // Root action spacing differs from the independently used EmptyState.Action slot.
   const actionContent = action ? <Box>{action}</Box> : null;
-
-  if (variant === 'page' || variant === 'content') {
-    return (
-      <Stack
-        as={as ?? 'section'}
-        className={className}
-        aria-label={label}
-        role={role}
-        alignItems="center"
-        justifyContent="center"
-        gap={variant === 'page' && actionContent ? '8' : '4'}
-        w="100%"
-        minH={variant === 'content' ? '267px' : undefined}
-        py={variant === 'page' ? '160px' : '0'}
-        px="3"
-        textAlign="center"
-        color="black.100"
-        {...layoutProps}
-        _mobile={{
-          px: '3',
-          ...(variant === 'content' ? { minH: '154px' } : { py: '8' }),
-          ...layoutProps?._mobile,
-        }}
-      >
-        <Stack
-          gap="4"
-          w="100%"
-          maxW={variant === 'content' ? '320px' : '520px'}
-          _mobile={{ maxW: 'none' }}
-        >
+  const grouped = variant === 'page' || variant === 'content';
+  const content = (
+    <>
+      {grouped ? (
+        <Stack css={slots.text}>
           {title ? titleContent : null}
           {descriptionContent}
         </Stack>
-        {actionContent}
-      </Stack>
-    );
-  }
+      ) : (
+        <>
+          {titleContent}
+          {descriptionContent}
+        </>
+      )}
+      {actionContent}
+    </>
+  );
+  const rootProps = {
+    className,
+    role,
+    css: css.raw(slots.root, layoutProps, {
+      _mobile: { ...slots.root._mobile, ...layoutProps?._mobile },
+    }),
+  };
 
   if (variant === 'plain') {
     return (
-      <Box
-        as={as ?? 'div'}
-        className={className}
-        role={role}
-        textAlign="center"
-        {...layoutProps}
-        _mobile={{ px: '3', ...layoutProps?._mobile }}
-      >
-        {titleContent}
-        {descriptionContent}
-        {actionContent}
+      <Box as={as ?? 'div'} {...rootProps}>
+        {content}
       </Box>
     );
   }
 
-  if (variant === 'minimal') {
-    return (
-      <Stack
-        as={as ?? 'section'}
-        className={className}
-        gap="2"
-        aria-label={label}
-        role={role}
-        minH="180px"
-        pt="42px"
-        textAlign="center"
-        {...layoutProps}
-        _mobile={{ px: '3', ...layoutProps?._mobile }}
-      >
-        {titleContent}
-        {description ? descriptionContent : null}
-        {actionContent}
-      </Stack>
-    );
-  }
-
   return (
-    <Stack
-      gap="2"
-      as={as ?? 'section'}
-      className={className}
-      aria-label={label}
-      role={role}
-      w="100%"
-      pt="24"
-      pb="40"
-      px="4"
-      bg="white.0"
-      color="black.100"
-      textAlign="center"
-      {...layoutProps}
-      _mobile={{ px: '3', ...layoutProps?._mobile }}
-    >
-      {titleContent}
-      {description ? descriptionContent : null}
-      {actionContent}
+    <Stack as={as ?? 'section'} aria-label={label} {...rootProps}>
+      {content}
     </Stack>
   );
 }
@@ -179,12 +141,7 @@ export function EmptyStateIcon({ className, ...props }: EmptyStateIconProps) {
     <Grid
       {...props}
       className={withClassName('empty-state__icon', className)}
-      w="32px"
-      h="32px"
-      placeItems="center"
-      border="1px solid var(--color-black-40)"
-      borderRadius="full"
-      color="var(--color-text-tertiary)"
+      css={emptyStateRecipe.raw().icon}
       aria-hidden="true"
     />
   );
@@ -225,7 +182,13 @@ export function EmptyStateDescription({
 
 /** 빈 목록의 후속 액션을 배치합니다. (Arranges an empty list action.) */
 export function EmptyStateAction({ className, ...props }: EmptyStateActionProps) {
-  return <Box {...props} className={withClassName('empty-state__action', className)} mt="2" />;
+  return (
+    <Box
+      {...props}
+      className={withClassName('empty-state__action', className)}
+      css={emptyStateRecipe.raw().action}
+    />
+  );
 }
 
 /** 빈 목록의 제목·설명·액션을 구성합니다. (Composes an empty state's title, description, and action.) */

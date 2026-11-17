@@ -4,12 +4,14 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-17T07:55:05.559Z'
+updated: '2026-11-17T08:52:43.078169+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - .agents/skills/hoka-markup-handoff/references/component-quality.md
+  - src/components/common/atoms/EmptyState.recipe.tsx
   - src/app/checkout/_components/CheckoutCouponDialog.tsx
   - src/components/common/molecules/DateRangeSearch.tsx
   - src/app/checkout/_components/CheckoutPayment.tsx
@@ -5313,3 +5315,27 @@ PC 1305px에서 매장명22px/900/26.4px·자간-0.44px, 본문16px/24px·자간
 모바일 `/search?q=...`는 PC와 같은 일반 상품 검색 결과 레이아웃을 사용한다. 검색 전용 fixed 전체 화면·입력창·닫기 버튼을 제거하고 공통 헤더와 푸터를 표시한다. 재검색은 공통 헤더 검색 팝업에서 수행한다. 모바일 결과 제목 옆 필터 버튼과 필터 시트의 정렬·적용, PC 정렬 및 준비된 표시 데이터 경계는 유지한다. 이전 검색 결과 닫기 복귀 설명은 이 변경으로 대체하며 일반 검색 팝업의 로컬 닫기는 유지한다.
 
 출처: `src/components/catalog/ProductListingPage.tsx`, `src/context/ShopShell.tsx` 작업 트리; Codex 작성, 2026-11-17. TypeScript와 대상 ESLint·Prettier를 통과했다. 브라우저에서 PC Clifton 결과 2건과 정렬, 390px 모바일 일반 결과·필터 버튼 및 검색 패널 미표시를 확인했다. 실제 검색 API는 연결하지 않았다.
+
+## EmptyState recipe와 선택적 기본값 (2026-11-17)
+
+EmptyState의 standard/minimal/plain/page/content 스타일은 같은 atoms 폴더의 EmptyState.recipe.tsx로 옮겼다. root/text/icon/action 슬롯을 사용하고 기존 Box/Grid/Stack, 제목·설명의 Typography, compound API와 .empty-state__* 클래스는 유지한다. Root action은 기존처럼 별도 margin이 없으며 독립 EmptyState.Action만 mt=2를 사용한다. page의 action 유무에 따른 gap=8/4, page/content 문구 최대 폭520/320px, content 최소 높이 PC267/MO154px도 유지한다. layoutProps는 recipe.raw 결과 뒤에 css.raw로 병합하며 모바일 기본값 뒤에 호출자의 _mobile을 적용한다. 서비스·데이터·콜백 소유권 변경은 없다.
+
+variant는 선택적이며 생략과 명시적 undefined 모두 standard다. 컴포넌트 파라미터의 기본값과 recipe.defaultVariants에 같은 값을 등록했다. 선택적 표시 옵션을 정리할 때 이중 기본값 선언·기존 호출자 호환·생략/undefined/명시적 variant 검사를 수행하도록 AGENTS.md와 인계 스킬 component-quality 규칙에 반영했다. 의도적으로 필수인 판별자나 서비스 입력에는 기본값을 만들지 않는다. Modal 소스는 이번 변경 대상이 아니며 개발팀에서 보고한 오류의 진단 로그가 없어 원인을 확정하지 않았다.
+
+최근 본 상품 빈 화면·마이페이지 주문 요약 빈 영역·주문 빈 목록·쿠폰 빈 목록·문의 빈 목록을1440×900과375×900에서 변경 전후 비교했다. 10개 경우 모두 측정한 요소 위치·크기·여백·글꼴 값이 같았다. 최근 본 상품 PC/MO 스크린샷을 직접 확인했고 모바일 가로 넘침이 없었다. 변경 파일 ESLint/Prettier, TypeScript와 Panda 생성 및 EmptyState/ModalDialog 타입 계약 검사2개를 통과했다. 전체 lint는 변경하지 않은 tests/wh-file-summary.test.mjs의 URL/Request/Response no-undef8건으로 실패했다. 전체 소비자 시각 검증이나 보고된 개발팀 환경의 오류 재현을 의미하지 않는다. 상세 계약은 [빈 상태 가이드](error-empty-guide.md#emptystate-기본값과-recipe-2026-11-17)를 따른다. 출처: 사용자 요청, 위 작업 트리와 Codex의 실제 검사(2026-11-17).
+
+2026-11-17 추가 검증: npm run build가 TypeScript와 정적 페이지164개 생성을 포함해 통과했다. 기존 서비스·라우팅·플랫폼 소유권과 화면별 override를 유지하는 인계 스킬 검토도 수행했다.
+
+## EmptyState 화면별 layout 통합 (2026-11-17)
+
+사용자 요청으로 EmptyState 호출부의 layoutProps와 전용 className·주문 부모의 제목 선택자를 EmptyState.recipe.tsx의 layout 옵션 및 title/description 슬롯으로 옮겼다. variant는 standard/minimal/plain/page/content 그대로이고 layout의 생략·undefined 기본값은 default다. 컴포넌트 파라미터와 recipe defaultVariants에 같은 기본값을 등록한다. 기존 variant="standard"는 사용자의 후속 지시에 따라 주문 목록에 명시한 채 유지하며, 생략 허용과 명시값 삭제를 구분한다.
+
+layout은 default, history, wishlist, restock, address, embeddedAddress, reviews, catalog, search, inquiries, faq, orderSummary, orders, launch, runningSession, productInquiry, inquiryBoard다. 호출자는 값 대신 배치 이름을 선택한다. history 계열의 기본 스타일 객체는 공유하고 실제 다른 모바일 여백·높이만 분기한다. 기존 화면·props·compound API와 Typography의 web/mo/as/variant 계약, 데이터·로컬 상태·콜백과 Panda 컴포넌트는 유지한다. layoutProps와 public className은 기존 외부 호출 호환을 위해 남기되 운영 호출에서 layoutProps를 사용하지 않는다.
+
+Panda Stack/Grid/Box의 기본값과 충돌하지 않도록 recipe.raw의 root/text/icon/action 스타일을 기존 primitive의 css에 병합한다. 이 primitive는 최종 DOM className을 생성한다. title/description은 recipe 슬롯을 css로 생성해 기존 Typography className에 적용한다. 기본/예외 atomic 클래스를 따로 만들어 같은 속성으로 경쟁시키지 않는다. Typography의 별도 소유권 때문에 필요한 제목 예외는 좁은 && 범위를 사용한다. 주문 모바일400은 같은 모바일 조건에서 명시하고, 러닝세션은 padding shorthand 대신 pt/pb/px=0을 지정해 standard 기본 padding이 남지 않게 했다.
+
+FAQ의 이전 미생성 py15는 실제 화면의 상하0px으로 명시했다. 런칭 모바일 굵기는 실제600을 명시하고 PC900·MO22px을 보존했다. 이는 기존 화면 보존을 위한 값이며 원본 시안의 여백/굵기 재확정 작업은 아니다. 상위 영역이 소유하는 간격·부모 최소높이와 외부 action 안의 버튼/너비는 해당 소유자에 유지한다.
+
+19개 기존 상태 URL의 PC1440×900/MO375×900 총38개 경우에서 root/title/직접 자식의 측정 위치·치수·스타일이 변경 직전과 일치했고 가로 넘침이 없었다. 상품 목록 PC·러닝세션/주문/런칭 모바일 스크린샷을 직접 확인했다. 전체 TypeScript, 대상 ESLint·Prettier, Panda 생성과 EmptyState/ModalDialog 타입 검사2개를 통과했다. 전체 lint는 변경하지 않은 tests/wh-file-summary.test.mjs의 URL/Request/Response no-undef8건으로 실패했다. 미연결 embedded 빈 배송지와 InquiryBoard default 분기는 소스/타입만 검토했으며 런타임 검증으로 기록하지 않는다. 출처: 사용자 요청, 두 EmptyState 및 변경 호출부의 현재 작업 트리, Codex 실제 검사.
+
+2026-11-17 layout 통합 최종 빌드: npm run build의 컴파일·TypeScript·정적 페이지164개 생성이 통과했다. 마지막 구조 검토에서 기존 Panda primitives·시맨틱·상태/콜백·명시 variant와 기본값의 보존을 확인했다.

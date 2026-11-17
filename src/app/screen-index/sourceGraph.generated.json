@@ -1389,7 +1389,11 @@
       "src/components/common/layouts/ModalDialog.tsx",
       "src/context/platform.tsx"
     ],
-    "src/components/common/atoms/EmptyState.tsx": ["src/components/common/atoms/Typography.tsx"],
+    "src/components/common/atoms/EmptyState.recipe.tsx": [],
+    "src/components/common/atoms/EmptyState.tsx": [
+      "src/components/common/atoms/EmptyState.recipe.tsx",
+      "src/components/common/atoms/Typography.tsx"
+    ],
     "src/components/common/atoms/FilterTabs.tsx": [
       "src/components/common/atoms/Typography.tsx",
       "src/context/platform.tsx"

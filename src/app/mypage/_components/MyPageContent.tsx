@@ -243,12 +243,10 @@ function MyPageRecentOrders({ empty = true }: { empty?: boolean }) {
   const items = empty ? [] : orderItems;
   const emptyState = (
     <EmptyState
+      layout="orderSummary"
       variant="content"
       description="주문 배송 내역이 없습니다."
       descriptionProps={{ web: 'body3', mo: 'body4' }}
-      layoutProps={{
-        borderBottom: '1px solid var(--colors-black-20)',
-      }}
     />
   );
 

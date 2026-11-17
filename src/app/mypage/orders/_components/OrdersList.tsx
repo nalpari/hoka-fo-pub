@@ -156,15 +156,6 @@ function ClaimHistoryList({
   );
 }
 
-const emptyOrderState = css({
-  '& .empty-state__title': {
-    fontSize: 'var(--font-sizes-14)',
-    fontWeight: 'normal',
-    lineHeight: 'body',
-    color: 'var(--color-text-subtle)',
-  },
-});
-
 /** 주문 현황·필터·주문 카드 목록과 빈 상태를 구성합니다. (Composes the order snapshot, filters, cards, and empty state.) */
 export function OrdersListContent({
   orders,
@@ -219,8 +210,8 @@ export function OrdersListContent({
           </Stack>
         </Stack>
       ) : (
-        <Box minH={{ base: '267px', _mobile: '192px' }} className={emptyOrderState}>
-          <EmptyState variant="standard" title="주문한 상품이 없습니다." />
+        <Box minH={{ base: '267px', _mobile: '192px' }}>
+          <EmptyState layout="orders" variant="standard" title="주문한 상품이 없습니다." />
         </Box>
       )}
     </Stack>

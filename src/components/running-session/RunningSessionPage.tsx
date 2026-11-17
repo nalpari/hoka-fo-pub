@@ -311,29 +311,10 @@ function RunningSessionEmptyState() {
   return (
     <Box role="status">
       <EmptyState
+        layout="runningSession"
         title="현재 운영중인 세션이 없습니다."
-        titleProps={{
-          web: 'headingKr7',
-          mo: 'headingKr5',
-          className: css({
-            '&&': { fontFamily: 'var(--font-family-korean)' },
-            _mobile: { color: 'black.60' },
-          }),
-        }}
+        titleProps={{ web: 'headingKr7', mo: 'headingKr5' }}
         action={mobile ? undefined : <RunningSessionHistoryLink />}
-        className={css({
-          '&&': {
-            h: '516px',
-            p: '0',
-            gap: '24px',
-            alignItems: 'center',
-            justifyContent: 'center',
-            _mobile: {
-              h: '504px',
-              px: 'calc(var(--layout-mobile-inline-gutter) + 12px)',
-            },
-          },
-        })}
       />
     </Box>
   );

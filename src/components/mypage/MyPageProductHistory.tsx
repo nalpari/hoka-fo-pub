@@ -422,6 +422,7 @@ export function MyPageProductHistory({
         )}
         {!items.length ? (
           <EmptyState
+            layout={kind === 'wishlist' ? 'wishlist' : restock ? 'restock' : 'history'}
             variant="page"
             role="status"
             title={`${current.empty}${kind === 'recent' || (kind === 'wishlist' && platform === 'web') ? '' : '.'}`}
@@ -435,25 +436,6 @@ export function MyPageProductHistory({
               web: 'body3',
               mo: 'body4',
             }}
-            layoutProps={css.raw({
-              minH: '795px',
-              pt: '160px',
-              pb: '0',
-              justifyContent: 'flex-start',
-              _mobile:
-                kind === 'wishlist'
-                  ? {
-                      minH: 'calc(100svh - var(--layout-site-header-height) - 156px)',
-                      pt: '200px',
-                      pb: '0',
-                    }
-                  : {
-                      minH: 'calc(100svh - var(--layout-site-header-height) - 106px)',
-                      py: '0',
-                      justifyContent: 'center',
-                      ...(restock ? { mt: '-24px' } : {}),
-                    },
-            })}
           />
         ) : restock ? (
           <MyPageRestockList entries={entries} items={items} onCancelRequest={setPendingCancel} />

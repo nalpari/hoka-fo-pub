@@ -4,12 +4,14 @@ title: '변경 검증'
 description: '변경 범위에 맞는 정적 검사, 빌드와 수동 검증을 안내한다.'
 tags: [verification, testing, build]
 status: draft
-updated: '2026-11-17T07:55:05.559Z'
+updated: '2026-11-17T08:52:43.078169+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - .agents/skills/hoka-markup-handoff/references/component-quality.md
+  - tests/empty-state-types.test.mjs
   - src/app/checkout/_components/CheckoutDiscountSummary.tsx
   - src/app/cart/_components/CartProductSection.tsx
   - src/app/checkout/_components/CheckoutCouponDialog.tsx
@@ -839,3 +841,15 @@ CheckoutDiscountSummary의 마일리지 문구 삭제를 검토했다. 앞선 �
 대상 세 TSX의 ESLint·Prettier와 전체 npm run typecheck를 통과했다. 기존 localhost:3000에서 PC 기본 주문서의 동의 두 항목·체크 토글(true), 배송 요청 door, 마일리지 문구 부재를 확인했다. 조회하기로 쿠폰 모달을 연 뒤 상품 쿠폰을 접어도 총액3,200,000이 남고 장바구니 접기 버튼이0개임을 확인했다. 같은 창을375×812로 변경해 모바일 동의 두 항목 표시·door·쿠폰 총액과 접기 버튼 부재를 확인했다. 배송 선택지4개와 기존 안내 문구 제거를 확인하고 /checkout/preview-delivery-request에 직접 진입해 custom 값·textarea 유지를 확인했다. 이번 수정은 정적 표시·기본값 변경으로 서비스 요청·실패·재시도 계약은 변경하지 않았으며 전체 빌드와 설계서 픽셀 대조는 수행하지 않았다.
 
 출처: 사용자 첨부 Slack 대화·화면과 위 working_tree_sources의 checkout 소스. 기록: codex/gpt-6, 2026-11-17T07:38:24Z. 기존 generated·source_revision·draft 및 과거 검증 이력은 보존한다.
+
+## 선택적 variant 호환 검사 (2026-11-17)
+
+공통 표시 옵션 리팩터링은 컴포넌트 기본값과 Panda defaultVariants를 일치시키고 생략·undefined·기본값·기존 명시 variant를 확인한다. tests/empty-state-types.test.mjs는 실제 TSX 호출을 TypeScript로 검사하여 기존5개 variant, title/description/layout override, named/compound exports와 잘못된 variant 거부를 확인한다. node --test tests/empty-state-types.test.mjs tests/modal-dialog-types.test.mjs의2개 검사와 npm run typecheck가 통과했다. 대상 ESLint·Prettier와 Panda 생성도 통과했다. 전체 lint는 기존 tests/wh-file-summary.test.mjs의 URL/Request/Response 미정의8건 때문에 실패했으며 해당 파일은 수정하지 않았다. 개발팀의 Modal lint 오류는 실제 진단이 없어 원인을 확정하거나 해결되었다고 보고하지 않는다. PC/MO 비교 범위와 결과는 [UI 문서](../architecture/ui.md#emptystate-recipe와-선택적-기본값-2026-11-17)를 따른다. 출처: 사용자 요청과 위 작업 트리, Codex 실제 검사.
+
+2026-11-17 추가 검증: npm run build가 TypeScript와 정적 페이지164개 생성을 포함해 통과했다. 기존 서비스·라우팅·플랫폼 소유권과 화면별 override를 유지하는 인계 스킬 검토도 수행했다.
+
+## EmptyState layout 타입과 화면 보존 (2026-11-17)
+
+EmptyState 타입 계약 검사에 layout의 default/undefined·17개 선택값(기본값 포함) 및 잘못된 layout 거부를 추가했다. 기존 variant 생략·undefined·5개 명시값과 compound/named API·layoutProps 호환 검사도 유지한다. node --test tests/empty-state-types.test.mjs tests/modal-dialog-types.test.mjs의2개 검사, 전체 TypeScript와 대상 ESLint/Prettier, Panda 생성이 통과했다. 현재38개 기존 PC/MO 상태의 측정 결과가 변경 전과 같았다. 전체 lint의 기존 wh-file-summary no-undef8건은 남아 있다. 실제 검증 분기와 구조는 [UI 문서](../architecture/ui.md#emptystate-화면별-layout-통합-2026-11-17)에 기록한다. 출처: 사용자 요청, 해당 테스트·EmptyState/recipe 및 호출부 작업 트리, Codex 실제 검사.
+
+2026-11-17 layout 통합 최종 빌드: npm run build의 컴파일·TypeScript·정적 페이지164개 생성이 통과했다. 마지막 구조 검토에서 기존 Panda primitives·시맨틱·상태/콜백·명시 variant와 기본값의 보존을 확인했다.

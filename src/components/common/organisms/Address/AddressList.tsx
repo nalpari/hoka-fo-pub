@@ -213,19 +213,8 @@ export function AddressList({
           </Box>
         ) : (
           <EmptyState
+            layout={embedded ? 'embeddedAddress' : 'address'}
             variant="page"
-            layoutProps={css.raw({
-              minH: embedded ? '0' : '795px',
-              pt: embedded ? '8' : '160px',
-              pb: '0',
-              justifyContent: 'flex-start',
-              _mobile: {
-                mt: embedded ? '0' : '-24px',
-                py: '0',
-                minH: embedded ? '0' : 'calc(100svh - var(--layout-site-header-height) - 106px)',
-                justifyContent: 'center',
-              },
-            })}
             titleProps={{ as: 'p', web: 'headingKr7', mo: 'headingKr5' }}
             title="자주 쓰는 배송지 주소를 설정해주세요."
             description={
