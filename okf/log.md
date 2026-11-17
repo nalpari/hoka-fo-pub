@@ -1,3 +1,7 @@
+## 2026-11-17 환불(반품) 신청 수량 노출
+
+- 주문 취소와 동일하게 반품 신청에도 상품별 수량 조절을 표시하고 기존 초안·최소/최대 제한을 유지했다. 대상 ESLint·Prettier를 통과했다. 출처: OrderClaimRequest.tsx 작업 트리, 상세: architecture/routing.md.
+
 ## 2026-11-17 검색 결과 닫기 복귀 수정
 
 - 검색 결과 닫기의 /products 고정 이동을 router.back()으로 바꿨다. 주문·FAQ에서 검색 결과 닫기 후 원래 URL 복귀와 일반 검색 팝업 닫기의 URL 유지를 확인했다.

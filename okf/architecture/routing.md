@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-17T04:05:53.604674+00:00'
+updated: '2026-11-17T06:58:49.263966+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -1169,7 +1169,7 @@ Figma PC `2203:77591`, 모바일 `2203:76651`을 기준으로 568px PC 모달·�
 
 ### 환불 신청 연결 (2026-11-03)
 
-OrderClaimRequest의 kind 옵션으로 취소와 반품 신청을 공유한다. 배송완료 주문의 환불 신청 버튼은 onReturn(order)를 통해 선택한 주문의 팝업을 열고, /mypage/orders/preview-return-request는 같은 화면을 직접 연다. 반품은 수량 조절 없이 상품 체크와 사유·상세내용을 입력하며 회수 안내·환불예정금액을 표시한다. 실제 환불 요청·계산은 미연결이다. 출처: OrderClaimRequest.tsx, OrdersPage.tsx, OrdersProducts.tsx 및 Figma 2203:90945, 2203:76721. IA 178의 기존 주소는 유지하고 source graph를 재생성했다.
+OrderClaimRequest의 kind 옵션으로 취소와 반품 신청을 공유한다. 배송완료 주문의 환불 신청 버튼은 onReturn(order)를 통해 선택한 주문의 팝업을 열고, /mypage/orders/preview-return-request는 같은 화면을 직접 연다. 반품은 취소 신청과 동일한 수량 조절(최소 1, 최대 해당 상품 주문 수량), 상품 체크와 사유·상세내용을 입력하며 회수 안내·환불예정금액을 표시한다. 실제 환불 요청·계산은 미연결이다. 출처: OrderClaimRequest.tsx, OrdersPage.tsx, OrdersProducts.tsx 및 Figma 2203:90945, 2203:76721. IA 178의 기존 주소는 유지하고 source graph를 재생성했다.
 
 반품 신청의 반품비 값 색상 조건 수정은 OrderClaimRequest의 표시 변경이며 기존 신청 URL과 진입 동작은 유지한다(2026-11-03).
 
@@ -1993,3 +1993,7 @@ FAQ 검색 스타일 후속 정리(2026-11-17): 검색 form·입력 컨테이너
 ## 런칭 캘린더 빈 목록 직접 경로 (2026-11-17)
 
 IA160 Feed에 `/launch-calendar/preview-empty`(런칭 일정 없음), IA161 Upcoming에 `/launch-calendar/upcoming/preview-empty`(출시 예정 상품 없음)을 연결했다. 두 page는 기존 LaunchCalendarContent에 mode와 items=[]를 전달한다. 기본 목록·상품 상세·알림 경로는 유지하고 새 IA 번호나 요청 흐름은 추가하지 않는다. 소스 그래프는 정식 생성기로 갱신했다. 화면별 문구·레이아웃·검증은 [빈 목록 기록](launch-calendar.md#feedupcoming-빈-목록-2026-11-17)을 따른다. 출처: 두 신규 page와 screenConnections.ts·LaunchCalendarContent.tsx 작업 트리, Codex(2026-11-17).
+
+## 환불(반품) 신청 수량 노출 (2026-11-17)
+
+OrderClaimRequest에서 반품일 때 NumberStepper를 숨기던 조건을 제거해 PC·모바일 모두 주문 취소와 같은 수량 입력을 표시한다. 상품별 로컬 초안·최소 1·주문 수량 상한과 기존 스타일을 유지한다. 실제 요청·금액 계산은 미연결이며 경로·플랫폼 소유권은 바뀌지 않는다. 출처: src/app/mypage/orders/_components/OrderClaimRequest.tsx 작업 트리. 대상 ESLint·Prettier 확인을 통과했다. 브라우저 실측은 수행하지 않았다.

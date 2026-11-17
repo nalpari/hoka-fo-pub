@@ -82,18 +82,16 @@ export function OrderClaimRequest({
                     <Typography variant="body4" tone="subtle">
                       {line.width}, {line.color}, {line.size}, 1개
                     </Typography>
-                    {!returning ? (
-                      <NumberStepper
-                        value={quantities[line.key] ?? 1}
-                        min={1}
-                        max={line.quantity}
-                        ariaLabel={`${line.name} ${line.key} ${name} 수량`}
-                        onChange={(value) =>
-                          setQuantities((previous) => ({ ...previous, [line.key]: value }))
-                        }
-                        className={classes.stepper}
-                      />
-                    ) : null}
+                    <NumberStepper
+                      value={quantities[line.key] ?? 1}
+                      min={1}
+                      max={line.quantity}
+                      ariaLabel={`${line.name} ${line.key} ${name} 수량`}
+                      onChange={(value) =>
+                        setQuantities((previous) => ({ ...previous, [line.key]: value }))
+                      }
+                      className={classes.stepper}
+                    />
                   </Stack>
                 }
               />
