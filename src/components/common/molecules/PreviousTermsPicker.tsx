@@ -12,6 +12,24 @@ import { Typography } from '@/components/common/atoms/Typography';
 
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
+const styles = {
+  heading: css({ lineHeight: '1.5!', color: 'black.100' }),
+  dates: css({
+    gap: '16px',
+    '& label > span:last-child': {
+      display: 'flex',
+      alignItems: 'center',
+      fontFamily: 'korean',
+      fontSize: '14px',
+      fontWeight: '400',
+      lineHeight: '21px',
+      letterSpacing: '-0.02em',
+      color: 'black.100',
+      transform: 'none',
+    },
+  }),
+};
+
 const previousTerms = [
   '2025-07-01',
   '2024-06-22',
@@ -77,12 +95,7 @@ export function PreviousTermsPicker({
         }
       >
         <Stack gap="16px">
-          <Typography
-            as="p"
-            variant="body3Medium"
-            language="ko"
-            className={css({ lineHeight: '1.5!', color: 'black.100' })}
-          >
+          <Typography as="p" variant="body3Medium" language="ko" className={styles.heading}>
             약관 시행일을 선택해주세요
           </Typography>
           <Radio
@@ -91,20 +104,7 @@ export function PreviousTermsPicker({
             value={selectedDate}
             onValueChange={setSelectedDate}
             options={dates.map((date) => ({ value: date, label: label(date) }))}
-            className={css({
-              gap: '16px',
-              '& label > span:last-child': {
-                display: 'flex',
-                alignItems: 'center',
-                fontFamily: 'korean',
-                fontSize: '14px',
-                fontWeight: '400',
-                lineHeight: '21px',
-                letterSpacing: '-0.02em',
-                color: 'black.100',
-                transform: 'none',
-              },
-            })}
+            className={styles.dates}
           />
         </Stack>
       </ModalDialog>
@@ -132,11 +132,12 @@ export function PreviousTermsPicker({
       }}
     >
       <Stack gap="4">
-        <Typography as="p" variant="body3">
+        <Typography as="p" variant="body3Medium" language="ko" className={styles.heading}>
           약관 시행일을 선택해주세요
         </Typography>
         <Radio
           ariaLabel="이전 약관 시행일"
+          className={styles.dates}
           name="previous-terms-date"
           value={selectedDate}
           onValueChange={setSelectedDate}

@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-17T00:40:39.339866+00:00'
+updated: '2026-11-17T01:20:50.547486+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -5173,3 +5173,10 @@ ModalDialog는 설치된 Base UI의 Backdrop forceRender 옵션을 사용해 중
 이전 약관 모바일 시트의 본문334px 고정 높이를 제거하고 내용에 맞춰 늘어나며 작은 화면에서는 본문만 줄어들도록 flex0 1 auto를 사용한다. 안내문은 Pretendard16px/500/24px, 날짜는 Pretendard14px/400/21px·자간-0.02em·검정이다. 날짜 표시의 영문 글꼴 기준1px 이동을 제거하여 목록 끝의 미세한 넘침도 해소했다. 선택·확인·닫기 계약과 PC 날짜 목록 표시는 유지한다. 작업 트리 출처: src/components/common/layouts/ModalDialog.tsx, src/components/common/layouts/ModalDialog.recipe.tsx, src/components/common/molecules/PreviousTermsPicker.tsx.
 
 Codex 검증: PC1276×1251·모바일513×1251에서 부모 약관 위50% 배경과 자식 모달, 닫기 후 부모 유지·이전 약관 버튼 포커스를 캡처와 DOM으로 확인했다. 모바일513×1251·375×812에서는 본문 clientHeight/scrollHeight가283/283으로 스크롤이 없고, 375×400에서는168/283으로 필요한 본문 스크롤과 화면 안 footer를 유지했다. 모바일 안내문16/500/24·날짜14/400/21·버튼700, PC 버튼700을 실제 스타일로 확인했다. 변경 파일 ESLint·Prettier, 타입 검사와 모달 타입 계약 테스트를 확인했다.
+
+
+## 이전 약관 PC 글꼴 일치 (2026-11-17)
+
+PreviousTermsPicker의 안내문·날짜 스타일을 기존 모바일과 PC가 공유한다. PC 안내문은 Pretendard16px/500/24px, 날짜는14px/400/21px·자간-0.02em·검정이며 기존 영문 글꼴의1px 이동도 사용하지 않는다. 선택·확인과 플랫폼별 모달 계약은 유지한다. 작업 트리 출처: src/components/common/molecules/PreviousTermsPicker.tsx.
+
+Codex 검증: PC1176×1251·모바일513×1251에서 캡처 대조와 실제 계산 스타일로 위 규격을 확인했고, 두 플랫폼 모두 본문 clientHeight/scrollHeight283/283으로 불필요한 스크롤이 없었다. 변경 파일 ESLint·Prettier와 타입 검사를 통과했다.
