@@ -10,6 +10,24 @@ import { ContentSection } from '@/components/common/layouts/ContentSection';
 import type { StoreResult } from '@/types/component-contracts/app-support-store-page';
 
 const styles = {
+  storeList: css.raw({
+    m: '0',
+    py: '0',
+    listStyleType: 'none',
+    gap: '0',
+    px: { base: '0', _mobile: '4' },
+  }),
+  storeItem: css.raw({
+    gap: { base: '5', _mobile: '4' },
+    py: { base: '10', _mobile: '8' },
+    _first: { pt: { base: '0', _mobile: '8' } },
+    borderBottomWidth: '1px',
+    borderBottomStyle: 'solid',
+    borderBottomColor: '#E9EAEB',
+  }),
+  storeDetails: css.raw({ gap: { base: '3', _mobile: '2' } }),
+  contactDetails: css.raw({ gap: { base: '1.5', _mobile: '1' } }),
+  contactRow: css.raw({ gap: '2' }),
   body: css({ '&': { lineHeight: '1.5' } }),
   phoneLink: css({
     '&': { lineHeight: '1.5' },
@@ -22,29 +40,24 @@ export function StoreResults({ stores }: { stores: readonly StoreResult[] }) {
   const mobile = usePlatform() === 'mobile';
 
   return (
-    <Stack as="ul" m="0" py="0" listStyleType="none" gap="0" px={{ base: '0', _mobile: '4' }}>
+    <Stack as="ul" css={styles.storeList}>
       {stores.map((store) => (
         <ContentSection
           as="li"
           key={store.name}
-          gap={{ base: '5', _mobile: '4' }}
-          py={{ base: '10', _mobile: '8' }}
-          _first={{ pt: { base: '0', _mobile: '8' } }}
-          borderBottomWidth="1px"
-          borderBottomStyle="solid"
-          borderBottomColor="#E9EAEB"
+          css={styles.storeItem}
           title={store.name}
           headerProps={{
             titleAs: 'h3',
             titleProps: { web: 'headingKr8', mo: 'headingKr6' },
           }}
         >
-          <Stack gap={{ base: '3', _mobile: '2' }}>
+          <Stack css={styles.storeDetails}>
             <Typography web="body3" mo="body4" className={styles.body} tone="tertiary">
               {store.address}
             </Typography>
-            <Stack gap={{ base: '1.5', _mobile: '1' }}>
-              <HStack gap="2">
+            <Stack css={styles.contactDetails}>
+              <HStack css={styles.contactRow}>
                 <Typography web="body3" mo="body4" className={styles.body} tone="tertiary">
                   전화번호
                 </Typography>
@@ -65,7 +78,7 @@ export function StoreResults({ stores }: { stores: readonly StoreResult[] }) {
                 )}
               </HStack>
               {store.hours && (
-                <HStack gap="2">
+                <HStack css={styles.contactRow}>
                   <Typography web="body3" mo="body4" className={styles.body} tone="tertiary">
                     운영시간
                   </Typography>

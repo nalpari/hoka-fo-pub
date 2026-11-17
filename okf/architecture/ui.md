@@ -5295,3 +5295,9 @@ CheckoutDiscountSummary에서 실 결제금액 최대30% 사용 안내와5,000�
 매장명은 PC Pretendard 22px·900·26.4px, 모바일 20px·700·24px이다. 본문은 PC 16px·24px, 모바일 14px·21px이며 구분선은 #E9EAEB 1px이다. 목록 행은 PC 40px(첫 행 상단 0), 모바일 32px 여백이며 제목과 정보 사이 20px/16px, 주소와 연락처 사이 12px/8px이다. 모바일 전화 밑줄·tel 링크를 유지한다.
 
 검증: 1920px·375px 브라우저에서 지역 탭 0개·매장 3개, 실제 계산 글꼴·행간·구분선을 확인하고 양쪽 스크린샷을 시각 검토했다. 모바일 매장명 글리프는 로컬 Pretendard-Bold face를 사용한다. 기존 홍보 배너·공통 헤더/푸터는 유지하여 Figma 전체 프레임과 상단 시작 위치는 다를 수 있다. 변경 파일 ESLint·Prettier, Panda 생성·전체 타입 검사·최종 Next production build를 통과했다. 서비스 조회·요청 상태 검증은 이번 표시 작업 범위가 아니다.
+
+## 매장 목록 Panda 스타일 이름 정리 (2026-11-17)
+
+`src/app/support/store/_components/StoreContent.tsx`의 정적 레이아웃 스타일을 같은 파일 상단 `styles`의 storeList·storeItem·storeDetails·contactDetails·contactRow로 모았다. Stack·HStack·ContentSection과 기존 의미 태그를 유지하며 패턴/기본 gap과의 병합 순서를 보존하도록 css.raw 객체를 css prop에 전달한다. body·phoneLink는 기존 className을 유지한다. 라우트·표시 데이터·전화 링크·영업시간 조건은 변경하지 않았다.
+
+변경 파일 ESLint·Prettier, Panda 생성과 전체 타입 검사를 통과했다. 브라우저에서 375px·1920px 각각 목록 하위 36개 요소의 태그·내용·위치·크기와 display·방향·gap·padding·margin·구분선·font·color를 변경 전후 비교해 동일함을 확인했다.

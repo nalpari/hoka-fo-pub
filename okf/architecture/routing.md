@@ -2022,3 +2022,9 @@ CheckoutDiscountSummary의 마일리지 안내 두 문구 삭제를 검토했다
 ## 매장 찾기 표기 통일 (2026-11-17)
 
 /support/store의 PC·모바일 제목과 breadcrumb를 `매장 찾기`로 통일해 기존 고객센터 내비게이션과 일치시켰다. 제목 분기에만 쓰던 usePlatform 호출을 제거했으며 경로·목록·반응형 스타일은 유지한다. 작업 트리 출처: src/app/support/store/page.tsx. 기록: codex/gpt-6, 2026-11-17T07:58:26.211800+00:00.
+
+## 매장 목록 Panda 스타일 이름 정리 (2026-11-17)
+
+`src/app/support/store/_components/StoreContent.tsx`의 정적 레이아웃 스타일을 같은 파일 상단 `styles`의 storeList·storeItem·storeDetails·contactDetails·contactRow로 모았다. Stack·HStack·ContentSection과 기존 의미 태그를 유지하며 패턴/기본 gap과의 병합 순서를 보존하도록 css.raw 객체를 css prop에 전달한다. body·phoneLink는 기존 className을 유지한다. 라우트·표시 데이터·전화 링크·영업시간 조건은 변경하지 않았다.
+
+변경 파일 ESLint·Prettier, Panda 생성과 전체 타입 검사를 통과했다. 브라우저에서 375px·1920px 각각 목록 하위 36개 요소의 태그·내용·위치·크기와 display·방향·gap·padding·margin·구분선·font·color를 변경 전후 비교해 동일함을 확인했다.
