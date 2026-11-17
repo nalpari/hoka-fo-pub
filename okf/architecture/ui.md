@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-17T04:29:40.343749+00:00'
+updated: '2026-11-17T04:54:44.153044+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -5262,3 +5262,7 @@ productSelection 세 팝업의 본문은 ModalDialog.recipe.tsx의 modalProductS
 쿠폰 장바구니 요약의 일반 금액(주문금액·할인금액·상품할인·장바구니 할인)은 공통 summaryBody에서 font-weight500을 적용하며 취소·반품의 일반 금액도 동일하게 적용한다. 총 결제 금액의 PC600/MO700은 유지하고 전역 AmountRow 기본값은 변경하지 않는다.
 
 일반 금액 굵기500은 productSelection 공통 summaryBody가 소유한다. 쿠폰 전용 옵션에는 합계 내부 여백 차이만 유지한다. 숫자 슬롯의 HOKA500과 총액 PC600/MO700 규격은 유지한다.
+
+## 검색 결과 닫기 이전 페이지 복귀 (2026-11-17)
+
+ProductListingPage의 검색 결과 닫기는 /products 고정 push 대신 Next router.back()으로 이전 브라우저 이력으로 복귀한다. 일반 헤더 SearchOverlay 닫기는 기존 로컬 열림 상태만 해제하며 URL 이동을 추가하지 않는다. 556px 모바일에서 주문/배송조회와 FAQ 각각의 검색 추천어 진입 후 결과 닫기가 원래 URL로 복귀함을 확인했다. 일반 검색 팝업의 직접 닫기도 URL을 유지했다. 검색 결과 내 추가 탐색 이력과 외부 직접 진입 시 복귀 대상은 브라우저 이력에 따른다. 별도의 이전 경로 저장·상품 목록 대체 이동은 추가하지 않았다. 대상 ESLint·TypeScript를 통과했다.

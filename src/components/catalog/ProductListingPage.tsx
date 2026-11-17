@@ -1716,7 +1716,7 @@ export function ProductListingPage({ searchQuery = '', data }: ProductListingPag
       onReset={reset}
       onSortChange={(nextSort) => update('sort', nextSort)}
       onSearch={(query) => router.push(`/search?q=${encodeURIComponent(query)}`)}
-      onCloseSearch={() => router.push('/products')}
+      onCloseSearch={() => router.back()}
       isSearchPage={isSearchPage}
       hasActiveFilters={
         facetKeys.some((key) => params.has(key)) ||
