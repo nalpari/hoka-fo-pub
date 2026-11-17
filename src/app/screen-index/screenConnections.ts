@@ -41,11 +41,21 @@ const connections: Record<number, ScreenConnection> = {
   },
   160: {
     route: '/launch-calendar',
-    sourceFiles: ['src/app/launch-calendar/page.tsx'],
+    previewRoutes: [{ label: '런칭 일정 없음', href: '/launch-calendar/preview-empty' }],
+    sourceFiles: [
+      'src/app/launch-calendar/page.tsx',
+      'src/app/launch-calendar/preview-empty/page.tsx',
+    ],
   },
   161: {
     route: '/launch-calendar/upcoming',
-    sourceFiles: ['src/app/launch-calendar/upcoming/page.tsx'],
+    previewRoutes: [
+      { label: '출시 예정 상품 없음', href: '/launch-calendar/upcoming/preview-empty' },
+    ],
+    sourceFiles: [
+      'src/app/launch-calendar/upcoming/page.tsx',
+      'src/app/launch-calendar/upcoming/preview-empty/page.tsx',
+    ],
   },
   162: {
     route: '/launch-calendar/in-stock',

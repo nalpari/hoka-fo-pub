@@ -2914,3 +2914,7 @@ Figma Navigational Buttons(296:25392)와 Action Buttons(296:25425)의 기본·�
 ## 2026-11-17 FAQ 검색 스타일 className 정리
 
 - 검색 영역 스타일을 기존 FaqContent 상단 styles에 모아 className으로 연결하고 Panda 요소를 보존했다. PC/MO 치수·글자 크기·placeholder·넘침 재측정과 타입·lint·Panda 검사를 통과했다. 관련 상세는 architecture/routing.md에 기록했다.
+
+## 2026-11-17 런칭 캘린더 Feed·Upcoming 빈 화면
+
+- 공통 목록 소유자와 EmptyState를 재사용해 빈 배열의 문구·PC/MO 배치를 적용하고 두 직접 URL을 IA160·161에 등록했다. 정상 목록·탭·서비스 미연결 경계를 유지했다. 타입·대상 lint/format·Panda·PC/MO 실측을 통과했고 비대상 문의 첨부파일 그래프 검사1실패를 구분했다. 상세는 architecture/launch-calendar.md에 기록했다.

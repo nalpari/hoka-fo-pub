@@ -1989,3 +1989,7 @@ ProfileContent의 비밀번호 설정 모달에서 안내문 padding-top8px를 �
 기존 SearchField는 as=div로 재사용하고 FAQ 검색 영역 한 곳만 form/role=search를 소유한다. 입력 즉시 적용되는 기존 로컬 검색은 유지하고 검색 버튼·Enter는 기본 페이지 제출만 방지한다. FAQ 라우트·IA·카테고리·펼침·더보기 및 실제 조회 미연결 경계는 변경하지 않는다. 출처: 사용자 지정 디자인의 구조·수치, `src/app/support/faq/_components/FaqContent.tsx` 작업 트리와 Codex 확인(2026-11-17).
 
 FAQ 검색 스타일 후속 정리(2026-11-17): 검색 form·입력 컨테이너·버튼·라벨은 FaqContent 상단 styles의 className으로 연결한다. SearchField 내부 여백과 input 규격은 해당 컨테이너의 제한된 자식 선택자로 소유하며 공통 컴포넌트 API·기본 스타일은 변경하지 않는다. 기존 Flex·Box와 단일 form을 유지한다. PC1571/MO375 재측정에서 입력520×56px/가변폭×56px, padding8px 12px·간격12px/8px·버튼48px/42px·라벨16px/15px·placeholder#777777과 가로 넘침 없음이 유지됐다. 타입·대상 ESLint·Panda 생성이 통과했다. 출처: 해당 파일과 Codex 브라우저 재측정.
+
+## 런칭 캘린더 빈 목록 직접 경로 (2026-11-17)
+
+IA160 Feed에 `/launch-calendar/preview-empty`(런칭 일정 없음), IA161 Upcoming에 `/launch-calendar/upcoming/preview-empty`(출시 예정 상품 없음)을 연결했다. 두 page는 기존 LaunchCalendarContent에 mode와 items=[]를 전달한다. 기본 목록·상품 상세·알림 경로는 유지하고 새 IA 번호나 요청 흐름은 추가하지 않는다. 소스 그래프는 정식 생성기로 갱신했다. 화면별 문구·레이아웃·검증은 [빈 목록 기록](launch-calendar.md#feedupcoming-빈-목록-2026-11-17)을 따른다. 출처: 두 신규 page와 screenConnections.ts·LaunchCalendarContent.tsx 작업 트리, Codex(2026-11-17).
