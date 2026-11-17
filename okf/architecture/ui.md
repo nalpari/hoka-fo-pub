@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-16T23:52:36.103269+00:00'
+updated: '2026-11-17T00:13:13.356024+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -5150,3 +5150,10 @@ Dropdown 정렬 버튼은 데스크탑 글자 16px·화살표 18px, 모바일 �
 - CheckoutPaymentMark는 모바일에서만 원본의 중앙 정렬된 `payment-mobile-*.png`6개를 사용한다. 로고 프레임60×14px, 타일 높이110px, 내부 간격10px, 레이블14px, 3열2행의 타일 간격4px·영역 간격12px을 적용했다. PC는 기존 자산·간격8px·6열을 유지한다.
 - 375px 및707px 모바일,1920px PC를 실제 캡처하고 로고 프레임·문구·라디오의 수평 중심과 위치를 비교했다. 브라우저의 세로 스크롤바15px은 시안 폭과 별도로 구분했다. 모바일6개 이미지의 로드, 실제 글리프 Pretendard-Regular, 네이버페이 선택 후 단일 선택 상태를 확인했다.
 - 최종 hoka-markup-handoff 검수에서 기존 route-private 소유권·Panda 스타일·공통 Radio와 선택 콜백·PC 기본값을 유지함을 확인했다. 타입 검사와 변경 파일 ESLint·Prettier, Panda 생성, 폼·상태 링크 관련62개 검사가 통과했다. 공통 플랫폼·서비스 요청은 변경하지 않았다.
+
+## 알뜰폰 사업자 모달 글꼴·높이 보정 (2026-11-17)
+
+- 사용자의 PC/MO 검수 명세에 따라 사업자 그룹 제목은 Pretendard16px·500·줄높이24px·자간-0.02em, 본문은14px·400·줄높이21px·자간-0.02em과 검정색을 적용했다. 제목과 본문 간격은 양쪽16px이다. 기존 Typography·ContentHeader를 사용하며 해당 모달의 줄높이만 명시한다.
+- 기존 본문 flex 기준에서 약1px의 내부 overflow가 발생했다. 이 안내 모달에만 본문을 자연 높이의 비축소 영역으로 두고 팝업이 높이를 수용하게 했다. 낮은 viewport에서 내용이 잘리지 않도록 팝업 전체의 overflow auto는 유지한다. 공통 terms 유형과 다른 약관 모달의 기본값은 변경하지 않았다.
+- 1157×1251 PC에서 모달 높이 약538→582px, 팝업 clientHeight/scrollHeight582/582로 내부 스크롤바가 없는 상태를 캡처했다. 모바일375×812와375×1251에서도 전체 내용이 스크롤 없이 표시됐다. 실제 글리프 Pretendard-Medium·Pretendard-Regular와 모든 그룹의 제목/본문 크기·굵기·줄높이·자간·16px 간격을 확인했다.
+- 확인 버튼 닫기, 원래 사업자 보기 버튼 재열기, X닫기를 검증했다. 타입 검사·변경 파일 ESLint/Prettier·관련 계정복구/모달 타입 검사5개가 통과했다. hoka-markup-handoff 기준으로 기존 소유권·시맨틱 제목/본문·모바일 fullscreen·포커스/닫기와 표시 데이터 경계를 유지했다. 실제 인증·요청은 추가하지 않았다.

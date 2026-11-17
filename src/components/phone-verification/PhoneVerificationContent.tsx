@@ -23,7 +23,14 @@ import {
   type PhoneInformation,
   type PhoneVerificationContentProps,
 } from '@/components/phone-verification/phone-verification.types';
-const styles = { carrierSection: css({ borderBottom: '1px solid var(--color-black-20)' }) };
+
+const styles = {
+  carrierSection: css({ borderBottom: '1px solid var(--color-black-20)' }),
+  carrierText: css({ fontStyle: 'normal', lineHeight: '1.5!', color: 'black.100' }),
+  carrierContent: css({ flex: '0 0 auto!', overflowY: 'visible!' }),
+  carrierPopup: css({ overflowY: 'auto!' }),
+};
+
 const mvnoCarriers = [
   {
     title: 'SKT 알뜰폰',
@@ -52,6 +59,8 @@ function PhoneVerificationDetailDialog({ open, onOpenChange }: Props) {
       open={open}
       onOpenChange={onOpenChange}
       title="알뜰폰 사업자"
+      contentClassName={styles.carrierContent}
+      popupClassName={styles.carrierPopup}
       closeLabel="안내 닫기"
 
       mobilePresentation="fullscreen"
@@ -61,14 +70,14 @@ function PhoneVerificationDetailDialog({ open, onOpenChange }: Props) {
         {mvnoCarriers.map((carrier, index) => (
           <ContentHeader
             key={carrier.title}
-            gap="3"
+            gap="4"
             pb={index === mvnoCarriers.length - 1 ? '0' : '4'}
             className={index === mvnoCarriers.length - 1 ? undefined : styles.carrierSection}
             titleAs="h2"
             title={<>{carrier.title}</>}
-            titleProps={{ variant: 'body3' }}
+            titleProps={{ variant: 'body3Medium', language: 'ko', className: styles.carrierText }}
             description={<>{carrier.names}</>}
-            descriptionProps={{ variant: 'body4' }}
+            descriptionProps={{ variant: 'body4', language: 'ko', className: styles.carrierText }}
           />
         ))}
       </Stack>
