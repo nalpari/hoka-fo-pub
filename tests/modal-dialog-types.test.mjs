@@ -31,9 +31,7 @@ const ordinaryIntro = <ModalDialog {...base} variant="confirm" intro="결과" me
 const form = <ModalDialog {...base} variant="form" formLayout="divided" actions={{ kind: 'single', buttonProps: { type: 'submit', form: 'editor', disabled: true } }}><form id="editor" /></ModalDialog>;
 // @ts-expect-error Structured content and custom children are exclusive.
 const mixedContent = <ModalDialog {...base} variant="alert" message="안내"><p>중복 본문</p></ModalDialog>;
-// @ts-expect-error Alerts cannot bypass structured typography with custom content.
 const customAlert = <ModalDialog {...base} variant="alert"><p>개별 본문</p></ModalDialog>;
-// @ts-expect-error Confirmations cannot bypass structured typography with custom content.
 const customConfirm = <ModalDialog {...base} variant="confirm"><p>개별 본문</p></ModalDialog>;
 // @ts-expect-error A description requires structured message content.
 const orphanDescription = <ModalDialog {...base} variant="alert" description="설명" />;
@@ -41,8 +39,10 @@ const orphanDescription = <ModalDialog {...base} variant="alert" description="�
 const wrongContent = <ModalDialog {...base} variant="tracking" message="안내" />;
 // @ts-expect-error Generated actions and a custom footer are exclusive.
 const mixedActions = <ModalDialog {...base} variant="alert" message="안내" actions={{ kind: 'single' }} footer={<button>중복</button>} />;
-// @ts-expect-error The default alert still requires structured content.
 const noVariant = <ModalDialog {...base}><p>본문</p></ModalDialog>;
+const undefinedCustomAlert = <ModalDialog {...base} variant={undefined}><p>기존 본문</p></ModalDialog>;
+// @ts-expect-error Default structured content and custom children remain exclusive.
+const mixedDefault = <ModalDialog {...base} message="안내"><p>중복 본문</p></ModalDialog>;
 // @ts-expect-error Request feedback belongs to the structured content contract.
 const customFeedback = <ModalDialog {...base} variant="alert" feedback={<span>실패</span>}><p>본문</p></ModalDialog>;
 // @ts-expect-error The retired catch-all content variant is unsupported.

@@ -1981,3 +1981,11 @@ ProfileContent의 비밀번호 설정 모달에서 안내문 padding-top8px를 �
 보유 쿠폰·주문 취소·환불(반품)의 기존 직접 경로와 productSelection 유형을 유지하고 각 본문을 modalProductSelectionContentRecipe에 연결했다. 쿠폰은 coupon 표시 옵션, 취소·반품은 기본 claim 옵션을 사용하며 라우트·초안 상태·선택·닫기 소유자를 변경하지 않았다. 작업 트리 출처: src/app/checkout/_components/CheckoutCouponDialog.tsx, src/app/mypage/orders/_components/OrderClaimRequest.tsx, src/components/common/layouts/ModalDialog.recipe.tsx, src/app/screen-index/sourceGraph.generated.json.
 
 상품 선택 입력 글꼴 검수에서는 기존 취소·반품·쿠폰 경로와 상태를 유지하고, 신청 화면의 준비된 금액 문자열을 숫자/원 표시로만 분리했다. 요청·계산·제출 연결 변경은 없다.
+
+## FAQ 검색 영역 디자인 보정 (2026-11-17)
+
+사용자 지정 [FAQ 검색 디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 PC·모바일 검색 노드를 기준으로 FaqContent 내부 검색 필드를 PC520px·모바일 가변 폭과 높이56px로 적용했다. 입력 옆 검색 버튼은 PC48px/MO42px 높이·좌우24px·반경52px, 필드와 간격12px/8px이다. placeholder는 Pretendard16px·400·행간24px·#777777, 버튼은16px/15px·400·행간1.3을 사용한다. 모바일 좌우16px은 기존 고객센터 레이아웃이 소유한다.
+
+기존 SearchField는 as=div로 재사용하고 FAQ 검색 영역 한 곳만 form/role=search를 소유한다. 입력 즉시 적용되는 기존 로컬 검색은 유지하고 검색 버튼·Enter는 기본 페이지 제출만 방지한다. FAQ 라우트·IA·카테고리·펼침·더보기 및 실제 조회 미연결 경계는 변경하지 않는다. 출처: 사용자 지정 디자인의 구조·수치, `src/app/support/faq/_components/FaqContent.tsx` 작업 트리와 Codex 확인(2026-11-17).
+
+FAQ 검색 스타일 후속 정리(2026-11-17): 검색 form·입력 컨테이너·버튼·라벨은 FaqContent 상단 styles의 className으로 연결한다. SearchField 내부 여백과 input 규격은 해당 컨테이너의 제한된 자식 선택자로 소유하며 공통 컴포넌트 API·기본 스타일은 변경하지 않는다. 기존 Flex·Box와 단일 form을 유지한다. PC1571/MO375 재측정에서 입력520×56px/가변폭×56px, padding8px 12px·간격12px/8px·버튼48px/42px·라벨16px/15px·placeholder#777777과 가로 넘침 없음이 유지됐다. 타입·대상 ESLint·Panda 생성이 통과했다. 출처: 해당 파일과 Codex 브라우저 재측정.
