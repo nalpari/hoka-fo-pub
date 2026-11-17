@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-17T01:20:50.547486+00:00'
+updated: '2026-11-17T02:09:09.624952+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -5203,3 +5203,16 @@ Codex 검증: PC1176×1251·모바일513×1251 캡처와 계산 스타일로 항
 사진 입력은 image/jpeg,image/png, 파일 입력은 기존 .jpg,.jpeg,.png를 사용하며 브라우저 파일 입력을 열어 File 목록을 기존 onFilesChange로 전달한다. OS의 보관함 UI를 직접 구현하거나 업로드 요청·서비스 검증을 추가하지 않았다. previewPicker는 초기 표시 fixture다. 작업 트리 출처: src/app/support/inquiries/new/_components/InquiryFormContent.tsx, src/components/common/atoms/Icon.assets.ts, public/images/icon/hoka-attachment-image-regular.svg, public/images/icon/hoka-attachment-folder-regular.svg.
 
 Codex 검증: 모바일375×812에서 시트204px·스크롤 없음·아이콘18×18px의 원본 로드·문구16/400/24·좌측16px와 문구 시작50px를 캡처·실측했다. 두 항목 모두 파일 선택 후 로컬 첨부 목록에 반영됐고 닫기 후 파일찾기 포커스를 확인했다. PC1176px에서는 시트 없이 기존 파일 입력을 여는 동작을 확인했다. 데스크톱 브라우저의 고정 스크롤바15px로 실제 표시 canvas는360px이며 배경에는 기존 문의 폼과 배너가 보인다. 타입·변경 ESLint·Prettier·Panda·IA 생성과 IA 그래프/모달 타입 기존 테스트2개를 통과했다. 마지막 인계 점검에서 공통 모달·폼 재사용, 기존 File 전달 소유권, 페이지 전용 route, 상단 Panda 스타일과 PC 동작 보존을 확인했다.
+
+
+## 주문 상품 조회 전용 모달과 Panda 소유권 (2026-11-17)
+
+주문 상품 조회의 ModalDialog variant를 selection에서 orderLookup으로 분리했다. ModalDialog.recipe.tsx가 전용 shell과 modalOrderLookupContentRecipe 본문 슬롯을 소유한다. PC640px·각진 팝업·상단40px/좌우32px, 모바일 전체화면·상단24px/좌우16px·하단64px, 기간 탭37px, 주문 헤더16px(PC 펼침20px), 상품 목록 간16px·상하24px, 썸네일64px를 적용한다. 제목은 기존 사용자 공통 기준에 따라 PC24px·모바일20px·700이다. PC footer180×48px 두 버튼과 모바일44px 두 버튼의700을 유지한다. [화면 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)을 구조·스타일과 캡처로 대조했다.
+
+InquiryOrderLookup은 기존 Box/Flex/Stack/VStack을 유지하며 recipe.raw()의 슬롯을 css로 전달한다. Typography·Button·Badge는 생성된 슬롯 클래스를 사용한다. 모달 호출부의 headerProps/popupClassName/footerProps 개별 override와 인라인 css 호출을 제거했다. 상품 요약은 기존 OrderProductSummary의 대체 content 슬롯과64px 이미지를 재사용하며 데이터·선택 소유권을 바꾸지 않는다. 기존 상품명·색상·주문 날짜·더보기 카운터 fixture는 원본 예시와 다르며 보존했다. 공통 selection과 다른 variant 기본값은 변경하지 않았다.
+
+AGENTS.md에 스타일 추출만을 이유로 기존 Panda 레이아웃 컴포넌트를 div/span으로 바꾸지 않는 규칙을 추가했다. 기본 레이아웃·시맨틱·간격·반응형·override를 유지하고 필요하면 raw recipe를 css에 병합한다. 작업 트리 출처: AGENTS.md, src/components/common/layouts/ModalDialog.tsx, src/components/common/layouts/ModalDialog.recipe.tsx, src/app/support/inquiries/new/order-products/_components/InquiryOrderLookup.tsx, src/app/publishing-guide/_components/ModalGuide.tsx.
+
+추가 PC 안내문 검수(Codex, 2026-11-17): 1764×1251에서 첫 문구 Pretendard16px/400/24px·검정·자간-0.32px, 보조 문구14px/400/21px·#777·자간-0.28px·normal을 실측했다. 모바일375px는 기존14px/21px와12px/18px를 유지한다. 두 슬롯에 굵기·자간·normal을 명시했다.
+
+총 건수 숫자는 독립 countNumber 슬롯으로 분리했다. PC1764×1251에서 기존 영문 커스텀 face·16px·700·24px·검정을 실측했고 글리프2개가 커스텀 face로 렌더링됨을 확인했다. 총/건 한글과 모바일14px·400·21px 표기는 유지한다.

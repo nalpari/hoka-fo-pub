@@ -4,7 +4,7 @@ title: '변경 검증'
 description: '변경 범위에 맞는 정적 검사, 빌드와 수동 검증을 안내한다.'
 tags: [verification, testing, build]
 status: draft
-updated: '2026-11-16T12:59:22.941263+00:00'
+updated: '2026-11-17T02:09:09.624952+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
@@ -798,3 +798,14 @@ preview-notification의 form 유형과 IA 직접 경로·생성 소스 그래프
 - `npm run build`: 성공,161개 정적 페이지 생성. `npm run typecheck`, `npx eslint src`, 변경한 TS/TSX의 Prettier와 `git diff --check`: 통과. Panda와 IA 소스 그래프를 다시 생성했다.
 - 관련69개 검사(cart display·checkout summary·order policy·form controls·preview links·screen files·modal types)는 전부 통과했다. 전체127개 중126개 통과,1개는 기존 `inquiry-binding` 검사가 범위 밖 `src/app/wh`의 fetch5곳을 금지 대상으로 잡는 실패다. 전체 `npm run lint`도 변경하지 않은 `tests/wh-file-summary.test.mjs`의 URL/Request/Response 전역8건 때문에 실패한다. 해당 파일과 `/wh` 소스는 기준 HEAD 대비 변경 없음으로 구분했다. 초기 App Router manifest 불일치는 신규 페이지를 포함한 빌드 후 해소했다.
 - 최종 hoka-markup-handoff 점검에서 route-private 소유권, 단일 반응형 상품 트리, 폼/모달 의미 구조, 준비된 데이터와 표시 전용 버튼, 명시적 fixture override, 기존 기본 props를 확인했다. 실제 요청을 흉내 내는 타이머·저장소·API를 추가하지 않았다.
+
+
+## 주문 상품 조회 전용 variant 검증 (2026-11-17)
+
+Codex가 PC1920×1509·모바일375×1243에서 orderLookup 캡처를 원본과 대조했다. PC 너비640px·제목24px, 모바일 전체화면·제목20px와24px/16px/64px 본문 여백을 확인했다. 날짜는 PC16px·모바일14px·700, 라디오 뒤 시작 위치는 모바일48px다. 썸네일의 실제 로드와64px 크기를 확인했고 제목 글리프는 Pretendard-Bold, 날짜는 기존 영문 커스텀 face로 렌더링됐다. 영문 face 내부 이름은 '.'이어서 이름만으로 별도 폰트라고 단정하지 않았다. PC 본문 clientHeight/scrollHeight1133/1133, 모바일1189/1236으로 긴 본문은 스크롤한다. 데스크톱 브라우저의 고정 스크롤바로 모바일 표시 canvas는360px이며 이 환경 차이와 기존 fixture 값 차이를 비교에서 구분했다.
+
+PC1920·모바일375×812에서 체크박스 두 개 선택, 주문 접기/펼치기, 직접 기간과 시작일 변경, 문의 등록 시 선택 결과 전달·모달 닫힘을 확인했다. 빈 상태는 안내와 비활성 문의 등록을 확인했다. 타입 검사·변경 ESLint/Prettier·Panda·화면 그래프 생성, 모달11유형 계약/IA 그래프 기존 테스트2개를 통과했다. 기존 단순 selection과 서비스 계약을 바꾸지 않는지, Panda 컴포넌트·기존 폼·페이지 책임과 상단 스타일 소유권을 마지막 인계 점검에서 검토했다. 작업 트리 출처: tests/modal-dialog-types.test.mjs 및 관련 UI/IA 소스.
+
+추가 PC 안내문 검수(Codex, 2026-11-17): 1764×1251에서 첫 문구 Pretendard16px/400/24px·검정·자간-0.32px, 보조 문구14px/400/21px·#777·자간-0.28px·normal을 실측했다. 모바일375px는 기존14px/21px와12px/18px를 유지한다. 두 슬롯에 굵기·자간·normal을 명시했다.
+
+총 건수 숫자는 독립 countNumber 슬롯으로 분리했다. PC1764×1251에서 기존 영문 커스텀 face·16px·700·24px·검정을 실측했고 글리프2개가 커스텀 face로 렌더링됨을 확인했다. 총/건 한글과 모바일14px·400·21px 표기는 유지한다.

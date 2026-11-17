@@ -946,9 +946,9 @@ const stateModalVariants: Readonly<Record<string, readonly ModalDialogVariant[]>
   '/support/inquiries/preview-attachment': ['image'],
   '/support/inquiries/new/preview-cancel': ['confirm'],
   '/support/inquiries/new/preview-order-required': ['alert'],
-  '/support/inquiries/new/order-products': ['selection'],
-  '/support/inquiries/new/order-products/preview-empty': ['selection'],
-  '/support/inquiries/new/order-products/preview-custom': ['selection'],
+  '/support/inquiries/new/order-products': ['orderLookup'],
+  '/support/inquiries/new/order-products/preview-empty': ['orderLookup'],
+  '/support/inquiries/new/order-products/preview-custom': ['orderLookup'],
   // These PDP option sheets open only in the existing mobile presentation.
   '/products/pdp-preview/options-selected': ['selection'],
   '/products/pdp-preview/options-scroll': ['selection'],

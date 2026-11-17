@@ -1163,6 +1163,7 @@
       "src/components/common/atoms/Icon.tsx",
       "src/components/common/atoms/Radio.tsx",
       "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ModalDialog.recipe.tsx",
       "src/components/common/layouts/ModalDialog.tsx",
       "src/components/common/molecules/OrderProductSummary.tsx"
     ],

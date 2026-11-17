@@ -53,7 +53,12 @@ const variantExamples: { variant: ModalDialogVariant; title: string; usage: stri
   { variant: 'confirm', title: '선택 확인 · confirm', usage: '로그아웃·취소·탈퇴 확인' },
   { variant: 'terms', title: '약관 · terms', usage: '필수·선택·이전 약관 문서' },
   { variant: 'form', title: '입력 · form', usage: '주소·알림·취소·반품 입력' },
-  { variant: 'selection', title: '선택 · selection', usage: '상품 옵션·쿠폰·주문 상품 선택' },
+  { variant: 'selection', title: '선택 · selection', usage: '쿠폰·약관·첨부 방법 선택' },
+  {
+    variant: 'orderLookup',
+    title: '주문 상품 조회 · orderLookup',
+    usage: '문의 대상 주문과 상품 선택 전용',
+  },
   { variant: 'tracking', title: '배송조회 · tracking', usage: '배송 정보와 이력' },
   { variant: 'detail', title: '상세 정보 · detail', usage: '쿠폰·사업자 등 상세 정보' },
   { variant: 'image', title: '이미지 · image', usage: '첨부 이미지 미리보기' },
@@ -72,20 +77,25 @@ const groups: { id: string; title: string; description: string; items: ModalExam
       usage,
       source: 'ModalDialog.tsx / ModalDialog.recipe.tsx',
       desktop: variant === 'sizeGuide' ? '최대 너비 768px' : '최대 너비 640px',
-      mobile: ['terms', 'form'].includes(variant)
+      mobile: ['terms', 'form', 'orderLookup'].includes(variant)
         ? '전체화면'
         : ['tracking', 'selection', 'image', 'sizeGuide'].includes(variant)
           ? '하단 시트'
           : '중앙 팝업',
       options: {
-        mobilePresentation: ['terms', 'form'].includes(variant)
+        mobilePresentation: ['terms', 'form', 'orderLookup'].includes(variant)
           ? 'fullscreen'
           : ['tracking', 'selection', 'image', 'sizeGuide'].includes(variant)
             ? 'bottomSheet'
             : 'popup',
-        mobileFixedFooter: true,
+        mobileFixedFooter: variant !== 'orderLookup',
       },
-      action: variant === 'image' ? undefined : variant === 'confirm' ? 'confirm' : 'single',
+      action:
+        variant === 'image'
+          ? undefined
+          : variant === 'confirm' || variant === 'orderLookup'
+            ? 'confirm'
+            : 'single',
       long: variant === 'terms',
     })),
   },
@@ -582,7 +592,7 @@ function ModalExampleCard({
           title={example.title}
           closeLabel="닫기"
           finalFocus={triggerRef}
-          actions={actions}
+          {...(actions ? { actions } : { footer: undefined })}
         />
       )}
     </Stack>

@@ -1,3 +1,7 @@
+## 2026-11-17 주문 상품 조회 전용 variant와 스타일 정리
+
+- orderLookup shell·본문 recipe를 추가하고 기존 Panda 레이아웃을 유지했다. 스타일 정리 목적의 div 전환을 금지하는 규칙과 IA·가이드·11유형 계약을 갱신했다. [UI](architecture/ui.md#주문-상품-조회-전용-모달과-panda-소유권-2026-11-17) · [경로](architecture/routing.md#주문-상품-조회-orderlookup-연결-2026-11-17) · [검증](development/verification.md#주문-상품-조회-전용-variant-검증-2026-11-17).
+
 ## 2026-11-17 첨부 선택 문구500 보정
 
 - 사용자 검수 기준에 따라 모바일 두 선택 문구를16px·500·24px로 보정했다. [규격과 검증](architecture/routing.md#첨부-방법-선택-문구-굵기-보정-2026-11-17).

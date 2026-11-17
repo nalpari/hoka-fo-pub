@@ -20,6 +20,7 @@ export type ModalDialogVariant =
   | 'terms'
   | 'form'
   | 'selection'
+  | 'orderLookup'
   | 'productOption'
   | 'tracking'
   | 'detail'

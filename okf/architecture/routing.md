@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-17T01:26:16.877591+00:00'
+updated: '2026-11-17T02:01:27.580754+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -1954,3 +1954,8 @@ ProfileContent의 비밀번호 설정 모달에서 안내문 padding-top8px를 �
 ## 첨부 방법 선택 문구 굵기 보정 (2026-11-17)
 
 사용자 모바일 검수 규격을 원본의400보다 우선해 사진 보관함·파일 선택 문구를 body3Medium으로 변경했다. Pretendard16px/500/24px·자간-0.02em·검정을 사용한다. 기존 첨부 선택 URL·PC 직접 파일 입력·File 전달·모달 구조는 유지한다. 작업 트리 출처: src/app/support/inquiries/new/_components/InquiryFormContent.tsx. Codex가 모바일623×1251에서 두 문구의 계산 스타일과 캡처를 확인했고 변경 ESLint·타입 검사를 통과했다.
+
+
+## 주문 상품 조회 orderLookup 연결 (2026-11-17)
+
+/support/inquiries/new/order-products와 preview-empty/preview-custom의 기존 직접 진입 경로는 유지하고 IA 모달 유형만 orderLookup으로 갱신했다. 가이드에 전용 유형과 모바일 전체화면을 추가하고 selection의 사용 설명에서 주문 상품 조회를 분리했다. 모달 타입은11개이며 주문 조회는 기존 선택·기간·다중 상품 선택·onSelect·onClose·finalFocus 소유자를 유지한다. API 조회·요청·저장·완료 흐름은 추가하지 않았다. 작업 트리 출처: src/app/screen-index/screenConnections.ts, src/app/screen-index/sourceGraph.generated.json, src/app/support/inquiries/new/order-products/_components/InquiryOrderLookup.tsx, src/app/publishing-guide/_components/ModalGuide.tsx.
