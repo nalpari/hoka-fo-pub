@@ -1944,3 +1944,13 @@ ProfileContent의 비밀번호 설정 모달에서 안내문 padding-top8px를 �
 /mypage/profile/preview-password-error를 profilePreviews와 기존 동적 preview 라우트에 추가하고 IA 회원정보 관리 하위에 비밀번호 입력 오류·form 모달로 연결했다. ProfileStatePreview의 passwordState='error'가 기존 ProfilePasswordDialog를 열며 새 화면 래퍼를 만들지 않는다. 생성된 화면 소스 목록을 동기화했다. 작업 트리 출처: src/app/mypage/profile/profilePreviews.ts, src/app/mypage/profile/[preview]/page.tsx, src/app/mypage/profile/_components/ProfileStatePreview.tsx, src/app/mypage/profile/_components/ProfileContent.tsx, src/app/screen-index/screenConnections.ts, src/app/screen-index/sourceGraph.generated.json.
 
 사용자가 제공한 오류 화면 이미지를 기준으로 두 필드 오류를 고정 표시하며 서비스 검증·요청·저장·성공 이동은 구현하지 않는다. Codex가 PC1176×1251·모바일375×812에서 직접 진입·두 오류 문구·aria-invalid=true와 닫기를 확인했다.
+
+
+## 문의 모바일 첨부 방법 선택 (2026-11-17)
+
+/support/inquiries/new/preview-attachment-picker에서 모바일 파일첨부 시트를 초기 표시한다. 기존 InquiryFormStatePreview와 InquiryAttachments의 previewPicker를 재사용하고 IA 고객센터·마이페이지 문의 연결에 첨부 방법 선택 (모바일)·selection을 추가했다. PC는 동일 URL에서 일반 문의 폼을 표시하며 파일찾기는 기존 파일 입력을 직접 연다. 작업 트리 출처: src/app/support/inquiries/new/preview-attachment-picker/page.tsx, src/app/support/inquiries/new/_components/InquiryFormStatePreview.tsx, src/app/support/inquiries/new/_components/InquiryFormContent.tsx, src/app/screen-index/screenConnections.ts, src/app/screen-index/sourceGraph.generated.json.
+
+
+## 첨부 방법 선택 문구 굵기 보정 (2026-11-17)
+
+사용자 모바일 검수 규격을 원본의400보다 우선해 사진 보관함·파일 선택 문구를 body3Medium으로 변경했다. Pretendard16px/500/24px·자간-0.02em·검정을 사용한다. 기존 첨부 선택 URL·PC 직접 파일 입력·File 전달·모달 구조는 유지한다. 작업 트리 출처: src/app/support/inquiries/new/_components/InquiryFormContent.tsx. Codex가 모바일623×1251에서 두 문구의 계산 스타일과 캡처를 확인했고 변경 ESLint·타입 검사를 통과했다.

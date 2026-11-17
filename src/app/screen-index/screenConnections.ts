@@ -283,6 +283,10 @@ const connections: Record<number, ScreenConnection> = {
     previewRoutes: [
       { label: '입력 오류', href: '/support/inquiries/new/preview-error' },
       { label: '주문 선택 안내', href: '/support/inquiries/new/preview-order-required' },
+      {
+        label: '첨부 방법 선택 (모바일)',
+        href: '/support/inquiries/new/preview-attachment-picker',
+      },
       { label: '첨부 형식 오류', href: '/support/inquiries/new/preview-attachment-type' },
       { label: '첨부 크기 오류', href: '/support/inquiries/new/preview-attachment-size' },
       { label: '첨부 개수 오류', href: '/support/inquiries/new/preview-attachment-count' },
@@ -454,6 +458,10 @@ const connections: Record<number, ScreenConnection> = {
     previewRoutes: [
       { label: '입력 오류', href: '/support/inquiries/new/preview-error' },
       { label: '주문 선택 안내', href: '/support/inquiries/new/preview-order-required' },
+      {
+        label: '첨부 방법 선택 (모바일)',
+        href: '/support/inquiries/new/preview-attachment-picker',
+      },
       { label: '첨부 형식 오류', href: '/support/inquiries/new/preview-attachment-type' },
       { label: '첨부 크기 오류', href: '/support/inquiries/new/preview-attachment-size' },
       { label: '첨부 개수 오류', href: '/support/inquiries/new/preview-attachment-count' },
@@ -911,6 +919,7 @@ const stateModalVariants: Readonly<Record<string, readonly ModalDialogVariant[]>
   '/mypage/addresses/preview-delete': ['confirm'],
   // ProfileContent and ProfileStatePreview select distinct variants for each step.
   '/mypage/profile/preview-expired': ['alert'],
+  '/support/inquiries/new/preview-attachment-picker': ['selection'],
   '/mypage/profile/preview-password': ['form'],
   '/mypage/profile/preview-password-error': ['form'],
   '/mypage/profile/preview-password-confirm': ['confirm'],

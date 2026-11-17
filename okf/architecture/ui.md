@@ -5194,3 +5194,12 @@ Codex 검증: PC1176×1251·모바일513×1251 캡처와 계산 스타일로 항
 제공된 이미지에 맞춰 기존 두 비밀번호 TextFormField에 올바른 비밀번호를 입력해주세요./비밀번호가 일치하지 않습니다. 다시 확인해주세요. 고정 오류를 표시한다. 공통 오류 테두리와 설명 연결을 재사용하고 모바일은 하단 시트·확인 버튼·footer 위 구분선으로 표시한다. 기본 입력 팝업·PC 모달과 보기 토글은 기존 기능을 유지한다. 안내 글꼴은 모바일 Pretendard12px/400/18px·자간-0.02em·검정이며 PC는 기존14px다. 안내문 스타일은 파일 상단 passwordDialogStyles에 두고 기본 입력의8px 간격도 유지한다. 작업 트리 출처: src/app/mypage/profile/_components/ProfileContent.tsx.
 
 초기에는 디자인 연결 재인증 요청으로 사용자 첨부 이미지로 구현했으며, 재연결 후 공식 원본의 하단 시트·필드 오류·12px 안내·footer 구조도 확인했다. PC1176×1251·모바일375×812 캡처와 계산 스타일, 두 오류·invalid·닫기를 확인했다. 타입·변경 ESLint·Prettier·Panda와 관련 기존 테스트5개를 통과했다. 공통 모달·폼을 재사용하고 서비스 동작을 추가하지 않는 인계 기준을 점검했다.
+
+
+## 문의 모바일 파일첨부 선택 시트 (2026-11-17)
+
+모바일 파일찾기에 누락돼 있던 사진 보관함/파일 선택 시트를 추가했다. [화면 디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 원본을 재연결 후 읽고 204px 시트, 제목20px·700·120%, 상단 손잡이36×4px, 좌우16px, 하단32px, 항목 간24px·아이콘과 문구16px, 문구 Pretendard16px·400·24px·자간-0.02em을 적용했다. 공통 ModalDialog selection/bottomSheet를 재사용하고 실제 이미지·닫힌 폴더 원본 SVG를 로컬 Icon 자산으로 등록했다. 스타일은 InquiryFormContent 상단 attachmentPickerStyles가 소유한다.
+
+사진 입력은 image/jpeg,image/png, 파일 입력은 기존 .jpg,.jpeg,.png를 사용하며 브라우저 파일 입력을 열어 File 목록을 기존 onFilesChange로 전달한다. OS의 보관함 UI를 직접 구현하거나 업로드 요청·서비스 검증을 추가하지 않았다. previewPicker는 초기 표시 fixture다. 작업 트리 출처: src/app/support/inquiries/new/_components/InquiryFormContent.tsx, src/components/common/atoms/Icon.assets.ts, public/images/icon/hoka-attachment-image-regular.svg, public/images/icon/hoka-attachment-folder-regular.svg.
+
+Codex 검증: 모바일375×812에서 시트204px·스크롤 없음·아이콘18×18px의 원본 로드·문구16/400/24·좌측16px와 문구 시작50px를 캡처·실측했다. 두 항목 모두 파일 선택 후 로컬 첨부 목록에 반영됐고 닫기 후 파일찾기 포커스를 확인했다. PC1176px에서는 시트 없이 기존 파일 입력을 여는 동작을 확인했다. 데스크톱 브라우저의 고정 스크롤바15px로 실제 표시 canvas는360px이며 배경에는 기존 문의 폼과 배너가 보인다. 타입·변경 ESLint·Prettier·Panda·IA 생성과 IA 그래프/모달 타입 기존 테스트2개를 통과했다. 마지막 인계 점검에서 공통 모달·폼 재사용, 기존 File 전달 소유권, 페이지 전용 route, 상단 Panda 스타일과 PC 동작 보존을 확인했다.
