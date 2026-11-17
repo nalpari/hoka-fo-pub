@@ -5277,3 +5277,7 @@ ProductListingPage의 검색 결과 닫기는 /products 고정 push 대신 Next 
 CheckoutDiscountSummary에서 실 결제금액 최대30% 사용 안내와5,000점 이상·100점 단위 사용 안내를 삭제했다. 기존 쿠폰 안내 두 문구와 준비된 금액·조회 버튼은 유지한다.
 
 출처: 사용자 첨부 Slack 화면과 src/app/checkout/_components/CheckoutDiscountSummary.tsx 작업 트리. 기록: codex/gpt-6, 2026-11-17T07:42:10.485Z. 기존 generated·source_revision·draft 이력은 보존한다.
+
+## 전화번호 하이픈 표기 규칙 (2026-11-17)
+
+전화번호는 공백 없는 하이픈 표기를 기본으로 하며 디자인의 점·공백 구분보다 우선한다. 번호 자체와 지역번호·대표번호 자리수는 유지한다. 주문서 CheckoutShipping의 연락처 2곳과 orders.data.ts의 주문내역 연락처 9곳을 변경했다. 라우트·상호작용·스타일은 변경하지 않았다. 작업 트리 출처: AGENTS.md, src/app/checkout/_components/CheckoutShipping.tsx, src/components/orders/orders.data.ts. 정규식으로 src를 재검색하여 점 구분 전화번호가 남지 않았음을 확인했다.
