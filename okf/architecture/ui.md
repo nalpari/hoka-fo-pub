@@ -4,12 +4,13 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-17T03:34:46.331142+00:00'
+updated: '2026-11-17T03:54:09.762982+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/app/checkout/_components/CheckoutCouponDialog.tsx
   - src/components/common/molecules/DateRangeSearch.tsx
   - src/app/checkout/_components/CheckoutPayment.tsx
   - src/components/common/atoms/NumberStepper.tsx
@@ -5235,3 +5236,7 @@ AGENTS.md에 스타일 추출만을 이유로 기존 Panda 레이아웃 컴포�
 ## 더보기 숫자 굵기 상속 (2026-11-17)
 
 공통 counter 더보기 숫자는 Typography weight="inherit"로 부모 버튼의 굵기를 따른다. HOKA 글꼴과 크기·줄높이는 유지하며 PC 숫자에 별도의 700을 강제하지 않는다.
+
+## 쿠폰 조회와 취소 반품 전용 모달 (2026-11-17)
+
+보유 쿠폰 조회는 couponLookup, 주문 취소 신청은 orderCancelRequest, 환불(반품) 신청은 orderReturnRequest를 사용한다. 공통 selection/form의 기본 호출자는 유지한다. 기존 모달 외형과 버튼 너비를 ModalDialog.recipe.tsx로 옮겼다. 쿠폰 버튼 PC238×48px, 취소·반품 버튼 PC160×48px이며 모바일은343×42px(375px 화면)이다. PC640px 너비·10px 모서리와 모바일 하단 시트24px 모서리, 본문 PC32px/MO16px 여백을 보존한다. 취소·반품은 같은 orderClaimModal 스타일 객체를 사용하고 의미별 variant를 유지한다. 기존 Panda 컴포넌트·상태·fixture·요청 미연결 계약은 그대로다.

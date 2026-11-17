@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-17T03:34:46.347025+00:00'
+updated: '2026-11-17T03:54:09.779103+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -1971,3 +1971,7 @@ ProfileContent의 비밀번호 설정 모달에서 안내문 padding-top8px를 �
 1764px·375px 두 화면에서 숫자 입력의 점 구분 표시, 달력 입력 존재, 입력 크기와 문서 가로 넘침 없음을 확인했다.
 
 날짜 입력의 내부 여백은 좌측 12px·우측 36px, 달력은 우측 12px로 보정했다. 기존 72px 글자 공간보다 넓은 HOKA 날짜 문자열이 잘리던 문제를 80px 글자 공간으로 해소한다.
+
+## 쿠폰 조회와 취소 반품 유형 연결 (2026-11-17)
+
+/checkout/preview-coupons, /mypage/orders/preview-cancel-request, /mypage/orders/preview-return-request의 경로와 직접 진입 상태는 그대로 유지한다. IA 표시와 모달 가이드에 각각 couponLookup·orderCancelRequest·orderReturnRequest를 연결했다. 모달 variant는14개다.

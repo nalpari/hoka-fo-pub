@@ -1,3 +1,7 @@
+## 2026-11-17 쿠폰 조회와 취소 반품 전용 모달
+
+- couponLookup·orderCancelRequest·orderReturnRequest를 추가하고 기존 개별 모달 스타일을 recipe로 옮겼다. IA·가이드·타입 계약과 직접 관련 UI·경로·검증 문서를 갱신했다. PC/MO 6개 상태의 외형 일치와 대상 lint·타입·Panda·모달 계약 검사를 확인했다.
+
 ## 2026-11-17 더보기 숫자 굵기 상속
 
 - 공통 counter 더보기 숫자에 weight="inherit"를 적용해 부모 버튼의 굵기를 따르도록 수정했다.

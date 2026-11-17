@@ -197,7 +197,7 @@ export function OrderClaimRequest({
 
   return (
     <ModalDialog
-      variant="form"
+      variant={returning ? 'orderReturnRequest' : 'orderCancelRequest'}
       open
       onOpenChange={(open) => !open && onClose()}
       title={title}
@@ -205,13 +205,7 @@ export function OrderClaimRequest({
       blurBackdrop={false}
       mobilePresentation="bottomSheet"
       footer={
-        <Button
-          variant="primary"
-          size="tall"
-          fullWidth
-          type="button"
-          className={css({ w: '160px!', maxW: '160px!', _mobile: { w: '100%!', maxW: 'none!' } })}
-        >
+        <Button variant="primary" size="tall" fullWidth type="button">
           신청하기
         </Button>
       }

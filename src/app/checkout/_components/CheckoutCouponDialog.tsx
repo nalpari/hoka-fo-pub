@@ -30,25 +30,15 @@ export function CheckoutCouponDialog({ onClose }: { onClose: () => void }) {
   // [ 개발팀 바인딩 ] 상품별 사용 가능 개수·옵션·할인금액은 고정 fixture입니다. 펼침·라디오 초안만 변경합니다. 실제 주문 연결 소유자가 상품/쿠폰 ID별 선택 payload, 적용 요청의 pending·실패 초안 유지·재시도·성공 후 견적 갱신과 닫기를 담당하며 현재 적용 버튼은 요청하지 않습니다.
   return (
     <ModalDialog
-      variant="selection"
+      variant="couponLookup"
       open
       onOpenChange={(open) => !open && onClose()}
       title="보유 쿠폰 조회"
       closeLabel="보유 쿠폰 조회 닫기"
       mobilePresentation="bottomSheet"
       blurBackdrop={false}
-      popupClassName={css({
-        w: '640px!',
-        maxW: 'calc(100vw - 32px)',
-        _mobile: { w: '100%!', maxW: '100%', maxH: 'calc(100dvh - 52px)' },
-      })}
-      contentClassName={css({ px: '32px!', pb: '0!', _mobile: { px: '16px!' } })}
       footer={
-        <Button
-          variant="primary"
-          size="tall"
-          className={css({ w: '238px!', maxW: '238px!', _mobile: { w: '100%!', maxW: 'none!' } })}
-        >
+        <Button variant="primary" size="tall">
           쿠폰 적용하기
         </Button>
       }
