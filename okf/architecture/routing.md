@@ -1967,3 +1967,7 @@ IA159 런칭캘린더에 입고 알림 신청 직접 URL /launch-calendar/clifto
 - 2026-11-17: 회원등급 구매금액 굵기는 Typography의 heading8·heading7 설정을 사용한다.
 
 - 2026-11-17: 회원등급 혜택 문구는 웹과 모바일에서 동일한 title을 사용하며 RUNNER 무료 반품 쿠폰은 기존 공통 문구인 연 3회 지급으로 표시한다.
+
+- 회원정보 확인은 ProfileContent 안에서 기본정보·수신 동의·안내·수정 버튼을 구성한다. 모바일 제목·구분선·글자·여백과 44px 수정 버튼을 시안에 맞추고 퍼블 가이드의 DescriptionList 예시도 동기화했다.
+
+- 회원정보 수정의 비밀번호 설정 버튼은 공통 ModalDialog를 열며 모바일에서는 바텀시트, PC에서는 폼 모달로 표시한다. 입력과 닫기는 로컬에서 처리하며 비밀번호 입력 오류는 /mypage/profile/preview-password-error 및 화면 목록에서 확인할 수 있다.

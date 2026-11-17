@@ -760,7 +760,7 @@ export function getDescriptionListExamples(platform: Platform) {
       description: '실제 화면의 데이터·스타일',
       source: 'src/app/mypage/profile/_components/ProfileContent.tsx',
       href: '/mypage/profile',
-      code: "import { type Platform } from '@/context/platform';\nimport { css } from 'styled-system/css';\nimport { DescriptionList } from '@/components/common/atoms/DescriptionList';\n\nfunction Example({ platform }: { platform: Platform }) {\n  const emailPreference = '수신안함';\n  const smsPreference = '수신안함';\n  const kakaoPreference = '수신안함';\n  return (\n    <DescriptionList\n      items={[\n        { term: '이메일 수신', description: emailPreference },\n        { term: '문자수신(LMS, SMS)', description: smsPreference },\n        { term: '카카오톡 알림톡 수신', description: kakaoPreference },\n      ]}\n      termProps={{ variant: 'body3', mo: 'body4' }}\n      descriptionProps={{ variant: 'body3', mo: 'body4', tone: 'subtle' }}\n      slotStyles={{\n        root: css.raw({ gridTemplateColumns: 'none', gap: '6', _mobile: { gap: '4' } }),\n        row: css.raw({\n          display: 'flex',\n          alignItems: 'center',\n          justifyContent: 'flex-start',\n          gap: '0',\n          _mobile: { justifyContent: 'space-between' },\n        }),\n        term: css.raw({ w: '178px', _mobile: { w: 'auto' } }),\n        description: css.raw({ m: '0' }),\n      }}\n    />\n  );\n}\n",
+      code: "import { css } from 'styled-system/css';\nimport { DescriptionList } from '@/components/common/atoms/DescriptionList';\n\nfunction Example() {\n  const emailPreference = '수신안함';\n  const smsPreference = '수신안함';\n  const kakaoPreference = '수신안함';\n  return (\n    <DescriptionList\n      items={[\n        { term: '이메일 수신', description: emailPreference },\n        { term: '문자수신(LMS, SMS)', description: smsPreference },\n        { term: '카카오톡 알림톡 수신', description: kakaoPreference },\n      ]}\n      termProps={{ web: 'bodyKr3', mo: 'bodyKr4', tone: 'primary' }}\n      descriptionProps={{ web: 'bodyKr3', mo: 'bodyKr4', tone: 'subtle' }}\n      slotStyles={{\n        root: css.raw({ '--line-heights-body': '1.5', gridTemplateColumns: 'none', gap: '24px', _mobile: { gap: '16px' } }),\n        row: css.raw({\n          display: 'flex',\n          alignItems: 'center',\n          justifyContent: 'flex-start',\n          gap: '0',\n          _mobile: { justifyContent: 'space-between' },\n        }),\n        term: css.raw({ w: '178px', _mobile: { w: 'auto' } }),\n        description: css.raw({ m: '0', _mobile: { textAlign: 'right', '--color-text-subtle': 'var(--color-text-tertiary)' } }),\n      }}\n    />\n  );\n}\n",
       preview: (() => {
         const emailPreference = '수신안함';
         const smsPreference = '수신안함';
@@ -772,10 +772,15 @@ export function getDescriptionListExamples(platform: Platform) {
               { term: '문자수신(LMS, SMS)', description: smsPreference },
               { term: '카카오톡 알림톡 수신', description: kakaoPreference },
             ]}
-            termProps={{ variant: 'body3', mo: 'body4' }}
-            descriptionProps={{ variant: 'body3', mo: 'body4', tone: 'subtle' }}
+            termProps={{ web: 'bodyKr3', mo: 'bodyKr4', tone: 'primary' }}
+            descriptionProps={{ web: 'bodyKr3', mo: 'bodyKr4', tone: 'subtle' }}
             slotStyles={{
-              root: css.raw({ gridTemplateColumns: 'none', gap: '6', _mobile: { gap: '4' } }),
+              root: css.raw({
+                '--line-heights-body': '1.5',
+                gridTemplateColumns: 'none',
+                gap: '24px',
+                _mobile: { gap: '16px' },
+              }),
               row: css.raw({
                 display: 'flex',
                 alignItems: 'center',
@@ -784,7 +789,13 @@ export function getDescriptionListExamples(platform: Platform) {
                 _mobile: { justifyContent: 'space-between' },
               }),
               term: css.raw({ w: '178px', _mobile: { w: 'auto' } }),
-              description: css.raw({ m: '0' }),
+              description: css.raw({
+                m: '0',
+                _mobile: {
+                  textAlign: 'right',
+                  '--color-text-subtle': 'var(--color-text-tertiary)',
+                },
+              }),
             }}
           />
         );
@@ -796,7 +807,7 @@ export function getDescriptionListExamples(platform: Platform) {
       description: '실제 화면의 데이터·스타일',
       source: 'src/app/mypage/profile/_components/ProfileContent.tsx',
       href: '/mypage/profile',
-      code: "import { type Platform } from '@/context/platform';\nimport { css } from 'styled-system/css';\nimport { DescriptionList } from '@/components/common/atoms/DescriptionList';\n\nfunction Example({ platform }: { platform: Platform }) {\n  const profileDetails = [\n    ['회원 아이디', 'hon******'],\n    ['이름', '손*민'],\n    ['생년월일', '1993.05.22'],\n    ['주소', '서울시 성북구 테헤란로 27길 54 테헤란 아파트 701호'],\n    ['이메일', 'dww******@gmail.com'],\n    ['휴대폰 번호', '010-****-0522'],\n  ] as const;\n  const savedAddress = {\n    postalCode: '02157',\n    address: '서울시 성북구 테헤란로 27길 54',\n    addressDetail: '테헤란 아파트 701호',\n  };\n  const email = 'dww******@gmail.com';\n  const phone = '010-****-0522';\n  return (\n    <DescriptionList\n      items={[\n        ...profileDetails.slice(0, 3).map(([term, description]) => ({ term, description })),\n        {\n          term: '주소',\n          description: `${savedAddress.address} ${savedAddress.addressDetail}`,\n        },\n        { term: '이메일', description: email },\n        { term: '휴대폰 번호', description: phone },\n      ]}\n      termProps={{ variant: 'body3', weight: 'semibold' }}\n      descriptionProps={{ variant: 'body3', tone: 'subtle' }}\n      slotStyles={{\n        root: css.raw({\n          gridTemplateColumns: 'none',\n          gap: '12',\n          pb: '8',\n          borderBottom: '1px solid var(--colors-black-20)',\n          _mobile: { gap: '6', pb: '6' },\n        }),\n        row: css.raw({\n          display: 'flex',\n          gap: '0',\n          _mobile: { flexDirection: 'column', gap: '3' },\n        }),\n        term: css.raw({ w: '178px', flexShrink: '0', _mobile: { w: 'auto' } }),\n        description: css.raw({ m: '0' }),\n      }}\n    />\n  );\n}\n",
+      code: "import { css } from 'styled-system/css';\nimport { DescriptionList } from '@/components/common/atoms/DescriptionList';\n\nfunction Example() {\n  const profileDetails = [\n    ['회원 아이디', 'hon******'],\n    ['이름', '손*민'],\n    ['생년월일', '1993.05.22'],\n    ['주소', '서울시 성북구 테헤란로 27길 54 테헤란 아파트 701호'],\n    ['이메일', 'dww******@gmail.com'],\n    ['휴대폰 번호', '010-****-0522'],\n  ] as const;\n  const savedAddress = {\n    postalCode: '02157',\n    address: '서울시 성북구 테헤란로 27길 54',\n    addressDetail: '테헤란 아파트 701호',\n  };\n  const email = 'dww******@gmail.com';\n  const phone = '010-****-0522';\n  return (\n    <DescriptionList\n      items={[\n        ...profileDetails.slice(0, 3).map(([term, description]) => ({ term, description, descriptionProps: term === '이름' ? { variant: 'bodyKr3' as const } : undefined })),\n        {\n          term: '주소', descriptionProps: { variant: 'bodyKr3' },\n          description: `${savedAddress.address} ${savedAddress.addressDetail}`,\n        },\n        { term: '이메일', description: email },\n        { term: '휴대폰 번호', description: phone },\n      ]}\n      termProps={{ web: 'bodyKr3', mo: 'headingKr8', weight: 'semibold', tone: 'primary' }}\n      descriptionProps={{ variant: 'body3', tone: 'subtle' }}\n      slotStyles={{\n        root: css.raw({\n          '--line-heights-body': '1.5', gridTemplateColumns: 'none',\n          gap: '48px',\n          pb: '32px',\n          borderBottom: '1px solid var(--colors-black-20)',\n          _mobile: { gap: '24px', pb: '24px' },\n        }),\n        row: css.raw({\n          display: 'flex',\n          gap: '0',\n          _mobile: { flexDirection: 'column', gap: '12px' },\n        }),\n        term: css.raw({ w: '178px', flexShrink: '0', _mobile: { w: 'auto' } }),\n        description: css.raw({ m: '0', overflowWrap: 'anywhere' }),\n      }}\n    />\n  );\n}\n",
       preview: (() => {
         const profileDetails = [
           ['회원 아이디', 'hon******'],
@@ -816,31 +827,37 @@ export function getDescriptionListExamples(platform: Platform) {
         return (
           <DescriptionList
             items={[
-              ...profileDetails.slice(0, 3).map(([term, description]) => ({ term, description })),
+              ...profileDetails.slice(0, 3).map(([term, description]) => ({
+                term,
+                description,
+                descriptionProps: term === '이름' ? { variant: 'bodyKr3' as const } : undefined,
+              })),
               {
                 term: '주소',
+                descriptionProps: { variant: 'bodyKr3' },
                 description: `${savedAddress.address} ${savedAddress.addressDetail}`,
               },
               { term: '이메일', description: email },
               { term: '휴대폰 번호', description: phone },
             ]}
-            termProps={{ variant: 'body3', weight: 'semibold' }}
+            termProps={{ web: 'bodyKr3', mo: 'headingKr8', weight: 'semibold', tone: 'primary' }}
             descriptionProps={{ variant: 'body3', tone: 'subtle' }}
             slotStyles={{
               root: css.raw({
+                '--line-heights-body': '1.5',
                 gridTemplateColumns: 'none',
-                gap: '12',
-                pb: '8',
+                gap: '48px',
+                pb: '32px',
                 borderBottom: '1px solid var(--colors-black-20)',
-                _mobile: { gap: '6', pb: '6' },
+                _mobile: { gap: '24px', pb: '24px' },
               }),
               row: css.raw({
                 display: 'flex',
                 gap: '0',
-                _mobile: { flexDirection: 'column', gap: '3' },
+                _mobile: { flexDirection: 'column', gap: '12px' },
               }),
               term: css.raw({ w: '178px', flexShrink: '0', _mobile: { w: 'auto' } }),
-              description: css.raw({ m: '0' }),
+              description: css.raw({ m: '0', overflowWrap: 'anywhere' }),
             }}
           />
         );

@@ -14,7 +14,7 @@ export function ProfileStatePreview({
   passwordState,
 }: {
   passwordComplete?: boolean;
-  passwordState?: 'input' | 'confirm';
+  passwordState?: 'input' | 'input-error' | 'confirm';
   errors?: boolean;
   phoneState?: 'idle' | 'code-entry' | 'expired';
 }) {

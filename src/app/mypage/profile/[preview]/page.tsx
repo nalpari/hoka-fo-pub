@@ -14,7 +14,7 @@ export default async function Page({
   const { preview } = await params;
   const entry = profilePreviews.find((item) => item.href.endsWith('/' + preview));
   if (!entry) notFound();
-  if (entry.state === 'input' || entry.state === 'confirm')
+  if (entry.state === 'input' || entry.state === 'input-error' || entry.state === 'confirm')
     return <ProfileStatePreview passwordState={entry.state} />;
   return <ProfileContent preview={entry.state} />;
 }

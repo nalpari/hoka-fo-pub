@@ -567,6 +567,7 @@
       "src/components/common/organisms/Address/AddressFields.tsx",
       "src/components/common/organisms/EmailAddressFields.tsx",
       "src/components/mypage/MyPageFrame.tsx",
+      "src/context/platform.tsx",
       "src/lib/phoneNumber.ts"
     ],
     "src/app/mypage/profile/_components/ProfileStatePreview.tsx": [
