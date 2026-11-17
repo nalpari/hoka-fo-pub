@@ -17,6 +17,8 @@ const base = { open: true, onOpenChange: (_open: boolean) => {}, title: '제목'
 const variants: Exclude<ModalDialogVariant, 'alert' | 'confirm'>[] = ['terms', 'form', 'selection', 'orderLookup', 'productSelection', 'productOption', 'tracking', 'detail', 'image', 'sizeGuide'];
 variants.map(variant => <ModalDialog {...base} variant={variant}><p>본문</p></ModalDialog>);
 const alert = <ModalDialog {...base} variant="alert" message="완료" description="설명" actions={{ kind: 'single', onConfirm: () => {} }} />;
+const defaultAlert = <ModalDialog {...base} message="완료" description="설명" actions={{ kind: 'single' }} />;
+const undefinedAlert = <ModalDialog {...base} variant={undefined} message="안내" />;
 const confirm = <ModalDialog {...base} variant="confirm" message="진행할까요?" actions={{ kind: 'confirm', onConfirm: () => {}, confirmDisabled: true }} />;
 const feedback = <ModalDialog {...base} variant="alert" message="안내" feedback={<span role="alert">요청 실패</span>} />;
 const result = <ModalDialog {...base} variant="confirm" noticeLayout="result" intro="조회 결과" message="account" description="설명" />;
@@ -39,7 +41,7 @@ const orphanDescription = <ModalDialog {...base} variant="alert" description="�
 const wrongContent = <ModalDialog {...base} variant="tracking" message="안내" />;
 // @ts-expect-error Generated actions and a custom footer are exclusive.
 const mixedActions = <ModalDialog {...base} variant="alert" message="안내" actions={{ kind: 'single' }} footer={<button>중복</button>} />;
-// @ts-expect-error A variant must be explicit at every call site.
+// @ts-expect-error The default alert still requires structured content.
 const noVariant = <ModalDialog {...base}><p>본문</p></ModalDialog>;
 // @ts-expect-error Request feedback belongs to the structured content contract.
 const customFeedback = <ModalDialog {...base} variant="alert" feedback={<span>실패</span>}><p>본문</p></ModalDialog>;

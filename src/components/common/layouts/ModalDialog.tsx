@@ -64,7 +64,6 @@ type ModalDialogBaseProps = {
   onOpenChange: (open: boolean) => void;
   open: boolean;
   size?: ModalSize;
-  variant: ModalDialogVariant;
   formLayout?: 'divided';
   mobilePresentation?: ModalMobilePresentation;
   /** Keep the footer outside the scroll area on mobile fullscreen dialogs. */
@@ -86,7 +85,7 @@ type ModalDialogBaseProps = {
 
 type ModalDialogContentProps =
   | {
-      variant: 'alert' | 'confirm';
+      variant?: 'alert' | 'confirm';
       message: ReactNode;
       description?: ReactNode;
       feedback?: ReactNode;
@@ -180,7 +179,7 @@ export function ModalDialog({
   onOpenChange,
   open,
   size,
-  variant,
+  variant = 'alert',
   formLayout,
   mobilePresentation = 'popup',
   mobileFixedFooter = false,

@@ -5266,3 +5266,7 @@ productSelection 세 팝업의 본문은 ModalDialog.recipe.tsx의 modalProductS
 ## 검색 결과 닫기 이전 페이지 복귀 (2026-11-17)
 
 ProductListingPage의 검색 결과 닫기는 /products 고정 push 대신 Next router.back()으로 이전 브라우저 이력으로 복귀한다. 일반 헤더 SearchOverlay 닫기는 기존 로컬 열림 상태만 해제하며 URL 이동을 추가하지 않는다. 556px 모바일에서 주문/배송조회와 FAQ 각각의 검색 추천어 진입 후 결과 닫기가 원래 URL로 복귀함을 확인했다. 일반 검색 팝업의 직접 닫기도 URL을 유지했다. 검색 결과 내 추가 탐색 이력과 외부 직접 진입 시 복귀 대상은 브라우저 이력에 따른다. 별도의 이전 경로 저장·상품 목록 대체 이동은 추가하지 않았다. 대상 ESLint·TypeScript를 통과했다.
+
+## ModalDialog 기본 유형 (2026-11-17)
+
+사용자 요청으로 ModalDialog의 variant를 생략하거나 undefined로 전달하면 alert로 해석한다. 정형 message 본문에서 variant를 선택적으로 받으며 confirm 결과형과 나머지 유형은 명시적 variant를 유지한다. alert의 message/description·children 배타 계약과 기존 액션 계약은 변경하지 않는다. 출처: 사용자 요청 및 `src/components/common/layouts/ModalDialog.tsx` 작업 트리, Codex 작성(2026-11-17). 이전의 모든 호출부 필수 variant 설명은 이 기본값 계약으로 대체한다.
