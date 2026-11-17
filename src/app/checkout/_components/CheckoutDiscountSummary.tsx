@@ -49,8 +49,6 @@ export function CheckoutDiscountSummary({
         {[
           '쿠폰 보유 시 최대 할인 쿠폰으로 자동 적용됩니다.',
           '정상 상품과 세일 상품을 함께 결제 시 쿠폰 적용 가능 상품에만 쿠폰이 적용됩니다.',
-          '할인 및 쿠폰 적용 후 실 결제금액의 최대 30%까지 마일리지 사용 가능합니다.',
-          '마일리지는 5,000점 이상 보유 시 100점 단위로 사용 가능합니다.',
         ].map((text) => (
           <Typography key={text} variant="body5" tone="tertiary">
             * {text}

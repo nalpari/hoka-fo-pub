@@ -4,12 +4,13 @@ title: '변경 검증'
 description: '변경 범위에 맞는 정적 검사, 빌드와 수동 검증을 안내한다.'
 tags: [verification, testing, build]
 status: draft
-updated: '2026-11-17T03:58:43.892613+00:00'
+updated: '2026-11-17T07:42:10.485Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/checkout/_components/CheckoutDiscountSummary.tsx
   - src/app/cart/_components/CartProductSection.tsx
   - src/app/checkout/_components/CheckoutCouponDialog.tsx
   - src/app/checkout/checkout-summary.ts
@@ -825,3 +826,10 @@ PC1920·모바일375×812에서 체크박스 두 개 선택, 주문 접기/펼�
 ## FAQ 검색 영역 디자인 검증 (2026-11-17)
 
 PC1571px에서 입력520×56px·버튼48px·간격12px, MO375/809px에서 입력56px·버튼42px·간격8px과 가로 넘침 없음을 확인했다. 375px의 classic scrollbar15px 예약 시 본문 가용 폭은328px이다. PC/MO 버튼 최종 라벨16px/15px·400·행간20.8px/19.5px, 실제 Pretendard-Regular 커스텀 글리프2개를 확인했다. 입력 placeholder#777777·16px/24px도 측정했다. PC/MO 캡처를 검토하고 검색 무결과·버튼/Enter 후 URL 유지·입력 초기화·배송 카테고리 결과를 확인했다. 변경 ESLint·전체 TypeScript·Panda421개 추출이 통과했다. 최종 인계 검토에서 기존 Panda 요소·공통 SearchField 기본값·상태 owner와 단일 form을 보존함을 확인했다. 공통 플랫폼은 수정하지 않았으며 경계 viewport·명시적 플랫폼·전체 빌드는 재실행하지 않았다. 출처: FAQ 작업 트리·지정 디자인 및 Codex 실제 실행, 2026-11-17.
+
+
+## 주문내역 마일리지 안내 삭제 (2026-11-17)
+
+CheckoutDiscountSummary의 마일리지 문구 삭제를 검토했다. 앞선 로컬 PC·모바일375 확인에서 마일리지 문구 부재를 확인했다. 검증 절차와 서비스 계약에는 영향이 없다. 전체 빌드는 수행하지 않았다.
+
+출처: 사용자 첨부 Slack 화면과 src/app/checkout/_components/CheckoutDiscountSummary.tsx 작업 트리. 기록: codex/gpt-6, 2026-11-17T07:42:10.485Z. 기존 generated·source_revision·draft 이력은 보존한다.

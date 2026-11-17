@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-17T06:58:49.263966+00:00'
+updated: '2026-11-17T07:42:10.485Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -1997,3 +1997,10 @@ IA160 Feed에 `/launch-calendar/preview-empty`(런칭 일정 없음), IA161 Upco
 ## 환불(반품) 신청 수량 노출 (2026-11-17)
 
 OrderClaimRequest에서 반품일 때 NumberStepper를 숨기던 조건을 제거해 PC·모바일 모두 주문 취소와 같은 수량 입력을 표시한다. 상품별 로컬 초안·최소 1·주문 수량 상한과 기존 스타일을 유지한다. 실제 요청·금액 계산은 미연결이며 경로·플랫폼 소유권은 바뀌지 않는다. 출처: src/app/mypage/orders/_components/OrderClaimRequest.tsx 작업 트리. 대상 ESLint·Prettier 확인을 통과했다. 브라우저 실측은 수행하지 않았다.
+
+
+## 주문내역 마일리지 안내 삭제 (2026-11-17)
+
+CheckoutDiscountSummary의 마일리지 안내 두 문구 삭제를 검토했다. /checkout 및 기존 preview 경로·URL 상태·플랫폼 선택에는 영향이 없다.
+
+출처: 사용자 첨부 Slack 화면과 src/app/checkout/_components/CheckoutDiscountSummary.tsx 작업 트리. 기록: codex/gpt-6, 2026-11-17T07:42:10.485Z. 기존 generated·source_revision·draft 이력은 보존한다.

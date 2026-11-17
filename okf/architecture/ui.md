@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-17T04:54:44.153044+00:00'
+updated: '2026-11-17T07:42:10.485Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -5270,3 +5270,10 @@ ProductListingPage의 검색 결과 닫기는 /products 고정 push 대신 Next 
 ## ModalDialog 기본 유형 (2026-11-17)
 
 사용자 요청으로 ModalDialog의 variant를 생략하거나 undefined로 전달하면 alert로 해석한다. 후속 호환 요청으로 기존 children 본문도 모든 유형에서 허용하며 생략 시 alert shell을 적용한다. message/description 정형 본문과 children은 동시에 전달할 수 없다. 정형 본문의 feedback과 confirm 결과형 intro 계약 및 기존 액션 계약은 유지한다. children은 호출자가 지정한 요소와 개별 스타일을 그대로 렌더링하고 message용 h3·description 슬롯으로 재구성하지 않는다. 출처: 사용자 요청 및 `src/components/common/layouts/ModalDialog.tsx` 작업 트리, Codex 작성(2026-11-17). 이전의 필수 variant 및 alert/confirm custom children 금지 설명은 이 호환 계약으로 대체한다.
+
+
+## 주문내역 마일리지 안내 삭제 (2026-11-17)
+
+CheckoutDiscountSummary에서 실 결제금액 최대30% 사용 안내와5,000점 이상·100점 단위 사용 안내를 삭제했다. 기존 쿠폰 안내 두 문구와 준비된 금액·조회 버튼은 유지한다.
+
+출처: 사용자 첨부 Slack 화면과 src/app/checkout/_components/CheckoutDiscountSummary.tsx 작업 트리. 기록: codex/gpt-6, 2026-11-17T07:42:10.485Z. 기존 generated·source_revision·draft 이력은 보존한다.
