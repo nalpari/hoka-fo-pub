@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-16T23:52:36.095036+00:00'
+updated: '2026-11-17T01:26:16.877591+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -1927,3 +1927,8 @@ IA159 런칭캘린더에 입고 알림 신청 직접 URL /launch-calendar/clifto
 ## 모바일 결제 로고 정렬 보정 (2026-11-17)
 
 `/checkout` 및 같은 CheckoutPayment를 사용하는 주문서 STATE의 모바일 로고를 원본의 가운데 정렬된 자산으로 교체했다. 기존 PC용 자산·한 줄6열 배치·선택 콜백은 유지한다. 신규 경로나 서비스 바인딩 변경은 없다. [수치와 검증](ui.md#모바일-결제-수단-중앙-정렬-2026-11-17).
+
+
+## 쿠폰 상세 글꼴 변경의 라우팅 검토 (2026-11-17)
+
+작업 트리 출처 src/app/mypage/coupons/_components/CouponManagement.tsx의 상세 글꼴·색상과 className 선언 위치를 검토했다. /mypage/coupons/preview-detail 직접 진입, 모달 열림과 닫기 소유권, 쿠폰 데이터·조회 계약 및 기존 import 경로에는 변경이 없다. PC1176·모바일513px 직접 진입과 캡처를 확인했다.

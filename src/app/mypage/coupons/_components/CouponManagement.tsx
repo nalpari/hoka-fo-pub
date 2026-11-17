@@ -33,6 +33,67 @@ const couponDetailNumber = css({
   },
 });
 
+const couponDetailStyles = {
+  period: css({ color: '#040404' }),
+  term: css({
+    flexShrink: '0',
+    lineHeight: '1.5',
+    color: '#4D4D4D',
+  }),
+  value: css({
+    m: '0',
+    minW: '0',
+    textAlign: 'right',
+    '&&': { fontWeight: '500' },
+    color: 'black.100',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    lineHeight: '1.5',
+    overflowWrap: 'anywhere',
+  }),
+  conditionTitle: css({
+    lineHeight: '1.5',
+    color: '#4D4D4D',
+  }),
+  body: css({ whiteSpace: 'pre-line', lineHeight: '1.5', color: 'black.100' }),
+  notice: css({
+    '&&': {
+      fontSize: '13px',
+      lineHeight: '1.5',
+      color: '#777777',
+    },
+    pt: '16px',
+    borderTop: '1px solid token(colors.black.20)',
+  }),
+};
+
+const couponStyles = {
+  card: css({
+    pos: 'relative',
+    minW: '0',
+    minH: '195px',
+    h: '195px',
+    '& > *': { flexShrink: '0' },
+    py: '32px',
+    pl: '33px',
+    pr: '25px',
+    gap: '32px',
+    backgroundSize: '100% 100%',
+    backgroundRepeat: 'no-repeat',
+    _mobile: { minH: '170px', h: '170px', py: '25px', gap: '24px' },
+  }),
+  detailsButton: css({ flexShrink: '0' }),
+  linkText: css({ lineHeight: '1.3!' }),
+  benefitNumber: css({ lineHeight: 'hoka!' }),
+  benefitUnit: css({ lineHeight: '1.2!' }),
+  registrationButton: css({
+    w: '180px',
+    _mobile: { flex: '1', minW: '0', w: 'auto', '--button-height': '42px' },
+  }),
+  registrationText: css({ lineHeight: '1.3!' }),
+};
+
 const couponSectionTitle = {
   web: 'headingKr7',
   mo: 'headingKr6',
@@ -144,20 +205,7 @@ type CouponCardProps = {
 function CouponCard({ coupon, onDetails }: CouponCardProps) {
   return (
     <Card
-      className={css({
-        pos: 'relative',
-        minW: '0',
-        minH: '195px',
-        h: '195px',
-        '& > *': { flexShrink: '0' },
-        py: '32px',
-        pl: '33px',
-        pr: '25px',
-        gap: '32px',
-        backgroundSize: '100% 100%',
-        backgroundRepeat: 'no-repeat',
-        _mobile: { minH: '170px', h: '170px', py: '25px', gap: '24px' },
-      })}
+      className={couponStyles.card}
       style={{ backgroundImage: 'url(/images/mypage/coupon.svg)' }}
     >
       <ContentHeader
@@ -176,9 +224,9 @@ function CouponCard({ coupon, onDetails }: CouponCardProps) {
             size="sm"
             variant="link"
             onClick={() => onDetails(coupon)}
-            className={css({ flexShrink: '0' })}
+            className={couponStyles.detailsButton}
           >
-            <Typography variant="cta3" weight="regular" className={css({ lineHeight: '1.3!' })}>
+            <Typography variant="cta3" weight="regular" className={couponStyles.linkText}>
               상세보기
             </Typography>
           </Button>
@@ -190,12 +238,12 @@ function CouponCard({ coupon, onDetails }: CouponCardProps) {
             variant="body3"
             language="en"
             weight="bold"
-            className={css({ lineHeight: 'hoka!' })}
+            className={couponStyles.benefitNumber}
           >
             {coupon.benefit.endsWith('원') ? coupon.benefit.slice(0, -1) : coupon.benefit}
           </Typography>
           {coupon.benefit.endsWith('원') ? (
-            <Typography variant="bodyKr3" weight="semibold" className={css({ lineHeight: '1.2!' })}>
+            <Typography variant="bodyKr3" weight="semibold" className={couponStyles.benefitUnit}>
               원
             </Typography>
           ) : null}
@@ -277,7 +325,7 @@ function CouponDetailsDialog({ coupon, onOpenChange }: CouponDetailsDialogProps)
             <Typography
               variant="body4"
               language="en"
-              className={cx(couponDetailNumber, css({ color: '#040404' }))}
+              className={cx(couponDetailNumber, couponDetailStyles.period)}
             >
               {coupon.expiresAt}
             </Typography>
@@ -312,21 +360,11 @@ function CouponDetailsDialog({ coupon, onOpenChange }: CouponDetailsDialogProps)
                   as="dt"
                   variant="bodyKr4"
                   tone="subtle"
-                  className={css({ flexShrink: '0', lineHeight: '1.5' })}
+                  className={couponDetailStyles.term}
                 >
                   {label}
                 </Typography>
-                <Typography
-                  as="dd"
-                  variant="bodyKr4"
-                  className={css({
-                    m: '0',
-                    minW: '0',
-                    textAlign: 'right',
-                    lineHeight: '1.5',
-                    overflowWrap: 'anywhere',
-                  })}
-                >
+                <Typography as="dd" variant="bodyKr4" className={couponDetailStyles.value}>
                   {value}
                 </Typography>
               </HStack>
@@ -337,26 +375,18 @@ function CouponDetailsDialog({ coupon, onOpenChange }: CouponDetailsDialogProps)
               as="h3"
               variant="bodyKr4"
               tone="subtle"
-              className={css({ lineHeight: '1.5' })}
+              className={couponDetailStyles.conditionTitle}
             >
               상세조건
             </Typography>
-            <Typography
-              as="p"
-              variant="bodyKr4"
-              className={css({ whiteSpace: 'pre-line', lineHeight: '1.5' })}
-            >
+            <Typography as="p" variant="bodyKr4" className={couponDetailStyles.body}>
               {coupon.detailTerms}
             </Typography>
             <Typography
               as="p"
               variant="bodyKr4-2"
               tone="tertiary"
-              className={css({
-                '&&': { fontSize: '13px', lineHeight: '1.5' },
-                pt: '16px',
-                borderTop: '1px solid token(colors.black.20)',
-              })}
+              className={couponDetailStyles.notice}
             >
               {coupon.detailNotice}
             </Typography>
@@ -498,16 +528,13 @@ export function RouteContent({
                       registrationTrigger.current = event.currentTarget;
                       setEmployeeRegistrationOpen(true);
                     }}
-                    className={css({
-                      w: '180px',
-                      _mobile: { flex: '1', minW: '0', w: 'auto', '--button-height': '42px' },
-                    })}
+                    className={couponStyles.registrationButton}
                   >
                     <Typography
                       web="cta1"
                       mo="cta1-1"
                       weight="bold"
-                      className={css({ lineHeight: '1.3!' })}
+                      className={couponStyles.registrationText}
                     >
                       {platform === 'mobile' ? label.mobile : label.desktop}
                     </Typography>

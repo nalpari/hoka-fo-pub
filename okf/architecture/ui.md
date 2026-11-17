@@ -5180,3 +5180,10 @@ Codex 검증: PC1276×1251·모바일513×1251에서 부모 약관 위50% 배경
 PreviousTermsPicker의 안내문·날짜 스타일을 기존 모바일과 PC가 공유한다. PC 안내문은 Pretendard16px/500/24px, 날짜는14px/400/21px·자간-0.02em·검정이며 기존 영문 글꼴의1px 이동도 사용하지 않는다. 선택·확인과 플랫폼별 모달 계약은 유지한다. 작업 트리 출처: src/components/common/molecules/PreviousTermsPicker.tsx.
 
 Codex 검증: PC1176×1251·모바일513×1251에서 캡처 대조와 실제 계산 스타일로 위 규격을 확인했고, 두 플랫폼 모두 본문 clientHeight/scrollHeight283/283으로 불필요한 스크롤이 없었다. 변경 파일 ESLint·Prettier와 타입 검사를 통과했다.
+
+
+## 쿠폰 상세 글꼴과 스타일 소유권 보정 (2026-11-17)
+
+사용자 PC·모바일 검수 규격에 따라 CouponManagement의 상세 항목명·상세조건 제목은 Pretendard14px/400/21px·#4D4D4D, 값·원/개 단위는14px/500/21px·검정으로 맞췄다. 상세조건 본문14px/400/21px·검정과 안내13px/400/19.5px·#777을 명시하고 자간-0.02em을 유지한다. 금액·수량·기간 숫자의 기존 영문 글꼴과700은 유지한다. 활성 JSX의 className 스타일은 파일 상단 couponDetailStyles/couponStyles로 이동했다. 주석으로 제외된 등록 마크업은 변경하지 않았다. 작업 트리 출처: src/app/mypage/coupons/_components/CouponManagement.tsx.
+
+Codex 검증: PC1176×1251·모바일513×1251 캡처와 계산 스타일로 항목명·값·본문·안내 규격을 확인했다. 스타일 선언 이동은 값을 보존했으며 변경 파일 ESLint·Prettier와 타입 검사를 통과했다.
