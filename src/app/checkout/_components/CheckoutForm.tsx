@@ -89,9 +89,7 @@ export function CheckoutContent({
         </Box>
         <Stack gap="6" gridColumn="1" gridRow="5">
           {/* 결제 동의 */}
-          <Box display={{ base: showAgreementError ? 'block' : 'none', _mobile: 'block' }}>
-            <CheckoutAgreement showError={showAgreementError} />
-          </Box>
+          <CheckoutAgreement showError={showAgreementError} />
           {/* 결제하기 액션 */}
           <OrderActionBar>
             <Button type="button" variant="primary" fullWidth>

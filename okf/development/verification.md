@@ -4,7 +4,7 @@ title: '변경 검증'
 description: '변경 범위에 맞는 정적 검사, 빌드와 수동 검증을 안내한다.'
 tags: [verification, testing, build]
 status: draft
-updated: '2026-11-17T07:42:10.485Z'
+updated: '2026-11-17T07:55:05.559Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
@@ -833,3 +833,9 @@ PC1571px에서 입력520×56px·버튼48px·간격12px, MO375/809px에서 입력
 CheckoutDiscountSummary의 마일리지 문구 삭제를 검토했다. 앞선 로컬 PC·모바일375 확인에서 마일리지 문구 부재를 확인했다. 검증 절차와 서비스 계약에는 영향이 없다. 전체 빌드는 수행하지 않았다.
 
 출처: 사용자 첨부 Slack 화면과 src/app/checkout/_components/CheckoutDiscountSummary.tsx 작업 트리. 기록: codex/gpt-6, 2026-11-17T07:42:10.485Z. 기존 generated·source_revision·draft 이력은 보존한다.
+
+## 주문서 피드백 반영 (2026-11-17)
+
+대상 세 TSX의 ESLint·Prettier와 전체 npm run typecheck를 통과했다. 기존 localhost:3000에서 PC 기본 주문서의 동의 두 항목·체크 토글(true), 배송 요청 door, 마일리지 문구 부재를 확인했다. 조회하기로 쿠폰 모달을 연 뒤 상품 쿠폰을 접어도 총액3,200,000이 남고 장바구니 접기 버튼이0개임을 확인했다. 같은 창을375×812로 변경해 모바일 동의 두 항목 표시·door·쿠폰 총액과 접기 버튼 부재를 확인했다. 배송 선택지4개와 기존 안내 문구 제거를 확인하고 /checkout/preview-delivery-request에 직접 진입해 custom 값·textarea 유지를 확인했다. 이번 수정은 정적 표시·기본값 변경으로 서비스 요청·실패·재시도 계약은 변경하지 않았으며 전체 빌드와 설계서 픽셀 대조는 수행하지 않았다.
+
+출처: 사용자 첨부 Slack 대화·화면과 위 working_tree_sources의 checkout 소스. 기록: codex/gpt-6, 2026-11-17T07:38:24Z. 기존 generated·source_revision·draft 및 과거 검증 이력은 보존한다.

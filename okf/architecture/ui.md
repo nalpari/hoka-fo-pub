@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-17T07:42:10.485Z'
+updated: '2026-11-17T07:55:05.559Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -5281,3 +5281,9 @@ CheckoutDiscountSummary에서 실 결제금액 최대30% 사용 안내와5,000�
 ## 전화번호 하이픈 표기 규칙 (2026-11-17)
 
 전화번호는 공백 없는 하이픈 표기를 기본으로 하며 디자인의 점·공백 구분보다 우선한다. 번호 자체와 지역번호·대표번호 자리수는 유지한다. 주문서 CheckoutShipping의 연락처 2곳과 orders.data.ts의 주문내역 연락처 9곳을 변경했다. 라우트·상호작용·스타일은 변경하지 않았다. 작업 트리 출처: AGENTS.md, src/app/checkout/_components/CheckoutShipping.tsx, src/components/orders/orders.data.ts. 정규식으로 src를 재검색하여 점 구분 전화번호가 남지 않았음을 확인했다.
+
+## 주문서 피드백 반영 (2026-11-17)
+
+장바구니 쿠폰 제목은 정적 Box로 표시하고 접기 버튼·아이콘·cart 펼침 상태를 제거했다. 금액 요약은 항상 렌더하며 상품 쿠폰의 개별 접기와 라디오는 유지한다. CheckoutForm의 PC 동의 숨김 wrapper를 제거해 기존 동의 두 항목을 PC·모바일 모두 표시한다. 배송 요청 기본값은 door(문 앞에 놓아주세요)이며 택배기사 안내 문구는 선택지에서 제거했다. CheckoutDiscountSummary의 마일리지 두 문구 삭제는 작업 시작 전부터 스테이징되어 있어 그대로 보존했다. 주문 요청·계산·동의 검증은 추가하지 않았다. 별도 최신 설계서는 제공되지 않아 기존 동의 컴포넌트를 복원한 범위이며 설계서와의 세부 대조는 수행하지 않았다.
+
+출처: 사용자 첨부 Slack 대화·화면과 위 working_tree_sources의 checkout 소스. 기록: codex/gpt-6, 2026-11-17T07:38:24Z. 기존 generated·source_revision·draft 및 과거 검증 이력은 보존한다.

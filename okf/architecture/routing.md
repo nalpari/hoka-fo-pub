@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-17T07:42:10.485Z'
+updated: '2026-11-17T07:55:05.559Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -2008,3 +2008,9 @@ CheckoutDiscountSummary의 마일리지 안내 두 문구 삭제를 검토했다
 ## 전화번호 하이픈 표기 규칙 (2026-11-17)
 
 전화번호는 공백 없는 하이픈 표기를 기본으로 하며 디자인의 점·공백 구분보다 우선한다. 번호 자체와 지역번호·대표번호 자리수는 유지한다. 주문서 CheckoutShipping의 연락처 2곳과 orders.data.ts의 주문내역 연락처 9곳을 변경했다. 라우트·상호작용·스타일은 변경하지 않았다. 작업 트리 출처: AGENTS.md, src/app/checkout/_components/CheckoutShipping.tsx, src/components/orders/orders.data.ts. 정규식으로 src를 재검색하여 점 구분 전화번호가 남지 않았음을 확인했다.
+
+## 주문서 피드백 반영 (2026-11-17)
+
+검토 범위는 CheckoutForm·CheckoutShipping·CheckoutCouponDialog와 기존 /checkout, /checkout/preview-coupons, /checkout/preview-delivery-request다. 경로·IA 연결·라우터 상태·플랫폼 판별에는 영향이 없다. 기본 배송 요청 seed만 door로 변경하고 custom 직접 입력 seed는 유지한다.
+
+출처: 사용자 첨부 Slack 대화·화면과 위 working_tree_sources의 checkout 소스. 기록: codex/gpt-6, 2026-11-17T07:38:24Z. 기존 generated·source_revision·draft 및 과거 검증 이력은 보존한다.
