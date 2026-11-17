@@ -821,3 +821,7 @@ PC1920·모바일375×812에서 체크박스 두 개 선택, 주문 접기/펼�
 `tests/modal-dialog-types.test.mjs`에 variant 생략과 명시적 undefined의 정형 alert 호출을 추가했다. 기본 alert에서도 custom children은 거부하며 기존12개 유형·본문/액션 배타 검사1개가 통과했다. 출처: 해당 테스트와 ModalDialog 작업 트리, Codex 실제 실행(2026-11-17). 브라우저·빌드는 이번 기본값 수정에서 재실행하지 않았다.
 
 후속 children 호환(2026-11-17): 사용자의 추가 요청으로 앞선 custom children 금지 계약을 대체했다. 생략·undefined·명시적 alert/confirm의 children 호출을 허용하고 message와 children 동시 전달은 거부하는 타입 검사를 통과했다. 전체 TypeScript도 통과했다. 실제 ModalDialog/Panda recipe의 React 정적 렌더에서 web/mobile×popup/fullscreen/bottomSheet×생략/undefined의12조합이 명시적 alert children 마크업·클래스와 동일하고 자식 본문 및 data-modal-variant=alert가 유지됨을 확인했다. Dialog·포털·버튼·아이콘은 검사 대역이므로 브라우저 레이아웃·포커스 실측은 아니다. 출처: ModalDialog·모달 타입 테스트 작업 트리와 Codex 실제 실행, 브라우저·빌드는 재실행하지 않았다.
+
+## FAQ 검색 영역 디자인 검증 (2026-11-17)
+
+PC1571px에서 입력520×56px·버튼48px·간격12px, MO375/809px에서 입력56px·버튼42px·간격8px과 가로 넘침 없음을 확인했다. 375px의 classic scrollbar15px 예약 시 본문 가용 폭은328px이다. PC/MO 버튼 최종 라벨16px/15px·400·행간20.8px/19.5px, 실제 Pretendard-Regular 커스텀 글리프2개를 확인했다. 입력 placeholder#777777·16px/24px도 측정했다. PC/MO 캡처를 검토하고 검색 무결과·버튼/Enter 후 URL 유지·입력 초기화·배송 카테고리 결과를 확인했다. 변경 ESLint·전체 TypeScript·Panda421개 추출이 통과했다. 최종 인계 검토에서 기존 Panda 요소·공통 SearchField 기본값·상태 owner와 단일 form을 보존함을 확인했다. 공통 플랫폼은 수정하지 않았으며 경계 viewport·명시적 플랫폼·전체 빌드는 재실행하지 않았다. 출처: FAQ 작업 트리·지정 디자인 및 Codex 실제 실행, 2026-11-17.

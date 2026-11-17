@@ -27,6 +27,38 @@ import {
 import { supportNavigation } from '@/app/support/support.navigation';
 import { CustomerCenterLayout } from '@/components/support/CustomerCenterLayout';
 
+const styles = {
+  searchForm: css({
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: '12px',
+    pt: '6',
+    _mobile: { pt: '0', gap: '8px' },
+  }),
+  searchField: css({
+    w: '520px',
+    minW: '0',
+    _mobile: { w: 'auto', flex: '1' },
+    '& > div': { py: '8px' },
+    '&& input': { fontWeight: '400', lineHeight: '1.5', _placeholder: { color: '#777777' } },
+  }),
+  searchButton: css({
+    flexShrink: '0',
+    '--button-height': '48px',
+    _mobile: { '--button-height': '42px' },
+  }),
+  searchButtonLabel: css({ '&&': { fontWeight: '400', lineHeight: '1.3' } }),
+  question: css({
+    minH: '74px',
+    gap: '16px',
+    py: '24px',
+    textAlign: 'left',
+    boxShadow: 'inset 0 -1px 0 var(--color-black-20)',
+    '&[aria-expanded="true"]': { boxShadow: 'none' },
+    _mobile: { minH: '58px', py: '16px' },
+  }),
+};
+
 type Props = {
   category: FaqCategory;
   categories: FaqCategory[];
@@ -55,14 +87,15 @@ type FaqSearchProps = {
 };
 function FaqSearch({ query, onQueryChange }: FaqSearchProps) {
   return (
-    <Flex justifyContent="center" pt="6" _mobile={{ pt: '0' }}>
-      <Box
-        w="590px"
-        maxW="100%"
-        _mobile={{ w: '100%' }}
-        css={{ _mobile: { '& input::placeholder': { color: 'black.50' } } }}
-      >
+    <Flex
+      as="form"
+      role="search"
+      className={styles.searchForm}
+      onSubmit={(event) => event.preventDefault()}
+    >
+      <Box className={styles.searchField}>
         <SearchField
+          as="div"
           iconPlacement="start"
           label="질문 또는 답변 검색"
           placeholder="검색어를 입력해주세요"
@@ -70,6 +103,11 @@ function FaqSearch({ query, onQueryChange }: FaqSearchProps) {
           onValueChange={onQueryChange}
         />
       </Box>
+      <Button type="submit" variant="primary" size="tall" className={styles.searchButton}>
+        <Typography web="cta1" mo="cta1-1" weight="regular" className={styles.searchButtonLabel}>
+          검색
+        </Typography>
+      </Button>
     </Flex>
   );
 }
@@ -148,17 +186,6 @@ type FaqListProps = {
   entries: readonly FaqListEntry[];
   openQuestion: string | null;
   onToggle: (question: string) => void;
-};
-const styles = {
-  question: css({
-    minH: '74px',
-    gap: '16px',
-    py: '24px',
-    textAlign: 'left',
-    boxShadow: 'inset 0 -1px 0 var(--color-black-20)',
-    '&[aria-expanded="true"]': { boxShadow: 'none' },
-    _mobile: { minH: '58px', py: '16px' },
-  }),
 };
 function FaqList({ entries, openQuestion, onToggle }: FaqListProps) {
   return (

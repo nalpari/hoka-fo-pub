@@ -2907,3 +2907,10 @@ Figma Navigational Buttons(296:25392)와 Action Buttons(296:25425)의 기본·�
 ## 2026-11-17 ModalDialog 기존 children 호환
 
 - 사용자 요청으로 children 본문을 생략·명시적 alert/confirm에서도 허용했다. variant 생략의 alert 기본값, 정형 본문과 children 배타 계약 및 액션 계약은 유지한다. 전체 타입·타입 계약 검사와 children 기본 alert 렌더 비교12조합을 통과했다. 브라우저 실측과 구분하며 관련 UI·검증 문서를 갱신했다.
+
+## 2026-11-17 FAQ 검색 PC·모바일 시안 적용
+
+- FAQ 내부 입력 폭·placeholder와 별도 검색 버튼을 지정 디자인에 맞췄다. 카테고리·공통 검색 컴포넌트·기존 로컬 검색/경로를 보존했다. PC/MO 실측·캡처·Regular 글리프·검색 조작과 타입·lint·Panda를 확인했다. 상세는 architecture/routing.md 및 development/verification.md에 기록했다.
+## 2026-11-17 FAQ 검색 스타일 className 정리
+
+- 검색 영역 스타일을 기존 FaqContent 상단 styles에 모아 className으로 연결하고 Panda 요소를 보존했다. PC/MO 치수·글자 크기·placeholder·넘침 재측정과 타입·lint·Panda 검사를 통과했다. 관련 상세는 architecture/routing.md에 기록했다.
