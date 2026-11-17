@@ -255,6 +255,15 @@ export function ReviewsContent({
                   ))}
                 </Stack>
               </Stack>
+              <VStack mt="24px">
+                <Button
+                  variant="plain"
+                  size="lg"
+                  onClick={more.onLoadMore}
+                  disabled={!more.onLoadMore}
+                  loadMore={{ counter: more.counter }}
+                />
+              </VStack>
             </>
           ) : (
             <EmptyState
@@ -279,15 +288,6 @@ export function ReviewsContent({
               })}
             />
           )}
-          <VStack mt="24px">
-            <Button
-              variant="plain"
-              size="lg"
-              onClick={more.onLoadMore}
-              disabled={!more.onLoadMore}
-              loadMore={{ counter: more.counter }}
-            />
-          </VStack>
         </Box>
       </ContentSection>
       <ReviewDialog
