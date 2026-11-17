@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-17T03:58:43.861757+00:00'
+updated: '2026-11-17T04:29:40.343749+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -5240,3 +5240,11 @@ AGENTS.md에 스타일 추출만을 이유로 기존 Panda 레이아웃 컴포�
 ## 쿠폰 조회와 취소 반품 전용 모달 (2026-11-17)
 
 보유 쿠폰 조회·주문 취소 신청·환불(반품) 신청은 모두 productSelection 하나를 사용한다. 공통 selection/form의 기본 호출자는 유지한다. 기존 모달 외형과 버튼 너비를 ModalDialog.recipe.tsx로 옮겼다. 쿠폰 버튼 PC238×48px, 취소·반품 버튼 PC160×48px이며 모바일은343×42px(375px 화면)이다. PC640px 너비·10px 모서리와 모바일 하단 시트24px 모서리, 본문 PC32px/MO16px 여백을 보존한다. 세 팝업은 productSelectionModal 스타일 객체를 공유하고 쿠폰의 PC 버튼 너비만 --modal-product-button-width로 지정한다. 기존 Panda 컴포넌트·상태·fixture·요청 미연결 계약은 그대로다.
+
+## 상품 선택 입력 본문 공통 recipe (2026-11-17)
+
+productSelection 세 팝업의 본문은 ModalDialog.recipe.tsx의 modalProductSelectionContentRecipe를 사용한다. 공통 슬롯은 본문·섹션·제목·상품 목록/행·필드·안내문·수량·금액 요약/합계이며, 쿠폰은 같은 recipe의 content="coupon", 취소·반품은 기본 claim 구성을 쓴다. modal variant는 추가하지 않았다. 기존 Stack/HStack/Box와 OrderProductSummary·AmountRow·Radio·Checkbox 소유권 및 fixture/로컬 초안·닫기 계약을 유지한다. 쿠폰 펼침과 선택은 기존 상태 소유자가 처리한다.
+
+[디자인 파일](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 해당 페이지와 쿠폰 PC/MO·취소 PC·반품 MO 본문 구조를 읽었다. 공통 상품 행 간격16px·상하16px, 섹션 간격12px(모바일16px), 필드 간격8px·상하8px, 합계 배경#F7F7F9·테두리#E9EAEB를 반영했다. 쿠폰 상품 정보 시작 여백은 PC20px/MO16px, 쿠폰 선택 행은 최소60px이며 목록은 하단8px이다. 쿠폰 제목은 PC20px/700/24px·하단20px, MO16px/600/19.2px·하단16px이다. 취소·반품 주의문은 PC14px/21px, MO13px/19.5px와 #777777를 적용했다. 요약 내부 좌우 여백은 쿠폰20px·신청16px로 구분한다. fixture 상품·수량·금액은 시안 값으로 일괄 교체하지 않았다.
+
+검증: 1920px/375px에서 세 팝업의 계산 스타일·가로 넘침 없음과 캡처를 확인했다. 1764px/375px에서 쿠폰 접기, 신청 상품 체크와 닫기를 확인했고 실제 Pretendard 사용자 폰트 렌더링을 확인했다. 대상 ESLint·TypeScript·Panda 생성·12유형 모달 계약 검사를 통과했다. 마지막 hoka-markup-handoff 점검에서 Panda 유지, 불필요한 래퍼/서비스 추가 없음, 본문 스타일 소유권·간격·폼 경계 보존을 확인했다. 이번 작업에서 프로덕션 빌드는 실행하지 않았다.

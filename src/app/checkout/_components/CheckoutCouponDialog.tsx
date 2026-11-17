@@ -14,8 +14,13 @@ import { AmountRow } from '@/components/common/molecules/AmountRow';
 import { OrderProductSummary } from '@/components/common/molecules/OrderProductSummary';
 
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
+import { modalProductSelectionContentRecipe } from '@/components/common/layouts/ModalDialog.recipe';
 
 import { checkoutCouponGroups } from '@/app/checkout/checkout-coupons';
+
+const classes = modalProductSelectionContentRecipe({ content: 'coupon' });
+
+const contentStyles = modalProductSelectionContentRecipe.raw({ content: 'coupon' });
 
 const styles = {
   footer: css({ '--modal-product-button-width': '238px' }),
@@ -48,13 +53,17 @@ export function CheckoutCouponDialog({ onClose }: { onClose: () => void }) {
         </Button>
       }
     >
-      <Stack gap="0">
-        <Typography as="h2" variant="heading9" className={css({ pb: '20px' })}>
+      <Stack css={contentStyles.root}>
+        <Typography
+          as="h2"
+          variant="heading9"
+          className={`${classes.sectionTitle} ${classes.sectionHeading}`}
+        >
           상품 쿠폰
         </Typography>
         {checkoutCouponGroups.map((group) => (
-          <Stack key={group.id} gap="0" borderTop="1px solid black">
-            <Box py="20px">
+          <Stack key={group.id} css={contentStyles.product}>
+            <Box css={contentStyles.productInfo}>
               <OrderProductSummary
                 variant="coupon"
                 image={group.image}
@@ -68,17 +77,7 @@ export function CheckoutCouponDialog({ onClose }: { onClose: () => void }) {
               variant="unstyled"
               onClick={() => toggle(group.id)}
               aria-expanded={expanded.includes(group.id)}
-              className={css({
-                w: '100%',
-                display: 'flex',
-                alignItems: 'center',
-                border: '0',
-                bg: 'transparent',
-                cursor: 'pointer',
-                textDecoration: 'none',
-                justifyContent: 'space-between',
-                pb: '20px',
-              })}
+              className={classes.toggle}
             >
               <Typography variant="body4">
                 사용 가능 쿠폰{' '}
@@ -97,7 +96,7 @@ export function CheckoutCouponDialog({ onClose }: { onClose: () => void }) {
               />
             </Button>
             {expanded.includes(group.id) ? (
-              <Box py="20px" borderTop="1px solid var(--colors-black-20)">
+              <Box css={contentStyles.coupons}>
                 <Radio
                   ariaLabel={`${group.id} 쿠폰 선택`}
                   name={group.id}
@@ -105,28 +104,16 @@ export function CheckoutCouponDialog({ onClose }: { onClose: () => void }) {
                   onValueChange={(value) =>
                     setSelections((previous) => ({ ...previous, [group.id]: value }))
                   }
-                  className={css({
-                    gap: '24px',
-                    '& label': { alignItems: 'flex-start' },
-                    '& label > :last-child': { flex: '1', minW: '0' },
-                    '& label[data-disabled]': { opacity: '0.3' },
-                  })}
+                  className={classes.radio}
                   options={group.options.map((option) => ({
                     value: option.id,
                     disabled: option.disabled,
                     label: (
-                      <HStack
-                        as="span"
-                        flex="1"
-                        w="100%"
-                        justifyContent="space-between"
-                        alignItems="center"
-                        gap="16px"
-                      >
-                        <Typography variant="body4" className={css({ whiteSpace: 'pre-line' })}>
+                      <HStack as="span" css={contentStyles.option}>
+                        <Typography variant="body4" className={classes.optionLabel}>
                           {option.label}
                         </Typography>
-                        <Typography variant="body4Medium" className={css({ whiteSpace: 'nowrap' })}>
+                        <Typography variant="body4Medium" className={classes.optionAmount}>
                           {option.amount}
                         </Typography>
                       </HStack>
@@ -141,20 +128,11 @@ export function CheckoutCouponDialog({ onClose }: { onClose: () => void }) {
           variant="unstyled"
           onClick={() => toggle('cart')}
           aria-expanded={expanded.includes('cart')}
-          className={css({
-            w: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            border: '0',
-            bg: 'transparent',
-            cursor: 'pointer',
-            justifyContent: 'space-between',
-            textDecoration: 'none',
-            py: '20px',
-            borderY: '1px solid black',
-          })}
+          className={css(contentStyles.toggle, contentStyles.cartToggle)}
         >
-          <Typography variant="heading9">장바구니 쿠폰</Typography>
+          <Typography variant="heading9" className={classes.sectionTitle}>
+            장바구니 쿠폰
+          </Typography>
           <Icon
             name={
               expanded.includes('cart') ? 'hoka-action-minus-regular' : 'hoka-action-plus-regular'
@@ -163,8 +141,8 @@ export function CheckoutCouponDialog({ onClose }: { onClose: () => void }) {
           />
         </Button>
         {expanded.includes('cart') ? (
-          <Stack gap="0" mt="24px" border="1px solid var(--colors-black-20)">
-            <Stack p="20px" gap="12px">
+          <Stack css={contentStyles.summary}>
+            <Stack css={contentStyles.summaryBody}>
               <AmountRow label="주문금액 (상품2개)" amount={3350000} />
               <AmountRow label="할인금액" amount={15000} discount />
               <AmountRow label="상품할인" amount={0} />
@@ -174,9 +152,7 @@ export function CheckoutCouponDialog({ onClose }: { onClose: () => void }) {
               label="총 결제 금액"
               amount={3200000}
               emphasis
-              bg="black.10"
-              p="20px"
-              borderTop="1px solid var(--colors-black-20)"
+              css={contentStyles.summaryTotal}
             />
           </Stack>
         ) : null}

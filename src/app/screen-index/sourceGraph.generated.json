@@ -108,6 +108,7 @@
       "src/components/common/atoms/Icon.tsx",
       "src/components/common/atoms/Radio.tsx",
       "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ModalDialog.recipe.tsx",
       "src/components/common/layouts/ModalDialog.tsx",
       "src/components/common/molecules/AmountRow.tsx",
       "src/components/common/molecules/OrderProductSummary.tsx"
@@ -474,6 +475,7 @@
       "src/components/common/atoms/Dropdown.tsx",
       "src/components/common/atoms/NumberStepper.tsx",
       "src/components/common/atoms/Typography.tsx",
+      "src/components/common/layouts/ModalDialog.recipe.tsx",
       "src/components/common/layouts/ModalDialog.tsx",
       "src/components/common/molecules/FormFields/TextFormField.tsx",
       "src/components/common/molecules/OrderProductSummary.tsx",

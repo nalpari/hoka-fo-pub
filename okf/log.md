@@ -1,3 +1,7 @@
+## 2026-11-17 상품 선택 입력 본문 공통 스타일
+
+- 세 팝업의 상품 목록·구분선·제목·필드·안내·금액 요약을 modalProductSelectionContentRecipe로 정리했다. 동일 productSelection을 유지하며 coupon/claim 본문 표시만 구분했다. Figma 구조·PC/MO 계산 스타일·상태 조작과 대상 lint·타입·Panda·모달 계약 검사를 확인했다.
+
 ## 2026-11-17 상품 선택 입력 모달 통합
 
 - 사용자 의도에 맞춰 쿠폰 조회·주문 취소·환불(반품)을 productSelection 단일 variant로 통합했다. 기존 세 variant는 제거하고 가이드·IA·12유형 계약을 갱신했다. PC 버튼 너비 차이는 쿠폰 화면의 CSS 변수로 전달한다.
