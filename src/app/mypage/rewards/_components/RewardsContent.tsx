@@ -1,5 +1,4 @@
 'use client';
-import { usePlatform } from '@/context/platform';
 
 import { css, cva } from 'styled-system/css';
 import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
@@ -75,9 +74,9 @@ export function RewardProgress({
       bg="black.10"
       px="32px"
       py="32px"
-      display={{ _mobile: 'none' }}
+      _mobile={{ w: 'full', py: '24px', gap: '8px' }}
     >
-      <Box position="relative" h="44px" mr="180px">
+      <Box position="relative" h="44px" mr="180px" _mobile={{ h: '47px', mr: '0' }}>
         <Box
           position="absolute"
           style={{ left: `${percent}%` }}
@@ -89,10 +88,17 @@ export function RewardProgress({
           <Box bg="black.100" color="white" px="12px" py="10px" borderRadius="12px">
             <Typography variant="body4">{progress.label}</Typography>
           </Box>
-          <Box mx="auto" w="12px" h="6px" bg="black.100" clipPath="polygon(0 0,100% 0,50% 100%)" />
+          <Box
+            mx="auto"
+            w="12px"
+            h="6px"
+            bg="black.100"
+            clipPath="polygon(0 0,100% 0,50% 100%)"
+            mt="-1px"
+          />
         </Box>
       </Box>
-      <HStack gap="24px" minH="24px">
+      <HStack gap="24px" minH="24px" _mobile={{ flexDirection: 'column', alignItems: 'stretch' }}>
         <Box
           flex="1"
           h="8px"
@@ -104,6 +110,7 @@ export function RewardProgress({
           aria-valuemin={0}
           aria-valuemax={100}
           aria-valuenow={percent}
+          _mobile={{ flex: 'none' }}
         >
           <Box style={{ width: `${percent}%` }} h="full" bg="black.100" borderRadius="full" />
           <Box
@@ -118,9 +125,15 @@ export function RewardProgress({
             borderRadius="full"
           />
         </Box>
-        <HStack gap="6px" w="156px" flexShrink="0" justifyContent="flex-end">
+        <HStack
+          gap="6px"
+          w="156px"
+          flexShrink="0"
+          justifyContent="flex-end"
+          _mobile={{ w: 'full', minH: '24px' }}
+        >
           {progress.currentAmount ? (
-            <Typography variant="body4">
+            <Typography variant="body4" mo="body4Medium">
               {progress.currentAmount}
               <Typography variant="bodyKr4">원</Typography>
             </Typography>
@@ -141,12 +154,11 @@ export function RewardProgress({
 }
 const sectionHeading = css({
   pb: '16px',
-  borderBottom: '1px solid black',
-  _mobile: { pb: '12px' },
+  borderBottom: '2px solid black',
+  _mobile: { pb: '12px', borderBottom: '1px solid black' },
 });
 /** 등급별 혜택과 공통 쿠폰 안내를 배치합니다. (Lays out tier benefits and common coupon information.) */
 export function RewardBenefits() {
-  const platform = usePlatform();
   return (
     <Stack gap="48px" _mobile={{ gap: '16px' }}>
       <ContentSection
@@ -216,9 +228,7 @@ export function RewardBenefits() {
                       </Typography>
                       <Stack gap="8px" minW="0">
                         <Typography as="p" web="body3" mo="body4">
-                          {'mobileTitle' in benefit && platform === 'mobile'
-                            ? benefit.mobileTitle
-                            : benefit.title}
+                          {benefit.title}
                         </Typography>
                       </Stack>
                     </HStack>
@@ -284,8 +294,7 @@ export function RewardsPageContent({
   display?: OverviewView | null;
   preview?: 'loading' | 'error';
 } = {}) {
-  const platform = usePlatform();
-  const summary = preview ? null : display === undefined ? rewardPreview[platform] : display;
+  const summary = preview ? null : display === undefined ? rewardPreview : display;
   return (
     <MyPageFrame activePath="/mypage/rewards" breadcrumbs={[{ label: '회원등급' }]}>
       <BindingFeedback
@@ -315,7 +324,11 @@ export function RewardsPageContent({
             />
           </HStack>
           <Stack gap="12px">
-            <HStack gap="8px" alignItems="stretch">
+            <HStack
+              gap="8px"
+              alignItems="stretch"
+              _mobile={{ flexDirection: 'column', gap: '12px' }}
+            >
               {summary?.tierProgress ? <RewardProgress progress={summary.tierProgress} /> : null}
               <Stack
                 bg="black.10"
@@ -337,11 +350,7 @@ export function RewardsPageContent({
                   구매금액
                 </Typography>
                 <HStack gap="2px" justifyContent="flex-end" alignItems="baseline">
-                  <Typography
-                    web="heading8"
-                    mo="heading7"
-                    weight={platform === 'mobile' ? 'bold' : 'black'}
-                  >
+                  <Typography web="heading8" mo="heading7">
                     {summary?.purchaseAmount}
                   </Typography>
                   <Typography variant="body3">원</Typography>
