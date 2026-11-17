@@ -1344,9 +1344,7 @@
       "src/components/common/molecules/ContentHeader.tsx",
       "src/components/common/molecules/MainContentCard.tsx",
       "src/components/common/molecules/ProductCard/ProductCard.tsx",
-      "src/components/common/molecules/SearchField.tsx",
       "src/components/common/molecules/SizeSelector/SizeSelector.tsx",
-      "src/components/common/organisms/Search/SearchHeader.tsx",
       "src/context/platform.tsx",
       "src/lib/useScrollPin.ts",
       "src/mocks/products.ts"

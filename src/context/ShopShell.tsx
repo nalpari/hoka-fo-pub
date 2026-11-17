@@ -2811,28 +2811,25 @@ function AppLayout({
   const [menuOpen, setMenuOpen] = useState(false);
   const platform = usePlatform();
   const pathname = usePathname();
-  const searchPage = platform === 'mobile' && pathname === '/search';
   if (platform === 'web' && menuOpen) {
     setMenuOpen(false);
   }
   if (pathname === '/screen-index') return <>{children}</>;
   return (
     <>
-      {!searchPage && (
-        <SiteHeader
-          fixedOnScroll={platform === 'mobile' && pathname === '/products'}
-          cart={cart}
-          onMenu={() => setMenuOpen(true)}
-          isLoggedIn={isLoggedIn}
-          wishlistCount={wishlistCount}
-          recentCount={recentCount}
-        />
-      )}
+      <SiteHeader
+        fixedOnScroll={platform === 'mobile' && pathname === '/products'}
+        cart={cart}
+        onMenu={() => setMenuOpen(true)}
+        isLoggedIn={isLoggedIn}
+        wishlistCount={wishlistCount}
+        recentCount={recentCount}
+      />
       {platform === 'mobile' && menuOpen && (
         <MenuDrawer close={() => setMenuOpen(false)} isLoggedIn={isLoggedIn} />
       )}
       {children}
-      {!searchPage && <SiteFooter />}
+      <SiteFooter />
     </>
   );
 }

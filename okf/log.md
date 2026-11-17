@@ -1,3 +1,7 @@
+## 2026-11-17
+
+- 모바일 전체 검색 결과를 PC와 같은 일반 결과 페이지로 통일하고 공통 헤더·푸터를 복원했다. 모바일 필터와 PC 정렬은 유지한다. TypeScript·대상 ESLint/Prettier 및 브라우저 결과 표시를 확인했다. 출처: ProductListingPage.tsx·ShopShell.tsx 작업 트리.
+
 ## 2026-11-17 매장 목록 브라우저 주석 반영
 
 - 매장명 검정과 정보 전체 Pretendard Regular·자간 -0.02em·#4D4D4D를 적용했다. 기존 간격은 유지했다.
