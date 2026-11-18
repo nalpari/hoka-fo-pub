@@ -4,13 +4,16 @@ title: '변경 검증'
 description: '변경 범위에 맞는 정적 검사, 빌드와 수동 검증을 안내한다.'
 tags: [verification, testing, build]
 status: draft
-updated: '2026-11-17T07:55:05.559Z'
+updated: '2026-11-18T00:05:21.422467+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/app/checkout/_components/CheckoutDiscountSummary.tsx
+
+  - .agents/skills/hoka-markup-handoff/references/component-quality.md
+  - tests/empty-state-types.test.mjs
   - src/app/cart/_components/CartProductSection.tsx
   - src/app/checkout/_components/CheckoutCouponDialog.tsx
   - src/app/checkout/checkout-summary.ts
@@ -778,7 +781,6 @@ preview-notification의 form 유형과 IA 직접 경로·생성 소스 그래프
 
 시안 보정 후 TypeScript·대상 ESLint/Prettier·Panda 및 Next 프로덕션 빌드(159 정적 페이지)가 통과했다. 이후 tracking recipe를 공통 파일로 그대로 이동하고 타입·lint·Panda를 다시 확인했다. 기존 모달 타입 계약은 열 번째 유형을 포함해 통과했다. IA 관련16검사 중15통과·기존 배송지 수동입력 기대값1실패를 유지한다. 명시적 고정 플랫폼 및 배송조회 전 단계의 시각 회귀는 별도로 실행하지 않았다.
 
-
 ## 이전 선별 커밋 사본 검증 기록 보존
 
 잔여 변경 일괄 정리에서 런칭 번호 안내 alert 기대값을 복구하고 배송지 직접 상태의 오래된 기대 화면명을 현재 IA 표기로 갱신했다. `node --test tests/preview-links.test.mjs`의15개 검사가 모두 통과했다(2026-11-16). 위 과거 실패 기록은 당시 관측이며 이 재검사로 해소됐다. 브라우저·빌드는 재실행하지 않았다.
@@ -799,7 +801,6 @@ preview-notification의 form 유형과 IA 직접 경로·생성 소스 그래프
 - `npm run build`: 성공,161개 정적 페이지 생성. `npm run typecheck`, `npx eslint src`, 변경한 TS/TSX의 Prettier와 `git diff --check`: 통과. Panda와 IA 소스 그래프를 다시 생성했다.
 - 관련69개 검사(cart display·checkout summary·order policy·form controls·preview links·screen files·modal types)는 전부 통과했다. 전체127개 중126개 통과,1개는 기존 `inquiry-binding` 검사가 범위 밖 `src/app/wh`의 fetch5곳을 금지 대상으로 잡는 실패다. 전체 `npm run lint`도 변경하지 않은 `tests/wh-file-summary.test.mjs`의 URL/Request/Response 전역8건 때문에 실패한다. 해당 파일과 `/wh` 소스는 기준 HEAD 대비 변경 없음으로 구분했다. 초기 App Router manifest 불일치는 신규 페이지를 포함한 빌드 후 해소했다.
 - 최종 hoka-markup-handoff 점검에서 route-private 소유권, 단일 반응형 상품 트리, 폼/모달 의미 구조, 준비된 데이터와 표시 전용 버튼, 명시적 fixture override, 기존 기본 props를 확인했다. 실제 요청을 흉내 내는 타이머·저장소·API를 추가하지 않았다.
-
 
 ## 주문 상품 조회 전용 variant 검증 (2026-11-17)
 
@@ -827,7 +828,6 @@ PC1920·모바일375×812에서 체크박스 두 개 선택, 주문 접기/펼�
 
 PC1571px에서 입력520×56px·버튼48px·간격12px, MO375/809px에서 입력56px·버튼42px·간격8px과 가로 넘침 없음을 확인했다. 375px의 classic scrollbar15px 예약 시 본문 가용 폭은328px이다. PC/MO 버튼 최종 라벨16px/15px·400·행간20.8px/19.5px, 실제 Pretendard-Regular 커스텀 글리프2개를 확인했다. 입력 placeholder#777777·16px/24px도 측정했다. PC/MO 캡처를 검토하고 검색 무결과·버튼/Enter 후 URL 유지·입력 초기화·배송 카테고리 결과를 확인했다. 변경 ESLint·전체 TypeScript·Panda421개 추출이 통과했다. 최종 인계 검토에서 기존 Panda 요소·공통 SearchField 기본값·상태 owner와 단일 form을 보존함을 확인했다. 공통 플랫폼은 수정하지 않았으며 경계 viewport·명시적 플랫폼·전체 빌드는 재실행하지 않았다. 출처: FAQ 작업 트리·지정 디자인 및 Codex 실제 실행, 2026-11-17.
 
-
 ## 주문내역 마일리지 안내 삭제 (2026-11-17)
 
 CheckoutDiscountSummary의 마일리지 문구 삭제를 검토했다. 앞선 로컬 PC·모바일375 확인에서 마일리지 문구 부재를 확인했다. 검증 절차와 서비스 계약에는 영향이 없다. 전체 빌드는 수행하지 않았다.
@@ -839,3 +839,28 @@ CheckoutDiscountSummary의 마일리지 문구 삭제를 검토했다. 앞선 �
 대상 세 TSX의 ESLint·Prettier와 전체 npm run typecheck를 통과했다. 기존 localhost:3000에서 PC 기본 주문서의 동의 두 항목·체크 토글(true), 배송 요청 door, 마일리지 문구 부재를 확인했다. 조회하기로 쿠폰 모달을 연 뒤 상품 쿠폰을 접어도 총액3,200,000이 남고 장바구니 접기 버튼이0개임을 확인했다. 같은 창을375×812로 변경해 모바일 동의 두 항목 표시·door·쿠폰 총액과 접기 버튼 부재를 확인했다. 배송 선택지4개와 기존 안내 문구 제거를 확인하고 /checkout/preview-delivery-request에 직접 진입해 custom 값·textarea 유지를 확인했다. 이번 수정은 정적 표시·기본값 변경으로 서비스 요청·실패·재시도 계약은 변경하지 않았으며 전체 빌드와 설계서 픽셀 대조는 수행하지 않았다.
 
 출처: 사용자 첨부 Slack 대화·화면과 위 working_tree_sources의 checkout 소스. 기록: codex/gpt-6, 2026-11-17T07:38:24Z. 기존 generated·source_revision·draft 및 과거 검증 이력은 보존한다.
+
+## 선택적 variant 호환 검사 (2026-11-17)
+
+공통 표시 옵션 리팩터링은 컴포넌트 기본값과 Panda defaultVariants를 일치시키고 생략·undefined·기본값·기존 명시 variant를 확인한다. tests/empty-state-types.test.mjs는 실제 TSX 호출을 TypeScript로 검사하여 기존5개 variant, title/description/layout override, named/compound exports와 잘못된 variant 거부를 확인한다. node --test tests/empty-state-types.test.mjs tests/modal-dialog-types.test.mjs의2개 검사와 npm run typecheck가 통과했다. 대상 ESLint·Prettier와 Panda 생성도 통과했다. 전체 lint는 기존 tests/wh-file-summary.test.mjs의 URL/Request/Response 미정의8건 때문에 실패했으며 해당 파일은 수정하지 않았다. 개발팀의 Modal lint 오류는 실제 진단이 없어 원인을 확정하거나 해결되었다고 보고하지 않는다. PC/MO 비교 범위와 결과는 [UI 문서](../architecture/ui.md#emptystate-recipe와-선택적-기본값-2026-11-17)를 따른다. 출처: 사용자 요청과 위 작업 트리, Codex 실제 검사.
+
+2026-11-17 추가 검증: npm run build가 TypeScript와 정적 페이지164개 생성을 포함해 통과했다. 기존 서비스·라우팅·플랫폼 소유권과 화면별 override를 유지하는 인계 스킬 검토도 수행했다.
+
+## EmptyState layout 타입과 화면 보존 (2026-11-17)
+
+EmptyState 타입 계약 검사에 layout의 default/undefined·17개 선택값(기본값 포함) 및 잘못된 layout 거부를 추가했다. 기존 variant 생략·undefined·5개 명시값과 compound/named API·layoutProps 호환 검사도 유지한다. node --test tests/empty-state-types.test.mjs tests/modal-dialog-types.test.mjs의2개 검사, 전체 TypeScript와 대상 ESLint/Prettier, Panda 생성이 통과했다. 현재38개 기존 PC/MO 상태의 측정 결과가 변경 전과 같았다. 전체 lint의 기존 wh-file-summary no-undef8건은 남아 있다. 실제 검증 분기와 구조는 [UI 문서](../architecture/ui.md#emptystate-화면별-layout-통합-2026-11-17)에 기록한다. 출처: 사용자 요청, 해당 테스트·EmptyState/recipe 및 호출부 작업 트리, Codex 실제 검사.
+
+2026-11-17 layout 통합 최종 빌드: npm run build의 컴파일·TypeScript·정적 페이지164개 생성이 통과했다. 마지막 구조 검토에서 기존 Panda primitives·시맨틱·상태/콜백·명시 variant와 기본값의 보존을 확인했다.
+
+## EmptyState 언어와 layout 타이포 우선순위 검증 (2026-11-18)
+
+EmptyState 계약 검사에 icon 슬롯과21개 layout 선택값(기본 default 포함)을 추가했다. 별도 runtime 검사는 실제 Panda recipe를 읽어 언어 기본값보다 화면 타이포가 우선하는지 확인한다. 리뷰의 모바일900·22px, 문의 body 줄높이·모바일400, 영문 HOKA 기본값과 기존 style override가 recipe 기본 스케일을 적용받지 않는 경로를 검사한다. 기존 variant 생략/undefined·명시5개·compound/named API·잘못된 layout 거부도 유지한다.
+
+node --test tests/empty-state-types.test.mjs tests/modal-dialog-types.test.mjs의3개 검사와 전체 TypeScript, Panda, 대상 ESLint/Prettier·production build(164개 정적 페이지)가 통과했다. 실제22개 URL·PC/MO44개 비교와 임시 fixture7종·두 플랫폼14개 타이포/태그 비교를 수행했다. 임시 fixture는 삭제했다. 전체 lint의 기존 wh-file-summary no-undef8건은 미해결이다. 검증 범위/화면은 [UI 문서](../architecture/ui.md#emptystate-타이포-클래스와-빈-안내-통합-2026-11-18)를 따른다. 출처: 사용자 요청, 테스트 및 해당 작업 트리, Codex2026-11-18 실제 검사.
+
+
+## 공용 기간 UI·취소 빈 표 검증 (2026-11-18)
+
+추가 tests/date-range.test.mjs는 로컬 달력 월 차감, 월말·윤년·해 경계와4개 preset을 검사한다. 기존 EmptyState 계약2개와 함께3개 통과했다. TypeScript·대상 ESLint·Panda와 실제 PC/MO 상호작용/수치/캡처를 확인했다. 임시 검증 화면으로 교체 데이터·전체 payload·pending/실패/재시도·중복 방지·layout 기본값을 검사한 뒤 route 파일을 제거했다. 상세 조건/한계는 [기간 UI 기록](../architecture/ui.md#공용-기간날짜-조회-ui-2026-11-18)·[취소 빈 표 기록](../architecture/ui.md#취소반품-빈-목록-pc-표-헤더-2026-11-18)을 따른다. 전체 lint는 실행하지 않았다. 출처: 해당 테스트·공용 UI·소유자 작업 트리와 Codex 실제 검증.
+
+최종 검증 추가(2026-11-18): 취소/반품 변경까지 포함한 전체 Next 빌드가163개 정적 페이지 생성으로 통과했다. 대상 ESLint·Prettier·TypeScript·Panda·기존/추가 검사3개와 작업 트리 OKF 누락 없음, diff 공백 검사를 확인했다. 기존 staged index의 변경 전후 해시는 동일하며 이번 변경을 스테이징·커밋하지 않았다.

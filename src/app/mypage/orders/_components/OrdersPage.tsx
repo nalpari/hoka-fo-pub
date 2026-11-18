@@ -2,13 +2,14 @@
 
 import { useState } from 'react';
 
+import type { DateRangeValue } from '@/components/common/molecules/dateRange';
+
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
 import { previewClaimHistory, previewOrders } from '@/components/orders/orders.data';
 import type {
   ClaimHistoryItem,
   OrderClaim,
-  OrderFilters,
   OrderRecord,
   OrdersView,
 } from '@/components/orders/orders.types';
@@ -35,7 +36,7 @@ const previewOrderStatusItems = [
   { label: '배송완료\n/ 구매확정', count: 1 },
 ];
 
-/** [ 개발팀 바인딩 ] 현재 화면은 주문 표시 fixture와 로컬 UI 탐색으로 구성합니다. 실제 주문 조회·신청 데이터와 요청 처리는 주문 기능 소유자가 이 화면의 표시 데이터·식별자·입력 payload를 연결하고 응답 후 목록을 갱신해야 합니다. */
+/** [ 개발팀 바인딩 ] 현재 화면은 주문 표시 fixture와 로컬 UI 탐색으로 구성합니다. dateRange는 편집 초안이며 DateRangeSearch의 onValueChange가 period/start/end를 함께 갱신합니다. 조회는 미연결이며 실제 주문 기능 소유자가 dateSearch.onSearch에 전체 기간 payload를 받는 요청을 연결해야 합니다. 요청 실패 시 초안을 유지하고 pending/오류를 표시하며 성공 시 목록/count를 갱신하고 오래된 응답을 버리는 책임도 해당 소유자에 있습니다. */
 /** 고정된 주문 표시 데이터와 화면 확인용 로컬 탐색을 구성합니다. (Composes fixed order display data and local view navigation.) */
 export function OrdersPage({
   initialOrders,
@@ -63,13 +64,8 @@ export function OrdersPage({
   const [confirmOpen, setConfirmOpen] = useState(
     initialOverlay === 'purchase' || initialOverlay === 'delete',
   );
-  const [filters, setFilters] = useState<OrderFilters>({
+  const [dateRange, setDateRange] = useState<DateRangeValue>({
     period: 'custom',
-    start: '2026-01-01',
-    end: '2026-08-30',
-    query: '',
-  });
-  const [dates, setDates] = useState({
     start: '2026-01-01',
     end: '2026-08-30',
   });
@@ -105,16 +101,7 @@ export function OrdersPage({
       selectedOrder={selectedOrder}
       selectedClaim={selectedClaim}
       returns={returns}
-      filters={filters}
-      dates={dates}
-      onPeriodChange={(period) => {
-        setFilters((previous) => ({ ...previous, period }));
-      }}
-      onDateChange={(key, value) => {
-        setDates((previous) => ({ ...previous, [key]: value }));
-        setFilters((previous) => ({ ...previous, period: 'custom' }));
-      }}
-      onDateSearch={() => setFilters((previous) => ({ ...previous, ...dates, period: 'custom' }))}
+      dateSearch={{ value: dateRange, onValueChange: setDateRange }}
       onDetail={showDetail}
       onClaimDetail={showClaim}
       onList={showList}

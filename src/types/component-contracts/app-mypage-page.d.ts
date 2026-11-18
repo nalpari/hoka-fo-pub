@@ -1,5 +1,5 @@
 // Type-only contracts for moved local components; never import these declarations as runtime values.
-import { type MyPageOrderItem } from '@/app/mypage/mypage-home-data';
+import { type IconAssetName } from '@/components/common/atoms/Icon';
 type LogoutDialogProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -16,17 +16,17 @@ type MyPageBenefitItemProps = {
   label: string;
   count: number;
   unit: string;
+  icon: IconAssetName;
 };
 declare function MyPageBenefitItem({
   href,
   label,
   count,
   unit,
+  icon,
 }: MyPageBenefitItemProps): import('react').JSX.Element;
 declare function MyPageBenefits(): import('react').JSX.Element;
 declare function MyPageOverviewProfile(): import('react').JSX.Element;
-declare function MyPageOrderTile({ item }: { item: MyPageOrderItem }): import('react').JSX.Element;
-declare function MyPageRecentOrders(): import('react').JSX.Element;
 type MyPageMenuItemProps = {
   label: string;
   to: string;
@@ -48,8 +48,6 @@ export {
   MyPageBenefitItem,
   MyPageBenefits,
   MyPageOverviewProfile,
-  MyPageOrderTile,
-  MyPageRecentOrders,
   MyPageMenuItem,
   type MyPageMenuItemProps,
   MyPageMenuSection,

@@ -227,27 +227,16 @@ export function AddressList({
           </Box>
         ) : (
           <EmptyState
+            layout={embedded ? 'embeddedAddress' : 'address'}
             variant="page"
-            layoutProps={
-              embedded
-                ? css.raw({
-                    flex: 'none',
-                    minH: '0',
-                    pt: '8',
-                    _mobile: { flex: 'none', minH: '0' },
-                  })
-                : undefined
-            }
-            titleProps={{ as: 'p', web: 'headingKr7', mo: 'headingKr5' }}
             title="자주 쓰는 배송지 주소를 설정해주세요."
             description={
               mobile
                 ? '자주 쓰는 배송지 주소를 저장하시면 보다 편리하게 이용이 가능합니다.'
                 : '자주 쓰는 배송지 주소를 설정해주세요. 자주 쓰는 배송지 주소를 저장하시면 보다 편리하게 이용이 가능합니다.'
             }
-            descriptionProps={{ web: 'body3', mo: 'body4' }}
             action={
-              <Box minW={{ base: '180px', _mobile: '100%' }}>
+              <Box>
                 <Button fullWidth size="tall" variant="primary" onClick={onAdd}>
                   배송지 추가
                 </Button>

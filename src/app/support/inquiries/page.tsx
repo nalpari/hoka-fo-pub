@@ -42,17 +42,9 @@ export default function Page() {
       <Stack gap="0" pt="6" pb={{ base: '6', _mobile: '8' }}>
         {inquiries.length === 0 ? (
           <EmptyState
+            layout="inquiries"
             variant="plain"
             title="등록된 문의사항이 없습니다."
-            titleProps={{ as: 'span', web: 'body3', mo: 'body4', tone: 'tertiary' }}
-            layoutProps={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '8px',
-              alignItems: 'center',
-              justifyContent: 'center',
-              minH: { base: '427px', _mobile: '190px' },
-            }}
           />
         ) : (
           inquiries.map((item) => (

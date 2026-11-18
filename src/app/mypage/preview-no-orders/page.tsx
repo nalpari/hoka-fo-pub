@@ -1,6 +1,6 @@
-import { RouteContent } from '@/app/mypage/_components/MyPageContent';
+import { redirect } from 'next/navigation';
 
-/** 고정 상태의 퍼블리싱 마크업을 직접 표시합니다. (Displays fixed publishing state markup directly.) */
+/** 삭제된 주문 요약 미리보기 주소를 마이페이지로 연결합니다. (Redirects the retired order summary preview to the account overview.) */
 export default function Page() {
-  return <RouteContent previewNoOrders />;
+  redirect('/mypage');
 }

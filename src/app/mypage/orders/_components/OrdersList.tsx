@@ -6,28 +6,38 @@ import { Box, Grid, Stack } from 'styled-system/jsx';
 import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { Typography } from '@/components/common/atoms/Typography';
 
+import {
+  DateRangeSearch,
+  type DateRangeSearchProps,
+} from '@/components/common/molecules/DateRangeSearch';
 import { OrderProductSummary } from '@/components/common/molecules/OrderProductSummary';
 
 import type { ClaimHistoryItem, OrderRecord } from '@/components/orders/orders.types';
 
 import { OrderCard, type OrderCardActions } from './OrdersProducts';
-import {
-  OrdersFilters,
-  type OrdersFiltersProps,
-  type OrderStatusItem,
-  OrderStatusTracker,
-} from './OrdersStatus';
+import { type OrderStatusItem, OrderStatusTracker } from './OrdersStatus';
 
-type OrdersListContentProps = OrdersFiltersProps &
-  OrderCardActions & {
-    orders: readonly OrderRecord[];
-    claimHistoryItems: readonly ClaimHistoryItem[];
-    onHistoryDetail: (orderId: string, claimId: string) => void;
-    statusItems: OrderStatusItem[];
-    returns?: boolean;
-  };
+const styles = {
+  tableHeaderLabel: css({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    textAlign: 'center',
+    color: 'black.100',
+    letterSpacing: '-0.02em',
+  }),
+};
 
-/** [ 개발팀 바인딩 ] items는 호출자가 준비한 상품·수량·날짜·PC/MO 상태 문구입니다. 상품 분류와 상태 결정은 연결 소유자가 담당하며 onDetail은 전달된 orderId/claimId로 상세를 여는 로컬 UI 콜백입니다. */
+type OrdersListContentProps = OrderCardActions & {
+  dateSearch: DateRangeSearchProps;
+  orders: readonly OrderRecord[];
+  claimHistoryItems: readonly ClaimHistoryItem[];
+  onHistoryDetail: (orderId: string, claimId: string) => void;
+  statusItems: OrderStatusItem[];
+  returns?: boolean;
+};
+
+/** [ 개발팀 바인딩 ] items는 호출자가 준비한 상품·line.quantity·날짜·PC/MO 상태 문구입니다. PC 표는 빈 목록에도 헤더를 유지하고 수량은 전달된 값을 그대로 표시합니다. 상품 분류와 상태 결정은 연결 소유자가 담당하며 onDetail은 전달된 orderId/claimId로 상세를 여는 로컬 UI 콜백입니다. */
 /** 취소·반품 내역을 PC 표와 모바일 목록으로 표시합니다. (Displays claim history as a desktop table and mobile list.) */
 function ClaimHistoryList({
   items,
@@ -37,13 +47,9 @@ function ClaimHistoryList({
   onDetail: (orderId: string, claimId: string) => void;
 }) {
   const platform = usePlatform();
-  if (!items.length) {
+  if (!items.length && platform === 'mobile') {
     return (
-      <Box py={{ base: '120px', _mobile: '96px' }} display="grid" placeItems="center">
-        <Typography web="body3" mo="body4" tone="subtle">
-          취소나 환불한 상품이 없습니다.
-        </Typography>
-      </Box>
+      <EmptyState variant="plain" layout="claimHistory" title="취소나 환불한 상품이 없습니다." />
     );
   }
 
@@ -91,28 +97,33 @@ function ClaimHistoryList({
     );
   }
 
-  const columns = 'minmax(0, 464fr) minmax(0, 120fr) minmax(0, 140fr) minmax(0, 120fr)';
+  const columns =
+    'minmax(0, 344fr) minmax(0, 120fr) minmax(0, 120fr) minmax(0, 140fr) minmax(0, 120fr)';
 
   return (
     <Stack gap="0">
       <Grid
         gridTemplateColumns={columns}
         alignItems="center"
+        gap="0"
         py="20px"
         borderTop="2px solid var(--color-black-100)"
         borderBottom="1px solid var(--colors-black-100)"
       >
-        {['상품정보', '주문일자', '금액', '처리상태'].map((label) => (
+        {['상품정보', '주문일자', '수량', '금액', '처리상태'].map((label) => (
           <Typography
             key={label}
             variant="heading9"
             weight="bold"
-            className={css({ textAlign: 'center' })}
+            className={styles.tableHeaderLabel}
           >
             {label}
           </Typography>
         ))}
       </Grid>
+      {!items.length && (
+        <EmptyState variant="plain" layout="claimHistory" title="취소나 환불한 상품이 없습니다." />
+      )}
       {items.map((item) => (
         <Stack key={item.key} gap="0" pt="32px">
           <Typography variant="body3" tone="tertiary" className={css({ pl: '24px' })}>
@@ -145,6 +156,13 @@ function ClaimHistoryList({
             >
               {item.orderDate}
             </Typography>
+            <Typography
+              variant="body3Medium"
+              language="en"
+              className={css({ textAlign: 'center' })}
+            >
+              {item.line.quantity}
+            </Typography>
             <Typography variant="body3Medium" className={css({ textAlign: 'center' })}>
               {item.line.displayAmount === undefined ? (
                 '-'
@@ -167,21 +185,13 @@ function ClaimHistoryList({
   );
 }
 
-const emptyOrderState = css({
-  '& .empty-state__title': {
-    fontSize: 'var(--font-sizes-14)',
-    fontWeight: 'normal',
-    lineHeight: 'body',
-    color: 'var(--color-text-subtle)',
-  },
-});
-
 /** 주문 현황·필터·주문 카드 목록과 빈 상태를 구성합니다. (Composes the order snapshot, filters, cards, and empty state.) */
 export function OrdersListContent({
   orders,
   claimHistoryItems,
   onHistoryDetail,
   statusItems,
+  dateSearch,
   returns = false,
   ...props
 }: OrdersListContentProps) {
@@ -189,7 +199,7 @@ export function OrdersListContent({
     return (
       <Stack gap="24px" css={{ '--color-text-primary': '#000' }}>
         {/* 취소·반품 조회 기간 필터 */}
-        <OrdersFilters {...props} returns />
+        <DateRangeSearch {...dateSearch} />
         {/* 취소·반품 내역 목록 및 빈 화면 */}
         <ClaimHistoryList items={claimHistoryItems} onDetail={onHistoryDetail} />
       </Stack>
@@ -200,40 +210,63 @@ export function OrdersListContent({
     <Stack gap={{ base: '48px', _mobile: '24px' }}>
       {/* 주문·배송 현황 */}
       <OrderStatusTracker items={statusItems} />
-      {/* 주문 조회 기간 필터 */}
-      <OrdersFilters {...props} />
-      {/* 주문 상품 목록 및 빈 화면 */}
-      {orders.length ? (
+      <Stack gap={{ base: orders.length ? '48px' : '32px', _mobile: '24px' }}>
+        {/* 주문 조회 기간 필터 */}
+        <DateRangeSearch {...dateSearch} />
+        {/* 주문 상품 목록 및 빈 화면 */}
         <Stack gap="0">
           <Grid
             gridTemplateColumns="minmax(0, 536fr) minmax(0, 108fr) minmax(0, 200fr)"
             alignItems="center"
+            gap={orders.length ? undefined : '0'}
             minH="67px"
-            borderTop="1px solid var(--colors-black-100)"
-            borderBottom="1px solid var(--colors-black-20)"
+            borderTop={
+              orders.length
+                ? '1px solid var(--colors-black-100)'
+                : '2px solid var(--colors-black-100)'
+            }
+            borderBottom={
+              orders.length
+                ? '1px solid var(--colors-black-20)'
+                : '1px solid var(--colors-black-100)'
+            }
             _mobile={{ display: 'none' }}
           >
-            <Typography variant="body3Medium" className={css({ textAlign: 'center' })}>
+            <Typography
+              variant={orders.length ? 'body3Medium' : 'heading9'}
+              weight={orders.length ? undefined : 'bold'}
+              className={orders.length ? css({ textAlign: 'center' }) : styles.tableHeaderLabel}
+            >
               상품/옵션정보
             </Typography>
-            <Typography variant="body3Medium" className={css({ textAlign: 'center' })}>
+            <Typography
+              variant={orders.length ? 'body3Medium' : 'heading9'}
+              weight={orders.length ? undefined : 'bold'}
+              className={orders.length ? css({ textAlign: 'center' }) : styles.tableHeaderLabel}
+            >
               수량
             </Typography>
-            <Typography variant="body3Medium" className={css({ textAlign: 'center' })}>
+            <Typography
+              variant={orders.length ? 'body3Medium' : 'heading9'}
+              weight={orders.length ? undefined : 'bold'}
+              className={orders.length ? css({ textAlign: 'center' }) : styles.tableHeaderLabel}
+            >
               가격
             </Typography>
           </Grid>
-          <Stack as="ul" gap={{ base: '0', _mobile: '32px' }} listStyleType="none">
-            {orders.map((order) => (
-              <OrderCard key={order.id} order={order} {...props} />
-            ))}
-          </Stack>
+          {orders.length ? (
+            <Stack as="ul" gap={{ base: '0', _mobile: '32px' }} listStyleType="none">
+              {orders.map((order) => (
+                <OrderCard key={order.id} order={order} {...props} />
+              ))}
+            </Stack>
+          ) : (
+            <Box minH={{ base: '267px', _mobile: '192px' }}>
+              <EmptyState layout="orders" variant="standard" title="주문한 상품이 없습니다." />
+            </Box>
+          )}
         </Stack>
-      ) : (
-        <Box minH={{ base: '267px', _mobile: '192px' }} className={emptyOrderState}>
-          <EmptyState variant="standard" title="주문한 상품이 없습니다." />
-        </Box>
-      )}
+      </Stack>
     </Stack>
   );
 }

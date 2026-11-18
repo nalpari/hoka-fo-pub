@@ -1,17 +1,31 @@
-import type { ComponentProps, ComponentPropsWithoutRef, ReactNode } from 'react';
+import {
+  type ComponentProps,
+  type ComponentPropsWithoutRef,
+  isValidElement,
+  type ReactNode,
+} from 'react';
 
-import { Box, Grid, Stack } from 'styled-system/jsx';
+import { css } from 'styled-system/css';
+import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Typography, type TypographyProps } from '@/components/common/atoms/Typography';
 
+import { type EmptyStateLayout, emptyStateRecipe, getEmptyStateStyles } from './EmptyState.recipe';
+
 type EmptyStateProps = {
   title?: ReactNode;
+  /** 기존 장식의 의미와 크기를 유지하는 아이콘 슬롯입니다. (Preserves the supplied decoration and its dimensions.) */
+  icon?: ReactNode;
   description?: ReactNode;
   action?: ReactNode;
+  /** 생략하거나 undefined이면 standard를 적용합니다. (Defaults to standard when omitted or undefined.) */
   variant?: 'standard' | 'minimal' | 'plain' | 'page' | 'content';
+  /** 화면별 배치를 선택하며 생략 시 variant 기본값을 유지합니다. (Defaults to the variant layout.) */
+  layout?: EmptyStateLayout;
   className?: string;
   as?: 'div' | 'section';
   role?: ComponentPropsWithoutRef<'div'>['role'];
+  /** 기존 외부 호출의 스타일 override를 유지하며 준비된 배치는 layout을 사용합니다. (Retains legacy overrides; prepared layouts use layout.) */
   layoutProps?: Pick<
     ComponentProps<typeof Box>,
     | 'py'
@@ -26,7 +40,6 @@ type EmptyStateProps = {
     | 'alignItems'
     | 'justifyContent'
     | 'minH'
-    | 'flex'
     | 'gap'
   >;
   titleProps?: Pick<
@@ -41,7 +54,7 @@ type EmptyStateProps = {
 
 type EmptyStateIconProps = ComponentPropsWithoutRef<'div'>;
 
-type EmptyStateTitleProps = ComponentPropsWithoutRef<'h2'> &
+type EmptyStateTitleProps = ComponentPropsWithoutRef<'p'> &
   Pick<TypographyProps, 'variant' | 'web' | 'mo' | 'weight' | 'tone'> & {
     as?: 'h2' | 'p' | 'span';
   };
@@ -50,15 +63,37 @@ type EmptyStateDescriptionProps = ComponentPropsWithoutRef<'p'>;
 
 type EmptyStateActionProps = ComponentPropsWithoutRef<'div'>;
 
+function hasKoreanText(children: ReactNode): boolean {
+  if (typeof children === 'string') return /\p{Script=Hangul}/u.test(children);
+  if (Array.isArray(children)) return children.some(hasKoreanText);
+  return (
+    isValidElement<{ children?: ReactNode }>(children) && hasKoreanText(children.props.children)
+  );
+}
+
+function hasTypographyOverride(
+  props?: Pick<TypographyProps, 'variant' | 'web' | 'mo' | 'weight' | 'tone'>,
+) {
+  return (
+    props?.variant !== undefined ||
+    props?.web !== undefined ||
+    props?.mo !== undefined ||
+    props?.weight !== undefined ||
+    props?.tone !== undefined
+  );
+}
+
 function withClassName(baseClassName: string, className?: string) {
   return [baseClassName, className].filter(Boolean).join(' ');
 }
 
 function EmptyStateRoot({
   title,
+  icon,
   description,
   action,
   variant = 'standard',
+  layout = 'default',
   className,
   titleProps,
   layoutProps,
@@ -67,112 +102,89 @@ function EmptyStateRoot({
   descriptionProps,
 }: EmptyStateProps) {
   const label = typeof title === 'string' ? title : undefined;
-  const titleContent = <EmptyStateTitle {...titleProps}>{title}</EmptyStateTitle>;
+  const customTitle = hasTypographyOverride(titleProps);
+  const customDescription = hasTypographyOverride(descriptionProps);
+  const slots = getEmptyStateStyles(
+    { variant, layout, hasAction: Boolean(action) },
+    {
+      titleKorean: hasKoreanText(title),
+      descriptionKorean: hasKoreanText(description),
+      customTitle,
+      customDescription,
+    },
+  );
+  const titleClassName = withClassName(css(slots.title), titleProps?.className);
+  const titleContent = customTitle ? (
+    <EmptyStateTitle {...titleProps} className={titleClassName}>
+      {title}
+    </EmptyStateTitle>
+  ) : (
+    <Typography
+      {...titleProps}
+      as={titleProps?.as ?? 'p'}
+      className={withClassName('empty-state__title', titleClassName)}
+    >
+      {title}
+    </Typography>
+  );
   const descriptionContent = description ? (
-    <Typography as="p" variant="body3" {...descriptionProps}>
+    <Typography
+      as="p"
+      variant={customDescription ? 'body3' : undefined}
+      {...descriptionProps}
+      className={withClassName(css(slots.description), descriptionProps?.className)}
+    >
       {description}
     </Typography>
   ) : null;
+  // Root action spacing differs from the independently used EmptyState.Action slot.
   const actionContent = action ? (
-    <Box _mobile={{ width: variant === 'page' ? '100%' : undefined }}>{action}</Box>
+    layout === 'cart' ? (
+      <HStack css={slots.actionContent}>{action}</HStack>
+    ) : (
+      <Box css={slots.actionContent} _mobile={{ width: variant === 'page' ? '100%' : undefined }}>
+        {action}
+      </Box>
+    )
   ) : null;
-
-  if (variant === 'page' || variant === 'content') {
-    return (
-      <Stack
-        as={as ?? 'section'}
-        className={className}
-        aria-label={label}
-        role={role}
-        alignItems="center"
-        justifyContent={variant === 'page' ? 'flex-start' : 'center'}
-        flex={variant === 'page' ? '1' : undefined}
-        gap={variant === 'page' && actionContent ? '8' : '4'}
-        w="100%"
-        minH={variant === 'content' ? '267px' : undefined}
-        pt={variant === 'page' ? '160px' : '0'}
-        pb="0"
-        textAlign="center"
-        color="black.100"
-        {...layoutProps}
-        _mobile={{
-          ...(variant === 'content' ? { minH: '154px' } : { py: '0', justifyContent: 'center' }),
-          ...layoutProps?._mobile,
-        }}
-      >
-        <Stack
-          gap="4"
-          w="100%"
-          maxW={variant === 'content' ? '320px' : '520px'}
-          px="20px"
-          _mobile={{ maxW: 'none', px: '12px' }}
-        >
+  const grouped = variant === 'page' || variant === 'content' || layout === 'cart';
+  const content = (
+    <>
+      {grouped ? (
+        <Stack css={slots.text}>
+          {icon}
           {title ? titleContent : null}
           {descriptionContent}
         </Stack>
-        {actionContent}
-      </Stack>
-    );
-  }
+      ) : (
+        <>
+          {icon}
+          {titleContent}
+          {descriptionContent}
+        </>
+      )}
+      {actionContent}
+    </>
+  );
+  const rootProps = {
+    className,
+    role,
+    css: css.raw(slots.root, layoutProps, {
+      _mobile: { ...slots.root._mobile, ...layoutProps?._mobile },
+    }),
+  };
 
-  if (variant === 'plain') {
+  if (variant === 'plain' && layout !== 'cart') {
     return (
-      <Box
-        as={as ?? 'div'}
-        className={className}
-        role={role}
-        textAlign="center"
-        {...layoutProps}
-        _mobile={{ ...layoutProps?._mobile }}
-      >
-        {titleContent}
-        {descriptionContent}
-        {actionContent}
+      <Box as={as ?? 'div'} {...rootProps}>
+        {content}
       </Box>
     );
   }
 
-  if (variant === 'minimal') {
-    return (
-      <Stack
-        as={as ?? 'section'}
-        className={className}
-        gap="2"
-        aria-label={label}
-        role={role}
-        minH="180px"
-        pt="42px"
-        textAlign="center"
-        {...layoutProps}
-        _mobile={{ px: '3', ...layoutProps?._mobile }}
-      >
-        {titleContent}
-        {description ? descriptionContent : null}
-        {actionContent}
-      </Stack>
-    );
-  }
-
   return (
-    <Stack
-      gap="2"
-      as={as ?? 'section'}
-      className={className}
-      aria-label={label}
-      role={role}
-      w="100%"
-      pt="24"
-      pb="40"
-      px="4"
-      bg="white.0"
-      color="black.100"
-      textAlign="center"
-      {...layoutProps}
-      _mobile={{ px: '3', ...layoutProps?._mobile }}
-    >
-      {titleContent}
-      {description ? descriptionContent : null}
-      {actionContent}
+    <Stack as={as ?? 'section'} aria-label={layout === 'cart' ? undefined : label} {...rootProps}>
+      {content}
     </Stack>
   );
 }
@@ -183,12 +195,7 @@ export function EmptyStateIcon({ className, ...props }: EmptyStateIconProps) {
     <Grid
       {...props}
       className={withClassName('empty-state__icon', className)}
-      w="32px"
-      h="32px"
-      placeItems="center"
-      border="1px solid var(--color-black-40)"
-      borderRadius="full"
-      color="var(--color-text-tertiary)"
+      css={emptyStateRecipe.raw().icon}
       aria-hidden="true"
     />
   );
@@ -199,7 +206,7 @@ export function EmptyStateTitle({
   className,
   children,
   variant = 'heading7',
-  as = 'h2',
+  as = 'p',
   ...props
 }: EmptyStateTitleProps) {
   return (
@@ -229,10 +236,16 @@ export function EmptyStateDescription({
 
 /** 빈 목록의 후속 액션을 배치합니다. (Arranges an empty list action.) */
 export function EmptyStateAction({ className, ...props }: EmptyStateActionProps) {
-  return <Box {...props} className={withClassName('empty-state__action', className)} mt="2" />;
+  return (
+    <Box
+      {...props}
+      className={withClassName('empty-state__action', className)}
+      css={emptyStateRecipe.raw().action}
+    />
+  );
 }
 
-/** 빈 목록의 제목·설명·액션을 구성합니다. (Composes an empty state's title, description, and action.) */
+/** 빈 목록의 아이콘·제목·설명·액션을 구성합니다. (Composes an empty state's icon, title, description, and action.) */
 export const EmptyState = Object.assign(EmptyStateRoot, {
   Icon: EmptyStateIcon,
   Title: EmptyStateTitle,

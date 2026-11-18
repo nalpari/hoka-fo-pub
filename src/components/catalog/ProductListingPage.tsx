@@ -912,22 +912,11 @@ function ProductListingResults({
         </>
       ) : pending || error ? null : (
         <EmptyState
+          layout="catalog"
           variant="page"
           action={<Button onClick={onReset}>필터 초기화</Button>}
           description="선택한 필터를 초기화한 뒤 다시 찾아보세요."
           title="조건에 맞는 상품이 없습니다"
-          layoutProps={css.raw({
-            justifyContent: 'flex-start',
-            pt: '24',
-            pb: '40',
-            px: '4',
-            _mobile: {
-              py: '0',
-              pt: '24',
-              pb: '40',
-              px: 'calc(var(--layout-mobile-inline-gutter) + 12px)',
-            },
-          })}
         />
       )}
     </CatalogResults>
@@ -1125,17 +1114,11 @@ function SearchListingLayout({
     children
   ) : (
     <EmptyState
+      layout="search"
       variant="plain"
       as="section"
-      title={
-        <>
-          검색된 결과가 없습니다.
-          <br />
-          검색어를 정확하게 다시 한번 입력해 주세요.
-        </>
-      }
-      titleProps={{ as: 'p', web: 'body3', mo: 'body4', weight: 'regular', tone: 'subtle' }}
-      layoutProps={css.raw({ minH: '470px', pt: '158px', _mobile: { minH: 'auto', py: '96px' } })}
+      title="검색된 결과가 없습니다."
+      description="검색어를 정확하게 다시 한번 입력해 주세요."
     />
   );
   return (

@@ -1,3 +1,42 @@
+## 2026-11-18 빈 장바구니 상단·버튼 간격 검수
+
+- 빈 상태 route의 상단 여백을72/40px, cart recipe의 문구 그룹/버튼 gap을40/32px로 적용했다. 추천 상품 gap96/72px·제목28/22px·900은 유지한다. PC1538/MO375에서 실제 rect 간격·캡처·가로 넘침 없음과 대상 lint/format·Panda·기존 검사2개를 확인했다. 출처: 사용자 브라우저 주석과 page.tsx/recipe 작업 트리, 상세: architecture/ui.md·architecture/routing.md·architecture/error-empty-guide.md.
+
+## 2026-11-18 빈 장바구니 제목과 추천 간격 검수
+
+- cart 제목을 Pretendard900·PC28/MO22px·행간120%·자간-0.02em·검정으로 키웠다. CartEmptyContent의 빈 안내/추천 영역 간격은 부모 Stack gap96/72px로 적용했다. PC1538/MO375에서 계산 스타일·실제 Pretendard-Black·간격·가로 넘침 없음과 캡처를 확인했다. 대상 lint/format·Panda·기존 EmptyState 검사2개를 통과했다. 출처: 사용자 브라우저 주석과 해당 작업 트리, 상세: architecture/ui.md·architecture/routing.md·architecture/error-empty-guide.md.
+
+## 2026-11-18 EmptyState 안내문 p 통일
+
+- 기본 제목과 EmptyState.Title을 p로 통일하고 현재 호출부의 중복 titleProps.as11개를 제거했다. 대표 PC/MO12개 경우의 P 태그 및 기존 스타일 보존, 대상 lint/format·TypeScript·계약 검사2개를 확인했다. actionContent와 독립 action 슬롯의 책임도 가이드에 설명했다. 출처: EmptyState와 호출부 작업 트리, 상세: architecture/ui.md·architecture/routing.md·architecture/error-empty-guide.md.
+
+## 2026-11-18 EmptyState 타이포 클래스와 독립 빈 안내 통합
+
+- titleProps/descriptionProps의 시각 옵션과 배송지 액션 너비를 recipe로 이동하고 as·기존 외부 override·명시 variant를 유지했다. 언어 자동 선택과1px 이동도 recipe에서 보존한다. src18개 파일·20개 호출에 스타일 props가 남지 않음을 AST로 확인했다.
+- 장바구니·주문서·취소/반품 빈 안내를 공통 EmptyState의 cart/checkout/claimHistory로 통합하고 icon 슬롯을 추가했다. PC/MO22개 URL44개 비교와 언어/override14개 비교가 일치했다. 관련 검사3개·대상 lint/format·TypeScript·Panda·production build(164개 정적 페이지)를 통과했다. 전체 lint의 기존 wh-file-summary 전역8건은 남는다. 출처: EmptyState/recipe·호출부·타입 검사 작업 트리, 상세: architecture/ui.md·architecture/error-empty-guide.md·architecture/routing.md·development/verification.md.
+
+## 2026-11-18 pub-psh-1015 병합 충돌 해결
+
+- 리뷰 화면 이동과 EmptyState recipe/layout을 통합하고 주소 목록의 중복 배치를 정리했다. 두 브랜치의 문서 이력을 보존했다. TypeScript·충돌 대상 ESLint·staged OKF 검사 통과, 브라우저 검증 미실시. 상세: architecture/ui.md·architecture/routing.md. 기존 미커밋 변경은 별도 보관 후 복원한다.
+
+## 2026-11-18 마이페이지 메인 최신 시안 반영
+
+- 주문 배송 요약과 전용 fixture를 제거하고 쿠폰·관심상품18px 아이콘, 모바일16px 라벨, 본문 행간·이름/단위 정렬과 PC 메뉴 헤더를 맞췄다. IA177 상태를 정리하고 이전 주문 없음 preview는 /mypage로 연결한다. PC/MO 렌더링·로그아웃 확인·이전 주소 이동과 관련 lint·TypeScript·Panda를 확인했다. 빌드164개 페이지 생성 통과 후 지역 타이포를 보정했다. 출처와 남은 PC/MO fixture 숫자 차이는 architecture/ui.md·architecture/routing.md에 기록했다.
+
+## 2026-11-17 EmptyState 화면별 layout 통합
+
+- 호출부 layoutProps·EmptyState 전용 클래스·주문 부모 제목 선택자를 recipe의 layout 및 title/description 슬롯으로 이동했다. variant와 layout은 선택적 기본값 standard/default를 유지하고 기존 명시 standard는 사용자 후속 지시에 따라 복원했다. 이전 생략 정리 기록은 이 지시로 대체한다.
+- 기존19개 URL·PC1440/MO375 총38개 경우의 측정 위치·치수·스타일이 일치하고 가로 넘침이 없었다. 전체 TypeScript·대상 ESLint/Prettier·Panda·타입 검사2개와 production build(정적 페이지164개)를 통과했다. 전체 lint의 기존 wh-file-summary 미정의 전역8건은 남는다. 출처: EmptyState·recipe·호출부·타입 검사 작업 트리, 상세: architecture/ui.md·architecture/error-empty-guide.md·architecture/routing.md·development/verification.md.
+
+## 2026-11-17 EmptyState 기본 variant 생략
+
+- 주문 목록의 명시적 standard를 생략하여 기본값을 사용하는4개 운영 호출로 정리했다. 다른 표현의 variant와 기존 화면 스타일은 유지한다. 대상 ESLint·Prettier와 TypeScript 검사를 통과했다. 출처: OrdersList.tsx 작업 트리, 상세: architecture/routing.md·architecture/error-empty-guide.md.
+
+## 2026-11-17 EmptyState 전체 사용처 스타일 감사
+
+- src의16개 파일·17개 호출과 남은 className/props/부모 선택자를 검토했다. 기존19개 URL의 PC1440/MO375 총38개 경우에서 viewport·플랫폼 일치와 가로 넘침 없음을 확인했다. FAQ py15의 실제 상하0px과 런칭 모바일 제목의900 선언/실제600 충돌을 기록했다. 앱 소스는 수정하지 않았다.
+- 운영 소비처 없는 AccountDataList, URL에 연결되지 않은 문의 미리보기 빈 분기, 체크아웃 embedded 빈 배송지와 상품 문의 default 분기는 실행 검증과 구분했다. 출처: 현재 호출부 소스·Codex 브라우저 측정, 상세: architecture/error-empty-guide.md.
+
 ## 2026-11-17 상품명 글자 크기 직접 지정
 
 - 상품명에 web body3 / mo body4-2를 직접 지정하고 유형별 크기 분기를 제거했다. 기존 굵기·말줄임은 유지한다. [UI](architecture/ui.md).
@@ -106,6 +145,11 @@
 ## 2026-11-17 주문내역 마일리지 안내 삭제
 
 - CheckoutDiscountSummary의 마일리지 안내 두 문구를 삭제하고 쿠폰 안내·금액·조회 UI를 유지했다. 라우팅·검증 절차 영향 없음과 로컬 PC·모바일 문구 부재 확인을 관련 문서에 기록했다. 출처: 사용자 첨부 Slack 화면과 해당 소스 작업 트리. 기록: codex/gpt-6, 2026-11-17T07:42:10.485Z.
+
+## 2026-11-17 EmptyState recipe와 기본값 규칙
+
+- EmptyState의 표시 스타일을 EmptyState.recipe.tsx로 옮기고 기존 props·compound API·화면을 유지했다. 컴포넌트와 recipe의 기본 variant는 standard이며 생략/undefined 호출을 허용한다. AGENTS.md와 인계 스킬에 선택적 표시 기본값·호환 검사 규칙을 추가했다.
+- PC/MO5개 화면 총10개 경우의 측정 위치·치수·스타일이 변경 전과 일치했다. 대상 lint/format·TypeScript·Panda·타입 검사2개와 production build(정적 페이지164개)를 통과했다. 전체 lint는 기존 wh-file-summary 테스트의 미정의 전역8건으로 실패했다. 출처: EmptyState·recipe·타입 검사·규칙 작업 트리와 Codex 검증, 상세: architecture/ui.md·architecture/error-empty-guide.md·development/verification.md.
 
 ## 2026-11-17 환불(반품) 신청 수량 노출
 
@@ -3167,3 +3211,25 @@ Figma Navigational Buttons(296:25392)와 Action Buttons(296:25425)의 기본·�
 - 상품내역의 모바일 제목 숨김 조건을 여백과 제목 표시에서 공유하고 목록의 좌우 확장 조건을 단순화했다. 기존 여백 값과 최근 본 상품 빈 화면 보정은 유지한다.
 
 - 관심상품·최근 본 상품·재입고 알림 빈 화면은 PC와 모바일에서 제목과 검정 2px 구분선을 표시한다. 제목 아래 패딩은 PC 40px, 모바일 32px이다. 모바일에서 제목이 다시 표시되어 이전 최근 본 상품 빈 화면의 음수 마진은 제거했다.
+## 2026-11-18 주문서 상품 없음 화면 제거
+
+- 사용자 기획 범위 확인에 따라 전용 경로·빈 상태 구현·IA 171 보조 링크와 전용 recipe를 제거했다. 기본 주문서와 다른 상태는 유지한다. 관련 라우팅·UI·빈 상태 가이드·인계표를 갱신했다.
+
+검증: Next 경로 타입 재생성·TypeScript 검사·EmptyState/IA 그래프 테스트 3개·수정 TSX lint 통과. 소스와 생성 그래프에 삭제 경로 참조가 없음을 확인했다. 브라우저 화면 검증은 이번 삭제 작업에서 수행하지 않았다. 기존 스테이지는 변경하지 않았다.
+
+## 2026-11-18 검색 빈 결과 시안 반영
+
+- 제목·설명을 별도 p로 분리하고 search recipe에 PC/MO 타이포·16px 간격·모바일 중앙 배치를 반영했다. PC/MO 계산 스타일·실제 제목 폰트·스크린샷을 확인했다. UI·빈 상태 가이드와 인덱스를 갱신했다.
+
+## 2026-11-18 주문 조회 없음 PC 시안 반영
+
+- PC 빈 목록에 표 헤더·구분선을 표시하고267px 중앙 안내, 헤더20/700/24px와 본문16/400/24px, 조회 버튼 중앙 정렬을 적용했다. 모바일 배치를 유지하고 후속 지정된 본문14/400/21px를 반영했다. PC1920/1440·MO375 실측/캡처, 기본 주문·취소 빈 내역 확인, 대상 lint/format·TypeScript·Panda·기존 계약2개 통과. 전체 lint/빌드 미실행. 출처: 사용자 요청/브라우저 주석과 OrdersList·OrdersStatus·EmptyState.recipe 작업 트리. 상세: architecture/ui.md·architecture/error-empty-guide.md·architecture/routing.md.
+
+
+## 2026-11-18 공용 기간 조회와 취소 빈 표 헤더
+
+- DateRangeSearch에 기간·상시 날짜·조회 버튼을 통합하고 기간 선택/직접 편집 상호 갱신, inline 기본값과stacked 모달을 적용했다. OrdersFilters wrapper와 모달의 중복 탭 스타일을 제거하고 현재 초안/조회 payload·요청 미연결 경계를 문서화했다. 취소/반품 PC 빈 목록의5개 헤더·수량 컬럼·267px 안내를 현재 시안대로 반영하고 모바일 목록을 유지했다. PC/MO 날짜 조작·중앙 정렬·교체 데이터·pending/실패/재시도·중복 방지와 대상 정적 검사/기존 검사3개를 확인했다. 출처: 사용자 요청/주석·시안과 해당 공용/주문/문의 소유자 작업 트리. 상세: architecture/ui.md·architecture/routing.md·architecture/error-empty-guide.md·development/verification.md·development/markup-handoff.md.
+
+최종 검증 추가(2026-11-18): 취소/반품 변경까지 포함한 전체 Next 빌드가163개 정적 페이지 생성으로 통과했다. 대상 ESLint·Prettier·TypeScript·Panda·기존/추가 검사3개와 작업 트리 OKF 누락 없음, diff 공백 검사를 확인했다. 기존 staged index의 변경 전후 해시는 동일하며 이번 변경을 스테이징·커밋하지 않았다.
+
+- 병합 충돌을 해결하며 마이페이지 공통 파일 이동과 EmptyState recipe를 함께 유지했다. 상품내역 빈 화면 세 곳은 제목과 구분선, 모바일 남은 공간 가운데 정렬을 유지한다.

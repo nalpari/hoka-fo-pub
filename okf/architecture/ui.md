@@ -4,12 +4,16 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-17T07:55:05.559Z'
+updated: '2026-11-18T01:35:27.542935+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/app/cart/_components/CartEmptyContent.tsx
+  - src/app/cart/_components/CartEmptyState.tsx
+  - .agents/skills/hoka-markup-handoff/references/component-quality.md
+  - src/components/common/atoms/EmptyState.recipe.tsx
   - src/app/checkout/_components/CheckoutCouponDialog.tsx
   - src/components/common/molecules/DateRangeSearch.tsx
   - src/app/checkout/_components/CheckoutPayment.tsx
@@ -5478,3 +5482,111 @@ PC 1305px에서 매장명22px/900/26.4px·자간-0.44px, 본문16px/24px·자간
 - 상품내역의 모바일 제목 숨김 조건을 여백과 제목 표시에서 공유하고 목록의 좌우 확장 조건을 단순화했다. 기존 여백 값과 최근 본 상품 빈 화면 보정은 유지한다.
 
 - 관심상품·최근 본 상품·재입고 알림 빈 화면은 PC와 모바일에서 제목과 검정 2px 구분선을 표시한다. 제목 아래 패딩은 PC 40px, 모바일 32px이다. 모바일에서 제목이 다시 표시되어 이전 최근 본 상품 빈 화면의 음수 마진은 제거했다.
+## EmptyState recipe와 선택적 기본값 (2026-11-17)
+
+EmptyState의 standard/minimal/plain/page/content 스타일은 같은 atoms 폴더의 EmptyState.recipe.tsx로 옮겼다. root/text/icon/action 슬롯을 사용하고 기존 Box/Grid/Stack, 제목·설명의 Typography, compound API와 .empty-state__* 클래스는 유지한다. Root action은 기존처럼 별도 margin이 없으며 독립 EmptyState.Action만 mt=2를 사용한다. page의 action 유무에 따른 gap=8/4, page/content 문구 최대 폭520/320px, content 최소 높이 PC267/MO154px도 유지한다. layoutProps는 recipe.raw 결과 뒤에 css.raw로 병합하며 모바일 기본값 뒤에 호출자의 _mobile을 적용한다. 서비스·데이터·콜백 소유권 변경은 없다.
+
+variant는 선택적이며 생략과 명시적 undefined 모두 standard다. 컴포넌트 파라미터의 기본값과 recipe.defaultVariants에 같은 값을 등록했다. 선택적 표시 옵션을 정리할 때 이중 기본값 선언·기존 호출자 호환·생략/undefined/명시적 variant 검사를 수행하도록 AGENTS.md와 인계 스킬 component-quality 규칙에 반영했다. 의도적으로 필수인 판별자나 서비스 입력에는 기본값을 만들지 않는다. Modal 소스는 이번 변경 대상이 아니며 개발팀에서 보고한 오류의 진단 로그가 없어 원인을 확정하지 않았다.
+
+최근 본 상품 빈 화면·마이페이지 주문 요약 빈 영역·주문 빈 목록·쿠폰 빈 목록·문의 빈 목록을1440×900과375×900에서 변경 전후 비교했다. 10개 경우 모두 측정한 요소 위치·크기·여백·글꼴 값이 같았다. 최근 본 상품 PC/MO 스크린샷을 직접 확인했고 모바일 가로 넘침이 없었다. 변경 파일 ESLint/Prettier, TypeScript와 Panda 생성 및 EmptyState/ModalDialog 타입 계약 검사2개를 통과했다. 전체 lint는 변경하지 않은 tests/wh-file-summary.test.mjs의 URL/Request/Response no-undef8건으로 실패했다. 전체 소비자 시각 검증이나 보고된 개발팀 환경의 오류 재현을 의미하지 않는다. 상세 계약은 [빈 상태 가이드](error-empty-guide.md#emptystate-기본값과-recipe-2026-11-17)를 따른다. 출처: 사용자 요청, 위 작업 트리와 Codex의 실제 검사(2026-11-17).
+
+2026-11-17 추가 검증: npm run build가 TypeScript와 정적 페이지164개 생성을 포함해 통과했다. 기존 서비스·라우팅·플랫폼 소유권과 화면별 override를 유지하는 인계 스킬 검토도 수행했다.
+
+## EmptyState 화면별 layout 통합 (2026-11-17)
+
+사용자 요청으로 EmptyState 호출부의 layoutProps와 전용 className·주문 부모의 제목 선택자를 EmptyState.recipe.tsx의 layout 옵션 및 title/description 슬롯으로 옮겼다. variant는 standard/minimal/plain/page/content 그대로이고 layout의 생략·undefined 기본값은 default다. 컴포넌트 파라미터와 recipe defaultVariants에 같은 기본값을 등록한다. 기존 variant="standard"는 사용자의 후속 지시에 따라 주문 목록에 명시한 채 유지하며, 생략 허용과 명시값 삭제를 구분한다.
+
+layout은 default, history, wishlist, restock, address, embeddedAddress, reviews, catalog, search, inquiries, faq, orderSummary, orders, launch, runningSession, productInquiry, inquiryBoard다. 호출자는 값 대신 배치 이름을 선택한다. history 계열의 기본 스타일 객체는 공유하고 실제 다른 모바일 여백·높이만 분기한다. 기존 화면·props·compound API와 Typography의 web/mo/as/variant 계약, 데이터·로컬 상태·콜백과 Panda 컴포넌트는 유지한다. layoutProps와 public className은 기존 외부 호출 호환을 위해 남기되 운영 호출에서 layoutProps를 사용하지 않는다.
+
+Panda Stack/Grid/Box의 기본값과 충돌하지 않도록 recipe.raw의 root/text/icon/action 스타일을 기존 primitive의 css에 병합한다. 이 primitive는 최종 DOM className을 생성한다. title/description은 recipe 슬롯을 css로 생성해 기존 Typography className에 적용한다. 기본/예외 atomic 클래스를 따로 만들어 같은 속성으로 경쟁시키지 않는다. Typography의 별도 소유권 때문에 필요한 제목 예외는 좁은 && 범위를 사용한다. 주문 모바일400은 같은 모바일 조건에서 명시하고, 러닝세션은 padding shorthand 대신 pt/pb/px=0을 지정해 standard 기본 padding이 남지 않게 했다.
+
+FAQ의 이전 미생성 py15는 실제 화면의 상하0px으로 명시했다. 런칭 모바일 굵기는 실제600을 명시하고 PC900·MO22px을 보존했다. 이는 기존 화면 보존을 위한 값이며 원본 시안의 여백/굵기 재확정 작업은 아니다. 상위 영역이 소유하는 간격·부모 최소높이와 외부 action 안의 버튼/너비는 해당 소유자에 유지한다.
+
+19개 기존 상태 URL의 PC1440×900/MO375×900 총38개 경우에서 root/title/직접 자식의 측정 위치·치수·스타일이 변경 직전과 일치했고 가로 넘침이 없었다. 상품 목록 PC·러닝세션/주문/런칭 모바일 스크린샷을 직접 확인했다. 전체 TypeScript, 대상 ESLint·Prettier, Panda 생성과 EmptyState/ModalDialog 타입 검사2개를 통과했다. 전체 lint는 변경하지 않은 tests/wh-file-summary.test.mjs의 URL/Request/Response no-undef8건으로 실패했다. 미연결 embedded 빈 배송지와 InquiryBoard default 분기는 소스/타입만 검토했으며 런타임 검증으로 기록하지 않는다. 출처: 사용자 요청, 두 EmptyState 및 변경 호출부의 현재 작업 트리, Codex 실제 검사.
+
+2026-11-17 layout 통합 최종 빌드: npm run build의 컴파일·TypeScript·정적 페이지164개 생성이 통과했다. 마지막 구조 검토에서 기존 Panda primitives·시맨틱·상태/콜백·명시 variant와 기본값의 보존을 확인했다.
+
+## 마이페이지 메인 최신 시안 반영 (2026-11-18)
+
+PC·모바일 메인에서 주문 배송 요약을 제거하고 회원 요약과 메뉴를 이어 배치했다. 쿠폰 ticket-simple-solid·관심상품 heart-solid 아이콘은 18px, 라벨과 아이콘 사이는 8px이다. 모바일 위젯 라벨은 16px, 본문 행간은 1.5이며 PC 메뉴 제목 아래16px·헤더52px·메뉴 행56px을 적용한다. 이름과 단위의 아래 정렬, 모바일 등급 R의700 굵기도 시안에 맞췄다. PC·모바일 시안의 관심상품 숫자는28/6으로 달라 기존 공통 fixture6을 유지한다. API·로그아웃 연결 계약은 변경하지 않았다.
+
+출처: [마이페이지 메인 디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design), src/app/mypage/_components/MyPageContent.tsx, src/app/mypage/mypage-home-data.ts, src/components/common/atoms/Icon.assets.ts, public/images/icon/ticket-simple-solid.svg, src/types/component-contracts/app-mypage-page.d.ts 작업 트리. Codex, 2026-11-18. PC1920·모바일375에서 아이콘18px·주문 요약 없음·로그아웃 확인창을 검사했고 모바일 최종 화면의 가로 넘침이 없었다. 브라우저 세로 스크롤바15px과 기존 홍보 배너는 디자인 프레임과의 전체 좌표 차이로 구분한다. 관련 ESLint·TypeScript·Panda 검사 통과. 프로덕션 빌드는164개 페이지 생성까지 통과했으며 이후 지역 타이포 클래스 보정에는 Panda를 재생성했다. 최종 인계 검토에서 기존 페이지 전용 소유권·Panda primitive·탐색 링크·로그아웃 로컬 상태를 유지했다.
+
+
+## 브랜치 병합 충돌 해결 (2026-11-18)
+
+origin/pub-psh-1015의 ReviewsContent 이동·리뷰 표시 구조와 현재 브랜치의 EmptyState recipe/layout 계약을 함께 유지했다. 새 리뷰 화면에 reviews layout을 연결하고 주소 목록의 동일한 embedded 배치 중복 override를 제거했다. page 유형 모바일 액션의 전체 너비는 보존했다. 출처: 두 브랜치 병합과 해당 컴포넌트 작업 트리. TypeScript와 충돌 대상 ESLint, staged OKF 검사를 통과했다. 브라우저 시각 검증은 수행하지 않았다.
+
+## EmptyState 타이포 클래스와 빈 안내 통합 (2026-11-18)
+
+사용자 요청으로 EmptyState 호출부에 남아 있던 titleProps/descriptionProps의 variant·web·mo·weight·tone을 EmptyState.recipe.tsx의 타이포 슬롯 recipe로 옮겼다. TypeScript AST로 src 전체를 확인한 결과18개 파일·20개 호출에서 스타일용 titleProps·descriptionProps·layoutProps·className은 남지 않았고 titleProps에는 필요한 as만 유지한다. 정상 목록·헤더·상품 카드의 Typography는 빈 상태와 다른 소유자이므로 유지한다.
+
+기본 title heading7은 PC28px·모바일16px이고, 상품내역·리뷰·배송지·러닝세션은 기존 mo=headingKr5 때문에 모바일22px·900이었다. 문의·FAQ·검색·상품문의는 heading 대신 작은 body 스케일과 tertiary/subtle/primary 색을 요구했다. 설명은 기본16px와 일부 화면의 모바일14px 차이가 있었다. 이전 작업이 배치만 옮기고 Typography 선택을 호출부에 남긴 것이 별도 props가 계속 있던 원인이다. 그 밖에 Typography의 한글 자동 선택과 translateY(1px), 기본 inherit 색도 시각 결과의 일부였다. 라이브러리 전체를 바꾸지 않고 EmptyState의 시각 스타일만 같은 토큰으로 recipe에 명시했다.
+
+EmptyState는 준비된 화면에서 scale variant 없는 Typography에 합성된 슬롯 className을 적용한다. getEmptyStateStyles가 언어 기본값·layout 타이포·기존 슬롯 예외를 클래스 생성 전에 병합한다. 혼합 ReactNode/Fragment의 한글 포함 여부에 따라 기존 HOKA/Pretendard 선택과 자간·줄높이·1px 이동을 보존한다. 언어 기본값은 layout의 body 줄높이와 모바일 굵기를 덮어쓰지 않도록 먼저 병합한다. 기존 외부 titleProps/descriptionProps 스타일 override가 있으면 종전 Typography 경로를 사용하여 호환을 보존한다. 독립 EmptyState.Title/Description/Icon/Action 계약과 기존 variant="standard", 생략/undefined 기본값도 유지한다.
+
+장바구니·주문서·취소/반품의 독립 빈 안내는 불가능한 구조가 아니라 과거 별도 마크업이었다. 사용자 후속 지시로 공통 EmptyState의 cart/checkout/claimHistory layout에 이관했다. icon ReactNode 슬롯을 추가하여 장바구니의 기존24px 아이콘을 그대로 전달한다. root/text의 Stack, 장바구니 액션의 HStack, 빈 취소 내역의 Box/grid와 span·주문서 section/p 및 원래 링크/두 버튼·이동 경로를 보존한다. cart의 외부 action 직접 자식 Box 너비는 해당 layout의 좁은 자식 선택자가 소유한다. 배송지의180/322px 버튼 영역도 actionContent 슬롯으로 옮겼다. 표시 데이터·상태·콜백·서비스 연결은 변경하지 않았다.
+
+기존19개 URL과 추가3개 URL을1440×900/375×900에서 변경 전후 비교한44개 경우의 root/title/직접 자식/텍스트 자손 위치·치수·계산 스타일이 일치했고 가로 넘침이 없었다. 영문 제목·혼합 한글 Fragment·영문 리뷰·기존 제목/설명 override·inquiryPreview·기본 설명7가지의 PC/MO14개 비교도 이전 Typography의 크기·굵기·줄높이·자간·색·이동·태그와 일치했다. 일시 검증 route는 삭제했다. 장바구니 PC/MO, 주문서·취소 내역·최근 상품 MO, FAQ PC 캡처를 직접 확인했다. 문의 미리보기의 실제 빈 목록 URL 연결과 embedded 배송지 전체 조합 검증은 이번에 추가하지 않았다.
+
+대상 ESLint/Prettier·TypeScript·Panda·관련 검사3개와 production build(164개 정적 페이지)가 통과했다. 전체 lint는 변경하지 않은 tests/wh-file-summary.test.mjs의 URL/Request/Response no-undef8건 때문에 실패했다. 신규 서비스 요청이나 전송을 구현하지 않았으며 이 검증은 전체 서비스 바인딩 확인을 의미하지 않는다. 출처: 사용자 요청과 주석 질문, 위 파일·EmptyState 호출부·tests/empty-state-types.test.mjs의 작업 트리, Codex의2026-11-18 실제 검사.
+
+## EmptyState 안내문 p 기본값 (2026-11-18)
+
+사용자 지시에 따라 EmptyStateRoot의 일반/legacy 기본 제목과 독립 EmptyState.Title의 기본 as를 p로 변경했다. 기존 호출의 span/h2 지정도 p로 맞춘 뒤 중복 titleProps={{ as: 'p' }}11곳을 제거했다. 외부 명시 as API는 호환을 위해 유지하되 현재 src의20개 EmptyState 호출은 기본 p를 사용한다. 설명도 기존 p다. recipe·variant·layout·명시 standard·콜백은 유지한다. Cart/런칭/주문/리뷰/문의/러닝세션의 PC1440·MO375 총12개 경우에서 제목이 P인 것을 확인하고 태그 이외의 측정 위치·치수·스타일이 직전과 일치했다. 대상 ESLint·Prettier·TypeScript와 EmptyState 계약 검사2개가 통과했다. 이 태그 변경으로 전체 빌드는 다시 실행하지 않았다. 출처: 사용자 요청, EmptyState.tsx 및 해당 호출부 작업 트리, Codex 실제 검사.
+
+## 빈 장바구니 제목과 추천 영역 간격 검수 (2026-11-18)
+
+사용자의 브라우저 주석 수치를 기준으로 EmptyState.recipe.tsx의 cart 제목을 Pretendard·normal·900·PC28px/MO22px·행간1.2·자간-0.02em·검정·가운데 정렬로 변경했다. p 태그와 icon/action 및 다른 layout의 스케일은 유지한다. EmptyState와 추천 상품 사이의 간격은 두 영역을 소유하는 CartEmptyContent의 기존 Stack gap으로 PC96px/MO72px을 적용했다. column 흐름의 세로 간격이므로 상품 카드 사이 간격은 변경하지 않는다.
+
+PC1538×1251·MO375×812에서 제목28/22px·900·행간33.6/26.4px·자간-0.56/-0.44px·검정·가운데 정렬을 측정했고 실제 glyph font는 Pretendard-Black이었다. 부모 row-gap 및 두 영역 bounding rect 차이는 정확히96/72px이며 가로 넘침은 없었다. 최종 PC/MO 캡처를 직접 확인했다. 대상 ESLint·Prettier·Panda 생성과 기존 EmptyState 검사2개가 통과했다. 이번 스타일 변경으로 전체 빌드나 다른 전체 화면 검증은 재실행하지 않았다. 출처: 사용자 브라우저 주석과 EmptyState.recipe.tsx·CartEmptyContent.tsx 작업 트리, Codex 실제 확인.
+
+## 빈 장바구니 상단·버튼 간격 검수 (2026-11-18)
+
+추가 사용자 브라우저 주석에 따라 빈 장바구니의 헤더 아래 안내 영역 시작 간격을 PC72px/MO40px로 조정했다. 기존 OrderPageLayout.paddingTop 옵션을 /cart/preview-empty에서 명시해 다른 주문/결제 화면의 기본 여백은 바꾸지 않는다. EmptyState.recipe.tsx의 cart root gap은 PC48→40px, MO32px 유지로 아이콘/문구 그룹과 버튼 사이를 맞췄다. 추천 영역까지의 기존96/72px와 제목28/22px·900은 유지한다.
+
+PC1538×1251·MO375×812에서 main padding 및 header bottom→빈 영역 top이72/40px, 문구 그룹 bottom→버튼 top과 root row-gap이40/32px임을 실제 측정했다. 추천 영역 간격96/72px와 가로 넘침 없음도 확인했고 PC/MO 캡처를 직접 검토했다. 제목의 기존 translateY1px은 유지하므로 글리프 박스 대신 배치 그룹 간 gap을 기준으로 확인한다. 대상 ESLint·Prettier·Panda와 기존 EmptyState 검사2개를 통과했다. 출처: 사용자 두 브라우저 주석, src/app/cart/preview-empty/page.tsx·src/components/common/atoms/EmptyState.recipe.tsx 작업 트리와 Codex 실제 확인.
+
+## 기획에 없는 주문서 빈 화면 제거 (2026-11-18)
+
+사용자 기획 범위 확인에 따라 주문서 상품 없음 전용 경로와 CheckoutEmptyState, preview 상태 분기 및 공통 EmptyState의 checkout 전용 스타일을 제거했다. IA 171의 해당 보조 링크·소스 등록도 제거하고 정식 명령으로 의존 그래프를 갱신했다. 기본 주문서와 다른 주문서 상태 경로는 유지한다. 위의 빈 주문서 통합·검증 기록은 삭제 전 이력이다. 출처: 사용자 검토와 현재 작업 트리.
+
+## 검색 결과 없음 제목·설명 분리 (2026-11-18)
+
+검색 빈 결과의 Fragment와 br을 title·description으로 분리했다. EmptyState의 search layout recipe가 제목 PC28px/MO22px·900·행간120%·검정, 설명 PC16px/MO14px·400·행간150%·#4D4D4D, 자간-0.02em과 문장 간격16px을 소유한다. PC 상단160px, 모바일 상하96px 최소 여백과 남은 콘텐츠 높이를 이용한 중앙 배치를 적용한다. 공통 기본 variant와 다른 layout, 데이터·상태 소유자는 유지했다. 기준은 [검색 결과 없음 PC·모바일 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)과 사용자 제목·설명 분리 요청이다.
+
+PC1920×1080/MO375×812에서 별도 p 두 개, 계산 타이포·간격16px과 실제 Pretendard Black 제목 글리프·가로 넘침 없음을 확인하고 스크린샷을 검수했다. 공통 홍보 배너·헤더·스크롤바 차이는 유지한다. 전체 화면의 픽셀 일치를 의미하지 않는다. 타입 검사·관련 테스트2개·수정 파일 lint 통과. 기존 스테이지는 유지하고 이번 변경은 작업 트리에만 반영했다.
+
+## 주문 조회 없음 PC 시안 반영 (2026-11-18)
+
+현재 [HOKA 화면 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 주문 상품 없음 화면과 사용자 브라우저 주석을 기준으로 OrdersList.tsx의 빈 목록에서도 PC 표 헤더를 표시한다. 빈 화면의 필터/표 간격32px, 표 헤더 높이67px·컬럼536/108/200px·상단2px/하단1px 검정선, 제목 Pretendard20px·700·행간24px·자간-0.02em·검정색을 적용했다. 상품이 있는 목록의 기존 표 스타일은 유지한다.
+
+EmptyState.recipe.tsx의 orders layout만 PC 높이267px·가로/세로 중앙 정렬·하단 #E9EAEB 1px, 본문16px·400·행간24px·자간-0.02em·#4D4D4D로 변경한다. 모바일은 기존 padding96/160px·헤더 숨김·필터 배치를 유지하되 후속 사용자 지정에 따라 안내문14px·400의 행간만 기존18.2px에서21px로 수정한다. 본문형 안내이므로 heading 고정 디자인 규칙은 적용하지 않는다. OrdersStatus.tsx의 PC 조회 버튼은 날짜 입력과 수직 중앙 정렬하고 모바일 start 정렬은 유지한다. 공유 필터를 사용하는 기본 주문/취소 내역에도 PC 정렬이 적용된다.
+
+실제 검증: PC1920/1440과 MO375에서 계산 스타일·위치·스크린샷, PC 컬럼536/108/200px·빈 영역267px·버튼/날짜 중심차0px, 안내문 PC16/24px·MO14/21px와 Pretendard-Regular 실제 글리프 사용을 확인했다. 기본 주문 목록과 취소/반품 빈 화면도 PC1440/MO375에서 확인했으며 가로 넘침은 없었다. 대상 ESLint·Prettier·TypeScript·Panda와 기존 EmptyState 계약 검사2개가 통과했다. 전체 lint/프로덕션 빌드는 실행하지 않았다. 초기 모바일 전후 자동 비교는 탐색 timeout으로 완료되지 않았으므로 픽셀 보존 검증으로 기록하지 않는다. 최종 모바일 화면과 원래 소스의 배치 계약을 확인했다.
+
+출처: 사용자 요청/브라우저 주석, 위 세 소스의 현재 작업 트리 및 현재 시안 읽기 결과. 기존 route·fixture·표시 데이터/콜백 계약은 유지하며 서비스 연결 경계는 바꾸지 않았다. hoka-markup-handoff 최종 검수에서 기존 소유자·Panda 배치·명시 standard와 로컬 조작/PC·MO 경계를 확인했다. 기록: Codex, 2026-11-18.
+
+## 공용 기간·날짜 조회 UI (2026-11-18)
+
+DateRangeSearch는 기간 버튼(1년·6개월·3개월·1개월·직접설정), 상시 날짜 입력과 조회 버튼을 함께 소유한다. 주문/취소 목록과 문의 주문 상품 조회 모달이 직접 사용하며 OrdersStatus의 전달용 OrdersFilters는 제거했다. 모달 recipe의 tabs/tab 스타일은 공용 소유자로 이동했다. PC inline 배치와 PC/MO stacked 배치를 지원하며 layout 생략·undefined의 기본값은 inline(PC 한 줄/MO 두 줄)이다. 함수 매개변수와 Panda cva defaultVariants에 같은 기본값을 선언한다. 모달은 stacked를 명시한다. 모바일에도 기간 순서는1년·6개월·3개월·1개월·직접설정이고 날짜·조회가 항상 보인다. 날짜130×36px, 날짜 사이6px·조회와24px, 세로 배치는24px 간격을 사용한다. 조회 버튼과 날짜는 모든 플랫폼에서 수직 중앙 정렬한다.
+
+화면 소유자가 DateRangeValue { period, start, end } 초안을 소유하며 onValueChange가 값을 원자적으로 교체한다. period는1/3/6/12/custom이다. preset은 클릭 시점의 로컬 오늘을 종료일로 사용하고 달력 월 단위로 시작일을 구하며 월말·윤년을 보정한다. referenceDate로 명시적 기준일을 전달할 수 있다. custom 클릭은 날짜를 유지하고, 텍스트/네이티브 date 입력 편집은 날짜와custom을 함께 전달한다. 외부 교체 데이터는 현재 props에서 읽으며 effect로 편집값을 동기화하지 않는다.
+
+onSearch는 period/start/end 전체를 전달하며 선택만으로 조회하지 않는다. Promise 완료까지 입력/기간/조회 버튼을 막고 ref 잠금으로 같은 요청의 중복 실행을 방지한다. 실패하면 값을 유지하고 오류 및 재시도를 제공한다. 실제 요청·날짜 유효성 검증·목록/total/next 상태·응답 순서 관리는 연결 owner가 담당한다. 현재 OrdersPage와 InquiryOrderLookup의 onSearch는 미연결이며 목록은 fixture다. 공용화가 실제 API/필터링 구현을 의미하지 않는다. 두 소유자와 공용 컴포넌트의 [ 개발팀 바인딩 ] 주석에 이 경계를 기록한다. 모달의 기존 선택·더보기·닫기/확인 동작은 유지한다.
+
+검증: 주문 없음과 모달 custom에서 PC1440/MO844/375의 모든 preset 날짜 갱신·직접 편집custom 전환·상시 입력을 확인했다. 기준일2026-11-18의1/3/6/12개월 결과가2026-10-18/08-18/05-18/2025-11-18이었다. 조회/날짜 수직 중심차0px, 가로 넘침 없음과 캡처를 확인했다. 기본 주문·취소 빈 목록·모달 기본/빈 목록을 PC/MO에서 추가 확인했고 모달 열린 채 resize와 입력 Tab 초점도 확인했다. 임시 검증 화면에서2032년 윤년·외부 값 교체·pending 입력 잠금·중복 차단·실패 후 입력 보존·재시도 성공·전체 payload·기본/undefined/inline/stacked를 검증하고 검증용 route 파일은 제거했다. 네이티브 date 변경은 입력/변경 이벤트로 검증했으며 OS 달력 팝업 조작을 확인했다고 기록하지 않는다. date-range 단위 검사는 월말·윤년·해 경계·4개 preset을 포함한다.
+
+출처: 사용자 요청/스크린샷·브라우저 주석과 src/components/common/molecules/DateRangeSearch.tsx·dateRange.ts, OrdersPage/OrdersContent/OrdersList/OrdersStatus, InquiryOrderLookup, ModalDialog.recipe.tsx 및 tests/date-range.test.mjs 작업 트리. 기존 경로·플랫폼 owner·표시 목록 계약을 유지했다. hoka-markup-handoff와 React 검토로 state owner·wrapper 제거·Panda·기본값·콜백 경계를 확인했다. 기록: Codex, 2026-11-18.
+
+## 취소/반품 빈 목록 PC 표 헤더 (2026-11-18)
+
+현재 [HOKA 화면 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 취소/반품 상품 없음 화면에 따라 ClaimHistoryList는 PC 빈 목록에서도 상품정보·주문일자·수량·금액·처리상태 헤더를 표시한다. 844px 영역의 컬럼은344/120/120/140/120px이며 헤더 높이67px·상단2px/하단1px 검정선과 Pretendard20px·700·행간24px·자간-0.02em·#000을 사용한다. 상품이 있는 PC 목록도 같은5개 컬럼을 사용하고 수량은 전달받은 line.quantity를 그대로 표시한다. 모바일 목록과 빈 안내에는 PC 헤더를 추가하지 않는다.
+
+EmptyState의 claimHistory layout은 PC 높이267px·중앙 배치·하단 #E9EAEB 1px, 안내16px·400·행간24px·#4D4D4D로 맞췄다. 모바일은 기존 padding96px·본문14px·행간18.2px와 무테두리를 유지한다. 주문 없음의 별도 모바일21px 지정과 혼동하지 않는다. heading형 제목 규칙은 본문형 안내에 적용하지 않았다.
+
+실제 검증: PC1920/1440의 빈/유상품 취소 목록에서5개 헤더,344/120/120/140/120px 컬럼·높이67px·20/700/24px·검정색·빈 영역267px·16/24px·하단선을 실측하고 캡처했다. MO375의 빈/유상품 목록은 헤더 없이 기존 표현을 유지하며 날짜/조회는 상시 보이고 수직 중심차0px와 가로 넘침 없음이다. 문의 모달 기본 화면도 PC1920/1440·MO375에서 입력 상시 표시와 버튼 중심차0px를 확인했다. 출처: 사용자 요청·현재 시안의 구조/수치, OrdersList.tsx와 EmptyState.recipe.tsx 작업 트리. 마지막 hoka-markup-handoff 검수에서 기존 컴포넌트/상태 소유자·Panda·PC/MO·바인딩 경계를 확인했다. 기록: Codex, 2026-11-18.
+
+최종 검증 추가(2026-11-18): 취소/반품 변경까지 포함한 전체 Next 빌드가163개 정적 페이지 생성으로 통과했다. 대상 ESLint·Prettier·TypeScript·Panda·기존/추가 검사3개와 작업 트리 OKF 누락 없음, diff 공백 검사를 확인했다. 기존 staged index의 변경 전후 해시는 동일하며 이번 변경을 스테이징·커밋하지 않았다.
+
+- 병합 충돌을 해결하며 마이페이지 공통 파일 이동과 EmptyState recipe를 함께 유지했다. 상품내역 빈 화면 세 곳은 제목과 구분선, 모바일 남은 공간 가운데 정렬을 유지한다.

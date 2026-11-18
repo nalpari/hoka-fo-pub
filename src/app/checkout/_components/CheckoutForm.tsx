@@ -1,11 +1,8 @@
 'use client';
 
-import Link from 'next/link';
-
 import { Box, Grid, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
-import { Typography } from '@/components/common/atoms/Typography';
 
 import { OrderActionBar } from '@/components/common/layouts/OrderActionBar';
 
@@ -104,17 +101,5 @@ export function CheckoutContent({
         </Stack>
       </Stack>
     </Grid>
-  );
-}
-
-/** 주문할 상품이 없는 상태를 표시합니다. (Displays checkout without orderable items.) */
-export function CheckoutEmptyState() {
-  return (
-    <Stack as="section" alignItems="center" gap="4" py="20">
-      <Typography as="p" variant="body3">
-        주문할 상품이 없습니다.
-      </Typography>
-      <Link href="/cart">장바구니로 돌아가기</Link>
-    </Stack>
   );
 }

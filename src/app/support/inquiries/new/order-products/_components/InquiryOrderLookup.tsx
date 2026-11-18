@@ -7,11 +7,11 @@ import { Box, Flex, Stack, VStack } from 'styled-system/jsx';
 import { Badge } from '@/components/common/atoms/Badge';
 import { Button } from '@/components/common/atoms/Button';
 import { Checkbox } from '@/components/common/atoms/Checkbox';
-import { FilterTabs } from '@/components/common/atoms/FilterTabs';
 import { Icon } from '@/components/common/atoms/Icon';
 import { Radio } from '@/components/common/atoms/Radio';
 import { Typography } from '@/components/common/atoms/Typography';
 
+import type { DateRangeValue } from '@/components/common/molecules/dateRange';
 import { DateRangeSearch } from '@/components/common/molecules/DateRangeSearch';
 import { OrderProductSummary } from '@/components/common/molecules/OrderProductSummary';
 
@@ -20,19 +20,13 @@ import { modalOrderLookupContentRecipe } from '@/components/common/layouts/Modal
 
 import { type InquiryOrder, inquiryOrders } from '@/app/support/inquiries/new/inquiryOrders.data';
 import { type InquiryOrderSelection } from '@/app/support/inquiries/new/inquiryOrders.data';
-const periodOptions = [
-  { value: '1y', label: '1년' },
-  { value: '6m', label: '6개월' },
-  { value: '3m', label: '3개월' },
-  { value: '1m', label: '1개월' },
-  { value: 'custom', label: '직접설정' },
-] as const;
 const classes = modalOrderLookupContentRecipe();
 
 const styles = modalOrderLookupContentRecipe.raw();
 
 export type InquiryLookupPreview = { empty?: boolean; period?: 'custom'; selected?: boolean };
 
+/** [ 개발팀 바인딩 ] dateRange는 모달의 기간 편집 초안이고 DateRangeSearch는 onValueChange로 전체 값을 갱신합니다. 현재 onSearch는 미연결이며 주문 목록은 fixture입니다. 실제 문의 소유자가 period/start/end 요청, pending/오류·재시도, 성공 후 목록/count 갱신과 오래된 응답 배제를 연결해야 합니다. 날짜 편집만으로 목록·선택 상태를 초기화하거나 모달을 닫지 않습니다. */
 /** 문의 대상 주문과 상품을 선택하는 모달입니다. (Selects an order and products for an inquiry.) */
 export function InquiryOrderLookup({
   preview,
@@ -54,15 +48,15 @@ export function InquiryOrderLookup({
         ? { order: inquiryOrders[0], products: inquiryOrders[0].products.slice(0, 1) }
         : null),
   );
-  const [period, setPeriod] = useState<(typeof periodOptions)[number]['value']>(
-    preview?.period ?? '1y',
-  );
+  const [dateRange, setDateRange] = useState<DateRangeValue>({
+    period: 'custom',
+    start: '2026-01-01',
+    end: '2026-08-30',
+  });
   const [expandedOrder, setExpandedOrder] = useState<string | null>(
     initialSelection?.order.id ?? inquiryOrders[0]?.id ?? null,
   );
   const [visibleCount, setVisibleCount] = useState(5);
-  const [dateFrom, setDateFrom] = useState('2026-01-01');
-  const [dateTo, setDateTo] = useState('2026-08-30');
   const filteredOrders = preview?.empty
     ? []
     : inquiryOrders.map((order, index) =>
@@ -126,29 +120,7 @@ export function InquiryOrderLookup({
         </Stack>
 
         <Stack css={styles.filters}>
-          <FilterTabs
-            ariaLabel="주문 조회 기간"
-            value={period}
-            onValueChange={setPeriod}
-            options={periodOptions}
-            variant="fill"
-            railClassName={classes.tabs}
-            itemClassName={() => classes.tab}
-          />
-          {period === 'custom' && (
-            <Flex alignItems="center" justifyContent="space-between" gap="16px">
-              <DateRangeSearch
-                dates={{ start: dateFrom, end: dateTo }}
-                onDateChange={(key, value) => {
-                  if (key === 'start') setDateFrom(value);
-                  else setDateTo(value);
-                }}
-              />
-              <Button variant="link" size="md">
-                조회
-              </Button>
-            </Flex>
-          )}
+          <DateRangeSearch value={dateRange} onValueChange={setDateRange} layout="stacked" />
           <Stack css={styles.results}>
             <Flex css={styles.count}>
               <Typography variant="body4">

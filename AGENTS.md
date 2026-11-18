@@ -58,6 +58,12 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - Treat zero-production-use and story-only components separately. Confirm all references and the authorized deletion scope before removing them; Preview use alone proves neither production reuse nor permission to delete. Preserve useful scenarios as fixed state URLs within that scope.
 - Preserve HTML semantics, responsive values, accessibility, form ownership, focus and state lifetime. File-count reduction alone is not sufficient; verify both the new options and unchanged default callers, including relevant PC/mobile states.
 
+## Shared component defaults
+
+- When adding or refactoring an optional presentation prop such as `variant`, explicitly define its existing default in the component parameter and the corresponding Panda recipe `defaultVariants`. Preserve existing explicit default variant selections unless removal is explicitly requested. Keep the prop optional so omission and explicit `undefined` preserve the same existing behavior; do not make existing callers supply a new required prop merely to support a recipe extraction.
+- Verify omitted, explicit `undefined`, default and every retained explicit variant, including existing content/action slots and overrides. Run lint and TypeScript checks against existing callers; distinguish type errors from lint errors and do not claim a reported integration failure is fixed without its actual diagnostics. Document the default in the public prop JSDoc and handoff guide.
+- Preserve intentionally required discriminants and incompatible prop combinations. Do not invent defaults for service decisions, identifiers, submission data or a presentation contract that requires caller selection.
+
 ## Shared worktree rules
 
 - Record the index and relevant working-tree contents before changing files shared with other chats. Treat another chat's changes as concurrent work; do not reset, overwrite, or include them merely because they share a file.

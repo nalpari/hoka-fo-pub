@@ -447,19 +447,23 @@ export function MyPageProductHistory({
         />
         {!items.length ? (
           <EmptyState
+            layout={kind === 'wishlist' ? 'wishlist' : restock ? 'restock' : 'history'}
             variant="page"
             role="status"
             title={`${current.empty}${kind === 'recent' || (kind === 'wishlist' && platform === 'web') ? '' : '.'}`}
             description={
-              restock
-                ? current.note.replace(/^\* /gm, '').replace(/\n/g, ' ')
-                : current.note.replace(/^\* /, '')
+              kind === 'recent' && platform === 'web' ? (
+                <>
+                  최근 본 상품은 최근에 본 순서대로 최대 50개까지의 상품을 보여드리며,
+                  <br />
+                  14일간 유지됩니다.
+                </>
+              ) : restock ? (
+                current.note.replace(/^\* /gm, '').replace(/\n/g, ' ')
+              ) : (
+                current.note.replace(/^\* /, '')
+              )
             }
-            titleProps={{ as: 'p', web: 'headingKr7', mo: 'headingKr5' }}
-            descriptionProps={{
-              web: 'body3',
-              mo: 'body4',
-            }}
           />
         ) : restock ? (
           <Stack gap="16px">
