@@ -6,7 +6,6 @@ import { usePlatform } from '@/context/platform';
 import { css } from 'styled-system/css';
 import { Box, Grid, Stack } from 'styled-system/jsx';
 
-import { Button } from '@/components/common/atoms/Button';
 import { Divider } from '@/components/common/atoms/Divider';
 import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { Typography } from '@/components/common/atoms/Typography';
@@ -16,7 +15,6 @@ import { OrderProductSummary } from '@/components/common/molecules/OrderProductS
 import { ProductCard } from '@/components/common/molecules/ProductCard/ProductCard';
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
-import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
 import { MyPageFrame } from '@/app/mypage/_components/MyPageFrame';
 import { type Product, products } from '@/mocks/products';
@@ -26,7 +24,6 @@ type PreviewItem = HistoryItem & { apparel?: boolean };
 type Props = {
   entries?: readonly HistoryItem[];
   items: readonly HistoryItem[];
-  onCancelRequest: () => void;
 };
 const restockPreview = {
   web: {
@@ -42,7 +39,7 @@ const restockPreview = {
     statuses: ['waiting', 'waiting'],
   },
 } as const;
-function MyPageRestockList({ items, onCancelRequest, entries }: Props) {
+function MyPageRestockList({ items, entries }: Props) {
   const platform = usePlatform();
   const preview = restockPreview[platform];
   return (
@@ -113,34 +110,9 @@ function MyPageRestockList({ items, onCancelRequest, entries }: Props) {
               {requestedAt}
             </Typography>
             <Box textAlign="center" _mobile={{ alignSelf: 'center' }}>
-              {sent ? (
-                <Typography variant="body3" tone="subtle">
-                  발송완료
-                </Typography>
-              ) : (
-                <Button
-                  variant="unstyled"
-                  type="button"
-                  aria-label={`${name} 재입고 알림 취소`}
-                  onClick={onCancelRequest}
-                  className={css({
-                    border: '0',
-                    bg: 'transparent',
-                    p: '0',
-                    cursor: 'pointer',
-                    _focusVisible: { outline: '2px solid', outlineOffset: '4px' },
-                  })}
-                >
-                  <Typography
-                    web="body3"
-                    mo="body4"
-                    language="ko"
-                    className={css({ _mobile: { color: 'black.50' } })}
-                  >
-                    알림대기
-                  </Typography>
-                </Button>
-              )}
+              <Typography variant="body3" tone="subtle">
+                {sent ? '발송완료' : '알림대기'}
+              </Typography>
             </Box>
           </Grid>
         );
@@ -245,39 +217,6 @@ function MyPageProductHistoryNote({
         </Typography>
       </Box>
     </Box>
-  );
-}
-type MyPageRestockCancelDialogProps = {
-  pending?: boolean;
-  error?: string;
-  open: boolean;
-  onClose: () => void;
-  onConfirm: () => void;
-};
-function MyPageRestockCancelDialog({
-  open,
-  onClose,
-  onConfirm,
-  pending,
-}: MyPageRestockCancelDialogProps) {
-  return (
-    <ModalDialog
-      variant="confirm"
-      closeLabel="재입고 알림 취소창 닫기"
-      onOpenChange={(nextOpen) => {
-        if (!nextOpen && !pending) onClose();
-      }}
-      open={open}
-
-      title="재입고 알림 취소"
-      actions={{
-        kind: 'confirm',
-        onConfirm: onConfirm,
-        fullWidth: false,
-        confirmDisabled: pending,
-      }}
-      message={<>재입고 알림 신청을 취소하시겠습니까?</>}
-    />
   );
 }
 type ProductHistoryKind = 'wishlist' | 'recent' | 'restock-alerts';
@@ -394,7 +333,7 @@ const config = {
   'restock-alerts': {
     title: '재입고 알림 상품',
     empty: '재입고 알림 상품 목록이 비어있습니다',
-    note: '* 품절 상품의 재입고 알림을 신청하면, 재입고 시 카카오톡 알림 메세지로 알려드립니다.\n* 알림 신청은 재입고 알림을 지원하는 품절 상품의 상세 화면에서 할 수 있으며, 알림 대기 중인 신청은 여기서 취소할 수 있습니다.',
+    note: '* 품절 상품의 재입고 알림을 신청하면, 재입고 시 카카오톡 알림 메세지로 알려드립니다.\n* 알림 신청은 재입고 알림을 지원하는 품절 상품의 상세 화면에서 할 수 있습니다.',
   },
 } as const;
 /** 계정의 상품 내역과 목록 상태를 구성합니다 (Displays the my page product history composition). */
@@ -413,7 +352,6 @@ export function MyPageProductHistory({
   const liked = items
     .filter((item) => likedOverrides[item.id] ?? item.liked)
     .map((item) => item.id);
-  const [cancelOpen, setCancelOpen] = useState(false);
   const current = config[kind];
   const restock = kind === 'restock-alerts';
   return (
@@ -467,11 +405,7 @@ export function MyPageProductHistory({
           />
         ) : restock ? (
           <Stack gap="16px">
-            <MyPageRestockList
-              entries={entries}
-              items={items}
-              onCancelRequest={() => setCancelOpen(true)}
-            />
+            <MyPageRestockList entries={entries} items={items} />
             <Box whiteSpace="pre-line">
               <Typography as="p" variant="body5" tone="tertiary">
                 {current.note}
@@ -504,14 +438,6 @@ export function MyPageProductHistory({
           <MyPageProductHistoryNote recent note={current.note} />
         )}
       </Stack>
-      <MyPageRestockCancelDialog
-        pending={false}
-        open={cancelOpen}
-        onClose={() => setCancelOpen(false)}
-        onConfirm={() => {
-          setCancelOpen(false);
-        }}
-      />
     </MyPageFrame>
   );
 }

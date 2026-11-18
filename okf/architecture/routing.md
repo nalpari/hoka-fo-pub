@@ -2162,3 +2162,5 @@ EmptyState 기본 제목 태그를 p로 통일하고 호출부의 불필요한 t
 ## 기간 조회 공용화와 취소 빈 표 헤더 (2026-11-18)
 
 주문/취소 목록과 문의 주문 상품 조회의 기존 경로·page 진입점은 유지한다. OrdersContent는 dateSearch props로 공용 UI 계약을 전달하고 OrdersPage/문의 모달이 초안을 소유한다. OrdersFilters 전달 wrapper를 제거했으며 임시 상호작용 검증 route는 삭제했다. 취소 빈 목록의 PC 표 헤더를 항상 표시하고 수량 컬럼을 본문과 맞췄다. 상세 계약·검증: [공용 기간 UI](ui.md#공용-기간날짜-조회-ui-2026-11-18), [취소 빈 표](ui.md#취소반품-빈-목록-pc-표-헤더-2026-11-18). 출처: OrdersPage/OrdersContent/OrdersList/OrdersStatus·InquiryOrderLookup 작업 트리.
+
+- 재입고 알림 목록은 대기·발송 상태를 텍스트로 표시하며 취소 모달을 제공하지 않는다. 기존 목록 및 빈 화면 주소는 유지한다.
