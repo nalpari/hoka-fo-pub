@@ -367,10 +367,12 @@ export function MyPageProductHistory({
     '* 품절 상품의 재입고 알림을 신청하면, 재입고 시 카카오톡 알림 메세지로 알려드립니다.\n* 알림 신청은 재입고 알림을 지원하는 품절 상품의 상세 화면에서 할 수 있으며, 알림 대기 중인 신청은 여기서 취소할 수 있습니다.';
   return (
     <MyPageFrame
+      fillAvailable={!items.length}
       activePath={`/mypage/${kind}`}
       breadcrumbs={[{ label: '상품내역', href: '/mypage' }, { label: current.title }]}
     >
       <Stack
+        flex={!items.length ? '1' : undefined}
         gap={restock || !items.length ? '0' : '32px'}
         mx={
           items.length > 0 && (kind === 'wishlist' || kind === 'recent')
@@ -435,25 +437,6 @@ export function MyPageProductHistory({
               web: 'body3',
               mo: 'body4',
             }}
-            layoutProps={css.raw({
-              minH: '795px',
-              pt: '160px',
-              pb: '0',
-              justifyContent: 'flex-start',
-              _mobile:
-                kind === 'wishlist'
-                  ? {
-                      minH: 'calc(100svh - var(--layout-site-header-height) - 156px)',
-                      pt: '200px',
-                      pb: '0',
-                    }
-                  : {
-                      minH: 'calc(100svh - var(--layout-site-header-height) - 106px)',
-                      py: '0',
-                      justifyContent: 'center',
-                      ...(restock ? { mt: '-24px' } : {}),
-                    },
-            })}
           />
         ) : restock ? (
           <MyPageRestockList entries={entries} items={items} onCancelRequest={setPendingCancel} />

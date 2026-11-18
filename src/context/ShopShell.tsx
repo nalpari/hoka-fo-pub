@@ -161,10 +161,7 @@ function MenuDrawerHeader({ close, isLoggedIn, closeButtonRef }: MenuDrawerHeade
           <Icon name="hoka-user-regular" size="18px" aria-hidden="true" />
           <HStack gap="4px">
             <Typography variant="body3">
-<Typography variant="body3Semibold">
-                김호카
-              </Typography>
-              님
+              <Typography variant="body3Semibold">김호카</Typography>님
             </Typography>
             <ButtonLink href="/mypage" variant="link" size="md" onNavigate={close}>
               <Typography variant="body3">마이페이지</Typography>
@@ -630,9 +627,7 @@ function MenuDrawerUtilityLinks({ onNavigate }: { onNavigate: () => void }) {
               >
                 <Icon name={item.icon} size={16} color="black.10" aria-hidden="true" />
               </Flex>
-<Typography variant="body4Semibold">
-                {item.label}
-              </Typography>
+              <Typography variant="body4Semibold">{item.label}</Typography>
             </Link>
           </li>
         ))}
@@ -2818,20 +2813,30 @@ function AppLayout({
   if (pathname === '/screen-index') return <>{children}</>;
   return (
     <>
-      {!searchPage && (
-        <SiteHeader
-          fixedOnScroll={platform === 'mobile' && pathname === '/products'}
-          cart={cart}
-          onMenu={() => setMenuOpen(true)}
-          isLoggedIn={isLoggedIn}
-          wishlistCount={wishlistCount}
-          recentCount={recentCount}
-        />
-      )}
-      {platform === 'mobile' && menuOpen && (
-        <MenuDrawer close={() => setMenuOpen(false)} isLoggedIn={isLoggedIn} />
-      )}
-      {children}
+      <div
+        className={css({
+          '&:has(main[data-fill-available])': {
+            minH: '100dvh',
+            display: 'flex',
+            flexDirection: 'column',
+          },
+        })}
+      >
+        {!searchPage && (
+          <SiteHeader
+            fixedOnScroll={platform === 'mobile' && pathname === '/products'}
+            cart={cart}
+            onMenu={() => setMenuOpen(true)}
+            isLoggedIn={isLoggedIn}
+            wishlistCount={wishlistCount}
+            recentCount={recentCount}
+          />
+        )}
+        {platform === 'mobile' && menuOpen && (
+          <MenuDrawer close={() => setMenuOpen(false)} isLoggedIn={isLoggedIn} />
+        )}
+        {children}
+      </div>
       {!searchPage && <SiteFooter />}
     </>
   );

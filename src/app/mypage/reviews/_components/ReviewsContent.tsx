@@ -168,8 +168,13 @@ export function ReviewsContent({
       : reviewStatePreview[state === 'edit' ? 'edit' : 'new'];
   const { items, totalCount, more } = display;
   return (
-    <MyPageFrame activePath="/mypage/reviews" breadcrumbs={[{ label: '상품리뷰' }]}>
+    <MyPageFrame
+      fillAvailable={items.length === 0}
+      activePath="/mypage/reviews"
+      breadcrumbs={[{ label: '상품리뷰' }]}
+    >
       <ContentSection
+        flex={items.length === 0 ? '1' : undefined}
         title="상품리뷰"
         headerProps={{
           titleAs: 'h1',
@@ -179,7 +184,11 @@ export function ReviewsContent({
         _mobile={{ gap: '24px', pt: '24px' }}
         css={{ '--line-heights-body': '1.5' }}
       >
-        <Box>
+        <Box
+          display={items.length === 0 ? 'flex' : undefined}
+          flexDirection="column"
+          flex={items.length === 0 ? '1' : undefined}
+        >
           {/* [ 개발팀 바인딩 ] 정렬 선택은 현재 화면의 로컬 상태이며 서버 조회와 목록 갱신은 연동 소유자가 담당합니다. */}
           <SegmentedControl
             ariaLabel="상품리뷰 구분"
@@ -275,17 +284,6 @@ export function ReviewsContent({
                 web: 'headingKr7',
                 mo: 'headingKr5',
               }}
-              layoutProps={css.raw({
-                minH: '755px',
-                pt: '160px',
-                pb: '0',
-                justifyContent: 'flex-start',
-                _mobile: {
-                  py: '0',
-                  minH: 'calc(100svh - var(--layout-site-header-height) - 186px)',
-                  justifyContent: 'center',
-                },
-              })}
             />
           )}
         </Box>

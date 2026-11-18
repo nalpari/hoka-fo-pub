@@ -16,6 +16,7 @@ type MyPageFrameProps = {
   breadcrumbs?: BreadcrumbItem[];
   layout?: MyPageFrameLayout;
   children: ReactNode;
+  fillAvailable?: boolean;
 };
 
 /** 공통 위치의 경로와 메인 전용 사이드바 없는 본문을 배치합니다. (Positions shared breadcrumbs and omits the sidebar for the my page overview.) */
@@ -24,10 +25,15 @@ export function MyPageFrame({
   breadcrumbs = [],
   layout = 'sidebar',
   children,
+  fillAvailable = false,
 }: MyPageFrameProps) {
   return (
     <Box
       as="main"
+      data-fill-available={fillAvailable ? 'true' : undefined}
+      flex={fillAvailable ? '1' : undefined}
+      display={fillAvailable ? 'flex' : undefined}
+      flexDirection={fillAvailable ? 'column' : undefined}
       w="min(calc(100% - var(--layout-web-content-inline-space)), 1532px)"
       mx="auto"
       pb="96px"
@@ -41,6 +47,7 @@ export function MyPageFrame({
         ]}
       />
       <Grid
+        flex={fillAvailable ? '1' : undefined}
         w="1200px"
         maxW="100%"
         mx="auto"
@@ -48,7 +55,12 @@ export function MyPageFrame({
         pt="56px"
         gridTemplateColumns={layout === 'centered' ? 'minmax(0, 1fr)' : '190px minmax(0, 1fr)'}
         gap="98px"
-        _mobile={{ display: 'block', px: '0', pt: '0' }}
+        _mobile={{
+          display: fillAvailable ? 'flex' : 'block',
+          flexDirection: 'column',
+          px: '0',
+          pt: '0',
+        }}
       >
         {layout === 'sidebar' ? (
           <SideNavigation
@@ -66,7 +78,14 @@ export function MyPageFrame({
             })}
           />
         ) : null}
-        <Box minW="0">{children}</Box>
+        <Box
+          minW="0"
+          display={fillAvailable ? 'flex' : undefined}
+          flexDirection={fillAvailable ? 'column' : undefined}
+          flex={fillAvailable ? '1' : undefined}
+        >
+          {children}
+        </Box>
       </Grid>
     </Box>
   );

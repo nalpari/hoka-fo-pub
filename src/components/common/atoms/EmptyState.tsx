@@ -26,6 +26,7 @@ type EmptyStateProps = {
     | 'alignItems'
     | 'justifyContent'
     | 'minH'
+    | 'flex'
     | 'gap'
   >;
   titleProps?: Pick<
@@ -72,7 +73,9 @@ function EmptyStateRoot({
       {description}
     </Typography>
   ) : null;
-  const actionContent = action ? <Box>{action}</Box> : null;
+  const actionContent = action ? (
+    <Box _mobile={{ width: variant === 'page' ? '100%' : undefined }}>{action}</Box>
+  ) : null;
 
   if (variant === 'page' || variant === 'content') {
     return (
@@ -82,18 +85,18 @@ function EmptyStateRoot({
         aria-label={label}
         role={role}
         alignItems="center"
-        justifyContent="center"
+        justifyContent={variant === 'page' ? 'flex-start' : 'center'}
+        flex={variant === 'page' ? '1' : undefined}
         gap={variant === 'page' && actionContent ? '8' : '4'}
         w="100%"
         minH={variant === 'content' ? '267px' : undefined}
-        py={variant === 'page' ? '160px' : '0'}
-        px="3"
+        pt={variant === 'page' ? '160px' : '0'}
+        pb="0"
         textAlign="center"
         color="black.100"
         {...layoutProps}
         _mobile={{
-          px: '3',
-          ...(variant === 'content' ? { minH: '154px' } : { py: '8' }),
+          ...(variant === 'content' ? { minH: '154px' } : { py: '0', justifyContent: 'center' }),
           ...layoutProps?._mobile,
         }}
       >
@@ -101,7 +104,8 @@ function EmptyStateRoot({
           gap="4"
           w="100%"
           maxW={variant === 'content' ? '320px' : '520px'}
-          _mobile={{ maxW: 'none' }}
+          px="20px"
+          _mobile={{ maxW: 'none', px: '12px' }}
         >
           {title ? titleContent : null}
           {descriptionContent}
@@ -119,7 +123,7 @@ function EmptyStateRoot({
         role={role}
         textAlign="center"
         {...layoutProps}
-        _mobile={{ px: '3', ...layoutProps?._mobile }}
+        _mobile={{ ...layoutProps?._mobile }}
       >
         {titleContent}
         {descriptionContent}

@@ -10,6 +10,7 @@ generated:
   at: '2026-11-02T09:59:35Z'
 source_revision: 84b1d96781349d795089b9e2f737aad11a02172d
 working_tree_sources:
+  - src/context/ShopShell.tsx
   - src/app/checkout/checkout-address-preview.ts
   - src/context/ShopShell.tsx
   - src/types/component-contracts/context-ShopShell.d.ts
@@ -808,3 +809,5 @@ ShopShell 알림 아이콘은 hoka- 이름의 쇼핑백·장바구니·계정 SV
 CheckoutShipping의 dialog 폼은 기존 ShippingDraft에 addressName을 추가하고 Address.name으로 초기화한다. inline 폼의 이메일·필드 구성은 유지한다. 시안의 목록 네 행과 1/10은 checkoutAddressPreview·checkoutAddressPagePreview에 명시하며, 연결된 context가 있으면 현재 addresses를 그대로 읽는다. 편집 중 들어온 데이터로 draft를 덮어쓰는 effect는 추가하지 않는다.
 
 추가·수정·취소·입력·체크·닫기는 기존 로컬 UI다. 저장·삭제·더보기 버튼은 시안의 활성 외형만 표시하며 미연결 handler는 만들지 않는다. 저장·삭제·추가 조회·완료 이동은 실행하지 않는다. 브라우저에서 저장 클릭 후 팝업·초안 유지, 취소 시 목록 복귀, 추가 시 빈 배송지명, Escape 후 포커스 복귀를 확인했다. 실제 API와 submission payload는 주문서 연결 소유자가 구현할 경계이며 이번 디자인 변경을 서비스 구현으로 보지 않는다. 출처: CheckoutShipping.tsx·checkout-address-preview.ts 작업 트리 및 localhost, Codex, 2026-11-13.
+
+배송지 빈 화면은 셸의 화면 높이 영역과 MyPageFrame의 fillAvailable 배치를 통해 모바일 남은 공간을 채운다. 기존 플랫폼 및 화면 상태 소유권은 유지한다.
