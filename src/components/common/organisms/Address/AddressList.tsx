@@ -113,7 +113,7 @@ export function AddressList({
                       gap="3"
                       _mobile={{ gap: '2' }}
                       action={
-                        address.isDefault ? (
+                        address.isDefault || !embedded ? (
                           <Badge
                             variant="line"
                             tone="primary"
@@ -130,11 +130,7 @@ export function AddressList({
                               },
                             })}
                           >
-                            기본 배송지
-                          </Badge>
-                        ) : !embedded && mobile ? (
-                          <Badge variant="line" tone="primary">
-                            일반 배송지
+                            {address.isDefault ? '기본 배송지' : '일반 배송지'}
                           </Badge>
                         ) : null
                       }

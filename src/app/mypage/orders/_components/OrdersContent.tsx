@@ -5,7 +5,7 @@ import { Stack } from 'styled-system/jsx';
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 
-import { MyPageFrame } from '@/components/mypage/MyPageFrame';
+import { MyPageFrame } from '@/app/mypage/_components/MyPageFrame';
 import type {
   ClaimHistoryItem,
   OrderClaim,

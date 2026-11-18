@@ -16,7 +16,7 @@ import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
-import { MyPageFrame } from '@/components/mypage/MyPageFrame';
+import { MyPageFrame } from '@/app/mypage/_components/MyPageFrame';
 
 const couponDescription = css({
   color: 'black.100',

@@ -21,12 +21,12 @@ import { EmailAddressFields } from '@/components/common/organisms/EmailAddressFi
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
+import { MyPageFrame } from '@/app/mypage/_components/MyPageFrame';
 import {
   type Preference,
   type ProfileAddress,
   type ProfileEditProps,
 } from '@/app/mypage/profile/mypage-profile.types';
-import { MyPageFrame } from '@/components/mypage/MyPageFrame';
 import { type Errors, type FieldName } from '@/lib/passwordValidation';
 import { getPhoneDigits } from '@/lib/phoneNumber';
 

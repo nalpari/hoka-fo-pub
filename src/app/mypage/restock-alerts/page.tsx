@@ -6,7 +6,7 @@
  * page의 props를 늘리거나 목 개수를 실제 데이터로 사용하지 말고 연결 시 실제 items/totalCount/hasMore를 전달합니다.
  */
 
-import { MyPageProductHistory } from '@/components/mypage/MyPageProductHistory';
+import { MyPageProductHistory } from '@/app/mypage/_components/MyPageProductHistory';
 
 /** 재입고 알림 상품의 공용 목록과 취소 기능을 연결합니다. (Connects the shared restock listing and cancellation behavior.) */
 export default function Page() {

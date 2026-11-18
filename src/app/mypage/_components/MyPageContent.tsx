@@ -23,8 +23,8 @@ import { OrderProductSummary } from '@/components/common/molecules/OrderProductS
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
+import { MyPageFrame } from '@/app/mypage/_components/MyPageFrame';
 import { menuSections, type MyPageOrderItem, orderItems } from '@/app/mypage/mypage-home-data';
-import { MyPageFrame } from '@/components/mypage/MyPageFrame';
 type LogoutDialogProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;

@@ -244,7 +244,7 @@ ProfileStatePreview의 기본정보는 표시 fixture이며 저장·탈퇴·인�
 
 > 2026-11-05 현행화: `MyPageDataContext.histories`와 연결 story은(는) 2026-11-02 [전체 화면 퍼블리싱 인계](state.md#전체-화면-퍼블리싱-인계-2026-11-02)에서 제거됐다. 이 절은 제거 전 기록이며 현재 계약은 [현재 연결 경계](#현재-연결-경계-2026-11-05)를 따른다.
 
-작업 트리 출처: `src/context/MyPageDataContext.ts`, `src/components/mypage/MyPageProductHistory.tsx`, `src/stories/features/mypage/MyPage.RestockAlerts.Web.stories.tsx`. `histories['restock-alerts'].items`의 각 `HistoryItem`은 `status?: 'waiting' | 'sent'`를 공급할 수 있다. product의 이름·성별·이미지, 신청일·신청 ID는 현재 Provider 값을 읽으며 status 생략은 기존 알림대기를 유지한다. sent는 취소 액션 없이 발송완료로 표시한다. 서비스 DTO 매핑·목록 갱신과 오래된 응답 배제는 연결 소유자가 담당한다. 취소의 기존 pending/실패/성공 계약을 보존하고 PC/MO의 서로 다른 시안 예시는 미연결 restockPreview에 한정했다. WEB 연결 story의 수동 응답으로 late/replaced 데이터, pending/실패/재시도/성공을 확인했다. 실제 API·인증·영속 저장 구현은 추가하지 않았다.
+작업 트리 출처: `src/context/MyPageDataContext.ts`, `src/app/mypage/_components/MyPageProductHistory.tsx`, `src/stories/features/mypage/MyPage.RestockAlerts.Web.stories.tsx`. `histories['restock-alerts'].items`의 각 `HistoryItem`은 `status?: 'waiting' | 'sent'`를 공급할 수 있다. product의 이름·성별·이미지, 신청일·신청 ID는 현재 Provider 값을 읽으며 status 생략은 기존 알림대기를 유지한다. sent는 취소 액션 없이 발송완료로 표시한다. 서비스 DTO 매핑·목록 갱신과 오래된 응답 배제는 연결 소유자가 담당한다. 취소의 기존 pending/실패/성공 계약을 보존하고 PC/MO의 서로 다른 시안 예시는 미연결 restockPreview에 한정했다. WEB 연결 story의 수동 응답으로 late/replaced 데이터, pending/실패/재시도/성공을 확인했다. 실제 API·인증·영속 저장 구현은 추가하지 않았다.
 
 연결 검증: MyPage.Profile.Binding.stories.tsx의 실제 play에서 비데모 회원 ID의 late data, 저장 pending/실패·입력 보존·재시도·완료, 전체 제출값과 중복 비밀번호 요청 방지를 확인했다. 테스트 콜백이며 실제 API 검증을 의미하지 않는다.
 

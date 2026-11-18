@@ -20,13 +20,13 @@ import { OrderProductSummary } from '@/components/common/molecules/OrderProductS
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
+import { MyPageFrame } from '@/app/mypage/_components/MyPageFrame';
 import {
   demoWrittenReview,
   reviewListPreview,
   reviewStatePreview,
 } from '@/app/mypage/reviews/reviewFixtures';
 import type { ReviewListEntry, ReviewTab } from '@/app/mypage/reviews/reviews.types';
-import { MyPageFrame } from '@/components/mypage/MyPageFrame';
 import type { RatingValue } from '@/types/component-contracts/components-common-atoms-RatingStars-RatingStars';
 
 type ReviewDialogProps = {

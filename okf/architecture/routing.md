@@ -57,7 +57,7 @@ working_tree_sources:
   - src/app/screen-index/screenProgress.ts
   - src/components/common/molecules/OrderProductSummary.tsx
   - src/components/common/organisms/OrderRecommendations.tsx
-  - src/components/mypage/MyPageProductHistory.tsx
+  - src/app/mypage/_components/MyPageProductHistory.tsx
   - src/app/mypage/reviews/_components/MyPageReviewsContent.tsx
   - src/app/support/inquiries/new/order-products/_components/InquiryOrderLookup.tsx
   - src/app/publishing-guide/_components/ColorGuide.tsx
@@ -65,7 +65,7 @@ working_tree_sources:
   - src/app/mypage/orders/_components/OrderClaimRequest.tsx
   - src/app/mypage/orders/_components/OrdersPage.tsx
   - src/app/mypage/orders/_components/OrdersContent.tsx
-  - src/components/mypage/MyPageFrame.tsx
+  - src/app/mypage/_components/MyPageFrame.tsx
   - src/app/publishing-guide/page.tsx
   - src/app/publishing-guide/_components/ProductCardGuide.tsx
   - src/app/mypage/orders/_components/OrdersList.tsx
@@ -158,7 +158,7 @@ working_tree_sources:
   - src/context/MyPageDataContext.ts
   - src/stories/features/mypage/MyPage.Rewards.Web.stories.tsx
   - src/app/mypage/_components/MyPageContent.tsx
-  - src/components/mypage/MyPageFrame.tsx
+  - src/app/mypage/_components/MyPageFrame.tsx
   - src/app/login/find-account/page.tsx
   - src/app/login/find-account/_components/FindAccountStatePreview.tsx
   - src/app/support/store/_components/StoreContent.tsx
@@ -550,7 +550,7 @@ IA 표에 고정 개발담당자 열을 추가했다. `screenDevelopers.ts`는 [
 
 두 URL PC/MO 직접 진입·hydration 후 표현, 모바일 캐러셀·로그아웃 모달 닫기/포커스 복귀와 쿠폰 화면의 breadcrumb 간격을 확인했다. 1024px까지 모바일, 1025~1199px의 1200px 캔버스, 1200px 이상 가로 overflow 없음도 확인했다. 공통 플랫폼 판별은 수정하지 않았다. Next 빌드·타입 검사를 통과했다. 상세와 미실행 검사는 [디자인 반영](ui.md#마이페이지-메인-디자인-반영-2026-10-30)에 기록했다.
 
-작업 트리 출처: `src/app/mypage/_components/MyPageContent.tsx`, `src/components/mypage/MyPageFrame.tsx`. 기록 시점: 2026-10-30T16:46:00+09:00.
+작업 트리 출처: `src/app/mypage/_components/MyPageContent.tsx`, `src/app/mypage/_components/MyPageFrame.tsx`. 기록 시점: 2026-10-30T16:46:00+09:00.
 
 ## 매장 목록 제목 매핑 검토 (2026-10-30)
 
@@ -672,7 +672,7 @@ IA의 경로·클라이언트 경계는 유지한다. `storybookLinks.ts`의 실
 
 ## 마이페이지 홈 프레임 재사용 (2026-10-28)
 
-/mypage의 RouteContent는 MyPageFrame의 centered 레이아웃으로 main과 Home·마이페이지 breadcrumb를 구성한다. 페이지는 기존 본문과 로그아웃 상태·콜백, RoutePreview의 LogoutDialog 계약을 계속 소유한다. 하위 마이페이지는 기본 sidebar를 사용하고 URL·페이지 export·플랫폼 판별은 바꾸지 않았다. 작업 트리 출처: src/app/mypage/page.tsx, src/components/mypage/MyPageFrame.tsx. [프레임 API와 검증](ui.md#mypageframe-중앙-정렬-레이아웃-2026-10-28)을 참고한다.
+/mypage의 RouteContent는 MyPageFrame의 centered 레이아웃으로 main과 Home·마이페이지 breadcrumb를 구성한다. 페이지는 기존 본문과 로그아웃 상태·콜백, RoutePreview의 LogoutDialog 계약을 계속 소유한다. 하위 마이페이지는 기본 sidebar를 사용하고 URL·페이지 export·플랫폼 판별은 바꾸지 않았다. 작업 트리 출처: src/app/mypage/page.tsx, src/app/mypage/_components/MyPageFrame.tsx. [프레임 API와 검증](ui.md#mypageframe-중앙-정렬-레이아웃-2026-10-28)을 참고한다.
 
 ## 부모 옵션을 통한 계정·고객센터 구성 (2026-10-28)
 
@@ -1147,7 +1147,7 @@ npm run screen-files로 sourceGraph.generated.json을 현재 소스에 맞춰 �
 
 ### 주문 상세 모바일 breadcrumb 표시 (2026-11-03)
 
-`/mypage/orders/preview-detail`과 목록에서 상세로 들어온 화면은 기존 URL·`OrdersPage` 상태 소유권을 사용한다. `OrdersContent`가 상세 보기일 때 `MyPageFrame.hideMobileBreadcrumbs`를 설정해 모바일에서만 경로 표시를 숨긴다. PC breadcrumb와 다른 마이페이지 화면의 경로 표시에는 영향이 없다. 출처: `src/app/mypage/orders/_components/OrdersContent.tsx`, `src/components/mypage/MyPageFrame.tsx` 작업 트리.
+`/mypage/orders/preview-detail`과 목록에서 상세로 들어온 화면은 기존 URL·`OrdersPage` 상태 소유권을 사용한다. `OrdersContent`가 상세 보기일 때 `MyPageFrame.hideMobileBreadcrumbs`를 설정해 모바일에서만 경로 표시를 숨긴다. PC breadcrumb와 다른 마이페이지 화면의 경로 표시에는 영향이 없다. 출처: `src/app/mypage/orders/_components/OrdersContent.tsx`, `src/app/mypage/_components/MyPageFrame.tsx` 작업 트리.
 
 취소·반품 상세는 기존 `/mypage/orders/preview-cancel-detail`, `/mypage/orders/preview-return-detail` URL과 `OrdersPage` 상태 소유권을 유지한다. `OrdersContent`는 claim 보기에도 모바일 breadcrumb를 숨기고 제목 위 24px 여백을 제공한다. 두 고정 URL의 PC·모바일 렌더링과 1024/1025/1199/1200px 전환을 확인했다. 출처: `OrderDetails.tsx`, `OrdersContent.tsx` 작업 트리와 Ego 브라우저 검증.
 
@@ -2106,3 +2106,7 @@ IA247은 기존 `/search`와 `/search/preview-no-results`를 유지하며 모바
 - 회원정보 수정 기본 미리보기의 휴대폰 번호 예시를 표시하고 인증 입력은 해당 미리보기에서만 표시한다.
 
 - 회원정보 수정에서 비밀번호 설정 완료 표시를 버튼 아래에 배치하고 완료 미리보기에서 확인할 수 있다. 실제 저장 성공 여부는 연동 상태가 전달한다.
+
+- 관심상품·최근 본 상품·재입고 알림이 공유하는 MyPageProductHistory를 마이페이지 공통 _components로 옮겼다.
+
+- 마이페이지 공통 프레임을 app/mypage/_components로, 메뉴 데이터는 app/mypage로 옮기고 사용처를 연결했다.

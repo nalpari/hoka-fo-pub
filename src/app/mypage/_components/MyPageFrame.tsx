@@ -7,7 +7,7 @@ import { Breadcrumb, type BreadcrumbItem } from '@/components/common/molecules/B
 
 import { SideNavigation } from '@/components/common/layouts/SidebarNavigationLayout';
 
-import { myPageNavigation } from '@/components/mypage/mypage.data';
+import { myPageNavigation } from '@/app/mypage/mypage.data';
 
 type MyPageFrameLayout = 'sidebar' | 'centered';
 
