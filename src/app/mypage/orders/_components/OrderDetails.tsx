@@ -121,7 +121,7 @@ function DetailAmountRow({ label, amount }: { label: string; amount: number }) {
 export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
   const mobile = usePlatform() === 'mobile';
   return (
-    <Stack gap="0" mt={{ base: '24px', _mobile: '8px' }}>
+    <Stack gap="0">
       {!mobile ? (
         <Grid
           gridTemplateColumns="minmax(0, 1fr) 108px 200px"
@@ -156,63 +156,75 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
         </HStack>
         {display.activeItems.length ? (
           <Stack
-            gap={{ base: '24px', _mobile: '12px' }}
+            gap={{ base: '16px', _mobile: '12px' }}
             py={{ base: '16px', _mobile: '24px' }}
             borderBottom="1px solid var(--colors-black-20)"
           >
-            <HStack
-              justifyContent="space-between"
-              gap="8px"
-              pl={{ base: '24px', _mobile: '0' }}
-              pr={{ base: '24px', _mobile: '0' }}
-            >
-              <Typography variant="body4">
-                <Typography as="span" variant="body4Semibold" tone="red80">
-                  {display.status}
+            <Stack gap={{ base: '24px', _mobile: '12px' }}>
+              <HStack
+                justifyContent="space-between"
+                gap="8px"
+                pl={{ base: '24px', _mobile: '0' }}
+                pr={{ base: '24px', _mobile: '0' }}
+              >
+                <Typography variant="body4">
+                  <Typography as="span" variant="body4Semibold" tone="red80">
+                    {display.status}
+                  </Typography>
+                  {' · '}
+                  {display.expectedDate} 도착
                 </Typography>
-                {' · '}
-                {display.expectedDate} 도착
-              </Typography>
-              {!mobile ? (
-                <Button variant="link" size="md" onClick={actions.onDetail}>
-                  주문상세보기
-                </Button>
-              ) : null}
-            </HStack>
-            {display.activeItems.map((line) =>
-              mobile ? (
-                <OrderProductSummary
-                  variant="history"
-                  key={line.key}
-                  image={line.image}
-                  name={line.name}
-                  optionText={`${line.width}, ${line.color}, ${line.size}, ${mobile ? (line.mobileQuantity ?? line.quantity) : line.quantity}개`}
-                  amount={
-                    line.displayAmount === undefined
-                      ? undefined
-                      : mobile
-                        ? (line.mobileDisplayAmount ?? line.displayAmount)
-                        : line.displayAmount
-                  }
-                  cartAction
-                />
-              ) : (
-                <Grid
-                  key={line.key}
-                  gridTemplateColumns="minmax(0, 1fr) 108px 200px"
-                  gap="0"
-                  alignItems="center"
-                >
-                  <DetailProduct line={line} />
-                </Grid>
-              ),
-            )}
+                {!mobile ? (
+                  <Button variant="link" size="md" onClick={actions.onDetail}>
+                    주문상세보기
+                  </Button>
+                ) : null}
+              </HStack>
+              {display.activeItems.map((line) =>
+                mobile ? (
+                  <OrderProductSummary
+                    variant="history"
+                    key={line.key}
+                    image={line.image}
+                    name={line.name}
+                    optionText={`${line.width}, ${line.color}, ${line.size}, ${mobile ? (line.mobileQuantity ?? line.quantity) : line.quantity}개`}
+                    amount={
+                      line.displayAmount === undefined
+                        ? undefined
+                        : mobile
+                          ? (line.mobileDisplayAmount ?? line.displayAmount)
+                          : line.displayAmount
+                    }
+                    cartAction
+                  />
+                ) : (
+                  <Grid
+                    key={line.key}
+                    gridTemplateColumns="minmax(0, 1fr) 108px 200px"
+                    gap="0"
+                    alignItems="center"
+                  >
+                    <DetailProduct line={line} />
+                  </Grid>
+                ),
+              )}
+            </Stack>
             {!mobile ? (
-              <HStack justifyContent="flex-end" gap="8px">
-                <Button variant="secondary" size="short" onClick={actions.onTracking}>
+              <HStack justifyContent="flex-end" gap="8px" pr="8px">
+                <Button
+                  variant="secondary"
+                  size="short"
+                  className={css({ minW: '107px' })}
+                  onClick={actions.onTracking}
+                >
                   배송 조회
                 </Button>
-                <ButtonLink href={display.reviewHref} variant="secondary" size="short">
+                <ButtonLink
+                  href={display.reviewHref}
+                  variant="secondary"
+                  size="short"
+                  className={css({ minW: '107px' })}
+                >
                   리뷰 작성
                 </ButtonLink>
               </HStack>
