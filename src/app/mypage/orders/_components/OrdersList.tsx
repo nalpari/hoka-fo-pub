@@ -210,7 +210,7 @@ export function OrdersListContent({
     <Stack gap={{ base: '48px', _mobile: '24px' }}>
       {/* 주문·배송 현황 */}
       <OrderStatusTracker items={statusItems} />
-      <Stack gap={{ base: orders.length ? '48px' : '32px', _mobile: '24px' }}>
+      <Stack gap={{ base: '32px', _mobile: '24px' }}>
         {/* 주문 조회 기간 필터 */}
         <DateRangeSearch {...dateSearch} />
         {/* 주문 상품 목록 및 빈 화면 */}
@@ -255,7 +255,7 @@ export function OrdersListContent({
             </Typography>
           </Grid>
           {orders.length ? (
-            <Stack as="ul" gap={{ base: '0', _mobile: '32px' }} listStyleType="none">
+            <Stack as="ul" gap={{ base: '0', _mobile: '16px' }} listStyleType="none">
               {orders.map((order) => (
                 <OrderCard key={order.id} order={order} {...props} />
               ))}

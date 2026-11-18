@@ -11,6 +11,7 @@ const statusLink = css({
   alignContent: 'start',
   gap: { base: '12px', _mobile: '4px' },
   textAlign: 'center',
+  px: '24px',
   borderRight: '1px solid var(--color-black-20)',
   '&:last-child': {
     borderRight: '0',
@@ -19,6 +20,7 @@ const statusLink = css({
     my: '44.5px',
   },
   _mobile: {
+    px: '0',
     pt: '20px',
     pb: '18px',
     borderRight: '0',
