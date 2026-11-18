@@ -60,6 +60,17 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 ## Shared component defaults
 
+- **테이블형 빈 안내 공통 규칙 (2026-11-18):** `EmptyState variant="plain"`을 테이블형 목록 안에 배치할 때 PC 영역 최소 높이는 220px, 모바일 영역 높이는 120px이며 문구 최대 너비는 320px, 가로·세로 중앙 정렬이다. 모바일 좌우 여백은 12px을 유지하고 좁은 화면에서는 문구가 줄어들 수 있게 한다. `EmptyState.recipe.tsx`의 `layout="table"` 또는 기존 테이블형 layout(notices/claimHistory/orderSummary)에 공통 규칙을 적용한다. 일반 검색·페이지형 plain과 기존 명시적 standard에는 일괄 적용하지 않는다. 과거 시안의 높이보다 이 사용자 확정 규칙이 우선한다.
+
+- **공통 더보기 UI 규칙 (2026-11-18):** `Button.loadMore`는 콜백 미연결만을 이유로 `disabled` 처리하지 않는다. 고정 퍼블리싱 fixture의 더보기는 정상 표시를 유지하고 임의 조회 동작을 만들지 않는다. 실제 pending 또는 명시적 사용 불가 사유가 있는 disabled는 유지한다. 더보기 숫자의 `fontWeight`는 `inherit`로 통일하며 별도 굵기를 주지 않는다.
+
+### EmptyState fixed design rule
+
+- **사용자 확정 디자인 규칙 (2026-11-18):** EmptyState의 heading형 제목은 PC **22px / 900 / line-height 120%**, 모바일 **20px / 700 / line-height 120%**를 사용한다. 본문형 빈 안내와 description에는 이 heading 크기를 일괄 적용하지 않는다.
+- 이 규칙은 업데이트되지 않은 Figma·스크린샷·과거 OKF 기록의 PC28px/MO22px보다 우선한다. 디자인 동기화·리팩터링·시안 검수 중에도 이전 수치로 되돌리지 않는다. 크기를 다시 바꾸려면 이 규칙을 변경한다는 사용자의 명시적 지시가 필요하며, 새로운 디자인 링크만으로 변경 승인으로 간주하지 않는다.
+- 스타일 소유자는 `src/components/common/atoms/EmptyState.recipe.tsx`다. 공통 기본값과 cart/search 등 heading형 layout override를 함께 유지하고 호출부의 typography props/className으로 과거 크기를 재도입하지 않는다. 독립 compound title과 외부 override 호환 API는 유지한다.
+
+
 - When adding or refactoring an optional presentation prop such as `variant`, explicitly define its existing default in the component parameter and the corresponding Panda recipe `defaultVariants`. Preserve existing explicit default variant selections unless removal is explicitly requested. Keep the prop optional so omission and explicit `undefined` preserve the same existing behavior; do not make existing callers supply a new required prop merely to support a recipe extraction.
 - Verify omitted, explicit `undefined`, default and every retained explicit variant, including existing content/action slots and overrides. Run lint and TypeScript checks against existing callers; distinguish type errors from lint errors and do not claim a reported integration failure is fixed without its actual diagnostics. Document the default in the public prop JSDoc and handoff guide.
 - Preserve intentionally required discriminants and incompatible prop combinations. Do not invent defaults for service decisions, identifiers, submission data or a presentation contract that requires caller selection.
@@ -113,3 +124,7 @@ export function InquiryListItem() {
   return null;
 }
 ```
+
+### 공지사항 빈 안내 모바일 높이 예외
+
+- 사용자 확정 (2026-11-18): `EmptyState variant="plain" layout="notices"`의 모바일 높이는 **200px**이며 상·하단 `1px solid #E9EAEB`를 유지한다. 공통 테이블형 모바일120px보다 이 화면별 최신 규칙을 우선한다. PC 최소220px과 문구 최대320px은 유지한다.

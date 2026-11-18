@@ -4,14 +4,16 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-18T01:25:21.330485+00:00'
+updated: '2026-11-18T05:14:22.210532+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
-  - src/app/cart/_components/CartEmptyState.tsx
+  - src/components/common/atoms/Button.tsx
   - src/app/mypage/reviews/_components/ReviewsContent.tsx
+
+  - src/app/cart/_components/CartEmptyState.tsx
   - src/app/cart/preview-options-apparel-changed/page.tsx
   - src/app/checkout/preview-coupons/page.tsx
   - src/app/checkout/_components/CheckoutCouponDialog.tsx
@@ -1937,11 +1939,9 @@ IA159 런칭캘린더에 입고 알림 신청 직접 URL /launch-calendar/clifto
 
 상품 타일 가이드의 마이페이지 작성 리뷰 예시는 `OrderProductSummary`의 `review` 유형과 구매일·옵션 props를 직접 사용한다. 출처: 상품 타일 가이드 작업 트리, 2026-11-17.
 
-
 ## 주문 상품 요약 직접 사용 (2026-11-17)
 
 주문/배송·취소/반품 목록과 상세는 기존 경로·상태 소유자를 유지하고 `OrderProductSummary`를 직접 사용한다. 클릭 가능한 상품의 `onClick`은 기존 orderId/claimId 상세 열기 콜백으로 연결한다. 상품 타일 가이드도 같은 props를 사용하며 새 라우트나 서비스 동작은 추가하지 않았다. 출처: `src/app/mypage/orders/_components/OrdersList.tsx`, `OrdersProducts.tsx`, `OrderDetails.tsx`, `src/app/publishing-guide/_components/ProductCardGuide.tsx` 작업 트리. UI 계약은 [주문 상품 요약](ui.md#주문-상품-요약-직접-사용-2026-11-17)에 기록한다.
-
 
 2026-11-17 상품 리뷰 조건부 렌더링 정리: 상품 타일 가이드의 별점·리뷰 예시와 복사 코드에서 제거된 ProductReviewSummary 참조를 정리했다. 기존 상품리뷰·가이드 경로와 화면 상태는 유지한다. 출처: ProductCardGuide.tsx, OrderProductSummary.tsx 작업 트리.
 
@@ -1983,16 +1983,13 @@ IA159 런칭캘린더에 입고 알림 신청 직접 URL /launch-calendar/clifto
 
 `/checkout` 및 같은 CheckoutPayment를 사용하는 주문서 STATE의 모바일 로고를 원본의 가운데 정렬된 자산으로 교체했다. 기존 PC용 자산·한 줄6열 배치·선택 콜백은 유지한다. 신규 경로나 서비스 바인딩 변경은 없다. [수치와 검증](ui.md#모바일-결제-수단-중앙-정렬-2026-11-17).
 
-
 ## 쿠폰 상세 글꼴 변경의 라우팅 검토 (2026-11-17)
 
 작업 트리 출처 src/app/mypage/coupons/_components/CouponManagement.tsx의 상세 글꼴·색상과 className 선언 위치를 검토했다. /mypage/coupons/preview-detail 직접 진입, 모달 열림과 닫기 소유권, 쿠폰 데이터·조회 계약 및 기존 import 경로에는 변경이 없다. PC1176·모바일513px 직접 진입과 캡처를 확인했다.
 
-
 ## 비밀번호 설정 안내 간격 보정 (2026-11-17)
 
 ProfileContent의 비밀번호 설정 모달에서 안내문 padding-top8px를 제거하고 공통 FormField의 gap8px를 사용한다. 안내문 Typography의1px 이동도 해당 사용처에서 해제하여 입력 상자와 안내문 실제 간격이8px가 되도록 했다. 입력·확인·닫기와 고정 상태 URL 계약은 유지한다. 작업 트리 출처: src/app/mypage/profile/_components/ProfileContent.tsx. Codex가 /mypage/profile/preview-password의 PC1068×1251·모바일506×1251에서 실제 bounding rect 간격8px·안내문 padding-top0과 캡처를 확인했다.
-
 
 ## 비밀번호 입력 오류 고정 상태 (2026-11-17)
 
@@ -2000,16 +1997,13 @@ ProfileContent의 비밀번호 설정 모달에서 안내문 padding-top8px를 �
 
 사용자가 제공한 오류 화면 이미지를 기준으로 두 필드 오류를 고정 표시하며 서비스 검증·요청·저장·성공 이동은 구현하지 않는다. Codex가 PC1176×1251·모바일375×812에서 직접 진입·두 오류 문구·aria-invalid=true와 닫기를 확인했다.
 
-
 ## 문의 모바일 첨부 방법 선택 (2026-11-17)
 
 /support/inquiries/new/preview-attachment-picker에서 모바일 파일첨부 시트를 초기 표시한다. 기존 InquiryFormStatePreview와 InquiryAttachments의 previewPicker를 재사용하고 IA 고객센터·마이페이지 문의 연결에 첨부 방법 선택 (모바일)·selection을 추가했다. PC는 동일 URL에서 일반 문의 폼을 표시하며 파일찾기는 기존 파일 입력을 직접 연다. 작업 트리 출처: src/app/support/inquiries/new/preview-attachment-picker/page.tsx, src/app/support/inquiries/new/_components/InquiryFormStatePreview.tsx, src/app/support/inquiries/new/_components/InquiryFormContent.tsx, src/app/screen-index/screenConnections.ts, src/app/screen-index/sourceGraph.generated.json.
 
-
 ## 첨부 방법 선택 문구 굵기 보정 (2026-11-17)
 
 사용자 모바일 검수 규격을 원본의400보다 우선해 사진 보관함·파일 선택 문구를 body3Medium으로 변경했다. Pretendard16px/500/24px·자간-0.02em·검정을 사용한다. 기존 첨부 선택 URL·PC 직접 파일 입력·File 전달·모달 구조는 유지한다. 작업 트리 출처: src/app/support/inquiries/new/_components/InquiryFormContent.tsx. Codex가 모바일623×1251에서 두 문구의 계산 스타일과 캡처를 확인했고 변경 ESLint·타입 검사를 통과했다.
-
 
 ## 주문 상품 조회 orderLookup 연결 (2026-11-17)
 
@@ -2053,7 +2047,6 @@ IA160 Feed에 `/launch-calendar/preview-empty`(런칭 일정 없음), IA161 Upco
 
 OrderClaimRequest에서 반품일 때 NumberStepper를 숨기던 조건을 제거해 PC·모바일 모두 주문 취소와 같은 수량 입력을 표시한다. 상품별 로컬 초안·최소 1·주문 수량 상한과 기존 스타일을 유지한다. 실제 요청·금액 계산은 미연결이며 경로·플랫폼 소유권은 바뀌지 않는다. 출처: src/app/mypage/orders/_components/OrderClaimRequest.tsx 작업 트리. 대상 ESLint·Prettier 확인을 통과했다. 브라우저 실측은 수행하지 않았다.
 
-
 ## 주문내역 마일리지 안내 삭제 (2026-11-17)
 
 CheckoutDiscountSummary의 마일리지 안내 두 문구 삭제를 검토했다. /checkout 및 기존 preview 경로·URL 상태·플랫폼 선택에는 영향이 없다.
@@ -2090,6 +2083,12 @@ CheckoutDiscountSummary의 마일리지 안내 두 문구 삭제를 검토했다
 
 PC 1305px에서 매장명22px/900/26.4px·자간-0.44px, 본문16px/24px·자간-0.32px와 간격20/12/6px를 확인했다. 모바일375px에서 매장명20px/700/24px·자간-0.4px, 본문14px/21px·자간-0.28px와 간격16/8/4px를 확인했다. 두 플랫폼의 제목색은 검정, 정보색은 rgb(77,77,77)이며 모바일 전화번호 실제 글리프는 Pretendard-Regular다. 변경 파일 ESLint·Prettier, Panda 생성·전체 타입 검사를 통과했다.
 
+## 모바일 검색 결과 공통 레이아웃 (2026-11-17)
+
+스태시 복원 변경의 `ProductListingPage.tsx`와 `ShopShell.tsx`를 검토했다. `/search?q=...` 경로는 유지하며 모바일 검색 결과에도 공통 헤더·푸터와 일반 목록 레이아웃을 표시한다. 검색 결과 전용 닫기·재검색 입력을 제거하고 모바일 필터 버튼은 유지한다. 재검색은 공통 헤더 검색 팝업에서 수행한다.
+
+출처: 위 두 파일의 스테이징된 변경, Codex의 충돌 해결 중 소스 차이 검토(2026-11-17). 이번 충돌 해결에서는 브라우저·빌드 검증을 재실행하지 않았다.
+
 ## 모바일 검색 결과 IA 연결 (2026-11-17)
 
 IA247은 기존 `/search`와 `/search/preview-no-results`를 유지하며 모바일도 일반 검색 결과 페이지로 표시한다. 소스 그래프에서 제거된 검색 입력·검색 헤더 의존성을 정식 생성 명령으로 갱신했다. 출처: `src/app/screen-index/sourceGraph.generated.json`, `src/components/catalog/ProductListingPage.tsx`, `src/context/ShopShell.tsx` 작업 트리; Codex, 2026-11-17.
@@ -2104,6 +2103,14 @@ IA247은 기존 `/search`와 `/search/preview-no-results`를 유지하며 모바
 
 앞선 기본 standard 생략 정리는 사용자의 후속 지시로 취소했다. 주문 목록은 variant="standard"를 명시하고 layout="orders"만 추가한다. 런칭 launch, 리뷰 reviews, 마이페이지 주문 요약 orderSummary, FAQ faq, 문의 inquiries와 상품 문의 productInquiry/inquiryBoard를 기존 EmptyState에 연결했다. 상품내역·배송지·러닝세션·상품/검색 목록의 공유 UI도 같은 layout 계약을 사용한다. 숫자 스타일은 recipe가 소유하며 표시 데이터·상태·URL·콜백·태그/폼 경계와 부모 컴포넌트는 유지한다. 새 route나 상태 URL은 추가하지 않았다. 19개 기존 URL의1440/375px 비교38개 경우에서 측정 결과가 동일했고 가로 넘침이 없었다. 상세 계약·검사와 미검증 분기는 [UI 문서](ui.md#emptystate-화면별-layout-통합-2026-11-17)를 따른다. 출처: 위 작업 트리와 사용자 요청, Codex 검사.
 
+## 빈 장바구니·주문서·취소 내역의 EmptyState 연결 (2026-11-18)
+
+/cart/preview-empty, /checkout/preview-empty, /mypage/returns/preview-empty의 기존 독립 빈 안내를 EmptyState layout=cart/checkout/claimHistory로 변경했다. 장바구니24px 아이콘·관심상품/베스트 상품 두 링크, 주문서 장바구니 복귀 링크, 취소/반품 문구와 PC120px/MO96px 상하 여백을 유지한다. 기존 Stack/HStack/Box와 span/p/section 의미 및 route·상태·서비스 owner는 바뀌지 않는다. Root의 타이포 props를 recipe className으로 이동했으며 as만 호출자에 남겼다. EmptyState가 이미 적용된 다른 route와 inquiryPreview의 스타일 선택도 같은 계약을 사용한다. 일시 타입 비교 route는 검증 후 삭제했고 새 상태 URL/IA는 추가하지 않았다. 기존22개 URL의 PC/MO44개 경우가 변경 전과 일치했다. 상세 원인과 제한은 [UI 문서](ui.md#emptystate-타이포-클래스와-빈-안내-통합-2026-11-18)를 따른다. 출처: 사용자 요청, 해당 작업 트리와 Codex 검사.
+
+## 빈 상태 안내문 태그 통일 (2026-11-18)
+
+EmptyState 기본 제목 태그를 p로 통일하고 호출부의 불필요한 titleProps.as를 제거했다. 기존 URL·콘텐츠·상태·링크·variant 명시는 유지한다. 대표6개 URL의 PC/MO12개 경우에서 P 태그와 기존 측정 스타일 보존을 확인했다. 상세는 [UI 문서](ui.md#emptystate-안내문-p-기본값-2026-11-18). 출처: 사용자 요청, EmptyState와 호출부 작업 트리, Codex 검사.
+
 ## 마이페이지 메인 주문 요약 제거 (2026-11-18)
 
 최신 시안에 따라 /mypage의 주문 배송 요약·전용 주문 fixture·previewNoOrders 분기를 제거했다. IA177 기본 상태는 회원 요약 및 메뉴이고 로그아웃 확인 미리보기만 노출한다. 기존 /mypage/preview-no-orders는 설치된 Next.js redirect로 /mypage에 연결해 이전 직접 주소를 보존한다. 실제 주문 조회 /mypage/orders와 다른 화면의 빈 상태 계약은 유지한다. sourceGraph는 정식 생성 명령으로 갱신했다.
@@ -2112,18 +2119,9 @@ IA247은 기존 `/search`와 `/search/preview-no-results`를 유지하며 모바
 
 - 머지 충돌 해결 후 회원정보 편집 화면과 모바일 검색 화면의 셸 분기를 복구했다.
 
-
 ## 브랜치 병합 충돌 해결 (2026-11-18)
 
 origin/pub-psh-1015의 ReviewsContent 이동·리뷰 표시 구조와 현재 브랜치의 EmptyState recipe/layout 계약을 함께 유지했다. 새 리뷰 화면에 reviews layout을 연결하고 주소 목록의 동일한 embedded 배치 중복 override를 제거했다. page 유형 모바일 액션의 전체 너비는 보존했다. 출처: 두 브랜치 병합과 해당 컴포넌트 작업 트리. TypeScript와 충돌 대상 ESLint, staged OKF 검사를 통과했다. 브라우저 시각 검증은 수행하지 않았다.
-
-## 빈 장바구니·주문서·취소 내역의 EmptyState 연결 (2026-11-18)
-
-/cart/preview-empty, /checkout/preview-empty, /mypage/returns/preview-empty의 기존 독립 빈 안내를 EmptyState layout=cart/checkout/claimHistory로 변경했다. 장바구니24px 아이콘·관심상품/베스트 상품 두 링크, 주문서 장바구니 복귀 링크, 취소/반품 문구와 PC120px/MO96px 상하 여백을 유지한다. 기존 Stack/HStack/Box와 span/p/section 의미 및 route·상태·서비스 owner는 바뀌지 않는다. Root의 타이포 props를 recipe className으로 이동했으며 as만 호출자에 남겼다. EmptyState가 이미 적용된 다른 route와 inquiryPreview의 스타일 선택도 같은 계약을 사용한다. 일시 타입 비교 route는 검증 후 삭제했고 새 상태 URL/IA는 추가하지 않았다. 기존22개 URL의 PC/MO44개 경우가 변경 전과 일치했다. 상세 원인과 제한은 [UI 문서](ui.md#emptystate-타이포-클래스와-빈-안내-통합-2026-11-18)를 따른다. 출처: 사용자 요청, 해당 작업 트리와 Codex 검사.
-
-## 빈 상태 안내문 태그 통일 (2026-11-18)
-
-EmptyState 기본 제목 태그를 p로 통일하고 호출부의 불필요한 titleProps.as를 제거했다. 기존 URL·콘텐츠·상태·링크·variant 명시는 유지한다. 대표6개 URL의 PC/MO12개 경우에서 P 태그와 기존 측정 스타일 보존을 확인했다. 상세는 [UI 문서](ui.md#emptystate-안내문-p-기본값-2026-11-18). 출처: 사용자 요청, EmptyState와 호출부 작업 트리, Codex 검사.
 
 ## 빈 장바구니 검수 스타일 반영 (2026-11-18)
 
@@ -2138,6 +2136,7 @@ EmptyState 기본 제목 태그를 p로 통일하고 호출부의 불필요한 t
 사용자 기획 범위 확인에 따라 주문서 상품 없음 전용 경로와 CheckoutEmptyState, preview 상태 분기 및 공통 EmptyState의 checkout 전용 스타일을 제거했다. IA 171의 해당 보조 링크·소스 등록도 제거하고 정식 명령으로 의존 그래프를 갱신했다. 기본 주문서와 다른 주문서 상태 경로는 유지한다. 위의 빈 주문서 통합·검증 기록은 삭제 전 이력이다. 출처: 사용자 검토와 현재 작업 트리.
 
 검증: Next 경로 타입 재생성·TypeScript 검사·EmptyState/IA 그래프 테스트 3개·수정 TSX lint 통과. 소스와 생성 그래프에 삭제 경로 참조가 없음을 확인했다. 브라우저 화면 검증은 이번 삭제 작업에서 수행하지 않았다. 기존 스테이지는 변경하지 않았다.
+
 
 ## 주문 조회 없음 PC 시안 검수 (2026-11-18)
 
@@ -2171,3 +2170,25 @@ origin/pub-psh-1015의 추가 커밋 a075b78d·b4b33434를 병합했다. MyPageF
 
 
 병합 보완: 이동된 MyPageProductHistory에서 최근 본 상품 PC 빈 안내의 기존 줄바꿈을 보존했다. 상태 경로는 변경하지 않았다. 해당 파일 ESLint 통과.
+
+## 공통 더보기 표시 규칙 (2026-11-18)
+
+사용자 요청으로 콜백 미연결만을 이유로 한 더보기 disabled를 러닝세션 신청내역·리뷰·쿠폰·공지·FAQ·상품문의·주문상품 조회·배송지의 8개 호출부에서 제거했다. 실제 pending/명시적 사용 불가 disabled는 보존한다. Button.loadMore의 별도 숫자 Typography는 weight=inherit를 사용한다. 기존 counter 모드의 inherit와 인라인 부모 상속은 유지한다. 미연결 fixture는 표시만 제공하며 조회를 구현하지 않았다. 강제 규칙은 AGENTS.md에 기록했다. 출처: 사용자 브라우저 검토·현재 Button과 호출부.
+
+## 러닝세션 신청내역 빈 문구 구분 (2026-11-18)
+
+사용자 검토에 따라 취소 탭의 빈 문구를 취소한 러닝세션이 없습니다.로 구분하고 전체·신청완료는 기존 신청한 러닝세션이 없습니다.를 유지한다. 기존 탭 상태 소유자와 고정 fixture를 사용하며 서비스 동작은 추가하지 않는다. 출처: 사용자 브라우저 검토와 RunningSessionEntriesContent.tsx.
+
+실제 브라우저 확인: 취소·신청완료·전체 탭을 전환해 각각 취소/신청 문구를 확인했다. 더보기 disabled=false와 숫자·부모의 계산 굵기600 일치도 확인했다. 변경 파일 lint와 TypeScript 검사를 실행했다.
+
+## 공지사항 빈 안내 plain 전환 (2026-11-18)
+
+사용자 검토에 따라 공지사항 빈 안내를 minimal에서 plain·notices layout으로 전환했다. recipe의 notices가 본문 PC16px/MO14px·normal·subtle 색상과 기존 최소높이180px·상단42px을 소유한다. 공통 heading형 제목22/20px 규칙과 구분되는 본문형 안내다. 목록·pending/error 조건과 기본 EmptyState variant는 유지한다. 출처: 사용자 브라우저 검토, NoticesList.tsx와 EmptyState.recipe.tsx.
+
+## 공지사항 모바일 상단선 제거 (2026-11-18)
+
+사용자 검토에 따라 NoticesList 목록 루트의 모바일 border-top을 0으로 변경했다. PC2px 상단선과 테이블형 빈 안내220/120px 공통 크기는 유지한다. 빈/유상품 목록이 같은 루트를 사용한다. 출처: 사용자 모바일 브라우저 주석과 NoticesList.tsx.
+
+## 쿠폰 빈 목록 건수 숨김 (2026-11-18)
+
+사용자 검토에 따라 CouponManagement에서 visibleCoupons.length가0일 때 총0건 영역을 렌더링하지 않는다.1건 이상인 기존 건수 표시와 빈 안내는 유지한다. 출처: 사용자 브라우저 주석과 해당 작업 트리.

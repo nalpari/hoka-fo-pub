@@ -269,7 +269,6 @@ export function ReviewsContent({
                   variant="plain"
                   size="lg"
                   onClick={more.onLoadMore}
-                  disabled={!more.onLoadMore}
                   loadMore={{ counter: more.counter }}
                 />
               </VStack>

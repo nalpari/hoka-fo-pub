@@ -4,12 +4,13 @@ title: '에러와 빈 상태 디자인 가이드'
 description: '에러·페이지 전체 빈 상태·콘텐츠 내부 빈 상태의 표시 범위와 적용값을 기록한다.'
 tags: [components, figma, empty-state, responsive]
 status: draft
-updated: '2026-11-18T01:35:27.548309+00:00'
+updated: '2026-11-18T03:39:25.037947+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-04T02:27:53Z'
 source_revision: 4ed6220b093ea650acdcdd23b230739a17ede977
 working_tree_sources:
+  - AGENTS.md
   - src/components/catalog/ProductListingPage.tsx
   - src/app/checkout/_components/CheckoutStatePreview.tsx
   - src/app/mypage/orders/_components/OrdersList.tsx
@@ -163,6 +164,14 @@ actionContent는 새 외부 prop이 아니라 action ReactNode를 배치하는 �
 
 PC1920×1080/MO375×812에서 별도 p 두 개, 계산 타이포·간격16px과 실제 Pretendard Black 제목 글리프·가로 넘침 없음을 확인하고 스크린샷을 검수했다. 공통 홍보 배너·헤더·스크롤바 차이는 유지한다. 전체 화면의 픽셀 일치를 의미하지 않는다. 타입 검사·관련 테스트2개·수정 파일 lint 통과. 기존 스테이지는 유지하고 이번 변경은 작업 트리에만 반영했다.
 
+## EmptyState 제목 한 단계 축소 (2026-11-18)
+
+사용자 공통 결정에 따라 heading형 제목의 PC28px→22px·900, 모바일22px→20px·700을 적용했다. 공통 기본 제목·큰 모바일 제목과 cart/search override를 같은 recipe에서 갱신하고, 본문형 안내 및 설명 타이포는 유지한다. 앞선 시안 수치보다 이번 사용자 결정이 우선한다. 기본 variant와 명시적 standard는 유지했다. 장바구니 PC1440/MO375에서 계산 글자 크기22/20px·굵기900/700·행간26.4/24px과 가로 넘침 없음을 확인했다. 수정 recipe lint·관련 타입 테스트2개가 통과했다. 기존 스테이지는 유지하고 이번 변경은 작업 트리에 둔다. 출처: 사용자 브라우저 검토와 현재 recipe·타입 테스트.
+
+## EmptyState 고정 디자인 규칙 (2026-11-18)
+
+사용자가 확정한 heading형 제목 기준은 PC22px·900·행간120%, 모바일20px·700·행간120%다. 본문형 안내와 description은 기존 개별 계약을 유지한다. 이 결정은 업데이트되지 않은 Figma·스크린샷·위의 과거 검증 수치보다 우선하며, 디자인 링크 추가만으로 이전 PC28px/MO22px을 복원하지 않는다. 변경에는 고정 규칙을 바꾸라는 사용자의 명시적 지시가 필요하다. 강제 작업 지침은 [AGENTS.md](../../AGENTS.md#emptystate-fixed-design-rule), 구현 소유자는 EmptyState.recipe.tsx다. 기본값과 heading형 layout override를 함께 유지한다. 이번 작업은 정책 문서만 변경했고 화면 스타일은 직전 검증 결과를 유지한다. 출처: 사용자 고정 규칙 요청과 현재 구현.
+
 ## 주문 조회 없음 PC 시안 반영 (2026-11-18)
 
 현재 [HOKA 화면 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 주문 상품 없음 화면과 사용자 브라우저 주석을 기준으로 OrdersList.tsx의 빈 목록에서도 PC 표 헤더를 표시한다. 빈 화면의 필터/표 간격32px, 표 헤더 높이67px·컬럼536/108/200px·상단2px/하단1px 검정선, 제목 Pretendard20px·700·행간24px·자간-0.02em·검정색을 적용했다. 상품이 있는 목록의 기존 표 스타일은 유지한다.
@@ -180,3 +189,27 @@ EmptyState.recipe.tsx의 orders layout만 PC 높이267px·가로/세로 중앙 �
 EmptyState의 claimHistory layout은 PC 높이267px·중앙 배치·하단 #E9EAEB 1px, 안내16px·400·행간24px·#4D4D4D로 맞췄다. 모바일은 기존 padding96px·본문14px·행간18.2px와 무테두리를 유지한다. 주문 없음의 별도 모바일21px 지정과 혼동하지 않는다. heading형 제목 규칙은 본문형 안내에 적용하지 않았다.
 
 실제 검증: PC1920/1440의 빈/유상품 취소 목록에서5개 헤더,344/120/120/140/120px 컬럼·높이67px·20/700/24px·검정색·빈 영역267px·16/24px·하단선을 실측하고 캡처했다. MO375의 빈/유상품 목록은 헤더 없이 기존 표현을 유지하며 날짜/조회는 상시 보이고 수직 중심차0px와 가로 넘침 없음이다. 문의 모달 기본 화면도 PC1920/1440·MO375에서 입력 상시 표시와 버튼 중심차0px를 확인했다. 출처: 사용자 요청·현재 시안의 구조/수치, OrdersList.tsx와 EmptyState.recipe.tsx 작업 트리. 마지막 hoka-markup-handoff 검수에서 기존 컴포넌트/상태 소유자·Panda·PC/MO·바인딩 경계를 확인했다. 기록: Codex, 2026-11-18.
+
+## 빈 화면 사용자 검토 현황과 최근 본 상품 줄바꿈 (2026-11-18)
+
+사용자 완료 표시: 장바구니, 검색, 런칭캘린더 Feed/Upcoming, 주문/배송조회, 취소/반품내역, 작성 가능/작성한 상품리뷰, 관심상품. 주문서 상품 없음은 삭제했다. 상품 목록 필터 결과 없음·상품 상세 상품문의 없음·러닝세션 없음은 재디자인 대상으로 남긴다. 완료 표시가 없는 다른 EmptyState 화면은 미확인으로 구분한다. 이는 사용자 검토 상태이며 추가 구현·검증 완료를 의미하지 않는다.
+
+최근 본 상품 빈 안내는 PC에서 14일간 유지됩니다. 앞에 br을 넣고 모바일의 기존 문구·자동 줄바꿈은 유지했다. MyPageProductHistory의 기존 플랫폼 소유자를 사용하고 스타일은 변경하지 않았다. 해당 파일 lint·TypeScript 검사가 통과했으며 이번 줄바꿈의 브라우저 검증은 수행하지 않았다. 출처: 사용자 화면별 검토와 PC 줄바꿈 요청, 현재 작업 트리.
+
+## 공지사항 빈 안내 plain 전환 (2026-11-18)
+
+사용자 검토에 따라 공지사항 빈 안내를 minimal에서 plain·notices layout으로 전환했다. recipe의 notices가 본문 PC16px/MO14px·normal·subtle 색상과 기존 최소높이180px·상단42px을 소유한다. 공통 heading형 제목22/20px 규칙과 구분되는 본문형 안내다. 목록·pending/error 조건과 기본 EmptyState variant는 유지한다. 출처: 사용자 브라우저 검토, NoticesList.tsx와 EmptyState.recipe.tsx.
+
+## 테이블형 plain 빈 안내 공통 크기 (2026-11-18)
+
+사용자 확정 규칙: PC 영역 min-height220px, 모바일 height/min-height120px, 문구 max-width320px과 가로·세로 중앙 정렬. 모바일 좌우12px을 유지하고 좁은 영역에서 텍스트 너비는 축소한다. 공통 recipe의 plain + table/notices/claimHistory/orderSummary 조합에 적용하며 generic table layout을 본문형으로 제공한다. 기존 테두리는 유지하고 과거 고정 높이·padding보다 이번 규칙을 우선한다. heading형 페이지·검색 plain 및 명시적 standard는 변경하지 않는다. AGENTS.md에 고정 규칙을 기록했다. 출처: 사용자 PC/MO 이미지와 요청·현재 EmptyState.recipe.tsx.
+
+검증: 공지사항 PC1440에서 영역220px·문구320px, 모바일375에서 영역120px·문구304px/최대320px, 양쪽 center 정렬을 실측했다. lint·TypeScript·관련 테스트2개 통과. 최초 탐색은 load timeout이었으나 같은 페이지에서 로드 완료 후 확인했다. 기존 스테이지는 유지했다.
+
+## 공지사항 모바일 빈 안내 상하선 (2026-11-18)
+
+사용자 최신 검토에 따라 notices layout의 빈 안내 영역 자체에 모바일 border-top/bottom 각각1px solid #E9EAEB를 적용한다. 앞선 목록 루트 모바일 상단선 제거는 유지하고 중복선을 만들지 않는다. PC와 공통 빈 영역 높이220/120px·문구 최대320px은 유지한다. 출처: 사용자 모바일 주석과 EmptyState.recipe.tsx.
+
+## 공지사항 모바일 빈 안내 높이200px 예외 (2026-11-18)
+
+최신 사용자 결정으로 plain·notices의 모바일 height/min-height를200px로 변경했다. 공통 테이블형 모바일120px의 화면별 예외이며 과거 공지사항120px 기록보다 우선한다. PC최소220px·문구최대320px·모바일 상하 #E9EAEB 1px 선은 유지한다. 공통 table compound 뒤의 notices compound에서 관리하며 AGENTS에도 예외를 기록했다. 출처: 사용자 모바일 주석·현재 recipe.

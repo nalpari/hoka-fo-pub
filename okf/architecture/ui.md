@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-18T01:35:27.542935+00:00'
+updated: '2026-11-18T05:14:22.221994+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -5189,7 +5189,6 @@ Dropdown 정렬 버튼은 데스크탑 글자 16px·화살표 18px, 모바일 �
 
 리뷰 유형의 상품명과 옵션도 주문 상품 요약의 공통 표시 구조에서 렌더링하며 구매일과 리뷰 유형의 타이포그래피만 해당 값으로 지정한다. 출처: `src/components/common/molecules/OrderProductSummary.tsx` 작업 트리, 2026-11-17.
 
-
 ## 주문 상품 요약 직접 사용 (2026-11-17)
 
 주문 목록·상세·취소/반품 내역과 상품 타일 가이드는 `OrderHistoryProduct` 래퍼 없이 `OrderProductSummary variant="history"`를 직접 사용한다. 호출자는 `image`, `name`, 준비된 옵션 문구 `optionText`와 표시 `amount`를 전달한다. PC/MO 수량·금액 선택과 PC 표의 별도 수량·가격 열은 주문 화면에 남고 공통 컴포넌트는 `OrderLine`에 의존하지 않는다. 누락 금액은 표시하지 않으며 기존 모바일 표시값 우선순위를 보존한다.
@@ -5200,13 +5199,11 @@ Dropdown 정렬 버튼은 데스크탑 글자 16px·화살표 18px, 모바일 �
 
 검증: 대상 ESLint·Prettier, Panda 생성, 의존 그래프 생성, diff 공백 검사와 OKF 검사(스테이징 없음 및 전체 작업 트리 누락 문서 없음)를 통과했다. 전체 타입 검사는 기존 `.next/types`의 삭제된 라우트 참조 오류로 실패했으며 `src/` 오류는 없었다. 브라우저에서 PC1440px 주문 목록·상세·취소/반품 목록, 모바일375px 동일 화면과 작성 리뷰·장바구니·주문하기의 가로 넘침/중첩 버튼 없음 및 주문 이미지 96px을 확인했다. 모바일 상품 버튼의 Enter 입력으로 취소 상세 진입과 상태 표시를 확인했다. 모든 디자인의 픽셀 일치나 실제 장바구니 요청을 검증한 것은 아니다.
 
-
 ## 별점·리뷰 조건부 표시 소유권 (2026-11-17)
 
 `ProductReviewSummary` 분리 컴포넌트를 제거했다. `OrderProductSummary` 내부에서 rating이 undefined가 아닐 때 공통 RatingStars를, review 문구가 있을 때 Typography를 직접 표시한다. 0점은 유효한 별점으로 표시하며 둘 다 없으면 리뷰 영역을 생성하지 않는다. PC 열 배치와 모바일 상품명 시작선·8px 간격·별점 위 4px은 유지한다. 상품 타일 전체 정보 예시와 복사 코드도 직접 조건부 표시로 갱신했다. 마이페이지 호출부의 rating/review props와 ProductIdentity는 유지한다. 앞선 ProductReviewSummary 공유 기록은 이 변경 전의 이력이다. 출처: OrderProductSummary.tsx, ProductCardGuide.tsx 작업 트리.
 
 검증: 대상 ESLint·Prettier, Panda·의존 그래프 생성과 diff 검사를 통과했다. 전체 타입 검사는 기존 `.next/types`의 삭제 라우트 참조 오류로 실패했으며 변경한 src 소스 오류는 없었다. 이번 통합 후 브라우저 시각 확인은 재실행하지 않았다.
-
 
 ## 리뷰 상품 타이포그래피 설정 (2026-11-17)
 
@@ -5214,16 +5211,13 @@ Dropdown 정렬 버튼은 데스크탑 글자 16px·화살표 18px, 모바일 �
 
 브라우저 PC1440/MO375에서 위 크기·줄높이·400 굵기·색상을 계산된 스타일로 확인했고 가로 넘침이 없었다. 대상 린트·포맷·Panda 생성 검사를 수행했다. 기존 fixture의 상품명·옵션·날짜·리뷰 문구 및 페이지 헤더/버튼 스타일은 이번 타이포그래피 변경 범위 밖이다.
 
-
 ## 별점·리뷰의 콘텐츠 소유권 정정 (2026-11-17)
 
 사용자 요청에 따라 별점·리뷰와 PC 열/MO 세로 배치는 OrderProductSummaryContent 내부에서 처리한다. OrderProductSummary는 이미지와 콘텐츠를 한 번 렌더링하고 rating/review/reviewLayout을 콘텐츠로 전달한다. 바깥의 summary/result 조립, 리뷰 영역을 이미지 너비만큼 들여쓰던 calc, 중복 플랫폼별 리뷰 마크업은 제거했다. 모바일은 텍스트 콘텐츠 내부에 별점과 본문이 이어져 상품명 시작선에 자연스럽게 정렬된다. PC는 이미지 64px·간격 16px을 제외한 상품 텍스트 260:별점120:본문300의 flex 비율을 사용한다. 기존 Typography와 tone, 별점 0 표시 및 누락 리뷰 조건은 유지한다. custom content와 생성형 리뷰 props는 함께 전달하지 않는다. 출처: src/components/common/molecules/OrderProductSummary.tsx 작업 트리.
 
 검증: 대상 ESLint·Prettier·Panda 생성·OKF·diff 검사를 통과했다. 전체 타입 검사는 기존 .next/types의 삭제 라우트 참조 오류로 실패했으며 src 오류는 없었다. 브라우저 PC1440/MO375에서 작성 리뷰의 텍스트와 64px 이미지 영역 및 가로 넘침 없음을 확인했고, 모바일 취소/반품 상품 클릭의 상세 진입과 중첩 버튼 없음을 확인했다.
 
-
 2026-11-17 사용자 후속 요청으로 리뷰 전용 reviewTypography/reviewStyle과 Typography의 isReview spread 분기를 제거했다. 구매일·상품명·옵션은 기존 공통 타이포그래피, 리뷰 본문은 body5를 사용한다. PC 본문 말줄임/여백과 별점·리뷰 조건부 표시, PC/MO 배치는 유지한다. 앞선 시안 타이포그래피 설정 기록은 제거 전 이력이다. 출처: OrderProductSummary.tsx 작업 트리.
-
 
 ## 주문 상품 요약 조건 중복 정리 (2026-11-17)
 
@@ -5233,9 +5227,7 @@ Dropdown 정렬 버튼은 데스크탑 글자 16px·화살표 18px, 모바일 �
 
 검증: 대상 ESLint·Prettier·Panda·OKF·diff 검사를 통과했다. 전체 타입 검사는 기존 .next/types의 삭제 라우트 참조 오류로 실패했으며 src 오류는 없었다. 브라우저 PC1440/MO375에서 작성 리뷰·주문 목록·장바구니의 진입과 가로 넘침/중첩 버튼 없음을 확인했다.
 
-
 2026-11-17 구매일과 구매 문구는 리뷰 조건 없이 Typography web="body3" mo="body4-2"를 직접 사용한다. PC16px/MO13px이며 날짜의 language="en"은 유지한다. 출처: OrderProductSummary.tsx 작업 트리.
-
 
 2026-11-17 사용자 요청으로 상품명도 유형 조건 없이 Typography web="body3" mo="body4-2"를 직접 사용한다. 모든 OrderProductSummary 기본 상품명은 PC16px/MO13px이며 기존 medium 굵기와 cart의 두 줄 제한은 유지한다. 옵션 타이포그래피는 변경하지 않았다. 출처: OrderProductSummary.tsx 작업 트리.
 
@@ -5273,13 +5265,11 @@ Dropdown 정렬 버튼은 데스크탑 글자 16px·화살표 18px, 모바일 �
 - 1157×1251 PC에서 모달 높이 약538→582px, 팝업 clientHeight/scrollHeight582/582로 내부 스크롤바가 없는 상태를 캡처했다. 모바일375×812와375×1251에서도 전체 내용이 스크롤 없이 표시됐다. 실제 글리프 Pretendard-Medium·Pretendard-Regular와 모든 그룹의 제목/본문 크기·굵기·줄높이·자간·16px 간격을 확인했다.
 - 확인 버튼 닫기, 원래 사업자 보기 버튼 재열기, X닫기를 검증했다. 타입 검사·변경 파일 ESLint/Prettier·관련 계정복구/모달 타입 검사5개가 통과했다. hoka-markup-handoff 기준으로 기존 소유권·시맨틱 제목/본문·모바일 fullscreen·포커스/닫기와 표시 데이터 경계를 유지했다. 실제 인증·요청은 추가하지 않았다.
 
-
 ## 휴대폰 인증 약관 글꼴과 간격 보정 (2026-11-17)
 
 사용자 PC·모바일 검수 의견에 따라 PhoneVerificationContent의 디자인 약관 제목을 Pretendard16px/500/24px, 이전 약관 링크를12px/500/130%·밑줄, 문서 제목을14px/500/21px, 본문을14px/400/21px로 보정했다. 모두 검정과 자간-0.02em을 사용한다. PC 문서 사이 간격은20px이며 모바일24px를 유지한다. 날짜는 기존 PC14px·모바일13px·400·150%·#777과 문서 아래8px를 유지한다. 표시 fixture와 버전 선택 소유권은 그대로다. 작업 트리 출처: src/components/phone-verification/PhoneVerificationContent.tsx.
 
 Codex 검증: 1276×1251 PC, 587×1251·375×812 모바일의 실제 계산 스타일과 캡처를 대조했다. 제목500·본문400, 요청한 줄높이·색상·자간, PC20px·모바일24px·날짜8px를 확인했다. 실제 렌더링 글꼴은 Pretendard Medium/Regular다. 타입 검사와 관련 기존 테스트5개, 변경 파일 ESLint·Prettier를 통과했다.
-
 
 ## 중첩 모달 배경과 이전 약관 시트 보정 (2026-11-17)
 
@@ -5289,13 +5279,11 @@ ModalDialog는 설치된 Base UI의 Backdrop forceRender 옵션을 사용해 중
 
 Codex 검증: PC1276×1251·모바일513×1251에서 부모 약관 위50% 배경과 자식 모달, 닫기 후 부모 유지·이전 약관 버튼 포커스를 캡처와 DOM으로 확인했다. 모바일513×1251·375×812에서는 본문 clientHeight/scrollHeight가283/283으로 스크롤이 없고, 375×400에서는168/283으로 필요한 본문 스크롤과 화면 안 footer를 유지했다. 모바일 안내문16/500/24·날짜14/400/21·버튼700, PC 버튼700을 실제 스타일로 확인했다. 변경 파일 ESLint·Prettier, 타입 검사와 모달 타입 계약 테스트를 확인했다.
 
-
 ## 이전 약관 PC 글꼴 일치 (2026-11-17)
 
 PreviousTermsPicker의 안내문·날짜 스타일을 기존 모바일과 PC가 공유한다. PC 안내문은 Pretendard16px/500/24px, 날짜는14px/400/21px·자간-0.02em·검정이며 기존 영문 글꼴의1px 이동도 사용하지 않는다. 선택·확인과 플랫폼별 모달 계약은 유지한다. 작업 트리 출처: src/components/common/molecules/PreviousTermsPicker.tsx.
 
 Codex 검증: PC1176×1251·모바일513×1251에서 캡처 대조와 실제 계산 스타일로 위 규격을 확인했고, 두 플랫폼 모두 본문 clientHeight/scrollHeight283/283으로 불필요한 스크롤이 없었다. 변경 파일 ESLint·Prettier와 타입 검사를 통과했다.
-
 
 ## 쿠폰 상세 글꼴과 스타일 소유권 보정 (2026-11-17)
 
@@ -5303,13 +5291,11 @@ Codex 검증: PC1176×1251·모바일513×1251에서 캡처 대조와 실제 계
 
 Codex 검증: PC1176×1251·모바일513×1251 캡처와 계산 스타일로 항목명·값·본문·안내 규격을 확인했다. 스타일 선언 이동은 값을 보존했으며 변경 파일 ESLint·Prettier와 타입 검사를 통과했다.
 
-
 ## 비밀번호 오류 화면과 모바일 안내 글꼴 (2026-11-17)
 
 제공된 이미지에 맞춰 기존 두 비밀번호 TextFormField에 올바른 비밀번호를 입력해주세요./비밀번호가 일치하지 않습니다. 다시 확인해주세요. 고정 오류를 표시한다. 공통 오류 테두리와 설명 연결을 재사용하고 모바일은 하단 시트·확인 버튼·footer 위 구분선으로 표시한다. 기본 입력 팝업·PC 모달과 보기 토글은 기존 기능을 유지한다. 안내 글꼴은 모바일 Pretendard12px/400/18px·자간-0.02em·검정이며 PC는 기존14px다. 안내문 스타일은 파일 상단 passwordDialogStyles에 두고 기본 입력의8px 간격도 유지한다. 작업 트리 출처: src/app/mypage/profile/_components/ProfileContent.tsx.
 
 초기에는 디자인 연결 재인증 요청으로 사용자 첨부 이미지로 구현했으며, 재연결 후 공식 원본의 하단 시트·필드 오류·12px 안내·footer 구조도 확인했다. PC1176×1251·모바일375×812 캡처와 계산 스타일, 두 오류·invalid·닫기를 확인했다. 타입·변경 ESLint·Prettier·Panda와 관련 기존 테스트5개를 통과했다. 공통 모달·폼을 재사용하고 서비스 동작을 추가하지 않는 인계 기준을 점검했다.
-
 
 ## 문의 모바일 파일첨부 선택 시트 (2026-11-17)
 
@@ -5318,7 +5304,6 @@ Codex 검증: PC1176×1251·모바일513×1251 캡처와 계산 스타일로 항
 사진 입력은 image/jpeg,image/png, 파일 입력은 기존 .jpg,.jpeg,.png를 사용하며 브라우저 파일 입력을 열어 File 목록을 기존 onFilesChange로 전달한다. OS의 보관함 UI를 직접 구현하거나 업로드 요청·서비스 검증을 추가하지 않았다. previewPicker는 초기 표시 fixture다. 작업 트리 출처: src/app/support/inquiries/new/_components/InquiryFormContent.tsx, src/components/common/atoms/Icon.assets.ts, public/images/icon/hoka-attachment-image-regular.svg, public/images/icon/hoka-attachment-folder-regular.svg.
 
 Codex 검증: 모바일375×812에서 시트204px·스크롤 없음·아이콘18×18px의 원본 로드·문구16/400/24·좌측16px와 문구 시작50px를 캡처·실측했다. 두 항목 모두 파일 선택 후 로컬 첨부 목록에 반영됐고 닫기 후 파일찾기 포커스를 확인했다. PC1176px에서는 시트 없이 기존 파일 입력을 여는 동작을 확인했다. 데스크톱 브라우저의 고정 스크롤바15px로 실제 표시 canvas는360px이며 배경에는 기존 문의 폼과 배너가 보인다. 타입·변경 ESLint·Prettier·Panda·IA 생성과 IA 그래프/모달 타입 기존 테스트2개를 통과했다. 마지막 인계 점검에서 공통 모달·폼 재사용, 기존 File 전달 소유권, 페이지 전용 route, 상단 Panda 스타일과 PC 동작 보존을 확인했다.
-
 
 ## 주문 상품 조회 전용 모달과 Panda 소유권 (2026-11-17)
 
@@ -5383,7 +5368,6 @@ ProductListingPage의 검색 결과 닫기는 /products 고정 push 대신 Next 
 ## ModalDialog 기본 유형 (2026-11-17)
 
 사용자 요청으로 ModalDialog의 variant를 생략하거나 undefined로 전달하면 alert로 해석한다. 후속 호환 요청으로 기존 children 본문도 모든 유형에서 허용하며 생략 시 alert shell을 적용한다. message/description 정형 본문과 children은 동시에 전달할 수 없다. 정형 본문의 feedback과 confirm 결과형 intro 계약 및 기존 액션 계약은 유지한다. children은 호출자가 지정한 요소와 개별 스타일을 그대로 렌더링하고 message용 h3·description 슬롯으로 재구성하지 않는다. 출처: 사용자 요청 및 `src/components/common/layouts/ModalDialog.tsx` 작업 트리, Codex 작성(2026-11-17). 이전의 필수 variant 및 alert/confirm custom children 금지 설명은 이 호환 계약으로 대체한다.
-
 
 ## 주문내역 마일리지 안내 삭제 (2026-11-17)
 
@@ -5451,17 +5435,6 @@ FAQ의 이전 미생성 py15는 실제 화면의 상하0px으로 명시했다. �
 
 2026-11-17 layout 통합 최종 빌드: npm run build의 컴파일·TypeScript·정적 페이지164개 생성이 통과했다. 마지막 구조 검토에서 기존 Panda primitives·시맨틱·상태/콜백·명시 variant와 기본값의 보존을 확인했다.
 
-## 마이페이지 메인 최신 시안 반영 (2026-11-18)
-
-PC·모바일 메인에서 주문 배송 요약을 제거하고 회원 요약과 메뉴를 이어 배치했다. 쿠폰 ticket-simple-solid·관심상품 heart-solid 아이콘은 18px, 라벨과 아이콘 사이는 8px이다. 모바일 위젯 라벨은 16px, 본문 행간은 1.5이며 PC 메뉴 제목 아래16px·헤더52px·메뉴 행56px을 적용한다. 이름과 단위의 아래 정렬, 모바일 등급 R의700 굵기도 시안에 맞췄다. PC·모바일 시안의 관심상품 숫자는28/6으로 달라 기존 공통 fixture6을 유지한다. API·로그아웃 연결 계약은 변경하지 않았다.
-
-출처: [마이페이지 메인 디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design), src/app/mypage/_components/MyPageContent.tsx, src/app/mypage/mypage-home-data.ts, src/components/common/atoms/Icon.assets.ts, public/images/icon/ticket-simple-solid.svg, src/types/component-contracts/app-mypage-page.d.ts 작업 트리. Codex, 2026-11-18. PC1920·모바일375에서 아이콘18px·주문 요약 없음·로그아웃 확인창을 검사했고 모바일 최종 화면의 가로 넘침이 없었다. 브라우저 세로 스크롤바15px과 기존 홍보 배너는 디자인 프레임과의 전체 좌표 차이로 구분한다. 관련 ESLint·TypeScript·Panda 검사 통과. 프로덕션 빌드는164개 페이지 생성까지 통과했으며 이후 지역 타이포 클래스 보정에는 Panda를 재생성했다. 최종 인계 검토에서 기존 페이지 전용 소유권·Panda primitive·탐색 링크·로그아웃 로컬 상태를 유지했다.
-
-
-## 브랜치 병합 충돌 해결 (2026-11-18)
-
-origin/pub-psh-1015의 ReviewsContent 이동·리뷰 표시 구조와 현재 브랜치의 EmptyState recipe/layout 계약을 함께 유지했다. 새 리뷰 화면에 reviews layout을 연결하고 주소 목록의 동일한 embedded 배치 중복 override를 제거했다. page 유형 모바일 액션의 전체 너비는 보존했다. 출처: 두 브랜치 병합과 해당 컴포넌트 작업 트리. TypeScript와 충돌 대상 ESLint, staged OKF 검사를 통과했다. 브라우저 시각 검증은 수행하지 않았다.
-
 ## EmptyState 타이포 클래스와 빈 안내 통합 (2026-11-18)
 
 사용자 요청으로 EmptyState 호출부에 남아 있던 titleProps/descriptionProps의 variant·web·mo·weight·tone을 EmptyState.recipe.tsx의 타이포 슬롯 recipe로 옮겼다. TypeScript AST로 src 전체를 확인한 결과18개 파일·20개 호출에서 스타일용 titleProps·descriptionProps·layoutProps·className은 남지 않았고 titleProps에는 필요한 as만 유지한다. 정상 목록·헤더·상품 카드의 Typography는 빈 상태와 다른 소유자이므로 유지한다.
@@ -5479,6 +5452,18 @@ EmptyState는 준비된 화면에서 scale variant 없는 Typography에 합성�
 ## EmptyState 안내문 p 기본값 (2026-11-18)
 
 사용자 지시에 따라 EmptyStateRoot의 일반/legacy 기본 제목과 독립 EmptyState.Title의 기본 as를 p로 변경했다. 기존 호출의 span/h2 지정도 p로 맞춘 뒤 중복 titleProps={{ as: 'p' }}11곳을 제거했다. 외부 명시 as API는 호환을 위해 유지하되 현재 src의20개 EmptyState 호출은 기본 p를 사용한다. 설명도 기존 p다. recipe·variant·layout·명시 standard·콜백은 유지한다. Cart/런칭/주문/리뷰/문의/러닝세션의 PC1440·MO375 총12개 경우에서 제목이 P인 것을 확인하고 태그 이외의 측정 위치·치수·스타일이 직전과 일치했다. 대상 ESLint·Prettier·TypeScript와 EmptyState 계약 검사2개가 통과했다. 이 태그 변경으로 전체 빌드는 다시 실행하지 않았다. 출처: 사용자 요청, EmptyState.tsx 및 해당 호출부 작업 트리, Codex 실제 검사.
+
+## 마이페이지 메인 최신 시안 반영 (2026-11-18)
+
+PC·모바일 메인에서 주문 배송 요약을 제거하고 회원 요약과 메뉴를 이어 배치했다. 쿠폰 ticket-simple-solid·관심상품 heart-solid 아이콘은 18px, 라벨과 아이콘 사이는 8px이다. 모바일 위젯 라벨은 16px, 본문 행간은 1.5이며 PC 메뉴 제목 아래16px·헤더52px·메뉴 행56px을 적용한다. 이름과 단위의 아래 정렬, 모바일 등급 R의700 굵기도 시안에 맞췄다. PC·모바일 시안의 관심상품 숫자는28/6으로 달라 기존 공통 fixture6을 유지한다. API·로그아웃 연결 계약은 변경하지 않았다.
+
+출처: [마이페이지 메인 디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design), src/app/mypage/_components/MyPageContent.tsx, src/app/mypage/mypage-home-data.ts, src/components/common/atoms/Icon.assets.ts, public/images/icon/ticket-simple-solid.svg, src/types/component-contracts/app-mypage-page.d.ts 작업 트리. Codex, 2026-11-18. PC1920·모바일375에서 아이콘18px·주문 요약 없음·로그아웃 확인창을 검사했고 모바일 최종 화면의 가로 넘침이 없었다. 브라우저 세로 스크롤바15px과 기존 홍보 배너는 디자인 프레임과의 전체 좌표 차이로 구분한다. 관련 ESLint·TypeScript·Panda 검사 통과. 프로덕션 빌드는164개 페이지 생성까지 통과했으며 이후 지역 타이포 클래스 보정에는 Panda를 재생성했다. 최종 인계 검토에서 기존 페이지 전용 소유권·Panda primitive·탐색 링크·로그아웃 로컬 상태를 유지했다.
+
+## 브랜치 병합 충돌 해결 (2026-11-18)
+
+origin/pub-psh-1015의 ReviewsContent 이동·리뷰 표시 구조와 현재 브랜치의 EmptyState recipe/layout 계약을 함께 유지했다. 새 리뷰 화면에 reviews layout을 연결하고 주소 목록의 동일한 embedded 배치 중복 override를 제거했다. page 유형 모바일 액션의 전체 너비는 보존했다. 출처: 두 브랜치 병합과 해당 컴포넌트 작업 트리. TypeScript와 충돌 대상 ESLint, staged OKF 검사를 통과했다. 브라우저 시각 검증은 수행하지 않았다.
+
+병합 후 기존 미커밋 EmptyState 슬롯·타이포 작업을 복원하고, 삭제된 MyPageReviewsContent의 titleProps 제거는 ReviewsContent로 이관했다. 주소 액션 폭은 상대 브랜치의 모바일 100%를 recipe에 반영했다. 복원 후 TypeScript·대상 ESLint·EmptyState 타입 검사 2건 통과. 원래 미커밋 작업은 커밋하지 않았다. 복원 원본은 codex-pre-merge-pub-psh-1015 stash에 보관한다.
 
 ## 빈 장바구니 제목과 추천 영역 간격 검수 (2026-11-18)
 
@@ -5501,6 +5486,14 @@ PC1538×1251·MO375×812에서 main padding 및 header bottom→빈 영역 top�
 검색 빈 결과의 Fragment와 br을 title·description으로 분리했다. EmptyState의 search layout recipe가 제목 PC28px/MO22px·900·행간120%·검정, 설명 PC16px/MO14px·400·행간150%·#4D4D4D, 자간-0.02em과 문장 간격16px을 소유한다. PC 상단160px, 모바일 상하96px 최소 여백과 남은 콘텐츠 높이를 이용한 중앙 배치를 적용한다. 공통 기본 variant와 다른 layout, 데이터·상태 소유자는 유지했다. 기준은 [검색 결과 없음 PC·모바일 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)과 사용자 제목·설명 분리 요청이다.
 
 PC1920×1080/MO375×812에서 별도 p 두 개, 계산 타이포·간격16px과 실제 Pretendard Black 제목 글리프·가로 넘침 없음을 확인하고 스크린샷을 검수했다. 공통 홍보 배너·헤더·스크롤바 차이는 유지한다. 전체 화면의 픽셀 일치를 의미하지 않는다. 타입 검사·관련 테스트2개·수정 파일 lint 통과. 기존 스테이지는 유지하고 이번 변경은 작업 트리에만 반영했다.
+
+## EmptyState 제목 한 단계 축소 (2026-11-18)
+
+사용자 공통 결정에 따라 heading형 제목의 PC28px→22px·900, 모바일22px→20px·700을 적용했다. 공통 기본 제목·큰 모바일 제목과 cart/search override를 같은 recipe에서 갱신하고, 본문형 안내 및 설명 타이포는 유지한다. 앞선 시안 수치보다 이번 사용자 결정이 우선한다. 기본 variant와 명시적 standard는 유지했다. 장바구니 PC1440/MO375에서 계산 글자 크기22/20px·굵기900/700·행간26.4/24px과 가로 넘침 없음을 확인했다. 수정 recipe lint·관련 타입 테스트2개가 통과했다. 기존 스테이지는 유지하고 이번 변경은 작업 트리에 둔다. 출처: 사용자 브라우저 검토와 현재 recipe·타입 테스트.
+
+## EmptyState 고정 디자인 규칙 (2026-11-18)
+
+사용자가 확정한 heading형 제목 기준은 PC22px·900·행간120%, 모바일20px·700·행간120%다. 본문형 안내와 description은 기존 개별 계약을 유지한다. 이 결정은 업데이트되지 않은 Figma·스크린샷·위의 과거 검증 수치보다 우선하며, 디자인 링크 추가만으로 이전 PC28px/MO22px을 복원하지 않는다. 변경에는 고정 규칙을 바꾸라는 사용자의 명시적 지시가 필요하다. 강제 작업 지침은 [AGENTS.md](../../AGENTS.md#emptystate-fixed-design-rule), 구현 소유자는 EmptyState.recipe.tsx다. 기본값과 heading형 layout override를 함께 유지한다. 이번 작업은 정책 문서만 변경했고 화면 스타일은 직전 검증 결과를 유지한다. 출처: 사용자 고정 규칙 요청과 현재 구현.
 
 ## 주문 조회 없음 PC 시안 반영 (2026-11-18)
 
@@ -5597,3 +5590,29 @@ origin/pub-psh-1015의 추가 커밋 a075b78d·b4b33434를 병합했다. MyPageF
 
 
 병합 보완: 최근 본 상품의 PC 빈 안내에서 기존 두 줄 표시를 유지했다. 상품내역의 새 소유 경로·정리된 표시 데이터와 함께 적용한다. 해당 파일 ESLint 통과.
+
+## 공통 더보기 표시 규칙 (2026-11-18)
+
+사용자 요청으로 콜백 미연결만을 이유로 한 더보기 disabled를 러닝세션 신청내역·리뷰·쿠폰·공지·FAQ·상품문의·주문상품 조회·배송지의 8개 호출부에서 제거했다. 실제 pending/명시적 사용 불가 disabled는 보존한다. Button.loadMore의 별도 숫자 Typography는 weight=inherit를 사용한다. 기존 counter 모드의 inherit와 인라인 부모 상속은 유지한다. 미연결 fixture는 표시만 제공하며 조회를 구현하지 않았다. 강제 규칙은 AGENTS.md에 기록했다. 출처: 사용자 브라우저 검토·현재 Button과 호출부.
+
+## 공지사항 빈 안내 plain 전환 (2026-11-18)
+
+사용자 검토에 따라 공지사항 빈 안내를 minimal에서 plain·notices layout으로 전환했다. recipe의 notices가 본문 PC16px/MO14px·normal·subtle 색상과 기존 최소높이180px·상단42px을 소유한다. 공통 heading형 제목22/20px 규칙과 구분되는 본문형 안내다. 목록·pending/error 조건과 기본 EmptyState variant는 유지한다. 출처: 사용자 브라우저 검토, NoticesList.tsx와 EmptyState.recipe.tsx.
+
+## 테이블형 plain 빈 안내 공통 크기 (2026-11-18)
+
+사용자 확정 규칙: PC 영역 min-height220px, 모바일 height/min-height120px, 문구 max-width320px과 가로·세로 중앙 정렬. 모바일 좌우12px을 유지하고 좁은 영역에서 텍스트 너비는 축소한다. 공통 recipe의 plain + table/notices/claimHistory/orderSummary 조합에 적용하며 generic table layout을 본문형으로 제공한다. 기존 테두리는 유지하고 과거 고정 높이·padding보다 이번 규칙을 우선한다. heading형 페이지·검색 plain 및 명시적 standard는 변경하지 않는다. AGENTS.md에 고정 규칙을 기록했다. 출처: 사용자 PC/MO 이미지와 요청·현재 EmptyState.recipe.tsx.
+
+검증: 공지사항 PC1440에서 영역220px·문구320px, 모바일375에서 영역120px·문구304px/최대320px, 양쪽 center 정렬을 실측했다. lint·TypeScript·관련 테스트2개 통과. 최초 탐색은 load timeout이었으나 같은 페이지에서 로드 완료 후 확인했다. 기존 스테이지는 유지했다.
+
+## 공지사항 모바일 상단선 제거 (2026-11-18)
+
+사용자 검토에 따라 NoticesList 목록 루트의 모바일 border-top을 0으로 변경했다. PC2px 상단선과 테이블형 빈 안내220/120px 공통 크기는 유지한다. 빈/유상품 목록이 같은 루트를 사용한다. 출처: 사용자 모바일 브라우저 주석과 NoticesList.tsx.
+
+## 공지사항 모바일 빈 안내 상하선 (2026-11-18)
+
+사용자 최신 검토에 따라 notices layout의 빈 안내 영역 자체에 모바일 border-top/bottom 각각1px solid #E9EAEB를 적용한다. 앞선 목록 루트 모바일 상단선 제거는 유지하고 중복선을 만들지 않는다. PC와 공통 빈 영역 높이220/120px·문구 최대320px은 유지한다. 출처: 사용자 모바일 주석과 EmptyState.recipe.tsx.
+
+## 공지사항 모바일 빈 안내 높이200px 예외 (2026-11-18)
+
+최신 사용자 결정으로 plain·notices의 모바일 height/min-height를200px로 변경했다. 공통 테이블형 모바일120px의 화면별 예외이며 과거 공지사항120px 기록보다 우선한다. PC최소220px·문구최대320px·모바일 상하 #E9EAEB 1px 선은 유지한다. 공통 table compound 뒤의 notices compound에서 관리하며 AGENTS에도 예외를 기록했다. 출처: 사용자 모바일 주석·현재 recipe.

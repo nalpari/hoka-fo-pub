@@ -562,7 +562,6 @@ export function RouteContent({
                     variant="plain"
                     size="lg"
                     onClick={more.onLoadMore}
-                    disabled={!more.onLoadMore}
                     loadMore={{ counter: more.counter }}
                   />
                 </VStack>
@@ -588,15 +587,17 @@ export function RouteContent({
         />
         */}
               <Stack gap="8px">
-                <HStack justifyContent="flex-end">
-                  <HStack gap="2px">
-                    <Typography variant="body4">총</Typography>
-                    <Typography variant="body4Medium">
-                      {visibleCoupons.length}
-                      <Typography variant="bodyKr4">건</Typography>
-                    </Typography>
+                {visibleCoupons.length > 0 ? (
+                  <HStack justifyContent="flex-end">
+                    <HStack gap="2px">
+                      <Typography variant="body4">총</Typography>
+                      <Typography variant="body4Medium">
+                        {visibleCoupons.length}
+                        <Typography variant="bodyKr4">건</Typography>
+                      </Typography>
+                    </HStack>
                   </HStack>
-                </HStack>
+                ) : null}
                 {!visibleCoupons.length ? (
                   <EmptyState title="보유 중인 쿠폰이 없습니다." variant="minimal" />
                 ) : null}

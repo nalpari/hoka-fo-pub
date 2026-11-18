@@ -71,6 +71,7 @@ export const emptyStateRecipe = sva({
     },
     layout: {
       default: {},
+      table: {},
       cart: {
         root: {
           w: '520px',
@@ -175,6 +176,16 @@ export const emptyStateRecipe = sva({
         title: { w: '100%', maxW: '500px' },
         description: { w: '100%', maxW: '520px', _mobile: { maxW: '320px' } },
       },
+      notices: {
+        root: {
+          minH: '180px',
+          pt: '42px',
+          _mobile: {
+            borderTop: '1px solid #E9EAEB',
+            borderBottom: '1px solid #E9EAEB',
+          },
+        },
+      },
       inquiryPreview: {},
       inquiries: {
         root: {
@@ -278,7 +289,33 @@ export const emptyStateRecipe = sva({
     },
     hasAction: { true: {}, false: {} },
   },
-  compoundVariants: [{ variant: 'page', hasAction: true, css: { root: { gap: '8' } } }],
+  compoundVariants: [
+    { variant: 'page', hasAction: true, css: { root: { gap: '8' } } },
+    {
+      variant: 'plain',
+      layout: ['table', 'notices', 'claimHistory', 'orderSummary'],
+      css: {
+        root: {
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          textAlign: 'center',
+          h: 'auto',
+          minH: '220px',
+          py: '0',
+          _mobile: { h: '120px', minH: '120px', py: '0', px: '12px' },
+        },
+        title: { w: '100%', maxW: '320px', textAlign: 'center' },
+        description: { w: '100%', maxW: '320px', textAlign: 'center' },
+      },
+    },
+    {
+      variant: 'plain',
+      layout: 'notices',
+      css: { root: { _mobile: { h: '200px', minH: '200px' } } },
+    },
+  ],
   defaultVariants: { variant: 'standard', layout: 'default', hasAction: false },
 });
 
@@ -342,6 +379,7 @@ const emptyStateTypographyRecipe = sva({
     },
     layout: {
       default: {},
+      table: { title: bodyTitle },
       cart: {
         title: {
           fontFamily: 'korean',
@@ -386,6 +424,7 @@ const emptyStateTypographyRecipe = sva({
           color: '#4D4D4D',
         },
       },
+      notices: { title: { ...bodyTitle, color: 'var(--color-text-subtle)' } },
       inquiries: { title: tertiaryBody },
       inquiryPreview: { title: tertiaryBody },
       faq: {

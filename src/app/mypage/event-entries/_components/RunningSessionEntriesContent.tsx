@@ -187,13 +187,14 @@ export function RunningSessionEntriesContent({
                   variant="plain"
                   size="lg"
                   onClick={more.onLoadMore}
-                  disabled={!more.onLoadMore}
                   loadMore={{ counter: more.counter }}
                 />
               </VStack>
             </>
           ) : (
-            <EmptyState title="신청한 러닝세션이 없습니다." />
+            <EmptyState
+              title={tab === '취소' ? '취소한 러닝세션이 없습니다.' : '신청한 러닝세션이 없습니다.'}
+            />
           )}
         </Box>
       </ContentSection>

@@ -10,6 +10,14 @@
 
 - cart 제목을 Pretendard900·PC28/MO22px·행간120%·자간-0.02em·검정으로 키웠다. CartEmptyContent의 빈 안내/추천 영역 간격은 부모 Stack gap96/72px로 적용했다. PC1538/MO375에서 계산 스타일·실제 Pretendard-Black·간격·가로 넘침 없음과 캡처를 확인했다. 대상 lint/format·Panda·기존 EmptyState 검사2개를 통과했다. 출처: 사용자 브라우저 주석과 해당 작업 트리, 상세: architecture/ui.md·architecture/routing.md·architecture/error-empty-guide.md.
 
+## 2026-11-18 pub-psh-1015 병합 충돌 해결
+
+- 리뷰 화면 이동과 EmptyState recipe/layout을 통합하고 주소 목록의 중복 배치를 정리했다. 두 브랜치의 문서 이력을 보존했다. TypeScript·충돌 대상 ESLint·staged OKF 검사 통과, 브라우저 검증 미실시. 상세: architecture/ui.md·architecture/routing.md. 기존 미커밋 변경은 별도 보관 후 복원한다.
+
+## 2026-11-18 마이페이지 메인 최신 시안 반영
+
+- 주문 배송 요약과 전용 fixture를 제거하고 쿠폰·관심상품18px 아이콘, 모바일16px 라벨, 본문 행간·이름/단위 정렬과 PC 메뉴 헤더를 맞췄다. IA177 상태를 정리하고 이전 주문 없음 preview는 /mypage로 연결한다. PC/MO 렌더링·로그아웃 확인·이전 주소 이동과 관련 lint·TypeScript·Panda를 확인했다. 빌드164개 페이지 생성 통과 후 지역 타이포를 보정했다. 출처와 남은 PC/MO fixture 숫자 차이는 architecture/ui.md·architecture/routing.md에 기록했다.
+
 ## 2026-11-18 EmptyState 안내문 p 통일
 
 - 기본 제목과 EmptyState.Title을 p로 통일하고 현재 호출부의 중복 titleProps.as11개를 제거했다. 대표 PC/MO12개 경우의 P 태그 및 기존 스타일 보존, 대상 lint/format·TypeScript·계약 검사2개를 확인했다. actionContent와 독립 action 슬롯의 책임도 가이드에 설명했다. 출처: EmptyState와 호출부 작업 트리, 상세: architecture/ui.md·architecture/routing.md·architecture/error-empty-guide.md.
@@ -18,14 +26,6 @@
 
 - titleProps/descriptionProps의 시각 옵션과 배송지 액션 너비를 recipe로 이동하고 as·기존 외부 override·명시 variant를 유지했다. 언어 자동 선택과1px 이동도 recipe에서 보존한다. src18개 파일·20개 호출에 스타일 props가 남지 않음을 AST로 확인했다.
 - 장바구니·주문서·취소/반품 빈 안내를 공통 EmptyState의 cart/checkout/claimHistory로 통합하고 icon 슬롯을 추가했다. PC/MO22개 URL44개 비교와 언어/override14개 비교가 일치했다. 관련 검사3개·대상 lint/format·TypeScript·Panda·production build(164개 정적 페이지)를 통과했다. 전체 lint의 기존 wh-file-summary 전역8건은 남는다. 출처: EmptyState/recipe·호출부·타입 검사 작업 트리, 상세: architecture/ui.md·architecture/error-empty-guide.md·architecture/routing.md·development/verification.md.
-
-## 2026-11-18 pub-psh-1015 병합 충돌 해결
-
-- 리뷰 화면 이동과 EmptyState recipe/layout을 통합하고 주소 목록의 중복 배치를 정리했다. 두 브랜치의 문서 이력을 보존했다. TypeScript·충돌 대상 ESLint·staged OKF 검사 통과, 브라우저 검증 미실시. 상세: architecture/ui.md·architecture/routing.md. 기존 미커밋 변경은 별도 보관 후 복원한다.
-
-## 2026-11-18 마이페이지 메인 최신 시안 반영
-
-- 주문 배송 요약과 전용 fixture를 제거하고 쿠폰·관심상품18px 아이콘, 모바일16px 라벨, 본문 행간·이름/단위 정렬과 PC 메뉴 헤더를 맞췄다. IA177 상태를 정리하고 이전 주문 없음 preview는 /mypage로 연결한다. PC/MO 렌더링·로그아웃 확인·이전 주소 이동과 관련 lint·TypeScript·Panda를 확인했다. 빌드164개 페이지 생성 통과 후 지역 타이포를 보정했다. 출처와 남은 PC/MO fixture 숫자 차이는 architecture/ui.md·architecture/routing.md에 기록했다.
 
 ## 2026-11-17 EmptyState 화면별 layout 통합
 
@@ -119,7 +119,9 @@
 
 ## 2026-11-17
 
-- 모바일 전체 검색 결과를 PC와 같은 일반 결과 페이지로 통일하고 공통 헤더·푸터를 복원했다. 모바일 필터와 PC 정렬은 유지한다. TypeScript·대상 ESLint/Prettier 및 브라우저 결과 표시를 확인했다. 출처: ProductListingPage.tsx·ShopShell.tsx 작업 트리.
+## 2026-11-17 스태시 문서 충돌 해결
+
+- 현재 브랜치의 매장·주문서 기록과 스태시의 검색·EmptyState 기록을 모두 보존해 OKF 문서 4개의 충돌을 해결했다. 모바일 검색 변경의 라우팅 문서 누락도 보완했다. 소스 코드는 추가 수정하지 않았다.
 
 ## 2026-11-17 매장 목록 브라우저 주석 반영
 
@@ -160,6 +162,10 @@
 - 주문 취소와 동일하게 반품 신청에도 상품별 수량 조절을 표시하고 기존 초안·최소/최대 제한을 유지했다. 대상 ESLint·Prettier를 통과했다. 출처: OrderClaimRequest.tsx 작업 트리, 상세: architecture/routing.md.
 
 ## 2026-11-17 검색 결과 닫기 복귀 수정
+
+## 2026-11-17
+
+- 모바일 전체 검색 결과를 PC와 같은 일반 결과 페이지로 통일하고 공통 헤더·푸터를 복원했다. 모바일 필터와 PC 정렬은 유지한다. TypeScript·대상 ESLint/Prettier 및 브라우저 결과 표시를 확인했다. 출처: ProductListingPage.tsx·ShopShell.tsx 작업 트리.
 
 - 검색 결과 닫기의 /products 고정 이동을 router.back()으로 바꿨다. 주문·FAQ에서 검색 결과 닫기 후 원래 URL 복귀와 일반 검색 팝업 닫기의 URL 유지를 확인했다.
 
@@ -3039,6 +3045,7 @@ Figma Navigational Buttons(296:25392)와 Action Buttons(296:25425)의 기본·�
 - 계산 스타일·실제 Pretendard Bold·페이지 전환·경계 resize·Escape/포커스 복귀, 타입·대상 lint/format·Panda·모달 타입 계약을 확인했다. PC/MO 캡처 시간 초과와 미실행 항목은 UI 문서에 구분했다.
 
 옵션 모달 소스 그래프의 기존 직렬화 형식을 유지했다.
+
 ## 2026-11-16 잔여 IA 계층과 모달 기록 일괄 정리
 
 - 사용자 요청으로 남은 변경을 일괄 커밋한다. 계정 잠금 안내 D3·자식 D4 승격과 모달 작업 기록·인덱스를 정리하고 과거 선별 사본 검증 기록을 보존했다.
@@ -3057,6 +3064,7 @@ Figma Navigational Buttons(296:25392)와 Action Buttons(296:25425)의 기본·�
 - 2026-11-16: 쿠폰 화면의 단일 사용 섹션을 RouteContent에 합쳐 화면 구조를 직접 확인할 수 있도록 정리했다. 관련 문서: architecture/ui.md.
 
 - 2026-11-16: 상품리뷰 화면의 단일 사용 섹션을 본문에 합쳐 구조를 직접 확인할 수 있도록 정리했다. 관련 문서: architecture/ui.md.
+
 ## 2026-11-16 공동 작업 머지 충돌 해결
 
 - 쿠폰·리뷰 화면의 단일 사용 섹션 통합과 기존 모달 작업을 병합했다. 쿠폰 RouteContent가 목록·등록 안내 상태를 직접 소유하며 detail 공통 스타일·임직원 alert·포커스 복귀를 보존했다. 리뷰의 통합 구조와 상품 정보 스타일을 유지하고 양쪽 OKF 기록을 합쳤다. 전체 TypeScript·병합된 소스9개 ESLint·미리보기/소스 그래프16개 검사를 통과했다. 소스 그래프를 재생성했으며 브라우저·빌드는 재실행하지 않았다.
@@ -3144,6 +3152,7 @@ Figma Navigational Buttons(296:25392)와 Action Buttons(296:25425)의 기본·�
 ## 2026-11-17 FAQ 검색 PC·모바일 시안 적용
 
 - FAQ 내부 입력 폭·placeholder와 별도 검색 버튼을 지정 디자인에 맞췄다. 카테고리·공통 검색 컴포넌트·기존 로컬 검색/경로를 보존했다. PC/MO 실측·캡처·Regular 글리프·검색 조작과 타입·lint·Panda를 확인했다. 상세는 architecture/routing.md 및 development/verification.md에 기록했다.
+
 ## 2026-11-17 FAQ 검색 스타일 className 정리
 
 - 검색 영역 스타일을 기존 FaqContent 상단 styles에 모아 className으로 연결하고 Panda 요소를 보존했다. PC/MO 치수·글자 크기·placeholder·넘침 재측정과 타입·lint·Panda 검사를 통과했다. 관련 상세는 architecture/routing.md에 기록했다.
@@ -3163,6 +3172,15 @@ Figma Navigational Buttons(296:25392)와 Action Buttons(296:25425)의 기본·�
 ## 2026-11-18 검색 빈 결과 시안 반영
 
 - 제목·설명을 별도 p로 분리하고 search recipe에 PC/MO 타이포·16px 간격·모바일 중앙 배치를 반영했다. PC/MO 계산 스타일·실제 제목 폰트·스크린샷을 확인했다. UI·빈 상태 가이드와 인덱스를 갱신했다.
+
+## 2026-11-18 EmptyState 제목 단계 축소
+
+- 사용자 공통 결정으로 heading형 제목을 PC22px/MO20px으로 낮추고 recipe·타입 기대값·관련 UI 문서를 갱신했다. 장바구니 PC/MO 계산 스타일과 관련 테스트를 확인했다.
+
+## 2026-11-18 EmptyState 디자인 기준 고정
+
+- 사용자 요청으로 AGENTS.md에 heading형 제목 PC22px/MO20px과 오래된 시안보다 우선하는 규칙을 명시했다. 변경에는 사용자 명시 지시가 필요하다. UI·빈 상태 가이드와 인덱스에 최신 정책을 연결했다. 화면 코드는 변경하지 않았다.
+
 
 ## 2026-11-18 주문 조회 없음 PC 시안 반영
 
@@ -3237,5 +3255,43 @@ Figma Navigational Buttons(296:25392)와 Action Buttons(296:25425)의 기본·�
 
 - 관심상품·최근 본 상품·재입고 알림 빈 화면은 PC와 모바일에서 제목과 검정 2px 구분선을 표시한다. 제목 아래 패딩은 PC 40px, 모바일 32px이다. 모바일에서 제목이 다시 표시되어 이전 최근 본 상품 빈 화면의 음수 마진은 제거했다.
 
+## 2026-11-18 최근 본 상품 안내 줄바꿈과 검토 현황
+
+- 최근 본 상품 빈 안내의 PC 유지기간 문장을 두 번째 행으로 분리했다. 사용자 완료·삭제·재디자인 구분을 빈 상태 가이드에 기록했다. 파일 lint·TypeScript 검사 통과, 브라우저 미검증.
+
 
 병합 보완: 최근 본 상품의 PC 빈 안내에서 기존 두 줄 표시를 유지했다. 상품내역의 새 소유 경로·정리된 표시 데이터와 함께 적용한다. 해당 파일 ESLint 통과.
+
+## 2026-11-18 더보기 공통 UI 규칙
+
+- 8개 호출부에서 미연결 콜백 기반 disabled를 제거하고 공통 숫자 굵기 상속을 정리했다. AGENTS·UI·라우팅·인덱스에 기준을 기록했다.
+
+## 2026-11-18 러닝세션 취소 탭 빈 문구
+
+- 취소 탭 빈 안내를 취소한 러닝세션이 없습니다.로 분리했다. 전체·신청완료 문구는 유지한다.
+
+실제 브라우저 확인: 취소·신청완료·전체 탭을 전환해 각각 취소/신청 문구를 확인했다. 더보기 disabled=false와 숫자·부모의 계산 굵기600 일치도 확인했다. 변경 파일 lint와 TypeScript 검사를 실행했다.
+
+## 2026-11-18 공지사항 빈 안내 plain
+
+- 공지사항의 빈 안내를 plain·notices recipe 본문형 스타일로 전환하고 기존 여백을 유지했다.
+
+## 2026-11-18 테이블형 빈 안내 크기 통일
+
+- plain 테이블형 recipe를 PC 최소220px/MO120px·문구 최대320px 중앙 정렬로 통일하고 AGENTS·UI·빈 상태 가이드에 고정 규칙을 기록했다. 공지사항 PC/MO 실측·lint·타입·관련 테스트2개 통과.
+
+## 2026-11-18 공지사항 모바일 상단선
+
+- 공지사항 목록의 모바일 상단선을 제거하고 PC 상단선을 유지했다.
+
+## 2026-11-18 공지사항 모바일 빈 안내 상하선
+
+- 최신 사용자 지시에 따라 notices 빈 안내 영역에 모바일 상하 #E9EAEB 1px 선을 추가했다. 목록 루트와 PC는 유지한다.
+
+## 2026-11-18 공지사항 모바일 빈 안내200px
+
+- 사용자 최신 결정으로 공지사항 모바일 빈 영역을200px로 조정하고 공통120px 규칙의 예외로 기록했다. 상하선과 PC는 유지한다.
+
+## 2026-11-18 쿠폰0건 표시 제거
+
+- 쿠폰 빈 목록에서 총0건 영역을 숨기고 유상품 목록의 건수는 유지했다.

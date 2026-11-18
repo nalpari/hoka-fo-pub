@@ -220,7 +220,6 @@ export function AddressList({
                   size="lg"
                   loadMore={{ counter: more.counter }}
                   onClick={more.onLoadMore}
-                  disabled={!embedded && !more.onLoadMore}
                 />
               </VStack>
             ) : null}

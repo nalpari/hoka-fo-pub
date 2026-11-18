@@ -76,8 +76,8 @@ test('layout typography wins over language defaults and legacy overrides retain 
     customDescription: false,
   };
   const review = getEmptyStateStyles({ variant: 'page', layout: 'reviews' }, korean);
-  assert.equal(review.title._mobile.fontWeight, 'black');
-  assert.equal(review.title._mobile.fontSize, 'var(--font-sizes-22)');
+  assert.equal(review.title._mobile.fontWeight, 'bold');
+  assert.equal(review.title._mobile.fontSize, 'var(--font-sizes-20)');
   const inquiry = getEmptyStateStyles({ variant: 'plain', layout: 'inquiries' }, korean);
   assert.equal(inquiry.title.lineHeight, 'body');
   assert.equal(inquiry.title._mobile.fontWeight, 'normal');
