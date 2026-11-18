@@ -11,7 +11,7 @@ const statusLink = css({
   alignContent: 'start',
   gap: { base: '12px', _mobile: '4px' },
   textAlign: 'center',
-  px: '24px',
+  px: '16px',
   borderRight: '1px solid var(--color-black-20)',
   '&:last-child': {
     borderRight: '0',
@@ -40,7 +40,7 @@ export function OrderStatusTracker({ items, to = '/mypage/orders' }: Props) {
         gap="0"
         gridTemplateColumns="repeat(5, minmax(0, 1fr))"
         minH={{ base: '159px', _mobile: '94px' }}
-        px={{ base: '57px', _mobile: '0' }}
+        px={{ base: '16px', _mobile: '0' }}
         border={{ base: '1px solid var(--color-black-100)', _mobile: '0' }}
         bg={{ base: 'white.0', _mobile: 'black.10' }}
       >

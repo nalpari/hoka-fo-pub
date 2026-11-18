@@ -210,7 +210,7 @@ export function OrdersListContent({
     <Stack gap={{ base: '48px', _mobile: '24px' }}>
       {/* 주문·배송 현황 */}
       <OrderStatusTracker items={statusItems} />
-      <Stack gap={{ base: '32px', _mobile: '24px' }}>
+      <Stack gap={{ base: '32px', _mobile: '0' }}>
         {/* 주문 조회 기간 필터 */}
         <DateRangeSearch {...dateSearch} />
         {/* 주문 상품 목록 및 빈 화면 */}
@@ -220,16 +220,8 @@ export function OrdersListContent({
             alignItems="center"
             gap={orders.length ? undefined : '0'}
             minH="67px"
-            borderTop={
-              orders.length
-                ? '1px solid var(--colors-black-100)'
-                : '2px solid var(--colors-black-100)'
-            }
-            borderBottom={
-              orders.length
-                ? '1px solid var(--colors-black-20)'
-                : '1px solid var(--colors-black-100)'
-            }
+            borderTop={'2px solid var(--colors-black-100)'}
+            borderBottom={'1px solid var(--colors-black-100)'}
             _mobile={{ display: 'none' }}
           >
             <Typography

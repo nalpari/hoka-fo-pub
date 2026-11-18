@@ -154,7 +154,7 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
         <HStack
           justifyContent="space-between"
           alignItems="flex-end"
-          pb="16px"
+          py="16px"
           borderBottom="1px solid var(--colors-black-100)"
         >
           <HStack
