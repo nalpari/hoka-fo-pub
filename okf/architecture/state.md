@@ -817,3 +817,5 @@ CheckoutShipping의 dialog 폼은 기존 ShippingDraft에 addressName을 추가�
 모바일 `/search?q=...`는 PC와 같은 일반 상품 검색 결과 레이아웃을 사용한다. 검색 전용 fixed 전체 화면·입력창·닫기 버튼을 제거하고 공통 헤더와 푸터를 표시한다. 재검색은 공통 헤더 검색 팝업에서 수행한다. 모바일 결과 제목 옆 필터 버튼과 필터 시트의 정렬·적용, PC 정렬 및 준비된 표시 데이터 경계는 유지한다. 이전 검색 결과 닫기 복귀 설명은 이 변경으로 대체하며 일반 검색 팝업의 로컬 닫기는 유지한다.
 
 출처: `src/components/catalog/ProductListingPage.tsx`, `src/context/ShopShell.tsx` 작업 트리; Codex 작성, 2026-11-17. TypeScript와 대상 ESLint·Prettier를 통과했다. 브라우저에서 PC Clifton 결과 2건과 정렬, 390px 모바일 일반 결과·필터 버튼 및 검색 패널 미표시를 확인했다. 실제 검색 API는 연결하지 않았다.
+
+- 머지 충돌 해결 후 회원정보 편집 화면과 모바일 검색 화면의 셸 분기를 복구했다.

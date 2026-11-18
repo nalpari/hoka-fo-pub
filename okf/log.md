@@ -3103,3 +3103,5 @@ Figma Navigational Buttons(296:25392)와 Action Buttons(296:25425)의 기본·�
 ## 2026-11-17 런칭 캘린더 Feed·Upcoming 빈 화면
 
 - 공통 목록 소유자와 EmptyState를 재사용해 빈 배열의 문구·PC/MO 배치를 적용하고 두 직접 URL을 IA160·161에 등록했다. 정상 목록·탭·서비스 미연결 경계를 유지했다. 타입·대상 lint/format·Panda·PC/MO 실측을 통과했고 비대상 문의 첨부파일 그래프 검사1실패를 구분했다. 상세는 architecture/launch-calendar.md에 기록했다.
+
+- 머지 충돌 해결 후 회원정보 편집 화면과 모바일 검색 화면의 셸 분기를 복구했다.

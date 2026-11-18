@@ -2806,6 +2806,7 @@ function AppLayout({
   const [menuOpen, setMenuOpen] = useState(false);
   const platform = usePlatform();
   const pathname = usePathname();
+  const searchPage = platform === 'mobile' && pathname === '/search';
   if (platform === 'web' && menuOpen) {
     setMenuOpen(false);
   }

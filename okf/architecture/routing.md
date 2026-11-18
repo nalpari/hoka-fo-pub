@@ -2092,3 +2092,5 @@ PC 1305px에서 매장명22px/900/26.4px·자간-0.44px, 본문16px/24px·자간
 ## 모바일 검색 결과 IA 연결 (2026-11-17)
 
 IA247은 기존 `/search`와 `/search/preview-no-results`를 유지하며 모바일도 일반 검색 결과 페이지로 표시한다. 소스 그래프에서 제거된 검색 입력·검색 헤더 의존성을 정식 생성 명령으로 갱신했다. 출처: `src/app/screen-index/sourceGraph.generated.json`, `src/components/catalog/ProductListingPage.tsx`, `src/context/ShopShell.tsx` 작업 트리; Codex, 2026-11-17.
+
+- 머지 충돌 해결 후 회원정보 편집 화면과 모바일 검색 화면의 셸 분기를 복구했다.
