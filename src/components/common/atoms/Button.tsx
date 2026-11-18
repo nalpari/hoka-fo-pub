@@ -239,7 +239,9 @@ function renderLoadMoreContent(
         ) : (
           <>
             <Typography {...labelProps}>{label}</Typography>
-            <Typography {...counterProps}>({countLabel})</Typography>
+            <Typography {...counterProps} weight="inherit">
+              ({countLabel})
+            </Typography>
           </>
         )}
         {indicator}

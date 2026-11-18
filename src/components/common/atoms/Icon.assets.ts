@@ -464,6 +464,10 @@ export const iconAssets = {
     src: '/images/icon/unlock-keyhole-regular.svg',
     mode: 'mask',
   },
+  'ticket-simple-solid': {
+    src: '/images/icon/ticket-simple-solid.svg',
+    mode: 'mask',
+  },
   'heart-regular': {
     src: '/images/icon/heart-regular.svg',
     mode: 'mask',

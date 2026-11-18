@@ -29,15 +29,6 @@ const styles = {
   emptyHeading: css({
     '&&': { fontSize: '42px', lineHeight: '1', textAlign: 'center', _mobile: { fontSize: '28px' } },
   }),
-  emptyState: css({
-    '&&': { py: '0', _mobile: { py: '0', minH: '340px' } },
-  }),
-  emptyTitle: css({
-    '&&': { fontSize: '28px', fontWeight: '900', lineHeight: '1.2', _mobile: { fontSize: '22px' } },
-  }),
-  emptyDescription: css({
-    '&&': { fontSize: '16px', fontWeight: '400', lineHeight: '1.5', _mobile: { fontSize: '14px' } },
-  }),
 };
 
 const actionStyle = css({
@@ -307,14 +298,12 @@ export function LaunchCalendarContent({
         </Stack>
         {empty ? (
           <EmptyState
+            layout="launch"
             variant="page"
-            className={styles.emptyState}
             title={
               mode === 'upcoming' ? '출시 예정인 상품이 없습니다.' : '등록된 런칭 일정이 없습니다.'
             }
             description="새로운 런칭 소식을 준비하고 있습니다. 조금만 기다려 주세요."
-            titleProps={{ as: 'h2', variant: 'headingKr7', className: styles.emptyTitle }}
-            descriptionProps={{ className: styles.emptyDescription }}
           />
         ) : grouped ? (
           <Stack gap="40px" aria-label="런칭 상품">

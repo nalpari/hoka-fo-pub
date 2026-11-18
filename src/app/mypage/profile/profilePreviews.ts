@@ -37,7 +37,7 @@ export const profilePreviews = [
   {
     href: '/mypage/profile/preview-password-error',
     label: '비밀번호 입력 오류',
-    state: 'error',
+    state: 'input-error',
   },
   {
     href: '/mypage/profile/preview-password-confirm',

@@ -10,6 +10,7 @@ generated:
   at: '2026-11-02T09:59:35Z'
 source_revision: 84b1d96781349d795089b9e2f737aad11a02172d
 working_tree_sources:
+  - src/context/ShopShell.tsx
   - src/app/checkout/checkout-address-preview.ts
   - src/context/ShopShell.tsx
   - src/types/component-contracts/context-ShopShell.d.ts
@@ -161,7 +162,7 @@ working_tree_sources:
   - src/components/phone-verification/PhoneVerificationAgreements.tsx
   - src/app/support/care/page.tsx
   - src/app/signup/complete/page.tsx
-  - src/components/mypage/MyPageProductHistory.tsx
+  - src/app/mypage/_components/MyPageProductHistory.tsx
   - src/components/not-found/NotFoundPage.tsx
   - src/components/identity-verification/IdentityVerificationContent.tsx
   - src/components/find-account/PasswordResetContent.tsx
@@ -669,7 +670,7 @@ MyPageDataContext에 프로필·상품내역·쿠폰·요약/추천·결제수�
 
 ## 재입고 표시 상태 (2026-10-30)
 
-`HistoryItem.status?: 'waiting' | 'sent'`를 추가했다. 연결된 재입고 목록은 현재 Provider의 product.name/gender/primaryImage·requestedAt·status를 읽고, `sent`는 발송완료 텍스트를 표시한다. 기존 호출자의 status 생략은 알림대기를 유지한다. PC/MO 미연결 시안의 상태·상품명 차이는 `MyPageProductHistory.restockPreview`에만 둔다. `cancelRestock`에는 상품 ID와 구분되는 신청 행 ID를 전달하며 기존 요청 훅의 pending/실패 유지·성공 후 닫기를 보존한다. 목록 갱신·오래된 응답 배제는 연결 소유자의 책임이고 API는 구현하지 않았다. 작업 트리 출처: `src/context/MyPageDataContext.ts`, `src/components/mypage/MyPageProductHistory.tsx`, `src/stories/features/mypage/MyPage.RestockAlerts.Web.stories.tsx`.
+`HistoryItem.status?: 'waiting' | 'sent'`를 추가했다. 연결된 재입고 목록은 현재 Provider의 product.name/gender/primaryImage·requestedAt·status를 읽고, `sent`는 발송완료 텍스트를 표시한다. 기존 호출자의 status 생략은 알림대기를 유지한다. PC/MO 미연결 시안의 상태·상품명 차이는 `MyPageProductHistory.restockPreview`에만 둔다. `cancelRestock`에는 상품 ID와 구분되는 신청 행 ID를 전달하며 기존 요청 훅의 pending/실패 유지·성공 후 닫기를 보존한다. 목록 갱신·오래된 응답 배제는 연결 소유자의 책임이고 API는 구현하지 않았다. 작업 트리 출처: `src/context/MyPageDataContext.ts`, `src/app/mypage/_components/MyPageProductHistory.tsx`, `src/stories/features/mypage/MyPage.RestockAlerts.Web.stories.tsx`.
 
 ## 전체 검색 표시 상태 검토 (2026-11-02)
 
@@ -809,8 +810,12 @@ CheckoutShipping의 dialog 폼은 기존 ShippingDraft에 addressName을 추가�
 
 추가·수정·취소·입력·체크·닫기는 기존 로컬 UI다. 저장·삭제·더보기 버튼은 시안의 활성 외형만 표시하며 미연결 handler는 만들지 않는다. 저장·삭제·추가 조회·완료 이동은 실행하지 않는다. 브라우저에서 저장 클릭 후 팝업·초안 유지, 취소 시 목록 복귀, 추가 시 빈 배송지명, Escape 후 포커스 복귀를 확인했다. 실제 API와 submission payload는 주문서 연결 소유자가 구현할 경계이며 이번 디자인 변경을 서비스 구현으로 보지 않는다. 출처: CheckoutShipping.tsx·checkout-address-preview.ts 작업 트리 및 localhost, Codex, 2026-11-13.
 
+배송지 빈 화면은 셸의 화면 높이 영역과 MyPageFrame의 fillAvailable 배치를 통해 모바일 남은 공간을 채운다. 기존 플랫폼 및 화면 상태 소유권은 유지한다.
+
 ## 모바일 전체 검색 결과 페이지 통일 (2026-11-17)
 
 모바일 `/search?q=...`는 PC와 같은 일반 상품 검색 결과 레이아웃을 사용한다. 검색 전용 fixed 전체 화면·입력창·닫기 버튼을 제거하고 공통 헤더와 푸터를 표시한다. 재검색은 공통 헤더 검색 팝업에서 수행한다. 모바일 결과 제목 옆 필터 버튼과 필터 시트의 정렬·적용, PC 정렬 및 준비된 표시 데이터 경계는 유지한다. 이전 검색 결과 닫기 복귀 설명은 이 변경으로 대체하며 일반 검색 팝업의 로컬 닫기는 유지한다.
 
 출처: `src/components/catalog/ProductListingPage.tsx`, `src/context/ShopShell.tsx` 작업 트리; Codex 작성, 2026-11-17. TypeScript와 대상 ESLint·Prettier를 통과했다. 브라우저에서 PC Clifton 결과 2건과 정렬, 390px 모바일 일반 결과·필터 버튼 및 검색 패널 미표시를 확인했다. 실제 검색 API는 연결하지 않았다.
+
+- 머지 충돌 해결 후 회원정보 편집 화면과 모바일 검색 화면의 셸 분기를 복구했다.

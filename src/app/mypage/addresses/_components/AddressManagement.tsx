@@ -53,7 +53,7 @@ export function AddressEditor({
         titleProps: { web: 'headingKr6', mo: 'headingKr5' },
         pb: '40px',
         borderBottom: '2px solid black',
-        _mobile: { pb: '16px' },
+        _mobile: { pb: '32px' },
       }}
     >
       <form
@@ -147,7 +147,7 @@ export function AddressEditor({
                   postalCode: {
                     id: 'address-zip',
                     required: true,
-                    disabled: false,
+                    disabled: true,
                     inputProps: {
                       required: true,
                       readOnly: true,
@@ -157,7 +157,7 @@ export function AddressEditor({
                   address: {
                     id: 'address-line',
                     required: true,
-                    disabled: !draft.zip,
+                    disabled: true,
                     inputProps: {
                       required: true,
                       readOnly: true,

@@ -66,7 +66,7 @@ export function NoticesList({ notices, shown, platform, pending, error }: Notice
       gap="0"
       borderTopColor="black.100"
       borderTopStyle="solid"
-      borderTopWidth={{ base: '2px', _mobile: '1px' }}
+      borderTopWidth={{ base: '2px', _mobile: '0' }}
     >
       <HStack
         aria-hidden="true"
@@ -85,7 +85,7 @@ export function NoticesList({ notices, shown, platform, pending, error }: Notice
         </Typography>
       </HStack>
       {!notices.length && !pending && !error ? (
-        <EmptyState title="등록된 공지사항이 없습니다." variant="minimal" />
+        <EmptyState title="등록된 공지사항이 없습니다." variant="plain" layout="notices" />
       ) : null}
       <Stack as="ul" gap="0" m="0" p="0" listStyleType="none">
         {notices.slice(0, shown).map((notice, index) => (

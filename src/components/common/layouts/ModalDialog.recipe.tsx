@@ -652,8 +652,6 @@ export const modalOrderLookupContentRecipe = sva({
     'lead',
     'note',
     'filters',
-    'tabs',
-    'tab',
     'results',
     'count',
     'countNumber',
@@ -704,12 +702,6 @@ export const modalOrderLookupContentRecipe = sva({
       },
     },
     filters: { gap: '24px' },
-    tabs: { gap: '8px!', _mobile: { gap: '4px!' } },
-    tab: {
-      px: '16px!',
-      h: '37px!',
-      '& span': { fontSize: '14px!', fontWeight: '400', lineHeight: '1.3' },
-    },
     results: { gap: '8px' },
     count: {
       justifyContent: 'flex-end',

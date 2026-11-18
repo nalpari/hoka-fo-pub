@@ -35,10 +35,15 @@ export function AddressList({
   const mobile = usePlatform() === 'mobile';
 
   return (
-    <Stack gap="6">
+    <Stack gap="6" flex={!embedded && !addresses.length ? '1' : undefined}>
       <ContentSection
+        flex={!embedded && !addresses.length ? '1' : undefined}
+        css={embedded ? undefined : { '--line-heights-body': '1.5' }}
         gap={addresses.length ? (embedded ? '8' : '8px') : '0'}
-        _mobile={{ gap: addresses.length ? '6' : '0' }}
+        _mobile={{
+          gap: addresses.length ? (embedded ? '6' : '8px') : '0',
+          pt: embedded ? '0' : '24px',
+        }}
         {...(embedded
           ? { header: null }
           : {
@@ -50,7 +55,9 @@ export function AddressList({
                 alignItems: 'end',
                 pb: '10',
                 borderBottom: '2px solid black',
-                _mobile: addresses.length ? { pb: '0', borderBottom: '0' } : { display: 'none' },
+                _mobile: addresses.length
+                  ? { pb: '32px', borderBottom: '2px solid black' }
+                  : { pb: '32px', borderBottom: '2px solid black' },
                 action: addresses.length ? (
                   <Button
                     {...(mobile
@@ -68,10 +75,10 @@ export function AddressList({
         {addresses.length ? (
           <Box>
             <Stack
-              gap={embedded ? '6' : '8px'}
+              gap={embedded ? '6' : '0'}
               _mobile={{
                 ...(embedded ? { gap: '6' } : {}),
-                borderTop: embedded ? undefined : '1px solid var(--colors-black-20)',
+                borderTop: undefined,
               }}
             >
               {addresses.map((address) => (
@@ -82,10 +89,13 @@ export function AddressList({
                   alignItems="center"
                   justifyContent="space-between"
                   gap="6"
-                  pb={embedded ? '6' : undefined}
                   py={embedded ? undefined : '24px'}
                   borderBottom="1px solid var(--colors-black-20)"
-                  _mobile={{ flexDirection: 'column', alignItems: 'stretch' }}
+                  _mobile={{
+                    flexDirection: 'column',
+                    alignItems: 'stretch',
+                    gap: '24px',
+                  }}
                 >
                   <Stack gap="8" minW="0" _mobile={{ gap: '3' }}>
                     <ContentHeader
@@ -103,7 +113,7 @@ export function AddressList({
                       gap="3"
                       _mobile={{ gap: '2' }}
                       action={
-                        address.isDefault ? (
+                        address.isDefault || !embedded ? (
                           <Badge
                             variant="line"
                             tone="primary"
@@ -120,14 +130,14 @@ export function AddressList({
                               },
                             })}
                           >
-                            기본 배송지
+                            {address.isDefault ? '기본 배송지' : '일반 배송지'}
                           </Badge>
                         ) : null
                       }
                     />
                     <Stack
                       gap="3"
-                      _mobile={{ gap: '4' }}
+                      _mobile={{ gap: '16px' }}
                       className={
                         embedded
                           ? css({
@@ -141,7 +151,7 @@ export function AddressList({
                         web="body3"
                         mo="body4"
                         language="en"
-                        tone="tertiary"
+                        tone={embedded ? 'tertiary' : 'subtle'}
                         className={
                           embedded
                             ? css({ lineHeight: '24px', _mobile: { lineHeight: '21px' } })
@@ -150,12 +160,16 @@ export function AddressList({
                       >
                         {address.phone}
                       </Typography>
-                      <Stack direction="row" gap="1" _mobile={{ flexDirection: 'column' }}>
+                      <Stack
+                        direction="row"
+                        gap="1"
+                        _mobile={{ flexDirection: 'column', gap: '4px' }}
+                      >
                         <Typography
                           web="body3"
                           mo="body4"
                           language="en"
-                          tone="tertiary"
+                          tone={embedded ? 'tertiary' : 'subtle'}
                           className={
                             embedded
                               ? css({ lineHeight: '24px', _mobile: { lineHeight: '21px' } })
@@ -164,7 +178,7 @@ export function AddressList({
                         >
                           {address.zip}
                         </Typography>
-                        <Typography web="body3" mo="body4" tone="tertiary">
+                        <Typography web="body3" mo="body4" tone={embedded ? 'tertiary' : 'subtle'}>
                           {address.address} {address.detail}
                         </Typography>
                       </Stack>
@@ -182,7 +196,7 @@ export function AddressList({
                         : ({ size: 'short', variant: 'primary' } as const))}
                       onClick={() => onEdit(address)}
                     >
-                      {mobile ? '수정' : '수정하기'}
+                      수정하기
                     </Button>
                     {!address.isDefault ? (
                       <Button
@@ -192,7 +206,7 @@ export function AddressList({
                         onClick={onDelete ? () => onDelete(address.id) : undefined}
                         disabled={!embedded && !onDelete}
                       >
-                        {mobile ? '삭제' : '삭제하기'}
+                        삭제하기
                       </Button>
                     ) : null}
                   </Stack>
@@ -206,36 +220,22 @@ export function AddressList({
                   size="lg"
                   loadMore={{ counter: more.counter }}
                   onClick={more.onLoadMore}
-                  disabled={!embedded && !more.onLoadMore}
                 />
               </VStack>
             ) : null}
           </Box>
         ) : (
           <EmptyState
+            layout={embedded ? 'embeddedAddress' : 'address'}
             variant="page"
-            layoutProps={css.raw({
-              minH: embedded ? '0' : '795px',
-              pt: embedded ? '8' : '160px',
-              pb: '0',
-              justifyContent: 'flex-start',
-              _mobile: {
-                mt: embedded ? '0' : '-24px',
-                py: '0',
-                minH: embedded ? '0' : 'calc(100svh - var(--layout-site-header-height) - 106px)',
-                justifyContent: 'center',
-              },
-            })}
-            titleProps={{ as: 'p', web: 'headingKr7', mo: 'headingKr5' }}
             title="자주 쓰는 배송지 주소를 설정해주세요."
             description={
               mobile
                 ? '자주 쓰는 배송지 주소를 저장하시면 보다 편리하게 이용이 가능합니다.'
                 : '자주 쓰는 배송지 주소를 설정해주세요. 자주 쓰는 배송지 주소를 저장하시면 보다 편리하게 이용이 가능합니다.'
             }
-            descriptionProps={{ web: 'body3', mo: 'body4' }}
             action={
-              <Box w="180px" _mobile={{ w: '322px', maxW: '100%' }}>
+              <Box>
                 <Button fullWidth size="tall" variant="primary" onClick={onAdd}>
                   배송지 추가
                 </Button>

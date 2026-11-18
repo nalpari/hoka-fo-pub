@@ -16,7 +16,7 @@ import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
-import { MyPageFrame } from '@/components/mypage/MyPageFrame';
+import { MyPageFrame } from '@/app/mypage/_components/MyPageFrame';
 
 const couponDescription = css({
   color: 'black.100',
@@ -497,16 +497,13 @@ export function RouteContent({
 
   return (
     <MyPageFrame activePath="/mypage/coupons" breadcrumbs={[{ label: '쿠폰' }]}>
-      <Stack
+      <ContentSection
+        title="쿠폰"
+        headerProps={{ titleAs: 'h1', titleProps: { web: 'headingKr6', mo: 'headingKr5' } }}
         gap="48px"
         _mobile={{ gap: '32px', pt: '24px' }}
         css={{ '--line-heights-body': '1.5' }}
       >
-        <ContentHeader
-          title="쿠폰"
-          titleAs="h1"
-          titleProps={{ web: 'headingKr6', mo: 'headingKr5' }}
-        />
         <Stack gap={{ base: '48px', _mobile: '40px' }}>
           {employee ? (
             <ContentSection
@@ -565,7 +562,6 @@ export function RouteContent({
                     variant="plain"
                     size="lg"
                     onClick={more.onLoadMore}
-                    disabled={!more.onLoadMore}
                     loadMore={{ counter: more.counter }}
                   />
                 </VStack>
@@ -591,15 +587,17 @@ export function RouteContent({
         />
         */}
               <Stack gap="8px">
-                <HStack justifyContent="flex-end">
-                  <HStack gap="2px">
-                    <Typography variant="body4">총</Typography>
-                    <Typography variant="body4Medium">
-                      {visibleCoupons.length}
-                      <Typography variant="bodyKr4">건</Typography>
-                    </Typography>
+                {visibleCoupons.length > 0 ? (
+                  <HStack justifyContent="flex-end">
+                    <HStack gap="2px">
+                      <Typography variant="body4">총</Typography>
+                      <Typography variant="body4Medium">
+                        {visibleCoupons.length}
+                        <Typography variant="bodyKr4">건</Typography>
+                      </Typography>
+                    </HStack>
                   </HStack>
-                </HStack>
+                ) : null}
                 {!visibleCoupons.length ? (
                   <EmptyState title="보유 중인 쿠폰이 없습니다." variant="minimal" />
                 ) : null}
@@ -635,7 +633,7 @@ export function RouteContent({
             if (!open) setSelectedCoupon(null);
           }}
         />
-      </Stack>
+      </ContentSection>
     </MyPageFrame>
   );
 }

@@ -167,7 +167,6 @@ const connections: Record<number, ScreenConnection> = {
   '171': {
     route: '/checkout',
     previewRoutes: [
-      { label: '상품 없음', href: '/checkout/preview-empty' },
       { label: '입력·동의 오류', href: '/checkout/preview-error' },
       { label: '주문 완료', href: '/checkout/preview-complete' },
       { label: '기본배송지 주소가 없는 사용자', href: '/checkout/preview-shipping' },
@@ -176,7 +175,6 @@ const connections: Record<number, ScreenConnection> = {
     ],
     sourceFiles: [
       'src/app/checkout/page.tsx',
-      'src/app/checkout/preview-empty/page.tsx',
       'src/app/checkout/preview-error/page.tsx',
       'src/app/checkout/preview-complete/page.tsx',
       'src/app/checkout/preview-shipping/page.tsx',
@@ -200,16 +198,9 @@ const connections: Record<number, ScreenConnection> = {
   },
   '177': {
     route: '/mypage',
-    defaultStateLabel: '주문 내역 있음',
-    previewRoutes: [
-      { label: '주문 내역 없음', href: '/mypage/preview-no-orders' },
-      { label: '로그아웃 확인', href: '/mypage/preview-logout' },
-    ],
-    sourceFiles: [
-      'src/app/mypage/page.tsx',
-      'src/app/mypage/preview-no-orders/page.tsx',
-      'src/app/mypage/preview-logout/page.tsx',
-    ],
+    defaultStateLabel: '회원 요약 및 메뉴',
+    previewRoutes: [{ label: '로그아웃 확인', href: '/mypage/preview-logout' }],
+    sourceFiles: ['src/app/mypage/page.tsx', 'src/app/mypage/preview-logout/page.tsx'],
   },
   '178': {
     route: '/mypage/orders',
@@ -913,7 +904,7 @@ const stateModalVariants: Readonly<Record<string, readonly ModalDialogVariant[]>
   '/checkout/preview-address-change': ['form'],
   '/checkout/preview-address-edit': ['form'],
   '/checkout/preview-address-new': ['form'],
-  // MyPageContent, OrdersPage, ReviewStatePreview and their dialog owners.
+  // MyPageContent, OrdersPage, ReviewsContent and their dialog owners.
   '/mypage/preview-logout': ['confirm'],
   '/mypage/orders/preview-cancel-request': ['productSelection'],
   '/mypage/orders/preview-return-request': ['productSelection'],

@@ -37,7 +37,7 @@ working_tree_sources:
   - src/app/support/notices/[id]/page.tsx
   - src/app/support/size-guide/_components/SizeGuidePanel.tsx
   - src/context/ShopShell.tsx
-  - src/components/mypage/MyPageProductHistory.tsx
+  - src/app/mypage/_components/MyPageProductHistory.tsx
   - src/components/running-session/RunningSessionPage.tsx
   - src/components/catalog/ProductListingPage.tsx
   - src/app/signup/terms/_components/SignupTermsContent.tsx
@@ -226,7 +226,7 @@ updated: '2026-11-04T01:19:32.500Z'
 | [src/components/common/molecules/SupportTabs.tsx](../../src/components/common/molecules/SupportTabs.tsx)                                                                                   | 공통 기본값·기존 소비자와 새 커밋의 옵션 확인                           |
 | [src/components/common/organisms/Address/AddressFields.tsx](../../src/components/common/organisms/Address/AddressFields.tsx)                                                               | 공통 기본값·기존 소비자와 새 커밋의 옵션 확인                           |
 | [src/components/common/organisms/Search/SearchHeader.tsx](../../src/components/common/organisms/Search/SearchHeader.tsx)                                                                   | 공통 기본값·기존 소비자와 새 커밋의 옵션 확인                           |
-| [src/components/mypage/MyPageProductHistory.tsx](../../src/components/mypage/MyPageProductHistory.tsx)                                                                                     | 공통 소유자로 통합; 표시/상태 계약 유지                                 |
+| [src/app/mypage/_components/MyPageProductHistory.tsx](../../src/app/mypage/_components/MyPageProductHistory.tsx)                                                                                     | 공통 소유자로 통합; 표시/상태 계약 유지                                 |
 | [src/components/running-session/RunningSessionPage.tsx](../../src/components/running-session/RunningSessionPage.tsx)                                                                       | 공통 소유자로 통합; 표시/상태 계약 유지                                 |
 | [src/components/running-session/runningSession.data.ts](../../src/components/running-session/runningSession.data.ts)                                                                       | 표시 데이터/타입 소유권 유지; 새 UI 구현 없음                           |
 | [src/components/support/InquiryCautions.tsx](../../src/components/support/InquiryCautions.tsx)                                                                                             | 기존 공통 조합·라우트/로컬 상태 소유권 유지; 대체가 필요한 새 중복 없음 |
@@ -279,7 +279,7 @@ updated: '2026-11-04T01:19:32.500Z'
 - `src/components/common/atoms/Button.tsx`
 - `src/components/common/atoms/EmptyState.tsx`
 - `src/app/support/_components/SupportContacts.tsx`
-- `src/components/mypage/MyPageProductHistory.tsx`
+- `src/app/mypage/_components/MyPageProductHistory.tsx`
 
 검토: codex/gpt-6, 2026-11-02T06:26:10Z. 측정·diff·로그는 외부 작업 디렉터리 `C:/Users/stead/ego/hoka-common-cleanup-20261102`에 보관했다.
 
@@ -331,7 +331,7 @@ PC 1440px·MO 375px에서 17개 URL/상태, 총 34개의 변경 전후 문구·�
 - `src/components/common/atoms/DataTable.tsx`
 - `src/components/common/molecules/ProductCard/ProductCard.tsx`
 - `src/components/common/molecules/ProductThumbnail.tsx`
-- `src/components/mypage/MyPageProductHistory.tsx`
+- `src/app/mypage/_components/MyPageProductHistory.tsx`
 - `src/components/running-session/RunningSessionPage.tsx`
 
 검토: codex/gpt-6, 2026-11-02T06:36:38Z. 별도 작업의 스테이징은 보존했으며 측정과 치환 계획은 `C:/Users/stead/ego/hoka-token-colors-20261102`에 기록했다.

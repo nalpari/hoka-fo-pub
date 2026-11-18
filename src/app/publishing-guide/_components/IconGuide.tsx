@@ -77,7 +77,7 @@ const usageScreens: Record<string, { label: string; href: string }> = {
     label: '장바구니',
     href: '/cart',
   },
-  'OrderHistoryProduct.tsx': {
+  'OrderProductSummary.tsx': {
     label: '주문/배송조회',
     href: '/mypage/orders',
   },
@@ -121,7 +121,7 @@ const usageScreens: Record<string, { label: string; href: string }> = {
     label: '홈 · 헤더 검색 패널',
     href: '/#site-search-panel',
   },
-  'MyPageReviewsContent.tsx': {
+  'ReviewsContent.tsx': {
     label: '상품 리뷰',
     href: '/mypage/reviews',
   },
@@ -883,7 +883,7 @@ const iconGroups: {
         origin: { label: 'Font Awesome', name: 'bag-shopping', detail: 'Regular' },
         preview: <Icon name="hoka-bag-shopping-regular" size={18} />,
         code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="hoka-bag-shopping-regular" size={18} />',
-        source: 'OrderHistoryProduct.tsx',
+        source: 'OrderProductSummary.tsx',
         note: 'color로 색상 변경 가능',
         registeredName: 'hoka-bag-shopping-regular',
       },
@@ -1274,7 +1274,7 @@ const platform = usePlatform();
         preview: <Icon name="chevron-down-regular" size={14} />,
         code: 'import { Icon } from \'@/components/common/atoms/Icon\';\n\n<Icon name="chevron-down-regular" size={14} />\n\n<Icon name="chevron-down-regular" size={13} />',
         source:
-          'MyPageReviewsContent.tsx, ProductListingPage.tsx, Accordion.tsx, FaqContent.tsx, ProductDetailContent.tsx, RunningSessionEntriesContent.tsx, IaStructurePage.tsx, TermsDocument.tsx, NoticesContent.tsx',
+          'ReviewsContent.tsx, ProductListingPage.tsx, Accordion.tsx, FaqContent.tsx, ProductDetailContent.tsx, RunningSessionEntriesContent.tsx, IaStructurePage.tsx, TermsDocument.tsx, NoticesContent.tsx',
         note: 'color로 색상 변경 가능',
         registeredName: 'chevron-down-regular',
       },
@@ -1599,7 +1599,7 @@ function IconExampleCard({
       borderRadius="2"
       bg="surface.default"
     >
-<Typography as="h4" variant="body4Semibold">
+      <Typography as="h4" variant="body4Semibold">
         {example.label}
       </Typography>
       {example.registeredName ? (

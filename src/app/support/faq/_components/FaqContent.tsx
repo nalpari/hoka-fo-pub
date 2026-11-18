@@ -218,12 +218,7 @@ function FaqList({ entries, openQuestion, onToggle }: FaqListProps) {
           }))}
         />
       ) : (
-        <EmptyState
-          variant="plain"
-          title="검색 결과가 없습니다."
-          titleProps={{ as: 'p', web: 'body4', mo: 'body5', tone: 'tertiary' }}
-          layoutProps={{ py: '15' }}
-        />
+        <EmptyState layout="faq" variant="plain" title="검색 결과가 없습니다." />
       )}
     </Box>
   );
@@ -292,7 +287,6 @@ export function RouteContent({ previewEmpty = false, previewExpanded = false }: 
               variant="plain"
               size="lg"
               onClick={more.onLoadMore}
-              disabled={!more.onLoadMore}
               loadMore={{ counter: more.counter }}
             />
           </VStack>

@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import { AddressList } from '@/components/common/organisms/Address/AddressList';
 
-import { MyPageFrame } from '@/components/mypage/MyPageFrame';
+import { MyPageFrame } from '@/app/mypage/_components/MyPageFrame';
 import { initialAddresses } from '@/data/addressPreview';
 import { type Address } from '@/types/mypage-address.types';
 
@@ -37,7 +37,11 @@ export function AddressStatePreview({
   );
   const [addressOpen, setAddressOpen] = useState(false);
   return (
-    <MyPageFrame activePath="/mypage/addresses" breadcrumbs={[{ label: '배송지 관리' }]}>
+    <MyPageFrame
+      fillAvailable={!editing && (state === 'empty' || (items !== undefined && items.length === 0))}
+      activePath="/mypage/addresses"
+      breadcrumbs={[{ label: '배송지 관리' }]}
+    >
       {editing ? (
         <AddressEditor
           editingId={editingId}

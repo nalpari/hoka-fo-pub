@@ -429,12 +429,6 @@ const styles = {
     overflowWrap: 'anywhere',
     whiteSpace: 'pre-wrap',
   }),
-  productEmpty: css({
-    display: 'flex',
-    minH: '120px',
-    alignItems: 'center',
-    justifyContent: 'center',
-  }),
   title: css({ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }),
   metadata: css({ textAlign: 'center', _mobile: { textAlign: 'left' } }),
   panel: css({
@@ -444,11 +438,6 @@ const styles = {
     overflowWrap: 'anywhere',
     whiteSpace: 'pre-wrap',
     _mobile: { p: '24px 12px' },
-  }),
-  empty: css({
-    py: '48px',
-    textAlign: 'center',
-    borderBottom: '1px solid var(--color-border-default)',
   }),
 };
 function InquirySubject({
@@ -566,6 +555,7 @@ function InquiryBoard({
         />
       ) : (
         <EmptyState
+          layout={variant === 'product' ? 'productInquiry' : 'inquiryBoard'}
           variant="plain"
           role="status"
           title={
@@ -573,15 +563,6 @@ function InquiryBoard({
               ? '공개로 등록된 문의글이 없습니다.'
               : '등록된 문의글이 없습니다.'
           }
-          titleProps={{
-            as: 'p',
-            variant: variant === 'product' ? 'body3' : 'body4',
-            tone: variant === 'product' ? 'primary' : 'tertiary',
-            className:
-              variant === 'product'
-                ? [styles.productEmpty, css({ textAlign: 'start' })].join(' ')
-                : styles.empty,
-          }}
         />
       )}
       {more ? (
@@ -590,7 +571,6 @@ function InquiryBoard({
             variant="plain"
             size="lg"
             onClick={more.onLoadMore}
-            disabled={!more.onLoadMore}
             loadMore={{ counter: more.counter }}
           />
         </VStack>

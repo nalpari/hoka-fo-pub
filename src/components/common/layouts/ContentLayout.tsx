@@ -15,7 +15,6 @@ const stickyHeaderStyle = css({
   top: 'var(--layout-site-header-height)',
   zIndex: 10,
   bg: 'var(--hoka-white)',
-  pt: '6',
   pb: '5',
   _before: {
     content: '""',
@@ -27,6 +26,8 @@ const stickyHeaderStyle = css({
   },
   _mobile: { position: 'static', pt: 0, _before: { display: 'none' } },
 });
+
+const stickyHeaderWithoutBreadcrumb = css({ pt: '6', _mobile: { pt: '0' } });
 
 type ContentLayoutProps = {
   children: ReactNode;
@@ -79,7 +80,16 @@ export function ContentLayout({
 
   return (
     <Stack as="main" className={className} gap="0" style={layoutStyle}>
-      <div className={stickyHeader ? stickyHeaderStyle : undefined} ref={headerRef}>
+      <div
+        className={
+          stickyHeader
+            ? [stickyHeaderStyle, !breadcrumbItems?.length && stickyHeaderWithoutBreadcrumb]
+                .filter(Boolean)
+                .join(' ')
+            : undefined
+        }
+        ref={headerRef}
+      >
         {hasIntro ? (
           <Stack as="header" gap={{ base: '24px', _mobile: '10px' }}>
             {breadcrumbItems?.length ? <Breadcrumb items={breadcrumbItems} /> : null}
