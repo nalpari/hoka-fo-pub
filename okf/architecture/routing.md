@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-17T08:52:43.078169+00:00'
+updated: '2026-11-18T00:44:55Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -2048,3 +2048,9 @@ IA247은 기존 `/search`와 `/search/preview-no-results`를 유지하며 모바
 ## EmptyState layout 선택 연결 (2026-11-17)
 
 앞선 기본 standard 생략 정리는 사용자의 후속 지시로 취소했다. 주문 목록은 variant="standard"를 명시하고 layout="orders"만 추가한다. 런칭 launch, 리뷰 reviews, 마이페이지 주문 요약 orderSummary, FAQ faq, 문의 inquiries와 상품 문의 productInquiry/inquiryBoard를 기존 EmptyState에 연결했다. 상품내역·배송지·러닝세션·상품/검색 목록의 공유 UI도 같은 layout 계약을 사용한다. 숫자 스타일은 recipe가 소유하며 표시 데이터·상태·URL·콜백·태그/폼 경계와 부모 컴포넌트는 유지한다. 새 route나 상태 URL은 추가하지 않았다. 19개 기존 URL의1440/375px 비교38개 경우에서 측정 결과가 동일했고 가로 넘침이 없었다. 상세 계약·검사와 미검증 분기는 [UI 문서](ui.md#emptystate-화면별-layout-통합-2026-11-17)를 따른다. 출처: 위 작업 트리와 사용자 요청, Codex 검사.
+
+## 마이페이지 메인 주문 요약 제거 (2026-11-18)
+
+최신 시안에 따라 /mypage의 주문 배송 요약·전용 주문 fixture·previewNoOrders 분기를 제거했다. IA177 기본 상태는 회원 요약 및 메뉴이고 로그아웃 확인 미리보기만 노출한다. 기존 /mypage/preview-no-orders는 설치된 Next.js redirect로 /mypage에 연결해 이전 직접 주소를 보존한다. 실제 주문 조회 /mypage/orders와 다른 화면의 빈 상태 계약은 유지한다. sourceGraph는 정식 생성 명령으로 갱신했다.
+
+출처: [마이페이지 메인 디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design), src/app/mypage/_components/MyPageContent.tsx, src/app/mypage/mypage-home-data.ts, src/app/mypage/preview-no-orders/page.tsx, src/app/screen-index/screenConnections.ts, src/app/screen-index/sourceGraph.generated.json 작업 트리. Codex, 2026-11-18. 브라우저에서 이전 preview 주소의 /mypage 이동과 PC·모바일 기본 화면 및 로그아웃 확인창 열기·Escape 닫기를 확인했다.

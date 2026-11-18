@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-17T08:52:43.078169+00:00'
+updated: '2026-11-18T00:44:54Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -5339,3 +5339,9 @@ FAQ의 이전 미생성 py15는 실제 화면의 상하0px으로 명시했다. �
 19개 기존 상태 URL의 PC1440×900/MO375×900 총38개 경우에서 root/title/직접 자식의 측정 위치·치수·스타일이 변경 직전과 일치했고 가로 넘침이 없었다. 상품 목록 PC·러닝세션/주문/런칭 모바일 스크린샷을 직접 확인했다. 전체 TypeScript, 대상 ESLint·Prettier, Panda 생성과 EmptyState/ModalDialog 타입 검사2개를 통과했다. 전체 lint는 변경하지 않은 tests/wh-file-summary.test.mjs의 URL/Request/Response no-undef8건으로 실패했다. 미연결 embedded 빈 배송지와 InquiryBoard default 분기는 소스/타입만 검토했으며 런타임 검증으로 기록하지 않는다. 출처: 사용자 요청, 두 EmptyState 및 변경 호출부의 현재 작업 트리, Codex 실제 검사.
 
 2026-11-17 layout 통합 최종 빌드: npm run build의 컴파일·TypeScript·정적 페이지164개 생성이 통과했다. 마지막 구조 검토에서 기존 Panda primitives·시맨틱·상태/콜백·명시 variant와 기본값의 보존을 확인했다.
+
+## 마이페이지 메인 최신 시안 반영 (2026-11-18)
+
+PC·모바일 메인에서 주문 배송 요약을 제거하고 회원 요약과 메뉴를 이어 배치했다. 쿠폰 ticket-simple-solid·관심상품 heart-solid 아이콘은 18px, 라벨과 아이콘 사이는 8px이다. 모바일 위젯 라벨은 16px, 본문 행간은 1.5이며 PC 메뉴 제목 아래16px·헤더52px·메뉴 행56px을 적용한다. 이름과 단위의 아래 정렬, 모바일 등급 R의700 굵기도 시안에 맞췄다. PC·모바일 시안의 관심상품 숫자는28/6으로 달라 기존 공통 fixture6을 유지한다. API·로그아웃 연결 계약은 변경하지 않았다.
+
+출처: [마이페이지 메인 디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design), src/app/mypage/_components/MyPageContent.tsx, src/app/mypage/mypage-home-data.ts, src/components/common/atoms/Icon.assets.ts, public/images/icon/ticket-simple-solid.svg, src/types/component-contracts/app-mypage-page.d.ts 작업 트리. Codex, 2026-11-18. PC1920·모바일375에서 아이콘18px·주문 요약 없음·로그아웃 확인창을 검사했고 모바일 최종 화면의 가로 넘침이 없었다. 브라우저 세로 스크롤바15px과 기존 홍보 배너는 디자인 프레임과의 전체 좌표 차이로 구분한다. 관련 ESLint·TypeScript·Panda 검사 통과. 프로덕션 빌드는164개 페이지 생성까지 통과했으며 이후 지역 타이포 클래스 보정에는 Panda를 재생성했다. 최종 인계 검토에서 기존 페이지 전용 소유권·Panda primitive·탐색 링크·로그아웃 로컬 상태를 유지했다.

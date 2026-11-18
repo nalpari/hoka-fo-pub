@@ -1,5 +1,7 @@
 # 아키텍처
 
+- [마이페이지 메인 최신 시안](ui.md#마이페이지-메인-최신-시안-반영-2026-11-18) - 주문 요약 제거·18px 위젯 아이콘·PC/MO 간격과 이전 미리보기 주소 정리.
+
 - [EmptyState 화면별 layout 통합](ui.md#emptystate-화면별-layout-통합-2026-11-17) - 호출부 스타일의 recipe 이동·명시 variant 유지와38개 상태 비교.
 
 - [EmptyState 전체 사용처 스타일 점검](error-empty-guide.md#emptystate-전체-사용처-스타일-점검-2026-11-17) - 17개 호출·19개 URL의 PC/MO와 FAQ 여백·런칭 제목 충돌.

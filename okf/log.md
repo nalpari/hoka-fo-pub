@@ -1,3 +1,7 @@
+## 2026-11-18 마이페이지 메인 최신 시안 반영
+
+- 주문 배송 요약과 전용 fixture를 제거하고 쿠폰·관심상품18px 아이콘, 모바일16px 라벨, 본문 행간·이름/단위 정렬과 PC 메뉴 헤더를 맞췄다. IA177 상태를 정리하고 이전 주문 없음 preview는 /mypage로 연결한다. PC/MO 렌더링·로그아웃 확인·이전 주소 이동과 관련 lint·TypeScript·Panda를 확인했다. 빌드164개 페이지 생성 통과 후 지역 타이포를 보정했다. 출처와 남은 PC/MO fixture 숫자 차이는 architecture/ui.md·architecture/routing.md에 기록했다.
+
 ## 2026-11-17 EmptyState 화면별 layout 통합
 
 - 호출부 layoutProps·EmptyState 전용 클래스·주문 부모 제목 선택자를 recipe의 layout 및 title/description 슬롯으로 이동했다. variant와 layout은 선택적 기본값 standard/default를 유지하고 기존 명시 standard는 사용자 후속 지시에 따라 복원했다. 이전 생략 정리 기록은 이 지시로 대체한다.

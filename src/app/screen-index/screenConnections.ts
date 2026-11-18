@@ -200,16 +200,9 @@ const connections: Record<number, ScreenConnection> = {
   },
   '177': {
     route: '/mypage',
-    defaultStateLabel: '주문 내역 있음',
-    previewRoutes: [
-      { label: '주문 내역 없음', href: '/mypage/preview-no-orders' },
-      { label: '로그아웃 확인', href: '/mypage/preview-logout' },
-    ],
-    sourceFiles: [
-      'src/app/mypage/page.tsx',
-      'src/app/mypage/preview-no-orders/page.tsx',
-      'src/app/mypage/preview-logout/page.tsx',
-    ],
+    defaultStateLabel: '회원 요약 및 메뉴',
+    previewRoutes: [{ label: '로그아웃 확인', href: '/mypage/preview-logout' }],
+    sourceFiles: ['src/app/mypage/page.tsx', 'src/app/mypage/preview-logout/page.tsx'],
   },
   '178': {
     route: '/mypage/orders',
