@@ -3,13 +3,13 @@ import Link from 'next/link';
 import { usePlatform } from '@/context/platform';
 
 import { css } from 'styled-system/css';
-import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
+import { Box, Grid, HStack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
 import { FilterTabs } from '@/components/common/atoms/FilterTabs';
-import { Icon } from '@/components/common/atoms/Icon';
-import { TextInput } from '@/components/common/atoms/TextInput';
 import { Typography } from '@/components/common/atoms/Typography';
+
+import { DateRangeSearch } from '@/components/common/molecules/DateRangeSearch';
 
 import type { OrderFilters, OrdersPeriod } from '@/components/orders/orders.types';
 
@@ -69,136 +69,6 @@ export function OrderStatusTracker({ items, to = '/mypage/orders' }: Props) {
   );
 }
 
-const dateInput = css({
-  '&&': {
-    w: '130px',
-    minW: '0px',
-    flexShrink: '0',
-    minH: '36px',
-    h: '36px',
-    pl: '16px',
-    pr: '40px',
-    borderRadius: 'full',
-    fontSize: '14px',
-    fontWeight: 'medium',
-    // letterSpacing: '-0.4px',
-    color: 'black.100',
-    bg: 'white.0',
-    '&::selection': { bg: 'blue.100', color: 'black.100' },
-  },
-});
-
-const calendarPicker = css({
-  position: 'absolute',
-  right: '16px',
-  top: '50%',
-  transform: 'translateY(-50%)',
-  w: '18px',
-  h: '18px',
-  opacity: '0',
-  cursor: 'pointer',
-  '&::-webkit-calendar-picker-indicator': {
-    position: 'absolute',
-    inset: '0',
-    w: '100%',
-    h: '100%',
-    margin: '0',
-    padding: '0',
-    cursor: 'pointer',
-  },
-});
-
-function formatDateInput(value: string) {
-  const digits = value.replace(/\D/g, '').slice(0, 8);
-  return [digits.slice(0, 4), digits.slice(4, 6), digits.slice(6, 8)].filter(Boolean).join('-');
-}
-
-/** 직접 조회 기간 입력과 오류·조회 액션을 표시합니다. (Displays custom date inputs, errors, and the search action.) */
-function OrdersDateRange({
-  dates,
-  error,
-  onDateChange,
-  onDateSearch,
-}: Pick<OrdersFiltersProps, 'dates' | 'error' | 'onDateChange' | 'onDateSearch'>) {
-  return (
-    <Stack gap="8px">
-      <HStack alignItems="center" justify="space-between" gap="24px">
-        <HStack alignItems="center" gap="6px">
-          <Box pos="relative" flexShrink="0">
-            <TextInput
-              className={dateInput}
-              type="text"
-              inputMode="numeric"
-              maxLength={10}
-              aria-label="조회 시작일"
-              placeholder="YYYY.MM.DD"
-              value={dates.start.replaceAll('-', '.')}
-              onChange={(event) => onDateChange('start', formatDateInput(event.target.value))}
-            />
-            <input
-              type="date"
-              aria-label="조회 시작일 달력 열기"
-              className={calendarPicker}
-              value={/^\d{4}-\d{2}-\d{2}$/.test(dates.start) ? dates.start : ''}
-              onChange={(event) => onDateChange('start', event.target.value)}
-            />
-            <Icon
-              name="calendar-regular"
-              size={18}
-              className={css({
-                position: 'absolute',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                pointerEvents: 'none',
-                right: '16px',
-              })}
-            />
-          </Box>
-          <Typography variant="body4">–</Typography>
-          <Box pos="relative" flexShrink="0">
-            <TextInput
-              className={dateInput}
-              type="text"
-              inputMode="numeric"
-              maxLength={10}
-              aria-label="조회 종료일"
-              placeholder="YYYY.MM.DD"
-              value={dates.end.replaceAll('-', '.')}
-              onChange={(event) => onDateChange('end', formatDateInput(event.target.value))}
-            />
-            <input
-              type="date"
-              aria-label="조회 종료일 달력 열기"
-              className={calendarPicker}
-              value={/^\d{4}-\d{2}-\d{2}$/.test(dates.end) ? dates.end : ''}
-              onChange={(event) => onDateChange('end', event.target.value)}
-            />
-            <Icon
-              name="calendar-regular"
-              size={18}
-              className={css({
-                position: 'absolute',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                pointerEvents: 'none',
-                right: '16px',
-              })}
-            />
-          </Box>
-        </HStack>
-        <Button variant="link" size="md" onClick={onDateSearch}>
-          조회
-        </Button>
-      </HStack>
-      {error ? (
-        <Typography role="alert" variant="body5" tone="error">
-          {error}
-        </Typography>
-      ) : null}
-    </Stack>
-  );
-}
-
 export type OrdersFiltersProps = {
   filters: OrderFilters;
   dates: { start: string; end: string };
@@ -252,12 +122,12 @@ export function OrdersFilters({
         }
       />
       <Box display={{ base: 'block', _mobile: filters.period === 'custom' ? 'block' : 'none' }}>
-        <OrdersDateRange
-          dates={dates}
-          error={error}
-          onDateChange={onDateChange}
-          onDateSearch={onDateSearch}
-        />
+        <HStack gap="24px" alignItems="start">
+          <DateRangeSearch dates={dates} error={error} onDateChange={onDateChange} />
+          <Button variant="link" size="md" onClick={onDateSearch}>
+            조회
+          </Button>
+        </HStack>
       </Box>
     </HStack>
   );

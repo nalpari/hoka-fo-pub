@@ -2,7 +2,6 @@
 /** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 문의 연결 소유자가 표시 모델과 식별자·입력/선택 payload, 요청 중/실패/성공/재시도 및 응답 갱신을 별도로 구현해야 합니다. */
 import { type RefObject, useState } from 'react';
 
-import { css } from 'styled-system/css';
 import { Box, Flex, Stack, VStack } from 'styled-system/jsx';
 
 import { Badge } from '@/components/common/atoms/Badge';
@@ -13,9 +12,11 @@ import { Icon } from '@/components/common/atoms/Icon';
 import { Radio } from '@/components/common/atoms/Radio';
 import { Typography } from '@/components/common/atoms/Typography';
 
+import { DateRangeSearch } from '@/components/common/molecules/DateRangeSearch';
 import { OrderProductSummary } from '@/components/common/molecules/OrderProductSummary';
 
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
+import { modalOrderLookupContentRecipe } from '@/components/common/layouts/ModalDialog.recipe';
 
 import { type InquiryOrder, inquiryOrders } from '@/app/support/inquiries/new/inquiryOrders.data';
 import { type InquiryOrderSelection } from '@/app/support/inquiries/new/inquiryOrders.data';
@@ -26,22 +27,10 @@ const periodOptions = [
   { value: '1m', label: '1개월' },
   { value: 'custom', label: '직접설정' },
 ] as const;
-const orderHeading = css({
-  flex: '1',
-  minW: '0',
-  textAlign: 'left',
-  '& > span > span:first-child': {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: '2',
-    w: '100%',
-    minW: '0',
-    whiteSpace: 'normal',
-  },
-});
+const classes = modalOrderLookupContentRecipe();
 
-const visuallyHidden = css({ srOnly: true });
+const styles = modalOrderLookupContentRecipe.raw();
+
 export type InquiryLookupPreview = { empty?: boolean; period?: 'custom'; selected?: boolean };
 
 /** 문의 대상 주문과 상품을 선택하는 모달입니다. (Selects an order and products for an inquiry.) */
@@ -105,7 +94,7 @@ export function InquiryOrderLookup({
   };
   return (
     <ModalDialog
-      variant="selection"
+      variant="orderLookup"
       open
       onOpenChange={(open) => {
         if (!open) onClose();
@@ -114,14 +103,6 @@ export function InquiryOrderLookup({
       title="주문 상품 조회"
       closeLabel="주문상품 조회 닫기"
       mobilePresentation="fullscreen"
-      headerProps={{
-        css: css.raw({
-          bg: 'white.0',
-          borderBottom: '1px solid token(colors.black.20)',
-          _mobile: { h: '56px', flexShrink: '0', borderBottomWidth: '0' },
-        }),
-      }}
-      popupClassName={css({ _mobile: { '& > div:nth-child(2)': { pb: '64px' } } })}
       actions={{
         kind: 'confirm',
         fullWidth: false,
@@ -132,67 +113,59 @@ export function InquiryOrderLookup({
           if (selection) onSelect(selection);
         },
       }}
-      footerProps={{
-        css: css.raw({
-          _mobile: { pt: '8', pb: '0' },
-          '& > button': { w: '180px', _mobile: { w: '100%' }, '--button-height': '48px' },
-        }),
-      }}
     >
-      <Stack gap="8">
-        <Stack gap="2">
-          <Typography variant="body4">
+      <Stack css={styles.root}>
+        <Stack css={styles.intro}>
+          <Typography variant="body4" className={classes.lead}>
             1:1 문의를 원하시는 주문번호 및 상품명을 선택해 주세요.
           </Typography>
-          <Typography variant="body5" tone="tertiary">
+          <Typography variant="body5" tone="tertiary" className={classes.note}>
             *문의 접수 시 한 건의 문의에는 하나의 주문번호만 선택하실 수 있습니다. 하나의 주문번호
             안에서는 여러 상품을 함께 선택하실 수 있습니다.
           </Typography>
         </Stack>
 
-        <Stack gap={{ base: '6', _mobile: '8' }}>
+        <Stack css={styles.filters}>
           <FilterTabs
             ariaLabel="주문 조회 기간"
             value={period}
             onValueChange={setPeriod}
             options={periodOptions}
             variant="fill"
-            railClassName={css({ gap: '4px!' })}
-            itemClassName={() => css({ px: '4!', '& span': { fontSize: '14px!' } })}
+            railClassName={classes.tabs}
+            itemClassName={() => classes.tab}
           />
           {period === 'custom' && (
-            <Flex alignItems="center" gap="2" flexWrap={{ _mobile: 'wrap' }}>
-              <input
-                aria-label="조회 시작일"
-                type="date"
-                value={dateFrom}
-                onChange={(event) => setDateFrom(event.target.value)}
-                className={css({ h: '10', border: '1px solid token(colors.black.40)', px: '2' })}
+            <Flex alignItems="center" justifyContent="space-between" gap="16px">
+              <DateRangeSearch
+                dates={{ start: dateFrom, end: dateTo }}
+                onDateChange={(key, value) => {
+                  if (key === 'start') setDateFrom(value);
+                  else setDateTo(value);
+                }}
               />
-              <span>~</span>
-              <input
-                aria-label="조회 종료일"
-                type="date"
-                value={dateTo}
-                onChange={(event) => setDateTo(event.target.value)}
-                className={css({ h: '10', border: '1px solid token(colors.black.40)', px: '2' })}
-              />
-              <Button size="short" variant="secondary">
+              <Button variant="link" size="md">
                 조회
               </Button>
             </Flex>
           )}
-          <Stack gap={{ base: '6', _mobile: '2' }}>
-            <Flex justifyContent="flex-end">
-              <Typography variant="body4">총 {filteredOrders.length}건</Typography>
+          <Stack css={styles.results}>
+            <Flex css={styles.count}>
+              <Typography variant="body4">
+                총{' '}
+                <Typography variant="body3" language="en" className={classes.countNumber}>
+                  {filteredOrders.length}
+                </Typography>
+                건
+              </Typography>
             </Flex>
-            <Stack gap="0" borderTop="1px solid token(colors.black.100)">
+            <Stack css={styles.orders}>
               {filteredOrders.slice(0, visibleCount).map((order) => {
                 const isExpanded = expandedOrder === order.id;
                 const isSelected = selection?.order.id === order.id;
                 return (
-                  <Box key={order.id} borderBottom="1px solid token(colors.black.20)">
-                    <Flex alignItems="center" gap="4" p={{ base: '4', _mobile: '16px 8px 16px 0' }}>
+                  <Box key={order.id} css={styles.order}>
+                    <Flex css={styles.orderHeader} data-expanded={isExpanded}>
                       <Radio
                         ariaLabel="주문번호"
                         value={selection?.order.id ?? ''}
@@ -200,7 +173,7 @@ export function InquiryOrderLookup({
                         options={[
                           {
                             value: order.id,
-                            label: <span className={visuallyHidden}>{order.id}</span>,
+                            label: <span className={classes.hidden}>{order.id}</span>,
                           },
                         ]}
                       />
@@ -211,13 +184,17 @@ export function InquiryOrderLookup({
                         aria-expanded={isExpanded}
                         aria-label={`${order.id} 상품 목록 ${isExpanded ? '접기' : '펼치기'}`}
                         onClick={() => setExpandedOrder(isExpanded ? null : order.id)}
-                        className={orderHeading}
+                        className={classes.orderHeading}
                       >
-                        <Stack as="span" gap="2" alignItems="flex-start" minW="0" flex="1">
-                          <Typography variant="body4" language="en">
+                        <Stack as="span" css={styles.orderMeta}>
+                          <Typography variant="body4" language="en" className={classes.date}>
                             {order.date}
                           </Typography>
-                          <Typography variant="body5" tone="tertiary">
+                          <Typography
+                            variant="body5"
+                            tone="tertiary"
+                            className={classes.orderNumber}
+                          >
                             주문번호 {order.id}
                           </Typography>
                         </Stack>
@@ -232,25 +209,18 @@ export function InquiryOrderLookup({
                       </Button>
                     </Flex>
                     {isExpanded && (
-                      <Stack
-                        gap={{ base: '0', _mobile: '4' }}
-                        pt={{ _mobile: '6' }}
-                        pb={{ _mobile: '4' }}
-                        borderTop="1px solid token(colors.black.20)"
-                      >
-                        <Typography variant="body5">{order.products.length}개 상품</Typography>
+                      <Stack css={styles.items}>
+                        <Typography variant="body5" className={classes.itemCount}>
+                          <Typography variant="body3" language="en" className={classes.countNumber}>
+                            {order.products.length}
+                          </Typography>
+                          개 상품
+                        </Typography>
                         {order.products.map((item) => (
-                          <Flex
-                            key={item.id}
-                            alignItems={{ base: 'center', _mobile: 'flex-start' }}
-                            gap={{ base: '3', _mobile: '2' }}
-                            p={{ base: '4', _mobile: '0' }}
-                            borderBottom="1px solid token(colors.black.20)"
-                            _mobile={{ borderBottomWidth: '0' }}
-                          >
+                          <Flex key={item.id} css={styles.product}>
                             <Checkbox
                               label={
-                                <span className={visuallyHidden}>
+                                <span className={classes.hidden}>
                                   {item.code} {item.name} 선택
                                 </span>
                               }
@@ -260,18 +230,33 @@ export function InquiryOrderLookup({
                               )}
                               onCheckedChange={(checked) => toggleProduct(order, item.id, checked)}
                             />
-                            <Box flex="1" minW="0">
+                            <Box css={styles.summary}>
                               <OrderProductSummary
                                 variant="cart"
                                 image={item.image}
                                 name={item.name}
                                 imageSize={{ web: 64, mobile: 64 }}
-                                optionText={`${item.color} / ${item.size}, ${item.quantity}개`}
-                                hideAmount
+                                content={
+                                  <div className={classes.productText}>
+                                    <Typography
+                                      variant="body4"
+                                      language="en"
+                                      className={classes.productName}
+                                    >
+                                      {item.name}
+                                    </Typography>
+                                    <Typography
+                                      variant="body5"
+                                      language="ko"
+                                      className={classes.productOptions}
+                                    >{`${item.color}, ${item.size}, ${item.quantity}개`}</Typography>
+                                  </div>
+                                }
                               />
                             </Box>
                             {item.statusLabel && (
                               <Badge
+                                className={classes.badge}
                                 variant={item.statusLabel === '결제완료' ? 'line' : 'filled'}
                                 tone={item.statusLabel === '구매확정' ? 'tertiary' : 'primary'}
                               >
@@ -287,14 +272,14 @@ export function InquiryOrderLookup({
               })}
             </Stack>
             {filteredOrders.length === 0 && (
-              <Flex justifyContent="center" py="10">
+              <Flex css={styles.empty}>
                 <Typography variant="body4" tone="tertiary">
                   조회된 주문 내역이 없습니다.
                 </Typography>
               </Flex>
             )}
             {more ? (
-              <VStack>
+              <VStack css={styles.more}>
                 <Button
                   variant="plain"
                   size="lg"

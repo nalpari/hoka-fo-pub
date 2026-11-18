@@ -4,12 +4,15 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-17T04:10:00Z'
+updated: '2026-11-17T07:55:05.559Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/app/checkout/_components/CheckoutCouponDialog.tsx
+  - src/components/common/molecules/DateRangeSearch.tsx
+  - src/app/checkout/_components/CheckoutPayment.tsx
   - src/components/common/atoms/NumberStepper.tsx
   - src/app/checkout/_components/CheckoutSummary.tsx
   - src/app/mypage/orders/_components/OrderTrackingDialog.tsx
@@ -5251,3 +5254,171 @@ Dropdown 정렬 버튼은 데스크탑 글자 16px·화살표 18px, 모바일 �
 - 페이지형 EmptyState는 PC 상단 160px, 모바일 남은 영역 가운데 정렬을 공통으로 사용한다. 배송지·리뷰·상품내역의 고정 화면 높이 계산을 제거했다.
 
 - 장바구니 빈 화면의 레이아웃 여백 설정을 정리하고, 배송지 편집 모바일 제목 여백과 마이페이지 회원정보 메뉴명을 갱신했다.
+
+## 모바일 결제 수단 중앙 정렬 (2026-11-17)
+
+- 출처: [HOKA 화면 디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql)의 모바일 결제 정보 영역. 기존 PC용 PNG는 60px 프레임 안의 그림이 왼쪽에 있어 프레임만 가운데 정렬해도 로고의 시각 중심이 어긋났다.
+- CheckoutPaymentMark는 모바일에서만 원본의 중앙 정렬된 `payment-mobile-*.png`6개를 사용한다. 로고 프레임60×14px, 타일 높이110px, 내부 간격10px, 레이블14px, 3열2행의 타일 간격4px·영역 간격12px을 적용했다. PC는 기존 자산·간격8px·6열을 유지한다.
+- 375px 및707px 모바일,1920px PC를 실제 캡처하고 로고 프레임·문구·라디오의 수평 중심과 위치를 비교했다. 브라우저의 세로 스크롤바15px은 시안 폭과 별도로 구분했다. 모바일6개 이미지의 로드, 실제 글리프 Pretendard-Regular, 네이버페이 선택 후 단일 선택 상태를 확인했다.
+- 최종 hoka-markup-handoff 검수에서 기존 route-private 소유권·Panda 스타일·공통 Radio와 선택 콜백·PC 기본값을 유지함을 확인했다. 타입 검사와 변경 파일 ESLint·Prettier, Panda 생성, 폼·상태 링크 관련62개 검사가 통과했다. 공통 플랫폼·서비스 요청은 변경하지 않았다.
+
+## 알뜰폰 사업자 모달 글꼴·높이 보정 (2026-11-17)
+
+- 사용자의 PC/MO 검수 명세에 따라 사업자 그룹 제목은 Pretendard16px·500·줄높이24px·자간-0.02em, 본문은14px·400·줄높이21px·자간-0.02em과 검정색을 적용했다. 제목과 본문 간격은 양쪽16px이다. 기존 Typography·ContentHeader를 사용하며 해당 모달의 줄높이만 명시한다.
+- 기존 본문 flex 기준에서 약1px의 내부 overflow가 발생했다. 이 안내 모달에만 본문을 자연 높이의 비축소 영역으로 두고 팝업이 높이를 수용하게 했다. 낮은 viewport에서 내용이 잘리지 않도록 팝업 전체의 overflow auto는 유지한다. 공통 terms 유형과 다른 약관 모달의 기본값은 변경하지 않았다.
+- 1157×1251 PC에서 모달 높이 약538→582px, 팝업 clientHeight/scrollHeight582/582로 내부 스크롤바가 없는 상태를 캡처했다. 모바일375×812와375×1251에서도 전체 내용이 스크롤 없이 표시됐다. 실제 글리프 Pretendard-Medium·Pretendard-Regular와 모든 그룹의 제목/본문 크기·굵기·줄높이·자간·16px 간격을 확인했다.
+- 확인 버튼 닫기, 원래 사업자 보기 버튼 재열기, X닫기를 검증했다. 타입 검사·변경 파일 ESLint/Prettier·관련 계정복구/모달 타입 검사5개가 통과했다. hoka-markup-handoff 기준으로 기존 소유권·시맨틱 제목/본문·모바일 fullscreen·포커스/닫기와 표시 데이터 경계를 유지했다. 실제 인증·요청은 추가하지 않았다.
+
+
+## 휴대폰 인증 약관 글꼴과 간격 보정 (2026-11-17)
+
+사용자 PC·모바일 검수 의견에 따라 PhoneVerificationContent의 디자인 약관 제목을 Pretendard16px/500/24px, 이전 약관 링크를12px/500/130%·밑줄, 문서 제목을14px/500/21px, 본문을14px/400/21px로 보정했다. 모두 검정과 자간-0.02em을 사용한다. PC 문서 사이 간격은20px이며 모바일24px를 유지한다. 날짜는 기존 PC14px·모바일13px·400·150%·#777과 문서 아래8px를 유지한다. 표시 fixture와 버전 선택 소유권은 그대로다. 작업 트리 출처: src/components/phone-verification/PhoneVerificationContent.tsx.
+
+Codex 검증: 1276×1251 PC, 587×1251·375×812 모바일의 실제 계산 스타일과 캡처를 대조했다. 제목500·본문400, 요청한 줄높이·색상·자간, PC20px·모바일24px·날짜8px를 확인했다. 실제 렌더링 글꼴은 Pretendard Medium/Regular다. 타입 검사와 관련 기존 테스트5개, 변경 파일 ESLint·Prettier를 통과했다.
+
+
+## 중첩 모달 배경과 이전 약관 시트 보정 (2026-11-17)
+
+ModalDialog는 설치된 Base UI의 Backdrop forceRender 옵션을 사용해 중첩 모달에도 배경을 표시한다. 각 portal의 기존 플랫폼 컨테이너에 상대 위치·z-index100을 적용하여 모달 단위 stacking context를 만들고, 내부 backdrop99·viewport100을 유지한다. 뒤에 열린 배경이 부모 팝업 위에 놓인다. 기본50% 배경과 blur48px는 유지한다. 문서형 모달 공통 footer 버튼 글꼴을 PC·모바일700으로 변경했으며 PreviousTermsPicker의 개별 footer 굵기 지정은 사용하지 않는다.
+
+이전 약관 모바일 시트의 본문334px 고정 높이를 제거하고 내용에 맞춰 늘어나며 작은 화면에서는 본문만 줄어들도록 flex0 1 auto를 사용한다. 안내문은 Pretendard16px/500/24px, 날짜는 Pretendard14px/400/21px·자간-0.02em·검정이다. 날짜 표시의 영문 글꼴 기준1px 이동을 제거하여 목록 끝의 미세한 넘침도 해소했다. 선택·확인·닫기 계약과 PC 날짜 목록 표시는 유지한다. 작업 트리 출처: src/components/common/layouts/ModalDialog.tsx, src/components/common/layouts/ModalDialog.recipe.tsx, src/components/common/molecules/PreviousTermsPicker.tsx.
+
+Codex 검증: PC1276×1251·모바일513×1251에서 부모 약관 위50% 배경과 자식 모달, 닫기 후 부모 유지·이전 약관 버튼 포커스를 캡처와 DOM으로 확인했다. 모바일513×1251·375×812에서는 본문 clientHeight/scrollHeight가283/283으로 스크롤이 없고, 375×400에서는168/283으로 필요한 본문 스크롤과 화면 안 footer를 유지했다. 모바일 안내문16/500/24·날짜14/400/21·버튼700, PC 버튼700을 실제 스타일로 확인했다. 변경 파일 ESLint·Prettier, 타입 검사와 모달 타입 계약 테스트를 확인했다.
+
+
+## 이전 약관 PC 글꼴 일치 (2026-11-17)
+
+PreviousTermsPicker의 안내문·날짜 스타일을 기존 모바일과 PC가 공유한다. PC 안내문은 Pretendard16px/500/24px, 날짜는14px/400/21px·자간-0.02em·검정이며 기존 영문 글꼴의1px 이동도 사용하지 않는다. 선택·확인과 플랫폼별 모달 계약은 유지한다. 작업 트리 출처: src/components/common/molecules/PreviousTermsPicker.tsx.
+
+Codex 검증: PC1176×1251·모바일513×1251에서 캡처 대조와 실제 계산 스타일로 위 규격을 확인했고, 두 플랫폼 모두 본문 clientHeight/scrollHeight283/283으로 불필요한 스크롤이 없었다. 변경 파일 ESLint·Prettier와 타입 검사를 통과했다.
+
+
+## 쿠폰 상세 글꼴과 스타일 소유권 보정 (2026-11-17)
+
+사용자 PC·모바일 검수 규격에 따라 CouponManagement의 상세 항목명·상세조건 제목은 Pretendard14px/400/21px·#4D4D4D, 값·원/개 단위는14px/500/21px·검정으로 맞췄다. 상세조건 본문14px/400/21px·검정과 안내13px/400/19.5px·#777을 명시하고 자간-0.02em을 유지한다. 금액·수량·기간 숫자의 기존 영문 글꼴과700은 유지한다. 활성 JSX의 className 스타일은 파일 상단 couponDetailStyles/couponStyles로 이동했다. 주석으로 제외된 등록 마크업은 변경하지 않았다. 작업 트리 출처: src/app/mypage/coupons/_components/CouponManagement.tsx.
+
+Codex 검증: PC1176×1251·모바일513×1251 캡처와 계산 스타일로 항목명·값·본문·안내 규격을 확인했다. 스타일 선언 이동은 값을 보존했으며 변경 파일 ESLint·Prettier와 타입 검사를 통과했다.
+
+
+## 비밀번호 오류 화면과 모바일 안내 글꼴 (2026-11-17)
+
+제공된 이미지에 맞춰 기존 두 비밀번호 TextFormField에 올바른 비밀번호를 입력해주세요./비밀번호가 일치하지 않습니다. 다시 확인해주세요. 고정 오류를 표시한다. 공통 오류 테두리와 설명 연결을 재사용하고 모바일은 하단 시트·확인 버튼·footer 위 구분선으로 표시한다. 기본 입력 팝업·PC 모달과 보기 토글은 기존 기능을 유지한다. 안내 글꼴은 모바일 Pretendard12px/400/18px·자간-0.02em·검정이며 PC는 기존14px다. 안내문 스타일은 파일 상단 passwordDialogStyles에 두고 기본 입력의8px 간격도 유지한다. 작업 트리 출처: src/app/mypage/profile/_components/ProfileContent.tsx.
+
+초기에는 디자인 연결 재인증 요청으로 사용자 첨부 이미지로 구현했으며, 재연결 후 공식 원본의 하단 시트·필드 오류·12px 안내·footer 구조도 확인했다. PC1176×1251·모바일375×812 캡처와 계산 스타일, 두 오류·invalid·닫기를 확인했다. 타입·변경 ESLint·Prettier·Panda와 관련 기존 테스트5개를 통과했다. 공통 모달·폼을 재사용하고 서비스 동작을 추가하지 않는 인계 기준을 점검했다.
+
+
+## 문의 모바일 파일첨부 선택 시트 (2026-11-17)
+
+모바일 파일찾기에 누락돼 있던 사진 보관함/파일 선택 시트를 추가했다. [화면 디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 원본을 재연결 후 읽고 204px 시트, 제목20px·700·120%, 상단 손잡이36×4px, 좌우16px, 하단32px, 항목 간24px·아이콘과 문구16px, 문구 Pretendard16px·400·24px·자간-0.02em을 적용했다. 공통 ModalDialog selection/bottomSheet를 재사용하고 실제 이미지·닫힌 폴더 원본 SVG를 로컬 Icon 자산으로 등록했다. 스타일은 InquiryFormContent 상단 attachmentPickerStyles가 소유한다.
+
+사진 입력은 image/jpeg,image/png, 파일 입력은 기존 .jpg,.jpeg,.png를 사용하며 브라우저 파일 입력을 열어 File 목록을 기존 onFilesChange로 전달한다. OS의 보관함 UI를 직접 구현하거나 업로드 요청·서비스 검증을 추가하지 않았다. previewPicker는 초기 표시 fixture다. 작업 트리 출처: src/app/support/inquiries/new/_components/InquiryFormContent.tsx, src/components/common/atoms/Icon.assets.ts, public/images/icon/hoka-attachment-image-regular.svg, public/images/icon/hoka-attachment-folder-regular.svg.
+
+Codex 검증: 모바일375×812에서 시트204px·스크롤 없음·아이콘18×18px의 원본 로드·문구16/400/24·좌측16px와 문구 시작50px를 캡처·실측했다. 두 항목 모두 파일 선택 후 로컬 첨부 목록에 반영됐고 닫기 후 파일찾기 포커스를 확인했다. PC1176px에서는 시트 없이 기존 파일 입력을 여는 동작을 확인했다. 데스크톱 브라우저의 고정 스크롤바15px로 실제 표시 canvas는360px이며 배경에는 기존 문의 폼과 배너가 보인다. 타입·변경 ESLint·Prettier·Panda·IA 생성과 IA 그래프/모달 타입 기존 테스트2개를 통과했다. 마지막 인계 점검에서 공통 모달·폼 재사용, 기존 File 전달 소유권, 페이지 전용 route, 상단 Panda 스타일과 PC 동작 보존을 확인했다.
+
+
+## 주문 상품 조회 전용 모달과 Panda 소유권 (2026-11-17)
+
+주문 상품 조회의 ModalDialog variant를 selection에서 orderLookup으로 분리했다. ModalDialog.recipe.tsx가 전용 shell과 modalOrderLookupContentRecipe 본문 슬롯을 소유한다. PC640px·각진 팝업·상단40px/좌우32px, 모바일 전체화면·상단24px/좌우16px·하단64px, 기간 탭37px, 주문 헤더16px(PC 펼침20px), 상품 목록 간16px·상하24px, 썸네일64px를 적용한다. 제목은 기존 사용자 공통 기준에 따라 PC24px·모바일20px·700이다. PC footer180×48px 두 버튼과 모바일44px 두 버튼의700을 유지한다. [화면 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)을 구조·스타일과 캡처로 대조했다.
+
+InquiryOrderLookup은 기존 Box/Flex/Stack/VStack을 유지하며 recipe.raw()의 슬롯을 css로 전달한다. Typography·Button·Badge는 생성된 슬롯 클래스를 사용한다. 모달 호출부의 headerProps/popupClassName/footerProps 개별 override와 인라인 css 호출을 제거했다. 상품 요약은 기존 OrderProductSummary의 대체 content 슬롯과64px 이미지를 재사용하며 데이터·선택 소유권을 바꾸지 않는다. 기존 상품명·색상·주문 날짜·더보기 카운터 fixture는 원본 예시와 다르며 보존했다. 공통 selection과 다른 variant 기본값은 변경하지 않았다.
+
+AGENTS.md에 스타일 추출만을 이유로 기존 Panda 레이아웃 컴포넌트를 div/span으로 바꾸지 않는 규칙을 추가했다. 기본 레이아웃·시맨틱·간격·반응형·override를 유지하고 필요하면 raw recipe를 css에 병합한다. 작업 트리 출처: AGENTS.md, src/components/common/layouts/ModalDialog.tsx, src/components/common/layouts/ModalDialog.recipe.tsx, src/app/support/inquiries/new/order-products/_components/InquiryOrderLookup.tsx, src/app/publishing-guide/_components/ModalGuide.tsx.
+
+추가 PC 안내문 검수(Codex, 2026-11-17): 1764×1251에서 첫 문구 Pretendard16px/400/24px·검정·자간-0.32px, 보조 문구14px/400/21px·#777·자간-0.28px·normal을 실측했다. 모바일375px는 기존14px/21px와12px/18px를 유지한다. 두 슬롯에 굵기·자간·normal을 명시했다.
+
+총 건수 숫자는 독립 countNumber 슬롯으로 분리했다. PC1764×1251에서 기존 영문 커스텀 face·16px·700·24px·검정을 실측했고 글리프2개가 커스텀 face로 렌더링됨을 확인했다. 총/건 한글과 모바일14px·400·21px 표기는 유지한다.
+
+## 주문 조회 숫자와 공통 더보기 글꼴 보정 (2026-11-17)
+
+주문 상품 수의 숫자는 PC에서 HOKA 16px/700/24px, 주문번호 행은 HOKA 14px/400/21px와 #777777로 표시한다. 모바일은 기존 Pretendard 14px/400/21px를 유지한다. 공통 Button의 기본 counter 더보기 라벨은 PC에서 16px/700/130%로 표시하며 숫자는 HOKA 16px/130%와 부모 굵기 상속을 사용한다. 모바일과 명시적인 labelProps/counterProps는 유지한다. 스타일 정리 시 기존 Panda 컴포넌트를 보존했다.
+
+1764px·375px 브라우저 계산 스타일과 쿠폰 목록의 공통 더보기 적용을 확인했다. 대상 ESLint와 TypeScript 검사를 통과했다.
+
+## 공통 날짜 범위 입력 (2026-11-17)
+
+주문/배송조회의 날짜 입력을 DateRangeSearch로 추출해 주문 상품 조회 직접설정에도 적용했다. Panda 컴포넌트, 130×36px 둥근 입력, 점 구분 날짜 표시·숫자 편집·네이티브 달력을 유지한다. 조회 버튼은 날짜 입력 컴포넌트에서 분리하고 각 화면 소유자가 배치한다. 문의 화면은 오른쪽에 조회 링크를 표시한다. 날짜 초안과 오류는 호출자가 소유하며 날짜 변경 콜백만 전달한다. 실제 요청은 이 공통 컴포넌트가 실행하지 않는다. 주문 화면의 조회 링크는 기존 onDateSearch를 호출하며 문의 미리보기의 조회 링크는 요청을 실행하지 않는다.
+
+1764px·375px 두 화면에서 숫자 입력의 점 구분 표시, 달력 입력 존재, 입력 크기와 문서 가로 넘침 없음을 확인했다.
+
+날짜 입력의 내부 여백은 좌측 12px·우측 36px, 달력은 우측 12px로 보정했다. 기존 72px 글자 공간보다 넓은 HOKA 날짜 문자열이 잘리던 문제를 80px 글자 공간으로 해소한다.
+
+## 더보기 숫자 굵기 상속 (2026-11-17)
+
+공통 counter 더보기 숫자는 Typography weight="inherit"로 부모 버튼의 굵기를 따른다. HOKA 글꼴과 크기·줄높이는 유지하며 PC 숫자에 별도의 700을 강제하지 않는다.
+
+## 쿠폰 조회와 취소 반품 전용 모달 (2026-11-17)
+
+보유 쿠폰 조회·주문 취소 신청·환불(반품) 신청은 모두 productSelection 하나를 사용한다. 공통 selection/form의 기본 호출자는 유지한다. 기존 모달 외형과 버튼 너비를 ModalDialog.recipe.tsx로 옮겼다. 쿠폰 버튼 PC238×48px, 취소·반품 버튼 PC160×48px이며 모바일은343×42px(375px 화면)이다. PC640px 너비·10px 모서리와 모바일 하단 시트24px 모서리, 본문 PC32px/MO16px 여백을 보존한다. 세 팝업은 productSelectionModal 스타일 객체를 공유하고 쿠폰의 PC 버튼 너비만 --modal-product-button-width로 지정한다. 기존 Panda 컴포넌트·상태·fixture·요청 미연결 계약은 그대로다.
+
+## 상품 선택 입력 본문 공통 recipe (2026-11-17)
+
+productSelection 세 팝업의 본문은 ModalDialog.recipe.tsx의 modalProductSelectionContentRecipe를 사용한다. 공통 슬롯은 본문·섹션·제목·상품 목록/행·필드·안내문·수량·금액 요약/합계이며, 쿠폰은 같은 recipe의 content="coupon", 취소·반품은 기본 claim 구성을 쓴다. modal variant는 추가하지 않았다. 기존 Stack/HStack/Box와 OrderProductSummary·AmountRow·Radio·Checkbox 소유권 및 fixture/로컬 초안·닫기 계약을 유지한다. 쿠폰 펼침과 선택은 기존 상태 소유자가 처리한다.
+
+[디자인 파일](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 해당 페이지와 쿠폰 PC/MO·취소 PC·반품 MO 본문 구조를 읽었다. 공통 상품 행 간격16px·상하16px, 섹션 간격12px(모바일16px), 필드 간격8px·상하8px, 합계 배경#F7F7F9·테두리#E9EAEB를 반영했다. 쿠폰 상품 정보 시작 여백은 PC20px/MO16px, 쿠폰 선택 행은 최소60px이며 목록은 하단8px이다. 쿠폰 제목은 PC20px/700/24px·하단20px, MO16px/600/19.2px·하단16px이다. 취소·반품 주의문은 PC14px/21px, MO13px/19.5px와 #777777를 적용했다. 요약 내부 좌우 여백은 쿠폰20px·신청16px로 구분한다. fixture 상품·수량·금액은 시안 값으로 일괄 교체하지 않았다.
+
+검증: 1920px/375px에서 세 팝업의 계산 스타일·가로 넘침 없음과 캡처를 확인했다. 1764px/375px에서 쿠폰 접기, 신청 상품 체크와 닫기를 확인했고 실제 Pretendard 사용자 폰트 렌더링을 확인했다. 대상 ESLint·TypeScript·Panda 생성·12유형 모달 계약 검사를 통과했다. 마지막 hoka-markup-handoff 점검에서 Panda 유지, 불필요한 래퍼/서비스 추가 없음, 본문 스타일 소유권·간격·폼 경계 보존을 확인했다. 이번 작업에서 프로덕션 빌드는 실행하지 않았다.
+
+## 상품 선택 입력 글꼴 상세 보정 (2026-11-17)
+
+사용자 검수 기준으로 productSelection 제목은 Pretendard PC24px/700/36px·MO20px/700/30px, 안내는 양쪽14px/400/21px·#4D4D4D·자간-0.02em을 명시했다. 신청 본문의 상품 선택 제목은 PC16px/600/19.2px, MO20px/700/24px이며 쿠폰 제목의 별도 규격은 유지한다. 주의문은 PC14px/400/21px, MO13px/400/19.5px·#777777이다. 금액 라벨과 사유 선택 후 확인은 Pretendard14px/400/21px·검정이며, 준비된 금액 문자열에서 숫자와 원 단위를 분리해 숫자만 HOKA14px/500/21px로 표시한다. 단위·안내 문구는 한국어 폰트를 유지하며 계산과 데이터 값은 변경하지 않았다.
+
+1764px·512px에서 취소·반품 및 쿠폰 직접 상태의 계산 스타일과 가로 넘침 없음을 확인했다. 안내문14px·#4D4D4D, 모바일 상품 선택20px·700, 상품금액 숫자14px·500, 라벨/사유14px·400·검정을 실측했다. ESLint·TypeScript·Panda 생성을 통과했다.
+
+## 상품 선택 입력 합계 글꼴 (2026-11-17)
+
+공통 summaryTotal 슬롯은 합계 라벨을 Pretendard14px/500/21px·자간-0.02em·검정으로 표시한다. 합계 숫자는 PC Pretendard16px/600/19.2px·자간-0.02em, 모바일 HOKA16px/700/16px·기본 자간으로 표시하며 오른쪽 정렬한다. 기존 AmountRow와 신청 화면의 합계 구조를 그대로 사용하며 공유 AmountRow의 다른 사용처나 준비된 금액은 변경하지 않는다. 1764px·512px 쿠폰·반품 화면에서 라벨과 숫자의 계산 스타일을 확인했다. 대상 ESLint·TypeScript·Panda 생성을 통과했다.
+
+쿠폰 장바구니 요약의 일반 금액(주문금액·할인금액·상품할인·장바구니 할인)은 공통 summaryBody에서 font-weight500을 적용하며 취소·반품의 일반 금액도 동일하게 적용한다. 총 결제 금액의 PC600/MO700은 유지하고 전역 AmountRow 기본값은 변경하지 않는다.
+
+일반 금액 굵기500은 productSelection 공통 summaryBody가 소유한다. 쿠폰 전용 옵션에는 합계 내부 여백 차이만 유지한다. 숫자 슬롯의 HOKA500과 총액 PC600/MO700 규격은 유지한다.
+
+## 검색 결과 닫기 이전 페이지 복귀 (2026-11-17)
+
+ProductListingPage의 검색 결과 닫기는 /products 고정 push 대신 Next router.back()으로 이전 브라우저 이력으로 복귀한다. 일반 헤더 SearchOverlay 닫기는 기존 로컬 열림 상태만 해제하며 URL 이동을 추가하지 않는다. 556px 모바일에서 주문/배송조회와 FAQ 각각의 검색 추천어 진입 후 결과 닫기가 원래 URL로 복귀함을 확인했다. 일반 검색 팝업의 직접 닫기도 URL을 유지했다. 검색 결과 내 추가 탐색 이력과 외부 직접 진입 시 복귀 대상은 브라우저 이력에 따른다. 별도의 이전 경로 저장·상품 목록 대체 이동은 추가하지 않았다. 대상 ESLint·TypeScript를 통과했다.
+
+## ModalDialog 기본 유형 (2026-11-17)
+
+사용자 요청으로 ModalDialog의 variant를 생략하거나 undefined로 전달하면 alert로 해석한다. 후속 호환 요청으로 기존 children 본문도 모든 유형에서 허용하며 생략 시 alert shell을 적용한다. message/description 정형 본문과 children은 동시에 전달할 수 없다. 정형 본문의 feedback과 confirm 결과형 intro 계약 및 기존 액션 계약은 유지한다. children은 호출자가 지정한 요소와 개별 스타일을 그대로 렌더링하고 message용 h3·description 슬롯으로 재구성하지 않는다. 출처: 사용자 요청 및 `src/components/common/layouts/ModalDialog.tsx` 작업 트리, Codex 작성(2026-11-17). 이전의 필수 variant 및 alert/confirm custom children 금지 설명은 이 호환 계약으로 대체한다.
+
+
+## 주문내역 마일리지 안내 삭제 (2026-11-17)
+
+CheckoutDiscountSummary에서 실 결제금액 최대30% 사용 안내와5,000점 이상·100점 단위 사용 안내를 삭제했다. 기존 쿠폰 안내 두 문구와 준비된 금액·조회 버튼은 유지한다.
+
+출처: 사용자 첨부 Slack 화면과 src/app/checkout/_components/CheckoutDiscountSummary.tsx 작업 트리. 기록: codex/gpt-6, 2026-11-17T07:42:10.485Z. 기존 generated·source_revision·draft 이력은 보존한다.
+
+## 전화번호 하이픈 표기 규칙 (2026-11-17)
+
+전화번호는 공백 없는 하이픈 표기를 기본으로 하며 디자인의 점·공백 구분보다 우선한다. 번호 자체와 지역번호·대표번호 자리수는 유지한다. 주문서 CheckoutShipping의 연락처 2곳과 orders.data.ts의 주문내역 연락처 9곳을 변경했다. 라우트·상호작용·스타일은 변경하지 않았다. 작업 트리 출처: AGENTS.md, src/app/checkout/_components/CheckoutShipping.tsx, src/components/orders/orders.data.ts. 정규식으로 src를 재검색하여 점 구분 전화번호가 남지 않았음을 확인했다.
+
+## 주문서 피드백 반영 (2026-11-17)
+
+장바구니 쿠폰 제목은 정적 Box로 표시하고 접기 버튼·아이콘·cart 펼침 상태를 제거했다. 금액 요약은 항상 렌더하며 상품 쿠폰의 개별 접기와 라디오는 유지한다. CheckoutForm의 PC 동의 숨김 wrapper를 제거해 기존 동의 두 항목을 PC·모바일 모두 표시한다. 배송 요청 기본값은 door(문 앞에 놓아주세요)이며 택배기사 안내 문구는 선택지에서 제거했다. CheckoutDiscountSummary의 마일리지 두 문구 삭제는 작업 시작 전부터 스테이징되어 있어 그대로 보존했다. 주문 요청·계산·동의 검증은 추가하지 않았다. 별도 최신 설계서는 제공되지 않아 기존 동의 컴포넌트를 복원한 범위이며 설계서와의 세부 대조는 수행하지 않았다.
+
+출처: 사용자 첨부 Slack 대화·화면과 위 working_tree_sources의 checkout 소스. 기록: codex/gpt-6, 2026-11-17T07:38:24Z. 기존 generated·source_revision·draft 및 과거 검증 이력은 보존한다.
+
+## 매장 찾기 목록 시안 보정 (2026-11-17)
+
+[HOKA 디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/)의 매장 찾기를 반영하되 사용자 최종 요청으로 서울·인천·경기 지역 탭은 표시하지 않는다. 공통 SupportTabs는 변경하지 않았다. 서울 예시 매장 세 곳의 명칭·주소·전화번호·영업시간은 미확정 표시 fixture이며 실제 영업 정보로 확정하지 않는다. 화면 데이터 소유자의 `[ 개발팀 바인딩 ]` 주석에 교체 책임과 API·지도 미연결을 명시했다.
+
+매장명은 PC Pretendard 22px·900·26.4px, 모바일 20px·700·24px이다. 본문은 PC 16px·24px, 모바일 14px·21px이며 구분선은 #E9EAEB 1px이다. 목록 행은 PC 40px(첫 행 상단 0), 모바일 32px 여백이며 제목과 정보 사이 20px/16px, 주소와 연락처 사이 12px/8px이다. 모바일 전화 밑줄·tel 링크를 유지한다.
+
+검증: 1920px·375px 브라우저에서 지역 탭 0개·매장 3개, 실제 계산 글꼴·행간·구분선을 확인하고 양쪽 스크린샷을 시각 검토했다. 모바일 매장명 글리프는 로컬 Pretendard-Bold face를 사용한다. 기존 홍보 배너·공통 헤더/푸터는 유지하여 Figma 전체 프레임과 상단 시작 위치는 다를 수 있다. 변경 파일 ESLint·Prettier, Panda 생성·전체 타입 검사·최종 Next production build를 통과했다. 서비스 조회·요청 상태 검증은 이번 표시 작업 범위가 아니다.
+
+## 매장 목록 Panda 스타일 이름 정리 (2026-11-17)
+
+`src/app/support/store/_components/StoreContent.tsx`의 정적 레이아웃 스타일을 같은 파일 상단 `styles`의 storeList·storeItem·storeDetails·contactDetails·contactRow로 모았다. Stack·HStack·ContentSection과 기존 의미 태그를 유지하며 패턴/기본 gap과의 병합 순서를 보존하도록 css.raw 객체를 css prop에 전달한다. body·phoneLink는 기존 className을 유지한다. 라우트·표시 데이터·전화 링크·영업시간 조건은 변경하지 않았다.
+
+변경 파일 ESLint·Prettier, Panda 생성과 전체 타입 검사를 통과했다. 브라우저에서 375px·1920px 각각 목록 하위 36개 요소의 태그·내용·위치·크기와 display·방향·gap·padding·margin·구분선·font·color를 변경 전후 비교해 동일함을 확인했다.
+
+## 매장 목록 검수 타이포 보정 (2026-11-17)
+
+사용자 브라우저 주석 규격에 따라 StoreContent의 매장명 색상을 #000000으로 명시하고 본문·전화번호·운영시간을 language="ko"로 지정해 숫자도 Pretendard Regular·자간 -0.02em으로 표시한다. body·phoneLink의 색상은 #4D4D4D, 행간은 1.5다. 기존 레이아웃·표시 데이터·전화 링크·영업시간 조건과 경로는 유지한다. 작업 트리 출처: src/app/support/store/_components/StoreContent.tsx.
+
+PC 1305px에서 매장명22px/900/26.4px·자간-0.44px, 본문16px/24px·자간-0.32px와 간격20/12/6px를 확인했다. 모바일375px에서 매장명20px/700/24px·자간-0.4px, 본문14px/21px·자간-0.28px와 간격16/8/4px를 확인했다. 두 플랫폼의 제목색은 검정, 정보색은 rgb(77,77,77)이며 모바일 전화번호 실제 글리프는 Pretendard-Regular다. 변경 파일 ESLint·Prettier, Panda 생성·전체 타입 검사를 통과했다.
+
+## 모바일 전체 검색 결과 페이지 통일 (2026-11-17)
+
+모바일 `/search?q=...`는 PC와 같은 일반 상품 검색 결과 레이아웃을 사용한다. 검색 전용 fixed 전체 화면·입력창·닫기 버튼을 제거하고 공통 헤더와 푸터를 표시한다. 재검색은 공통 헤더 검색 팝업에서 수행한다. 모바일 결과 제목 옆 필터 버튼과 필터 시트의 정렬·적용, PC 정렬 및 준비된 표시 데이터 경계는 유지한다. 이전 검색 결과 닫기 복귀 설명은 이 변경으로 대체하며 일반 검색 팝업의 로컬 닫기는 유지한다.
+
+출처: `src/components/catalog/ProductListingPage.tsx`, `src/context/ShopShell.tsx` 작업 트리; Codex 작성, 2026-11-17. TypeScript와 대상 ESLint·Prettier를 통과했다. 브라우저에서 PC Clifton 결과 2건과 정렬, 390px 모바일 일반 결과·필터 버튼 및 검색 패널 미표시를 확인했다. 실제 검색 API는 연결하지 않았다.

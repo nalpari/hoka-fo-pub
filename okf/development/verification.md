@@ -4,12 +4,13 @@ title: '변경 검증'
 description: '변경 범위에 맞는 정적 검사, 빌드와 수동 검증을 안내한다.'
 tags: [verification, testing, build]
 status: draft
-updated: '2026-11-16T12:59:22.941263+00:00'
+updated: '2026-11-17T07:55:05.559Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/checkout/_components/CheckoutDiscountSummary.tsx
   - src/app/cart/_components/CartProductSection.tsx
   - src/app/checkout/_components/CheckoutCouponDialog.tsx
   - src/app/checkout/checkout-summary.ts
@@ -798,3 +799,43 @@ preview-notification의 form 유형과 IA 직접 경로·생성 소스 그래프
 - `npm run build`: 성공,161개 정적 페이지 생성. `npm run typecheck`, `npx eslint src`, 변경한 TS/TSX의 Prettier와 `git diff --check`: 통과. Panda와 IA 소스 그래프를 다시 생성했다.
 - 관련69개 검사(cart display·checkout summary·order policy·form controls·preview links·screen files·modal types)는 전부 통과했다. 전체127개 중126개 통과,1개는 기존 `inquiry-binding` 검사가 범위 밖 `src/app/wh`의 fetch5곳을 금지 대상으로 잡는 실패다. 전체 `npm run lint`도 변경하지 않은 `tests/wh-file-summary.test.mjs`의 URL/Request/Response 전역8건 때문에 실패한다. 해당 파일과 `/wh` 소스는 기준 HEAD 대비 변경 없음으로 구분했다. 초기 App Router manifest 불일치는 신규 페이지를 포함한 빌드 후 해소했다.
 - 최종 hoka-markup-handoff 점검에서 route-private 소유권, 단일 반응형 상품 트리, 폼/모달 의미 구조, 준비된 데이터와 표시 전용 버튼, 명시적 fixture override, 기존 기본 props를 확인했다. 실제 요청을 흉내 내는 타이머·저장소·API를 추가하지 않았다.
+
+
+## 주문 상품 조회 전용 variant 검증 (2026-11-17)
+
+Codex가 PC1920×1509·모바일375×1243에서 orderLookup 캡처를 원본과 대조했다. PC 너비640px·제목24px, 모바일 전체화면·제목20px와24px/16px/64px 본문 여백을 확인했다. 날짜는 PC16px·모바일14px·700, 라디오 뒤 시작 위치는 모바일48px다. 썸네일의 실제 로드와64px 크기를 확인했고 제목 글리프는 Pretendard-Bold, 날짜는 기존 영문 커스텀 face로 렌더링됐다. 영문 face 내부 이름은 '.'이어서 이름만으로 별도 폰트라고 단정하지 않았다. PC 본문 clientHeight/scrollHeight1133/1133, 모바일1189/1236으로 긴 본문은 스크롤한다. 데스크톱 브라우저의 고정 스크롤바로 모바일 표시 canvas는360px이며 이 환경 차이와 기존 fixture 값 차이를 비교에서 구분했다.
+
+PC1920·모바일375×812에서 체크박스 두 개 선택, 주문 접기/펼치기, 직접 기간과 시작일 변경, 문의 등록 시 선택 결과 전달·모달 닫힘을 확인했다. 빈 상태는 안내와 비활성 문의 등록을 확인했다. 타입 검사·변경 ESLint/Prettier·Panda·화면 그래프 생성, 모달11유형 계약/IA 그래프 기존 테스트2개를 통과했다. 기존 단순 selection과 서비스 계약을 바꾸지 않는지, Panda 컴포넌트·기존 폼·페이지 책임과 상단 스타일 소유권을 마지막 인계 점검에서 검토했다. 작업 트리 출처: tests/modal-dialog-types.test.mjs 및 관련 UI/IA 소스.
+
+추가 PC 안내문 검수(Codex, 2026-11-17): 1764×1251에서 첫 문구 Pretendard16px/400/24px·검정·자간-0.32px, 보조 문구14px/400/21px·#777·자간-0.28px·normal을 실측했다. 모바일375px는 기존14px/21px와12px/18px를 유지한다. 두 슬롯에 굵기·자간·normal을 명시했다.
+
+총 건수 숫자는 독립 countNumber 슬롯으로 분리했다. PC1764×1251에서 기존 영문 커스텀 face·16px·700·24px·검정을 실측했고 글리프2개가 커스텀 face로 렌더링됨을 확인했다. 총/건 한글과 모바일14px·400·21px 표기는 유지한다.
+
+## 쿠폰 조회와 취소 반품 전용 유형 검증 (2026-11-17)
+
+1764×1251·375×1251의 세 경로에서 변경 전후 모달 너비·높이·최대 높이·모서리·본문 여백·푸터 버튼 크기가 일치함을 실측했다. 대상 ESLint, TypeScript, Panda 생성과 12개 variant의 허용·금지 조합 타입 검사를 통과했다. 실제 API 제출·결제·환불 처리는 구현하거나 검증하지 않았다.
+
+추가 확인: PC/MO 쿠폰 목록 접기, 취소·반품 상품 체크와 닫기를 통과했다. preview-links와 screen-files 통합16건 중15건이 통과했고, 첨부파일 선택 고정 상태의 소스 그래프 연결1건이 실패했다. 저장소 밖 검사 사본에서 변경 전 HEAD의 screenConnections.ts를 사용해도 같은 실패를 재현했다. 해당 비대상 IA 연결은 수정하지 않았다.
+
+## ModalDialog 기본 alert 타입 검사 (2026-11-17)
+
+`tests/modal-dialog-types.test.mjs`에 variant 생략과 명시적 undefined의 정형 alert 호출을 추가했다. 기본 alert에서도 custom children은 거부하며 기존12개 유형·본문/액션 배타 검사1개가 통과했다. 출처: 해당 테스트와 ModalDialog 작업 트리, Codex 실제 실행(2026-11-17). 브라우저·빌드는 이번 기본값 수정에서 재실행하지 않았다.
+
+후속 children 호환(2026-11-17): 사용자의 추가 요청으로 앞선 custom children 금지 계약을 대체했다. 생략·undefined·명시적 alert/confirm의 children 호출을 허용하고 message와 children 동시 전달은 거부하는 타입 검사를 통과했다. 전체 TypeScript도 통과했다. 실제 ModalDialog/Panda recipe의 React 정적 렌더에서 web/mobile×popup/fullscreen/bottomSheet×생략/undefined의12조합이 명시적 alert children 마크업·클래스와 동일하고 자식 본문 및 data-modal-variant=alert가 유지됨을 확인했다. Dialog·포털·버튼·아이콘은 검사 대역이므로 브라우저 레이아웃·포커스 실측은 아니다. 출처: ModalDialog·모달 타입 테스트 작업 트리와 Codex 실제 실행, 브라우저·빌드는 재실행하지 않았다.
+
+## FAQ 검색 영역 디자인 검증 (2026-11-17)
+
+PC1571px에서 입력520×56px·버튼48px·간격12px, MO375/809px에서 입력56px·버튼42px·간격8px과 가로 넘침 없음을 확인했다. 375px의 classic scrollbar15px 예약 시 본문 가용 폭은328px이다. PC/MO 버튼 최종 라벨16px/15px·400·행간20.8px/19.5px, 실제 Pretendard-Regular 커스텀 글리프2개를 확인했다. 입력 placeholder#777777·16px/24px도 측정했다. PC/MO 캡처를 검토하고 검색 무결과·버튼/Enter 후 URL 유지·입력 초기화·배송 카테고리 결과를 확인했다. 변경 ESLint·전체 TypeScript·Panda421개 추출이 통과했다. 최종 인계 검토에서 기존 Panda 요소·공통 SearchField 기본값·상태 owner와 단일 form을 보존함을 확인했다. 공통 플랫폼은 수정하지 않았으며 경계 viewport·명시적 플랫폼·전체 빌드는 재실행하지 않았다. 출처: FAQ 작업 트리·지정 디자인 및 Codex 실제 실행, 2026-11-17.
+
+
+## 주문내역 마일리지 안내 삭제 (2026-11-17)
+
+CheckoutDiscountSummary의 마일리지 문구 삭제를 검토했다. 앞선 로컬 PC·모바일375 확인에서 마일리지 문구 부재를 확인했다. 검증 절차와 서비스 계약에는 영향이 없다. 전체 빌드는 수행하지 않았다.
+
+출처: 사용자 첨부 Slack 화면과 src/app/checkout/_components/CheckoutDiscountSummary.tsx 작업 트리. 기록: codex/gpt-6, 2026-11-17T07:42:10.485Z. 기존 generated·source_revision·draft 이력은 보존한다.
+
+## 주문서 피드백 반영 (2026-11-17)
+
+대상 세 TSX의 ESLint·Prettier와 전체 npm run typecheck를 통과했다. 기존 localhost:3000에서 PC 기본 주문서의 동의 두 항목·체크 토글(true), 배송 요청 door, 마일리지 문구 부재를 확인했다. 조회하기로 쿠폰 모달을 연 뒤 상품 쿠폰을 접어도 총액3,200,000이 남고 장바구니 접기 버튼이0개임을 확인했다. 같은 창을375×812로 변경해 모바일 동의 두 항목 표시·door·쿠폰 총액과 접기 버튼 부재를 확인했다. 배송 선택지4개와 기존 안내 문구 제거를 확인하고 /checkout/preview-delivery-request에 직접 진입해 custom 값·textarea 유지를 확인했다. 이번 수정은 정적 표시·기본값 변경으로 서비스 요청·실패·재시도 계약은 변경하지 않았으며 전체 빌드와 설계서 픽셀 대조는 수행하지 않았다.
+
+출처: 사용자 첨부 Slack 대화·화면과 위 working_tree_sources의 checkout 소스. 기록: codex/gpt-6, 2026-11-17T07:38:24Z. 기존 generated·source_revision·draft 및 과거 검증 이력은 보존한다.

@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 
-import { css } from 'styled-system/css';
+import { css, cx } from 'styled-system/css';
 import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
@@ -23,7 +23,17 @@ import {
   type PhoneInformation,
   type PhoneVerificationContentProps,
 } from '@/components/phone-verification/phone-verification.types';
-const styles = { carrierSection: css({ borderBottom: '1px solid var(--color-black-20)' }) };
+
+const styles = {
+  carrierSection: css({ borderBottom: '1px solid var(--color-black-20)' }),
+  carrierText: css({ fontStyle: 'normal', lineHeight: '1.5!', color: 'black.100' }),
+  carrierContent: css({ flex: '0 0 auto!', overflowY: 'visible!' }),
+  carrierPopup: css({ overflowY: 'auto!' }),
+  termsText: css({ fontStyle: 'normal', lineHeight: '1.5!', color: 'black.100' }),
+  termsLink: css({ fontStyle: 'normal', lineHeight: '1.3!', color: 'black.100' }),
+  termsDocument: css({ gap: { base: '20px', _mobile: '24px' } }),
+};
+
 const mvnoCarriers = [
   {
     title: 'SKT 알뜰폰',
@@ -52,6 +62,8 @@ function PhoneVerificationDetailDialog({ open, onOpenChange }: Props) {
       open={open}
       onOpenChange={onOpenChange}
       title="알뜰폰 사업자"
+      contentClassName={styles.carrierContent}
+      popupClassName={styles.carrierPopup}
       closeLabel="안내 닫기"
 
       mobilePresentation="fullscreen"
@@ -61,14 +73,14 @@ function PhoneVerificationDetailDialog({ open, onOpenChange }: Props) {
         {mvnoCarriers.map((carrier, index) => (
           <ContentHeader
             key={carrier.title}
-            gap="3"
+            gap="4"
             pb={index === mvnoCarriers.length - 1 ? '0' : '4'}
             className={index === mvnoCarriers.length - 1 ? undefined : styles.carrierSection}
             titleAs="h2"
             title={<>{carrier.title}</>}
-            titleProps={{ variant: 'body3' }}
+            titleProps={{ variant: 'body3Medium', language: 'ko', className: styles.carrierText }}
             description={<>{carrier.names}</>}
-            descriptionProps={{ variant: 'body4' }}
+            descriptionProps={{ variant: 'body4', language: 'ko', className: styles.carrierText }}
           />
         ))}
       </Stack>
@@ -179,9 +191,9 @@ function PhoneVerificationDesignDialogs({
         <div className={termsClasses.root}>
           <div className={termsClasses.details}>
             <div className={termsClasses.heading}>
-              <p className={termsClasses.label}>
+              <Typography as="p" variant="body3Medium" language="ko" className={styles.termsText}>
                 {`${optional ? '(선택)' : '(필수)'} ${detail ?? ''}`}
-              </p>
+              </Typography>
               {!optional && (
                 <Button
                   ref={previousTermsTrigger}
@@ -189,11 +201,13 @@ function PhoneVerificationDesignDialogs({
                   size="sm"
                   onClick={() => setPickerOpen(true)}
                 >
-                  이전 약관 보기
+                  <Typography variant="textLink3" language="ko" className={styles.termsLink}>
+                    이전 약관 보기
+                  </Typography>
                 </Button>
               )}
             </div>
-            <article className={termsClasses.document}>
+            <article className={cx(termsClasses.document, styles.termsDocument)}>
               {version ? (
                 <Typography variant="body5">{version} 시행 약관은 등록 준비 중입니다.</Typography>
               ) : (
@@ -202,9 +216,17 @@ function PhoneVerificationDesignDialogs({
                     key={number}
                     titleAs="h2"
                     title={`약관 타이틀${number}`}
-                    titleProps={{ variant: 'body4' }}
+                    titleProps={{
+                      variant: 'body4Medium',
+                      language: 'ko',
+                      className: styles.termsText,
+                    }}
                     description={'약관내용'.repeat(155)}
-                    descriptionProps={{ variant: 'body4' }}
+                    descriptionProps={{
+                      variant: 'body4',
+                      language: 'ko',
+                      className: styles.termsText,
+                    }}
                     gap="12px"
                   />
                 ))

@@ -38,10 +38,7 @@ import { type BreadcrumbItem } from '@/components/common/molecules/Breadcrumb';
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { MainContentCard } from '@/components/common/molecules/MainContentCard';
 import { ProductCard } from '@/components/common/molecules/ProductCard/ProductCard';
-import { SearchField } from '@/components/common/molecules/SearchField';
 import { SizeSelector } from '@/components/common/molecules/SizeSelector/SizeSelector';
-
-import { SearchHeader } from '@/components/common/organisms/Search/SearchHeader';
 
 import { ContentLayout } from '@/components/common/layouts/ContentLayout';
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
@@ -1074,8 +1071,6 @@ function ProductListTitle({ resultCount, title }: ProductListTitleProps) {
 type SearchListingLayoutProps = {
   children: ReactNode;
   filterAction: ReactNode;
-  onSearch: (query: string) => void;
-  onClose: () => void;
   platform: Platform;
   query: string;
   resultCount: number;
@@ -1086,15 +1081,12 @@ type SearchListingLayoutProps = {
 function SearchListingLayout({
   children,
   filterAction,
-  onSearch,
-  onClose,
   platform,
   query,
   resultCount,
   hasActiveFilters,
   sortAction,
 }: SearchListingLayoutProps) {
-  const [draftQuery, setDraftQuery] = useState(query);
   const hasResultsOrFilters = resultCount > 0 || hasActiveFilters;
   const emptyTitle = (
     <HStack as="h1" gap="1" alignItems="baseline" minW="0" m="0" color="black.100">
@@ -1146,60 +1138,6 @@ function SearchListingLayout({
       layoutProps={css.raw({ minH: '470px', pt: '158px', _mobile: { minH: 'auto', py: '96px' } })}
     />
   );
-  if (platform === 'mobile') {
-    return (
-      <Stack as="main" pos="fixed" inset="0" zIndex="80" bg="white.0" gap="0" overflow="hidden">
-        <Box as="header" flexShrink="0" bg="white.0">
-          <SearchHeader onClose={onClose} />
-          <Stack px="4" pt="8" pb="4" gap="8">
-            <SearchField
-              label="검색어"
-              placeholder="검색어를 입력해주세요"
-              value={draftQuery}
-              onValueChange={setDraftQuery}
-              onSearch={() => draftQuery.trim() && onSearch(draftQuery.trim())}
-            />
-            {hasResultsOrFilters ? (
-              <ContentHeader
-                orientation="horizontal"
-                minW="0"
-                gap="3"
-                titleAs="h1"
-                title={
-                  <>
-                    <Typography as="span" className={css({ flexShrink: '0' })}>
-                      “
-                    </Typography>
-                    <Typography
-                      as="span"
-                      className={css({ minW: '0', overflow: 'hidden', textOverflow: 'ellipsis' })}
-                    >
-                      {query}
-                    </Typography>
-                    <Typography
-                      as="span"
-                      className={css({ flexShrink: '0' })}
-                    >{`”에 대한 ${resultCount}개의 검색결과`}</Typography>
-                  </>
-                }
-                titleProps={{
-                  variant: 'body3',
-                  weight: 'medium',
-                  className: css({ display: 'flex', minW: '0', whiteSpace: 'nowrap' }),
-                }}
-                action={<Box flexShrink="0">{filterAction}</Box>}
-              />
-            ) : (
-              emptyTitle
-            )}
-          </Stack>
-        </Box>
-        <Box flex="1" minH="0" overflowY="auto" overscrollBehavior="contain" pb="12">
-          {results}
-        </Box>
-      </Stack>
-    );
-  }
   return (
     <Box as="main">
       <Stack
@@ -1222,7 +1160,7 @@ function SearchListingLayout({
                 weight: 'medium',
                 className: css({ minW: '0', overflowWrap: 'anywhere' }),
               }}
-              action={<Box flexShrink="0">{sortAction}</Box>}
+              action={<Box flexShrink="0">{platform === 'mobile' ? filterAction : sortAction}</Box>}
               gap="6"
               _mobile={{ gap: '4' }}
             />
@@ -1367,8 +1305,6 @@ type ProductListingLayoutProps = {
   onMobileFilterApply: () => void;
   onReset: () => void;
   onSortChange: (sort: string) => void;
-  onSearch: (query: string) => void;
-  onCloseSearch: () => void;
   hasActiveFilters: boolean;
   isSearchPage: boolean;
   platform: Platform;
@@ -1397,8 +1333,6 @@ function ProductListingLayout({
   onMobileFilterApply,
   onReset,
   onSortChange,
-  onSearch,
-  onCloseSearch,
   hasActiveFilters,
   isSearchPage,
   platform,
@@ -1450,8 +1384,6 @@ function ProductListingLayout({
         query={normalizedSearchQuery}
         platform={platform}
         resultCount={resultCount ?? result.length}
-        onSearch={onSearch}
-        onClose={onCloseSearch}
         hasActiveFilters={hasActiveFilters}
         filterAction={<ProductFilterTrigger onClick={() => onFilterDrawerOpenChange(true)} />}
         sortAction={sortAction}
@@ -1715,8 +1647,6 @@ export function ProductListingPage({ searchQuery = '', data }: ProductListingPag
       onLoadMore={loadMore}
       onReset={reset}
       onSortChange={(nextSort) => update('sort', nextSort)}
-      onSearch={(query) => router.push(`/search?q=${encodeURIComponent(query)}`)}
-      onCloseSearch={() => router.push('/products')}
       isSearchPage={isSearchPage}
       hasActiveFilters={
         facetKeys.some((key) => params.has(key)) ||

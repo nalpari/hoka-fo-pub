@@ -4,7 +4,7 @@ import { Dialog } from '@base-ui/react/dialog';
 import { type ComponentProps, type CSSProperties, type ReactNode } from 'react';
 import { usePlatform } from '@/context/platform';
 
-import { cx } from 'styled-system/css';
+import { css, cx } from 'styled-system/css';
 import { type SystemStyleObject } from 'styled-system/types';
 
 import { Button, type ButtonTextProps } from '@/components/common/atoms/Button';
@@ -20,6 +20,8 @@ export type ModalDialogVariant =
   | 'terms'
   | 'form'
   | 'selection'
+  | 'orderLookup'
+  | 'productSelection'
   | 'productOption'
   | 'tracking'
   | 'detail'
@@ -62,7 +64,6 @@ type ModalDialogBaseProps = {
   onOpenChange: (open: boolean) => void;
   open: boolean;
   size?: ModalSize;
-  variant: ModalDialogVariant;
   formLayout?: 'divided';
   mobilePresentation?: ModalMobilePresentation;
   /** Keep the footer outside the scroll area on mobile fullscreen dialogs. */
@@ -84,7 +85,7 @@ type ModalDialogBaseProps = {
 
 type ModalDialogContentProps =
   | {
-      variant: 'alert' | 'confirm';
+      variant?: 'alert' | 'confirm';
       message: ReactNode;
       description?: ReactNode;
       feedback?: ReactNode;
@@ -102,7 +103,8 @@ type ModalDialogContentProps =
       children?: never;
     }
   | {
-      variant: Exclude<ModalDialogVariant, 'alert' | 'confirm'>;
+      /** Legacy custom content keeps the default alert shell when variant is omitted. */
+      variant?: ModalDialogVariant;
       children: ReactNode;
       message?: never;
       description?: never;
@@ -178,7 +180,7 @@ export function ModalDialog({
   onOpenChange,
   open,
   size,
-  variant,
+  variant = 'alert',
   formLayout,
   mobilePresentation = 'popup',
   mobileFixedFooter = false,
@@ -251,8 +253,8 @@ export function ModalDialog({
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
-        <div className={`platform-${platform}`}>
-          <Dialog.Backdrop className={classes.backdrop} />
+        <div className={cx(`platform-${platform}`, css({ position: 'relative', zIndex: '100' }))}>
+          <Dialog.Backdrop forceRender className={classes.backdrop} />
           <Dialog.Viewport className={classes.viewport}>
             <Dialog.Popup
               finalFocus={finalFocus}

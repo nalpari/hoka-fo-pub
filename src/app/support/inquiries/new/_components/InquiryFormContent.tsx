@@ -1,6 +1,7 @@
 'use client';
 
-import { type ChangeEvent, type Ref, useRef } from 'react';
+import { type ChangeEvent, type Ref, useRef, useState } from 'react';
+import { usePlatform } from '@/context/platform';
 
 import { css } from 'styled-system/css';
 import { Box, Flex, Grid, HStack, Stack } from 'styled-system/jsx';
@@ -17,8 +18,26 @@ import { CharacterCount } from '@/components/common/molecules/FormFields/Charact
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
+import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
 import { type InquiryOrderSelection } from '@/app/support/inquiries/new/inquiryOrders.data';
+
+const attachmentPickerStyles = {
+  popup: css({ '& header h2': { lineHeight: '1.2' } }),
+  choices: css({ display: 'flex', flexDirection: 'column', gap: '24px', pt: '16px' }),
+  choice: css({
+    display: 'flex',
+    justifyContent: 'flex-start',
+    w: '100%',
+    p: '0',
+    h: '24px',
+    minH: '24px',
+    textDecoration: 'none!',
+    '& > span': { justifyContent: 'flex-start', w: '100%', p: '0' },
+    '& span': { textDecoration: 'none!' },
+  }),
+  label: css({ lineHeight: '1.5!' }),
+};
 
 type InquiryAttachmentListProps = {
   files: File[];
@@ -76,6 +95,7 @@ type Props = {
   files: File[];
   onFilesChange: (files: File[]) => void;
   previewError?: AttachmentError;
+  previewPicker?: boolean;
 };
 type AttachmentError = 'size' | 'type' | 'count';
 const attachmentErrorMessage: Record<AttachmentError, string> = {
@@ -83,8 +103,18 @@ const attachmentErrorMessage: Record<AttachmentError, string> = {
   type: '첨부할 수 없는 파일 형식입니다.',
   count: '파일은 최대 5개까지 첨부할 수 있습니다.',
 };
+/** [ 개발팀 바인딩 ] files/onFilesChange는 문의 폼이 소유하며 선택한 로컬 File 목록을 전달합니다. 모바일 시트의 사진/파일 선택은 브라우저의 파일 입력을 열고 업로드 요청을 실행하지 않습니다. 실제 사진 보관함 제공 방식은 OS·브라우저에 따르며 서버 업로드·pending·오류·재시도와 제출 payload는 통합 소유자가 연결합니다. previewPicker는 초기 열림 fixture입니다. */
 /** 문의 첨부파일 입력과 상태를 관리합니다. (Manages inquiry attachment inputs and status.) */
-export function InquiryAttachments({ files, onFilesChange, previewError }: Props) {
+export function InquiryAttachments({
+  files,
+  onFilesChange,
+  previewError,
+  previewPicker = false,
+}: Props) {
+  const platform = usePlatform();
+  const [pickerOpen, setPickerOpen] = useState(previewPicker);
+  const photoInputRef = useRef<HTMLInputElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const error = previewError;
   const addFiles = (event: ChangeEvent<HTMLInputElement>) => {
@@ -108,7 +138,10 @@ export function InquiryAttachments({ files, onFilesChange, previewError }: Props
             variant="link"
             size="md"
             className={css({ '& span': { fontWeight: 'normal' } })}
-            onClick={() => inputRef.current?.click()}
+            ref={triggerRef}
+            onClick={() =>
+              platform === 'mobile' ? setPickerOpen(true) : inputRef.current?.click()
+            }
             aria-describedby="inquiry-files-help"
           >
             파일찾기
@@ -126,6 +159,15 @@ export function InquiryAttachments({ files, onFilesChange, previewError }: Props
         onChange={addFiles}
         hidden
       />
+      <input
+        ref={photoInputRef}
+        aria-label="사진 보관함에서 첨부"
+        type="file"
+        multiple
+        accept="image/jpeg,image/png"
+        onChange={addFiles}
+        hidden
+      />
       <Stack gap="2">
         {error ? (
           <StatusMessage tone="error" textProps={{ tone: 'error' }} className={css({ m: '0' })}>
@@ -140,6 +182,55 @@ export function InquiryAttachments({ files, onFilesChange, previewError }: Props
           onFilesChange(files.filter((_, fileIndex) => fileIndex !== index));
         }}
       />
+      {platform === 'mobile' && (
+        <ModalDialog
+          variant="selection"
+          open={pickerOpen}
+          onOpenChange={setPickerOpen}
+          title="파일첨부"
+          closeLabel="파일첨부 닫기"
+          mobilePresentation="bottomSheet"
+          popupClassName={attachmentPickerStyles.popup}
+          blurBackdrop={false}
+          finalFocus={triggerRef}
+        >
+          <div className={attachmentPickerStyles.choices}>
+            {[
+              {
+                label: '사진 보관함',
+                icon: 'hoka-attachment-image-regular' as const,
+                input: photoInputRef,
+              },
+              {
+                label: '파일 선택',
+                icon: 'hoka-attachment-folder-regular' as const,
+                input: inputRef,
+              },
+            ].map(({ label, icon, input }) => (
+              <Button
+                key={label}
+                variant="link"
+                className={attachmentPickerStyles.choice}
+                onClick={() => {
+                  input.current?.click();
+                  setPickerOpen(false);
+                }}
+              >
+                <HStack gap="16px">
+                  <Icon name={icon} size="18px" aria-hidden="true" />
+                  <Typography
+                    variant="body3Medium"
+                    language="ko"
+                    className={attachmentPickerStyles.label}
+                  >
+                    {label}
+                  </Typography>
+                </HStack>
+              </Button>
+            ))}
+          </div>
+        </ModalDialog>
+      )}
     </ContentSection>
   );
 }

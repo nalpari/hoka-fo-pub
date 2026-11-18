@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-17T04:10:00Z'
+updated: '2026-11-17T07:55:05.559Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -1169,7 +1169,7 @@ Figma PC `2203:77591`, 모바일 `2203:76651`을 기준으로 568px PC 모달·�
 
 ### 환불 신청 연결 (2026-11-03)
 
-OrderClaimRequest의 kind 옵션으로 취소와 반품 신청을 공유한다. 배송완료 주문의 환불 신청 버튼은 onReturn(order)를 통해 선택한 주문의 팝업을 열고, /mypage/orders/preview-return-request는 같은 화면을 직접 연다. 반품은 수량 조절 없이 상품 체크와 사유·상세내용을 입력하며 회수 안내·환불예정금액을 표시한다. 실제 환불 요청·계산은 미연결이다. 출처: OrderClaimRequest.tsx, OrdersPage.tsx, OrdersProducts.tsx 및 Figma 2203:90945, 2203:76721. IA 178의 기존 주소는 유지하고 source graph를 재생성했다.
+OrderClaimRequest의 kind 옵션으로 취소와 반품 신청을 공유한다. 배송완료 주문의 환불 신청 버튼은 onReturn(order)를 통해 선택한 주문의 팝업을 열고, /mypage/orders/preview-return-request는 같은 화면을 직접 연다. 반품은 취소 신청과 동일한 수량 조절(최소 1, 최대 해당 상품 주문 수량), 상품 체크와 사유·상세내용을 입력하며 회수 안내·환불예정금액을 표시한다. 실제 환불 요청·계산은 미연결이다. 출처: OrderClaimRequest.tsx, OrdersPage.tsx, OrdersProducts.tsx 및 Figma 2203:90945, 2203:76721. IA 178의 기존 주소는 유지하고 source graph를 재생성했다.
 
 반품 신청의 반품비 값 색상 조건 수정은 OrderClaimRequest의 표시 변경이며 기존 신청 URL과 진입 동작은 유지한다(2026-11-03).
 
@@ -1977,3 +1977,118 @@ IA159 런칭캘린더에 입고 알림 신청 직접 URL /launch-calendar/clifto
 - 페이지형 EmptyState는 PC 상단 160px, 모바일 남은 영역 가운데 정렬을 공통으로 사용한다. 배송지·리뷰·상품내역의 고정 화면 높이 계산을 제거했다.
 
 - 장바구니 빈 화면의 레이아웃 여백 설정을 정리하고, 배송지 편집 모바일 제목 여백과 마이페이지 회원정보 메뉴명을 갱신했다.
+
+## 모바일 결제 로고 정렬 보정 (2026-11-17)
+
+`/checkout` 및 같은 CheckoutPayment를 사용하는 주문서 STATE의 모바일 로고를 원본의 가운데 정렬된 자산으로 교체했다. 기존 PC용 자산·한 줄6열 배치·선택 콜백은 유지한다. 신규 경로나 서비스 바인딩 변경은 없다. [수치와 검증](ui.md#모바일-결제-수단-중앙-정렬-2026-11-17).
+
+
+## 쿠폰 상세 글꼴 변경의 라우팅 검토 (2026-11-17)
+
+작업 트리 출처 src/app/mypage/coupons/_components/CouponManagement.tsx의 상세 글꼴·색상과 className 선언 위치를 검토했다. /mypage/coupons/preview-detail 직접 진입, 모달 열림과 닫기 소유권, 쿠폰 데이터·조회 계약 및 기존 import 경로에는 변경이 없다. PC1176·모바일513px 직접 진입과 캡처를 확인했다.
+
+
+## 비밀번호 설정 안내 간격 보정 (2026-11-17)
+
+ProfileContent의 비밀번호 설정 모달에서 안내문 padding-top8px를 제거하고 공통 FormField의 gap8px를 사용한다. 안내문 Typography의1px 이동도 해당 사용처에서 해제하여 입력 상자와 안내문 실제 간격이8px가 되도록 했다. 입력·확인·닫기와 고정 상태 URL 계약은 유지한다. 작업 트리 출처: src/app/mypage/profile/_components/ProfileContent.tsx. Codex가 /mypage/profile/preview-password의 PC1068×1251·모바일506×1251에서 실제 bounding rect 간격8px·안내문 padding-top0과 캡처를 확인했다.
+
+
+## 비밀번호 입력 오류 고정 상태 (2026-11-17)
+
+/mypage/profile/preview-password-error를 profilePreviews와 기존 동적 preview 라우트에 추가하고 IA 회원정보 관리 하위에 비밀번호 입력 오류·form 모달로 연결했다. ProfileStatePreview의 passwordState='error'가 기존 ProfilePasswordDialog를 열며 새 화면 래퍼를 만들지 않는다. 생성된 화면 소스 목록을 동기화했다. 작업 트리 출처: src/app/mypage/profile/profilePreviews.ts, src/app/mypage/profile/[preview]/page.tsx, src/app/mypage/profile/_components/ProfileStatePreview.tsx, src/app/mypage/profile/_components/ProfileContent.tsx, src/app/screen-index/screenConnections.ts, src/app/screen-index/sourceGraph.generated.json.
+
+사용자가 제공한 오류 화면 이미지를 기준으로 두 필드 오류를 고정 표시하며 서비스 검증·요청·저장·성공 이동은 구현하지 않는다. Codex가 PC1176×1251·모바일375×812에서 직접 진입·두 오류 문구·aria-invalid=true와 닫기를 확인했다.
+
+
+## 문의 모바일 첨부 방법 선택 (2026-11-17)
+
+/support/inquiries/new/preview-attachment-picker에서 모바일 파일첨부 시트를 초기 표시한다. 기존 InquiryFormStatePreview와 InquiryAttachments의 previewPicker를 재사용하고 IA 고객센터·마이페이지 문의 연결에 첨부 방법 선택 (모바일)·selection을 추가했다. PC는 동일 URL에서 일반 문의 폼을 표시하며 파일찾기는 기존 파일 입력을 직접 연다. 작업 트리 출처: src/app/support/inquiries/new/preview-attachment-picker/page.tsx, src/app/support/inquiries/new/_components/InquiryFormStatePreview.tsx, src/app/support/inquiries/new/_components/InquiryFormContent.tsx, src/app/screen-index/screenConnections.ts, src/app/screen-index/sourceGraph.generated.json.
+
+
+## 첨부 방법 선택 문구 굵기 보정 (2026-11-17)
+
+사용자 모바일 검수 규격을 원본의400보다 우선해 사진 보관함·파일 선택 문구를 body3Medium으로 변경했다. Pretendard16px/500/24px·자간-0.02em·검정을 사용한다. 기존 첨부 선택 URL·PC 직접 파일 입력·File 전달·모달 구조는 유지한다. 작업 트리 출처: src/app/support/inquiries/new/_components/InquiryFormContent.tsx. Codex가 모바일623×1251에서 두 문구의 계산 스타일과 캡처를 확인했고 변경 ESLint·타입 검사를 통과했다.
+
+
+## 주문 상품 조회 orderLookup 연결 (2026-11-17)
+
+/support/inquiries/new/order-products와 preview-empty/preview-custom의 기존 직접 진입 경로는 유지하고 IA 모달 유형만 orderLookup으로 갱신했다. 가이드에 전용 유형과 모바일 전체화면을 추가하고 selection의 사용 설명에서 주문 상품 조회를 분리했다. 모달 타입은11개이며 주문 조회는 기존 선택·기간·다중 상품 선택·onSelect·onClose·finalFocus 소유자를 유지한다. API 조회·요청·저장·완료 흐름은 추가하지 않았다. 작업 트리 출처: src/app/screen-index/screenConnections.ts, src/app/screen-index/sourceGraph.generated.json, src/app/support/inquiries/new/order-products/_components/InquiryOrderLookup.tsx, src/app/publishing-guide/_components/ModalGuide.tsx.
+
+## 주문 조회 상품 수 표시 (2026-11-17)
+
+주문 상품 조회는 상품 수 숫자를 기존 countNumber 슬롯으로 분리한다. 경로·선택 상태·조회 및 제출 계약은 유지하며 PC HOKA 16px/700, 모바일 Pretendard 14px/400을 적용한다. 1764px와 375px에서 계산 스타일을 확인했다.
+
+## 공통 날짜 범위 입력 (2026-11-17)
+
+주문/배송조회의 날짜 입력을 DateRangeSearch로 추출해 주문 상품 조회 직접설정에도 적용했다. Panda 컴포넌트, 130×36px 둥근 입력, 점 구분 날짜 표시·숫자 편집·네이티브 달력을 유지한다. 조회 버튼은 날짜 입력 컴포넌트에서 분리하고 각 화면 소유자가 배치한다. 문의 화면은 오른쪽에 조회 링크를 표시한다. 날짜 초안과 오류는 호출자가 소유하며 날짜 변경 콜백만 전달한다. 실제 요청은 이 공통 컴포넌트가 실행하지 않는다. 주문 화면의 조회 링크는 기존 onDateSearch를 호출하며 문의 미리보기의 조회 링크는 요청을 실행하지 않는다.
+
+1764px·375px 두 화면에서 숫자 입력의 점 구분 표시, 달력 입력 존재, 입력 크기와 문서 가로 넘침 없음을 확인했다.
+
+날짜 입력의 내부 여백은 좌측 12px·우측 36px, 달력은 우측 12px로 보정했다. 기존 72px 글자 공간보다 넓은 HOKA 날짜 문자열이 잘리던 문제를 80px 글자 공간으로 해소한다.
+
+## 쿠폰 조회와 취소 반품 유형 연결 (2026-11-17)
+
+/checkout/preview-coupons, /mypage/orders/preview-cancel-request, /mypage/orders/preview-return-request의 경로와 직접 진입 상태는 그대로 유지한다. IA 표시와 모달 가이드에 모두 productSelection을 연결했다. 모달 variant는12개다.
+
+## 상품 선택 입력 본문 recipe 연결 (2026-11-17)
+
+보유 쿠폰·주문 취소·환불(반품)의 기존 직접 경로와 productSelection 유형을 유지하고 각 본문을 modalProductSelectionContentRecipe에 연결했다. 쿠폰은 coupon 표시 옵션, 취소·반품은 기본 claim 옵션을 사용하며 라우트·초안 상태·선택·닫기 소유자를 변경하지 않았다. 작업 트리 출처: src/app/checkout/_components/CheckoutCouponDialog.tsx, src/app/mypage/orders/_components/OrderClaimRequest.tsx, src/components/common/layouts/ModalDialog.recipe.tsx, src/app/screen-index/sourceGraph.generated.json.
+
+상품 선택 입력 글꼴 검수에서는 기존 취소·반품·쿠폰 경로와 상태를 유지하고, 신청 화면의 준비된 금액 문자열을 숫자/원 표시로만 분리했다. 요청·계산·제출 연결 변경은 없다.
+
+## FAQ 검색 영역 디자인 보정 (2026-11-17)
+
+사용자 지정 [FAQ 검색 디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 PC·모바일 검색 노드를 기준으로 FaqContent 내부 검색 필드를 PC520px·모바일 가변 폭과 높이56px로 적용했다. 입력 옆 검색 버튼은 PC48px/MO42px 높이·좌우24px·반경52px, 필드와 간격12px/8px이다. placeholder는 Pretendard16px·400·행간24px·#777777, 버튼은16px/15px·400·행간1.3을 사용한다. 모바일 좌우16px은 기존 고객센터 레이아웃이 소유한다.
+
+기존 SearchField는 as=div로 재사용하고 FAQ 검색 영역 한 곳만 form/role=search를 소유한다. 입력 즉시 적용되는 기존 로컬 검색은 유지하고 검색 버튼·Enter는 기본 페이지 제출만 방지한다. FAQ 라우트·IA·카테고리·펼침·더보기 및 실제 조회 미연결 경계는 변경하지 않는다. 출처: 사용자 지정 디자인의 구조·수치, `src/app/support/faq/_components/FaqContent.tsx` 작업 트리와 Codex 확인(2026-11-17).
+
+FAQ 검색 스타일 후속 정리(2026-11-17): 검색 form·입력 컨테이너·버튼·라벨은 FaqContent 상단 styles의 className으로 연결한다. SearchField 내부 여백과 input 규격은 해당 컨테이너의 제한된 자식 선택자로 소유하며 공통 컴포넌트 API·기본 스타일은 변경하지 않는다. 기존 Flex·Box와 단일 form을 유지한다. PC1571/MO375 재측정에서 입력520×56px/가변폭×56px, padding8px 12px·간격12px/8px·버튼48px/42px·라벨16px/15px·placeholder#777777과 가로 넘침 없음이 유지됐다. 타입·대상 ESLint·Panda 생성이 통과했다. 출처: 해당 파일과 Codex 브라우저 재측정.
+
+## 런칭 캘린더 빈 목록 직접 경로 (2026-11-17)
+
+IA160 Feed에 `/launch-calendar/preview-empty`(런칭 일정 없음), IA161 Upcoming에 `/launch-calendar/upcoming/preview-empty`(출시 예정 상품 없음)을 연결했다. 두 page는 기존 LaunchCalendarContent에 mode와 items=[]를 전달한다. 기본 목록·상품 상세·알림 경로는 유지하고 새 IA 번호나 요청 흐름은 추가하지 않는다. 소스 그래프는 정식 생성기로 갱신했다. 화면별 문구·레이아웃·검증은 [빈 목록 기록](launch-calendar.md#feedupcoming-빈-목록-2026-11-17)을 따른다. 출처: 두 신규 page와 screenConnections.ts·LaunchCalendarContent.tsx 작업 트리, Codex(2026-11-17).
+
+## 환불(반품) 신청 수량 노출 (2026-11-17)
+
+OrderClaimRequest에서 반품일 때 NumberStepper를 숨기던 조건을 제거해 PC·모바일 모두 주문 취소와 같은 수량 입력을 표시한다. 상품별 로컬 초안·최소 1·주문 수량 상한과 기존 스타일을 유지한다. 실제 요청·금액 계산은 미연결이며 경로·플랫폼 소유권은 바뀌지 않는다. 출처: src/app/mypage/orders/_components/OrderClaimRequest.tsx 작업 트리. 대상 ESLint·Prettier 확인을 통과했다. 브라우저 실측은 수행하지 않았다.
+
+
+## 주문내역 마일리지 안내 삭제 (2026-11-17)
+
+CheckoutDiscountSummary의 마일리지 안내 두 문구 삭제를 검토했다. /checkout 및 기존 preview 경로·URL 상태·플랫폼 선택에는 영향이 없다.
+
+출처: 사용자 첨부 Slack 화면과 src/app/checkout/_components/CheckoutDiscountSummary.tsx 작업 트리. 기록: codex/gpt-6, 2026-11-17T07:42:10.485Z. 기존 generated·source_revision·draft 이력은 보존한다.
+
+## 전화번호 하이픈 표기 규칙 (2026-11-17)
+
+전화번호는 공백 없는 하이픈 표기를 기본으로 하며 디자인의 점·공백 구분보다 우선한다. 번호 자체와 지역번호·대표번호 자리수는 유지한다. 주문서 CheckoutShipping의 연락처 2곳과 orders.data.ts의 주문내역 연락처 9곳을 변경했다. 라우트·상호작용·스타일은 변경하지 않았다. 작업 트리 출처: AGENTS.md, src/app/checkout/_components/CheckoutShipping.tsx, src/components/orders/orders.data.ts. 정규식으로 src를 재검색하여 점 구분 전화번호가 남지 않았음을 확인했다.
+
+## 주문서 피드백 반영 (2026-11-17)
+
+검토 범위는 CheckoutForm·CheckoutShipping·CheckoutCouponDialog와 기존 /checkout, /checkout/preview-coupons, /checkout/preview-delivery-request다. 경로·IA 연결·라우터 상태·플랫폼 판별에는 영향이 없다. 기본 배송 요청 seed만 door로 변경하고 custom 직접 입력 seed는 유지한다.
+
+출처: 사용자 첨부 Slack 대화·화면과 위 working_tree_sources의 checkout 소스. 기록: codex/gpt-6, 2026-11-17T07:38:24Z. 기존 generated·source_revision·draft 및 과거 검증 이력은 보존한다.
+
+## 매장 찾기 지역 탭 제외 (2026-11-17)
+
+`/support/store` 경로와 기존 IA 연결을 유지한다. 사용자 최종 요청에 따라 지역 탭 및 tab 쿼리 연결을 추가하지 않고 준비된 세 매장 목록을 표시한다. page는 라우트 구성, `_components/StoreContent.tsx`는 목록 UI, `store.data.ts`는 표시 fixture를 소유한다. API·지도·길 찾기는 연결하지 않는다. 1920px·375px 직접 진입에서 탭 없는 목록을 확인했다. 상세 규격과 검증 범위는 [목록 시안 보정](ui.md#매장-찾기-목록-시안-보정-2026-11-17)을 따른다.
+
+## 매장 찾기 표기 통일 (2026-11-17)
+
+/support/store의 PC·모바일 제목과 breadcrumb를 `매장 찾기`로 통일해 기존 고객센터 내비게이션과 일치시켰다. 제목 분기에만 쓰던 usePlatform 호출을 제거했으며 경로·목록·반응형 스타일은 유지한다. 작업 트리 출처: src/app/support/store/page.tsx. 기록: codex/gpt-6, 2026-11-17T07:58:26.211800+00:00.
+
+## 매장 목록 Panda 스타일 이름 정리 (2026-11-17)
+
+`src/app/support/store/_components/StoreContent.tsx`의 정적 레이아웃 스타일을 같은 파일 상단 `styles`의 storeList·storeItem·storeDetails·contactDetails·contactRow로 모았다. Stack·HStack·ContentSection과 기존 의미 태그를 유지하며 패턴/기본 gap과의 병합 순서를 보존하도록 css.raw 객체를 css prop에 전달한다. body·phoneLink는 기존 className을 유지한다. 라우트·표시 데이터·전화 링크·영업시간 조건은 변경하지 않았다.
+
+변경 파일 ESLint·Prettier, Panda 생성과 전체 타입 검사를 통과했다. 브라우저에서 375px·1920px 각각 목록 하위 36개 요소의 태그·내용·위치·크기와 display·방향·gap·padding·margin·구분선·font·color를 변경 전후 비교해 동일함을 확인했다.
+
+## 매장 목록 검수 타이포 보정 (2026-11-17)
+
+사용자 브라우저 주석 규격에 따라 StoreContent의 매장명 색상을 #000000으로 명시하고 본문·전화번호·운영시간을 language="ko"로 지정해 숫자도 Pretendard Regular·자간 -0.02em으로 표시한다. body·phoneLink의 색상은 #4D4D4D, 행간은 1.5다. 기존 레이아웃·표시 데이터·전화 링크·영업시간 조건과 경로는 유지한다. 작업 트리 출처: src/app/support/store/_components/StoreContent.tsx.
+
+PC 1305px에서 매장명22px/900/26.4px·자간-0.44px, 본문16px/24px·자간-0.32px와 간격20/12/6px를 확인했다. 모바일375px에서 매장명20px/700/24px·자간-0.4px, 본문14px/21px·자간-0.28px와 간격16/8/4px를 확인했다. 두 플랫폼의 제목색은 검정, 정보색은 rgb(77,77,77)이며 모바일 전화번호 실제 글리프는 Pretendard-Regular다. 변경 파일 ESLint·Prettier, Panda 생성·전체 타입 검사를 통과했다.
+
+## 모바일 검색 결과 IA 연결 (2026-11-17)
+
+IA247은 기존 `/search`와 `/search/preview-no-results`를 유지하며 모바일도 일반 검색 결과 페이지로 표시한다. 소스 그래프에서 제거된 검색 입력·검색 헤더 의존성을 정식 생성 명령으로 갱신했다. 출처: `src/app/screen-index/sourceGraph.generated.json`, `src/components/catalog/ProductListingPage.tsx`, `src/context/ShopShell.tsx` 작업 트리; Codex, 2026-11-17.

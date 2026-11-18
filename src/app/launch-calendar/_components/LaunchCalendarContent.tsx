@@ -10,6 +10,7 @@ import { css } from 'styled-system/css';
 import { Box, Flex, Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Button, ButtonLink } from '@/components/common/atoms/Button';
+import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
@@ -23,6 +24,21 @@ import {
   type LaunchCalendarMode,
   launchCalendarTabs,
 } from '@/app/launch-calendar/launchCalendar.data';
+
+const styles = {
+  emptyHeading: css({
+    '&&': { fontSize: '42px', lineHeight: '1', textAlign: 'center', _mobile: { fontSize: '28px' } },
+  }),
+  emptyState: css({
+    '&&': { py: '0', _mobile: { py: '0', minH: '340px' } },
+  }),
+  emptyTitle: css({
+    '&&': { fontSize: '28px', fontWeight: '900', lineHeight: '1.2', _mobile: { fontSize: '22px' } },
+  }),
+  emptyDescription: css({
+    '&&': { fontSize: '16px', fontWeight: '400', lineHeight: '1.5', _mobile: { fontSize: '14px' } },
+  }),
+};
 
 const actionStyle = css({
   w: '120px',
@@ -202,7 +218,7 @@ function LaunchCalendarCard({
   );
 }
 
-// [ 개발팀 바인딩 ] mode별 items는 시안 fixture입니다. 탭은 독립 URL의 일반 탐색이고, 알림 신청은 미연결 표시이며 클릭으로 완료 상태를 만들지 않습니다. 실제 목록/알림 요청과 대상 ID·pending/실패/재시도·최신 응답 갱신은 런칭 캘린더 통합 소유자의 책임입니다.
+// [ 개발팀 바인딩 ] items 미전달 시 mode별 시안 fixture를 사용하며, 전달된 items는 현재 props를 그대로 읽습니다. items=[]는 조회 완료된 빈 목록의 표시 계약이며 pending/실패를 뜻하지 않습니다. 빈 상태 URL은 이 배열을 명시적으로 전달합니다. 탭은 독립 URL의 일반 탐색이고, 알림 신청은 미연결 표시이며 클릭으로 완료 상태를 만들지 않습니다. 실제 목록/알림 요청과 대상 ID·pending/실패/재시도·최신 응답 갱신은 런칭 캘린더 통합 소유자의 책임입니다.
 /** 시안에 준비된 런칭 목록과 독립 URL 탭을 표시합니다. (Displays prepared launch listings and independently addressable tabs.) */
 export function LaunchCalendarContent({
   mode = 'feed',
@@ -214,6 +230,7 @@ export function LaunchCalendarContent({
   const platform = usePlatform();
   const displayItems =
     items ?? (platform === 'mobile' ? launchCalendarMobileItems[mode] : launchCalendarItems[mode]);
+  const empty = displayItems.length === 0;
   const grouped = platform === 'mobile' && mode === 'upcoming';
   const groups = new Map<string, LaunchCalendarItem[]>();
   for (const item of displayItems) {
@@ -228,11 +245,13 @@ export function LaunchCalendarContent({
       className={css({
         w: 'min(calc(100% - 144px), 1776px)',
         mx: 'auto',
-        py: '96px',
-        _mobile: { w: '100%', pt: '48px', pb: mode === 'feed' ? '0' : '72px' },
+        pt: '96px',
+        pb: empty ? '160px' : '96px',
+        minH: empty ? '711px' : undefined,
+        _mobile: { w: '100%', minH: '0', pt: '48px', pb: empty || mode === 'feed' ? '0' : '72px' },
       })}
     >
-      <Stack gap="60px" _mobile={{ gap: '0' }}>
+      <Stack gap={empty ? '160px' : '60px'} _mobile={{ gap: '0' }}>
         <Stack
           as="header"
           gap="40px"
@@ -242,7 +261,10 @@ export function LaunchCalendarContent({
           <ContentHeader
             title="Launch Calendar"
             titleAs="h1"
-            titleProps={{ variant: 'eland-campaign-title' }}
+            titleProps={{
+              variant: 'eland-campaign-title',
+              className: empty ? styles.emptyHeading : undefined,
+            }}
           />
           <HStack
             as="nav"
@@ -283,7 +305,18 @@ export function LaunchCalendarContent({
             ))}
           </HStack>
         </Stack>
-        {grouped ? (
+        {empty ? (
+          <EmptyState
+            variant="page"
+            className={styles.emptyState}
+            title={
+              mode === 'upcoming' ? '출시 예정인 상품이 없습니다.' : '등록된 런칭 일정이 없습니다.'
+            }
+            description="새로운 런칭 소식을 준비하고 있습니다. 조금만 기다려 주세요."
+            titleProps={{ as: 'h2', variant: 'headingKr7', className: styles.emptyTitle }}
+            descriptionProps={{ className: styles.emptyDescription }}
+          />
+        ) : grouped ? (
           <Stack gap="40px" aria-label="런칭 상품">
             {[...groups].map(([date, entries]) => (
               <Stack key={date} gap="16px">

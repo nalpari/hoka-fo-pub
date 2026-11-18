@@ -41,11 +41,21 @@ const connections: Record<number, ScreenConnection> = {
   },
   160: {
     route: '/launch-calendar',
-    sourceFiles: ['src/app/launch-calendar/page.tsx'],
+    previewRoutes: [{ label: '런칭 일정 없음', href: '/launch-calendar/preview-empty' }],
+    sourceFiles: [
+      'src/app/launch-calendar/page.tsx',
+      'src/app/launch-calendar/preview-empty/page.tsx',
+    ],
   },
   161: {
     route: '/launch-calendar/upcoming',
-    sourceFiles: ['src/app/launch-calendar/upcoming/page.tsx'],
+    previewRoutes: [
+      { label: '출시 예정 상품 없음', href: '/launch-calendar/upcoming/preview-empty' },
+    ],
+    sourceFiles: [
+      'src/app/launch-calendar/upcoming/page.tsx',
+      'src/app/launch-calendar/upcoming/preview-empty/page.tsx',
+    ],
   },
   162: {
     route: '/launch-calendar/in-stock',
@@ -283,6 +293,10 @@ const connections: Record<number, ScreenConnection> = {
     previewRoutes: [
       { label: '입력 오류', href: '/support/inquiries/new/preview-error' },
       { label: '주문 선택 안내', href: '/support/inquiries/new/preview-order-required' },
+      {
+        label: '첨부 방법 선택 (모바일)',
+        href: '/support/inquiries/new/preview-attachment-picker',
+      },
       { label: '첨부 형식 오류', href: '/support/inquiries/new/preview-attachment-type' },
       { label: '첨부 크기 오류', href: '/support/inquiries/new/preview-attachment-size' },
       { label: '첨부 개수 오류', href: '/support/inquiries/new/preview-attachment-count' },
@@ -454,6 +468,10 @@ const connections: Record<number, ScreenConnection> = {
     previewRoutes: [
       { label: '입력 오류', href: '/support/inquiries/new/preview-error' },
       { label: '주문 선택 안내', href: '/support/inquiries/new/preview-order-required' },
+      {
+        label: '첨부 방법 선택 (모바일)',
+        href: '/support/inquiries/new/preview-attachment-picker',
+      },
       { label: '첨부 형식 오류', href: '/support/inquiries/new/preview-attachment-type' },
       { label: '첨부 크기 오류', href: '/support/inquiries/new/preview-attachment-size' },
       { label: '첨부 개수 오류', href: '/support/inquiries/new/preview-attachment-count' },
@@ -891,14 +909,14 @@ const stateModalVariants: Readonly<Record<string, readonly ModalDialogVariant[]>
   '/cart/preview-options-apparel': ['productOption'],
   '/cart/preview-options-apparel-changed': ['productOption'],
   '/cart/preview-limit': ['alert'],
-  '/checkout/preview-coupons': ['selection'],
+  '/checkout/preview-coupons': ['productSelection'],
   '/checkout/preview-address-change': ['form'],
   '/checkout/preview-address-edit': ['form'],
   '/checkout/preview-address-new': ['form'],
   // MyPageContent, OrdersPage, ReviewsContent and their dialog owners.
   '/mypage/preview-logout': ['confirm'],
-  '/mypage/orders/preview-cancel-request': ['form'],
-  '/mypage/orders/preview-return-request': ['form'],
+  '/mypage/orders/preview-cancel-request': ['productSelection'],
+  '/mypage/orders/preview-return-request': ['productSelection'],
   '/mypage/orders/preview-tracking': ['tracking'],
   '/mypage/orders/preview-purchase-confirm': ['confirm'],
   '/mypage/orders/preview-delete-confirm': ['confirm'],
@@ -911,6 +929,7 @@ const stateModalVariants: Readonly<Record<string, readonly ModalDialogVariant[]>
   '/mypage/addresses/preview-delete': ['confirm'],
   // ProfileContent and ProfileStatePreview select distinct variants for each step.
   '/mypage/profile/preview-expired': ['alert'],
+  '/support/inquiries/new/preview-attachment-picker': ['selection'],
   '/mypage/profile/preview-password': ['form'],
   '/mypage/profile/preview-password-error': ['form'],
   '/mypage/profile/preview-password-confirm': ['confirm'],
@@ -937,9 +956,9 @@ const stateModalVariants: Readonly<Record<string, readonly ModalDialogVariant[]>
   '/support/inquiries/preview-attachment': ['image'],
   '/support/inquiries/new/preview-cancel': ['confirm'],
   '/support/inquiries/new/preview-order-required': ['alert'],
-  '/support/inquiries/new/order-products': ['selection'],
-  '/support/inquiries/new/order-products/preview-empty': ['selection'],
-  '/support/inquiries/new/order-products/preview-custom': ['selection'],
+  '/support/inquiries/new/order-products': ['orderLookup'],
+  '/support/inquiries/new/order-products/preview-empty': ['orderLookup'],
+  '/support/inquiries/new/order-products/preview-custom': ['orderLookup'],
   // These PDP option sheets open only in the existing mobile presentation.
   '/products/pdp-preview/options-selected': ['selection'],
   '/products/pdp-preview/options-scroll': ['selection'],

@@ -36,6 +36,7 @@ export function InquiryFormStatePreview({
     | 'order-selected'
     | 'error'
     | 'order-required'
+    | 'attachment-picker'
     | 'attachment-type'
     | 'attachment-size'
     | 'attachment-count';
@@ -122,6 +123,7 @@ export function InquiryFormStatePreview({
                 files={files}
                 onFilesChange={setFiles}
                 previewError={attachmentError}
+                previewPicker={state === 'attachment-picker'}
               />
             </Stack>
             <InquiryCautions />

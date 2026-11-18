@@ -4,12 +4,14 @@ title: 런칭 캘린더
 description: 런칭 캘린더 시안과 직접 URL 및 표시 전용 인계 경계를 설명한다.
 tags: [launch-calendar, figma, publishing, ia]
 status: draft
-updated: '2026-11-16T10:45:08.077Z'
+updated: '2026-11-17T06:00:00Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-11T01:09:17Z'
 source_revision: b4fac81f1ba16d76585e64264941c0e35fcecb7f
 working_tree_sources:
+  - src/app/launch-calendar/preview-empty/page.tsx
+  - src/app/launch-calendar/upcoming/preview-empty/page.tsx
   - src/app/launch-calendar/clifton-11-gtx/preview-phone-required/page.tsx
   - src/app/launch-calendar/clifton-11-gtx/preview-notification/page.tsx
   - src/app/launch-calendar/page.tsx
@@ -123,3 +125,13 @@ PC1440/MO375에서 실제 문구·메시지28px/20px·900, 버튼180×48px/가�
 ## 알림 신청 팝업 IA 직접 확인 (2026-11-16)
 
 알림 신청은 기존 상세 CTA로만 열리던 UI여서 IA159의 열린 STATE가 누락돼 있었다. /launch-calendar/clifton-11-gtx/preview-notification에서 기존 LaunchCalendarDetail에 preview=notification 초기 seed만 전달하고 form 팝업을 처음부터 연다. IA159에 입고 알림 신청 링크·작업 파일·variant=form 검색/표시를 등록했다. 선택·번호 변경·닫기 동작과 미연결 신청 API 경계는 유지하며 새 성공/저장 흐름은 추가하지 않았다.
+
+## Feed·Upcoming 빈 목록 (2026-11-17)
+
+사용자 지정 [런칭 캘린더 빈 화면 디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 PC·모바일 구조와 사용자 확정 문구를 적용했다. Feed는 등록된 런칭 일정이 없습니다., Upcoming은 출시 예정인 상품이 없습니다.를 표시하고 보조 문구는 새로운 런칭 소식을 준비하고 있습니다. 조금만 기다려 주세요.를 공유한다. 기존 LaunchCalendarContent가 현재 items=[]일 때 공통 EmptyState를 표시한다. items 미전달의 fixture 선택은 유지하며 빈 배열을 loading/실패와 동일시하지 않는다. 실제 조회와 요청 상태 처리는 기존 통합 소유자의 책임이고 새 API·서비스 상태는 추가하지 않았다.
+
+PC는 본문 최소711px·상단96px·하단160px·탭과 안내 사이160px, 문구 최대520px·간격16px이다. 제목 Pretendard28px·900·행간1.2, 보조16px·400·행간1.5를 사용한다. 모바일은 기존 제목·탭과 본문 경계를 유지하고 안내 영역340px 중앙 정렬·좌우12px, 제목22px·900·행간1.2, 보조14px·400·행간1.5를 적용한다. 공통 EmptyState의 기본값은 변경하지 않고 해당 화면의 className과 title/description 슬롯만 사용한다.
+
+직접 URL은 `/launch-calendar/preview-empty`와 `/launch-calendar/upcoming/preview-empty`이며 IA160·161의 빈 목록 STATE로 등록했다. 기본 경로와 탭의 정상 목록 탐색은 유지한다. PC1920/MO375에서 두 문구·글꼴 수치·문구 간16px·본문711px/안내340px·가로 넘침 없음을 실측하고 Feed 캡처를 검토했다. 제목의 실제 커스텀 Pretendard-Black 글리프를 확인했다. 기본 목록 PC12/8개·MO각6개와 IA 두 링크 표시를 확인했다. 대상 ESLint·Prettier·전체 TypeScript·Panda423개 추출 통과, 링크/그래프 검사16개 중15개 통과다. 실패1개는 기존 문의 첨부파일 선택 상태의 그래프 연결이며 새 런칭 경로와 구분한다. 전체 빌드·명시적 플랫폼·경계 viewport는 이번에 재실행하지 않았다. 출처: 사용자 지정 시안·문구와 관련 작업 트리, Codex 실제 실행(2026-11-17).
+
+빈 화면 전용 메인 제목은 추가 실측한 시안에 맞춰 HOKA PC42px/MO28px·900·행간100%로 적용한다. 정상 목록의 기존 메인 제목은 유지한다. 최종 실측 본문 높이는 PC711px/MO512px이고 모바일 안내 영역340px이 유지된다. IA의 Feed 빈 상태 링크가 새 탭의 정확한 URL과 문구를 여는 것도 확인했다. 최종 hoka-markup-handoff 검토에서 기존 Panda 요소·EmptyState 기본값·현재 items prop·페이지 진입점·IA 소유권과 서비스 미연결 경계를 보존했고 해당 스타일 수정 후 대상 lint·Panda를 재통과했다.

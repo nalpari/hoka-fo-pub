@@ -33,7 +33,7 @@ const orderDetailFixtures: Record<string, { web: OrderDetailDisplay; mobile: Ord
         history: [],
         recipient: {
           name: '홍길동',
-          phone: '010. 1234. 1234',
+          phone: '010-1234-1234',
           address: '서울시 강남구 역삼동 123-45',
           request: '부재시 문 앞에 놔주세요.',
         },
@@ -57,7 +57,7 @@ const orderDetailFixtures: Record<string, { web: OrderDetailDisplay; mobile: Ord
         history: [],
         recipient: {
           name: '홍길동',
-          phone: '010. 1234. 1234',
+          phone: '010-1234-1234',
           address: '서울시 강남구 역삼동 123-45',
           request: '부재시 문 앞에 놔주세요.',
         },
@@ -89,7 +89,7 @@ const orderDetailFixtures: Record<string, { web: OrderDetailDisplay; mobile: Ord
         history: [],
         recipient: {
           name: '홍길동',
-          phone: '010. 1234. 1234',
+          phone: '010-1234-1234',
           address: '서울시 강남구 역삼동 123-45',
           request: '부재시 문 앞에 놔주세요.',
         },
@@ -119,7 +119,7 @@ const orderDetailFixtures: Record<string, { web: OrderDetailDisplay; mobile: Ord
         history: [],
         recipient: {
           name: '홍길동',
-          phone: '010. 1234. 1234',
+          phone: '010-1234-1234',
           address: '서울시 강남구 역삼동 123-45',
           request: '부재시 문 앞에 놔주세요.',
         },
@@ -142,7 +142,7 @@ const orderDetailFixtures: Record<string, { web: OrderDetailDisplay; mobile: Ord
         history: [],
         recipient: {
           name: '홍길동',
-          phone: '010. 1234. 1234',
+          phone: '010-1234-1234',
           address: '서울시 강남구 역삼동 123-45',
           request: '부재시 문 앞에 놔주세요.',
         },
@@ -163,7 +163,7 @@ const orderDetailFixtures: Record<string, { web: OrderDetailDisplay; mobile: Ord
         history: [],
         recipient: {
           name: '홍길동',
-          phone: '010. 1234. 1234',
+          phone: '010-1234-1234',
           address: '서울시 강남구 역삼동 123-45',
           request: '부재시 문 앞에 놔주세요.',
         },
@@ -217,7 +217,7 @@ const orderDetailFixtures: Record<string, { web: OrderDetailDisplay; mobile: Ord
         ],
         recipient: {
           name: '홍길동',
-          phone: '010. 1234. 1234',
+          phone: '010-1234-1234',
           address: '서울시 강남구 역삼동 123-45',
           request: '부재시 문 앞에 놔주세요.',
         },
@@ -259,7 +259,7 @@ const orderDetailFixtures: Record<string, { web: OrderDetailDisplay; mobile: Ord
         ],
         recipient: {
           name: '홍길동',
-          phone: '010. 1234. 1234',
+          phone: '010-1234-1234',
           address: '서울시 강남구 역삼동 123-45',
           request: '부재시 문 앞에 놔주세요.',
         },
@@ -371,7 +371,7 @@ export const previewOrders: OrderRecord[] = [
         refundMethod: '네이버페이',
         collection: {
           name: '홍길동',
-          phone: '010. 1234. 1234',
+          phone: '010-1234-1234',
           address: '서울시 강남구 역삼동 123-45',
           carrier: '-',
           trackingNumber: '-',

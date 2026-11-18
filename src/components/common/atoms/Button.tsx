@@ -15,6 +15,10 @@ import { circle } from 'styled-system/patterns';
 import { Icon, type IconProps } from '@/components/common/atoms/Icon';
 import { Typography, type TypographyProps } from '@/components/common/atoms/Typography';
 
+const loadMoreStyles = {
+  text: css({ '&&': { lineHeight: '1.3', _mobile: { lineHeight: '1.5' } } }),
+};
+
 const button = cva({
   base: {
     display: 'inline-flex',
@@ -208,6 +212,12 @@ function renderLoadMoreContent(
 ) {
   const countLabel = counter ? `${counter.current}/${counter.total}` : (count ?? remaining);
 
+  const defaultTextProps = {
+    web: 'cta1',
+    mo: 'cta2',
+    weight: platform === 'mobile' ? 'regular' : 'bold',
+  } as const;
+
   if (appearance === 'inline') {
     return (
       <HStack as="span" display="inline-flex" gap="2">
@@ -252,10 +262,17 @@ function renderLoadMoreContent(
       // justifyContent="center"
     >
       <HStack as="span" gap="0" alignItems="center">
-        <Typography {...(labelProps ?? { web: 'cta1', mo: 'cta2', weight: 'regular' })}>
+        <Typography
+          {...(labelProps ?? defaultTextProps)}
+          className={labelProps ? undefined : loadMoreStyles.text}
+        >
           {label}
         </Typography>
-        <Typography {...(counterProps ?? { web: 'cta1', mo: 'cta2', weight: 'regular' })}>
+        <Typography
+          {...(counterProps ?? defaultTextProps)}
+          weight="inherit"
+          className={counterProps ? undefined : loadMoreStyles.text}
+        >
           ({counter.current}/{counter.total})
         </Typography>
       </HStack>
