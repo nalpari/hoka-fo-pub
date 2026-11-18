@@ -2,6 +2,7 @@
 
 import { NumberField as BaseNumberField } from '@base-ui/react/number-field';
 import type { ReactNode } from 'react';
+import { usePlatform } from '@/context/platform';
 
 import { css } from 'styled-system/css';
 
@@ -13,12 +14,20 @@ const root = css({
   display: 'grid',
   alignItems: 'center',
   justifyContent: 'space-between',
-  gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
+  gridTemplateColumns: '18px minmax(0, 1fr) 18px',
   gap: '0',
   minW: '0',
-  w: '122px',
+  w: '108px',
   h: '36px',
-  border: '1px solid var(--colors-black-20)',
+  border: '1px solid #E9EAEB',
+  bg: 'white',
+  px: '15px',
+  _mobile: {
+    w: '96px',
+    h: '32px',
+    px: '13.222222px',
+    gridTemplateColumns: '16px minmax(0, 1fr) 16px',
+  },
 });
 
 const control = css({
@@ -45,7 +54,10 @@ const valueStyle = css({
   bg: 'transparent',
   p: '0',
   textAlign: 'center',
-  fontSize: '16',
+  fontSize: '14',
+  fontWeight: '400',
+  lineHeight: '1.5',
+  _mobile: { fontSize: '12' },
   fontFamily: 'hoka',
   color: 'black.100',
 });
@@ -75,6 +87,7 @@ export function NumberStepper({
   minimumControl,
 }: NumberStepperProps) {
   const field = useFormFieldContext();
+  const iconSize = usePlatform() === 'mobile' ? 16 : 18;
 
   return (
     <BaseNumberField.Root
@@ -90,7 +103,7 @@ export function NumberStepper({
         minimumControl
       ) : (
         <BaseNumberField.Decrement aria-label="감소" className={control}>
-          <Icon name="hoka-action-minus-regular" size={24} />
+          <Icon name="hoka-action-minus-regular" size={iconSize} />
         </BaseNumberField.Decrement>
       )}
       <BaseNumberField.Input
@@ -100,7 +113,7 @@ export function NumberStepper({
         className={valueStyle}
       />
       <BaseNumberField.Increment aria-label="증가" className={control}>
-        <Icon name="hoka-action-plus-regular" size={24} />
+        <Icon name="hoka-action-plus-regular" size={iconSize} />
       </BaseNumberField.Increment>
     </BaseNumberField.Root>
   );

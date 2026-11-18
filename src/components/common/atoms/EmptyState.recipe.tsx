@@ -12,6 +12,14 @@ const historyRoot = {
   },
 } as const;
 
+const productHistoryRoot = {
+  flex: '1',
+  pt: '160px',
+  pb: '0',
+  justifyContent: 'flex-start',
+  _mobile: { py: '0', justifyContent: 'center' },
+} as const;
+
 export const emptyStateRecipe = sva({
   slots: ['root', 'text', 'title', 'description', 'icon', 'action', 'actionContent'],
   base: {
@@ -106,18 +114,9 @@ export const emptyStateRecipe = sva({
           _mobile: { h: 'auto', py: '96px', px: '0', borderBottom: '0' },
         },
       },
-      history: { root: historyRoot },
-      wishlist: {
-        root: {
-          ...historyRoot,
-          _mobile: {
-            minH: 'calc(100svh - var(--layout-site-header-height) - 156px)',
-            pt: '200px',
-            pb: '0',
-          },
-        },
-      },
-      restock: { root: { ...historyRoot, _mobile: { ...historyRoot._mobile, mt: '-24px' } } },
+      history: { root: productHistoryRoot },
+      wishlist: { root: productHistoryRoot },
+      restock: { root: productHistoryRoot },
       address: {
         root: { ...historyRoot, _mobile: { ...historyRoot._mobile, mt: '-24px' } },
         actionContent: { w: '180px', _mobile: { w: '100%' } },

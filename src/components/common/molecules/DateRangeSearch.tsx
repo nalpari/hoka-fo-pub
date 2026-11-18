@@ -221,7 +221,13 @@ export function DateRangeSearch({
           railClassName={styles.tabs}
           itemClassName={() => styles.tab}
         />
-        <HStack alignItems="center" justifyContent="space-between" gap="24px" flexShrink="0">
+        <HStack
+          alignItems="center"
+          justifyContent="space-between"
+          gap="24px"
+          flexShrink="0"
+          _mobile={{ pb: '8px' }}
+        >
           <DateRangeFields
             dates={value}
             disabled={busy}
