@@ -38,7 +38,7 @@ export const myPageNavigation: MyPageNavGroup[] = [
   {
     heading: '계정관리',
     items: [
-      { label: '회원정보 확인 및 수정', to: '/mypage/profile' },
+      { label: '회원정보 관리', to: '/mypage/profile' },
       { label: '배송지 관리', to: '/mypage/addresses' },
     ],
   },

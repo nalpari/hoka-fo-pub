@@ -7,7 +7,7 @@ import { css } from 'styled-system/css';
 import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 import { token } from 'styled-system/tokens';
 
-import { Button } from '@/components/common/atoms/Button';
+import { Button, ButtonLink } from '@/components/common/atoms/Button';
 import { Icon } from '@/components/common/atoms/Icon';
 import { RatingStars } from '@/components/common/atoms/RatingStars';
 import { Toast, type ToastNotice } from '@/components/common/atoms/Toast';
@@ -23,7 +23,7 @@ import {
 } from '@/components/common/molecules/ProductCard/ProductCard';
 import { ProductOptionList } from '@/components/common/molecules/ProductOptionList';
 
-import { OrderHistoryProduct } from '@/components/orders/OrderHistoryProduct';
+import { reviewListPreview } from '@/app/mypage/reviews/reviewFixtures';
 import type { OrderLine } from '@/components/orders/orders.types';
 import { type Product, products } from '@/mocks/products';
 
@@ -149,7 +149,29 @@ const fullDetailsExample = {
   description: '모든 표시 옵션이 켜진 원본 컴포넌트 확인',
 };
 
-const sections = [fullDetailsExample, ...examples, detailExample, ...verticalExamples];
+const myPageReviewExample = {
+  id: 'tile-mypage-written-reviews',
+  title: '마이페이지 · 내가 작성한 리뷰',
+  description: '구매일 · 상품 정보 · 평점 · 리뷰 본문 · 수정하기',
+};
+
+const myPageReviewCode = `<OrderProductSummary
+  variant="review"
+  image="/images/mypage/speedgoat-7-gtx.png"
+  name="Speedgoat 7 GTX"
+  orderDate="2025.09.30"
+  optionText="블루 코랄, 270"
+  rating={5}
+  review="쿠션감이 좋아서 잘 달리고 있어요."
+/>`;
+
+const sections = [
+  fullDetailsExample,
+  ...examples,
+  detailExample,
+  ...verticalExamples,
+  myPageReviewExample,
+];
 
 const product: Product = {
   ...products[0],
@@ -245,9 +267,7 @@ function GuideExampleFrame({
   return (
     <Stack className={exampleCard} gap="4" _mobile={mobile ? undefined : { display: 'none' }}>
       <HStack justifyContent="space-between" alignItems="baseline" gap="2" flexWrap="wrap">
-<Typography variant="body4Semibold">
-          {mobile ? '모바일' : '데스크탑'}
-        </Typography>
+        <Typography variant="body4Semibold">{mobile ? '모바일' : '데스크탑'}</Typography>
         <Typography variant="body5" tone="subtle">
           {width} 기준
         </Typography>
@@ -337,7 +357,7 @@ const fullDetails = {
   discountLabel: '20%',
   applicationDate: '2026.05.22',
   activities: ['데일리 러닝', '워킹'],
-  rating: 4.5 as const,
+  rating: 4.5,
   review: '쿠션감이 좋아서 집 앞 외출할 때도 자주...',
   status: '환불완료',
 };
@@ -348,14 +368,16 @@ const fullDetailsStyle = css({
   '& [data-product-price] span, & [data-product-price] del': { fontSize: '13', lineHeight: 'body' },
 });
 
-const fullDetailsCode = `const fullDetails = {
+const fullDetailsCode = `import { RatingStars } from '@/components/common/atoms/RatingStars';
+
+const fullDetails = {
   orderDate: '2026.08.18',
   optionText: '옵션 : 레귤러 / 브라운 / 235 / 1개',
   originalPrice: 280000,
   discountLabel: '20%',
   applicationDate: '2026.05.22',
   activities: ['데일리 러닝', '워킹'],
-  rating: 4.5 as const,
+  rating: 4.5,
   review: '쿠션감이 좋아서 집 앞 외출할 때도 자주...',
   status: '환불완료',
 };
@@ -388,15 +410,13 @@ const [liked, setLiked] = useState(true);
   <Box w="163px" maxW="full">
     <ProductOptionList layout="scroll" options={colorThumbnails.slice(0, 5)} />
   </Box>
-  <Stack gap="2">
-    <Box pt="1">
-      <RatingStars
-        value={fullDetails.rating}
-        size={token.var('sizes.4')}
-        className={css({ '&&': { gap: '1' } })}
-      />
-    </Box>
-    <Typography variant="body5">{fullDetails.review}</Typography>
+  <Stack gap="8px">
+    {fullDetails.rating !== undefined && (
+      <Box pt="4px">
+        <RatingStars value={fullDetails.rating} size="16px" className={css({ '&&': { gap: '4px' } })} />
+      </Box>
+    )}
+    {fullDetails.review && <Typography variant="body5">{fullDetails.review}</Typography>}
   </Stack>
   <HStack justifyContent="space-between" pb="2">
     <Button variant="link" size="sm">
@@ -446,15 +466,17 @@ function FullDetailsPreview() {
       <Box w="163px" maxW="full">
         <ProductOptionList layout="scroll" options={colorThumbnails.slice(0, 5)} />
       </Box>
-      <Stack gap="2">
-        <Box pt="1">
-          <RatingStars
-            value={fullDetails.rating}
-            size={token.var('sizes.4')}
-            className={css({ '&&': { gap: '1' } })}
-          />
-        </Box>
-        <Typography variant="body5">{fullDetails.review}</Typography>
+      <Stack gap="8px">
+        {fullDetails.rating !== undefined && (
+          <Box pt="4px">
+            <RatingStars
+              value={fullDetails.rating}
+              size="16px"
+              className={css({ '&&': { gap: '4px' } })}
+            />
+          </Box>
+        )}
+        {fullDetails.review && <Typography variant="body5">{fullDetails.review}</Typography>}
       </Stack>
       <HStack justifyContent="space-between" pb="2">
         <Button variant="link" size="sm">
@@ -502,9 +524,12 @@ function VerticalProductExample({
   optionText="옵션 : Regular / 브라운 / 235 / 1개"
   amount={240000}
 />`
-    : `<OrderHistoryProduct
-  line={orderLine}
-  showAmount${example.kind === 'claim' ? '\n  imageSize="claim"' : ''}
+    : `<OrderProductSummary
+  variant="history"
+  image={orderLine.image}
+  name={orderLine.name}
+  optionText="Regular, 브라운, 235, 1개"
+  amount={240000}${example.kind === 'claim' ? '\n  imageSize={{ web: 96, mobile: 64 }}' : '\n  cartAction'}
 />`;
   return (
     <GuideExampleFrame
@@ -524,10 +549,14 @@ function VerticalProductExample({
           amount={240000}
         />
       ) : (
-        <OrderHistoryProduct
-          line={orderLine}
-          showAmount
-          imageSize={example.kind === 'claim' ? 'claim' : 'standard'}
+        <OrderProductSummary
+          variant="history"
+          image={orderLine.image}
+          name={orderLine.name}
+          optionText={`${orderLine.width}, ${orderLine.color}, ${orderLine.size}, ${orderLine.quantity}개`}
+          amount={orderLine.displayAmount}
+          cartAction={example.kind === 'history'}
+          imageSize={example.kind === 'claim' ? { web: 96, mobile: 64 } : undefined}
         />
       )}
     </GuideExampleFrame>
@@ -642,9 +671,7 @@ export function ProductCardGuide() {
               <FullDetailsPreview />
             </GuideExampleFrame>
             <Stack gap="3" p="4" border="1px solid token(colors.black.20)">
-<Typography variant="body4Semibold">
-                표시 데이터와 항목
-              </Typography>
+              <Typography variant="body4Semibold">표시 데이터와 항목</Typography>
               {[
                 ['Badge', 'Best | Exclusive'],
                 ['Order Date', fullDetails.orderDate + ' 구매'],
@@ -775,6 +802,45 @@ export function ProductCardGuide() {
             </Grid>
           </Stack>
         ))}
+        <Stack
+          as="section"
+          id={myPageReviewExample.id}
+          aria-labelledby={`${myPageReviewExample.id}-title`}
+          gap="3"
+          scrollMarginTop="calc(var(--layout-site-header-height) + token(spacing.6))"
+        >
+          <Typography as="h3" id={`${myPageReviewExample.id}-title`} variant="heading8">
+            {myPageReviewExample.title}
+          </Typography>
+          <Typography as="p" variant="body5" tone="subtle">
+            {myPageReviewExample.description}
+          </Typography>
+          <Box>
+            <ButtonLink href="/mypage/reviews/preview-written" variant="link" size="md">
+              실제 작성한 리뷰 화면 보기
+            </ButtonLink>
+          </Box>
+          {(['web', 'mobile'] as const).map((platform) => (
+            <GuideExampleFrame
+              key={platform}
+              title={myPageReviewExample.title}
+              platform={platform}
+              width={platform === 'web' ? '844px' : '343px'}
+              code={myPageReviewCode}
+              onCopy={copyCode}
+            >
+              <OrderProductSummary
+                variant="review"
+                image={reviewListPreview.written.items[0].product.imageSrc}
+                name={reviewListPreview.written.items[0].product.name}
+                orderDate={reviewListPreview.written.items[0].purchasedAt}
+                optionText={reviewListPreview.written.items[0].product.optionLabel}
+                rating={reviewListPreview.written.items[0].review?.rating}
+                review={reviewListPreview.written.items[0].review?.body}
+              />
+            </GuideExampleFrame>
+          ))}
+        </Stack>
       </Stack>
       <GuideTimeline title="상품 타일" entries={sections} />
       <Toast notice={notice} onDismiss={dismissNotice} />

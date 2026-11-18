@@ -497,16 +497,13 @@ export function RouteContent({
 
   return (
     <MyPageFrame activePath="/mypage/coupons" breadcrumbs={[{ label: '쿠폰' }]}>
-      <Stack
+      <ContentSection
+        title="쿠폰"
+        headerProps={{ titleAs: 'h1', titleProps: { web: 'headingKr6', mo: 'headingKr5' } }}
         gap="48px"
         _mobile={{ gap: '32px', pt: '24px' }}
         css={{ '--line-heights-body': '1.5' }}
       >
-        <ContentHeader
-          title="쿠폰"
-          titleAs="h1"
-          titleProps={{ web: 'headingKr6', mo: 'headingKr5' }}
-        />
         <Stack gap={{ base: '48px', _mobile: '40px' }}>
           {employee ? (
             <ContentSection
@@ -635,7 +632,7 @@ export function RouteContent({
             if (!open) setSelectedCoupon(null);
           }}
         />
-      </Stack>
+      </ContentSection>
     </MyPageFrame>
   );
 }

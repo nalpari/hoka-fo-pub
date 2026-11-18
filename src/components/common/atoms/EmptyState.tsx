@@ -94,7 +94,9 @@ function EmptyStateRoot({
     </Typography>
   ) : null;
   // Root action spacing differs from the independently used EmptyState.Action slot.
-  const actionContent = action ? <Box>{action}</Box> : null;
+  const actionContent = action ? (
+    <Box _mobile={{ width: variant === 'page' ? '100%' : undefined }}>{action}</Box>
+  ) : null;
   const grouped = variant === 'page' || variant === 'content';
   const content = (
     <>

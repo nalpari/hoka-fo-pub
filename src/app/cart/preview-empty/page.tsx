@@ -7,8 +7,6 @@ export default function Page() {
     <OrderPageLayout
       title={null}
       maxWidth="none"
-      paddingX={{ base: '0', _mobile: '0' }}
-      paddingTop={{ base: '72px', _mobile: '40px' }}
     >
       <CartEmptyContent />
     </OrderPageLayout>

@@ -6,7 +6,8 @@ import { Box, Grid, Stack } from 'styled-system/jsx';
 import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { Typography } from '@/components/common/atoms/Typography';
 
-import { OrderHistoryProduct } from '@/components/orders/OrderHistoryProduct';
+import { OrderProductSummary } from '@/components/common/molecules/OrderProductSummary';
+
 import type { ClaimHistoryItem, OrderRecord } from '@/components/orders/orders.types';
 
 import { OrderCard, type OrderCardActions } from './OrdersProducts';
@@ -68,11 +69,20 @@ function ClaimHistoryList({
               </Typography>
             </Box>
             <Box py="16px">
-              <OrderHistoryProduct
-                line={item.line}
-                showOptions={false}
-                statusText={item.status.mobile}
+              <OrderProductSummary
+                variant="history"
+                image={item.line.image}
+                name={item.line.name}
+                amount={
+                  item.line.displayAmount === undefined
+                    ? undefined
+                    : platform === 'mobile'
+                      ? (item.line.mobileDisplayAmount ?? item.line.displayAmount)
+                      : item.line.displayAmount
+                }
+                amountLanguage="en"
                 onClick={() => onDetail(item.orderId, item.claimId)}
+                statusText={item.status.mobile}
               />
             </Box>
           </Stack>
@@ -120,10 +130,11 @@ function ClaimHistoryList({
             borderBottom="1px solid var(--color-border-subtle)"
           >
             <Box px="24px">
-              <OrderHistoryProduct
-                line={item.line}
-                showOptions={false}
-                showAmount={false}
+              <OrderProductSummary
+                variant="history"
+                image={item.line.image}
+                name={item.line.name}
+                amountLanguage="en"
                 onClick={() => onDetail(item.orderId, item.claimId)}
               />
             </Box>

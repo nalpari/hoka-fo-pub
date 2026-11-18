@@ -25,37 +25,10 @@ import {
   type Preference,
   type ProfileAddress,
   type ProfileEditProps,
-  type ProfileValues,
 } from '@/app/mypage/profile/mypage-profile.types';
 import { MyPageFrame } from '@/components/mypage/MyPageFrame';
 import { type Errors, type FieldName } from '@/lib/passwordValidation';
 import { getPhoneDigits } from '@/lib/phoneNumber';
-
-const passwordDialogStyles = {
-  errorContent: css({
-    flex: '0 1 auto!',
-    '& .form-field__message': { transform: 'none' },
-    _mobile: { pb: '2px!' },
-  }),
-  errorFooter: css({
-    _mobile: { borderTop: '1px solid #E9EAEB', mt: '28px', pt: '16px', pb: '32px' },
-  }),
-  hint: css({
-    transform: 'none',
-    _mobile: {
-      '&&': {
-        fontFamily: 'korean',
-        fontStyle: 'normal',
-        fontWeight: '400',
-        lineHeight: '18px',
-        letterSpacing: '-0.02em',
-        color: 'black.100',
-        display: 'flex',
-        alignItems: 'center',
-      },
-    },
-  }),
-};
 
 type Props = {
   phone: string;
@@ -193,259 +166,224 @@ export function ProfileEditForm({
   details,
   pending,
 }: ProfileEditProps) {
-  const [password, setPassword] = useState('');
-  const [confirmation, setConfirmation] = useState('');
-  const [passwordErrors] = useState<Errors>({});
+  const platform = usePlatform();
+  const [passwordOpen, setPasswordOpen] = useState(false);
+  const passwordTrigger = useRef<HTMLButtonElement>(null);
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
   }
   return (
-    <form noValidate onSubmit={submit}>
-      <ContentSection
-        gap={{ base: '40px', _mobile: '24px' }}
-        title="회원정보 수정"
-        headerProps={{ titleAs: 'h1', titleProps: { web: 'heading6', mo: 'heading5' } }}
-      >
-        <Grid
-          gridTemplateColumns="minmax(0, 286px) minmax(0, 500px)"
-          gap="58px"
-          borderTop="2px solid"
-          borderColor="black.100"
-          pt="32px"
-          _mobile={{
-            gridTemplateColumns: 'minmax(0, 1fr)',
-            gap: '24px',
-            borderTop: '0',
-            pt: '0',
+    <>
+      <form noValidate onSubmit={submit}>
+        <ContentSection
+          gap={{ base: '40px', _mobile: '24px' }}
+          title="회원정보 수정"
+          headerProps={{
+            titleAs: 'h1',
+            titleProps: { web: 'headingKr6', mo: 'headingKr5', tone: 'primary' },
           }}
         >
-          <Stack gap="0" _mobile={{ gap: '24px' }}>
-            <DescriptionList
-              items={(details ?? profileDetails.slice(0, 4)).map(([term, description]) => ({
-                term,
-                description,
-              }))}
-              termProps={{ variant: 'body3', weight: 'semibold' }}
-              descriptionProps={{ variant: 'body3', tone: 'subtle' }}
-              slotStyles={{
-                root: css.raw({
-                  gridTemplateColumns: 'none',
-                  gap: '0',
-                  _mobile: { gap: '24px' },
-                }),
-                row: css.raw({
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '16px',
-                  py: '24px',
-                  pr: '16px',
-                  borderBottom: '1px solid var(--colors-black-20)',
-                  _first: { pt: '0' },
-                  _mobile: { gap: '12px', p: '0', borderBottom: '0' },
-                }),
-                description: css.raw({ m: '0' }),
-              }}
-            />
-            <Stack gap="24px" py="32px" pr="16px" className={css({ _mobile: { display: 'none' } })}>
-              <Typography variant="body4">탈퇴를 원하실 경우 회원탈퇴를 눌러주세요.</Typography>
-              <Button
-                size="short"
-                variant="secondary"
-                type="button"
-                onClick={onWithdraw}
-                className={css({ alignSelf: 'flex-start' })}
+          <Grid
+            gridTemplateColumns="minmax(0, 286px) minmax(0, 500px)"
+            gap="58px"
+            borderTop="2px solid"
+            borderColor="black.100"
+            pt="32px"
+            _mobile={{
+              gridTemplateColumns: 'minmax(0, 1fr)',
+              gap: '24px',
+              borderTop: '0',
+              pt: '0',
+            }}
+          >
+            <Stack gap="0" _mobile={{ gap: '24px' }}>
+              <DescriptionList
+                items={(details ?? profileDetails.slice(0, 4)).map(([term, description]) => ({
+                  term,
+                  description,
+                }))}
+                termProps={{ variant: 'body3', weight: 'semibold' }}
+                descriptionProps={{ variant: 'body3', tone: 'subtle' }}
+                slotStyles={{
+                  root: css.raw({
+                    gridTemplateColumns: 'none',
+                    gap: '0',
+                    _mobile: { gap: '24px' },
+                  }),
+                  row: css.raw({
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '16px',
+                    py: '24px',
+                    pr: '16px',
+                    borderBottom: '1px solid var(--colors-black-20)',
+                    _first: { pt: '0' },
+                    _mobile: { gap: '12px', p: '0', borderBottom: '0' },
+                  }),
+                  description: css.raw({ m: '0' }),
+                }}
+              />
+              <Stack
+                gap="24px"
+                py="32px"
+                pr="16px"
+                className={css({ _mobile: { display: 'none' } })}
               >
-                회원탈퇴
-              </Button>
+                <Typography variant="body4">탈퇴를 원하실 경우 회원탈퇴를 눌러주세요.</Typography>
+                <Button
+                  size="short"
+                  variant="secondary"
+                  type="button"
+                  onClick={onWithdraw}
+                  className={css({ alignSelf: 'flex-start' })}
+                >
+                  회원탈퇴
+                </Button>
+              </Stack>
             </Stack>
-          </Stack>
-          <Stack gap="16px">
-            <TextFormField
-              id="profile-inline-password"
-              label="비밀번호"
-              required
-              variant="boxed"
-              error={passwordErrors.password}
-              hint="연속적인 숫자나 생일, 전화번호등 추측하기 쉬운 개인정보 및 아이디와 비슷한 전화번호 사용을 피하시기 바랍니다. 비밀번호는 특수기호를 포함한 3가지 이상을 혼합하여 입력하세요."
-              hintProps={{ variant: 'body5' }}
-              inputProps={{
-                type: 'password',
-                autoComplete: 'new-password',
-                placeholder: '비밀번호를 입력해 주세요',
-                value: password,
-                onChange: (event) => setPassword(event.target.value),
-              }}
-            />
-            <TextFormField
-              id="profile-inline-confirmation"
-              label="비밀번호 재입력"
-              required
-              variant="boxed"
-              error={passwordErrors.confirmation}
-              inputProps={{
-                type: 'password',
-                autoComplete: 'new-password',
-                placeholder: '비밀번호를 재입력해 주세요',
-                value: confirmation,
-                onChange: (event) => setConfirmation(event.target.value),
-              }}
-            />
-            {passwordChanged ? (
-              <StatusMessage
-                tone="success"
-                textProps={{ as: 'span', variant: 'body4', tone: 'inherit' }}
+            <Stack gap="16px">
+              <Stack
+                alignItems="flex-start"
+                py="24px"
+                borderBottom="1px solid"
+                borderColor="black.20"
+                _mobile={{ py: '0', borderBottom: '0' }}
               >
-                비밀번호 변경을 완료하였습니다.
-              </StatusMessage>
-            ) : null}
-            <ProfilePhoneVerification
-              previewState={previewPhone}
-              phone={phone}
-              verified={phoneVerified}
-              error={fieldErrors.phone}
-              onPhoneChange={onPhoneChange}
-            />
-            <AddressFields
-              variant="boxed"
-              idPrefix="profile"
-              searchLabel="주소 찾기"
-              detailLayout="columns"
-              value={address}
-              errors={fieldErrors}
-              fieldOptions={{ addressDetail: { required: true } }}
-              onValueChange={onAddressChange}
-              searchOpen={addressOpen}
-              onSearchOpenChange={onAddressOpenChange}
-            />
-            <EmailAddressFields
-              idPrefix="profile"
-              local={emailLocal}
-              domain={emailDomain}
-              domainChoice={domainChoice}
-              options={domainOptions}
-              errors={{ local: fieldErrors.email, domain: fieldErrors.domain }}
-              onLocalChange={onEmailLocalChange}
-              onDomainChange={onEmailDomainChange}
-              onDomainChoice={onDomainChoice}
-            />
-            <Stack gap="32px" pt="16px" pb="32px" borderBottom="1px solid" borderColor="black.10">
-              <ContentSection
-                gap={{ base: '32px', _mobile: '24px' }}
-                title="마케팅 정보 수신 동의"
-                headerProps={{ titleAs: 'h2', titleProps: { web: 'heading8', mo: 'heading7' } }}
+                <Button
+                  ref={passwordTrigger}
+                  type="button"
+                  variant={platform === 'mobile' ? 'primary' : 'secondary'}
+                  size="short"
+                  className={css({ _mobile: { w: 'full' } })}
+                  onClick={() => setPasswordOpen(true)}
+                >
+                  비밀번호 설정
+                </Button>
+              </Stack>
+              {passwordChanged ? (
+                <StatusMessage
+                  tone="success"
+                  textProps={{ as: 'span', variant: 'body4', tone: 'inherit' }}
+                >
+                  비밀번호 변경을 완료하였습니다.
+                </StatusMessage>
+              ) : null}
+              <ProfilePhoneVerification
+                previewState={previewPhone}
+                phone={phone}
+                verified={phoneVerified}
+                error={fieldErrors.phone}
+                onPhoneChange={onPhoneChange}
+              />
+              <AddressFields
+                variant="boxed"
+                idPrefix="profile"
+                searchLabel="주소 찾기"
+                detailLayout="columns"
+                value={address}
+                errors={fieldErrors}
+                fieldOptions={{ addressDetail: { required: true } }}
+                onValueChange={onAddressChange}
+                searchOpen={addressOpen}
+                onSearchOpenChange={onAddressOpenChange}
+              />
+              <EmailAddressFields
+                idPrefix="profile"
+                local={emailLocal}
+                domain={emailDomain}
+                domainChoice={domainChoice}
+                options={domainOptions}
+                errors={{ local: fieldErrors.email, domain: fieldErrors.domain }}
+                onLocalChange={onEmailLocalChange}
+                onDomainChange={onEmailDomainChange}
+                onDomainChoice={onDomainChoice}
+              />
+              <Stack gap="32px" pt="16px" pb="32px" borderBottom="1px solid" borderColor="black.10">
+                <ContentSection
+                  gap={{ base: '32px', _mobile: '24px' }}
+                  title="마케팅 정보 수신 동의"
+                  headerProps={{ titleAs: 'h2', titleProps: { web: 'heading8', mo: 'heading7' } }}
+                >
+                  <Stack gap={{ base: '24px', _mobile: '16px' }}>
+                    <Radio
+                      ariaLabel="이메일 수신"
+                      name="email-preference"
+                      value={emailPreference}
+                      onValueChange={onEmailPreferenceChange}
+                      label="이메일 수신"
+                      options={[
+                        { value: '수신', label: '수신' },
+                        { value: '수신안함', label: '수신안함' },
+                      ]}
+                    />
+                    <Radio
+                      ariaLabel="문자수신(LMS, SMS)"
+                      name="sms-preference"
+                      value={smsPreference}
+                      onValueChange={onSmsPreferenceChange}
+                      label="문자수신(LMS, SMS)"
+                      options={[
+                        { value: '수신', label: '수신' },
+                        { value: '수신안함', label: '수신안함' },
+                      ]}
+                    />
+                    <Radio
+                      ariaLabel="카카오톡 알림톡 수신"
+                      name="kakao-preference"
+                      value={kakaoPreference}
+                      onValueChange={onKakaoPreferenceChange}
+                      label="카카오톡 알림톡 수신"
+                      options={[
+                        { value: '수신', label: '수신' },
+                        { value: '수신안함', label: '수신안함' },
+                      ]}
+                    />
+                  </Stack>
+                </ContentSection>
+              </Stack>
+              <FormActionGroup
+                size="tall"
+                disabled={pending}
+                pt="24px"
+                onCancel={onCancel}
+                submitLabel="변경사항 저장"
+                w="368px"
+                maxW="100%"
+                alignSelf="center"
+                _mobile={{ w: '100%', pt: '0' }}
+              />
+              <Stack
+                gap="16px"
+                pt="16px"
+                className={css({ display: 'none', _mobile: { display: 'flex' } })}
               >
-                <Stack gap={{ base: '24px', _mobile: '16px' }}>
-                  <Radio
-                    ariaLabel="이메일 수신"
-                    name="email-preference"
-                    value={emailPreference}
-                    onValueChange={onEmailPreferenceChange}
-                    label="이메일 수신"
-                    options={[
-                      { value: '수신', label: '수신' },
-                      { value: '수신안함', label: '수신안함' },
-                    ]}
-                  />
-                  <Radio
-                    ariaLabel="문자수신(LMS, SMS)"
-                    name="sms-preference"
-                    value={smsPreference}
-                    onValueChange={onSmsPreferenceChange}
-                    label="문자수신(LMS, SMS)"
-                    options={[
-                      { value: '수신', label: '수신' },
-                      { value: '수신안함', label: '수신안함' },
-                    ]}
-                  />
-                  <Radio
-                    ariaLabel="카카오톡 알림톡 수신"
-                    name="kakao-preference"
-                    value={kakaoPreference}
-                    onValueChange={onKakaoPreferenceChange}
-                    label="카카오톡 알림톡 수신"
-                    options={[
-                      { value: '수신', label: '수신' },
-                      { value: '수신안함', label: '수신안함' },
-                    ]}
-                  />
-                </Stack>
-              </ContentSection>
+                <Typography variant="body4">탈퇴를 원하실 경우 회원탈퇴를 눌러주세요.</Typography>
+                <Button size="sm" variant="link" type="button" onClick={onWithdraw}>
+                  회원탈퇴
+                </Button>
+              </Stack>
             </Stack>
-            <FormActionGroup
-              size="tall"
-              disabled={pending}
-              pt="24px"
-              onCancel={onCancel}
-              submitLabel="변경사항 저장"
-              w="368px"
-              maxW="100%"
-              alignSelf="center"
-              _mobile={{ w: '100%', pt: '0' }}
-            />
-            <Stack
-              gap="16px"
-              pt="16px"
-              className={css({ display: 'none', _mobile: { display: 'flex' } })}
-            >
-              <Typography variant="body4">탈퇴를 원하실 경우 회원탈퇴를 눌러주세요.</Typography>
-              <Button size="sm" variant="link" type="button" onClick={onWithdraw}>
-                회원탈퇴
-              </Button>
-            </Stack>
-          </Stack>
-        </Grid>
-      </ContentSection>
-    </form>
-  );
-}
-/** 회원정보와 수신 동의의 현재 값을 표시합니다. (Displays current profile details and communication preferences.) */
-function ProfileReadView({ emailPreference, smsPreference, kakaoPreference }: ProfileValues) {
-  return (
-    <Stack gap="16px">
-      <ContentSection
-        gap={{ base: '32px', _mobile: '24px' }}
-        title="마케팅 정보 수신 동의"
-        borderBottom="1px solid var(--colors-black-20)"
-        pb="32px"
-        _mobile={{ pb: '24px' }}
-        headerProps={{ titleAs: 'h2', titleProps: { web: 'heading8', mo: 'heading7' } }}
-      >
-        <DescriptionList
-          items={[
-            { term: '이메일 수신', description: emailPreference },
-            { term: '문자수신(LMS, SMS)', description: smsPreference },
-            { term: '카카오톡 알림톡 수신', description: kakaoPreference },
-          ]}
-          termProps={{ variant: 'body3', mo: 'body4' }}
-          descriptionProps={{ variant: 'body3', mo: 'body4', tone: 'subtle' }}
-          slotStyles={{
-            root: css.raw({ gridTemplateColumns: 'none', gap: '24px', _mobile: { gap: '16px' } }),
-            row: css.raw({
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'flex-start',
-              gap: '0',
-              _mobile: { justifyContent: 'space-between' },
-            }),
-            term: css.raw({ w: '178px', _mobile: { w: 'auto' } }),
-            description: css.raw({ m: '0' }),
-          }}
+          </Grid>
+        </ContentSection>
+      </form>
+      {passwordOpen && (
+        <ProfilePasswordDialog
+          onClose={() => setPasswordOpen(false)}
+          finalFocus={passwordTrigger}
         />
-      </ContentSection>
-      <Typography as="p" variant="body5" tone="tertiary">
-        *가려진 회원 정보 조회 및 회원정보 변경, 회원 탈퇴는 회원정보 수정 페이지에서 가능합니다.
-      </Typography>
-    </Stack>
+      )}
+    </>
   );
 }
 type ProfilePasswordDialogProps = {
   previewComplete?: boolean;
-  previewState?: 'input' | 'error' | 'confirm' | 'complete';
+  previewState?: 'input' | 'input-error' | 'confirm' | 'complete';
+  finalFocus?: React.RefObject<HTMLButtonElement | null>;
   onClose: () => void;
 };
 const titles = {
   input: '비밀번호 설정',
-  error: '비밀번호 설정',
+  'input-error': '비밀번호 설정',
   confirm: '비밀번호 변경 확인',
   complete: '비밀번호 변경 완료',
 };
@@ -454,23 +392,23 @@ const titles = {
 export function ProfilePasswordDialog({
   previewComplete = false,
   previewState,
+  finalFocus,
   onClose,
 }: ProfilePasswordDialogProps) {
-  const platform = usePlatform();
   const step = previewState ?? (previewComplete ? 'complete' : 'input');
   const [password, setPassword] = useState('');
   const [confirmation, setConfirmation] = useState('');
+  const input = step === 'input' || step === 'input-error';
   const errors: Errors =
-    step === 'error'
+    step === 'input-error'
       ? {
           password: '올바른 비밀번호를 입력해주세요.',
           confirmation: '비밀번호가 일치하지 않습니다. 다시 확인해주세요.',
         }
       : {};
-  const inputStep = step === 'input' || step === 'error';
   const changeField = (field: FieldName, value: string) =>
     field === 'password' ? setPassword(value) : setConfirmation(value);
-  const content = inputStep
+  const content = input
     ? {
         variant: 'form' as const,
         children: (
@@ -483,10 +421,7 @@ export function ProfilePasswordDialog({
                 variant="boxed"
                 error={errors.password}
                 hint="연속적인 숫자나 생일, 전화번호등 추측하기 쉬운 개인정보 및 아이디와 비슷한 전화번호 사용을 피하시기 바랍니다. 비밀번호는 특수기호를 포함한 3가지 이상을 혼합하여 입력하세요."
-                hintProps={{
-                  variant: platform === 'mobile' ? 'body5' : 'body4',
-                  className: passwordDialogStyles.hint,
-                }}
+                hintProps={{ variant: 'body5', className: css({ color: 'black.100' }) }}
                 inputProps={{
                   placeholder: '비밀번호를 입력해 주세요',
                   type: 'password',
@@ -504,10 +439,7 @@ export function ProfilePasswordDialog({
                 inputProps={{
                   type: 'password',
                   autoComplete: 'new-password',
-                  placeholder:
-                    step === 'error'
-                      ? '비밀번호를 재입력해 주세요'
-                      : '비밀번호를 다시 입력해 주세요',
+                  placeholder: '비밀번호를 다시 입력해 주세요',
                   value: confirmation,
                   onChange: (event) => changeField('confirmation', event.target.value),
                 }}
@@ -531,24 +463,50 @@ export function ProfilePasswordDialog({
       onOpenChange={(open) => {
         if (!open) onClose();
       }}
-      mobilePresentation={step === 'error' ? 'bottomSheet' : 'popup'}
-      blurBackdrop={step !== 'error'}
-      contentClassName={step === 'error' ? passwordDialogStyles.errorContent : undefined}
-      footerProps={step === 'error' ? { className: passwordDialogStyles.errorFooter } : undefined}
       title={titles[step]}
       closeLabel="비밀번호 설정 닫기"
-
-      actions={{
-        kind: 'single',
-        label: step === 'error' ? '확인' : inputStep ? '비밀번호 설정' : '확인',
-        onConfirm: inputStep ? undefined : onClose,
-        buttonProps: {
-          type: inputStep ? 'submit' : 'button',
-          form: inputStep ? 'profile-password-form' : undefined,
-          size: 'tall',
-          disabled: false,
-        },
-      }}
+      finalFocus={finalFocus}
+      {...(input
+        ? {
+            mobilePresentation: 'bottomSheet' as const,
+            blurBackdrop: false,
+            headerProps: { css: { mb: '32px', _mobile: { mb: '16px' } } },
+            contentClassName: css({
+              '&&': { p: '0 32px', _mobile: { p: '0 16px 24px' } },
+              '--line-heights-body': '1.5',
+            }),
+            footerProps: {
+              className: css({
+                '&&': {
+                  mt: '32px',
+                  _mobile: {
+                    mt: '0',
+                    pt: '15px',
+                    pb: '32px',
+                    borderTop: '1px solid var(--colors-black-20)',
+                  },
+                },
+              }),
+            },
+            footer: (
+              <Button
+                type="submit"
+                form="profile-password-form"
+                size="tall"
+                variant="primary"
+                className={css({
+                  '&&&': {
+                    w: '238px',
+                    maxW: '100%',
+                    _mobile: { w: 'full', h: '44px', minH: '44px' },
+                  },
+                })}
+              >
+                확인
+              </Button>
+            ),
+          }
+        : { actions: { kind: 'single' as const, label: '확인', onConfirm: onClose } })}
     />
   );
 }
@@ -746,25 +704,35 @@ export function ProfileContent({
         <ContentSection
           gap={{ base: '32px', _mobile: '24px' }}
           title="회원정보 확인"
+          css={{ '--line-heights-body': '1.5' }}
+          _mobile={{ pt: '24px' }}
           headerProps={{
             titleAs: 'h1',
-            pb: { base: '40px', _mobile: '0' },
-            borderBottom: { base: '2px solid var(--colors-black-100)', _mobile: '0' },
-            titleProps: { web: 'heading6', mo: 'heading5' },
+            pb: { base: '40px', _mobile: '32px' },
+            borderBottom: {
+              base: '2px solid var(--colors-black-100)',
+              _mobile: '1px solid var(--colors-black-100)',
+            },
+            titleProps: { web: 'headingKr6', mo: 'headingKr5', tone: 'primary' },
           }}
         >
           <Stack gap={{ base: '40px', _mobile: '24px' }}>
             <DescriptionList
               items={[
-                ...profileDetails.slice(0, 3).map(([term, description]) => ({ term, description })),
+                ...profileDetails.slice(0, 3).map(([term, description]) => ({
+                  term,
+                  description,
+                  descriptionProps: term === '이름' ? { variant: 'bodyKr3' as const } : undefined,
+                })),
                 {
                   term: '주소',
+                  descriptionProps: { variant: 'bodyKr3' },
                   description: `${savedAddress.address} ${savedAddress.addressDetail}`,
                 },
                 { term: '이메일', description: email },
                 { term: '휴대폰 번호', description: phone },
               ]}
-              termProps={{ variant: 'body3', weight: 'semibold' }}
+              termProps={{ web: 'bodyKr3', mo: 'headingKr8', weight: 'semibold', tone: 'primary' }}
               descriptionProps={{ variant: 'body3', tone: 'subtle' }}
               slotStyles={{
                 root: css.raw({
@@ -780,16 +748,58 @@ export function ProfileContent({
                   _mobile: { flexDirection: 'column', gap: '12px' },
                 }),
                 term: css.raw({ w: '178px', flexShrink: '0', _mobile: { w: 'auto' } }),
-                description: css.raw({ m: '0' }),
+                description: css.raw({ m: '0', overflowWrap: 'anywhere' }),
               }}
             />
-            <ProfileReadView
-              email={email}
-              phone={phone}
-              emailPreference={emailPreference}
-              smsPreference={smsPreference}
-              kakaoPreference={kakaoPreference}
-            />
+            <Stack gap="16px">
+              <ContentSection
+                gap={{ base: '32px', _mobile: '24px' }}
+                title="마케팅 정보 수신 동의"
+                borderBottom="1px solid var(--colors-black-20)"
+                pb="32px"
+                _mobile={{ pb: '24px' }}
+                headerProps={{
+                  titleAs: 'h2',
+                  titleProps: { web: 'headingKr8', mo: 'headingKr8', tone: 'primary' },
+                }}
+              >
+                <DescriptionList
+                  items={[
+                    { term: '이메일 수신', description: emailPreference },
+                    { term: '문자수신(LMS, SMS)', description: smsPreference },
+                    { term: '카카오톡 알림톡 수신', description: kakaoPreference },
+                  ]}
+                  termProps={{ web: 'bodyKr3', mo: 'bodyKr4', tone: 'primary' }}
+                  descriptionProps={{ web: 'bodyKr3', mo: 'bodyKr4', tone: 'subtle' }}
+                  slotStyles={{
+                    root: css.raw({
+                      gridTemplateColumns: 'none',
+                      gap: '24px',
+                      _mobile: { gap: '16px' },
+                    }),
+                    row: css.raw({
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'flex-start',
+                      gap: '0',
+                      _mobile: { justifyContent: 'space-between' },
+                    }),
+                    term: css.raw({ w: '178px', _mobile: { w: 'auto' } }),
+                    description: css.raw({
+                      m: '0',
+                      _mobile: {
+                        textAlign: 'right',
+                        '--color-text-subtle': 'var(--color-text-tertiary)',
+                      },
+                    }),
+                  }}
+                />
+              </ContentSection>
+              <Typography as="p" web="body5" mo="body4-2" language="ko" tone="tertiary">
+                *가려진 회원 정보 조회 및 회원정보 변경, 회원 탈퇴는 회원정보 수정 페이지에서
+                가능합니다.
+              </Typography>
+            </Stack>
           </Stack>
           <Button
             size="tall"
@@ -798,14 +808,21 @@ export function ProfileContent({
               w: '180px',
               alignSelf: 'center',
               mt: '16px',
-              _mobile: { w: '100%', mt: '0' },
+              _mobile: { w: '100%', mt: '8px', '&&': { '--button-height': '44px' } },
             })}
             onClick={() => {
               cancelProfile();
               setEditing(true);
             }}
           >
-            회원정보 수정
+            <Typography
+              web="ctaKr1"
+              mo="ctaKr1-1"
+              weight="regular"
+              className={css({ lineHeight: '1.3' })}
+            >
+              회원정보 수정
+            </Typography>
           </Button>
         </ContentSection>
       )}

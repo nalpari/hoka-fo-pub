@@ -906,7 +906,7 @@ const stateModalVariants: Readonly<Record<string, readonly ModalDialogVariant[]>
   '/checkout/preview-address-change': ['form'],
   '/checkout/preview-address-edit': ['form'],
   '/checkout/preview-address-new': ['form'],
-  // MyPageContent, OrdersPage, ReviewStatePreview and their dialog owners.
+  // MyPageContent, OrdersPage, ReviewsContent and their dialog owners.
   '/mypage/preview-logout': ['confirm'],
   '/mypage/orders/preview-cancel-request': ['productSelection'],
   '/mypage/orders/preview-return-request': ['productSelection'],

@@ -1,23 +1,14 @@
-// PC/MO 시안의 서로 다른 금액·쿠폰 표기를 준비한 표시 fixture이며 등급 정책 계산에 사용하지 않습니다.
+// 회원등급 화면의 공통 표시 예시입니다.
 export const rewardPreview = {
-  web: {
-    name: '박연진',
-    tier: 'RUNNER',
-    tierInitial: 'R',
-    purchaseAmount: '258,000',
-    tierProgress: {
-      percent: 59,
-      label: '300,000원 구매시 등급 업!',
-      currentAmount: '524,000',
-      targetAmount: '880,000',
-    },
-  },
-  mobile: {
-    name: '박연진',
-    tier: 'RUNNER',
-    tierInitial: 'R',
-    purchaseAmount: '182,500',
-    tierProgress: undefined,
+  name: '박연진',
+  tier: 'RUNNER',
+  tierInitial: 'R',
+  purchaseAmount: '182,500',
+  tierProgress: {
+    percent: 63,
+    label: '120,000원 구매시 등급 업!',
+    currentAmount: '180,000',
+    targetAmount: '300,000',
   },
 } as const;
 
@@ -52,7 +43,6 @@ export const tiers = [
       },
       {
         title: '무료 반품 쿠폰 3장(*연 3회 지급)',
-        mobileTitle: '무료 반품 쿠폰 1장(*연 1회 지급)',
         detail: '',
       },
     ],
