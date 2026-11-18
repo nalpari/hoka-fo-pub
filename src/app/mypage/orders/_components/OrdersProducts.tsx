@@ -13,6 +13,10 @@ import { ContentSection } from '@/components/common/layouts/ContentSection';
 import { getClaimLines, orderStatusLabels } from '@/components/orders/order-policy';
 import type { OrderClaim, OrderLine, OrderRecord } from '@/components/orders/orders.types';
 
+const styles = {
+  orderAction: css({ minW: '107px', _mobile: { minW: '0', '&&': { '--button-height': '44px' } } }),
+};
+
 /** [ 개발팀 바인딩 ] 주문 화면 소유자가 제공한 line의 옵션·PC/MO 수량·표시 금액을 OrderProductSummary에 전달합니다. 공통 컴포넌트는 OrderLine을 해석하거나 금액을 계산하지 않으며 cartAction은 미연결 표시 버튼입니다. */
 /** 주문 일자·번호와 상세 진입을 표시합니다. (Displays order identification and its detail action.) */
 export function OrderCardHeader({
@@ -139,7 +143,13 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
   }, []);
 
   return (
-    <Stack as="li" gap="0" listStyleType="none">
+    <Stack
+      as="li"
+      gap={{ base: '16px', _mobile: '0' }}
+      py={{ base: '32px', _mobile: '0' }}
+      borderBottom={{ base: '1px solid var(--colors-black-100)', _mobile: '0' }}
+      listStyleType="none"
+    >
       {platform === 'mobile' ? (
         <HStack
           justifyContent="space-between"
@@ -168,12 +178,9 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
       {groups.map((group, index) => (
         <Stack
           key={String(index)}
-          gap={{ base: '32px', _mobile: '16px' }}
-          py={{ base: '32px', _mobile: '24px' }}
-          borderBottom={{
-            base: '1px solid var(--colors-black-100)',
-            _mobile: '1px solid var(--colors-black-20)',
-          }}
+          gap="16px"
+          py={{ base: '0', _mobile: '24px' }}
+          borderBottom={{ base: '0', _mobile: '1px solid var(--color-border-subtle)' }}
         >
           <Stack
             gap="16px"
@@ -257,28 +264,34 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
           <HStack
             gap="8px"
             justifyContent="flex-end"
-            px={{ base: '8px', _mobile: '0' }}
-            _mobile={{ flexDirection: 'column', alignItems: 'stretch' }}
+            pr={{ base: '8px', _mobile: '0' }}
+            _mobile={{ mt: '16px', flexDirection: 'column', alignItems: 'stretch' }}
           >
             {['preparing', 'shipping', 'delivered', 'purchased'].includes(group.status) ? (
               <Button
                 variant="secondary"
                 size="short"
+                className={styles.orderAction}
                 fullWidth={platform === 'mobile'}
                 onClick={() => actions.onTracking(order)}
               >
-                배송 조회
+                <Typography web="cta2" mo="cta1-1" weight="bold">
+                  배송 조회
+                </Typography>
               </Button>
             ) : null}
             {group.status === 'paid' || group.status === 'preparing' ? (
               <Button
                 variant="secondary"
                 size="short"
+                className={styles.orderAction}
                 fullWidth={platform === 'mobile'}
                 type="button"
                 onClick={() => actions.onCancel?.(order)}
               >
-                주문 취소
+                <Typography web="cta2" mo="cta1-1" weight="bold">
+                  주문 취소
+                </Typography>
               </Button>
             ) : null}
             {group.status === 'delivered' ? (
@@ -286,19 +299,25 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
                 <Button
                   variant="secondary"
                   size="short"
+                  className={styles.orderAction}
                   fullWidth={platform === 'mobile'}
                   type="button"
                   onClick={() => actions.onReturn?.(order)}
                 >
-                  환불 신청
+                  <Typography web="cta2" mo="cta1-1" weight="bold">
+                    환불 신청
+                  </Typography>
                 </Button>
                 <Button
                   variant="secondary"
                   size="short"
+                  className={styles.orderAction}
                   fullWidth={platform === 'mobile'}
                   type="button"
                 >
-                  구매 확정
+                  <Typography web="cta2" mo="cta1-1" weight="bold">
+                    구매 확정
+                  </Typography>
                 </Button>
               </>
             ) : null}
@@ -307,9 +326,12 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
                 href={'/mypage/reviews?order=' + order.id}
                 variant="secondary"
                 size="short"
+                className={styles.orderAction}
                 fullWidth={platform === 'mobile'}
               >
-                리뷰 작성하기
+                <Typography web="cta2" mo="cta1-1" weight="bold">
+                  리뷰 작성하기
+                </Typography>
               </ButtonLink>
             ) : null}
           </HStack>
@@ -317,8 +339,20 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
       ))}
 
       {order.claims.map((claim) => (
-        <Stack key={claim.id} gap="16px" py="24px" borderBottom="1px solid var(--colors-black-20)">
-          <HStack gap="16px" alignItems="center">
+        <Stack
+          key={claim.id}
+          gap={{ base: '32px', _mobile: '16px' }}
+          py={{ base: '0', _mobile: '24px' }}
+          borderBottom={{ base: '0', _mobile: '1px solid var(--color-border-subtle)' }}
+        >
+          <HStack
+            gap="16px"
+            alignItems="center"
+            justifyContent={{ base: 'flex-start', _mobile: 'space-between' }}
+            px={{ base: '24px', _mobile: '0' }}
+            py={{ base: '16px', _mobile: '0' }}
+            borderBottom={{ base: '1px solid var(--color-border-subtle)', _mobile: '0' }}
+          >
             <Typography variant="body4Medium" tone="red80">
               {claim.kind === 'cancel' ? '구매취소' : '반품요청'}
             </Typography>

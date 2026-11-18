@@ -60,11 +60,7 @@ export function OrdersContent({
       activePath={returns ? '/mypage/returns' : '/mypage/orders'}
       breadcrumbs={[{ label: title }]}
     >
-      <Stack
-        pt={view === 'claim' ? { base: '0', _mobile: '24px' } : undefined}
-        pb={{ base: '0', _mobile: view === 'claim' || returns ? '0' : '18px' }}
-        gap="0"
-      >
+      <Stack gap="0">
         <ContentSection
           title={title}
           headerProps={{ titleAs: 'h1', titleProps: { web: 'heading6', mo: 'heading5' } }}
@@ -72,9 +68,10 @@ export function OrdersContent({
             view === 'claim' || returns
               ? { base: '40px', _mobile: '24px' }
               : view === 'list'
-                ? { base: '40px', _mobile: '16px' }
-                : '4'
+                ? { base: '40px', _mobile: '32px' }
+                : { base: '40px', _mobile: '16px' }
           }
+          _mobile={{ pt: '24px' }}
         >
           {view === 'claim' && selectedOrder && selectedClaim ? (
             <OrderClaimDetail
