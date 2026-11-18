@@ -24,7 +24,7 @@ export function ProfileStatePreview({
   const [domainChoice, setDomainChoice] = useState('direct');
   const [address, setAddress] = useState({ postalCode: '', address: '', addressDetail: '' });
   const [addressOpen, setAddressOpen] = useState(false);
-  const [phone, setPhone] = useState('');
+  const [phone, setPhone] = useState(phoneState === 'idle' ? '010-3333-0000' : '');
   const [phoneVerified] = useState(false);
   const [emailPreference, setEmailPreference] = useState<Preference>('수신안함');
   const [smsPreference, setSmsPreference] = useState<Preference>('수신안함');
@@ -38,7 +38,7 @@ export function ProfileStatePreview({
           ['생년월일', '1993.05.22'],
           ['주소', '서울시 성북구 테헤란로 27길 54 테헤란 아파트 701호'],
         ]}
-        previewPhone={phoneState}
+        previewPhone={phoneState === 'idle' ? undefined : phoneState}
         emailLocal={emailLocal}
         emailDomain={emailDomain}
         domainChoice={domainChoice}
@@ -46,7 +46,7 @@ export function ProfileStatePreview({
         addressOpen={addressOpen}
         phone={phone}
         phoneVerified={phoneVerified}
-        passwordChanged={false}
+        passwordChanged={passwordComplete}
         emailPreference={emailPreference}
         smsPreference={smsPreference}
         kakaoPreference={kakaoPreference}

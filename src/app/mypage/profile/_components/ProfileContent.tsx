@@ -176,33 +176,43 @@ export function ProfileEditForm({
     <>
       <form noValidate onSubmit={submit}>
         <ContentSection
-          gap={{ base: '40px', _mobile: '24px' }}
+          gap={{ base: '48px', _mobile: '32px' }}
+          css={{ '--line-heights-body': '1.5' }}
+          _mobile={{ pt: '24px' }}
           title="회원정보 수정"
           headerProps={{
             titleAs: 'h1',
             titleProps: { web: 'headingKr6', mo: 'headingKr5', tone: 'primary' },
+            pb: { base: '40px', _mobile: '32px' },
+            borderBottom: '2px solid black',
           }}
         >
           <Grid
             gridTemplateColumns="minmax(0, 286px) minmax(0, 500px)"
             gap="58px"
-            borderTop="2px solid"
-            borderColor="black.100"
-            pt="32px"
+            pt="0"
             _mobile={{
               gridTemplateColumns: 'minmax(0, 1fr)',
               gap: '24px',
-              borderTop: '0',
               pt: '0',
             }}
           >
             <Stack gap="0" _mobile={{ gap: '24px' }}>
               <DescriptionList
-                items={(details ?? profileDetails.slice(0, 4)).map(([term, description]) => ({
-                  term,
-                  description,
-                }))}
-                termProps={{ variant: 'body3', weight: 'semibold' }}
+                items={[
+                  ...(details ?? profileDetails.slice(0, 3))
+                    .slice(0, 2)
+                    .map(([term, description]) => ({
+                      term,
+                      description,
+                      descriptionProps:
+                        term === '이름' ? { variant: 'bodyKr3' as const } : undefined,
+                    })),
+                  { term: '성별', description: '남성', descriptionProps: { variant: 'bodyKr3' } },
+                  { term: '생년월일', description: (details ?? profileDetails)[2][1] },
+                  { term: '휴대폰 번호', description: phone },
+                ]}
+                termProps={{ web: 'bodyKr3', mo: 'headingKr8', tone: 'primary' }}
                 descriptionProps={{ variant: 'body3', tone: 'subtle' }}
                 slotStyles={{
                   root: css.raw({
@@ -224,6 +234,29 @@ export function ProfileEditForm({
                 }}
               />
               <Stack
+                alignItems="flex-start"
+                gap="12px"
+                py="24px"
+                borderBottom="1px solid var(--colors-black-20)"
+                _mobile={{ py: '0', borderBottom: '0', gap: '16px' }}
+              >
+                <Button
+                  ref={passwordTrigger}
+                  type="button"
+                  variant={platform === 'mobile' ? 'primary' : 'secondary'}
+                  size="short"
+                  className={css({ _mobile: { w: 'full' } })}
+                  onClick={() => setPasswordOpen(true)}
+                >
+                  비밀번호 설정
+                </Button>
+                {passwordChanged && (
+                  <Typography variant="body4-2" language="ko" tone="tertiary" role="status">
+                    비밀번호 설정을 완료하였습니다.
+                  </Typography>
+                )}
+              </Stack>
+              <Stack
                 gap="24px"
                 py="32px"
                 pr="16px"
@@ -242,43 +275,19 @@ export function ProfileEditForm({
               </Stack>
             </Stack>
             <Stack gap="16px">
-              <Stack
-                alignItems="flex-start"
-                py="24px"
-                borderBottom="1px solid"
-                borderColor="black.20"
-                _mobile={{ py: '0', borderBottom: '0' }}
-              >
-                <Button
-                  ref={passwordTrigger}
-                  type="button"
-                  variant={platform === 'mobile' ? 'primary' : 'secondary'}
-                  size="short"
-                  className={css({ _mobile: { w: 'full' } })}
-                  onClick={() => setPasswordOpen(true)}
-                >
-                  비밀번호 설정
-                </Button>
-              </Stack>
-              {passwordChanged ? (
-                <StatusMessage
-                  tone="success"
-                  textProps={{ as: 'span', variant: 'body4', tone: 'inherit' }}
-                >
-                  비밀번호 변경을 완료하였습니다.
-                </StatusMessage>
-              ) : null}
-              <ProfilePhoneVerification
-                previewState={previewPhone}
-                phone={phone}
-                verified={phoneVerified}
-                error={fieldErrors.phone}
-                onPhoneChange={onPhoneChange}
-              />
+              {previewPhone && (
+                <ProfilePhoneVerification
+                  previewState={previewPhone}
+                  phone={phone}
+                  verified={phoneVerified}
+                  error={fieldErrors.phone}
+                  onPhoneChange={onPhoneChange}
+                />
+              )}
               <AddressFields
                 variant="boxed"
                 idPrefix="profile"
-                searchLabel="주소 찾기"
+                searchLabel="우편번호 찾기"
                 detailLayout="columns"
                 value={address}
                 errors={fieldErrors}
@@ -298,13 +307,20 @@ export function ProfileEditForm({
                 onDomainChange={onEmailDomainChange}
                 onDomainChoice={onDomainChoice}
               />
-              <Stack gap="32px" pt="16px" pb="32px" borderBottom="1px solid" borderColor="black.10">
+              <Stack gap="32px" pt="24px" pb="32px" _mobile={{ pt: '8px', pb: '24px' }}>
                 <ContentSection
                   gap={{ base: '32px', _mobile: '24px' }}
                   title="마케팅 정보 수신 동의"
-                  headerProps={{ titleAs: 'h2', titleProps: { web: 'heading8', mo: 'heading7' } }}
+                  headerProps={{
+                    titleAs: 'h2',
+                    titleProps: { web: 'headingKr8', mo: 'headingKr8' },
+                  }}
                 >
-                  <Stack gap={{ base: '24px', _mobile: '16px' }}>
+                  <Stack
+                    gap={{ base: '24px', _mobile: '16px' }}
+                    pb={{ base: '32px', _mobile: '24px' }}
+                    borderBottom="1px solid var(--colors-black-20)"
+                  >
                     <Radio
                       ariaLabel="이메일 수신"
                       name="email-preference"
@@ -339,28 +355,34 @@ export function ProfileEditForm({
                       ]}
                     />
                   </Stack>
+                  <FormActionGroup
+                    size="tall"
+                    disabled={pending}
+                    onCancel={onCancel}
+                    submitLabel="변경사항 저장"
+                    w="368px"
+                    maxW="100%"
+                    alignSelf="center"
+                  />
+                  <Stack
+                    gap="16px"
+                    pt="24px"
+                    className={css({ display: 'none', _mobile: { display: 'flex' } })}
+                  >
+                    <Typography variant="body4">
+                      탈퇴를 원하실 경우 회원탈퇴를 눌러주세요.
+                    </Typography>
+                    <Button
+                      size="md"
+                      variant="link"
+                      type="button"
+                      onClick={onWithdraw}
+                      className={css({ alignSelf: 'flex-start' })}
+                    >
+                      회원탈퇴
+                    </Button>
+                  </Stack>
                 </ContentSection>
-              </Stack>
-              <FormActionGroup
-                size="tall"
-                disabled={pending}
-                pt="24px"
-                onCancel={onCancel}
-                submitLabel="변경사항 저장"
-                w="368px"
-                maxW="100%"
-                alignSelf="center"
-                _mobile={{ w: '100%', pt: '0' }}
-              />
-              <Stack
-                gap="16px"
-                pt="16px"
-                className={css({ display: 'none', _mobile: { display: 'flex' } })}
-              >
-                <Typography variant="body4">탈퇴를 원하실 경우 회원탈퇴를 눌러주세요.</Typography>
-                <Button size="sm" variant="link" type="button" onClick={onWithdraw}>
-                  회원탈퇴
-                </Button>
               </Stack>
             </Stack>
           </Grid>
@@ -719,18 +741,20 @@ export function ProfileContent({
           <Stack gap={{ base: '40px', _mobile: '24px' }}>
             <DescriptionList
               items={[
-                ...profileDetails.slice(0, 3).map(([term, description]) => ({
+                ...profileDetails.slice(0, 2).map(([term, description]) => ({
                   term,
                   description,
                   descriptionProps: term === '이름' ? { variant: 'bodyKr3' as const } : undefined,
                 })),
+                { term: '성별', description: '남성', descriptionProps: { variant: 'bodyKr3' } },
+                { term: profileDetails[2][0], description: profileDetails[2][1] },
+                { term: '휴대폰 번호', description: phone },
                 {
                   term: '주소',
                   descriptionProps: { variant: 'bodyKr3' },
                   description: `${savedAddress.address} ${savedAddress.addressDetail}`,
                 },
                 { term: '이메일', description: email },
-                { term: '휴대폰 번호', description: phone },
               ]}
               termProps={{ web: 'bodyKr3', mo: 'headingKr8', weight: 'semibold', tone: 'primary' }}
               descriptionProps={{ variant: 'body3', tone: 'subtle' }}
