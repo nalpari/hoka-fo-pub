@@ -222,7 +222,6 @@ function FaqList({ entries, openQuestion, onToggle }: FaqListProps) {
           layout="faq"
           variant="plain"
           title="검색 결과가 없습니다."
-          titleProps={{ as: 'p', web: 'body4', mo: 'body5', tone: 'tertiary' }}
         />
       )}
     </Box>

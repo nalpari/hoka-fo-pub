@@ -18,7 +18,7 @@ export function CartEmptyContent() {
   const recommendations = platform === 'mobile' ? mobileOrderRecommendations : orderRecommendations;
 
   return (
-    <Stack gap={{ base: '18', _mobile: '18' }}>
+    <Stack gap={{ base: '96px', _mobile: '72px' }}>
       <CartEmptyState />
       <CarouselSection
         title="추천 상품"

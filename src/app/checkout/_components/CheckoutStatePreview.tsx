@@ -7,7 +7,7 @@ import { checkoutPreviewRows, mobileCheckoutPreviewRows } from '@/app/checkout/c
 import { initialAddresses } from '@/data/addressPreview';
 
 import { CheckoutComplete } from './CheckoutComplete';
-import { CheckoutContent, CheckoutEmptyState } from './CheckoutForm';
+import { CheckoutContent } from './CheckoutForm';
 import { CheckoutLayout } from './CheckoutLayout';
 import type { PaymentMethod } from './CheckoutPayment';
 
@@ -21,7 +21,6 @@ export function CheckoutStatePreview({
 }: {
   state:
     | 'coupons'
-    | 'empty'
     | 'error'
     | 'complete'
     | 'shipping'
@@ -37,8 +36,6 @@ export function CheckoutStatePreview({
       {state === 'complete' ? (
         /* 주문완료 안내 및 추천 상품 */
         <CheckoutComplete />
-      ) : state === 'empty' ? (
-        <CheckoutEmptyState />
       ) : (
         <CheckoutContent
           initialCouponOpen={state === 'coupons'}

@@ -1,17 +1,9 @@
 import Link from 'next/link';
 
-import { usePlatform } from '@/context/platform';
-
 import { css } from 'styled-system/css';
-import { Box, Grid, HStack } from 'styled-system/jsx';
+import { Grid } from 'styled-system/jsx';
 
-import { Button } from '@/components/common/atoms/Button';
-import { FilterTabs } from '@/components/common/atoms/FilterTabs';
 import { Typography } from '@/components/common/atoms/Typography';
-
-import { DateRangeSearch } from '@/components/common/molecules/DateRangeSearch';
-
-import type { OrderFilters, OrdersPeriod } from '@/components/orders/orders.types';
 
 const statusLink = css({
   display: 'grid',
@@ -66,69 +58,5 @@ export function OrderStatusTracker({ items, to = '/mypage/orders' }: Props) {
         ))}
       </Grid>
     </section>
-  );
-}
-
-export type OrdersFiltersProps = {
-  filters: OrderFilters;
-  dates: { start: string; end: string };
-  error?: string;
-  onPeriodChange: (period: OrdersPeriod) => void;
-  onDateChange: (key: 'start' | 'end', value: string) => void;
-  onDateSearch: () => void;
-  returns?: boolean;
-};
-
-/** 주문 조회 기간과 직접 날짜를 표시합니다. (Displays order period and custom date controls.) */
-export function OrdersFilters({
-  filters,
-  dates,
-  error,
-  onPeriodChange,
-  onDateChange,
-  onDateSearch,
-}: OrdersFiltersProps) {
-  const platform = usePlatform();
-  const periodOptions = [
-    { value: '1', label: '1개월' },
-    { value: '3', label: '3개월' },
-    { value: '6', label: '6개월' },
-    { value: '12', label: '1년' },
-    { value: 'custom', label: '직접설정' },
-  ] as const;
-
-  return (
-    <HStack
-      alignItems="center"
-      justifyContent="space-between"
-      gap="16px"
-      _mobile={{ flexDirection: 'column', alignItems: 'stretch' }}
-    >
-      <FilterTabs
-        ariaLabel="조회 기간"
-        variant="fill"
-        value={filters.period}
-        onValueChange={onPeriodChange}
-        options={
-          platform === 'mobile'
-            ? periodOptions
-            : [
-                periodOptions[3],
-                periodOptions[2],
-                periodOptions[1],
-                periodOptions[0],
-                periodOptions[4],
-              ]
-        }
-      />
-      <Box display={{ base: 'block', _mobile: filters.period === 'custom' ? 'block' : 'none' }}>
-        <HStack gap="24px" alignItems="start">
-          <DateRangeSearch dates={dates} error={error} onDateChange={onDateChange} />
-          <Button variant="link" size="md" onClick={onDateSearch}>
-            조회
-          </Button>
-        </HStack>
-      </Box>
-    </HStack>
   );
 }

@@ -304,7 +304,6 @@ export function LaunchCalendarContent({
               mode === 'upcoming' ? '출시 예정인 상품이 없습니다.' : '등록된 런칭 일정이 없습니다.'
             }
             description="새로운 런칭 소식을 준비하고 있습니다. 조금만 기다려 주세요."
-            titleProps={{ as: 'h2', variant: 'headingKr7' }}
           />
         ) : grouped ? (
           <Stack gap="40px" aria-label="런칭 상품">

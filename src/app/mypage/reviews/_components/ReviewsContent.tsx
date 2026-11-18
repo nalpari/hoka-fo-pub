@@ -280,11 +280,6 @@ export function ReviewsContent({
               variant="page"
               as="section"
               title={tab === 'ready' ? '작성 가능한 상품이 없습니다.' : '작성한 리뷰가 없습니다.'}
-              titleProps={{
-                as: 'span',
-                web: 'headingKr7',
-                mo: 'headingKr5',
-              }}
             />
           )}
         </Box>

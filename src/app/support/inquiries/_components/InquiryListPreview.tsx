@@ -93,9 +93,9 @@ export function InquiryListPreview({
           >
             <Box w="80px" h="80px" bg="black.10" />
             <EmptyState
+              layout="inquiryPreview"
               variant="plain"
               title="등록된 문의사항이 없습니다."
-              titleProps={{ web: 'body3', mo: 'body4', tone: 'tertiary' }}
             />
           </Stack>
         )}

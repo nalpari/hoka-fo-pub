@@ -1117,14 +1117,8 @@ function SearchListingLayout({
       layout="search"
       variant="plain"
       as="section"
-      title={
-        <>
-          검색된 결과가 없습니다.
-          <br />
-          검색어를 정확하게 다시 한번 입력해 주세요.
-        </>
-      }
-      titleProps={{ as: 'p', web: 'body3', mo: 'body4', weight: 'regular', tone: 'subtle' }}
+      title="검색된 결과가 없습니다."
+      description="검색어를 정확하게 다시 한번 입력해 주세요."
     />
   );
   return (

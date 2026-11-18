@@ -563,11 +563,6 @@ function InquiryBoard({
               ? '공개로 등록된 문의글이 없습니다.'
               : '등록된 문의글이 없습니다.'
           }
-          titleProps={{
-            as: 'p',
-            variant: variant === 'product' ? 'body3' : 'body4',
-            tone: variant === 'product' ? 'primary' : 'tertiary',
-          }}
         />
       )}
       {more ? (

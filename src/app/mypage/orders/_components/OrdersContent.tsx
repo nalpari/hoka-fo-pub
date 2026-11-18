@@ -3,6 +3,8 @@ import { usePlatform } from '@/context/platform';
 
 import { Stack } from 'styled-system/jsx';
 
+import type { DateRangeSearchProps } from '@/components/common/molecules/DateRangeSearch';
+
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 
 import { MyPageFrame } from '@/components/mypage/MyPageFrame';
@@ -16,21 +18,21 @@ import type {
 import { OrderClaimDetail, OrderDetail } from './OrderDetails';
 import { OrdersListContent } from './OrdersList';
 import type { OrderCardActions } from './OrdersProducts';
-import { type OrdersFiltersProps, type OrderStatusItem } from './OrdersStatus';
+import type { OrderStatusItem } from './OrdersStatus';
 
-type OrdersContentProps = OrdersFiltersProps &
-  OrderCardActions & {
-    orders: readonly OrderRecord[];
-    claimHistoryItems: readonly ClaimHistoryItem[];
-    onHistoryDetail: (orderId: string, claimId: string) => void;
-    statusItems: OrderStatusItem[];
-    view: OrdersView;
-    selectedOrder?: OrderRecord;
-    selectedClaim?: OrderClaim;
-    returns: boolean;
-    dialogs: ReactNode;
-    onList: () => void;
-  };
+type OrdersContentProps = OrderCardActions & {
+  dateSearch: DateRangeSearchProps;
+  orders: readonly OrderRecord[];
+  claimHistoryItems: readonly ClaimHistoryItem[];
+  onHistoryDetail: (orderId: string, claimId: string) => void;
+  statusItems: OrderStatusItem[];
+  view: OrdersView;
+  selectedOrder?: OrderRecord;
+  selectedClaim?: OrderClaim;
+  returns: boolean;
+  dialogs: ReactNode;
+  onList: () => void;
+};
 
 /** 주문 목록·주문 상세·신청 상세 화면을 공통 골격 안에 구성합니다. (Composes order list, order detail, and claim detail views.) */
 export function OrdersContent({

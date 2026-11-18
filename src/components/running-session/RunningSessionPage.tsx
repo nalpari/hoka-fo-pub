@@ -313,7 +313,6 @@ function RunningSessionEmptyState() {
       <EmptyState
         layout="runningSession"
         title="현재 운영중인 세션이 없습니다."
-        titleProps={{ web: 'headingKr7', mo: 'headingKr5' }}
         action={mobile ? undefined : <RunningSessionHistoryLink />}
       />
     </Box>

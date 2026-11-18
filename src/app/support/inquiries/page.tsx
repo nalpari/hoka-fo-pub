@@ -45,7 +45,6 @@ export default function Page() {
             layout="inquiries"
             variant="plain"
             title="등록된 문의사항이 없습니다."
-            titleProps={{ as: 'span', web: 'body3', mo: 'body4', tone: 'tertiary' }}
           />
         ) : (
           inquiries.map((item) => (

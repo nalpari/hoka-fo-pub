@@ -4,12 +4,13 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-18T00:44:55Z'
+updated: '2026-11-18T01:25:21.330485+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/cart/_components/CartEmptyState.tsx
   - src/app/mypage/reviews/_components/ReviewsContent.tsx
   - src/app/cart/preview-options-apparel-changed/page.tsx
   - src/app/checkout/preview-coupons/page.tsx
@@ -2115,3 +2116,34 @@ IA247은 기존 `/search`와 `/search/preview-no-results`를 유지하며 모바
 ## 브랜치 병합 충돌 해결 (2026-11-18)
 
 origin/pub-psh-1015의 ReviewsContent 이동·리뷰 표시 구조와 현재 브랜치의 EmptyState recipe/layout 계약을 함께 유지했다. 새 리뷰 화면에 reviews layout을 연결하고 주소 목록의 동일한 embedded 배치 중복 override를 제거했다. page 유형 모바일 액션의 전체 너비는 보존했다. 출처: 두 브랜치 병합과 해당 컴포넌트 작업 트리. TypeScript와 충돌 대상 ESLint, staged OKF 검사를 통과했다. 브라우저 시각 검증은 수행하지 않았다.
+
+## 빈 장바구니·주문서·취소 내역의 EmptyState 연결 (2026-11-18)
+
+/cart/preview-empty, /checkout/preview-empty, /mypage/returns/preview-empty의 기존 독립 빈 안내를 EmptyState layout=cart/checkout/claimHistory로 변경했다. 장바구니24px 아이콘·관심상품/베스트 상품 두 링크, 주문서 장바구니 복귀 링크, 취소/반품 문구와 PC120px/MO96px 상하 여백을 유지한다. 기존 Stack/HStack/Box와 span/p/section 의미 및 route·상태·서비스 owner는 바뀌지 않는다. Root의 타이포 props를 recipe className으로 이동했으며 as만 호출자에 남겼다. EmptyState가 이미 적용된 다른 route와 inquiryPreview의 스타일 선택도 같은 계약을 사용한다. 일시 타입 비교 route는 검증 후 삭제했고 새 상태 URL/IA는 추가하지 않았다. 기존22개 URL의 PC/MO44개 경우가 변경 전과 일치했다. 상세 원인과 제한은 [UI 문서](ui.md#emptystate-타이포-클래스와-빈-안내-통합-2026-11-18)를 따른다. 출처: 사용자 요청, 해당 작업 트리와 Codex 검사.
+
+## 빈 상태 안내문 태그 통일 (2026-11-18)
+
+EmptyState 기본 제목 태그를 p로 통일하고 호출부의 불필요한 titleProps.as를 제거했다. 기존 URL·콘텐츠·상태·링크·variant 명시는 유지한다. 대표6개 URL의 PC/MO12개 경우에서 P 태그와 기존 측정 스타일 보존을 확인했다. 상세는 [UI 문서](ui.md#emptystate-안내문-p-기본값-2026-11-18). 출처: 사용자 요청, EmptyState와 호출부 작업 트리, Codex 검사.
+
+## 빈 장바구니 검수 스타일 반영 (2026-11-18)
+
+/cart/preview-empty의 제목과 빈 안내/추천 상품 사이 간격을 사용자 검수 수치로 보정했다. 기존 /cart의 같은 CartEmptyContent에도 적용되며 링크·route·상태/추천 데이터 소유권은 유지한다. PC1538/MO375에서 제목28/22px·900 및 영역 간격96/72px과 가로 넘침 없음을 확인했다. 출처: CartEmptyContent.tsx·EmptyState.recipe.tsx 작업 트리와 사용자 브라우저 주석. [상세](ui.md#빈-장바구니-제목과-추천-영역-간격-검수-2026-11-18).
+
+## 빈 장바구니 헤더 아래 여백 (2026-11-18)
+
+/cart/preview-empty는 OrderPageLayout.paddingTop에 PC72px/MO40px을 전달한다. 공용 OrderPageLayout의 기본값과 checkout/일반 cart 경로는 변경하지 않았다. cart EmptyState의 안내 그룹/버튼 간격은 recipe에서40/32px로 지정하고 추천 간격96/72px은 유지한다. PC1538/MO375에서 실제 세 간격과 가로 넘침 없음을 확인했다. 출처: page.tsx와 EmptyState.recipe.tsx 작업 트리, 사용자 브라우저 주석. [상세](ui.md#빈-장바구니-상단버튼-간격-검수-2026-11-18).
+
+## 기획에 없는 주문서 빈 화면 제거 (2026-11-18)
+
+사용자 기획 범위 확인에 따라 주문서 상품 없음 전용 경로와 CheckoutEmptyState, preview 상태 분기 및 공통 EmptyState의 checkout 전용 스타일을 제거했다. IA 171의 해당 보조 링크·소스 등록도 제거하고 정식 명령으로 의존 그래프를 갱신했다. 기본 주문서와 다른 주문서 상태 경로는 유지한다. 위의 빈 주문서 통합·검증 기록은 삭제 전 이력이다. 출처: 사용자 검토와 현재 작업 트리.
+
+검증: Next 경로 타입 재생성·TypeScript 검사·EmptyState/IA 그래프 테스트 3개·수정 TSX lint 통과. 소스와 생성 그래프에 삭제 경로 참조가 없음을 확인했다. 브라우저 화면 검증은 이번 삭제 작업에서 수행하지 않았다. 기존 스테이지는 변경하지 않았다.
+
+## 주문 조회 없음 PC 시안 검수 (2026-11-18)
+
+/mypage/orders/preview-empty의 PC 표 헤더와 빈 안내 스타일을 수정했다. 직접 preview·기본 주문·취소/반품 빈 화면을 PC/MO에서 확인했다. 경로·page 진입점·fixture·연결 콜백은 유지하며 새 상태 경로는 추가하지 않았다. 출처: OrdersList.tsx·OrdersStatus.tsx 작업 트리와 사용자 요청. 상세 수치·검증·모바일 행간 후속 지정은 [UI 기록](ui.md#주문-조회-없음-pc-시안-반영-2026-11-18)을 따른다.
+
+
+## 기간 조회 공용화와 취소 빈 표 헤더 (2026-11-18)
+
+주문/취소 목록과 문의 주문 상품 조회의 기존 경로·page 진입점은 유지한다. OrdersContent는 dateSearch props로 공용 UI 계약을 전달하고 OrdersPage/문의 모달이 초안을 소유한다. OrdersFilters 전달 wrapper를 제거했으며 임시 상호작용 검증 route는 삭제했다. 취소 빈 목록의 PC 표 헤더를 항상 표시하고 수량 컬럼을 본문과 맞췄다. 상세 계약·검증: [공용 기간 UI](ui.md#공용-기간날짜-조회-ui-2026-11-18), [취소 빈 표](ui.md#취소반품-빈-목록-pc-표-헤더-2026-11-18). 출처: OrdersPage/OrdersContent/OrdersList/OrdersStatus·InquiryOrderLookup 작업 트리.

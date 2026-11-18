@@ -1,4 +1,4 @@
-import { sva } from 'styled-system/css';
+import { css, sva } from 'styled-system/css';
 
 const historyRoot = {
   minH: '795px',
@@ -13,7 +13,7 @@ const historyRoot = {
 } as const;
 
 export const emptyStateRecipe = sva({
-  slots: ['root', 'text', 'title', 'description', 'icon', 'action'],
+  slots: ['root', 'text', 'title', 'description', 'icon', 'action', 'actionContent'],
   base: {
     root: { textAlign: 'center', _mobile: { px: '3' } },
     icon: {
@@ -71,6 +71,40 @@ export const emptyStateRecipe = sva({
     },
     layout: {
       default: {},
+      cart: {
+        root: {
+          w: '520px',
+          maxW: '100%',
+          alignSelf: 'center',
+          alignItems: 'center',
+          gap: '40px',
+          pt: '0',
+          pb: '0',
+          px: '0',
+          textAlign: 'start',
+          _mobile: { w: '343px', px: '0', gap: '32px' },
+        },
+        text: { gap: '16px', alignItems: 'center' },
+        actionContent: {
+          w: '100%',
+          gap: '2',
+          justifyContent: 'center',
+          _mobile: { flexDirection: 'column' },
+          '& > div': { w: '180px', _mobile: { w: '100%' } },
+        },
+      },
+      claimHistory: {
+        root: {
+          h: '267px',
+          py: '0',
+          px: '0',
+          display: 'grid',
+          placeItems: 'center',
+          textAlign: 'start',
+          borderBottom: '1px solid #E9EAEB',
+          _mobile: { h: 'auto', py: '96px', px: '0', borderBottom: '0' },
+        },
+      },
       history: { root: historyRoot },
       wishlist: {
         root: {
@@ -83,8 +117,12 @@ export const emptyStateRecipe = sva({
         },
       },
       restock: { root: { ...historyRoot, _mobile: { ...historyRoot._mobile, mt: '-24px' } } },
-      address: { root: { ...historyRoot, _mobile: { ...historyRoot._mobile, mt: '-24px' } } },
+      address: {
+        root: { ...historyRoot, _mobile: { ...historyRoot._mobile, mt: '-24px' } },
+        actionContent: { w: '180px', _mobile: { w: '100%' } },
+      },
       embeddedAddress: {
+        actionContent: { w: '180px', _mobile: { w: '100%' } },
         root: {
           minH: '0',
           pt: '8',
@@ -120,7 +158,24 @@ export const emptyStateRecipe = sva({
           },
         },
       },
-      search: { root: { minH: '470px', pt: '158px', _mobile: { minH: 'auto', py: '96px' } } },
+      search: {
+        root: {
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '16px',
+          minH: '470px',
+          pt: '160px',
+          _mobile: {
+            minH: 'calc(100svh - var(--layout-site-header-height) - 120px)',
+            py: '96px',
+            justifyContent: 'center',
+          },
+        },
+        title: { w: '100%', maxW: '500px' },
+        description: { w: '100%', maxW: '520px', _mobile: { maxW: '320px' } },
+      },
+      inquiryPreview: {},
       inquiries: {
         root: {
           display: 'flex',
@@ -136,13 +191,35 @@ export const emptyStateRecipe = sva({
       faq: { root: { py: '0' } },
       orderSummary: { root: { borderBottom: '1px solid var(--colors-black-20)' } },
       orders: {
+        root: {
+          h: '267px',
+          pt: '0',
+          pb: '0',
+          alignItems: 'center',
+          justifyContent: 'center',
+          borderBottom: '1px solid #E9EAEB',
+          _mobile: {
+            h: 'auto',
+            pt: '96px',
+            pb: '160px',
+            alignItems: 'stretch',
+            justifyContent: 'normal',
+            borderBottom: '0',
+          },
+        },
         title: {
           '&&': {
-            fontSize: 'var(--font-sizes-14)',
+            fontSize: '16px',
             fontWeight: 'normal',
-            lineHeight: 'body',
+            lineHeight: '1.5',
+            maxW: '320px',
             color: 'var(--color-text-subtle)',
-            _mobile: { fontWeight: 'normal' },
+            _mobile: {
+              fontSize: '14px',
+              fontWeight: 'normal',
+              lineHeight: '1.5',
+              maxW: 'none',
+            },
           },
         },
       },
@@ -151,7 +228,7 @@ export const emptyStateRecipe = sva({
         // Keep the current mobile weight explicitly instead of relying on a Typography cascade conflict.
         title: {
           '&&': {
-            fontSize: '28px',
+            fontSize: '22px',
             fontWeight: '900',
             lineHeight: '1.2',
             _mobile: { fontSize: '22px', fontWeight: '600' },
@@ -208,3 +285,155 @@ export const emptyStateRecipe = sva({
 export type EmptyStateLayout = NonNullable<
   NonNullable<Parameters<typeof emptyStateRecipe>[0]>['layout']
 >;
+
+const largeMobileTitle = {
+  _mobile: { fontSize: 'var(--font-sizes-20)', fontWeight: 'bold' },
+} as const;
+
+const bodyTitle = {
+  fontSize: 'var(--font-sizes-16)',
+  fontWeight: 'normal',
+  lineHeight: 'body',
+  _mobile: { fontSize: 'var(--font-sizes-14)', fontWeight: 'normal' },
+} as const;
+
+const descriptionMobile = { _mobile: { fontSize: 'var(--font-sizes-14)' } } as const;
+
+const tertiaryBody = { ...bodyTitle, color: 'var(--color-text-tertiary)' } as const;
+
+const emptyStateTypographyRecipe = sva({
+  slots: ['title', 'description'],
+  base: {
+    title: {
+      fontFamily: 'hoka',
+      transform: 'translateY(1px)',
+      color: 'inherit',
+      fontSize: 'var(--font-sizes-22)',
+      fontWeight: 'black',
+      lineHeight: 'hoka',
+      letterSpacing: '0',
+      _mobile: { fontSize: 'var(--font-sizes-16)', fontWeight: 'bold' },
+    },
+    description: {
+      fontFamily: 'hoka',
+      transform: 'translateY(1px)',
+      color: 'inherit',
+      fontSize: 'var(--font-sizes-16)',
+      fontWeight: 'normal',
+      lineHeight: 'body',
+      letterSpacing: '0',
+    },
+  },
+  variants: {
+    titleKorean: {
+      true: {
+        title: {
+          fontFamily: 'korean',
+          lineHeight: 'koreanHeading',
+          letterSpacing: 'korean',
+          _mobile: { fontWeight: 'semibold' },
+        },
+      },
+      false: {},
+    },
+    descriptionKorean: {
+      true: { description: { fontFamily: 'korean', letterSpacing: 'korean' } },
+      false: {},
+    },
+    layout: {
+      default: {},
+      cart: {
+        title: {
+          fontFamily: 'korean',
+          fontStyle: 'normal',
+          fontSize: '22px',
+          fontWeight: '900',
+          lineHeight: '1.2',
+          letterSpacing: '-0.02em',
+          textAlign: 'center',
+          color: 'black.100',
+          _mobile: { fontSize: '20px', fontWeight: '700' },
+        },
+      },
+      claimHistory: {
+        title: {
+          ...bodyTitle,
+          maxW: '320px',
+          lineHeight: '1.5',
+          textAlign: 'center',
+          color: 'var(--color-text-subtle)',
+          _mobile: { ...bodyTitle._mobile, maxW: 'none', lineHeight: 'body' },
+        },
+      },
+      history: { title: largeMobileTitle, description: descriptionMobile },
+      wishlist: { title: largeMobileTitle, description: descriptionMobile },
+      restock: { title: largeMobileTitle, description: descriptionMobile },
+      address: { title: largeMobileTitle, description: descriptionMobile },
+      embeddedAddress: { title: largeMobileTitle, description: descriptionMobile },
+      reviews: { title: largeMobileTitle },
+      catalog: {},
+      search: {
+        title: {
+          fontSize: '22px',
+          fontWeight: '900',
+          lineHeight: '1.2',
+          color: 'black.100',
+          _mobile: { fontSize: '20px', fontWeight: '700' },
+        },
+        description: {
+          ...bodyTitle,
+          lineHeight: '1.5',
+          color: '#4D4D4D',
+        },
+      },
+      inquiries: { title: tertiaryBody },
+      inquiryPreview: { title: tertiaryBody },
+      faq: {
+        title: {
+          ...tertiaryBody,
+          fontSize: 'var(--font-sizes-14)',
+          _mobile: { fontSize: 'var(--font-sizes-12)', fontWeight: 'normal' },
+        },
+      },
+      orderSummary: { description: descriptionMobile },
+      orders: {},
+      launch: {},
+      runningSession: { title: largeMobileTitle },
+      productInquiry: {
+        title: {
+          ...bodyTitle,
+          color: 'var(--color-text-primary)',
+          _mobile: { fontSize: 'var(--font-sizes-16)', fontWeight: 'normal' },
+        },
+      },
+      inquiryBoard: { title: { ...tertiaryBody, fontSize: 'var(--font-sizes-14)' } },
+    },
+  },
+  // Apply language defaults before the layout's explicit responsive type scale.
+  defaultVariants: { titleKorean: false, descriptionKorean: false, layout: 'default' },
+});
+
+type EmptyStateRecipeOptions = NonNullable<Parameters<typeof emptyStateRecipe>[0]>;
+
+// Keep legacy Typography overrides separate from recipe-owned type scales before generating classes.
+export function getEmptyStateStyles(
+  options: EmptyStateRecipeOptions,
+  text: {
+    titleKorean: boolean;
+    descriptionKorean: boolean;
+    customTitle: boolean;
+    customDescription: boolean;
+  },
+) {
+  const slots = emptyStateRecipe.raw(options);
+  const typography = emptyStateTypographyRecipe.raw({
+    layout: options.layout ?? 'default',
+    titleKorean: text.titleKorean,
+    descriptionKorean: text.descriptionKorean,
+  });
+  return {
+    ...slots,
+    title: css.raw(text.customTitle ? {} : typography.title, slots.title),
+    description: css.raw(text.customDescription ? {} : typography.description, slots.description),
+  };
+}
