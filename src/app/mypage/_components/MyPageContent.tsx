@@ -106,6 +106,7 @@ const styles = {
     borderBottom: '2px solid var(--colors-black-100)',
     _mobile: { minH: '0', borderBottomWidth: '1px' },
   }),
+  menuTitle: css({ '&&': { lineHeight: '1.2' } }),
   profileLink: css({
     display: 'inline-flex',
     alignItems: 'center',
@@ -243,7 +244,7 @@ function MyPageMenuSection({ title, items }: { title: string; items: MyPageMenuI
       headerProps={{
         titleAs: 'h2',
         className: styles.menuHeader,
-        titleProps: { web: 'heading7', mo: 'heading5' },
+        titleProps: { web: 'heading7', mo: 'heading5', className: styles.menuTitle },
       }}
     >
       <Stack gap="0">

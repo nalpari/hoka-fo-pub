@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-18T05:14:22.221994+00:00'
+updated: '2026-11-18T06:18:22.253Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -5616,3 +5616,9 @@ origin/pub-psh-1015의 추가 커밋 a075b78d·b4b33434를 병합했다. MyPageF
 ## 공지사항 모바일 빈 안내 높이200px 예외 (2026-11-18)
 
 최신 사용자 결정으로 plain·notices의 모바일 height/min-height를200px로 변경했다. 공통 테이블형 모바일120px의 화면별 예외이며 과거 공지사항120px 기록보다 우선한다. PC최소220px·문구최대320px·모바일 상하 #E9EAEB 1px 선은 유지한다. 공통 table compound 뒤의 notices compound에서 관리하며 AGENTS에도 예외를 기록했다. 출처: 사용자 모바일 주석·현재 recipe.
+
+## 마이페이지 기준 높이 정렬 (2026-11-18)
+
+ContentLayout의 sticky 머리글에서 Breadcrumb이 있는 경우 중복 상단24px을 제거해 상품 목록의 경로 위치를 마이페이지와 맞췄다. Breadcrumb이 없는 sticky 머리글의 기존24px과 모바일 배치는 유지한다.
+
+검증: 로컬 브라우저 PC1440에서 마이페이지·여성 상품 목록 nav 상단162px 일치, 모바일375에서 메뉴 제목5개 동일 높이 확인. 대상 ESLint·TypeScript·Panda 생성·diff 검사 통과. 출처: 사용자 첨부와 위 작업 트리, codex/gpt-6 기록.

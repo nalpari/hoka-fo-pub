@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-18T05:14:22.210532+00:00'
+updated: '2026-11-18T06:18:22.253Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -2192,3 +2192,9 @@ origin/pub-psh-1015의 추가 커밋 a075b78d·b4b33434를 병합했다. MyPageF
 ## 쿠폰 빈 목록 건수 숨김 (2026-11-18)
 
 사용자 검토에 따라 CouponManagement에서 visibleCoupons.length가0일 때 총0건 영역을 렌더링하지 않는다.1건 이상인 기존 건수 표시와 빈 안내는 유지한다. 출처: 사용자 브라우저 주석과 해당 작업 트리.
+
+## 마이페이지 기준 높이 정렬 (2026-11-18)
+
+마이페이지 메뉴 제목의 행간을 한글 기준120%로 통일했다. 언어별 글꼴·크기·굵기는 유지하며 PC 제목 높이33.6px, 모바일26.4px이다.
+
+검증: 로컬 브라우저 PC1440에서 마이페이지·여성 상품 목록 nav 상단162px 일치, 모바일375에서 메뉴 제목5개 동일 높이 확인. 대상 ESLint·TypeScript·Panda 생성·diff 검사 통과. 출처: 사용자 첨부와 위 작업 트리, codex/gpt-6 기록.

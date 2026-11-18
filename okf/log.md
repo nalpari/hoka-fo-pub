@@ -1,3 +1,7 @@
+## 2026-11-18 마이페이지 기준 높이 정렬
+
+- 메뉴 제목 한영 행간120% 통일과 상품 목록 sticky 머리글의 중복 상단24px 제거. PC1440·모바일375 브라우저 측정, 대상 ESLint·TypeScript·Panda·diff 검사 통과. 상세: architecture/ui.md·architecture/routing.md.
+
 ## 2026-11-18 pub-psh-1015 추가 변경 병합
 
 - 공통 마이페이지 소유 경로 이동·상품내역 안내 정리와 기존 메인/EmptyState 계약을 통합했다. 두 브랜치의 문서 이력은 보존했다. TypeScript·충돌 대상 ESLint 통과, 브라우저 검증 미실시. 상세: architecture/ui.md·architecture/routing.md.
