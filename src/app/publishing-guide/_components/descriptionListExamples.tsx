@@ -807,7 +807,7 @@ export function getDescriptionListExamples(platform: Platform) {
       description: '실제 화면의 데이터·스타일',
       source: 'src/app/mypage/profile/_components/ProfileContent.tsx',
       href: '/mypage/profile',
-      code: "import { css } from 'styled-system/css';\nimport { DescriptionList } from '@/components/common/atoms/DescriptionList';\n\nfunction Example() {\n  const profileDetails = [\n    ['회원 아이디', 'hon******'],\n    ['이름', '손*민'],\n    ['생년월일', '1993.05.22'],\n    ['주소', '서울시 성북구 테헤란로 27길 54 테헤란 아파트 701호'],\n    ['이메일', 'dww******@gmail.com'],\n    ['휴대폰 번호', '010-****-0522'],\n  ] as const;\n  const savedAddress = {\n    postalCode: '02157',\n    address: '서울시 성북구 테헤란로 27길 54',\n    addressDetail: '테헤란 아파트 701호',\n  };\n  const email = 'dww******@gmail.com';\n  const phone = '010-****-0522';\n  return (\n    <DescriptionList\n      items={[\n        ...profileDetails.slice(0, 3).map(([term, description]) => ({ term, description, descriptionProps: term === '이름' ? { variant: 'bodyKr3' as const } : undefined })),\n        {\n          term: '주소', descriptionProps: { variant: 'bodyKr3' },\n          description: `${savedAddress.address} ${savedAddress.addressDetail}`,\n        },\n        { term: '이메일', description: email },\n        { term: '휴대폰 번호', description: phone },\n      ]}\n      termProps={{ web: 'bodyKr3', mo: 'headingKr8', weight: 'semibold', tone: 'primary' }}\n      descriptionProps={{ variant: 'body3', tone: 'subtle' }}\n      slotStyles={{\n        root: css.raw({\n          '--line-heights-body': '1.5', gridTemplateColumns: 'none',\n          gap: '48px',\n          pb: '32px',\n          borderBottom: '1px solid var(--colors-black-20)',\n          _mobile: { gap: '24px', pb: '24px' },\n        }),\n        row: css.raw({\n          display: 'flex',\n          gap: '0',\n          _mobile: { flexDirection: 'column', gap: '12px' },\n        }),\n        term: css.raw({ w: '178px', flexShrink: '0', _mobile: { w: 'auto' } }),\n        description: css.raw({ m: '0', overflowWrap: 'anywhere' }),\n      }}\n    />\n  );\n}\n",
+      code: "import { css } from 'styled-system/css';\nimport { DescriptionList } from '@/components/common/atoms/DescriptionList';\n\nfunction Example() {\n  const profileDetails = [\n    ['회원 아이디', 'hon******'],\n    ['이름', '손*민'],\n    ['생년월일', '1993.05.22'],\n    ['주소', '서울시 성북구 테헤란로 27길 54 테헤란 아파트 701호'],\n    ['이메일', 'dww******@gmail.com'],\n    ['휴대폰 번호', '010-****-0522'],\n  ] as const;\n  const savedAddress = {\n    postalCode: '02157',\n    address: '서울시 성북구 테헤란로 27길 54',\n    addressDetail: '테헤란 아파트 701호',\n  };\n  const email = 'dww******@gmail.com';\n  const phone = '010-****-0522';\n  return (\n    <DescriptionList\n      items={[\n        ...profileDetails.slice(0, 2).map(([term, description]) => ({ term, description, descriptionProps: term === '이름' ? { variant: 'bodyKr3' as const } : undefined })),\n        { term: '성별', description: '남성', descriptionProps: { variant: 'bodyKr3' } },\n        { term: profileDetails[2][0], description: profileDetails[2][1] },\n        { term: '휴대폰 번호', description: phone },\n        {\n          term: '주소', descriptionProps: { variant: 'bodyKr3' },\n          description: `${savedAddress.address} ${savedAddress.addressDetail}`,\n        },\n        { term: '이메일', description: email },\n      ]}\n      termProps={{ web: 'bodyKr3', mo: 'headingKr8', weight: 'semibold', tone: 'primary' }}\n      descriptionProps={{ variant: 'body3', tone: 'subtle' }}\n      slotStyles={{\n        root: css.raw({\n          '--line-heights-body': '1.5', gridTemplateColumns: 'none',\n          gap: '48px',\n          pb: '32px',\n          borderBottom: '1px solid var(--colors-black-20)',\n          _mobile: { gap: '24px', pb: '24px' },\n        }),\n        row: css.raw({\n          display: 'flex',\n          gap: '0',\n          _mobile: { flexDirection: 'column', gap: '12px' },\n        }),\n        term: css.raw({ w: '178px', flexShrink: '0', _mobile: { w: 'auto' } }),\n        description: css.raw({ m: '0', overflowWrap: 'anywhere' }),\n      }}\n    />\n  );\n}\n",
       preview: (() => {
         const profileDetails = [
           ['회원 아이디', 'hon******'],
@@ -827,18 +827,20 @@ export function getDescriptionListExamples(platform: Platform) {
         return (
           <DescriptionList
             items={[
-              ...profileDetails.slice(0, 3).map(([term, description]) => ({
+              ...profileDetails.slice(0, 2).map(([term, description]) => ({
                 term,
                 description,
                 descriptionProps: term === '이름' ? { variant: 'bodyKr3' as const } : undefined,
               })),
+              { term: '성별', description: '남성', descriptionProps: { variant: 'bodyKr3' } },
+              { term: profileDetails[2][0], description: profileDetails[2][1] },
+              { term: '휴대폰 번호', description: phone },
               {
                 term: '주소',
                 descriptionProps: { variant: 'bodyKr3' },
                 description: `${savedAddress.address} ${savedAddress.addressDetail}`,
               },
               { term: '이메일', description: email },
-              { term: '휴대폰 번호', description: phone },
             ]}
             termProps={{ web: 'bodyKr3', mo: 'headingKr8', weight: 'semibold', tone: 'primary' }}
             descriptionProps={{ variant: 'body3', tone: 'subtle' }}

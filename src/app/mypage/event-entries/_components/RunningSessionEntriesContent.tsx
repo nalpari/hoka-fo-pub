@@ -20,8 +20,8 @@ import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
+import { MyPageFrame } from '@/app/mypage/_components/MyPageFrame';
 import { eventEntryPreview } from '@/app/mypage/event-entries/eventEntries.data';
-import { MyPageFrame } from '@/components/mypage/MyPageFrame';
 import { runningSessionImage } from '@/components/running-session/runningSession.data';
 /** [ 개발팀 바인딩 ] 탭별 목록·건수와 더보기는 고정 표시 데이터이며, 정렬 선택과 취소 모달 열기/닫기만 동작합니다. 조회·더보기·취소 요청은 실행하지 않습니다. 마이페이지 연동 소유자가 실제 목록·건수·다음 페이지 여부와 신청 ID, 정렬·취소 요청 및 대기·실패·재시도·성공 후 목록 갱신을 연결합니다. */
 /** 신청내역과 상태별 조회·취소 확인을 표시합니다. (Displays session entry history, status filters and cancellation confirmation.) */

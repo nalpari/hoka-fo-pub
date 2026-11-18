@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import { AddressList } from '@/components/common/organisms/Address/AddressList';
 
-import { MyPageFrame } from '@/components/mypage/MyPageFrame';
+import { MyPageFrame } from '@/app/mypage/_components/MyPageFrame';
 import { initialAddresses } from '@/data/addressPreview';
 import { type Address } from '@/types/mypage-address.types';
 

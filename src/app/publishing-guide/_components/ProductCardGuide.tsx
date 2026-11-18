@@ -84,10 +84,10 @@ const examples: readonly TileExample[] = [
   },
   {
     id: 'tile-history',
-    title: '관심 · 최근 본 상품',
-    description: 'history 정보 간격 · 색상 썸네일',
+    title: '관심상품',
+    description: 'history 정보 간격 · 색상 썸네일 · 장바구니 담기',
     variant: 'history',
-    options: listingOptions,
+    options: ['promotion', 'like', 'colors', 'cart'],
   },
 ];
 

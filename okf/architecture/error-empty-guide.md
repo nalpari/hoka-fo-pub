@@ -18,7 +18,7 @@ working_tree_sources:
   - src/components/common/atoms/EmptyState.recipe.tsx
   - src/components/common/atoms/EmptyState.tsx
   - src/components/common/organisms/SystemStatusPage.tsx
-  - src/components/mypage/MyPageProductHistory.tsx
+  - src/app/mypage/_components/MyPageProductHistory.tsx
   - src/app/mypage/_components/MyPageContent.tsx
 sources:
   - id: error-empty-design

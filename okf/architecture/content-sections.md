@@ -88,7 +88,7 @@ working_tree_sources:
   - src/app/login/page.tsx
   - src/components/mypage/MyPage.tsx
   - src/components/mypage/MyPageAddresses.tsx
-  - src/components/mypage/MyPageProductHistory.tsx
+  - src/app/mypage/_components/MyPageProductHistory.tsx
   - src/components/mypage/MyPageProfile.tsx
   - src/components/mypage/MyPageRewards.tsx
   - src/components/mypage/MyPageStatusPage.tsx

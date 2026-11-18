@@ -14,8 +14,8 @@ import { Typography } from '@/components/common/atoms/Typography';
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
+import { MyPageFrame } from '@/app/mypage/_components/MyPageFrame';
 import { menuSections } from '@/app/mypage/mypage-home-data';
-import { MyPageFrame } from '@/components/mypage/MyPageFrame';
 
 type LogoutDialogProps = {
   open: boolean;

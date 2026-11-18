@@ -10,6 +10,7 @@ import { Box, Grid, HStack, VStack } from 'styled-system/jsx';
 import { token } from 'styled-system/tokens';
 
 import { Badge, type Promotions } from '@/components/common/atoms/Badge';
+import { Button } from '@/components/common/atoms/Button';
 import { Card } from '@/components/common/atoms/Card';
 import { Divider } from '@/components/common/atoms/Divider';
 import { Typography } from '@/components/common/atoms/Typography';
@@ -768,7 +769,7 @@ const activityLabel = (use: Product['use']) => {
   return '워킹';
 };
 
-export type ProductCardOption = 'promotion' | 'like' | 'colors' | 'specifications';
+export type ProductCardOption = 'promotion' | 'like' | 'colors' | 'specifications' | 'cart';
 
 export type ProductCardProps = {
   promotionTone?: 'brand' | 'error';
@@ -777,10 +778,12 @@ export type ProductCardProps = {
   activityLabels?: readonly string[];
   liked?: boolean;
   onLikedChange?: (liked: boolean) => void;
+  onAddToCart?: () => void;
   options?: readonly ProductCardOption[];
   product: ProductCardProduct;
   href?: string;
   variant?: ProductCardVariant;
+  thumbnailVariant?: ProductThumbnailVariant;
 };
 
 /**
@@ -799,9 +802,11 @@ export function ProductCard({
   soldOut = false,
   liked,
   onLikedChange,
+  onAddToCart,
   options = [],
   product,
   variant = 'listing',
+  thumbnailVariant,
 }: ProductCardProps) {
   const [internalLiked, setInternalLiked] = useState(false);
   const [previewOpen, setPreviewOpen] = useState(false);
@@ -853,7 +858,7 @@ export function ProductCard({
         }
         product={product}
         soldOut={soldOut}
-        variant={variant}
+        variant={thumbnailVariant ?? variant}
       />
 
       {hasOption('like') && (
@@ -921,6 +926,22 @@ export function ProductCard({
       />
 
       <ProductCardFooter product={product} showSpecifications={hasOption('specifications')} />
+      {hasOption('cart') && (
+        <Box pt="2px" _mobile={{ pt: '0', mt: '-4px', px: '10px' }}>
+          <Button
+            variant="plain"
+            size="md"
+            type="button"
+            iconLeft="hoka-bag-shopping-regular"
+            iconSize={16}
+            onClick={onAddToCart}
+          >
+            <Typography web="bodyKr4" mo="bodyKr5" tone="primary">
+              장바구니 담기
+            </Typography>
+          </Button>
+        </Box>
+      )}
     </Card>
   );
 }

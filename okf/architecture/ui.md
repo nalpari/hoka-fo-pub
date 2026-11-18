@@ -53,7 +53,7 @@ working_tree_sources:
   - src/app/mypage/orders/_components/OrderClaimRequest.tsx
   - src/app/mypage/orders/_components/OrdersPage.tsx
   - src/app/mypage/orders/_components/OrdersContent.tsx
-  - src/components/mypage/MyPageFrame.tsx
+  - src/app/mypage/_components/MyPageFrame.tsx
   - src/components/orders/orders.data.ts
   - src/components/orders/orders.types.ts
   - public/images/icon/product-carousel-caret.svg
@@ -128,7 +128,7 @@ working_tree_sources:
   - src/app/mypage/addresses/_components/AddressStatePreview.tsx
   - src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx
   - src/app/mypage/event-entries/eventEntries.data.ts
-  - src/components/mypage/MyPageProductHistory.tsx
+  - src/app/mypage/_components/MyPageProductHistory.tsx
   - src/components/common/molecules/ProductCard/ProductCard.tsx
   - src/components/common/molecules/ProductCard/productCardTypography.ts
   - src/components/common/molecules/ProductOptionList.tsx
@@ -168,8 +168,8 @@ working_tree_sources:
   - src/app/mypage/reviews/reviewFixtures.ts
   - src/stories/features/mypage/MyPage.Reviews.Web.stories.tsx
   - src/stories/features/mypage/MyPage.Reviews.Mobile.stories.tsx
-  - src/components/mypage/MyPageFrame.tsx
-  - src/components/mypage/mypage.data.ts
+  - src/app/mypage/_components/MyPageFrame.tsx
+  - src/app/mypage/mypage.data.ts
   - src/app/mypage/orders/_components/OrdersPage.tsx
   - src/app/screen-index/screenConnections.ts
   - src/data/screenRegistry.ts
@@ -630,7 +630,7 @@ working_tree_sources:
   - src/shared/Mockup/running-profile/RunningProfileContent.tsx
   - src/shared/Mockup/running-profile/ProfileQuestionGroup.tsx
   - src/shared/Mockup/running-profile/running-profile.data.ts
-  - src/components/mypage/mypage.data.ts
+  - src/app/mypage/mypage.data.ts
   - src/stories/features/mypage/MyPageRouteStory.tsx
   - src/stories/features/Mockup/running-profile/ProfileQuestionGroup.stories.tsx
   - src/stories/components/common/molecules/MyPage/ProfileQuestionGroup.stories.tsx
@@ -767,8 +767,8 @@ working_tree_sources:
   - src/components/mypage/MyPageProductHistoryNote.tsx
   - src/components/mypage/MyPageProductHistoryHeading.tsx
   - src/components/mypage/MyPageProductHistoryGrid.tsx
-  - src/components/mypage/MyPageProductHistory.tsx
-  - src/components/mypage/MyPageFrame.tsx
+  - src/app/mypage/_components/MyPageProductHistory.tsx
+  - src/app/mypage/_components/MyPageFrame.tsx
   - src/components/mypage/MyPageBreadcrumbs.tsx
   - src/components/locales/LocalesHeading.tsx
   - src/components/locales/LocaleRegionHeading.tsx
@@ -1171,7 +1171,7 @@ IA 필터 오른쪽의 [퍼블 변경사항 보고서] 버튼은208파일의 mai
 
 반복되는 상태 공통 파일은 각 화면의 상위 작업 파일 칸에 모으고 STATE 행에서는 제거했다. 화면 계층에서도 현재 표시된 상위 IA와 같은 파일은 하위 IA에 반복하지 않는다. 회원 정보 입력은 D3에만 공통 파일을 표시하고 D4·D5에는 고유 파일과 상태 링크를 유지한다. 필터로 상위 화면이 사라지면 현재 하위 화면에 파일을 복원한다. 진입 page와 상태 전용 파일은 해당 행에 유지한다. `_components/`·상품 목록 공용 파일의 기존 비고 배치, 상품 공통 수동 비고 묶음·담당자 필터·7열 표는 유지한다. 분류 기준과 출처는 [STATE 공통 파일](routing.md#state-공통-파일-상위-정리-2026-11-04), 실제 확인은 [검증 기록](../development/verification.md#state-공통-파일-정리-검증-2026-11-04)을 따른다. 기록: codex/gpt-6, 2026-11-04T03:47:45Z.
 
-에러·최근 본 상품 빈 화면·마이페이지 주문 요약의 최신 가이드 적용값과 검증 범위는 [에러·빈 상태 가이드](error-empty-guide.md)에 기록한다. `EmptyState` page/content 옵션을 추가하며 기존 standard/minimal/plain 기본값은 유지한다. 작업 트리 출처: `src/components/common/atoms/EmptyState.tsx`, `src/components/common/organisms/SystemStatusPage.tsx`, `src/components/mypage/MyPageProductHistory.tsx`, `src/app/mypage/_components/MyPageContent.tsx` (2026-11-04).
+에러·최근 본 상품 빈 화면·마이페이지 주문 요약의 최신 가이드 적용값과 검증 범위는 [에러·빈 상태 가이드](error-empty-guide.md)에 기록한다. `EmptyState` page/content 옵션을 추가하며 기존 standard/minimal/plain 기본값은 유지한다. 작업 트리 출처: `src/components/common/atoms/EmptyState.tsx`, `src/components/common/organisms/SystemStatusPage.tsx`, `src/app/mypage/_components/MyPageProductHistory.tsx`, `src/app/mypage/_components/MyPageContent.tsx` (2026-11-04).
 
 ## IA 기본 상태·비고 배치 후속 정리 (2026-11-04)
 
@@ -1211,7 +1211,7 @@ Figma `1992:85202`·`1938:45809`·`1797:47269`의 기본/선택/PC 화면을 기
 
 ## 최근 본 상품 Figma 적용 (2026-10-30)
 
-`/mypage/recent`와 `/mypage/recent/preview-empty`는 섹션 `2025:149807` 아래 PC 목록 `2025:149837`·빈 목록 `2025:150007`, MO 목록 `2025:151429`·빈 목록 `2025:151448`을 기준으로 한다.[^recent-figma-20261030] 작업 트리 출처는 `src/components/mypage/MyPageProductHistory.tsx`와 `src/components/common/molecules/ProductCard/ProductCard.tsx`다. 기존 IA 183·직접 URL·모바일 stories 연결을 유지한다.
+`/mypage/recent`와 `/mypage/recent/preview-empty`는 섹션 `2025:149807` 아래 PC 목록 `2025:149837`·빈 목록 `2025:150007`, MO 목록 `2025:151429`·빈 목록 `2025:151448`을 기준으로 한다.[^recent-figma-20261030] 작업 트리 출처는 `src/app/mypage/_components/MyPageProductHistory.tsx`와 `src/components/common/molecules/ProductCard/ProductCard.tsx`다. 기존 IA 183·직접 URL·모바일 stories 연결을 유지한다.
 
 - 최근 목록 제목은 PC Pretendard Black 36px/1.2·하단 40px·2px 선, MO 22px/1.2다. PC는 최대 260px 카드 3열·가로 16px/세로 48px, MO는 전체 폭 2열·가로 8px/세로 40px다. 좁은 PC 캔버스에서는 열이 가용 폭에 맞게 줄어든다.
 - 공통 카드의 기존 `history` 옵션을 재사용한다. PC 색상 썸네일 76px·MO 34px, 사진과 정보 사이 10px, 18px 찜 버튼을 사용한다. `Wishlist`의 history 호출에는 padding 0을 지정해 네이티브 버튼 padding 때문에 아이콘이 줄어들지 않게 한다.
@@ -1245,7 +1245,7 @@ PC 주문 표는 상품정보 가변 폭과 수량 158px·가격 200px·상태 1
 
 검증: 2026-10-30 Codex가 두 URL을 375/1920px viewport에서 열어 hydration·폰트 로딩 후 위치/크기/테두리·이미지를 확인했다. Windows scrollbar 15px로 모바일 clientWidth 360px과 Figma 프레임 375px 차이를 구분했다. 캐러셀 2번째 선택, 로그아웃 모달 열기·Esc 닫기·버튼 포커스 복귀를 확인했다. 1024/1025·1199/1200 경계, 1200px 이상 가로 넘침 없음, 쿠폰 화면 breadcrumb 하단 32px 보존을 확인했다. 변경 파일 ESLint·Prettier, 타입, Panda, Next 빌드(119개 정적 페이지)를 통과했다. 전체 lint는 비대상 FormGuide의 미사용 TextInput 및 HelpTipsGuide import 정렬 오류로 실패했다. Storybook 빌드/명시적 플랫폼 스토리는 미실행이다.
 
-작업 트리 출처: `src/app/mypage/_components/MyPageContent.tsx`, `src/components/mypage/MyPageFrame.tsx`. 기록 시점: 2026-10-30T16:46:00+09:00. 사람의 디자인 승인 완료를 의미하지 않는다.
+작업 트리 출처: `src/app/mypage/_components/MyPageContent.tsx`, `src/app/mypage/_components/MyPageFrame.tsx`. 기록 시점: 2026-10-30T16:46:00+09:00. 사람의 디자인 승인 완료를 의미하지 않는다.
 
 ## 매장 목록 제목 16px 유지 (2026-10-30)
 
@@ -1340,7 +1340,7 @@ IA 디자인은 수급·미수급·수정예정, 퍼블리싱은 기존 완료·
 
 MyPageFrame에 layout='sidebar' | 'centered'를 추가하고 breadcrumbs를 선택 속성(기본 빈 배열)으로 바꿨다. 기본 sidebar는 기존 마이페이지 하위 화면의 내비게이션·본문·breadcrumb 배치를 유지한다. centered는 홈에서 사용하던 main의 border-box·100vw·maxW 640px·가운데 정렬·좌우 16px·하단 64px과 breadcrumb 영역의 높이 56px·상단 24px을 그대로 소유한다. 기본 Home·마이페이지 경로는 프레임이 한 번 생성하며 마지막 항목의 링크 생략·aria-current는 기존 Breadcrumb이 처리한다.
 
-src/app/mypage/page.tsx의 RouteContent는 MyPageFrame activePath='/mypage' layout='centered'를 사용한다. 기존 본문 Stack의 pt=6·gap=10, 프로필·주문 목록·메뉴·로그아웃 버튼과 모달 상태는 페이지에 유지하고 main과 breadcrumb 중복만 제거했다. 하위 페이지는 layout을 새로 지정하지 않아도 기존 sidebar 구성을 사용한다. 추가 DOM wrapper나 client 경계는 없다. 작업 트리 출처: src/components/mypage/MyPageFrame.tsx, src/app/mypage/page.tsx 및 기존 MyPage 메인·하위 화면 스토리.
+src/app/mypage/page.tsx의 RouteContent는 MyPageFrame activePath='/mypage' layout='centered'를 사용한다. 기존 본문 Stack의 pt=6·gap=10, 프로필·주문 목록·메뉴·로그아웃 버튼과 모달 상태는 페이지에 유지하고 main과 breadcrumb 중복만 제거했다. 하위 페이지는 layout을 새로 지정하지 않아도 기존 sidebar 구성을 사용한다. 추가 DOM wrapper나 client 경계는 없다. 작업 트리 출처: src/app/mypage/_components/MyPageFrame.tsx, src/app/mypage/page.tsx 및 기존 MyPage 메인·하위 화면 스토리.
 
 검증(Codex, 2026-10-28): 전체 작업 트리 타입 검사·변경 두 파일 ESLint·Panda 생성과 기존 스테이지+이번 소스 두 파일을 적용한 격리 복사본의 Next 기본 Turbopack·Storybook production build를 통과했다. 반복 ESLint/Prettier에서 소스 바이트 변경이 없었다. 다른 작업의 산출물은 덮어쓰지 않았으며 격리 Next 설정의 root는 외부 의존성 junction 해석만을 위해 지정했다.
 
@@ -4140,7 +4140,7 @@ STATE 행의 구분 상태·화면 코드 -·PC/MO 상태 - 셀도 같은 화면
 
 ## 재입고 알림 Figma 화면 적용 (2026-10-30)
 
-출처: [재입고 알림 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2025-152235). PC 목록 `2043:58313`, PC 빈 상태 `2063:70550`, 모바일 목록 `2025:152236`, 모바일 빈 상태 `2025:152259`를 기준으로 한다. 작업 트리 출처는 `src/components/mypage/MyPageProductHistory.tsx`, `src/context/MyPageDataContext.ts`, `src/stories/features/mypage/MyPage.RestockAlerts.Web.stories.tsx`, `src/app/screen-index/screenConnections.ts`다.
+출처: [재입고 알림 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2025-152235). PC 목록 `2043:58313`, PC 빈 상태 `2063:70550`, 모바일 목록 `2025:152236`, 모바일 빈 상태 `2025:152259`를 기준으로 한다. 작업 트리 출처는 `src/app/mypage/_components/MyPageProductHistory.tsx`, `src/context/MyPageDataContext.ts`, `src/stories/features/mypage/MyPage.RestockAlerts.Web.stories.tsx`, `src/app/screen-index/screenConnections.ts`다.
 
 - 기존 `MyPageFrame`의 844px 본문을 유지하고 재입고 분기에서 제목 PC 36px/MO 22px, 표 열 544/150/150px, 헤더 상단 2px·하단 1px, 행 padding PC 32px/MO 24px, 이미지 PC 96px/MO 64px를 적용했다.
 - PC 미연결 목록은 Men's / Speedgoat 7 GTX, 2026.10.31, 알림대기·발송완료다. MO는 클리프톤 9, 2026.05.22, 두 행 모두 알림대기로 시안 차이를 `restockPreview`에 명시한다. 실제 연결 항목에는 fixture 이름·날짜·상태를 섞지 않는다.
@@ -4213,7 +4213,7 @@ STATE 행의 구분 상태·화면 코드 -·PC/MO 상태 - 셀도 같은 화면
 
 ## 공통 카드와 가이드 서식 정리 (2026-10-30)
 
-ProductCard와 MyPageProductHistory의 스타일 객체·타입·인계 주석 순서, HelpTipsGuide의 import 그룹과 바인딩 순서를 정리했다. 런타임 로직과 표시값은 유지한다. 출처는 src/components/common/molecules/ProductCard/ProductCard.tsx, src/components/mypage/MyPageProductHistory.tsx, src/app/publishing-guide/_components/HelpTipsGuide.tsx 작업 트리다. 세 소스의 ESLint·Prettier 검사를 통과했다. 서식만 바뀌어 화면과 빌드는 다시 검사하지 않았다.
+ProductCard와 MyPageProductHistory의 스타일 객체·타입·인계 주석 순서, HelpTipsGuide의 import 그룹과 바인딩 순서를 정리했다. 런타임 로직과 표시값은 유지한다. 출처는 src/components/common/molecules/ProductCard/ProductCard.tsx, src/app/mypage/_components/MyPageProductHistory.tsx, src/app/publishing-guide/_components/HelpTipsGuide.tsx 작업 트리다. 세 소스의 ESLint·Prettier 검사를 통과했다. 서식만 바뀌어 화면과 빌드는 다시 검사하지 않았다.
 
 ## 주문서 그리드 간격과 모바일 순서 (2026-11-02)
 
@@ -4816,7 +4816,7 @@ InquiryFormLayout은 모든 선택 상태에서 페이지 제목 '1:1 문의'와
 
 Figma [2063:70557](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=2063-70557)의 설명 2498:93424는 현재 CENTER다. MyPageProductHistory의 재입고 전용 PC 왼쪽 정렬 override를 제거해 기존 EmptyState.page의 가운데 정렬을 상속한다. 제목·설명 너비와 글자 크기·문구·예시 데이터·상태 owner는 유지한다. 이 기록이 앞선 재입고 설명 정렬 관측보다 우선한다.
 
-검증: Codex가 /mypage/restock-alerts/preview-empty를 1116px·1920px·375px에서 열어 제목과 설명의 계산 text-align=center를 확인했다. PC 설명은 520px·16px, 모바일은 319px·14px이며 제목은 기존 28/22px이다. hoka-markup-handoff의 기존 EmptyState·Panda·표시 전용 경계를 점검했고 새 래퍼·서비스 연결은 없다. 출처: src/components/mypage/MyPageProductHistory.tsx 작업 트리, codex/gpt-6, 2026-11-05.
+검증: Codex가 /mypage/restock-alerts/preview-empty를 1116px·1920px·375px에서 열어 제목과 설명의 계산 text-align=center를 확인했다. PC 설명은 520px·16px, 모바일은 319px·14px이며 제목은 기존 28/22px이다. hoka-markup-handoff의 기존 EmptyState·Panda·표시 전용 경계를 점검했고 새 래퍼·서비스 연결은 없다. 출처: src/app/mypage/_components/MyPageProductHistory.tsx 작업 트리, codex/gpt-6, 2026-11-05.
 
 ## EmptyState 모바일 내부 여백 통일 (2026-11-05)
 
@@ -4948,7 +4948,7 @@ PC 1920px 기준 1016px 미디어와 484px 구매 패널 사이 32px를 유지�
 
 ## 마이페이지 고객지원 메뉴 진입 (2026-11-09)
 
-마이페이지 사이드 메뉴의 FAQs·1:1문의와 대시보드의 같은 바로가기는 고객센터 URL에 `from=mypage`를 붙인다. 공유 브레드크럼에는 기존과 같이 라벨과 링크를 넘기며, 진입별 상위 항목은 [고객지원 라우트](routing.md#마이페이지고객센터-브레드크럼과-화면-제목-2026-11-09)에서 선택한다. 작업 트리 출처는 `src/components/mypage/mypage.data.ts`와 `src/app/mypage/mypage-home-data.ts`다.
+마이페이지 사이드 메뉴의 FAQs·1:1문의와 대시보드의 같은 바로가기는 고객센터 URL에 `from=mypage`를 붙인다. 공유 브레드크럼에는 기존과 같이 라벨과 링크를 넘기며, 진입별 상위 항목은 [고객지원 라우트](routing.md#마이페이지고객센터-브레드크럼과-화면-제목-2026-11-09)에서 선택한다. 작업 트리 출처는 `src/app/mypage/mypage.data.ts`와 `src/app/mypage/mypage-home-data.ts`다.
 
 ## 고객사 타이포그래피 정의 2026-11-10
 
@@ -5533,3 +5533,67 @@ EmptyState의 claimHistory layout은 PC 높이267px·중앙 배치·하단 #E9EA
 실제 검증: PC1920/1440의 빈/유상품 취소 목록에서5개 헤더,344/120/120/140/120px 컬럼·높이67px·20/700/24px·검정색·빈 영역267px·16/24px·하단선을 실측하고 캡처했다. MO375의 빈/유상품 목록은 헤더 없이 기존 표현을 유지하며 날짜/조회는 상시 보이고 수직 중심차0px와 가로 넘침 없음이다. 문의 모달 기본 화면도 PC1920/1440·MO375에서 입력 상시 표시와 버튼 중심차0px를 확인했다. 출처: 사용자 요청·현재 시안의 구조/수치, OrdersList.tsx와 EmptyState.recipe.tsx 작업 트리. 마지막 hoka-markup-handoff 검수에서 기존 컴포넌트/상태 소유자·Panda·PC/MO·바인딩 경계를 확인했다. 기록: Codex, 2026-11-18.
 
 최종 검증 추가(2026-11-18): 취소/반품 변경까지 포함한 전체 Next 빌드가163개 정적 페이지 생성으로 통과했다. 대상 ESLint·Prettier·TypeScript·Panda·기존/추가 검사3개와 작업 트리 OKF 누락 없음, diff 공백 검사를 확인했다. 기존 staged index의 변경 전후 해시는 동일하며 이번 변경을 스테이징·커밋하지 않았다.
+
+- 회원정보 확인의 공통 표시 순서를 아이디·이름·성별·생년월일·휴대폰·주소·이메일로 맞췄다. 성별 예시는 남성이며 퍼블 가이드에도 반영했다.
+
+- 회원정보 수정 화면의 성별·휴대폰 표시, 비밀번호 버튼 위치와 모바일·PC 간격 및 구분선을 시안에 맞췄다.
+
+- 회원정보 수정의 데스크탑 정보 항목마다 black.20 구분선을 표시하고 모바일에서는 숨긴다.
+
+- 회원정보 수정의 비밀번호 설정 아래 구분선을 다른 정보 항목과 같은 black.20으로 맞췄다.
+
+- 회원정보 수정에서 비밀번호 설정 완료 표시를 버튼 아래에 배치하고 완료 미리보기에서 확인할 수 있다. 실제 저장 성공 여부는 연동 상태가 전달한다.
+
+- 배송지 편집의 우편번호 입력란은 기본 비활성이며 우편번호 찾기 버튼으로 주소 검색을 연다.
+
+- 배송지 추가·수정의 기본 주소 입력란은 우편번호와 같이 비활성으로 표시한다.
+
+- 관심상품 고정 예시는 신발과 EveryRun 의류를 번갈아 표시하며 연결된 상품 데이터는 그대로 사용한다.
+
+- 관심상품 의류 예시는 공통 ProductThumbnail의 상품목록 비율을 사용하며 신발과 연결 상품의 기본 비율은 유지한다.
+
+- ProductCard의 cart 옵션으로 관심상품에 장바구니 담기 버튼을 표시한다. 아이콘과 문구는 공통 버튼을 사용하며 요청은 연결되지 않았다.
+
+- 관심상품 장바구니 담기 버튼은 상품 내용과 동일한 모바일 좌우 여백을 사용하고 윗간격은 모바일 6px, PC 12px로 맞춘다.
+
+- 배송지 관리에서 기본 배송지 외 항목에도 PC와 모바일 모두 일반 배송지 배지를 표시한다.
+
+- ProductCard의 thumbnailVariant 타입을 실제 카드 props에 선언해 의류 이미지 비율 지정 오류를 수정했다.
+
+- 관심상품·최근 본 상품·재입고 알림이 공유하는 MyPageProductHistory를 마이페이지 공통 _components로 옮겼다.
+
+- 마이페이지 공통 프레임을 app/mypage/_components로, 메뉴 데이터는 app/mypage로 옮기고 사용처를 연결했다.
+
+- 관심상품 모바일 제목 위 간격은 24px, 제목과 목록 사이는 32px로 맞췄다.
+
+- 관심상품과 최근 본 상품의 데스크탑 제목 아래 구분선을 제거했다.
+
+- 관심상품과 최근 본 상품 데스크탑 제목과 목록 사이 간격을 40px로 맞췄다.
+
+- 최근 본 상품은 채워진 하트와 빈 하트가 함께 보이며 연결 데이터의 liked 값을 사용한다.
+
+- 최근 본 상품 모바일 목록의 제목 위 24px과 제목 아래 32px을 관심상품과 통일했다.
+
+- 관심상품과 최근 본 상품의 모바일 제목 여백을 공통으로 지정하고 최근 본 상품 빈 화면 예외는 유지한다.
+
+- 관심상품·최근 본 상품·재입고 알림 제목은 공통 ContentHeader와 동일한 목록 간격을 사용한다. 재입고 목록 구분선은 목록에서 표시한다.
+
+- 재입고 알림 목록과 하단 안내 사이 간격을 16px로 지정했다.
+
+- 재입고 목록 안내 문구의 중복 렌더링과 실행되지 않는 빈 목록 조건을 제거했다.
+
+- 상품내역의 미사용 빈 상태 분기와 중복 안내 문구를 정리하고 그리드의 실제 화면 유형과 상품 조회를 단순화했다.
+
+- 상품내역 미리보기는 고정 상품 데이터를 직접 사용하고 빈 화면 옵션과 하트·팝업 표시 상태를 유지한다. 요청 및 저장은 연결되지 않았다.
+
+- 상품내역의 모바일 제목 숨김 조건을 여백과 제목 표시에서 공유하고 목록의 좌우 확장 조건을 단순화했다. 기존 여백 값과 최근 본 상품 빈 화면 보정은 유지한다.
+
+- 관심상품·최근 본 상품·재입고 알림 빈 화면은 PC와 모바일에서 제목과 검정 2px 구분선을 표시한다. 제목 아래 패딩은 PC 40px, 모바일 32px이다. 모바일에서 제목이 다시 표시되어 이전 최근 본 상품 빈 화면의 음수 마진은 제거했다.
+
+
+## 추가 마이페이지 변경 병합 (2026-11-18)
+
+origin/pub-psh-1015의 추가 커밋 a075b78d·b4b33434를 병합했다. MyPageFrame·MyPageProductHistory·메뉴 데이터의 마이페이지 소유 경로 이동과 회원정보·배송지·상품내역 정리를 반영하고, 현재 브랜치의 메인 주문 요약 제거 및 EmptyState layout 계약을 유지했다. 삭제된 주문 fixture import를 복원하지 않았으며 상품내역 안내는 상대 브랜치의 정리된 current.note를 사용한다. 소스 그래프는 생성기로 갱신했다. 출처: 두 브랜치와 해당 병합 소스. TypeScript 및 충돌 대상 ESLint 통과; 브라우저 시각 검증 미실시.
+
+
+병합 보완: 최근 본 상품의 PC 빈 안내에서 기존 두 줄 표시를 유지했다. 상품내역의 새 소유 경로·정리된 표시 데이터와 함께 적용한다. 해당 파일 ESLint 통과.

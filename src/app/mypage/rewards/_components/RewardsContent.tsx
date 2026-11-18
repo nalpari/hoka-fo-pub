@@ -10,8 +10,8 @@ import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 
+import { MyPageFrame } from '@/app/mypage/_components/MyPageFrame';
 import { commonBenefits, rewardPreview, tiers } from '@/app/mypage/rewards/rewards-data';
-import { MyPageFrame } from '@/components/mypage/MyPageFrame';
 import type { OverviewView } from '@/types/mypage-display';
 const badge = cva({
   base: {
