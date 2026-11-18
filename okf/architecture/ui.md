@@ -5622,3 +5622,10 @@ origin/pub-psh-1015의 추가 커밋 a075b78d·b4b33434를 병합했다. MyPageF
 ContentLayout의 sticky 머리글에서 Breadcrumb이 있는 경우 중복 상단24px을 제거해 상품 목록의 경로 위치를 마이페이지와 맞췄다. Breadcrumb이 없는 sticky 머리글의 기존24px과 모바일 배치는 유지한다.
 
 검증: 로컬 브라우저 PC1440에서 마이페이지·여성 상품 목록 nav 상단162px 일치, 모바일375에서 메뉴 제목5개 동일 높이 확인. 대상 ESLint·TypeScript·Panda 생성·diff 검사 통과. 출처: 사용자 첨부와 위 작업 트리, codex/gpt-6 기록.
+
+## NumberStepper 디자인 시스템 스타일 (2026-11-18)
+
+- 디자인 출처: [HOKA 디자인 시스템](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0)의 Cart Card Quantity PC/모바일 상태. `src/components/common/atoms/NumberStepper.tsx`에서 PC108×36px·숫자14px/400/150%·증감 아이콘18px, 모바일96×32px·숫자12px/400/150%·아이콘16px, 흰 배경과1px #E9EAEB 테두리를 적용한다. 기존 usePlatform과 _mobile 조건으로 명시 플랫폼도 따른다.
+- 수량·min/max·onChange·입력 접근성과 minimumControl 소유권은 유지한다. 호출부가 공급하는 장바구니 삭제 아이콘은 기존16px이며 PC 시안18px과의 차이는 남는다. 품절 여부와 투명도는 기존 장바구니 fieldset/부모 책임이다. 서비스 연결 경계 변경 없음.
+- PC1440/MO375 장바구니5개 수량의 계산 크기·글꼴·증감 아이콘·테두리와 스크린샷을 확인했다. 모바일 증가2→3·감소3→2, 품절 fieldset의 버튼/입력 :disabled를 확인했다. 숫자에 custom font가 사용되며 hoka400 face가 로드됨을 확인했으나 내부 font 이름은 `.`으로 반환된다. 상품상세/주문신청은 사용 계약과 타입만 확인했으며 실행 화면은 미검증이다.
+- 대상 ESLint/Prettier, TypeScript, Panda 생성 통과. hoka-markup-handoff의 Panda·공통 소유권·반응형·접근성·외부 슬롯 보존을 검토했다. 공유 플랫폼·Next 경계·서비스 로직은 수정하지 않았다.

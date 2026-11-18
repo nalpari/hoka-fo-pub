@@ -1,3 +1,7 @@
+## 2026-11-18 NumberStepper 디자인 시스템 스타일 적용
+
+- 공통 수량 UI를 PC108×36/MO96×32, 숫자14/12px, 증감 아이콘18/16px과 #E9EAEB 테두리로 조정했다. PC/MO 장바구니 계산값·이미지, 증감·품절 disabled와 타입·대상 lint·Panda를 확인했다. 외부 삭제 슬롯16px과 상품상세/주문신청 실행 미검증은 ui.md에 기록했다.
+
 ## 2026-11-18 마이페이지 기준 높이 정렬
 
 - 메뉴 제목 한영 행간120% 통일과 상품 목록 sticky 머리글의 중복 상단24px 제거. PC1440·모바일375 브라우저 측정, 대상 ESLint·TypeScript·Panda·diff 검사 통과. 상세: architecture/ui.md·architecture/routing.md.
