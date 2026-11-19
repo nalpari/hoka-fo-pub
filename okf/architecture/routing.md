@@ -2398,3 +2398,7 @@ PC1398/MO375에서10개 요약 기호가 모두·이고 모든 앵커 대상이 
 ## 배송·관리 재검수 스타일 보정 (2026-11-19)
 
 AfterSalesContent의플랫폼별줄바꿈·반품처DOM순서·간격/타이포와CareContent의모바일색상을보정했다. 기존5개tab쿼리와로컬표시·링크책임은유지한다. 고객센터LNB는support공통소유자에서행높이를통일한다. [수치와검증](support-design.md#재검수-차이-전체-보정과-고객센터-lnb-높이-통일-2026-11-19)을 참고한다.
+
+## 의존 그래프 추적 해제 (2026-11-19)
+
+자동 생성물 `src/app/screen-index/sourceGraph.generated.json`의 Git 추적만 해제하고 로컬 파일과 IA import 계약은 유지한다. 출처는 Git 인덱스, `.gitignore`, `package.json`, `scripts/screen-files.mjs`다. 파일 부재 상태의 재생성과 이전 내용 일치를 확인했으며 라우트·화면 코드는 변경하지 않았다. 실행 절차는 [로컬 실행](../development/setup.md#자동-생성-의존-그래프-git-추적-해제-2026-11-19)에 기록했다.

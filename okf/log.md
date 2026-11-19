@@ -51,6 +51,10 @@
 
 - account 오른쪽에 비로그인 `로그인 | 회원가입`, 로그인 `마이페이지`를 배치하고 장바구니를 뒤에 유지했다. PC1572px·MO390px 표시 확인 및 대상 ESLint·전체 TypeScript 통과. 비로그인은 코드 검토만 수행했다. 출처와 범위는 architecture/state.md·ui.md·routing.md에 기록했다.
 
+## 2026-11-19 자동 생성 의존 그래프 Git 추적 해제
+
+- sourceGraph.generated.json의 추적을 해제하고 기존 ignore와 로컬 파일을 유지했다. 실행·빌드 전 생성 스크립트를 확인하고 파일 부재 상태에서 재생성·내용 일치·ignore 적용을 확인했다. setup·routing·개발 인덱스를 갱신했다. 전체 build는 수행하지 않았다.
+
 ## 2026-11-19 공지 목록 머리글 정렬
 
 - DataList noticeColumns의 제목을 남은 열 가운데, 등록일을 오른쪽 hug 열 가운데로 정렬했다. 기존 글자·본문·여백·모바일 숨김은 유지한다.
