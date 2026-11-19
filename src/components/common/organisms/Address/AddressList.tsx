@@ -114,22 +114,7 @@ export function AddressList({
                       _mobile={{ gap: '2' }}
                       action={
                         address.isDefault || !embedded ? (
-                          <Badge
-                            variant="line"
-                            tone="primary"
-                            className={css({
-                              borderRadius: '2px',
-                              h: embedded ? '29px' : undefined,
-                              minH: embedded ? '0' : undefined,
-                              px: '1',
-                              py: '3px',
-                              '& > span': {
-                                fontSize: '14px',
-                                lineHeight: embedded ? '1.5!' : '1.3!',
-                                _mobile: { fontSize: '12px' },
-                              },
-                            })}
-                          >
+                          <Badge variant="outlined" visual="square">
                             {address.isDefault ? '기본 배송지' : '일반 배송지'}
                           </Badge>
                         ) : null

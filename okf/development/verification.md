@@ -864,3 +864,5 @@ node --test tests/empty-state-types.test.mjs tests/modal-dialog-types.test.mjs�
 추가 tests/date-range.test.mjs는 로컬 달력 월 차감, 월말·윤년·해 경계와4개 preset을 검사한다. 기존 EmptyState 계약2개와 함께3개 통과했다. TypeScript·대상 ESLint·Panda와 실제 PC/MO 상호작용/수치/캡처를 확인했다. 임시 검증 화면으로 교체 데이터·전체 payload·pending/실패/재시도·중복 방지·layout 기본값을 검사한 뒤 route 파일을 제거했다. 상세 조건/한계는 [기간 UI 기록](../architecture/ui.md#공용-기간날짜-조회-ui-2026-11-18)·[취소 빈 표 기록](../architecture/ui.md#취소반품-빈-목록-pc-표-헤더-2026-11-18)을 따른다. 전체 lint는 실행하지 않았다. 출처: 해당 테스트·공용 UI·소유자 작업 트리와 Codex 실제 검증.
 
 최종 검증 추가(2026-11-18): 취소/반품 변경까지 포함한 전체 Next 빌드가163개 정적 페이지 생성으로 통과했다. 대상 ESLint·Prettier·TypeScript·Panda·기존/추가 검사3개와 작업 트리 OKF 누락 없음, diff 공백 검사를 확인했다. 기존 staged index의 변경 전후 해시는 동일하며 이번 변경을 스테이징·커밋하지 않았다.
+
+- Badge의 외형과 기본값, 반응형 글자 크기, 복수 라벨 구분선은 `node --test tests/form-controls.test.mjs`로 확인한다. 2026-11-19 배지 정리에서 전체 48개가 통과했다.

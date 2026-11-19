@@ -3255,3 +3255,6 @@ Figma Navigational Buttons(296:25392)와 Action Buttons(296:25425)의 기본·�
 - 주문 상세 화면의 제목과 본문 사이 데스크탑 간격을 40px로 맞추고 모바일 16px을 유지했다.
 
 - 주문 상세의 PC 배송 조회·리뷰 작성 버튼을 최소 너비 107px, 높이 40px, 버튼 간 8px, 오른쪽 여백 8px으로 맞추고 상품과 버튼 사이 16px을 적용했다.
+
+- 공통 Badge는 children에 표시할 문구를 받고 variant(기본 filled, outlined, plain), visual(채움형·테두리형은 round 또는 square 필수), Typography tone(기본 primary)으로 표현한다. 배송지는 outlined와 square, 러닝세션은 square에 표시 데이터의 배경·글자색을 사용한다. bg는 Panda ColorToken 전체를 받으며, 러닝세션은 citrus.100과 mossGreen.100을 전달한다.
+- 상품 프로모션은 Badge의 plain 스타일로 표시하며 복수 문구의 구분선은 글자색을 따른다. tone은 Typography 톤·Panda 색상 토큰·CSS 색상을 받는다. 러닝세션 사용처에서 web="body4"와 mo="body6"으로 PC 14px·모바일 10px을 지정하고 weight="bold"를 전달한다. 공통 사각 채움 배지 기본값은 body4다. 배지 가이드의 채움형 예시와 복사 코드는 variant="filled"를 명시한다.

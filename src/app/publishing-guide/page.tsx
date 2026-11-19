@@ -8,6 +8,7 @@ import { Typography } from '@/components/common/atoms/Typography';
 
 import { type SupportTab, SupportTabs } from '@/components/common/molecules/SupportTabs';
 
+import { BadgeGuide } from './_components/BadgeGuide';
 import { ButtonGuide } from './_components/ButtonGuide';
 import { CarouselGuide } from './_components/CarouselGuide';
 import { ColorGuide } from './_components/ColorGuide';
@@ -24,6 +25,7 @@ const guideTabs: readonly SupportTab[] = [
   { value: 'typography', label: '타이포그래피', content: <TypographyGuide /> },
   { value: 'icon', label: '아이콘', content: <IconGuide /> },
   { value: 'button', label: '버튼', content: <ButtonGuide /> },
+  { value: 'badge', label: '배지', content: <BadgeGuide /> },
   { value: 'form', label: '폼', content: <FormGuide /> },
   { value: 'help-tips', label: '툴팁·토글팁', content: <HelpTipsGuide /> },
   { value: 'modal', label: '모달', content: <ModalGuide /> },

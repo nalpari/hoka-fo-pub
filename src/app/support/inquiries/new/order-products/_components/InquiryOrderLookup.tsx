@@ -228,8 +228,9 @@ export function InquiryOrderLookup({
                             </Box>
                             {item.statusLabel && (
                               <Badge
+                                visual="round"
                                 className={classes.badge}
-                                variant={item.statusLabel === '결제완료' ? 'line' : 'filled'}
+                                variant={item.statusLabel === '결제완료' ? 'outlined' : 'filled'}
                                 tone={item.statusLabel === '구매확정' ? 'tertiary' : 'primary'}
                               >
                                 {item.statusLabel}

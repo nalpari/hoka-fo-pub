@@ -1390,7 +1390,7 @@ function WbsProgressBadge({ actual }: { actual?: string }) {
 
   const percent = Number.parseFloat(actual);
   const progress = percent === 0 ? 'pending' : percent === 100 ? 'complete' : 'working';
-  return <Badge className={wbsProgressBadge({ progress })}>{percent}%</Badge>;
+  return <Badge visual="round" className={wbsProgressBadge({ progress })}>{percent}%</Badge>;
 }
 
 function ScreenDevelopers({
