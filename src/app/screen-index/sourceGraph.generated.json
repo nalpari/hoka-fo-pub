@@ -134,7 +134,6 @@
       "src/components/orders/OrderPageLayout.tsx"
     ],
     "src/app/checkout/_components/CheckoutPayment.tsx": [
-      "src/components/common/atoms/Icon.tsx",
       "src/components/common/atoms/Radio.tsx",
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/ContentSection.tsx",
