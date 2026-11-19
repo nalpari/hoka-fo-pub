@@ -5,13 +5,20 @@ import type { ReactNode } from 'react';
 import { css, cva } from 'styled-system/css';
 import { Box, Grid, Stack } from 'styled-system/jsx';
 
-import { Typography } from '@/components/common/atoms/Typography';
+import { Typography, type TypographyProps } from '@/components/common/atoms/Typography';
 
 import { Breadcrumb, type BreadcrumbItem } from '@/components/common/molecules/Breadcrumb';
 
 export type SidebarNavigationGroup = {
   heading: string;
-  items: { label: string; to: string; active?: boolean; disabled?: boolean }[];
+  items: {
+    label: string;
+    to: string;
+    active?: boolean;
+    disabled?: boolean;
+    /** 고객센터 메뉴는 생략 시 Medium이며 기본 사이드 메뉴의 기존 Regular는 유지합니다. */
+    labelWeight?: TypographyProps['weight'];
+  }[];
 };
 
 type SideNavigationProps = {

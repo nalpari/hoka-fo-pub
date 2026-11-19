@@ -73,7 +73,7 @@ function LoginForm({ showErrors = false, showHelp = false }: LoginFormProps) {
               />
             </HStack>
             <ButtonLink variant="link" size="md" href="/login/find-account">
-              <Typography as="span" variant="body4">
+              <Typography as="span" variant="body4" weight="medium">
                 아이디/비밀번호 찾기
               </Typography>
             </ButtonLink>

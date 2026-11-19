@@ -104,7 +104,7 @@ function OrderProductSummaryContent({
               <Typography web="body3" mo="body4-2" language="en" weight="medium">
                 {orderDate}
               </Typography>
-              <Typography web="body3" mo="body4-2">
+              <Typography web="body3" mo="body4-2" weight="medium">
                 구매
               </Typography>
             </HStack>

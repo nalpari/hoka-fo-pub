@@ -6117,3 +6117,7 @@ Typography는 기존 PC-MO weight 조합과 TypographyWeight를 보존하고 Typ
 ## 마이페이지 굵기 반영 (2026-11-19)
 
 스테이징된 CouponManagement 상세보기와 RunningSessionEntriesContent 상태/장소/거리 문구를 Medium으로 조정했다. ProfileContent의 항목명은500-600, 탈퇴 안내와 수신 라벨은500-400을 사용하고 회원정보 수정 버튼은 기본 문구 표현을 따른다. MembershipRewards의 등급 조건·혜택 제목·고객명은 Medium, 혜택 본문 제목과 구매금액 라벨은500-400을 사용한다. 출처: 이번 커밋의 위4개 소스 인덱스. 실행 화면 검증은 수행하지 않았다.
+
+## 로그인·고객센터 굵기 반영 (2026-11-20)
+
+스테이징된 LoginContent 계정찾기, SupportContacts의 TEL·운영시간·평일, FaqContent 질문, InquiryListContent 상태 배지, OrderProductSummary 구매 문구를 Medium으로 선택한다. FAQ 검색 버튼은 Bold이며 기존 강제 Regular 스타일을 제거한다. SidebarNavigationGroup 항목 타입에 선택적 labelWeight를 추가하되 이번 스테이징에는 실제 메뉴 굵기 연결 구현이 포함되지 않는다. 출처: 위6개 소스의 Git 인덱스. 브라우저 검증은 수행하지 않았다.

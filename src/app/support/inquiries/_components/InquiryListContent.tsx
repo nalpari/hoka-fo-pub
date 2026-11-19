@@ -52,6 +52,7 @@ function InquiryQuestion({ item }: Props) {
           <Badge
             visual="round"
             variant={item.answered ? 'filled' : 'outlined'}
+            weight="medium"
             tone={item.answered ? 'tertiary' : 'primary'}
           >
             {item.answered ? '답변완료' : '접수완료'}

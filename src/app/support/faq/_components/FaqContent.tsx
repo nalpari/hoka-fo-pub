@@ -48,7 +48,6 @@ const styles = {
     '--button-height': '48px',
     _mobile: { '--button-height': '42px' },
   }),
-  searchButtonLabel: css({ '&&': { fontWeight: '400', lineHeight: '1.3' } }),
 };
 
 type Props = {
@@ -96,7 +95,7 @@ function FaqSearch({ query, onQueryChange }: FaqSearchProps) {
         />
       </Box>
       <Button type="submit" variant="primary" size="tall" className={styles.searchButton}>
-        <Typography web="cta1" mo="cta1-1" weight="regular" className={styles.searchButtonLabel}>
+        <Typography web="cta1" mo="cta1-1" weight="bold">
           검색
         </Typography>
       </Button>
@@ -137,7 +136,7 @@ function FaqQuestion({ question }: FaqQuestionProps) {
       <Typography as="span" variant="body2" className={css({ flexShrink: 0, w: '17px' })}>
         Q
       </Typography>
-      <Typography as="span" variant="headingKr9">
+      <Typography as="span" variant="headingKr9" weight="medium">
         {question}
       </Typography>
     </HStack>
