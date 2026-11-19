@@ -21,6 +21,7 @@ import {
   useState,
 } from 'react';
 import { type Platform, PlatformProvider, usePlatform } from '@/context/platform';
+import { ShopPreviewLogoutContext } from '@/context/ShopPreviewContext';
 import { useRecentSearches } from '@/hooks/useRecentSearches';
 import { useScrollPin } from '@/lib/useScrollPin';
 
@@ -2317,11 +2318,21 @@ function HeaderTools({
         error={searchError}
         open={searchOpen}
       />
-      <HStack data-search-panel-anchor gap={platform === 'mobile' ? '6px' : '4px'}>
-        <HeaderAccount isLoggedIn={isLoggedIn} wishlistCount={wishlistCount} />
+      <HStack data-search-panel-anchor gap={platform === 'mobile' ? '6px' : '16px'}>
+        <HStack gap="4px">
+          <HeaderAccount isLoggedIn={isLoggedIn} wishlistCount={wishlistCount} />
+          {platform === 'web' ? (
+            isLoggedIn ? (
+              <Link href="/mypage" className={authLink}>
+                <Typography variant="body3">마이페이지</Typography>
+              </Link>
+            ) : (
+              <HeaderAuthLink />
+            )
+          ) : null}
+        </HStack>
         <HeaderCartLink cart={cart} />
       </HStack>
-      {platform === 'web' && !isLoggedIn ? <HeaderAuthLink /> : null}
     </Flex>
   );
 }
@@ -2860,23 +2871,27 @@ export function ShopShell({
   readonly children: ReactNode;
 }) {
   const pathname = usePathname();
+  // [ 개발팀 바인딩 ] 퍼블리싱 로그아웃 확인은 Context를 통해 로그인 표시만 해제합니다. 인증 요청·저장은 없으며 셸 재마운트 시 초기 state를 사용합니다.
+  const [previewLoggedOut, setPreviewLoggedOut] = useState(false);
 
   if (pathname === '/wh') return children;
 
   return (
-    <PlatformProvider platform={platform}>
-      <ShopFrame>
-        <AppLayout
-          cart={state?.cartCount ?? 12}
-          isLoggedIn={state?.isLoggedIn ?? false}
-          wishlistCount={state?.wishlistCount ?? 3}
-          recentCount={state?.recentCount ?? 7}
-        >
-          {children}
-        </AppLayout>
-        <BackToTop />
-      </ShopFrame>
-    </PlatformProvider>
+    <ShopPreviewLogoutContext.Provider value={() => setPreviewLoggedOut(true)}>
+      <PlatformProvider platform={platform}>
+        <ShopFrame>
+          <AppLayout
+            cart={state?.cartCount ?? 12}
+            isLoggedIn={!previewLoggedOut && (state?.isLoggedIn ?? false)}
+            wishlistCount={state?.wishlistCount ?? 3}
+            recentCount={state?.recentCount ?? 7}
+          >
+            {children}
+          </AppLayout>
+          <BackToTop />
+        </ShopFrame>
+      </PlatformProvider>
+    </ShopPreviewLogoutContext.Provider>
   );
 }
 function ShopFrame({ children }: { children: ReactNode }) {

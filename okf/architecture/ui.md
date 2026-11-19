@@ -4,12 +4,13 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-18T08:42:14.056296+00:00'
+updated: '2026-11-19'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/context/ShopPreviewContext.ts
   - src/components/common/molecules/ContentHeader.tsx
   - src/app/support/notices/_components/NoticesList.tsx
   - src/components/common/organisms/Address/AddressList.tsx
@@ -5995,3 +5996,17 @@ FAQ Accordion root가 DataList top strong과 faqAccordion 유형으로 기존 �
 ## 공지 머리글 열 정렬 (2026-11-19)
 
 제공된 공지 목록 PC 시안의 제목 fill 열/등록일 hug 열 중앙 정렬을 DataList noticeColumns에 반영했다. 제목은flex1/minWidth0/중앙, 등록일은flexShrink0/중앙이며 기존 padding16/32px·글자16px/600·하단선·본문 정렬은 유지한다. 사용자 요청은 정렬 범위이므로 시안의 다른 타이포 차이를 일괄 반영하지 않았다. 모바일 머리글 숨김은 유지한다. PC1920 목록844px에서 제목열739.47px·날짜열104.53px과 두 셀 중앙 정렬을 계산값으로 확인했다. MO375의 기존 머리글 숨김도 확인했다. 타입·Panda·대상 lint/format·소스그래프를 수행했다. 출처: [공지 목록 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design).
+
+## PC 헤더 account 링크 배치 (2026-11-19)
+
+PC 헤더는 검색 → account 아이콘 및 상태별 텍스트 → 장바구니 순서다. account와 텍스트는 4px, 이 묶음과 장바구니는 PC16px 간격을 사용한다. 로그인 시 `마이페이지`, 비로그인 시 `로그인 | 회원가입`이며 기존 회원 이름 표시는 제거했다. 모바일의 account·장바구니 간격6px과 텍스트 미표시는 유지한다. PC1572px 스크린샷·좌표 및 MO390px DOM을 확인했고 대상 ESLint·전체 TypeScript 검사를 통과했다. 비로그인 화면의 브라우저 검증은 미실행이다.
+
+출처: `src/context/ShopShell.tsx` 작업 트리와 localhost 실행 화면; Codex 작성·검토, 2026-11-19.
+
+## 로그아웃 확인의 로컬 헤더 전환 (2026-11-19)
+
+마이페이지 로그아웃 확인은 셸의 퍼블리싱 전용 로그인 표시 해제 Context를 호출한 뒤 창을 닫는다. 확인창 닫기는 표시를 유지한다. PC·모바일의 기존 헤더 조건부 UI를 공유하며 새로운 인증 화면이나 복제 트리를 만들지 않는다.
+
+출처: `src/context/ShopShell.tsx`, `src/context/ShopPreviewContext.ts`, `src/app/mypage/_components/MyPageContent.tsx` 작업 트리; Codex 작성, 2026-11-19.
+
+검증(2026-11-19, Codex): 브라우저 PC에서 확인창 닫기 후 마이페이지 표시 유지, 확인 후 로그인·회원가입 링크(`/login`·`/signup`) 전환과 현재 경로 유지, 새로고침 후 초기 표시 복구를 확인했다. MO390px 확인 후 account 마이페이지 아이콘 제거도 확인했다. 대상 ESLint·Prettier 및 전체 TypeScript 검사 통과.

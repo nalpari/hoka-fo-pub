@@ -3,6 +3,7 @@ import Link from 'next/link';
 
 import { useState } from 'react';
 import { usePlatform } from '@/context/platform';
+import { useShopPreviewLogout } from '@/context/ShopPreviewContext';
 
 import { css } from 'styled-system/css';
 import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
@@ -256,10 +257,11 @@ function MyPageMenuSection({ title, items }: { title: string; items: MyPageMenuI
   );
 }
 
-/** [ 개발팀 바인딩 ] PC·모바일 상단 로그아웃은 이 owner의 logoutOpen을 공유합니다. previewLogout은 확인창의 초기 표시만 지정하며, 확인·취소는 인증 변경·로그아웃 요청 없이 확인창만 닫습니다. 실제 인증 종료 요청과 pending·실패 처리 및 완료 후 화면 갱신은 인증 연동 소유자가 연결해야 하는 미연동 경계입니다. */
+/** [ 개발팀 바인딩 ] PC·모바일 로그아웃 확인은 ShopShell의 퍼블리싱 전용 Context로 헤더 로그인 표시만 해제하고 창을 닫습니다. 닫기는 표시 상태를 유지하며 previewLogout은 확인창 초기 표시만 지정합니다. 인증 요청·저장·완료 이동은 없고 새로고침하면 초기 fixture로 돌아갑니다. 실제 인증 종료와 pending·실패·성공 후 갱신은 인증 연동 소유자가 연결해야 합니다. */
 /** 마이페이지 요약과 메뉴를 구성하고 로그아웃을 연결합니다. (Composes the account overview and menus and connects logout.) */
 export function RouteContent({ previewLogout = false }: { previewLogout?: boolean }) {
   const [logoutOpen, setLogoutOpen] = useState(previewLogout);
+  const logoutPreview = useShopPreviewLogout();
 
   return (
     <>
@@ -283,6 +285,7 @@ export function RouteContent({ previewLogout = false }: { previewLogout?: boolea
         open={logoutOpen}
         onOpenChange={setLogoutOpen}
         onConfirm={() => {
+          logoutPreview?.();
           setLogoutOpen(false);
         }}
       />

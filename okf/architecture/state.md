@@ -4,12 +4,13 @@ title: '공통 상태와 데모 데이터'
 description: '로그인, 장바구니와 목 데이터의 수명 및 제약을 설명한다.'
 tags: [react, state, mock-data]
 status: draft
-updated: '2026-11-17T06:02:07.510649+00:00'
+updated: '2026-11-19'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
 source_revision: 84b1d96781349d795089b9e2f737aad11a02172d
 working_tree_sources:
+  - src/context/ShopPreviewContext.ts
   - src/context/ShopShell.tsx
   - src/app/checkout/checkout-address-preview.ts
   - src/context/ShopShell.tsx
@@ -819,3 +820,19 @@ CheckoutShipping의 dialog 폼은 기존 ShippingDraft에 addressName을 추가�
 출처: `src/components/catalog/ProductListingPage.tsx`, `src/context/ShopShell.tsx` 작업 트리; Codex 작성, 2026-11-17. TypeScript와 대상 ESLint·Prettier를 통과했다. 브라우저에서 PC Clifton 결과 2건과 정렬, 390px 모바일 일반 결과·필터 버튼 및 검색 패널 미표시를 확인했다. 실제 검색 API는 연결하지 않았다.
 
 - 머지 충돌 해결 후 회원정보 편집 화면과 모바일 검색 화면의 셸 분기를 복구했다.
+
+## PC 헤더 로그인 표시 (2026-11-18)
+
+`김호카 님`을 표시하던 이전 규칙은 2026-11-19 사용자 요청으로 대체했다. `ShopShell`의 `HeaderTools`는 PC(`web`)에서 account 아이콘 바로 오른쪽에 기존 `isLoggedIn`이 true이면 `/mypage`의 `마이페이지`, false이면 기존 `로그인 | 회원가입` 링크를 body3로 표시한다. 장바구니는 이 묶음 오른쪽에 위치한다. 모바일 상태·메뉴와 인증 소유권은 유지한다.
+
+출처: `src/context/ShopShell.tsx` 작업 트리. 대상 ESLint와 전체 TypeScript 검사를 통과했다. 브라우저 시각 검증은 수행하지 않았다.
+
+후속 검증(2026-11-19, Codex): localhost PC1572px의 로그인 링크 위치와 `/mypage` href, MO390px의 텍스트 미표시·기존 아이콘을 확인했다. 비로그인 분기는 코드로 검토했으며 브라우저에서 상태를 바꾸어 검증하지 않았다. 대상 ESLint와 전체 TypeScript 검사 통과. 출처: `src/context/ShopShell.tsx` 작업 트리.
+
+## 로그아웃 확인의 로컬 헤더 전환 (2026-11-19)
+
+마이페이지 로그아웃 확인은 `ShopPreviewLogoutContext`로 `ShopShell`의 로컬 `previewLoggedOut`만 true로 변경한다. PC 헤더는 `로그인 | 회원가입`으로 전환하고 모바일 account도 비로그인 표시를 따른다. 확인창 닫기는 상태를 유지한다. 새로고침·셸 재마운트 시 초기 로그인 fixture로 복귀한다. 실제 인증·요청·저장·완료 이동은 없으며 이전 확인창만 닫는 규칙을 이 사용자 요청 범위에서 대체한다. Context가 없는 단독 화면에서는 확인창만 닫는다.
+
+출처: `src/context/ShopShell.tsx`, `src/context/ShopPreviewContext.ts`, `src/app/mypage/_components/MyPageContent.tsx` 작업 트리; Codex 작성, 2026-11-19.
+
+검증(2026-11-19, Codex): 브라우저 PC에서 확인창 닫기 후 마이페이지 표시 유지, 확인 후 로그인·회원가입 링크(`/login`·`/signup`) 전환과 현재 경로 유지, 새로고침 후 초기 표시 복구를 확인했다. MO390px 확인 후 account 마이페이지 아이콘 제거도 확인했다. 대상 ESLint·Prettier 및 전체 TypeScript 검사 통과.

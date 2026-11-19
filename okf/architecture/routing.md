@@ -4,12 +4,14 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-18T07:19:22.060587+00:00'
+updated: '2026-11-19'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/context/ShopPreviewContext.ts
+  - src/context/ShopShell.tsx
   - src/app/collection/page.tsx
   - src/app/collection/_components/SpecialExhibitionContent.tsx
   - src/app/collection/_components/specialExhibition.data.ts
@@ -2341,3 +2343,17 @@ FAQ Accordion root가 DataList top strong과 faqAccordion 유형으로 기존 �
 ## 공지 머리글 열 정렬 (2026-11-19)
 
 제공된 공지 목록 PC 시안의 제목 fill 열/등록일 hug 열 중앙 정렬을 DataList noticeColumns에 반영했다. 제목은flex1/minWidth0/중앙, 등록일은flexShrink0/중앙이며 기존 padding16/32px·글자16px/600·하단선·본문 정렬은 유지한다. 사용자 요청은 정렬 범위이므로 시안의 다른 타이포 차이를 일괄 반영하지 않았다. 모바일 머리글 숨김은 유지한다. PC1920 목록844px에서 제목열739.47px·날짜열104.53px과 두 셀 중앙 정렬을 계산값으로 확인했다. MO375의 기존 머리글 숨김도 확인했다. 타입·Panda·대상 lint/format·소스그래프를 수행했다. 출처: [공지 목록 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design).
+
+## PC 헤더 account 링크 배치 (2026-11-19)
+
+PC 헤더의 상태별 텍스트를 account 아이콘 오른쪽으로 이동했다. 로그인 텍스트는 Next Link의 `/mypage`, 비로그인 링크는 기존 `/login`·`/signup`을 사용한다. 경로·라우트 소유권·인증 상태·플랫폼 전환 규칙은 변경하지 않았다. PC 브라우저에서 마이페이지 href와 MO390px의 추가 텍스트 미표시를 확인했다.
+
+출처: `src/context/ShopShell.tsx` 작업 트리와 localhost 실행 화면; Codex 작성·검토, 2026-11-19.
+
+## 로그아웃 확인의 로컬 헤더 전환 (2026-11-19)
+
+로그아웃 확인 후 현재 `/mypage` 경로를 유지하고 공통 헤더 표시만 로컬로 변경한다. 기존 로그인 `/login`·회원가입 `/signup` 링크 및 확인창 직접 상태 URL은 유지한다. 인증 종료나 홈 이동은 구현하지 않는다.
+
+출처: `src/context/ShopShell.tsx`, `src/context/ShopPreviewContext.ts`, `src/app/mypage/_components/MyPageContent.tsx` 작업 트리; Codex 작성, 2026-11-19.
+
+검증(2026-11-19, Codex): 브라우저 PC에서 확인창 닫기 후 마이페이지 표시 유지, 확인 후 로그인·회원가입 링크(`/login`·`/signup`) 전환과 현재 경로 유지, 새로고침 후 초기 표시 복구를 확인했다. MO390px 확인 후 account 마이페이지 아이콘 제거도 확인했다. 대상 ESLint·Prettier 및 전체 TypeScript 검사 통과.
