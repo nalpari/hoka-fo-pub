@@ -39,9 +39,8 @@ export function AddressList({
       <ContentSection
         flex={!embedded && !addresses.length ? '1' : undefined}
         css={embedded ? undefined : { '--line-heights-body': '1.5' }}
-        gap={addresses.length ? (embedded ? '8' : '8px') : '0'}
+        gap={addresses.length ? '32px' : '0'}
         _mobile={{
-          gap: addresses.length ? (embedded ? '6' : '8px') : '0',
           pt: embedded ? '0' : '24px',
         }}
         {...(embedded
@@ -74,13 +73,7 @@ export function AddressList({
       >
         {addresses.length ? (
           <Box>
-            <Stack
-              gap={embedded ? '6' : '0'}
-              _mobile={{
-                ...(embedded ? { gap: '6' } : {}),
-                borderTop: undefined,
-              }}
-            >
+            <Stack gap="24px">
               {addresses.map((address) => (
                 <Stack
                   as="article"
@@ -89,7 +82,7 @@ export function AddressList({
                   alignItems="center"
                   justifyContent="space-between"
                   gap="6"
-                  py={embedded ? undefined : '24px'}
+                  pb="24px"
                   borderBottom="1px solid var(--colors-black-20)"
                   _mobile={{
                     flexDirection: 'column',
@@ -113,11 +106,9 @@ export function AddressList({
                       gap="3"
                       _mobile={{ gap: '2' }}
                       action={
-                        address.isDefault || !embedded ? (
-                          <Badge variant="outlined" visual="square">
-                            {address.isDefault ? '기본 배송지' : '일반 배송지'}
-                          </Badge>
-                        ) : null
+                        <Badge variant="outlined" visual="square">
+                          {address.isDefault ? '기본 배송지' : '일반 배송지'}
+                        </Badge>
                       }
                     />
                     <Stack
