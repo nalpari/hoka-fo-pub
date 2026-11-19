@@ -6077,3 +6077,7 @@ PC1461/MO375에서 선택700·미선택400, 탭 전환 후 굵기 이동과 STEP
 최종 실행 검증: PC viewport1935/client1920과MO390/client375에서5개탭 총10개 상태를직접열어계산값과스크린샷을대조했다. 추가MO375/client360에서도전화링크·순서·카드간격·버튼400/18.2px·검정요약색과가로넘침없음을확인했다. LNB는PC1253px의/support·size-guide·after-sales·care·faq·notices·member-benefits7개경로에서각행46px·행간30px·nav676px·aside750px와동일y좌표를확인했다. MO631에서는support aside가display:none이고PC복귀시같은높이를유지한다. 실제LNB링크이동·관리탭방향키/Enter·앵커top68px도확인했다.
 
 대상ESLint/Prettier·전체TypeScript·Panda·소스그래프·production build(정적페이지164개)·git diff공백검사와OKF미갱신문서없음을확인했다. 마지막hoka-markup-handoff검토에서기존Panda구조·HTML목록·공통옵션기본값·플랫폼/포커스·표시데이터/서비스책임을유지함을확인했다. 공통헤더·모바일플랫폼기준·서비스API는수정하지않았다. 전화앱실행이나운영서버연동은검증하지않았다.
+
+## Typography 선택적 굵기 조합 추가 (2026-11-19)
+
+Typography의 선택적 weight에 PC-MO 조합 400-500, 500-400, 500-600, 500-700, 600-500, 700-500, 900-500, 900-600, 900-700을 추가하고 TypographyWeight를 recipe에서 유도해 내보낸다. 기존 단일 굵기와 inherit은 유지하며 생략·undefined는 선택 variant의 굵기를 따른다. 출처: src/components/common/atoms/Typography.tsx의 스테이징 변경, Codex 검토. 대상 ESLint 통과; 브라우저 실행 검증은 수행하지 않았다.
