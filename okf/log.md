@@ -3277,3 +3277,5 @@ Figma Navigational Buttons(296:25392)와 Action Buttons(296:25425)의 기본·�
 - 주문·결제 웹 주문내역은 제목 22px, 금액 항목명 15px·숫자와 원 단위 16px, 총 결제 항목명 16px·금액 18px, 쿠폰 안내·동의·전문보기·조회하기 14px을 사용한다.
 
 - 주문·결제 주문내역의 웹 총액 위 패딩 20px, 동의란 뒤 간격 28px, 조회 버튼 높이 40px을 반영한다. 모바일은 금액 목록·총액을 각각 좌우 16px·상하 20px로 표시하고, 동의 항목 간격은 16px이다.
+
+- 공통 모달 닫기 버튼과 퍼블리싱 가이드에 [HOKA 디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql)의 xmark-large 18px 자산을 적용한다.
