@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { css } from 'styled-system/css';
 import { HStack, Stack } from 'styled-system/jsx';
 
+import { dataListRecipe } from '@/components/common/atoms/DataList.recipe';
 import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { Typography } from '@/components/common/atoms/Typography';
 
@@ -49,7 +50,6 @@ const noticeLink = css({
   minH: '74px',
   px: '16px',
   py: '24px',
-  borderBottom: '1px solid token(colors.black.20)',
   _mobile: { minH: '58px', px: '0', py: '16px' },
   _focusVisible: {
     outline: '2px solid var(--color-focus-ring)',
@@ -64,30 +64,37 @@ export function NoticesList({ notices, shown, platform, pending, error }: Notice
       as="section"
       aria-label="공지사항 목록"
       gap="0"
-      borderTopColor="black.100"
-      borderTopStyle="solid"
-      borderTopWidth={{ base: '2px', _mobile: '0' }}
+      className={
+        dataListRecipe({
+          top: 'desktopStrong',
+          headerTypography: 'compactSemibold',
+          cellVariant: 'noticeColumns',
+        }).root
+      }
     >
       <HStack
+        data-list-header
         aria-hidden="true"
         justifyContent="space-between"
         gap="0"
-        py="4"
-        mb="2"
-        borderBottom="1px solid black"
         _mobile={{ display: 'none' }}
+        mb="8px"
+        className={dataListRecipe({ density: 'compact' }).header}
       >
-        <Typography variant="heading10" className={css({ px: '4' })}>
-          제목
-        </Typography>
-        <Typography variant="heading10" className={css({ px: '8' })}>
-          등록일
-        </Typography>
+        <span data-list-cell="title">제목</span>
+        <span data-list-cell="date">등록일</span>
       </HStack>
       {!notices.length && !pending && !error ? (
         <EmptyState title="등록된 공지사항이 없습니다." variant="plain" layout="notices" />
       ) : null}
-      <Stack as="ul" gap="0" m="0" p="0" listStyleType="none">
+      <Stack
+        as="ul"
+        gap="0"
+        m="0"
+        p="0"
+        listStyleType="none"
+        className={dataListRecipe().linkedList}
+      >
         {notices.slice(0, shown).map((notice, index) => (
           <li key={notice.id ?? `${notice.title}-${index}`}>
             <Link

@@ -34,6 +34,10 @@ import {
 } from '@/app/checkout/checkout-address-preview';
 import type { Address } from '@/types/mypage-address.types';
 
+const styles = {
+  addressListContent: css({ '&::before': { display: 'none' } }),
+};
+
 const fields = [
   {
     name: 'name',
@@ -431,6 +435,7 @@ export function CheckoutShipping({
             }
             variant="form"
             formLayout="divided"
+            contentClassName={addressView === 'list' ? styles.addressListContent : undefined}
             mobilePresentation="fullscreen"
             closeLabel="배송지 변경 닫기"
             open={addressChangeOpen}

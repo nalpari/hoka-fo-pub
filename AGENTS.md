@@ -62,7 +62,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 - **테이블형 빈 안내 공통 규칙 (2026-11-18):** `EmptyState variant="plain"`을 테이블형 목록 안에 배치할 때 PC 영역 최소 높이는 220px, 모바일 영역 높이는 120px이며 문구 최대 너비는 320px, 가로·세로 중앙 정렬이다. 모바일 좌우 여백은 12px을 유지하고 좁은 화면에서는 문구가 줄어들 수 있게 한다. `EmptyState.recipe.tsx`의 `layout="table"` 또는 기존 테이블형 layout(notices/claimHistory/orderSummary)에 공통 규칙을 적용한다. 일반 검색·페이지형 plain과 기존 명시적 standard에는 일괄 적용하지 않는다. 과거 시안의 높이보다 이 사용자 확정 규칙이 우선한다.
 
-- **공통 더보기 UI 규칙 (2026-11-18):** `Button.loadMore`는 콜백 미연결만을 이유로 `disabled` 처리하지 않는다. 고정 퍼블리싱 fixture의 더보기는 정상 표시를 유지하고 임의 조회 동작을 만들지 않는다. 실제 pending 또는 명시적 사용 불가 사유가 있는 disabled는 유지한다. 더보기 숫자의 `fontWeight`는 `inherit`로 통일하며 별도 굵기를 주지 않는다.
+- **공통 더보기 UI 규칙 (2026-11-18):** `Button.loadMore`는 콜백 미연결만을 이유로 `disabled` 처리하지 않는다. 고정 퍼블리싱 fixture의 더보기는 정상 표시를 유지하고 임의 조회 동작을 만들지 않는다. 실제 pending 또는 명시적 사용 불가 사유가 있는 disabled는 유지한다. 더보기 문구와 숫자의 `fontWeight`는 PC·모바일 모두 항상 `400`으로 고정한다. 부모나 호출부의 굵기 설정으로 변경하지 않는다.
 
 ### EmptyState fixed design rule
 

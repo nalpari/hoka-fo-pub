@@ -9,6 +9,7 @@ import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
 import { Checkbox } from '@/components/common/atoms/Checkbox';
+import { dataListRecipe } from '@/components/common/atoms/DataList.recipe';
 import { Icon } from '@/components/common/atoms/Icon';
 import { NumberStepper } from '@/components/common/atoms/NumberStepper';
 import { Typography } from '@/components/common/atoms/Typography';
@@ -57,10 +58,8 @@ function CartProductItem({
         base: '16px 144px minmax(0, 1fr) 108px 86px 20px',
         _mobile: '16px 96px minmax(0, 1fr) 20px',
       }}
-      columnGap={{ base: '16px', _mobile: '8px' }}
       rowGap="0"
       py={{ base: '16px', _mobile: '24px' }}
-      borderBottom="1px solid var(--colors-black-20)"
       alignItems="start"
     >
       <Checkbox
@@ -183,11 +182,7 @@ export function CartProductSection({ rows }: { rows: readonly CartPreviewRow[] }
   // [ 개발팀 바인딩 ] rows는 고정 표시 데이터입니다. 체크·수량·옵션 초안만 로컬로 변경하며 합계·삭제·저장·주문은 미연결입니다. 장바구니 소유자가 상품/옵션 ID와 초안을 요청에 연결하고 pending·실패 시 초안 유지·재시도·성공 후 목록과 금액 갱신을 담당합니다.
   return (
     <Stack gap="0">
-      <HStack
-        justifyContent="space-between"
-        pb="16px"
-        borderBottom="1px solid var(--colors-black-20)"
-      >
+      <HStack justifyContent="space-between" pb="16px">
         <Checkbox
           aria-label="전체 상품 선택"
           checked={availableKeys.length > 0 && selectedKeys.length === availableKeys.length}
@@ -202,7 +197,12 @@ export function CartProductSection({ rows }: { rows: readonly CartPreviewRow[] }
           선택 삭제
         </Button>
       </HStack>
-      <Stack as="ul" gap="0" listStyleType="none">
+      <Stack
+        as="ul"
+        gap="0"
+        listStyleType="none"
+        className={dataListRecipe({ top: 'thinSubtle', columnGap: 'productControls' }).root}
+      >
         {rows.map((row) => {
           const key = itemKey(row.item);
           return (

@@ -58,6 +58,7 @@
       "src/app/cart/cart-item.ts",
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Checkbox.tsx",
+      "src/components/common/atoms/DataList.recipe.tsx",
       "src/components/common/atoms/Icon.tsx",
       "src/components/common/atoms/NumberStepper.tsx",
       "src/components/common/atoms/Typography.tsx",
@@ -163,6 +164,7 @@
       "src/data/addressPreview.ts"
     ],
     "src/app/checkout/_components/CheckoutSummary.tsx": [
+      "src/components/common/atoms/DataList.recipe.tsx",
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/ContentSection.tsx",
       "src/components/common/molecules/OrderProductSummary.tsx",
@@ -384,6 +386,7 @@
     ],
     "src/app/mypage/_components/MyPageProductHistory.tsx": [
       "src/app/mypage/_components/MyPageFrame.tsx",
+      "src/components/common/atoms/DataList.recipe.tsx",
       "src/components/common/atoms/Divider.tsx",
       "src/components/common/atoms/EmptyState.tsx",
       "src/components/common/atoms/Typography.tsx",
@@ -488,6 +491,7 @@
     "src/app/mypage/orders/_components/OrderClaimRequest.tsx": [
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Checkbox.tsx",
+      "src/components/common/atoms/DataList.recipe.tsx",
       "src/components/common/atoms/Dropdown.tsx",
       "src/components/common/atoms/NumberStepper.tsx",
       "src/components/common/atoms/Typography.tsx",
@@ -515,6 +519,7 @@
     "src/app/mypage/orders/_components/OrdersList.tsx": [
       "src/app/mypage/orders/_components/OrdersProducts.tsx",
       "src/app/mypage/orders/_components/OrdersStatus.tsx",
+      "src/components/common/atoms/DataList.recipe.tsx",
       "src/components/common/atoms/EmptyState.tsx",
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/molecules/DateRangeSearch.tsx",
@@ -540,6 +545,7 @@
       "src/components/common/atoms/Typography.tsx"
     ],
     "src/app/mypage/orders/_components/OrderTrackingDialog.tsx": [
+      "src/components/common/atoms/DataList.recipe.tsx",
       "src/components/common/layouts/ModalDialog.recipe.tsx",
       "src/components/common/layouts/ModalDialog.tsx",
       "src/components/common/molecules/StepIndicator.tsx"
@@ -631,6 +637,7 @@
       "src/app/mypage/_components/MyPageFrame.tsx",
       "src/app/mypage/reviews/reviewFixtures.ts",
       "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/DataList.recipe.tsx",
       "src/components/common/atoms/Dropdown.tsx",
       "src/components/common/atoms/EmptyState.tsx",
       "src/components/common/atoms/FormField.tsx",
@@ -702,6 +709,7 @@
       "src/components/common/atoms/Accordion.tsx",
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Checkbox.tsx",
+      "src/components/common/atoms/DataList.recipe.tsx",
       "src/components/common/atoms/DescriptionList.tsx",
       "src/components/common/atoms/Divider.tsx",
       "src/components/common/atoms/EmptyState.tsx",
@@ -1085,6 +1093,7 @@
       "src/app/support/support.navigation.ts",
       "src/components/common/atoms/Accordion.tsx",
       "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/DataList.recipe.tsx",
       "src/components/common/atoms/EmptyState.tsx",
       "src/components/common/atoms/FilterTabs.tsx",
       "src/components/common/atoms/Icon.tsx",
@@ -1238,12 +1247,14 @@
       "src/context/platform.tsx"
     ],
     "src/app/support/notices/_components/NoticesList.tsx": [
+      "src/components/common/atoms/DataList.recipe.tsx",
       "src/components/common/atoms/EmptyState.tsx",
       "src/components/common/atoms/Typography.tsx"
     ],
     "src/app/support/notices/[id]/page.tsx": [
       "src/app/support/notices/notices.data.ts",
       "src/app/support/support.navigation.ts",
+      "src/components/common/atoms/DataList.recipe.tsx",
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/molecules/ContentHeader.tsx",
       "src/components/common/organisms/SystemStatusPage.tsx",
@@ -1374,6 +1385,7 @@
       "src/components/common/atoms/Icon.tsx",
       "src/components/common/atoms/Typography.tsx"
     ],
+    "src/components/common/atoms/DataList.recipe.tsx": [],
     "src/components/common/atoms/DataTable.tsx": ["src/components/common/atoms/Typography.tsx"],
     "src/components/common/atoms/DescriptionList.tsx": [
       "src/components/common/atoms/Typography.tsx"
@@ -1402,7 +1414,8 @@
     "src/components/common/atoms/Icon.tsx": ["src/components/common/atoms/Icon.assets.ts"],
     "src/components/common/atoms/NumberStepper.tsx": [
       "src/components/common/atoms/FormField.tsx",
-      "src/components/common/atoms/Icon.tsx"
+      "src/components/common/atoms/Icon.tsx",
+      "src/context/platform.tsx"
     ],
     "src/components/common/atoms/Radio.tsx": [
       "src/components/common/atoms/FormField.tsx",
@@ -1448,7 +1461,9 @@
     "src/components/common/layouts/MainSection.tsx": [
       "src/components/common/layouts/ContentSection.tsx"
     ],
-    "src/components/common/layouts/ModalDialog.recipe.tsx": [],
+    "src/components/common/layouts/ModalDialog.recipe.tsx": [
+      "src/components/common/atoms/DataList.recipe.tsx"
+    ],
     "src/components/common/layouts/ModalDialog.tsx": [
       "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Icon.tsx",
@@ -1610,6 +1625,7 @@
     "src/components/common/organisms/Address/AddressList.tsx": [
       "src/components/common/atoms/Badge.tsx",
       "src/components/common/atoms/Button.tsx",
+      "src/components/common/atoms/DataList.recipe.tsx",
       "src/components/common/atoms/EmptyState.tsx",
       "src/components/common/atoms/Typography.tsx",
       "src/components/common/layouts/ContentSection.tsx",

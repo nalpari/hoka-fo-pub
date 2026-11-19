@@ -7,6 +7,7 @@ import { HStack, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
 import { Checkbox } from '@/components/common/atoms/Checkbox';
+import { dataListRecipe } from '@/components/common/atoms/DataList.recipe';
 import { Dropdown } from '@/components/common/atoms/Dropdown';
 import { NumberStepper } from '@/components/common/atoms/NumberStepper';
 import { Typography } from '@/components/common/atoms/Typography';
@@ -58,9 +59,17 @@ export function OrderClaimRequest({
         <Typography as="h2" variant="body3Semibold" className={classes.sectionTitle}>
           상품 선택
         </Typography>
-        <Stack css={styles.products}>
+        <Stack
+          css={
+            dataListRecipe.raw({
+              top: 'thinStrong',
+              columnGap: 'unchanged',
+              itemLayout: 'productSelection',
+            }).root
+          }
+        >
           {order.items.map((line) => (
-            <HStack key={line.key} css={styles.product}>
+            <HStack key={line.key} data-list-item>
               <Checkbox
                 label=""
                 aria-label={`${line.name} ${line.key} ${name} 선택`}

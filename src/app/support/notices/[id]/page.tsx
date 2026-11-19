@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation';
 import { css } from 'styled-system/css';
 import { Box, Stack } from 'styled-system/jsx';
 
+import { dataListBoundaryRecipe } from '@/components/common/atoms/DataList.recipe';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
@@ -45,13 +46,12 @@ export default function Page() {
     >
       <Box
         mt={{ base: '10', _mobile: '8' }}
-        borderTop="2px solid"
-        borderBottomWidth="1px"
-        borderBottomStyle="solid"
-        borderBottomColor="black.20"
-        borderTopColor="black.100"
+        className={dataListBoundaryRecipe({
+          top: 'strongToThin',
+          bottom: 'subtle',
+        })}
         py="6"
-        _mobile={{ py: '4', borderTopWidth: '1px' }}
+        _mobile={{ py: '4' }}
       >
         <ContentHeader
           title={notice.title}
