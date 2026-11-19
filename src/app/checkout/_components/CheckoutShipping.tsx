@@ -222,12 +222,14 @@ function CheckoutSavedAddress({ errors, editButtonRef, onEdit }: CheckoutSavedAd
       >
         <HStack gap="2">
           <Typography variant="body3Medium">{saved.label}</Typography>
-          <Badge variant="outlined" visual="square">기본 배송지</Badge>
+          <Badge variant="outlined" visual="square">
+            기본 배송지
+          </Badge>
         </HStack>
         <Button
           ref={editButtonRef}
           variant="link"
-          size="sm"
+          size="md"
           aria-haspopup="dialog"
           onClick={onEdit}
         >
