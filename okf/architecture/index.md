@@ -1,5 +1,6 @@
 # 아키텍처
 
+- [회원등급 안내 문구](routing.md#회원등급-안내-문구-2026-11-19) - PC·모바일 ELITE 래플 혜택의 임시 괄호 문구 제거.
 
 - [NumberStepper trash 옵션과 아이콘 고정 정책](ui.md#numberstepper-trash-옵션과-아이콘-고정-정책-2026-11-19) - 수량1 trash 활성/비활성 선택과 PC18/MO16px·150% 여백 보정 고정.
 

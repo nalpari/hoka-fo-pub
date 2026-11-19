@@ -20,7 +20,7 @@ export const tiers = [
     benefits: [
       { title: '10% 할인 쿠폰 (*월 1회 지급)', detail: '' },
       { title: '무료 반품 쿠폰 3장(*연 3회 지급)', detail: '' },
-      { title: '스페셜 래플 응모 기회 제공(이벤트, 상품 etc)', detail: '' },
+      { title: '스페셜 래플 응모 기회 제공', detail: '' },
     ],
   },
   {

@@ -11,6 +11,7 @@ generated:
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
   - src/components/common/atoms/EmptyState.recipe.tsx
+  - src/app/mypage/rewards/rewards-data.ts
   - src/components/common/molecules/ContentHeader.tsx
   - src/app/checkout/_components/CheckoutSummary.tsx
   - src/components/common/atoms/DataList.recipe.tsx
@@ -391,6 +392,10 @@ sources:
 ---
 
 # 라우팅과 플랫폼
+
+## 회원등급 안내 문구 (2026-11-19)
+
+`src/app/mypage/rewards/rewards-data.ts`의 ELITE 혜택은 “스페셜 래플 응모 기회 제공”으로 표시한다. PC·모바일은 `RewardsContent.tsx`의 `RewardBenefits`에서 같은 `tiers` 데이터를 사용한다. 괄호 안의 임시 문구만 제거했으며 라우팅·스타일·다른 혜택은 변경하지 않았다. 소스 검색과 공통 렌더링 경로를 확인했으며 브라우저 시각 검증은 수행하지 않았다.
 
 ## 공통 Back to Top의 라우팅 영향 검토 (2026-11-16)
 
