@@ -6005,6 +6005,11 @@ PC 헤더는 검색 → account 아이콘 및 상태별 텍스트 → 장바구�
 
 출처: `src/context/ShopShell.tsx` 작업 트리와 localhost 실행 화면; Codex 작성·검토, 2026-11-19.
 
+
+## 고객센터 배송·관리 안내 갱신 (2026-11-19)
+
+SupportTabs의 care/shipping-returns에만54/44px와 PC20/MO16px 탭 문구를 적용했다. default/guide/terms 옵션은 유지한다. CareInstructions의 care만16/14px 본문과16/10px 목록 간격을 적용하고 상품 상세의 default 데이터·스타일은 보존한다. [화면별 수치와 실행 검증](support-design.md#배송반품과-관리-안내-최신-시안-반영-2026-11-19)을 참고한다. 탭 URL·키보드와 PC/MO 실행을 확인했으며 terms의 기존40px PC 탭도 확인했다.
+
 ## 로그아웃 확인의 로컬 헤더 전환 (2026-11-19)
 
 마이페이지 로그아웃 확인은 셸의 퍼블리싱 전용 로그인 표시 해제 Context를 호출한 뒤 창을 닫는다. 확인창 닫기는 표시를 유지한다. PC·모바일의 기존 헤더 조건부 UI를 공유하며 새로운 인증 화면이나 복제 트리를 만들지 않는다.
@@ -6012,6 +6017,34 @@ PC 헤더는 검색 → account 아이콘 및 상태별 텍스트 → 장바구�
 출처: `src/context/ShopShell.tsx`, `src/context/ShopPreviewContext.ts`, `src/app/mypage/_components/MyPageContent.tsx` 작업 트리; Codex 작성, 2026-11-19.
 
 검증(2026-11-19, Codex): 브라우저 PC에서 확인창 닫기 후 마이페이지 표시 유지, 확인 후 로그인·회원가입 링크(`/login`·`/signup`) 전환과 현재 경로 유지, 새로고침 후 초기 표시 복구를 확인했다. MO390px 확인 후 account 마이페이지 아이콘 제거도 확인했다. 대상 ESLint·Prettier 및 전체 TypeScript 검사 통과.
+
+
+## 배송·반품 탭과 연락처 표시 보정 (2026-11-19)
+
+사용자 화면 코멘트를 우선해 shipping-returns의 선택 탭만700, 미선택400으로 표시한다. 지정 PC 탭의 구조화 데이터는 공통16px/400을 반환했으며 선택 굵기는 사용자 지정 보정값이다. STEP1~6 라벨·운영시간09:00~18:00·TEL.전화번호 전체는500이며 설명 본문400은 유지한다. 반품처 전화080-6666-7777는 usePlatform의 mobile일 때만 밑줄과tel:08066667777 링크를 제공하고 PC에서는 일반 텍스트로 표시한다. 데이터·쿼리·탭 상태 소유자는 유지한다.
+
+PC1461/MO375에서 선택700·미선택400, 탭 전환 후 굵기 이동과 STEP6개500/본문400을 계산값으로 확인했다. 대상 ESLint/Prettier·TypeScript 검사를 수행했고 관련 Panda 스타일을 생성했다. hoka-markup-handoff 기준으로 기존 공통 옵션의 범위·Typography·플랫폼 소유권과 단일 표시 트리를 점검했다. 전체 build는 이번 보정 후 실행하지 않았다. 출처: 사용자 화면 코멘트, [배송·반품 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design), 작업 트리 src/components/common/molecules/SupportTabs.tsx와 src/app/support/after-sales/_components/AfterSalesContent.tsx.
+
+추가 실행 확인: PC1297→MO375→PC1297 리사이즈에서 전화번호 표시 유지·모바일만 밑줄/tel 링크·PC 링크 제거와 운영시간500을 확인했다.
+
+
+## 고객지원 공통 선택 탭·관리 소제목 굵기 (2026-11-19)
+
+사용자 공통 적용 요청에 따라 shipping-returns 한정 선택 굵기를 제거하고 SupportTabs 목록의 active 탭과 표시 span에700을 적용했다. care·shipping-returns·terms·guide·default·scrollable 모두 같은 선택 규칙을 사용한다. 미선택 굵기와 타이포·높이·밑줄·쿼리·키보드 계약은 유지한다. scrollable의 기존800은700으로 통일한다. 관리 안내 CareInstructions는 care 옵션의 번호 소제목만500으로 표시하며 신발10개·의류용품3개가 공유한다. 상품 상세가 사용하는 default 스타일은 유지한다. 출처: 사용자 화면 코멘트와 작업 트리 src/components/common/molecules/SupportTabs.tsx, src/components/care-guide/CareInstructions.tsx.
+
+
+## 관리 목록의 CSS 가운데점 (2026-11-19)
+
+사용자 요청에 따라 CareContent 요약 li와 CareInstructions care 본문 li의 ::before가 가운데점(·)을 표시한다. 문자열 앞 하이픈·HTML 엔티티와 care 전용 별도 기호 span은 제거했다. 기존 Flex/Stack/HStack·ul/li 의미와 PC3열/MO세로·본문 들여쓰기는 유지하며 flex gap으로 줄바꿈의 시작선을 맞춘다. marker는 PC16/24px·MO14/21px, text-subtle색·flexShrink0이다. 번호 소제목500과 본문400은 유지하고 상품 상세 default의 기존 기호는 변경하지 않았다. 이전 엔티티 적용 기록보다 이 구현이 우선한다. 출처: 사용자 화면 코멘트 및 [관리 안내 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design), 작업 트리 CareContent.tsx·CareInstructions.tsx.
+
+검증: PC1398/MO375에서 care·shipping-returns·terms·guide의 선택700/미선택400과 care 탭 전환을 확인했다. 신발10개·의류용품3개 소제목500 및 요약/본문 ::before 가운데점·24/21px 행간·가로 넘침 없음을 확인했고 모바일 신발 스크린샷을 검토했다. 대상 ESLint/Prettier·TypeScript·Panda를 수행했다. default는 publishing-guide 사용처가 있으며 이번 실행 검증에는 포함하지 않았다. scrollable은 실제 라우트 소비자가 없어 코드 분기로 검토했다. hoka-markup-handoff 기준의 소유권·Panda primitive·목록 의미·기본 옵션과 상품 상세 계약 보존을 확인했다. 전체 build는 재실행하지 않았다.
+
+
+## 관리 안내 앵커의 헤더 여백 (2026-11-19)
+
+요약 링크를 눌렀을 때 고정 헤더가 번호 소제목을 가리는 문제를 CareInstructions의 care 옵션 앵커 대상에서 수정했다. scrollMarginTop은 calc(var(--layout-site-header-height) + 16px)이며 기존 공통 헤더 높이PC88/MO52px를 사용한다. native hash 링크·URL·표시 트리·키보드 계약은 유지하고 JS 스크롤이나 공통 헤더 변경은 추가하지 않았다. default 옵션에는 적용하지 않는다. 출처: 사용자 화면 코멘트, 작업 트리 src/components/care-guide/CareInstructions.tsx·기존 src/styles/global.scss의 헤더 변수.
+
+실제 검증: PC1398px에서 첫/여섯 번째 링크 클릭 후 대상top104px, MO631/375px에서top68px를 확인했다. 각각 헤더88/52px 아래16px 여백으로 제목이 노출된다. 대상 ESLint·Panda 생성 통과, Prettier 적용. hoka-markup-handoff 기준으로 기존 native fragment·플랫폼 변수·옵션 범위를 점검했다. 텍스트/스타일 보정 이후 전체 빌드·타입은 재실행하지 않았다.
 
 ## 온라인 회원등급 안내와 공유 본문 (2026-11-19)
 

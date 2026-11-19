@@ -14,6 +14,7 @@ const list = css.raw({
   display: 'flex',
   w: '100%',
   borderBottom: '1px solid token(colors.black.40)',
+  '& [role=tab][data-active], & [role=tab][data-active] span': { fontWeight: '700' },
 });
 
 const tab = css.raw({
@@ -87,6 +88,9 @@ export function SupportTabs({ syncQuery = false, ...props }: SupportTabsProps) {
         className={css(
           list,
           variant === 'care' && { borderBottom: '0' },
+          (variant === 'care' || variant === 'shipping-returns') && {
+            _mobile: { mx: '-4', w: 'calc(100% + 32px)' },
+          },
           (variant === 'scrollable' || variant === 'guide') && {
             overflowX: 'auto',
             borderBottom: '1px solid var(--color-border-subtle)',
@@ -125,14 +129,14 @@ export function SupportTabs({ syncQuery = false, ...props }: SupportTabsProps) {
                       px: '3.5',
                       '&[data-active]': {
                         borderBottomColor: 'var(--color-black-100)',
-                        fontWeight: 'var(--font-weights-extrabold)',
+                        fontWeight: '700',
                       },
                     })
                   : css(
                       tab,
                       (variant === 'care' || variant === 'shipping-returns') && {
-                        h: '42px',
-                        _mobile: { h: '32px' },
+                        h: '54px',
+                        _mobile: { h: '44px' },
                       },
                       variant === 'terms' && { h: '40px', _mobile: { h: '32px' } },
                       variant === 'care' && {
@@ -148,7 +152,14 @@ export function SupportTabs({ syncQuery = false, ...props }: SupportTabsProps) {
               label
             ) : (
               <Typography
-                variant={variant === 'guide' ? 'body4' : 'body3'}
+                web={
+                  variant === 'care' || variant === 'shipping-returns'
+                    ? 'body2'
+                    : variant === 'guide'
+                      ? 'body4'
+                      : 'body3'
+                }
+                mo={variant === 'guide' ? 'body4' : 'body3'}
                 weight={
                   variant === 'guide' ||
                   variant === 'care' ||
@@ -172,7 +183,7 @@ export function SupportTabs({ syncQuery = false, ...props }: SupportTabsProps) {
             variant === 'care' || variant === 'shipping-returns'
               ? css({
                   pt: '10',
-                  _mobile: { pt: variant === 'shipping-returns' ? '8' : '6' },
+                  _mobile: { pt: '8' },
                 })
               : undefined
           }

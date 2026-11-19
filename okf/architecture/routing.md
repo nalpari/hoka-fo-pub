@@ -14,6 +14,8 @@ working_tree_sources:
   - src/components/membership/rewards-data.ts
   - src/components/membership/MembershipRewards.tsx
   - src/context/ShopPreviewContext.ts
+  - src/app/support/after-sales/_components/AfterSalesContent.tsx
+  - src/app/support/care/care.data.ts
   - src/context/ShopShell.tsx
   - src/app/collection/page.tsx
   - src/app/collection/_components/SpecialExhibitionContent.tsx
@@ -2352,6 +2354,11 @@ PC 헤더의 상태별 텍스트를 account 아이콘 오른쪽으로 이동했�
 
 출처: `src/context/ShopShell.tsx` 작업 트리와 localhost 실행 화면; Codex 작성·검토, 2026-11-19.
 
+
+## 배송·관리 안내 시안 갱신 (2026-11-19)
+
+/support/after-sales와/support/care의 기존5개 tab 쿼리 값과 진입점을 유지한다. 고객센터 전용 최신 관리 데이터는 src/app/support/care/care.data.ts에 두며 상품 상세 데이터는 보존한다. 반품 주의사항 표제·내용 순서와6개 STEP 표시를 갱신했다. PC/MO 직접 진입 및 키보드/클릭의 쿼리 전환을 확인했다. 새 상태 URL이나 서비스 요청은 추가하지 않았다. [디자인과 검증](support-design.md#배송반품과-관리-안내-최신-시안-반영-2026-11-19)을 참고한다.
+
 ## 로그아웃 확인의 로컬 헤더 전환 (2026-11-19)
 
 로그아웃 확인 후 현재 `/mypage` 경로를 유지하고 공통 헤더 표시만 로컬로 변경한다. 기존 로그인 `/login`·회원가입 `/signup` 링크 및 확인창 직접 상태 URL은 유지한다. 인증 종료나 홈 이동은 구현하지 않는다.
@@ -2359,6 +2366,23 @@ PC 헤더의 상태별 텍스트를 account 아이콘 오른쪽으로 이동했�
 출처: `src/context/ShopShell.tsx`, `src/context/ShopPreviewContext.ts`, `src/app/mypage/_components/MyPageContent.tsx` 작업 트리; Codex 작성, 2026-11-19.
 
 검증(2026-11-19, Codex): 브라우저 PC에서 확인창 닫기 후 마이페이지 표시 유지, 확인 후 로그인·회원가입 링크(`/login`·`/signup`) 전환과 현재 경로 유지, 새로고침 후 초기 표시 복구를 확인했다. MO390px 확인 후 account 마이페이지 아이콘 제거도 확인했다. 대상 ESLint·Prettier 및 전체 TypeScript 검사 통과.
+
+
+## 반품 안내 표시 코멘트 반영 (2026-11-19)
+
+AfterSalesContent의 STEP·운영시간500과 모바일 전용 전화 링크를 적용했다. PC전화는 일반 문자열이며 기존tab쿼리·이동 경로·준비 데이터 소유권은 유지한다. 상세 표시와 검증은 [고객센터 디자인](support-design.md#배송반품-탭과-연락처-표시-보정-2026-11-19)을 참고한다.
+
+
+## 신발 관리 요약 가운데점 표기 (2026-11-19)
+
+사용자 화면 코멘트에 따라 CareContent의 요약10개 항목 앞 하이픈을 HTML &middot; 엔티티로 바꿔 가운데점(·)을 표시한다. 본문 관리 지침의 하이픈·요약 링크·문구·PC3열/MO세로 배치는 유지한다. 작업 트리 출처: src/app/support/care/_components/CareContent.tsx.
+
+PC1398/MO375에서10개 요약 기호가 모두·이고 모든 앵커 대상이 존재함을 실행 확인했다. 대상 ESLint를 통과했고 Prettier를 적용했다. 텍스트 변경이므로 전체 타입·Panda·빌드는 재실행하지 않았다.
+
+
+## 관리 목록의 CSS 가운데점 (2026-11-19)
+
+사용자 요청에 따라 CareContent 요약 li와 CareInstructions care 본문 li의 ::before가 가운데점(·)을 표시한다. 문자열 앞 하이픈·HTML 엔티티와 care 전용 별도 기호 span은 제거했다. 기존 Flex/Stack/HStack·ul/li 의미와 PC3열/MO세로·본문 들여쓰기는 유지하며 flex gap으로 줄바꿈의 시작선을 맞춘다. marker는 PC16/24px·MO14/21px, text-subtle색·flexShrink0이다. 번호 소제목500과 본문400은 유지하고 상품 상세 default의 기존 기호는 변경하지 않았다. 이전 엔티티 적용 기록보다 이 구현이 우선한다. 출처: 사용자 화면 코멘트 및 [관리 안내 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design), 작업 트리 CareContent.tsx·CareInstructions.tsx.
 
 ## 온라인 회원등급 안내와 공유 본문 (2026-11-19)
 
