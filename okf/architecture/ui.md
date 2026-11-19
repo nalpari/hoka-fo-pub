@@ -6081,3 +6081,31 @@ PC1461/MO375에서 선택700·미선택400, 탭 전환 후 굵기 이동과 STEP
 ## Typography 선택적 굵기 조합 추가 (2026-11-19)
 
 Typography의 선택적 weight에 PC-MO 조합 400-500, 500-400, 500-600, 500-700, 600-500, 700-500, 900-500, 900-600, 900-700을 추가하고 TypographyWeight를 recipe에서 유도해 내보낸다. 기존 단일 굵기와 inherit은 유지하며 생략·undefined는 선택 variant의 굵기를 따른다. 출처: src/components/common/atoms/Typography.tsx의 스테이징 변경, Codex 검토. 대상 ESLint 통과; 브라우저 실행 검증은 수행하지 않았다.
+
+- 주문·결제 수단의 동그란 아이콘을 제거하고 선택 테두리로 표시하며 PC 6열·모바일 3열 카드 간격과 높이를 시안에 맞췄다. 공통 Radio의 선택과 키보드 동작은 유지한다.
+
+- 공통 secondary 버튼의 기본 배경을 투명하게 바꿨다. hover·active·focus·disabled 상태와 다른 variant의 배경은 유지한다.
+
+- 주문·결제 화면의 기본 배송지 뱃지에 흰색 배경을 적용했다.
+
+- 공통 Badge는 children에 표시할 문구를 받고 variant(기본 filled, outlined, plain), visual(채움형·테두리형은 round 또는 square 필수), Typography tone(기본 primary)으로 표현한다. 배송지는 outlined와 square, 러닝세션은 square에 표시 데이터의 배경·글자색을 사용한다. bg는 Panda ColorToken 전체를 받으며, 러닝세션은 citrus.100과 mossGreen.100을 전달한다.
+- 상품 프로모션은 Badge의 plain 스타일로 표시하며 복수 문구의 구분선은 글자색을 따른다. tone은 Typography 톤·Panda 색상 토큰·CSS 색상을 받는다. 러닝세션 사용처에서 web="body4"와 mo="body6"으로 PC 14px·모바일 10px을 지정하고 weight="bold"를 전달한다. 공통 사각 채움 배지 기본값은 body4다. 배지 가이드의 채움형 예시와 복사 코드는 variant="filled"를 명시한다.
+
+- 배지의 최소 높이를 라운드 32px, 사각 29px로 지정하고 공통 줄높이 강제를 제거했다.
+
+- 사각 배지의 웹 줄높이는 Panda의 `_web` 조건으로 1.2를 적용한다.
+
+- 공통 AddressList는 항목 하단 패딩과 항목 사이 간격에 각각 24px을 사용한다. 마이페이지는 제목과 목록 사이에 32px, 주문·결제 모달은 기본 구분선 여백을 사용한다.
+- 마이페이지와 주문·결제 모달은 주소 항목에 기본 배송지 또는 일반 배송지 배지를 표시한다.
+
+- 주문·결제 필수 동의의 두 전문보기 링크는 공통 ButtonLink의 link 스타일과 md 크기를 사용한다.
+
+- 주문·결제 웹 주문내역은 제목 22px, 금액 항목명 15px·숫자와 원 단위 16px, 총 결제 항목명 16px·금액 18px, 쿠폰 안내·동의·전문보기·조회하기 14px을 사용한다.
+
+- 주문·결제 주문내역의 웹 총액 위 패딩 20px, 동의란 뒤 간격 28px, 조회 버튼 높이 40px을 반영한다. 모바일은 금액 목록·총액을 각각 좌우 16px·상하 20px로 표시하고, 동의 항목 간격은 16px이다.
+
+- 공통 모달 닫기 버튼과 퍼블리싱 가이드에 [HOKA 디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql)의 xmark-large 18px 자산을 적용한다.
+
+## 공통 UI 병합 충돌 해결 (2026-11-19)
+
+Typography는 기존 PC-MO weight 조합과 TypographyWeight를 보존하고 Typography.tone의 확장 색상 타입을 가져와 재노출한다. AddressList는 병합 대상의 항목 간격24px·하단 패딩24px·구분선과 공통 배송지 배지를 유지한다. 자동 생성 의존 그래프는 재생성하되 Git 추적 해제를 유지한다. 출처: 병합 양쪽 Typography.tsx·Typography.tone.ts·AddressList.tsx 및 생성 스크립트. Codex가 충돌 구문 부재, 대상 ESLint/Prettier, 전체 TypeScript, form-controls48개 통과를 확인했다. 브라우저 시각 검증은 수행하지 않았다.

@@ -1173,6 +1173,17 @@ const iconGroups: {
         note: '상품 목록 필터 · 펼친 필터 접기 · 16px',
       },
       {
+        label: '모달 닫기 · 18px',
+        registeredName: 'xmark-large',
+        origin: { label: 'Figma', name: 'xmark-large', detail: 'Regular' },
+        preview: <Icon name="xmark-large" size={18} />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="xmark-large" size={18} />`,
+        source: 'ModalDialog.tsx',
+        note: '공통 모달 닫기 아이콘 · 원본 18px',
+      },
+      {
         label: '닫기 기본형 · 18px',
         registeredName: 'xmark-regular',
         origin: { label: 'Font Awesome', name: 'xmark', detail: 'Regular' },
@@ -1216,7 +1227,7 @@ const platform = usePlatform();
         code: `import { Icon } from '@/components/common/atoms/Icon';
 
 <Icon name="xmark-regular" size={20} />`,
-        source: 'SearchHeader.tsx, CartProductSection.tsx, ModalDialog.tsx',
+        source: 'SearchHeader.tsx, CartProductSection.tsx',
         note: '원본 18px · size로 크기 변경 · color로 색상 변경 가능',
       },
       {

@@ -484,6 +484,10 @@ export const iconAssets = {
     src: '/images/icon/hoka-action-plus-regular.svg',
     mode: 'mask',
   },
+  'xmark-large': {
+    src: '/images/icon/xmark-large.svg',
+    mode: 'mask',
+  },
   'xmark-regular': {
     src: '/images/icon/xmark-regular.svg',
     mode: 'mask',

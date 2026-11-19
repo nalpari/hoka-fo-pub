@@ -14,6 +14,7 @@ import { CheckoutContext } from '@/context/CheckoutContext';
 import { css } from 'styled-system/css';
 import { Box, HStack, Stack } from 'styled-system/jsx';
 
+import { Badge } from '@/components/common/atoms/Badge';
 import { Button } from '@/components/common/atoms/Button';
 import { Checkbox } from '@/components/common/atoms/Checkbox';
 import { Dropdown } from '@/components/common/atoms/Dropdown';
@@ -225,14 +226,14 @@ function CheckoutSavedAddress({ errors, editButtonRef, onEdit }: CheckoutSavedAd
       >
         <HStack gap="2">
           <Typography variant="body3Medium">{saved.label}</Typography>
-          <Box border="1px solid var(--colors-black-20)" px="1" py="0.5" borderRadius="2px">
-            <Typography variant="body5">기본 배송지</Typography>
-          </Box>
+          <Badge variant="outlined" visual="square">
+            기본 배송지
+          </Badge>
         </HStack>
         <Button
           ref={editButtonRef}
           variant="link"
-          size="sm"
+          size="md"
           aria-haspopup="dialog"
           onClick={onEdit}
         >

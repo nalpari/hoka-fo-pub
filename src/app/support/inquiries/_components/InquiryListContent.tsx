@@ -50,8 +50,8 @@ function InquiryQuestion({ item }: Props) {
           alignItems={{ base: 'center', _mobile: 'flex-start' }}
         >
           <Badge
-            shape="round"
-            variant={item.answered ? 'filled' : 'line'}
+            visual="round"
+            variant={item.answered ? 'filled' : 'outlined'}
             tone={item.answered ? 'tertiary' : 'primary'}
           >
             {item.answered ? '답변완료' : '접수완료'}

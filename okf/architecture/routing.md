@@ -2402,3 +2402,13 @@ AfterSalesContent의플랫폼별줄바꿈·반품처DOM순서·간격/타이포�
 ## 의존 그래프 추적 해제 (2026-11-19)
 
 자동 생성물 `src/app/screen-index/sourceGraph.generated.json`의 Git 추적만 해제하고 로컬 파일과 IA import 계약은 유지한다. 출처는 Git 인덱스, `.gitignore`, `package.json`, `scripts/screen-files.mjs`다. 파일 부재 상태의 재생성과 이전 내용 일치를 확인했으며 라우트·화면 코드는 변경하지 않았다. 실행 절차는 [로컬 실행](../development/setup.md#자동-생성-의존-그래프-git-추적-해제-2026-11-19)에 기록했다.
+
+- `/publishing-guide?tab=badge`에서 공통 Badge 예시, 웹·모바일 비교 및 사용 코드 복사를 제공한다.
+
+- 주문·결제 화면은 결제 수단을 웹 6열·모바일 3열 카드로 표시하며 선택 상태를 카드 테두리로 구분한다.
+
+- 주문·결제 필수 동의의 두 전문보기 링크는 공통 ButtonLink의 link 스타일과 md 크기를 사용한다.
+
+- 퍼블리싱 가이드의 모달·아이콘 탭에 공통 모달 닫기 아이콘 xmark-large를 표시한다.
+
+- 주문·결제의 배송지변경 링크 버튼은 md 크기를 사용한다.

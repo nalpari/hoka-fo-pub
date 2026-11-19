@@ -124,11 +124,11 @@ export function RunningSessionEntriesContent({
                         />
                       </Link>
                       <Badge
+                        visual="round"
                         className={css({ flexShrink: '0' })}
-                        textProps={{
-                          variant: 'body5',
-                          tone: entry.status === '신청완료' ? 'primary' : 'tertiary',
-                        }}
+                        tone={entry.status === '신청완료' ? 'primary' : 'tertiary'}
+                        web="body5"
+                        mo="body5"
                       >
                         {entry.status === '취소' ? '신청취소' : entry.status}
                       </Badge>

@@ -238,10 +238,13 @@ export function ProductIdentity({
         <VStack alignItems="start" gap="2">
           {promotion && (
             <Badge
+              variant="plain"
               weight="medium"
-              promotion={promotion}
-              promotionTone={promotionTone === 'error' ? 'red80' : 'brand'}
-            />
+
+              tone={promotionTone === 'error' ? 'red80' : 'brand'}
+            >
+              {promotion}
+            </Badge>
           )}
           <HStack gap="2" color="black.60" flexWrap="wrap">
             {gender && (
@@ -307,10 +310,13 @@ export function ProductIdentity({
     >
       {promotion && (
         <Badge
+          variant="plain"
           data-product-promotion
-          promotion={promotion}
-          promotionTone={promotionTone === 'error' || variant === 'listing' ? 'red80' : 'brand'}
-        />
+
+          tone={promotionTone === 'error' || variant === 'listing' ? 'red80' : 'brand'}
+        >
+          {promotion}
+        </Badge>
       )}
       {orderDate && (
         <HStack gap="0.5">
