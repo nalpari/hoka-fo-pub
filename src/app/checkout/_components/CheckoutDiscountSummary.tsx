@@ -22,35 +22,57 @@ export function CheckoutDiscountSummary({
   const mobile = usePlatform() === 'mobile';
   // [ 개발팀 바인딩 ] 주문금액·할인·합계는 시안별 고정 표시이며 쿠폰 초안과 재계산하지 않습니다. 실제 쿠폰 적용 후 견적 응답 갱신은 주문 연결 소유자 책임입니다.
   return (
-    <Stack gap="28px">
+    <Stack gap={{ base: '28px', _mobile: '12px' }}>
       {!mobile ? (
-        <Typography as="h2" variant="heading8">
+        <Typography as="h2" variant="headingKr8">
           주문내역
         </Typography>
       ) : null}
-      <Stack gap="28px" _mobile={{ p: '16px', bg: 'black.10' }}>
-        <Stack gap="12px">
-          <AmountRow label="상품 금액" amount={350000} />
-          <AmountRow label="쿠폰 할인" amount={15000} discount />
-          <Button variant="secondary" fullWidth onClick={() => setOpen(true)}>
-            조회하기
-          </Button>
-          <AmountRow label="배송비" amount={0} />
+      <Stack gap={{ base: '28px', _mobile: '0px' }}>
+        <Stack
+          gap={{ base: '10px', _mobile: '12px' }}
+          _mobile={{ px: '16px', py: '20px', border: '1px solid var(--colors-black-20)' }}
+        >
+          <AmountRow label="상품 금액" amount={350000} web="body3-2" mo="body4" amountWeb="body3" />
+          <Stack gap={{ base: '16px', _mobile: '12px' }}>
+            <AmountRow
+              label="쿠폰 할인"
+              amount={15000}
+              web="body3-2"
+              mo="body4"
+              amountWeb="body3"
+              discount
+            />
+            <Button variant="secondary" size="short" fullWidth onClick={() => setOpen(true)}>
+              조회하기
+            </Button>
+          </Stack>
+          <AmountRow label="배송비" amount={0} web="body3-2" amountWeb="body3" />
         </Stack>
         <AmountRow
           label="총 결제 금액"
           amount={mobile ? 3200000 : 334550}
-          emphasizeLabel
-          borderTop={{ base: '2px solid black', _mobile: '1px solid var(--colors-black-20)' }}
-          pt="24px"
+          web="body3"
+          mo="body4"
+          amountWeb="body2-2"
+          amountMo="body3"
+          borderTop={{ base: '2px solid black', _mobile: '0px' }}
+          pt="20px"
+          _mobile={{
+            bg: 'black.10',
+            border: '1px solid var(--colors-black-20)',
+            borderTop: '0',
+            px: '16px',
+            pb: '20px',
+          }}
         />
       </Stack>
-      <Stack gap="4px">
+      <Stack gap="0px">
         {[
           '쿠폰 보유 시 최대 할인 쿠폰으로 자동 적용됩니다.',
           '정상 상품과 세일 상품을 함께 결제 시 쿠폰 적용 가능 상품에만 쿠폰이 적용됩니다.',
         ].map((text) => (
-          <Typography key={text} variant="body5" tone="tertiary">
+          <Typography key={text} web="body4" mo="body4-2" tone="tertiary">
             * {text}
           </Typography>
         ))}

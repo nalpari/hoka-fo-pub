@@ -92,6 +92,7 @@
       "src/app/cart/_components/CartModalPreview.tsx"
     ],
     "src/app/checkout/_components/CheckoutAgreement.tsx": [
+      "src/components/common/atoms/Button.tsx",
       "src/components/common/atoms/Checkbox.tsx",
       "src/components/common/atoms/Typography.tsx"
     ],
