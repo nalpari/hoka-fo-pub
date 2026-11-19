@@ -5995,3 +5995,6 @@ FAQ Accordion root가 DataList top strong과 faqAccordion 유형으로 기존 �
 ## 공지 머리글 열 정렬 (2026-11-19)
 
 제공된 공지 목록 PC 시안의 제목 fill 열/등록일 hug 열 중앙 정렬을 DataList noticeColumns에 반영했다. 제목은flex1/minWidth0/중앙, 등록일은flexShrink0/중앙이며 기존 padding16/32px·글자16px/600·하단선·본문 정렬은 유지한다. 사용자 요청은 정렬 범위이므로 시안의 다른 타이포 차이를 일괄 반영하지 않았다. 모바일 머리글 숨김은 유지한다. PC1920 목록844px에서 제목열739.47px·날짜열104.53px과 두 셀 중앙 정렬을 계산값으로 확인했다. MO375의 기존 머리글 숨김도 확인했다. 타입·Panda·대상 lint/format·소스그래프를 수행했다. 출처: [공지 목록 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design).
+
+- 공통 Badge는 children에 표시할 문구를 받고 variant(기본 filled, outlined, plain), visual(채움형·테두리형은 round 또는 square 필수), Typography tone(기본 primary)으로 표현한다. 배송지는 outlined와 square, 러닝세션은 square에 표시 데이터의 배경·글자색을 사용한다. bg는 Panda ColorToken 전체를 받으며, 러닝세션은 citrus.100과 mossGreen.100을 전달한다.
+- 상품 프로모션은 Badge의 plain 스타일로 표시하며 복수 문구의 구분선은 글자색을 따른다. tone은 Typography 톤·Panda 색상 토큰·CSS 색상을 받는다. 러닝세션 사용처에서 web="body4"와 mo="body6"으로 PC 14px·모바일 10px을 지정하고 weight="bold"를 전달한다. 공통 사각 채움 배지 기본값은 body4다. 배지 가이드의 채움형 예시와 복사 코드는 variant="filled"를 명시한다.

@@ -2345,3 +2345,5 @@ FAQ Accordion root가 DataList top strong과 faqAccordion 유형으로 기존 �
 ## 의존 그래프 추적 해제 (2026-11-19)
 
 자동 생성물 `src/app/screen-index/sourceGraph.generated.json`의 Git 추적만 해제하고 로컬 파일과 IA import 계약은 유지한다. 출처는 Git 인덱스, `.gitignore`, `package.json`, `scripts/screen-files.mjs`다. 파일 부재 상태의 재생성과 이전 내용 일치를 확인했으며 라우트·화면 코드는 변경하지 않았다. 실행 절차는 [로컬 실행](../development/setup.md#자동-생성-의존-그래프-git-추적-해제-2026-11-19)에 기록했다.
+
+- `/publishing-guide?tab=badge`에서 공통 Badge 예시, 웹·모바일 비교 및 사용 코드 복사를 제공한다.

@@ -22,6 +22,7 @@ import { ContentSection } from '@/components/common/layouts/ContentSection';
 
 import { type RunningSessionEntry } from '@/components/running-session/runningSession.data';
 import {
+  categoryBadgeColors,
   runningSessionImage,
   type RunningSessionSession,
   runningSessionSessions,
@@ -261,9 +262,14 @@ function RunningSessionSessionCardContent({ session }: { session: RunningSession
         <Stack gap="14px" _mobile={{ gap: '16px' }}>
           <Flex justifyContent="flex-start">
             <Badge
-              runningSessionCategory={session.category}
-              textProps={{ variant: 'eland-session-badge' }}
-            />
+              visual="square"
+              {...categoryBadgeColors[session.category]}
+              web="body4"
+              mo="body6"
+              weight="bold"
+            >
+              {session.category}
+            </Badge>
           </Flex>
           <ContentHeader
             gap="16px"

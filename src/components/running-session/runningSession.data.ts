@@ -13,6 +13,11 @@ export type RunningSessionSession = {
   applicationOpeningLabel?: string;
   showSupplementalImagePlaceholder?: boolean;
 };
+export const categoryBadgeColors = {
+  Road: { bg: 'citrus.100', tone: 'primary' },
+  Trail: { bg: 'mossGreen.100', tone: 'inverse' },
+} as const;
+
 export const runningSessionSessions: RunningSessionSession[] = [
   {
     id: 'yeouido-night',

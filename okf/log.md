@@ -3457,3 +3457,6 @@ Figma Navigational Buttons(296:25392)와 Action Buttons(296:25425)의 기본·�
 - IA 166을 `[ 11/16 기획 원복 ]` 비고로 복원하고 `/collection` 기본 보기 및 작업 파일 그래프를 screen-index에 연결했다. IA 167 상세의 미수급·미연결 상태는 유지했다.
 - 제공된 PC/MO 시안에 따라 대표 이미지 준비 영역, 1532px PC 4열/모바일 2열 상품 그리드, 고정 앵커 탭과 스크롤에 따른 활성 상태를 구현했다. 대표 이미지·실제 카테고리와 상품 조회는 고정 fixture로 남겼다.
 - 로컬 PC·375px 모바일 화면, 모바일 앵커 이동 및 `/screen-index` 기획전 필터의 비고·보기 링크를 확인했다. 타입 검사는 이번 화면 외 기존 `LaunchCalendarDetail`, `InquiryFormStatePreview`, `PhoneVerificationContent` 타입 오류로 전체 통과하지 못했다.
+
+- 공통 Badge는 children에 표시할 문구를 받고 variant(기본 filled, outlined, plain), visual(채움형·테두리형은 round 또는 square 필수), Typography tone(기본 primary)으로 표현한다. 배송지는 outlined와 square, 러닝세션은 square에 표시 데이터의 배경·글자색을 사용한다. bg는 Panda ColorToken 전체를 받으며, 러닝세션은 citrus.100과 mossGreen.100을 전달한다.
+- 상품 프로모션은 Badge의 plain 스타일로 표시하며 복수 문구의 구분선은 글자색을 따른다. tone은 Typography 톤·Panda 색상 토큰·CSS 색상을 받는다. 러닝세션 사용처에서 web="body4"와 mo="body6"으로 PC 14px·모바일 10px을 지정하고 weight="bold"를 전달한다. 공통 사각 채움 배지 기본값은 body4다. 배지 가이드의 채움형 예시와 복사 코드는 variant="filled"를 명시한다.

@@ -32,6 +32,7 @@ import {
   runningSessionVenue,
 } from '@/components/running-session/runningSession.data';
 import {
+  categoryBadgeColors,
   runningSessionImage,
   type RunningSessionSession,
   sessionNotices,
@@ -230,9 +231,14 @@ export function RunningSessionSessionHero({
         <Stack gap="12px" _mobile={{ gap: '18px' }}>
           <HStack>
             <Badge
-              runningSessionCategory={session.category}
-              textProps={{ variant: 'eland-session-badge' }}
-            />
+              visual="square"
+              {...categoryBadgeColors[session.category]}
+              web="body4"
+              mo="body6"
+              weight="bold"
+            >
+              {session.category}
+            </Badge>
           </HStack>
           <ContentHeader
             gap="16px"
