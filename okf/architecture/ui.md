@@ -4,12 +4,15 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-19'
+updated: '2026-11-19T04:50:45.219524+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/app/support/member-benefits/_components/MemberBenefitsContent.tsx
+  - src/components/membership/rewards-data.ts
+  - src/components/membership/MembershipRewards.tsx
   - src/context/ShopPreviewContext.ts
   - src/components/common/molecules/ContentHeader.tsx
   - src/app/support/notices/_components/NoticesList.tsx
@@ -139,7 +142,6 @@ working_tree_sources:
   - src/components/common/molecules/ProductCard/productCardTypography.ts
   - src/components/common/molecules/ProductOptionList.tsx
   - src/app/mypage/rewards/_components/RewardsContent.tsx
-  - src/app/mypage/rewards/rewards-data.ts
   - src/context/MyPageDataContext.ts
   - src/stories/features/mypage/MyPage.Rewards.Web.stories.tsx
   - src/app/mypage/_components/MyPageContent.tsx
@@ -6010,3 +6012,13 @@ PC 헤더는 검색 → account 아이콘 및 상태별 텍스트 → 장바구�
 출처: `src/context/ShopShell.tsx`, `src/context/ShopPreviewContext.ts`, `src/app/mypage/_components/MyPageContent.tsx` 작업 트리; Codex 작성, 2026-11-19.
 
 검증(2026-11-19, Codex): 브라우저 PC에서 확인창 닫기 후 마이페이지 표시 유지, 확인 후 로그인·회원가입 링크(`/login`·`/signup`) 전환과 현재 경로 유지, 새로고침 후 초기 표시 복구를 확인했다. MO390px 확인 후 account 마이페이지 아이콘 제거도 확인했다. 대상 ESLint·Prettier 및 전체 TypeScript 검사 통과.
+
+## 온라인 회원등급 안내와 공유 본문 (2026-11-19)
+
+회원등급 두 경로의 본문은 `src/components/membership/MembershipRewards.tsx` 하나로 통합했다. 개인 요약·진행률·배지와 등급·공통 혜택을 내부 모듈에서 함께 소유한다. 기존 `RewardsContent`는 마이페이지 프레임과 고정 조회 피드백만 담당하고 고객센터 소유자는 로그인 표시 상태만 showSummary로 전달한다. 도메인 표시 fixture는 membership/rewards-data.ts에 모으며 이전 라우트 전용 data 경로는 제거했다. 기본 showSummary=true를 JSDoc·함수 기본값에 명시하며 undefined도 같은 기본 동작이다. 최신 사용자 확정 RUNNER 1장·연1회와 PC/MO 시안 규격을 양쪽 공통 본문에 적용했다. 세부 규격은 [고객센터 시안 기록](support-design.md#온라인-회원등급-안내와-공유-본문-2026-11-19)을 따른다.
+
+출처: [온라인 회원등급 안내 PC·모바일 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design), 현재 사용자 화면 코멘트, 위 working_tree_sources의 작업 트리. Codex 작성·검토, 2026-11-19.
+
+로그인 전후 고정 상태: `/support/member-benefits?preview=logged-out`과 `?preview=logged-in`을 IA213의 별도 STATE 링크로 노출한다. 기본 경로는 셸의 현재 표시 상태를 따르고, 두 preview는 인증 상태를 바꾸지 않은 채 개인 요약 노출만 고정한다. 쿼리는 `useSearchParams`로 읽으며 기존 루트 Suspense 경계를 유지한다.
+
+검증(2026-11-19, Codex): PC1920·MO375에서 두 로그인 경로의 공통 본문이 텍스트·크기·상대 위치·글자/행간/간격 계산값까지 동일함을 확인했다. 로그인 전후 query 4개 조합의 개인 요약 유무·RUNNER 확정 문구·가로 overflow 없음, IA213의 기본 및 로그인 전/후 링크를 확인했다. PC·MO에서 로컬 로그아웃 확인 후 클라이언트 탐색한 기본 고객센터의 개인 요약 숨김과 혜택 유지를 확인했다. 기존 마이페이지 로딩·오류 안내도 확인했다. Pretendard Black 실제 글리프 폰트를 확인했고 영문은 로드된 HOKA 자산을 사용한다(브라우저 내부 폰트명은 점으로 보고됨). 대상 ESLint·Prettier·전체 TypeScript·Panda·소스 그래프·프로덕션 빌드(164개 정적 페이지 생성)를 통과했다. 전체 lint는 실행하지 않았다. 실제 인증/등급 조회 API는 미연결이다.

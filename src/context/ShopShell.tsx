@@ -21,7 +21,7 @@ import {
   useState,
 } from 'react';
 import { type Platform, PlatformProvider, usePlatform } from '@/context/platform';
-import { ShopPreviewLogoutContext } from '@/context/ShopPreviewContext';
+import { ShopPreviewContext } from '@/context/ShopPreviewContext';
 import { useRecentSearches } from '@/hooks/useRecentSearches';
 import { useScrollPin } from '@/lib/useScrollPin';
 
@@ -2871,18 +2871,20 @@ export function ShopShell({
   readonly children: ReactNode;
 }) {
   const pathname = usePathname();
-  // [ 개발팀 바인딩 ] 퍼블리싱 로그아웃 확인은 Context를 통해 로그인 표시만 해제합니다. 인증 요청·저장은 없으며 셸 재마운트 시 초기 state를 사용합니다.
+  // [ 개발팀 바인딩 ] 퍼블리싱 로그아웃 확인은 Context를 통해 로그인 표시를 해제하며 고객센터 개인 등급 요약도 같은 상태를 읽습니다. 인증 요청·저장은 없으며 셸 재마운트 시 초기 state를 사용합니다.
   const [previewLoggedOut, setPreviewLoggedOut] = useState(false);
+
+  const isLoggedIn = !previewLoggedOut && (state?.isLoggedIn ?? false);
 
   if (pathname === '/wh') return children;
 
   return (
-    <ShopPreviewLogoutContext.Provider value={() => setPreviewLoggedOut(true)}>
+    <ShopPreviewContext.Provider value={{ isLoggedIn, logout: () => setPreviewLoggedOut(true) }}>
       <PlatformProvider platform={platform}>
         <ShopFrame>
           <AppLayout
             cart={state?.cartCount ?? 12}
-            isLoggedIn={!previewLoggedOut && (state?.isLoggedIn ?? false)}
+            isLoggedIn={isLoggedIn}
             wishlistCount={state?.wishlistCount ?? 3}
             recentCount={state?.recentCount ?? 7}
           >
@@ -2891,7 +2893,7 @@ export function ShopShell({
           <BackToTop />
         </ShopFrame>
       </PlatformProvider>
-    </ShopPreviewLogoutContext.Provider>
+    </ShopPreviewContext.Provider>
   );
 }
 function ShopFrame({ children }: { children: ReactNode }) {

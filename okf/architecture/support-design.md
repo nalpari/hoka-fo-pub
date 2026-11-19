@@ -4,11 +4,21 @@ title: '고객센터 첨부 시안 반영'
 description: '고객센터 메인·FAQ·공지·문의·매장·안내·약관 화면의 시안 차이와 공통 컴포넌트 구성을 기록한다.'
 tags: [support, design, components, responsive]
 status: draft
+updated: '2026-11-19T04:50:45.219524+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T08:15:31Z'
 source_revision: 23690be7426ae1a229ef9e6883bdc45053102a7e
 working_tree_sources:
+  - src/app/mypage/_components/MyPageContent.tsx
+  - src/app/screen-index/screenConnections.ts
+  - src/app/screen-index/screenProgress.ts
+  - src/context/ShopPreviewContext.ts
+  - src/app/support/member-benefits/_components/MemberBenefitsContent.tsx
+  - src/app/support/member-benefits/page.tsx
+  - src/app/mypage/rewards/_components/RewardsContent.tsx
+  - src/components/membership/rewards-data.ts
+  - src/components/membership/MembershipRewards.tsx
   - src/app/support/inquiries/inquiryPreviews.ts
   - src/app/support/inquiries/_components/InquiryListLayout.tsx
   - src/app/support/inquiries/new/_components/InquiryFormLayout.tsx
@@ -306,3 +316,20 @@ Codex 브라우저 검증(2026-11-02): 1920px 및 375px에서 두 탭의 선택�
 고객센터/반품 연락처와 빠른 링크·공지 제목/작성일은 ContentHeader/ContentSection을, 문의 고객 정보는 DescriptionList를 재사용한다. FAQ·문의 목록의 빈 상태는 EmptyState, 문의 첨부 오류는 StatusMessage를 사용하며 기존 준비 데이터·조회 조건·문구·PC/MO 간격·time 의미를 유지한다. [전체 공통 판단과 검증](common-reuse-audit.md)을 참고한다.
 
 전수 대조 검토: codex/gpt-6, 2026-11-02T05:57:28Z. 미커밋 변경 출처는 [조사표](common-reuse-audit.md)의 working_tree_sources에 기록한다.
+
+
+## 온라인 회원등급 안내와 공유 본문 (2026-11-19)
+
+고객센터 `/support/member-benefits`의 작업 중 문구를 제거하고 제공된 PC1920·MO375 온라인 회원등급 안내 시안을 반영했다. 사용자 후속 지시에 따라 로그인 고객은 제목 아래에 마이페이지와 같은 개인 등급·구매금액·진행률을 표시한다. 비로그인 고객은 개인 요약 없이 등급 안내·공통 혜택만 본다. RUNNER 무료 반품 쿠폰은 시안 간 차이보다 최신 사용자 코멘트를 우선해 두 화면 PC/MO 모두 `무료 반품 쿠폰 1장 (*연 1회 지급)`으로 통일했다.
+
+두 경로는 `MembershipRewards` 하나의 본문을 사용한다. `MembershipRewards`가 개인 요약·등급 배지·진행률·등급 3종·공통 혜택 4종을 소유하며 내부 보조 컴포넌트를 같은 모듈에 둔다. 마이페이지와 고객센터의 제목·좌측 탐색·breadcrumb은 각 기존 프레임이 유지한다. 고객센터 `_components/MemberBenefitsContent`는 셸의 현재 로그인 표시를 showSummary에 전달하는 라우트 연결 소유자다.
+
+시안 수치: PC 본문844px, 제목36px/900·등급 제목28px/900, 등급 행 padding40px/56px와 badge72px(ELITE)·72×70px(ADVANCED)·63×72px(RUNNER), 조건20px/행간150%, 혜택16px/행간150%. MO 본문343px(375px 화면의 좌우16px), 등급 제목22px, 조건16px·혜택14px/행간150%, badge48px·48×46px·42×48px, 세로 목록 테두리1px #E9EAEB, 공통 혜택 배경 #F7F7F9·padding24px/16px를 적용한다. 본문은 두 경로에서 같은 시안 규격을 사용한다.
+
+공개 표시 계약: summary는 개인 요약의 현재 props이고 benefits는 등급 조건·공통 혜택의 현재 props다. 생략하면 공유 고정 예시를 사용한다. showSummary는 기본 true이며 고객센터만 로그인 표시 상태를 명시적으로 전달한다. 기존 마이페이지 loading/error 직접 URL과 display 입력은 유지한다. 실제 인증·정책/개인 등급 API·쿠폰 지급·금액 계산은 구현하지 않았다.
+
+출처: [온라인 회원등급 안내 PC·모바일 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design), 현재 사용자 화면 코멘트, 위 working_tree_sources의 작업 트리. Codex 작성·검토, 2026-11-19.
+
+로그인 전후 고정 상태: `/support/member-benefits?preview=logged-out`과 `?preview=logged-in`을 IA213의 별도 STATE 링크로 노출한다. 기본 경로는 셸의 현재 표시 상태를 따르고, 두 preview는 인증 상태를 바꾸지 않은 채 개인 요약 노출만 고정한다. 쿼리는 `useSearchParams`로 읽으며 기존 루트 Suspense 경계를 유지한다.
+
+검증(2026-11-19, Codex): PC1920·MO375에서 두 로그인 경로의 공통 본문이 텍스트·크기·상대 위치·글자/행간/간격 계산값까지 동일함을 확인했다. 로그인 전후 query 4개 조합의 개인 요약 유무·RUNNER 확정 문구·가로 overflow 없음, IA213의 기본 및 로그인 전/후 링크를 확인했다. PC·MO에서 로컬 로그아웃 확인 후 클라이언트 탐색한 기본 고객센터의 개인 요약 숨김과 혜택 유지를 확인했다. 기존 마이페이지 로딩·오류 안내도 확인했다. Pretendard Black 실제 글리프 폰트를 확인했고 영문은 로드된 HOKA 자산을 사용한다(브라우저 내부 폰트명은 점으로 보고됨). 대상 ESLint·Prettier·전체 TypeScript·Panda·소스 그래프·프로덕션 빌드(164개 정적 페이지 생성)를 통과했다. 전체 lint는 실행하지 않았다. 실제 인증/등급 조회 API는 미연결이다.
