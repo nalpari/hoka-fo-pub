@@ -44,6 +44,12 @@ sources:
 
 # 로컬 실행
 
+## 자동 생성 의존 그래프 Git 추적 해제 (2026-11-19)
+
+`src/app/screen-index/sourceGraph.generated.json`은 기존 `.gitignore` 규칙을 유지하고 Git 추적만 해제한다. 로컬 생성 파일은 유지하며 강제 추가하지 않는다. `npm run dev`는 실행 전에, `npm run build`는 `prebuild`에서 생성하므로 새 checkout에서도 생성된다. 직접 `next dev`·`next build` 또는 생성 파일을 참조하는 타입 검사를 실행할 때는 먼저 `npm run screen-files`를 실행한다.
+
+출처: Git 인덱스, `.gitignore`, `package.json`, `scripts/screen-files.mjs`. 파일이 없는 상태에서 생성기로 재생성하고 이전 내용 일치 및 ignore 적용을 확인했다. 개발 서버와 전체 build는 이번에 실행하지 않았다. 추적 해제 커밋을 받기 전에 기존 생성물이 수정되어 pull이 막히면 해당 파일을 백업·복원하고 pull 후 재생성한다.
+
 저장소 루트에서 실행한다. README의 개발 기준은 Node.js 24.21.0, npm 11.19.0이다. 런타임 강제 설정 파일에 의존한다고 가정하지 말고 실행 중인 버전을 확인한다.
 
 ## 설치와 앱 실행

@@ -2341,3 +2341,7 @@ FAQ Accordion root가 DataList top strong과 faqAccordion 유형으로 기존 �
 ## 공지 머리글 열 정렬 (2026-11-19)
 
 제공된 공지 목록 PC 시안의 제목 fill 열/등록일 hug 열 중앙 정렬을 DataList noticeColumns에 반영했다. 제목은flex1/minWidth0/중앙, 등록일은flexShrink0/중앙이며 기존 padding16/32px·글자16px/600·하단선·본문 정렬은 유지한다. 사용자 요청은 정렬 범위이므로 시안의 다른 타이포 차이를 일괄 반영하지 않았다. 모바일 머리글 숨김은 유지한다. PC1920 목록844px에서 제목열739.47px·날짜열104.53px과 두 셀 중앙 정렬을 계산값으로 확인했다. MO375의 기존 머리글 숨김도 확인했다. 타입·Panda·대상 lint/format·소스그래프를 수행했다. 출처: [공지 목록 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design).
+
+## 의존 그래프 추적 해제 (2026-11-19)
+
+자동 생성물 `src/app/screen-index/sourceGraph.generated.json`의 Git 추적만 해제하고 로컬 파일과 IA import 계약은 유지한다. 출처는 Git 인덱스, `.gitignore`, `package.json`, `scripts/screen-files.mjs`다. 파일 부재 상태의 재생성과 이전 내용 일치를 확인했으며 라우트·화면 코드는 변경하지 않았다. 실행 절차는 [로컬 실행](../development/setup.md#자동-생성-의존-그래프-git-추적-해제-2026-11-19)에 기록했다.
