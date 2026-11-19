@@ -3256,13 +3256,13 @@ Figma Navigational Buttons(296:25392)와 Action Buttons(296:25425)의 기본·�
 
 - 주문 상세의 PC 배송 조회·리뷰 작성 버튼을 최소 너비 107px, 높이 40px, 버튼 간 8px, 오른쪽 여백 8px으로 맞추고 상품과 버튼 사이 16px을 적용했다.
 
-- 공통 Badge는 children에 표시할 문구를 받고 variant(기본 filled, outlined, plain), visual(채움형·테두리형은 round 또는 square 필수), Typography tone(기본 primary)으로 표현한다. 배송지는 outlined와 square, 러닝세션은 square에 표시 데이터의 배경·글자색을 사용한다. bg는 Panda ColorToken 전체를 받으며, 러닝세션은 citrus.100과 mossGreen.100을 전달한다.
-- 상품 프로모션은 Badge의 plain 스타일로 표시하며 복수 문구의 구분선은 글자색을 따른다. tone은 Typography 톤·Panda 색상 토큰·CSS 색상을 받는다. 러닝세션 사용처에서 web="body4"와 mo="body6"으로 PC 14px·모바일 10px을 지정하고 weight="bold"를 전달한다. 공통 사각 채움 배지 기본값은 body4다. 배지 가이드의 채움형 예시와 복사 코드는 variant="filled"를 명시한다.
-
 - 주문·결제 수단의 동그란 아이콘을 제거하고 선택 테두리로 표시하며 PC 6열·모바일 3열 카드 간격과 높이를 시안에 맞췄다. 공통 Radio의 선택과 키보드 동작은 유지한다.
 
 - 공통 secondary 버튼의 기본 배경을 투명하게 바꿨다. hover·active·focus·disabled 상태와 다른 variant의 배경은 유지한다.
 
 - 주문·결제 화면의 기본 배송지 뱃지에 흰색 배경을 적용했다.
+
+- 공통 Badge는 children에 표시할 문구를 받고 variant(기본 filled, outlined, plain), visual(채움형·테두리형은 round 또는 square 필수), Typography tone(기본 primary)으로 표현한다. 배송지는 outlined와 square, 러닝세션은 square에 표시 데이터의 배경·글자색을 사용한다. bg는 Panda ColorToken 전체를 받으며, 러닝세션은 citrus.100과 mossGreen.100을 전달한다.
+- 상품 프로모션은 Badge의 plain 스타일로 표시하며 복수 문구의 구분선은 글자색을 따른다. tone은 Typography 톤·Panda 색상 토큰·CSS 색상을 받는다. 러닝세션 사용처에서 web="body4"와 mo="body6"으로 PC 14px·모바일 10px을 지정하고 weight="bold"를 전달한다. 공통 사각 채움 배지 기본값은 body4다. 배지 가이드의 채움형 예시와 복사 코드는 variant="filled"를 명시한다.
 
 - 배지의 최소 높이를 라운드 32px, 사각 29px로 지정하고 공통 줄높이 강제를 제거했다.
