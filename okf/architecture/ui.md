@@ -5617,3 +5617,5 @@ EmptyState의 claimHistory layout은 PC 높이267px·중앙 배치·하단 #E9EA
 - 상품 프로모션은 Badge의 plain 스타일로 표시하며 복수 문구의 구분선은 글자색을 따른다. tone은 Typography 톤·Panda 색상 토큰·CSS 색상을 받는다. 러닝세션 사용처에서 web="body4"와 mo="body6"으로 PC 14px·모바일 10px을 지정하고 weight="bold"를 전달한다. 공통 사각 채움 배지 기본값은 body4다. 배지 가이드의 채움형 예시와 복사 코드는 variant="filled"를 명시한다.
 
 - 주문·결제 수단의 동그란 아이콘을 제거하고 선택 테두리로 표시하며 PC 6열·모바일 3열 카드 간격과 높이를 시안에 맞췄다. 공통 Radio의 선택과 키보드 동작은 유지한다.
+
+- 공통 secondary 버튼의 기본 배경을 투명하게 바꿨다. hover·active·focus·disabled 상태와 다른 variant의 배경은 유지한다.

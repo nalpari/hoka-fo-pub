@@ -490,7 +490,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       ? white
         ? 'var(--color-white-000)'
         : 'var(--color-black-100)'
-      : white
+      : variant === 'secondary' || white
         ? 'transparent'
         : 'var(--color-white-000)',
     '--button-padding-y': '0px',
