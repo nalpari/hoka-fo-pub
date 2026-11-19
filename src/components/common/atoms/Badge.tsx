@@ -31,7 +31,10 @@ const badge = sva({
     },
     visual: {
       round: { root: { minH: '32px', borderRadius: 'full', px: '8px', py: '6px' } },
-      square: { root: { minH: '29px', px: '8px', py: '8px' } },
+      square: {
+        root: { minH: '29px', px: '8px', py: '8px' },
+        text: { _web: { lineHeight: '1.2' } },
+      },
     },
   },
   compoundVariants: [

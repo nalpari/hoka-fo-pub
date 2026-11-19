@@ -5623,3 +5623,5 @@ EmptyState의 claimHistory layout은 PC 높이267px·중앙 배치·하단 #E9EA
 - 상품 프로모션은 Badge의 plain 스타일로 표시하며 복수 문구의 구분선은 글자색을 따른다. tone은 Typography 톤·Panda 색상 토큰·CSS 색상을 받는다. 러닝세션 사용처에서 web="body4"와 mo="body6"으로 PC 14px·모바일 10px을 지정하고 weight="bold"를 전달한다. 공통 사각 채움 배지 기본값은 body4다. 배지 가이드의 채움형 예시와 복사 코드는 variant="filled"를 명시한다.
 
 - 배지의 최소 높이를 라운드 32px, 사각 29px로 지정하고 공통 줄높이 강제를 제거했다.
+
+- 사각 배지의 웹 줄높이는 Panda의 `_web` 조건으로 1.2를 적용한다.
