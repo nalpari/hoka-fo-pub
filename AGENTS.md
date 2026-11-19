@@ -58,6 +58,10 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - Treat zero-production-use and story-only components separately. Confirm all references and the authorized deletion scope before removing them; Preview use alone proves neither production reuse nor permission to delete. Preserve useful scenarios as fixed state URLs within that scope.
 - Preserve HTML semantics, responsive values, accessibility, form ownership, focus and state lifetime. File-count reduction alone is not sufficient; verify both the new options and unchanged default callers, including relevant PC/mobile states.
 
+## Figma font weight policy
+
+- **사용자 확정 (2026-11-19):** Figma의 숫자 굵기와 해당 텍스트에 명시된 굵기 모드 이름이 충돌하면 **모드 이름을 우선**한다. 레이아웃 패널·복사 CSS·추출 데이터의 숫자보다 모드에 대응하는 기존 Typography 옵션·숫자 굵기·실제 폰트 face를 사용한다. `Body Weights: Medium`과 `700`이 함께 표시되면 현재 HOKA의 `medium` / `500` / Medium 폰트 파일을 선택한다. 다른 모드도 기존 프로젝트 매핑을 따르며 굵기와 무관한 모드는 근거로 사용하지 않는다. 모드를 읽지 못했거나 매핑이 불명확할 때만 추가 확인하고 관측값과 추정값을 구분한다. EmptyState·Button.loadMore 등 별도로 사용자 확정된 화면·컴포넌트 굵기 규칙은 유지한다.
+
 ## Shared component defaults
 
 ### NumberStepper fixed icon design rule

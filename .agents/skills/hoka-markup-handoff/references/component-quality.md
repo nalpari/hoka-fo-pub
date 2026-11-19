@@ -191,6 +191,12 @@ For each composition finding, name the current responsibility, proposed part and
 - Avoid generic global class names for shared components; scoped generated styles or namespaced classes prevent collisions.
 - Respect a dirty worktree: preserve changes that are not part of the requested extraction.
 
+## Figma 굵기 모드 우선
+
+**사용자 확정 (2026-11-19):** Figma의 숫자 굵기와 해당 텍스트에 명시된 굵기 모드 이름이 충돌하면 **모드 이름을 우선**한다. 레이아웃 패널·복사 CSS·추출 데이터의 숫자보다 모드에 대응하는 기존 Typography 옵션·숫자 굵기·실제 폰트 face를 사용한다. `Body Weights: Medium`과 `700`이 함께 표시되면 현재 HOKA의 `medium` / `500` / Medium 폰트 파일을 선택한다. 다른 모드도 기존 프로젝트 매핑을 따르며 굵기와 무관한 모드는 근거로 사용하지 않는다. 모드를 읽지 못했거나 매핑이 불명확할 때만 추가 확인하고 관측값과 추정값을 구분한다. EmptyState·Button.loadMore 등 별도로 사용자 확정된 화면·컴포넌트 굵기 규칙은 유지한다.
+
+모드 이름·추출 숫자·선택한 Typography 옵션/구현값을 구분해 인계한다. `Medium + 700`은 `medium/500`, `Medium + 500`은 기존 `medium/500`을 사용한다. 모드 미확인 또는 매핑 불명확은 추가 확인 대상으로 기록하며 숫자에서 모드를 추정해 확정하지 않는다. 폰트 변경 시 실제 로드된 face도 확인한다.
+
 ## Optional presentation defaults
 
 Preserve existing explicit default variant selections unless their removal is explicitly requested. For a shared component or recipe refactor, preserve optional presentation props and register the same existing default both in the component parameter and Panda `defaultVariants`. Document it on the public prop and in the handoff guide. Check omitted, explicit `undefined`, default and all retained explicit variants with existing content/action slots and override precedence; run lint and TypeScript on callers. Do not require a new variant at existing call sites, weaken intentional discriminated unions, or default service inputs. Report actual diagnostics before attributing an integration lint failure to missing defaults. This rule also applies when styles move into a component-owned `.recipe.tsx` file.
