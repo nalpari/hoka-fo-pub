@@ -4,12 +4,13 @@ title: '고객센터 첨부 시안 반영'
 description: '고객센터 메인·FAQ·공지·문의·매장·안내·약관 화면의 시안 차이와 공통 컴포넌트 구성을 기록한다.'
 tags: [support, design, components, responsive]
 status: draft
-updated: '2026-11-19T04:50:45.219524+00:00'
+updated: '2026-11-19T05:09:47.543780+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T08:15:31Z'
 source_revision: 23690be7426ae1a229ef9e6883bdc45053102a7e
 working_tree_sources:
+  - src/components/common/layouts/SidebarNavigationLayout.tsx
   - src/app/mypage/_components/MyPageContent.tsx
   - src/app/screen-index/screenConnections.ts
   - src/app/screen-index/screenProgress.ts
@@ -397,3 +398,24 @@ PC1398/MO375에서10개 요약 기호가 모두·이고 모든 앵커 대상이 
 - 모바일 신발 요약은 현재#4D4D4D이며 시안은#000000이다.
 
 이미 사용자 확정으로 보정한 선택700·소제목/STEP/전화/운영시간500·모바일 전용 전화 링크·CSS가운데점·헤더+16px 앵커 여백은 유지한다. 위 차이의 추가 수정은 이번 커밋 요청 범위에 포함하지 않는다.
+
+
+## 재검수 차이 전체 보정과 고객센터 LNB 높이 통일 (2026-11-19)
+
+사용자 승인으로 바로 위 재대조의 미수정9개 항목을 수정했다. 이전 미수정 목록은 발견 당시 이력이며 현행 계약은 이 항목이 우선한다.
+
+- care/shipping-returns PC탭을16px/24px로 맞추고 선택700·미선택400은 유지했다.
+- 배송의 휴일 안내 앞 줄바꿈은 모바일에서만 표시한다. STEP2 괄호 안내도 모바일에서만 줄바꿈하고 절차 소제목 아래gap16px을 적용했다.
+- 반품처의 모바일 DOM 읽기 순서를 전화→운영시간→접수처로 맞추며 PC는전화/접수처→운영시간2열을 유지한다. 주소·점심시간14px, 휴일12px과 모바일 제목/정보gap8px을 적용했다. 전화·운영시간500 및 모바일 전용tel링크는 유지한다.
+- 반품 주의 하위 목록은li::before 가운데점·16/24px와MO14/21px로 맞추며 내부 배송비 설명의하이픈은 유지한다.
+- 모바일 바로가기 제목/설명 간격은 문의·FAQ12px/주문조회2px이다. 세 버튼의 실제 문구는14px/400/18.2px로 지역 소유자의클래스에서만 보정하며 공통Button 기본값은 유지한다.
+- 모바일 신발 요약의 문구와가운데점을#000000으로 맞추고 PC#4D4D4D·기존링크·헤더+16px 앵커여백은 유지한다.
+
+후속 사용자 코멘트의LNB 높이 차이는공통SideNavigation support옵션의본문행간상속(1.3/1.5)과선택border2px·Grid stretch가 원인이었다. support aside에서만행간변수를1.5로 고정하고alignSelf=start로자연높이를 유지한다. 선택선은inset shadow로표시하여행높이에 영향을주지 않는다. 다른 appearance와모바일숨김·활성링크·URL은 유지한다.
+
+출처: 사용자 재검수 수정 지시·LNB 화면 코멘트, [고객센터 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design), 작업 트리 AfterSalesContent.tsx·CareContent.tsx·SupportTabs.tsx·SidebarNavigationLayout.tsx. 서비스API·외부표시데이터계약은변경하지 않았다.
+
+
+최종 실행 검증: PC viewport1935/client1920과MO390/client375에서5개탭 총10개 상태를직접열어계산값과스크린샷을대조했다. 추가MO375/client360에서도전화링크·순서·카드간격·버튼400/18.2px·검정요약색과가로넘침없음을확인했다. LNB는PC1253px의/support·size-guide·after-sales·care·faq·notices·member-benefits7개경로에서각행46px·행간30px·nav676px·aside750px와동일y좌표를확인했다. MO631에서는support aside가display:none이고PC복귀시같은높이를유지한다. 실제LNB링크이동·관리탭방향키/Enter·앵커top68px도확인했다.
+
+대상ESLint/Prettier·전체TypeScript·Panda·소스그래프·production build(정적페이지164개)·git diff공백검사와OKF미갱신문서없음을확인했다. 마지막hoka-markup-handoff검토에서기존Panda구조·HTML목록·공통옵션기본값·플랫폼/포커스·표시데이터/서비스책임을유지함을확인했다. 공통헤더·모바일플랫폼기준·서비스API는수정하지않았다. 전화앱실행이나운영서버연동은검증하지않았다.

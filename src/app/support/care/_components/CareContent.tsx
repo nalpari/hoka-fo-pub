@@ -27,9 +27,10 @@ const styles = {
       fontFamily: 'korean',
       fontSize: '16px',
       lineHeight: '24px',
-      _mobile: { fontSize: '14px', lineHeight: '21px' },
+      _mobile: { fontSize: '14px', lineHeight: '21px', color: 'black.100' },
     },
   }),
+  overviewText: css({ _mobile: { color: 'black.100' } }),
   overviewLink: css({
     textDecoration: 'none',
     _mobile: { textDecoration: 'underline', textUnderlineOffset: '2px' },
@@ -70,7 +71,12 @@ export function CareContent({ category }: { category: 'shoes' | 'apparel' }) {
               >
                 {column.map((item, itemIndex) => (
                   <li key={item} className={styles.overviewItem}>
-                    <Typography web="body3" mo="body4" tone="subtle">
+                    <Typography
+                      web="body3"
+                      mo="body4"
+                      tone="subtle"
+                      className={styles.overviewText}
+                    >
                       <a
                         href={`#care-section-${overviewTargets[index][itemIndex]}`}
                         className={styles.overviewLink}

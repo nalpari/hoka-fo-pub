@@ -15,6 +15,19 @@ import { ContentSection } from '@/components/common/layouts/ContentSection';
 
 const styles = {
   listContent: css({ flex: '1', minW: '0' }),
+  mobileLineBreak: css({ display: 'none', _mobile: { display: 'block' } }),
+  quickLinkButton: css({ '&& span': { fontWeight: '400', lineHeight: '1.3' } }),
+  bulletItem: css({
+    '&::before': {
+      content: '"·"',
+      flexShrink: '0',
+      color: 'var(--color-text-subtle)',
+      fontFamily: 'korean',
+      fontSize: '16px',
+      lineHeight: '24px',
+      _mobile: { fontSize: '14px', lineHeight: '21px' },
+    },
+  }),
   phoneLink: css({ textDecoration: 'underline', textUnderlineOffset: '2px' }),
 };
 
@@ -55,10 +68,7 @@ function ShippingReturnsBulletList({ items }: { items: readonly ReactNode[] }) {
   return (
     <Stack as="ul" gap="0" pl="0" m="0" listStyleType="none">
       {items.map((item, index) => (
-        <HStack as="li" key={index} alignItems="flex-start" gap="1">
-          <Typography as="span" web="body3" mo="body4" tone="subtle" aria-hidden="true">
-            -
-          </Typography>
+        <HStack as="li" key={index} alignItems="flex-start" gap="1" className={styles.bulletItem}>
           <Typography web="body3" mo="body4" tone="subtle">
             {item}
           </Typography>
@@ -98,8 +108,7 @@ const shippingItems: ReactNode[] = [
     (단, 반품 시 최초 구매건에 대한 배송비 포함하여 반품 배송비 차감)
   </>,
   <>
-    결제일로부터 1~5일 이내에 상품이 출고됩니다.
-    <br />
+    결제일로부터 1~5일 이내에 상품이 출고됩니다. <br className={styles.mobileLineBreak} />
     (단, 토/일요일 및 공휴일 제외)
     <br />
     제주도 및 기타 도서산간지역의 경우 또는 택배사의 사정에 따라 1~2일 배송이 지연될 수 있습니다.
@@ -151,6 +160,34 @@ const returnContact = {
 
 function ReturnContact() {
   const isMobile = usePlatform() === 'mobile';
+  const address = (
+    <Stack key="address" gap={{ base: '3', _mobile: '2' }}>
+      <Typography variant="body3">반품 접수처</Typography>
+      <Typography variant="body4">{returnContact.address}</Typography>
+    </Stack>
+  );
+
+  const hours = (
+    <Stack key="hours" gap={{ base: '3', _mobile: '2' }}>
+      <Typography variant="body3">운영시간</Typography>
+      <Stack gap="2">
+        <HStack gap="1" alignItems="baseline" flexWrap="wrap">
+          <Typography as="span" variant="body3">
+            평일
+          </Typography>
+          <Typography as="span" variant="body3" language="en" weight="medium">
+            09:00~18:00
+          </Typography>
+          <Typography as="span" variant="body4">
+            (점심시간 12:00~13:00)
+          </Typography>
+        </HStack>
+        <Typography variant="body5" tone="subtle">
+          * 토,일요일 및 공휴일 휴무
+        </Typography>
+      </Stack>
+    </Stack>
+  );
   return (
     <Stack
       as="section"
@@ -185,31 +222,17 @@ function ReturnContact() {
         </Stack>
       </ContentSection>
       <Stack gap={{ base: '52px', _mobile: '6' }} flex="1" minW="0">
-        <Stack gap="3">
-          <Typography variant="body3">반품 접수처</Typography>
-          <Typography web="body3" mo="body4">
-            {returnContact.address}
-          </Typography>
-        </Stack>
-        <Stack gap="3">
-          <Typography variant="body3">운영시간</Typography>
-          <Stack gap="2">
-            <HStack gap="1" alignItems="baseline" flexWrap="wrap">
-              <Typography as="span" variant="body3">
-                평일
-              </Typography>
-              <Typography as="span" variant="body3" language="en" weight="medium">
-                09:00~18:00
-              </Typography>
-              <Typography as="span" web="body3" mo="body4">
-                (점심시간 12:00~13:00)
-              </Typography>
-            </HStack>
-            <Typography variant="body5" tone="subtle">
-              * 토,일요일 및 공휴일 휴무
-            </Typography>
-          </Stack>
-        </Stack>
+        {isMobile ? (
+          <>
+            {hours}
+            {address}
+          </>
+        ) : (
+          <>
+            {address}
+            {hours}
+          </>
+        )}
       </Stack>
     </Stack>
   );
@@ -252,7 +275,7 @@ function ReturnQuickLinks() {
           key={item.href}
           title={item.title}
           headerProps={{
-            gap: '2',
+            gap: { base: '2', _mobile: item.href === '/mypage/orders' ? '2px' : '3' },
             titleAs: 'h3',
             titleProps: { variant: 'body2', language: 'ko' },
             description: item.description,
@@ -263,7 +286,12 @@ function ReturnQuickLinks() {
             },
           }}
           footer={
-            <ButtonLink href={item.href} variant="secondary" size="short">
+            <ButtonLink
+              href={item.href}
+              variant="secondary"
+              size="short"
+              className={styles.quickLinkButton}
+            >
               {item.label}
             </ButtonLink>
           }
@@ -323,7 +351,10 @@ function ReturnCautionsPanel() {
 
 const returnSteps = [
   'My Page > 구매내역 > 주문/배송 조회 > 상세내역 확인',
-  '페이지 하단의 반품신청 선택 (신청 완료후 2~3일내 지정택배사 수거 방문)',
+  <>
+    페이지 하단의 반품신청 선택 <br className={styles.mobileLineBreak} />
+    (신청 완료후 2~3일내 지정택배사 수거 방문)
+  </>,
   '최초 수령 상태와 동일하게 이중포장하여 방문 기사님께 전달',
   '물류센터에 상품 도착',
   '요청 및 상품 확인',
@@ -346,7 +377,7 @@ function ProductReturnsPanel() {
           ]}
         />
       </ContentSection>
-      <Stack gap={{ base: '4', _mobile: '3' }}>
+      <Stack gap="4">
         <ContentHeader
           titleAs="h3"
           title={<>상품 반품 절차</>}

@@ -4,12 +4,13 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-19T04:50:45.219524+00:00'
+updated: '2026-11-19T05:09:47.543780+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/app/support/after-sales/_components/AfterSalesContent.tsx
   - src/app/support/member-benefits/_components/MemberBenefitsContent.tsx
   - src/components/membership/rewards-data.ts
   - src/components/membership/MembershipRewards.tsx
@@ -6055,3 +6056,24 @@ PC1461/MO375에서 선택700·미선택400, 탭 전환 후 굵기 이동과 STEP
 로그인 전후 고정 상태: `/support/member-benefits?preview=logged-out`과 `?preview=logged-in`을 IA213의 별도 STATE 링크로 노출한다. 기본 경로는 셸의 현재 표시 상태를 따르고, 두 preview는 인증 상태를 바꾸지 않은 채 개인 요약 노출만 고정한다. 쿼리는 `useSearchParams`로 읽으며 기존 루트 Suspense 경계를 유지한다.
 
 검증(2026-11-19, Codex): PC1920·MO375에서 두 로그인 경로의 공통 본문이 텍스트·크기·상대 위치·글자/행간/간격 계산값까지 동일함을 확인했다. 로그인 전후 query 4개 조합의 개인 요약 유무·RUNNER 확정 문구·가로 overflow 없음, IA213의 기본 및 로그인 전/후 링크를 확인했다. PC·MO에서 로컬 로그아웃 확인 후 클라이언트 탐색한 기본 고객센터의 개인 요약 숨김과 혜택 유지를 확인했다. 기존 마이페이지 로딩·오류 안내도 확인했다. Pretendard Black 실제 글리프 폰트를 확인했고 영문은 로드된 HOKA 자산을 사용한다(브라우저 내부 폰트명은 점으로 보고됨). 대상 ESLint·Prettier·전체 TypeScript·Panda·소스 그래프·프로덕션 빌드(164개 정적 페이지 생성)를 통과했다. 전체 lint는 실행하지 않았다. 실제 인증/등급 조회 API는 미연결이다.
+
+
+## 재검수 차이 전체 보정과 고객센터 LNB 높이 통일 (2026-11-19)
+
+사용자 승인으로 바로 위 재대조의 미수정9개 항목을 수정했다. 이전 미수정 목록은 발견 당시 이력이며 현행 계약은 이 항목이 우선한다.
+
+- care/shipping-returns PC탭을16px/24px로 맞추고 선택700·미선택400은 유지했다.
+- 배송의 휴일 안내 앞 줄바꿈은 모바일에서만 표시한다. STEP2 괄호 안내도 모바일에서만 줄바꿈하고 절차 소제목 아래gap16px을 적용했다.
+- 반품처의 모바일 DOM 읽기 순서를 전화→운영시간→접수처로 맞추며 PC는전화/접수처→운영시간2열을 유지한다. 주소·점심시간14px, 휴일12px과 모바일 제목/정보gap8px을 적용했다. 전화·운영시간500 및 모바일 전용tel링크는 유지한다.
+- 반품 주의 하위 목록은li::before 가운데점·16/24px와MO14/21px로 맞추며 내부 배송비 설명의하이픈은 유지한다.
+- 모바일 바로가기 제목/설명 간격은 문의·FAQ12px/주문조회2px이다. 세 버튼의 실제 문구는14px/400/18.2px로 지역 소유자의클래스에서만 보정하며 공통Button 기본값은 유지한다.
+- 모바일 신발 요약의 문구와가운데점을#000000으로 맞추고 PC#4D4D4D·기존링크·헤더+16px 앵커여백은 유지한다.
+
+후속 사용자 코멘트의LNB 높이 차이는공통SideNavigation support옵션의본문행간상속(1.3/1.5)과선택border2px·Grid stretch가 원인이었다. support aside에서만행간변수를1.5로 고정하고alignSelf=start로자연높이를 유지한다. 선택선은inset shadow로표시하여행높이에 영향을주지 않는다. 다른 appearance와모바일숨김·활성링크·URL은 유지한다.
+
+출처: 사용자 재검수 수정 지시·LNB 화면 코멘트, [고객센터 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design), 작업 트리 AfterSalesContent.tsx·CareContent.tsx·SupportTabs.tsx·SidebarNavigationLayout.tsx. 서비스API·외부표시데이터계약은변경하지 않았다.
+
+
+최종 실행 검증: PC viewport1935/client1920과MO390/client375에서5개탭 총10개 상태를직접열어계산값과스크린샷을대조했다. 추가MO375/client360에서도전화링크·순서·카드간격·버튼400/18.2px·검정요약색과가로넘침없음을확인했다. LNB는PC1253px의/support·size-guide·after-sales·care·faq·notices·member-benefits7개경로에서각행46px·행간30px·nav676px·aside750px와동일y좌표를확인했다. MO631에서는support aside가display:none이고PC복귀시같은높이를유지한다. 실제LNB링크이동·관리탭방향키/Enter·앵커top68px도확인했다.
+
+대상ESLint/Prettier·전체TypeScript·Panda·소스그래프·production build(정적페이지164개)·git diff공백검사와OKF미갱신문서없음을확인했다. 마지막hoka-markup-handoff검토에서기존Panda구조·HTML목록·공통옵션기본값·플랫폼/포커스·표시데이터/서비스책임을유지함을확인했다. 공통헤더·모바일플랫폼기준·서비스API는수정하지않았다. 전화앱실행이나운영서버연동은검증하지않았다.

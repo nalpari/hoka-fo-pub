@@ -152,13 +152,7 @@ export function SupportTabs({ syncQuery = false, ...props }: SupportTabsProps) {
               label
             ) : (
               <Typography
-                web={
-                  variant === 'care' || variant === 'shipping-returns'
-                    ? 'body2'
-                    : variant === 'guide'
-                      ? 'body4'
-                      : 'body3'
-                }
+                web={variant === 'guide' ? 'body4' : 'body3'}
                 mo={variant === 'guide' ? 'body4' : 'body3'}
                 weight={
                   variant === 'guide' ||

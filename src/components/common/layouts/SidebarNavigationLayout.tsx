@@ -44,7 +44,14 @@ export function SideNavigation({
 }: SideNavigationProps) {
   if (appearance === 'support') {
     return (
-      <Box as="aside" className={className} w="190px" _mobile={{ display: 'none' }}>
+      <Box
+        as="aside"
+        className={className}
+        w="190px"
+        alignSelf="start"
+        css={{ '--line-heights-body': '1.5' }}
+        _mobile={{ display: 'none' }}
+      >
         <Stack alignItems="flex-start" gap="46px">
           <Link href={titleTo}>
             <Typography as="span" variant="heading7">
@@ -61,9 +68,7 @@ export function SideNavigation({
                   <Box
                     key={`${item.to}-${item.label}`}
                     py="2"
-                    borderBottomWidth={isActive ? '2px' : '0'}
-                    borderBottomStyle="solid"
-                    borderBottomColor="black.100"
+                    boxShadow={isActive ? 'inset 0 -2px 0 var(--color-black-100)' : undefined}
                     pointerEvents={item.disabled ? 'none' : undefined}
                   >
                     <Link
