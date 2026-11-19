@@ -5,6 +5,7 @@ import { usePlatform } from '@/context/platform';
 import { css } from 'styled-system/css';
 import { Grid, Stack } from 'styled-system/jsx';
 
+import { dataListRecipe } from '@/components/common/atoms/DataList.recipe';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { OrderProductSummary } from '@/components/common/molecules/OrderProductSummary';
@@ -24,27 +25,30 @@ export function CheckoutSummary({ rows }: { rows: readonly CheckoutRow[] }) {
       title="주문상품 정보 및 할인 적용"
       headerProps={{ titleAs: 'h2', titleProps: { web: 'heading7', mo: 'heading6' } }}
     >
-      <Stack gap="0" borderTop="1px solid black">
+      <Stack
+        gap="0"
+        className={dataListRecipe({ top: 'strongToThin', headerTypography: 'heading' }).root}
+      >
         {!mobile ? (
           <Grid
             gridTemplateColumns="minmax(0, 1fr) 158px 200px"
-            py="20px"
-            borderBottom="1px solid black"
+            data-list-header
+            className={dataListRecipe().header}
           >
             {['상품/옵션정보', '수량', '가격'].map((label) => (
-              <Typography key={label} variant="heading9" className={css({ textAlign: 'center' })}>
+              <span key={label} data-list-cell>
                 {label}
-              </Typography>
+              </span>
             ))}
           </Grid>
         ) : null}
         {rows.map(({ item, product, amount, originalAmount }) => (
           <Grid
             key={item.id}
+            data-list-item
             gridTemplateColumns={{ base: 'minmax(0, 1fr) 158px 200px', _mobile: '1fr' }}
-            gap="0"
+            rowGap="0"
             py={{ base: '32px', _mobile: '24px' }}
-            borderBottom="1px solid var(--colors-black-20)"
             alignItems="center"
           >
             <OrderProductSummary

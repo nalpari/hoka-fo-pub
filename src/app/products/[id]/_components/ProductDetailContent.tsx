@@ -25,6 +25,7 @@ import { Box, Flex, Grid, HStack, Stack, VStack } from 'styled-system/jsx';
 import { Accordion, type AccordionEntry } from '@/components/common/atoms/Accordion';
 import { Button, type ButtonIconProps, ButtonLink } from '@/components/common/atoms/Button';
 import { Checkbox } from '@/components/common/atoms/Checkbox';
+import { dataListBoundaryRecipe, dataListRecipe } from '@/components/common/atoms/DataList.recipe';
 import { DescriptionList } from '@/components/common/atoms/DescriptionList';
 import { Divider } from '@/components/common/atoms/Divider';
 import { EmptyState } from '@/components/common/atoms/EmptyState';
@@ -313,23 +314,25 @@ function InquiryBoardHeader({
       justifyContent="space-between"
       gap="4"
       pb={variant === 'product' ? '23px' : '5'}
-      borderBottom="1px solid var(--color-black-100)"
-      _mobile={{ flexWrap: 'wrap' }}
+      className={dataListBoundaryRecipe({ bottom: 'strong' })}
+      _mobile={
+        variant === 'product'
+          ? {
+              display: 'grid',
+              gridTemplateColumns: 'minmax(0, 1fr) auto',
+              gap: '0',
+              pb: '0',
+              borderBottomWidth: '0',
+            }
+          : { flexWrap: 'wrap' }
+      }
     >
       <ContentHeader
         titleAs="h3"
-        title={
-          variant === 'product' ? (
-            <>
-              {title}{' '}
-              <Typography variant="body1" weight="medium">
-                ({count})
-              </Typography>
-            </>
-          ) : (
-            `${title}(${count})`
-          )
-        }
+        title={variant === 'product' ? title : `${title}(${count})`}
+        count={variant === 'product' ? count : undefined}
+        countProps={{ variant: 'body1', weight: 'medium' }}
+        variant={variant === 'product' ? 'productSection' : 'standard'}
         titleProps={{
           id: headingId,
           variant: variant === 'product' ? 'heading8' : 'body2',
@@ -339,15 +342,31 @@ function InquiryBoardHeader({
         justifyContent="flex-start"
         flexWrap="wrap"
         gap="5"
-        _mobile={{ gap: '3' }}
+        _mobile={variant === 'product' ? { display: 'contents' } : { gap: '3' }}
         action={
-          <Checkbox
-            label="비밀글 제외"
-            variant="filter"
-            disabled={filterDisabled}
-            checked={excludePrivate}
-            onCheckedChange={onExcludePrivateChange}
-          />
+          <Box
+            display="contents"
+            _mobile={
+              variant === 'product'
+                ? {
+                    display: 'block',
+                    gridColumn: '1 / -1',
+                    order: '2',
+                    mt: '16px',
+                    py: '16px',
+                    borderTop: '1px solid var(--color-black-100)',
+                  }
+                : undefined
+            }
+          >
+            <Checkbox
+              label="비밀글 제외"
+              variant="filter"
+              disabled={filterDisabled}
+              checked={excludePrivate}
+              onCheckedChange={onExcludePrivateChange}
+            />
+          </Box>
         }
       />
       {action}
@@ -417,7 +436,6 @@ type InquiryBoardProps = {
   loadMoreSize?: number;
 };
 const styles = {
-  item: css({ borderBottom: '1px solid var(--color-border-default)' }),
   trigger: css({
     textAlign: 'left',
     _focusVisible: { outline: '2px solid var(--color-focus-ring)', outlineOffset: '-2px' },
@@ -451,16 +469,17 @@ function InquirySubject({
   return (
     <Grid
       as="span"
+      data-list-columns
       gridTemplateColumns="minmax(0, 1fr) 100px 100px 100px"
       alignItems="center"
       w="100%"
       minH={variant === 'product' ? '59px' : '60px'}
       pl={variant === 'product' ? '6' : '5'}
       pr={variant === 'product' ? '0' : '5'}
-      gap="0"
+      rowGap="0"
       _mobile={{
         gridTemplateColumns: 'minmax(0, 1fr) auto auto',
-        gap: '3',
+        rowGap: '3',
         px: '3',
         py: '4',
       }}
@@ -544,7 +563,13 @@ function InquiryBoard({
           multiple={variant === 'product'}
           defaultValue={defaultExpandedIds}
           indicator={null}
-          itemClassName={styles.item}
+          className={
+            dataListRecipe({
+              top: 'unchanged',
+              columnGap: 'unchanged',
+              itemLayout: 'inquiryAccordion',
+            }).root
+          }
           triggerClassName={styles.trigger}
           panelClassName={variant === 'product' ? styles.productPanel : styles.panel}
           items={displayedItems.map((item) => ({
@@ -929,15 +954,14 @@ function ProductDetailReviews({ count, id, className, children }: ProductDetailR
     <ContentSection
       id={id}
       className={className}
-      title={
-        <>
-          리뷰{' '}
-          <Typography variant="body1" weight="medium">
-            ({count})
-          </Typography>
-        </>
-      }
-      headerProps={{ titleAs: 'h2', titleProps: { variant: 'heading8' } }}
+      title="리뷰"
+      headerProps={{
+        titleAs: 'h2',
+        count,
+        countProps: { variant: 'body1', weight: 'medium' },
+        variant: 'productSection',
+        titleProps: { variant: 'heading8' },
+      }}
       gap="6"
     >
       {children ?? <ProductDetailPlaceholder>크리마 영역 · 가로 1016px</ProductDetailPlaceholder>}
@@ -1183,8 +1207,7 @@ function ProductDetailReturnGuide() {
       <Grid
         gridTemplateColumns="minmax(0, 1fr) minmax(0, 3fr)"
         gap="8"
-        borderTop="2px solid token(colors.border.strong)"
-        borderBottom="1px solid token(colors.border.default)"
+        className={dataListBoundaryRecipe({ top: 'emphasis', bottom: 'defaultBorder' })}
         py="10"
         _mobile={{ gridTemplateColumns: '1fr', gap: '6', py: '6' }}
       >
@@ -1385,18 +1408,18 @@ function ProductDetailSections({
           className={destination}
           count={product.reviewCount}
         />
-        <Box id="product-inquiries" className={destination}>
+        <Stack id="product-inquiries" className={destination} gap="24px">
           <ProductDetailInquiryContent empty={inquiriesEmpty} expanded={inquiriesExpanded} />
-        </Box>
-        <ProductDetailSupportSections
-          specifications={
-            apparel
-              ? presentation.notice.filter(
-                  (entry) => entry.label === '컬러' || entry.label === '스타일코드',
-                )
-              : presentation.notice
-          }
-        />
+          <ProductDetailSupportSections
+            specifications={
+              apparel
+                ? presentation.notice.filter(
+                    (entry) => entry.label === '컬러' || entry.label === '스타일코드',
+                  )
+                : presentation.notice
+            }
+          />
+        </Stack>
       </Stack>
     </ProductDetailScrollSpy>
   );
@@ -2371,8 +2394,7 @@ function ProductAfterSalesProcess() {
         m="0"
         py="10"
         px="0"
-        borderTop="2px solid var(--color-black-100)"
-        borderBottom="1px solid var(--color-black-40)"
+        className={dataListBoundaryRecipe({ top: 'strong', bottom: 'muted' })}
         _mobile={{
           gridTemplateColumns: '1fr',
           '& > li, & > li:nth-child(4), & > li:nth-child(5)': { gridColumn: 'auto' },
@@ -2702,13 +2724,30 @@ function ProductSelectedOptions({
   if (!items.length) return null;
   return (
     <Stack gap="0" aria-label="선택한 상품 옵션">
-      <Box as="ul" m="0" p="0" listStyleType="none">
+      <Box
+        as="ul"
+        m="0"
+        p="0"
+        listStyleType="none"
+        className={
+          dataListRecipe({
+            top: 'unchanged',
+            columnGap: 'unchanged',
+            itemLayout: 'selectedOptions',
+          }).root
+        }
+      >
         {items.map((item, index) => {
           const label = [item.color, item.size, item.width].filter(Boolean).join(', ');
           return (
             <li key={JSON.stringify([item.id, item.color, item.width, item.size])}>
-              <Stack gap="3" py="4" borderBottom="1px solid var(--color-black-20)">
-                <Flex gap="3" alignItems="center" justifyContent="space-between">
+              <Stack data-list-option>
+                <Flex
+                  data-list-controls
+                  rowGap="3"
+                  alignItems="center"
+                  justifyContent="space-between"
+                >
                   <Typography variant="eland-option-name">{label}</Typography>
                   <Button
                     variant="icon"
@@ -2719,7 +2758,12 @@ function ProductSelectedOptions({
                     <Icon name="hoka-action-xmark-regular" size={16} />
                   </Button>
                 </Flex>
-                <Flex gap="3" alignItems="center" justifyContent="space-between">
+                <Flex
+                  data-list-controls
+                  rowGap="3"
+                  alignItems="center"
+                  justifyContent="space-between"
+                >
                   <NumberStepper
                     ariaLabel={`${label} 수량`}
                     min={1}
@@ -2739,7 +2783,7 @@ function ProductSelectedOptions({
       <HStack
         justifyContent="space-between"
         py="5"
-        borderTop="2px solid var(--color-black-100)"
+        className={dataListBoundaryRecipe({ top: 'strong' })}
         aria-live="polite"
       >
         <Typography variant="eland-option-total">

@@ -256,7 +256,7 @@ const rawScreens: RawScreenDefinition[] = [
     '1',
     false,
     'eland_hpl_01',
-    '템플릿 5개 (261001) 기획전 목록 페이지는 별도로 없습니다. 10/6 삭제',
+    '[ 11/16 기획 원복 ] 기획전 목록 페이지 복원',
   ],
   [
     167,

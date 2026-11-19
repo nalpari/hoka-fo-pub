@@ -60,9 +60,15 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 ## Shared component defaults
 
+### NumberStepper fixed icon design rule
+
+- **사용자 확정 (2026-11-19):** `src/components/common/atoms/NumberStepper.tsx`의 현재 아이콘 표시 크기를 고정한다. PC는 18px, 모바일은 16px 프레임이며 plus/minus SVG의 내부 여백 보정인 `maskSize: '150%'`와 `WebkitMaskSize: '150%'`를 유지한다. trash도 동일한 PC18px/MO16px 프레임을 사용한다.
+- Figma 재검수·스타일 정리·리팩터링·공용 Icon 변경을 이유로 아이콘 프레임, 도형의 실제 표시 크기, SVG 여백 보정값을 임의로 축소·확대하거나 제거하지 않는다. 새로운 디자인 링크만으로 변경 승인으로 간주하지 않으며 사용자의 명시적인 크기 변경 요청이 필요하다. SVG 자산이 바뀌어도 기존 실제 표시 크기를 보존하고 PC·모바일 스크린샷으로 확인한다.
+- 기본 `trash={false}`는 수량 1에서 비활성 trash를 표시하며, `trash={true}`는 수량 1에서 활성 trash를 표시한다. 수량 2 이상은 minus를 표시하고 기존 min 제한을 유지한다. 이 표시 옵션을 이유로 아이콘 크기를 바꾸지 않는다.
+
 - **테이블형 빈 안내 공통 규칙 (2026-11-18):** `EmptyState variant="plain"`을 테이블형 목록 안에 배치할 때 PC 영역 최소 높이는 220px, 모바일 영역 높이는 120px이며 문구 최대 너비는 320px, 가로·세로 중앙 정렬이다. 모바일 좌우 여백은 12px을 유지하고 좁은 화면에서는 문구가 줄어들 수 있게 한다. `EmptyState.recipe.tsx`의 `layout="table"` 또는 기존 테이블형 layout(notices/claimHistory/orderSummary)에 공통 규칙을 적용한다. 일반 검색·페이지형 plain과 기존 명시적 standard에는 일괄 적용하지 않는다. 과거 시안의 높이보다 이 사용자 확정 규칙이 우선한다.
 
-- **공통 더보기 UI 규칙 (2026-11-18):** `Button.loadMore`는 콜백 미연결만을 이유로 `disabled` 처리하지 않는다. 고정 퍼블리싱 fixture의 더보기는 정상 표시를 유지하고 임의 조회 동작을 만들지 않는다. 실제 pending 또는 명시적 사용 불가 사유가 있는 disabled는 유지한다. 더보기 숫자의 `fontWeight`는 `inherit`로 통일하며 별도 굵기를 주지 않는다.
+- **공통 더보기 UI 규칙 (2026-11-18):** `Button.loadMore`는 콜백 미연결만을 이유로 `disabled` 처리하지 않는다. 고정 퍼블리싱 fixture의 더보기는 정상 표시를 유지하고 임의 조회 동작을 만들지 않는다. 실제 pending 또는 명시적 사용 불가 사유가 있는 disabled는 유지한다. 더보기 문구와 숫자의 `fontWeight`는 PC·모바일 모두 항상 `400`으로 고정한다. 부모나 호출부의 굵기 설정으로 변경하지 않는다.
 
 ### EmptyState fixed design rule
 

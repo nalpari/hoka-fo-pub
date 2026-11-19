@@ -1,6 +1,8 @@
 import { css, sva } from 'styled-system/css';
 import type { SystemStyleObject } from 'styled-system/types';
 
+import { dataListBoundaryRecipe } from '@/components/common/atoms/DataList.recipe';
+
 const notice = {
   title: { fontWeight: '700', fontStyle: 'normal', color: 'black.100' },
   message: { fontStyle: 'normal', color: 'black.100' },
@@ -99,7 +101,6 @@ export const modalProductSelectionContentRecipe = sva({
     'sectionTitle',
     'sectionHeading',
     'intro',
-    'products',
     'product',
     'productInfo',
     'productText',
@@ -152,13 +153,6 @@ export const modalProductSelectionContentRecipe = sva({
         letterSpacing: '-0.02em',
         color: '#4D4D4D',
       },
-    },
-    products: { gap: '0', borderY: '1px solid #000000' },
-    product: {
-      gap: '16px',
-      py: '16px',
-      alignItems: 'flex-start',
-      '&:not(:last-child)': { borderBottom: '1px solid #E9EAEB' },
     },
     productInfo: { pt: '20px', _mobile: { pt: '16px' } },
     productText: { minW: '0', flex: '1', gap: '6px' },
@@ -299,7 +293,6 @@ export const modalProductSelectionContentRecipe = sva({
           },
         },
         sectionHeading: { pb: '20px', _mobile: { pb: '16px' } },
-        products: { borderBottom: '0' },
         product: {
           gap: '0',
           alignItems: 'stretch',
@@ -555,7 +548,6 @@ export const modalTrackingContentRecipe = sva({
     'term',
     'value',
     'number',
-    'table',
     'date',
     'caption',
   ],
@@ -608,30 +600,7 @@ export const modalTrackingContentRecipe = sva({
     term: { m: '0', color: '#555555', fontWeight: '400' },
     value: { m: '0', minW: '0', overflowWrap: 'anywhere', fontWeight: '500' },
     number: { fontFamily: 'hoka', fontWeight: '700', letterSpacing: '0' },
-    table: {
-      w: '100%',
-      tableLayout: 'fixed',
-      borderCollapse: 'collapse',
-      textAlign: 'center',
-      fontSize: '14px',
-      '--tracking-column': '104px',
-      _mobile: { fontSize: '12px', '--tracking-column': '20%' },
-      '& th, & td': {
-        px: '2px',
-        py: '12px',
-        borderBottom: '1px solid #E9EAEB',
-        overflowWrap: 'anywhere',
-      },
-      '& th': {
-        py: '16px',
-        borderTop: '2px solid black',
-        borderBottom: '1px solid black',
-        fontWeight: '400',
-        _mobile: { py: '12px' },
-      },
-      '& th:nth-child(-n+3)': { w: 'var(--tracking-column)' },
-    },
-    date: { fontFamily: 'hoka', fontWeight: '700', letterSpacing: '0' },
+    date: { fontFamily: 'hoka', fontWeight: '400', letterSpacing: '0' },
     caption: {
       position: 'absolute',
       w: '1px',
@@ -1173,7 +1142,7 @@ export const modalDialogRecipe = sva({
           '&::before': {
             content: '""',
             display: 'block',
-            borderTop: '2px solid black',
+            ...dataListBoundaryRecipe.raw({ top: 'strong' }),
             mb: '24px',
           },
           '& input': { h: '24px!', minH: '24px!', lineHeight: '24px!' },

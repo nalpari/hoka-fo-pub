@@ -270,12 +270,18 @@ export const emptyStateRecipe = sva({
         },
       },
       productInquiry: {
-        title: {
+        root: {
           display: 'flex',
-          minH: '120px',
+          h: '328px',
           alignItems: 'center',
           justifyContent: 'center',
-          textAlign: 'start',
+          _mobile: { h: '150px' },
+        },
+        title: {
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          textAlign: 'center',
         },
       },
       inquiryBoard: {

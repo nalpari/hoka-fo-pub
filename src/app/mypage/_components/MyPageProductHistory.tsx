@@ -6,6 +6,7 @@ import { usePlatform } from '@/context/platform';
 import { css } from 'styled-system/css';
 import { Box, Grid, Stack } from 'styled-system/jsx';
 
+import { dataListRecipe } from '@/components/common/atoms/DataList.recipe';
 import { Divider } from '@/components/common/atoms/Divider';
 import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { Typography } from '@/components/common/atoms/Typography';
@@ -43,20 +44,28 @@ function MyPageRestockList({ items, entries }: Props) {
   const platform = usePlatform();
   const preview = restockPreview[platform];
   return (
-    <Stack gap="0" _mobile={{ borderTop: '1px solid var(--colors-black-100)' }}>
+    <Stack
+      gap="0"
+      className={
+        dataListRecipe({
+          top: 'strongToThin',
+          headerTypography: 'heading',
+          columnGap: 'metadataColumns',
+        }).root
+      }
+    >
       <Grid
         gridTemplateColumns="minmax(0, 1fr) 150px 150px"
         gap="0"
         display={{ base: 'grid', _mobile: 'none' }}
-        borderTop="2px solid black"
-        borderBottom="1px solid black"
-        py="20px"
         textAlign="center"
+        data-list-header
+        className={dataListRecipe().header}
       >
         {['상품정보', '신청일', '상태'].map((label) => (
-          <Typography key={label} variant="heading9" language="ko">
+          <span data-list-cell key={label}>
             {label}
-          </Typography>
+          </span>
         ))}
       </Grid>
       {items.map((entry, index) => {
@@ -74,10 +83,10 @@ function MyPageRestockList({ items, entries }: Props) {
               _mobile: 'minmax(0, 1fr) auto',
             }}
             alignItems="center"
-            borderBottom="1px solid token(colors.black.20)"
-            gap="0"
+            data-list-item
+            rowGap="0"
             py="32px"
-            _mobile={{ py: '24px', columnGap: '8px' }}
+            _mobile={{ py: '24px' }}
           >
             <Box px="24px" _mobile={{ px: '0' }} minW="0">
               <OrderProductSummary

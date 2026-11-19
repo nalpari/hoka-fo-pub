@@ -7,6 +7,7 @@ import { Box, Stack, VStack } from 'styled-system/jsx';
 
 import { Badge } from '@/components/common/atoms/Badge';
 import { Button } from '@/components/common/atoms/Button';
+import { dataListRecipe } from '@/components/common/atoms/DataList.recipe';
 import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { Typography } from '@/components/common/atoms/Typography';
 
@@ -55,9 +56,7 @@ export function AddressList({
                 alignItems: 'end',
                 pb: '10',
                 borderBottom: '2px solid black',
-                _mobile: addresses.length
-                  ? { pb: '32px', borderBottom: '2px solid black' }
-                  : { pb: '32px', borderBottom: '2px solid black' },
+                _mobile: { pb: '32px' },
                 action: addresses.length ? (
                   <Button
                     {...(mobile
@@ -75,26 +74,27 @@ export function AddressList({
         {addresses.length ? (
           <Box>
             <Stack
-              gap={embedded ? '6' : '0'}
-              _mobile={{
-                ...(embedded ? { gap: '6' } : {}),
-                borderTop: undefined,
-              }}
+              gap="0"
+              className={
+                dataListRecipe({
+                  top: embedded ? 'strong' : 'unchanged',
+                  columnGap: 'addressActions',
+                }).root
+              }
             >
               {addresses.map((address) => (
                 <Stack
                   as="article"
+                  data-list-item
                   key={address.id}
                   direction="row"
                   alignItems="center"
                   justifyContent="space-between"
-                  gap="6"
-                  py={embedded ? undefined : '24px'}
-                  borderBottom="1px solid var(--colors-black-20)"
+                  rowGap="24px"
+                  py="24px"
                   _mobile={{
                     flexDirection: 'column',
                     alignItems: 'stretch',
-                    gap: '24px',
                   }}
                 >
                   <Stack gap="8" minW="0" _mobile={{ gap: '3' }}>

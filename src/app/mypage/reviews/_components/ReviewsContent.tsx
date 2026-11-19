@@ -7,6 +7,7 @@ import { css } from 'styled-system/css';
 import { Box, Flex, Grid, HStack, Stack, VStack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
+import { dataListBoundaryRecipe, dataListRecipe } from '@/components/common/atoms/DataList.recipe';
 import { Dropdown } from '@/components/common/atoms/Dropdown';
 import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { FormField } from '@/components/common/atoms/FormField';
@@ -109,9 +110,8 @@ function ReviewItem({ entry: { product, purchasedAt, review }, tab, onEdit }: Re
   return (
     <Flex
       as="li"
-      borderBottom="1px solid var(--color-black-20)"
       alignItems="center"
-      gap="0"
+      rowGap="0"
       py={tab === 'written' ? '32px' : '16px'}
       _mobile={{
         alignItems: 'flex-start',
@@ -229,26 +229,36 @@ export function ReviewsContent({
                   </Typography>
                 </HStack>
               </HStack>
-              <Stack gap="0">
+              <Stack
+                gap="0"
+                className={
+                  tab === 'written'
+                    ? dataListRecipe({ top: 'none', headerTypography: 'heading' }).root
+                    : undefined
+                }
+              >
                 {tab === 'written' && (
                   <Grid
                     display={{ base: 'grid', _mobile: 'none' }}
                     gridTemplateColumns="minmax(0, 340fr) minmax(96px, 120fr) minmax(0, 300fr) 84px"
                     gap="0"
                     textAlign="center"
-                    borderTop="2px solid var(--color-black-100)"
-                    borderBottom="1px solid var(--color-black-100)"
-                    py="20px"
+                    data-list-header
+                    className={css(
+                      dataListRecipe.raw().header,
+                      dataListBoundaryRecipe.raw({ top: 'strong' }),
+                    )}
                   >
-                    <Typography variant="headingKr9">상품정보</Typography>
-                    <Typography variant="headingKr9">평점</Typography>
-                    <Typography variant="headingKr9">리뷰</Typography>
+                    <span data-list-cell>상품정보</span>
+                    <span data-list-cell>평점</span>
+                    <span data-list-cell>리뷰</span>
                   </Grid>
                 )}
                 <Stack
                   as="ul"
                   gap="0"
                   aria-label={tab === 'ready' ? '작성 가능한 리뷰 목록' : '내가 작성한 리뷰'}
+                  className={dataListRecipe({ top: 'unchanged' }).root}
                 >
                   {items.map((entry) => (
                     <ReviewItem

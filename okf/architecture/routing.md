@@ -4,12 +4,20 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-18T06:18:22.253Z'
+updated: '2026-11-18T07:19:22.060587+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/collection/page.tsx
+  - src/app/collection/_components/SpecialExhibitionContent.tsx
+  - src/app/collection/_components/specialExhibition.data.ts
+  - src/components/common/atoms/EmptyState.recipe.tsx
+  - src/app/mypage/rewards/rewards-data.ts
+  - src/components/common/molecules/ContentHeader.tsx
+  - src/app/checkout/_components/CheckoutSummary.tsx
+  - src/components/common/atoms/DataList.recipe.tsx
   - src/components/common/atoms/Button.tsx
   - src/app/mypage/reviews/_components/ReviewsContent.tsx
 
@@ -157,7 +165,6 @@ working_tree_sources:
   - src/app/mypage/addresses/_components/AddressStatePreview.tsx
   - src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx
   - src/app/mypage/rewards/_components/RewardsContent.tsx
-  - src/app/mypage/rewards/rewards-data.ts
   - src/context/MyPageDataContext.ts
   - src/stories/features/mypage/MyPage.Rewards.Web.stories.tsx
   - src/app/mypage/_components/MyPageContent.tsx
@@ -387,7 +394,19 @@ sources:
     title: '장바구니 추가 완료'
 ---
 
+## 기획전 목록 원복 (2026-11-16)
+
+`/collection`은 IA 166 기획전 목록의 직접 진입 경로다. route-private `SpecialExhibitionContent`가 대표 이미지 준비 영역, `Winter Trail Collection` 제목, 스크롤 고정 카테고리 앵커와 상품 그리드를 소유하고, `page.tsx`는 그 화면만 연결한다. PC는 1532px 콘텐츠 폭·4열·16px 열 간격·96px 카테고리 간격, 모바일은 2열·8px 열 간격·가로 스크롤 탭을 사용한다.
+
+IA 166의 원본/보정 비고는 `[ 11/16 기획 원복 ] 기획전 목록 페이지 복원`으로 통일했고, screen-index의 기본 보기와 파일 그래프를 `/collection`에 연결했다. IA 167 상세는 이번 목록 복원 범위에 포함하지 않아 기존 미수급 상태와 연결 없음이 유지된다. 대표 이미지는 제공 시안에서 이미지가 아닌 준비 영역으로 표시되어 실제 이미지·기획전 카테고리·상품 조회는 연결하지 않았다. Figma 근거는 사용자 제공 [HOKA Design 파일](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)이다.
+
+검증: 로컬 `/collection`에서 PC와 375px 모바일의 대표 영역·그리드·탭, 모바일 아우터 레이어 앵커 이동과 가로 넘침 없음을 확인했다. `/screen-index` 기획전 필터에서 원복 비고와 `/collection` 보기 링크도 확인했다. 실제 상품 조회·기획전 상세·대표 이미지 업로드는 미연결이다.
+
 # 라우팅과 플랫폼
+
+## 회원등급 안내 문구 (2026-11-19)
+
+`src/app/mypage/rewards/rewards-data.ts`의 ELITE 혜택은 “스페셜 래플 응모 기회 제공”으로 표시한다. PC·모바일은 `RewardsContent.tsx`의 `RewardBenefits`에서 같은 `tiers` 데이터를 사용한다. 괄호 안의 임시 문구만 제거했으며 라우팅·스타일·다른 혜택은 변경하지 않았다. 소스 검색과 공통 렌더링 경로를 확인했으며 브라우저 시각 검증은 수행하지 않았다.
 
 ## 공통 Back to Top의 라우팅 영향 검토 (2026-11-16)
 
@@ -2193,6 +2212,11 @@ origin/pub-psh-1015의 추가 커밋 a075b78d·b4b33434를 병합했다. MyPageF
 
 사용자 검토에 따라 CouponManagement에서 visibleCoupons.length가0일 때 총0건 영역을 렌더링하지 않는다.1건 이상인 기존 건수 표시와 빈 안내는 유지한다. 출처: 사용자 브라우저 주석과 해당 작업 트리.
 
+
+## 목록 머리글 공통 스타일 (2026-11-18)
+
+checkout, mypage orders(상세·취소반품 포함), reviews, restock-alerts, support/notices의 기존 머리글을 공통 Table.recipe className으로 연결한다. 라우트·직접 확인 URL·모바일 표시 조건과 데이터/콜백 소유권은 유지한다. 별도 페이지/래퍼는 추가하지 않는다. 스타일과 조사 범위는 [공통 UI 문서](ui.md#공통-목록-머리글-스타일-2026-11-18)를 따른다.
+
 ## 마이페이지 기준 높이 정렬 (2026-11-18)
 
 마이페이지 메뉴 제목의 행간을 한글 기준120%로 통일했다. 언어별 글꼴·크기·굵기는 유지하며 PC 제목 높이33.6px, 모바일26.4px이다.
@@ -2206,3 +2230,114 @@ origin/pub-psh-1015의 추가 커밋 a075b78d·b4b33434를 병합했다. MyPageF
 - 주문 조회의 남은 작업 트리 변경을 반영했다: 모바일 날짜 영역 패딩, 기간 조회 하단 여백, 주문 현황 가로 여백과 PC 목록 구분선.
 
 - 주문 상세 제목과 본문 간격 및 PC 배송 조회·리뷰 작성 버튼 크기를 조정했다. 주문·취소 상세 경로와 동작은 유지한다.
+
+표/목록 하단선의 플랫폼별 색상은 기존 OrdersProducts·OrdersList·OrderDetails·MyPageProductHistory·ReviewsContent 소유자에서 Table.recipe의 className으로 연결한다. 주문 그룹은 PC검정/MO회색, 취소반품 내역은 PC회색/MO검정이다. 라우트와 서비스/상태 소유권은 유지한다. 검증과 옵션 표는 [공통 UI 문서](ui.md#표목록-하단선의-pc모바일-색상-2026-11-18)를 참고한다.
+
+## DataList 적용 경로 (2026-11-18)
+
+Table.recipe를 DataList.recipe로 이전하고 기존 목록·합계·상세·모달의 경계선을 공통화했다. 경로와 상태·서비스 소유권은 유지하며 새 preview 경로는 추가하지 않았다. 소스 연결 그래프는 npm run screen-files/prebuild로 재생성했다. 머리글 Typography만 기존 span+typography case로 전환하고 본문 Typography는 유지한다. 마이페이지/결제 배송지 목록과 연결 모달도 기존 경로를 재사용한다. 구체적인 기본/상태55개 링크와 실제 검증 범위는 [DataList 적용 화면과 링크](ui.md#datalist-적용-화면과-링크)에 기록한다.
+
+장바구니 상품 목록의 누락된 DataList row 연결을 보완했다(2026-11-18). /cart 및 기존 수량제한·옵션변경 상태가 동일 CartProductSection을 사용하며 URL·상태·콜백 계약은 유지한다. 소스 그래프는 정식 screen-files 명령으로 갱신했다. PC/MO10개 항목의 스타일 전후 일치 검증은 ui.md의 장바구니 누락 보완 항목에 기록한다.
+
+2026-11-18 가로 간격 API 정리: /cart와 /checkout/preview-address-change 및 마이페이지 배송지 목록은 각각 productControls/addressActions case를 사용한다. PC/MO 기존16/8px·24/24px을 보존하고 별도 mobileColumnGap을 제거했다. 경로·상태·콜백 계약은 유지한다.
+
+## 스태시 충돌 해결과 주문 스타일 우선순위 (2026-11-18)
+
+사용자 지시에 따라 주문 조회·상세 스타일은 sallysprism의 8082d6b2·c0a441e9·2d769da4가 반영된 HEAD를 기준으로 유지했다. OrderDetails.tsx·OrdersList.tsx·OrdersProducts.tsx에는 스태시의 DataList 공통화를 적용하지 않았다. 주문 상세의 추가 상단 margin을 복원하지 않고, 주문 그룹 gap16px·PC 세로 padding0·모바일 padding24px 및 모바일 목록 간격16px을 보존한다. 표 헤더의 기존 유상품/빈 목록 타이포 분기도 유지한다. 따라서 위 세 파일은 앞선 DataList 적용 목록의 예외다. 다른 화면의 스태시 변경은 보존했으며 MyPageProductHistory는 재입고 상태 텍스트와 DataList 연결을 함께 유지했다. 소스 그래프는 screen-files로 재생성했다. 출처: 사용자 우선순위 지시, 해당 커밋과 현재 스태시 충돌 양쪽 소스. 브라우저 시각 검증은 수행하지 않았다.
+
+2026-11-18 목록 부모 소유권 정리: /cart, /checkout(배송지 모달 포함), /mypage/restock-alerts, /mypage/reviews, /support/notices의 기존 목록 부모가 DataList list/linkedList를 통해 직접 항목의 간격과divider를 제어한다. DOM·경로·상태·서비스 콜백은 유지한다. 카트 시작선은 전체선택 영역의 하단에서 상품 ul 상단으로 동일1px #E9EAEB를 이동했다. 소스그래프를 정식 명령으로 확인했다.
+
+2026-11-18 DataList top API 정리: CheckoutSummary·MyPageProductHistory·ReviewsContent·NoticesList·공지상세의 mobileTop을 기존 PC/MO 조합에 대응하는 top strongToThin/desktopStrong으로 교체했다. URL·DOM·데이터/서비스 계약은 유지한다. 사용하지 않는 row 슬롯 제거는 호출부 변경을 요구하지 않았다. 스타일 등가 검사와 실제 옵션 표는 ui.md에 기록한다.
+
+2026-11-18 DataList columnGap 기본flush 적용: CheckoutSummary·ReviewsContent의 명시적 flush 호출을 dataListRecipe().list로 줄였다. 이전 명시적 flush와 모든 슬롯 스타일이 같으며 기존 머리글-본문 사이0·경로·상태·서비스 계약은 유지한다.
+
+2026-11-18 동일 부모 DataList root/list 통합: cart·결제·재입고·배송지의 class 배열을 하나의 root 호출로 줄였다. 리뷰 본문은 top unchanged로 기존 바깥 머리글 선 소유권을 유지한다. 기존 슬롯 list만 제거하고 URL·DOM·상태·서비스 계약은 유지한다. 옵션별 검증은 ui.md에 기록한다.
+
+
+2026-11-18 최신 화면 피드백: /checkout/preview-address-change 목록 모달의 빈 pseudo 여백을 제거하고 배송지 항목별 py24를 적용했다. /checkout/preview-address-edit 및 /checkout/preview-address-new 폼 구분 영역은 유지한다. /mypage/addresses 기본·빈 상태의 제목 PC40/MO32px 여백과 검정선2px을 유지한다. /mypage/orders 및 /mypage/orders/preview-empty의 세 머리글은 DataList H9(20px/700)로 연결한다. 모바일 숨김·본문·기존 경로·상태·서비스 계약은 유지한다. 공통 더보기400은 기존 Button.loadMore 사용처에 적용한다. 실제 검증 범위는 ui.md에 기록했다.
+
+
+## 주문 취소·반품 상품 선택 목록 스타일 소유권 (2026-11-19)
+
+OrderClaimRequest의 상품 선택 목록은 DataList root가 소유한다. top thinStrong/columnGap unchanged/itemLayout productSelection을 기존 Stack css에 연결하고 직접 HStack에 data-list-item을 표시한다. 목록 gap0과 상·하단1px 검정선, 항목 gap16/py16/상단 정렬과 항목 사이1px #E9EAEB를 유지하며 마지막 항목의 중복선은0이다. itemLayout 기본 unchanged는 배치를 추가하지 않는다. ModalDialog recipe의 미사용 products 슬롯과 claim 상품 배치 선언은 제거했다. 쿠폰 전용 product 슬롯 및 본문 Typography·데이터·선택·수량 콜백은 유지한다.
+
+검증: 취소 신청과 반품 신청 고정 URL(/mypage/orders/preview-cancel-request, /mypage/orders/preview-return-request)에서 PC1225/MO375 목록선·gap·항목 padding·구분선·정렬의 계산값을 확인했다. DataList itemLayout 생략/undefined/unchanged의 기존 raw 기본 스타일과 쿠폰의 유지 슬롯 스타일은 전후 동일하다(Panda py/paddingBlock 동의어 정규화). 대상 ESLint/Prettier, TypeScript, Panda 생성 및 소스 그래프 재생성을 통과했다. 새 경로나 서비스 계약은 추가하지 않았다.
+
+
+## 배송조회 상품추적 시안 반영 (2026-11-19)
+
+배송조회 PC·모바일 시안을 구조화해 확인하고 상품추적 표를 집배점/구분/처리일자 3열로 맞췄다. 집배점은 기존 destination 표시 데이터, 구분·일시는 기존 이력 fixture를 재사용한다. 모바일 시안의 후속4열 행은 기본3열과 구조가 달라 임의 데이터를 추가하지 않았다. 기본정보·단계·서비스 계약은 유지한다.
+
+DataList itemLayout trackingTable이 기존 table DOM의 시작선2px 검정·머리글 하단1px 검정·본문 하단1px #E9EAEB와 셀 여백을 소유한다. 머리글은 PC14px/400/py16, MO12px/400/py12이며 검정이다. 양옆 padding2px으로 열 사이4px을 구성하고 앞 두 열은 PC144px/MO84px(텍스트140/80px)이다. 날짜는 기존 The Future HOKA를 유지하고 시안의400으로 변경했다. ModalDialog의 table 슬롯과 해당 중복 스타일은 제거했다. 다른 DataList 옵션의 기본값은 유지한다.
+
+검증: PC1920 및 MO375 브라우저 계산값에서 머리글 크기·굵기·여백·열너비·검정선, 본문 회색선과 날짜400을 확인했고 모바일 캡처를 확인했다. 대상 ESLint·Prettier·TypeScript·Panda 생성·소스그래프 재생성 통과. hoka-markup-handoff 기준으로 기존 table/caption/th scope 의미·상태 소유권·본문 데이터와 반응형 경계를 점검했다. 이번 변경 후 전체 production build는 실행하지 않았다. 디자인 출처: [HOKA 화면 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design).
+
+
+## 취소·반품내역 DataList 재연결 (2026-11-19)
+
+ClaimHistoryList PC 부모 root가 상단2px 검정과 직접 data-list-item의 하단1px var(--color-border-subtle)을 소유한다. semanticSubtle case로 기존 토큰 참조를 보존한다. 머리글은 DataList header/cell headingBold/heading으로 연결하고 기존20px/700·py20·검정 하단1px 및 열너비를 유지한다. 모바일 ul root는 top none/rowBorder strong/columnGap unchanged로 항목 검정 하단1px을 소유한다. 항목의 중복 border와 로컬 머리글 스타일은 제거했다. 본문 Typography·PC pt32/pb32 및 모바일 목록gap24·상세 콜백은 유지한다.
+
+PC1440 일반 목록의 회색 항목선·머리글20px/700과 MO375 검정 항목선을 확인했다. /mypage/returns/preview-empty의 PC 머리글 py20·상단2px/하단1px 검정선 및 빈 상태 유지도 확인했다. TypeScript·대상 ESLint/Prettier·Panda·소스그래프 생성을 수행했다. 기존 EmptyState 높이·선 소유권과 주문 조회 화면 계약은 유지한다.
+
+
+## 머리글 셀 스타일의 부모 소유권 (2026-11-19)
+
+리뷰·결제·재입고·주문·취소반품·공지 머리글의 개별 span recipe 호출을 제거했다. 기존 부모 root에 headerTypography/cellVariant를 지정하고 직접 머리글은 data-list-header, 셀은 data-list-cell로 표시한다. DataList는 이 표시가 있는 직접 머리글의 직접 셀만 선택하며 본문 typography에 전파하지 않는다. 기존 cell 슬롯 API는 호환성을 위해 유지한다. 공지는 noticeColumns로 title/date의 왼쪽 정렬과 padding16/32px을 부모에서 소유하며 기본 중앙 정렬보다 높은 선택자 우선순위를 둔다. 기존 글자 크기·굵기·transform·간격·경계선은 유지한다.
+
+최신 사용자 요청으로 리뷰 정렬/총건수 아래의 목록 시작선만 제거했다(top none). 머리글 하단1px 검정과 항목 하단1px #E9EAEB는 유지한다. 리뷰 빈 상태의 기존 머리글 미표시와 모바일 머리글 숨김도 유지한다.
+
+검증: 기존 headerTypography6종/cellVariant4종의24개 조합에서 cell raw값 동일성을 확인했다. PC1440 결제·재입고·주문·취소반품·리뷰20px/700/중앙 정렬과 공지16px/600/왼쪽 정렬·셀별 padding을 확인했다. 리뷰 작성완료 빈 상태의 셀0개 및 MO375 머리글 숨김을 확인했다. 리뷰 최종 시작선0px·머리글 하단검정1px·두 항목 회색1px도 확인했다. 대상 ESLint/Prettier·TypeScript·Panda 생성·소스그래프 재생성을 수행했다. 전체 production build는 이번 변경 후 실행하지 않았다.
+
+최신 추가 확정: 리뷰 머리글 자체의 상단에는 DataListBoundary top strong을 기존 header raw 스타일과 합쳐2px 검정선을 적용한다. 정렬 영역/바깥 root의 상단선0은 유지한다. PC1253에서 머리글 상단2px·하단1px 검정과 바깥 root0px을 확인했다. 모바일 머리글 숨김은 유지한다.
+
+
+## 상품 문의 목록 DataList 연결 (2026-11-19)
+
+ProductDetailContent의 InquiryBoard Accordion 부모 root에 itemLayout inquiryAccordion을 연결했다. 직접 항목 div의1px var(--color-border-default) 구분선과 표시한 data-list-columns의 PC columnGap0/MO12px을 관리한다. 기존 rowGap0/MO12px은 InquirySubject 소유자에서 유지한다. 헤더 하단1px 검정선은 DataListBoundary bottom strong으로 연결하고 중복 itemClassName은 제거했다. 본문 Typography·열너비·minHeight·패딩·공개/비공개·질의 펼침·더보기 계약은 변경하지 않는다. 신규 래퍼/route는 만들지 않았다.
+
+검증: PC1440에서 항목 구분선1px #D8D8D8 및 열간격0을 계산값으로 확인했다. 모바일12px은 원래 반응형 값을 그대로 이전했으며 이번 브라우저 조사에서는 보이는 모바일 문의 배치의 계산값 검증을 완료하지 못했다. TypeScript·대상 ESLint/Prettier·Panda·소스그래프 생성 통과. 전체 build는 이번 변경 후 실행하지 않았다.
+
+
+## 商品 상세 모바일 제목·건수 확정값 (2026-11-19)
+
+사용자 지정으로 상품 상세 리뷰·상품문의 제목의 모바일 값을 Pretendard normal20px/900/120%/자간-0.02em/#000으로 맞췄다. 건수는 기존 The Future HOKA를 사용하며20px/500/120%/자간0px/#000이다. 같은 파일의 sectionHeadingStyles에서 공통 관리하고 기존 ContentHeader/ContentSection titleProps와 건수 Typography에 적용한다. 상품문의 default 게시판·PC 값·본문·상태 계약은 유지한다.
+
+MO571에서 리뷰/상품문의의 제목20px/900 및 건수20px/500을 확인했으며 최종 로딩 후 검정과24px 행간을 확인했다. 자간0은 Panda 숫자토큰 해석을 피하도록0px로 명시했다. 대상 ESLint/Prettier·TypeScript·Panda·소스그래프 생성 통과. 전체 build는 이번 변경 후 실행하지 않았다.
+
+
+## ContentHeader 선택형 제목 보조 요소 (2026-11-19)
+
+prefix/suffix/count/countProps를 선택 props로 추가했다. prefix·suffix·count를 모두 생략하거나 undefined로 전달하면 기존 제목 children을 그대로 렌더링한다. count는0도 표시하며 괄호를 공통 생성한다. 보조 요소가 있을 때만 제목 Typography 내부의 Flex as span이 baseline/gap0.25em/wrap으로 prefix·title·count·suffix를 배치한다. 기존 h1~h6·action·description·eyebrow·textGroupProps는 유지한다.
+
+variant 기본값은 컴포넌트 파라미터와 recipe 모두 standard이며 스타일 override를 추가하지 않는다. productSection을 명시하면 기존 상품 상세 모바일 제목20px/900, 숫자 HOKA20px/500/24px/검정 규칙을 적용한다. 페이지의 sectionHeadingStyles는 제거하고 리뷰·상품문의에 count와 productSection을 연결했다. countProps로 기존 PC body1/medium을 유지한다.
+
+TypeScript와 대상 ESLint/Prettier·Panda·소스그래프 생성 통과. MO571의 리뷰 제목20px/900 및 숫자20px/500/행간24px을 확인했다. 옵션 없는 기존 사용처는 분기/기본 스타일을 유지하고 기존 호출자 전체 타입검사를 통과했다. prefix/suffix를 붙인 실제 서비스 화면의 실행 검증은 하지 않았다.
+
+다른 사용처 조사: ContentHeader/ContentSection의 제목 JSX를 소스 AST로 확인했다. 상품 상세 리뷰·문의는 전환했고, 같은 InquiryBoard의 default 제목 합성 분기는 현재 실제 호출이 product뿐이라 별도 사용 화면으로 세지 않는다. 검색 결과 제목은 숫자가 문장 중간에 있어 괄호 count로 바꾸면 문구가 달라진다. 쿠폰·마이페이지 리뷰·상품목록의 총건수는 별도 정렬/요약 영역이므로 제목 count로 임의 이동하지 않는다.
+
+
+## 선택 옵션 목록 DataList 소유권 (2026-11-19)
+
+ProductSelectedOptions의 ul에 DataList root(top unchanged/columnGap unchanged/itemLayout selectedOptions)를 연결했다. 부모가 직접 li의 회색 하단1px 및 data-list-option의 gap12/py16, 내부 data-list-controls의 columnGap12를 관리한다. 기존 Stack/Flex/ul/li 구조와 내부 rowGap12·타이포·합계2px 검정선·수량 및 삭제 callback·스크롤 소유자는 유지한다. 마지막 항목 회색선도 기존대로 유지한다.
+
+options-selected와 options-scroll 고정 경로에서 PC1440/MO571의 모든 옵션 py16/gap12/columnGap12 및1px #E9EAEB를 계산값으로 확인했다. 수량·삭제 동작과 실제 스크롤 제스처는 이번에 별도로 실행하지 않았다. 대상 ESLint/Prettier·TypeScript·Panda·소스그래프 생성 검사를 수행했다. 전체 build는 이번 변경 후 실행하지 않았다.
+
+## 장바구니 수량 trash 공통 옵션 (2026-11-19)
+
+`src/app/cart/_components/CartProductSection.tsx`는 기존 minimumControl 휴지통 JSX 대신 공통 NumberStepper의 `trash` 옵션을 선택한다. URL·fixture 수량·품절 fieldset·onChange 소유권은 유지한다. 삭제는 종전처럼 미연결 표시이며 API나 완료 이동을 만들지 않는다. PC1440/MO375의 수량1 trash와 수량2 minus·품절 비활성을 확인했고 기본 옵션인 취소 신청 수량1의 minus 비활성도 확인했다. 상세 계약과 아이콘 고정 정책은 [NumberStepper 옵션](ui.md#numberstepper-trash-옵션과-아이콘-고정-정책-2026-11-19)을 따른다.
+
+
+## 문의 빈 영역·사이즈 오류·FAQ 간격 반영 (2026-11-19)
+
+상품 상세 PC/MO 시안을 확인했다. productInquiry 빈 영역은 PC328px/MO150px 높이의 flex 중앙 정렬이며, 문의와 고시·배송·관리 안내를 기존 product-inquiries Stack에 묶어gap24px로 관리한다. 모바일 문의 제목·문의하기 아래16px 간격의 선과 필터 행 py16px을 적용했다. 제목/필터 체크박스는 하나의 트리를 유지하며 PC 배치를 보존한다. EmptyState의 다른 테이블/공지/heading 확정 규칙은 변경하지 않는다.
+
+사이즈 미선택 오류는 detail appearance에서만 제목·선택그리드 전체를1px #CC0000/반경4px으로 감싼다. PC padding4px/MO6px과 바깥 오류 문구까지gap8px을 적용한다. 기존 옵션 내부 너비는 음수 가로 margin으로 보존한다. 개별 invalid pill outline만 그룹에서 제거하며 FormField invalid/aria-describedby·오류 alert는 유지한다. 모바일 오류 상태의 그리드는4열, 제목-그리드 간격14px이다. 오류 문구는 PC14px/400/150%/#CC0000, MO13px/500/130%/#E10F00으로 맞췄다. 미사용 추천 문구는 추가하지 않는다. 정상 detail·cart branch 및 선택/품절·가이드 callback은 유지한다.
+
+FAQ Accordion root가 DataList top strong과 faqAccordion 유형으로 기존 질문 minHeight74/MO58·py24/MO16·gap16 및 접힘 상태 회색 inset divider를 소유한다. 기존 질문 Typography와 펼친 답변을 유지한다. 시작선 아래 section paddingTop32/MO8을 제거했다. 빈 결과는 기존 EmptyState를 유지한다.
+
+실행 확인: PC1920/MO375에서 문의 높이328/150·flex 중앙 정렬·부모gap24, 사이즈 그룹1px/반경4/padding4·6/개별 outline없음/오류 문구, FAQ section pt0·시작선2px·질문py24·16을 계산값으로 확인했다. 문의 모바일 영역 캡처를 확인했다. TypeScript·대상 ESLint/Prettier·Panda·소스그래프 생성을 수행했다. hoka-markup-handoff 기준으로 소유권·기존 DOM 의미·반응형·FormField 연결과 표시 fixture 경계를 점검했다. 외부 API·신규 상태 URL·데이터 계약은 추가하지 않았다. 디자인 출처: [상품 상세 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design).
+
+
+## 공지 머리글 열 정렬 (2026-11-19)
+
+제공된 공지 목록 PC 시안의 제목 fill 열/등록일 hug 열 중앙 정렬을 DataList noticeColumns에 반영했다. 제목은flex1/minWidth0/중앙, 등록일은flexShrink0/중앙이며 기존 padding16/32px·글자16px/600·하단선·본문 정렬은 유지한다. 사용자 요청은 정렬 범위이므로 시안의 다른 타이포 차이를 일괄 반영하지 않았다. 모바일 머리글 숨김은 유지한다. PC1920 목록844px에서 제목열739.47px·날짜열104.53px과 두 셀 중앙 정렬을 계산값으로 확인했다. MO375의 기존 머리글 숨김도 확인했다. 타입·Panda·대상 lint/format·소스그래프를 수행했다. 출처: [공지 목록 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design).

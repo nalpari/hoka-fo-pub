@@ -3,6 +3,7 @@ import { usePlatform } from '@/context/platform';
 import { css } from 'styled-system/css';
 import { Box, Grid, Stack } from 'styled-system/jsx';
 
+import { dataListRecipe } from '@/components/common/atoms/DataList.recipe';
 import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { Typography } from '@/components/common/atoms/Typography';
 
@@ -16,17 +17,6 @@ import type { ClaimHistoryItem, OrderRecord } from '@/components/orders/orders.t
 
 import { OrderCard, type OrderCardActions } from './OrdersProducts';
 import { type OrderStatusItem, OrderStatusTracker } from './OrdersStatus';
-
-const styles = {
-  tableHeaderLabel: css({
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    textAlign: 'center',
-    color: 'black.100',
-    letterSpacing: '-0.02em',
-  }),
-};
 
 type OrdersListContentProps = OrderCardActions & {
   dateSearch: DateRangeSearchProps;
@@ -55,9 +45,16 @@ function ClaimHistoryList({
 
   if (platform === 'mobile') {
     return (
-      <Stack as="ul" gap="24px" listStyleType="none">
+      <Stack
+        as="ul"
+        gap="24px"
+        listStyleType="none"
+        className={
+          dataListRecipe({ top: 'none', rowBorder: 'strong', columnGap: 'unchanged' }).root
+        }
+      >
         {items.map((item) => (
-          <Stack as="li" key={item.key} gap="0" borderBottom="1px solid var(--color-black-100)">
+          <Stack as="li" key={item.key} gap="0">
             <Box display="flex" pb="16px" borderBottom="1px solid var(--color-border-subtle)">
               <Typography variant="body4" tone="tertiary">
                 <Typography as="span" variant="body4Medium" tone="primary">
@@ -101,45 +98,42 @@ function ClaimHistoryList({
     'minmax(0, 344fr) minmax(0, 120fr) minmax(0, 120fr) minmax(0, 140fr) minmax(0, 120fr)';
 
   return (
-    <Stack gap="0">
+    <Stack
+      gap="0"
+      className={
+        dataListRecipe({
+          rowBorder: 'semanticSubtle',
+          columnGap: 'unchanged',
+          headerTypography: 'headingBold',
+          cellVariant: 'heading',
+        }).root
+      }
+    >
       <Grid
         gridTemplateColumns={columns}
         alignItems="center"
         gap="0"
-        py="20px"
-        borderTop="2px solid var(--color-black-100)"
-        borderBottom="1px solid var(--colors-black-100)"
+        data-list-header
+        className={dataListRecipe().header}
       >
         {['상품정보', '주문일자', '수량', '금액', '처리상태'].map((label) => (
-          <Typography
-            key={label}
-            variant="heading9"
-            weight="bold"
-            className={styles.tableHeaderLabel}
-          >
+          <span key={label} data-list-cell>
             {label}
-          </Typography>
+          </span>
         ))}
       </Grid>
       {!items.length && (
         <EmptyState variant="plain" layout="claimHistory" title="취소나 환불한 상품이 없습니다." />
       )}
       {items.map((item) => (
-        <Stack key={item.key} gap="0" pt="32px">
+        <Stack key={item.key} data-list-item gap="0" pt="32px">
           <Typography variant="body3" tone="tertiary" className={css({ pl: '24px' })}>
             주문번호{' '}
             <Typography as="span" variant="body3" language="en" tone="tertiary">
               {item.orderNumber}
             </Typography>
           </Typography>
-          <Grid
-            gridTemplateColumns={columns}
-            alignItems="center"
-            gap="0"
-            pt="16px"
-            pb="32px"
-            borderBottom="1px solid var(--color-border-subtle)"
-          >
+          <Grid gridTemplateColumns={columns} alignItems="center" gap="0" pt="16px" pb="32px">
             <Box px="24px">
               <OrderProductSummary
                 variant="history"
@@ -214,8 +208,19 @@ export function OrdersListContent({
         {/* 주문 조회 기간 필터 */}
         <DateRangeSearch {...dateSearch} />
         {/* 주문 상품 목록 및 빈 화면 */}
-        <Stack gap="0">
+        <Stack
+          gap="0"
+          className={
+            dataListRecipe({
+              top: 'unchanged',
+              columnGap: 'unchanged',
+              headerTypography: 'headingBold',
+              cellVariant: 'heading',
+            }).root
+          }
+        >
           <Grid
+            data-list-header
             gridTemplateColumns="minmax(0, 536fr) minmax(0, 108fr) minmax(0, 200fr)"
             alignItems="center"
             gap={orders.length ? undefined : '0'}
@@ -224,27 +229,11 @@ export function OrdersListContent({
             borderBottom={'1px solid var(--colors-black-100)'}
             _mobile={{ display: 'none' }}
           >
-            <Typography
-              variant={orders.length ? 'body3Medium' : 'heading9'}
-              weight={orders.length ? undefined : 'bold'}
-              className={orders.length ? css({ textAlign: 'center' }) : styles.tableHeaderLabel}
-            >
-              상품/옵션정보
-            </Typography>
-            <Typography
-              variant={orders.length ? 'body3Medium' : 'heading9'}
-              weight={orders.length ? undefined : 'bold'}
-              className={orders.length ? css({ textAlign: 'center' }) : styles.tableHeaderLabel}
-            >
-              수량
-            </Typography>
-            <Typography
-              variant={orders.length ? 'body3Medium' : 'heading9'}
-              weight={orders.length ? undefined : 'bold'}
-              className={orders.length ? css({ textAlign: 'center' }) : styles.tableHeaderLabel}
-            >
-              가격
-            </Typography>
+            {['상품/옵션정보', '수량', '가격'].map((label) => (
+              <span key={label} data-list-cell>
+                {label}
+              </span>
+            ))}
           </Grid>
           {orders.length ? (
             <Stack as="ul" gap={{ base: '0', _mobile: '16px' }} listStyleType="none">

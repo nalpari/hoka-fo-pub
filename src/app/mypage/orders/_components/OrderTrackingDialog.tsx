@@ -1,3 +1,5 @@
+import { dataListRecipe } from '@/components/common/atoms/DataList.recipe';
+
 import { StepIndicator } from '@/components/common/molecules/StepIndicator';
 
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
@@ -85,11 +87,11 @@ export function OrderTrackingDialog({
         </section>
         <section aria-label="상품추적">
           <h3 className={styles.heading}>상품추적</h3>
-          <table className={styles.table}>
+          <table className={dataListRecipe({ itemLayout: 'trackingTable' }).root}>
             <caption className={styles.caption}>상품 배송 추적 이력</caption>
             <thead>
               <tr>
-                {['처리장소', '상대장소', '구분', '처리일자'].map((label) => (
+                {['집배점', '구분', '처리일자'].map((label) => (
                   <th key={label} scope="col">
                     {label}
                   </th>
@@ -99,7 +101,6 @@ export function OrderTrackingDialog({
             <tbody>
               {trackingHistory.map((event) => (
                 <tr key={`${event.place}-${event.destination}`}>
-                  <td>{event.place}</td>
                   <td>{event.destination}</td>
                   <td>{event.state}</td>
                   <td className={styles.date}>

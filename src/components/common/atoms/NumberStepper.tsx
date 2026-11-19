@@ -62,6 +62,9 @@ const valueStyle = css({
   color: 'black.100',
 });
 
+// 증감 SVG의 24px 캔버스에 포함된 4px 여백을 보정해 16px 도형 프레임을 맞춘다.
+const quantityIcon = css({ maskSize: '150%', WebkitMaskSize: '150%' });
+
 export type NumberStepperProps = {
   value: number;
   min?: number;
@@ -71,8 +74,25 @@ export type NumberStepperProps = {
   ariaLabel?: string;
   className?: string;
   formatValue?: (value: number) => ReactNode;
-  minimumControl?: ReactNode;
-};
+} & (
+  | {
+      /** 기본 false이며 수량 1에서는 비활성 삭제 버튼을 표시합니다. */
+      trash?: false;
+      minimumControl?: ReactNode;
+      onTrash?: never;
+    }
+  | {
+      /** true이면 수량 1에서 활성 삭제 버튼을 표시합니다. */
+      trash: true;
+      minimumControl?: never;
+      /** 삭제 실행은 호출부가 연결하며 연결하지 않으면 표시만 유지합니다. */
+      onTrash?: () => void;
+    }
+);
+
+// [ 개발팀 바인딩 ] trash는 표시 옵션이며 삭제 요청은 구현하지 않는다.
+// 연결 소유자는 onTrash에 상품/옵션 식별자를 캡처하고 요청·pending 중 중복 방지,
+// 실패 표시·재시도와 성공 후 목록 갱신을 담당한다. 현재 장바구니는 콜백 미연결 fixture다.
 
 /** 범위 내 수량을 입력하거나 증감합니다. (Controls quantity entry and increment within bounds.) */
 export function NumberStepper({
@@ -84,6 +104,8 @@ export function NumberStepper({
   ariaLabel = '수량 선택',
   className,
   formatValue,
+  trash = false,
+  onTrash,
   minimumControl,
 }: NumberStepperProps) {
   const field = useFormFieldContext();
@@ -99,11 +121,21 @@ export function NumberStepper({
       step={step}
       value={value}
     >
-      {value === min && minimumControl ? (
+      {value === 1 ? (
+        <button
+          aria-label={`${ariaLabel} 삭제`}
+          className={control}
+          disabled={!trash}
+          onClick={trash ? onTrash : undefined}
+          type="button"
+        >
+          <Icon name="hoka-trash-regular" size={iconSize} />
+        </button>
+      ) : value === min && minimumControl ? (
         minimumControl
       ) : (
         <BaseNumberField.Decrement aria-label="감소" className={control}>
-          <Icon name="hoka-action-minus-regular" size={iconSize} />
+          <Icon className={quantityIcon} name="hoka-action-minus-regular" size={iconSize} />
         </BaseNumberField.Decrement>
       )}
       <BaseNumberField.Input
@@ -113,7 +145,7 @@ export function NumberStepper({
         className={valueStyle}
       />
       <BaseNumberField.Increment aria-label="증가" className={control}>
-        <Icon name="hoka-action-plus-regular" size={iconSize} />
+        <Icon className={quantityIcon} name="hoka-action-plus-regular" size={iconSize} />
       </BaseNumberField.Increment>
     </BaseNumberField.Root>
   );

@@ -1,13 +1,64 @@
 import type { ComponentProps, ReactNode } from 'react';
 
-import { Stack } from 'styled-system/jsx';
+import { cx, sva } from 'styled-system/css';
+import { Flex, Stack } from 'styled-system/jsx';
 
 import { Typography, type TypographyProps } from '@/components/common/atoms/Typography';
 
+const contentHeaderRecipe = sva({
+  slots: ['title', 'count'],
+  variants: {
+    variant: {
+      standard: {},
+      productSection: {
+        title: {
+          _mobile: {
+            '&&': {
+              fontFamily: 'korean',
+              fontStyle: 'normal',
+              fontSize: '20px',
+              fontWeight: '900',
+              lineHeight: '1.2',
+              letterSpacing: '-0.02em',
+              color: 'black.100',
+            },
+          },
+        },
+        count: {
+          _mobile: {
+            '&&': {
+              fontFamily: 'hoka',
+              fontStyle: 'normal',
+              fontSize: '20px',
+              fontWeight: '500',
+              lineHeight: '1.2',
+              letterSpacing: '0px',
+              color: 'black.100',
+            },
+          },
+        },
+      },
+    },
+  },
+  defaultVariants: { variant: 'standard' },
+});
+
 type TextProps = Omit<TypographyProps<'h2'>, 'as' | 'children'>;
 
-export type ContentHeaderProps = Omit<ComponentProps<typeof Stack>, 'title' | 'children'> & {
+export type ContentHeaderProps = Omit<
+  ComponentProps<typeof Stack>,
+  'title' | 'children' | 'prefix'
+> & {
   title: ReactNode;
+  /** Optional presentation; defaults to standard without style overrides. */
+  variant?: 'standard' | 'productSection';
+  /** Optional title prefix; omission/undefined preserves the existing title DOM. */
+  prefix?: ReactNode;
+  /** Optional title suffix, such as a badge. */
+  suffix?: ReactNode;
+  /** Optional parenthesized count; zero is displayed. */
+  count?: number;
+  countProps?: Omit<TypographyProps<'span'>, 'as' | 'children'>;
   orientation?: 'vertical' | 'horizontal';
   action?: ReactNode;
   titleAs?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
@@ -25,6 +76,11 @@ export type ContentHeaderProps = Omit<ComponentProps<typeof Stack>, 'title' | 'c
 /** 제목·보조 문구·액션을 선택한 의미와 배치로 표시합니다. (Displays a heading, supporting text, and actions with caller-owned semantics and layout.) */
 export function ContentHeader({
   title,
+  variant = 'standard',
+  prefix,
+  suffix,
+  count,
+  countProps,
   titleAs = 'h2',
   orientation = 'vertical',
   action,
@@ -39,6 +95,7 @@ export function ContentHeader({
   gap = '3',
   ...props
 }: ContentHeaderProps) {
+  const classes = contentHeaderRecipe({ variant });
   const text = (
     <>
       {eyebrow ? (
@@ -46,8 +103,27 @@ export function ContentHeader({
           {eyebrow}
         </Typography>
       ) : null}
-      <Typography {...titleProps} as={titleAs}>
-        {title}
+      <Typography {...titleProps} as={titleAs} className={cx(classes.title, titleProps?.className)}>
+        {prefix != null || suffix != null || count != null ? (
+          <Flex as="span" display="inline-flex" alignItems="baseline" flexWrap="wrap" gap="0.25em">
+            {prefix}
+            <span>{title}</span>
+            {count != null ? (
+              <Typography
+                language="en"
+                weight="medium"
+                {...countProps}
+                as="span"
+                className={cx(classes.count, countProps?.className)}
+              >
+                ({count})
+              </Typography>
+            ) : null}
+            {suffix}
+          </Flex>
+        ) : (
+          title
+        )}
       </Typography>
       {description ? (
         <Typography {...descriptionProps} as={descriptionAs}>

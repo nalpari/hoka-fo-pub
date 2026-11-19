@@ -10,6 +10,7 @@ import { Box, Flex, HStack, Stack, VStack } from 'styled-system/jsx';
 
 import { Accordion } from '@/components/common/atoms/Accordion';
 import { Button } from '@/components/common/atoms/Button';
+import { dataListRecipe } from '@/components/common/atoms/DataList.recipe';
 import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { FilterTabs } from '@/components/common/atoms/FilterTabs';
 import { Icon } from '@/components/common/atoms/Icon';
@@ -48,15 +49,6 @@ const styles = {
     _mobile: { '--button-height': '42px' },
   }),
   searchButtonLabel: css({ '&&': { fontWeight: '400', lineHeight: '1.3' } }),
-  question: css({
-    minH: '74px',
-    gap: '16px',
-    py: '24px',
-    textAlign: 'left',
-    boxShadow: 'inset 0 -1px 0 var(--color-black-20)',
-    '&[aria-expanded="true"]': { boxShadow: 'none' },
-    _mobile: { minH: '58px', py: '16px' },
-  }),
 };
 
 type Props = {
@@ -189,14 +181,7 @@ type FaqListProps = {
 };
 function FaqList({ entries, openQuestion, onToggle }: FaqListProps) {
   return (
-    <Box
-      as="section"
-      aria-label="자주 묻는 질문"
-      borderTopColor="black.100"
-      borderTopStyle="solid"
-      borderTopWidth={entries.length ? '2px' : '0'}
-      pt={{ base: '32px', _mobile: '8px' }}
-    >
+    <Box as="section" aria-label="자주 묻는 질문">
       {entries.length ? (
         <Accordion
           indicator={
@@ -204,7 +189,7 @@ function FaqList({ entries, openQuestion, onToggle }: FaqListProps) {
               <Icon name="chevron-down-regular" size="16px" />
             </Flex>
           }
-          triggerClassName={styles.question}
+          className={dataListRecipe({ itemLayout: 'faqAccordion', columnGap: 'unchanged' }).root}
           multiple={false}
           value={openQuestion ? [openQuestion] : []}
           onValueChange={(values) => {

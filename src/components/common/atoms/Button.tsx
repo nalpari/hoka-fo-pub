@@ -16,6 +16,7 @@ import { Icon, type IconProps } from '@/components/common/atoms/Icon';
 import { Typography, type TypographyProps } from '@/components/common/atoms/Typography';
 
 const loadMoreStyles = {
+  root: css({ fontWeight: '400!', '& *': { fontWeight: '400!' } }),
   text: css({ '&&': { lineHeight: '1.3', _mobile: { lineHeight: '1.5' } } }),
 };
 
@@ -172,6 +173,7 @@ export type ButtonLoadMore = (
   | { remaining?: never; counter?: never; count: number; appearance: 'text' | 'inline' }
 ) & {
   label?: ReactNode;
+  /** 더보기의 굵기는 문구·숫자 모두400으로 고정되므로 weight는 표시값에 반영하지 않습니다. */
   labelProps?: Pick<TypographyProps, 'variant' | 'mo' | 'web' | 'weight'>;
   counterProps?: Pick<TypographyProps, 'variant' | 'mo' | 'web'>;
 } & (
@@ -215,7 +217,7 @@ function renderLoadMoreContent(
   const defaultTextProps = {
     web: 'cta1',
     mo: 'cta2',
-    weight: platform === 'mobile' ? 'regular' : 'bold',
+    weight: 'regular',
   } as const;
 
   if (appearance === 'inline') {
@@ -233,13 +235,15 @@ function renderLoadMoreContent(
     return (
       <HStack gap="1">
         {countPlacement === 'inline' ? (
-          <Typography {...labelProps}>
+          <Typography {...labelProps} weight="regular">
             {label} ({countLabel})
           </Typography>
         ) : (
           <>
-            <Typography {...labelProps}>{label}</Typography>
-            <Typography {...counterProps} weight="inherit">
+            <Typography {...labelProps} weight="regular">
+              {label}
+            </Typography>
+            <Typography {...counterProps} weight="regular">
               ({countLabel})
             </Typography>
           </>
@@ -266,13 +270,14 @@ function renderLoadMoreContent(
       <HStack as="span" gap="0" alignItems="center">
         <Typography
           {...(labelProps ?? defaultTextProps)}
+          weight="regular"
           className={labelProps ? undefined : loadMoreStyles.text}
         >
           {label}
         </Typography>
         <Typography
           {...(counterProps ?? defaultTextProps)}
-          weight="inherit"
+          weight="regular"
           className={counterProps ? undefined : loadMoreStyles.text}
         >
           ({counter.current}/{counter.total})
@@ -590,6 +595,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
             social.appearance !== 'signup' &&
             socialLogin.raw({ provider: social.provider }),
         ),
+        loadMore && loadMoreStyles.root,
         className,
       ]
         .filter(Boolean)
@@ -603,7 +609,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
             variant={labelTypographyVariant}
             // The former count wrapper kept the outer scale independent of its label.
             language={loadMore ? 'en' : undefined}
-            weight={unframed || variant === 'chip' ? 'medium' : 'bold'}
+            weight={loadMore ? 'regular' : unframed || variant === 'chip' ? 'medium' : 'bold'}
             style={{ color: 'inherit' }}
           >
             {resolvedChildren}

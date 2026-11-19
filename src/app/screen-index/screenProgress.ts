@@ -154,6 +154,8 @@ const confirmedDesignReceipts: Partial<
   158: { pcDesign: 'missing', moDesign: 'missing' },
   // 2026-10-30 사용자 확인: 기획전 상세는 현재 목업이며 디자인 미수급.
   167: { pcDesign: 'missing', moDesign: 'missing' },
+  // 2026-11-16 사용자 제공 기획전 목록 PC/MO 시안.
+  166: { pcDesign: 'received', moDesign: 'received' },
   258: { pcDesign: 'received', moDesign: 'received' },
   259: { pcDesign: 'received', moDesign: 'received' },
 };
@@ -170,6 +172,7 @@ const confirmedTemplateDesigns: Record<string, Pick<ScreenProgress, 'pcDesign' |
 export const confirmedPublishingProgress: Readonly<
   Partial<Record<number, Partial<Pick<ScreenProgress, 'pcPublishing' | 'moPublishing'>>>>
 > = {
+  166: { pcPublishing: 'ready', moPublishing: 'ready' },
   // 2026-11-03 사용자 요청: 최종 디자인 미확정으로 런칭 캘린더 PC/MO 모두 수정.
   159: { pcPublishing: 'revision', moPublishing: 'revision' },
   160: { pcPublishing: 'revision', moPublishing: 'revision' },

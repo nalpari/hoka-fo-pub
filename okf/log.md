@@ -1,10 +1,134 @@
+## 2026-11-19 공지 목록 머리글 정렬
+
+- DataList noticeColumns의 제목을 남은 열 가운데, 등록일을 오른쪽 hug 열 가운데로 정렬했다. 기존 글자·본문·여백·모바일 숨김은 유지한다.
+- PC1920의844px 목록에서 두 열 너비와 중앙 정렬 및 모바일 숨김을 확인했다. 타입·Panda·lint/format·소스그래프를 수행했다.
+
+## 2026-11-19 문의 빈 영역·사이즈 오류·FAQ 간격 수정
+
+- 상품 문의 빈 높이PC328/MO150과 아래 안내까지24px, 모바일 필터 행을 반영했다.
+- 사이즈 오류선을 개별 버튼에서 제목+선택그룹으로 옮겨1px/반경4px·PC4/MO6px 패딩을 적용했다. 모바일 오류4열과 오류 문구 값을 반영했다.
+- FAQ 목록을 DataList 부모로 정리하고 시작선 아래 추가 pt를 제거했다. PC/MO 계산값·문의 캡처·대상 lint/format·타입·Panda·소스그래프와 전체 build(정적163개)를 통과했다. 이후 최종 오류 문구의 조건 우선순위를 수정·생성하고 모바일13px/500/16.9px을 확인했다. 검증 범위는 ui.md에 기록했다.
+
+## 2026-11-19 회원등급 안내 임시 문구 제거
+
+- ELITE 래플 혜택의 괄호 안 임시 문구를 공통 표시 데이터에서 제거했다. PC·모바일의 공통 데이터 참조와 소스 문구를 확인했다. 브라우저 시각 검증은 수행하지 않았다.
+
+## 2026-11-19 수량1 기본 아이콘을 비활성 휴지통으로 변경
+
+- 최신 사용자 지시로 trash=false/생략/undefined는 수량1에서 비활성 trash, true는 활성 trash로 변경했다. 수량2 이상 minus와 고정 아이콘 크기는 유지한다. PC/MO 취소 신청·장바구니 상태와 타입·대상 lint 검증을 확인했다. AGENTS.md·UI 계약·인덱스를 갱신했다.
+
+## 2026-11-19 NumberStepper trash 옵션과 아이콘 크기 고정
+
+- trash 기본 false와 true의 수량1 휴지통을 공통화하고 장바구니 슬롯을 옵션으로 전환했다. 증감 SVG 여백을150% 마스크로 보정하고 PC18/MO16px 아이콘 프레임과 실제 표시 크기 보존 정책을 AGENTS.md에 추가했다. PC/MO 장바구니 스크린샷·상태 전환·품절과 취소 신청 기본 minus 비활성,8개 옵션 분기·콜백, 타입·대상 lint·Panda를 확인했다. 삭제 서비스는 미연결이며 상세는 architecture/ui.md·routing.md에 기록했다.
+
+## 2026-11-19 상품 선택 옵션 DataList 연결
+
+- 선택 옵션 ul 부모에서 항목 divider·py16·내부gap12·가로간격12를 관리한다. 기존 구조·타이포·합계선·콜백·스크롤 소유자는 유지한다.
+- 선택/스크롤 fixture PC1440/MO571의 옵션 계산값을 확인했다. 대상 lint/format·타입·Panda·소스그래프 검증 범위는 ui.md에 기록했다.
+
+## 2026-11-19 ContentHeader 선택형 보조 요소와 count 조사
+
+- prefix/suffix/count를 모두 선택 props로 추가하고 생략/undefined는 기존 제목 렌더링을 유지한다. productSection variant로 상품 상세 모바일 타이포를 이전해 페이지 스타일을 제거했다.
+- 상품 리뷰·상품문의에 count를 적용했다. 다른 ContentHeader/ContentSection 제목을 조사했으며 검색 문장 내 숫자와 별도 총건수는 괄호형 제목 count의 직접 대체 대상으로 보지 않았다.
+- 타입·대상 lint/format·Panda·소스그래프 및 모바일 제목/숫자 계산값을 확인했다. 최종 production build(정적163개)도 통과했다. 확인 범위는 ui.md에 기록했다.
+
+## 2026-11-19 상품 상세 모바일 섹션 제목 규칙
+
+- 리뷰·상품문의 제목을20px/900, 건수를 The Future HOKA20px/500으로 정리하고24px 행간·검정·각 자간을 지정했다. PC·본문은 유지한다.
+- 모바일 계산값과 대상 lint/format·타입·Panda·소스그래프를 확인했다. 세부는 ui.md에 기록했다.
+
+## 2026-11-19 상품 문의 목록 DataList 연결
+
+- Accordion 부모에서 항목 구분선과 문의 열 가로간격을 제어하고 제목 영역 경계선도 DataListBoundary로 연결했다. 기존 글자·세로간격·상태·본문은 유지한다.
+- PC 계산값과 대상 lint/format·타입·Panda·소스그래프를 확인했다. 모바일 실행 검증 한계는 ui.md에 기록했다.
+
+## 2026-11-19 머리글 부모 스타일 통합과 리뷰 시작선 제거
+
+- 결제·재입고·주문·취소반품·리뷰·공지의 셀별 recipe를 부모 root와 data-list-header/data-list-cell 표시로 통합했다. 기존 cell API·본문 값·공지 셀별 정렬과 여백은 유지한다.
+- 리뷰 정렬영역의 시작선은 제거하고 최신 추가 요청대로 머리글 자체에 DataListBoundary의2px 검정 상단선을 연결했다. 머리글·항목 하단선은 유지한다. PC1253에서 선 소유권과 계산값을 확인했다.
+- 24개 cell 조합 동등성, PC 여섯 화면·리뷰 빈 상태 및 모바일 숨김과 최종 선 계산값을 확인했다. 대상 lint/format·타입·Panda·소스그래프를 수행했다.
+
+## 2026-11-19 취소·반품내역 DataList 재연결
+
+- PC·모바일 목록 부모 root에 시작선·항목선을 연결하고 머리글은 DataList header/cell로 통합했다. 기존 토큰 색상·본문·열너비·간격을 유지했다.
+- PC1440/MO375 및 PC 빈 상태의 계산값, 대상 lint/format·타입·Panda·소스그래프를 확인했다. 상세는 ui.md와 routing.md에 기록했다.
+
+## 2026-11-19 배송조회 상품추적 DataList 시안 반영
+
+- PC/MO 상품추적 기본3열과 머리글14/12px·400·검정, 시작선2px/하단1px 검정·본문 회색선 및 날짜400을 반영했다. 표 스타일은 ModalDialog에서 DataList root로 옮겼다.
+- PC1920/MO375 계산값·모바일 캡처와 대상 lint/format·타입·Panda·소스그래프를 확인했다. 기존 fixture·의미 구조·상태 계약은 유지한다. 시안의 모바일 후속4열 혼합 구조는 ui.md에 구분해 기록했다.
+
+## 2026-11-19 주문 신청 상품 목록의 DataList 소유권 정리
+
+- 취소·반품 신청의 상품 목록 경계선과 항목 간격·divider를 DataList root로 옮겼다. ModalDialog의 미사용 products 슬롯과 claim 항목 스타일을 제거하고 쿠폰 전용 슬롯은 유지했다.
+- PC1225/MO375 취소·반품의 기존 디자인 값, 기본 옵션과 쿠폰 슬롯 동등성, 대상 lint/format·타입·Panda·소스 그래프 검사를 통과했다. 본문 Typography·데이터·동작은 유지한다.
+
+## 2026-11-18 배송지 여백·더보기400·주문 머리글H9
+
+- 배송지 항목별 py24와 부모 pt/gap0을 적용하고 결제 목록 모달의 빈 pseudo만 숨겼다. 등록·수정은 유지한다. 동일 조건 분기와 중복 모바일 border를 제거했다.
+- 공통 더보기 문구·숫자를400으로 고정하고 AGENTS 규칙을 갱신했다. 주문 조회 기본·빈 상태의 세 머리글만 DataList H9로 연결했으며 본문은 유지했다.
+- PC/MO 브라우저 계산값·배송지 캡처와 대상 ESLint/Prettier·타입·Panda·소스 그래프를 검증했다. production build(정적163개)도 통과했다. 범위는 architecture/ui.md에 기록했다.
+
+## 2026-11-18 DataList 전체 사용처의 중복 스타일 감사
+
+- 슬롯20개 호출(root7/header4/cell8/linkedList1)을 재확인했고 같은 부모의 중복 root·제거한 row/list 참조·중복 항목 columnGap/border는 없었다. AddressList 부모의 중복 모바일gap/no-op borderTop 객체를 제거했다. 역할이 다른 부모gap·중첩배치·공지 linkedList·배송조회 th의 의도적 검정선 override는 유지했다.
+- PC1440/MO375 여덟 경로 자료 수집과 최종 배송지 간격/회색선·배송조회 검정선 검증, 대상 lint/format·타입·Panda·대상 diff 검사 통과. typography·디자인값·DOM·서비스 계약은 유지한다. 자세한 검증 범위는 ui.md에 기록했다.
+
+## 2026-11-18 DataList 부모 root/list를 단일 root로 통합
+
+- root에 직접 항목의 가로간격·divider를 합쳐 같은 부모에 두 클래스를 연결하던 호출을 제거했다. 별도 선 소유자가 있는 목록은 top unchanged를 사용한다. 공지 linkedList는 다른 DOM 책임으로 유지했다.
+- 8400개 옵션 조합에서 기존 root+list 병합과 새 root 및 다른 슬롯 스타일의 동일성을 검증했다. PC1440/MO375 다섯 경로의 경계선·가로간격·divider, 대상 lint/format·Panda·타입·대상 diff 검사 통과. 기존 디자인·본문 Typography·DOM·서비스 계약은 유지한다.
+
+## 2026-11-18 DataList 기본 간격0의 명시적 호출 제거
+
+- columnGap 기본값을 flush로 두고 결제·리뷰 부모의 불필요한 flush 지정을 제거했다. 이전 명시적 flush와 변경 후 생략/undefined/flush의 슬롯 스타일이 동일함을 확인했다. 머리글-본문 세로0과 모든 기존 간격·글자·경계선은 유지한다. row 제거/top 통합3600개 조합 검사와 대상 lint/format·Panda·타입·대상 diff 검사 통과.
+
+## 2026-11-18 DataList 미사용 row 제거와 반응형 top 유형 통합
+
+- TS 심볼로23개 호출·row사용0건을 확인해 row 슬롯을 삭제했다. 중복 divider 기본 선언과 selector 구성, 공통 heading 스타일을 정리했다. mobileTop은 실제 PC/MO 조합을 소유하는 top 유형으로 합치고 기존 emphasis의2px #111을 유지했다.
+- 3600개 옵션 조합에서 유지 슬롯 raw 스타일의 전후 동일성과 기본값/undefined/boundary를 검사했다. PC1440/MO375 다섯 경로의 경계선 확인, 대상 lint/format·타입·Panda·대상 diff 검사 통과. DOM·본문 Typography·서비스 계약은 유지한다.
+
+## 2026-11-18 목록 부모로 DataList 간격·divider 소유권 이동
+
+- 장바구니·배송지·재입고·리뷰·결제 상품·공지 목록에 list/linkedList 부모 슬롯을 적용했다. 직접 자식만 선택하고 기존 div/article에는 data-list-item을 표시한다. cart 선택영역의 하단선을 상품ul 상단선으로 같은1px #E9EAEB를 옮겼다. 기존 간격과 글자·Typography·서비스 계약은 유지한다. PC1440/MO375 비교·cart/공지 캡처·대상 lint/format·타입·Panda·소스그래프·diff 검사 통과. 세부 검증 한계는 ui.md에 기록했다.
+
 ## 2026-11-18 NumberStepper 디자인 시스템 스타일 적용
 
+## 2026-11-18 스태시 주문 스타일 충돌 해결
+
+- 주문 조회·상세 3개 파일은 sallysprism의 HEAD 스타일을 유지하고 해당 파일의 DataList 공통화는 제외했다. 다른 화면의 스태시 변경과 재입고 상태 텍스트는 보존하고 소스 그래프를 재생성했다. 출처와 예외 범위는 architecture/ui.md 및 architecture/routing.md에 기록했다.
+
 - 공통 수량 UI를 PC108×36/MO96×32, 숫자14/12px, 증감 아이콘18/16px과 #E9EAEB 테두리로 조정했다. PC/MO 장바구니 계산값·이미지, 증감·품절 disabled와 타입·대상 lint·Panda를 확인했다. 외부 삭제 슬롯16px과 상품상세/주문신청 실행 미검증은 ui.md에 기록했다.
+
+## 2026-11-18 DataList 가로 간격을 반응형 case로 통합
+
+- xs~xl과 mobileColumnGap을 제거하고 columnGap.productControls(PC16/MO8px), addressActions(PC24/MO24px)로 실제 사용 조합을 명명했다. 두 호출부의 개별 모바일 override도 제거했다. PC1440/MO375 장바구니/배송지의 간격·구분선과 raw 기본값/undefined/case 검사를 확인했다. 대상 lint/format·타입·Panda·diff 검사 통과. 글자·세로간격·서비스 계약은 유지한다.
+
+## 2026-11-18 장바구니 상품 목록 DataList 누락 보완
+
+- CartProductItem의 기존 Grid li에 DataList row를 연결했다. 하단1px #E9EAEB·PC가로16px을 공통화하고 MO가로8px·세로간격·글자·품절/선택 표현은 유지했다. PC1440/MO375 총10개 항목의 텍스트/경계선/간격 계산값이 전후 완전히 일치함을 확인했다. 대상 lint/format·타입·Panda·소스 그래프·diff 검사 통과. 서비스 계약 변경 없음.
+
+## 2026-11-18 DataList 공통 스타일과 머리글 typography 통합
+
+- Table.recipe를 DataList.recipe로 바꾸고 목록/합계/상세/모달 시작선을 통합했다. #111/#D8D8D8 등 기존 토큰값과 반응형 선·간격 차이를 유지했다. 머리글 Typography 선언14곳만 span+case로 전환하고 본문 Typography는 유지한다. columnGap xs~xl=12/16/20/24/40px, mobileColumnGap xl은 최신 사용자 지정32px이다.
+- 배송지 모달의 명시된 상단선·24px 여백을 반영하고 항목 구분선/가로간격24px을 검증했다. 26개 PC/MO 화면 자료 수집, 정착 후 머리글10개 화면 비교, 배송지 캡처·수정 열기, runtime 기본값/variant 검사와 TypeScript·대상 ESLint·Panda·소스 그래프·프로덕션 빌드 통과. 전체 lint의 기존 테스트 오류8건은 남는다. 경로·서비스 계약 변경 없음. 적용55개 링크는 architecture/ui.md에 기록했다.
+
+## 2026-11-18 표 하단선 PC·모바일 variant 구분
+
+- 머리글에 한정했던 이전 검수 범위를 정정하고 주문 그룹 PC검정/MO회색, 취소반품 내역 PC회색/MO검정을 디자인에서 확인했다. Table.recipe의 tableBorderRecipe borderColor에 공통 회색·검정과 두 반응형 조합을 정의해 기존 소유자에 연결했다. PC1440/MO375 다섯 경로의 계산 색상·취소반품 캡처를 확인하고 TypeScript·대상 ESLint·Panda·diff 검사를 통과했다. EmptyState 확정 예외와 서비스 계약은 유지한다.
+
+## 2026-11-18 목록 머리글 선 색상 재검수
+
+- 제공된 시안 모음의 머리글은 상단2px/하단1px 모두 #000000이며 #E9EAEB는 본문·빈 영역 구분선임을 재확인했다. 색상별 머리글 variant를 추가할 근거가 없어 기존 standard/notice를 유지하고 recipe 설명·화면별 근거를 보완했다. 스타일 변경과 브라우저 재검증 없음. 대상 ESLint·diff 검사 통과.
 
 ## 2026-11-18 마이페이지 기준 높이 정렬
 
 - 메뉴 제목 한영 행간120% 통일과 상품 목록 sticky 머리글의 중복 상단24px 제거. PC1440·모바일375 브라우저 측정, 대상 ESLint·TypeScript·Panda·diff 검사 통과. 상세: architecture/ui.md·architecture/routing.md.
+
+## 2026-11-18 목록 머리글 recipe 통합
+
+- TypeScript·변경 파일 ESLint·Panda·diff 검사 통과, PC1440/MO375 주문 캡처와 스타일 확인. 전체 lint는 기존 테스트 전역 선언 오류8건.
+- 주문/결제·주문/클레임 조회와 상세·리뷰·재입고·공지 머리글의 분산 스타일을 Table.recipe.tsx의 className으로 연결했다. 기본/공지 2종으로 정리하고 목록 유무로 디자인을 나누지 않는다. 전체 TSX 조사에서 추가 동일 디자인 목록은 발견하지 못했으며 배송추적·사이즈 표의 차이는 ui.md에 기록했다. 서비스 계약과 라우트는 유지한다.
 
 ## 2026-11-18 pub-psh-1015 추가 변경 병합
 
@@ -3189,11 +3313,9 @@ Figma Navigational Buttons(296:25392)와 Action Buttons(296:25425)의 기본·�
 
 - 사용자 요청으로 AGENTS.md에 heading형 제목 PC22px/MO20px과 오래된 시안보다 우선하는 규칙을 명시했다. 변경에는 사용자 명시 지시가 필요하다. UI·빈 상태 가이드와 인덱스에 최신 정책을 연결했다. 화면 코드는 변경하지 않았다.
 
-
 ## 2026-11-18 주문 조회 없음 PC 시안 반영
 
 - PC 빈 목록에 표 헤더·구분선을 표시하고267px 중앙 안내, 헤더20/700/24px와 본문16/400/24px, 조회 버튼 중앙 정렬을 적용했다. 모바일 배치를 유지하고 후속 지정된 본문14/400/21px를 반영했다. PC1920/1440·MO375 실측/캡처, 기본 주문·취소 빈 내역 확인, 대상 lint/format·TypeScript·Panda·기존 계약2개 통과. 전체 lint/빌드 미실행. 출처: 사용자 요청/브라우저 주석과 OrdersList·OrdersStatus·EmptyState.recipe 작업 트리. 상세: architecture/ui.md·architecture/error-empty-guide.md·architecture/routing.md.
-
 
 ## 2026-11-18 공용 기간 조회와 취소 빈 표 헤더
 
@@ -3267,7 +3389,6 @@ Figma Navigational Buttons(296:25392)와 Action Buttons(296:25425)의 기본·�
 
 - 최근 본 상품 빈 안내의 PC 유지기간 문장을 두 번째 행으로 분리했다. 사용자 완료·삭제·재디자인 구분을 빈 상태 가이드에 기록했다. 파일 lint·TypeScript 검사 통과, 브라우저 미검증.
 
-
 병합 보완: 최근 본 상품의 PC 빈 안내에서 기존 두 줄 표시를 유지했다. 상품내역의 새 소유 경로·정리된 표시 데이터와 함께 적용한다. 해당 파일 ESLint 통과.
 
 ## 2026-11-18 더보기 공통 UI 규칙
@@ -3327,3 +3448,8 @@ Figma Navigational Buttons(296:25392)와 Action Buttons(296:25425)의 기본·�
 - 주문 상세 화면의 제목과 본문 사이 데스크탑 간격을 40px로 맞추고 모바일 16px을 유지했다.
 
 - 주문 상세의 PC 배송 조회·리뷰 작성 버튼을 최소 너비 107px, 높이 40px, 버튼 간 8px, 오른쪽 여백 8px으로 맞추고 상품과 버튼 사이 16px을 적용했다.
+## 2026-11-16 — 기획전 목록 IA 원복과 시안 적용
+
+- IA 166을 `[ 11/16 기획 원복 ]` 비고로 복원하고 `/collection` 기본 보기 및 작업 파일 그래프를 screen-index에 연결했다. IA 167 상세의 미수급·미연결 상태는 유지했다.
+- 제공된 PC/MO 시안에 따라 대표 이미지 준비 영역, 1532px PC 4열/모바일 2열 상품 그리드, 고정 앵커 탭과 스크롤에 따른 활성 상태를 구현했다. 대표 이미지·실제 카테고리와 상품 조회는 고정 fixture로 남겼다.
+- 로컬 PC·375px 모바일 화면, 모바일 앵커 이동 및 `/screen-index` 기획전 필터의 비고·보기 링크를 확인했다. 타입 검사는 이번 화면 외 기존 `LaunchCalendarDetail`, `InquiryFormStatePreview`, `PhoneVerificationContent` 타입 오류로 전체 통과하지 못했다.
