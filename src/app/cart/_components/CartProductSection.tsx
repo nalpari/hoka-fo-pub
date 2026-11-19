@@ -135,16 +135,7 @@ function CartProductItem({
               value={quantity}
               min={1}
               onChange={setQuantity}
-              minimumControl={
-                <Button
-                  variant="icon"
-                  size={20}
-                  aria-label={`${item.id} 수량 삭제`}
-                  className={css({ w: '100%', h: '100%' })}
-                >
-                  <Icon name="hoka-trash-regular" size={16} />
-                </Button>
-              }
+              trash
               ariaLabel={`${item.id} 수량`}
               className={css({ w: '108px!', _mobile: { w: '96px!', h: '32px!' } })}
             />

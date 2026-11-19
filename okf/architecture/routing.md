@@ -392,7 +392,6 @@ sources:
 
 # 라우팅과 플랫폼
 
-
 ## 공통 Back to Top의 라우팅 영향 검토 (2026-11-16)
 
 `ShopShell`이 모든 일반 경로에 `BackToTop` atom을 렌더링하지만 URL, page export, query/hash 상태와 preview 경로는 추가하거나 변경하지 않는다. `/screen-index`의 기존 셸 제외와 `/wh`의 기존 셸 우회도 유지한다. 출처: `src/context/ShopShell.tsx`, `src/components/common/atoms/BackToTop.tsx` 작업 트리, Codex, 2026-11-16.
@@ -2306,6 +2305,10 @@ TypeScript와 대상 ESLint/Prettier·Panda·소스그래프 생성 통과. MO57
 ProductSelectedOptions의 ul에 DataList root(top unchanged/columnGap unchanged/itemLayout selectedOptions)를 연결했다. 부모가 직접 li의 회색 하단1px 및 data-list-option의 gap12/py16, 내부 data-list-controls의 columnGap12를 관리한다. 기존 Stack/Flex/ul/li 구조와 내부 rowGap12·타이포·합계2px 검정선·수량 및 삭제 callback·스크롤 소유자는 유지한다. 마지막 항목 회색선도 기존대로 유지한다.
 
 options-selected와 options-scroll 고정 경로에서 PC1440/MO571의 모든 옵션 py16/gap12/columnGap12 및1px #E9EAEB를 계산값으로 확인했다. 수량·삭제 동작과 실제 스크롤 제스처는 이번에 별도로 실행하지 않았다. 대상 ESLint/Prettier·TypeScript·Panda·소스그래프 생성 검사를 수행했다. 전체 build는 이번 변경 후 실행하지 않았다.
+
+## 장바구니 수량 trash 공통 옵션 (2026-11-19)
+
+`src/app/cart/_components/CartProductSection.tsx`는 기존 minimumControl 휴지통 JSX 대신 공통 NumberStepper의 `trash` 옵션을 선택한다. URL·fixture 수량·품절 fieldset·onChange 소유권은 유지한다. 삭제는 종전처럼 미연결 표시이며 API나 완료 이동을 만들지 않는다. PC1440/MO375의 수량1 trash와 수량2 minus·품절 비활성을 확인했고 기본 옵션인 취소 신청 수량1의 minus 비활성도 확인했다. 상세 계약과 아이콘 고정 정책은 [NumberStepper 옵션](ui.md#numberstepper-trash-옵션과-아이콘-고정-정책-2026-11-19)을 따른다.
 
 
 ## 문의 빈 영역·사이즈 오류·FAQ 간격 반영 (2026-11-19)

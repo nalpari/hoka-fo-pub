@@ -13,6 +13,7 @@ working_tree_sources:
   - src/components/common/molecules/ContentHeader.tsx
   - src/app/support/notices/_components/NoticesList.tsx
   - src/components/common/organisms/Address/AddressList.tsx
+  - src/app/cart/_components/CartOrderActions.tsx
   - src/components/common/atoms/DataList.recipe.tsx
   - src/app/cart/_components/CartEmptyContent.tsx
   - src/app/cart/_components/CartEmptyState.tsx
@@ -5965,6 +5966,17 @@ ContentHeader 선택 props 변경 후 최종 production build가 통과했으며
 ProductSelectedOptions의 ul에 DataList root(top unchanged/columnGap unchanged/itemLayout selectedOptions)를 연결했다. 부모가 직접 li의 회색 하단1px 및 data-list-option의 gap12/py16, 내부 data-list-controls의 columnGap12를 관리한다. 기존 Stack/Flex/ul/li 구조와 내부 rowGap12·타이포·합계2px 검정선·수량 및 삭제 callback·스크롤 소유자는 유지한다. 마지막 항목 회색선도 기존대로 유지한다.
 
 options-selected와 options-scroll 고정 경로에서 PC1440/MO571의 모든 옵션 py16/gap12/columnGap12 및1px #E9EAEB를 계산값으로 확인했다. 수량·삭제 동작과 실제 스크롤 제스처는 이번에 별도로 실행하지 않았다. 대상 ESLint/Prettier·TypeScript·Panda·소스그래프 생성 검사를 수행했다. 전체 build는 이번 변경 후 실행하지 않았다.
+
+## NumberStepper trash 옵션과 아이콘 고정 정책 (2026-11-19)
+
+- 사용자 요청으로 `NumberStepper`에 기본값 false인 선택적 `trash`를 추가했다. 최신 사용자 지시에 따라 생략·undefined·false는 수량1에서 비활성 trash를 표시하고 true는 수량1에서 활성 trash를 표시한다. 수량2 이상은 기존 minus와 min 제한을 유지한다. 기존 minimumControl 슬롯은 trash true와 타입상 배타적이다. 장바구니는 개별 Button/Icon 슬롯 대신 trash를 사용한다. `onTrash`는 선택적 클릭 콜백이며 현재 장바구니에는 연결되지 않은 표시 fixture다. 실제 삭제·pending·실패/재시도·성공 후 갱신은 식별자를 가진 호출부 책임이고 요청 구현은 추가하지 않았다.
+- 첨부 스크린샷과 비교해 plus/minus SVG의24px 캔버스 내부4px 여백 때문에 작아진 도형을 maskSize/WebkitMaskSize150%로 보정했다. 프레임은 PC18px/MO16px이며 공통 trash도 동일하다. 전날 기록의 PC trash16px 외부 슬롯 예외는 이번 공통화로 대체된다. 프레임·실제 도형 크기·여백 보정을 임의 변경하지 않는 사용자 확정 정책을 AGENTS.md에 추가했다. 디자인 링크나 리팩터링만으로 변경 승인을 추정하지 않는다.
+- 실제 검증: 장바구니 PC1440/MO375 스크린샷, 모든 수량 버튼의18/16px 프레임과 증감150% 마스크, 품절 fieldset 비활성 확인. 증가2→3과 키보드 감소3→1 후 trash 전환 확인. 취소 신청 고정 URL의 PC/MO 기본 수량1에서 minus :disabled 확인. 임시 실행 검사로 생략/undefined/false/true×수량1/2의8개 분기와 onTrash 전달 확인. 대상 ESLint/Prettier·TypeScript·Panda 통과. 공통 소유권·Panda·반응형·버튼 type과 외부 슬롯 호환성을 hoka-markup-handoff 기준으로 검토했다.
+- 출처: 사용자 요청·첨부 수량 상태 스크린샷·AGENTS.md와 작업 트리 `src/components/common/atoms/NumberStepper.tsx`, `src/app/cart/_components/CartProductSection.tsx`. 서비스 API·공유 플랫폼 변경 없음.
+
+### 수량1 비활성 trash 변경 (2026-11-19)
+
+사용자가 기본 minus disabled를 trash disabled로 변경했다. 수량1의 버튼은 항상 공통 trash이고 trash 기본 false는 disabled, true는 활성(상위 fieldset disabled는 우선)이며 클릭은 활성일 때만 onTrash로 연결한다. PC18/MO16px 및 증감150% 마스크 고정 정책은 유지한다. PC1440/MO375 취소 신청의 수량1 trash :disabled와 장바구니 활성/품절 휴지통·수량2 minus를 확인했다. TypeScript·대상 ESLint/Prettier 통과. 과거 기본 minus 확인 기록은 당시 검사 이력이며 현 계약은 이 항목이 우선한다.
 
 
 ## 문의 빈 영역·사이즈 오류·FAQ 간격 반영 (2026-11-19)

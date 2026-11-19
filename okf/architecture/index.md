@@ -1,6 +1,7 @@
 # 아키텍처
 
 
+- [NumberStepper trash 옵션과 아이콘 고정 정책](ui.md#numberstepper-trash-옵션과-아이콘-고정-정책-2026-11-19) - 수량1 trash 활성/비활성 선택과 PC18/MO16px·150% 여백 보정 고정.
 
 - [스태시 충돌과 주문 스타일 우선순위](ui.md#스태시-충돌-해결과-주문-스타일-우선순위-2026-11-18) - sallysprism 주문 조회·상세 스타일 유지와 DataList 적용 예외.
 
