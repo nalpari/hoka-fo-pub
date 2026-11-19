@@ -3549,3 +3549,7 @@ Figma Navigational Buttons(296:25392)와 Action Buttons(296:25425)의 기본·�
 ## 스테이징 굵기 반영 (2026-11-19)
 
 스테이징된 굵기 변경만 선별하고 ProductCard 구문과 Typography700-400 의존 정의를 보완했다. 관련 계약은 architecture/ui.md·routing.md·state.md의 스테이징 굵기 반영 기록을 따른다. 기존 미스테이징 변경은 커밋에서 제외한다.
+
+## 마이페이지 굵기 반영 (2026-11-19)
+
+스테이징된 쿠폰·러닝세션·회원정보·회원등급의 표시 굵기 변경을 반영했다. 범위는 architecture/ui.md와 routing.md의 마이페이지 굵기 반영 기록을 따른다. 다른 미스테이징 소스와 문서 작업 파일은 변경하지 않았다.

@@ -226,7 +226,7 @@ function CouponCard({ coupon, onDetails }: CouponCardProps) {
             onClick={() => onDetails(coupon)}
             className={couponStyles.detailsButton}
           >
-            <Typography variant="cta3" weight="regular" className={couponStyles.linkText}>
+            <Typography variant="cta3" weight="medium" className={couponStyles.linkText}>
               상세보기
             </Typography>
           </Button>

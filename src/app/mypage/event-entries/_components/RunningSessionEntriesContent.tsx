@@ -129,6 +129,7 @@ export function RunningSessionEntriesContent({
                         tone={entry.status === '신청완료' ? 'primary' : 'tertiary'}
                         web="body5"
                         mo="body5"
+                        weight="medium"
                       >
                         {entry.status === '취소' ? '신청취소' : entry.status}
                       </Badge>
@@ -151,11 +152,11 @@ export function RunningSessionEntriesContent({
                         </Box>
                         <Stack gap="12px" minW="0" flex="1" _mobile={{ gap: '8px' }}>
                           <HStack gap="6px" flexWrap="wrap">
-                            <Typography web="body3" mo="body4">
+                            <Typography web="body3" mo="body4" weight="medium">
                               {entry.session.location}
                             </Typography>
                             <Divider orientation="vertical" length="10px" color="black.40" />
-                            <Typography web="body3" mo="body4">
+                            <Typography web="body3" mo="body4" weight="medium">
                               {entry.session.distance}
                             </Typography>
                           </HStack>

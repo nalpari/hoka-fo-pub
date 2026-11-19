@@ -6113,3 +6113,7 @@ Typography는 기존 PC-MO weight 조합과 TypographyWeight를 보존하고 Typ
 ## 스테이징 굵기 반영 (2026-11-19)
 
 스테이징된 장바구니 상품명700-500·품절 Bold, 결제수단/전문보기 Medium, 가입 안내/동의 Medium, 마이페이지·사이드바·Home 경로·점검 라벨 및 헤더/푸터 굵기를 반영한다. AmountRow는 labelWeight 우선, 미지정 기본700-400·emphasizeLabel이면700-500을 사용하며 Typography에700-400을 추가한다. ProductCard는 identity/promotion Medium 선택 옵션을 추가하고 기존 기본값을 유지한다. cartMedium 관련 미스테이징 변경은 포함하지 않는다. 출처: 이번 커밋의 src 스테이징 내용. ProductCard 스테이징의 누락된 닫는 괄호 두 곳을 보완했다. 브라우저 시각 검증은 수행하지 않았다.
+
+## 마이페이지 굵기 반영 (2026-11-19)
+
+스테이징된 CouponManagement 상세보기와 RunningSessionEntriesContent 상태/장소/거리 문구를 Medium으로 조정했다. ProfileContent의 항목명은500-600, 탈퇴 안내와 수신 라벨은500-400을 사용하고 회원정보 수정 버튼은 기본 문구 표현을 따른다. MembershipRewards의 등급 조건·혜택 제목·고객명은 Medium, 혜택 본문 제목과 구매금액 라벨은500-400을 사용한다. 출처: 이번 커밋의 위4개 소스 인덱스. 실행 화면 검증은 수행하지 않았다.

@@ -64,7 +64,12 @@ function TierBadge({ tier, initial }: { tier?: string; initial?: string }) {
 
 const styles = {
   supportBody: css({ '&&': { lineHeight: '1.5' } }),
-  supportBenefitTitle: css({ '&&': { lineHeight: '1.5', _mobile: { lineHeight: '1.2' } } }),
+  supportBenefitTitle: css({
+    '&&': {
+      lineHeight: '1.5',
+      _mobile: { lineHeight: '1.2' },
+    },
+  }),
   sectionHeading: css({
     pb: '16px',
     borderBottom: '2px solid black',
@@ -134,7 +139,7 @@ function RewardBenefits({ display }: { display: MembershipBenefitsDisplay }) {
                   as="p"
                   web="body2"
                   mo="body3"
-                  weight={'regular'}
+                  weight="medium"
                   className={styles.supportBody}
                 >
                   {tier.requirement}
@@ -151,7 +156,13 @@ function RewardBenefits({ display }: { display: MembershipBenefitsDisplay }) {
                         {index + 1}.
                       </Typography>
                       <Stack gap="8px" minW="0">
-                        <Typography as="p" web="body3" mo="body4" className={styles.supportBody}>
+                        <Typography
+                          as="p"
+                          web="body3"
+                          mo="body4"
+                          weight="500-400"
+                          className={styles.supportBody}
+                        >
                           {benefit.title}
                         </Typography>
                       </Stack>
@@ -201,6 +212,7 @@ function RewardBenefits({ display }: { display: MembershipBenefitsDisplay }) {
                       web: 'body2',
                       mo: 'heading7',
                       className: styles.supportBenefitTitle,
+                      weight: 'medium',
                     }}
                     description={benefit.description}
                     descriptionProps={{
@@ -347,7 +359,9 @@ export function MembershipRewards({
               titleProps={{ web: 'heading6', mo: 'heading3' }}
               description={
                 <>
-                  {summary?.name}
+                  <Typography as="span" web="body3" mo="body4" weight="medium">
+                    {summary?.name}
+                  </Typography>
                   {summary ? '님의 이번달 멤버십 등급' : null}
                 </>
               }
@@ -380,7 +394,7 @@ export function MembershipRewards({
                   alignItems: 'center',
                 }}
               >
-                <Typography web="body3" mo="body4">
+                <Typography web="body3" mo="body4" weight="500-400">
                   구매금액
                 </Typography>
                 <HStack gap="2px" justifyContent="flex-end" alignItems="baseline">

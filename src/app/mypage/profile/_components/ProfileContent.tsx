@@ -212,7 +212,12 @@ export function ProfileEditForm({
                   { term: '생년월일', description: (details ?? profileDetails)[2][1] },
                   { term: '휴대폰 번호', description: phone },
                 ]}
-                termProps={{ web: 'bodyKr3', mo: 'headingKr8', tone: 'primary' }}
+                termProps={{
+                  web: 'bodyKr3',
+                  mo: 'headingKr8',
+                  weight: '500-600',
+                  tone: 'primary',
+                }}
                 descriptionProps={{ variant: 'body3', tone: 'subtle' }}
                 slotStyles={{
                   root: css.raw({
@@ -262,7 +267,9 @@ export function ProfileEditForm({
                 pr="16px"
                 className={css({ _mobile: { display: 'none' } })}
               >
-                <Typography variant="body4">탈퇴를 원하실 경우 회원탈퇴를 눌러주세요.</Typography>
+                <Typography variant="body4" weight="500-400">
+                  탈퇴를 원하실 경우 회원탈퇴를 눌러주세요.
+                </Typography>
                 <Button
                   size="short"
                   variant="secondary"
@@ -326,7 +333,11 @@ export function ProfileEditForm({
                       name="email-preference"
                       value={emailPreference}
                       onValueChange={onEmailPreferenceChange}
-                      label="이메일 수신"
+                      label={
+                        <Typography variant="body4" weight="500-400">
+                          이메일 수신
+                        </Typography>
+                      }
                       options={[
                         { value: '수신', label: '수신' },
                         { value: '수신안함', label: '수신안함' },
@@ -348,7 +359,11 @@ export function ProfileEditForm({
                       name="kakao-preference"
                       value={kakaoPreference}
                       onValueChange={onKakaoPreferenceChange}
-                      label="카카오톡 알림톡 수신"
+                      label={
+                        <Typography variant="body4" weight="500-400">
+                          카카오톡 알림톡 수신
+                        </Typography>
+                      }
                       options={[
                         { value: '수신', label: '수신' },
                         { value: '수신안함', label: '수신안함' },
@@ -756,7 +771,12 @@ export function ProfileContent({
                 },
                 { term: '이메일', description: email },
               ]}
-              termProps={{ web: 'bodyKr3', mo: 'headingKr8', weight: 'semibold', tone: 'primary' }}
+              termProps={{
+                web: 'bodyKr3',
+                mo: 'headingKr8',
+                weight: '500-600',
+                tone: 'primary',
+              }}
               descriptionProps={{ variant: 'body3', tone: 'subtle' }}
               slotStyles={{
                 root: css.raw({
@@ -839,14 +859,7 @@ export function ProfileContent({
               setEditing(true);
             }}
           >
-            <Typography
-              web="ctaKr1"
-              mo="ctaKr1-1"
-              weight="regular"
-              className={css({ lineHeight: '1.3' })}
-            >
-              회원정보 수정
-            </Typography>
+            회원정보 수정
           </Button>
         </ContentSection>
       )}
