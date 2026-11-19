@@ -97,13 +97,13 @@ export function SystemStatusPage({ status, maintenance }: SystemStatusPageProps)
           bg="black.10"
           textAlign="left"
         >
-          <Typography as="dt" variant="bodyKr4" weight="semibold">
+          <Typography as="dt" variant="bodyKr4" weight="medium">
             일시
           </Typography>
           <Typography as="dd" variant="bodyKr4">
             {maintenance.schedule}
           </Typography>
-          <Typography as="dt" variant="bodyKr4" weight="semibold">
+          <Typography as="dt" variant="bodyKr4" weight="medium">
             내용
           </Typography>
           <Typography as="dd" variant="bodyKr4">

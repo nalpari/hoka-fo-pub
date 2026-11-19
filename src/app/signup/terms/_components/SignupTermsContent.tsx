@@ -41,7 +41,9 @@ function SignupTermsAgreementList(props: SignupTermsAgreementListProps) {
         onCheckedChange={props.onAllChange}
         label={
           <>
-            <Typography variant="body4">모든 약관을 확인하고 전체동의 합니다</Typography>
+            <Typography variant="body4" weight="medium">
+              모든 약관을 확인하고 전체동의 합니다
+            </Typography>
           </>
         }
       />

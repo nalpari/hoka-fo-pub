@@ -6109,3 +6109,7 @@ Typography의 선택적 weight에 PC-MO 조합 400-500, 500-400, 500-600, 500-70
 ## 공통 UI 병합 충돌 해결 (2026-11-19)
 
 Typography는 기존 PC-MO weight 조합과 TypographyWeight를 보존하고 Typography.tone의 확장 색상 타입을 가져와 재노출한다. AddressList는 병합 대상의 항목 간격24px·하단 패딩24px·구분선과 공통 배송지 배지를 유지한다. 자동 생성 의존 그래프는 재생성하되 Git 추적 해제를 유지한다. 출처: 병합 양쪽 Typography.tsx·Typography.tone.ts·AddressList.tsx 및 생성 스크립트. Codex가 충돌 구문 부재, 대상 ESLint/Prettier, 전체 TypeScript, form-controls48개 통과를 확인했다. 브라우저 시각 검증은 수행하지 않았다.
+
+## 스테이징 굵기 반영 (2026-11-19)
+
+스테이징된 장바구니 상품명700-500·품절 Bold, 결제수단/전문보기 Medium, 가입 안내/동의 Medium, 마이페이지·사이드바·Home 경로·점검 라벨 및 헤더/푸터 굵기를 반영한다. AmountRow는 labelWeight 우선, 미지정 기본700-400·emphasizeLabel이면700-500을 사용하며 Typography에700-400을 추가한다. ProductCard는 identity/promotion Medium 선택 옵션을 추가하고 기존 기본값을 유지한다. cartMedium 관련 미스테이징 변경은 포함하지 않는다. 출처: 이번 커밋의 src 스테이징 내용. ProductCard 스테이징의 누락된 닫는 괄호 두 곳을 보완했다. 브라우저 시각 검증은 수행하지 않았다.

@@ -87,7 +87,7 @@ function CartProductItem({
         />
         {soldOut ? (
           <Box pos="absolute" inset="0" bg="rgba(0,0,0,0.3)" display="grid" placeItems="center">
-            <Typography variant="heading8" className={css({ color: 'white' })}>
+            <Typography variant="heading8" weight="bold" className={css({ color: 'white' })}>
               Sold Out
             </Typography>
           </Box>

@@ -3545,3 +3545,7 @@ Figma Navigational Buttons(296:25392)와 Action Buttons(296:25425)의 기본·�
 - 공통 모달 닫기 버튼과 퍼블리싱 가이드에 [HOKA 디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql)의 xmark-large 18px 자산을 적용한다.
 
 - 주문·결제의 배송지변경 링크 버튼은 md 크기를 사용한다.
+
+## 스테이징 굵기 반영 (2026-11-19)
+
+스테이징된 굵기 변경만 선별하고 ProductCard 구문과 Typography700-400 의존 정의를 보완했다. 관련 계약은 architecture/ui.md·routing.md·state.md의 스테이징 굵기 반영 기록을 따른다. 기존 미스테이징 변경은 커밋에서 제외한다.

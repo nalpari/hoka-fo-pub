@@ -867,7 +867,7 @@ function FooterLegalLinks() {
       aria-label="사업자 정보"
       gap={platform === 'mobile' ? '5' : '22px'}
     >
-      <Typography as="h3" web="body3" mo="body4" tone="inverse">
+      <Typography as="h3" web="body3" mo="body4" weight="medium" tone="inverse">
         ㈜ 이랜드글로벌스포츠
       </Typography>
       <Stack gap={platform === 'mobile' ? '12px' : '18px'} className={FooterLegalLinksStyles.meta}>
@@ -1003,6 +1003,7 @@ function FooterNavigationWeb() {
           <Typography
             as="h3"
             variant="heading10"
+            weight="medium"
             tone="inverse"
             className={FooterNavigationWebStyles.title}
           >
@@ -2489,7 +2490,7 @@ function HeaderMegaMenuNavigation({
             onEnterMenu(menu.id);
           }}
         >
-          <Typography variant="body4" className={megaNavigationStyles.itemLabel}>
+          <Typography variant="body4" weight="medium" className={megaNavigationStyles.itemLabel}>
             {menu.label}
           </Typography>
         </Button>
@@ -2502,7 +2503,7 @@ function HeaderMegaMenuNavigation({
         onFocus={onMenuClose}
         onClick={onMenuClose}
       >
-        <Typography variant="body4" className={megaNavigationStyles.itemLabel}>
+        <Typography variant="body4" weight="medium" className={megaNavigationStyles.itemLabel}>
           런칭캘린더
         </Typography>
       </Link>

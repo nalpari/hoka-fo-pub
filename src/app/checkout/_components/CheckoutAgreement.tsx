@@ -7,7 +7,7 @@ import { ButtonLink } from '@/components/common/atoms/Button';
 import { Checkbox } from '@/components/common/atoms/Checkbox';
 import { Typography } from '@/components/common/atoms/Typography';
 
-const detailsLink = css({ flexShrink: '0', whiteSpace: 'nowrap' });
+const detailsLink = css({ flexShrink: '0', whiteSpace: 'nowrap', fontWeight: 'medium' });
 
 /** 결제 필수 동의 두 항목을 표시합니다. (Displays the two required checkout agreements.) */
 export function CheckoutAgreement({ showError = false }: { showError?: boolean }) {

@@ -51,6 +51,7 @@ export function CheckoutDiscountSummary({
         </Stack>
         <AmountRow
           label="총 결제 금액"
+          labelWeight="700-500"
           amount={mobile ? 3200000 : 334550}
           web="body3"
           mo="body4"

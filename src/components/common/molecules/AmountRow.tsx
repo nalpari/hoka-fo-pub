@@ -13,6 +13,8 @@ type Props = Omit<ComponentProps<typeof HStack>, 'children' | 'web' | 'mo'> &
     discount?: boolean;
     emphasis?: boolean;
     emphasizeLabel?: boolean;
+    /** 라벨 굵기를 우선 지정합니다. 생략·undefined는 기본 PC700/MO400, emphasizeLabel이면 PC700/MO500입니다. */
+    labelWeight?: TypographyProps['weight'];
     action?: ReactNode;
   };
 
@@ -25,13 +27,19 @@ export function AmountRow({
   discount = false,
   emphasis = false,
   emphasizeLabel = false,
+  labelWeight,
   action,
   web,
   mo,
   ...layoutProps
 }: Props) {
   const labelContent = (
-    <Typography variant="body4" web={web} mo={mo} weight={emphasizeLabel ? 'medium' : undefined}>
+    <Typography
+      variant="body4"
+      web={web}
+      mo={mo}
+      weight={labelWeight ?? (emphasizeLabel ? '700-500' : '700-400')}
+    >
       {label}
     </Typography>
   );

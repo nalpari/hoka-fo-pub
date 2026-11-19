@@ -80,7 +80,7 @@ export function SideNavigation({
                       <Typography
                         as="span"
                         variant="body2"
-                        weight="regular"
+                        weight={item.labelWeight ?? 'medium'}
                         tone={isActive ? 'primary' : 'subtle'}
                       >
                         {item.label}
@@ -128,7 +128,7 @@ export function SideNavigation({
             key={group.heading}
           >
             <Box py="2" _mobile={{ display: 'none' }}>
-              <Typography as="h2" variant="body2" weight="regular">
+              <Typography as="h2" variant="body2" weight="medium">
                 {group.heading}
               </Typography>
             </Box>

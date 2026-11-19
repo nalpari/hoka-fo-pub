@@ -123,7 +123,7 @@ function MyPageBenefitItem({ href, label, count, unit, icon }: MyPageBenefitItem
       <Stack h="full" minH="81px" justifyContent="space-between" _mobile={{ minH: '57px' }}>
         <HStack gap="8px">
           <Icon name={icon} size={18} />
-          <Typography web="body2" mo="body3" className={styles.benefitText}>
+          <Typography web="body2" mo="body3" weight="medium" className={styles.benefitText}>
             {label}
           </Typography>
         </HStack>
@@ -228,7 +228,7 @@ function MyPageMenuItem({ label, to }: MyPageMenuItemProps) {
         justifyContent="space-between"
         borderBottom="1px solid var(--color-border-subtle)"
       >
-        <Typography variant="body3">{label}</Typography>
+        <Typography variant="body3Medium">{label}</Typography>
         <Icon name="hoka-nav-chevron-right-regular" size={24} />
       </HStack>
     </Link>

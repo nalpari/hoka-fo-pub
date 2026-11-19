@@ -109,7 +109,9 @@ function CheckoutPaymentMethods({
             pl={{ base: '16px', _mobile: '0' }}
           >
             <CheckoutPaymentMark method={method.value} />
-            <Typography variant="body4">{method.label}</Typography>
+            <Typography variant="body4" weight="medium">
+              {method.label}
+            </Typography>
           </Stack>
         ),
       }))}
