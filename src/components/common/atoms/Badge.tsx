@@ -19,7 +19,6 @@ const badge = sva({
       w: 'fit-content',
       minH: '16px',
     },
-    text: { lineHeight: '1!' },
   },
   variants: {
     variant: {
@@ -31,8 +30,8 @@ const badge = sva({
       },
     },
     visual: {
-      round: { root: { borderRadius: 'full', px: '8px', py: '6px' } },
-      square: { root: { px: '8px', py: '8px' } },
+      round: { root: { minH: '32px', borderRadius: 'full', px: '8px', py: '6px' } },
+      square: { root: { minH: '29px', px: '8px', py: '8px' } },
     },
   },
   compoundVariants: [
