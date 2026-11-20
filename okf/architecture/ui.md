@@ -10,6 +10,8 @@ generated:
   at: '2026-11-03T06:11:12Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/app/products/[id]/_components/ProductDetailContent.tsx
+  - src/app/products/[id]/productDetailPreviews.ts
   - src/app/support/after-sales/_components/AfterSalesContent.tsx
   - src/app/support/member-benefits/_components/MemberBenefitsContent.tsx
   - src/components/membership/rewards-data.ts
@@ -6155,3 +6157,13 @@ Typography에 PC700/MO600 조합을 추가하고 가이드에 표시한다. Brea
 ProductListingContent의 sticky top·maxH가 ContentLayout에서만 제공하는 --content-layout-header-height를 참조해 검색결과에서는 auto·none으로 무효화되었다. 두 계산에 0px fallback을 추가했다. 상품목록은 기존 측정 헤더 높이를 계속 사용한다. 작업 트리 출처: src/components/catalog/ProductListingPage.tsx.
 
 검증: 1176×1251 검색결과에서 수정 전 top auto/maxHeight none, 수정 후 top88px/maxHeight1163px을 확인했다. 페이지300px 스크롤 후 필터 top88px 유지와 필터 내부 scrollTop200을 확인했다. 결과가 짧으면 기존 sticky 부모 영역의 끝에서 해제된다. 상품목록은 기존 측정값 top241.594px/maxHeight1009.41px을 유지했고375px 모바일은 필터 버튼1개와 가로 넘침 없음을 확인했다. Panda 생성·변경 파일 ESLint·전체 TypeScript 검사를 통과했다.
+
+## 상품 상세 공유하기 팝업 (2026-11-20)
+
+[상품 공유 설계서](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 카카오톡·URL 복사하기 2열 구성을 반영했습니다. 사용자 지시에 따라 모달 외형은 기존 selection·bottomSheet 가이드를 재사용합니다. 설계서의 회색 이미지 자리표시자는 기존 kakao·copy-regular 아이콘으로 대체하고, 버튼 최소 높이123px·간격12px·테두리1px·반경8px·라벨16px/700으로 구성했습니다. 설계서 라벨은 Pretendard Bold18px/700이며, 모달 제목과 닫기는 기존 가이드 값을 사용합니다.
+
+기존 모바일 공유 클릭의 복사/토스트는 URL 복사하기로 이동했습니다. 현재 상품 ID의 기본 상세 URL을 복사하며 preview 주소는 복사하지 않습니다. clipboard 완료 전 성공을 표시하지 않고 pending 중 버튼을 비활성화합니다. 실패 안내 후 팝업을 유지해 재시도할 수 있습니다. 카카오톡은 표시 전용이며 SDK·외부 전송은 미연결입니다. 연결 책임은 상세 헤더 근처의 `[ 개발팀 바인딩 ]` 주석을 따릅니다.
+
+검증: PC1440px·모바일390px 스크린샷, 모바일 열기·닫기·Escape 및 트리거 포커스 복귀, 실제 복사 성공, 일시적인 브라우저 clipboard 대체를 통한 pending·실패·재시도 성공, 직접 상태 URL·새로고침과 IA 상태명 검색·링크 노출을 확인했습니다. 변경 파일 ESLint, TypeScript, Panda 생성, source graph 생성, Next 프로덕션 빌드 통과. 전체 lint는 비대상 `tests/wh-file-summary.test.mjs`의 URL/Request/Response no-undef8건으로 실패했습니다. 공용 모달 스타일·플랫폼 정책은 이번 변경에서 수정하지 않았습니다.
+
+출처: 위 설계서, `src/app/products/[id]/_components/ProductDetailContent.tsx`와 `src/app/products/[id]/productDetailPreviews.ts`의 작업 트리. 기존 신뢰·출처 메타데이터는 유지합니다. 기록: codex/gpt-6, 2026-11-20.

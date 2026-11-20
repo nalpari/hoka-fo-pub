@@ -2125,17 +2125,45 @@ function ShareButton({
     </Button>
   );
 }
+
+const productShareStyles = {
+  action: css({
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '16px',
+    minH: '123px',
+    p: '16px 8px',
+    border: '1px solid #E9EAEB',
+    borderRadius: '8px',
+    bg: 'white',
+    fontFamily: 'korean',
+    fontSize: '16px',
+    fontWeight: '700',
+    cursor: 'pointer',
+    _hover: { bg: '#F5F5F7' },
+    _focusVisible: { outline: '2px solid currentColor', outlineOffset: '2px' },
+  }),
+};
+
 type ProductDetailHeaderActionsProps = {
+  initialShareOpen?: boolean;
   product: Product;
   wish: boolean;
   onWishChange: () => void;
 };
+
 function ProductDetailHeaderActions({
+  initialShareOpen = false,
   product,
   wish,
   onWishChange,
 }: ProductDetailHeaderActionsProps) {
   const platform = usePlatform();
+  const [shareOpen, setShareOpen] = useState(initialShareOpen);
+  const shareTrigger = useRef<HTMLButtonElement>(null);
+  const [copyPending, setCopyPending] = useState(false);
   const [shareNotice, setShareNotice] = useState<ToastNotice | null>(null);
   const nextNoticeId = useRef(0);
   const dismissShareNotice = useCallback((id: number) => {
@@ -2143,9 +2171,14 @@ function ProductDetailHeaderActions({
   }, []);
 
   async function copyProductLink() {
+    if (copyPending) return;
+    setCopyPending(true);
+    setShareNotice(null);
     const id = ++nextNoticeId.current;
     try {
-      await navigator.clipboard.writeText(window.location.href);
+      await navigator.clipboard.writeText(
+        new URL(`/products/${product.id}`, window.location.origin).href,
+      );
       if (id === nextNoticeId.current) {
         setShareNotice({ id, text: '링크가 복사되었습니다.' });
       }
@@ -2153,6 +2186,8 @@ function ProductDetailHeaderActions({
       if (id === nextNoticeId.current) {
         setShareNotice({ id, text: '링크를 복사하지 못했습니다.' });
       }
+    } finally {
+      setCopyPending(false);
     }
   }
 
@@ -2185,7 +2220,7 @@ function ProductDetailHeaderActions({
       </HStack>
       {platform === 'mobile' && (
         <HStack gap="4">
-          <ShareButton size="24px" onClick={copyProductLink} />
+          <ShareButton ref={shareTrigger} size="24px" onClick={() => setShareOpen(true)} />
           <Wishlist
             active={wish}
             ariaLabel="관심상품"
@@ -2194,10 +2229,38 @@ function ProductDetailHeaderActions({
           />
         </HStack>
       )}
-      <Toast notice={shareNotice} onDismiss={dismissShareNotice} />
+      {/* [ 개발팀 바인딩 ] 공유 팝업은 이 상세 헤더가 소유합니다. URL 복사는 현재 상품 ID의 상세 주소를 복사하고 완료 후에만 토스트를 표시합니다. 실패 시 팝업을 유지해 재시도하며 pending 중 중복 복사를 막습니다. 카카오톡은 표시 전용 미연결 버튼이며, 실제 공유 SDK·상품 ID/제목/이미지/URL 전달과 요청 결과 처리는 상품 상세 통합 소유자가 연결해야 합니다. */}
+      <ModalDialog
+        title="공유하기"
+        closeLabel="공유하기 닫기"
+        variant="selection"
+        mobilePresentation="bottomSheet"
+        open={shareOpen}
+        onOpenChange={setShareOpen}
+        finalFocus={shareTrigger}
+      >
+        <Grid gridTemplateColumns="repeat(2, minmax(0, 1fr))" gap="12px">
+          <button type="button" className={productShareStyles.action}>
+            <Icon name="kakao" size="36px" />
+            카카오톡
+          </button>
+          <button
+            type="button"
+            className={productShareStyles.action}
+            disabled={copyPending}
+            aria-busy={copyPending}
+            onClick={copyProductLink}
+          >
+            <Icon name="copy-regular" size="32px" />
+            URL 복사하기
+          </button>
+        </Grid>
+        <Toast notice={shareNotice} onDismiss={dismissShareNotice} />
+      </ModalDialog>
     </Flex>
   );
 }
+
 const productUseLabels: Record<Product['use'], string> = {
   'Everyday Run': '데일리 러닝',
   'Trail Running': '트레일 러닝',
@@ -2205,12 +2268,19 @@ const productUseLabels: Record<Product['use'], string> = {
 };
 
 type ProductDetailHeaderProps = {
+  initialShareOpen?: boolean;
   apparel?: boolean;
   product: Product;
   wish: boolean;
   onWishChange: () => void;
 };
-function ProductDetailHeader({ product, wish, onWishChange, apparel }: ProductDetailHeaderProps) {
+function ProductDetailHeader({
+  product,
+  wish,
+  onWishChange,
+  apparel,
+  initialShareOpen,
+}: ProductDetailHeaderProps) {
   return (
     <VStack as="header" alignItems="start" gap="5" _mobile={{ gap: '6' }}>
       <ProductIdentity
@@ -2228,7 +2298,12 @@ function ProductDetailHeader({ product, wish, onWishChange, apparel }: ProductDe
             : [...new Set([product.runningType, productUseLabels[product.use]])]
         }
       />
-      <ProductDetailHeaderActions onWishChange={onWishChange} product={product} wish={wish} />
+      <ProductDetailHeaderActions
+        initialShareOpen={initialShareOpen}
+        onWishChange={onWishChange}
+        product={product}
+        wish={wish}
+      />
     </VStack>
   );
 }
@@ -2544,6 +2619,7 @@ function ProductDetailSupportRegion({
   );
 }
 type ProductDetailPanelProps = {
+  initialShareOpen?: boolean;
   apparel?: boolean;
   restock?: boolean;
   inquiriesExpanded?: boolean;
@@ -2564,6 +2640,7 @@ type ProductDetailPanelProps = {
 };
 /** 상품 상세의 선택 정보와 콘텐츠를 배치합니다. (Arranges product detail selections and content.) */
 function ProductDetailPanel({
+  initialShareOpen,
   product,
   gallery,
   color,
@@ -2600,6 +2677,7 @@ function ProductDetailPanel({
     >
       <Stack gap="10" _mobile={{ gap: '10' }}>
         <ProductDetailHeader
+          initialShareOpen={initialShareOpen}
           apparel={apparel}
           onWishChange={onWishChange}
           product={product}
@@ -2964,6 +3042,7 @@ export function RouteContent({ preview }: { preview?: ProductDetailPreview }) {
         }}
       />
       <ProductDetailPanel
+        initialShareOpen={preview === 'share'}
         inquiriesEmpty={inquiriesEmpty}
         inquiriesExpanded={inquiriesExpanded}
         apparel={apparel}

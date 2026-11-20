@@ -10,6 +10,8 @@ generated:
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/products/[id]/_components/ProductDetailContent.tsx
+  - src/app/products/[id]/productDetailPreviews.ts
   - src/app/support/member-benefits/_components/MemberBenefitsContent.tsx
   - src/components/membership/rewards-data.ts
   - src/components/membership/MembershipRewards.tsx
@@ -2440,3 +2442,9 @@ LoginContent 제목의 들여쓰기와 약관 페이지 tabs 객체 줄바꿈만
 ## 화면별 글자 굵기 보정 (2026-11-20)
 
 장바구니 옵션·로그인 혜택·쿠폰 기간·주문 표 머리글·가입 동의·FAQ·문의 첨부·사이즈 가이드의 글자 굵기를 보정했다. 경로, 상태 URL, 데이터와 서비스 연결 계약은 유지한다. 출처는 이번 변경의 `src/app/` 화면 컴포넌트와 TypographyGuide다.
+
+## 상품 상세 공유하기 상태 (2026-11-20)
+
+상품 상세 모바일 공유 버튼은 기존 ModalDialog의 selection·bottomSheet를 엽니다. `/products/pdp-preview/share`는 기존 PDP 상태 라우트에서 팝업을 바로 표시하며 새로고침에도 유지합니다. `productDetailPreviews`에 등록한 `공유하기 팝업`을 screenConnections가 읽어 상품 상세 IA의 상태 행과 검색·직접 링크에 반영합니다. 기존 기본 링크와 다른 상태는 보존하며 source graph 재생성 결과는 변경이 없습니다.
+
+출처: `src/app/products/[id]/_components/ProductDetailContent.tsx`, `src/app/products/[id]/productDetailPreviews.ts`, 기존 `src/app/products/pdp-preview/[state]/page.tsx`와 `src/app/screen-index/screenConnections.ts`의 작업 트리. PC/MO 팝업 표시, 직접 URL·새로고침, IA에서 상태명 검색과 링크 노출을 브라우저로 확인했습니다. 기록: codex/gpt-6, 2026-11-20.
