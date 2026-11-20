@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-20T02:11:48.409Z'
+updated: '2026-11-20T04:06:16.622Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -6137,3 +6137,14 @@ LoginContent 제목의 들여쓰기와 약관 페이지 tabs 객체 줄바꿈만
 ## 화면별 글자 굵기 보정 (2026-11-20)
 
 Typography에 PC700/MO600 조합을 추가하고 가이드에 표시한다. Breadcrumb는500, 구매금액·문의 주의사항은500, 인증 정보는PC700/MO600, 시스템 안내 제목은900을 사용한다. 상품 옵션 모달의 productName 슬롯에서 고정500을 제거해 기존 호출부 굵기를 적용한다. 날짜 선택과 FAQ의400은 해당 라벨 소유자에서 적용한다. 출처: `src/components/common/atoms/Typography.tsx`, `src/components/common/layouts/ModalDialog.recipe.tsx`, `src/components/common/molecules/Breadcrumb.tsx`, `src/components/common/molecules/DateRangeSearch.tsx`, `src/components/common/organisms/SystemStatusPage.tsx`, `src/components/membership/MembershipRewards.tsx`, `src/components/phone-verification/PhoneVerificationContent.tsx`, `src/components/support/InquiryCautions.tsx`.
+
+
+## 모바일 검색결과 검색창 복원 (2026-11-20)
+
+첨부된 검색결과·빈 결과 시안을 기준으로 ProductListingPage의 SearchListingLayout에 모바일 전용 SearchField를 배치했다. 검색창 높이56px·좌우16px·상단32px, 입력 영역 하단16px와 결과 영역 상단16px, 결과 제목과 목록 간격16px을 사용한다. 상품은 기존2열·가로8px 간격과 표시 fixture를 유지한다. PC 검색 레이아웃과 상품 목록은 변경하지 않았다. 홍보 배너는 기존 공통 표시 정책을 유지하므로 첨부 이미지와 상단 높이가 다르다.
+
+출처: 사용자 첨부 검색결과/빈 결과 이미지와 [디자인 파일](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/). 최신 구조화 조회는 제한되어 첨부 이미지와 기존 SearchField 규격으로 반영했다. 폰트 굵기 모드는 새로 확인하지 않았고 기존 Typography와 EmptyState의 확정 규칙을 유지했다.
+
+검증: 375×812 브라우저에서 검색창·2열 목록·필터 시트 열기와 Escape 조작, Enter 제출 후 q/결과 제목 변경, 빈 결과 직접 URL의 G45678 입력과 가로 넘침 없음을 확인했다. 1440px에서 모바일 검색창 미표시와 기존 결과 제목을 확인했다. 실제 상품 API는 미연결이다. 작업 트리 출처: src/components/catalog/ProductListingPage.tsx.
+
+검사 결과: 변경 TSX ESLint·Prettier, 전체 TypeScript, Panda 생성 및 Next.js 프로덕션 빌드를 통과했다. 최종 마크업 인계 점검에서 기존 컴포넌트 소유권·검색 초안 경계·공통 플랫폼 규칙을 유지했으며 서비스 요청은 추가하지 않았다.

@@ -4,12 +4,13 @@ title: '공통 상태와 데모 데이터'
 description: '로그인, 장바구니와 목 데이터의 수명 및 제약을 설명한다.'
 tags: [react, state, mock-data]
 status: draft
-updated: '2026-11-20T00:55:32+00:00'
+updated: '2026-11-20T04:06:16.622Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
 source_revision: 84b1d96781349d795089b9e2f737aad11a02172d
 working_tree_sources:
+  - src/components/catalog/ProductListingPage.tsx
   - src/app/screen-index/screenProgress.ts
   - src/app/support/member-benefits/_components/MemberBenefitsContent.tsx
   - src/app/support/member-benefits/page.tsx
@@ -865,3 +866,10 @@ ShopShell의 스테이징 변경은 푸터 개인정보처리방침·사업자�
 - 작업 트리 출처: `src/context/ShopShell.tsx`. PC 주요 메뉴와 모바일 쇼핑 메뉴에서 런칭캘린더 진입 항목을 제거했다. 기존 런칭캘린더 페이지와 별도 화면 안내 링크는 유지한다.
 - 마지막 메가메뉴의 Tab 경계는 헤더 도구의 첫 포커스 대상으로, 헤더 도구의 Shift+Tab은 마지막 메가메뉴의 마지막 항목으로 연결한다.
 - 검증: 대상 ESLint와 전체 TypeScript 검사를 통과했다. 브라우저 실행 검증은 수행하지 않았다.
+
+
+## 모바일 검색결과 헤더와 검색 초안 (2026-11-20)
+
+AppLayout은 모바일 /search에서도 SiteHeader를 표시한다. /search와 /search/preview-no-results의 모바일 푸터는 숨긴다. PC와 다른 경로의 헤더·푸터 조건은 유지한다. 검색결과 입력 초안은 SearchListingLayout에 두고 q가 바뀌면 기존 query key 경계에서 초기화한다. Enter 제출은 기존 쿼리를 보존하고 q를 교체하며 page를 제거해 /search로 이동한다. 조회·요청 상태·실패/재시도 및 최신 응답 교체는 기존 통합 소유자의 data 계약으로 남는다.
+
+375px 검색 제출·필터 열기·빈 결과와1440px PC를 브라우저로 확인했다. 작업 트리 출처: src/context/ShopShell.tsx, src/components/catalog/ProductListingPage.tsx.

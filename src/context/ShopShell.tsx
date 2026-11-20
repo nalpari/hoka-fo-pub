@@ -2804,7 +2804,8 @@ function AppLayout({
   const [menuOpen, setMenuOpen] = useState(false);
   const platform = usePlatform();
   const pathname = usePathname();
-  const searchPage = platform === 'mobile' && pathname === '/search';
+  const searchPage =
+    platform === 'mobile' && (pathname === '/search' || pathname === '/search/preview-no-results');
   if (platform === 'web' && menuOpen) {
     setMenuOpen(false);
   }
@@ -2820,16 +2821,14 @@ function AppLayout({
           },
         })}
       >
-        {!searchPage && (
-          <SiteHeader
-            fixedOnScroll={platform === 'mobile' && pathname === '/products'}
-            cart={cart}
-            onMenu={() => setMenuOpen(true)}
-            isLoggedIn={isLoggedIn}
-            wishlistCount={wishlistCount}
-            recentCount={recentCount}
-          />
-        )}
+        <SiteHeader
+          fixedOnScroll={platform === 'mobile' && pathname === '/products'}
+          cart={cart}
+          onMenu={() => setMenuOpen(true)}
+          isLoggedIn={isLoggedIn}
+          wishlistCount={wishlistCount}
+          recentCount={recentCount}
+        />
         {platform === 'mobile' && menuOpen && (
           <MenuDrawer close={() => setMenuOpen(false)} isLoggedIn={isLoggedIn} />
         )}
