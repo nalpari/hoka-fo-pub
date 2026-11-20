@@ -6187,3 +6187,12 @@ ProductListingContent의 sticky top·maxH가 ContentLayout에서만 제공하는
 검증:1440px/375px에서3개 옵션 균등 분할·높이48/44px·글자16/14px·선택400/미선택500과 Wide 전환을 확인했다.2개 옵션은 검증용으로 전달 배열만 임시 제한해 PC199.984/200px·모바일162/162px 분할과 선택 전환을 확인하고 컴포넌트를 원본 바이트로 복원했다.1개 상품은 모바일에서 발볼 그룹 미표시·사이즈 그룹 유지를 확인했다.2개 상태 스크린샷은 브라우저 캡처 타임아웃으로 확보하지 못했으며 계산 스타일·DOM·선택 동작만 검증했다. Panda 생성·대상ESLint·전체TypeScript 검사를 통과했다. 마크업 인계 점검으로 기존 상태/콜백 소유권과 비대상cart 분기 보존을 확인했다.
 
 출처: 사용자 첨부 발볼 선택 이미지와 [디자인 파일](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/). 작업 트리 출처: src/components/common/molecules/ProductOptionSelectors/ProductWidthSelector.tsx.
+
+
+## 장바구니 단일 발볼 선택기 (2026-11-20)
+
+장바구니 옵션 변경 팝업은 발볼이1개여도 선택기를 유지한다. modalProductOptionRecipe의 고정3열을 자동 열 균등 분할로 변경해1개는 안쪽 너비 전체,2/3개는 같은 너비를 차지한다. 상품상세 detail의1개 비노출 규칙은 유지한다.
+
+검증: 실제 cart/preview-options에서 전달 fixture만 임시로 단일 Regular로 바꾸어 PC1440px·모바일375px 모두 표시를 확인했다. 그룹/옵션 너비는576/572px·248/244px이며 차이4px은 양쪽2px 패딩이다. fixture를 원본으로 복원한 후3개 동일 너비 표시를 확인했다. Panda 생성·대상 ESLint·전체 TypeScript 검사를 통과했다. 서비스 연결과 선택 상태 소유권은 변경하지 않았다.
+
+출처: 사용자 장바구니 옵션 팝업 지시와 src/components/common/layouts/ModalDialog.recipe.tsx 작업 트리.

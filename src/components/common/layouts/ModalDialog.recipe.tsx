@@ -435,7 +435,8 @@ export const modalProductOptionRecipe = sva({
     widths: {
       '&[role="radiogroup"]': {
         display: 'grid',
-        gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
+        gridAutoFlow: 'column',
+        gridAutoColumns: 'minmax(0, 1fr)',
         gap: '0',
         p: '2px',
         h: '48px',
