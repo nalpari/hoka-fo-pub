@@ -83,7 +83,7 @@ function CartOptionsDialog({
           as="h3"
           web="body3"
           mo="body4"
-          weight="700-500"
+          weight="medium"
           className={cx(optionStyles.productName, css({ letterSpacing: '-0.02em' }))}
         >
           {product.name}
@@ -104,7 +104,7 @@ function CartOptionsDialog({
           )}
           <section className={optionStyles.section} aria-label="컬러 선택">
             <h4 className={optionStyles.label}>
-              컬러: <span className={optionStyles.colorName}>{draft.color}</span>
+              <span className={optionStyles.colorName}>{draft.color.replace(/^\(\d+\)/, '')}</span>
             </h4>
             <Radio
               variant="custom"

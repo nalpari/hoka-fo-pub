@@ -2506,3 +2506,7 @@ LoginContent 제목의 들여쓰기와 약관 페이지 tabs 객체 줄바꿈만
 검증: IA의 발볼1/2/3 링크 및 직접 URL에서 발볼 그룹0/2/3개·사이즈 유지,375px 장바구니의 버튼 순서와 가로 넘침 없음을 확인했다. 작업 트리 출처: src/app/products/[id]/productDetailPreviews.ts, src/app/cart/_components/CartProductSection.tsx.
 
 추가 확인: IA에서 발볼 검색 후 세 링크가 보이며375px의 세 URL도0/2/3개 상태와 가로 넘침 없음을 확인했다. PC 장바구니 버튼 순서도 확인했다. 대상ESLint·전체TypeScript·Panda 생성·screen-files 재생성·Next.js 프로덕션 빌드를 통과했다. 장바구니 스크린샷 캡처는 브라우저 타임아웃으로 확보하지 못했고 DOM·계산 폭으로 확인했다.
+
+## 장바구니 옵션 표시 보정 (2026-11-20)
+
+CartDialogs의 상품명을 PC/MO500으로 보정하고 색상 표시의 접두어·괄호 숫자 코드를 생략한다. 실제 선택 문자열과 로컬 초안·저장 미연결 경계는 유지한다. PC/MO 신발·의류 팝업 계산 스타일 검증과 상세 값은 [UI 기록](ui.md#장바구니-옵션-팝업-타이포-보정-2026-11-20)을 따른다. 작업 트리 출처: src/app/cart/_components/CartDialogs.tsx.

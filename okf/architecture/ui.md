@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-20T06:41:15.767Z'
+updated: '2026-11-20T07:25:49.866978+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -6196,3 +6196,10 @@ ProductListingContent의 sticky top·maxH가 ContentLayout에서만 제공하는
 검증: 실제 cart/preview-options에서 전달 fixture만 임시로 단일 Regular로 바꾸어 PC1440px·모바일375px 모두 표시를 확인했다. 그룹/옵션 너비는576/572px·248/244px이며 차이4px은 양쪽2px 패딩이다. fixture를 원본으로 복원한 후3개 동일 너비 표시를 확인했다. Panda 생성·대상 ESLint·전체 TypeScript 검사를 통과했다. 서비스 연결과 선택 상태 소유권은 변경하지 않았다.
 
 출처: 사용자 장바구니 옵션 팝업 지시와 src/components/common/layouts/ModalDialog.recipe.tsx 작업 트리.
+
+
+## 장바구니 옵션 팝업 타이포 보정 (2026-11-20)
+
+사용자 승인된 시각 보정으로 상품명 PC16px/MO14px·500, 색상명14px/400, 발볼 선택400·미선택500으로 맞췄다. 색상과 사이즈 column-gap8px은 유지한다. 컬러 접두어와 표시명 앞 괄호 숫자 코드를 화면에서 생략하며 실제 선택 식별 문자열은 보존한다. 1개 발볼 유지·전체 너비 규칙은 바꾸지 않았다. 원본 굵기 모드는 조회 제한으로 미확인이며 위 값은 시각 비교 후 승인된 보정값이다.
+
+검증: 신발·의류 팝업 PC1920/MO375 실제 계산값에서 상품명16/14px·500, Black 색상명400, 신발 선택Regular400·미선택500 및 두 그리드8px을 확인했다. 의류는 발볼 미표시를 유지했다. 대상 ESLint·TypeScript·Panda·프로덕션 빌드 통과. 인계 점검에서 기존 선택 상태·미연결 저장과 공통 모달 소유권을 유지했다. 작업 트리 출처: src/app/cart/_components/CartDialogs.tsx, src/components/common/layouts/ModalDialog.recipe.tsx.
