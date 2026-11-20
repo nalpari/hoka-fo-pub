@@ -50,7 +50,7 @@ const tab = css({
 const activeTab = css({ bg: '#000', color: '#fff', fontWeight: '600' });
 
 const categoryHeading = css({
-  _mobile: { px: '16px', fontSize: '20px', lineHeight: '30px' },
+  _mobile: { px: '16px', '&&': { fontSize: '20px' }, lineHeight: '30px' },
 });
 
 /** 기획전의 앵커 카테고리와 고정 상품 목록을 표시합니다. (Displays anchored categories and fixed product listings for a special exhibition.) */
@@ -155,17 +155,22 @@ export function SpecialExhibitionContent() {
               key={category.id}
               className={css({ scrollMarginTop: '160px' })}
             >
-              <Stack gap="56px" _mobile={{ gap: '14px' }}>
+              <Stack gap="24px" _mobile={{ gap: '14px' }}>
                 <Typography as="h2" className={categoryHeading} variant="headingKr8" weight="black">
                   {category.title}
                 </Typography>
                 <Grid
                   gridTemplateColumns="repeat(4, minmax(0, 1fr))"
-                  columnGap="16px"
+                  css={{
+                    '@media (min-width: 1920px)': {
+                      '.platform-web &': { gridTemplateColumns: 'repeat(5, minmax(0, 1fr))' },
+                    },
+                  }}
+                  columnGap="24px"
                   rowGap="40px"
                   _mobile={{
                     gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
-                    columnGap: '8px',
+                    columnGap: '14px',
                     rowGap: '40px',
                   }}
                 >
