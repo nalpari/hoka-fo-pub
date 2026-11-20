@@ -316,6 +316,10 @@ export const iconAssets = {
     src: '/images/icon/level-access.svg',
     mode: 'image',
   },
+  'link-regular': {
+    src: '/images/icon/link-regular.svg',
+    mode: 'mask',
+  },
   naver: {
     src: '/images/icon/naver.svg',
     mode: 'image',

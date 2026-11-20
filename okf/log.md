@@ -3652,3 +3652,11 @@ LoginContent 제목의 들여쓰기와 약관 페이지 tabs 객체 줄바꿈만
 ## 2026-11-20 상품 상세 공유하기 팝업
 
 모바일 공유 버튼에 기존 모달 가이드의 바텀시트와 카카오톡·URL 복사하기를 추가하고, 기존 복사/토스트를 URL 버튼으로 이동했다. PDP 공유 상태 URL과 IA 상태 행을 연결했다. PC/MO 표시·복사 pending/실패/재시도·포커스·직접 URL/새로고침·IA 검색을 확인했고 타입/Panda/빌드는 통과했다. 전체 lint의 비대상 테스트 no-undef8건은 남아 있다. 출처와 상세 검증은 architecture/ui.md 및 routing.md의 공유하기 절을 따른다. 기록: codex/gpt-6.
+
+## 공유 팝업 공통 버튼 적용 (2026-11-20)
+
+사용자 첨부 디자인과 후속 브라우저 코멘트에 따라 상품 상세 공유 팝업을 2열·간격8px의 공통 버튼으로 변경했다. 카카오톡은 `Button social={{ provider: 'kakao' }}`, URL 복사는 `Button variant="secondary" iconLeft="link-regular"`를 사용하며 페이지별 버튼 CSS를 제거했다. 기본 높이48px·카카오 배경 #FAE100·secondary 1px 테두리와 공통 라벨·아이콘 순서·상태 스타일을 따른다. 링크 도형은 공통 Icon 자산으로 등록했다. 이전 사각 세로형 버튼 및 이 작업 중 시도한 높이44px·개별 색상 override를 대체한다.
+
+기존 `/products/pdp-preview/share`, IA 연결, 모달·포커스 소유권과 상품 URL 생성은 유지한다. 복사 pending은 공통 `loading`으로 전달해 disabled와 aria-busy를 적용하며 성공·실패 토스트와 재시도 처리를 유지한다. 카카오톡 SDK는 미연결이다. 출처: 사용자 첨부 이미지와 코멘트, [Main / PLP / PDP](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP), `src/app/products/[id]/_components/ProductDetailContent.tsx`, `src/components/common/atoms/Icon.assets.ts`, `public/images/icon/link-regular.svg` 작업 트리. Figma 원본 수치·굵기 모드는 조회 제한으로 미확인이다.
+
+검증: PC 계산 스타일·모바일390px의 버튼168×48px·overflow 없음·URL 복사 성공 토스트와 스크린샷을 확인했다. 변경 파일 ESLint·타입 검사·Panda 생성은 통과했다. 기록: codex/gpt-6.

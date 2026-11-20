@@ -2305,27 +2305,6 @@ function ShareButton({
   );
 }
 
-const productShareStyles = {
-  action: css({
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: '16px',
-    minH: '123px',
-    p: '16px 8px',
-    border: '1px solid #E9EAEB',
-    borderRadius: '8px',
-    bg: 'white',
-    fontFamily: 'korean',
-    fontSize: '16px',
-    fontWeight: '700',
-    cursor: 'pointer',
-    _hover: { bg: '#F5F5F7' },
-    _focusVisible: { outline: '2px solid currentColor', outlineOffset: '2px' },
-  }),
-};
-
 type ProductDetailHeaderActionsProps = {
   initialShareOpen?: boolean;
   product: Product;
@@ -2420,21 +2399,19 @@ function ProductDetailHeaderActions({
         onOpenChange={setShareOpen}
         finalFocus={shareTrigger}
       >
-        <Grid gridTemplateColumns="repeat(2, minmax(0, 1fr))" gap="12px">
-          <button type="button" className={productShareStyles.action}>
-            <Icon name="kakao" size="36px" />
-            카카오톡
-          </button>
-          <button
+        <Grid gridTemplateColumns="repeat(2, minmax(0, 1fr))" gap="8px">
+          <Button social={{ provider: 'kakao' }} type="button">
+            카카오톡 공유하기
+          </Button>
+          <Button
+            variant="secondary"
             type="button"
-            className={productShareStyles.action}
-            disabled={copyPending}
-            aria-busy={copyPending}
+            iconLeft="link-regular"
+            loading={copyPending}
             onClick={copyProductLink}
           >
-            <Icon name="copy-regular" size="32px" />
-            URL 복사하기
-          </button>
+            URL 복사
+          </Button>
         </Grid>
         <Toast notice={shareNotice} onDismiss={dismissShareNotice} />
       </ModalDialog>
