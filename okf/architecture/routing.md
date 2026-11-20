@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-20T05:21:43.066Z'
+updated: '2026-11-20T05:48:57.190Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -2471,3 +2471,16 @@ LoginContent 제목의 들여쓰기와 약관 페이지 tabs 객체 줄바꿈만
 브라우저1344·1919px에서4열,1920px에서5열,375px에서2열과 제목20px/900을 확인했다. PC 제목은22px/900이며 가로 간격은 각각24/14px이다. 작업 트리 출처: src/app/collection/_components/SpecialExhibitionContent.tsx.
 
 현재 커밋 대상에는 카테고리 제목과 상품 Grid 사이의 PC Stack gap24px(모바일14px)도 포함한다. 상품 간 column-gap과 별도 값이다.
+
+
+## 모바일 상품 상세 갤러리 액션과 세로 콘텐츠 (2026-11-20)
+
+사용자 첨부 신발·의류 모바일 시안을 기준으로 공유/관심상품을 갤러리 오른쪽 상단16px 영역으로 옮겼다. 공유 팝업·URL복사 pending/error·닫기/finalFocus는 기존 ProductDetailHeaderActions 한 인스턴스가 소유한다. 모바일은 리뷰 요약 대신 갤러리 액션을 표시하고 PC 헤더의 리뷰 요약과 구매영역 관심상품은 유지한다. 모바일 색상 선택은 갤러리 아래·상품명 위에 한 번 배치한다. ProductVariantSelectors.showColor는 기본true이며 인라인 모바일만false, 옵션 시트는 기존 색상/발볼/사이즈 선택을 유지한다.
+
+모바일 상품 정보 소제목·본문16px, 설명/더보기 간격16px을 사용한다. 의류의 최초 설명 펼침은 플랫폼에 따른 초기 표시값으로 읽고 사용자 토글 후에는 로컬 선택을 유지한다. 신발 정보의 러닝 유형은 PC에 유지하며 모바일에는 신발 유형·추천 활동을 표시한다. 모바일 Tech Specs는1열, 특징 이미지는 신발3개/의류4개 모두1열·간격40px, 이미지 sizes는 모바일 화면폭에서32px을 뺀 값이다. 섹션 제목22px/900·특징 제목18px/700을 적용했다. 의류의4개 탭도 같은 행에 놓인다. PC 특징3/4열·갤러리2열과 기존 표시 데이터는 유지한다.
+
+출처: 사용자 첨부 모바일 상품상세 이미지와 [디자인 파일](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/). 조회 제한으로 최신 구조화 치수/굵기 모드를 확인하지 못했으며 첨부 이미지와 기존 타이포 규격으로 구현했다. 실제 상품 API는 추가하지 않았고 준비된 상품·특징 이미지/문구는 기존 소유자를 유지한다. 작업 트리 출처: src/app/products/[id]/_components/ProductDetailContent.tsx.
+
+검증:375px 신발·의류에서 공유 버튼1개·갤러리 상단 배치·공유 팝업 열기/Escape닫기/트리거 포커스 복귀, 상품정보 본문16px·특징1열과 가로 넘침 없음을 확인했다. 의류는 설명 접힘과4열 탭·특징 제목18px을 확인했다. 관심상품 클릭 후 aria-pressed=true와 신발 구매 옵션 시트의 색상/발볼/사이즈 유지도 확인했다.1440px PC에서는 갤러리2열·신발 특징3열과 모바일 공유 액션 미표시를 확인했다. 최종 모바일 Tech Specs/Why 제목22px/900을 계산 스타일로 확인했다. 마크업 인계 기준으로 기존 소유권과 상태·콜백/포커스·Next Image 경계를 점검했다.
+
+최종 검사: 변경 파일 ESLint·Prettier, 전체 TypeScript, Panda 생성·Next.js 프로덕션 빌드를 통과했다.

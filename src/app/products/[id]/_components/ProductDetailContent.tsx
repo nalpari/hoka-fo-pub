@@ -698,8 +698,13 @@ function ProductDetailSpecificationList({ items, gap }: ProductDetailSpecificati
           gridTemplateColumns: 'none',
           gap,
         }),
-        row: css.raw({ display: 'flex', flexDirection: 'column', gap: '2' }),
-        description: css.raw({ m: '0' }),
+        row: css.raw({
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '2',
+          _mobile: { flexDirection: 'row', alignItems: 'center', gap: '24px' },
+        }),
+        description: css.raw({ m: '0', _mobile: { minW: '0' } }),
       }}
     />
   );
@@ -758,6 +763,16 @@ function ProductTechnicalScale({ title, labels, level, help }: ProductTechnicalS
     </ContentSection>
   );
 }
+
+const productDetailMobileStyles = {
+  sectionHeading: css({
+    _mobile: { '&&': { fontSize: '22px', fontWeight: '900', lineHeight: '1.2' } },
+  }),
+  featureHeading: css({
+    _mobile: { '&&': { fontSize: '18px', fontWeight: '700', lineHeight: '1.3' } },
+  }),
+};
+
 type ProductTechSpecsProps = {
   specifications: readonly ProductDetailSpecification[];
   attributes: readonly ProductDetailSpecification[];
@@ -767,10 +782,20 @@ function ProductTechSpecs({ specifications, attributes, scales }: ProductTechSpe
   return (
     <ContentSection
       title="Tech Specs"
-      headerProps={{ titleAs: 'h2', titleProps: { variant: 'heading7' } }}
+      headerProps={{
+        titleAs: 'h2',
+        titleProps: {
+          variant: 'heading7',
+          className: productDetailMobileStyles.sectionHeading,
+        },
+      }}
       gap="8"
     >
-      <Grid gridTemplateColumns="minmax(0, 1fr) minmax(0, 2fr)" gap="10">
+      <Grid
+        gridTemplateColumns="minmax(0, 1fr) minmax(0, 2fr)"
+        gap="10"
+        _mobile={{ gridTemplateColumns: '1fr', gap: '10' }}
+      >
         <ProductDetailSpecificationList items={specifications} gap="8" />
         <Stack gap="8">
           {scales.length > 0 ? (
@@ -793,19 +818,24 @@ function ProductDetailEditorial({
   return (
     <ContentSection
       title="Why you’ll love it"
-      headerProps={{ titleAs: 'h2', titleProps: { variant: 'heading7' } }}
+      headerProps={{
+        titleAs: 'h2',
+        titleProps: { variant: 'heading7', className: productDetailMobileStyles.sectionHeading },
+      }}
       gap="6"
     >
       <Grid
         gridTemplateColumns={apparel ? 'repeat(4, minmax(0, 1fr))' : 'repeat(3, minmax(0, 1fr))'}
         gap="4"
-        _mobile={apparel ? { gridTemplateColumns: 'repeat(2, minmax(0, 1fr))' } : undefined}
+        _mobile={{ gridTemplateColumns: '1fr', gap: '40px' }}
       >
         {features.map((feature) => (
           <Stack as="article" key={feature.title} gap="4">
             <Image
               sizes={
-                apparel ? '(max-width: 1024px) 50vw, 242px' : '(max-width: 1024px) 33vw, 328px'
+                apparel
+                  ? '(max-width: 1024px) calc(100vw - 32px), 242px'
+                  : '(max-width: 1024px) calc(100vw - 32px), 328px'
               }
               src={feature.image}
               alt={feature.title}
@@ -817,7 +847,10 @@ function ProductDetailEditorial({
             <ContentHeader
               title={feature.title}
               titleAs="h3"
-              titleProps={{ variant: 'heading10' }}
+              titleProps={{
+                variant: 'heading10',
+                className: productDetailMobileStyles.featureHeading,
+              }}
               description={feature.description}
               descriptionProps={{ variant: 'body4' }}
               gap="2"
@@ -858,7 +891,12 @@ type ProductDetailNavigationProps = {
 /** The measured native nav keeps its HTMLElement ref contract. */
 function ProductDetailNavigation({ ref, items, activeId }: ProductDetailNavigationProps) {
   return (
-    <nav ref={ref} aria-label="상품 상세 정보" className={navigation}>
+    <nav
+      ref={ref}
+      aria-label="상품 상세 정보"
+      className={navigation}
+      style={{ gridTemplateColumns: `repeat(${items.length}, minmax(0, 1fr))` }}
+    >
       {items.map((item) => (
         <a
           key={item.id}
@@ -866,7 +904,9 @@ function ProductDetailNavigation({ ref, items, activeId }: ProductDetailNavigati
           className={link}
           aria-current={activeId === item.id ? 'location' : undefined}
         >
-          <Typography variant="body3">{item.label}</Typography>
+          <Typography web="body3" mo="body4">
+            {item.label}
+          </Typography>
         </a>
       ))}
     </nav>
@@ -1425,6 +1465,7 @@ function ProductDetailSections({
   );
 }
 type ProductDetailMediaProps = {
+  mobileActions?: ReactNode;
   inquiriesEmpty?: boolean;
   inquiriesExpanded?: boolean;
   apparel?: boolean;
@@ -1434,6 +1475,7 @@ type ProductDetailMediaProps = {
   product: Product;
 };
 function ProductDetailMedia({
+  mobileActions,
   images,
   productName,
   onOpenImage,
@@ -1445,7 +1487,14 @@ function ProductDetailMedia({
   const platform = usePlatform();
   return (
     <Flex minW="0" direction="column" gap="96px">
-      <ProductDetailGallery onOpenImage={onOpenImage} images={images} productName={productName} />
+      <Box position="relative">
+        <ProductDetailGallery onOpenImage={onOpenImage} images={images} productName={productName} />
+        {platform === 'mobile' && (
+          <Box position="absolute" top="16px" right="16px" zIndex="2">
+            {mobileActions}
+          </Box>
+        )}
+      </Box>
       {platform === 'web' && (
         <ProductDetailSections
           product={product}
@@ -1801,6 +1850,8 @@ function productWidthOptions(product: Product, color: string): ProductWidthOptio
 }
 type ProductVariantSelectorsProps = {
   apparel?: boolean;
+  /** Defaults to true; the inline mobile panel displays its colour control above the identity. */
+  showColor?: boolean;
   product: Product;
   gallery: string[];
   color: string;
@@ -1823,6 +1874,7 @@ function ProductVariantSelectors({
   onWidthChange,
   onSizeChange,
   apparel,
+  showColor = true,
 }: ProductVariantSelectorsProps) {
   const widthOptions = productWidthOptions(product, color);
   const selected = widthOptions.find((option) => option.label === width) ?? widthOptions[0];
@@ -1836,13 +1888,15 @@ function ProductVariantSelectors({
             value={width}
           />
         )}
-        <ProductColorSelector
-          colors={product.colors}
-          colorThumbnails={product.colorThumbnails}
-          gallery={gallery}
-          onValueChange={onColorChange}
-          value={color}
-        />
+        {showColor && (
+          <ProductColorSelector
+            colors={product.colors}
+            colorThumbnails={product.colorThumbnails}
+            gallery={gallery}
+            onValueChange={onColorChange}
+            value={color}
+          />
+        )}
         <ProductSizeSelector
           apparel={apparel}
           error={error}
@@ -1872,11 +1926,12 @@ const productInformationTitleProps = {
   variant: 'bodyKr3',
   language: 'ko',
   weight: 'bold',
-  className: css({ _mobile: { fontSize: '15px' } }),
+  className: css({ _mobile: { '&&': { fontSize: '16px' } } }),
 } as const;
 
 const productInformationDescriptionProps = {
   variant: 'eland-product-description',
+  className: css({ _mobile: { '&&': { fontSize: '16px', lineHeight: '1.5' } } }),
 } as const;
 /** 상품 설명 섹션과 규격 정보를 의미 있는 목록으로 표시합니다. (Displays product description sections and specifications as a semantic list.) */
 function ProductInformation({
@@ -1887,7 +1942,8 @@ function ProductInformation({
   initiallyExpanded = false,
 }: ProductInformationProps) {
   const [description, ...features] = sections;
-  const [expanded, setExpanded] = useState(initiallyExpanded);
+  const [expandedOverride, setExpanded] = useState<boolean | null>(null);
+  const expanded = expandedOverride ?? initiallyExpanded;
   const contentId = useId();
   return (
     <ContentSection
@@ -1915,18 +1971,24 @@ function ProductInformation({
       }}
     >
       <Stack gap="10">
-        <Stack gap="6" _mobile={{ gap: '7' }} alignItems="start">
+        <Stack gap="6" _mobile={{ gap: '4' }} alignItems="start">
           <Stack id={contentId} gap="6" w="100%">
             {description && (
               <ContentHeader
                 gap="5"
+                _mobile={{ gap: '3' }}
                 titleAs="h3"
                 title={description.title}
                 titleProps={productInformationTitleProps}
                 description={<>{description.content}</>}
                 descriptionProps={{
                   ...productInformationDescriptionProps,
-                  className: expanded ? undefined : css({ lineClamp: 5 }),
+                  className: [
+                    productInformationDescriptionProps.className,
+                    !expanded && css({ lineClamp: 5 }),
+                  ]
+                    .filter(Boolean)
+                    .join(' '),
                 }}
               />
             )}
@@ -1950,7 +2012,7 @@ function ProductInformation({
               size="md"
               aria-expanded={expanded}
               aria-controls={contentId}
-              onClick={() => setExpanded((value) => !value)}
+              onClick={() => setExpanded(!expanded)}
             >
               <Typography as="span" variant="bodyKr4" weight="semibold">
                 {expanded ? '닫기' : '더 보기'}
@@ -2102,6 +2164,7 @@ function ProductDetailContent({
   return (
     <Stack gap="10">
       <ProductVariantSelectors
+        showColor={platform === 'web'}
         apparel={apparel}
         color={color}
         error={error}
@@ -2136,7 +2199,7 @@ function ProductDetailContent({
       />
       <ProductInformation
         id="product-information"
-        initiallyExpanded={apparel}
+        initiallyExpanded={platform === 'web' && apparel}
         sections={[
           { title: '어떤 날씨에도 쿠션감 있는 편안한 주행', content: product.detailDescription },
           ...(isClifton
@@ -2154,10 +2217,7 @@ function ProductDetailContent({
             ? [
                 { label: '신발 유형', value: '안정화' },
                 { label: '추천 활동', value: '로드 러닝, 워킹, 라이프 스타일' },
-                {
-                  label: platform === 'mobile' ? '러닝 용도' : '러닝 유형',
-                  value: product.runningType,
-                },
+                ...(platform === 'web' ? [{ label: '러닝 유형', value: product.runningType }] : []),
               ]
             : apparel
               ? [{ label: '추천 활동', value: '데일리 러닝, 트레일 러닝' }]
@@ -2253,33 +2313,35 @@ function ProductDetailHeaderActions({
 
   return (
     <Flex alignItems="center" justifyContent="space-between" w="full">
-      <HStack gap="10px">
-        <RatingStars aria-label={`평점 ${product.rating}점`} value={product.rating} />
-        <Button
-          className={css({
-            borderColor: 'var(--color-text-subtle)',
-            color: 'var(--color-text-subtle)',
-            '--color-action-underline-color': 'var(--color-text-subtle)',
-            '--button-border-color-hover': 'var(--color-text-subtle)',
-          })}
-          variant="link"
-          onClick={() =>
-            document
-              .getElementById(
-                document.getElementById('product-reviews')
-                  ? 'product-reviews'
-                  : 'product-information',
-              )
-              ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-          }
-          type="button"
-          size="md"
-        >
-          {product.reviewCount}개 리뷰 보기
-        </Button>
-      </HStack>
+      {platform === 'web' && (
+        <HStack gap="10px">
+          <RatingStars aria-label={`평점 ${product.rating}점`} value={product.rating} />
+          <Button
+            className={css({
+              borderColor: 'var(--color-text-subtle)',
+              color: 'var(--color-text-subtle)',
+              '--color-action-underline-color': 'var(--color-text-subtle)',
+              '--button-border-color-hover': 'var(--color-text-subtle)',
+            })}
+            variant="link"
+            onClick={() =>
+              document
+                .getElementById(
+                  document.getElementById('product-reviews')
+                    ? 'product-reviews'
+                    : 'product-information',
+                )
+                ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+            }
+            type="button"
+            size="md"
+          >
+            {product.reviewCount}개 리뷰 보기
+          </Button>
+        </HStack>
+      )}
       {platform === 'mobile' && (
-        <HStack gap="4">
+        <HStack gap="16px">
           <ShareButton ref={shareTrigger} size="24px" onClick={() => setShareOpen(true)} />
           <Wishlist
             active={wish}
@@ -2289,7 +2351,7 @@ function ProductDetailHeaderActions({
           />
         </HStack>
       )}
-      {/* [ 개발팀 바인딩 ] 공유 팝업은 이 상세 헤더가 소유합니다. URL 복사는 현재 상품 ID의 상세 주소를 복사하고 완료 후에만 토스트를 표시합니다. 실패 시 팝업을 유지해 재시도하며 pending 중 중복 복사를 막습니다. 카카오톡은 표시 전용 미연결 버튼이며, 실제 공유 SDK·상품 ID/제목/이미지/URL 전달과 요청 결과 처리는 상품 상세 통합 소유자가 연결해야 합니다. */}
+      {/* [ 개발팀 바인딩 ] 공유 액션 컴포넌트는 모바일 갤러리 상단·PC 상세 헤더에 한 번만 배치됩니다. 공유 팝업과 복사 상태는 해당 컴포넌트가 소유합니다. URL 복사는 현재 상품 ID의 상세 주소를 복사하고 완료 후에만 토스트를 표시합니다. 실패 시 팝업을 유지해 재시도하며 pending 중 중복 복사를 막습니다. 카카오톡은 표시 전용 미연결 버튼이며, 실제 공유 SDK·상품 ID/제목/이미지/URL 전달과 요청 결과 처리는 상품 상세 통합 소유자가 연결해야 합니다. */}
       <ModalDialog
         title="공유하기"
         closeLabel="공유하기 닫기"
@@ -2341,29 +2403,46 @@ function ProductDetailHeader({
   apparel,
   initialShareOpen,
 }: ProductDetailHeaderProps) {
+  const platform = usePlatform();
   return (
-    <VStack as="header" alignItems="start" gap="5" _mobile={{ gap: '6' }}>
+    <VStack
+      as="header"
+      alignItems="start"
+      gap="5"
+      _mobile={{ gap: '6' }}
+      css={{
+        _mobile: {
+          '& > div': { gap: '8px' },
+          '& > div > div:first-child': { gap: '0' },
+          '& > div > div:first-child > div': { display: 'none' },
+        },
+      }}
+    >
       <ProductIdentity
         variant="detail"
         name={product.name}
-        gender={product.gender}
+        gender={platform === 'mobile' ? undefined : product.gender}
         promotion={product.promotion}
         price={product.price}
         originalPrice={product.originalPrice}
         discountLabel={product.discountLabel}
         promotionTone={apparel || product.styleCode === 'HOKADFG34S' ? 'error' : undefined}
         activities={
-          apparel
-            ? ['탑&티셔츠']
-            : [...new Set([product.runningType, productUseLabels[product.use]])]
+          platform === 'mobile'
+            ? undefined
+            : apparel
+              ? ['탑&티셔츠']
+              : [...new Set([product.runningType, productUseLabels[product.use]])]
         }
       />
-      <ProductDetailHeaderActions
-        initialShareOpen={initialShareOpen}
-        onWishChange={onWishChange}
-        product={product}
-        wish={wish}
-      />
+      {platform === 'web' && (
+        <ProductDetailHeaderActions
+          initialShareOpen={initialShareOpen}
+          onWishChange={onWishChange}
+          product={product}
+          wish={wish}
+        />
+      )}
     </VStack>
   );
 }
@@ -2733,16 +2812,29 @@ function ProductDetailPanel({
       overscrollBehavior="contain"
       scrollbarWidth="thin"
       px="0"
-      _mobile={{ position: 'static', maxH: 'none', overflowY: 'visible', px: '4', pt: '6' }}
+      _mobile={{ position: 'static', maxH: 'none', overflowY: 'visible', px: '4', pt: '3' }}
     >
-      <Stack gap="10" _mobile={{ gap: '10' }}>
-        <ProductDetailHeader
-          initialShareOpen={initialShareOpen}
-          apparel={apparel}
-          onWishChange={onWishChange}
-          product={product}
-          wish={wish}
-        />
+      <Stack gap="10" _mobile={{ gap: '8' }}>
+        <Stack gap="6">
+          {platform === 'mobile' && (
+            <Box css={{ '& > section': { flexDirection: 'column-reverse', gap: '4px' } }}>
+              <ProductColorSelector
+                colors={product.colors}
+                colorThumbnails={product.colorThumbnails}
+                gallery={gallery}
+                onValueChange={onColorChange}
+                value={color}
+              />
+            </Box>
+          )}
+          <ProductDetailHeader
+            initialShareOpen={initialShareOpen}
+            apparel={apparel}
+            onWishChange={onWishChange}
+            product={product}
+            wish={wish}
+          />
+        </Stack>
         <ProductDetailContent
           apparel={apparel}
           restock={restock}
@@ -3085,6 +3177,16 @@ export function RouteContent({ preview }: { preview?: ProductDetailPreview }) {
       }
     >
       <ProductDetailMedia
+        mobileActions={
+          platform === 'mobile' ? (
+            <ProductDetailHeaderActions
+              initialShareOpen={preview === 'share'}
+              product={product}
+              wish={wish}
+              onWishChange={() => setWish(!wish)}
+            />
+          ) : undefined
+        }
         inquiriesEmpty={inquiriesEmpty}
         inquiriesExpanded={inquiriesExpanded}
         apparel={apparel}
