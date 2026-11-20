@@ -1487,9 +1487,9 @@ function ProductColorSelector({
 }
 /**
  * [ 개발팀 바인딩 ]
- * 상품 상세 연결 소유자가 현재 Product.gender를 전달하면 해당 신발 안내표를 선택합니다.
+ * 상품 상세 연결 소유자가 전달한 Product.gender로 의류 성별 안내표를 선택하며 신발은 남녀 공용 표를 표시합니다.
  * 고객센터와 공유하는 신발·의류 치수표는 준비된 표시 데이터이며, 열기와 단위 전환은 조회 없이 처리합니다.
- * 운영 치수표 승인과 갱신은 연결 소유자가 담당합니다.
+ * 신발 팝업은 공용 표의 한국 사이즈·발길이·남녀 US 열을 표시하며 의류는 상품 성별의 표를 사용합니다. 운영 치수표 승인과 갱신은 연결 소유자가 담당합니다.
  */
 const sizeGuideGenders = {
   "Men's": 'men',
@@ -1501,52 +1501,75 @@ const apparelSizeGuide =
   guideCategories.find(({ value }) => value === 'apparel') ??
   guideCategories.find(({ value }) => value === 'tops');
 
-const sizeGuideTableStyle = css.raw({
-  borderCollapse: 'separate',
-  borderSpacing: 0,
-  tableLayout: 'fixed',
-  width: 'max-content',
-  textAlign: 'center',
-  fontSize: '12px',
-  lineHeight: '1.4',
-  '& th, & td': {
-    boxSizing: 'border-box',
-    width: '68px',
-    height: '54px',
-    bg: 'white.000',
-    borderInlineEnd: '1px solid token(colors.black.10)',
-    borderBlockEnd: '1px solid token(colors.black.10)',
-    fontWeight: 'normal',
-    _mobile: { width: '63px', height: '52px' },
-  },
-  '& tr:first-child > *': { borderBlockStart: '1px solid token(colors.black.10)' },
-  '& tr > :first-child': {
-    position: 'sticky',
-    insetInlineStart: 0,
-    width: '92px',
-    bg: '#F5F5F7',
-    borderInlineStart: '1px solid token(colors.black.10)',
-    fontWeight: 'semibold',
-    _mobile: { width: '76px' },
-  },
-});
+const sizeGuideStyles = {
+  shoePopup: css({ '--modal-size-guide-width': '640px' }),
+  table: css({
+    borderCollapse: 'collapse',
+    tableLayout: 'fixed',
+    w: '100%',
+    textAlign: 'center',
+    fontFamily: 'korean',
+    fontSize: '14px',
+    lineHeight: '1.5',
+    letterSpacing: '-0.02em',
+    '& th, & td': { border: '1px solid #E9EAEB', h: '52px', px: '4px', fontWeight: '400' },
+    '& thead th': { bg: '#F5F5F7', fontWeight: '600' },
+    '& tbody tr:nth-child(even)': { bg: '#F5F5F7' },
+    _mobile: { fontSize: '12px', '& th, & td': { h: '46px', px: '2px' } },
+  }),
+  apparelTable: css({
+    '& th, & td': { fontSize: '12px' },
+    '& tbody td:nth-child(-n+2)': { fontWeight: '600' },
+    _mobile: { '& th, & td': { fontSize: '11px' } },
+  }),
+  unitGroup: css({ display: 'flex', p: '2px', borderRadius: 'full', bg: '#D9D9D9' }),
+  unitButton: css({
+    w: '46px',
+    h: '28px',
+    border: '0',
+    p: '0',
+    borderRadius: 'full',
+    bg: 'transparent',
+    color: 'text.primary',
+    fontFamily: 'korean',
+    fontSize: '12px',
+    fontWeight: '600',
+    cursor: 'pointer',
+    '&[aria-pressed=true]': { bg: 'white.000' },
+    _mobile: { w: '42px', h: '26px' },
+  }),
+  measurementImage: css({ w: '100%', h: 'auto', borderRadius: '4px' }),
+};
 
 const shoeGuideUnitOptions = shoeGuide.units.map((unit) => ({ value: unit, label: unit }));
 
-const shoeGuideUnitButtonStyle = css({
-  w: '46px',
-  h: '28px',
-  border: '0',
-  p: '0',
-  borderRadius: 'full',
-  bg: 'transparent',
-  color: 'text.primary',
-  fontSize: '12px',
-  fontWeight: 'semibold',
-  cursor: 'pointer',
-  '&[aria-pressed=true]': { bg: 'white.000' },
-  _mobile: { h: '27px' },
-});
+const apparelFitDescriptions = [
+  {
+    title: '핏티드 (Fitted)',
+    description:
+      '몸에 가깝게 밀착되지만, 과도하게 조이지 않고 편안하게 몸을 감싸는 스타일입니다. 맞춤복을 입은 듯 깔끔한 실루엣을 연출하며, 활동 시 움직임이 자유롭습니다.',
+  },
+  {
+    title: '슬림핏 (Slim)',
+    description:
+      '몸에 밀착되는 핏으로, 신체 치수 대비 여유분이 보다 적어 몸의 라인을 그대로 따라갑니다. 압박감이 강한 것은 아니지만, 몸에 착 달라붙는 착용감을 선사합니다.',
+  },
+  {
+    title: '스탠다드핏 (Standard)',
+    description:
+      '가장 클래식한 핏으로, 너무 타이트하지도 너무 헐렁하지도 않은 이상적인 균형을 갖추고 있습니다. 클래식 또는 레귤러 핏이라고도 불립니다.',
+  },
+  {
+    title: '릴렉스핏 (Relaxed)',
+    description:
+      '여유롭고 넉넉한 핏입니다. 몸을 조이지 않는 편안한 착용감을 제공하며, 다른 옷 위에 겹쳐 입기에도 좋습니다.',
+  },
+  {
+    title: '오버핏 (Oversized)',
+    description:
+      '전체적으로 넉넉하고 여유로운 실루엣입니다. 만약 몸에 더 딱 맞는 스타일을 선호하신다면, 한 사이즈 작게 선택하시는 것을 추천합니다.',
+  },
+];
 
 function ProductSizeGuideChart({
   apparel,
@@ -1562,31 +1585,41 @@ function ProductSizeGuideChart({
   onUnitChange: (unit: Unit) => void;
 }) {
   const headingId = useId();
-  const title = `${genderOptions.find((option) => option.value === gender)?.label} ${apparel ? '의류' : '신발'}`;
-  const { headers, rows } = chart;
+  const title = apparel
+    ? `${gender === 'unisex' ? '남녀 공용' : genderOptions.find((option) => option.value === gender)?.label} 의류`
+    : '신발 표준 사이즈';
+  const headers = apparel
+    ? ['US 사이즈', '한국 사이즈', '가슴 둘레', '허리 둘레', '엉덩이 둘레']
+    : ['발길이', '한국(mm)', '미국(남)', '미국(여)'];
+  const rows = apparel
+    ? chart.rows
+    : shoeGuide.charts.unisex[unit].rows.map(([kr, length, us]) => [length, kr, ...us.split('/')]);
+  const measurement = apparelSizeGuide?.measurement;
 
   return (
-    <Stack minW="0" gap="4">
-      <HStack justify="space-between">
-        <Typography id={headingId} as="h3" variant="body3" weight="bold">
-          {title}
-        </Typography>
-        <SegmentedControl
-          ariaLabel={apparel ? '치수 단위' : '발길이 단위'}
-          className={css({ display: 'flex', p: '0.5', borderRadius: 'full', bg: 'black.20' })}
-          itemClassName={() => shoeGuideUnitButtonStyle}
-          onValueChange={onUnitChange}
-          options={shoeGuideUnitOptions}
-          unstyled
-          value={unit}
-        />
-      </HStack>
-      <Box role="region" aria-labelledby={headingId} tabIndex={0} overflowX="auto">
-        <table
-          aria-label={`${title} 치수표 (${unit})`}
-          className={css(sizeGuideTableStyle, apparel && { width: 'full' })}
-        >
-          {apparel && (
+    <Stack minW="0" gap="40px" _mobile={{ gap: '40px' }}>
+      <Stack gap="4">
+        <HStack justify="space-between">
+          <Typography id={headingId} as="h3" variant="body3" weight="bold">
+            {title}
+          </Typography>
+          <SegmentedControl
+            ariaLabel={apparel ? '치수 단위' : '발길이 단위'}
+            className={sizeGuideStyles.unitGroup}
+            itemClassName={() => sizeGuideStyles.unitButton}
+            onValueChange={onUnitChange}
+            options={shoeGuideUnitOptions}
+            unstyled
+            value={unit}
+          />
+        </HStack>
+        <Box role="region" aria-labelledby={headingId} tabIndex={0}>
+          <table
+            aria-label={`${title} 치수표 (${unit})`}
+            className={[sizeGuideStyles.table, apparel && sizeGuideStyles.apparelTable]
+              .filter(Boolean)
+              .join(' ')}
+          >
             <thead>
               <tr>
                 {headers.map((header) => (
@@ -1596,53 +1629,79 @@ function ProductSizeGuideChart({
                 ))}
               </tr>
             </thead>
-          )}
-          {apparel ? (
             <tbody>
-              {rows.map(([us, kr, chest, waist, hips]) => (
-                <tr key={kr}>
-                  <th scope="row">{us}</th>
-                  <td>{kr}</td>
-                  <td>{chest}</td>
-                  <td>{waist}</td>
-                  <td>{hips}</td>
+              {rows.map((row) => (
+                <tr key={row[1]}>
+                  {row.map((value, index) => (
+                    <td key={index}>{value}</td>
+                  ))}
                 </tr>
               ))}
             </tbody>
-          ) : (
-            <tbody>
-              <tr>
-                <th scope="row">한국 사이즈</th>
-                {rows.map(([kr]) => (
-                  <th key={kr} scope="col">
-                    {kr}
-                  </th>
+          </table>
+        </Box>
+      </Stack>
+      {apparel && measurement && (
+        <>
+          <Stack gap="4">
+            <Stack gap="2">
+              <Typography as="h3" variant="body3" weight="bold">
+                측정 방법
+              </Typography>
+              <Typography as="p" variant="body4">
+                측정한 치수를 사이즈표와 비교해 가장 알맞은 사이즈를 선택해 주세요.
+              </Typography>
+            </Stack>
+            <Grid
+              gridTemplateColumns="1fr 1fr"
+              gap="6"
+              _mobile={{ gridTemplateColumns: '1fr', gap: '6' }}
+            >
+              <Image
+                src={
+                  gender === 'women'
+                    ? '/images/size-guide/tops-women.png'
+                    : '/images/size-guide/tops-men.png'
+                }
+                alt="가슴·허리·엉덩이 둘레 측정 위치"
+                width={gender === 'women' ? 552 : 344}
+                height={gender === 'women' ? 432 : 258}
+                sizes="(max-width: 1024px) calc(100vw - 32px), 340px"
+                className={sizeGuideStyles.measurementImage}
+              />
+              <Stack as="ol" listStyleType="none" gap="6" py="4" _mobile={{ py: '0' }}>
+                {measurement.steps.map((step, index) => (
+                  <Stack as="li" gap="2" key={step}>
+                    <Typography variant="body4" weight="bold">
+                      {index + 1}. {['가슴 둘레', '허리 둘레', '엉덩이 둘레'][index]}
+                    </Typography>
+                    <Typography as="p" variant="body4">
+                      {step}
+                    </Typography>
+                  </Stack>
                 ))}
-              </tr>
-              <tr>
-                <th scope="row">
-                  US 사이즈
-                  {gender === 'unisex' && (
-                    <>
-                      <br />
-                      (남/여)
-                    </>
-                  )}
-                </th>
-                {rows.map(([kr, , us]) => (
-                  <td key={kr}>{us}</td>
-                ))}
-              </tr>
-              <tr>
-                <th scope="row">발길이</th>
-                {rows.map(([kr, length]) => (
-                  <td key={kr}>{length}</td>
-                ))}
-              </tr>
-            </tbody>
-          )}
-        </table>
-      </Box>
+              </Stack>
+            </Grid>
+          </Stack>
+          <Stack gap="4">
+            <Typography as="h3" variant="body3" weight="bold">
+              Fit Guide
+            </Typography>
+            <Grid gridTemplateColumns="1fr 1fr" gap="4" _mobile={{ gridTemplateColumns: '1fr' }}>
+              {apparelFitDescriptions.map(({ title: fitTitle, description }) => (
+                <Stack key={fitTitle} gap="2" p="4" bg="#F5F5F7" borderRadius="4px">
+                  <Typography as="h4" variant="body4" weight="bold">
+                    {fitTitle}
+                  </Typography>
+                  <Typography as="p" variant="body4">
+                    {description}
+                  </Typography>
+                </Stack>
+              ))}
+            </Grid>
+          </Stack>
+        </>
+      )}
     </Stack>
   );
 }
@@ -1708,6 +1767,7 @@ function ProductSizeSelector({
         <ModalDialog
           title="사이즈 가이드"
           variant="sizeGuide"
+          popupClassName={apparel ? undefined : sizeGuideStyles.shoePopup}
 
           closeLabel="사이즈 가이드 닫기"
           open={guideOpen}

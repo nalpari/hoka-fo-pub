@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-20T04:15:48.169Z'
+updated: '2026-11-20T04:52:08.516Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -6157,6 +6157,17 @@ Typography에 PC700/MO600 조합을 추가하고 가이드에 표시한다. Brea
 ProductListingContent의 sticky top·maxH가 ContentLayout에서만 제공하는 --content-layout-header-height를 참조해 검색결과에서는 auto·none으로 무효화되었다. 두 계산에 0px fallback을 추가했다. 상품목록은 기존 측정 헤더 높이를 계속 사용한다. 작업 트리 출처: src/components/catalog/ProductListingPage.tsx.
 
 검증: 1176×1251 검색결과에서 수정 전 top auto/maxHeight none, 수정 후 top88px/maxHeight1163px을 확인했다. 페이지300px 스크롤 후 필터 top88px 유지와 필터 내부 scrollTop200을 확인했다. 결과가 짧으면 기존 sticky 부모 영역의 끝에서 해제된다. 상품목록은 기존 측정값 top241.594px/maxHeight1009.41px을 유지했고375px 모바일은 필터 버튼1개와 가로 넘침 없음을 확인했다. Panda 생성·변경 파일 ESLint·전체 TypeScript 검사를 통과했다.
+
+
+## 상품 상세 사이즈 가이드 세로 표와 측정 안내 (2026-11-20)
+
+신발은 PC640px, 의류는 기존768px 팝업을 사용한다. sizeGuide recipe의 최대 폭은 --modal-size-guide-width로 신발만640px을 지정하며 생략 기본값768px은 유지한다. 제목은 PC24px/900·모바일20px/700이다. 표는100%폭·4열(신발)/5열(의류), 행 높이PC52px/모바일46px과 #E9EAEB 테두리·#F5F5F7 헤더/짝수행을 사용한다. 의류의 측정 이미지/설명과 Fit Guide카드는 PC2열·모바일1열이며 측정 이미지는 원본 비율로 표시한다. 신발 단위 전환은 발길이만 바꾸고 한국mm·남녀US는 유지한다.
+
+브라우저 확인: 신발640px 팝업17행과4개 열, inch 첫행8.66/220/4/5,375px 시트와 닫기 후 트리거 포커스 복귀를 확인했다. 여성 의류의5열6행과 cm/inch 전환, 측정 안내·Fit Guide5개 DOM,375px 가로 넘침 없음·20px/700 제목, Escape닫기와 포커스 복귀를 확인했다. 남성/공용 의류는 검증 중 기존 의류 fixture의 성별만 각각 교체해 실제 모달을 PC1440×1100·모바일375×812에서 열었다. 네 상태 모두 이미지 전체·측정선1/2/3과 가로 넘침 없음을 스크린샷으로 확인했다. PC332.5×249.375px·모바일313×234.75px으로4:3 원본 비율을 유지했다. 검증 후 fixture는 바이트 단위로 원래 여성 데이터에 복원했다. 남성 측정 이미지는 사용자가 제공한 public/images/size-guide/tops-men.png(344×258)에 연결했다. 2026-11-20 브라우저의 Next Image 경로에서 정상 decode를 확인했고 원본 비율을 유지해 측정선 잘림을 방지했다. 남성/공용 의류 모달 PC·모바일 실행 확인을 완료했다. 여성은 기존 tops-women.png를 사용한다. 폰트 모드는 새로 확인하지 못했으므로 관측 숫자를 모드 확인으로 기록하지 않는다.
+
+출처: 사용자 첨부 신발·의류 팝업 이미지와 [디자인 파일](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/). 작업 트리 출처: src/app/products/[id]/_components/ProductDetailContent.tsx, src/components/common/layouts/ModalDialog.recipe.tsx.
+
+검사: 변경 TSX/recipe ESLint·Prettier, 전체 TypeScript, Panda 생성과 Next.js 프로덕션 빌드를 통과했다. 마크업 인계 점검에서 기존 소유권·단위 상태·모달 키보드/포커스 경계를 유지했으며 서비스 요청이나 새 preview 경로는 추가하지 않았다.
 
 ## 상품 상세 공유하기 팝업 (2026-11-20)
 

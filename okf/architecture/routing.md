@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-20T02:11:48.409Z'
+updated: '2026-11-20T04:52:08.516Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -2442,6 +2442,13 @@ LoginContent 제목의 들여쓰기와 약관 페이지 tabs 객체 줄바꿈만
 ## 화면별 글자 굵기 보정 (2026-11-20)
 
 장바구니 옵션·로그인 혜택·쿠폰 기간·주문 표 머리글·가입 동의·FAQ·문의 첨부·사이즈 가이드의 글자 굵기를 보정했다. 경로, 상태 URL, 데이터와 서비스 연결 계약은 유지한다. 출처는 이번 변경의 `src/app/` 화면 컴포넌트와 TypographyGuide다.
+
+
+## 상품 상세 사이즈 가이드 재구성 (2026-11-20)
+
+기존 상품 상세와 의류 기본 preview의 사이즈 가이드를 같은 ProductSizeGuideChart에서 재구성했다. 새 경로는 추가하지 않았으며 열기·닫기·트리거 finalFocus와 cm 초기값을 유지한다. 신발은 공유 공용 치수표의220~300mm17행을 발길이·한국(mm)·미국(남)·미국(여)4열로 표시한다. 의류는 기존 상품 성별과 단위별 데이터6/5/6행을 유지하고 측정 방법과 Fit Guide5개 카드를 추가한다. 실제 치수표 승인·갱신은 통합 소유자 책임이며 API 요청은 추가하지 않았다.
+
+출처: 사용자 첨부 신발/의류 팝업 시안과 [디자인 파일](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/). 구조화 조회 제한으로 최신 모드/실측값은 확인하지 못했으며 이미지 관측과 기존 컴포넌트 규격을 사용했다. 작업 트리 출처: src/app/products/[id]/_components/ProductDetailContent.tsx.
 
 ## 상품 상세 공유하기 상태 (2026-11-20)
 
