@@ -41,6 +41,7 @@ function OrderRecommendationItem({ item, layout = 'compact' }: Props) {
       _mobile={{ flexBasis: layout === 'compact' ? '140px' : '150px' }}
     >
       <ProductCard
+        textWeights={layout === 'checkout' ? { identity: 'medium' } : undefined}
         href={item.href}
         product={{
           id: item.id,

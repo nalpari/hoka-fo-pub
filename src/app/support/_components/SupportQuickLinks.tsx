@@ -46,7 +46,7 @@ export function SupportQuickLinks() {
               className: css({ _mobile: { fontWeight: 'bold' } }),
             },
             description: item.text,
-            descriptionProps: { variant: 'body4', tone: 'subtle' },
+            descriptionProps: { variant: 'body4', weight: 'medium', tone: 'subtle' },
           }}
           footer={
             <ButtonLink href={item.href} variant="secondary" size="short">

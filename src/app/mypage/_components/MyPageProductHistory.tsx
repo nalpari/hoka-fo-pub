@@ -159,6 +159,9 @@ function MyPageProductHistoryGrid({
     >
       {items.map((item) => (
         <ProductCard
+          textWeights={
+            wishlist ? { identity: 'medium', promotion: 'medium', cart: 'medium' } : undefined
+          }
           key={item.id}
           variant="history"
           thumbnailVariant={wishlist && !entries && item.apparel ? 'listing' : undefined}

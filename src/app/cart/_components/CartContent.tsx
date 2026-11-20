@@ -59,6 +59,7 @@ export function CartContent() {
       >
         {recommendations.map((item) => (
           <ProductCard
+            textWeights={{ identity: 'medium' }}
             key={item.id}
             href={item.href}
             product={{

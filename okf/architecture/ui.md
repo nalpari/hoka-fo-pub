@@ -6125,3 +6125,7 @@ Typography는 기존 PC-MO weight 조합과 TypographyWeight를 보존하고 Typ
 ## 반응형 굵기와 탭 고정 정책 반영 (2026-11-20)
 
 이번 스테이징은 주문 상세900-700/500-400, 문의 작성 정보/주문상품 상태·공지 제목·관리 안내 Medium, 검색900-500과 푸터 굵기를 반영한다. SupportTabs는 모든 variant/플랫폼에서 선택700·미선택400이며 data-active가 소유한다. Typography 가이드에 미지정·undefined·기존값과 조합 예제를 추가한다. AGENTS와 품질 지침의 탭 고정 규칙을 함께 반영한다. 출처: 이번 커밋의 Git 인덱스. 과거 font-weight-modes의 검증은 작성 당시 이력이며 이번 커밋에서 브라우저 검증을 재수행한 것은 아니다.
+
+## 상품 카드와 주문 안내 굵기 반영 (2026-11-20)
+
+ProductCard의 cartMedium 선택 옵션과 기본false, 장바구니/주문완료 추천 identity Medium·관심상품 identity/promotion/cart Medium을 연결한다. 주문 상세의 모바일 주문 문구·상태·결제예정금액과 안내를 Medium으로 표시하며 상태는600-500을 사용한다. 고객센터 바로가기 설명은Medium, 사이즈 가이드의 PC 선택값·해당 모바일 공통값과 신발 표 라벨을Medium으로 표시하고 제목900-700을 적용한다. 출처: 이번 커밋의 Git 인덱스. 생략 시 ProductCard의 기존 기본 표시를 유지하며 브라우저 검증은 수행하지 않았다.

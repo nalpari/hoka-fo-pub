@@ -729,6 +729,7 @@ const root = cva({
       true: { '&& [data-product-name], && [data-product-gender]': { fontWeight: 'medium' } },
     },
     promotionMedium: { true: { '&& [data-product-promotion] > span': { fontWeight: 'medium' } } },
+    cartMedium: { true: { '&& [data-product-cart-label]': { fontWeight: 'medium' } } },
     variant: {
       listing: {
         _mobile: mobileTilePrice,
@@ -748,6 +749,7 @@ const root = cva({
     variant: 'listing',
     identityMedium: false,
     promotionMedium: false,
+    cartMedium: false,
   },
 });
 
@@ -845,6 +847,7 @@ export function ProductCard({
         variant,
         identityMedium: textWeights.identity === 'medium',
         promotionMedium: textWeights.promotion === 'medium',
+        cartMedium: textWeights.cart === 'medium',
       })}
       data-color-preview-open={showColorPreview ? '' : undefined}
       onPointerEnter={(event) => {
@@ -958,7 +961,7 @@ export function ProductCard({
             iconSize={16}
             onClick={onAddToCart}
           >
-            <Typography web="bodyKr4" mo="bodyKr5" tone="primary">
+            <Typography data-product-cart-label web="bodyKr4" mo="bodyKr5" tone="primary">
               장바구니 담기
             </Typography>
           </Button>
