@@ -634,6 +634,7 @@ const typography = cva({
       '600-500': { fontWeight: 'semibold', _mobile: { fontWeight: 'medium' } },
       '700-400': { fontWeight: 'bold', _mobile: { fontWeight: 'normal' } },
       '700-500': { fontWeight: 'bold', _mobile: { fontWeight: 'medium' } },
+      '700-600': { fontWeight: 'bold', _mobile: { fontWeight: 'semibold' } },
       '900-500': { fontWeight: 'black', _mobile: { fontWeight: 'medium' } },
       '900-600': { fontWeight: 'black', _mobile: { fontWeight: 'semibold' } },
       '900-700': { fontWeight: 'black', _mobile: { fontWeight: 'bold' } },

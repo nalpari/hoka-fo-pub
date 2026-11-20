@@ -36,7 +36,7 @@ export function InquiryCautions() {
           {
             value: 'cautions',
             title: (
-              <Typography variant="body4" tone="primary">
+              <Typography variant="body4" tone="primary" weight="medium">
                 유의사항
               </Typography>
             ),

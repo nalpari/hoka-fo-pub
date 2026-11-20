@@ -34,7 +34,7 @@ const couponDetailNumber = css({
 });
 
 const couponDetailStyles = {
-  period: css({ color: '#040404' }),
+  period: css({ color: '#040404', '&&&': { fontWeight: '500' } }),
   term: css({
     flexShrink: '0',
     lineHeight: '1.5',

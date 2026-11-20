@@ -394,7 +394,7 @@ export function MembershipRewards({
                   alignItems: 'center',
                 }}
               >
-                <Typography web="body3" mo="body4" weight="500-400">
+                <Typography web="body3" mo="body4" weight="medium">
                   구매금액
                 </Typography>
                 <HStack gap="2px" justifyContent="flex-end" alignItems="baseline">

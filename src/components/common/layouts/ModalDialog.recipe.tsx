@@ -412,7 +412,6 @@ export const modalProductOptionRecipe = sva({
       fontFamily: 'hoka',
       fontSize: '16px',
       lineHeight: '1.5',
-      fontWeight: '500',
       letterSpacing: '-0.02em',
       _mobile: { fontSize: '14px' },
     },

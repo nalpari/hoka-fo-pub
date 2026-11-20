@@ -29,6 +29,7 @@ import { supportNavigation } from '@/app/support/support.navigation';
 import { CustomerCenterLayout } from '@/components/support/CustomerCenterLayout';
 
 const styles = {
+  categoryItem: css({ '&&& span': { fontWeight: '400', _mobile: { fontWeight: '400' } } }),
   searchForm: css({
     justifyContent: 'center',
     alignItems: 'center',
@@ -60,6 +61,7 @@ function FaqCategoryNav({ category, categories, onCategoryChange }: Props) {
     <Box as="nav" aria-label="FAQ 카테고리" pt="8" pb="32px" _mobile={{ pt: '6', pb: '8' }}>
       <FilterTabs
         ariaLabel="FAQ 카테고리"
+        itemClassName={() => styles.categoryItem}
         onValueChange={onCategoryChange}
         options={categories.map((item) => ({
           label: item === 'AS/품질' ? 'AS/불량' : item,

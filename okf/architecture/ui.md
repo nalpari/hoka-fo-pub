@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-19T05:09:47.543780+00:00'
+updated: '2026-11-20T02:11:48.409Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -6133,3 +6133,7 @@ ProductCard의 cartMedium 선택 옵션과 기본false, 장바구니/주문완�
 ## 로그인·약관 포맷 정리 (2026-11-20)
 
 LoginContent 제목의 들여쓰기와 약관 페이지 tabs 객체 줄바꿈만 정리했다. 렌더링·굵기·경로·상태·서비스 계약은 변경하지 않는다. 출처: 두 소스의 스테이징 diff. 동작 변경이 없어 실행 화면 검증은 수행하지 않았다.
+
+## 화면별 글자 굵기 보정 (2026-11-20)
+
+Typography에 PC700/MO600 조합을 추가하고 가이드에 표시한다. Breadcrumb는500, 구매금액·문의 주의사항은500, 인증 정보는PC700/MO600, 시스템 안내 제목은900을 사용한다. 상품 옵션 모달의 productName 슬롯에서 고정500을 제거해 기존 호출부 굵기를 적용한다. 날짜 선택과 FAQ의400은 해당 라벨 소유자에서 적용한다. 출처: `src/components/common/atoms/Typography.tsx`, `src/components/common/layouts/ModalDialog.recipe.tsx`, `src/components/common/molecules/Breadcrumb.tsx`, `src/components/common/molecules/DateRangeSearch.tsx`, `src/components/common/organisms/SystemStatusPage.tsx`, `src/components/membership/MembershipRewards.tsx`, `src/components/phone-verification/PhoneVerificationContent.tsx`, `src/components/support/InquiryCautions.tsx`.

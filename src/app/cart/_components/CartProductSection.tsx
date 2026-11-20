@@ -106,7 +106,10 @@ function CartProductItem({
           <Typography variant="body4Medium">{product.gender}</Typography>
           <Typography variant="body4Medium">{product.name}</Typography>
           <Typography variant="body4" tone="subtle">
-            {item.width}, {item.color}, {item.size}
+            <Typography as="span" variant="body4" weight="400-500">
+              {item.width}
+            </Typography>
+            , {item.color}, {item.size}
             <Box as="span" display={{ base: 'inline', _mobile: 'none' }}>
               , {row.optionQuantity ?? item.quantity}개
             </Box>

@@ -137,7 +137,7 @@ export function InquiryAttachments({
           <Button
             variant="link"
             size="md"
-            className={css({ '& span': { fontWeight: 'normal' } })}
+            className={css({ '& span': { fontWeight: 'medium' } })}
             ref={triggerRef}
             onClick={() =>
               platform === 'mobile' ? setPickerOpen(true) : inputRef.current?.click()

@@ -120,7 +120,7 @@ function TermsDialog({
             <p className={termsClasses.label}>{label}</p>
             {version ? (
               <Button variant="link" size="sm" className={termsLink} onClick={version.onChange}>
-                <Typography variant="body5">
+                <Typography variant="body5" weight="medium">
                   {version.previous ? '현재 약관 보기' : '이전 약관 보기'}
                 </Typography>
               </Button>

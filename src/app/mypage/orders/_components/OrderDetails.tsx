@@ -132,7 +132,8 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
           {['상품/옵션정보', '수량', '가격'].map((label) => (
             <Typography
               key={label}
-              variant="body3Semibold"
+              variant="body3"
+              weight="bold"
               className={css({ textAlign: 'center' })}
             >
               {label}
@@ -385,7 +386,8 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
               {['상품/옵션정보', '환불금액', '처리상태'].map((label) => (
                 <Typography
                   key={label}
-                  variant="body3Semibold"
+                  variant="body3"
+                  weight="bold"
                   className={css({ textAlign: 'center' })}
                 >
                   {label}
@@ -635,7 +637,8 @@ export function OrderClaimDetail({
             {['상품/옵션정보', '수량', '가격', '진행상태'].map((label) => (
               <Typography
                 key={label}
-                variant="body3Semibold"
+                variant="body3"
+                weight="bold"
                 className={css({ textAlign: 'center' })}
               >
                 {label}

@@ -21,6 +21,7 @@ import {
   type RegistrationInformation,
 } from '@/app/signup/information/registration.types';
 import { type MarketingPreferences } from '@/app/signup/information/registration.types';
+
 type Props = Pick<RegistrationContentProps, 'information' | 'fieldErrors' | 'onChange'> & {
   fieldKey: keyof RegistrationInformation;
   label: string;
@@ -235,7 +236,7 @@ function RegistrationAdditionalFields(props: RegistrationAdditionalFieldsProps) 
         title="마케팅 정보 수신 동의"
         headerProps={{
           titleAs: 'h2',
-          titleProps: { variant: 'body3', weight: 'bold' },
+          titleProps: { variant: 'body3', weight: '700-600' },
           pb: '4',
           borderBottom: '1px solid var(--color-black-100)',
         }}

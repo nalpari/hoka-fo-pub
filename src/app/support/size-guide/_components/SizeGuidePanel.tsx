@@ -82,7 +82,6 @@ function SizeGuideChoiceGroup<T extends string>({
   onValueChange: (value: T) => void;
   compact?: boolean;
 }) {
-  const platform = usePlatform();
   const grouped = !compact;
   const choices = (
     <SegmentedControl
@@ -111,18 +110,8 @@ function SizeGuideChoiceGroup<T extends string>({
           grouped,
         })
       }
-      itemRender={({ label, value: optionValue }) => (
-        <Typography
-          as="button"
-          variant={compact ? 'body3' : 'body4'}
-          weight={
-            platform === 'web' || compact || optionValue === 'unisex'
-              ? 'medium'
-              : grouped && optionValue === value
-                ? 'semibold'
-                : 'regular'
-          }
-        >
+      itemRender={({ label }) => (
+        <Typography as="button" variant={compact ? 'body3' : 'body4'} weight="medium">
           {label}
         </Typography>
       )}
@@ -295,7 +284,7 @@ function SizeGuideChart({ category, gender, unit, onUnitChange }: SizeGuideChart
         titleProps: {
           web: 'heading8',
           mo: 'heading6',
-          weight: '900-700',
+          weight: 'black',
         },
         orientation: 'horizontal',
         gap: '3',
