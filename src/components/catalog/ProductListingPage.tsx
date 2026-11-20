@@ -983,9 +983,9 @@ function ProductListingContent({
           <Box
             pr={isSearchPage ? undefined : '31px'}
             position="sticky"
-            top="calc(var(--layout-site-header-height) + var(--content-layout-header-height))"
+            top="calc(var(--layout-site-header-height) + var(--content-layout-header-height, 0px))"
             alignSelf="start"
-            maxH="calc(100dvh - var(--layout-site-header-height) - var(--content-layout-header-height))"
+            maxH="calc(100dvh - var(--layout-site-header-height) - var(--content-layout-header-height, 0px))"
             overflowX="hidden"
             overflowY="auto"
             scrollbar="hidden"

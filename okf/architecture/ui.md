@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-20T04:06:16.622Z'
+updated: '2026-11-20T04:15:48.169Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -6148,3 +6148,10 @@ Typography에 PC700/MO600 조합을 추가하고 가이드에 표시한다. Brea
 검증: 375×812 브라우저에서 검색창·2열 목록·필터 시트 열기와 Escape 조작, Enter 제출 후 q/결과 제목 변경, 빈 결과 직접 URL의 G45678 입력과 가로 넘침 없음을 확인했다. 1440px에서 모바일 검색창 미표시와 기존 결과 제목을 확인했다. 실제 상품 API는 미연결이다. 작업 트리 출처: src/components/catalog/ProductListingPage.tsx.
 
 검사 결과: 변경 TSX ESLint·Prettier, 전체 TypeScript, Panda 생성 및 Next.js 프로덕션 빌드를 통과했다. 최종 마크업 인계 점검에서 기존 컴포넌트 소유권·검색 초안 경계·공통 플랫폼 규칙을 유지했으며 서비스 요청은 추가하지 않았다.
+
+
+## 검색결과 PC 필터 고정 복구 (2026-11-20)
+
+ProductListingContent의 sticky top·maxH가 ContentLayout에서만 제공하는 --content-layout-header-height를 참조해 검색결과에서는 auto·none으로 무효화되었다. 두 계산에 0px fallback을 추가했다. 상품목록은 기존 측정 헤더 높이를 계속 사용한다. 작업 트리 출처: src/components/catalog/ProductListingPage.tsx.
+
+검증: 1176×1251 검색결과에서 수정 전 top auto/maxHeight none, 수정 후 top88px/maxHeight1163px을 확인했다. 페이지300px 스크롤 후 필터 top88px 유지와 필터 내부 scrollTop200을 확인했다. 결과가 짧으면 기존 sticky 부모 영역의 끝에서 해제된다. 상품목록은 기존 측정값 top241.594px/maxHeight1009.41px을 유지했고375px 모바일은 필터 버튼1개와 가로 넘침 없음을 확인했다. Panda 생성·변경 파일 ESLint·전체 TypeScript 검사를 통과했다.
