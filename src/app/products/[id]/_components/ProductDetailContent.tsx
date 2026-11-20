@@ -39,6 +39,7 @@ import { Wishlist } from '@/components/common/atoms/Wishlist';
 
 import {
   Carousel,
+  CarouselControls,
   CarouselPagination,
   CarouselViewport,
 } from '@/components/common/molecules/Carousel/Carousel';
@@ -808,59 +809,83 @@ function ProductTechSpecs({ specifications, attributes, scales }: ProductTechSpe
     </ContentSection>
   );
 }
+
+// Three columns in the 1016:484 detail grid, including its 32px gap and the 1200px PC canvas.
+const editorialDesktopImageSizes =
+  'calc(((min(calc(max(100vw, 1200px) - 110px), clamp(1532px, calc(79.375vw + 8px), 2040px)) - 32px) * 1016 / 1500 - 32px) / 3)';
+
+const editorialStyles = {
+  image: css({ display: 'block', w: '100%', h: 'auto' }),
+  slide: css({
+    w: 'calc((100% - 32px) / 3 + 16px)!',
+    pr: '16px',
+    '&:last-child': { w: 'calc((100% - 32px) / 3)!', pr: '0' },
+  }),
+};
+
 function ProductDetailEditorial({
   features,
-  apparel = false,
 }: {
   features: readonly (Omit<ProductEditorialFeature, 'description'> & { description?: string })[];
-  apparel?: boolean;
 }) {
-  return (
+  const platform = usePlatform();
+  const isCarousel = platform === 'web' && features.length > 3;
+  const cards = features.map((feature) => (
+    <Stack as="article" key={feature.title} gap="6" minW="0">
+      <Image
+        sizes={platform === 'mobile' ? 'calc(100vw - 32px)' : editorialDesktopImageSizes}
+        src={feature.image}
+        alt={feature.title}
+        width={328}
+        height={411}
+        loading="lazy"
+        className={editorialStyles.image}
+      />
+      <ContentHeader
+        title={feature.title}
+        titleAs="h3"
+        titleProps={{
+          variant: 'heading10',
+          className: productDetailMobileStyles.featureHeading,
+        }}
+        description={feature.description}
+        descriptionProps={{ variant: 'body4' }}
+        gap="2"
+      />
+    </Stack>
+  ));
+  const section = (
     <ContentSection
       title="Why you’ll love it"
       headerProps={{
         titleAs: 'h2',
         titleProps: { variant: 'heading7', className: productDetailMobileStyles.sectionHeading },
+        orientation: 'horizontal',
+        action: isCarousel ? <CarouselControls /> : undefined,
       }}
-      gap="6"
+      gap="8"
+      minW="0"
+      _mobile={{ gap: '4' }}
     >
-      <Grid
-        gridTemplateColumns={apparel ? 'repeat(4, minmax(0, 1fr))' : 'repeat(3, minmax(0, 1fr))'}
-        gap="4"
-        _mobile={{ gridTemplateColumns: '1fr', gap: '40px' }}
-      >
-        {features.map((feature) => (
-          <Stack as="article" key={feature.title} gap="4">
-            <Image
-              sizes={
-                apparel
-                  ? '(max-width: 1024px) calc(100vw - 32px), 242px'
-                  : '(max-width: 1024px) calc(100vw - 32px), 328px'
-              }
-              src={feature.image}
-              alt={feature.title}
-              width={328}
-              height={411}
-              loading="lazy"
-              className={css({ display: 'block', w: '100%', h: 'auto' })}
-            />
-            <ContentHeader
-              title={feature.title}
-              titleAs="h3"
-              titleProps={{
-                variant: 'heading10',
-                className: productDetailMobileStyles.featureHeading,
-              }}
-              description={feature.description}
-              descriptionProps={{ variant: 'body4' }}
-              gap="2"
-            />
-          </Stack>
-        ))}
-      </Grid>
+      {isCarousel ? (
+        <CarouselViewport mode="web" slideClassName={editorialStyles.slide} showScrollbar={false}>
+          {cards}
+        </CarouselViewport>
+      ) : (
+        <Grid
+          gridTemplateColumns="repeat(3, minmax(0, 1fr))"
+          gap="4"
+          _mobile={{ gridTemplateColumns: '1fr', gap: '12' }}
+        >
+          {cards}
+        </Grid>
+      )}
     </ContentSection>
   );
+
+  return isCarousel ? <Carousel itemCount={features.length}>{section}</Carousel> : section;
 }
+
 type ProductDetailAnchor = {
   id: string;
   label: string;
@@ -874,7 +899,11 @@ const navigation = css({
   borderBottom: '1px solid var(--color-black-20)',
   bg: 'var(--hoka-white)',
 });
+
 const link = css({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
   textAlign: 'center',
   py: '5',
   color: 'inherit',
@@ -883,6 +912,16 @@ const link = css({
   '&[aria-current="location"]': { borderBottomColor: 'var(--color-black-100)' },
   _focusVisible: { outline: '2px solid var(--color-focus-ring)' },
 });
+
+const productDetailNavigationLabel = css({
+  '&&': {
+    fontSize: '16px',
+    lineHeight: '18px',
+    letterSpacing: '-0.02em',
+    _mobile: { fontSize: '14px', lineHeight: '1.5' },
+  },
+});
+
 type ProductDetailNavigationProps = {
   ref?: Ref<HTMLElement>;
   items: readonly ProductDetailAnchor[];
@@ -904,7 +943,13 @@ function ProductDetailNavigation({ ref, items, activeId }: ProductDetailNavigati
           className={link}
           aria-current={activeId === item.id ? 'location' : undefined}
         >
-          <Typography web="body3" mo="body4">
+          <Typography
+            web="body3"
+            mo="body4"
+            language="ko"
+            weight={activeId === item.id ? 'semibold' : 'regular'}
+            className={productDetailNavigationLabel}
+          >
             {item.label}
           </Typography>
         </a>
@@ -1416,16 +1461,9 @@ function ProductDetailSections({
 }) {
   /** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 상품 연결 소유자가 표시 모델과 식별자·입력/선택 payload, 요청 중/실패/성공/재시도 및 응답 갱신을 별도로 구현해야 합니다. */
   const presentation = getProductDetailPresentation(product);
-  const anchors = apparel
-    ? [
-        productDetailAnchors[0],
-        { id: 'product-sizing', label: '사이즈' },
-        ...productDetailAnchors.slice(1),
-      ]
-    : productDetailAnchors;
   const features = apparel ? apparelFeatures : presentation.features;
   return (
-    <ProductDetailScrollSpy items={anchors}>
+    <ProductDetailScrollSpy items={productDetailAnchors}>
       <Stack gap="96px" _mobile={{ gap: '12' }}>
         <Stack id="product-details" className={destination} gap="96px" _mobile={{ gap: '12' }}>
           {!apparel && (
@@ -1435,14 +1473,9 @@ function ProductDetailSections({
               scales={presentation.scales}
             />
           )}
-          {features.length > 0 && <ProductDetailEditorial features={features} apparel={apparel} />}
+          {features.length > 0 && <ProductDetailEditorial features={features} />}
         </Stack>
         <ProductDetailPlaceholder>상세페이지 영역 (이미지세트 &amp; IMC)</ProductDetailPlaceholder>
-        {apparel && (
-          <ContentSection id="product-sizing" className={destination} title="사이즈">
-            <ProductDetailPlaceholder>크리마 영역</ProductDetailPlaceholder>
-          </ContentSection>
-        )}
         <ProductDetailReviews
           id="product-reviews"
           className={destination}

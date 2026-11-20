@@ -4,6 +4,7 @@ title: '메인과 상품 상세 Figma 적용'
 description: '메인과 상품 상세의 PC·모바일 디자인 수치, 기존 데이터 경계와 실제 검증을 기록한다.'
 tags: [figma, home, product, responsive, panda-css]
 status: draft
+updated: '2026-11-20T06:06:08Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T05:18:16Z'
@@ -48,6 +49,8 @@ HomeContentContext의 현재 상품·탭 조회·콘텐츠 슬롯, 기존 캐러
 > 2026-11-05 현행화: `HomeContentContext`은(는) 2026-11-02 [전체 화면 퍼블리싱 인계](state.md#전체-화면-퍼블리싱-인계-2026-11-02)에서 제거됐다. 현재는 준비된 표시 데이터와 로컬 UI 조작만 있으며 연결 경계는 [데이터 바인딩](data-binding.md#현재-연결-경계-2026-11-05)을 따른다.
 
 ## 상품 상세
+
+현행 특징 영역은 [특징 배치와 상세 탭 변경](routing.md#상품-상세-특징-배치와-상세-탭-2026-11-20)을 따른다. PC는 상품 종류와 무관하게 3개 이하3열·4개 이상3개 크기의 공통 캐러셀, MO는 전체1열이다. 제목→목록 PC32px/MO16px·이미지→설명24px·MO 카드 사이48px이며, 사용자 요청으로 의류4열 시안은 채택하지 않는다. 후속 브라우저 코멘트에 따라 상세 앵커 라벨은 Pretendard·미선택400/선택600·PC16px/18px·MO14px/21px·자간-0.02em, 의류의 미확정 사이즈 탭과 연결 본문은 제거했다. 아래 표는 최초 적용 기록이다.
 
 대상은 `/products/shoe-1`이다. PDP 섹션의 PC, MO, 할인, 고정 CTA와 후속 PC·펼침/접힘 프레임의 필요한 구조를 확인했다. 시안에는 이미지·Tab & Spec·Why you’ll love it·Review·상품문의·Info Accordion이 있어 기존 상세 기술/리뷰/문의 영역을 유지했다.[^product-design]
 
