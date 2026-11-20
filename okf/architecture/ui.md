@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-20T04:52:08.516Z'
+updated: '2026-11-20T06:41:15.767Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -6178,3 +6178,12 @@ ProductListingContent의 sticky top·maxH가 ContentLayout에서만 제공하는
 검증: PC1440px·모바일390px 스크린샷, 모바일 열기·닫기·Escape 및 트리거 포커스 복귀, 실제 복사 성공, 일시적인 브라우저 clipboard 대체를 통한 pending·실패·재시도 성공, 직접 상태 URL·새로고침과 IA 상태명 검색·링크 노출을 확인했습니다. 변경 파일 ESLint, TypeScript, Panda 생성, source graph 생성, Next 프로덕션 빌드 통과. 전체 lint는 비대상 `tests/wh-file-summary.test.mjs`의 URL/Request/Response no-undef8건으로 실패했습니다. 공용 모달 스타일·플랫폼 정책은 이번 변경에서 수정하지 않았습니다.
 
 출처: 위 설계서, `src/app/products/[id]/_components/ProductDetailContent.tsx`와 `src/app/products/[id]/productDetailPreviews.ts`의 작업 트리. 기존 신뢰·출처 메타데이터는 유지합니다. 기록: codex/gpt-6, 2026-11-20.
+
+
+## 상품 상세 발볼 선택 옵션 수와 pill 표시 (2026-11-20)
+
+사용자 제공2/3개 옵션 시안과 단일 옵션 비노출 지시에 따라 detail 발볼 선택기를 수정했다.2/3개는 동일 너비 분할·#E9EAEB 배경·2px 안쪽 여백·검정 선택 pill을 사용한다. 높이는 PC48px/모바일44px, 라벨은 PC16px/모바일14px이며 첨부 이미지 기준 선택Regular400·미선택Medium500으로 구현했다. Figma 조회 제한으로 원본 굵기 모드는 미확인이다. 옵션1개 이하이면 detail에서 null을 반환하며 값 변경 이벤트를 만들지 않는다. 기존 부모의 발볼값·사이즈 연결을 유지한다. appearance 생략 기본detail과 명시cart의 기존 표현·disabled·포커스 처리는 유지한다.
+
+검증:1440px/375px에서3개 옵션 균등 분할·높이48/44px·글자16/14px·선택400/미선택500과 Wide 전환을 확인했다.2개 옵션은 검증용으로 전달 배열만 임시 제한해 PC199.984/200px·모바일162/162px 분할과 선택 전환을 확인하고 컴포넌트를 원본 바이트로 복원했다.1개 상품은 모바일에서 발볼 그룹 미표시·사이즈 그룹 유지를 확인했다.2개 상태 스크린샷은 브라우저 캡처 타임아웃으로 확보하지 못했으며 계산 스타일·DOM·선택 동작만 검증했다. Panda 생성·대상ESLint·전체TypeScript 검사를 통과했다. 마크업 인계 점검으로 기존 상태/콜백 소유권과 비대상cart 분기 보존을 확인했다.
+
+출처: 사용자 첨부 발볼 선택 이미지와 [디자인 파일](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/). 작업 트리 출처: src/components/common/molecules/ProductOptionSelectors/ProductWidthSelector.tsx.

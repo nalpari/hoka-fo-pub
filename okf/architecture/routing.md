@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-20T06:39:49Z'
+updated: '2026-11-20T06:50:24.928Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -2494,3 +2494,11 @@ LoginContent 제목의 들여쓰기와 약관 페이지 tabs 객체 줄바꿈만
 실행 검증:1920px/375px 의류의 최초 본문 높이120px(24px×5), 펼침144px/192px과 닫기를 확인했다. 임시 표시 데이터의4줄96px·5줄120px에는 버튼이 없고6줄은120px으로 접히며 버튼이 표시되는 것을 PC/MO에서 확인했다. 펼친6줄을4줄로 교체하면 버튼이 사라졌고 임시 본문은 복원했다. 별도 타이틀로 교체했을 때 현재 제목이 즉시 반영되고, 제목을 미제공하면 본문은 유지하면서 빈 제목 heading이 생성되지 않는 것을 확인했다. 임시 타이틀도 복원했다. 신발은2560px 본문96px·1920px120px에서 버튼이 없고375px144px 본문은120px으로 접혀 버튼이 표시돼 resize 재측정을 확인했다. 신발 유형/추천 활동 유지·러닝 유형 미표시와 펼친 후 새로운 특징을 확인했다. MO 실제 계산값은 섹션명22px·타이틀17px·본문16px/24px·padding40px 16px이다. 스크린샷 캡처는 개발서버의 미완료 navigation timeout으로 실패하여 시각 캡처 검증 완료로 기록하지 않는다.
 
 검사: 대상3개 소스 ESLint·Prettier, 전체 TypeScript, Panda 생성 및 OKF 작업 트리 관련 문서 매핑 검사를 통과했다. 커밋/푸시는 수행하지 않았다.
+
+
+## 발볼 개수별 PDP 상태 (2026-11-20)
+
+기존 /products/pdp-preview/[state]에서 width-single·width-double·width-triple을 추가했다. productDetailPreviews의 한국어 상태명을 screenConnections의 기존 map이 IA 상품상세 행에 자동 연결한다. 기존 sourceFiles에 상태 라우트·fixture 파일이 포함되어 있으며 screen-files 재생성 결과 추가 소스 그래프 변경은 없다. 기본 상품 데이터는 유지하고 각 상태 fixture에서 발볼 배열만1/2/3개로 제한한다.1개는 detail 선택기를 숨기며 사이즈는 유지한다.
+
+
+검증: IA에서 발볼 검색 후 세 링크와 직접 URL의 발볼 그룹0/2/3개·사이즈 유지,375px 가로 넘침 없음을 확인했다. 대상 ESLint·TypeScript·Panda·screen-files·Next.js 빌드를 통과했다. 작업 트리 출처: src/app/products/[id]/productDetailPreviews.ts.

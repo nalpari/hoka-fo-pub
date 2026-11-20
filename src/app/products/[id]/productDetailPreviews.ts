@@ -3,6 +3,9 @@ import type { Product } from '@/mocks/products';
 export const productDetailPreviews = [
   { state: 'share', label: '공유하기 팝업' },
   { state: 'apparel', label: '의류 기본' },
+  { state: 'width-single', label: '발볼 1개 · 선택기 숨김' },
+  { state: 'width-double', label: '발볼 2개' },
+  { state: 'width-triple', label: '발볼 3개' },
   { state: 'inquiries-expanded', label: '신발 · 상품문의 펼침' },
   { state: 'sale', label: '할인가' },
   { state: 'partial-stock', label: '일부 사이즈 품절' },
@@ -26,6 +29,26 @@ export function prepareProductDetailPreview(
   product: Product,
   preview?: ProductDetailPreview,
 ): Product {
+  // [ 개발팀 바인딩 ] 발볼 개수별 IA 확인용 fixture입니다. 실제 상품의 옵션을 판정하지 않으며 기본 상세 데이터는 변경하지 않습니다.
+  const widthCount =
+    preview === 'width-single'
+      ? 1
+      : preview === 'width-double'
+        ? 2
+        : preview === 'width-triple'
+          ? 3
+          : 0;
+
+  if (widthCount) {
+    return {
+      ...product,
+      colorOptions: product.colorOptions?.map((option) => ({
+        ...option,
+        widths: option.widths.slice(0, widthCount),
+      })),
+    };
+  }
+
   if (preview === 'apparel') {
     return {
       ...product,
