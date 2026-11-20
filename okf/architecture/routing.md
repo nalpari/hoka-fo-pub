@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-20T04:52:08.516Z'
+updated: '2026-11-20T05:21:43.066Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -2455,3 +2455,19 @@ LoginContent 제목의 들여쓰기와 약관 페이지 tabs 객체 줄바꿈만
 상품 상세 모바일 공유 버튼은 기존 ModalDialog의 selection·bottomSheet를 엽니다. `/products/pdp-preview/share`는 기존 PDP 상태 라우트에서 팝업을 바로 표시하며 새로고침에도 유지합니다. `productDetailPreviews`에 등록한 `공유하기 팝업`을 screenConnections가 읽어 상품 상세 IA의 상태 행과 검색·직접 링크에 반영합니다. 기존 기본 링크와 다른 상태는 보존하며 source graph 재생성 결과는 변경이 없습니다.
 
 출처: `src/app/products/[id]/_components/ProductDetailContent.tsx`, `src/app/products/[id]/productDetailPreviews.ts`, 기존 `src/app/products/pdp-preview/[state]/page.tsx`와 `src/app/screen-index/screenConnections.ts`의 작업 트리. PC/MO 팝업 표시, 직접 URL·새로고침, IA에서 상태명 검색과 링크 노출을 브라우저로 확인했습니다. 기록: codex/gpt-6, 2026-11-20.
+
+
+## 컬렉션 상품 가로 간격 (2026-11-20)
+
+사용자 지정에 따라 /collection의 카테고리별 상품 Grid column-gap을 PC24px·모바일14px으로 변경했다. 기존4열/2열과 row-gap40px은 유지한다. 작업 트리 출처: src/app/collection/_components/SpecialExhibitionContent.tsx.
+
+검증: 브라우저1344px에서 column-gap24px·4열,375px에서14px·2열 계산 스타일을 확인했다. Panda 생성과 대상 ESLint를 통과했다.
+
+
+## 컬렉션 카테고리 제목과 대형 PC 열 수 (2026-11-20)
+
+사용자 승인으로 확인된 차이를 적용했다. Typography에 덮이던 모바일 카테고리 제목은 로컬 && 선택자로20px을 적용하고 기존900 굵기를 유지한다. PC1920px 이상은5열, 그 미만 PC는4열, 모바일은2열을 사용한다. 기존 column-gap PC24px/모바일14px과 row-gap40px을 유지한다. Figma 굵기 모드를 확인하지 못해 다른 글자 크기와 굵기는 변경하지 않았다.
+
+브라우저1344·1919px에서4열,1920px에서5열,375px에서2열과 제목20px/900을 확인했다. PC 제목은22px/900이며 가로 간격은 각각24/14px이다. 작업 트리 출처: src/app/collection/_components/SpecialExhibitionContent.tsx.
+
+현재 커밋 대상에는 카테고리 제목과 상품 Grid 사이의 PC Stack gap24px(모바일14px)도 포함한다. 상품 간 column-gap과 별도 값이다.
