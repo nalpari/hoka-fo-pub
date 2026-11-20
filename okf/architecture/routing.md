@@ -10,6 +10,7 @@ generated:
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/cart/_components/CartProductSection.tsx
   - src/app/products/[id]/_components/ProductDetailContent.tsx
   - src/app/products/[id]/productDetailPreviews.ts
   - src/app/support/member-benefits/_components/MemberBenefitsContent.tsx
@@ -2496,9 +2497,12 @@ LoginContent 제목의 들여쓰기와 약관 페이지 tabs 객체 줄바꿈만
 검사: 대상3개 소스 ESLint·Prettier, 전체 TypeScript, Panda 생성 및 OKF 작업 트리 관련 문서 매핑 검사를 통과했다. 커밋/푸시는 수행하지 않았다.
 
 
-## 발볼 개수별 PDP 상태 (2026-11-20)
+## 발볼 개수별 PDP 상태와 장바구니 일괄 삭제 표시 (2026-11-20)
 
 기존 /products/pdp-preview/[state]에서 width-single·width-double·width-triple을 추가했다. productDetailPreviews의 한국어 상태명을 screenConnections의 기존 map이 IA 상품상세 행에 자동 연결한다. 기존 sourceFiles에 상태 라우트·fixture 파일이 포함되어 있으며 screen-files 재생성 결과 추가 소스 그래프 변경은 없다. 기본 상품 데이터는 유지하고 각 상태 fixture에서 발볼 배열만1/2/3개로 제한한다.1개는 detail 선택기를 숨기며 사이즈는 유지한다.
 
+장바구니 선택 삭제 앞에 품절상품 전체삭제 링크형 버튼을 추가했다. 품절 행이 없으면 명시적으로 사용 불가이며, 기존 삭제 버튼과 마찬가지로 실제 요청·삭제는 미연결이다. 좁은 모바일에서는 도구 모음이 줄바꿈되어 가로 넘침을 막는다.
 
-검증: IA에서 발볼 검색 후 세 링크와 직접 URL의 발볼 그룹0/2/3개·사이즈 유지,375px 가로 넘침 없음을 확인했다. 대상 ESLint·TypeScript·Panda·screen-files·Next.js 빌드를 통과했다. 작업 트리 출처: src/app/products/[id]/productDetailPreviews.ts.
+검증: IA의 발볼1/2/3 링크 및 직접 URL에서 발볼 그룹0/2/3개·사이즈 유지,375px 장바구니의 버튼 순서와 가로 넘침 없음을 확인했다. 작업 트리 출처: src/app/products/[id]/productDetailPreviews.ts, src/app/cart/_components/CartProductSection.tsx.
+
+추가 확인: IA에서 발볼 검색 후 세 링크가 보이며375px의 세 URL도0/2/3개 상태와 가로 넘침 없음을 확인했다. PC 장바구니 버튼 순서도 확인했다. 대상ESLint·전체TypeScript·Panda 생성·screen-files 재생성·Next.js 프로덕션 빌드를 통과했다. 장바구니 스크린샷 캡처는 브라우저 타임아웃으로 확보하지 못했고 DOM·계산 폭으로 확인했다.
