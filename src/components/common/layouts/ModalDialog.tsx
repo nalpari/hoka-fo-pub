@@ -266,7 +266,7 @@ export function ModalDialog({
                 <Dialog.Close
                   render={
                     <Button aria-label={closeLabel} variant="icon" size={18}>
-                      <Icon name="xmark-regular" size={18} />
+                      <Icon name="xmark-large" size={18} />
                     </Button>
                   }
                 />

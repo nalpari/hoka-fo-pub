@@ -25,6 +25,7 @@ import {
 } from '@/components/phone-verification/phone-verification.types';
 
 const styles = {
+  informationTitle: css({ '&&': { fontWeight: 'bold', _mobile: { fontWeight: 'semibold' } } }),
   carrierSection: css({ borderBottom: '1px solid var(--color-black-20)' }),
   carrierText: css({ fontStyle: 'normal', lineHeight: '1.5!', color: 'black.100' }),
   carrierContent: css({ flex: '0 0 auto!', overflowY: 'visible!' }),
@@ -566,7 +567,10 @@ export function PhoneVerificationContent(props: PhoneVerificationContentProps) {
           <ContentSection
             gap="6"
             title="인증 정보"
-            headerProps={{ titleAs: 'h2', titleProps: { variant: 'headingKr10' } }}
+            headerProps={{
+              titleAs: 'h2',
+              titleProps: { variant: 'headingKr10', className: styles.informationTitle },
+            }}
           >
             <PhoneVerificationForm {...props} />
           </ContentSection>

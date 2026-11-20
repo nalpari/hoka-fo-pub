@@ -1,32 +1,27 @@
 import { Badge } from '@/components/common/atoms/Badge';
 
-const runningSessionRoad = <Badge runningSessionCategory="Road" />;
-
-const runningSessionTrail = (
-  <Badge runningSessionCategory="Trail" className="category-badge" aria-label="Trail" />
+const address = (
+  <Badge variant="outlined" visual="square">
+    기본 배송지
+  </Badge>
 );
 
-// @ts-expect-error Run club labels are generated from the category.
-const customCategoryLabel = <Badge runningSessionCategory="Road">Custom</Badge>;
+const muted = (
+  <Badge visual="round" tone="tertiary">
+    구매확정
+  </Badge>
+);
 
-// @ts-expect-error A category cannot also select a launch status.
-const categoryAndStatus = <Badge runningSessionCategory="Road" status="COMING" />;
+const promotion = (
+  <Badge variant="plain" tone="red80">
+    Exclusive
+  </Badge>
+);
 
-// @ts-expect-error A category cannot also select promotional labels.
-const categoryAndPromotion = <Badge runningSessionCategory="Road" promotion="Best" />;
+// @ts-expect-error Appearance is independent of the address label.
+const invalidVariant = <Badge variant="address">기본 배송지</Badge>;
 
-// @ts-expect-error The category owns its appearance.
-const categoryAndVariant = <Badge runningSessionCategory="Road" variant="line" />;
+void [address, muted, promotion, invalidVariant];
 
-// @ts-expect-error Categories are limited to supported run club labels.
-const invalidCategory = <Badge runningSessionCategory="Track" />;
-
-void [
-  runningSessionRoad,
-  runningSessionTrail,
-  customCategoryLabel,
-  categoryAndStatus,
-  categoryAndPromotion,
-  categoryAndVariant,
-  invalidCategory,
-];
+// @ts-expect-error Filled badges require an explicit shape.
+void (<Badge variant="filled">배송완료</Badge>);

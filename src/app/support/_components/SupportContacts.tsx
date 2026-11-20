@@ -78,7 +78,7 @@ function SupportContactCard({
           <Stack gap="3">
             {!mobile && <Typography variant="body3">전화번호</Typography>}
             <HStack gap="1" alignItems="baseline">
-              <Typography as="span" variant="body2" language="en">
+              <Typography as="span" variant="body2" weight="medium" language="en">
                 TEL.
               </Typography>
               <a className={phoneLink} href={phoneHref}>
@@ -96,11 +96,17 @@ function SupportContactCard({
         </Stack>
 
         <Stack gap={{ base: '3', _mobile: '2' }}>
-          <Typography variant="body3">{mobile ? '운영시간' : operatingHoursTitle}</Typography>
+          <Typography variant="body3" weight="medium">
+            {mobile ? '운영시간' : operatingHoursTitle}
+          </Typography>
           <Stack gap={{ base: '2', _mobile: note ? '10px' : '2' }}>
             <HStack gap="1" alignItems="baseline" flexWrap="wrap">
-              {mobile && <Typography variant="body3">평일</Typography>}
-              <Typography as="span" web="body2" mo="body3" language="en">
+              {mobile && (
+                <Typography variant="body3" weight="medium">
+                  평일
+                </Typography>
+              )}
+              <Typography as="span" web="body2" mo="body3" weight="medium" language="en">
                 {operatingHours}
               </Typography>
               <Typography

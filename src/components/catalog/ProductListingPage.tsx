@@ -38,6 +38,7 @@ import { type BreadcrumbItem } from '@/components/common/molecules/Breadcrumb';
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
 import { MainContentCard } from '@/components/common/molecules/MainContentCard';
 import { ProductCard } from '@/components/common/molecules/ProductCard/ProductCard';
+import { SearchField } from '@/components/common/molecules/SearchField';
 import { SizeSelector } from '@/components/common/molecules/SizeSelector/SizeSelector';
 
 import { ContentLayout } from '@/components/common/layouts/ContentLayout';
@@ -982,9 +983,9 @@ function ProductListingContent({
           <Box
             pr={isSearchPage ? undefined : '31px'}
             position="sticky"
-            top="calc(var(--layout-site-header-height) + var(--content-layout-header-height))"
+            top="calc(var(--layout-site-header-height) + var(--content-layout-header-height, 0px))"
             alignSelf="start"
-            maxH="calc(100dvh - var(--layout-site-header-height) - var(--content-layout-header-height))"
+            maxH="calc(100dvh - var(--layout-site-header-height) - var(--content-layout-header-height, 0px))"
             overflowX="hidden"
             overflowY="auto"
             scrollbar="hidden"
@@ -1057,6 +1058,17 @@ function ProductListTitle({ resultCount, title }: ProductListTitleProps) {
     </HStack>
   );
 }
+
+const searchListingStyles = {
+  emptyQuery: css({
+    minW: '0',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+  }),
+  resultTitle: css({ minW: '0', overflowWrap: 'anywhere' }),
+};
+
 type SearchListingLayoutProps = {
   children: ReactNode;
   filterAction: ReactNode;
@@ -1076,34 +1088,29 @@ function SearchListingLayout({
   hasActiveFilters,
   sortAction,
 }: SearchListingLayoutProps) {
+  const router = useRouter();
+  const params = useSearchParams();
+  const [draftQuery, setDraftQuery] = useState(query);
+  // [ 개발팀 바인딩 ] 검색 입력은 로컬 초안이며 제출 시 기존 검색 경로의 q를 갱신합니다. 통합 소유자가 q 변경을 조회 조건으로 읽고 상품·건수·pending/error를 data로 교체해야 합니다. API 요청과 성공 상태는 이 입력창에서 만들지 않습니다.
+  const submitSearch = () => {
+    const next = new URLSearchParams(params.toString());
+    next.set('q', draftQuery.trim());
+    next.delete('page');
+    router.push(`/search?${next.toString()}`);
+  };
   const hasResultsOrFilters = resultCount > 0 || hasActiveFilters;
   const emptyTitle = (
     <HStack as="h1" gap="1" alignItems="baseline" minW="0" m="0" color="black.100">
       <Typography
         web="heading7"
         mo="body3"
-        weight={platform === 'mobile' ? 'medium' : 'black'}
-        className={css({
-          minW: '0',
-          overflow: 'hidden',
-          textOverflow: 'ellipsis',
-          whiteSpace: 'nowrap',
-        })}
+        weight="900-500"
+        className={searchListingStyles.emptyQuery}
       >
         “{query}”에 대한
       </Typography>
-      <Typography
-        web="heading7"
-        mo="body3"
-        weight={platform === 'mobile' ? 'medium' : 'black'}
-        className={css({ flexShrink: '0' })}
-      >
-        <Typography
-          web="heading7"
-          mo="heading7"
-          language={platform === 'mobile' ? 'en' : 'ko'}
-          weight={platform === 'mobile' ? 'semibold' : 'black'}
-        >
+      <Typography web="heading7" mo="body3" weight="900-500" className={css({ flexShrink: '0' })}>
+        <Typography web="heading7" mo="heading7" weight="900-500">
           {resultCount}
         </Typography>
         개의 검색결과
@@ -1123,13 +1130,25 @@ function SearchListingLayout({
   );
   return (
     <Box as="main">
+      {platform === 'mobile' && (
+        <Box px="4" pt="8" pb="4">
+          <SearchField
+            label="검색어"
+            placeholder="검색어를 입력해주세요"
+            value={draftQuery}
+            onValueChange={setDraftQuery}
+            onSearch={submitSearch}
+            iconPlacement="start"
+          />
+        </Box>
+      )}
       <Stack
         w="min(calc(100% - var(--layout-web-content-inline-space)), var(--layout-web-content-max-width))"
         mx="auto"
         pt={hasResultsOrFilters ? '8' : '34px'}
         pb={hasResultsOrFilters ? '16' : '0'}
         gap="10"
-        _mobile={{ w: '100%', px: '0', pt: '8', pb: '12', gap: '4' }}
+        _mobile={{ w: '100%', px: '0', pt: '4', pb: '12', gap: '4' }}
       >
         <Stack as="header" gap="6" _mobile={{ px: '4', gap: '8' }}>
           {hasResultsOrFilters ? (
@@ -1141,7 +1160,7 @@ function SearchListingLayout({
                 web: 'heading6',
                 mo: 'body3',
                 weight: 'medium',
-                className: css({ minW: '0', overflowWrap: 'anywhere' }),
+                className: searchListingStyles.resultTitle,
               }}
               action={<Box flexShrink="0">{platform === 'mobile' ? filterAction : sortAction}</Box>}
               gap="6"

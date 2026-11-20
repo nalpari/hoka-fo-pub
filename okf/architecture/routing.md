@@ -4,17 +4,25 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-18T07:19:22.060587+00:00'
+updated: '2026-11-20T04:52:08.516Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/products/[id]/_components/ProductDetailContent.tsx
+  - src/app/products/[id]/productDetailPreviews.ts
+  - src/app/support/member-benefits/_components/MemberBenefitsContent.tsx
+  - src/components/membership/rewards-data.ts
+  - src/components/membership/MembershipRewards.tsx
+  - src/context/ShopPreviewContext.ts
+  - src/app/support/after-sales/_components/AfterSalesContent.tsx
+  - src/app/support/care/care.data.ts
+  - src/context/ShopShell.tsx
   - src/app/collection/page.tsx
   - src/app/collection/_components/SpecialExhibitionContent.tsx
   - src/app/collection/_components/specialExhibition.data.ts
   - src/components/common/atoms/EmptyState.recipe.tsx
-  - src/app/mypage/rewards/rewards-data.ts
   - src/components/common/molecules/ContentHeader.tsx
   - src/app/checkout/_components/CheckoutSummary.tsx
   - src/components/common/atoms/DataList.recipe.tsx
@@ -2156,11 +2164,9 @@ origin/pub-psh-1015의 ReviewsContent 이동·리뷰 표시 구조와 현재 브
 
 검증: Next 경로 타입 재생성·TypeScript 검사·EmptyState/IA 그래프 테스트 3개·수정 TSX lint 통과. 소스와 생성 그래프에 삭제 경로 참조가 없음을 확인했다. 브라우저 화면 검증은 이번 삭제 작업에서 수행하지 않았다. 기존 스테이지는 변경하지 않았다.
 
-
 ## 주문 조회 없음 PC 시안 검수 (2026-11-18)
 
 /mypage/orders/preview-empty의 PC 표 헤더와 빈 안내 스타일을 수정했다. 직접 preview·기본 주문·취소/반품 빈 화면을 PC/MO에서 확인했다. 경로·page 진입점·fixture·연결 콜백은 유지하며 새 상태 경로는 추가하지 않았다. 출처: OrdersList.tsx·OrdersStatus.tsx 작업 트리와 사용자 요청. 상세 수치·검증·모바일 행간 후속 지정은 [UI 기록](ui.md#주문-조회-없음-pc-시안-반영-2026-11-18)을 따른다.
-
 
 ## 기간 조회 공용화와 취소 빈 표 헤더 (2026-11-18)
 
@@ -2182,11 +2188,9 @@ origin/pub-psh-1015의 ReviewsContent 이동·리뷰 표시 구조와 현재 브
 
 - 마이페이지 공통 프레임을 app/mypage/_components로, 메뉴 데이터는 app/mypage로 옮기고 사용처를 연결했다.
 
-
 ## 추가 마이페이지 변경 병합 (2026-11-18)
 
 origin/pub-psh-1015의 추가 커밋 a075b78d·b4b33434를 병합했다. MyPageFrame·MyPageProductHistory·메뉴 데이터의 마이페이지 소유 경로 이동과 회원정보·배송지·상품내역 정리를 반영하고, 현재 브랜치의 메인 주문 요약 제거 및 EmptyState layout 계약을 유지했다. 삭제된 주문 fixture import를 복원하지 않았으며 상품내역 안내는 상대 브랜치의 정리된 current.note를 사용한다. 소스 그래프는 생성기로 갱신했다. 출처: 두 브랜치와 해당 병합 소스. TypeScript 및 충돌 대상 ESLint 통과; 브라우저 시각 검증 미실시.
-
 
 병합 보완: 이동된 MyPageProductHistory에서 최근 본 상품 PC 빈 안내의 기존 줄바꿈을 보존했다. 상태 경로는 변경하지 않았다. 해당 파일 ESLint 통과.
 
@@ -2211,7 +2215,6 @@ origin/pub-psh-1015의 추가 커밋 a075b78d·b4b33434를 병합했다. MyPageF
 ## 쿠폰 빈 목록 건수 숨김 (2026-11-18)
 
 사용자 검토에 따라 CouponManagement에서 visibleCoupons.length가0일 때 총0건 영역을 렌더링하지 않는다.1건 이상인 기존 건수 표시와 빈 안내는 유지한다. 출처: 사용자 브라우저 주석과 해당 작업 트리.
-
 
 ## 목록 머리글 공통 스타일 (2026-11-18)
 
@@ -2253,16 +2256,13 @@ Table.recipe를 DataList.recipe로 이전하고 기존 목록·합계·상세·�
 
 2026-11-18 동일 부모 DataList root/list 통합: cart·결제·재입고·배송지의 class 배열을 하나의 root 호출로 줄였다. 리뷰 본문은 top unchanged로 기존 바깥 머리글 선 소유권을 유지한다. 기존 슬롯 list만 제거하고 URL·DOM·상태·서비스 계약은 유지한다. 옵션별 검증은 ui.md에 기록한다.
 
-
 2026-11-18 최신 화면 피드백: /checkout/preview-address-change 목록 모달의 빈 pseudo 여백을 제거하고 배송지 항목별 py24를 적용했다. /checkout/preview-address-edit 및 /checkout/preview-address-new 폼 구분 영역은 유지한다. /mypage/addresses 기본·빈 상태의 제목 PC40/MO32px 여백과 검정선2px을 유지한다. /mypage/orders 및 /mypage/orders/preview-empty의 세 머리글은 DataList H9(20px/700)로 연결한다. 모바일 숨김·본문·기존 경로·상태·서비스 계약은 유지한다. 공통 더보기400은 기존 Button.loadMore 사용처에 적용한다. 실제 검증 범위는 ui.md에 기록했다.
-
 
 ## 주문 취소·반품 상품 선택 목록 스타일 소유권 (2026-11-19)
 
 OrderClaimRequest의 상품 선택 목록은 DataList root가 소유한다. top thinStrong/columnGap unchanged/itemLayout productSelection을 기존 Stack css에 연결하고 직접 HStack에 data-list-item을 표시한다. 목록 gap0과 상·하단1px 검정선, 항목 gap16/py16/상단 정렬과 항목 사이1px #E9EAEB를 유지하며 마지막 항목의 중복선은0이다. itemLayout 기본 unchanged는 배치를 추가하지 않는다. ModalDialog recipe의 미사용 products 슬롯과 claim 상품 배치 선언은 제거했다. 쿠폰 전용 product 슬롯 및 본문 Typography·데이터·선택·수량 콜백은 유지한다.
 
 검증: 취소 신청과 반품 신청 고정 URL(/mypage/orders/preview-cancel-request, /mypage/orders/preview-return-request)에서 PC1225/MO375 목록선·gap·항목 padding·구분선·정렬의 계산값을 확인했다. DataList itemLayout 생략/undefined/unchanged의 기존 raw 기본 스타일과 쿠폰의 유지 슬롯 스타일은 전후 동일하다(Panda py/paddingBlock 동의어 정규화). 대상 ESLint/Prettier, TypeScript, Panda 생성 및 소스 그래프 재생성을 통과했다. 새 경로나 서비스 계약은 추가하지 않았다.
-
 
 ## 배송조회 상품추적 시안 반영 (2026-11-19)
 
@@ -2272,13 +2272,11 @@ DataList itemLayout trackingTable이 기존 table DOM의 시작선2px 검정·�
 
 검증: PC1920 및 MO375 브라우저 계산값에서 머리글 크기·굵기·여백·열너비·검정선, 본문 회색선과 날짜400을 확인했고 모바일 캡처를 확인했다. 대상 ESLint·Prettier·TypeScript·Panda 생성·소스그래프 재생성 통과. hoka-markup-handoff 기준으로 기존 table/caption/th scope 의미·상태 소유권·본문 데이터와 반응형 경계를 점검했다. 이번 변경 후 전체 production build는 실행하지 않았다. 디자인 출처: [HOKA 화면 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design).
 
-
 ## 취소·반품내역 DataList 재연결 (2026-11-19)
 
 ClaimHistoryList PC 부모 root가 상단2px 검정과 직접 data-list-item의 하단1px var(--color-border-subtle)을 소유한다. semanticSubtle case로 기존 토큰 참조를 보존한다. 머리글은 DataList header/cell headingBold/heading으로 연결하고 기존20px/700·py20·검정 하단1px 및 열너비를 유지한다. 모바일 ul root는 top none/rowBorder strong/columnGap unchanged로 항목 검정 하단1px을 소유한다. 항목의 중복 border와 로컬 머리글 스타일은 제거했다. 본문 Typography·PC pt32/pb32 및 모바일 목록gap24·상세 콜백은 유지한다.
 
 PC1440 일반 목록의 회색 항목선·머리글20px/700과 MO375 검정 항목선을 확인했다. /mypage/returns/preview-empty의 PC 머리글 py20·상단2px/하단1px 검정선 및 빈 상태 유지도 확인했다. TypeScript·대상 ESLint/Prettier·Panda·소스그래프 생성을 수행했다. 기존 EmptyState 높이·선 소유권과 주문 조회 화면 계약은 유지한다.
-
 
 ## 머리글 셀 스타일의 부모 소유권 (2026-11-19)
 
@@ -2290,20 +2288,17 @@ PC1440 일반 목록의 회색 항목선·머리글20px/700과 MO375 검정 항�
 
 최신 추가 확정: 리뷰 머리글 자체의 상단에는 DataListBoundary top strong을 기존 header raw 스타일과 합쳐2px 검정선을 적용한다. 정렬 영역/바깥 root의 상단선0은 유지한다. PC1253에서 머리글 상단2px·하단1px 검정과 바깥 root0px을 확인했다. 모바일 머리글 숨김은 유지한다.
 
-
 ## 상품 문의 목록 DataList 연결 (2026-11-19)
 
 ProductDetailContent의 InquiryBoard Accordion 부모 root에 itemLayout inquiryAccordion을 연결했다. 직접 항목 div의1px var(--color-border-default) 구분선과 표시한 data-list-columns의 PC columnGap0/MO12px을 관리한다. 기존 rowGap0/MO12px은 InquirySubject 소유자에서 유지한다. 헤더 하단1px 검정선은 DataListBoundary bottom strong으로 연결하고 중복 itemClassName은 제거했다. 본문 Typography·열너비·minHeight·패딩·공개/비공개·질의 펼침·더보기 계약은 변경하지 않는다. 신규 래퍼/route는 만들지 않았다.
 
 검증: PC1440에서 항목 구분선1px #D8D8D8 및 열간격0을 계산값으로 확인했다. 모바일12px은 원래 반응형 값을 그대로 이전했으며 이번 브라우저 조사에서는 보이는 모바일 문의 배치의 계산값 검증을 완료하지 못했다. TypeScript·대상 ESLint/Prettier·Panda·소스그래프 생성 통과. 전체 build는 이번 변경 후 실행하지 않았다.
 
-
 ## 商品 상세 모바일 제목·건수 확정값 (2026-11-19)
 
 사용자 지정으로 상품 상세 리뷰·상품문의 제목의 모바일 값을 Pretendard normal20px/900/120%/자간-0.02em/#000으로 맞췄다. 건수는 기존 The Future HOKA를 사용하며20px/500/120%/자간0px/#000이다. 같은 파일의 sectionHeadingStyles에서 공통 관리하고 기존 ContentHeader/ContentSection titleProps와 건수 Typography에 적용한다. 상품문의 default 게시판·PC 값·본문·상태 계약은 유지한다.
 
 MO571에서 리뷰/상품문의의 제목20px/900 및 건수20px/500을 확인했으며 최종 로딩 후 검정과24px 행간을 확인했다. 자간0은 Panda 숫자토큰 해석을 피하도록0px로 명시했다. 대상 ESLint/Prettier·TypeScript·Panda·소스그래프 생성 통과. 전체 build는 이번 변경 후 실행하지 않았다.
-
 
 ## ContentHeader 선택형 제목 보조 요소 (2026-11-19)
 
@@ -2315,7 +2310,6 @@ TypeScript와 대상 ESLint/Prettier·Panda·소스그래프 생성 통과. MO57
 
 다른 사용처 조사: ContentHeader/ContentSection의 제목 JSX를 소스 AST로 확인했다. 상품 상세 리뷰·문의는 전환했고, 같은 InquiryBoard의 default 제목 합성 분기는 현재 실제 호출이 product뿐이라 별도 사용 화면으로 세지 않는다. 검색 결과 제목은 숫자가 문장 중간에 있어 괄호 count로 바꾸면 문구가 달라진다. 쿠폰·마이페이지 리뷰·상품목록의 총건수는 별도 정렬/요약 영역이므로 제목 count로 임의 이동하지 않는다.
 
-
 ## 선택 옵션 목록 DataList 소유권 (2026-11-19)
 
 ProductSelectedOptions의 ul에 DataList root(top unchanged/columnGap unchanged/itemLayout selectedOptions)를 연결했다. 부모가 직접 li의 회색 하단1px 및 data-list-option의 gap12/py16, 내부 data-list-controls의 columnGap12를 관리한다. 기존 Stack/Flex/ul/li 구조와 내부 rowGap12·타이포·합계2px 검정선·수량 및 삭제 callback·스크롤 소유자는 유지한다. 마지막 항목 회색선도 기존대로 유지한다.
@@ -2325,7 +2319,6 @@ options-selected와 options-scroll 고정 경로에서 PC1440/MO571의 모든 �
 ## 장바구니 수량 trash 공통 옵션 (2026-11-19)
 
 `src/app/cart/_components/CartProductSection.tsx`는 기존 minimumControl 휴지통 JSX 대신 공통 NumberStepper의 `trash` 옵션을 선택한다. URL·fixture 수량·품절 fieldset·onChange 소유권은 유지한다. 삭제는 종전처럼 미연결 표시이며 API나 완료 이동을 만들지 않는다. PC1440/MO375의 수량1 trash와 수량2 minus·품절 비활성을 확인했고 기본 옵션인 취소 신청 수량1의 minus 비활성도 확인했다. 상세 계약과 아이콘 고정 정책은 [NumberStepper 옵션](ui.md#numberstepper-trash-옵션과-아이콘-고정-정책-2026-11-19)을 따른다.
-
 
 ## 문의 빈 영역·사이즈 오류·FAQ 간격 반영 (2026-11-19)
 
@@ -2337,7 +2330,6 @@ FAQ Accordion root가 DataList top strong과 faqAccordion 유형으로 기존 �
 
 실행 확인: PC1920/MO375에서 문의 높이328/150·flex 중앙 정렬·부모gap24, 사이즈 그룹1px/반경4/padding4·6/개별 outline없음/오류 문구, FAQ section pt0·시작선2px·질문py24·16을 계산값으로 확인했다. 문의 모바일 영역 캡처를 확인했다. TypeScript·대상 ESLint/Prettier·Panda·소스그래프 생성을 수행했다. hoka-markup-handoff 기준으로 소유권·기존 DOM 의미·반응형·FormField 연결과 표시 fixture 경계를 점검했다. 외부 API·신규 상태 URL·데이터 계약은 추가하지 않았다. 디자인 출처: [상품 상세 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design).
 
-
 ## 공지 머리글 열 정렬 (2026-11-19)
 
 제공된 공지 목록 PC 시안의 제목 fill 열/등록일 hug 열 중앙 정렬을 DataList noticeColumns에 반영했다. 제목은flex1/minWidth0/중앙, 등록일은flexShrink0/중앙이며 기존 padding16/32px·글자16px/600·하단선·본문 정렬은 유지한다. 사용자 요청은 정렬 범위이므로 시안의 다른 타이포 차이를 일괄 반영하지 않았다. 모바일 머리글 숨김은 유지한다. PC1920 목록844px에서 제목열739.47px·날짜열104.53px과 두 셀 중앙 정렬을 계산값으로 확인했다. MO375의 기존 머리글 숨김도 확인했다. 타입·Panda·대상 lint/format·소스그래프를 수행했다. 출처: [공지 목록 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design).
@@ -2345,3 +2337,103 @@ FAQ Accordion root가 DataList top strong과 faqAccordion 유형으로 기존 �
 ## 의존 그래프 추적 해제 (2026-11-19)
 
 자동 생성물 `src/app/screen-index/sourceGraph.generated.json`의 Git 추적만 해제하고 로컬 파일과 IA import 계약은 유지한다. 출처는 Git 인덱스, `.gitignore`, `package.json`, `scripts/screen-files.mjs`다. 파일 부재 상태의 재생성과 이전 내용 일치를 확인했으며 라우트·화면 코드는 변경하지 않았다. 실행 절차는 [로컬 실행](../development/setup.md#자동-생성-의존-그래프-git-추적-해제-2026-11-19)에 기록했다.
+
+## PC 헤더 account 링크 배치 (2026-11-19)
+
+PC 헤더의 상태별 텍스트를 account 아이콘 오른쪽으로 이동했다. 로그인 텍스트는 Next Link의 `/mypage`, 비로그인 링크는 기존 `/login`·`/signup`을 사용한다. 경로·라우트 소유권·인증 상태·플랫폼 전환 규칙은 변경하지 않았다. PC 브라우저에서 마이페이지 href와 MO390px의 추가 텍스트 미표시를 확인했다.
+
+출처: `src/context/ShopShell.tsx` 작업 트리와 localhost 실행 화면; Codex 작성·검토, 2026-11-19.
+
+## 배송·관리 안내 시안 갱신 (2026-11-19)
+
+/support/after-sales와/support/care의 기존5개 tab 쿼리 값과 진입점을 유지한다. 고객센터 전용 최신 관리 데이터는 src/app/support/care/care.data.ts에 두며 상품 상세 데이터는 보존한다. 반품 주의사항 표제·내용 순서와6개 STEP 표시를 갱신했다. PC/MO 직접 진입 및 키보드/클릭의 쿼리 전환을 확인했다. 새 상태 URL이나 서비스 요청은 추가하지 않았다. [디자인과 검증](support-design.md#배송반품과-관리-안내-최신-시안-반영-2026-11-19)을 참고한다.
+
+## 로그아웃 확인의 로컬 헤더 전환 (2026-11-19)
+
+로그아웃 확인 후 현재 `/mypage` 경로를 유지하고 공통 헤더 표시만 로컬로 변경한다. 기존 로그인 `/login`·회원가입 `/signup` 링크 및 확인창 직접 상태 URL은 유지한다. 인증 종료나 홈 이동은 구현하지 않는다.
+
+출처: `src/context/ShopShell.tsx`, `src/context/ShopPreviewContext.ts`, `src/app/mypage/_components/MyPageContent.tsx` 작업 트리; Codex 작성, 2026-11-19.
+
+검증(2026-11-19, Codex): 브라우저 PC에서 확인창 닫기 후 마이페이지 표시 유지, 확인 후 로그인·회원가입 링크(`/login`·`/signup`) 전환과 현재 경로 유지, 새로고침 후 초기 표시 복구를 확인했다. MO390px 확인 후 account 마이페이지 아이콘 제거도 확인했다. 대상 ESLint·Prettier 및 전체 TypeScript 검사 통과.
+
+## 반품 안내 표시 코멘트 반영 (2026-11-19)
+
+AfterSalesContent의 STEP·운영시간500과 모바일 전용 전화 링크를 적용했다. PC전화는 일반 문자열이며 기존tab쿼리·이동 경로·준비 데이터 소유권은 유지한다. 상세 표시와 검증은 [고객센터 디자인](support-design.md#배송반품-탭과-연락처-표시-보정-2026-11-19)을 참고한다.
+
+## 신발 관리 요약 가운데점 표기 (2026-11-19)
+
+사용자 화면 코멘트에 따라 CareContent의 요약10개 항목 앞 하이픈을 HTML &middot; 엔티티로 바꿔 가운데점(·)을 표시한다. 본문 관리 지침의 하이픈·요약 링크·문구·PC3열/MO세로 배치는 유지한다. 작업 트리 출처: src/app/support/care/_components/CareContent.tsx.
+
+PC1398/MO375에서10개 요약 기호가 모두·이고 모든 앵커 대상이 존재함을 실행 확인했다. 대상 ESLint를 통과했고 Prettier를 적용했다. 텍스트 변경이므로 전체 타입·Panda·빌드는 재실행하지 않았다.
+
+## 관리 목록의 CSS 가운데점 (2026-11-19)
+
+사용자 요청에 따라 CareContent 요약 li와 CareInstructions care 본문 li의 ::before가 가운데점(·)을 표시한다. 문자열 앞 하이픈·HTML 엔티티와 care 전용 별도 기호 span은 제거했다. 기존 Flex/Stack/HStack·ul/li 의미와 PC3열/MO세로·본문 들여쓰기는 유지하며 flex gap으로 줄바꿈의 시작선을 맞춘다. marker는 PC16/24px·MO14/21px, text-subtle색·flexShrink0이다. 번호 소제목500과 본문400은 유지하고 상품 상세 default의 기존 기호는 변경하지 않았다. 이전 엔티티 적용 기록보다 이 구현이 우선한다. 출처: 사용자 화면 코멘트 및 [관리 안내 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design), 작업 트리 CareContent.tsx·CareInstructions.tsx.
+
+## 온라인 회원등급 안내와 공유 본문 (2026-11-19)
+
+`/support/member-benefits`는 온라인 회원등급 안내 시안 본문을 표시하고 `/mypage/rewards`와 `MembershipRewards`를 공유한다. 각 경로의 프레임·title·breadcrumb·메뉴는 유지한다. 고객센터는 로그인 시 개인 요약까지 표시하고 비로그인 시 등급·공통 혜택만 표시한다. 기존 마이페이지 `/preview-loading`·`/preview-load-error` 상태와 외부 display 계약은 유지한다. IA213의 PC/MO 디자인을 사용자 수급 확인에 따라 received로 등록하고 퍼블리싱 본문·연결을 갱신했다. 개발자 WBS 외부 자료는 변경하지 않았다.
+
+출처: [온라인 회원등급 안내 PC·모바일 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design), 현재 사용자 화면 코멘트, 위 working_tree_sources의 작업 트리. Codex 작성·검토, 2026-11-19.
+
+로그인 전후 고정 상태: `/support/member-benefits?preview=logged-out`과 `?preview=logged-in`을 IA213의 별도 STATE 링크로 노출한다. 기본 경로는 셸의 현재 표시 상태를 따르고, 두 preview는 인증 상태를 바꾸지 않은 채 개인 요약 노출만 고정한다. 쿼리는 `useSearchParams`로 읽으며 기존 루트 Suspense 경계를 유지한다.
+
+검증(2026-11-19, Codex): PC1920·MO375에서 두 로그인 경로의 공통 본문이 텍스트·크기·상대 위치·글자/행간/간격 계산값까지 동일함을 확인했다. 로그인 전후 query 4개 조합의 개인 요약 유무·RUNNER 확정 문구·가로 overflow 없음, IA213의 기본 및 로그인 전/후 링크를 확인했다. PC·MO에서 로컬 로그아웃 확인 후 클라이언트 탐색한 기본 고객센터의 개인 요약 숨김과 혜택 유지를 확인했다. 기존 마이페이지 로딩·오류 안내도 확인했다. Pretendard Black 실제 글리프 폰트를 확인했고 영문은 로드된 HOKA 자산을 사용한다(브라우저 내부 폰트명은 점으로 보고됨). 대상 ESLint·Prettier·전체 TypeScript·Panda·소스 그래프·프로덕션 빌드(164개 정적 페이지 생성)를 통과했다. 전체 lint는 실행하지 않았다. 실제 인증/등급 조회 API는 미연결이다.
+
+## 배송·관리 재검수 스타일 보정 (2026-11-19)
+
+AfterSalesContent의플랫폼별줄바꿈·반품처DOM순서·간격/타이포와CareContent의모바일색상을보정했다. 기존5개tab쿼리와로컬표시·링크책임은유지한다. 고객센터LNB는support공통소유자에서행높이를통일한다. [수치와검증](support-design.md#재검수-차이-전체-보정과-고객센터-lnb-높이-통일-2026-11-19)을 참고한다.
+
+## 의존 그래프 추적 해제 (2026-11-19)
+
+자동 생성물 `src/app/screen-index/sourceGraph.generated.json`의 Git 추적만 해제하고 로컬 파일과 IA import 계약은 유지한다. 출처는 Git 인덱스, `.gitignore`, `package.json`, `scripts/screen-files.mjs`다. 파일 부재 상태의 재생성과 이전 내용 일치를 확인했으며 라우트·화면 코드는 변경하지 않았다. 실행 절차는 [로컬 실행](../development/setup.md#자동-생성-의존-그래프-git-추적-해제-2026-11-19)에 기록했다.
+
+- `/publishing-guide?tab=badge`에서 공통 Badge 예시, 웹·모바일 비교 및 사용 코드 복사를 제공한다.
+
+- 주문·결제 화면은 결제 수단을 웹 6열·모바일 3열 카드로 표시하며 선택 상태를 카드 테두리로 구분한다.
+
+- 주문·결제 필수 동의의 두 전문보기 링크는 공통 ButtonLink의 link 스타일과 md 크기를 사용한다.
+
+- 퍼블리싱 가이드의 모달·아이콘 탭에 공통 모달 닫기 아이콘 xmark-large를 표시한다.
+
+- 주문·결제의 배송지변경 링크 버튼은 md 크기를 사용한다.
+
+## 스테이징 굵기 반영 (2026-11-19)
+
+기존 장바구니·결제·가입·마이페이지 경로를 유지하고 스테이징된 라벨 굵기만 반영한다. CartDialogs는 상품명 h3 의미를 유지한 Typography를 사용하며 새 라우트나 URL 상태를 추가하지 않는다.
+
+## 마이페이지 굵기 반영 (2026-11-19)
+
+쿠폰·러닝세션 신청내역·회원정보·회원등급의 스테이징된 굵기 변경은 기존 경로·표시 상태·콜백을 유지한다. 새 URL이나 서비스 동작은 추가하지 않는다.
+
+## 로그인·고객센터 굵기 반영 (2026-11-20)
+
+로그인 계정찾기·고객센터 연락처/FAQ/문의 목록의 기존 경로·검색/탭·서비스 콜백을 유지하고 스테이징된 표시 굵기만 조정한다.
+
+## 반응형 굵기와 탭 고정 정책 반영 (2026-11-20)
+
+문의 작성 정보·주문상품 상태·공지·관리 안내·주문 상세와 검색의 기존 경로·쿼리·콜백을 유지하고 반응형 굵기 옵션을 적용한다. Typography 가이드는 기존 탭에 굵기 예제를 제공한다.
+
+## 상품 카드와 주문 안내 굵기 반영 (2026-11-20)
+
+장바구니·주문 상세·관심상품·추천·고객센터의 기존 경로와 상태 URL을 유지하고 표시 굵기만 조정한다. 데이터·요청·콜백 계약은 변경하지 않는다.
+
+## 로그인·약관 포맷 정리 (2026-11-20)
+
+LoginContent 제목의 들여쓰기와 약관 페이지 tabs 객체 줄바꿈만 정리했다. 렌더링·굵기·경로·상태·서비스 계약은 변경하지 않는다. 출처: 두 소스의 스테이징 diff. 동작 변경이 없어 실행 화면 검증은 수행하지 않았다.
+
+## 화면별 글자 굵기 보정 (2026-11-20)
+
+장바구니 옵션·로그인 혜택·쿠폰 기간·주문 표 머리글·가입 동의·FAQ·문의 첨부·사이즈 가이드의 글자 굵기를 보정했다. 경로, 상태 URL, 데이터와 서비스 연결 계약은 유지한다. 출처는 이번 변경의 `src/app/` 화면 컴포넌트와 TypographyGuide다.
+
+## 상품 상세 사이즈 가이드 재구성 (2026-11-20)
+
+기존 상품 상세와 의류 기본 preview의 사이즈 가이드를 같은 ProductSizeGuideChart에서 재구성했다. 새 경로는 추가하지 않았으며 열기·닫기·트리거 finalFocus와 cm 초기값을 유지한다. 신발은 공유 공용 치수표의220~300mm17행을 발길이·한국(mm)·미국(남)·미국(여)4열로 표시한다. 의류는 기존 상품 성별과 단위별 데이터6/5/6행을 유지하고 측정 방법과 Fit Guide5개 카드를 추가한다. 실제 치수표 승인·갱신은 통합 소유자 책임이며 API 요청은 추가하지 않았다.
+
+출처: 사용자 첨부 신발/의류 팝업 시안과 [디자인 파일](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/). 구조화 조회 제한으로 최신 모드/실측값은 확인하지 못했으며 이미지 관측과 기존 컴포넌트 규격을 사용했다. 작업 트리 출처: src/app/products/[id]/_components/ProductDetailContent.tsx.
+
+## 상품 상세 공유하기 상태 (2026-11-20)
+
+상품 상세 모바일 공유 버튼은 기존 ModalDialog의 selection·bottomSheet를 엽니다. `/products/pdp-preview/share`는 기존 PDP 상태 라우트에서 팝업을 바로 표시하며 새로고침에도 유지합니다. `productDetailPreviews`에 등록한 `공유하기 팝업`을 screenConnections가 읽어 상품 상세 IA의 상태 행과 검색·직접 링크에 반영합니다. 기존 기본 링크와 다른 상태는 보존하며 source graph 재생성 결과는 변경이 없습니다.
+
+출처: `src/app/products/[id]/_components/ProductDetailContent.tsx`, `src/app/products/[id]/productDetailPreviews.ts`, 기존 `src/app/products/pdp-preview/[state]/page.tsx`와 `src/app/screen-index/screenConnections.ts`의 작업 트리. PC/MO 팝업 표시, 직접 URL·새로고침, IA에서 상태명 검색과 링크 노출을 브라우저로 확인했습니다. 기록: codex/gpt-6, 2026-11-20.

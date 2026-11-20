@@ -137,7 +137,7 @@ export function InquiryAttachments({
           <Button
             variant="link"
             size="md"
-            className={css({ '& span': { fontWeight: 'normal' } })}
+            className={css({ '& span': { fontWeight: 'medium' } })}
             ref={triggerRef}
             onClick={() =>
               platform === 'mobile' ? setPickerOpen(true) : inputRef.current?.click()
@@ -241,11 +241,17 @@ export function InquiryCustomerInfo() {
       <DescriptionList
         items={[
           { term: '이름', description: '홍길동' },
-          { term: '휴대폰 번호', description: '010-1234-1234' },
-          { term: 'E-mail', description: 'hong123@naver.com' },
+          {
+            term: '휴대폰 번호',
+            description: '010-1234-1234',
+          },
+          {
+            term: 'E-mail',
+            description: 'hong123@naver.com',
+          },
         ]}
         termProps={{ variant: 'body3', mo: 'body4', tone: 'subtle' }}
-        descriptionProps={{ variant: 'body3', mo: 'body4', tone: undefined }}
+        descriptionProps={{ variant: 'body3', mo: 'body4', weight: 'medium', tone: undefined }}
         slotStyles={{
           root: css.raw({
             gridTemplateColumns: 'max-content minmax(0, 1fr)',

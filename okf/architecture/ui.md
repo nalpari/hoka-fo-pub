@@ -4,12 +4,19 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-18T08:42:14.056296+00:00'
+updated: '2026-11-20T04:52:08.516Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/app/products/[id]/_components/ProductDetailContent.tsx
+  - src/app/products/[id]/productDetailPreviews.ts
+  - src/app/support/after-sales/_components/AfterSalesContent.tsx
+  - src/app/support/member-benefits/_components/MemberBenefitsContent.tsx
+  - src/components/membership/rewards-data.ts
+  - src/components/membership/MembershipRewards.tsx
+  - src/context/ShopPreviewContext.ts
   - src/components/common/molecules/ContentHeader.tsx
   - src/app/support/notices/_components/NoticesList.tsx
   - src/components/common/organisms/Address/AddressList.tsx
@@ -138,7 +145,6 @@ working_tree_sources:
   - src/components/common/molecules/ProductCard/productCardTypography.ts
   - src/components/common/molecules/ProductOptionList.tsx
   - src/app/mypage/rewards/_components/RewardsContent.tsx
-  - src/app/mypage/rewards/rewards-data.ts
   - src/context/MyPageDataContext.ts
   - src/stories/features/mypage/MyPage.Rewards.Web.stories.tsx
   - src/app/mypage/_components/MyPageContent.tsx
@@ -5995,3 +6001,180 @@ FAQ Accordion root가 DataList top strong과 faqAccordion 유형으로 기존 �
 ## 공지 머리글 열 정렬 (2026-11-19)
 
 제공된 공지 목록 PC 시안의 제목 fill 열/등록일 hug 열 중앙 정렬을 DataList noticeColumns에 반영했다. 제목은flex1/minWidth0/중앙, 등록일은flexShrink0/중앙이며 기존 padding16/32px·글자16px/600·하단선·본문 정렬은 유지한다. 사용자 요청은 정렬 범위이므로 시안의 다른 타이포 차이를 일괄 반영하지 않았다. 모바일 머리글 숨김은 유지한다. PC1920 목록844px에서 제목열739.47px·날짜열104.53px과 두 셀 중앙 정렬을 계산값으로 확인했다. MO375의 기존 머리글 숨김도 확인했다. 타입·Panda·대상 lint/format·소스그래프를 수행했다. 출처: [공지 목록 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design).
+
+## PC 헤더 account 링크 배치 (2026-11-19)
+
+PC 헤더는 검색 → account 아이콘 및 상태별 텍스트 → 장바구니 순서다. account와 텍스트는 4px, 이 묶음과 장바구니는 PC16px 간격을 사용한다. 로그인 시 `마이페이지`, 비로그인 시 `로그인 | 회원가입`이며 기존 회원 이름 표시는 제거했다. 모바일의 account·장바구니 간격6px과 텍스트 미표시는 유지한다. PC1572px 스크린샷·좌표 및 MO390px DOM을 확인했고 대상 ESLint·전체 TypeScript 검사를 통과했다. 비로그인 화면의 브라우저 검증은 미실행이다.
+
+출처: `src/context/ShopShell.tsx` 작업 트리와 localhost 실행 화면; Codex 작성·검토, 2026-11-19.
+
+
+## 고객센터 배송·관리 안내 갱신 (2026-11-19)
+
+SupportTabs의 care/shipping-returns에만54/44px와 PC20/MO16px 탭 문구를 적용했다. default/guide/terms 옵션은 유지한다. CareInstructions의 care만16/14px 본문과16/10px 목록 간격을 적용하고 상품 상세의 default 데이터·스타일은 보존한다. [화면별 수치와 실행 검증](support-design.md#배송반품과-관리-안내-최신-시안-반영-2026-11-19)을 참고한다. 탭 URL·키보드와 PC/MO 실행을 확인했으며 terms의 기존40px PC 탭도 확인했다.
+
+## 로그아웃 확인의 로컬 헤더 전환 (2026-11-19)
+
+마이페이지 로그아웃 확인은 셸의 퍼블리싱 전용 로그인 표시 해제 Context를 호출한 뒤 창을 닫는다. 확인창 닫기는 표시를 유지한다. PC·모바일의 기존 헤더 조건부 UI를 공유하며 새로운 인증 화면이나 복제 트리를 만들지 않는다.
+
+출처: `src/context/ShopShell.tsx`, `src/context/ShopPreviewContext.ts`, `src/app/mypage/_components/MyPageContent.tsx` 작업 트리; Codex 작성, 2026-11-19.
+
+검증(2026-11-19, Codex): 브라우저 PC에서 확인창 닫기 후 마이페이지 표시 유지, 확인 후 로그인·회원가입 링크(`/login`·`/signup`) 전환과 현재 경로 유지, 새로고침 후 초기 표시 복구를 확인했다. MO390px 확인 후 account 마이페이지 아이콘 제거도 확인했다. 대상 ESLint·Prettier 및 전체 TypeScript 검사 통과.
+
+
+## 배송·반품 탭과 연락처 표시 보정 (2026-11-19)
+
+사용자 화면 코멘트를 우선해 shipping-returns의 선택 탭만700, 미선택400으로 표시한다. 지정 PC 탭의 구조화 데이터는 공통16px/400을 반환했으며 선택 굵기는 사용자 지정 보정값이다. STEP1~6 라벨·운영시간09:00~18:00·TEL.전화번호 전체는500이며 설명 본문400은 유지한다. 반품처 전화080-6666-7777는 usePlatform의 mobile일 때만 밑줄과tel:08066667777 링크를 제공하고 PC에서는 일반 텍스트로 표시한다. 데이터·쿼리·탭 상태 소유자는 유지한다.
+
+PC1461/MO375에서 선택700·미선택400, 탭 전환 후 굵기 이동과 STEP6개500/본문400을 계산값으로 확인했다. 대상 ESLint/Prettier·TypeScript 검사를 수행했고 관련 Panda 스타일을 생성했다. hoka-markup-handoff 기준으로 기존 공통 옵션의 범위·Typography·플랫폼 소유권과 단일 표시 트리를 점검했다. 전체 build는 이번 보정 후 실행하지 않았다. 출처: 사용자 화면 코멘트, [배송·반품 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design), 작업 트리 src/components/common/molecules/SupportTabs.tsx와 src/app/support/after-sales/_components/AfterSalesContent.tsx.
+
+추가 실행 확인: PC1297→MO375→PC1297 리사이즈에서 전화번호 표시 유지·모바일만 밑줄/tel 링크·PC 링크 제거와 운영시간500을 확인했다.
+
+
+## 고객지원 공통 선택 탭·관리 소제목 굵기 (2026-11-19)
+
+사용자 공통 적용 요청에 따라 shipping-returns 한정 선택 굵기를 제거하고 SupportTabs 목록의 active 탭과 표시 span에700을 적용했다. care·shipping-returns·terms·guide·default·scrollable 모두 같은 선택 규칙을 사용한다. 미선택 굵기와 타이포·높이·밑줄·쿼리·키보드 계약은 유지한다. scrollable의 기존800은700으로 통일한다. 관리 안내 CareInstructions는 care 옵션의 번호 소제목만500으로 표시하며 신발10개·의류용품3개가 공유한다. 상품 상세가 사용하는 default 스타일은 유지한다. 출처: 사용자 화면 코멘트와 작업 트리 src/components/common/molecules/SupportTabs.tsx, src/components/care-guide/CareInstructions.tsx.
+
+
+## 관리 목록의 CSS 가운데점 (2026-11-19)
+
+사용자 요청에 따라 CareContent 요약 li와 CareInstructions care 본문 li의 ::before가 가운데점(·)을 표시한다. 문자열 앞 하이픈·HTML 엔티티와 care 전용 별도 기호 span은 제거했다. 기존 Flex/Stack/HStack·ul/li 의미와 PC3열/MO세로·본문 들여쓰기는 유지하며 flex gap으로 줄바꿈의 시작선을 맞춘다. marker는 PC16/24px·MO14/21px, text-subtle색·flexShrink0이다. 번호 소제목500과 본문400은 유지하고 상품 상세 default의 기존 기호는 변경하지 않았다. 이전 엔티티 적용 기록보다 이 구현이 우선한다. 출처: 사용자 화면 코멘트 및 [관리 안내 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design), 작업 트리 CareContent.tsx·CareInstructions.tsx.
+
+검증: PC1398/MO375에서 care·shipping-returns·terms·guide의 선택700/미선택400과 care 탭 전환을 확인했다. 신발10개·의류용품3개 소제목500 및 요약/본문 ::before 가운데점·24/21px 행간·가로 넘침 없음을 확인했고 모바일 신발 스크린샷을 검토했다. 대상 ESLint/Prettier·TypeScript·Panda를 수행했다. default는 publishing-guide 사용처가 있으며 이번 실행 검증에는 포함하지 않았다. scrollable은 실제 라우트 소비자가 없어 코드 분기로 검토했다. hoka-markup-handoff 기준의 소유권·Panda primitive·목록 의미·기본 옵션과 상품 상세 계약 보존을 확인했다. 전체 build는 재실행하지 않았다.
+
+
+## 관리 안내 앵커의 헤더 여백 (2026-11-19)
+
+요약 링크를 눌렀을 때 고정 헤더가 번호 소제목을 가리는 문제를 CareInstructions의 care 옵션 앵커 대상에서 수정했다. scrollMarginTop은 calc(var(--layout-site-header-height) + 16px)이며 기존 공통 헤더 높이PC88/MO52px를 사용한다. native hash 링크·URL·표시 트리·키보드 계약은 유지하고 JS 스크롤이나 공통 헤더 변경은 추가하지 않았다. default 옵션에는 적용하지 않는다. 출처: 사용자 화면 코멘트, 작업 트리 src/components/care-guide/CareInstructions.tsx·기존 src/styles/global.scss의 헤더 변수.
+
+실제 검증: PC1398px에서 첫/여섯 번째 링크 클릭 후 대상top104px, MO631/375px에서top68px를 확인했다. 각각 헤더88/52px 아래16px 여백으로 제목이 노출된다. 대상 ESLint·Panda 생성 통과, Prettier 적용. hoka-markup-handoff 기준으로 기존 native fragment·플랫폼 변수·옵션 범위를 점검했다. 텍스트/스타일 보정 이후 전체 빌드·타입은 재실행하지 않았다.
+
+## 온라인 회원등급 안내와 공유 본문 (2026-11-19)
+
+회원등급 두 경로의 본문은 `src/components/membership/MembershipRewards.tsx` 하나로 통합했다. 개인 요약·진행률·배지와 등급·공통 혜택을 내부 모듈에서 함께 소유한다. 기존 `RewardsContent`는 마이페이지 프레임과 고정 조회 피드백만 담당하고 고객센터 소유자는 로그인 표시 상태만 showSummary로 전달한다. 도메인 표시 fixture는 membership/rewards-data.ts에 모으며 이전 라우트 전용 data 경로는 제거했다. 기본 showSummary=true를 JSDoc·함수 기본값에 명시하며 undefined도 같은 기본 동작이다. 최신 사용자 확정 RUNNER 1장·연1회와 PC/MO 시안 규격을 양쪽 공통 본문에 적용했다. 세부 규격은 [고객센터 시안 기록](support-design.md#온라인-회원등급-안내와-공유-본문-2026-11-19)을 따른다.
+
+출처: [온라인 회원등급 안내 PC·모바일 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design), 현재 사용자 화면 코멘트, 위 working_tree_sources의 작업 트리. Codex 작성·검토, 2026-11-19.
+
+로그인 전후 고정 상태: `/support/member-benefits?preview=logged-out`과 `?preview=logged-in`을 IA213의 별도 STATE 링크로 노출한다. 기본 경로는 셸의 현재 표시 상태를 따르고, 두 preview는 인증 상태를 바꾸지 않은 채 개인 요약 노출만 고정한다. 쿼리는 `useSearchParams`로 읽으며 기존 루트 Suspense 경계를 유지한다.
+
+검증(2026-11-19, Codex): PC1920·MO375에서 두 로그인 경로의 공통 본문이 텍스트·크기·상대 위치·글자/행간/간격 계산값까지 동일함을 확인했다. 로그인 전후 query 4개 조합의 개인 요약 유무·RUNNER 확정 문구·가로 overflow 없음, IA213의 기본 및 로그인 전/후 링크를 확인했다. PC·MO에서 로컬 로그아웃 확인 후 클라이언트 탐색한 기본 고객센터의 개인 요약 숨김과 혜택 유지를 확인했다. 기존 마이페이지 로딩·오류 안내도 확인했다. Pretendard Black 실제 글리프 폰트를 확인했고 영문은 로드된 HOKA 자산을 사용한다(브라우저 내부 폰트명은 점으로 보고됨). 대상 ESLint·Prettier·전체 TypeScript·Panda·소스 그래프·프로덕션 빌드(164개 정적 페이지 생성)를 통과했다. 전체 lint는 실행하지 않았다. 실제 인증/등급 조회 API는 미연결이다.
+
+
+## 재검수 차이 전체 보정과 고객센터 LNB 높이 통일 (2026-11-19)
+
+사용자 승인으로 바로 위 재대조의 미수정9개 항목을 수정했다. 이전 미수정 목록은 발견 당시 이력이며 현행 계약은 이 항목이 우선한다.
+
+- care/shipping-returns PC탭을16px/24px로 맞추고 선택700·미선택400은 유지했다.
+- 배송의 휴일 안내 앞 줄바꿈은 모바일에서만 표시한다. STEP2 괄호 안내도 모바일에서만 줄바꿈하고 절차 소제목 아래gap16px을 적용했다.
+- 반품처의 모바일 DOM 읽기 순서를 전화→운영시간→접수처로 맞추며 PC는전화/접수처→운영시간2열을 유지한다. 주소·점심시간14px, 휴일12px과 모바일 제목/정보gap8px을 적용했다. 전화·운영시간500 및 모바일 전용tel링크는 유지한다.
+- 반품 주의 하위 목록은li::before 가운데점·16/24px와MO14/21px로 맞추며 내부 배송비 설명의하이픈은 유지한다.
+- 모바일 바로가기 제목/설명 간격은 문의·FAQ12px/주문조회2px이다. 세 버튼의 실제 문구는14px/400/18.2px로 지역 소유자의클래스에서만 보정하며 공통Button 기본값은 유지한다.
+- 모바일 신발 요약의 문구와가운데점을#000000으로 맞추고 PC#4D4D4D·기존링크·헤더+16px 앵커여백은 유지한다.
+
+후속 사용자 코멘트의LNB 높이 차이는공통SideNavigation support옵션의본문행간상속(1.3/1.5)과선택border2px·Grid stretch가 원인이었다. support aside에서만행간변수를1.5로 고정하고alignSelf=start로자연높이를 유지한다. 선택선은inset shadow로표시하여행높이에 영향을주지 않는다. 다른 appearance와모바일숨김·활성링크·URL은 유지한다.
+
+출처: 사용자 재검수 수정 지시·LNB 화면 코멘트, [고객센터 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design), 작업 트리 AfterSalesContent.tsx·CareContent.tsx·SupportTabs.tsx·SidebarNavigationLayout.tsx. 서비스API·외부표시데이터계약은변경하지 않았다.
+
+
+최종 실행 검증: PC viewport1935/client1920과MO390/client375에서5개탭 총10개 상태를직접열어계산값과스크린샷을대조했다. 추가MO375/client360에서도전화링크·순서·카드간격·버튼400/18.2px·검정요약색과가로넘침없음을확인했다. LNB는PC1253px의/support·size-guide·after-sales·care·faq·notices·member-benefits7개경로에서각행46px·행간30px·nav676px·aside750px와동일y좌표를확인했다. MO631에서는support aside가display:none이고PC복귀시같은높이를유지한다. 실제LNB링크이동·관리탭방향키/Enter·앵커top68px도확인했다.
+
+대상ESLint/Prettier·전체TypeScript·Panda·소스그래프·production build(정적페이지164개)·git diff공백검사와OKF미갱신문서없음을확인했다. 마지막hoka-markup-handoff검토에서기존Panda구조·HTML목록·공통옵션기본값·플랫폼/포커스·표시데이터/서비스책임을유지함을확인했다. 공통헤더·모바일플랫폼기준·서비스API는수정하지않았다. 전화앱실행이나운영서버연동은검증하지않았다.
+
+## Typography 선택적 굵기 조합 추가 (2026-11-19)
+
+Typography의 선택적 weight에 PC-MO 조합 400-500, 500-400, 500-600, 500-700, 600-500, 700-500, 900-500, 900-600, 900-700을 추가하고 TypographyWeight를 recipe에서 유도해 내보낸다. 기존 단일 굵기와 inherit은 유지하며 생략·undefined는 선택 variant의 굵기를 따른다. 출처: src/components/common/atoms/Typography.tsx의 스테이징 변경, Codex 검토. 대상 ESLint 통과; 브라우저 실행 검증은 수행하지 않았다.
+
+- 주문·결제 수단의 동그란 아이콘을 제거하고 선택 테두리로 표시하며 PC 6열·모바일 3열 카드 간격과 높이를 시안에 맞췄다. 공통 Radio의 선택과 키보드 동작은 유지한다.
+
+- 공통 secondary 버튼의 기본 배경을 투명하게 바꿨다. hover·active·focus·disabled 상태와 다른 variant의 배경은 유지한다.
+
+- 주문·결제 화면의 기본 배송지 뱃지에 흰색 배경을 적용했다.
+
+- 공통 Badge는 children에 표시할 문구를 받고 variant(기본 filled, outlined, plain), visual(채움형·테두리형은 round 또는 square 필수), Typography tone(기본 primary)으로 표현한다. 배송지는 outlined와 square, 러닝세션은 square에 표시 데이터의 배경·글자색을 사용한다. bg는 Panda ColorToken 전체를 받으며, 러닝세션은 citrus.100과 mossGreen.100을 전달한다.
+- 상품 프로모션은 Badge의 plain 스타일로 표시하며 복수 문구의 구분선은 글자색을 따른다. tone은 Typography 톤·Panda 색상 토큰·CSS 색상을 받는다. 러닝세션 사용처에서 web="body4"와 mo="body6"으로 PC 14px·모바일 10px을 지정하고 weight="bold"를 전달한다. 공통 사각 채움 배지 기본값은 body4다. 배지 가이드의 채움형 예시와 복사 코드는 variant="filled"를 명시한다.
+
+- 배지의 최소 높이를 라운드 32px, 사각 29px로 지정하고 공통 줄높이 강제를 제거했다.
+
+- 사각 배지의 웹 줄높이는 Panda의 `_web` 조건으로 1.2를 적용한다.
+
+- 공통 AddressList는 항목 하단 패딩과 항목 사이 간격에 각각 24px을 사용한다. 마이페이지는 제목과 목록 사이에 32px, 주문·결제 모달은 기본 구분선 여백을 사용한다.
+- 마이페이지와 주문·결제 모달은 주소 항목에 기본 배송지 또는 일반 배송지 배지를 표시한다.
+
+- 주문·결제 필수 동의의 두 전문보기 링크는 공통 ButtonLink의 link 스타일과 md 크기를 사용한다.
+
+- 주문·결제 웹 주문내역은 제목 22px, 금액 항목명 15px·숫자와 원 단위 16px, 총 결제 항목명 16px·금액 18px, 쿠폰 안내·동의·전문보기·조회하기 14px을 사용한다.
+
+- 주문·결제 주문내역의 웹 총액 위 패딩 20px, 동의란 뒤 간격 28px, 조회 버튼 높이 40px을 반영한다. 모바일은 금액 목록·총액을 각각 좌우 16px·상하 20px로 표시하고, 동의 항목 간격은 16px이다.
+
+- 공통 모달 닫기 버튼과 퍼블리싱 가이드에 [HOKA 디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql)의 xmark-large 18px 자산을 적용한다.
+
+## 공통 UI 병합 충돌 해결 (2026-11-19)
+
+Typography는 기존 PC-MO weight 조합과 TypographyWeight를 보존하고 Typography.tone의 확장 색상 타입을 가져와 재노출한다. AddressList는 병합 대상의 항목 간격24px·하단 패딩24px·구분선과 공통 배송지 배지를 유지한다. 자동 생성 의존 그래프는 재생성하되 Git 추적 해제를 유지한다. 출처: 병합 양쪽 Typography.tsx·Typography.tone.ts·AddressList.tsx 및 생성 스크립트. Codex가 충돌 구문 부재, 대상 ESLint/Prettier, 전체 TypeScript, form-controls48개 통과를 확인했다. 브라우저 시각 검증은 수행하지 않았다.
+
+## 스테이징 굵기 반영 (2026-11-19)
+
+스테이징된 장바구니 상품명700-500·품절 Bold, 결제수단/전문보기 Medium, 가입 안내/동의 Medium, 마이페이지·사이드바·Home 경로·점검 라벨 및 헤더/푸터 굵기를 반영한다. AmountRow는 labelWeight 우선, 미지정 기본700-400·emphasizeLabel이면700-500을 사용하며 Typography에700-400을 추가한다. ProductCard는 identity/promotion Medium 선택 옵션을 추가하고 기존 기본값을 유지한다. cartMedium 관련 미스테이징 변경은 포함하지 않는다. 출처: 이번 커밋의 src 스테이징 내용. ProductCard 스테이징의 누락된 닫는 괄호 두 곳을 보완했다. 브라우저 시각 검증은 수행하지 않았다.
+
+## 마이페이지 굵기 반영 (2026-11-19)
+
+스테이징된 CouponManagement 상세보기와 RunningSessionEntriesContent 상태/장소/거리 문구를 Medium으로 조정했다. ProfileContent의 항목명은500-600, 탈퇴 안내와 수신 라벨은500-400을 사용하고 회원정보 수정 버튼은 기본 문구 표현을 따른다. MembershipRewards의 등급 조건·혜택 제목·고객명은 Medium, 혜택 본문 제목과 구매금액 라벨은500-400을 사용한다. 출처: 이번 커밋의 위4개 소스 인덱스. 실행 화면 검증은 수행하지 않았다.
+
+## 로그인·고객센터 굵기 반영 (2026-11-20)
+
+스테이징된 LoginContent 계정찾기, SupportContacts의 TEL·운영시간·평일, FaqContent 질문, InquiryListContent 상태 배지, OrderProductSummary 구매 문구를 Medium으로 선택한다. FAQ 검색 버튼은 Bold이며 기존 강제 Regular 스타일을 제거한다. SidebarNavigationGroup 항목 타입에 선택적 labelWeight를 추가하되 이번 스테이징에는 실제 메뉴 굵기 연결 구현이 포함되지 않는다. 출처: 위6개 소스의 Git 인덱스. 브라우저 검증은 수행하지 않았다.
+
+## 반응형 굵기와 탭 고정 정책 반영 (2026-11-20)
+
+이번 스테이징은 주문 상세900-700/500-400, 문의 작성 정보/주문상품 상태·공지 제목·관리 안내 Medium, 검색900-500과 푸터 굵기를 반영한다. SupportTabs는 모든 variant/플랫폼에서 선택700·미선택400이며 data-active가 소유한다. Typography 가이드에 미지정·undefined·기존값과 조합 예제를 추가한다. AGENTS와 품질 지침의 탭 고정 규칙을 함께 반영한다. 출처: 이번 커밋의 Git 인덱스. 과거 font-weight-modes의 검증은 작성 당시 이력이며 이번 커밋에서 브라우저 검증을 재수행한 것은 아니다.
+
+## 상품 카드와 주문 안내 굵기 반영 (2026-11-20)
+
+ProductCard의 cartMedium 선택 옵션과 기본false, 장바구니/주문완료 추천 identity Medium·관심상품 identity/promotion/cart Medium을 연결한다. 주문 상세의 모바일 주문 문구·상태·결제예정금액과 안내를 Medium으로 표시하며 상태는600-500을 사용한다. 고객센터 바로가기 설명은Medium, 사이즈 가이드의 PC 선택값·해당 모바일 공통값과 신발 표 라벨을Medium으로 표시하고 제목900-700을 적용한다. 출처: 이번 커밋의 Git 인덱스. 생략 시 ProductCard의 기존 기본 표시를 유지하며 브라우저 검증은 수행하지 않았다.
+
+## 로그인·약관 포맷 정리 (2026-11-20)
+
+LoginContent 제목의 들여쓰기와 약관 페이지 tabs 객체 줄바꿈만 정리했다. 렌더링·굵기·경로·상태·서비스 계약은 변경하지 않는다. 출처: 두 소스의 스테이징 diff. 동작 변경이 없어 실행 화면 검증은 수행하지 않았다.
+
+## 화면별 글자 굵기 보정 (2026-11-20)
+
+Typography에 PC700/MO600 조합을 추가하고 가이드에 표시한다. Breadcrumb는500, 구매금액·문의 주의사항은500, 인증 정보는PC700/MO600, 시스템 안내 제목은900을 사용한다. 상품 옵션 모달의 productName 슬롯에서 고정500을 제거해 기존 호출부 굵기를 적용한다. 날짜 선택과 FAQ의400은 해당 라벨 소유자에서 적용한다. 출처: `src/components/common/atoms/Typography.tsx`, `src/components/common/layouts/ModalDialog.recipe.tsx`, `src/components/common/molecules/Breadcrumb.tsx`, `src/components/common/molecules/DateRangeSearch.tsx`, `src/components/common/organisms/SystemStatusPage.tsx`, `src/components/membership/MembershipRewards.tsx`, `src/components/phone-verification/PhoneVerificationContent.tsx`, `src/components/support/InquiryCautions.tsx`.
+
+
+## 모바일 검색결과 검색창 복원 (2026-11-20)
+
+첨부된 검색결과·빈 결과 시안을 기준으로 ProductListingPage의 SearchListingLayout에 모바일 전용 SearchField를 배치했다. 검색창 높이56px·좌우16px·상단32px, 입력 영역 하단16px와 결과 영역 상단16px, 결과 제목과 목록 간격16px을 사용한다. 상품은 기존2열·가로8px 간격과 표시 fixture를 유지한다. PC 검색 레이아웃과 상품 목록은 변경하지 않았다. 홍보 배너는 기존 공통 표시 정책을 유지하므로 첨부 이미지와 상단 높이가 다르다.
+
+출처: 사용자 첨부 검색결과/빈 결과 이미지와 [디자인 파일](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/). 최신 구조화 조회는 제한되어 첨부 이미지와 기존 SearchField 규격으로 반영했다. 폰트 굵기 모드는 새로 확인하지 않았고 기존 Typography와 EmptyState의 확정 규칙을 유지했다.
+
+검증: 375×812 브라우저에서 검색창·2열 목록·필터 시트 열기와 Escape 조작, Enter 제출 후 q/결과 제목 변경, 빈 결과 직접 URL의 G45678 입력과 가로 넘침 없음을 확인했다. 1440px에서 모바일 검색창 미표시와 기존 결과 제목을 확인했다. 실제 상품 API는 미연결이다. 작업 트리 출처: src/components/catalog/ProductListingPage.tsx.
+
+검사 결과: 변경 TSX ESLint·Prettier, 전체 TypeScript, Panda 생성 및 Next.js 프로덕션 빌드를 통과했다. 최종 마크업 인계 점검에서 기존 컴포넌트 소유권·검색 초안 경계·공통 플랫폼 규칙을 유지했으며 서비스 요청은 추가하지 않았다.
+
+
+## 검색결과 PC 필터 고정 복구 (2026-11-20)
+
+ProductListingContent의 sticky top·maxH가 ContentLayout에서만 제공하는 --content-layout-header-height를 참조해 검색결과에서는 auto·none으로 무효화되었다. 두 계산에 0px fallback을 추가했다. 상품목록은 기존 측정 헤더 높이를 계속 사용한다. 작업 트리 출처: src/components/catalog/ProductListingPage.tsx.
+
+검증: 1176×1251 검색결과에서 수정 전 top auto/maxHeight none, 수정 후 top88px/maxHeight1163px을 확인했다. 페이지300px 스크롤 후 필터 top88px 유지와 필터 내부 scrollTop200을 확인했다. 결과가 짧으면 기존 sticky 부모 영역의 끝에서 해제된다. 상품목록은 기존 측정값 top241.594px/maxHeight1009.41px을 유지했고375px 모바일은 필터 버튼1개와 가로 넘침 없음을 확인했다. Panda 생성·변경 파일 ESLint·전체 TypeScript 검사를 통과했다.
+
+
+## 상품 상세 사이즈 가이드 세로 표와 측정 안내 (2026-11-20)
+
+신발은 PC640px, 의류는 기존768px 팝업을 사용한다. sizeGuide recipe의 최대 폭은 --modal-size-guide-width로 신발만640px을 지정하며 생략 기본값768px은 유지한다. 제목은 PC24px/900·모바일20px/700이다. 표는100%폭·4열(신발)/5열(의류), 행 높이PC52px/모바일46px과 #E9EAEB 테두리·#F5F5F7 헤더/짝수행을 사용한다. 의류의 측정 이미지/설명과 Fit Guide카드는 PC2열·모바일1열이며 측정 이미지는 원본 비율로 표시한다. 신발 단위 전환은 발길이만 바꾸고 한국mm·남녀US는 유지한다.
+
+브라우저 확인: 신발640px 팝업17행과4개 열, inch 첫행8.66/220/4/5,375px 시트와 닫기 후 트리거 포커스 복귀를 확인했다. 여성 의류의5열6행과 cm/inch 전환, 측정 안내·Fit Guide5개 DOM,375px 가로 넘침 없음·20px/700 제목, Escape닫기와 포커스 복귀를 확인했다. 남성/공용 의류는 검증 중 기존 의류 fixture의 성별만 각각 교체해 실제 모달을 PC1440×1100·모바일375×812에서 열었다. 네 상태 모두 이미지 전체·측정선1/2/3과 가로 넘침 없음을 스크린샷으로 확인했다. PC332.5×249.375px·모바일313×234.75px으로4:3 원본 비율을 유지했다. 검증 후 fixture는 바이트 단위로 원래 여성 데이터에 복원했다. 남성 측정 이미지는 사용자가 제공한 public/images/size-guide/tops-men.png(344×258)에 연결했다. 2026-11-20 브라우저의 Next Image 경로에서 정상 decode를 확인했고 원본 비율을 유지해 측정선 잘림을 방지했다. 남성/공용 의류 모달 PC·모바일 실행 확인을 완료했다. 여성은 기존 tops-women.png를 사용한다. 폰트 모드는 새로 확인하지 못했으므로 관측 숫자를 모드 확인으로 기록하지 않는다.
+
+출처: 사용자 첨부 신발·의류 팝업 이미지와 [디자인 파일](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/). 작업 트리 출처: src/app/products/[id]/_components/ProductDetailContent.tsx, src/components/common/layouts/ModalDialog.recipe.tsx.
+
+검사: 변경 TSX/recipe ESLint·Prettier, 전체 TypeScript, Panda 생성과 Next.js 프로덕션 빌드를 통과했다. 마크업 인계 점검에서 기존 소유권·단위 상태·모달 키보드/포커스 경계를 유지했으며 서비스 요청이나 새 preview 경로는 추가하지 않았다.
+
+## 상품 상세 공유하기 팝업 (2026-11-20)
+
+[상품 공유 설계서](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 카카오톡·URL 복사하기 2열 구성을 반영했습니다. 사용자 지시에 따라 모달 외형은 기존 selection·bottomSheet 가이드를 재사용합니다. 설계서의 회색 이미지 자리표시자는 기존 kakao·copy-regular 아이콘으로 대체하고, 버튼 최소 높이123px·간격12px·테두리1px·반경8px·라벨16px/700으로 구성했습니다. 설계서 라벨은 Pretendard Bold18px/700이며, 모달 제목과 닫기는 기존 가이드 값을 사용합니다.
+
+기존 모바일 공유 클릭의 복사/토스트는 URL 복사하기로 이동했습니다. 현재 상품 ID의 기본 상세 URL을 복사하며 preview 주소는 복사하지 않습니다. clipboard 완료 전 성공을 표시하지 않고 pending 중 버튼을 비활성화합니다. 실패 안내 후 팝업을 유지해 재시도할 수 있습니다. 카카오톡은 표시 전용이며 SDK·외부 전송은 미연결입니다. 연결 책임은 상세 헤더 근처의 `[ 개발팀 바인딩 ]` 주석을 따릅니다.
+
+검증: PC1440px·모바일390px 스크린샷, 모바일 열기·닫기·Escape 및 트리거 포커스 복귀, 실제 복사 성공, 일시적인 브라우저 clipboard 대체를 통한 pending·실패·재시도 성공, 직접 상태 URL·새로고침과 IA 상태명 검색·링크 노출을 확인했습니다. 변경 파일 ESLint, TypeScript, Panda 생성, source graph 생성, Next 프로덕션 빌드 통과. 전체 lint는 비대상 `tests/wh-file-summary.test.mjs`의 URL/Request/Response no-undef8건으로 실패했습니다. 공용 모달 스타일·플랫폼 정책은 이번 변경에서 수정하지 않았습니다.
+
+출처: 위 설계서, `src/app/products/[id]/_components/ProductDetailContent.tsx`와 `src/app/products/[id]/productDetailPreviews.ts`의 작업 트리. 기존 신뢰·출처 메타데이터는 유지합니다. 기록: codex/gpt-6, 2026-11-20.

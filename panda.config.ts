@@ -28,6 +28,7 @@ export default defineConfig({
     extend: {
       // The platform provider adds this class for viewport selection or explicit previews.
       mobile: '.platform-mobile &',
+      web: '.platform-web &',
       wideDesktop: '@media (min-width: 2240px)',
       ultraWideDesktop: '@media (min-width: 2560px)',
     },

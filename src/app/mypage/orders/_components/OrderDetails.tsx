@@ -132,7 +132,8 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
           {['상품/옵션정보', '수량', '가격'].map((label) => (
             <Typography
               key={label}
-              variant="body3Semibold"
+              variant="body3"
+              weight="bold"
               className={css({ textAlign: 'center' })}
             >
               {label}
@@ -148,7 +149,16 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
         >
           <Typography variant="body4Semibold">
             {display.date}
-            {mobile ? ' 주문' : ''}
+            {mobile ? (
+              <>
+                {' '}
+                <Typography as="span" variant="body4" weight="medium">
+                  주문
+                </Typography>
+              </>
+            ) : (
+              ''
+            )}
           </Typography>
           <Typography variant="body4" tone="tertiary">
             · 주문번호 {display.orderNumber}
@@ -168,7 +178,7 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
                 pr={{ base: '24px', _mobile: '0' }}
               >
                 <Typography variant="body4">
-                  <Typography as="span" variant="body4Semibold" tone="red80">
+                  <Typography as="span" variant="body4Semibold" weight="600-500" tone="red80">
                     {display.status}
                   </Typography>
                   {' · '}
@@ -243,7 +253,7 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
               gap="16px"
               px={{ base: '24px', _mobile: '0' }}
             >
-              <Typography variant="body4" tone={mobile ? 'tertiary' : 'error'}>
+              <Typography variant="body4" weight="medium" tone={mobile ? 'tertiary' : 'error'}>
                 {group.label}
               </Typography>
               <Button variant="link" size="md" onClick={() => actions.onClaimDetail(group.id)}>
@@ -340,7 +350,7 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
             alignItems={{ base: 'flex-end', _mobile: 'stretch' }}
           >
             <HStack justifyContent="space-between" w="100%">
-              <Typography variant="body4" tone="subtle">
+              <Typography variant="body4" weight="medium" tone="subtle">
                 결제예정금액
               </Typography>
               {mobile ? (
@@ -376,7 +386,8 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
               {['상품/옵션정보', '환불금액', '처리상태'].map((label) => (
                 <Typography
                   key={label}
-                  variant="body3Semibold"
+                  variant="body3"
+                  weight="bold"
                   className={css({ textAlign: 'center' })}
                 >
                   {label}
@@ -396,7 +407,7 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
                   접수일 : {entry.requestedAt}
                 </Typography>
                 {mobile ? (
-                  <Typography variant="body4" tone="tertiary">
+                  <Typography variant="body4" weight="medium" tone="tertiary">
                     {entry.status}
                   </Typography>
                 ) : null}
@@ -479,7 +490,7 @@ function ClaimSection({ title, children }: { title: string; children: React.Reac
         titleProps: {
           web: 'heading7',
           mo: 'heading6',
-          weight: usePlatform() === 'mobile' ? 'bold' : 'black',
+          weight: '900-700',
         },
         css: css.raw({
           pb: { base: '24px', _mobile: '16px' },
@@ -586,19 +597,14 @@ export function OrderClaimDetail({
           </Box>
         ) : null}
         <HStack gap={mobile ? '4px' : '8px'} flexShrink="0">
-          <Typography
-            web="body3"
-            mo="body4"
-            weight={mobile ? 'regular' : 'medium'}
-            tone={mobile ? 'tertiary' : 'subtle'}
-          >
+          <Typography web="body3" mo="body4" weight="500-400" tone={mobile ? 'tertiary' : 'subtle'}>
             주문번호
           </Typography>
           <Typography
             web="body3"
             mo="body4"
             language={mobile ? 'en' : 'ko'}
-            weight={mobile ? 'regular' : 'medium'}
+            weight="500-400"
             tone={mobile ? 'tertiary' : 'primary'}
           >
             {number}
@@ -631,7 +637,8 @@ export function OrderClaimDetail({
             {['상품/옵션정보', '수량', '가격', '진행상태'].map((label) => (
               <Typography
                 key={label}
-                variant="body3Semibold"
+                variant="body3"
+                weight="bold"
                 className={css({ textAlign: 'center' })}
               >
                 {label}

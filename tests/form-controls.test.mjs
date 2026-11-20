@@ -200,23 +200,48 @@ const { PlatformProvider, usePlatform } = await import('../src/context/platform.
 
 const { Badge } = await import('../src/components/common/atoms/Badge.tsx');
 
-test('Badge keeps ordinary labels and resolves both launch statuses', () => {
-  assert.match(renderToStaticMarkup(h(Badge, null, '배송완료')), /배송완료/);
-  assert.match(renderToStaticMarkup(h(Badge, { status: 'COMING' })), /COMING SOON/);
-  assert.match(renderToStaticMarkup(h(Badge, { status: 'IN_STOCK' })), /IN STOCK/);
+test('Badge defaults and explicit appearance select the same round filled label', () => {
+  const render = (props) => renderToStaticMarkup(h(Badge, { visual: 'round', ...props }, '배송완료'));
+  assert.equal(render({ variant: 'filled', visual: 'round', tone: 'primary' }), render({}));
+  assert.equal(render({ variant: undefined, tone: undefined }), render({}));
+  assert.notEqual(render({ variant: 'outlined' }), render({}));
+  assert.notEqual(render({ tone: 'tertiary' }), render({}));
+});
+
+test('Badge typography follows the platform and keeps explicit text presets', () => {
+  for (const platform of ['web', 'mobile']) {
+    const render = (props, text) => renderToStaticMarkup(
+      h(PlatformProvider, { platform }, h(Badge, props, text)),
+    );
+    const address = render({ variant: 'outlined', visual: 'square' }, '주소');
+    assert.match(address, platform === 'web' ? /font-sizes-14/ : /font-sizes-12/);
+    for (const [bg, variable] of [['citrus.100', '--colors-citrus-100'], ['mossGreen.100', '--colors-moss-green-100'], ['blue.100', '--colors-blue-100'], ['surface.subtle', '--colors-surface-subtle']]) {
+      const props = { visual: 'square', bg, web: 'body4', mo: 'body6', weight: 'bold' };
+      assert.match(render(props, 'Trail'), /fw_bold/);
+      assert.match(render(props, 'Trail'), platform === 'web' ? /font-sizes-14/ : /font-sizes-10/);
+      assert.match(render(props, '러닝 세션'), />러닝 세션</);
+      assert.equal(render(props, '러닝 세션').split('>')[0], render(props, 'Trail').split('>')[0]);
+      assert.ok(render(props, 'Trail').includes('background-color:var(' + variable + ')'));
+    }
+  }
 });
 
 test('Badge promotions retain ordered labels, separators, weight and empty rendering', () => {
   const html = renderToStaticMarkup(
-    h(Badge, { promotion: ['Best', 'New', 'Exclusive'], weight: 'medium' }),
+    h(Badge, { variant: 'plain', weight: 'medium' }, ['Best', 'New', 'Exclusive']),
   );
   assert.match(html, /Best.*New.*Exclusive/);
   assert.equal((html.match(/aria-hidden="true"/g) ?? []).length, 2);
   assert.match(html, /fw_medium/);
-  const single = renderToStaticMarkup(h(Badge, { promotion: 'New' }));
+  for (const [tone, color] of [['mossGreen.100', 'var(--colors-moss-green-100)'], ['#56318A', '#56318A']]) {
+    const plain = renderToStaticMarkup(h(Badge, { variant: 'plain', tone }, ['New', 'Exclusive']));
+    assert.equal(plain.split('color:' + color).length - 1, 3);
+    assert.ok(renderToStaticMarkup(h(Badge, { variant: 'filled', visual: 'round', tone }, '완료')).includes('color:' + color));
+  }
+  const single = renderToStaticMarkup(h(Badge, { variant: 'plain' }, 'New'));
   assert.match(single, /New/);
   assert.doesNotMatch(single, /aria-hidden/);
-  assert.equal(renderToStaticMarkup(h(Badge, { promotion: [] })), '');
+  assert.equal(renderToStaticMarkup(h(Badge, { variant: 'plain' }, [])), '');
 });
 
 function PlatformProbe() {

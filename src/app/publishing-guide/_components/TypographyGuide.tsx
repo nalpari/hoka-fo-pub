@@ -8,12 +8,49 @@ import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 import { Button } from '@/components/common/atoms/Button';
 import { Icon } from '@/components/common/atoms/Icon';
 import { Toast, type ToastNotice } from '@/components/common/atoms/Toast';
-import { figmaTypographyVariants, Typography } from '@/components/common/atoms/Typography';
+import {
+  figmaTypographyVariants,
+  Typography,
+  type TypographyProps,
+  type TypographyWeight,
+} from '@/components/common/atoms/Typography';
 
 import { renderGuideCode } from './GuideCode';
 import { GuideTimeline } from './GuideTimeline';
 
 type GuideVariant = keyof typeof figmaTypographyVariants;
+
+const responsiveWeights = [
+  '400-500',
+  '500-400',
+  '500-600',
+  '500-700',
+  '600-500',
+  '700-500',
+  '700-600',
+  '900-500',
+  '900-600',
+  '900-700',
+] as const satisfies readonly TypographyWeight[];
+
+const weightExamples: readonly {
+  id: string;
+  label: string;
+  props: Pick<TypographyProps, 'weight'>;
+}[] = [
+  { id: 'omitted', label: '미지정 · variant 기본값', props: {} },
+  { id: 'undefined', label: '명시적 undefined · variant 기본값', props: { weight: undefined } },
+  ...(['regular', 'medium', 'semibold', 'bold', 'black', 'inherit'] as const).map((weight) => ({
+    id: weight,
+    label: weight,
+    props: { weight },
+  })),
+  ...responsiveWeights.map((weight) => ({
+    id: weight,
+    label: 'PC ' + weight.split('-')[0] + ' / MO ' + weight.split('-')[1],
+    props: { weight },
+  })),
+];
 
 const groups: readonly {
   id: string;
@@ -252,6 +289,39 @@ export function TypographyGuide() {
             복사합니다.
           </Typography>
         </HStack>
+        <Stack as="section" id="typography-weight" className={variantSection} gap="3">
+          <Typography as="h3" variant="heading8">
+            굵기 옵션
+          </Typography>
+          <Typography as="p" variant="body4">
+            regular·medium·semibold·bold·black·inherit는 양쪽 플랫폼에 같은 굵기를 적용합니다. 숫자
+            조합은 PC-MO 순서입니다. 예: weight="500-400". 미지정과 undefined는 선택한 variant의
+            굵기를 유지합니다.
+          </Typography>
+          <Grid columns={{ base: 2, _mobile: 1 }} gap="3">
+            {weightExamples.map((example) => (
+              <Stack key={example.id} className={exampleCard} gap="2">
+                <Typography variant="body5">{example.label}</Typography>
+                <Box fontWeight="semibold">
+                  <Typography
+                    variant="body3"
+                    {...example.props}
+                    data-typography-weight={example.id}
+                  >
+                    반응형 굵기 Responsive weight
+                  </Typography>
+                </Box>
+                <Typography as="code" variant="body5">
+                  {example.id === 'omitted'
+                    ? '<Typography variant="body3">…</Typography>'
+                    : example.id === 'undefined'
+                      ? '<Typography variant="body3" weight={undefined}>…</Typography>'
+                      : '<Typography variant="body3" weight="' + example.id + '">…</Typography>'}
+                </Typography>
+              </Stack>
+            ))}
+          </Grid>
+        </Stack>
         {groups.map((group) => (
           <Stack
             key={group.id}
@@ -320,7 +390,14 @@ export function TypographyGuide() {
       <Toast notice={copyNotice} onDismiss={dismissCopyNotice} />
       <GuideTimeline
         title="타이포그래피 유형"
-        entries={groups.map(({ id, title, description }) => ({ id, title, description }))}
+        entries={[
+          {
+            id: 'typography-weight',
+            title: '굵기 옵션',
+            description: '기본 굵기와 PC-MO 숫자 조합',
+          },
+          ...groups.map(({ id, title, description }) => ({ id, title, description })),
+        ]}
       />
     </Grid>
   );

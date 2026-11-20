@@ -2,29 +2,44 @@ import type { ComponentProps, ReactNode } from 'react';
 
 import { HStack } from 'styled-system/jsx';
 
-import { Typography } from '@/components/common/atoms/Typography';
+import { Typography, type TypographyProps } from '@/components/common/atoms/Typography';
 
-type Props = Omit<ComponentProps<typeof HStack>, 'children'> & {
-  label: string;
-  amount: number;
-  discount?: boolean;
-  emphasis?: boolean;
-  emphasizeLabel?: boolean;
-  action?: ReactNode;
-};
+type Props = Omit<ComponentProps<typeof HStack>, 'children' | 'web' | 'mo'> &
+  Pick<TypographyProps, 'web' | 'mo'> & {
+    amountWeb?: TypographyProps['web'];
+    amountMo?: TypographyProps['mo'];
+    label: string;
+    amount: number;
+    discount?: boolean;
+    emphasis?: boolean;
+    emphasizeLabel?: boolean;
+    /** 라벨 굵기를 우선 지정합니다. 생략·undefined는 기본 PC700/MO400, emphasizeLabel이면 PC700/MO500입니다. */
+    labelWeight?: TypographyProps['weight'];
+    action?: ReactNode;
+  };
 
 /** 금액 합계를 계산하지 않고 전달받은 값으로 표시합니다. (Displays a prepared amount without calculating totals.) */
 export function AmountRow({
   label,
   amount,
+  amountWeb,
+  amountMo,
   discount = false,
   emphasis = false,
   emphasizeLabel = false,
+  labelWeight,
   action,
+  web,
+  mo,
   ...layoutProps
 }: Props) {
   const labelContent = (
-    <Typography variant="body4" weight={emphasizeLabel ? 'semibold' : undefined}>
+    <Typography
+      variant="body4"
+      web={web}
+      mo={mo}
+      weight={labelWeight ?? (emphasizeLabel ? '700-500' : '700-400')}
+    >
       {label}
     </Typography>
   );
@@ -49,8 +64,30 @@ export function AmountRow({
             원
           </Typography>
         </HStack>
+      ) : amountWeb || amountMo ? (
+        <HStack gap="0" whiteSpace="nowrap">
+          <Typography
+            variant="body4"
+            web={amountWeb ?? web}
+            mo={amountMo ?? mo}
+            language="en"
+            tone={discount ? 'red80' : undefined}
+            weight="medium"
+          >
+            {discount ? '-' : ''}
+            {amount.toLocaleString()}
+          </Typography>
+          <Typography
+            variant="body4"
+            web={amountWeb ?? web}
+            mo={amountMo ?? mo}
+            tone={discount ? 'red80' : undefined}
+          >
+            원
+          </Typography>
+        </HStack>
       ) : (
-        <Typography variant="body4" tone={discount ? 'red80' : undefined}>
+        <Typography variant="body4" web={web} mo={mo} tone={discount ? 'red80' : undefined}>
           {discount ? '- ' : ''}
           {amount.toLocaleString()}원
         </Typography>

@@ -29,6 +29,7 @@ import { supportNavigation } from '@/app/support/support.navigation';
 import { CustomerCenterLayout } from '@/components/support/CustomerCenterLayout';
 
 const styles = {
+  categoryItem: css({ '&&& span': { fontWeight: '400', _mobile: { fontWeight: '400' } } }),
   searchForm: css({
     justifyContent: 'center',
     alignItems: 'center',
@@ -48,7 +49,6 @@ const styles = {
     '--button-height': '48px',
     _mobile: { '--button-height': '42px' },
   }),
-  searchButtonLabel: css({ '&&': { fontWeight: '400', lineHeight: '1.3' } }),
 };
 
 type Props = {
@@ -61,6 +61,7 @@ function FaqCategoryNav({ category, categories, onCategoryChange }: Props) {
     <Box as="nav" aria-label="FAQ 카테고리" pt="8" pb="32px" _mobile={{ pt: '6', pb: '8' }}>
       <FilterTabs
         ariaLabel="FAQ 카테고리"
+        itemClassName={() => styles.categoryItem}
         onValueChange={onCategoryChange}
         options={categories.map((item) => ({
           label: item === 'AS/품질' ? 'AS/불량' : item,
@@ -96,7 +97,7 @@ function FaqSearch({ query, onQueryChange }: FaqSearchProps) {
         />
       </Box>
       <Button type="submit" variant="primary" size="tall" className={styles.searchButton}>
-        <Typography web="cta1" mo="cta1-1" weight="regular" className={styles.searchButtonLabel}>
+        <Typography web="cta1" mo="cta1-1" weight="bold">
           검색
         </Typography>
       </Button>
@@ -137,7 +138,7 @@ function FaqQuestion({ question }: FaqQuestionProps) {
       <Typography as="span" variant="body2" className={css({ flexShrink: 0, w: '17px' })}>
         Q
       </Typography>
-      <Typography as="span" variant="headingKr9">
+      <Typography as="span" variant="headingKr9" weight="medium">
         {question}
       </Typography>
     </HStack>

@@ -7,8 +7,16 @@ import { usePlatform } from '@/context/platform';
 import { css, cva, cx } from 'styled-system/css';
 
 import { elandTypographyRecipe, elandTypographyVariants } from './Typography.eland';
+import {
+  isNamedTone,
+  resolveToneColor,
+  type TypographyTone,
+  typographyTones,
+} from './Typography.tone';
 
 export { elandTypographyVariants };
+
+export type { TypographyTone } from './Typography.tone';
 
 export const figmaTypographyVariants = {
   heading1: {
@@ -569,22 +577,6 @@ export const figmaTypographyVariants = {
   },
 } as const;
 
-const typographyTones = {
-  accent: { color: 'accent' },
-  error: { color: 'error' },
-  inherit: { color: 'inherit' },
-  primary: { color: 'var(--color-text-primary)' },
-  inverse: { color: 'var(--color-text-inverse)' },
-  brand: { color: 'var(--color-text-brand)' },
-  subtle: { color: 'var(--color-text-subtle)' },
-  disabled: { color: 'var(--color-text-disabled)' },
-  tertiary: { color: 'var(--color-text-tertiary)' },
-  black40: { color: 'var(--color-black-40)' },
-  black20: { color: 'var(--color-black-20)' },
-  black10: { color: 'var(--color-black-10)' },
-  red80: { color: 'var(--color-red-80)' },
-} as const;
-
 const typographyTone = cva({ variants: { tone: typographyTones } });
 
 const typography = cva({
@@ -635,6 +627,17 @@ const typography = cva({
         fontWeight: 'inherit',
         _mobile: { fontWeight: 'inherit' },
       },
+      '400-500': { fontWeight: 'normal', _mobile: { fontWeight: 'medium' } },
+      '500-400': { fontWeight: 'medium', _mobile: { fontWeight: 'normal' } },
+      '500-600': { fontWeight: 'medium', _mobile: { fontWeight: 'semibold' } },
+      '500-700': { fontWeight: 'medium', _mobile: { fontWeight: 'bold' } },
+      '600-500': { fontWeight: 'semibold', _mobile: { fontWeight: 'medium' } },
+      '700-400': { fontWeight: 'bold', _mobile: { fontWeight: 'normal' } },
+      '700-500': { fontWeight: 'bold', _mobile: { fontWeight: 'medium' } },
+      '700-600': { fontWeight: 'bold', _mobile: { fontWeight: 'semibold' } },
+      '900-500': { fontWeight: 'black', _mobile: { fontWeight: 'medium' } },
+      '900-600': { fontWeight: 'black', _mobile: { fontWeight: 'semibold' } },
+      '900-700': { fontWeight: 'black', _mobile: { fontWeight: 'bold' } },
     },
     script: {
       en: { fontFamily: 'hoka', letterSpacing: '0' },
@@ -671,7 +674,7 @@ export type TypographyVariant =
   | 'textLink3'
   | keyof typeof elandTypographyVariants;
 
-export type TypographyTone = NonNullable<Parameters<typeof typography>[0]>['tone'];
+export type TypographyWeight = NonNullable<NonNullable<Parameters<typeof typography>[0]>['weight']>;
 
 export type TypographyProps<T extends ElementType = 'span'> = Omit<
   ComponentPropsWithoutRef<T>,
@@ -690,7 +693,8 @@ export type TypographyProps<T extends ElementType = 'span'> = Omit<
   mo?: TypographyVariant;
   /** Defaults to auto: Hangul selects KR for paired variants; other semantic variants stay unchanged. */
   language?: 'auto' | 'en' | 'ko';
-  weight?: 'regular' | 'medium' | 'semibold' | 'bold' | 'black' | 'inherit';
+  /** PC-MO 숫자 조합(예: 500-400)을 지원하며 생략/undefined이면 선택한 variant의 기존 굵기를 따릅니다. */
+  weight?: TypographyWeight;
 };
 
 function containsHangul(children: ReactNode): boolean {
@@ -709,9 +713,8 @@ function resolveLanguageVariant(
 ): TypographyVariant | undefined {
   if (!variant || !language) return variant;
 
-  const pair = /^(heading|body|caption|cta|textLink)(?:Kr)?(\d+(?:-\d+)?B?)(Medium|Semibold)?$/.exec(
-    variant,
-  );
+  const pair =
+    /^(heading|body|caption|cta|textLink)(?:Kr)?(\d+(?:-\d+)?B?)(Medium|Semibold)?$/.exec(variant);
   if (!pair) return variant;
 
   const korean = language === 'ko' || (language === 'auto' && containsHangul(children));
@@ -725,13 +728,14 @@ export function Typography<T extends ElementType = 'span'>({
   as,
   children,
   className,
+  style,
   tone,
   srOnly = false,
   variant,
   web,
   mo,
   language = 'auto',
-  weight,
+  weight = undefined,
   ...props
 }: TypographyProps<T>) {
   const Element = as ?? 'span';
@@ -740,18 +744,21 @@ export function Typography<T extends ElementType = 'span'>({
   const resolvedVariant = resolveLanguageVariant(selectedVariant, language, children);
   const resolvedTone = tone ?? (selectedVariant ? 'inherit' : undefined);
 
+  const namedTone = resolvedTone && isNamedTone(resolvedTone) ? resolvedTone : undefined;
+
   return (
     <Element
       {...props}
+      style={tone && !namedTone ? { color: resolveToneColor(tone), ...style } : style}
       className={cx(
         selectedVariant
           ? typography({
-              tone: resolvedTone,
+              tone: namedTone,
               variant: resolvedVariant,
               weight,
             })
-          : tone
-            ? typographyTone({ tone })
+          : namedTone
+            ? typographyTone({ tone: namedTone })
             : undefined,
         srOnly && css({ srOnly: true }),
         className,

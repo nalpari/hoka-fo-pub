@@ -12,6 +12,16 @@ export const rewardPreview = {
   },
 } as const;
 
+export type MembershipBenefitsDisplay = {
+  tiers: readonly {
+    name: string;
+    initial: string;
+    requirement: string;
+    benefits: readonly { title: string }[];
+  }[];
+  commonBenefits: readonly { title: string; description: string }[];
+};
+
 export const tiers = [
   {
     name: 'ELITE',
@@ -42,7 +52,7 @@ export const tiers = [
         detail: '',
       },
       {
-        title: '무료 반품 쿠폰 3장(*연 3회 지급)',
+        title: '무료 반품 쿠폰 1장 (*연 1회 지급)',
         detail: '',
       },
     ],
@@ -61,3 +71,5 @@ export const commonBenefits = [
   { title: '생일 축하 1만원 쿠폰', description: '매달 고객 별 생일 자동 발급, 유효 기간 6개월' },
   { title: '카카오 플러스 친구 추가 시 5,000원 쿠폰', description: '유효 기간 6개월' },
 ] as const;
+
+export const membershipBenefitsPreview: MembershipBenefitsDisplay = { tiers, commonBenefits };

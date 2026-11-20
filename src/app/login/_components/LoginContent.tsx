@@ -73,7 +73,7 @@ function LoginForm({ showErrors = false, showHelp = false }: LoginFormProps) {
               />
             </HStack>
             <ButtonLink variant="link" size="md" href="/login/find-account">
-              <Typography as="span" variant="body4">
+              <Typography as="span" variant="body4" weight="medium">
                 아이디/비밀번호 찾기
               </Typography>
             </ButtonLink>
@@ -133,7 +133,7 @@ export function LoginContent({ showErrors = false, showHelp = false }: LoginForm
             aria-labelledby="membership-title"
           >
             <Stack gap="2">
-<Typography as="h2" variant="body3Medium" id="membership-title">
+              <Typography as="h2" web="body2" mo="body2-2" weight="bold" id="membership-title">
                 가입과 동시에 시작되는 혜택!
               </Typography>
               <Typography as="p" variant="body4">

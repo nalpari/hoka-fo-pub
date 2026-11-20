@@ -492,6 +492,11 @@ const connections: Record<number, ScreenConnection> = {
     sourceFiles: ['src/app/support/store/page.tsx'],
   },
   '213': {
+    defaultStateLabel: '현재 로그인 상태',
+    previewRoutes: [
+      { label: '로그인 전', href: '/support/member-benefits?preview=logged-out' },
+      { label: '로그인 후', href: '/support/member-benefits?preview=logged-in' },
+    ],
     route: '/support/member-benefits',
     sourceFiles: ['src/app/support/member-benefits/page.tsx'],
   },

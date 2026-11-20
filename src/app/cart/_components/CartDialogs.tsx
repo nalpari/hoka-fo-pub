@@ -5,7 +5,10 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { usePlatform } from '@/context/platform';
 
+import { css, cx } from 'styled-system/css';
+
 import { Radio } from '@/components/common/atoms/Radio';
+import { Typography } from '@/components/common/atoms/Typography';
 
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 import { modalProductOptionRecipe } from '@/components/common/layouts/ModalDialog.recipe';
@@ -76,7 +79,15 @@ function CartOptionsDialog({
       }}
     >
       <div className={optionStyles.root} data-product-type={optionType}>
-        <h3 className={optionStyles.productName}>{product.name}</h3>
+        <Typography
+          as="h3"
+          web="body3"
+          mo="body4"
+          weight="700-500"
+          className={cx(optionStyles.productName, css({ letterSpacing: '-0.02em' }))}
+        >
+          {product.name}
+        </Typography>
         <div className={optionStyles.options}>
           {optionType === 'shoes' && (
             <Radio

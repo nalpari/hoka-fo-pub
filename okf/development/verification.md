@@ -868,3 +868,5 @@ node --test tests/empty-state-types.test.mjs tests/modal-dialog-types.test.mjs�
 ## 빈 안내와 더보기 공통 규칙 검사 (2026-11-18)
 
 EmptyState 모바일 제목 기대값을20px·bold로 갱신한 기존 타입·recipe 검사2개가 통과했다. notices table compound와 모바일200px 예외, 쿠폰0건 건수 숨김 및 더보기 미연결 disabled 제거는 해당 수정 시 파일 lint를 실행했다. 공지사항 PC220px/MO120px 실측은200px 예외 적용 전 기록이며 최신200px 예외는 recipe 검사와 lint로 확인했다. 러닝세션 탭 문구와 더보기 정상 상태·숫자 상속은 브라우저로 확인했다. 전체 빌드는 이번 커밋에서 실행하지 않았다. 출처: 현재 대화의 실제 검사 결과·tests/empty-state-types.test.mjs와 관련 작업 트리.
+
+- Badge의 외형과 기본값, 반응형 글자 크기, 복수 라벨 구분선은 `node --test tests/form-controls.test.mjs`로 확인한다. 2026-11-19 배지 정리에서 전체 48개가 통과했다.

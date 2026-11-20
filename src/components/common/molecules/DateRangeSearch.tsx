@@ -55,7 +55,7 @@ const styles = {
   tab: css({
     px: '16px!',
     h: '37px!',
-    '& span': { fontSize: '14px!', fontWeight: '400', lineHeight: '1.3' },
+    '&&& span': { fontSize: '14px!', fontWeight: '400', lineHeight: '1.3' },
   }),
   calendarIcon: css({
     position: 'absolute',

@@ -34,7 +34,7 @@ const couponDetailNumber = css({
 });
 
 const couponDetailStyles = {
-  period: css({ color: '#040404' }),
+  period: css({ color: '#040404', '&&&': { fontWeight: '500' } }),
   term: css({
     flexShrink: '0',
     lineHeight: '1.5',
@@ -226,7 +226,7 @@ function CouponCard({ coupon, onDetails }: CouponCardProps) {
             onClick={() => onDetails(coupon)}
             className={couponStyles.detailsButton}
           >
-            <Typography variant="cta3" weight="regular" className={couponStyles.linkText}>
+            <Typography variant="cta3" weight="medium" className={couponStyles.linkText}>
               상세보기
             </Typography>
           </Button>

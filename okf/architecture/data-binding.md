@@ -4,11 +4,12 @@ title: '화면 데이터와 서비스 연결 계약'
 description: '퍼블리싱 화면에 실제 조회 결과와 비동기 요청을 연결하는 지점을 설명한다.'
 tags: [frontend, binding, state, forms]
 status: draft
-updated: '2026-11-05T06:21:48Z'
+updated: '2026-11-19T04:55:40.892025+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-10-30T08:34:43.457833+00:00'
 working_tree_sources:
+  - src/components/membership/MembershipRewards.tsx
   - src/app/mypage/profile/_components/ProfileContent.tsx
   - src/app/mypage/profile/_components/ProfileStatePreview.tsx
   - src/app/mypage/profile/mypage-profile.types.ts
@@ -17,7 +18,7 @@ working_tree_sources:
   - src/stories/features/mypage/MyPage.Profile.Binding.stories.tsx
   - src/app/mypage/rewards/page.tsx
   - src/app/mypage/rewards/_components/RewardsContent.tsx
-  - src/app/mypage/rewards/rewards-data.ts
+  - src/components/membership/rewards-data.ts
   - src/stories/features/mypage/MyPage.Rewards.Web.stories.tsx
   - src/app/screen-index/screenConnections.ts
   - src/data/screenRegistry.ts
@@ -251,3 +252,5 @@ ProfileStatePreview의 기본정보는 표시 fixture이며 저장·탈퇴·인�
 ## 주문 화면 표시 컴포넌트 경로 (2026-11-03)
 
 주문 화면의 고정 표시와 최소 로컬 탐색은 `src/app/mypage/orders/_components/OrdersPage.tsx`가 소유하고, 표시 영역은 같은 폴더의 목록·상태·상품·상세·배송추적 컴포넌트로 나뉜다. 주문 fixture와 정책 모듈은 `src/components/orders`에 유지한다. 실제 데이터·요청 계약은 이번 화면 파일 정리 범위에 포함하지 않는다.
+
+2026-11-19 경로 갱신: 회원등급 데이터와 본문을 membership 도메인으로 옮겨 고객센터·마이페이지가 같은 `MembershipRewards`를 사용한다. summary/benefits 현재 표시 props와 showSummary(기본 true)를 사용하며 실제 조회는 미연결이다. 기존 감사의 출처 커밋은 유지하고 현재 작업 파일 링크만 갱신했다. 출처: `src/components/membership/MembershipRewards.tsx`, `src/components/membership/rewards-data.ts` 작업 트리. 상세 검증은 [공유 본문 기록](support-design.md#온라인-회원등급-안내와-공유-본문-2026-11-19)을 따른다.

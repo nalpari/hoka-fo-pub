@@ -81,7 +81,7 @@ type ProductGenderProps = {
 /** 상품 성별 정보를 표시합니다. (Displays a product's gender label.) */
 function ProductGender({ gender, variant = 'listing' }: ProductGenderProps) {
   return (
-    <Typography className={genderLabel({ variant })} variant="body3">
+    <Typography data-product-gender className={genderLabel({ variant })} variant="body3">
       {gender}
     </Typography>
   );
@@ -108,6 +108,7 @@ function ProductName({ name, variant = 'listing' }: ProductNameProps) {
       as="p"
       className={productName}
       data-product-card-variant={variant}
+      data-product-name
       language={variant === 'history' && platform === 'web' ? 'ko' : 'auto'}
       variant={variant === 'history' ? 'body4' : 'bodyKr3'}
       mo={variant === 'history' ? 'body4' : 'bodyKr4'}
@@ -238,10 +239,13 @@ export function ProductIdentity({
         <VStack alignItems="start" gap="2">
           {promotion && (
             <Badge
+              variant="plain"
               weight="medium"
-              promotion={promotion}
-              promotionTone={promotionTone === 'error' ? 'red80' : 'brand'}
-            />
+
+              tone={promotionTone === 'error' ? 'red80' : 'brand'}
+            >
+              {promotion}
+            </Badge>
           )}
           <HStack gap="2" color="black.60" flexWrap="wrap">
             {gender && (
@@ -307,10 +311,13 @@ export function ProductIdentity({
     >
       {promotion && (
         <Badge
+          variant="plain"
           data-product-promotion
-          promotion={promotion}
-          promotionTone={promotionTone === 'error' || variant === 'listing' ? 'red80' : 'brand'}
-        />
+
+          tone={promotionTone === 'error' || variant === 'listing' ? 'red80' : 'brand'}
+        >
+          {promotion}
+        </Badge>
       )}
       {orderDate && (
         <HStack gap="0.5">
@@ -718,6 +725,11 @@ const root = cva({
     _mobile: { gap: '2.5' },
   },
   variants: {
+    identityMedium: {
+      true: { '&& [data-product-name], && [data-product-gender]': { fontWeight: 'medium' } },
+    },
+    promotionMedium: { true: { '&& [data-product-promotion] > span': { fontWeight: 'medium' } } },
+    cartMedium: { true: { '&& [data-product-cart-label]': { fontWeight: 'medium' } } },
     variant: {
       listing: {
         _mobile: mobileTilePrice,
@@ -733,7 +745,12 @@ const root = cva({
       },
     },
   },
-  defaultVariants: { variant: 'listing' },
+  defaultVariants: {
+    variant: 'listing',
+    identityMedium: false,
+    promotionMedium: false,
+    cartMedium: false,
+  },
 });
 
 const action = css({
@@ -772,6 +789,8 @@ const activityLabel = (use: Product['use']) => {
 export type ProductCardOption = 'promotion' | 'like' | 'colors' | 'specifications' | 'cart';
 
 export type ProductCardProps = {
+  /** 생략 또는 undefined이면 기존 굵기를 유지하며 지정한 표시 부위에만 Medium을 적용합니다. */
+  textWeights?: { identity?: 'medium'; promotion?: 'medium'; cart?: 'medium' };
   promotionTone?: 'brand' | 'error';
   discountLabel?: string;
   soldOut?: boolean;
@@ -807,6 +826,7 @@ export function ProductCard({
   product,
   variant = 'listing',
   thumbnailVariant,
+  textWeights = {},
 }: ProductCardProps) {
   const [internalLiked, setInternalLiked] = useState(false);
   const [previewOpen, setPreviewOpen] = useState(false);
@@ -823,7 +843,12 @@ export function ProductCard({
   const showColorPreview = platform === 'web' && canSelectColor && previewOpen;
   return (
     <Card
-      className={root({ variant })}
+      className={root({
+        variant,
+        identityMedium: textWeights.identity === 'medium',
+        promotionMedium: textWeights.promotion === 'medium',
+        cartMedium: textWeights.cart === 'medium',
+      })}
       data-color-preview-open={showColorPreview ? '' : undefined}
       onPointerEnter={(event) => {
         if (event.pointerType === 'mouse') setPreviewOpen(true);
@@ -936,7 +961,7 @@ export function ProductCard({
             iconSize={16}
             onClick={onAddToCart}
           >
-            <Typography web="bodyKr4" mo="bodyKr5" tone="primary">
+            <Typography data-product-cart-label web="bodyKr4" mo="bodyKr5" tone="primary">
               장바구니 담기
             </Typography>
           </Button>

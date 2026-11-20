@@ -27,7 +27,7 @@ export default function Page() {
           <Icon name="join-check" size="48px" />
         </Center>
         <VStack gap="4">
-          <Typography as="p" variant="body2">
+          <Typography as="p" variant="body2" weight="medium">
             가입이 성공적으로 이루어졌습니다!
           </Typography>
           <Typography as="p" variant="body4">

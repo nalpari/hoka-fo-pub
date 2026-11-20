@@ -412,7 +412,6 @@ export const modalProductOptionRecipe = sva({
       fontFamily: 'hoka',
       fontSize: '16px',
       lineHeight: '1.5',
-      fontWeight: '500',
       letterSpacing: '-0.02em',
       _mobile: { fontSize: '14px' },
     },
@@ -998,7 +997,8 @@ export const modalDialogRecipe = sva({
         content: { p: '0px 32px 24px', _mobile: { p: '0px 16px 32px' } },
       },
       sizeGuide: {
-        popup: { maxW: '768px' },
+        popup: { maxW: 'var(--modal-size-guide-width, 768px)' },
+        title: { fontWeight: '900', lineHeight: '1.2', _mobile: { fontWeight: '700' } },
         content: { p: '24px 32px 40px', overflowX: 'auto', _mobile: { p: '24px 16px 32px' } },
       },
     },

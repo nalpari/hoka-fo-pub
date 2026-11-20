@@ -7,7 +7,6 @@ import { Box, Stack, VStack } from 'styled-system/jsx';
 
 import { Badge } from '@/components/common/atoms/Badge';
 import { Button } from '@/components/common/atoms/Button';
-import { dataListRecipe } from '@/components/common/atoms/DataList.recipe';
 import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { Typography } from '@/components/common/atoms/Typography';
 
@@ -40,9 +39,8 @@ export function AddressList({
       <ContentSection
         flex={!embedded && !addresses.length ? '1' : undefined}
         css={embedded ? undefined : { '--line-heights-body': '1.5' }}
-        gap={addresses.length ? (embedded ? '8' : '8px') : '0'}
+        gap={addresses.length ? '32px' : '0'}
         _mobile={{
-          gap: addresses.length ? (embedded ? '6' : '8px') : '0',
           pt: embedded ? '0' : '24px',
         }}
         {...(embedded
@@ -73,15 +71,7 @@ export function AddressList({
       >
         {addresses.length ? (
           <Box>
-            <Stack
-              gap="0"
-              className={
-                dataListRecipe({
-                  top: embedded ? 'strong' : 'unchanged',
-                  columnGap: 'addressActions',
-                }).root
-              }
-            >
+            <Stack gap="24px">
               {addresses.map((address) => (
                 <Stack
                   as="article"
@@ -90,8 +80,9 @@ export function AddressList({
                   direction="row"
                   alignItems="center"
                   justifyContent="space-between"
-                  rowGap="24px"
-                  py="24px"
+                  gap="6"
+                  pb="24px"
+                  borderBottom="1px solid var(--colors-black-20)"
                   _mobile={{
                     flexDirection: 'column',
                     alignItems: 'stretch',
@@ -113,26 +104,9 @@ export function AddressList({
                       gap="3"
                       _mobile={{ gap: '2' }}
                       action={
-                        address.isDefault || !embedded ? (
-                          <Badge
-                            variant="line"
-                            tone="primary"
-                            className={css({
-                              borderRadius: '2px',
-                              h: embedded ? '29px' : undefined,
-                              minH: embedded ? '0' : undefined,
-                              px: '1',
-                              py: '3px',
-                              '& > span': {
-                                fontSize: '14px',
-                                lineHeight: embedded ? '1.5!' : '1.3!',
-                                _mobile: { fontSize: '12px' },
-                              },
-                            })}
-                          >
-                            {address.isDefault ? '기본 배송지' : '일반 배송지'}
-                          </Badge>
-                        ) : null
+                        <Badge variant="outlined" visual="square">
+                          {address.isDefault ? '기본 배송지' : '일반 배송지'}
+                        </Badge>
                       }
                     />
                     <Stack

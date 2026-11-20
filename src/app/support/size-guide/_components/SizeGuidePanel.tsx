@@ -82,7 +82,6 @@ function SizeGuideChoiceGroup<T extends string>({
   onValueChange: (value: T) => void;
   compact?: boolean;
 }) {
-  const platform = usePlatform();
   const grouped = !compact;
   const choices = (
     <SegmentedControl
@@ -111,12 +110,8 @@ function SizeGuideChoiceGroup<T extends string>({
           grouped,
         })
       }
-      itemRender={({ label, value: optionValue }) => (
-        <Typography
-          as="button"
-          variant={compact ? 'body3' : 'body4'}
-          weight={grouped && optionValue === value ? 'semibold' : 'regular'}
-        >
+      itemRender={({ label }) => (
+        <Typography as="button" variant={compact ? 'body3' : 'body4'} weight="medium">
           {label}
         </Typography>
       )}
@@ -127,7 +122,7 @@ function SizeGuideChoiceGroup<T extends string>({
 
   return (
     <Stack gap="4">
-      <Typography web="heading8" mo="heading6" weight={platform === 'mobile' ? 'bold' : 'black'}>
+      <Typography web="heading8" mo="heading6" weight="900-700">
         {label}
       </Typography>
       {choices}
@@ -163,7 +158,6 @@ function SizeGuideMeasurementMethod({
   steps,
   description,
 }: SizeGuideMeasurementMethodProps) {
-  const platform = usePlatform();
   return (
     <ContentSection
       as="div"
@@ -173,7 +167,7 @@ function SizeGuideMeasurementMethod({
         titleProps: {
           web: 'heading8',
           mo: 'heading6',
-          weight: platform === 'mobile' ? 'bold' : 'black',
+          weight: '900-700',
           className: css({ pl: { base: '2', _mobile: '0' } }),
         },
       }}
@@ -276,7 +270,6 @@ type SizeGuideChartProps = {
 };
 
 function SizeGuideChart({ category, gender, unit, onUnitChange }: SizeGuideChartProps) {
-  const platform = usePlatform();
   const chart = category.charts[gender]?.[unit];
   const shoes = category.value === 'shoes';
   const genderLabel = genderOptions.find((item) => item.value === gender)?.label;
@@ -291,7 +284,7 @@ function SizeGuideChart({ category, gender, unit, onUnitChange }: SizeGuideChart
         titleProps: {
           web: 'heading8',
           mo: 'heading6',
-          weight: platform === 'mobile' ? 'bold' : 'black',
+          weight: 'black',
         },
         orientation: 'horizontal',
         gap: '3',
@@ -312,7 +305,13 @@ function SizeGuideChart({ category, gender, unit, onUnitChange }: SizeGuideChart
           <thead>
             <tr>
               {chart.headers.map((label, index) => (
-                <th key={index} scope="col">
+                <th
+                  key={index}
+                  scope="col"
+                  className={
+                    index === 1 && shoes ? css({ '&&&': { fontWeight: 'medium' } }) : undefined
+                  }
+                >
                   {label}
                 </th>
               ))}

@@ -21,6 +21,7 @@ import {
   useState,
 } from 'react';
 import { type Platform, PlatformProvider, usePlatform } from '@/context/platform';
+import { ShopPreviewContext } from '@/context/ShopPreviewContext';
 import { useRecentSearches } from '@/hooks/useRecentSearches';
 import { useScrollPin } from '@/lib/useScrollPin';
 
@@ -355,13 +356,6 @@ function MenuDrawerShoppingLinks({
       label: menu.label,
       menu,
     })),
-    {
-      type: 'link',
-      id: 'launch-calendar',
-      label: '런칭캘린더',
-      href: '/launch-calendar',
-      showChevron: true,
-    },
   ];
   return (
     <nav aria-label="쇼핑 메뉴">
@@ -853,8 +847,12 @@ const FooterLegalLinksStyles = {
     alignItems: 'baseline',
     gap: '4',
   }),
-  privacy: css({ fontWeight: 'bold' }),
-  businessLink: css({ textDecoration: 'underline', textUnderlineOffset: '4px' }),
+  privacy: css({ fontWeight: 'medium' }),
+  businessLink: css({
+    fontWeight: 'medium',
+    textDecoration: 'underline',
+    textUnderlineOffset: '4px',
+  }),
 };
 /** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 공통 셸 연결 소유자가 표시 모델과 식별자·입력/선택 payload, 요청 중/실패/성공/재시도 및 응답 갱신을 별도로 구현해야 합니다. */
 function FooterLegalLinks() {
@@ -866,7 +864,7 @@ function FooterLegalLinks() {
       aria-label="사업자 정보"
       gap={platform === 'mobile' ? '5' : '22px'}
     >
-      <Typography as="h3" web="body3" mo="body4" tone="inverse">
+      <Typography as="h3" web="body3" mo="body4" weight="bold" tone="inverse">
         ㈜ 이랜드글로벌스포츠
       </Typography>
       <Stack gap={platform === 'mobile' ? '12px' : '18px'} className={FooterLegalLinksStyles.meta}>
@@ -1002,6 +1000,7 @@ function FooterNavigationWeb() {
           <Typography
             as="h3"
             variant="heading10"
+            weight="medium"
             tone="inverse"
             className={FooterNavigationWebStyles.title}
           >
@@ -2317,11 +2316,21 @@ function HeaderTools({
         error={searchError}
         open={searchOpen}
       />
-      <HStack data-search-panel-anchor gap={platform === 'mobile' ? '6px' : '4px'}>
-        <HeaderAccount isLoggedIn={isLoggedIn} wishlistCount={wishlistCount} />
+      <HStack data-search-panel-anchor gap={platform === 'mobile' ? '6px' : '16px'}>
+        <HStack gap="4px">
+          <HeaderAccount isLoggedIn={isLoggedIn} wishlistCount={wishlistCount} />
+          {platform === 'web' ? (
+            isLoggedIn ? (
+              <Link href="/mypage" className={authLink}>
+                <Typography variant="body3">마이페이지</Typography>
+              </Link>
+            ) : (
+              <HeaderAuthLink />
+            )
+          ) : null}
+        </HStack>
         <HeaderCartLink cart={cart} />
       </HStack>
-      {platform === 'web' && !isLoggedIn ? <HeaderAuthLink /> : null}
     </Flex>
   );
 }
@@ -2429,7 +2438,6 @@ const megaNavigationStyles = {
 };
 type HeaderMegaMenuNavigationProps = {
   activeMenu: MegaMenu['id'] | null;
-  onMenuClose: () => void;
   onEnterMenu: (id: MegaMenu['id']) => void;
   onEnterPreviousMenu: (id: MegaMenu['id']) => void;
   onMenuOpen: (id: MegaMenu['id']) => void;
@@ -2437,7 +2445,6 @@ type HeaderMegaMenuNavigationProps = {
 };
 function HeaderMegaMenuNavigation({
   activeMenu,
-  onMenuClose,
   onEnterMenu,
   onEnterPreviousMenu,
   onMenuOpen,
@@ -2478,23 +2485,11 @@ function HeaderMegaMenuNavigation({
             onEnterMenu(menu.id);
           }}
         >
-          <Typography variant="body4" className={megaNavigationStyles.itemLabel}>
+          <Typography variant="body4" weight="medium" className={megaNavigationStyles.itemLabel}>
             {menu.label}
           </Typography>
         </Button>
       ))}
-      <Link
-        id="header-launch-calendar"
-        href="/launch-calendar"
-        className={megaNavigationStyles.item({ active: false })}
-        onMouseEnter={onMenuClose}
-        onFocus={onMenuClose}
-        onClick={onMenuClose}
-      >
-        <Typography variant="body4" className={megaNavigationStyles.itemLabel}>
-          런칭캘린더
-        </Typography>
-      </Link>
     </HStack>
   );
 }
@@ -2572,7 +2567,6 @@ function SiteHeaderContainer({
           {platform === 'web' ? (
             <HeaderMegaMenuNavigation
               activeMenu={activeMenu}
-              onMenuClose={onLogoClick}
               onEnterMenu={onEnterMenu}
               onEnterPreviousMenu={onEnterPreviousMenu}
               onMenuOpen={onMenuOpen}
@@ -2721,9 +2715,9 @@ function SiteHeader({
     const previousMenu = megaMenus[menuIndex - 1];
     if (previousMenu) focusMegaMenuItem(previousMenu.id, 'last');
   };
-  const focusLaunchCalendarLink = () => {
-    setActiveMenu(null);
-    document.getElementById('header-launch-calendar')?.focus();
+  const focusLastMegaMenu = () => {
+    const lastMenu = megaMenus.at(-1);
+    if (lastMenu) focusMegaMenuItem(lastMenu.id, 'last');
   };
   const handleMegaMenuFocusBoundary = (menuId: MegaMenu['id'], boundary: 'first' | 'last') => {
     if (boundary === 'first') {
@@ -2738,7 +2732,11 @@ function SiteHeader({
     }
     setActiveMenu(null);
     requestAnimationFrame(() => {
-      document.getElementById('header-launch-calendar')?.focus();
+      document
+        .querySelector<HTMLElement>(
+          '#site-header-tools a[href], #site-header-tools input:not([disabled]), #site-header-tools button:not([disabled])',
+        )
+        ?.focus();
     });
   };
   return (
@@ -2753,7 +2751,7 @@ function SiteHeader({
           activeMenu={activeMenu}
           onEnterMenu={enterMegaMenu}
           onEnterPreviousMenu={enterPreviousMegaMenu}
-          onHeaderToolsEnterPreviousMenu={focusLaunchCalendarLink}
+          onHeaderToolsEnterPreviousMenu={focusLastMegaMenu}
           onLogoClick={closeMegaMenu}
           onMenu={onMenu}
           onMenuOpen={openMegaMenu}
@@ -2806,7 +2804,8 @@ function AppLayout({
   const [menuOpen, setMenuOpen] = useState(false);
   const platform = usePlatform();
   const pathname = usePathname();
-  const searchPage = platform === 'mobile' && pathname === '/search';
+  const searchPage =
+    platform === 'mobile' && (pathname === '/search' || pathname === '/search/preview-no-results');
   if (platform === 'web' && menuOpen) {
     setMenuOpen(false);
   }
@@ -2822,16 +2821,14 @@ function AppLayout({
           },
         })}
       >
-        {!searchPage && (
-          <SiteHeader
-            fixedOnScroll={platform === 'mobile' && pathname === '/products'}
-            cart={cart}
-            onMenu={() => setMenuOpen(true)}
-            isLoggedIn={isLoggedIn}
-            wishlistCount={wishlistCount}
-            recentCount={recentCount}
-          />
-        )}
+        <SiteHeader
+          fixedOnScroll={platform === 'mobile' && pathname === '/products'}
+          cart={cart}
+          onMenu={() => setMenuOpen(true)}
+          isLoggedIn={isLoggedIn}
+          wishlistCount={wishlistCount}
+          recentCount={recentCount}
+        />
         {platform === 'mobile' && menuOpen && (
           <MenuDrawer close={() => setMenuOpen(false)} isLoggedIn={isLoggedIn} />
         )}
@@ -2860,23 +2857,29 @@ export function ShopShell({
   readonly children: ReactNode;
 }) {
   const pathname = usePathname();
+  // [ 개발팀 바인딩 ] 퍼블리싱 로그아웃 확인은 Context를 통해 로그인 표시를 해제하며 고객센터 개인 등급 요약도 같은 상태를 읽습니다. 인증 요청·저장은 없으며 셸 재마운트 시 초기 state를 사용합니다.
+  const [previewLoggedOut, setPreviewLoggedOut] = useState(false);
+
+  const isLoggedIn = !previewLoggedOut && (state?.isLoggedIn ?? false);
 
   if (pathname === '/wh') return children;
 
   return (
-    <PlatformProvider platform={platform}>
-      <ShopFrame>
-        <AppLayout
-          cart={state?.cartCount ?? 12}
-          isLoggedIn={state?.isLoggedIn ?? false}
-          wishlistCount={state?.wishlistCount ?? 3}
-          recentCount={state?.recentCount ?? 7}
-        >
-          {children}
-        </AppLayout>
-        <BackToTop />
-      </ShopFrame>
-    </PlatformProvider>
+    <ShopPreviewContext.Provider value={{ isLoggedIn, logout: () => setPreviewLoggedOut(true) }}>
+      <PlatformProvider platform={platform}>
+        <ShopFrame>
+          <AppLayout
+            cart={state?.cartCount ?? 12}
+            isLoggedIn={isLoggedIn}
+            wishlistCount={state?.wishlistCount ?? 3}
+            recentCount={state?.recentCount ?? 7}
+          >
+            {children}
+          </AppLayout>
+          <BackToTop />
+        </ShopFrame>
+      </PlatformProvider>
+    </ShopPreviewContext.Provider>
   );
 }
 function ShopFrame({ children }: { children: ReactNode }) {
