@@ -56,21 +56,29 @@ type RunningSessionApplyButtonProps = {
   status: RunningSessionSession['status'];
   onApply?: () => void;
   pending?: boolean;
+  registered?: boolean;
 };
-function RunningSessionApplyButton({ status, onApply, pending }: RunningSessionApplyButtonProps) {
+function RunningSessionApplyButton({
+  status,
+  onApply,
+  pending,
+  registered = false,
+}: RunningSessionApplyButtonProps) {
   return (
     <Button
       variant="primary"
       className={applyButton}
-      disabled={pending || status !== 'open'}
+      disabled={registered || pending || status !== 'open'}
       onClick={onApply}
     >
       <Typography variant="eland-event-action">
-        {status === 'closed'
-          ? '모집 마감'
-          : status === 'upcoming'
-            ? '신청이 곧 시작됩니다.'
-            : '신청하기'}
+        {registered
+          ? '신청완료'
+          : status === 'closed'
+            ? '모집 마감'
+            : status === 'upcoming'
+              ? '신청이 곧 시작됩니다.'
+              : '신청하기'}
       </Typography>
     </Button>
   );
@@ -194,6 +202,7 @@ type RunningSessionSessionHeroProps = {
   rows: RunningSessionFact[];
   onApply?: () => void;
   pending?: boolean;
+  registered?: boolean;
 };
 /** 세션 대표 이미지와 일정·신청 정보를 표시합니다. (Displays a session hero image, schedule, and application details.) */
 export function RunningSessionSessionHero({
@@ -201,6 +210,7 @@ export function RunningSessionSessionHero({
   rows,
   onApply,
   pending,
+  registered,
 }: RunningSessionSessionHeroProps) {
   const upcoming = session.status === 'upcoming';
   const mobile = usePlatform() === 'mobile';
@@ -262,7 +272,12 @@ export function RunningSessionSessionHero({
         <RunningSessionFacts variant="hero" rows={rows} />
         <RunningSessionSessionNotes />
         <Box mt="8px" _mobile={{ display: 'none' }}>
-          <RunningSessionApplyButton status={session.status} onApply={onApply} pending={pending} />
+          <RunningSessionApplyButton
+            status={session.status}
+            onApply={onApply}
+            pending={pending}
+            registered={registered}
+          />
         </Box>
       </Stack>
     </Grid>
@@ -443,30 +458,97 @@ export function RunningSessionRecommendations({
     </Box>
   );
 }
+type RunningSessionApplicationState = 'confirm' | 'complete' | 'underage' | 'closed' | 'registered';
+
+type RunningSessionApplicant = {
+  name: string;
+  phone: string;
+};
+
 type RunningSessionApplicationNoticeProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  registered?: boolean;
+  state: Exclude<RunningSessionApplicationState, 'registered'>;
+  applicant: RunningSessionApplicant;
+  session: RunningSessionSession;
 };
-/** 런클럽 신청 안내를 표시합니다. (Displays the run club application notice.) */
+
+/** 신청 확인 정보 또는 고정 결과 안내를 표시합니다. (Displays application confirmation details or a fixed result notice.) */
 export function RunningSessionApplicationNotice({
   open,
   onOpenChange,
-  registered,
+  state,
+  applicant,
+  session,
 }: RunningSessionApplicationNoticeProps) {
+  const close = () => onOpenChange(false);
+  if (state === 'confirm') {
+    return (
+      <ModalDialog
+        variant="selection"
+        open={open}
+        onOpenChange={onOpenChange}
+        title="러닝세션 신청 확인"
+        closeLabel="러닝세션 신청 확인 닫기"
+        actions={{
+          kind: 'confirm',
+          cancelLabel: '취소',
+          confirmLabel: '확인',
+          onCancel: close,
+          onConfirm: () => {
+            /* 신청 저장은 통합 소유자가 연결합니다. */
+          },
+        }}
+      >
+        <Stack gap="24px">
+          <Typography as="h3" variant="body3" weight="bold">
+            신청정보
+          </Typography>
+          <DescriptionList
+            labelWidth="80px"
+            items={[
+              { term: '이름', description: applicant.name },
+              { term: '휴대폰번호', description: applicant.phone },
+              { term: '일시', description: session.schedule },
+              {
+                term: '장소',
+                description: (
+                  <>
+                    {runningSessionVenue}
+                    <br />
+                    {runningSessionAddress}
+                  </>
+                ),
+              },
+            ]}
+          />
+          <Typography as="p" variant="body3">
+            위 정보로 러닝세션을 신청하시겠습니까?
+          </Typography>
+        </Stack>
+      </ModalDialog>
+    );
+  }
+  const complete = state === 'complete';
   return (
     <ModalDialog
       variant="alert"
       open={open}
       onOpenChange={onOpenChange}
-      title="세션 신청 안내"
-      closeLabel="세션 신청 안내 닫기"
-
-      actions={{ kind: 'single', onConfirm: () => onOpenChange(false) }}
-      message={<>{registered ? '세션 신청이 접수되었습니다.' : '신청 기능 준비 중입니다.'}</>}
+      title={complete ? '러닝세션 신청 완료' : '러닝세션 신청 안내'}
+      closeLabel="러닝세션 신청 안내 닫기"
+      actions={{ kind: 'single', onConfirm: close }}
+      message={
+        complete
+          ? '러닝세션 신청이 완료되었습니다.'
+          : state === 'underage'
+            ? '러닝세션은 만 19세 미만의 미성년자는 신청할 수 없습니다.'
+            : '해당 러닝세션은 모집이 마감되어 신청할 수 없습니다.'
+      }
     />
   );
 }
+
 type RunningSessionDetailLayoutProps = {
   hero: ReactNode;
   guide: ReactNode;
@@ -496,31 +578,42 @@ type RunningSessionFixedActionBarProps = {
   status: RunningSessionSession['status'];
   onApply?: () => void;
   pending?: boolean;
+  registered?: boolean;
 };
 /** 런클럽 상세의 고정 액션 영역을 표시합니다. (Displays the fixed run club detail action area.) */
 export function RunningSessionFixedActionBar({
   status,
   onApply,
   pending,
+  registered,
 }: RunningSessionFixedActionBarProps) {
   return (
     <OrderActionBar variant="mobileOnly" as="section" ariaLabel="세션 신청">
-      <RunningSessionApplyButton status={status} onApply={onApply} pending={pending} />
+      <RunningSessionApplyButton
+        status={status}
+        onApply={onApply}
+        pending={pending}
+        registered={registered}
+      />
     </OrderActionBar>
   );
 }
 /** 세션 상세와 고정 신청 안내를 표시합니다. (Displays session details and a fixed application notice.) */
 export function RunningSessionDetailContent({
   previewApplication,
+  applicant = { name: '홍길동', phone: '010-1234-5678' },
 }: {
-  previewApplication?: 'unavailable' | 'complete';
+  previewApplication?: RunningSessionApplicationState | 'unavailable';
+  applicant?: RunningSessionApplicant;
 } = {}) {
   const suppliedSession = useContext(RunningSessionSessionContext);
   const { sessionId } = useParams<{
     sessionId: string;
   }>();
   const platform = usePlatform();
-  const [showApplicationNotice, setShowApplicationNotice] = useState(Boolean(previewApplication));
+  const [showApplicationNotice, setShowApplicationNotice] = useState(
+    Boolean(previewApplication && previewApplication !== 'registered'),
+  );
   const session =
     suppliedSession ??
     runningSessionSessions.find(
@@ -530,6 +623,17 @@ export function RunningSessionDetailContent({
     window.scrollTo(0, 0);
   }, [sessionId]);
   if (!session) return <SystemStatusPage status="not-found" />;
+  // [ 개발팀 바인딩 ] applicant는 고정 preview seed이며 통합 소유자가 현재 회원의 표시 이름·하이픈 전화번호를 전달합니다.
+  // 확인 버튼은 저장 미연결입니다. 실제 신청에는 session.id와 회원 식별자, 요청 pending/실패/재시도 및 성공 후 갱신을 소유자가 연결해야 합니다.
+  // 연령은 판정하지 않습니다. 본문18세/설계 팝업19세 충돌은 설계 확인 대기이며 원문을 유지합니다.
+  const applicationState =
+    previewApplication === 'unavailable' ||
+    !previewApplication ||
+    previewApplication === 'registered'
+      ? 'confirm'
+      : previewApplication;
+  const registered = previewApplication === 'registered';
+  const openApplication = () => setShowApplicationNotice(true);
   const recommendedProducts = products.slice(0, 6);
   const heroRows: readonly RunningSessionFact[] = [
     { label: '일시', value: session.schedule },
@@ -556,7 +660,12 @@ export function RunningSessionDetailContent({
     <RunningSessionDetailLayout
       hero={
         <>
-          <RunningSessionSessionHero session={session} rows={[...heroRows]} />
+          <RunningSessionSessionHero
+            session={session}
+            rows={[...heroRows]}
+            onApply={openApplication}
+            registered={registered}
+          />
         </>
       }
       guide={<RunningSessionSessionGuide session={session} rows={[...guideRows]} />}
@@ -566,10 +675,18 @@ export function RunningSessionDetailContent({
           <RunningSessionRecommendations products={recommendedProducts} platform={platform} />
         </>
       }
-      mobileAction={<RunningSessionFixedActionBar status={session.status} />}
+      mobileAction={
+        <RunningSessionFixedActionBar
+          status={session.status}
+          onApply={openApplication}
+          registered={registered}
+        />
+      }
       applicationNotice={
         <RunningSessionApplicationNotice
-          registered={previewApplication === 'complete'}
+          state={applicationState}
+          applicant={applicant}
+          session={session}
           open={showApplicationNotice}
           onOpenChange={setShowApplicationNotice}
         />

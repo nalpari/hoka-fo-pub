@@ -4,12 +4,13 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-20T06:50:24.928Z'
+updated: '2026-11-20T07:25:49.887764+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/running/running-session/[sessionId]/_components/RunningSessionSessionContent.tsx
   - src/app/cart/_components/CartProductSection.tsx
   - src/app/products/[id]/_components/ProductDetailContent.tsx
   - src/app/products/[id]/productDetailPreviews.ts
@@ -2506,6 +2507,17 @@ LoginContent 제목의 들여쓰기와 약관 페이지 tabs 객체 줄바꿈만
 검증: IA의 발볼1/2/3 링크 및 직접 URL에서 발볼 그룹0/2/3개·사이즈 유지,375px 장바구니의 버튼 순서와 가로 넘침 없음을 확인했다. 작업 트리 출처: src/app/products/[id]/productDetailPreviews.ts, src/app/cart/_components/CartProductSection.tsx.
 
 추가 확인: IA에서 발볼 검색 후 세 링크가 보이며375px의 세 URL도0/2/3개 상태와 가로 넘침 없음을 확인했다. PC 장바구니 버튼 순서도 확인했다. 대상ESLint·전체TypeScript·Panda 생성·screen-files 재생성·Next.js 프로덕션 빌드를 통과했다. 장바구니 스크린샷 캡처는 브라우저 타임아웃으로 확보하지 못했고 DOM·계산 폭으로 확인했다.
+
+## 러닝세션 신청 확인과 제한 안내 상태 (2026-11-20)
+
+기본 상세 신청하기는 공통 selection 모달을 열며 신청자 이름·하이픈 전화번호·현재 세션 일시·장소를 표시한다. 기존 preview-application은 신청 확인, preview-application-complete는 완료 안내로 보정했다. /running/running-session 아래 preview-application-underage·preview-application-closed·preview-application-registered를 추가했다. IA259에 각각 미성년자 신청 제한·모집 마감 신청 안내·신청완료 상세로 연결하며 기존 상세 모집 마감/신청 예정 링크는 유지한다. 신청완료 CTA는 PC/MO 비활성이다.
+
+확인 버튼은 의도적으로 저장 미연결이며 클릭해도 완료 전환·요청·닫기를 실행하지 않는다. 취소·닫기·Escape만 로컬 조작한다. applicant 표시 데이터는 현재 props에서 읽고 기본값은 홍길동/010-1234-5678 preview seed다. 실제 회원·세션 ID, 신청 요청과 pending/실패/재시도/성공 후 갱신은 통합 소유자가 연결한다. 연령은 판정하지 않는다. 사용자 보류 결정에 따라 본문18세 이상·설계 팝업19세 미만 제한의 충돌을 원문대로 남겼다.
+
+검증: PC1920/MO375에서 확인·완료·미성년자·마감·신청완료 직접 상태를 확인했다. 모바일 신청완료는 hydration 후 가로 넘침 없이 비활성 CTA1개를 표시한다. 기본 모바일 신청 버튼→확인 팝업, 확인 클릭 후 팝업 유지, Escape 닫기와 트리거 포커스 복귀를 확인했다. 기존 closed/upcoming 비활성과 IA 링크5개·미성년자 상태명 검색을 확인했다. 확인 팝업 PC/MO 스크린샷으로 긴 주소 줄바꿈·본문 스크롤을 확인했다. 대상 ESLint·TypeScript·Panda·screen-files·Next 프로덕션 빌드(171페이지)를 통과했다.
+
+출처: 사용자 첨부 러닝세션 신청 설계서와 [디자인 파일](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/). 작업 트리: src/app/running/running-session/[sessionId]/_components/RunningSessionSessionContent.tsx, 신규 신청 preview page.tsx3개와 기존 확인 경로, src/app/screen-index/screenConnections.ts. Figma 조회 제한으로 원본 구조·폰트 모드는 재조회하지 않았다. 기존 공통 모달 외형을 재사용했다.
+
 
 ## 장바구니 옵션 표시 보정 (2026-11-20)
 
