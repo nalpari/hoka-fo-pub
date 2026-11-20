@@ -479,7 +479,7 @@ function ClaimSection({ title, children }: { title: string; children: React.Reac
         titleProps: {
           web: 'heading7',
           mo: 'heading6',
-          weight: usePlatform() === 'mobile' ? 'bold' : 'black',
+          weight: '900-700',
         },
         css: css.raw({
           pb: { base: '24px', _mobile: '16px' },
@@ -586,19 +586,14 @@ export function OrderClaimDetail({
           </Box>
         ) : null}
         <HStack gap={mobile ? '4px' : '8px'} flexShrink="0">
-          <Typography
-            web="body3"
-            mo="body4"
-            weight={mobile ? 'regular' : 'medium'}
-            tone={mobile ? 'tertiary' : 'subtle'}
-          >
+          <Typography web="body3" mo="body4" weight="500-400" tone={mobile ? 'tertiary' : 'subtle'}>
             주문번호
           </Typography>
           <Typography
             web="body3"
             mo="body4"
             language={mobile ? 'en' : 'ko'}
-            weight={mobile ? 'regular' : 'medium'}
+            weight="500-400"
             tone={mobile ? 'tertiary' : 'primary'}
           >
             {number}

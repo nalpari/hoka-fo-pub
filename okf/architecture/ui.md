@@ -6121,3 +6121,7 @@ Typography는 기존 PC-MO weight 조합과 TypographyWeight를 보존하고 Typ
 ## 로그인·고객센터 굵기 반영 (2026-11-20)
 
 스테이징된 LoginContent 계정찾기, SupportContacts의 TEL·운영시간·평일, FaqContent 질문, InquiryListContent 상태 배지, OrderProductSummary 구매 문구를 Medium으로 선택한다. FAQ 검색 버튼은 Bold이며 기존 강제 Regular 스타일을 제거한다. SidebarNavigationGroup 항목 타입에 선택적 labelWeight를 추가하되 이번 스테이징에는 실제 메뉴 굵기 연결 구현이 포함되지 않는다. 출처: 위6개 소스의 Git 인덱스. 브라우저 검증은 수행하지 않았다.
+
+## 반응형 굵기와 탭 고정 정책 반영 (2026-11-20)
+
+이번 스테이징은 주문 상세900-700/500-400, 문의 작성 정보/주문상품 상태·공지 제목·관리 안내 Medium, 검색900-500과 푸터 굵기를 반영한다. SupportTabs는 모든 variant/플랫폼에서 선택700·미선택400이며 data-active가 소유한다. Typography 가이드에 미지정·undefined·기존값과 조합 예제를 추가한다. AGENTS와 품질 지침의 탭 고정 규칙을 함께 반영한다. 출처: 이번 커밋의 Git 인덱스. 과거 font-weight-modes의 검증은 작성 당시 이력이며 이번 커밋에서 브라우저 검증을 재수행한 것은 아니다.

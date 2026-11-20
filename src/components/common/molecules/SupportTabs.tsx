@@ -14,6 +14,7 @@ const list = css.raw({
   display: 'flex',
   w: '100%',
   borderBottom: '1px solid token(colors.black.40)',
+  '& [role=tab], & [role=tab] span': { fontWeight: '400' },
   '& [role=tab][data-active], & [role=tab][data-active] span': { fontWeight: '700' },
 });
 
@@ -129,7 +130,6 @@ export function SupportTabs({ syncQuery = false, ...props }: SupportTabsProps) {
                       px: '3.5',
                       '&[data-active]': {
                         borderBottomColor: 'var(--color-black-100)',
-                        fontWeight: '700',
                       },
                     })
                   : css(
@@ -154,14 +154,7 @@ export function SupportTabs({ syncQuery = false, ...props }: SupportTabsProps) {
               <Typography
                 web={variant === 'guide' ? 'body4' : 'body3'}
                 mo={variant === 'guide' ? 'body4' : 'body3'}
-                weight={
-                  variant === 'guide' ||
-                  variant === 'care' ||
-                  variant === 'shipping-returns' ||
-                  variant === 'terms'
-                    ? 'regular'
-                    : 'medium'
-                }
+                weight="inherit"
               >
                 {label}
               </Typography>

@@ -75,6 +75,7 @@ export function CareContent({ category }: { category: 'shoes' | 'apparel' }) {
                       web="body3"
                       mo="body4"
                       tone="subtle"
+                      weight="500-400"
                       className={styles.overviewText}
                     >
                       <a

@@ -210,3 +210,8 @@ After adding or moving imports, follow the ESLint order: Next.js → external pa
 State which service/demo dependencies were removed, which components/callers were consolidated, what typed display options remain, and which verification commands passed. Do not infer permission for service implementation. Mention only actionable remaining candidates for future extraction.
 
 For an audit-only request, group findings as `immediate improvement`, `extraction candidate`, or `keep`. For every Base UI finding, report the official primitive name, whether the installed version supports it, whether a dependency upgrade is required, and the observed interaction evidence. For Panda and Typography findings, report the recommended primitive/variant, semantic `as` value when relevant, and the responsive behavior that must be retained.
+
+
+## SupportTabs 고정 굵기
+
+**사용자 확정 (2026-11-20):** `SupportTabs`의 탭 라벨은 페이지·variant·PC/MO와 관계없이 선택 시700, 미선택 시400으로 고정한다. 선택 상태는 Base UI의 `data-active`를 따른다. 화면별 labelWeights override와 Figma 숫자·모드로 이 규칙을 바꾸지 않는다. 변경하려면 사용자의 명시적 정책 변경 요청이 필요하다.

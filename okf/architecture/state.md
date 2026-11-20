@@ -855,3 +855,7 @@ CheckoutShipping의 dialog 폼은 기존 ShippingDraft에 addressName을 추가�
 ## 스테이징 굵기 반영 (2026-11-19)
 
 ShopShell의 스테이징 변경은 헤더 메뉴·푸터 제목/사업자명 Medium 표시이며 인증·플랫폼·전환 상태는 유지한다. 출처는 src/context/ShopShell.tsx의 스테이징 내용이다.
+
+## 반응형 굵기와 탭 고정 정책 반영 (2026-11-20)
+
+ShopShell의 스테이징 변경은 푸터 개인정보처리방침·사업자정보 링크 Medium, 사업자명 Bold 표시이며 플랫폼·인증·상태 수명은 유지한다. 출처: src/context/ShopShell.tsx 인덱스.

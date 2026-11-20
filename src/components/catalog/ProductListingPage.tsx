@@ -1082,7 +1082,7 @@ function SearchListingLayout({
       <Typography
         web="heading7"
         mo="body3"
-        weight={platform === 'mobile' ? 'medium' : 'black'}
+        weight="900-500"
         className={css({
           minW: '0',
           overflow: 'hidden',
@@ -1092,18 +1092,8 @@ function SearchListingLayout({
       >
         “{query}”에 대한
       </Typography>
-      <Typography
-        web="heading7"
-        mo="body3"
-        weight={platform === 'mobile' ? 'medium' : 'black'}
-        className={css({ flexShrink: '0' })}
-      >
-        <Typography
-          web="heading7"
-          mo="heading7"
-          language={platform === 'mobile' ? 'en' : 'ko'}
-          weight={platform === 'mobile' ? 'semibold' : 'black'}
-        >
+      <Typography web="heading7" mo="body3" weight="900-500" className={css({ flexShrink: '0' })}>
+        <Typography web="heading7" mo="heading7" weight="900-500">
           {resultCount}
         </Typography>
         개의 검색결과
