@@ -6129,3 +6129,7 @@ Typography는 기존 PC-MO weight 조합과 TypographyWeight를 보존하고 Typ
 ## 상품 카드와 주문 안내 굵기 반영 (2026-11-20)
 
 ProductCard의 cartMedium 선택 옵션과 기본false, 장바구니/주문완료 추천 identity Medium·관심상품 identity/promotion/cart Medium을 연결한다. 주문 상세의 모바일 주문 문구·상태·결제예정금액과 안내를 Medium으로 표시하며 상태는600-500을 사용한다. 고객센터 바로가기 설명은Medium, 사이즈 가이드의 PC 선택값·해당 모바일 공통값과 신발 표 라벨을Medium으로 표시하고 제목900-700을 적용한다. 출처: 이번 커밋의 Git 인덱스. 생략 시 ProductCard의 기존 기본 표시를 유지하며 브라우저 검증은 수행하지 않았다.
+
+## 로그인·약관 포맷 정리 (2026-11-20)
+
+LoginContent 제목의 들여쓰기와 약관 페이지 tabs 객체 줄바꿈만 정리했다. 렌더링·굵기·경로·상태·서비스 계약은 변경하지 않는다. 출처: 두 소스의 스테이징 diff. 동작 변경이 없어 실행 화면 검증은 수행하지 않았다.
