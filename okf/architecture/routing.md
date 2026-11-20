@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-20T06:06:08Z'
+updated: '2026-11-20T06:39:49Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -2480,3 +2480,17 @@ LoginContent 제목의 들여쓰기와 약관 페이지 tabs 객체 줄바꿈만
 실행 검증:1920px에서 임시 표시 데이터1·2·3개 모두328px Grid,4·5개는 약328px 캐러셀을 확인했다. 4개 버튼·Enter로 이전 이동·드래그,4·5개 마지막 카드의 우측 끝 정렬 및 끝 버튼 비활성을 확인했다. 임시 데이터는 복원했다.375px 신발3개·의류4개의1열/48px 간격, 의류3개 탭과 사이즈 본문 제거, PC16px/600/18px 및 MO14px/600/21px·자간 계산값을 확인했다.1024px은 MO,1025·1199px은1200px PC 캔버스,1200px 이상은 세로 스크롤바로 인한 추가 가로 넘침이 없었다. PC/MO 스크린샷으로 카드 배치와 설명을 확인했다.
 
 변경 파일 ESLint·Prettier, 전체 TypeScript·Panda 생성 및 Next.js 프로덕션 빌드를 통과했다. OKF 작업 트리 매핑 검사에서 누락이 없었다. 전체 lint는 범위 밖 `tests/wh-file-summary.test.mjs`의 URL/Request/Response 전역에 대한 기존 no-undef8건으로 실패했다. 후속 탭 굵기 수정 후1920px PC·375px MO에서 리뷰 앵커를 선택해 미선택400·선택600을 계산 스타일로 확인했고 대상 ESLint와 전체 TypeScript도 통과했다. 명시적 고정 플랫폼 검증은 개발서버 reload/HMR 타임아웃으로 완료하지 못했으며 임시 Provider 변경은 원복했다. 서비스 요청·인증·저장·재시도는 이번 표시 배치 변경의 검증 범위가 아니다.
+
+## 상품정보 표시 데이터와 5줄 더보기 (2026-11-20)
+
+이 절은 앞선 모바일 상품정보16px 및 PC 의류 최초 펼침 기록을 대체하는 현행 규칙이다. ProductInformation은 고정 섹션명 '상품 정보'와 Product.detailTitle/detailDescription을 구분한다. 상품 상세 통합 소유자가 현재 상품의 제목·본문을 전달하며, 미제공 제목은 다른 상품 문구로 대체하거나 빈 heading으로 출력하지 않는다. Clifton과 EveryRun fixture에 제공된 시안의 제목을 각각 명시했다. 두 fixture의 제목 문구는 시안에서 동일하지만 화면 공통 하드코딩이 아니다. 실제 API·조회·재시도는 구현하지 않았고 현재 데이터 교체 및 오류 처리는 통합 소유자의 책임이다.
+
+모든 상품은 처음에 최대5줄로 접는다. 첫 본문 p의 scrollHeight와 계산 line-height×5를 비교하고 반올림 오차1px을 허용해 초과 시에만 더 보기/닫기를 표시한다. ResizeObserver는 본문과 기존 내용 Stack을 관찰하고 window resize 및 document.fonts.ready/loadingdone에서도 재측정한다. cleanup으로 observer·이벤트와 늦은 폰트 완료를 해제한다. 펼침 상태는 현재 본문에 연결하므로 본문이 교체되면 접히며, 기존 본문을 그대로 둔 제목 교체는 로컬 펼침을 유지한다. aria-expanded/aria-controls를 유지하고 더보기 없이 전체를 볼 수 있는 짧은 본문에서는 추가 설명도 바로 표시한다. 긴 본문의 추가 설명은 기존처럼 펼쳤을 때 표시한다.
+
+상품정보의 러닝 유형 행은 PC/MO 모두 제거했다. 신발 유형과 추천 활동, 다른 상품의 컬러/스타일코드/발볼은 유지하며 카탈로그의 runningType 데이터와 다른 화면의 분류·용도는 삭제하지 않았다. MO 섹션명22px/900, 타이틀17px/700, 본문16px/400·행간150%, 타이틀→본문20px, 상하 padding40px/좌우16px이다. PC padding32px 32px 40px과 기존 본문16px/150%를 유지한다.
+
+출처는 사용자 요청과 [상품정보 PC/MO 디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)이다. 구조화 데이터에서 PC 타이틀16px/Bold·본문16px/Regular, MO 타이틀17px/Bold·본문16px/Regular·섹션명22px/Black을 확인했다. 작업 트리 출처는 src/app/products/[id]/_components/ProductDetailContent.tsx, src/app/products/[id]/productDetailPreviews.ts 및 src/mocks/products.ts다.
+
+실행 검증:1920px/375px 의류의 최초 본문 높이120px(24px×5), 펼침144px/192px과 닫기를 확인했다. 임시 표시 데이터의4줄96px·5줄120px에는 버튼이 없고6줄은120px으로 접히며 버튼이 표시되는 것을 PC/MO에서 확인했다. 펼친6줄을4줄로 교체하면 버튼이 사라졌고 임시 본문은 복원했다. 별도 타이틀로 교체했을 때 현재 제목이 즉시 반영되고, 제목을 미제공하면 본문은 유지하면서 빈 제목 heading이 생성되지 않는 것을 확인했다. 임시 타이틀도 복원했다. 신발은2560px 본문96px·1920px120px에서 버튼이 없고375px144px 본문은120px으로 접혀 버튼이 표시돼 resize 재측정을 확인했다. 신발 유형/추천 활동 유지·러닝 유형 미표시와 펼친 후 새로운 특징을 확인했다. MO 실제 계산값은 섹션명22px·타이틀17px·본문16px/24px·padding40px 16px이다. 스크린샷 캡처는 개발서버의 미완료 navigation timeout으로 실패하여 시각 캡처 검증 완료로 기록하지 않는다.
+
+검사: 대상3개 소스 ESLint·Prettier, 전체 TypeScript, Panda 생성 및 OKF 작업 트리 관련 문서 매핑 검사를 통과했다. 커밋/푸시는 수행하지 않았다.

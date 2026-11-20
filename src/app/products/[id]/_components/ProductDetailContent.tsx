@@ -1942,42 +1942,75 @@ function ProductVariantSelectors({
     </>
   );
 }
+/** [ 개발팀 바인딩 ] 상품 상세 통합 소유자가 현재 Product.detailTitle/detailDescription을 상품별로 전달합니다. 섹션명은 고정이며 미제공 제목을 다른 상품 문구로 대체하지 않습니다. 현재는 준비된 표시 데이터만 사용하고 조회 API는 없습니다. 늦은 응답·재조회 결과의 교체와 오류/재시도는 통합 소유자가 관리하며, 이 영역은 전달된 현재 본문을 다시 측정하고 본문이 바뀌면 접힌 상태로 표시합니다. */
 type ProductInformationProps = {
   id?: string;
-  title?: string;
   sections: readonly {
-    title: string;
+    title?: string;
     content: ReactNode;
   }[];
-  initiallyExpanded?: boolean;
   specifications: readonly {
     label: string;
     value: ReactNode;
   }[];
 };
+
 const productInformationTitleProps = {
   variant: 'bodyKr3',
   language: 'ko',
   weight: 'bold',
-  className: css({ _mobile: { '&&': { fontSize: '16px' } } }),
+  className: css({ '&&': { _mobile: { fontSize: '17px' } } }),
 } as const;
 
 const productInformationDescriptionProps = {
   variant: 'eland-product-description',
-  className: css({ _mobile: { '&&': { fontSize: '16px', lineHeight: '1.5' } } }),
+  className: css({ '&&': { _mobile: { fontSize: '16px', lineHeight: '1.5' } } }),
 } as const;
 /** 상품 설명 섹션과 규격 정보를 의미 있는 목록으로 표시합니다. (Displays product description sections and specifications as a semantic list.) */
-function ProductInformation({
-  id,
-  title = '상품 정보',
-  sections,
-  specifications,
-  initiallyExpanded = false,
-}: ProductInformationProps) {
+function ProductInformation({ id, sections, specifications }: ProductInformationProps) {
   const [description, ...features] = sections;
-  const [expandedOverride, setExpanded] = useState<boolean | null>(null);
-  const expanded = expandedOverride ?? initiallyExpanded;
+  const [expansion, setExpansion] = useState<{ content: ReactNode; expanded: boolean } | null>(
+    null,
+  );
+  const expanded = expansion?.content === description?.content && expansion?.expanded === true;
+  const [overflows, setOverflows] = useState<boolean | null>(null);
+  const descriptionRoot = useRef<HTMLDivElement>(null);
   const contentId = useId();
+  const descriptionProps = {
+    ...productInformationDescriptionProps,
+    className: [productInformationDescriptionProps.className, !expanded && css({ lineClamp: 5 })]
+      .filter(Boolean)
+      .join(' '),
+  };
+
+  useEffect(() => {
+    const root = descriptionRoot.current;
+    const paragraph = root?.querySelector('p');
+    if (!root || !paragraph || !description?.content) {
+      setOverflows(false);
+      return;
+    }
+    let active = true;
+    const measure = () => {
+      if (!active) return;
+      const lineHeight = Number.parseFloat(getComputedStyle(paragraph).lineHeight);
+      setOverflows(paragraph.scrollHeight > lineHeight * 5 + 1);
+    };
+    const observer = new ResizeObserver(measure);
+    observer.observe(root);
+    observer.observe(paragraph);
+    window.addEventListener('resize', measure);
+    document.fonts.addEventListener('loadingdone', measure);
+    void document.fonts.ready.then(measure);
+    measure();
+    return () => {
+      active = false;
+      observer.disconnect();
+      window.removeEventListener('resize', measure);
+      document.fonts.removeEventListener('loadingdone', measure);
+    };
+  }, [description?.content]);
+
   return (
     <ContentSection
       as="section"
@@ -1986,46 +2019,41 @@ function ProductInformation({
       pt="8"
       pb="10"
       bg="var(--color-black-10)"
-      _mobile={{ px: '4', pb: '8', w: 'calc(100% + 32px)', ml: '-16px' }}
+      _mobile={{ px: '4', py: '10', w: 'calc(100% + 32px)', ml: '-16px' }}
       css={{
         '--product-information-label-width': '80px',
         _mobile: { '--product-information-label-width': '76px' },
       }}
       id={id}
-      title={title}
+      title="상품 정보"
       headerProps={{
         titleAs: 'h2',
         titleProps: {
           variant: 'headingKr8',
           mo: 'headingKr9',
           weight: 'black',
-          className: css({ _mobile: { '&&': { fontSize: '20px' } } }),
+          className: css({ '&&': { _mobile: { fontSize: '22px' } } }),
         },
       }}
     >
       <Stack gap="10">
         <Stack gap="6" _mobile={{ gap: '4' }} alignItems="start">
-          <Stack id={contentId} gap="6" w="100%">
-            {description && (
+          <Stack id={contentId} gap="6" w="100%" ref={descriptionRoot}>
+            {description?.title ? (
               <ContentHeader
                 gap="5"
-                _mobile={{ gap: '3' }}
                 titleAs="h3"
                 title={description.title}
                 titleProps={productInformationTitleProps}
                 description={<>{description.content}</>}
-                descriptionProps={{
-                  ...productInformationDescriptionProps,
-                  className: [
-                    productInformationDescriptionProps.className,
-                    !expanded && css({ lineClamp: 5 }),
-                  ]
-                    .filter(Boolean)
-                    .join(' '),
-                }}
+                descriptionProps={descriptionProps}
               />
-            )}
-            {expanded &&
+            ) : description?.content ? (
+              <Typography as="p" {...descriptionProps}>
+                {description.content}
+              </Typography>
+            ) : null}
+            {(expanded || overflows === false) &&
               features.map((section) => (
                 <ContentHeader
                   gap="5"
@@ -2038,14 +2066,14 @@ function ProductInformation({
                 />
               ))}
           </Stack>
-          {description && (
+          {description && overflows && (
             <Button
               variant="link"
               colorway="black"
               size="md"
               aria-expanded={expanded}
               aria-controls={contentId}
-              onClick={() => setExpanded(!expanded)}
+              onClick={() => setExpansion({ content: description.content, expanded: !expanded })}
             >
               <Typography as="span" variant="bodyKr4" weight="semibold">
                 {expanded ? '닫기' : '더 보기'}
@@ -2232,9 +2260,8 @@ function ProductDetailContent({
       />
       <ProductInformation
         id="product-information"
-        initiallyExpanded={platform === 'web' && apparel}
         sections={[
-          { title: '어떤 날씨에도 쿠션감 있는 편안한 주행', content: product.detailDescription },
+          { title: product.detailTitle, content: product.detailDescription },
           ...(isClifton
             ? [
                 {
@@ -2250,7 +2277,6 @@ function ProductDetailContent({
             ? [
                 { label: '신발 유형', value: '안정화' },
                 { label: '추천 활동', value: '로드 러닝, 워킹, 라이프 스타일' },
-                ...(platform === 'web' ? [{ label: '러닝 유형', value: product.runningType }] : []),
               ]
             : apparel
               ? [{ label: '추천 활동', value: '데일리 러닝, 트레일 러닝' }]
