@@ -356,13 +356,6 @@ function MenuDrawerShoppingLinks({
       label: menu.label,
       menu,
     })),
-    {
-      type: 'link',
-      id: 'launch-calendar',
-      label: '런칭캘린더',
-      href: '/launch-calendar',
-      showChevron: true,
-    },
   ];
   return (
     <nav aria-label="쇼핑 메뉴">
@@ -2445,7 +2438,6 @@ const megaNavigationStyles = {
 };
 type HeaderMegaMenuNavigationProps = {
   activeMenu: MegaMenu['id'] | null;
-  onMenuClose: () => void;
   onEnterMenu: (id: MegaMenu['id']) => void;
   onEnterPreviousMenu: (id: MegaMenu['id']) => void;
   onMenuOpen: (id: MegaMenu['id']) => void;
@@ -2453,7 +2445,6 @@ type HeaderMegaMenuNavigationProps = {
 };
 function HeaderMegaMenuNavigation({
   activeMenu,
-  onMenuClose,
   onEnterMenu,
   onEnterPreviousMenu,
   onMenuOpen,
@@ -2499,18 +2490,6 @@ function HeaderMegaMenuNavigation({
           </Typography>
         </Button>
       ))}
-      <Link
-        id="header-launch-calendar"
-        href="/launch-calendar"
-        className={megaNavigationStyles.item({ active: false })}
-        onMouseEnter={onMenuClose}
-        onFocus={onMenuClose}
-        onClick={onMenuClose}
-      >
-        <Typography variant="body4" weight="medium" className={megaNavigationStyles.itemLabel}>
-          런칭캘린더
-        </Typography>
-      </Link>
     </HStack>
   );
 }
@@ -2588,7 +2567,6 @@ function SiteHeaderContainer({
           {platform === 'web' ? (
             <HeaderMegaMenuNavigation
               activeMenu={activeMenu}
-              onMenuClose={onLogoClick}
               onEnterMenu={onEnterMenu}
               onEnterPreviousMenu={onEnterPreviousMenu}
               onMenuOpen={onMenuOpen}
@@ -2737,9 +2715,9 @@ function SiteHeader({
     const previousMenu = megaMenus[menuIndex - 1];
     if (previousMenu) focusMegaMenuItem(previousMenu.id, 'last');
   };
-  const focusLaunchCalendarLink = () => {
-    setActiveMenu(null);
-    document.getElementById('header-launch-calendar')?.focus();
+  const focusLastMegaMenu = () => {
+    const lastMenu = megaMenus.at(-1);
+    if (lastMenu) focusMegaMenuItem(lastMenu.id, 'last');
   };
   const handleMegaMenuFocusBoundary = (menuId: MegaMenu['id'], boundary: 'first' | 'last') => {
     if (boundary === 'first') {
@@ -2754,7 +2732,11 @@ function SiteHeader({
     }
     setActiveMenu(null);
     requestAnimationFrame(() => {
-      document.getElementById('header-launch-calendar')?.focus();
+      document
+        .querySelector<HTMLElement>(
+          '#site-header-tools a[href], #site-header-tools input:not([disabled]), #site-header-tools button:not([disabled])',
+        )
+        ?.focus();
     });
   };
   return (
@@ -2769,7 +2751,7 @@ function SiteHeader({
           activeMenu={activeMenu}
           onEnterMenu={enterMegaMenu}
           onEnterPreviousMenu={enterPreviousMegaMenu}
-          onHeaderToolsEnterPreviousMenu={focusLaunchCalendarLink}
+          onHeaderToolsEnterPreviousMenu={focusLastMegaMenu}
           onLogoClick={closeMegaMenu}
           onMenu={onMenu}
           onMenuOpen={openMegaMenu}
