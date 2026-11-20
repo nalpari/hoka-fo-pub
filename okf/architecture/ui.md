@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-20T07:25:49.866978+00:00'
+updated: '2026-11-20T07:44:24.775674+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -6203,3 +6203,7 @@ ProductListingContent의 sticky top·maxH가 ContentLayout에서만 제공하는
 사용자 승인된 시각 보정으로 상품명 PC16px/MO14px·500, 색상명14px/400, 발볼 선택400·미선택500으로 맞췄다. 색상과 사이즈 column-gap8px은 유지한다. 컬러 접두어와 표시명 앞 괄호 숫자 코드를 화면에서 생략하며 실제 선택 식별 문자열은 보존한다. 1개 발볼 유지·전체 너비 규칙은 바꾸지 않았다. 원본 굵기 모드는 조회 제한으로 미확인이며 위 값은 시각 비교 후 승인된 보정값이다.
 
 검증: 신발·의류 팝업 PC1920/MO375 실제 계산값에서 상품명16/14px·500, Black 색상명400, 신발 선택Regular400·미선택500 및 두 그리드8px을 확인했다. 의류는 발볼 미표시를 유지했다. 대상 ESLint·TypeScript·Panda·프로덕션 빌드 통과. 인계 점검에서 기존 선택 상태·미연결 저장과 공통 모달 소유권을 유지했다. 작업 트리 출처: src/app/cart/_components/CartDialogs.tsx, src/components/common/layouts/ModalDialog.recipe.tsx.
+
+## 멤버십 쿠폰 지급 주기 문구 수정 (2026-11-20)
+
+공유 표시 데이터 `src/components/membership/rewards-data.ts`에서 ELITE·ATHLETE·RUNNER 할인 쿠폰 지급 주기를 분기별 1회로 수정했다. ELITE 무료 반품 쿠폰 3장과 ATHLETE 2장은 연 1회 지급으로 표시하며 RUNNER 가입 조건은 회원 가입 즉시로 안내한다. 화면 구조와 서비스 계약 변경 없이 공유 등급 안내 문구만 변경한다. 출처: 해당 파일의 작업 트리. 검토: Git diff로 변경 문구 6건을 확인했으며 화면 실행 검증은 수행하지 않았다.
