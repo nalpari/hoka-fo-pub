@@ -28,8 +28,8 @@ export const tiers = [
     initial: 'E',
     requirement: '구매 금액 100만원 이상',
     benefits: [
-      { title: '10% 할인 쿠폰 (*월 1회 지급)', detail: '' },
-      { title: '무료 반품 쿠폰 3장(*연 3회 지급)', detail: '' },
+      { title: '10% 할인 쿠폰 (*분기별 1회 지급)', detail: '' },
+      { title: '무료 반품 쿠폰 3장(*연 1회 지급)', detail: '' },
       { title: '스페셜 래플 응모 기회 제공', detail: '' },
     ],
   },
@@ -38,17 +38,17 @@ export const tiers = [
     initial: 'A',
     requirement: '구매 금액 30만원 이상',
     benefits: [
-      { title: '7% 할인 쿠폰 (*월 1회 지급)', detail: '' },
-      { title: '무료 반품 쿠폰 2장(*연 2회 지급)', detail: '' },
+      { title: '7% 할인 쿠폰 (*분기별 1회 지급)', detail: '' },
+      { title: '무료 반품 쿠폰 2장(*연 1회 지급)', detail: '' },
     ],
   },
   {
     name: 'RUNNER',
     initial: 'R',
-    requirement: '회원 가입 시 기본 설정 등급',
+    requirement: '회원 가입 즉시',
     benefits: [
       {
-        title: '5% 할인 쿠폰 (*월 1회 지급)',
+        title: '5% 할인 쿠폰 (*분기별 1회 지급)',
         detail: '',
       },
       {

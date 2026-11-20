@@ -431,11 +431,12 @@ export const modalProductOptionRecipe = sva({
       letterSpacing: '-0.02em',
       fontWeight: '700',
     },
-    colorName: { fontFamily: 'hoka', fontWeight: '500', letterSpacing: '0' },
+    colorName: { fontFamily: 'hoka', fontWeight: '400', letterSpacing: '0' },
     widths: {
       '&[role="radiogroup"]': {
         display: 'grid',
-        gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
+        gridAutoFlow: 'column',
+        gridAutoColumns: 'minmax(0, 1fr)',
         gap: '0',
         p: '2px',
         h: '48px',
@@ -455,7 +456,7 @@ export const modalProductOptionRecipe = sva({
       fontWeight: '500',
       cursor: 'pointer',
       _mobile: { fontSize: '14px' },
-      '&[data-checked]': { bg: 'black.100', color: 'white.0' },
+      '&[data-checked]': { bg: 'black.100', color: 'white.0', fontWeight: '400' },
       _focusVisible: { outline: '2px solid token(colors.blue.100)', outlineOffset: '2px' },
     },
     colors: {

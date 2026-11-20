@@ -3,6 +3,9 @@ import type { Product } from '@/mocks/products';
 export const productDetailPreviews = [
   { state: 'share', label: '공유하기 팝업' },
   { state: 'apparel', label: '의류 기본' },
+  { state: 'width-single', label: '발볼 1개 · 선택기 숨김' },
+  { state: 'width-double', label: '발볼 2개' },
+  { state: 'width-triple', label: '발볼 3개' },
   { state: 'inquiries-expanded', label: '신발 · 상품문의 펼침' },
   { state: 'sale', label: '할인가' },
   { state: 'partial-stock', label: '일부 사이즈 품절' },
@@ -26,6 +29,26 @@ export function prepareProductDetailPreview(
   product: Product,
   preview?: ProductDetailPreview,
 ): Product {
+  // [ 개발팀 바인딩 ] 발볼 개수별 IA 확인용 fixture입니다. 실제 상품의 옵션을 판정하지 않으며 기본 상세 데이터는 변경하지 않습니다.
+  const widthCount =
+    preview === 'width-single'
+      ? 1
+      : preview === 'width-double'
+        ? 2
+        : preview === 'width-triple'
+          ? 3
+          : 0;
+
+  if (widthCount) {
+    return {
+      ...product,
+      colorOptions: product.colorOptions?.map((option) => ({
+        ...option,
+        widths: option.widths.slice(0, widthCount),
+      })),
+    };
+  }
+
   if (preview === 'apparel') {
     return {
       ...product,
@@ -48,6 +71,7 @@ export function prepareProductDetailPreview(
         { id: 'RED', label: 'Red', image: apparelImage(94653) },
         { id: 'BLU', label: 'Blue', image: apparelImage(94655) },
       ],
+      detailTitle: '어떤 날씨에도 쿠션감 있는 편안한 주행',
       detailDescription:
         '회복 훈련부터 유지 훈련까지, 피부에 직접 닿는 레이어 역할을 하는 EveryRun 긴팔 티셔츠는 일상 훈련에 가장 적합한 아이템으로 빠르게 자리 잡았습니다. 통기성과 땀 흡수 기능이 뛰어난 FlyLite™ 소재로 제작되었으며, 혁신적인 측면 통풍구로 최상의 활동성을 보장합니다. 반사 로고와 세련된 엄지손가락 구멍으로 마무리된 이 긴팔 티셔츠는 처음부터 끝까지 가볍고 쾌적한 착용감을 선사합니다.',
     };

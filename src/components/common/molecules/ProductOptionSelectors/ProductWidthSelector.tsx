@@ -1,58 +1,55 @@
-import { css, cva } from 'styled-system/css';
+import { css } from 'styled-system/css';
 
 import { Radio } from '@/components/common/atoms/Radio';
 import { Typography } from '@/components/common/atoms/Typography';
 
-const root = cva({
-  base: {
-    '&[role="radiogroup"]': {
-      display: 'grid',
-      gridAutoFlow: 'column',
-      gridAutoColumns: 'minmax(0, 1fr)',
-      gap: '0',
-      h: '12',
-      p: '2px',
-      borderRadius: '999px',
-      bg: 'var(--color-black-20)',
-    },
-    '& [role="radio"]': {
-      display: 'grid',
-      minW: '0',
-      h: '100%',
-      placeItems: 'center',
-      borderRadius: '999px',
-      color: 'var(--color-text-primary)',
-      cursor: 'pointer',
-      _focusVisible: { outline: '2px solid var(--color-focus-ring)', outlineOffset: '2px' },
-    },
-    '& [role="radio"][data-checked]': {
-      bg: 'var(--color-black-100)',
-      color: 'var(--color-text-inverse)',
-    },
-    '& [role="radio"][data-unchecked]:not([data-disabled]):hover': {
-      bg: 'var(--color-black-60)',
-      color: 'var(--color-text-inverse)',
-    },
-    '& [role="radio"][data-disabled]': {
-      bg: 'var(--color-black-60)',
-      color: 'var(--color-text-inverse)',
-      cursor: 'not-allowed',
-    },
+const root = css({
+  '&[role="radiogroup"]': {
+    display: 'grid',
+    gridAutoFlow: 'column',
+    gridAutoColumns: 'minmax(0, 1fr)',
+    gap: '0',
+    h: '48px',
+    _mobile: { h: '44px' },
+    p: '2px',
+    borderRadius: '999px',
+    bg: '#E9EAEB',
   },
-  variants: {
-    single: {
-      true: {
-        '&[role="radiogroup"]': { h: '11', p: '0' },
-        '& [role="radio"][data-checked]:not([data-disabled])': {
-          bg: 'transparent',
-          color: 'var(--color-text-primary)',
-        },
-      },
+  '& [role="radio"]': {
+    display: 'grid',
+    minW: '0',
+    h: '100%',
+    placeItems: 'center',
+    borderRadius: '999px',
+    color: 'var(--color-text-primary)',
+    cursor: 'pointer',
+    '& [data-width-label]': {
+      fontFamily: 'hoka',
+      fontSize: '16px',
+      fontWeight: '500',
+      lineHeight: '1.3',
+      _mobile: { fontSize: '14px' },
     },
+    _focusVisible: { outline: '2px solid var(--color-focus-ring)', outlineOffset: '2px' },
+  },
+  '& [role="radio"][data-checked]': {
+    bg: 'var(--color-black-100)',
+    color: 'var(--color-text-inverse)',
+    '& [data-width-label]': { fontWeight: '400' },
+  },
+  '& [role="radio"][data-unchecked]:not([data-disabled]):hover': {
+    bg: 'var(--color-black-60)',
+    color: 'var(--color-text-inverse)',
+  },
+  '& [role="radio"][data-disabled]': {
+    bg: 'var(--color-black-60)',
+    color: 'var(--color-text-inverse)',
+    cursor: 'not-allowed',
   },
 });
 
 export type ProductWidthSelectorProps = {
+  /** Detail controls are hidden for zero or one option; the controlled value is preserved. */
   options: readonly string[];
   appearance?: 'detail' | 'cart';
   value: string;
@@ -105,15 +102,18 @@ export function ProductWidthSelector({
     );
   }
 
+  // [ 개발팀 바인딩 ] 상품 소유자가 전달한 선택지는 변경하지 않습니다. 상세의 단일 옵션은 표시만 생략하며 선택값·사이즈 연결과 변경 콜백은 기존 부모가 유지합니다.
+  if (options.length <= 1) return null;
+
   return (
     <Radio
       ariaLabel="발볼 선택"
-      className={root({ single: options.length === 1 })}
+      className={root}
       disabled={disabled}
       onValueChange={onValueChange}
       options={options.map((option) => ({
         label: (
-<Typography variant="body4Medium" tone="inherit">
+          <Typography data-width-label variant="body4" tone="inherit">
             {option}
           </Typography>
         ),

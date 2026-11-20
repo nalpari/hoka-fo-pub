@@ -697,13 +697,22 @@ const connections: Record<number, ScreenConnection> = {
       { label: '신청 가능', href: '/running/running-session/yeouido-night' },
       { label: '모집 마감', href: '/running/running-session/bukhansan-trail' },
       { label: '신청 예정', href: '/running/running-session/inwangsan-trail' },
-      { label: '신청 안내', href: '/running/running-session/preview-application' },
+      { label: '신청 확인', href: '/running/running-session/preview-application' },
       { label: '신청 완료 안내', href: '/running/running-session/preview-application-complete' },
+      {
+        label: '미성년자 신청 제한',
+        href: '/running/running-session/preview-application-underage',
+      },
+      { label: '모집 마감 신청 안내', href: '/running/running-session/preview-application-closed' },
+      { label: '신청완료 상세', href: '/running/running-session/preview-application-registered' },
     ],
     sourceFiles: [
       'src/app/running/running-session/[sessionId]/page.tsx',
       'src/app/running/running-session/preview-application/page.tsx',
       'src/app/running/running-session/preview-application-complete/page.tsx',
+      'src/app/running/running-session/preview-application-underage/page.tsx',
+      'src/app/running/running-session/preview-application-closed/page.tsx',
+      'src/app/running/running-session/preview-application-registered/page.tsx',
     ],
   },
   '260': {
@@ -962,8 +971,10 @@ const stateModalVariants: Readonly<Record<string, readonly ModalDialogVariant[]>
   // These PDP option sheets open only in the existing mobile presentation.
   '/products/pdp-preview/options-selected': ['selection'],
   '/products/pdp-preview/options-scroll': ['selection'],
-  '/running/running-session/preview-application': ['alert'],
+  '/running/running-session/preview-application': ['selection'],
   '/running/running-session/preview-application-complete': ['alert'],
+  '/running/running-session/preview-application-underage': ['alert'],
+  '/running/running-session/preview-application-closed': ['alert'],
 };
 
 /** 지정 STATE URL에서 처음 열리는 모달 유형을 반환합니다. */

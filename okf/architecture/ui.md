@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-20T04:52:08.516Z'
+updated: '2026-11-20T08:20:24.459192+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -6178,3 +6178,40 @@ ProductListingContent의 sticky top·maxH가 ContentLayout에서만 제공하는
 검증: PC1440px·모바일390px 스크린샷, 모바일 열기·닫기·Escape 및 트리거 포커스 복귀, 실제 복사 성공, 일시적인 브라우저 clipboard 대체를 통한 pending·실패·재시도 성공, 직접 상태 URL·새로고침과 IA 상태명 검색·링크 노출을 확인했습니다. 변경 파일 ESLint, TypeScript, Panda 생성, source graph 생성, Next 프로덕션 빌드 통과. 전체 lint는 비대상 `tests/wh-file-summary.test.mjs`의 URL/Request/Response no-undef8건으로 실패했습니다. 공용 모달 스타일·플랫폼 정책은 이번 변경에서 수정하지 않았습니다.
 
 출처: 위 설계서, `src/app/products/[id]/_components/ProductDetailContent.tsx`와 `src/app/products/[id]/productDetailPreviews.ts`의 작업 트리. 기존 신뢰·출처 메타데이터는 유지합니다. 기록: codex/gpt-6, 2026-11-20.
+
+
+## 상품 상세 발볼 선택 옵션 수와 pill 표시 (2026-11-20)
+
+사용자 제공2/3개 옵션 시안과 단일 옵션 비노출 지시에 따라 detail 발볼 선택기를 수정했다.2/3개는 동일 너비 분할·#E9EAEB 배경·2px 안쪽 여백·검정 선택 pill을 사용한다. 높이는 PC48px/모바일44px, 라벨은 PC16px/모바일14px이며 첨부 이미지 기준 선택Regular400·미선택Medium500으로 구현했다. Figma 조회 제한으로 원본 굵기 모드는 미확인이다. 옵션1개 이하이면 detail에서 null을 반환하며 값 변경 이벤트를 만들지 않는다. 기존 부모의 발볼값·사이즈 연결을 유지한다. appearance 생략 기본detail과 명시cart의 기존 표현·disabled·포커스 처리는 유지한다.
+
+검증:1440px/375px에서3개 옵션 균등 분할·높이48/44px·글자16/14px·선택400/미선택500과 Wide 전환을 확인했다.2개 옵션은 검증용으로 전달 배열만 임시 제한해 PC199.984/200px·모바일162/162px 분할과 선택 전환을 확인하고 컴포넌트를 원본 바이트로 복원했다.1개 상품은 모바일에서 발볼 그룹 미표시·사이즈 그룹 유지를 확인했다.2개 상태 스크린샷은 브라우저 캡처 타임아웃으로 확보하지 못했으며 계산 스타일·DOM·선택 동작만 검증했다. Panda 생성·대상ESLint·전체TypeScript 검사를 통과했다. 마크업 인계 점검으로 기존 상태/콜백 소유권과 비대상cart 분기 보존을 확인했다.
+
+출처: 사용자 첨부 발볼 선택 이미지와 [디자인 파일](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/). 작업 트리 출처: src/components/common/molecules/ProductOptionSelectors/ProductWidthSelector.tsx.
+
+
+## 장바구니 단일 발볼 선택기 (2026-11-20)
+
+장바구니 옵션 변경 팝업은 발볼이1개여도 선택기를 유지한다. modalProductOptionRecipe의 고정3열을 자동 열 균등 분할로 변경해1개는 안쪽 너비 전체,2/3개는 같은 너비를 차지한다. 상품상세 detail의1개 비노출 규칙은 유지한다.
+
+검증: 실제 cart/preview-options에서 전달 fixture만 임시로 단일 Regular로 바꾸어 PC1440px·모바일375px 모두 표시를 확인했다. 그룹/옵션 너비는576/572px·248/244px이며 차이4px은 양쪽2px 패딩이다. fixture를 원본으로 복원한 후3개 동일 너비 표시를 확인했다. Panda 생성·대상 ESLint·전체 TypeScript 검사를 통과했다. 서비스 연결과 선택 상태 소유권은 변경하지 않았다.
+
+출처: 사용자 장바구니 옵션 팝업 지시와 src/components/common/layouts/ModalDialog.recipe.tsx 작업 트리.
+
+
+## 장바구니 옵션 팝업 타이포 보정 (2026-11-20)
+
+사용자 승인된 시각 보정으로 상품명 PC16px/MO14px·500, 색상명14px/400, 발볼 선택400·미선택500으로 맞췄다. 색상과 사이즈 column-gap8px은 유지한다. 컬러 접두어와 표시명 앞 괄호 숫자 코드를 화면에서 생략하며 실제 선택 식별 문자열은 보존한다. 1개 발볼 유지·전체 너비 규칙은 바꾸지 않았다. 원본 굵기 모드는 조회 제한으로 미확인이며 위 값은 시각 비교 후 승인된 보정값이다.
+
+검증: 신발·의류 팝업 PC1920/MO375 실제 계산값에서 상품명16/14px·500, Black 색상명400, 신발 선택Regular400·미선택500 및 두 그리드8px을 확인했다. 의류는 발볼 미표시를 유지했다. 대상 ESLint·TypeScript·Panda·프로덕션 빌드 통과. 인계 점검에서 기존 선택 상태·미연결 저장과 공통 모달 소유권을 유지했다. 작업 트리 출처: src/app/cart/_components/CartDialogs.tsx, src/components/common/layouts/ModalDialog.recipe.tsx.
+
+## 멤버십 쿠폰 지급 주기 문구 수정 (2026-11-20)
+
+공유 표시 데이터 `src/components/membership/rewards-data.ts`에서 ELITE·ATHLETE·RUNNER 할인 쿠폰 지급 주기를 분기별 1회로 수정했다. ELITE 무료 반품 쿠폰 3장과 ATHLETE 2장은 연 1회 지급으로 표시하며 RUNNER 가입 조건은 회원 가입 즉시로 안내한다. 화면 구조와 서비스 계약 변경 없이 공유 등급 안내 문구만 변경한다. 출처: 해당 파일의 작업 트리. 검토: Git diff로 변경 문구 6건을 확인했으며 화면 실행 검증은 수행하지 않았다.
+
+## 공유 팝업 공통 버튼 적용 (2026-11-20)
+
+사용자 첨부 디자인과 후속 브라우저 코멘트에 따라 상품 상세 공유 팝업을 2열·간격8px의 공통 버튼으로 변경했다. 카카오톡은 `Button social={{ provider: 'kakao' }}`, URL 복사는 `Button variant="secondary" iconLeft="link-regular"`를 사용하며 페이지별 버튼 CSS를 제거했다. 기본 높이48px·카카오 배경 #FAE100·secondary 1px 테두리와 공통 라벨·아이콘 순서·상태 스타일을 따른다. 링크 도형은 공통 Icon 자산으로 등록했다. 이전 사각 세로형 버튼 및 이 작업 중 시도한 높이44px·개별 색상 override를 대체한다.
+
+기존 `/products/pdp-preview/share`, IA 연결, 모달·포커스 소유권과 상품 URL 생성은 유지한다. 복사 pending은 공통 `loading`으로 전달해 disabled와 aria-busy를 적용하며 성공·실패 토스트와 재시도 처리를 유지한다. 카카오톡 SDK는 미연결이다. 출처: 사용자 첨부 이미지와 코멘트, [Main / PLP / PDP](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP), `src/app/products/[id]/_components/ProductDetailContent.tsx`, `src/components/common/atoms/Icon.assets.ts`, `public/images/icon/link-regular.svg` 작업 트리. Figma 원본 수치·굵기 모드는 조회 제한으로 미확인이다.
+
+검증: PC 계산 스타일·모바일390px의 버튼168×48px·overflow 없음·URL 복사 성공 토스트와 스크린샷을 확인했다. 변경 파일 ESLint·타입 검사·Panda 생성은 통과했다. 기록: codex/gpt-6.

@@ -4,12 +4,14 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-20T06:06:08Z'
+updated: '2026-11-20T08:20:24.483721+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/running/running-session/[sessionId]/_components/RunningSessionSessionContent.tsx
+  - src/app/cart/_components/CartProductSection.tsx
   - src/app/products/[id]/_components/ProductDetailContent.tsx
   - src/app/products/[id]/productDetailPreviews.ts
   - src/app/support/member-benefits/_components/MemberBenefitsContent.tsx
@@ -2480,3 +2482,56 @@ LoginContent 제목의 들여쓰기와 약관 페이지 tabs 객체 줄바꿈만
 실행 검증:1920px에서 임시 표시 데이터1·2·3개 모두328px Grid,4·5개는 약328px 캐러셀을 확인했다. 4개 버튼·Enter로 이전 이동·드래그,4·5개 마지막 카드의 우측 끝 정렬 및 끝 버튼 비활성을 확인했다. 임시 데이터는 복원했다.375px 신발3개·의류4개의1열/48px 간격, 의류3개 탭과 사이즈 본문 제거, PC16px/600/18px 및 MO14px/600/21px·자간 계산값을 확인했다.1024px은 MO,1025·1199px은1200px PC 캔버스,1200px 이상은 세로 스크롤바로 인한 추가 가로 넘침이 없었다. PC/MO 스크린샷으로 카드 배치와 설명을 확인했다.
 
 변경 파일 ESLint·Prettier, 전체 TypeScript·Panda 생성 및 Next.js 프로덕션 빌드를 통과했다. OKF 작업 트리 매핑 검사에서 누락이 없었다. 전체 lint는 범위 밖 `tests/wh-file-summary.test.mjs`의 URL/Request/Response 전역에 대한 기존 no-undef8건으로 실패했다. 후속 탭 굵기 수정 후1920px PC·375px MO에서 리뷰 앵커를 선택해 미선택400·선택600을 계산 스타일로 확인했고 대상 ESLint와 전체 TypeScript도 통과했다. 명시적 고정 플랫폼 검증은 개발서버 reload/HMR 타임아웃으로 완료하지 못했으며 임시 Provider 변경은 원복했다. 서비스 요청·인증·저장·재시도는 이번 표시 배치 변경의 검증 범위가 아니다.
+
+## 상품정보 표시 데이터와 5줄 더보기 (2026-11-20)
+
+이 절은 앞선 모바일 상품정보16px 및 PC 의류 최초 펼침 기록을 대체하는 현행 규칙이다. ProductInformation은 고정 섹션명 '상품 정보'와 Product.detailTitle/detailDescription을 구분한다. 상품 상세 통합 소유자가 현재 상품의 제목·본문을 전달하며, 미제공 제목은 다른 상품 문구로 대체하거나 빈 heading으로 출력하지 않는다. Clifton과 EveryRun fixture에 제공된 시안의 제목을 각각 명시했다. 두 fixture의 제목 문구는 시안에서 동일하지만 화면 공통 하드코딩이 아니다. 실제 API·조회·재시도는 구현하지 않았고 현재 데이터 교체 및 오류 처리는 통합 소유자의 책임이다.
+
+모든 상품은 처음에 최대5줄로 접는다. 첫 본문 p의 scrollHeight와 계산 line-height×5를 비교하고 반올림 오차1px을 허용해 초과 시에만 더 보기/닫기를 표시한다. ResizeObserver는 본문과 기존 내용 Stack을 관찰하고 window resize 및 document.fonts.ready/loadingdone에서도 재측정한다. cleanup으로 observer·이벤트와 늦은 폰트 완료를 해제한다. 펼침 상태는 현재 본문에 연결하므로 본문이 교체되면 접히며, 기존 본문을 그대로 둔 제목 교체는 로컬 펼침을 유지한다. aria-expanded/aria-controls를 유지하고 더보기 없이 전체를 볼 수 있는 짧은 본문에서는 추가 설명도 바로 표시한다. 긴 본문의 추가 설명은 기존처럼 펼쳤을 때 표시한다.
+
+상품정보의 러닝 유형 행은 PC/MO 모두 제거했다. 신발 유형과 추천 활동, 다른 상품의 컬러/스타일코드/발볼은 유지하며 카탈로그의 runningType 데이터와 다른 화면의 분류·용도는 삭제하지 않았다. MO 섹션명22px/900, 타이틀17px/700, 본문16px/400·행간150%, 타이틀→본문20px, 상하 padding40px/좌우16px이다. PC padding32px 32px 40px과 기존 본문16px/150%를 유지한다.
+
+출처는 사용자 요청과 [상품정보 PC/MO 디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)이다. 구조화 데이터에서 PC 타이틀16px/Bold·본문16px/Regular, MO 타이틀17px/Bold·본문16px/Regular·섹션명22px/Black을 확인했다. 작업 트리 출처는 src/app/products/[id]/_components/ProductDetailContent.tsx, src/app/products/[id]/productDetailPreviews.ts 및 src/mocks/products.ts다.
+
+실행 검증:1920px/375px 의류의 최초 본문 높이120px(24px×5), 펼침144px/192px과 닫기를 확인했다. 임시 표시 데이터의4줄96px·5줄120px에는 버튼이 없고6줄은120px으로 접히며 버튼이 표시되는 것을 PC/MO에서 확인했다. 펼친6줄을4줄로 교체하면 버튼이 사라졌고 임시 본문은 복원했다. 별도 타이틀로 교체했을 때 현재 제목이 즉시 반영되고, 제목을 미제공하면 본문은 유지하면서 빈 제목 heading이 생성되지 않는 것을 확인했다. 임시 타이틀도 복원했다. 신발은2560px 본문96px·1920px120px에서 버튼이 없고375px144px 본문은120px으로 접혀 버튼이 표시돼 resize 재측정을 확인했다. 신발 유형/추천 활동 유지·러닝 유형 미표시와 펼친 후 새로운 특징을 확인했다. MO 실제 계산값은 섹션명22px·타이틀17px·본문16px/24px·padding40px 16px이다. 스크린샷 캡처는 개발서버의 미완료 navigation timeout으로 실패하여 시각 캡처 검증 완료로 기록하지 않는다.
+
+검사: 대상3개 소스 ESLint·Prettier, 전체 TypeScript, Panda 생성 및 OKF 작업 트리 관련 문서 매핑 검사를 통과했다. 커밋/푸시는 수행하지 않았다.
+
+
+## 발볼 개수별 PDP 상태와 장바구니 일괄 삭제 표시 (2026-11-20)
+
+기존 /products/pdp-preview/[state]에서 width-single·width-double·width-triple을 추가했다. productDetailPreviews의 한국어 상태명을 screenConnections의 기존 map이 IA 상품상세 행에 자동 연결한다. 기존 sourceFiles에 상태 라우트·fixture 파일이 포함되어 있으며 screen-files 재생성 결과 추가 소스 그래프 변경은 없다. 기본 상품 데이터는 유지하고 각 상태 fixture에서 발볼 배열만1/2/3개로 제한한다.1개는 detail 선택기를 숨기며 사이즈는 유지한다.
+
+장바구니 선택 삭제 앞에 품절상품 전체삭제 링크형 버튼을 추가했다. 품절 행이 없으면 명시적으로 사용 불가이며, 기존 삭제 버튼과 마찬가지로 실제 요청·삭제는 미연결이다. 좁은 모바일에서는 도구 모음이 줄바꿈되어 가로 넘침을 막는다.
+
+검증: IA의 발볼1/2/3 링크 및 직접 URL에서 발볼 그룹0/2/3개·사이즈 유지,375px 장바구니의 버튼 순서와 가로 넘침 없음을 확인했다. 작업 트리 출처: src/app/products/[id]/productDetailPreviews.ts, src/app/cart/_components/CartProductSection.tsx.
+
+추가 확인: IA에서 발볼 검색 후 세 링크가 보이며375px의 세 URL도0/2/3개 상태와 가로 넘침 없음을 확인했다. PC 장바구니 버튼 순서도 확인했다. 대상ESLint·전체TypeScript·Panda 생성·screen-files 재생성·Next.js 프로덕션 빌드를 통과했다. 장바구니 스크린샷 캡처는 브라우저 타임아웃으로 확보하지 못했고 DOM·계산 폭으로 확인했다.
+
+## 주문서 쿠폰 중복 사용 안내 (2026-11-20)
+
+CheckoutDiscountSummary의 금액 요약 아래 기존 쿠폰 안내 목록에 '* 상품 쿠폰은 상품별로 1장씩만 적용 가능하며, 장바구니 쿠폰과 상품 쿠폰은 함께 사용하실 수 없습니다.' 문구를 추가했다. 기존 Typography web=body4/mo=body4-2·tertiary 톤과 목록 간격을 재사용해 PC/MO에 표시한다. 기존 두 안내와 쿠폰 조회/선택 UI는 유지하며 할인 계산이나 실제 중복 적용 제한을 구현한 변경은 아니다. 출처: 사용자 첨부 주문/결제 이미지와 직접 지정 문구. 작업 트리 출처: src/app/checkout/_components/CheckoutDiscountSummary.tsx.
+
+
+## 러닝세션 신청 확인과 제한 안내 상태 (2026-11-20)
+
+기본 상세 신청하기는 공통 selection 모달을 열며 신청자 이름·하이픈 전화번호·현재 세션 일시·장소를 표시한다. 기존 preview-application은 신청 확인, preview-application-complete는 완료 안내로 보정했다. /running/running-session 아래 preview-application-underage·preview-application-closed·preview-application-registered를 추가했다. IA259에 각각 미성년자 신청 제한·모집 마감 신청 안내·신청완료 상세로 연결하며 기존 상세 모집 마감/신청 예정 링크는 유지한다. 신청완료 CTA는 PC/MO 비활성이다.
+
+확인 버튼은 의도적으로 저장 미연결이며 클릭해도 완료 전환·요청·닫기를 실행하지 않는다. 취소·닫기·Escape만 로컬 조작한다. applicant 표시 데이터는 현재 props에서 읽고 기본값은 홍길동/010-1234-5678 preview seed다. 실제 회원·세션 ID, 신청 요청과 pending/실패/재시도/성공 후 갱신은 통합 소유자가 연결한다. 연령은 판정하지 않는다. 사용자 보류 결정에 따라 본문18세 이상·설계 팝업19세 미만 제한의 충돌을 원문대로 남겼다.
+
+검증: PC1920/MO375에서 확인·완료·미성년자·마감·신청완료 직접 상태를 확인했다. 모바일 신청완료는 hydration 후 가로 넘침 없이 비활성 CTA1개를 표시한다. 기본 모바일 신청 버튼→확인 팝업, 확인 클릭 후 팝업 유지, Escape 닫기와 트리거 포커스 복귀를 확인했다. 기존 closed/upcoming 비활성과 IA 링크5개·미성년자 상태명 검색을 확인했다. 확인 팝업 PC/MO 스크린샷으로 긴 주소 줄바꿈·본문 스크롤을 확인했다. 대상 ESLint·TypeScript·Panda·screen-files·Next 프로덕션 빌드(171페이지)를 통과했다.
+
+출처: 사용자 첨부 러닝세션 신청 설계서와 [디자인 파일](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/). 작업 트리: src/app/running/running-session/[sessionId]/_components/RunningSessionSessionContent.tsx, 신규 신청 preview page.tsx3개와 기존 확인 경로, src/app/screen-index/screenConnections.ts. Figma 조회 제한으로 원본 구조·폰트 모드는 재조회하지 않았다. 기존 공통 모달 외형을 재사용했다.
+
+
+## 장바구니 옵션 표시 보정 (2026-11-20)
+
+CartDialogs의 상품명을 PC/MO500으로 보정하고 색상 표시의 접두어·괄호 숫자 코드를 생략한다. 실제 선택 문자열과 로컬 초안·저장 미연결 경계는 유지한다. PC/MO 신발·의류 팝업 계산 스타일 검증과 상세 값은 [UI 기록](ui.md#장바구니-옵션-팝업-타이포-보정-2026-11-20)을 따른다. 작업 트리 출처: src/app/cart/_components/CartDialogs.tsx.
+
+## 공유 팝업 공통 버튼 적용 (2026-11-20)
+
+사용자 첨부 디자인과 후속 브라우저 코멘트에 따라 상품 상세 공유 팝업을 2열·간격8px의 공통 버튼으로 변경했다. 카카오톡은 `Button social={{ provider: 'kakao' }}`, URL 복사는 `Button variant="secondary" iconLeft="link-regular"`를 사용하며 페이지별 버튼 CSS를 제거했다. 기본 높이48px·카카오 배경 #FAE100·secondary 1px 테두리와 공통 라벨·아이콘 순서·상태 스타일을 따른다. 링크 도형은 공통 Icon 자산으로 등록했다. 이전 사각 세로형 버튼 및 이 작업 중 시도한 높이44px·개별 색상 override를 대체한다.
+
+기존 `/products/pdp-preview/share`, IA 연결, 모달·포커스 소유권과 상품 URL 생성은 유지한다. 복사 pending은 공통 `loading`으로 전달해 disabled와 aria-busy를 적용하며 성공·실패 토스트와 재시도 처리를 유지한다. 카카오톡 SDK는 미연결이다. 출처: 사용자 첨부 이미지와 코멘트, [Main / PLP / PDP](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP), `src/app/products/[id]/_components/ProductDetailContent.tsx`, `src/components/common/atoms/Icon.assets.ts`, `public/images/icon/link-regular.svg` 작업 트리. Figma 원본 수치·굵기 모드는 조회 제한으로 미확인이다.
+
+검증: PC 계산 스타일·모바일390px의 버튼168×48px·overflow 없음·URL 복사 성공 토스트와 스크린샷을 확인했다. 변경 파일 ESLint·타입 검사·Panda 생성은 통과했다. 기록: codex/gpt-6.

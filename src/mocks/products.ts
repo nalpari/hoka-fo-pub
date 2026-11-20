@@ -43,6 +43,8 @@ export type Product = {
     image: string;
     galleryImages?: string[];
   }[];
+  /** 상품정보의 상품별 제목이며 미제공 시 다른 상품의 문구를 대신 표시하지 않습니다. */
+  detailTitle?: string;
   detailDescription?: string;
   styleCode?: string;
 };
@@ -272,6 +274,7 @@ products[0] = {
   galleryImages: cliftonGalleryImages,
   // The Bondi thumbnails inherited from the generated base would hide the Clifton colour options and gallery.
   colorThumbnails: undefined,
+  detailTitle: '어떤 날씨에도 쿠션감 있는 편안한 주행',
   detailDescription:
     '어떤 날씨에도 견딜 수 있도록 설계된 실루엣인 클리프턴 11 GTX는 보이지 않는 핏 멤브레인, 밀폐된 메쉬 갑피, 발수 코팅으로 외부 환경을 완벽히 차단합니다. 조절 가능한 스피드 레이스로 쉽게 착용할 수 있고, 날씨에 강한 접지력 포드와 반사 디테일까지 갖춘 클리프턴 11 GTX는 날씨와 상관없이 빛나도록 설계되었습니다.',
   styleCode: 'HOKADFG34S',

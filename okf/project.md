@@ -4,7 +4,7 @@ title: '프로젝트 개요'
 description: '서비스 목적, 기술 버전과 구현 범위를 설명한다.'
 tags: [hoka, frontend, overview]
 status: draft
-updated: '2026-11-16T12:56:30.717659+00:00'
+updated: '2026-11-20T06:39:49Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
@@ -348,3 +348,7 @@ PC 수정과 모바일 Feed·Upcoming·상세를 반영했다. 목록은 현재 
 - 장바구니5행은 일반3개·품절2개, 독립적인 주문서 fixture는 PC2행(수량2/1), 모바일3행(각1개·정상가280,000원/판매가240,000원)이다. 금액·옵션은 현재 표시 데이터를 사용하며 장바구니 선택과 주문서 금액을 자동 계산하지 않는다.
 - 주문 목록·상세·취소/반품 내역은 Speedgoat 검정 이미지와 레귤러/브라운235 표시를 사용한다. 내역4행의 PC298,000원·취소완료와 모바일240,000원·환불완료는 서로 다른 시안 값이다. 반품 신청의 두 상품도 명시적 fixture이며 실제 주문 목록을 변형하지 않는다.
 - 실제 서비스 연결 소유자가 상품·주문·쿠폰 식별자와 요청 payload, pending·실패 초안 유지·재시도·성공 후 상태 갱신을 연결해야 한다. 이번 작업은 조회/저장/삭제/결제/환불 API와 성공 이동을 구현하지 않았다. [화면 경로](architecture/routing.md#장바구니주문-영역-시안-재검수-2026-11-16).
+
+## 상품정보 제목 표시 모델 (2026-11-20)
+
+Product.detailTitle은 선택적인 상품정보 제목이며 detailDescription과 함께 현재 상품 표시 데이터에서 읽는다. Clifton 기본 fixture와 EveryRun 의류 fixture는 제공된 상품정보 시안의 제목을 각각 명시한다. 제목이 미제공된 다른 상품에 신발 문구를 추정·복제하지 않는다. 섹션명 '상품 정보'는 고정 텍스트다. 새 서비스 API를 추가하지 않았으며 상품 상세 통합 소유자가 실제 제목·본문과 교체 응답을 연결한다. [본문 측정과 검증](architecture/routing.md#상품정보-표시-데이터와-5줄-더보기-2026-11-20)을 참고한다. 작업 트리 출처: src/mocks/products.ts, src/app/products/[id]/productDetailPreviews.ts, src/app/products/[id]/_components/ProductDetailContent.tsx.
