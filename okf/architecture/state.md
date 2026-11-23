@@ -873,3 +873,9 @@ ShopShell의 스테이징 변경은 푸터 개인정보처리방침·사업자�
 AppLayout은 모바일 /search에서도 SiteHeader를 표시한다. /search와 /search/preview-no-results의 모바일 푸터는 숨긴다. PC와 다른 경로의 헤더·푸터 조건은 유지한다. 검색결과 입력 초안은 SearchListingLayout에 두고 q가 바뀌면 기존 query key 경계에서 초기화한다. Enter 제출은 기존 쿼리를 보존하고 q를 교체하며 page를 제거해 /search로 이동한다. 조회·요청 상태·실패/재시도 및 최신 응답 교체는 기존 통합 소유자의 data 계약으로 남는다.
 
 375px 검색 제출·필터 열기·빈 결과와1440px PC를 브라우저로 확인했다. 작업 트리 출처: src/context/ShopShell.tsx, src/components/catalog/ProductListingPage.tsx.
+
+## PC 헤더 로그인 전후 표시 복구 (2026-11-23)
+
+사용자 브라우저 코멘트에 따라 `src/context/ShopShell.tsx`의 HeaderTools에서 PC 로그인 후 마이페이지 텍스트를 제거했다. 로그인 전은 사람 아이콘 → 장바구니 아이콘 → 로그인 | 회원가입, 로그인 후는 사람 아이콘 → 장바구니 아이콘 순서다. 2026-11-19의 로그인 후 텍스트 규칙을 이 지시로 대체한다. 아이콘의 접근성 이름과 링크는 유지하며 기존 state.isLoggedIn과 로컬 로그아웃 표시 소유권, 모바일 비로그인 사람 아이콘 숨김은 변경하지 않았다.
+
+검증: codex/gpt-6, 2026-11-23 KST. PC1440px에서 로그인 후 도구 텍스트는 장바구니 숫자만 남고, 로컬 로그아웃 확인 후 로그인·장바구니·로그인 텍스트·회원가입 링크의 x좌표가 순서대로 증가하는 것을 확인했다. 새로고침 후 로그인 fixture 복귀와 모바일 비로그인 사람 아이콘 display:none을 확인했다. 대상 ESLint·Prettier, 전체 TypeScript, Panda 생성 통과. 실제 인증 서비스는 연결하지 않았다. 출처는 사용자 코멘트와 해당 작업 트리다.
