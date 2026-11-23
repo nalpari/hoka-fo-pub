@@ -3022,7 +3022,7 @@ function ProductSelectedOptions({
                     size="24px"
                     onClick={() => onRemove(index)}
                   >
-                    <Icon name="hoka-action-xmark-regular" size={16} />
+                    <Icon name="xmark-regular" size={18} />
                   </Button>
                 </Flex>
                 <Flex

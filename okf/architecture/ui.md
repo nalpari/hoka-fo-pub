@@ -6237,3 +6237,5 @@ ProductListingContent의 sticky top·maxH가 ContentLayout에서만 제공하는
 - 빈 텍스트 영역의 라벨은 입력 영역 시작점과 첫 줄의 글자 크기·줄높이를 기준으로 배치한다.
 
 - 드롭다운의 오류 테두리는 박스형 입력과 동일한 에러 색상 토큰을 사용한다.
+
+- 상품 상세에서 선택한 옵션의 삭제 버튼은 공통 `xmark-regular` 아이콘을 18px로 표시한다.
