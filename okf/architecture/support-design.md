@@ -419,3 +419,7 @@ PC1398/MO375에서10개 요약 기호가 모두·이고 모든 앵커 대상이 
 최종 실행 검증: PC viewport1935/client1920과MO390/client375에서5개탭 총10개 상태를직접열어계산값과스크린샷을대조했다. 추가MO375/client360에서도전화링크·순서·카드간격·버튼400/18.2px·검정요약색과가로넘침없음을확인했다. LNB는PC1253px의/support·size-guide·after-sales·care·faq·notices·member-benefits7개경로에서각행46px·행간30px·nav676px·aside750px와동일y좌표를확인했다. MO631에서는support aside가display:none이고PC복귀시같은높이를유지한다. 실제LNB링크이동·관리탭방향키/Enter·앵커top68px도확인했다.
 
 대상ESLint/Prettier·전체TypeScript·Panda·소스그래프·production build(정적페이지164개)·git diff공백검사와OKF미갱신문서없음을확인했다. 마지막hoka-markup-handoff검토에서기존Panda구조·HTML목록·공통옵션기본값·플랫폼/포커스·표시데이터/서비스책임을유지함을확인했다. 공통헤더·모바일플랫폼기준·서비스API는수정하지않았다. 전화앱실행이나운영서버연동은검증하지않았다.
+
+- 모바일 FAQ 카테고리 탭은 화면 양쪽 끝까지 스크롤되며, 첫 탭 앞과 마지막 탭 뒤에 16px 여백을 둔다.
+
+- 공통 `FilterTabs`는 모바일에서 탭이 가로로 넘칠 때 선택한 항목을 가운데 방향으로 스크롤한다. 움직임 줄이기 설정에서는 즉시 이동하며 FAQ도 같은 동작을 사용한다.

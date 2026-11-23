@@ -6221,3 +6221,15 @@ ProductListingContent의 sticky top·maxH가 ContentLayout에서만 제공하는
 관심 상품 표기를 화면·접근성 라벨·가이드·IA 기록에 맞췄으며 멤버십 안내의 구매 시·이번 달 띄어쓰기를 수정했다. 생성 이력 JSON의 줄바꿈 정리도 사용자 지시에 따라 함께 포함한다. 서비스 계약·라우트·상태 동작은 변경하지 않았다.
 
 출처: `src/components/common/atoms/Wishlist.tsx`, `src/components/common/molecules/ProductCard/ProductCard.tsx`, `src/components/membership/MembershipRewards.tsx`, `src/components/membership/rewards-data.ts`의 작업 트리. Git diff로 문구 변경을 검토했다. 브라우저 실행 검증은 수행하지 않았다. 기록: codex/gpt-6, 2026-11-23T04:45:34.967867+00:00.
+
+## FAQ 탭과 상품 공유 UI 병합 기록 (2026-11-23)
+
+- 공통 `FilterTabs`는 모바일에서 탭이 가로로 넘칠 때 선택한 항목을 가운데 방향으로 스크롤한다. 움직임 줄이기 설정에서는 즉시 이동하며 FAQ도 같은 동작을 사용한다.
+
+- 상품 상세의 카카오톡 공유 버튼은 공통 Button의 `iconLeft`로 왼쪽에 아이콘을 표시한다. 소셜 버튼은 `iconLeft`를 지정하면 오른쪽 기본 아이콘을 대신한다.
+
+- 상품 상세 공유 모달의 URL 복사 버튼은 피그마에서 내보낸 18px 링크 아이콘 `link-simple`을 사용한다.
+
+- 퍼블리싱 가이드 아이콘 탭에 `link-simple` 18px 미리보기와 복사 코드를 추가한다.
+
+- 모바일 상품 상세의 컬러 썸네일 목록은 가로로 넘칠 때 선택한 썸네일을 가운데 방향으로 이동한다. FAQ 필터 탭과 공통 스크롤 계산을 사용한다.

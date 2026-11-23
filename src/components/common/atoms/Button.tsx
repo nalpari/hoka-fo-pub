@@ -116,7 +116,7 @@ const content = css.raw({
   justifyContent: 'center',
   boxSizing: 'border-box',
   w: '100%',
-  gap: '4px',
+  gap: '8px',
   px: 'var(--button-padding-x)',
   py: 'var(--button-padding-y, 0px)',
   whiteSpace: 'nowrap',
@@ -343,7 +343,8 @@ export type ButtonTextProps =
       social: ButtonSocial;
       disabled?: never;
       loading?: never;
-      iconLeft?: never;
+      /** 지정하면 기본 소셜 아이콘 대신 왼쪽에 표시합니다. */
+      iconLeft?: IconProps['name'];
       iconRight?: never;
       iconSize?: never;
       iconColor?: never;
@@ -602,7 +603,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
         .join(' ')}
     >
       <span className={css(content, variant === 'plain' && { justifyContent: 'flex-start' })}>
-        {iconLeft ? <Icon name={iconLeft} size={iconSize} color={iconColor} /> : null}
+        {iconLeft ? <Icon name={iconLeft} size={social ? 18 : iconSize} color={iconColor} /> : null}
         {labelTypographyVariant ? (
           <Typography
             as="span"
@@ -618,7 +619,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
           resolvedChildren
         )}
         {iconRight ? <Icon name={iconRight} size={iconSize} color={iconColor} /> : null}
-        {social ? <Icon name={social.provider} size={18} /> : null}
+        {social && !iconLeft ? <Icon name={social.provider} size={18} /> : null}
       </span>
     </BaseButton>
   );

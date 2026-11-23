@@ -2548,3 +2548,9 @@ CartDialogs의 상품명을 PC/MO500으로 보정하고 색상 표시의 접두�
 관심 상품 표기를 화면·접근성 라벨·가이드·IA 기록에 맞췄으며 멤버십 안내의 구매 시·이번 달 띄어쓰기를 수정했다. 생성 이력 JSON의 줄바꿈 정리도 사용자 지시에 따라 함께 포함한다. 서비스 계약·라우트·상태 동작은 변경하지 않았다.
 
 출처: `src/app/cart/_components/CartEmptyState.tsx`, `src/app/cart/_components/CartProductSection.tsx`, `src/app/collection/_components/specialExhibition.data.ts`, `src/app/mypage/_components/MyPageContent.tsx`, `src/app/mypage/_components/MyPageProductHistory.tsx`, `src/app/mypage/mypage-home-data.ts`, `src/app/mypage/mypage.data.ts`, `src/app/mypage/page.tsx`, `src/app/mypage/wishlist/page.tsx`, `src/app/products/[id]/_components/ProductDetailContent.tsx`, `src/app/publishing-guide/_components/IconGuide.tsx`, `src/app/publishing-guide/_components/ProductCardGuide.tsx`, `src/app/screen-index/screenChangeHistory.generated.json`, `src/app/screen-index/screenDevelopers.ts`, `src/app/screen-index/screenProgress.ts`의 작업 트리. Git diff로 문구 변경을 검토했다. 브라우저 실행 검증은 수행하지 않았다. 기록: codex/gpt-6, 2026-11-23T04:45:34.967867+00:00.
+
+## FAQ 탭과 상품 공유 UI 병합 기록 (2026-11-23)
+
+- 고객센터 FAQ의 모바일 카테고리 탭은 화면 양끝까지 가로 스크롤하며, 공통 필터 탭의 선택 이동을 사용한다.
+
+- 상품 상세 공유 미리보기는 왼쪽 카카오 아이콘과 18px 링크 아이콘을 표시한다. 퍼블리싱 가이드 아이콘 탭에서 링크 아이콘 예시를 확인할 수 있다.

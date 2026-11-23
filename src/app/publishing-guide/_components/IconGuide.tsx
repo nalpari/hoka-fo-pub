@@ -1107,6 +1107,17 @@ const iconGroups: {
         note: '원본 18px · 상품 상세: 모바일 20px / 데스크탑 22px',
       },
       {
+        label: '링크 복사 · 18px',
+        registeredName: 'link-simple',
+        origin: { label: 'Figma', name: 'link-simple', detail: 'Regular' },
+        preview: <Icon name="link-simple" size={18} />,
+        code: `import { Icon } from '@/components/common/atoms/Icon';
+
+<Icon name="link-simple" size={18} />`,
+        source: 'ProductDetailContent.tsx · 공유하기',
+        note: '원본 18px · 상품 상세 공유 모달의 URL 복사 버튼',
+      },
+      {
         label: '하트 기본형 · 18px',
         registeredName: 'heart-regular',
         origin: { label: 'Font Awesome', name: 'heart', detail: 'Regular' },
