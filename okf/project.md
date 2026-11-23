@@ -4,7 +4,7 @@ title: '프로젝트 개요'
 description: '서비스 목적, 기술 버전과 구현 범위를 설명한다.'
 tags: [hoka, frontend, overview]
 status: draft
-updated: '2026-11-20T06:39:49Z'
+updated: '2026-11-23T04:33:14.831593+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
@@ -352,3 +352,9 @@ PC 수정과 모바일 Feed·Upcoming·상세를 반영했다. 목록은 현재 
 ## 상품정보 제목 표시 모델 (2026-11-20)
 
 Product.detailTitle은 선택적인 상품정보 제목이며 detailDescription과 함께 현재 상품 표시 데이터에서 읽는다. Clifton 기본 fixture와 EveryRun 의류 fixture는 제공된 상품정보 시안의 제목을 각각 명시한다. 제목이 미제공된 다른 상품에 신발 문구를 추정·복제하지 않는다. 섹션명 '상품 정보'는 고정 텍스트다. 새 서비스 API를 추가하지 않았으며 상품 상세 통합 소유자가 실제 제목·본문과 교체 응답을 연결한다. [본문 측정과 검증](architecture/routing.md#상품정보-표시-데이터와-5줄-더보기-2026-11-20)을 참고한다. 작업 트리 출처: src/mocks/products.ts, src/app/products/[id]/productDetailPreviews.ts, src/app/products/[id]/_components/ProductDetailContent.tsx.
+
+## My HOKA 표기 통일 (2026-11-23)
+
+IA 원본의 마이페이지 분류와 화면 레지스트리의 분류명을 `My HOKA`로 통일했다. IA 번호와 화면 연결은 유지한다.
+
+출처: `src/data/screenIaSource.json`·`src/data/screenRegistry.ts`의 작업 트리. Git diff에서 문자열 변경 범위를 확인했으며 브라우저 실행 검증은 수행하지 않았다. 기록: codex/gpt-6, 2026-11-23T04:33:14.831593+00:00.

@@ -365,7 +365,7 @@ const rawScreens: RawScreenDefinition[] = [
     'eland_hmy_29',
     '9/16 상품 리뷰 수정 페이지 필요하여 추가',
   ],
-  [194, ['', 'MY HOKA', '', '', ''], 'page', '1', true, 'eland_hmy_16', ''],
+  [194, ['', 'My HOKA', '', '', ''], 'page', '1', true, 'eland_hmy_16', ''],
   [195, ['', '', '회원등급', '', ''], 'page', '1', true, 'eland_hmy_17', ''],
   [196, ['', '', '쿠폰', '목록', ''], 'page', '1', true, 'eland_hmy_18', ''],
   [

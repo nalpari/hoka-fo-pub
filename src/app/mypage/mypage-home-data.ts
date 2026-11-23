@@ -16,7 +16,7 @@ export const menuSections = [
     ],
   },
   {
-    title: 'MY HOKA',
+    title: 'My HOKA',
     items: [
       { label: '회원등급', to: '/mypage/rewards' },
       { label: '쿠폰', to: '/mypage/coupons' },

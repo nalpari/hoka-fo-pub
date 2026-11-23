@@ -4,12 +4,13 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-20T08:20:24.483721+00:00'
+updated: '2026-11-23T04:33:14.831593+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/mypage/mypage.data.ts
   - src/app/running/running-session/[sessionId]/_components/RunningSessionSessionContent.tsx
   - src/app/cart/_components/CartProductSection.tsx
   - src/app/products/[id]/_components/ProductDetailContent.tsx
@@ -2535,3 +2536,9 @@ CartDialogs의 상품명을 PC/MO500으로 보정하고 색상 표시의 접두�
 기존 `/products/pdp-preview/share`, IA 연결, 모달·포커스 소유권과 상품 URL 생성은 유지한다. 복사 pending은 공통 `loading`으로 전달해 disabled와 aria-busy를 적용하며 성공·실패 토스트와 재시도 처리를 유지한다. 카카오톡 SDK는 미연결이다. 출처: 사용자 첨부 이미지와 코멘트, [Main / PLP / PDP](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP), `src/app/products/[id]/_components/ProductDetailContent.tsx`, `src/components/common/atoms/Icon.assets.ts`, `public/images/icon/link-regular.svg` 작업 트리. Figma 원본 수치·굵기 모드는 조회 제한으로 미확인이다.
 
 검증: PC 계산 스타일·모바일390px의 버튼168×48px·overflow 없음·URL 복사 성공 토스트와 스크린샷을 확인했다. 변경 파일 ESLint·타입 검사·Panda 생성은 통과했다. 기록: codex/gpt-6.
+
+## My HOKA 표기 통일 (2026-11-23)
+
+마이페이지 홈 메뉴와 공통 내비게이션의 제목, IA 진행 안내의 표기를 `My HOKA`로 통일했다. 경로와 메뉴 항목은 유지한다.
+
+출처: `src/app/mypage/mypage-home-data.ts`·`src/app/mypage/mypage.data.ts`·`src/app/screen-index/screenProgress.ts`의 작업 트리. Git diff에서 문자열 변경 범위를 확인했으며 브라우저 실행 검증은 수행하지 않았다. 기록: codex/gpt-6, 2026-11-23T04:33:14.831593+00:00.

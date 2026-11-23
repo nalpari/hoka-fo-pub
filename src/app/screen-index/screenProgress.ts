@@ -239,7 +239,7 @@ export const confirmedPublishingProgress: Readonly<
 };
 
 const myPagePcNavigationNote =
-  'PC 공통 메뉴: 첨부의 구매내역·상품내역·MY HOKA·Q&A·계정관리 대신 쇼핑·HOKA MEMBERS·계정 관리 구성을 사용함.';
+  'PC 공통 메뉴: 첨부의 구매내역·상품내역·My HOKA·Q&A·계정관리 대신 쇼핑·HOKA MEMBERS·계정 관리 구성을 사용함.';
 
 const phoneTermsReviewNote =
   'PC/MO 수정: 인증 약관의 이전 버전 선택이 첨부의 별도 선택창(PC 라디오·MO 휠)이 아닌 본문 안 버튼 목록임.';
