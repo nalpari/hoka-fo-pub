@@ -3660,3 +3660,7 @@ LoginContent 제목의 들여쓰기와 약관 페이지 tabs 객체 줄바꿈만
 기존 `/products/pdp-preview/share`, IA 연결, 모달·포커스 소유권과 상품 URL 생성은 유지한다. 복사 pending은 공통 `loading`으로 전달해 disabled와 aria-busy를 적용하며 성공·실패 토스트와 재시도 처리를 유지한다. 카카오톡 SDK는 미연결이다. 출처: 사용자 첨부 이미지와 코멘트, [Main / PLP / PDP](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP), `src/app/products/[id]/_components/ProductDetailContent.tsx`, `src/components/common/atoms/Icon.assets.ts`, `public/images/icon/link-regular.svg` 작업 트리. Figma 원본 수치·굵기 모드는 조회 제한으로 미확인이다.
 
 검증: PC 계산 스타일·모바일390px의 버튼168×48px·overflow 없음·URL 복사 성공 토스트와 스크린샷을 확인했다. 변경 파일 ESLint·타입 검사·Panda 생성은 통과했다. 기록: codex/gpt-6.
+
+- 모바일 FAQ 카테고리 탭은 화면 양쪽 끝까지 스크롤되며, 첫 탭 앞과 마지막 탭 뒤에 16px 여백을 둔다.
+
+- 공통 `FilterTabs`는 모바일에서 탭이 가로로 넘칠 때 선택한 항목을 가운데 방향으로 스크롤한다. 움직임 줄이기 설정에서는 즉시 이동하며 FAQ도 같은 동작을 사용한다.

@@ -16,6 +16,7 @@ const viewport = css({
     overflowX: 'auto',
     overflowY: 'hidden',
     scrollbarWidth: 'none',
+    '@media (prefers-reduced-motion: no-preference)': { scrollBehavior: 'smooth' },
     '&::-webkit-scrollbar': {
       display: 'none',
     },
@@ -336,22 +337,14 @@ export function FilterTabs<T extends string = string>({
     const viewport = viewportRef.current;
     const selectedItem = itemRefs.current.get(value);
 
-    if (!viewport || !selectedItem) return;
+    if (!viewport || !selectedItem || viewport.scrollWidth <= viewport.clientWidth) return;
 
     const viewportBounds = viewport.getBoundingClientRect();
     const itemBounds = selectedItem.getBoundingClientRect();
-    const isVisible =
-      itemBounds.left >= viewportBounds.left && itemBounds.right <= viewportBounds.right;
+    const offset = itemBounds.left - viewportBounds.left;
+    const centerOffset = (viewport.clientWidth - itemBounds.width) / 2;
 
-    if (!isVisible) {
-      viewport.scrollTo({
-        left:
-          viewport.scrollLeft +
-          (itemBounds.left +
-            itemBounds.width / 2 -
-            (viewportBounds.left + viewportBounds.width / 2)),
-      });
-    }
+    viewport.scrollTo({ left: viewport.scrollLeft + offset - centerOffset });
   }, [platform, value]);
 
   return (
