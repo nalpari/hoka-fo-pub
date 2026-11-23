@@ -50,7 +50,12 @@ const exampleCard = css({
 });
 
 const focusPreview = css({
-  '& > div': { outline: '2px solid token(colors.black.100)', outlineOffset: '-2px' },
+  '& > div': {
+    '--field-empty-label-top': 'var(--field-box-padding-block)',
+    '--field-empty-label-transform': 'none',
+    outline: '2px solid token(colors.black.100)',
+    outlineOffset: '-2px',
+  },
 });
 
 const copyButton = css({
@@ -87,21 +92,19 @@ const imageMenuOptions: readonly DropdownOption[] = [
 
 const codeExamples = {
   inputDefault:
-    '<TextFormField variant="boxed" id="field" label="필드명" required inputProps={{ placeholder: "텍스트를 입력해주세요" }} />',
-  inputFocus:
-    '<TextFormField variant="boxed" id="field" label="필드명" required inputProps={{ placeholder: "텍스트를 입력해주세요" }} />',
+    '<TextFormField variant="boxed" id="field" label="필드명" required inputProps={{}} />',
   inputTyping:
     '<TextFormField variant="boxed" id="field" label="필드명" required inputProps={{ value, onChange: (event) => setValue(event.target.value) }} />',
   inputError:
-    '<TextFormField variant="boxed" id="field" label="필드명" required error="이 메시지는 레이블과 관련된 오류 정보를 보여줍니다." inputProps={{ placeholder: "텍스트를 입력해주세요" }} />',
+    '<TextFormField variant="boxed" id="field" label="필드명" required error="이 메시지는 레이블과 관련된 오류 정보를 보여줍니다." inputProps={{}} />',
   password:
-    '<TextFormField variant="boxed" id="password" label="비밀번호" required inputProps={{ type: "password", placeholder: "비밀번호를 입력해 주세요" }} />',
+    '<TextFormField variant="boxed" id="password" label="비밀번호" required inputProps={{ type: "password" }} />',
   phone:
-    '<TextFormField variant="boxed" id="phone" label="휴대폰 번호" required info="휴대폰 번호 안내" hint="HOKA의 개인정보 보호정책에 대한 자세한 내용을 확인하세요." inputProps={{ placeholder: "Example: 3333333333" }} />',
+    '<TextFormField variant="boxed" id="phone" label="휴대폰 번호" required info="휴대폰 번호 안내" hint="HOKA의 개인정보 보호정책에 대한 자세한 내용을 확인하세요." inputProps={{}} />',
   number:
-    '<TextFormField variant="boxed" id="number" label="Number" required inputProps={{ type: "number", placeholder: "숫자를 입력해 주세요" }} />',
+    '<TextFormField variant="boxed" id="number" label="Number" required inputProps={{ type: "number" }} />',
   multiline:
-    '<TextFormField variant="boxed" id="message" label="문의 내용" required inputProps={{ multiline: true, placeholder: "내용을 입력해 주세요" }} />',
+    '<TextFormField variant="boxed" id="message" label="문의 내용" required inputProps={{ multiline: true }} />',
   selection:
     '<Dropdown ariaLabel="메뉴 선택" label="타이틀명" required placeholder="메뉴를 선택해 주세요" options={options} value={value} onValueChange={setValue} />',
   selectionError:
@@ -135,9 +138,7 @@ function FormExample({ title, description, code, onCopy, children, className }: 
   return (
     <Stack className={[exampleCard, className].filter(Boolean).join(' ')} gap="3">
       <HStack alignItems="baseline" justifyContent="space-between" gap="2" flexWrap="wrap">
-<Typography variant="body4Semibold">
-          {title}
-        </Typography>
+        <Typography variant="body4Semibold">{title}</Typography>
         <Typography variant="body5" tone="subtle">
           {description}
         </Typography>
@@ -261,13 +262,13 @@ export function FormGuide() {
                 id="guide-state-default"
                 label="필드명"
                 required
-                inputProps={{ placeholder: '텍스트를 입력해주세요' }}
+                inputProps={{}}
               />
             </FormExample>
             <FormExample
               title="Focus"
               description="포커스 상태"
-              code={codeExamples.inputFocus}
+              code={codeExamples.inputDefault}
               onCopy={copyCode}
             >
               <TextFormField
@@ -276,7 +277,7 @@ export function FormGuide() {
                 id="guide-state-focus"
                 label="필드명"
                 required
-                inputProps={{ placeholder: '텍스트를 입력해주세요' }}
+                inputProps={{}}
               />
             </FormExample>
             <FormExample
@@ -308,7 +309,7 @@ export function FormGuide() {
                 label="필드명"
                 required
                 error="이 메시지는 레이블과 관련된 오류 정보를 보여줍니다."
-                inputProps={{ placeholder: '텍스트를 입력해주세요' }}
+                inputProps={{}}
               />
             </FormExample>
           </Grid>
@@ -325,7 +326,7 @@ export function FormGuide() {
                 id="guide-type-default"
                 label="필드명"
                 required
-                inputProps={{ placeholder: '텍스트를 입력해주세요' }}
+                inputProps={{}}
               />
             </FormExample>
             <FormExample
@@ -341,7 +342,6 @@ export function FormGuide() {
                 required
                 inputProps={{
                   type: 'password',
-                  placeholder: '비밀번호를 입력해 주세요',
                   value: passwordValue,
                   onChange: (event) => setPasswordValue(event.target.value),
                 }}
@@ -361,7 +361,6 @@ export function FormGuide() {
                 info="휴대폰 번호 안내"
                 hint="HOKA의 개인정보 보호정책에 대한 자세한 내용을 확인하세요."
                 inputProps={{
-                  placeholder: 'Example: 3333333333',
                   value: phoneValue,
                   onChange: (event) => setPhoneValue(event.target.value),
                 }}
@@ -380,7 +379,6 @@ export function FormGuide() {
                 required
                 inputProps={{
                   type: 'number',
-                  placeholder: '숫자를 입력해 주세요',
                   value: numberValue,
                   onChange: (event) => setNumberValue(event.target.value),
                 }}
@@ -399,7 +397,6 @@ export function FormGuide() {
                 required
                 inputProps={{
                   multiline: true,
-                  placeholder: '내용을 입력해 주세요',
                   value: messageValue,
                   onChange: (event) => setMessageValue(event.target.value),
                 }}

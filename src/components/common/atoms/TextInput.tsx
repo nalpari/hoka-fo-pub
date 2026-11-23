@@ -65,6 +65,16 @@ const boxedControl = css({
   },
 });
 
+const floatingLabelCaret = css({
+  '@media (prefers-reduced-motion: no-preference)': {
+    caretColor: 'transparent',
+    _focus: {
+      caretColor: 'currentColor',
+      transition: 'caret-color 0s var(--field-label-transition-duration)',
+    },
+  },
+});
+
 const mutedControl = css.raw({
   bg: 'var(--color-black-10)',
   color: 'var(--color-text-subtle)',
@@ -126,6 +136,14 @@ export function TextInput({
   ...props
 }: TextInputProps) {
   const field = useFormFieldContext();
+  const floatingLabel =
+    appearance !== 'compact' &&
+    field?.boxed &&
+    field.hasLabel &&
+    (multiline ||
+      /^(text|search|email|password|tel|url|number)$/.test(
+        (props as InputHTMLAttributes<HTMLInputElement>).type ?? 'text',
+      ));
   const controlRef = useRef<HTMLInputElement | HTMLTextAreaElement | null>(null);
   const [visible, setVisible] = useState(false);
   const hasError =
@@ -163,6 +181,8 @@ export function TextInput({
         : hasError || props['aria-invalid'] || undefined,
     'aria-describedby': describedBy,
     'data-invalid': hasError ? 'true' : undefined,
+    'data-floating-label-control': floatingLabel ? '' : undefined,
+    placeholder: floatingLabel ? ' ' : props.placeholder,
     style: {
       '--field-height': '42px',
       '--field-border-width': '1px',
@@ -180,6 +200,7 @@ export function TextInput({
         ? compactControl
         : css(textInput, disabledAppearance === 'muted' && mutedControl),
       appearance !== 'compact' && field?.boxed ? boxedControl : '',
+      floatingLabel ? floatingLabelCaret : '',
       multiline ? textareaControl : '',
       className,
     ]
