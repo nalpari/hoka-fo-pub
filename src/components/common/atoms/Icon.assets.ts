@@ -320,6 +320,10 @@ export const iconAssets = {
     src: '/images/icon/link-regular.svg',
     mode: 'mask',
   },
+  'link-simple': {
+    src: '/images/icon/link-simple.svg',
+    mode: 'mask',
+  },
   naver: {
     src: '/images/icon/naver.svg',
     mode: 'image',

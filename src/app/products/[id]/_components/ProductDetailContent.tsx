@@ -2400,13 +2400,14 @@ function ProductDetailHeaderActions({
         finalFocus={shareTrigger}
       >
         <Grid gridTemplateColumns="repeat(2, minmax(0, 1fr))" gap="8px">
-          <Button social={{ provider: 'kakao' }} type="button">
+          <Button social={{ provider: 'kakao' }} iconLeft="kakao" type="button">
             카카오톡 공유하기
           </Button>
           <Button
             variant="secondary"
             type="button"
-            iconLeft="link-regular"
+            iconLeft="link-simple"
+            iconSize={18}
             loading={copyPending}
             onClick={copyProductLink}
           >

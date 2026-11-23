@@ -6217,3 +6217,9 @@ ProductListingContent의 sticky top·maxH가 ContentLayout에서만 제공하는
 검증: PC 계산 스타일·모바일390px의 버튼168×48px·overflow 없음·URL 복사 성공 토스트와 스크린샷을 확인했다. 변경 파일 ESLint·타입 검사·Panda 생성은 통과했다. 기록: codex/gpt-6.
 
 - 공통 `FilterTabs`는 모바일에서 탭이 가로로 넘칠 때 선택한 항목을 가운데 방향으로 스크롤한다. 움직임 줄이기 설정에서는 즉시 이동하며 FAQ도 같은 동작을 사용한다.
+
+- 상품 상세의 카카오톡 공유 버튼은 공통 Button의 `iconLeft`로 왼쪽에 아이콘을 표시한다. 소셜 버튼은 `iconLeft`를 지정하면 오른쪽 기본 아이콘을 대신한다.
+
+- 상품 상세 공유 모달의 URL 복사 버튼은 피그마에서 내보낸 18px 링크 아이콘 `link-simple`을 사용한다.
+
+- 퍼블리싱 가이드 아이콘 탭에 `link-simple` 18px 미리보기와 복사 코드를 추가한다.
