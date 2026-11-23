@@ -4,12 +4,13 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-23T04:45:34.967867+00:00'
+updated: '2026-11-23T05:09:10.640861+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/signup/_components/SignupContent.tsx
   - src/app/mypage/mypage.data.ts
   - src/app/running/running-session/[sessionId]/_components/RunningSessionSessionContent.tsx
   - src/app/cart/_components/CartProductSection.tsx
@@ -2554,3 +2555,9 @@ CartDialogs의 상품명을 PC/MO500으로 보정하고 색상 표시의 접두�
 - 고객센터 FAQ의 모바일 카테고리 탭은 화면 양끝까지 가로 스크롤하며, 공통 필터 탭의 선택 이동을 사용한다.
 
 - 상품 상세 공유 미리보기는 왼쪽 카카오 아이콘과 18px 링크 아이콘을 표시한다. 퍼블리싱 가이드 아이콘 탭에서 링크 아이콘 예시를 확인할 수 있다.
+
+## 로그인과 회원가입 안내 문구 (2026-11-23)
+
+로그인의 가입 안내와 회원가입 방식 선택 제목을 `계정이 없으신가요?`로 변경했다. 로그인 안내 본문은 `회원가입 후 풍성한 멤버십 혜택을 확인해보세요.`로 수정했다.
+
+출처: `src/app/login/_components/LoginContent.tsx`, `src/app/signup/_components/SignupContent.tsx`의 작업 트리. Git diff로 문자열 변경을 확인했으며 브라우저 검증은 수행하지 않았다. 기록: codex/gpt-6, 2026-11-23T05:09:10.640861+00:00.
