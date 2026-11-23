@@ -6223,3 +6223,5 @@ ProductListingContent의 sticky top·maxH가 ContentLayout에서만 제공하는
 - 상품 상세 공유 모달의 URL 복사 버튼은 피그마에서 내보낸 18px 링크 아이콘 `link-simple`을 사용한다.
 
 - 퍼블리싱 가이드 아이콘 탭에 `link-simple` 18px 미리보기와 복사 코드를 추가한다.
+
+- 모바일 상품 상세의 컬러 썸네일 목록은 가로로 넘칠 때 선택한 썸네일을 가운데 방향으로 이동한다. FAQ 필터 탭과 공통 스크롤 계산을 사용한다.

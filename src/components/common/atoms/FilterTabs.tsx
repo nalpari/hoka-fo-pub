@@ -9,6 +9,8 @@ import { css, cva } from 'styled-system/css';
 
 import { Typography } from '@/components/common/atoms/Typography';
 
+import { centerHorizontalScroll } from '@/lib/centerHorizontalScroll';
+
 const viewport = css({
   minW: '0',
   _mobile: {
@@ -337,14 +339,7 @@ export function FilterTabs<T extends string = string>({
     const viewport = viewportRef.current;
     const selectedItem = itemRefs.current.get(value);
 
-    if (!viewport || !selectedItem || viewport.scrollWidth <= viewport.clientWidth) return;
-
-    const viewportBounds = viewport.getBoundingClientRect();
-    const itemBounds = selectedItem.getBoundingClientRect();
-    const offset = itemBounds.left - viewportBounds.left;
-    const centerOffset = (viewport.clientWidth - itemBounds.width) / 2;
-
-    viewport.scrollTo({ left: viewport.scrollLeft + offset - centerOffset });
+    if (viewport && selectedItem) centerHorizontalScroll(viewport, selectedItem);
   }, [platform, value]);
 
   return (
