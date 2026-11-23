@@ -362,7 +362,7 @@ export function MembershipRewards({
                   <Typography as="span" web="body3" mo="body4" weight="medium">
                     {summary?.name}
                   </Typography>
-                  {summary ? '님의 이번달 멤버십 등급' : null}
+                  {summary ? '님의 이번 달 멤버십 등급' : null}
                 </>
               }
               descriptionProps={{ web: 'body3', mo: 'body4' }}

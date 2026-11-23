@@ -1529,7 +1529,7 @@
       "page": "1",
       "requiresLogin": true,
       "screenCode": "eland_hsc_01",
-      "note": "옵션변경/관심상품 등록/상품삭제/주문하기"
+      "note": "옵션변경/관심 상품 등록/상품삭제/주문하기"
     },
     {
       "iaNumber": 171,
@@ -1632,7 +1632,7 @@
     },
     {
       "iaNumber": 182,
-      "depths": ["마이페이지", "상품내역", "관심상품", "목록", ""],
+      "depths": ["마이페이지", "상품내역", "관심 상품", "목록", ""],
       "category": "page",
       "page": "1",
       "requiresLogin": true,

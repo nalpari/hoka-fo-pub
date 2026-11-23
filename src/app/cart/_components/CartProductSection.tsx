@@ -95,7 +95,7 @@ function CartProductItem({
         <Box pos="absolute" top="8px" right="8px">
           <Wishlist
             active={favorite}
-            ariaLabel={`${item.id} 관심상품`}
+            ariaLabel={`${item.id} 관심 상품`}
             iconSize="20px"
             onActiveChange={setFavorite}
           />

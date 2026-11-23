@@ -4,7 +4,7 @@ title: '프로젝트 개요'
 description: '서비스 목적, 기술 버전과 구현 범위를 설명한다.'
 tags: [hoka, frontend, overview]
 status: draft
-updated: '2026-11-23T04:33:14.831593+00:00'
+updated: '2026-11-23T04:45:34.967867+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
@@ -358,3 +358,9 @@ Product.detailTitle은 선택적인 상품정보 제목이며 detailDescription�
 IA 원본의 마이페이지 분류와 화면 레지스트리의 분류명을 `My HOKA`로 통일했다. IA 번호와 화면 연결은 유지한다.
 
 출처: `src/data/screenIaSource.json`·`src/data/screenRegistry.ts`의 작업 트리. Git diff에서 문자열 변경 범위를 확인했으며 브라우저 실행 검증은 수행하지 않았다. 기록: codex/gpt-6, 2026-11-23T04:33:14.831593+00:00.
+
+## 화면 문구 맞춤법과 띄어쓰기 (2026-11-23)
+
+관심 상품 표기를 화면·접근성 라벨·가이드·IA 기록에 맞췄으며 멤버십 안내의 구매 시·이번 달 띄어쓰기를 수정했다. 생성 이력 JSON의 줄바꿈 정리도 사용자 지시에 따라 함께 포함한다. 서비스 계약·라우트·상태 동작은 변경하지 않았다.
+
+출처: `src/data/screenIaSource.json`, `src/data/screenRegistry.ts`의 작업 트리. Git diff로 문구 변경을 검토했다. 브라우저 실행 검증은 수행하지 않았다. 기록: codex/gpt-6, 2026-11-23T04:45:34.967867+00:00.

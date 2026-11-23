@@ -19,7 +19,7 @@ export function CartEmptyState() {
         <>
           <Box>
             <ButtonLink href="/mypage/wishlist" variant="primary" size="tall" fullWidth>
-              관심상품 보러가기
+              관심 상품 보러가기
             </ButtonLink>
           </Box>
           <Box>

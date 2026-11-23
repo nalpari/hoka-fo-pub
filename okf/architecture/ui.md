@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-20T08:20:24.459192+00:00'
+updated: '2026-11-23T04:45:34.967867+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -6215,3 +6215,9 @@ ProductListingContent의 sticky top·maxH가 ContentLayout에서만 제공하는
 기존 `/products/pdp-preview/share`, IA 연결, 모달·포커스 소유권과 상품 URL 생성은 유지한다. 복사 pending은 공통 `loading`으로 전달해 disabled와 aria-busy를 적용하며 성공·실패 토스트와 재시도 처리를 유지한다. 카카오톡 SDK는 미연결이다. 출처: 사용자 첨부 이미지와 코멘트, [Main / PLP / PDP](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP), `src/app/products/[id]/_components/ProductDetailContent.tsx`, `src/components/common/atoms/Icon.assets.ts`, `public/images/icon/link-regular.svg` 작업 트리. Figma 원본 수치·굵기 모드는 조회 제한으로 미확인이다.
 
 검증: PC 계산 스타일·모바일390px의 버튼168×48px·overflow 없음·URL 복사 성공 토스트와 스크린샷을 확인했다. 변경 파일 ESLint·타입 검사·Panda 생성은 통과했다. 기록: codex/gpt-6.
+
+## 화면 문구 맞춤법과 띄어쓰기 (2026-11-23)
+
+관심 상품 표기를 화면·접근성 라벨·가이드·IA 기록에 맞췄으며 멤버십 안내의 구매 시·이번 달 띄어쓰기를 수정했다. 생성 이력 JSON의 줄바꿈 정리도 사용자 지시에 따라 함께 포함한다. 서비스 계약·라우트·상태 동작은 변경하지 않았다.
+
+출처: `src/components/common/atoms/Wishlist.tsx`, `src/components/common/molecules/ProductCard/ProductCard.tsx`, `src/components/membership/MembershipRewards.tsx`, `src/components/membership/rewards-data.ts`의 작업 트리. Git diff로 문구 변경을 검토했다. 브라우저 실행 검증은 수행하지 않았다. 기록: codex/gpt-6, 2026-11-23T04:45:34.967867+00:00.

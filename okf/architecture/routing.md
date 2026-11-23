@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-23T04:33:14.831593+00:00'
+updated: '2026-11-23T04:45:34.967867+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -2542,3 +2542,9 @@ CartDialogs의 상품명을 PC/MO500으로 보정하고 색상 표시의 접두�
 마이페이지 홈 메뉴와 공통 내비게이션의 제목, IA 진행 안내의 표기를 `My HOKA`로 통일했다. 경로와 메뉴 항목은 유지한다.
 
 출처: `src/app/mypage/mypage-home-data.ts`·`src/app/mypage/mypage.data.ts`·`src/app/screen-index/screenProgress.ts`의 작업 트리. Git diff에서 문자열 변경 범위를 확인했으며 브라우저 실행 검증은 수행하지 않았다. 기록: codex/gpt-6, 2026-11-23T04:33:14.831593+00:00.
+
+## 화면 문구 맞춤법과 띄어쓰기 (2026-11-23)
+
+관심 상품 표기를 화면·접근성 라벨·가이드·IA 기록에 맞췄으며 멤버십 안내의 구매 시·이번 달 띄어쓰기를 수정했다. 생성 이력 JSON의 줄바꿈 정리도 사용자 지시에 따라 함께 포함한다. 서비스 계약·라우트·상태 동작은 변경하지 않았다.
+
+출처: `src/app/cart/_components/CartEmptyState.tsx`, `src/app/cart/_components/CartProductSection.tsx`, `src/app/collection/_components/specialExhibition.data.ts`, `src/app/mypage/_components/MyPageContent.tsx`, `src/app/mypage/_components/MyPageProductHistory.tsx`, `src/app/mypage/mypage-home-data.ts`, `src/app/mypage/mypage.data.ts`, `src/app/mypage/page.tsx`, `src/app/mypage/wishlist/page.tsx`, `src/app/products/[id]/_components/ProductDetailContent.tsx`, `src/app/publishing-guide/_components/IconGuide.tsx`, `src/app/publishing-guide/_components/ProductCardGuide.tsx`, `src/app/screen-index/screenChangeHistory.generated.json`, `src/app/screen-index/screenDevelopers.ts`, `src/app/screen-index/screenProgress.ts`의 작업 트리. Git diff로 문구 변경을 검토했다. 브라우저 실행 검증은 수행하지 않았다. 기록: codex/gpt-6, 2026-11-23T04:45:34.967867+00:00.

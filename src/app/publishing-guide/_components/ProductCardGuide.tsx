@@ -61,7 +61,7 @@ const examples: readonly TileExample[] = [
   },
   {
     id: 'tile-liked',
-    title: '관심상품 선택',
+    title: '관심 상품 선택',
     description: '선택된 하트 · 클릭하여 상태 비교',
     variant: 'listing',
     options: listingOptions,
@@ -84,7 +84,7 @@ const examples: readonly TileExample[] = [
   },
   {
     id: 'tile-history',
-    title: '관심상품',
+    title: '관심 상품',
     description: 'history 정보 간격 · 색상 썸네일 · 장바구니 담기',
     variant: 'history',
     options: ['promotion', 'like', 'colors', 'cart'],
@@ -425,8 +425,8 @@ const [liked, setLiked] = useState(true);
     <Wishlist
       active={liked}
       onActiveChange={setLiked}
-      ariaLabel="전체 데이터 예시 관심상품"
-      label="관심상품"
+      ariaLabel="전체 데이터 예시 관심 상품"
+      label="관심 상품"
       iconSize={token.var('sizes.3.5')}
     />
   </HStack>
@@ -485,8 +485,8 @@ function FullDetailsPreview() {
         <Wishlist
           active={liked}
           onActiveChange={setLiked}
-          ariaLabel="전체 데이터 예시 관심상품"
-          label="관심상품"
+          ariaLabel="전체 데이터 예시 관심 상품"
+          label="관심 상품"
           iconSize={token.var('sizes.3.5')}
         />
       </HStack>
@@ -566,7 +566,7 @@ function VerticalProductExample({
 /**
  * [ 개발팀 바인딩 ] 가이드 소유자가 product·colorThumbnails·orderLine의 고정 표시 예시와 상품/행/옵션 ID를 제공합니다.
  * 데스크탑/모바일 가격 차이와 할인율은 승인된 디자인의 fixture이며 실제 가격·재고 계산이 아닙니다.
- * 관심상품은 각 예시의 로컬 liked/onLikedChange로, 색상 미리보기는 기존 ProductCard의 로컬 UI로 확인합니다.
+ * 관심 상품은 각 예시의 로컬 liked/onLikedChange로, 색상 미리보기는 기존 ProductCard의 로컬 UI로 확인합니다.
  * 조회·저장 요청은 연결하지 않으며 실제 상품과 요청 상태 갱신은 목록 통합 소유자의 책임입니다.
  */
 /** Horizontal·Vertical 상품 타일을 데스크탑·모바일 예시와 복사 가능한 코드로 보여줍니다. (Shows horizontal and vertical product tiles with desktop/mobile examples and copyable snippets.) */
@@ -682,7 +682,7 @@ export function ProductCardGuide() {
                 ['Tag', fullDetails.activities.join(', ')],
                 ['Carousel Item Container', '34px 색상 썸네일 5개'],
                 ['Review', '4.5점 / ' + fullDetails.review],
-                ['Setting', '옵션변경 / 관심상품'],
+                ['Setting', '옵션변경 / 관심 상품'],
                 ['Cart Button', '장바구니 담기'],
                 ['Status', fullDetails.status],
               ].map(([label, value]) => (
@@ -707,7 +707,7 @@ export function ProductCardGuide() {
             Horizontal
           </Typography>
           <Typography as="p" variant="body5" tone="subtle">
-            이미지 아래에 상품 정보를 표시하는 목록·메인·관심상품 타일입니다.
+            이미지 아래에 상품 정보를 표시하는 목록·메인·관심 상품 타일입니다.
           </Typography>
         </Stack>
         {examples.map((example) => (
@@ -741,7 +741,7 @@ export function ProductCardGuide() {
             {detailExample.title}
           </Typography>
           <Typography as="p" variant="body5" tone="subtle">
-            상품 상세에서 사용하는 공통 정보 영역입니다. 이미지·옵션 선택·공유·관심상품 액션은 상세
+            상품 상세에서 사용하는 공통 정보 영역입니다. 이미지·옵션 선택·공유·관심 상품 액션은 상세
             화면이 소유합니다.
           </Typography>
           <Grid columns={{ base: 2, _mobile: 1 }} gap="3">

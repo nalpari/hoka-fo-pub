@@ -10,7 +10,7 @@ export const menuSections = [
   {
     title: '상품내역',
     items: [
-      { label: '관심상품', to: '/mypage/wishlist' },
+      { label: '관심 상품', to: '/mypage/wishlist' },
       { label: '최근 본 상품', to: '/mypage/recent' },
       { label: '재입고 알림 상품', to: '/mypage/restock-alerts' },
     ],
