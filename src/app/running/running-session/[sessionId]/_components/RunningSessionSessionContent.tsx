@@ -196,6 +196,12 @@ const detailText = css({ display: 'block', mt: '4px' });
 const styles = {
   image: css({ w: '100%', h: 'auto', aspectRatio: '1', objectFit: 'cover', display: 'block' }),
   opening: css({ color: 'var(--color-red-80)', mb: '24px' }),
+  imagePlaceholderLabel: css({
+    '&&': { fontSize: '34px' },
+    _mobile: { '&&': { fontSize: '22px', fontWeight: '700', lineHeight: '34px' } },
+  }),
+  recommendations: css({ _mobile: { '& > div': { gap: '16px' } } }),
+  recommendationRail: css({ _mobile: { px: '11px!' } }),
 };
 type RunningSessionSessionHeroProps = {
   session: RunningSessionSession;
@@ -400,17 +406,17 @@ export function RunningSessionSessionImage() {
       aspectRatio="2.6667"
       bg="var(--color-black-40)"
       _mobile={{
-        w: 'auto',
-        mx: 'var(--layout-mobile-inline-gutter)',
-        my: '10',
-        aspectRatio: '1.5',
+        w: '100%',
+        mx: '0',
+        my: '0',
+        aspectRatio: '1',
       }}
     >
       <Typography
         variant="heading7"
         mo="body2"
         weight="medium"
-        className={css({ '&&': { fontSize: '34px' } })}
+        className={styles.imagePlaceholderLabel}
       >
         이미지 영역
       </Typography>
@@ -418,7 +424,7 @@ export function RunningSessionSessionImage() {
   );
 }
 const mobileSlide = css({
-  w: '176px!',
+  w: '160px!',
   '& > *': { w: '100%' },
 });
 type RunningSessionRecommendationsProps = {
@@ -435,13 +441,14 @@ export function RunningSessionRecommendations({
       as="section"
       pb="192px"
       overflow="hidden"
-      _mobile={{ py: '10' }}
+      _mobile={{ py: '72px' }}
       css={{
         '--layout-web-content-max-width': '1776px',
         '--layout-web-content-inline-space': '144px',
       }}
     >
       <CarouselSection
+        className={styles.recommendations}
         title="로드 러닝 Essential"
         titleVariant="heading6"
         itemCount={products.length}
@@ -449,7 +456,8 @@ export function RunningSessionRecommendations({
         slideClassName={platform === 'mobile' ? mobileSlide : undefined}
         desktopCenteredItemCount={5}
         desktopItemGutter={8}
-        mobileItemGutter={8}
+        mobileItemGutter={5}
+        railClassName={styles.recommendationRail}
       >
         {products.map((product) => (
           <ProductCard key={product.id} product={product} variant="showcase" />
@@ -568,7 +576,7 @@ export function RunningSessionDetailLayout({
     <Box as="main" _mobile={{ '& ~ footer': { mb: 'calc(96px + env(safe-area-inset-bottom))' } }}>
       {hero}
       {guide}
-      <Box _mobile={{ display: 'none' }}>{desktopContent}</Box>
+      {desktopContent}
       {mobileAction}
       {applicationNotice}
     </Box>

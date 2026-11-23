@@ -2561,3 +2561,7 @@ CartDialogs의 상품명을 PC/MO500으로 보정하고 색상 표시의 접두�
 로그인의 가입 안내와 회원가입 방식 선택 제목을 `계정이 없으신가요?`로 변경했다. 로그인 안내 본문은 `회원가입 후 풍성한 멤버십 혜택을 확인해보세요.`로 수정했다.
 
 출처: `src/app/login/_components/LoginContent.tsx`, `src/app/signup/_components/SignupContent.tsx`의 작업 트리. Git diff로 문자열 변경을 확인했으며 브라우저 검증은 수행하지 않았다. 기록: codex/gpt-6, 2026-11-23T05:09:10.640861+00:00.
+
+## 러닝세션 상세 모바일 추가 영역 (2026-11-23)
+
+`src/app/running/running-session/[sessionId]/_components/RunningSessionSessionContent.tsx`의 상세 레이아웃에서 모바일 보조 이미지와 Essential 숨김을 해제했다. 기존 desktopContent 슬롯의 타입·호출 계약과 라우트·고정 신청 바·fixture 표시 조건은 유지한다. PC/MO 측정 및 남은 디자인 확인 범위는 [러닝세션 디자인](running-session-design.md#모바일-보조-이미지와-essential-추가-2026-11-23)에 기록했다. 출처는 해당 작업 트리와 최신 파일 단위 Figma 링크이며 검토 주체 codex/gpt-6, 2026-11-23 KST다.
