@@ -124,7 +124,7 @@ export function SignupMethodStep({ methods, onSelect }: SignupMethodStepProps) {
             titleAs="h1"
             titleProps={{ web: 'heading7', mo: 'heading5', id: 'signup-title' }}
             descriptionProps={{ variant: 'body3', tone: 'tertiary' }}
-            title="가입과 동시에 시작되는 혜택!"
+            title="계정이 없으신가요?"
             description="HOKA Korea 온라인 회원만을 위한 특별한 혜택!"
           />
         }

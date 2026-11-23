@@ -2317,19 +2317,9 @@ function HeaderTools({
         open={searchOpen}
       />
       <HStack data-search-panel-anchor gap={platform === 'mobile' ? '6px' : '16px'}>
-        <HStack gap="4px">
-          <HeaderAccount isLoggedIn={isLoggedIn} wishlistCount={wishlistCount} />
-          {platform === 'web' ? (
-            isLoggedIn ? (
-              <Link href="/mypage" className={authLink}>
-                <Typography variant="body3">마이페이지</Typography>
-              </Link>
-            ) : (
-              <HeaderAuthLink />
-            )
-          ) : null}
-        </HStack>
+        <HeaderAccount isLoggedIn={isLoggedIn} wishlistCount={wishlistCount} />
         <HeaderCartLink cart={cart} />
+        {platform === 'web' && !isLoggedIn ? <HeaderAuthLink /> : null}
       </HStack>
     </Flex>
   );

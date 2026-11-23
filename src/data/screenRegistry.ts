@@ -276,7 +276,7 @@ const rawScreens: RawScreenDefinition[] = [
     '1',
     true,
     'eland_hsc_01',
-    '옵션변경/관심상품 등록/상품삭제/주문하기',
+    '옵션변경/관심 상품 등록/상품삭제/주문하기',
   ],
   [
     171,
@@ -297,7 +297,7 @@ const rawScreens: RawScreenDefinition[] = [
   [179, ['', '', '', '상세', ''], 'page', '1', true, 'eland_hmy_03', ''],
   [180, ['', '', '취소/반품 내역', '목록', ''], 'page', '1', true, 'eland_hmy_04', ''],
   [181, ['', '', '', '상세', ''], 'page', '1', true, 'eland_hmy_05', ''],
-  [182, ['', '상품내역', '관심상품', '목록', ''], 'page', '1', true, 'eland_hmy_06', ''],
+  [182, ['', '상품내역', '관심 상품', '목록', ''], 'page', '1', true, 'eland_hmy_06', ''],
   [183, ['', '', '오늘 본 상품', '목록', ''], 'page', '1', true, 'eland_hmy_07', ''],
   [184, ['', '', '재입고 알림 상품', '목록', ''], 'page', '1', true, 'eland_hmy_08', ''],
   [
@@ -365,7 +365,7 @@ const rawScreens: RawScreenDefinition[] = [
     'eland_hmy_29',
     '9/16 상품 리뷰 수정 페이지 필요하여 추가',
   ],
-  [194, ['', 'MY HOKA', '', '', ''], 'page', '1', true, 'eland_hmy_16', ''],
+  [194, ['', 'My HOKA', '', '', ''], 'page', '1', true, 'eland_hmy_16', ''],
   [195, ['', '', '회원등급', '', ''], 'page', '1', true, 'eland_hmy_17', ''],
   [196, ['', '', '쿠폰', '목록', ''], 'page', '1', true, 'eland_hmy_18', ''],
   [

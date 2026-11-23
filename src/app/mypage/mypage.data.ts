@@ -15,13 +15,13 @@ export const myPageNavigation: MyPageNavGroup[] = [
   {
     heading: '상품내역',
     items: [
-      { label: '관심상품', to: '/mypage/wishlist' },
+      { label: '관심 상품', to: '/mypage/wishlist' },
       { label: '최근 본 상품', to: '/mypage/recent' },
       { label: '재입고 알림 상품', to: '/mypage/restock-alerts' },
     ],
   },
   {
-    heading: 'MY HOKA',
+    heading: 'My HOKA',
     items: [
       { label: '회원등급', to: '/mypage/rewards' },
       { label: '쿠폰', to: '/mypage/coupons' },
@@ -55,7 +55,7 @@ export const memberSummary = {
 
 export const quickLinks = [
   { label: '주문 / 배송', value: '0', to: '/mypage/orders' },
-  { label: '관심상품', value: '0', to: '/mypage/wishlist' },
+  { label: '관심 상품', value: '0', to: '/mypage/wishlist' },
   { label: '사용 가능 쿠폰', value: '2', to: '/mypage/coupons' },
   { label: 'HOKA 리워드', value: '2,400P', to: '/mypage/rewards' },
 ];

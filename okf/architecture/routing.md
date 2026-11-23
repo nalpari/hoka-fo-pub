@@ -4,12 +4,14 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-20T08:20:24.483721+00:00'
+updated: '2026-11-23T05:09:10.640861+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/signup/_components/SignupContent.tsx
+  - src/app/mypage/mypage.data.ts
   - src/app/running/running-session/[sessionId]/_components/RunningSessionSessionContent.tsx
   - src/app/cart/_components/CartProductSection.tsx
   - src/app/products/[id]/_components/ProductDetailContent.tsx
@@ -2536,6 +2538,20 @@ CartDialogs의 상품명을 PC/MO500으로 보정하고 색상 표시의 접두�
 
 검증: PC 계산 스타일·모바일390px의 버튼168×48px·overflow 없음·URL 복사 성공 토스트와 스크린샷을 확인했다. 변경 파일 ESLint·타입 검사·Panda 생성은 통과했다. 기록: codex/gpt-6.
 
+## My HOKA 표기 통일 (2026-11-23)
+
+마이페이지 홈 메뉴와 공통 내비게이션의 제목, IA 진행 안내의 표기를 `My HOKA`로 통일했다. 경로와 메뉴 항목은 유지한다.
+
+출처: `src/app/mypage/mypage-home-data.ts`·`src/app/mypage/mypage.data.ts`·`src/app/screen-index/screenProgress.ts`의 작업 트리. Git diff에서 문자열 변경 범위를 확인했으며 브라우저 실행 검증은 수행하지 않았다. 기록: codex/gpt-6, 2026-11-23T04:33:14.831593+00:00.
+
+## 화면 문구 맞춤법과 띄어쓰기 (2026-11-23)
+
+관심 상품 표기를 화면·접근성 라벨·가이드·IA 기록에 맞췄으며 멤버십 안내의 구매 시·이번 달 띄어쓰기를 수정했다. 생성 이력 JSON의 줄바꿈 정리도 사용자 지시에 따라 함께 포함한다. 서비스 계약·라우트·상태 동작은 변경하지 않았다.
+
+출처: `src/app/cart/_components/CartEmptyState.tsx`, `src/app/cart/_components/CartProductSection.tsx`, `src/app/collection/_components/specialExhibition.data.ts`, `src/app/mypage/_components/MyPageContent.tsx`, `src/app/mypage/_components/MyPageProductHistory.tsx`, `src/app/mypage/mypage-home-data.ts`, `src/app/mypage/mypage.data.ts`, `src/app/mypage/page.tsx`, `src/app/mypage/wishlist/page.tsx`, `src/app/products/[id]/_components/ProductDetailContent.tsx`, `src/app/publishing-guide/_components/IconGuide.tsx`, `src/app/publishing-guide/_components/ProductCardGuide.tsx`, `src/app/screen-index/screenChangeHistory.generated.json`, `src/app/screen-index/screenDevelopers.ts`, `src/app/screen-index/screenProgress.ts`의 작업 트리. Git diff로 문구 변경을 검토했다. 브라우저 실행 검증은 수행하지 않았다. 기록: codex/gpt-6, 2026-11-23T04:45:34.967867+00:00.
+
+## FAQ 탭과 상품 공유 UI 병합 기록 (2026-11-23)
+
 - 고객센터 FAQ의 모바일 카테고리 탭은 화면 양끝까지 가로 스크롤하며, 공통 필터 탭의 선택 이동을 사용한다.
 
 - 상품 상세 공유 미리보기는 왼쪽 카카오 아이콘과 18px 링크 아이콘을 표시한다. 퍼블리싱 가이드 아이콘 탭에서 링크 아이콘 예시를 확인할 수 있다.
@@ -2545,3 +2561,13 @@ CartDialogs의 상품명을 PC/MO500으로 보정하고 색상 표시의 접두�
 - 박스형 입력의 라벨과 입력 위치는 FormField의 공통 기준값으로 관리한다. 폼 가이드 Default와 Focus는 같은 복사 코드를 사용한다.
 
 - 상품 상세에서 선택한 옵션의 삭제 버튼은 공통 `xmark-regular` 아이콘을 18px로 표시한다.
+
+## 로그인과 회원가입 안내 문구 (2026-11-23)
+
+로그인의 가입 안내와 회원가입 방식 선택 제목을 `계정이 없으신가요?`로 변경했다. 로그인 안내 본문은 `회원가입 후 풍성한 멤버십 혜택을 확인해보세요.`로 수정했다.
+
+출처: `src/app/login/_components/LoginContent.tsx`, `src/app/signup/_components/SignupContent.tsx`의 작업 트리. Git diff로 문자열 변경을 확인했으며 브라우저 검증은 수행하지 않았다. 기록: codex/gpt-6, 2026-11-23T05:09:10.640861+00:00.
+
+## 러닝세션 상세 모바일 추가 영역 (2026-11-23)
+
+`src/app/running/running-session/[sessionId]/_components/RunningSessionSessionContent.tsx`의 상세 레이아웃에서 모바일 보조 이미지와 Essential 숨김을 해제했다. 기존 desktopContent 슬롯의 타입·호출 계약과 라우트·고정 신청 바·fixture 표시 조건은 유지한다. PC/MO 측정 및 남은 디자인 확인 범위는 [러닝세션 디자인](running-session-design.md#모바일-보조-이미지와-essential-추가-2026-11-23)에 기록했다. 출처는 해당 작업 트리와 최신 파일 단위 Figma 링크이며 검토 주체 codex/gpt-6, 2026-11-23 KST다.

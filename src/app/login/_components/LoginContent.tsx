@@ -134,10 +134,10 @@ export function LoginContent({ showErrors = false, showHelp = false }: LoginForm
           >
             <Stack gap="2">
               <Typography as="h2" web="body2" mo="body2-2" weight="bold" id="membership-title">
-                가입과 동시에 시작되는 혜택!
+                계정이 없으신가요?
               </Typography>
               <Typography as="p" variant="body4">
-                신규가입 쿠폰과 기념일 축하쿠폰, 등급별 혜택을 받으세요.
+                회원가입 후 풍성한 멤버십 혜택을 확인해보세요.
               </Typography>
             </Stack>
             <ButtonLink href="/signup" fullWidth variant="secondary">

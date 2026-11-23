@@ -6,7 +6,7 @@ export const rewardPreview = {
   purchaseAmount: '182,500',
   tierProgress: {
     percent: 63,
-    label: '120,000원 구매시 등급 업!',
+    label: '120,000원 구매 시 등급 업!',
     currentAmount: '180,000',
     targetAmount: '300,000',
   },

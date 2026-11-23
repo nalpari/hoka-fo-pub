@@ -1529,7 +1529,7 @@
       "page": "1",
       "requiresLogin": true,
       "screenCode": "eland_hsc_01",
-      "note": "옵션변경/관심상품 등록/상품삭제/주문하기"
+      "note": "옵션변경/관심 상품 등록/상품삭제/주문하기"
     },
     {
       "iaNumber": 171,
@@ -1632,7 +1632,7 @@
     },
     {
       "iaNumber": 182,
-      "depths": ["마이페이지", "상품내역", "관심상품", "목록", ""],
+      "depths": ["마이페이지", "상품내역", "관심 상품", "목록", ""],
       "category": "page",
       "page": "1",
       "requiresLogin": true,
@@ -1740,7 +1740,7 @@
     },
     {
       "iaNumber": 194,
-      "depths": ["마이페이지", "MY HOKA", "", "", ""],
+      "depths": ["마이페이지", "My HOKA", "", "", ""],
       "category": "page",
       "page": "1",
       "requiresLogin": true,
@@ -1749,7 +1749,7 @@
     },
     {
       "iaNumber": 195,
-      "depths": ["마이페이지", "MY HOKA", "회원등급", "", ""],
+      "depths": ["마이페이지", "My HOKA", "회원등급", "", ""],
       "category": "page",
       "page": "1",
       "requiresLogin": true,
@@ -1758,7 +1758,7 @@
     },
     {
       "iaNumber": 196,
-      "depths": ["마이페이지", "MY HOKA", "쿠폰", "목록", ""],
+      "depths": ["마이페이지", "My HOKA", "쿠폰", "목록", ""],
       "category": "page",
       "page": "1",
       "requiresLogin": true,
@@ -1767,7 +1767,7 @@
     },
     {
       "iaNumber": 197,
-      "depths": ["마이페이지", "MY HOKA", "쿠폰", "상세", ""],
+      "depths": ["마이페이지", "My HOKA", "쿠폰", "상세", ""],
       "category": "page",
       "page": "1",
       "requiresLogin": true,
@@ -1776,7 +1776,7 @@
     },
     {
       "iaNumber": 198,
-      "depths": ["마이페이지", "MY HOKA", "이벤트 응모내역", "", ""],
+      "depths": ["마이페이지", "My HOKA", "이벤트 응모내역", "", ""],
       "category": "page",
       "page": "1",
       "requiresLogin": true,
@@ -1785,7 +1785,7 @@
     },
     {
       "iaNumber": 199,
-      "depths": ["마이페이지", "MY HOKA", "나의 발 아치 확인", "", ""],
+      "depths": ["마이페이지", "My HOKA", "나의 발 아치 확인", "", ""],
       "category": "page",
       "page": "1",
       "requiresLogin": true,
@@ -1794,7 +1794,7 @@
     },
     {
       "iaNumber": 200,
-      "depths": ["마이페이지", "MY HOKA", "러닝세션 신청내역", "", ""],
+      "depths": ["마이페이지", "My HOKA", "러닝세션 신청내역", "", ""],
       "category": "page",
       "page": "1",
       "requiresLogin": true,

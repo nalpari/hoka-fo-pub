@@ -71,7 +71,7 @@ function MyPageMembership() {
         </HStack>
         <Box w="full" pl="60px" boxSizing="border-box" _mobile={{ pl: '40px' }}>
           <Typography as="p" web="body3" mo="body5" className={styles.benefitText}>
-            {'다음 등급까지 300,000원 구매시 등급 업 혜택 제공'}
+            {'다음 등급까지 300,000원 구매 시 등급 업 혜택 제공'}
           </Typography>
         </Box>
       </Stack>
@@ -152,7 +152,7 @@ function MyPageBenefits() {
       />
       <MyPageBenefitItem
         href="/mypage/wishlist"
-        label="관심상품"
+        label="관심 상품"
         count={6}
         unit="건"
         icon="heart-solid"

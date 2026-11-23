@@ -42,7 +42,7 @@ export type WishlistProps = {
   onActiveChange: (active: boolean) => void;
 };
 
-/** 18px 기본형 하트를 화면 크기에 맞춰 표시하는 관심상품 토글입니다. (Displays a wishlist toggle using scaled 18px heart assets.) */
+/** 18px 기본형 하트를 화면 크기에 맞춰 표시하는 관심 상품 토글입니다. (Displays a wishlist toggle using scaled 18px heart assets.) */
 export function Wishlist({
   active,
   ariaLabel,

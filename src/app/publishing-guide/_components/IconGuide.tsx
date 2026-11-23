@@ -50,7 +50,7 @@ const usageScreens: Record<string, { label: string; href: string }> = {
     href: '/products/shoe-1',
   },
   'Wishlist.tsx': {
-    label: '관심상품',
+    label: '관심 상품',
     href: '/mypage/wishlist',
   },
   'ProductCard.tsx': {
@@ -1126,7 +1126,7 @@ const iconGroups: {
 
 <Icon name="heart-regular" size={18} />`,
         source: 'Wishlist.tsx · ProductCard.tsx, CartProductSection.tsx, ProductDetailContent.tsx',
-        note: '원본 18px · 상품 목록: 데스크탑 24px / 모바일 18px · 상품 상세: 데스크탑 22px / 모바일 20px · 장바구니: 14px · 관심상품·최근 본 상품: 18px',
+        note: '원본 18px · 상품 목록: 데스크탑 24px / 모바일 18px · 상품 상세: 데스크탑 22px / 모바일 20px · 장바구니: 14px · 관심 상품·최근 본 상품: 18px',
       },
       {
         label: '하트 선택 기본형 · 18px',
@@ -1137,7 +1137,7 @@ const iconGroups: {
 
 <Icon name="heart-solid" size={18} />`,
         source: 'Wishlist.tsx · ProductCard.tsx, CartProductSection.tsx, ProductDetailContent.tsx',
-        note: '원본 18px · 상품 목록: 데스크탑 24px / 모바일 18px · 상품 상세: 데스크탑 22px / 모바일 20px · 장바구니: 14px · 관심상품·최근 본 상품: 18px',
+        note: '원본 18px · 상품 목록: 데스크탑 24px / 모바일 18px · 상품 상세: 데스크탑 22px / 모바일 20px · 장바구니: 14px · 관심 상품·최근 본 상품: 18px',
       },
       {
         label: '더하기 기본형 · 18px',
