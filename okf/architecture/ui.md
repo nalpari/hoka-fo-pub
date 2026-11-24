@@ -6245,3 +6245,22 @@ TextFormField/TextInput, SearchField, DateRangeSearch와 각 화면의 검색·�
 - 상품 상세의 문의하기 버튼은 기존 1:1 문의 입력 컴포넌트를 재사용하는 상품 문의 모달을 연다. 데스크탑은 중앙 모달, 모바일은 전체 화면을 사용한다. 고객 정보와 파일 첨부 영역은 1:1 문의 화면에서만 사용한다. 상품 유형이 고정되며 비밀글을 선택할 수 있다. 등록 요청은 미연결이다.
 
 - 상품 문의 모달의 유의사항에 부적절한 게시글 금지와 개인정보 포함 시 비밀글 문의 안내를 표시한다.
+
+## 상품 상세 Tech Specs 타이포 보정 (2026-11-24)
+
+[상품 상세 디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 PC·모바일 Tech Specs를 대조해 기존 body3/body5 일괄 사용을 해당 영역의 표현으로 보정했다. `ProductDetailContent.tsx`의 기존 목록·제목 소유권과 DescriptionList/ContentSection/Tooltip을 유지하며 공통 Typography 기본값은 바꾸지 않는다.
+
+| 텍스트 | PC | 모바일 | 굵기·폰트 |
+| --- | --- | --- | --- |
+| Tech Specs | 28px / 30.72px | 22px / 30.72px | HOKA Black900 |
+| 무게 | 16px / 18.2px | 18px / 18.2px | Pretendard ExtraBold800 |
+| Heel-to-Toe Drop | 15px / 18.2px | 18px / 22px | HOKA Bold700 |
+| 무게·드롭 수치 | 20px / 18.2px | 18px / 18.2px | HOKA Regular400 |
+| 쿠셔닝·안정성·반발력 | 20px / 30px | 20px / 30px | Pretendard ExtraBold800 |
+| 하단 척도 라벨 | 16px / 24px | 13px / 19.5px | Pretendard Regular400 |
+
+표의 값은 크기/행간이며, 별도 굵기 변수 모드는 추출되지 않았다. 확인한 fontStyle ExtraBold/800·Bold/700·Regular/400·Black/900은 서로 일치한다. 기술 척도가 있는 기존 표현에만 private 목록의 optional `technical` 표시 옵션을 사용하며 기본false는 기존 일반 속성 목록을 보존한다. 서비스 데이터·수치·척도 레벨과 바인딩·요청 동작은 변경하지 않는다.
+
+검증: PC1600·모바일553/375의 계산 스타일과 스크린샷, 모바일 가로 overflow 없음을 확인했다. 국문 제목·무게에 실제 Pretendard-ExtraBold가 사용됨을 확인했다. 숫자의 custom font 내부 이름은 `.`으로 반환되며 기존 hoka 등록과 Regular400 계산 스타일을 확인했다. 일반 shoe-2 PC 속성 목록의 16px/항목명700·값400 유지와 모바일의 기존 Tech Specs 미표시를 확인했다. 변경 파일 ESLint·TypeScript·Panda 생성이 통과했다. Next 전체 빌드는 실행하지 않았다.
+
+출처: 사용자 제공 PC·모바일 디자인, `src/app/products/[id]/_components/ProductDetailContent.tsx` 작업 트리. 기록: codex/gpt-6. 기존 provenance와 draft 상태를 유지한다.

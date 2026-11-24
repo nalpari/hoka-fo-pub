@@ -2573,3 +2573,7 @@ CartDialogs의 상품명을 PC/MO500으로 보정하고 색상 표시의 접두�
 로그인·가입·계정 찾기·주문서·마이페이지·문의·런칭 캘린더·검색·IA와 퍼블리싱 가이드의 기존 URL에서 입력 및 선택 안내 문구를 제거했다. 경로, preview URL, 라우트 소유권과 이동 동작은 변경하지 않았다. 출처: 해당 `src/app` 작업 트리와 `src/components/catalog/ProductListingPage.tsx`. 기록: codex/gpt-6, 2026-11-24.
 
 - 상품 상세의 문의하기 버튼은 기존 1:1 문의 입력 컴포넌트를 재사용하는 상품 문의 모달을 연다. 데스크탑은 중앙 모달, 모바일은 전체 화면을 사용한다. 고객 정보와 파일 첨부 영역은 1:1 문의 화면에서만 사용한다. 상품 유형이 고정되며 비밀글을 선택할 수 있다. 등록 요청은 미연결이다.
+
+## 상품 상세 Tech Specs 타이포 보정 (2026-11-24)
+
+ProductDetailContent.tsx의 Tech Specs 타이포를 PC·모바일 시안에 맞췄다. 기술 수치는 PC20px/MO18px, 척도 제목20px/800, 하단 라벨PC16px/MO13px이며 제목과 항목명의 행간·굵기도 보정했다. private 목록의 technical 기본false는 일반 속성 표시를 보존한다. 라우트·상품 표시 데이터·수치·바인딩과 서비스 경계는 유지한다. [디자인 값·출처·실행 검증](ui.md#상품-상세-tech-specs-타이포-보정-2026-11-24)을 따른다. 출처: src/app/products/[id]/_components/ProductDetailContent.tsx 작업 트리. 기록: codex/gpt-6.

@@ -4,6 +4,11 @@
 - 변경 파일 ESLint, 생성 타입 갱신 후 전체 TypeScript 검사를 통과했다. 로컬 폼 가이드 PC/MO, 로그인, 모바일 문의 화면에서 placeholder 부재와 미선택 드롭다운 표시·옵션 시트 열림을 확인했다. Panda 생성과 Next.js 프로덕션 빌드에서 171개 정적 페이지 생성도 통과했다.
 - [폼 필드 정책](architecture/form-fields.md#폼-placeholder-제거-2026-11-24), [UI](architecture/ui.md#폼-placeholder-제거-2026-11-24), [라우팅](architecture/routing.md#폼-placeholder-제거-경로-검토-2026-11-24), [상태](architecture/state.md#폼-placeholder-제거-상태-검토-2026-11-24)를 갱신했다. 출처: 사용자 지시와 해당 소스의 작업 트리.
 
+## 2026-11-24 상품 상세 Tech Specs 타이포 보정
+
+- PC·모바일 시안과 다른 항목명·수치·척도 제목/라벨의 글자 크기·굵기·행간을 ProductDetailContent.tsx에서 보정했다. 공통 Typography와 일반 속성 목록의 기본 표현은 유지한다.
+- [디자인 수치·폰트·검증](architecture/ui.md#상품-상세-tech-specs-타이포-보정-2026-11-24): PC1600·MO553/375 계산 스타일·스크린샷·실제 ExtraBold face와 일반 상품 PC 기본 표시를 확인했다. 변경 파일 ESLint·타입·Panda 생성 통과. 전체 빌드는 미실행. 기록: codex/gpt-6.
+
 ## 2026-11-24 폼 플로팅 라벨 변경 되돌림
 
 - `f4161abf`의 박스형 입력 플로팅 라벨, 오류 색상 변경, 폼 가이드 예시 변경을 되돌렸다. 이후 커밋의 상품 상세·러닝세션·로그인 관련 기록은 유지했다. 관련 개념 문서에서 해당 동작 설명을 제거했다.

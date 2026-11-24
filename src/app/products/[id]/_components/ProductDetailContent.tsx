@@ -698,17 +698,62 @@ export function ProductDetailInquiryContent({
     />
   );
 }
+
+const productTechSpecsStyles = {
+  heading: css({
+    '&&': {
+      fontSize: '28px',
+      fontWeight: '900',
+      lineHeight: '30.72px',
+      _mobile: { fontSize: '22px' },
+    },
+  }),
+  specificationLabel: css({
+    fontSize: '16px',
+    fontWeight: '800',
+    lineHeight: '18.2px',
+    _mobile: { fontSize: '18px' },
+    '&[lang="en"]': {
+      fontSize: '15px',
+      fontWeight: '700',
+      _mobile: { fontSize: '18px', lineHeight: '22px' },
+    },
+  }),
+  value: css.raw({
+    '&&': { fontSize: '20px', lineHeight: '18.2px', _mobile: { fontSize: '18px' } },
+  }),
+  scaleTitle: css({
+    '&&': { fontSize: '20px', fontWeight: '800', lineHeight: '30px' },
+  }),
+  scaleLabel: css({
+    '&&': { fontSize: '16px', lineHeight: '1.5', _mobile: { fontSize: '13px' } },
+  }),
+};
+
 type ProductDetailSpecificationListProps = {
   items: readonly ProductDetailSpecification[];
   gap: '4' | '8';
+  /** Defaults to false to preserve the ordinary product attribute list. */
+  technical?: boolean;
 };
-function ProductDetailSpecificationList({ items, gap }: ProductDetailSpecificationListProps) {
+
+function ProductDetailSpecificationList({
+  items,
+  gap,
+  technical = false,
+}: ProductDetailSpecificationListProps) {
   return (
     <DescriptionList
       items={items.map((item) => ({
         descriptionProps: typeof item.value === 'string' ? undefined : { variant: undefined },
         term: (
-          <HStack as="span" gap="2" alignItems="center">
+          <HStack
+            as="span"
+            gap="2"
+            alignItems="center"
+            lang={/\p{Script=Hangul}/u.test(item.label) ? 'ko' : 'en'}
+            className={technical ? productTechSpecsStyles.specificationLabel : undefined}
+          >
             {item.label}
             {item.help ? (
               <HelpTooltip
@@ -731,7 +776,11 @@ function ProductDetailSpecificationList({ items, gap }: ProductDetailSpecificati
                   {index > 0 ? (
                     <Divider orientation="vertical" length="4" variant="strong" />
                   ) : null}
-                  <Typography as="span" variant="body3">
+                  <Typography
+                    as="span"
+                    variant="body3"
+                    className={technical ? css(productTechSpecsStyles.value) : undefined}
+                  >
                     {value}
                   </Typography>
                 </Fragment>
@@ -754,7 +803,10 @@ function ProductDetailSpecificationList({ items, gap }: ProductDetailSpecificati
           gap: '2',
           _mobile: { flexDirection: 'row', alignItems: 'center', gap: '24px' },
         }),
-        description: css.raw({ m: '0', _mobile: { minW: '0' } }),
+        description: css.raw(
+          { m: '0', _mobile: { minW: '0' } },
+          technical && productTechSpecsStyles.value,
+        ),
       }}
     />
   );
@@ -786,7 +838,11 @@ function ProductTechnicalScale({ title, labels, level, help }: ProductTechnicalS
       title={title}
       headerProps={{
         titleAs: 'h3',
-        titleProps: { variant: 'body3', weight: 'bold' },
+        titleProps: {
+          variant: 'body3',
+          weight: 'bold',
+          className: productTechSpecsStyles.scaleTitle,
+        },
         orientation: 'horizontal',
         gap: '2',
         css: css.raw({ justifyContent: 'flex-start' }),
@@ -805,7 +861,7 @@ function ProductTechnicalScale({ title, labels, level, help }: ProductTechnicalS
       <ProductTechnicalScaleBar level={level} />
       <Flex justifyContent="space-between" gap="2">
         {labels.map((label) => (
-          <Typography key={label} variant="body5">
+          <Typography key={label} variant="body3" className={productTechSpecsStyles.scaleLabel}>
             {label}
           </Typography>
         ))}
@@ -836,7 +892,7 @@ function ProductTechSpecs({ specifications, attributes, scales }: ProductTechSpe
         titleAs: 'h2',
         titleProps: {
           variant: 'heading7',
-          className: productDetailMobileStyles.sectionHeading,
+          className: productTechSpecsStyles.heading,
         },
       }}
       gap="8"
@@ -846,7 +902,11 @@ function ProductTechSpecs({ specifications, attributes, scales }: ProductTechSpe
         gap="10"
         _mobile={{ gridTemplateColumns: '1fr', gap: '10' }}
       >
-        <ProductDetailSpecificationList items={specifications} gap="8" />
+        <ProductDetailSpecificationList
+          items={specifications}
+          gap="8"
+          technical={scales.length > 0}
+        />
         <Stack gap="8">
           {scales.length > 0 ? (
             scales.map((scale) => <ProductTechnicalScale key={scale.title} {...scale} />)
