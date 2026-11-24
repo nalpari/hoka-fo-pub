@@ -23,7 +23,9 @@ const trigger = css({
 const panel = css({ pt: '3' });
 
 /** 문의 화면에서 확인할 유의사항을 펼쳐 보여줍니다. (Shows expandable cautions for the inquiry page.) */
-export function InquiryCautions() {
+export function InquiryCautions({ productInquiry = false }: { productInquiry?: boolean }) {
+  const items = productInquiry ? cautions.slice(1) : cautions;
+
   return (
     <Box borderTop="1px solid token(colors.black.20)" pt="5">
       <Accordion
@@ -42,7 +44,7 @@ export function InquiryCautions() {
             ),
             content: (
               <Stack as="ul" gap="0" listStyleType="none">
-                {cautions.map((item) => (
+                {items.map((item) => (
                   <HStack as="li" key={item} alignItems="flex-start" gap="1">
                     <Typography as="span" variant="body5" tone="tertiary" aria-hidden="true">
                       -

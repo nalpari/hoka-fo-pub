@@ -6241,3 +6241,5 @@ ProductListingContent의 sticky top·maxH가 ContentLayout에서만 제공하는
 TextFormField/TextInput, SearchField, DateRangeSearch와 각 화면의 검색·주소·이메일 입력에서 placeholder 표시를 제거했다. Dropdown은 별도 안내 문구 prop을 제거하고 미선택 필드는 기존 label과 빈 값으로 표시한다. 정렬은 선택 전 `정렬` 동작 라벨을 표시하며, 선택된 옵션은 그대로 표시한다. 필드 label·aria-label·오류·hint·비밀번호 보기·선택 조작과 값 소유권은 유지한다. 퍼블리싱 가이드의 미리보기와 복사 예시도 같은 정책을 반영했다.
 
 출처: `src/app`의 변경된 폼 화면, `src/components/common/atoms/{Dropdown,TextInput}.tsx`, `src/components/common/molecules/{SearchField,DateRangeSearch}.tsx`, `src/components/common/organisms/{Address/AddressFields,EmailAddressFields}.tsx`, `src/components/phone-verification/PhoneVerificationContent.tsx`, `src/components/catalog/ProductListingPage.tsx`의 작업 트리. 기록: codex/gpt-6, 2026-11-24.
+
+- 상품 상세의 문의하기 버튼은 기존 1:1 문의 입력 컴포넌트를 재사용하는 상품 문의 모달을 연다. 데스크탑은 중앙 모달, 모바일은 전체 화면을 사용한다. 상품 유형이 고정되며 비밀글을 선택할 수 있다. 등록 요청은 미연결이다.
