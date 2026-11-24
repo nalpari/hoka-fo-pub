@@ -297,7 +297,6 @@ export function InquiryCategoryFields({
           label="문의 유형"
           required
           name="inquiry-category"
-          placeholder="문의 분류를 선택해주세요"
           value={category}
           onValueChange={onCategoryChange}
           mobileNextSelection={{
@@ -321,7 +320,6 @@ export function InquiryCategoryFields({
           label="상세 유형"
           required
           name="inquiry-detail-category"
-          placeholder="상세 유형을 선택해주세요"
           value={detailCategory}
           onValueChange={onDetailCategoryChange}
           error={
@@ -362,7 +360,6 @@ export function InquiryMessageFields({
           value: title,
           maxLength: 50,
           onChange: (event) => onTitleChange(event.target.value),
-          placeholder: '제목을 입력해주세요. (50자 이하)',
         }}
       />
       <TextFormField
@@ -377,7 +374,6 @@ export function InquiryMessageFields({
           value: body,
           maxLength: 1000,
           onChange: (event) => onBodyChange(event.target.value),
-          placeholder: '내용을 입력해주세요.',
           className: css({ '&&&': { h: '100px', minH: '100px' } }),
         }}
         renderControl={(control) => (

@@ -58,7 +58,6 @@ function ProfilePhoneVerification({ phone, error, verified, previewState, onPhon
         variant="boxed"
         error={phoneError || error}
         inputProps={{
-          placeholder: '휴대폰 번호를 입력해 주세요',
           name: 'tel',
           type: 'tel',
           inputMode: 'numeric',
@@ -86,7 +85,6 @@ function ProfilePhoneVerification({ phone, error, verified, previewState, onPhon
             required
             error={expired ? '인증 시간이 만료되었습니다. 인증번호를 재요청해 주세요.' : codeError}
             inputProps={{
-              placeholder: '인증번호 6자리를 입력해 주세요',
               inputMode: 'numeric',
               autoComplete: 'one-time-code',
               maxLength: 6,
@@ -460,7 +458,6 @@ export function ProfilePasswordDialog({
                 hint="연속적인 숫자나 생일, 전화번호등 추측하기 쉬운 개인정보 및 아이디와 비슷한 전화번호 사용을 피하시기 바랍니다. 비밀번호는 특수기호를 포함한 3가지 이상을 혼합하여 입력하세요."
                 hintProps={{ variant: 'body5', className: css({ color: 'black.100' }) }}
                 inputProps={{
-                  placeholder: '비밀번호를 입력해 주세요',
                   type: 'password',
                   autoComplete: 'new-password',
                   value: password,
@@ -476,7 +473,6 @@ export function ProfilePasswordDialog({
                 inputProps={{
                   type: 'password',
                   autoComplete: 'new-password',
-                  placeholder: '비밀번호를 다시 입력해 주세요',
                   value: confirmation,
                   onChange: (event) => changeField('confirmation', event.target.value),
                 }}

@@ -104,7 +104,6 @@ export type DropdownProps = {
   ariaLabel: string;
   label?: ReactNode;
   required?: boolean;
-  placeholder?: string;
   hint?: ReactNode;
   error?: ReactNode;
   invalid?: boolean;
@@ -137,7 +136,6 @@ export function Dropdown({
   ariaLabel,
   label,
   required: requiredProp,
-  placeholder,
   hint,
   error,
   invalid = false,
@@ -170,12 +168,12 @@ export function Dropdown({
   const required = requiredProp ?? field?.required;
   const hasError = invalid || Boolean(error) || Boolean(field?.invalid);
   const id = useId();
-  const fallbackValue = defaultValue ?? (placeholder ? '' : (options[0]?.value ?? ''));
+  const fallbackValue = defaultValue ?? options[0]?.value ?? '';
   const [uncontrolledValue, setUncontrolledValue] = useState(fallbackValue);
   const value = controlledValue ?? uncontrolledValue;
   const selectedOption = options.find((option) => option.value === value);
 
-  const selectedLabel = selectedOption?.label ?? placeholder;
+  const selectedLabel = selectedOption?.label;
   const isSort = variant === 'sort';
   const nextSelection = showNextSelection ? mobileNextSelection : undefined;
   const sheetLabel = nextSelection?.ariaLabel ?? (isSort ? '정렬' : ariaLabel);
@@ -277,7 +275,7 @@ export function Dropdown({
         >
           {selectedOption?.prefix}
           <Typography variant="body4" className={css({ '&&': { lineHeight: '1.3' } })}>
-            {placeholder ?? selectedLabel}
+            {selectedLabel ?? '정렬'}
           </Typography>
           {indicator ?? (
             <Icon
@@ -412,7 +410,7 @@ export function Dropdown({
                   .filter(Boolean)
                   .join(' ')}
               >
-                {isSort && placeholder ? placeholder : selectedLabel}
+                {selectedLabel ?? (isSort ? '정렬' : null)}
               </Typography>
             </Flex>
             <BaseSelect.Icon

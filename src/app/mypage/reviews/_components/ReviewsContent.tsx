@@ -80,7 +80,6 @@ function ReviewDialog({
           inputProps={{
             'aria-label': '리뷰 내용',
             multiline: true,
-            placeholder: '상품 사용 경험을 입력해 주세요',
             value: body,
             onChange: (event) => onBodyChange(event.target.value),
           }}

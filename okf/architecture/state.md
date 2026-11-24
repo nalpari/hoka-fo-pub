@@ -4,7 +4,7 @@ title: '공통 상태와 데모 데이터'
 description: '로그인, 장바구니와 목 데이터의 수명 및 제약을 설명한다.'
 tags: [react, state, mock-data]
 status: draft
-updated: '2026-11-20T04:06:16.622Z'
+updated: '2026-11-24T01:45:10Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
@@ -879,3 +879,7 @@ AppLayout은 모바일 /search에서도 SiteHeader를 표시한다. /search와 /
 사용자 브라우저 코멘트에 따라 `src/context/ShopShell.tsx`의 HeaderTools에서 PC 로그인 후 마이페이지 텍스트를 제거했다. 로그인 전은 사람 아이콘 → 장바구니 아이콘 → 로그인 | 회원가입, 로그인 후는 사람 아이콘 → 장바구니 아이콘 순서다. 2026-11-19의 로그인 후 텍스트 규칙을 이 지시로 대체한다. 아이콘의 접근성 이름과 링크는 유지하며 기존 state.isLoggedIn과 로컬 로그아웃 표시 소유권, 모바일 비로그인 사람 아이콘 숨김은 변경하지 않았다.
 
 검증: codex/gpt-6, 2026-11-23 KST. PC1440px에서 로그인 후 도구 텍스트는 장바구니 숫자만 남고, 로컬 로그아웃 확인 후 로그인·장바구니·로그인 텍스트·회원가입 링크의 x좌표가 순서대로 증가하는 것을 확인했다. 새로고침 후 로그인 fixture 복귀와 모바일 비로그인 사람 아이콘 display:none을 확인했다. 대상 ESLint·Prettier, 전체 TypeScript, Panda 생성 통과. 실제 인증 서비스는 연결하지 않았다. 출처는 사용자 코멘트와 해당 작업 트리다.
+
+## 폼 placeholder 제거 상태 검토 (2026-11-24)
+
+`src/context/ShopShell.tsx`의 검색 입력 안내 문구를 제거했다. 검색어 값·제출 콜백·검색 패널 상태와 자동/고정 플랫폼 판별은 변경하지 않았다. 다른 폼의 입력·선택 상태 소유권도 그대로다. 출처: 해당 context와 변경된 폼 호출부의 작업 트리. 기록: codex/gpt-6, 2026-11-24.

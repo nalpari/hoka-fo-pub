@@ -82,7 +82,6 @@ export function FindAccountContent({
                 inputProps={{
                   name: 'name',
                   autoComplete: 'name',
-                  placeholder: '이름을 입력해 주세요',
                   value: name,
                   onChange: (event) => onNameChange(event.target.value),
                 }}
@@ -98,7 +97,6 @@ export function FindAccountContent({
                   type: 'tel',
                   inputMode: 'numeric',
                   autoComplete: 'tel-national',
-                  placeholder: '휴대폰번호를 입력해 주세요',
                   value: phone,
                   onChange: (event) => onPhoneChange(event.target.value),
                 }}
@@ -126,7 +124,6 @@ export function FindAccountContent({
                       inputMode: 'numeric',
                       autoComplete: 'one-time-code',
                       maxLength: 6,
-                      placeholder: '인증번호 6자리를 입력해 주세요',
                       value: code,
                       onChange: (event) => onCodeChange(event.target.value),
                     }}

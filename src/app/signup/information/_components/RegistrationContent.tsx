@@ -25,7 +25,6 @@ import { type MarketingPreferences } from '@/app/signup/information/registration
 type Props = Pick<RegistrationContentProps, 'information' | 'fieldErrors' | 'onChange'> & {
   fieldKey: keyof RegistrationInformation;
   label: string;
-  placeholder: string;
   type?: string;
   fieldId?: string;
   disabled?: boolean;
@@ -33,7 +32,6 @@ type Props = Pick<RegistrationContentProps, 'information' | 'fieldErrors' | 'onC
 function RegistrationField({
   fieldKey: key,
   label,
-  placeholder,
   type = 'text',
   fieldId = `registration-${key}`,
   disabled = false,
@@ -55,7 +53,6 @@ function RegistrationField({
         disabled: disabled,
         disabledAppearance: disabled ? 'muted' : 'default',
         value: information[key],
-        placeholder: placeholder,
         autoComplete:
           key === 'password' || key === 'confirmation'
             ? 'new-password'
@@ -85,7 +82,6 @@ function RegistrationIdFields(props: RegistrationIdFieldsProps) {
         onChange={props.onChange}
         fieldKey="id"
         label="아이디"
-        placeholder="아이디를 입력해주세요"
       />
       <Button variant="primary" fullWidth onClick={props.onDuplicateCheck}>
         아이디 중복확인
@@ -132,7 +128,6 @@ function RegistrationPersonalFields(props: RegistrationPersonalFieldsProps) {
         onChange={props.onChange}
         fieldKey="name"
         label="이름"
-        placeholder="이름을 입력해주세요."
       />
       <RegistrationField
         information={props.information}
@@ -140,7 +135,6 @@ function RegistrationPersonalFields(props: RegistrationPersonalFieldsProps) {
         onChange={props.onChange}
         fieldKey="password"
         label="비밀번호"
-        placeholder="비밀번호를 입력해주세요"
         type="password"
       />
       <Box mt="-2">
@@ -155,7 +149,6 @@ function RegistrationPersonalFields(props: RegistrationPersonalFieldsProps) {
         onChange={props.onChange}
         fieldKey="confirmation"
         label="비밀번호 재확인"
-        placeholder="비밀번호를 다시 입력해주세요"
         type="password"
       />
       <RegistrationField
@@ -164,7 +157,6 @@ function RegistrationPersonalFields(props: RegistrationPersonalFieldsProps) {
         onChange={props.onChange}
         fieldKey="birthDate"
         label="생년월일"
-        placeholder="생년월일 8자리를 입력해주세요"
         type="text"
         disabled
       />
@@ -174,7 +166,6 @@ function RegistrationPersonalFields(props: RegistrationPersonalFieldsProps) {
         onChange={props.onChange}
         fieldKey="phone"
         label="휴대폰번호"
-        placeholder="휴대폰번호를 입력해주세요"
         type="text"
         disabled
       />
