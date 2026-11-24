@@ -4,6 +4,7 @@ title: '폼 필드 공통화 전수 조사'
 description: '전체 소스에서 반복되는 필드 조합과 공통 API, 유지해야 할 상태·검증 차이를 정리한다.'
 tags: [forms, components, reuse, audit]
 status: draft
+updated: '2026-11-24T01:45:10Z'
 generated:
   by: codex/gpt-6
   at: '2026-10-26T00:00:00Z'
@@ -53,6 +54,12 @@ working_tree_sources:
 ---
 
 # 폼 필드 공통화 전수 조사
+
+## 폼 placeholder 제거 (2026-11-24)
+
+사용자 확정 정책으로 입력·여러 줄 입력·검색·날짜 입력과 선택형 드롭다운의 placeholder를 제거했다. label, aria-label, 오류·hint, 값·필수 여부, 검색·선택 콜백은 유지한다. 공통 SearchField는 placeholder prop을 받지 않고, Dropdown은 선택값이 없을 때 안내 문구를 표시하지 않는다. 정렬 버튼은 선택 전에도 동작을 알 수 있도록 `정렬`을 표시한다. 폼 가이드의 복사 코드도 같은 정책을 따른다. 이 절이 아래 과거 placeholder 이관·표시 기록보다 우선한다.
+
+출처: 사용자 확정 지시와 `src/app`의 폼 호출부, `src/components/common/atoms/{Dropdown,TextInput}.tsx`, `src/components/common/molecules/{SearchField,DateRangeSearch}.tsx`, `src/components/common/organisms/{Address/AddressFields,EmailAddressFields}.tsx`, `src/components/phone-verification/PhoneVerificationContent.tsx`, `src/components/catalog/ProductListingPage.tsx`, `src/context/ShopShell.tsx` 및 관련 타입 선언의 현재 작업 트리. 기록: codex/gpt-6, 2026-11-24.
 
 ## 동의 체크박스·선호 라디오의 기본 옵션 통합 (2026-10-28)
 

@@ -1134,7 +1134,6 @@ function SearchListingLayout({
         <Box px="4" pt="8" pb="4">
           <SearchField
             label="검색어"
-            placeholder="검색어를 입력해주세요"
             value={draftQuery}
             onValueChange={setDraftQuery}
             onSearch={submitSearch}
@@ -1316,7 +1315,6 @@ type ProductListingLayoutProps = {
   searchQuery: string;
   shown: Product[];
   sort: string;
-  sortPlaceholder?: string;
 };
 /** 목록과 검색 결과에 공통 상품·필터 영역을 배치합니다. (Arranges shared product results and filters for catalog and search pages.) */
 function ProductListingLayout({
@@ -1344,14 +1342,12 @@ function ProductListingLayout({
   searchQuery,
   shown,
   sort,
-  sortPlaceholder,
 }: ProductListingLayoutProps) {
   const normalizedSearchQuery = searchQuery.trim();
   const sortAction = (
     <Dropdown
       ariaLabel="상품 정렬"
       variant="sort"
-      placeholder={sortPlaceholder}
       onValueChange={onSortChange}
       value={sort}
       options={productSortOptions.map(({ label, value }) => ({
@@ -1662,7 +1658,6 @@ export function ProductListingPage({ searchQuery = '', data }: ProductListingPag
       searchQuery={searchQuery}
       shown={shown}
       sort={sort}
-      sortPlaceholder={selectedSort ? undefined : '정렬기준'}
     />
   );
 }

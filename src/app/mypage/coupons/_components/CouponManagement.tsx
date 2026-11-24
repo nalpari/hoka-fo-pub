@@ -163,7 +163,6 @@ function CouponRegistrationSection({
           error={error}
           inputProps={{
             'aria-label': '쿠폰 일련번호',
-            placeholder: '일련 번호를 입력해 주세요',
             value: code,
             onChange: (event) => {
               onCodeChange(event.target.value);

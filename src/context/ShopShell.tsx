@@ -1250,7 +1250,6 @@ function SearchForm({ query, onQueryChange, onSearch, error = '' }: SearchFormPr
       <SearchField
         as="div"
         label="검색어"
-        placeholder="검색어를 입력해주세요"
         value={query}
         onValueChange={onQueryChange}
         onSearch={onSearch}
@@ -2208,7 +2207,6 @@ function HeaderSearch({
           form="site-search-form"
           type="search"
           autoComplete="off"
-          placeholder="검색하기"
           value={query}
           onChange={(event) => onQueryChange?.(event.target.value)}
           onFocus={onSearch}

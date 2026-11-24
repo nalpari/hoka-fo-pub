@@ -60,7 +60,6 @@ const boxedControl = css({
     color: 'black.100',
     outline: 'none!',
     _focusVisible: { outline: 'none!' },
-    _placeholder: { color: 'text.tertiary' },
     _disabled: { opacity: '1', color: 'black.40' },
   },
 });

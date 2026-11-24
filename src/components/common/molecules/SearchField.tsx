@@ -20,14 +20,12 @@ const input = css.raw({
     fontFamily: 'korean',
     fontSize: '16',
     letterSpacing: 'korean',
-    _placeholder: { color: 'black.40' },
     _focusVisible: { outline: 'none!' },
   },
 });
 
 export type SearchFieldProps = {
   label: string;
-  placeholder: string;
   value: string;
   onValueChange: (value: string) => void;
   onSearch?: () => void;
@@ -38,14 +36,13 @@ export type SearchFieldProps = {
   inputStyles?: SystemStyleObject;
   inputProps?: Omit<
     Extract<TextInputProps, { multiline?: false }>,
-    'value' | 'defaultValue' | 'onChange' | 'className' | 'multiline'
+    'value' | 'defaultValue' | 'onChange' | 'className' | 'multiline' | 'placeholder'
   >;
 };
 
 /** 검색어 입력과 선택적 검색 실행을 표시합니다. (Displays a search input with an optional search action.) */
 export function SearchField({
   label,
-  placeholder,
   value,
   onValueChange,
   onSearch,
@@ -99,7 +96,6 @@ export function SearchField({
         {...inputProps}
         aria-label={label}
         className={css(input, inputStyles)}
-        placeholder={placeholder}
         value={value}
         onChange={(event) => onValueChange(event.target.value)}
       />

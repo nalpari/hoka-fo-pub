@@ -180,7 +180,6 @@ export function LaunchCalendarDetail({
                     id="launch-notification-phone"
                     type="tel"
                     autoComplete="tel"
-                    placeholder="‘-’ 없이 숫자만 입력"
                     value={phone}
                     onChange={(event) => setPhone(event.target.value)}
                   />

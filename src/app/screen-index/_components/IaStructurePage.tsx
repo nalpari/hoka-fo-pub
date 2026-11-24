@@ -657,7 +657,6 @@ export function IaStructurePage() {
               className={styles.search}
               value={query}
               onChange={(event) => setQuery(event.target.value)}
-              placeholder="화면명, variant, 담당자, IA 번호, 코드, URL, 파일 경로 검색"
               aria-label="IA 화면 검색"
             />
             <Select
@@ -1390,7 +1389,11 @@ function WbsProgressBadge({ actual }: { actual?: string }) {
 
   const percent = Number.parseFloat(actual);
   const progress = percent === 0 ? 'pending' : percent === 100 ? 'complete' : 'working';
-  return <Badge visual="round" className={wbsProgressBadge({ progress })}>{percent}%</Badge>;
+  return (
+    <Badge visual="round" className={wbsProgressBadge({ progress })}>
+      {percent}%
+    </Badge>
+  );
 }
 
 function ScreenDevelopers({

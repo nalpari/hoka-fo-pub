@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-24T00:33:46.418862+00:00'
+updated: '2026-11-24T01:45:10Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -6235,6 +6235,16 @@ ProductListingContent의 sticky top·maxH가 ContentLayout에서만 제공하는
 - 모바일 상품 상세의 컬러 썸네일 목록은 가로로 넘칠 때 선택한 썸네일을 가운데 방향으로 이동한다. FAQ 필터 탭과 공통 스크롤 계산을 사용한다.
 
 - 상품 상세에서 선택한 옵션의 삭제 버튼은 공통 `xmark-regular` 아이콘을 18px로 표시한다.
+
+## 폼 placeholder 제거 (2026-11-24)
+
+TextFormField/TextInput, SearchField, DateRangeSearch와 각 화면의 검색·주소·이메일 입력에서 placeholder 표시를 제거했다. Dropdown은 별도 안내 문구 prop을 제거하고 미선택 필드는 기존 label과 빈 값으로 표시한다. 정렬은 선택 전 `정렬` 동작 라벨을 표시하며, 선택된 옵션은 그대로 표시한다. 필드 label·aria-label·오류·hint·비밀번호 보기·선택 조작과 값 소유권은 유지한다. 퍼블리싱 가이드의 미리보기와 복사 예시도 같은 정책을 반영했다.
+
+출처: `src/app`의 변경된 폼 화면, `src/components/common/atoms/{Dropdown,TextInput}.tsx`, `src/components/common/molecules/{SearchField,DateRangeSearch}.tsx`, `src/components/common/organisms/{Address/AddressFields,EmailAddressFields}.tsx`, `src/components/phone-verification/PhoneVerificationContent.tsx`, `src/components/catalog/ProductListingPage.tsx`의 작업 트리. 기록: codex/gpt-6, 2026-11-24.
+
+- 상품 상세의 문의하기 버튼은 기존 1:1 문의 입력 컴포넌트를 재사용하는 상품 문의 모달을 연다. 데스크탑은 중앙 모달, 모바일은 전체 화면을 사용한다. 고객 정보와 파일 첨부 영역은 1:1 문의 화면에서만 사용한다. 상품 유형이 고정되며 비밀글을 선택할 수 있다. 등록 요청은 미연결이다.
+
+- 상품 문의 모달의 유의사항에 부적절한 게시글 금지와 개인정보 포함 시 비밀글 문의 안내를 표시한다.
 
 ## 상품 상세 Tech Specs 타이포 보정 (2026-11-24)
 

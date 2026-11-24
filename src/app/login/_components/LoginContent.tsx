@@ -38,7 +38,6 @@ function LoginForm({ showErrors = false, showHelp = false }: LoginFormProps) {
               name: 'username',
               type: 'text',
               autoComplete: 'username',
-              placeholder: '아이디를 입력해 주세요',
               value: id,
               onChange: (event) => setId(event.target.value),
             }}
@@ -56,7 +55,6 @@ function LoginForm({ showErrors = false, showHelp = false }: LoginFormProps) {
             inputProps={{
               name: 'password',
               autoComplete: 'current-password',
-              placeholder: '비밀번호를 입력해 주세요',
               type: 'password',
               value: password,
               onChange: (event) => setPassword(event.target.value),

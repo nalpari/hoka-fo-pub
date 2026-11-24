@@ -43,7 +43,6 @@ const fields = [
   {
     name: 'name',
     label: '받는 분',
-    placeholder: '이름을 입력해주세요',
     autoComplete: 'name',
     type: 'text',
     required: true,
@@ -51,7 +50,6 @@ const fields = [
   {
     name: 'email',
     label: '이메일',
-    placeholder: '이메일을 입력해주세요',
     autoComplete: 'email',
     type: 'email',
     required: false,
@@ -59,7 +57,6 @@ const fields = [
   {
     name: 'phone',
     label: '휴대폰 번호',
-    placeholder: '휴대폰 번호를 입력해주세요',
     autoComplete: 'tel',
     type: 'tel',
     required: true,
@@ -67,7 +64,6 @@ const fields = [
   {
     name: 'otherPhone',
     label: '다른 전화번호',
-    placeholder: '다른 전화번호를 입력해주세요',
     autoComplete: 'off',
     type: 'tel',
     required: false,
@@ -123,16 +119,15 @@ function CheckoutShippingForm({
     <Stack gap="4">
       {(dialog
         ? [
-            { ...fields[0], label: '이름', placeholder: '이름을 입력해 주세요' },
+            { ...fields[0], label: '이름' },
             {
               ...fields[0],
               name: 'addressName' as const,
               label: '배송지명',
-              placeholder: '배송지명을 입력해 주세요',
               autoComplete: 'off',
             },
-            { ...fields[2], placeholder: '‘-’없이 입력해 주세요' },
-            { ...fields[3], placeholder: '‘-’없이 입력해 주세요', required: true },
+            fields[2],
+            { ...fields[3], required: true },
           ]
         : fields
       ).map((field) => (
@@ -145,7 +140,6 @@ function CheckoutShippingForm({
           error={field.name === 'name' || field.name === 'phone' ? errors?.[field.name] : undefined}
           inputProps={{
             name: field.name,
-            placeholder: field.placeholder,
             autoComplete: field.autoComplete,
             type: field.type,
             value: draft[field.name],
@@ -290,7 +284,6 @@ function CheckoutDeliveryMessageField({
         onChange: (event) => onValueChange(event.target.value),
         maxLength: 250,
         rows: 5,
-        placeholder: '내용을 입력해주세요.',
       }}
       renderControl={(control) => (
         <Stack gap="2" w="100%">
@@ -321,7 +314,6 @@ function CheckoutDeliveryRequestSelect({
       label="배송시 요청사항"
       required
       name="deliveryRequest"
-      placeholder="요청사항을 선택해주세요"
       value={value}
       onValueChange={onValueChange}
       options={[
