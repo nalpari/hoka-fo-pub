@@ -18,30 +18,13 @@ const root = css({ display: 'flex', flexDirection: 'column', gap: '8px', minW: '
 
 const boxedField = cva({
   base: {
-    '--field-label-transition-duration': '180ms',
-    '--field-box-padding-block': '8px',
-    '--field-box-padding-inline': '12px',
-    '--field-label-height': '16px',
-    '--field-label-gap': '7px',
-    position: 'relative',
     minH: 'formField',
     minW: '0',
-    px: 'var(--field-box-padding-inline)',
-    py: 'var(--field-box-padding-block)',
+    px: '12px',
+    py: '8px',
     bg: 'white.0',
     boxShadow: 'inset 0 0 0 1px var(--color-border-tertiary)',
     _focusWithin: { boxShadow: 'inset 0 0 0 2px var(--colors-black-100)' },
-    '&:has(textarea[data-floating-label-control])': {
-      '--field-resting-label-top':
-        'calc(var(--field-box-padding-block) + var(--field-label-gap) + (var(--field-label-height) + var(--font-sizes-16) * var(--line-heights-body)) / 2)',
-      '--field-resting-label-transform': 'translateY(-1.3333px) scale(1.3333)',
-    },
-    '&:not(:focus-within):has([data-floating-label-control]:placeholder-shown) > [data-field-label-row]':
-      {
-        top: 'var(--field-empty-label-top, var(--field-resting-label-top, calc(50% - var(--field-label-height) / 2)))',
-        transform:
-          'var(--field-empty-label-transform, var(--field-resting-label-transform, scale(1.3333)))',
-      },
     '& select': {
       '--field-border-width': '0px!',
       '--field-height': '21px!',
@@ -65,24 +48,7 @@ const boxedField = cva({
   },
 });
 
-const boxedLabelRow = css({
-  position: 'absolute',
-  top: 'var(--field-box-padding-block)',
-  insetInlineStart: 'var(--field-box-padding-inline)',
-  h: 'var(--field-label-height)',
-  transformOrigin: 'left center',
-  '@media (prefers-reduced-motion: no-preference)': {
-    transition:
-      'top var(--field-label-transition-duration) ease-out, transform var(--field-label-transition-duration) ease-out',
-  },
-});
-
-const boxedControlBelowLabel = css({
-  mt: 'calc(var(--field-label-height) + var(--field-label-gap))',
-});
-
 type FormFieldContextValue = {
-  hasLabel: boolean;
   htmlFor: string;
   boxed: boolean;
   required: boolean;
@@ -150,12 +116,7 @@ function FormFieldRoot({
       <BaseField.Label
         htmlFor={htmlFor}
         render={(props) => (
-          <Typography
-            {...props}
-            as="label"
-            variant={boxed ? 'body5' : 'body4'}
-            tone={hasError ? 'var(--colors-error)' : undefined}
-          >
+          <Typography {...props} as="label" variant={boxed ? 'body5' : 'body4'}>
             {props.children}
           </Typography>
         )}
@@ -168,15 +129,7 @@ function FormFieldRoot({
 
   return (
     <FormFieldContext.Provider
-      value={{
-        htmlFor,
-        boxed,
-        hasLabel: label != null,
-        required,
-        disabled,
-        invalid: hasError,
-        describedBy,
-      }}
+      value={{ htmlFor, boxed, required, disabled, invalid: hasError, describedBy }}
     >
       <BaseField.Root
         disabled={disabled}
@@ -184,17 +137,13 @@ function FormFieldRoot({
         className={[boxed ? root : '', className].filter(Boolean).join(' ')}
       >
         {boxed ? (
-          <Stack gap="0" className={boxedField({ invalid: hasError, disabled })}>
+          <Stack gap="7px" className={boxedField({ invalid: hasError, disabled })}>
             {labelElement ? (
-              <HStack gap="4px" data-field-label-row="" className={boxedLabelRow}>
+              <HStack gap="4px" h="16px">
                 {labelElement}
               </HStack>
             ) : null}
-            <HStack
-              gap="10px"
-              minW="0"
-              className={labelElement ? boxedControlBelowLabel : undefined}
-            >
+            <HStack gap="10px" minW="0">
               {children}
             </HStack>
           </Stack>

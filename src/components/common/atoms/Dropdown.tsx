@@ -38,7 +38,7 @@ const styles = {
       '&&': {
         color: 'var(--color-text-primary)',
       },
-      '&&[data-invalid]': { boxShadow: 'inset 0 0 0 2px var(--colors-error)' },
+      '&&[data-invalid]': { boxShadow: 'inset 0 0 0 2px var(--colors-red-100)' },
     },
     variants: {
       disabled: {
@@ -371,6 +371,13 @@ export function Dropdown({
                   gap: '7px',
                 })
               : '',
+            hasError
+              ? css({
+                  '&&': {
+                    boxShadow: 'inset 0 0 0 2px var(--colors-red-100)',
+                  },
+                })
+              : '',
             className,
           ]
             .filter(Boolean)
@@ -378,7 +385,7 @@ export function Dropdown({
         >
           {label ? (
             <span className={css({ display: 'flex', alignItems: 'center', h: '16px', gap: '4px' })}>
-              <Typography variant="body5" tone={hasError ? 'var(--colors-error)' : undefined}>
+              <Typography variant="body5">
                 {required ? '* ' : ''}
                 {label}
               </Typography>
