@@ -149,7 +149,6 @@ export function OrderClaimRequest({
             maxLength: 250,
             value: details,
             onChange: (event) => setDetails(event.target.value),
-            placeholder: '자세한 내용을 적어주시면 처리에 도움이 됩니다.',
           }}
         />
         <Typography variant="body5" tone="tertiary" className={classes.note}>

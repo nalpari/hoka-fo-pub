@@ -344,12 +344,7 @@ type PhoneInformationFieldsProps = Pick<
 >;
 function PhoneInformationFields(props: PhoneInformationFieldsProps) {
   const { information } = props;
-  const textField = (
-    key: keyof PhoneInformation,
-    label: string,
-    placeholder: string,
-    maxLength?: number,
-  ) => {
+  const textField = (key: keyof PhoneInformation, label: string, maxLength?: number) => {
     return (
       <TextFormField
         variant="boxed"
@@ -359,7 +354,6 @@ function PhoneInformationFields(props: PhoneInformationFieldsProps) {
         error={props.fieldErrors?.[key]}
         inputProps={{
           value: information[key],
-          placeholder: placeholder,
           maxLength: maxLength,
           type: key === 'phone' ? 'tel' : 'text',
           inputMode: key === 'name' ? 'text' : 'numeric',
@@ -383,8 +377,8 @@ function PhoneInformationFields(props: PhoneInformationFieldsProps) {
   );
   return (
     <>
-      {textField('name', '이름', '이름을 입력해 주세요')}
-      {textField('birthDate', '생년월일', '생년월일 8자리를 입력해 주세요', 8)}
+      {textField('name', '이름')}
+      {textField('birthDate', '생년월일', 8)}
       <Grid columns={2} gap="2">
         {selectField('nationality', '국적', ['내국인', '외국인'])}
         {selectField('gender', '성별', ['남자', '여자'])}
@@ -407,7 +401,7 @@ function PhoneInformationFields(props: PhoneInformationFieldsProps) {
           알뜰폰 사업자 보기
         </Button>
       </Grid>
-      {textField('phone', '휴대폰 번호', '휴대폰 번호를 입력해 주세요', 13)}
+      {textField('phone', '휴대폰 번호', 13)}
     </>
   );
 }
@@ -430,7 +424,6 @@ function VerificationCodeFields(props: VerificationCodeFieldsProps) {
             inputMode: 'numeric',
             autoComplete: 'one-time-code',
             maxLength: 6,
-            placeholder: '인증번호 6자리를 입력해 주세요',
             value: code,
             onChange: (event) => props.onCodeChange(event.target.value),
           }}

@@ -128,7 +128,6 @@ function DateRangeFields({
           inputMode="numeric"
           maxLength={10}
           aria-label="조회 시작일"
-          placeholder="YYYY.MM.DD"
           value={dates.start.replaceAll('-', '.')}
           onChange={(event) => onDateChange('start', formatDateInput(event.target.value))}
         />
@@ -151,7 +150,6 @@ function DateRangeFields({
           inputMode="numeric"
           maxLength={10}
           aria-label="조회 종료일"
-          placeholder="YYYY.MM.DD"
           value={dates.end.replaceAll('-', '.')}
           onChange={(event) => onDateChange('end', formatDateInput(event.target.value))}
         />

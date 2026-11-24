@@ -49,7 +49,6 @@ export function EmailAddressFields({
           type: 'text',
           disabled: false,
           value: local,
-          placeholder: '이메일 주소를 입력해주세요.',
           autoComplete: 'off',
           onChange: (event) => onLocalChange(event.target.value),
         }}
@@ -66,7 +65,6 @@ export function EmailAddressFields({
           disabled,
           disabledAppearance: disabled ? 'muted' : 'default',
           value: domain,
-          placeholder: '도메인을 입력해주세요',
           autoComplete: 'off',
           onChange: (event) => onDomainChange(event.target.value),
         }}

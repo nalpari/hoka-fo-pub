@@ -46,7 +46,7 @@ const styles = {
     minW: '0',
     _mobile: { w: 'auto', flex: '1' },
     '& > div': { py: '8px' },
-    '&& input': { fontWeight: '400', lineHeight: '1.5', _placeholder: { color: '#777777' } },
+    '&& input': { fontWeight: '400', lineHeight: '1.5' },
   }),
   searchButton: css({
     flexShrink: '0',
@@ -101,7 +101,6 @@ function FaqSearch({ query, onQueryChange }: FaqSearchProps) {
           as="div"
           iconPlacement="start"
           label="질문 또는 답변 검색"
-          placeholder="검색어를 입력해주세요"
           value={query}
           onValueChange={onQueryChange}
         />

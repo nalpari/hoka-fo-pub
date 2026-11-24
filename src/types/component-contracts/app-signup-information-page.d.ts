@@ -7,7 +7,6 @@ import { type MarketingPreferences } from '@/app/signup/information/registration
 type Props = Pick<RegistrationContentProps, 'information' | 'fieldErrors' | 'onChange'> & {
   fieldKey: keyof RegistrationInformation;
   label: string;
-  placeholder: string;
   type?: string;
   fieldId?: string;
   disabled?: boolean;
@@ -15,7 +14,6 @@ type Props = Pick<RegistrationContentProps, 'information' | 'fieldErrors' | 'onC
 declare function RegistrationField({
   fieldKey: key,
   label,
-  placeholder,
   type,
   fieldId,
   disabled,
