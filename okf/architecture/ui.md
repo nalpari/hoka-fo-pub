@@ -6242,4 +6242,4 @@ TextFormField/TextInput, SearchField, DateRangeSearch와 각 화면의 검색·�
 
 출처: `src/app`의 변경된 폼 화면, `src/components/common/atoms/{Dropdown,TextInput}.tsx`, `src/components/common/molecules/{SearchField,DateRangeSearch}.tsx`, `src/components/common/organisms/{Address/AddressFields,EmailAddressFields}.tsx`, `src/components/phone-verification/PhoneVerificationContent.tsx`, `src/components/catalog/ProductListingPage.tsx`의 작업 트리. 기록: codex/gpt-6, 2026-11-24.
 
-- 상품 상세의 문의하기 버튼은 기존 1:1 문의 입력 컴포넌트를 재사용하는 상품 문의 모달을 연다. 데스크탑은 중앙 모달, 모바일은 전체 화면을 사용한다. 상품 유형이 고정되며 비밀글을 선택할 수 있다. 등록 요청은 미연결이다.
+- 상품 상세의 문의하기 버튼은 기존 1:1 문의 입력 컴포넌트를 재사용하는 상품 문의 모달을 연다. 데스크탑은 중앙 모달, 모바일은 전체 화면을 사용한다. 고객 정보와 파일 첨부 영역은 1:1 문의 화면에서만 사용한다. 상품 유형이 고정되며 비밀글을 선택할 수 있다. 등록 요청은 미연결이다.

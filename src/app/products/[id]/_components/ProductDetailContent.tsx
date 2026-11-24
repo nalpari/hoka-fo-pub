@@ -77,9 +77,7 @@ import {
 import { productInquiries } from '@/app/products/[id]/productInquiries';
 import { productSizeOptions } from '@/app/products/[id]/productSizeOptions';
 import {
-  InquiryAttachments,
   InquiryCategoryFields,
-  InquiryCustomerInfo,
   InquiryFormActions,
   InquiryMessageFields,
 } from '@/app/support/inquiries/new/_components/InquiryFormContent';
@@ -617,7 +615,6 @@ function ProductInquiryAction() {
   const [detailCategory, setDetailCategory] = useState('상품상세문의');
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
-  const [files, setFiles] = useState<File[]>([]);
   const triggerRef = useRef<HTMLButtonElement>(null);
 
   return (
@@ -633,7 +630,7 @@ function ProductInquiryAction() {
       >
         문의하기
       </Button>
-      {/* [ 개발팀 바인딩 ] 상품 상세 통합 소유자가 현재 상품 ID·문의 유형·상세 유형·제목·내용·첨부·비밀글 값을 제출과 연결합니다. 지금은 입력 및 모달 표시만 제공하며 등록 요청은 수행하지 않습니다. 요청 중 중복 제출 방지, 실패 후 입력 유지와 재시도, 성공 시 닫기와 문의 목록 갱신은 연결 소유자가 담당합니다. */}
+      {/* [ 개발팀 바인딩 ] 상품 상세 통합 소유자가 현재 상품 ID·문의 유형·상세 유형·제목·내용·비밀글 값을 제출과 연결합니다. 지금은 입력 및 모달 표시만 제공하며 등록 요청은 수행하지 않습니다. 요청 중 중복 제출 방지, 실패 후 입력 유지와 재시도, 성공 시 닫기와 문의 목록 갱신은 연결 소유자가 담당합니다. */}
       <ModalDialog
         title="상품 문의하기"
         closeLabel="상품 문의하기 닫기"
@@ -646,7 +643,6 @@ function ProductInquiryAction() {
       >
         <form noValidate onSubmit={(event) => event.preventDefault()}>
           <Stack gap="24px">
-            <InquiryCustomerInfo />
             <InquiryCategoryFields
               category="상품"
               detailCategory={detailCategory}
@@ -662,7 +658,6 @@ function ProductInquiryAction() {
               onTitleChange={setTitle}
               onBodyChange={setBody}
             />
-            <InquiryAttachments files={files} onFilesChange={setFiles} />
             <InquiryCautions productInquiry />
             <Checkbox name="private" label="비밀글로 등록합니다." />
             <InquiryFormActions onCancel={() => setOpen(false)} />
