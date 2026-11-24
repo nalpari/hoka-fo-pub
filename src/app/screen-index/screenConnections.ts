@@ -911,6 +911,7 @@ export function getScreenStatePreviews(connection: ScreenConnection | undefined)
 // Only dialogs opened by the route's prepared state are listed; shared imports and closed
 // interaction dialogs do not establish a modal state. Keep nested dialogs together.
 const stateModalVariants: Readonly<Record<string, readonly ModalDialogVariant[]>> = {
+  '/products/pdp-preview/inquiry-form': ['form'],
   '/launch-calendar/clifton-11-gtx/preview-notification': ['form'],
   '/launch-calendar/clifton-11-gtx/preview-phone-required': ['alert'],
   // CartDialogs and CheckoutStatePreview.

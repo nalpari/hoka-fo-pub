@@ -2583,3 +2583,11 @@ ProductDetailContent.tsx의 Tech Specs 타이포를 PC·모바일 시안에 맞�
 `4b569dc3`에서 띄어 쓴 관심상품 표기를 사용자 요청에 따라 화면·접근성 라벨·가이드·IA 데이터와 생성 이력에서 `관심상품`으로 복원했다. 해당 커밋 이전부터 띄어 쓴 안내 문장과 다른 맞춤법 수정은 유지한다. 라우트·상태·서비스 계약은 바꾸지 않는다.
 
 출처: 해당 커밋과 관련 src 파일의 작업 트리. 문자열별 복원 개수를 원본 커밋과 대조했다. 브라우저 실행 검증은 수행하지 않았다. 기록: codex/gpt-6.
+
+## 상품 문의 팝업 직접 URL과 IA 연결 (2026-11-24)
+
+`/products/pdp-preview/inquiry-form`은 기존 상품 상세 상태 라우트에서 상품 문의 폼을 처음부터 연다. 기존 ProductInquiryAction을 initialOpen 옵션으로 재사용하며 일반 문의하기 버튼은 기존 닫힌 상태와 트리거 포커스 복귀를 유지한다. 직접 preview는 별도 트리거 없이 열리고 닫을 때 기존 PDP 패널을 포커스 대상으로 삼는다. 기존 입력·취소·닫기만 제공하며 등록 요청은 추가하지 않았다.
+
+productDetailPreviews의 `상품 문의하기 팝업` 항목을 기존 상품 상세 공통 IA 연결이 읽는다. 새 IA 번호를 만들지 않고 상품 상세 STATE의 보기 링크와 form variant를 등록했다. 기본 상품 상세와 기존 preview 링크·sourceFiles를 유지했다. screen-files 재생성 후 생성 그래프 변경은 없다.
+
+검증: codex/gpt-6, 2026-11-24 KST. PC1440·MO375에서 직접 진입과 새로고침 시 하나의 상품 문의 팝업 표시 및 닫기를 확인했다. IA 구조도의 상태명 검색에서 해당 링크와 form 표시를 확인했다. 상품 상세·IA 변경 경로 ESLint/Prettier, 전체 TypeScript, source graph 생성을 통과했다. 전체 빌드는 실행하지 않았다. 출처는 사용자 브라우저 코멘트와 작업 트리의 ProductDetailContent.tsx, productDetailPreviews.ts, screenConnections.ts다.

@@ -2,6 +2,7 @@ import type { Product } from '@/mocks/products';
 
 export const productDetailPreviews = [
   { state: 'share', label: '공유하기 팝업' },
+  { state: 'inquiry-form', label: '상품 문의하기 팝업' },
   { state: 'apparel', label: '의류 기본' },
   { state: 'width-single', label: '발볼 1개 · 선택기 숨김' },
   { state: 'width-double', label: '발볼 2개' },

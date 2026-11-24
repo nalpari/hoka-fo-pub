@@ -610,8 +610,8 @@ function InquiryBoard({
     </Box>
   );
 }
-function ProductInquiryAction() {
-  const [open, setOpen] = useState(false);
+function ProductInquiryAction({ initialOpen = false }: { initialOpen?: boolean }) {
+  const [open, setOpen] = useState(initialOpen);
   const [detailCategory, setDetailCategory] = useState('상품상세문의');
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
@@ -619,17 +619,19 @@ function ProductInquiryAction() {
 
   return (
     <Box w="120px" flexShrink="0">
-      <Button
-        ref={triggerRef}
-        aria-haspopup="dialog"
-        onClick={() => setOpen(true)}
-        variant="secondary"
-        size="short"
-        fullWidth
-        style={{ '--button-height': '36px', '--button-label-weight': '400' } as CSSProperties}
-      >
-        문의하기
-      </Button>
+      {!initialOpen ? (
+        <Button
+          ref={triggerRef}
+          aria-haspopup="dialog"
+          onClick={() => setOpen(true)}
+          variant="secondary"
+          size="short"
+          fullWidth
+          style={{ '--button-height': '36px', '--button-label-weight': '400' } as CSSProperties}
+        >
+          문의하기
+        </Button>
+      ) : null}
       {/* [ 개발팀 바인딩 ] 상품 상세 통합 소유자가 현재 상품 ID·문의 유형·상세 유형·제목·내용·비밀글 값을 제출과 연결합니다. 지금은 입력 및 모달 표시만 제공하며 등록 요청은 수행하지 않습니다. 요청 중 중복 제출 방지, 실패 후 입력 유지와 재시도, 성공 시 닫기와 문의 목록 갱신은 연결 소유자가 담당합니다. */}
       <ModalDialog
         title="상품 문의하기"
@@ -639,7 +641,9 @@ function ProductInquiryAction() {
         mobilePresentation="fullscreen"
         open={open}
         onOpenChange={setOpen}
-        finalFocus={triggerRef}
+        finalFocus={
+          initialOpen ? () => document.querySelector<HTMLElement>('[data-pdp-panel]') : triggerRef
+        }
       >
         <form noValidate onSubmit={(event) => event.preventDefault()}>
           <Stack gap="24px">
@@ -3369,6 +3373,7 @@ export function RouteContent({ preview }: { preview?: ProductDetailPreview }) {
         width={width}
         wish={wish}
       />
+      {preview === 'inquiry-form' ? <ProductInquiryAction initialOpen /> : null}
       {platform === 'mobile' && revised && (
         <ModalDialog
           variant="selection"
