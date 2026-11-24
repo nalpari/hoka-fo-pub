@@ -65,7 +65,7 @@ const assignments: (DeveloperAssignment & { iaNumbers: number[] })[] = [
   { iaNumbers: [179], area: '주문배송 조회 상세', name: '김진영', wbs: '5.3.2.3.3.1.2', row: 346 },
   { iaNumbers: [180], area: '취소/반품 내역 목록', name: '김진영', wbs: '5.3.2.3.3.2.1', row: 350 },
   { iaNumbers: [181], area: '취소/반품 내역 상세', name: '김진영', wbs: '5.3.2.3.3.2.2', row: 351 },
-  { iaNumbers: [182], area: '관심 상품', name: '반자은', wbs: '5.3.2.1.4.2.1', row: 291 },
+  { iaNumbers: [182], area: '관심상품', name: '반자은', wbs: '5.3.2.1.4.2.1', row: 291 },
   { iaNumbers: [183], area: '오늘 본 상품', name: '반자은', wbs: '5.3.2.1.4.2.2', row: 292 },
   { iaNumbers: [184], area: '재입고 알림 상품', name: '반자은', wbs: '5.3.2.1.4.2.3', row: 293 },
   { iaNumbers: [185], area: 'FAQ', name: '송지은', wbs: '5.3.2.1.4.3.1', row: 295 },

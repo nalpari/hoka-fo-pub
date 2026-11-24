@@ -246,10 +246,10 @@ const phoneTermsReviewNote =
 
 // 과거 검수 기록입니다. screen-index의 비고 표시와 검색에는 결합하지 않습니다.
 export const screenReviewNotes: Readonly<Partial<Record<number, string>>> = {
-  170: 'PC 수정: 상품 행의 성별·관심 상품 표시 누락, 주문하기 버튼이 시안의 검정 채움 대신 테두리형임. MO 완료 유지.',
+  170: 'PC 수정: 상품 행의 성별·관심상품 표시 누락, 주문하기 버튼이 시안의 검정 채움 대신 테두리형임. MO 완료 유지.',
   171: 'PC 수정: 결제 요약의 총 결제금액 라벨이 두 줄로 꺾임. PC 디자인 수정예정 유지.',
   176: '디자인 확인: 약관 전문보기는 공통 이용약관/개인정보 페이지 링크. 첨부에 주문 전용 약관 본문 시안 없음.',
-  177: 'PC 수정: 본문이 640px로 제한되고 등급·쿠폰·관심 상품 요약이 한 줄 대신 두 단으로 배치됨. MO 수정: 주문 배송 내역에 시안에 없는 캐러셀·페이지 선택 점이 남아 있음.',
+  177: 'PC 수정: 본문이 640px로 제한되고 등급·쿠폰·관심상품 요약이 한 줄 대신 두 단으로 배치됨. MO 수정: 주문 배송 내역에 시안에 없는 캐러셀·페이지 선택 점이 남아 있음.',
   178: myPagePcNavigationNote,
   182: myPagePcNavigationNote,
   183: myPagePcNavigationNote,

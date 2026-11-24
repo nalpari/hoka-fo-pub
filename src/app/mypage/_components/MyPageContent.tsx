@@ -152,7 +152,7 @@ function MyPageBenefits() {
       />
       <MyPageBenefitItem
         href="/mypage/wishlist"
-        label="관심 상품"
+        label="관심상품"
         count={6}
         unit="건"
         icon="heart-solid"

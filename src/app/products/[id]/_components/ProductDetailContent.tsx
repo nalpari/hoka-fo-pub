@@ -2305,7 +2305,7 @@ function ProductDetailContent({
           platform === 'web' ? (
             <Wishlist
               active={wish}
-              ariaLabel="관심 상품"
+              ariaLabel="관심상품"
               size="48px"
               iconSize="18px"
               className={css({
@@ -2443,7 +2443,7 @@ function ProductDetailHeaderActions({
           <ShareButton ref={shareTrigger} size="24px" onClick={() => setShareOpen(true)} />
           <Wishlist
             active={wish}
-            ariaLabel="관심 상품"
+            ariaLabel="관심상품"
             iconSize="20px"
             onActiveChange={onWishChange}
           />

@@ -6254,3 +6254,9 @@ ProductListingContent의 sticky top·maxH가 ContentLayout에서만 제공하는
 검증: PC1600·모바일553/375의 계산 스타일과 스크린샷, 모바일 가로 overflow 없음을 확인했다. 국문 제목·무게에 실제 Pretendard-ExtraBold가 사용됨을 확인했다. 숫자의 custom font 내부 이름은 `.`으로 반환되며 기존 hoka 등록과 Regular400 계산 스타일을 확인했다. 일반 shoe-2 PC 속성 목록의 16px/항목명700·값400 유지와 모바일의 기존 Tech Specs 미표시를 확인했다. 변경 파일 ESLint·TypeScript·Panda 생성이 통과했다. Next 전체 빌드는 실행하지 않았다.
 
 출처: 사용자 제공 PC·모바일 디자인, `src/app/products/[id]/_components/ProductDetailContent.tsx` 작업 트리. 기록: codex/gpt-6. 기존 provenance와 draft 상태를 유지한다.
+
+## 관심상품 표기 복원 (2026-11-24)
+
+`4b569dc3`에서 띄어 쓴 관심상품 표기를 사용자 요청에 따라 화면·접근성 라벨·가이드·IA 데이터와 생성 이력에서 `관심상품`으로 복원했다. 해당 커밋 이전부터 띄어 쓴 안내 문장과 다른 맞춤법 수정은 유지한다. 라우트·상태·서비스 계약은 바꾸지 않는다.
+
+출처: 해당 커밋과 관련 src 파일의 작업 트리. 문자열별 복원 개수를 원본 커밋과 대조했다. 브라우저 실행 검증은 수행하지 않았다. 기록: codex/gpt-6.

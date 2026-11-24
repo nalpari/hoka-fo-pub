@@ -333,8 +333,8 @@ const previewItems = {
 
 const config = {
   wishlist: {
-    title: '관심 상품',
-    empty: '관심 상품 목록이 비어있습니다',
+    title: '관심상품',
+    empty: '관심상품 목록이 비어있습니다',
     note: '* 관심 상품에 담은 시점과 구매 시점의 상품 가격 및 할인 정보가 다를 수 있으니 유의해 주시기 바랍니다.',
   },
   recent: {

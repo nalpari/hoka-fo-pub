@@ -810,7 +810,7 @@ export type ProductCardProps = {
  * 추천 목록은 id/name/price/primaryImage와 선택적 gender/href만 전달할 수 있으며 미제공 활동·색상·스펙을 만들어 채우지 않습니다.
  * PC 목록의 호버/키보드 포커스에서 요약을 48px 색상 캐러셀로 교체하며, 선택 ID는 현재 옵션에서 찾아 이미지 미리보기에만 사용합니다.
  * 모바일 목록에서는 색상별 썸네일이 제공되면 선택한 이미지를 대표 이미지에 표시합니다.
- * 색상 선택은 요청·저장·재고 판정 없이 로컬로 처리합니다. 관심 상품 연결과 상세 링크는 기존 소유자가 담당합니다.
+ * 색상 선택은 요청·저장·재고 판정 없이 로컬로 처리합니다. 관심상품 연결과 상세 링크는 기존 소유자가 담당합니다.
  */
 /** 상품 이미지와 요약을 표시하고 목록에서 색상 미리보기를 제공합니다. (Displays product imagery, details, and color previews in listings.) */
 export function ProductCard({
@@ -915,7 +915,7 @@ export function ProductCard({
                   : undefined
             }
             active={isLiked}
-            ariaLabel={`${product.name} 관심 상품`}
+            ariaLabel={`${product.name} 관심상품`}
             onActiveChange={(active) => {
               if (liked === undefined) setInternalLiked(active);
               onLikedChange?.(active);
