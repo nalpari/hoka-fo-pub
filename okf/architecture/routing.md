@@ -4,12 +4,13 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-24T01:45:10Z'
+updated: '2026-11-24T08:01:17Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/mypage/orders/orderPreviews.ts
   - src/app/signup/_components/SignupContent.tsx
   - src/app/mypage/mypage.data.ts
   - src/app/running/running-session/[sessionId]/_components/RunningSessionSessionContent.tsx
@@ -2591,3 +2592,19 @@ ProductDetailContent.tsx의 Tech Specs 타이포를 PC·모바일 시안에 맞�
 productDetailPreviews의 `상품 문의하기 팝업` 항목을 기존 상품 상세 공통 IA 연결이 읽는다. 새 IA 번호를 만들지 않고 상품 상세 STATE의 보기 링크와 form variant를 등록했다. 기본 상품 상세와 기존 preview 링크·sourceFiles를 유지했다. screen-files 재생성 후 생성 그래프 변경은 없다.
 
 검증: codex/gpt-6, 2026-11-24 KST. PC1440·MO375에서 직접 진입과 새로고침 시 하나의 상품 문의 팝업 표시 및 닫기를 확인했다. IA 구조도의 상태명 검색에서 해당 링크와 form 표시를 확인했다. 상품 상세·IA 변경 경로 ESLint/Prettier, 전체 TypeScript, source graph 생성을 통과했다. 전체 빌드는 실행하지 않았다. 출처는 사용자 브라우저 코멘트와 작업 트리의 ProductDetailContent.tsx, productDetailPreviews.ts, screenConnections.ts다.
+
+## 주문 배송 조회 ALERT 직접 URL과 IA 연결 (2026-11-24)
+
+`/mypage/orders`의 세 안내는 기존 `[preview]` 진입점에서 `OrdersPage`와 공통 `ModalDialog variant="alert"`로 연다. IA 178 ‘주문/배송 조회’는 `orderPreviews`의 상태명과 URL을 읽어 각 STATE의 보기 링크와 `variant="alert"`를 표시한다.
+
+| 설계 상태 | IA 상태명               | 직접 확인 URL                         |
+| --------- | ----------------------- | ------------------------------------- |
+| order-01  | 주문 내역 삭제 차단     | `/mypage/orders/preview-delete-blocked` |
+| order-02  | 품절 상품 장바구니 담기 | `/mypage/orders/preview-cart-sold-out` |
+| order-03  | 장바구니 담기 완료      | `/mypage/orders/preview-cart-added`    |
+
+세 팝업의 헤더는 ‘주문/배송 조회’이며 본문과 확인 버튼은 사용자 지정 문구를 따른다. order-01의 설명에는 지정된 줄바꿈을 적용한다. 설계서 모바일 프레임에서 제목·메시지·설명·닫기·확인 구성을 확인했고, PC·모바일 레이아웃과 타이포그래피는 HOKA 공통 alert 규격을 적용했다. 확인은 팝업을 닫는다. 삭제 가능 여부, 품절 판정, 장바구니 추가 및 결과 갱신은 주문 기능 소유자의 서비스 연결 범위다.
+
+출처는 사용자 지정 문구, [이랜드 화면설계서](https://www.figma.com/design/4cJ1LkWUgme3lklyQ9U8qr/)와 `orderPreviews.ts`, `[preview]/page.tsx`, `OrdersPage.tsx`, `screenConnections.ts`의 작업 트리다. 기록: codex/gpt-6, 2026-11-24 KST.
+
+검증: PC 1440px과 모바일 375px에서 세 팝업의 직접 진입·새로고침·문구·닫기를 확인했다. 모달 너비는 PC 640px, 모바일 343px이었다. IA에서 상태명·URL로 검색할 수 있고, 각 보기 링크를 눌러 해당 팝업이 열리는 것을 확인했다. 기본 주문 조회와 기존 주문 삭제 확인도 점검했다. 타입 검사와 소스 그래프 생성은 통과했고, 관련 테스트 16개 중 15개가 통과했다. 기존 `/mypage/preview-no-orders` 리디렉션에 IA 바로가기가 없다는 검사가 실패했다.

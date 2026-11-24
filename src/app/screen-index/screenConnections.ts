@@ -1,5 +1,6 @@
 import type { ModalDialogVariant } from '@/components/common/layouts/ModalDialog';
 
+import { orderPreviews } from '@/app/mypage/orders/orderPreviews';
 import { productDetailPreviews } from '@/app/products/[id]/productDetailPreviews';
 import {
   getProductListingIaKey,
@@ -211,11 +212,7 @@ const connections: Record<number, ScreenConnection> = {
     defaultStateLabel: '목록 있음',
     previewRoutes: [
       { label: '빈 목록', href: '/mypage/orders/preview-empty' },
-      { label: '주문 취소 신청', href: '/mypage/orders/preview-cancel-request' },
-      { label: '반품 신청', href: '/mypage/orders/preview-return-request' },
-      { label: '배송 조회', href: '/mypage/orders/preview-tracking' },
-      { label: '구매 확정 확인', href: '/mypage/orders/preview-purchase-confirm' },
-      { label: '주문 삭제 확인', href: '/mypage/orders/preview-delete-confirm' },
+      ...orderPreviews.map(({ label, href }) => ({ label, href })),
     ],
     sourceFiles: [
       'src/app/mypage/orders/page.tsx',
@@ -930,6 +927,9 @@ const stateModalVariants: Readonly<Record<string, readonly ModalDialogVariant[]>
   '/mypage/orders/preview-tracking': ['tracking'],
   '/mypage/orders/preview-purchase-confirm': ['confirm'],
   '/mypage/orders/preview-delete-confirm': ['confirm'],
+  '/mypage/orders/preview-delete-blocked': ['alert'],
+  '/mypage/orders/preview-cart-sold-out': ['alert'],
+  '/mypage/orders/preview-cart-added': ['alert'],
   '/mypage/reviews/preview-new': ['form'],
   '/mypage/reviews/preview-edit': ['form'],
   '/mypage/reviews/preview-error': ['form'],
