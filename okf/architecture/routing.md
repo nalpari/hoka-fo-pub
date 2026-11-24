@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-23T05:09:10.640861+00:00'
+updated: '2026-11-24T00:33:46.418862+00:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -2571,3 +2571,7 @@ CartDialogs의 상품명을 PC/MO500으로 보정하고 색상 표시의 접두�
 ## 러닝세션 상세 모바일 추가 영역 (2026-11-23)
 
 `src/app/running/running-session/[sessionId]/_components/RunningSessionSessionContent.tsx`의 상세 레이아웃에서 모바일 보조 이미지와 Essential 숨김을 해제했다. 기존 desktopContent 슬롯의 타입·호출 계약과 라우트·고정 신청 바·fixture 표시 조건은 유지한다. PC/MO 측정 및 남은 디자인 확인 범위는 [러닝세션 디자인](running-session-design.md#모바일-보조-이미지와-essential-추가-2026-11-23)에 기록했다. 출처는 해당 작업 트리와 최신 파일 단위 Figma 링크이며 검토 주체 codex/gpt-6, 2026-11-23 KST다.
+
+## 상품 상세 Tech Specs 타이포 보정 (2026-11-24)
+
+ProductDetailContent.tsx의 Tech Specs 타이포를 PC·모바일 시안에 맞췄다. 기술 수치는 PC20px/MO18px, 척도 제목20px/800, 하단 라벨PC16px/MO13px이며 제목과 항목명의 행간·굵기도 보정했다. private 목록의 technical 기본false는 일반 속성 표시를 보존한다. 라우트·상품 표시 데이터·수치·바인딩과 서비스 경계는 유지한다. [디자인 값·출처·실행 검증](ui.md#상품-상세-tech-specs-타이포-보정-2026-11-24)을 따른다. 출처: src/app/products/[id]/_components/ProductDetailContent.tsx 작업 트리. 기록: codex/gpt-6.
