@@ -2080,6 +2080,14 @@ ProfileContent의 비밀번호 설정 모달에서 안내문 padding-top8px를 �
 
 주문서의 PC·모바일 쿠폰 할인 버튼은 ‘쿠폰 조회하기’로 표시하며 `/checkout/preview-coupons`에서 팝업을 바로 열 수 있다. 배송비 행 자리에는 임직원 할인한도·사용액·잔여한도 표시 데이터를 배치한다. 배송 요청 드롭다운은 `none`(선택 안함)으로 시작하며 `/checkout/preview-delivery-request`는 `custom`으로 직접입력란을 연다. 출처는 사용자 브라우저 코멘트와 `src/app/checkout/_components/CheckoutDiscountSummary.tsx`, `CheckoutShipping.tsx`, `src/app/checkout/checkout-summary.ts` 작업 트리다. PC 1920px·모바일 375px에서 주문서 기본값, 할인한도 문구와 직접입력 상태를 확인했다.
 
+## 주문서 임직원 할인한도 표시 (2026-11-25)
+
+주문서와 쿠폰 미리보기는 같은 임직원 할인한도 영역을 사용한다. 레이블은 Pretendard Medium 500으로 PC 14px, 모바일 13px이다. 왼쪽 정렬한 안내문과의 간격은 공통 16px이다. 공통 안내문의 할인한도·사용액·잔여한도 숫자에는 The Future HOKA 12px/700, 원 단위에는 Pretendard 12px/700, 본문에는 Pretendard 12px/400을 적용한다. 할인한도 금액 묶음은 좌우 2px, 사용액과 잔여한도 금액 묶음은 왼쪽 2px 여백을 둔다. 남은 행 폭에서 시안의 텍스트 조각과 금액 묶음 단위로 줄바꿈하며, 확인한 PC 주문서 폭에서 ‘사용 하셨습니다.’가 둘째 줄에서 시작한다. PC의 쿠폰 조회 버튼과 임직원 행 사이 간격은 24px이다. 모바일 임직원 행의 상단 안쪽 여백은 8px이다.
+
+금액은 `src/app/checkout/checkout-summary.ts`의 고정 표시값이며 표현은 `src/app/checkout/_components/CheckoutDiscountSummary.tsx`가 담당한다. [HOKA Design](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design).
+
+브라우저에서 PC 1420px·모바일 375px는 본문 두 줄, 320px 쿠폰 미리보기에서 팝업을 닫은 뒤 본문 네 줄로 표시되는 것을 확인했다. 세 폭 모두 임직원 영역의 가로 넘침은 없었다. 320px의 페이지 가로 넘침 3px는 임직원 영역을 숨긴 상태에서도 푸터 사업자정보확인 링크에서 발생했다.
+
 ## 보유 쿠폰 조회 드롭다운 (2026-11-25)
 
 주문서의 ‘쿠폰 조회하기’ 버튼과 `/checkout/preview-coupons`는 같은 팝업을 사용한다. 상품별 선택은 로컬 초안이며, PC에서는 팝업 위에 선택 목록이 열리고 모바일에서는 ‘상품 쿠폰’ 바텀시트가 열린다. 작업 트리 출처는 `src/app/checkout/_components/CheckoutCouponDialog.tsx`와 `src/app/checkout/checkout-coupons.ts`다. [드롭다운 표시와 검증](ui.md#보유-쿠폰-조회-드롭다운-2026-11-25).

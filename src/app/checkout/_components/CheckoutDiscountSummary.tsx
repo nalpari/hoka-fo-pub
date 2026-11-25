@@ -17,8 +17,28 @@ import { CheckoutCouponDialog } from './CheckoutCouponDialog';
 
 const styles = {
   limitLabel: css({ flexShrink: 0 }),
-  limitNotice: css({ textAlign: 'right' }),
+  limitNotice: css({
+    flex: '1',
+    minW: '0',
+    textAlign: 'left',
+    display: 'flex',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+  }),
+  limitAmount: css({ pl: '2px' }),
+  limitAmountWithEnd: css({ px: '2px' }),
 };
+
+function renderLimitAmount(amount: string, padEnd = false) {
+  return (
+    <Typography variant="b8B" className={padEnd ? styles.limitAmountWithEnd : styles.limitAmount}>
+      <Typography variant="b8B" language="en">
+        {amount}
+      </Typography>
+      원
+    </Typography>
+  );
+}
 
 /** 주문 금액과 보유 쿠폰 조회 UI를 표시합니다. (Displays prepared order totals and the coupon lookup interface.) */
 export function CheckoutDiscountSummary({
@@ -48,14 +68,22 @@ export function CheckoutDiscountSummary({
               쿠폰 조회하기
             </Button>
           </Stack>
-          <HStack alignItems="flex-start" justifyContent="space-between" gap="8px">
-            <Typography web="b5B" mo="b6" className={styles.limitLabel}>
+          <HStack
+            alignItems="flex-start"
+            gap="16px"
+            mt={{ base: '14px', _mobile: '0' }}
+            pt={{ _mobile: '8px' }}
+          >
+            <Typography web="b6M" mo="b7M" tone="#000000" className={styles.limitLabel}>
               임직원
             </Typography>
-            <Typography web="b6" mo="b6" className={styles.limitNotice}>
-              {checkoutEmployeeDiscountNotice.usage}
-              <br />
-              {checkoutEmployeeDiscountNotice.remaining}
+            <Typography variant="b8" tone="#333333" language="ko" className={styles.limitNotice}>
+              <Typography>할인한도</Typography>{' '}
+              {renderLimitAmount(checkoutEmployeeDiscountNotice.limit, true)}{' '}
+              <Typography>중</Typography> {renderLimitAmount(checkoutEmployeeDiscountNotice.used)}
+              <Typography>을</Typography> <Typography>사용 하셨습니다. (잔여한도</Typography>{' '}
+              {renderLimitAmount(checkoutEmployeeDiscountNotice.remaining)}
+              <Typography>)</Typography>
             </Typography>
           </HStack>
         </Stack>
