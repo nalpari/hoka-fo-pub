@@ -57,11 +57,11 @@ function MyPageMembership() {
               bg="black.100"
               color="offWhite.100"
             >
-              <Typography web="heading8" mo="heading6" language="en">
+              <Typography web="h10B" mo="h8" language="en">
                 {'R'}
               </Typography>
             </HStack>
-            <Typography web="heading7" mo="heading5" language="en">
+            <Typography web="h8B" mo="h7B" language="en">
               {'RUNNER'}
             </Typography>
           </HStack>
@@ -70,7 +70,7 @@ function MyPageMembership() {
           </ButtonLink>
         </HStack>
         <Box w="full" pl="60px" boxSizing="border-box" _mobile={{ pl: '40px' }}>
-          <Typography as="p" web="body3" mo="body5" className={styles.benefitText}>
+          <Typography as="p" web="b4" mo="b8" className={styles.benefitText}>
             {'다음 등급까지 300,000원 구매 시 등급 업 혜택 제공'}
           </Typography>
         </Box>
@@ -97,9 +97,9 @@ const styles = {
     _mobile: { px: '16px', py: '20px' },
   }),
   logoutButton: css({ _mobile: { '& > span': { '--button-label-weight': '400' } } }),
-  profileTitle: css({ lineHeight: '1', _mobile: { lineHeight: '1.2' } }),
-  benefitText: css({ '&&': { lineHeight: '1.5' } }),
-  profileName: css({ '&&': { lineHeight: '1', _mobile: { lineHeight: '1.2' } } }),
+  profileTitle: css({ lineHeight: 'body', _mobile: { lineHeight: 'body' } }),
+  benefitText: css({ '&&': { lineHeight: 'body' } }),
+  profileName: css({ '&&': { lineHeight: 'body', _mobile: { lineHeight: 'body' } } }),
   menuHeader: css({
     minH: '52px',
     justifyContent: 'flex-end',
@@ -107,7 +107,7 @@ const styles = {
     borderBottom: '2px solid var(--colors-black-100)',
     _mobile: { minH: '0', borderBottomWidth: '1px' },
   }),
-  menuTitle: css({ '&&': { lineHeight: '1.2' } }),
+  menuTitle: css({ '&&': { lineHeight: 'body' } }),
   profileLink: css({
     display: 'inline-flex',
     alignItems: 'center',
@@ -123,15 +123,15 @@ function MyPageBenefitItem({ href, label, count, unit, icon }: MyPageBenefitItem
       <Stack h="full" minH="81px" justifyContent="space-between" _mobile={{ minH: '57px' }}>
         <HStack gap="8px">
           <Icon name={icon} size={18} />
-          <Typography web="body2" mo="body3" weight="medium" className={styles.benefitText}>
+          <Typography web="b2M" mo="b4M" className={styles.benefitText}>
             {label}
           </Typography>
         </HStack>
         <HStack gap="2px" justifyContent="flex-end" alignItems="flex-end">
-          <Typography web="heading7" mo="heading5" language="en">
+          <Typography web="h8B" mo="h7B" language="en">
             {count}
           </Typography>
-          <Typography web="body2" mo="body3" className={styles.benefitText}>
+          <Typography web="b2" mo="b4" className={styles.benefitText}>
             {unit}
           </Typography>
         </HStack>
@@ -171,10 +171,10 @@ function MyPageOverviewProfile({ onLogout }: { onLogout: () => void }) {
       title={
         <Link className={styles.profileLink} href="/mypage/profile">
           <HStack as="span" gap="2px" alignItems="flex-end">
-            <Typography as="span" web="heading6" mo="heading4" className={styles.profileName}>
+            <Typography as="span" web="h4B" mo="h5B" className={styles.profileName}>
               {'박연진'}
             </Typography>
-            <Typography as="span" variant="body1">
+            <Typography as="span" variant="b1">
               님
             </Typography>
           </HStack>
@@ -197,8 +197,8 @@ function MyPageOverviewProfile({ onLogout }: { onLogout: () => void }) {
         ),
         titleAs: 'h1',
         titleProps: {
-          web: 'heading6',
-          mo: 'heading4',
+          web: 'h4B',
+          mo: 'h5B',
           className: styles.profileTitle,
         },
       }}
@@ -228,7 +228,7 @@ function MyPageMenuItem({ label, to }: MyPageMenuItemProps) {
         justifyContent="space-between"
         borderBottom="1px solid var(--color-border-subtle)"
       >
-        <Typography variant="body3Medium">{label}</Typography>
+        <Typography variant="b4M">{label}</Typography>
         <Icon name="hoka-nav-chevron-right-regular" size={24} />
       </HStack>
     </Link>
@@ -245,7 +245,7 @@ function MyPageMenuSection({ title, items }: { title: string; items: MyPageMenuI
       headerProps={{
         titleAs: 'h2',
         className: styles.menuHeader,
-        titleProps: { web: 'heading7', mo: 'heading5', className: styles.menuTitle },
+        titleProps: { web: 'h8B', mo: 'h7B', className: styles.menuTitle },
       }}
     >
       <Stack gap="0">

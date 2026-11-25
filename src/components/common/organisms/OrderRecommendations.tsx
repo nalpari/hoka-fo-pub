@@ -119,8 +119,8 @@ export function OrderRecommendations({
             </HStack>
           ) : undefined,
         titleProps: {
-          web: layout === 'checkout' ? 'headingKr6' : 'heading8',
-          mo: layout === 'checkout' ? 'headingKr6' : 'heading7',
+          web: layout === 'checkout' ? 'h4B' : 'h10B',
+          mo: layout === 'checkout' ? 'h8' : 'h8',
         },
       }}
     >

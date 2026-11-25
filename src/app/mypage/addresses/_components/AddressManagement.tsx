@@ -50,7 +50,7 @@ export function AddressEditor({
       title={<>{editingId === 'new' ? '배송지 추가' : '배송지 수정'}</>}
       headerProps={{
         titleAs: 'h1',
-        titleProps: { web: 'headingKr6', mo: 'headingKr5' },
+        titleProps: { web: 'h4B', mo: 'h7B' },
         pb: '40px',
         borderBottom: '2px solid black',
         _mobile: { pb: '32px' },

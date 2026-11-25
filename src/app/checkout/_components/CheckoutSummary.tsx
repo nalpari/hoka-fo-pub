@@ -23,7 +23,7 @@ export function CheckoutSummary({ rows }: { rows: readonly CheckoutRow[] }) {
       as="section"
       gap="24px"
       title="주문상품 정보 및 할인 적용"
-      headerProps={{ titleAs: 'h2', titleProps: { web: 'heading7', mo: 'heading6' } }}
+      headerProps={{ titleAs: 'h2', titleProps: { web: 'h8B', mo: 'h8' } }}
     >
       <Stack
         gap="0"
@@ -59,20 +59,20 @@ export function CheckoutSummary({ rows }: { rows: readonly CheckoutRow[] }) {
                 ? {
                     content: (
                       <Stack gap="4px" minW="0">
-                        <Typography variant="body4Medium">{product.name}</Typography>
-                        <Typography variant="body5" tone="subtle">
+                        <Typography variant="b6M">{product.name}</Typography>
+                        <Typography variant="b8" tone="subtle">
                           {item.width}, {item.color}, {item.size}, {item.quantity}개
                         </Typography>
                         {originalAmount ? (
                           <Typography
-                            variant="body5"
+                            variant="b8"
                             tone="subtle"
                             className={css({ textDecoration: 'line-through' })}
                           >
                             {originalAmount.toLocaleString()}원
                           </Typography>
                         ) : null}
-                        <Typography variant="body4Medium">{amount.toLocaleString()}원</Typography>
+                        <Typography variant="b6M">{amount.toLocaleString()}원</Typography>
                       </Stack>
                     ),
                   }
@@ -81,27 +81,27 @@ export function CheckoutSummary({ rows }: { rows: readonly CheckoutRow[] }) {
             />
             {!mobile ? (
               <>
-                <Typography variant="body4" className={css({ textAlign: 'center' })}>
+                <Typography variant="b6" className={css({ textAlign: 'center' })}>
                   {item.quantity}개
                 </Typography>
                 <Stack gap="0" alignItems="flex-end" pr="24px">
                   {originalAmount ? (
                     <Typography
-                      variant="body4"
+                      variant="b6"
                       tone="subtle"
                       className={css({ textDecoration: 'line-through' })}
                     >
                       {originalAmount.toLocaleString()}원
                     </Typography>
                   ) : null}
-                  <Typography variant="body4Medium">{amount.toLocaleString()}원</Typography>
+                  <Typography variant="b6M">{amount.toLocaleString()}원</Typography>
                 </Stack>
               </>
             ) : null}
           </Grid>
         ))}
       </Stack>
-      <Typography variant="body5" tone="subtle">
+      <Typography variant="b8" tone="subtle">
         * 상품수량 변경은 상품상세 또는 장바구니에서 하실 수 있습니다.
       </Typography>
     </ContentSection>

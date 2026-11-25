@@ -311,11 +311,11 @@ export type FilterTabsProps<T extends string = string> = {
 };
 
 const typographyByVariant = {
-  default: { variant: 'cta2' },
-  plain: { web: 'cta2', mo: 'bodyKr4' },
-  fill: { variant: 'cta2' },
-  line: { variant: 'bodyKr3', weight: 'medium' },
-  outline: { variant: 'cta2' },
+  default: { variant: 'b6M' },
+  plain: { web: 'b6M', mo: 'b6' },
+  fill: { variant: 'b6M' },
+  line: { variant: 'b4M' },
+  outline: { variant: 'b6M' },
 } as const;
 
 /** 관련 결과를 바꾸는 단일 선택 필터 탭을 표시합니다. (Displays single-select filter tabs for related results.) */

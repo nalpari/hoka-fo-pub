@@ -84,7 +84,7 @@ export function Accordion({
               className={[styles.trigger, triggerClassName].filter(Boolean).join(' ')}
             >
               {typeof item.title === 'string' || typeof item.title === 'number' ? (
-                <Typography variant="body4" weight="inherit">
+                <Typography variant="b6" weight="inherit">
                   {item.title}
                 </Typography>
               ) : (

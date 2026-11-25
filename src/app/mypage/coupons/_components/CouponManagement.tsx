@@ -20,7 +20,7 @@ import { MyPageFrame } from '@/app/mypage/_components/MyPageFrame';
 
 const couponDescription = css({
   color: 'black.100',
-  lineHeight: '1.5!',
+  lineHeight: 'body!',
   _mobile: { color: '#4D4D4D' },
 });
 
@@ -29,7 +29,7 @@ const couponDetailNumber = css({
     display: 'inline-flex',
     alignItems: 'center',
     fontWeight: '700',
-    lineHeight: '1.5',
+    lineHeight: 'body',
   },
 });
 
@@ -37,7 +37,7 @@ const couponDetailStyles = {
   period: css({ color: '#040404', '&&&': { fontWeight: '500' } }),
   term: css({
     flexShrink: '0',
-    lineHeight: '1.5',
+    lineHeight: 'body',
     color: '#4D4D4D',
   }),
   value: css({
@@ -49,18 +49,18 @@ const couponDetailStyles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
-    lineHeight: '1.5',
+    lineHeight: 'body',
     overflowWrap: 'anywhere',
   }),
   conditionTitle: css({
-    lineHeight: '1.5',
+    lineHeight: 'body',
     color: '#4D4D4D',
   }),
-  body: css({ whiteSpace: 'pre-line', lineHeight: '1.5', color: 'black.100' }),
+  body: css({ whiteSpace: 'pre-line', lineHeight: 'body', color: 'black.100' }),
   notice: css({
     '&&': {
-      fontSize: '13px',
-      lineHeight: '1.5',
+      fontSize: 'body.13',
+      lineHeight: 'body',
       color: '#777777',
     },
     pt: '16px',
@@ -84,19 +84,19 @@ const couponStyles = {
     _mobile: { minH: '170px', h: '170px', py: '25px', gap: '24px' },
   }),
   detailsButton: css({ flexShrink: '0' }),
-  linkText: css({ lineHeight: '1.3!' }),
-  benefitNumber: css({ lineHeight: 'hoka!' }),
-  benefitUnit: css({ lineHeight: '1.2!' }),
+  linkText: css({ lineHeight: 'body!' }),
+  benefitNumber: css({ lineHeight: 'body!' }),
+  benefitUnit: css({ lineHeight: 'body!' }),
   registrationButton: css({
     w: '180px',
     _mobile: { flex: '1', minW: '0', w: 'auto', '--button-height': '42px' },
   }),
-  registrationText: css({ lineHeight: '1.3!' }),
+  registrationText: css({ lineHeight: 'body!' }),
 };
 
 const couponSectionTitle = {
-  web: 'headingKr7',
-  mo: 'headingKr6',
+  web: 'h8B',
+  mo: 'h8',
   className: css({ _mobile: { fontWeight: 'bold' } }),
 } as const;
 
@@ -123,7 +123,7 @@ function CouponRegistrationSection({
       headerProps={{
         gap: { base: '12px', _mobile: '16px' },
         titleAs: 'h1',
-        titleProps: { web: 'headingKr6', mo: 'headingKr5' },
+        titleProps: { web: 'h4B', mo: 'h7B' },
         description: (
           <>
             이벤트를 통해 발급 받은 쿠폰의 일련번호를 입력하십시오.
@@ -132,7 +132,7 @@ function CouponRegistrationSection({
           </>
         ),
         descriptionProps: {
-          variant: 'bodyKr3',
+          variant: 'b4',
           className: couponDescription,
         },
       }}
@@ -211,8 +211,8 @@ function CouponCard({ coupon, onDetails }: CouponCardProps) {
         title={coupon.name}
         titleAs="h3"
         titleProps={{
-          web: 'headingKr8',
-          mo: 'headingKr6',
+          web: 'h10B',
+          mo: 'h8',
           className: couponSectionTitle.className,
         }}
         orientation="horizontal"
@@ -225,7 +225,7 @@ function CouponCard({ coupon, onDetails }: CouponCardProps) {
             onClick={() => onDetails(coupon)}
             className={couponStyles.detailsButton}
           >
-            <Typography variant="cta3" weight="medium" className={couponStyles.linkText}>
+            <Typography variant="b8M" className={couponStyles.linkText}>
               상세보기
             </Typography>
           </Button>
@@ -234,22 +234,22 @@ function CouponCard({ coupon, onDetails }: CouponCardProps) {
       <Stack gap="12px">
         <HStack gap="0" alignItems="center">
           <Typography
-            variant="body3"
+            variant="b4B"
             language="en"
-            weight="bold"
+
             className={couponStyles.benefitNumber}
           >
             {coupon.benefit.endsWith('원') ? coupon.benefit.slice(0, -1) : coupon.benefit}
           </Typography>
           {coupon.benefit.endsWith('원') ? (
-            <Typography variant="bodyKr3" weight="semibold" className={couponStyles.benefitUnit}>
+            <Typography variant="b4S" className={couponStyles.benefitUnit}>
               원
             </Typography>
           ) : null}
         </HStack>
         <Stack gap="6px" _mobile={{ gap: '4px' }}>
-          <Typography variant="body4">{coupon.condition}</Typography>
-          <Typography variant="body4" language="en" tone="tertiary">
+          <Typography variant="b6">{coupon.condition}</Typography>
+          <Typography variant="b6" language="en" tone="tertiary">
             {coupon.expiresAt}
           </Typography>
         </Stack>
@@ -277,7 +277,7 @@ function CouponRegistrationDialog({ open, onOpenChange }: Props) {
       headerProps={{ css: { bg: 'white', borderBottom: '1px solid var(--colors-black-20)' } }}
       actions={{ kind: 'single', onConfirm: () => onOpenChange(false) }}
     >
-      <Typography as="p" variant="body3">
+      <Typography as="p" variant="b4">
         쿠폰이 등록되었습니다.
       </Typography>
     </ModalDialog>
@@ -297,7 +297,7 @@ function CouponDetailsDialog({ coupon, onOpenChange }: CouponDetailsDialogProps)
           label: '수량',
           value: (
             <>
-              <Typography variant="body4" language="en" className={couponDetailNumber}>
+              <Typography variant="b6" language="en" className={couponDetailNumber}>
                 {coupon.quantity}
               </Typography>
               개
@@ -308,7 +308,7 @@ function CouponDetailsDialog({ coupon, onOpenChange }: CouponDetailsDialogProps)
           label: '혜택',
           value: coupon.benefit.endsWith('원') ? (
             <>
-              <Typography variant="body4" language="en" className={couponDetailNumber}>
+              <Typography variant="b6" language="en" className={couponDetailNumber}>
                 {coupon.benefit.slice(0, -1)}
               </Typography>
               원
@@ -322,7 +322,7 @@ function CouponDetailsDialog({ coupon, onOpenChange }: CouponDetailsDialogProps)
           label: '사용기간',
           value: (
             <Typography
-              variant="body4"
+              variant="b6"
               language="en"
               className={cx(couponDetailNumber, couponDetailStyles.period)}
             >
@@ -355,15 +355,10 @@ function CouponDetailsDialog({ coupon, onOpenChange }: CouponDetailsDialogProps)
           <Stack as="dl" gap="24px" pb="24px" borderBottom="1px solid token(colors.black.20)">
             {rows.map(({ label, value }) => (
               <HStack key={label} justifyContent="space-between" alignItems="baseline" gap="12px">
-                <Typography
-                  as="dt"
-                  variant="bodyKr4"
-                  tone="subtle"
-                  className={couponDetailStyles.term}
-                >
+                <Typography as="dt" variant="b6" tone="subtle" className={couponDetailStyles.term}>
                   {label}
                 </Typography>
-                <Typography as="dd" variant="bodyKr4" className={couponDetailStyles.value}>
+                <Typography as="dd" variant="b6" className={couponDetailStyles.value}>
                   {value}
                 </Typography>
               </HStack>
@@ -372,21 +367,16 @@ function CouponDetailsDialog({ coupon, onOpenChange }: CouponDetailsDialogProps)
           <Stack gap="16px">
             <Typography
               as="h3"
-              variant="bodyKr4"
+              variant="b6"
               tone="subtle"
               className={couponDetailStyles.conditionTitle}
             >
               상세조건
             </Typography>
-            <Typography as="p" variant="bodyKr4" className={couponDetailStyles.body}>
+            <Typography as="p" variant="b6" className={couponDetailStyles.body}>
               {coupon.detailTerms}
             </Typography>
-            <Typography
-              as="p"
-              variant="bodyKr4-2"
-              tone="tertiary"
-              className={couponDetailStyles.notice}
-            >
+            <Typography as="p" variant="b7" tone="tertiary" className={couponDetailStyles.notice}>
               {coupon.detailNotice}
             </Typography>
           </Stack>
@@ -498,7 +488,7 @@ export function RouteContent({
     <MyPageFrame activePath="/mypage/coupons" breadcrumbs={[{ label: '쿠폰' }]}>
       <ContentSection
         title="쿠폰"
-        headerProps={{ titleAs: 'h1', titleProps: { web: 'headingKr6', mo: 'headingKr5' } }}
+        headerProps={{ titleAs: 'h1', titleProps: { web: 'h4B', mo: 'h7B' } }}
         gap="48px"
         _mobile={{ gap: '32px', pt: '24px' }}
         css={{ '--line-heights-body': '1.5' }}
@@ -527,9 +517,9 @@ export function RouteContent({
                     className={couponStyles.registrationButton}
                   >
                     <Typography
-                      web="cta1"
-                      mo="cta1-1"
-                      weight="bold"
+                      web="b4B"
+                      mo="b5B"
+
                       className={couponStyles.registrationText}
                     >
                       {platform === 'mobile' ? label.mobile : label.desktop}
@@ -550,7 +540,7 @@ export function RouteContent({
               titleProps: couponSectionTitle,
               description: '쿠폰별 사용조건이 상이하니 사용 전에 반드시 확인하시기 바랍니다.',
               descriptionProps: {
-                variant: 'bodyKr3',
+                variant: 'b4',
                 className: couponDescription,
               },
             }}
@@ -589,10 +579,10 @@ export function RouteContent({
                 {visibleCoupons.length > 0 ? (
                   <HStack justifyContent="flex-end">
                     <HStack gap="2px">
-                      <Typography variant="body4">총</Typography>
-                      <Typography variant="body4Medium">
+                      <Typography variant="b6">총</Typography>
+                      <Typography variant="b6M">
                         {visibleCoupons.length}
-                        <Typography variant="bodyKr4">건</Typography>
+                        <Typography variant="b6">건</Typography>
                       </Typography>
                     </HStack>
                   </HStack>

@@ -2635,3 +2635,7 @@ productDetailPreviews의 `상품 문의하기 팝업` 항목을 기존 상품 �
 ## 카카오톡 알림톡 수신 항목 표시 (2026-11-25)
 
 `/signup/information?step=additional`, `/signup/information/preview-marketing-consent`, `/mypage/profile`, `/mypage/profile/preview-edit`, `/publishing-guide`의 라우트와 고정 상태 연결에는 변경이 없다. 기존 화면의 마케팅 수신 항목만 변경했다. [화면 변경과 작업 트리 출처](ui.md#카카오톡-알림톡-수신-항목-1차-비노출-2026-11-25).
+
+## 신규 타이포그래피 퍼블리싱 가이드 (2026-11-25)
+
+`/publishing-guide`의 타이포그래피 탭에 Display·Heading·Body 규격표를 연결한다. Display와 Heading은 각각 Wide·Compact 서브 탭을 제공하고 초기값은 Wide다. Body는 공통 표 하나를 표시한다. 같은 크기의 굵기는 예시 열로 나란히 배치하고 예시 문구에서 해당 경로의 코드를 복사한다. 표의 예시는 명시적인 플랫폼 컨텍스트로 렌더링하며, 한글·영문은 각각 본문 글리프와 폰트 패밀리를 지정한다. [폰트 체계와 이관 기준](ui.md#displayheadingbody-타이포그래피-이관-2026-11-25).

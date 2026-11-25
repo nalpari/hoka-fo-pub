@@ -132,8 +132,8 @@ export function SegmentedControl<T extends string = string>({
             (unstyled ? undefined : variant === 'underline' ? (
               <Typography
                 as="button"
-                web="body3"
-                mo="body4"
+                web="b4"
+                mo="b6"
                 weight={option.value === value ? 'bold' : 'regular'}
                 tone="primary"
               >

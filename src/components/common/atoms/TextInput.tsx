@@ -37,8 +37,8 @@ const compactControl = css({
   border: '0',
   bg: 'transparent',
   color: 'black.100',
-  fontSize: '14px',
-  lineHeight: '1.3',
+  fontSize: 'body.14',
+  lineHeight: 'body',
   _focusVisible: { outline: '1px solid var(--colors-black-100)' },
 });
 
@@ -52,8 +52,8 @@ const boxedControl = css({
     minW: '0',
     flex: '1',
     bg: 'transparent',
-    fontFamily: 'korean',
-    fontSize: '16',
+    fontFamily: 'ko',
+    fontSize: 'body.16',
     fontWeight: 'normal',
     lineHeight: 'body',
     letterSpacing: 'korean',

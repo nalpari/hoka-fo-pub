@@ -170,7 +170,7 @@ function CheckoutShippingForm({
         label={dialog ? '기본 배송지로 저장' : '기본배송지로 등록'}
         className={
           dialog
-            ? css({ mt: '2', lineHeight: '21px', '& > span:last-child': { lineHeight: '21px' } })
+            ? css({ mt: '2', lineHeight: 'body', '& > span:last-child': { lineHeight: 'body' } })
             : undefined
         }
         checked={draft.isDefault}
@@ -219,7 +219,7 @@ function CheckoutSavedAddress({ errors, editButtonRef, onEdit }: CheckoutSavedAd
         h={{ base: '72px', _mobile: '56px' }}
       >
         <HStack gap="2">
-          <Typography variant="body3Medium">{saved.label}</Typography>
+          <Typography variant="b4M">{saved.label}</Typography>
           <Badge variant="outlined" visual="square">
             기본 배송지
           </Badge>
@@ -244,14 +244,14 @@ function CheckoutSavedAddress({ errors, editButtonRef, onEdit }: CheckoutSavedAd
           {infoItems.map(({ label, value }) => (
             <HStack key={label} gap="2" alignItems="center">
               <Box w={{ base: '144px', _mobile: '82px' }} flexShrink="0">
-                <Typography variant="body3" tone="subtle">
+                <Typography variant="b4" tone="subtle">
                   {label}
                 </Typography>
               </Box>
               <Stack flex="1" gap="1" minW="0">
-                <Typography variant="body4Medium">{value}</Typography>
+                <Typography variant="b6M">{value}</Typography>
                 {label === '주소' && errors?.address ? (
-                  <Typography variant="body5" tone="subtle">
+                  <Typography variant="b8" tone="subtle">
                     {errors.address}
                   </Typography>
                 ) : null}
@@ -403,7 +403,7 @@ export function CheckoutShipping({
       title="주문자 및 배송지 정보"
       headerProps={{
         titleAs: 'h2',
-        titleProps: { web: 'heading7', mo: 'heading6' },
+        titleProps: { web: 'h8B', mo: 'h8' },
         className: css({ pb: { base: '8px', _mobile: '0' } }),
       }}
     >

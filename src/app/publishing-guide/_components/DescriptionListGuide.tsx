@@ -50,10 +50,10 @@ export function DescriptionListGuide() {
       pt="6"
     >
       <Stack minW="0" gap="6">
-        <Typography as="h2" variant="heading8">
+        <Typography as="h2" web="h10B" mo="h8">
           DescriptionList · 항목과 값
         </Typography>
-        <Typography as="p" variant="body4">
+        <Typography as="p" variant="b6">
           items의 term은 항목명, description은 값입니다. termProps·descriptionProps로 글자를,
           labelWidth·slotStyles로 배치를 지정합니다.
         </Typography>
@@ -67,10 +67,10 @@ export function DescriptionListGuide() {
             border="1px solid token(colors.black.20)"
             scrollMarginTop="calc(var(--layout-site-header-height) + 16px)"
           >
-            <Typography as="h3" variant="heading8">
+            <Typography as="h3" web="h10B" mo="h8">
               {example.title}
             </Typography>
-            <Typography variant="body5" tone="subtle">
+            <Typography variant="b8" tone="subtle">
               사용 파일: {example.source}
             </Typography>
             <Link
@@ -79,13 +79,11 @@ export function DescriptionListGuide() {
             >
               사용 화면 보기 ↗
             </Link>
-            <Typography variant="body5" tone="subtle">
+            <Typography variant="b8" tone="subtle">
               {example.description}
             </Typography>
             {example.preview}
-<Typography variant="body4Semibold">
-              사용 코드
-            </Typography>
+            <Typography variant="b6S">사용 코드</Typography>
             <HStack alignItems="flex-start" gap="3" p="4" bg="surface.subtle" minW="0">
               <Box as="pre" m="0" flex="1" minW="0" overflowX="auto">
                 <code>{renderGuideCode(example.code)}</code>

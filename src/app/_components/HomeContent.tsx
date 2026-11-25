@@ -56,7 +56,6 @@ function HomeLayout({ platform, children }: { platform: Platform; children: Reac
           '--home-title-40': 'clamp(2.5rem, calc(1.30725191rem + 5.08905852vw), 3.75rem)',
           '--home-body-12': 'clamp(0.75rem, calc(0.57108779rem + 0.76335878vw), 0.9375rem)',
           '--home-body-13': 'clamp(0.8125rem, calc(0.61867844rem + 0.82697201vw), 1.015625rem)',
-          '--home-body-14': 'clamp(0.875rem, calc(0.66626908rem + 0.89058524vw), 1.09375rem)',
           '--home-body-16': 'clamp(1rem, calc(0.76145038rem + 1.0178117vw), 1.25rem)',
           '--home-body-30': 'clamp(1.875rem, calc(1.42771947rem + 1.90839695vw), 2.34375rem)',
           '--home-body-40': 'clamp(2.5rem, calc(1.90362595rem + 2.54452926vw), 3.125rem)',
@@ -131,7 +130,8 @@ function HomeBestSellerSection() {
       slideClassName={isWeb ? undefined : mobileSlide}
       spacing="tight"
       title="Best sellers"
-      titleVariant="heading4"
+      titleVariant="d4"
+      mobileTitleVariant="h5B"
       viewportKey={selectedTab}
     >
       {bestSellerProducts.map((product, index) => (
@@ -151,12 +151,12 @@ type HomeCategorySectionProps = {
 };
 const categoryCard = css({
   '&&': { gap: '20px' },
-  '& h3': { fontSize: '28px', lineHeight: '1' },
+  '& h3': { fontSize: 'heading.28', lineHeight: 'hoka' },
   '& .card__header': { gap: '0' },
   '& .card__action': { mt: '4px' },
   _mobile: {
     '&&': { gap: '16px' },
-    '& h3': { fontSize: '22px' },
+    '& h3': { fontSize: 'heading.22' },
   },
 });
 function HomeCategorySection({ platform }: HomeCategorySectionProps) {
@@ -171,7 +171,8 @@ function HomeCategorySection({ platform }: HomeCategorySectionProps) {
       mobileRail="bleed"
       slideClassName={isWeb ? undefined : HomeCategorySectionMobileSlide}
       title="Shop by category"
-      titleVariant="heading4"
+      titleVariant="d4"
+      mobileTitleVariant="h5B"
     >
       {homeCategories.map((category) => (
         <MainContentCard className={categoryCard} key={category.title} {...category} />
@@ -181,7 +182,7 @@ function HomeCategorySection({ platform }: HomeCategorySectionProps) {
 }
 const exploreCard = css({
   '&&': { gap: '20px' },
-  '& h3': { fontSize: '28px', lineHeight: '1' },
+  '& h3': { fontSize: 'heading.28', lineHeight: 'hoka' },
   '& .card__header': { gap: '24px' },
   '& .card__header p': { minH: '0', fontFamily: 'var(--font-family-base)' },
   _mobile: {
@@ -193,7 +194,7 @@ function HomeExploreSection() {
   const platform = usePlatform();
   const isMobile = platform === 'mobile';
   return (
-    <MainSection title="Explore" titleVariant="heading4">
+    <MainSection title="Explore" titleVariant="d4" mobileTitleVariant="h5B">
       <Grid
         gridTemplateColumns="repeat(3, 1fr)"
         gap="4"
@@ -230,7 +231,6 @@ type HeroCopyProps = {
 const title = css({
   m: '0',
 });
-const mobileHeroTitle = css({ '&&': { fontSize: '42px' } });
 const description = css({
   m: '0',
   '&&': { fontFamily: 'var(--font-family-base)' },
@@ -239,7 +239,6 @@ const description = css({
 });
 /** 홈 Hero의 제목·설명·행동 링크를 배치합니다. (Arranges the home hero title, description, and action links.) */
 function HeroCopy({ content, actions }: HeroCopyProps) {
-  const platform = usePlatform();
   return (
     <VStack
       alignItems="flex-start"
@@ -266,19 +265,18 @@ function HeroCopy({ content, actions }: HeroCopyProps) {
         maxW="100%"
         gap="24px"
         titleProps={{
-          className: [title, platform === 'mobile' ? mobileHeroTitle : undefined]
-            .filter(Boolean)
-            .join(' '),
+          className: title,
           tone: 'inverse',
-          variant: 'heading1',
+          web: 'd1',
+          mo: 'd3',
         }}
         description={content.description}
         descriptionAs="div"
         descriptionProps={{
           className: description,
           tone: 'inverse',
-          web: 'bodyKr1',
-          mo: 'bodyKr3',
+          web: 'b1',
+          mo: 'b4',
         }}
       />
       <HStack alignItems="flex-start" flexWrap="wrap" maxW="100%" gap="8px">
@@ -676,7 +674,7 @@ const HomeShoeFinderSectionMobileSlide = css({
   '& > *': { w: '100%' },
 });
 const shoeFinderCard = css({
-  '& h3': { fontSize: '28px', lineHeight: '1' },
+  '& h3': { fontSize: 'heading.28', lineHeight: 'hoka' },
   '& .card__header': { mt: '0', pt: '8px', gap: '24px' },
   '& .card__header p': { minH: '0' },
   '& .card__action': { pt: '24px', pb: '40px' },
@@ -701,7 +699,8 @@ function HomeShoeFinderSection({ platform, variant = 'imagePill' }: HomeShoeFind
       mobileRail="bleed"
       slideClassName={isWeb ? undefined : HomeShoeFinderSectionMobileSlide}
       title="Find my HOKA"
-      titleVariant="heading4"
+      titleVariant="d4"
+      mobileTitleVariant="h5B"
     >
       {previewItems.map(({ images, ...item }, index) => (
         <MainContentCard

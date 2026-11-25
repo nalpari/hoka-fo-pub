@@ -6278,3 +6278,19 @@ TextFormField/TextInput, SearchField, DateRangeSearch와 각 화면의 검색·�
 출처는 사용자 정정 지시와 `src/app/signup/information/_components/RegistrationContent.tsx`, `src/app/mypage/profile/_components/ProfileContent.tsx`, `src/app/publishing-guide/_components/descriptionListExamples.tsx`의 작업 트리다.
 
 2026-11-25 Codex는 PC 1440px·모바일 390px에서 해당 수신 항목의 비노출과 이메일·문자 항목 표시를 확인했다. 런칭 상세 알림 신청, 상품 상세 재입고 알림, 마이페이지 재입고 메뉴와 러닝세션 안내의 기존 표시도 확인했다. TypeScript와 변경 소스 ESLint는 통과했다.
+
+## Display·Heading·Body 타이포그래피 이관 (2026-11-25)
+
+사용자가 제공한 [HOKA 디자인 시스템](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0) 변수·로컬 Text Style 추출본을 구현 기준으로 사용한다. `src/styles/typography.ts`는 패밀리 2개·굵기 6개·계열별 크기 27개와 한글 89개·영문 71개 조합을 정의한다. 같은 px도 Display·Heading·Body의 크기 토큰을 분리한다. `Typography`의 기본 variant는 생략할 수 있고, 스타일을 적용할 때 `d1`, `h1B`, `b4M`처럼 사용한다. `web`은 Wide, `mo`는 Compact를 선택한다. H9·H10은 Wide 전용이므로 모바일과 함께 표시하는 화면에서는 Compact 값을 명시한다.
+
+| 계열 | Wide(px) | Compact(px) | 굵기 |
+| --- | --- | --- | --- |
+| Display D1–D4 | 84, 72, 58, 50 | 50, 44, 42, 40 | Black 900 |
+| Heading H1–H10 | 44, 42, 40, 36, 34, 32, 30, 28, 24, 22 | 36, 34, 32, 30, 28, 24, 22, 20 | 기본 Bold 700 / B Black 900 |
+| Body B1–B9 | 24, 20, 18, 16, 15, 14, 13, 12, 10 | 공통 | 기본 400 / M 500 / S 600 / B 700 / E 800 |
+
+Pretendard의 행간은 Display·Heading 1.2, Body 1.5이며 자간은 -0.02em이다. The Future HOKA는 Display·Heading 1, Body 1.5, 자간 0을 적용한다. 영문 폰트 face는 400·500·700·900이고 영문 Body 600·800은 같은 크기의 700으로 이관한다. 고객사 스타일, CTA·캡션·일반 링크는 공통 계열에 편입하고 링크의 밑줄은 표시 옵션으로 유지한다. 상태에 따라 굵기가 바뀌는 공용 UI는 기존 선택 계약을 유지하면서 실제 등록 조합을 선택한다.
+
+같은 역할과 플랫폼에서 크기·굵기가 가장 가까운 조합을 적용한다. 예를 들어 22px Black 제목은 Wide H10B, Compact H7B다. 기존 Wide 20px 제목은 H10으로 옮겨 22px이 된다. 기존 16px Medium CTA는 Body B4M으로 이관해 행간을 1.5로 적용한다. 16px Body의 고정 `500-700`은 `web="b4M" mo="b4B"`로 이관한다. EmptyState의 사용자 확정 제목, SupportTabs 상태 굵기 및 Button.loadMore 400은 해당 계약을 따른다.
+
+2026-11-25 Codex는 퍼블리싱 가이드에서 Wide·Compact를 전환해 160개 예시의 크기·굵기·행간·자간을 대조했다. 1440px·390px과 1024/1025px 경계에서 가이드의 고정 플랫폼과 SupportTabs 굵기를 확인했다. 한글 실제 글리프는 Pretendard Black·Bold·SemiBold, 영문 검증 표본은 The Future HOKA Black·Medium WOFF2와 대조했다. Heading의 700·900 나란히 표시와 900 예시 클릭 시 H1B 코드 복사도 확인했다. 장바구니 빈 제목은 PC 22px/900과 MO 20px/700, 공지사항 더보기는 두 플랫폼 모두 400이었다. 주문서 총 결제 금액 라벨의 반응형 조합은 PC 16px/700과 MO 14px/500이었다. Panda 생성, TypeScript, 변경 파일 ESLint, Next 프로덕션 빌드, OKF 테스트가 통과했다. 저장소 전체 ESLint는 기존 `tests/wh-file-summary.test.mjs`의 웹 API 전역 `no-undef` 8건으로 실패했다.

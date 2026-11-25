@@ -14,7 +14,7 @@ const root = cva({
     w: 'full',
     h: 'auto',
     _hover: { '& [data-product-thumbnail-hover-image]': { opacity: '1' } },
-    _mobile: { fontSize: '12', '& [data-product-thumbnail-hover-image]': { display: 'none' } },
+    _mobile: { fontSize: 'body.12', '& [data-product-thumbnail-hover-image]': { display: 'none' } },
   },
   variants: {
     variant: {

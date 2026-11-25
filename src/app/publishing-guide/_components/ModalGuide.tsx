@@ -222,7 +222,7 @@ const groups: { id: string; title: string; description: string; items: ModalExam
       {
         id: 'bottom',
         usage:
-          '배송조회, 주문 취소·반품 신청, 문의 첨부파일 미리보기. ModalDialog를 모바일에서 바텀시트처럼 표시한 형태입니다. 데스크탑에서는 중앙 팝업, 모바일에서는 하단 시트로 보여주되 같은 모달 안에서 본문·입력 상태·열기/닫기를 유지하기 위해 사용합니다. bottomSheet 옵션이 모바일 전체 너비·상단 모서리 24px·손잡이 36×4px·헤더 최소 56px·타이틀 headingKr9·닫기 xmark-large 18px를 공통 적용합니다. 본문·버튼·세부 여백은 화면별로 다릅니다.',
+          '배송조회, 주문 취소·반품 신청, 문의 첨부파일 미리보기. ModalDialog를 모바일에서 바텀시트처럼 표시한 형태입니다. 데스크탑에서는 중앙 팝업, 모바일에서는 하단 시트로 보여주되 같은 모달 안에서 본문·입력 상태·열기/닫기를 유지하기 위해 사용합니다. bottomSheet 옵션이 모바일 전체 너비·상단 모서리 24px·손잡이 36×4px·헤더 최소 56px·타이틀 h8·닫기 xmark-large 18px를 공통 적용합니다. 본문·버튼·세부 여백은 화면별로 다릅니다.',
         source: 'OrderTrackingDialog.tsx / OrderClaimRequest.tsx / InquiryListContent.tsx',
         title: '바텀시트형 모달 · bottomSheet',
         desktop: '중앙 팝업 · 최대 640px',
@@ -249,7 +249,7 @@ const groups: { id: string; title: string; description: string; items: ModalExam
           'Dropdown의 모바일 선택·정렬, 이전 약관 선택에서 사용하는 기본형입니다. 분홍 영역은 피그마의 본문 자리 표시이며 실제 화면의 콘텐츠를 넣습니다.',
         source: 'Dropdown.tsx / PreviousTermsPicker.tsx',
         desktop: '중앙 팝업 · 최대 640px',
-        mobile: `상단 모서리 24px · 손잡이 36×4px · 헤더 최소 56px · headingKr9 · 닫기 18px · ${item.long ? '화면 높이까지 확장 · 본문 스크롤 · 헤더 구분선' : '본문 예시 높이 334px'} · ${item.sheetFooter ? '푸터 좌우 16px · 아래 32px' : '푸터 없음 · 본문 아래 32px'}`,
+        mobile: `상단 모서리 24px · 손잡이 36×4px · 헤더 최소 56px · h8 · 닫기 18px · ${item.long ? '화면 높이까지 확장 · 본문 스크롤 · 헤더 구분선' : '본문 예시 높이 334px'} · ${item.sheetFooter ? '푸터 좌우 16px · 아래 32px' : '푸터 없음 · 본문 아래 32px'}`,
       })),
     ],
   },
@@ -310,11 +310,11 @@ const triggerRef = useRef<HTMLButtonElement>(null);
 >
   <Stack gap="24px">
       {Array.from({ length: 12 }, (_, index) => (
-        <Typography key={index} as="p" variant="body4">
+        <Typography key={index} as="p" variant="b6">
           {index + 1}. 약관 내용입니다. 확인 버튼은 본문 마지막에 함께 스크롤됩니다.
         </Typography>
       ))}
-      <Typography as="p" variant="body5" tone="subtle">
+      <Typography as="p" variant="b8" tone="subtle">
         공고일자 : 2025년 08월 25일 / 시행일자 : 2025년 09월 01일
       </Typography>
   </Stack>
@@ -390,7 +390,7 @@ const triggerRef = useRef<HTMLButtonElement>(null);
 ${[options, action, example.id === 'large' && "  footerProps={{ desktopContentOffset: 332, css: { pt: '6', _mobile: { pt: '4' } } }}"].filter(Boolean).join('\n')}
 
 >
-  <Typography as="p" variant="body4">${example.long ? '긴 안내 내용을 이 영역에 넣습니다. 내용이 높이를 넘으면 스크롤됩니다.' : '안내 내용입니다.'}</Typography>
+  <Typography as="p" variant="b6">${example.long ? '긴 안내 내용을 이 영역에 넣습니다. 내용이 높이를 넘으면 스크롤됩니다.' : '안내 내용입니다.'}</Typography>
 </ModalDialog>`;
 }
 
@@ -460,52 +460,47 @@ function ModalExampleCard({
     ) : example.contentAction ? (
       <Stack gap="24px">
         {Array.from({ length: 12 }, (_, index) => (
-          <Typography key={index} as="p" variant="body4">
+          <Typography key={index} as="p" variant="b6">
             {index + 1}. 약관 내용입니다. 확인 버튼은 본문 마지막에 함께 스크롤됩니다.
           </Typography>
         ))}
-        <Typography as="p" variant="body5" tone="subtle">
+        <Typography as="p" variant="b8" tone="subtle">
           공고일자 : 2025년 08월 25일 / 시행일자 : 2025년 09월 01일
         </Typography>
       </Stack>
     ) : example.long ? (
       <Stack gap={example.variant === 'terms' ? '24px' : '4'}>
         {Array.from({ length: 32 }, (_, index) => (
-          <Typography key={index} as="p" variant="body4">
+          <Typography key={index} as="p" variant="b6">
             {index + 1}. 긴 내용의 스크롤을 확인하는 예시입니다. 본문을 내려도 하단 확인 버튼은
             유지됩니다.
           </Typography>
         ))}
       </Stack>
     ) : (
-      <Typography as="p" variant="body4">
+      <Typography as="p" variant="b6">
         안내 내용입니다. 이 예시는 모달의 표시와 열기·닫기만 확인합니다.
       </Typography>
     );
 
   return (
     <Stack minW="0" gap="3" p="4" border="1px solid token(colors.black.20)">
-      <Typography as="h4" variant="body3Semibold">
+      <Typography as="h4" variant="b4S">
         {example.title}
       </Typography>
       <Stack gap="1">
-        <Typography as="p" variant="body5">
+        <Typography as="p" variant="b8">
           데스크탑: {example.desktop}
         </Typography>
-        <Typography as="p" variant="body5">
+        <Typography as="p" variant="b8">
           모바일: {example.mobile}
         </Typography>
       </Stack>
       <Stack gap="1">
-        <Typography as="p" variant="body5">
+        <Typography as="p" variant="b8">
           사용 화면: {example.usage}
         </Typography>
-        <Typography
-          as="p"
-          variant="body5"
-          tone="subtle"
-          className={css({ overflowWrap: 'anywhere' })}
-        >
+        <Typography as="p" variant="b8" tone="subtle" className={css({ overflowWrap: 'anywhere' })}>
           사용 파일: {example.source}
         </Typography>
       </Stack>
@@ -631,31 +626,31 @@ export function ModalGuide() {
     >
       <Stack minW="0" gap="6">
         <Stack gap="2">
-          <Typography as="h2" variant="heading8">
+          <Typography as="h2" web="h10B" mo="h8">
             모달
           </Typography>
-          <Typography as="p" variant="body4">
+          <Typography as="p" variant="b6">
             현재 기준: {platform === 'mobile' ? '모바일' : '데스크탑'}
           </Typography>
-          <Typography as="p" variant="body5" tone="subtle">
+          <Typography as="p" variant="b8" tone="subtle">
             1024px 이하는 모바일, 1025px 이상은 데스크탑입니다. 열기 버튼으로 현재 화면 기준의 실제
             모달을 확인합니다.
           </Typography>
-          <Typography as="p" variant="body5" tone="subtle">
+          <Typography as="p" variant="b8" tone="subtle">
             variant는 필수이며 기본 표시 방식은 popup · dark입니다. PC 기본 모달은 최대 너비 640px와
             모서리 10px를 사용합니다. bottomSheet는 모바일에서 하단에 표시됩니다.
           </Typography>
-          <Typography as="p" variant="body5" tone="subtle">
+          <Typography as="p" variant="b8" tone="subtle">
             사용처: 전체화면은 본인인증·약관, 바텀시트형 모달은 배송조회·주문 취소·반품 신청,
             바텀시트형 모달은 모바일 드롭다운·이전 약관 선택에서 사용합니다. 예시의 확인 버튼은
             닫기만 수행합니다.
           </Typography>
         </Stack>
         <Stack as="section" gap="3" p="4" border="1px solid token(colors.black.20)">
-          <Typography as="h3" variant="body3Semibold">
+          <Typography as="h3" variant="b4S">
             상품 옵션 · productOption
           </Typography>
-          <Typography as="p" variant="body4">
+          <Typography as="p" variant="b6">
             옵션 변경 전용 유형입니다. PC 640px · 모바일 하단 시트이며 신발은 발볼·컬러·사이즈,
             의류는 컬러·사이즈를 표시합니다. 본문은 modalProductOptionRecipe의 className을
             사용합니다.
@@ -673,10 +668,10 @@ export function ModalGuide() {
             gap="3"
             scrollMarginTop="calc(var(--layout-site-header-height) + 16px)"
           >
-            <Typography as="h3" id={`${group.id}-title`} variant="heading8">
+            <Typography as="h3" id={`${group.id}-title`} web="h10B" mo="h8">
               {group.title}
             </Typography>
-            <Typography as="p" variant="body5" tone="subtle">
+            <Typography as="p" variant="b8" tone="subtle">
               {group.description}
             </Typography>
             <Grid columns={{ base: 2, _mobile: 1 }} gap="3">

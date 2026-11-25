@@ -58,7 +58,7 @@ function headerCellSlots(styles: SystemStyleObject) {
 }
 
 const headerText = {
-  fontFamily: 'korean',
+  fontFamily: 'ko',
   transform: 'translateY(1px)',
   letterSpacing: 'korean',
   color: 'inherit',
@@ -66,7 +66,8 @@ const headerText = {
 
 const headingText = {
   ...headerText,
-  fontSize: 'var(--font-sizes-20)',
+  fontSize: 'heading.22',
+  _mobile: { fontSize: 'heading.20' },
   fontWeight: 'bold',
   lineHeight: 'koreanHeading',
 } as const;
@@ -125,9 +126,9 @@ export const dataListRecipe = sva({
           tableLayout: 'fixed',
           borderCollapse: 'collapse',
           textAlign: 'center',
-          fontSize: '14px',
+          fontSize: 'body.14',
           '--tracking-column': '144px',
-          _mobile: { fontSize: '12px', '--tracking-column': '84px' },
+          _mobile: { fontSize: 'body.12', '--tracking-column': '84px' },
           '& th, & td': {
             px: '2px',
             py: '12px',
@@ -162,24 +163,24 @@ export const dataListRecipe = sva({
       tracking: headerCellSlots({ fontSize: 'inherit', fontWeight: '400', color: 'inherit' }),
       heading: headerCellSlots({
         ...headingText,
-        _mobile: { fontSize: 'var(--font-sizes-16)', fontWeight: 'semibold' },
+        _mobile: { fontSize: 'heading.20', fontWeight: 'semibold' },
       }),
       headingBold: headerCellSlots({
         ...headingText,
-        _mobile: { fontSize: 'var(--font-sizes-16)', fontWeight: 'bold' },
+        _mobile: { fontSize: 'heading.20', fontWeight: 'bold' },
       }),
       bodySemibold: headerCellSlots({
         ...headerText,
-        fontSize: 'var(--font-sizes-16)',
+        fontSize: 'body.16',
         fontWeight: 'semibold',
         lineHeight: 'body',
       }),
       compactSemibold: headerCellSlots({
         ...headerText,
-        fontSize: 'var(--font-sizes-16)',
+        fontSize: 'body.16',
         fontWeight: 'semibold',
-        lineHeight: 'koreanHeading',
-        _mobile: { fontSize: 'var(--font-sizes-16)', fontWeight: 'semibold' },
+        lineHeight: 'body',
+        _mobile: { fontSize: 'body.16', fontWeight: 'semibold' },
       }),
     },
     top: {
@@ -243,7 +244,7 @@ export const dataListRecipe = sva({
         alignItems: 'center',
         justifyContent: 'center',
         color: 'black.100',
-        letterSpacing: '-0.02em',
+        letterSpacing: 'korean',
       }),
       noticeTitle: headerCellSlots({ textAlign: 'left', px: '4' }),
       noticeDate: headerCellSlots({ textAlign: 'left', px: '8' }),

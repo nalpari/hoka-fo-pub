@@ -148,7 +148,7 @@ export function SizeSelector(props: SizeSelectorProps) {
         {soldOut && allowSoldOutSelection && (
           <Icon name="bell-regular" size="14px" className={css({ order: 1 })} />
         )}
-        <Typography variant="body4" style={{ color: 'inherit' }}>
+        <Typography variant="b6" style={{ color: 'inherit' }}>
           {value}
         </Typography>
       </>

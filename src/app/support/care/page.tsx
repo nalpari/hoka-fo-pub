@@ -34,7 +34,7 @@ export default function Page() {
     <CustomerCenterLayout
       className={styles.layout}
       title="세탁 및 손질 방법 안내"
-      mobileTitleVariant="heading5"
+      mobileTitleVariant="h7B"
       activePath="/support/care"
       breadcrumbItems={[
         { label: 'Home', href: '/' },

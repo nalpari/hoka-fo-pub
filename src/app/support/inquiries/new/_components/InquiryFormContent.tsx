@@ -23,7 +23,7 @@ import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 import { type InquiryOrderSelection } from '@/app/support/inquiries/new/inquiryOrders.data';
 
 const attachmentPickerStyles = {
-  popup: css({ '& header h2': { lineHeight: '1.2' } }),
+  popup: css({ '& header h2': { lineHeight: 'koreanHeading' } }),
   choices: css({ display: 'flex', flexDirection: 'column', gap: '24px', pt: '16px' }),
   choice: css({
     display: 'flex',
@@ -36,7 +36,7 @@ const attachmentPickerStyles = {
     '& > span': { justifyContent: 'flex-start', w: '100%', p: '0' },
     '& span': { textDecoration: 'none!' },
   }),
-  label: css({ lineHeight: '1.5!' }),
+  label: css({ lineHeight: 'body!' }),
 };
 
 type InquiryAttachmentListProps = {
@@ -66,7 +66,7 @@ function InquiryAttachmentList({ files, onRemove }: InquiryAttachmentListProps) 
             aria-hidden="true"
           />
           <Box minW="0" flex="1" overflowWrap="anywhere">
-            <Typography variant="body5" tone="tertiary">
+            <Typography variant="b8" tone="tertiary">
               {file.name}
             </Typography>
           </Box>
@@ -85,7 +85,7 @@ function InquiryAttachmentList({ files, onRemove }: InquiryAttachmentListProps) 
 }
 function InquiryAttachmentHelp() {
   return (
-    <Typography as="p" id="inquiry-files-help" variant="body5" tone="tertiary">
+    <Typography as="p" id="inquiry-files-help" variant="b8" tone="tertiary">
       - JPG, JPEG, PNG 파일만 첨부할 수 있습니다.
       <br />- 최대 5개까지 첨부 가능하며, 파일당 용량은 10MB 이하입니다.
     </Typography>
@@ -130,8 +130,8 @@ export function InquiryAttachments({
         orientation: 'horizontal',
         gap: '8px',
         titleProps: {
-          web: 'heading8',
-          mo: 'heading7',
+          web: 'h10B',
+          mo: 'h8',
         },
         action: (
           <Button
@@ -218,11 +218,7 @@ export function InquiryAttachments({
               >
                 <HStack gap="16px">
                   <Icon name={icon} size="18px" aria-hidden="true" />
-                  <Typography
-                    variant="body3Medium"
-                    language="ko"
-                    className={attachmentPickerStyles.label}
-                  >
+                  <Typography variant="b4M" language="ko" className={attachmentPickerStyles.label}>
                     {label}
                   </Typography>
                 </HStack>
@@ -250,8 +246,8 @@ export function InquiryCustomerInfo() {
             description: 'hong123@naver.com',
           },
         ]}
-        termProps={{ variant: 'body3', mo: 'body4', tone: 'subtle' }}
-        descriptionProps={{ variant: 'body3', mo: 'body4', weight: 'medium', tone: undefined }}
+        termProps={{ variant: 'b4', mo: 'b6', tone: 'subtle' }}
+        descriptionProps={{ variant: 'b4M', mo: 'b6M', tone: undefined }}
         slotStyles={{
           root: css.raw({
             gridTemplateColumns: 'max-content minmax(0, 1fr)',
@@ -432,12 +428,12 @@ export function InquiryOrderProducts({
 }: InquiryOrderProductsProps) {
   return selection ? (
     <Stack gap="16px" pt={{ base: '24px', _mobile: '8px' }} pb={{ base: '24px', _mobile: '8px' }}>
-      <Typography web="heading8" mo="heading7">
+      <Typography web="h10B" mo="h8">
         상품 정보
       </Typography>
       <Box border="1px solid token(colors.black.20)" p="4" pb="5">
         <HStack justifyContent="space-between" mb="4" _mobile={{ alignItems: 'flex-start' }}>
-          <Typography web="heading9" mo="heading7">
+          <Typography web="h10" mo="h8">
             {selection.order.date}
           </Typography>
           <Button
@@ -451,25 +447,25 @@ export function InquiryOrderProducts({
         </HStack>
         <Stack gap="4">
           <Stack gap="2">
-            <Typography web="heading9" mo="body4">
+            <Typography web="h10" mo="b6">
               주문번호
             </Typography>
             <HStack gap="2" flexWrap="wrap">
-              <Typography variant="body4" language="en" tone="subtle">
+              <Typography variant="b6" language="en" tone="subtle">
                 {selection.order.id}
               </Typography>
-              <Typography variant="body4" language="en" tone="subtle">
+              <Typography variant="b6" language="en" tone="subtle">
                 {selection.order.date}
               </Typography>
             </HStack>
           </Stack>
           <Stack gap="2">
-            <Typography web="heading9" mo="body4">
+            <Typography web="h10" mo="b6">
               상품코드
             </Typography>
             <Stack gap="1">
               {selection.products.map((item) => (
-                <Typography key={item.id} variant="body4" language="en" tone="subtle">
+                <Typography key={item.id} variant="b6" language="en" tone="subtle">
                   {item.code}
                 </Typography>
               ))}
@@ -497,7 +493,7 @@ export function InquiryOrderProducts({
       pt={{ base: '24px', _mobile: '8px' }}
       pb={{ base: '24px', _mobile: '8px' }}
     >
-      <Typography web="heading8" mo="heading7">
+      <Typography web="h10B" mo="h8">
         상품 정보
       </Typography>
       <Stack
@@ -510,9 +506,9 @@ export function InquiryOrderProducts({
       >
         <Typography
           as="p"
-          variant="body4"
+          variant="b6"
           tone={invalid ? 'error' : 'subtle'}
-          className={css({ lineHeight: '1.5' })}
+          className={css({ lineHeight: 'body' })}
         >
           {invalid
             ? '문의하실 주문 상품을 선택해주세요.'

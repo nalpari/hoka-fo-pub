@@ -24,10 +24,10 @@ const styles = {
       content: '"·"',
       flexShrink: '0',
       color: 'var(--color-text-subtle)',
-      fontFamily: 'korean',
-      fontSize: '16px',
-      lineHeight: '24px',
-      _mobile: { fontSize: '14px', lineHeight: '21px', color: 'black.100' },
+      fontFamily: 'ko',
+      fontSize: 'body.16',
+      lineHeight: 'body',
+      _mobile: { fontSize: 'body.14', lineHeight: 'body', color: 'black.100' },
     },
   }),
   overviewText: css({ _mobile: { color: 'black.100' } }),
@@ -47,7 +47,7 @@ export function CareContent({ category }: { category: 'shoes' | 'apparel' }) {
           shoes ? '신발 착화 및 손질에 대한 올바른 방법' : '의류 및 용품 손질에 대한 올바른 방법'
         }
         gap={shoes ? '4' : { base: '3', _mobile: '4' }}
-        headerProps={{ titleAs: 'h2', titleProps: { web: 'heading9', mo: 'heading10' } }}
+        headerProps={{ titleAs: 'h2', titleProps: { web: 'h10', mo: 'h8' } }}
       >
         {shoes ? (
           <Flex
@@ -72,10 +72,10 @@ export function CareContent({ category }: { category: 'shoes' | 'apparel' }) {
                 {column.map((item, itemIndex) => (
                   <li key={item} className={styles.overviewItem}>
                     <Typography
-                      web="body3"
-                      mo="body4"
+                      web="b4M"
+                      mo="b6"
                       tone="subtle"
-                      weight="500-400"
+
                       className={styles.overviewText}
                     >
                       <a
@@ -91,7 +91,7 @@ export function CareContent({ category }: { category: 'shoes' | 'apparel' }) {
             ))}
           </Flex>
         ) : (
-          <Typography web="body3" mo="body4">
+          <Typography web="b4" mo="b6">
             {apparelCareIntroduction[0]}
             <br />
             {apparelCareIntroduction[1]}
@@ -102,7 +102,7 @@ export function CareContent({ category }: { category: 'shoes' | 'apparel' }) {
         <ContentSection
           title="신발 손질 및 관리 방법"
           gap={{ base: '6', _mobile: '4' }}
-          headerProps={{ titleAs: 'h2', titleProps: { web: 'heading9', mo: 'heading10' } }}
+          headerProps={{ titleAs: 'h2', titleProps: { web: 'h10', mo: 'h8' } }}
         >
           <CareInstructions sections={supportShoeCareSections} variant="care" />
         </ContentSection>

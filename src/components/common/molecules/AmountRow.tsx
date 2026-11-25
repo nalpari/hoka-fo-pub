@@ -35,7 +35,7 @@ export function AmountRow({
 }: Props) {
   const labelContent = (
     <Typography
-      variant="body4"
+      variant="b6"
       web={web}
       mo={mo}
       weight={labelWeight ?? (emphasizeLabel ? '700-500' : '700-400')}
@@ -56,18 +56,18 @@ export function AmountRow({
       )}
       {emphasis ? (
         <HStack alignItems="baseline" gap="0.5">
-          <Typography variant="heading7" tone={discount ? 'red80' : undefined}>
+          <Typography web="h8B" mo="h8" tone={discount ? 'red80' : undefined}>
             {discount ? '- ' : ''}
             {amount.toLocaleString()}
           </Typography>
-          <Typography variant="body3" tone={discount ? 'red80' : undefined}>
+          <Typography variant="b4" tone={discount ? 'red80' : undefined}>
             원
           </Typography>
         </HStack>
       ) : amountWeb || amountMo ? (
         <HStack gap="0" whiteSpace="nowrap">
           <Typography
-            variant="body4"
+            variant="b6"
             web={amountWeb ?? web}
             mo={amountMo ?? mo}
             language="en"
@@ -78,7 +78,7 @@ export function AmountRow({
             {amount.toLocaleString()}
           </Typography>
           <Typography
-            variant="body4"
+            variant="b6"
             web={amountWeb ?? web}
             mo={amountMo ?? mo}
             tone={discount ? 'red80' : undefined}
@@ -87,7 +87,7 @@ export function AmountRow({
           </Typography>
         </HStack>
       ) : (
-        <Typography variant="body4" web={web} mo={mo} tone={discount ? 'red80' : undefined}>
+        <Typography variant="b6" web={web} mo={mo} tone={discount ? 'red80' : undefined}>
           {discount ? '- ' : ''}
           {amount.toLocaleString()}원
         </Typography>

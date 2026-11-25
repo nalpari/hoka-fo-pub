@@ -44,7 +44,7 @@ export function EmailAddressFields({
         error={errors.local || undefined}
         invalid={Boolean(errors.local)}
         disabled={false}
-        label={<Typography variant="body5">* {'이메일 주소'}</Typography>}
+        label={<Typography variant="b8">* {'이메일 주소'}</Typography>}
         inputProps={{
           type: 'text',
           disabled: false,
@@ -59,7 +59,7 @@ export function EmailAddressFields({
         error={errors.domain || undefined}
         invalid={Boolean(errors.domain)}
         disabled={disabled}
-        label={<Typography variant="body5">* {'도메인'}</Typography>}
+        label={<Typography variant="b8">* {'도메인'}</Typography>}
         inputProps={{
           type: 'text',
           disabled,

@@ -178,7 +178,7 @@ export function ProfileEditForm({
           title="회원정보 수정"
           headerProps={{
             titleAs: 'h1',
-            titleProps: { web: 'headingKr6', mo: 'headingKr5', tone: 'primary' },
+            titleProps: { web: 'h4B', mo: 'h7B', tone: 'primary' },
             pb: { base: '40px', _mobile: '32px' },
             borderBottom: '2px solid black',
           }}
@@ -201,20 +201,18 @@ export function ProfileEditForm({
                     .map(([term, description]) => ({
                       term,
                       description,
-                      descriptionProps:
-                        term === '이름' ? { variant: 'bodyKr3' as const } : undefined,
+                      descriptionProps: term === '이름' ? { variant: 'b4' as const } : undefined,
                     })),
-                  { term: '성별', description: '남성', descriptionProps: { variant: 'bodyKr3' } },
+                  { term: '성별', description: '남성', descriptionProps: { variant: 'b4' } },
                   { term: '생년월일', description: (details ?? profileDetails)[2][1] },
                   { term: '휴대폰 번호', description: phone },
                 ]}
                 termProps={{
-                  web: 'bodyKr3',
-                  mo: 'headingKr8',
-                  weight: '500-600',
+                  web: 'b4M',
+                  mo: 'h8',
                   tone: 'primary',
                 }}
-                descriptionProps={{ variant: 'body3', tone: 'subtle' }}
+                descriptionProps={{ variant: 'b4', tone: 'subtle' }}
                 slotStyles={{
                   root: css.raw({
                     gridTemplateColumns: 'none',
@@ -252,7 +250,7 @@ export function ProfileEditForm({
                   비밀번호 설정
                 </Button>
                 {passwordChanged && (
-                  <Typography variant="body4-2" language="ko" tone="tertiary" role="status">
+                  <Typography variant="b7" language="ko" tone="tertiary" role="status">
                     비밀번호 설정을 완료하였습니다.
                   </Typography>
                 )}
@@ -263,7 +261,7 @@ export function ProfileEditForm({
                 pr="16px"
                 className={css({ _mobile: { display: 'none' } })}
               >
-                <Typography variant="body4" weight="500-400">
+                <Typography web="b6M" mo="b6">
                   탈퇴를 원하실 경우 회원탈퇴를 눌러주세요.
                 </Typography>
                 <Button
@@ -316,7 +314,7 @@ export function ProfileEditForm({
                   title="마케팅 정보 수신 동의"
                   headerProps={{
                     titleAs: 'h2',
-                    titleProps: { web: 'headingKr8', mo: 'headingKr8' },
+                    titleProps: { web: 'h10B', mo: 'h8' },
                   }}
                 >
                   <Stack
@@ -330,7 +328,7 @@ export function ProfileEditForm({
                       value={emailPreference}
                       onValueChange={onEmailPreferenceChange}
                       label={
-                        <Typography variant="body4" weight="500-400">
+                        <Typography web="b6M" mo="b6">
                           이메일 수신
                         </Typography>
                       }
@@ -357,7 +355,7 @@ export function ProfileEditForm({
                       value={kakaoPreference}
                       onValueChange={onKakaoPreferenceChange}
                       label={
-                        <Typography variant="body4" weight="500-400">
+                        <Typography web="b6M" mo="b6">
                           카카오톡 알림톡 수신
                         </Typography>
                       }
@@ -382,9 +380,7 @@ export function ProfileEditForm({
                     pt="24px"
                     className={css({ display: 'none', _mobile: { display: 'flex' } })}
                   >
-                    <Typography variant="body4">
-                      탈퇴를 원하실 경우 회원탈퇴를 눌러주세요.
-                    </Typography>
+                    <Typography variant="b6">탈퇴를 원하실 경우 회원탈퇴를 눌러주세요.</Typography>
                     <Button
                       size="md"
                       variant="link"
@@ -456,7 +452,7 @@ export function ProfilePasswordDialog({
                 variant="boxed"
                 error={errors.password}
                 hint="연속적인 숫자나 생일, 전화번호등 추측하기 쉬운 개인정보 및 아이디와 비슷한 전화번호 사용을 피하시기 바랍니다. 비밀번호는 특수기호를 포함한 3가지 이상을 혼합하여 입력하세요."
-                hintProps={{ variant: 'body5', className: css({ color: 'black.100' }) }}
+                hintProps={{ variant: 'b8', className: css({ color: 'black.100' }) }}
                 inputProps={{
                   type: 'password',
                   autoComplete: 'new-password',
@@ -746,7 +742,7 @@ export function ProfileContent({
               base: '2px solid var(--colors-black-100)',
               _mobile: '1px solid var(--colors-black-100)',
             },
-            titleProps: { web: 'headingKr6', mo: 'headingKr5', tone: 'primary' },
+            titleProps: { web: 'h4B', mo: 'h7B', tone: 'primary' },
           }}
         >
           <Stack gap={{ base: '40px', _mobile: '24px' }}>
@@ -755,25 +751,24 @@ export function ProfileContent({
                 ...profileDetails.slice(0, 2).map(([term, description]) => ({
                   term,
                   description,
-                  descriptionProps: term === '이름' ? { variant: 'bodyKr3' as const } : undefined,
+                  descriptionProps: term === '이름' ? { variant: 'b4' as const } : undefined,
                 })),
-                { term: '성별', description: '남성', descriptionProps: { variant: 'bodyKr3' } },
+                { term: '성별', description: '남성', descriptionProps: { variant: 'b4' } },
                 { term: profileDetails[2][0], description: profileDetails[2][1] },
                 { term: '휴대폰 번호', description: phone },
                 {
                   term: '주소',
-                  descriptionProps: { variant: 'bodyKr3' },
+                  descriptionProps: { variant: 'b4' },
                   description: `${savedAddress.address} ${savedAddress.addressDetail}`,
                 },
                 { term: '이메일', description: email },
               ]}
               termProps={{
-                web: 'bodyKr3',
-                mo: 'headingKr8',
-                weight: '500-600',
+                web: 'b4M',
+                mo: 'h8',
                 tone: 'primary',
               }}
-              descriptionProps={{ variant: 'body3', tone: 'subtle' }}
+              descriptionProps={{ variant: 'b4', tone: 'subtle' }}
               slotStyles={{
                 root: css.raw({
                   gridTemplateColumns: 'none',
@@ -800,7 +795,7 @@ export function ProfileContent({
                 _mobile={{ pb: '24px' }}
                 headerProps={{
                   titleAs: 'h2',
-                  titleProps: { web: 'headingKr8', mo: 'headingKr8', tone: 'primary' },
+                  titleProps: { web: 'h10B', mo: 'h8', tone: 'primary' },
                 }}
               >
                 <DescriptionList
@@ -810,8 +805,8 @@ export function ProfileContent({
                     // [ 카카오톡 알림톡 ] 1차 구현 불가
                     // { term: '카카오톡 알림톡 수신', description: kakaoPreference },
                   ]}
-                  termProps={{ web: 'bodyKr3', mo: 'bodyKr4', tone: 'primary' }}
-                  descriptionProps={{ web: 'bodyKr3', mo: 'bodyKr4', tone: 'subtle' }}
+                  termProps={{ web: 'b4', mo: 'b6', tone: 'primary' }}
+                  descriptionProps={{ web: 'b4', mo: 'b6', tone: 'subtle' }}
                   slotStyles={{
                     root: css.raw({
                       gridTemplateColumns: 'none',
@@ -836,7 +831,7 @@ export function ProfileContent({
                   }}
                 />
               </ContentSection>
-              <Typography as="p" web="body5" mo="body4-2" language="ko" tone="tertiary">
+              <Typography as="p" web="b8" mo="b7" language="ko" tone="tertiary">
                 *가려진 회원 정보 조회 및 회원정보 변경, 회원 탈퇴는 회원정보 수정 페이지에서
                 가능합니다.
               </Typography>

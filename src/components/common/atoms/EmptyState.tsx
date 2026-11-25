@@ -130,7 +130,7 @@ function EmptyStateRoot({
   const descriptionContent = description ? (
     <Typography
       as="p"
-      variant={customDescription ? 'body3' : undefined}
+      variant={customDescription ? 'b4' : undefined}
       {...descriptionProps}
       className={withClassName(css(slots.description), descriptionProps?.className)}
     >
@@ -205,7 +205,9 @@ export function EmptyStateIcon({ className, ...props }: EmptyStateIconProps) {
 export function EmptyStateTitle({
   className,
   children,
-  variant = 'heading7',
+  variant,
+  web,
+  mo,
   as = 'p',
   ...props
 }: EmptyStateTitleProps) {
@@ -214,6 +216,8 @@ export function EmptyStateTitle({
       {...props}
       as={as}
       variant={variant}
+      web={web ?? (variant ? undefined : 'h10B')}
+      mo={mo ?? (variant ? undefined : 'h8')}
       className={withClassName('empty-state__title', className)}
     >
       {children}

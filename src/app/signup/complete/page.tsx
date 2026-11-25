@@ -20,17 +20,17 @@ export default function Page() {
   return (
     <AccountPageLayout contentWidth="500px">
       <VStack gap="0" alignItems="stretch" textAlign="center">
-        <Typography as="h1" web="heading6" mo="heading4">
+        <Typography as="h1" web="h4B" mo="h5B">
           회원가입 완료
         </Typography>
         <Center py="9">
           <Icon name="join-check" size="48px" />
         </Center>
         <VStack gap="4">
-          <Typography as="p" variant="body2" weight="medium">
+          <Typography as="p" variant="b2M">
             가입이 성공적으로 이루어졌습니다!
           </Typography>
-          <Typography as="p" variant="body4">
+          <Typography as="p" variant="b6">
             고객님께 알찬 정보, 다양한 이벤트와 혜택을 드리고자{' '}
             <br className={css({ display: 'none', _mobile: { display: 'inline' } })} />
             최선을 다하겠습니다

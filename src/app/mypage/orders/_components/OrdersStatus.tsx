@@ -48,12 +48,13 @@ export function OrderStatusTracker({ items, to = '/mypage/orders' }: Props) {
           <Link key={status.label} className={statusLink} href={status.to ?? to}>
             <Typography
               as="strong"
-              variant="heading6"
+              web="h4B"
+              mo="h8"
               tone={status.count === 0 ? 'black40' : 'primary'}
             >
               {status.count}
             </Typography>
-            <Typography web="body3" mo="body5" tone={status.count === 0 ? 'black40' : 'primary'}>
+            <Typography web="b4" mo="b8" tone={status.count === 0 ? 'black40' : 'primary'}>
               {status.label}
             </Typography>
           </Link>

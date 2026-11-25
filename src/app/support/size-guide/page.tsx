@@ -26,7 +26,7 @@ export default function Page() {
   return (
     <CustomerCenterLayout
       title="사이즈 가이드"
-      mobileTitleVariant="heading5"
+      mobileTitleVariant="h7B"
       activePath="/support/size-guide"
       breadcrumbItems={[
         { label: 'Home', href: '/' },

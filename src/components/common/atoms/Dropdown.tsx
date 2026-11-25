@@ -274,7 +274,7 @@ export function Dropdown({
             .join(' ')}
         >
           {selectedOption?.prefix}
-          <Typography variant="body4" className={css({ '&&': { lineHeight: '1.3' } })}>
+          <Typography variant="b6" className={css({ '&&': { lineHeight: 'body' } })}>
             {selectedLabel ?? '정렬'}
           </Typography>
           {indicator ?? (
@@ -383,7 +383,7 @@ export function Dropdown({
         >
           {label ? (
             <span className={css({ display: 'flex', alignItems: 'center', h: '16px', gap: '4px' })}>
-              <Typography variant="body5">
+              <Typography variant="b8">
                 {required ? '* ' : ''}
                 {label}
               </Typography>
@@ -402,10 +402,10 @@ export function Dropdown({
             <Flex alignItems="center" gap="2" minW="0" flex="1">
               {selectedOption?.prefix}
               <Typography
-                variant="body3"
+                variant="b4"
                 className={[
                   styles.label({ disabled }),
-                  isSort ? css({ '&&': { lineHeight: '1.3' } }) : '',
+                  isSort ? css({ '&&': { lineHeight: 'body' } }) : '',
                 ]
                   .filter(Boolean)
                   .join(' ')}
@@ -500,7 +500,7 @@ export function Dropdown({
                           />
                         ) : null}
                         {option.prefix}
-                        <Typography variant="body4">{option.label}</Typography>
+                        <Typography variant="b6">{option.label}</Typography>
                       </Flex>
                     </BaseSelect.Item>
                   ))}
@@ -514,7 +514,7 @@ export function Dropdown({
       {error ? (
         <Typography
           as="p"
-          variant="body5"
+          variant="b8"
           tone="error"
           id={`${id}-error`}
           role="alert"
@@ -524,7 +524,7 @@ export function Dropdown({
         </Typography>
       ) : null}
       {hint ? (
-        <Typography as="p" variant="body5" id={`${id}-hint`} className={css({ m: '0' })}>
+        <Typography as="p" variant="b8" id={`${id}-hint`} className={css({ m: '0' })}>
           {hint}
         </Typography>
       ) : null}

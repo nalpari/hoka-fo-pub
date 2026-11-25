@@ -1213,11 +1213,11 @@ const iconGroups: {
           <HStack gap="6">
             <Stack alignItems="center" gap="2">
               <Icon name="xmark-regular" size={18} />
-              <Typography variant="body5">모바일 18px</Typography>
+              <Typography variant="b8">모바일 18px</Typography>
             </Stack>
             <Stack alignItems="center" gap="2">
               <Icon name="xmark-regular" size={14} />
-              <Typography variant="body5">데스크탑 14px</Typography>
+              <Typography variant="b8">데스크탑 14px</Typography>
             </Stack>
           </HStack>
         ),
@@ -1249,11 +1249,11 @@ const platform = usePlatform();
           <HStack gap="6">
             <Stack alignItems="center" gap="2">
               <Icon name="xmark-regular" size={14} />
-              <Typography variant="body5">모바일 14px</Typography>
+              <Typography variant="b8">모바일 14px</Typography>
             </Stack>
             <Stack alignItems="center" gap="2">
               <Icon name="xmark-regular" size={16} />
-              <Typography variant="body5">데스크탑 16px</Typography>
+              <Typography variant="b8">데스크탑 16px</Typography>
             </Stack>
           </HStack>
         ),
@@ -1621,16 +1621,16 @@ function IconExampleCard({
       borderRadius="2"
       bg="surface.default"
     >
-      <Typography as="h4" variant="body4Semibold">
+      <Typography as="h4" variant="b6S">
         {example.label}
       </Typography>
       {example.registeredName ? (
-        <Typography as="p" variant="body5">
+        <Typography as="p" variant="b8">
           name: {example.registeredName}
         </Typography>
       ) : null}
       {example.origin ? (
-        <Typography as="p" variant="body5">
+        <Typography as="p" variant="b8">
           {example.origin.label}: {example.origin.name}
           {example.origin.detail ? ` / ${example.origin.detail}` : ''}
         </Typography>
@@ -1638,15 +1638,10 @@ function IconExampleCard({
       <HStack justifyContent="center" alignItems="center" minH="100px" bg="#D4D4D4">
         {example.preview}
       </HStack>
-      <Typography as="p" variant="body5" tone="subtle" className={css({ whiteSpace: 'pre-line' })}>
+      <Typography as="p" variant="b8" tone="subtle" className={css({ whiteSpace: 'pre-line' })}>
         {example.note}
       </Typography>
-      <Typography
-        as="p"
-        variant="body5"
-        tone="subtle"
-        className={css({ overflowWrap: 'anywhere' })}
-      >
+      <Typography as="p" variant="b8" tone="subtle" className={css({ overflowWrap: 'anywhere' })}>
         사용 파일: {example.source}
       </Typography>
       {screens.length > 0 && (
@@ -1665,7 +1660,7 @@ function IconExampleCard({
                 _focusVisible: { outline: '2px solid', outlineOffset: '2px' },
               })}
             >
-              <Typography as="span" variant="body5">
+              <Typography as="span" variant="b8">
                 {screen.label} ↗
               </Typography>
             </Link>
@@ -1736,10 +1731,10 @@ export function IconGuide() {
     >
       <Stack minW="0" gap={{ base: '6', _mobile: '4' }}>
         <HStack alignItems="baseline" gap="3" flexWrap="wrap">
-          <Typography as="h2" variant="heading8">
+          <Typography as="h2" web="h10B" mo="h8">
             Icon
           </Typography>
-          <Typography as="p" variant="body5" tone="subtle">
+          <Typography as="p" variant="b8" tone="subtle">
             현재 사용 중인 아이콘 ·{' '}
             {iconGroups.reduce((count, group) => count + group.items.length, 0)}개 예시
           </Typography>
@@ -1751,23 +1746,23 @@ export function IconGuide() {
           gap="3"
           scrollMarginTop="calc(var(--layout-site-header-height) + 16px)"
         >
-          <Typography as="h3" id="icon-usage-title" variant="heading8">
+          <Typography as="h3" id="icon-usage-title" web="h10B" mo="h8">
             사용법
           </Typography>
-          <Typography as="p" variant="body4">
+          <Typography as="p" variant="b6">
             공통 Icon을 사용합니다. size 기본값은 16px이며 숫자 또는 CSS 크기를 받습니다.
             데스크탑·모바일 크기가 다르면 호출부에서 각각 지정합니다.
           </Typography>
-          <Typography as="p" variant="body4">
+          <Typography as="p" variant="b6">
             모든 아이콘은 name으로 불러옵니다. 단색 아이콘은 color로 색상을 바꾸고, 다색·상태
             아이콘은 원본 색상을 유지합니다. 렌더링 방식은 atoms/Icon.assets.ts에서 관리합니다.
           </Typography>
-          <Typography as="p" variant="body4">
+          <Typography as="p" variant="b6">
             장식 아이콘은 alt를 비워 두고, 의미가 있는 아이콘은 alt로 설명합니다. 아이콘만 있는
             버튼은 버튼에 aria-label을 지정합니다. 캐러셀 화살표는 버튼에서 접근성 이름을
             제공합니다.
           </Typography>
-          <Typography as="p" variant="body5" tone="subtle">
+          <Typography as="p" variant="b8" tone="subtle">
             사용 화면 링크는 새 탭으로 열립니다. 공통 컴포넌트는 대표 화면 또는 해당 가이드로
             연결합니다. 화면 미적용 아이콘에는 링크를 제공하지 않습니다. 서비스 화면과 화면
             목록·기존 가이드의 사용처를 기준으로 정리했습니다. 로고·국기·상품 이미지·배경 장식과
@@ -1786,7 +1781,7 @@ export function IconGuide() {
                     {[16, 20, 24].map((size) => (
                       <Stack key={size} gap="2" alignItems="center">
                         <Icon name="chevron-down-regular" size={size} />
-                        <Typography variant="body5">{size}px</Typography>
+                        <Typography variant="b8">{size}px</Typography>
                       </Stack>
                     ))}
                   </HStack>
@@ -1831,10 +1826,10 @@ export function IconGuide() {
             gap="3"
             scrollMarginTop="calc(var(--layout-site-header-height) + 16px)"
           >
-            <Typography as="h3" id={`${group.id}-title`} variant="heading8">
+            <Typography as="h3" id={`${group.id}-title`} web="h10B" mo="h8">
               {group.title} · {group.items.length}
             </Typography>
-            <Typography as="p" variant="body5" tone="subtle">
+            <Typography as="p" variant="b8" tone="subtle">
               {group.description}
             </Typography>
             <Grid columns={{ base: 4, _mobile: 1 }} gap="3">

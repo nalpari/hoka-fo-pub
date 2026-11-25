@@ -8,7 +8,7 @@ import { Typography } from '@/components/common/atoms/Typography';
 const table = css.raw({
   w: '100%',
   borderCollapse: 'collapse',
-  fontSize: '14',
+  fontSize: 'body.14',
   textAlign: 'center',
   '& th, & td': { h: '46px', px: '2', borderBottom: '1px solid var(--color-black-20)' },
   '& thead th': {
@@ -35,15 +35,15 @@ const spaced = css.raw({
   '& th:last-child, & td:last-child': { borderRight: '1px solid var(--color-black-20)' },
   '& thead th': { borderTop: '1px solid var(--color-black-20)' },
   '& tbody th': { bg: 'transparent', fontWeight: 'normal' },
-  _mobile: { fontSize: '12px', borderSpacing: '0 8px', '& th, & td': { px: '2' } },
+  _mobile: { fontSize: 'body.12', borderSpacing: '0 8px', '& th, & td': { px: '2' } },
 });
 
 const striped = css.raw({
   w: '100%',
   tableLayout: 'fixed',
   borderCollapse: 'collapse',
-  fontFamily: 'hoka',
-  fontSize: '14px',
+  fontFamily: 'en',
+  fontSize: 'body.14',
   textAlign: 'left',
   '& th, & td': {
     h: '48px',
@@ -52,21 +52,21 @@ const striped = css.raw({
     fontWeight: 'normal',
     overflowWrap: 'anywhere',
   },
-  '& thead th': { bg: 'black.20', fontFamily: 'korean', fontSize: '14px' },
+  '& thead th': { bg: 'black.20', fontFamily: 'ko', fontSize: 'body.14' },
   '& tbody tr:nth-child(even)': { bg: 'black.10' },
   _mobile: {
-    fontSize: '14px',
+    fontSize: 'body.14',
     '& th, & td': { px: '4' },
-    '& thead th': { fontSize: '13px' },
+    '& thead th': { fontSize: 'body.13' },
   },
 });
 
 const compactStriped = css.raw({
   '& th, & td': { px: '3' },
   _mobile: {
-    fontSize: '12px',
+    fontSize: 'body.12',
     '& th, & td': { px: '3' },
-    '& thead th': { fontSize: '12px' },
+    '& thead th': { fontSize: 'body.12' },
   },
 });
 

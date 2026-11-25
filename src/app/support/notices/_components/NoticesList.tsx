@@ -21,15 +21,16 @@ function NoticeHeading({ notice, platform }: Props) {
       alignItems="center"
     >
       <Typography
-        variant="heading10"
-        weight="medium"
+        web="h10"
+        mo="h8"
+
         className={css({ minW: '0', overflowWrap: 'anywhere' })}
       >
         {notice.title}
       </Typography>
       <Typography
         as="time"
-        variant="body4"
+        variant="b6"
         dateTime={notice.date}
         className={css({ flexShrink: '0', _mobile: { color: 'black.50' } })}
         tone={platform === 'web' ? 'subtle' : undefined}

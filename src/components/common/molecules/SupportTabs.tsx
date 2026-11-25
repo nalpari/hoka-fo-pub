@@ -152,8 +152,8 @@ export function SupportTabs({ syncQuery = false, ...props }: SupportTabsProps) {
               label
             ) : (
               <Typography
-                web={variant === 'guide' ? 'body4' : 'body3'}
-                mo={variant === 'guide' ? 'body4' : 'body3'}
+                web={variant === 'guide' ? 'b6' : 'b4'}
+                mo={variant === 'guide' ? 'b6' : 'b4'}
                 weight="inherit"
               >
                 {label}

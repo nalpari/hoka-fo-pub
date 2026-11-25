@@ -74,7 +74,7 @@ function AddressField({
         id={id}
         error={error || undefined}
         invalid={Boolean(error)}
-        label={detail && !required ? <Typography variant="body5">* {label}</Typography> : label}
+        label={detail && !required ? <Typography variant="b8">* {label}</Typography> : label}
         required={required}
         disabled={disabled}
         inputProps={{
@@ -98,9 +98,9 @@ function AddressField({
       p={postalCode ? undefined : '3'}
     >
       {postalCode ? (
-        <Typography variant="body5">* {label}</Typography>
+        <Typography variant="b8">* {label}</Typography>
       ) : (
-        <Typography as="label" htmlFor={id} variant="body5">
+        <Typography as="label" htmlFor={id} variant="b8">
           * {label}
         </Typography>
       )}
@@ -115,7 +115,7 @@ function AddressField({
         aria-invalid={field === 'address' ? Boolean(error) : undefined}
       />
       {error ? (
-        <Typography as="p" variant="body5" className={css({ color: 'red.100' })}>
+        <Typography as="p" variant="b8" className={css({ color: 'red.100' })}>
           {error}
         </Typography>
       ) : null}
@@ -170,7 +170,7 @@ function AddressSearchModal({
       }}
     >
       <Stack>
-        <Typography as="p" variant="body4">
+        <Typography as="p" variant="b6">
           주소 검색 서비스 연결 전입니다. 미리보기 우편번호와 주소를 직접 입력해주세요.
         </Typography>
         <TextFormField

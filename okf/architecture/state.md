@@ -883,3 +883,7 @@ AppLayout은 모바일 /search에서도 SiteHeader를 표시한다. /search와 /
 ## 폼 placeholder 제거 상태 검토 (2026-11-24)
 
 `src/context/ShopShell.tsx`의 검색 입력 안내 문구를 제거했다. 검색어 값·제출 콜백·검색 패널 상태와 자동/고정 플랫폼 판별은 변경하지 않았다. 다른 폼의 입력·선택 상태 소유권도 그대로다. 출처: 해당 context와 변경된 폼 호출부의 작업 트리. 기록: codex/gpt-6, 2026-11-24.
+
+## 타이포그래피 플랫폼 연결 (2026-11-25)
+
+Typography의 `web`·`mo`는 기존 `usePlatform()`으로 선택하고 Body는 공통 조합을 사용한다. 플랫폼 판별 기준 또는 overlay 상태 소유권은 기존 구현을 따른다. ShopShell의 내비게이션·검색·푸터 제목과 본문은 화면 역할별 신규 스타일로 연결한다. 디자인 가이드의 Wide·Compact 예시는 명시적 플랫폼을 사용한다. [폰트 체계](ui.md#displayheadingbody-타이포그래피-이관-2026-11-25).

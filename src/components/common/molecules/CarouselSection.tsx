@@ -117,6 +117,7 @@ export type CarouselSectionProps = {
   slideClassName?: string;
   title: string;
   titleVariant?: MainSectionProps['titleVariant'];
+  mobileTitleVariant?: MainSectionProps['mobileTitleVariant'];
   /** Optional filter row; controls align to its right when present. */
   tabs?: ReactNode;
   beforeViewport?: ReactNode;
@@ -139,6 +140,7 @@ export function CarouselSection({
   slideClassName,
   title,
   titleVariant,
+  mobileTitleVariant,
   beforeViewport,
   tabs,
   desktopCenteredItemCount,
@@ -164,6 +166,7 @@ export function CarouselSection({
         spacing={spacing}
         title={title}
         titleVariant={titleVariant}
+        mobileTitleVariant={mobileTitleVariant}
       >
         {tabs ? (
           <HStack

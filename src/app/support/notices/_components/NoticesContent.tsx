@@ -29,10 +29,10 @@ export function NoticesContent({ previewEmpty = false }: { previewEmpty?: boolea
     <CustomerCenterLayout
       className={css({
         '--line-heights-body': '1.5',
-        _mobile: { pb: '72px!', '& h1': { fontSize: '24px' } },
+        _mobile: { pb: '72px!', '& h1': { fontSize: 'heading.24' } },
       })}
       title="공지사항"
-      mobileTitleVariant="heading5"
+      mobileTitleVariant="h7B"
       activePath="/support/notices"
       breadcrumbItems={[
         { label: 'Home', href: '/' },

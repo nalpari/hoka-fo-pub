@@ -143,7 +143,7 @@ export function HelpTooltip({
           className={positioner}
         >
           <BaseTooltip.Popup className={`${popup} ${tooltipPopup}`}>
-            <Typography variant="body5" className={css({ whiteSpace: 'pre-line' })}>
+            <Typography variant="b8" className={css({ whiteSpace: 'pre-line' })}>
               {text}
             </Typography>
             <TipArrow kind="tooltip" />
@@ -181,7 +181,7 @@ export function HelpToggletip({
               {title ? (
                 <Popover.Title
                   render={(props) => (
-<Typography {...props} as="h2" variant="body4Medium">
+                    <Typography {...props} as="h2" variant="b6M">
                       {props.children}
                     </Typography>
                   )}
@@ -191,7 +191,7 @@ export function HelpToggletip({
               ) : null}
               <Popover.Description
                 render={(props) => (
-                  <Typography {...props} as="p" variant="body5">
+                  <Typography {...props} as="p" variant="b8">
                     {props.children}
                   </Typography>
                 )}

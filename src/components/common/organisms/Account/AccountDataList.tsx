@@ -53,12 +53,12 @@ function DataRows({
             }}
             key={item.id ?? index}
           >
-            <Typography variant="body4">{item.label}</Typography>
-            <Typography as="strong" variant="body4" weight="bold">
+            <Typography variant="b6">{item.label}</Typography>
+            <Typography as="strong" variant="b6B">
               {item.value}
             </Typography>
             {item.meta ? (
-              <Typography as="small" variant="body5">
+              <Typography as="small" variant="b8">
                 {item.meta}
               </Typography>
             ) : null}

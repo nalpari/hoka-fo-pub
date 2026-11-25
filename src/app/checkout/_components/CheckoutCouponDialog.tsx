@@ -56,7 +56,8 @@ export function CheckoutCouponDialog({ onClose }: { onClose: () => void }) {
       <Stack css={contentStyles.root}>
         <Typography
           as="h2"
-          variant="heading9"
+          web="h10"
+          mo="h8"
           className={`${classes.sectionTitle} ${classes.sectionHeading}`}
         >
           상품 쿠폰
@@ -79,9 +80,9 @@ export function CheckoutCouponDialog({ onClose }: { onClose: () => void }) {
               aria-expanded={expanded.includes(group.id)}
               className={classes.toggle}
             >
-              <Typography variant="body4">
+              <Typography variant="b6">
                 사용 가능 쿠폰{' '}
-                <Typography as="span" variant="body4" tone="red80">
+                <Typography as="span" variant="b6" tone="red80">
                   {group.available}
                 </Typography>
                 개 (전체 {group.total}개)
@@ -110,10 +111,10 @@ export function CheckoutCouponDialog({ onClose }: { onClose: () => void }) {
                     disabled: option.disabled,
                     label: (
                       <HStack as="span" css={contentStyles.option}>
-                        <Typography variant="body4" className={classes.optionLabel}>
+                        <Typography variant="b6" className={classes.optionLabel}>
                           {option.label}
                         </Typography>
-                        <Typography variant="body4Medium" className={classes.optionAmount}>
+                        <Typography variant="b6M" className={classes.optionAmount}>
                           {option.amount}
                         </Typography>
                       </HStack>
@@ -125,7 +126,7 @@ export function CheckoutCouponDialog({ onClose }: { onClose: () => void }) {
           </Stack>
         ))}
         <Box className={css(contentStyles.toggle, contentStyles.cartToggle)}>
-          <Typography variant="heading9" className={classes.sectionTitle}>
+          <Typography web="h10" mo="h8" className={classes.sectionTitle}>
             장바구니 쿠폰
           </Typography>
         </Box>

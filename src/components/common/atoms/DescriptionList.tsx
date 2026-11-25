@@ -21,7 +21,7 @@ export type DescriptionListItem = {
   descriptionProps?: TextProps;
 };
 
-type TextProps = Pick<TypographyProps, 'variant' | 'web' | 'mo' | 'tone' | 'weight'>;
+type TextProps = Pick<TypographyProps, 'variant' | 'web' | 'mo' | 'tone' | 'weight' | 'language'>;
 
 export type DescriptionListSlotStyles = {
   root?: SystemStyleObject;
@@ -61,12 +61,12 @@ export function DescriptionList({
             .filter(Boolean)
             .join(' ')}
         >
-          <Typography as="dt" variant="body4" {...termProps} className={css(slotStyles?.term)}>
+          <Typography as="dt" variant="b6" {...termProps} className={css(slotStyles?.term)}>
             {item.term}
           </Typography>
           <Typography
             as="dd"
-            variant="body4"
+            variant="b6"
             tone="primary"
             {...descriptionProps}
             {...item.descriptionProps}

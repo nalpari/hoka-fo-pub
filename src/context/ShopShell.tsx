@@ -123,11 +123,11 @@ function HeaderAuthLink({ onNavigate }: HeaderAuthLinkProps) {
   return (
     <HStack gap="1.5" alignItems="center">
       <Link href="/login" className={authLink} onClick={onNavigate}>
-        <Typography variant="body3">로그인</Typography>
+        <Typography variant="b4">로그인</Typography>
       </Link>
       <Divider orientation="vertical" length="4" color="var(--hoka-black)" />
       <Link href="/signup" className={authLink} onClick={onNavigate}>
-        <Typography variant="body3">회원가입</Typography>
+        <Typography variant="b4">회원가입</Typography>
       </Link>
     </HStack>
   );
@@ -161,11 +161,11 @@ function MenuDrawerHeader({ close, isLoggedIn, closeButtonRef }: MenuDrawerHeade
         <HStack gap="3">
           <Icon name="hoka-user-regular" size="18px" aria-hidden="true" />
           <HStack gap="4px">
-            <Typography variant="body3">
-              <Typography variant="body3Semibold">김호카</Typography>님
+            <Typography variant="b4">
+              <Typography variant="b4S">김호카</Typography>님
             </Typography>
             <ButtonLink href="/mypage" variant="link" size="md" onNavigate={close}>
-              <Typography variant="body3">마이페이지</Typography>
+              <Typography variant="b4">마이페이지</Typography>
             </ButtonLink>
           </HStack>
         </HStack>
@@ -250,7 +250,10 @@ function MenuDrawerGroups({ columns, onNavigate }: MenuDrawerGroupsProps) {
         items={groups.map((column) => ({
           value: column.title,
           title: (
-            <Typography variant={/[가-힣]/.test(column.title) ? 'heading6' : 'heading5'}>
+            <Typography
+              web={/[가-힣]/.test(column.title) ? 'h4B' : 'h2B'}
+              mo={/[가-힣]/.test(column.title) ? 'h8' : 'h7B'}
+            >
               {column.title}
             </Typography>
           ),
@@ -266,10 +269,7 @@ function MenuDrawerGroups({ columns, onNavigate }: MenuDrawerGroupsProps) {
                     href={item.to}
                     onClick={onNavigate}
                   >
-                    <Typography
-                      variant="body3"
-                      weight={item.label === 'Sale' ? 'medium' : undefined}
-                    >
+                    <Typography variant="b4" weight={item.label === 'Sale' ? 'medium' : undefined}>
                       {item.label}
                     </Typography>
                   </Link>
@@ -294,7 +294,9 @@ function MenuDrawerGroups({ columns, onNavigate }: MenuDrawerGroupsProps) {
               textDecoration: 'none',
             })}
           >
-            <Typography variant="heading8">{column.title}</Typography>
+            <Typography web="h10B" mo="h8">
+              {column.title}
+            </Typography>
           </Link>
         ))}
     </>
@@ -363,7 +365,10 @@ function MenuDrawerShoppingLinks({
         {items.map((item) => {
           const content = (
             <>
-              <Typography variant={/[가-힣]/.test(item.label) ? 'heading6' : 'heading5'}>
+              <Typography
+                web={/[가-힣]/.test(item.label) ? 'h4B' : 'h2B'}
+                mo={/[가-힣]/.test(item.label) ? 'h8' : 'h7B'}
+              >
                 {item.label}
               </Typography>
               {item.type === 'category' || item.showChevron ? (
@@ -463,14 +468,14 @@ function MegaMenuAD({
         >
           <Typography
             as={isMobile ? 'h2' : 'h3'}
-            variant="body1"
-            weight="black"
-            className={css({ m: 0, '&&': { fontSize: '28px', lineHeight: '1' } })}
+            web="h8B"
+            mo="h5B"
+            className={css({ m: 0 })}
           >
             {title}
           </Typography>
           <Typography
-            variant={isMobile ? 'body4' : 'cta1'}
+            variant={isMobile ? 'b6' : 'b4M'}
             className={css({
               textDecoration: 'underline',
               textDecorationStyle: 'solid',
@@ -535,7 +540,9 @@ function MenuDrawerBackButton({ label, onBack, buttonRef }: MenuDrawerBackButton
           className={MenuDrawerBackButtonStyles.backIcon}
           aria-hidden="true"
         />
-        <Typography variant="heading5">{label}</Typography>
+        <Typography web="h2B" mo="h7B">
+          {label}
+        </Typography>
       </Flex>
     </Button>
   );
@@ -621,7 +628,7 @@ function MenuDrawerUtilityLinks({ onNavigate }: { onNavigate: () => void }) {
               >
                 <Icon name={item.icon} size={16} color="black.10" aria-hidden="true" />
               </Flex>
-              <Typography variant="body4Semibold">{item.label}</Typography>
+              <Typography variant="b6S">{item.label}</Typography>
             </Link>
           </li>
         ))}
@@ -803,7 +810,7 @@ function FooterLocaleSelectors() {
         height={12}
       />
       <HStack gap="0">
-        <Typography variant="body5" tone="inverse">
+        <Typography variant="b8" tone="inverse">
           Visit our international sites
         </Typography>
         <Icon
@@ -834,11 +841,11 @@ function FooterBrand() {
 }
 const FooterLegalLinksStyles = {
   meta: css({
-    fontFamily: 'korean',
-    fontSize: '14',
-    lineHeight: '1.5',
+    fontFamily: 'ko',
+    fontSize: 'body.14',
+    lineHeight: 'body',
     letterSpacing: 'korean',
-    _mobile: { fontSize: '12' },
+    _mobile: { fontSize: 'body.12' },
     '& span > span, & span > a, & p': { fontSize: 'inherit' },
     '& h3, & p, & span, & a, & div': { textBoxTrim: 'trim-both', textBoxEdge: 'cap alphabetic' },
   }),
@@ -864,7 +871,7 @@ function FooterLegalLinks() {
       aria-label="사업자 정보"
       gap={platform === 'mobile' ? '5' : '22px'}
     >
-      <Typography as="h3" web="body3" mo="body4" weight="bold" tone="inverse">
+      <Typography as="h3" web="b4B" mo="b6B" tone="inverse">
         ㈜ 이랜드글로벌스포츠
       </Typography>
       <Stack gap={platform === 'mobile' ? '12px' : '18px'} className={FooterLegalLinksStyles.meta}>
@@ -878,7 +885,7 @@ function FooterLegalLinks() {
           {supportContacts.map((contact) => (
             <Typography as="p" key={contact.headingId}>
               고객센터 ({contact.title}) :{' '}
-              <Typography as="a" href={contact.phoneHref} variant="body5" tone="inverse">
+              <Typography as="a" href={contact.phoneHref} variant="b8" tone="inverse">
                 {contact.phone}
               </Typography>
             </Typography>
@@ -892,7 +899,7 @@ function FooterLegalLinks() {
         <Flex className={FooterLegalLinksStyles.row}>
           <Typography as="span">
             통신판매 신고번호 :{' '}
-            <Typography variant="body5" tone="inverse">
+            <Typography variant="b8" tone="inverse">
               0000-0000-0000
             </Typography>
           </Typography>
@@ -912,7 +919,7 @@ function FooterLegalLinks() {
           <Typography as="span">대표이사 : 조동주</Typography>
           <Typography as="span">
             사업자 등록번호 :{' '}
-            <Typography variant="body5" tone="inverse">
+            <Typography variant="b8" tone="inverse">
               156-88-01028
             </Typography>
           </Typography>
@@ -929,15 +936,15 @@ function FooterLegalLinks() {
           <Typography as="span">개인정보보호책임자 : 김태위</Typography>
           <Typography as="span">
             대표이메일 :{' '}
-            <Typography as="a" href="mailto:webmaster@hoka.com" variant="body5" tone="inverse">
+            <Typography as="a" href="mailto:webmaster@hoka.com" variant="b8" tone="inverse">
               webmaster@hoka.com
             </Typography>
           </Typography>
         </Flex>
-        <Typography as="p" variant="body5" tone="inverse">
+        <Typography as="p" variant="b8" tone="inverse">
           호스팅 서비스 제공자 : ㈜쓰리탑
         </Typography>
-        <Typography as="p" variant="body5" tone="inverse">
+        <Typography as="p" variant="b8" tone="inverse">
           © 2027 Deckers Brands
         </Typography>
       </Stack>
@@ -964,7 +971,7 @@ function FooterNavigationLinks({ links, platform }: FooterNavigationLinksProps) 
       {links.map((link) => (
         <li key={link.label}>
           <Link href={link.to} className={FooterNavigationLinksStyles.link}>
-            <Typography variant="body4" tone="inverse">
+            <Typography variant="b6" tone="inverse">
               {link.label}
             </Typography>
           </Link>
@@ -999,8 +1006,9 @@ function FooterNavigationWeb() {
         >
           <Typography
             as="h3"
-            variant="heading10"
-            weight="medium"
+            web="h10"
+            mo="h8"
+
             tone="inverse"
             className={FooterNavigationWebStyles.title}
           >
@@ -1025,7 +1033,7 @@ function FooterAccordionNavigation() {
     value: group.title,
     title: (
       <HStack py="5">
-        <Typography variant="heading10" tone="inverse" className={footerAccordionStyles.title}>
+        <Typography web="h10" mo="h8" tone="inverse" className={footerAccordionStyles.title}>
           {group.title}
         </Typography>
       </HStack>
@@ -1293,7 +1301,7 @@ function SearchKeywordButton({ query, onNavigateSearch }: SearchKeywordButtonPro
       onMouseDown={(event) => event.preventDefault()}
       onNavigate={() => onNavigateSearch(query)}
     >
-      <Typography variant="body3" weight="regular" className={css({ display: 'block' })}>
+      <Typography variant="b4" className={css({ display: 'block' })}>
         {query}
       </Typography>
     </ButtonLink>
@@ -1353,7 +1361,7 @@ function RecentSearches({
           _mobile: { justifyContent: 'space-between' },
         }),
         titleAs: 'h3',
-        titleProps: { web: 'heading8', mo: 'heading5', id: 'recent-search-title' },
+        titleProps: { web: 'h10B', mo: 'h7B', id: 'recent-search-title' },
         action: (
           <Button variant="link" size="md" onClick={onClear}>
             전체 삭제
@@ -1387,7 +1395,7 @@ function RecommendedSearches({ queries, onSearch }: RecommendedSearchesProps) {
       title="추천 검색어"
       headerProps={{
         titleAs: 'h3',
-        titleProps: { web: 'heading8', mo: 'heading5', id: 'recommended-search-title' },
+        titleProps: { web: 'h10B', mo: 'h7B', id: 'recommended-search-title' },
       }}
     >
       <Flex as="ul" flexWrap="wrap" gap="8px 4px" pb="2" listStyleType="none">
@@ -1399,9 +1407,9 @@ function RecommendedSearches({ queries, onSearch }: RecommendedSearchesProps) {
               onClick={() => onSearch(query)}
             >
               <Typography
-                variant="body4"
-                weight="regular"
-                className={css({ display: 'block', lineHeight: '18px' })}
+                variant="b6"
+
+                className={css({ display: 'block', lineHeight: 'body' })}
               >
                 {query}
               </Typography>
@@ -1425,7 +1433,7 @@ function PopularSearches({ queries, onNavigateSearch }: PopularSearchesProps) {
       title="인기 검색어"
       headerProps={{
         titleAs: 'h3',
-        titleProps: { web: 'heading8', mo: 'heading5', id: 'popular-search-title' },
+        titleProps: { web: 'h10B', mo: 'h7B', id: 'popular-search-title' },
       }}
     >
       <Grid
@@ -1439,7 +1447,7 @@ function PopularSearches({ queries, onNavigateSearch }: PopularSearchesProps) {
       >
         {queries.map((query, index) => (
           <HStack as="li" key={query} alignItems="center" gap="1">
-            <Typography variant="body3" weight="regular" className={css({ minW: '20px' })}>
+            <Typography variant="b4" className={css({ minW: '20px' })}>
               {index + 1}
             </Typography>
             <SearchKeywordButton query={query} onNavigateSearch={onNavigateSearch} />
@@ -1576,7 +1584,7 @@ function SearchOverlay({
             return (
               <HStack as="li" key={match}>
                 <Button variant="plain" onClick={() => search(match)}>
-                  <Typography variant="body3" weight="regular">
+                  <Typography variant="b4">
                     {match.slice(0, index)}
                     <Box as="mark" bg="transparent" color="blue.100">
                       {match.slice(index, index + normalized.length)}
@@ -1634,11 +1642,11 @@ function HeaderPromotionContent({
       textAlign="center"
       justifyContent={isMemberBenefits ? 'center' : undefined}
     >
-      <Typography tone="inverse" web="body3" mo="body5" weight="medium">
+      <Typography tone="inverse" web="b4M" mo="b8M">
         {message}
       </Typography>
       <ButtonLink className={promotionLink} href={href} variant="link" size="sm">
-        <Typography web="textLink2" mo="textLink3">
+        <Typography web="b6M" underline mo="b8M">
           <Typography as="span">
             {isMemberBenefits ? '회원 혜택 자세히 보기' : '자세히 보기'}
           </Typography>
@@ -1789,9 +1797,9 @@ const MegaMenuListStyles = {
   }),
   activeItemHeading: css({
     '&&': {
-      fontSize: '20px',
+      fontSize: 'body.20',
       fontWeight: 'bold',
-      lineHeight: '1.2',
+      lineHeight: 'body',
     },
   }),
 };
@@ -1808,7 +1816,7 @@ function MegaMenuList({ columns, onClose }: MegaMenuListProps) {
     <Grid gridTemplateColumns="repeat(5, minmax(110px, 1fr))" gap="4">
       {columns.map((column) => (
         <Flex minW={0} direction="column" gap="30px" key={column.title}>
-          <Typography as="h2" variant="heading8" className={MegaMenuListStyles.title}>
+          <Typography as="h2" web="h10B" mo="h8" className={MegaMenuListStyles.title}>
             {column.to ? (
               <Link href={column.to} onClick={onClose}>
                 {column.title}
@@ -1830,7 +1838,7 @@ function MegaMenuList({ columns, onClose }: MegaMenuListProps) {
                     })}
                   >
                     <Typography
-                      variant="body3"
+                      variant="b4"
                       tone={item.label === 'Sale' ? 'red80' : 'primary'}
                       className={cx(
                         css({
@@ -1849,7 +1857,7 @@ function MegaMenuList({ columns, onClose }: MegaMenuListProps) {
                       {item.label}
                     </Typography>
                     {item.badge ? (
-                      <Typography as="small" variant="body5">
+                      <Typography as="small" variant="b8">
                         {item.badge}
                       </Typography>
                     ) : null}
@@ -2055,12 +2063,12 @@ function NotificationCount({
       textAlign="center"
     >
       <Typography
-        variant="body5"
-        weight="medium"
+        variant="b8M"
+
         tone={tone}
         {...props}
         aria-hidden="true"
-        className={[css({ '&&': { fontSize: '8px', lineHeight: '12px' } }), className]
+        className={[css({ '&&': { fontSize: 'body.10', lineHeight: 'body' } }), className]
           .filter(Boolean)
           .join(' ')}
       >
@@ -2238,7 +2246,7 @@ function HeaderSearch({
               border: '0',
               borderRadius: '0',
               bg: 'transparent',
-              fontSize: '14',
+              fontSize: 'body.14',
               outline: 'none!',
               '&::-webkit-search-cancel-button': { display: 'none' },
             },
@@ -2473,7 +2481,7 @@ function HeaderMegaMenuNavigation({
             onEnterMenu(menu.id);
           }}
         >
-          <Typography variant="body4" weight="medium" className={megaNavigationStyles.itemLabel}>
+          <Typography variant="b6M" className={megaNavigationStyles.itemLabel}>
             {menu.label}
           </Typography>
         </Button>
@@ -2488,7 +2496,7 @@ const menuButtonStyles = css({
   border: 0,
   bg: 'transparent',
   color: 'var(--hoka-black)',
-  lineHeight: 'hoka',
+  lineHeight: 'body',
 });
 type HeaderMenuButtonProps = {
   onClick: () => void;

@@ -84,7 +84,7 @@ export function GuideTimeline({
 
   return (
     <Stack as="nav" className={timeline} gap="3" aria-label={`${title} 바로가기`}>
-<Typography as="h2" variant="body3Medium">
+      <Typography as="h2" variant="b4M">
         {title}
       </Typography>
       <Stack className={timelineItems} gap="0">
@@ -95,11 +95,11 @@ export function GuideTimeline({
             href={`#${item.id}`}
             aria-current={activeId === item.id ? 'location' : undefined}
           >
-            <Typography as="span" variant="body5" weight="medium">
+            <Typography as="span" variant="b8M">
               {item.title}
             </Typography>
             <Box as="span" display="block">
-              <Typography as="span" variant="body5" tone="subtle">
+              <Typography as="span" variant="b8" tone="subtle">
                 {item.description}
               </Typography>
             </Box>

@@ -24,11 +24,11 @@ const root = css({
     color: 'var(--color-text-primary)',
     cursor: 'pointer',
     '& [data-width-label]': {
-      fontFamily: 'hoka',
-      fontSize: '16px',
+      fontFamily: 'en',
+      fontSize: 'body.16',
       fontWeight: '500',
-      lineHeight: '1.3',
-      _mobile: { fontSize: '14px' },
+      lineHeight: 'body',
+      _mobile: { fontSize: 'body.14' },
     },
     _focusVisible: { outline: '2px solid var(--color-focus-ring)', outlineOffset: '2px' },
   },
@@ -76,7 +76,7 @@ export function ProductWidthSelector({
         options={options.map((value) => ({
           value,
           label: (
-            <Typography variant="body4" tone="inherit">
+            <Typography variant="b6" tone="inherit">
               {value}
             </Typography>
           ),
@@ -113,7 +113,7 @@ export function ProductWidthSelector({
       onValueChange={onValueChange}
       options={options.map((option) => ({
         label: (
-          <Typography data-width-label variant="body4" tone="inherit">
+          <Typography data-width-label variant="b6" tone="inherit">
             {option}
           </Typography>
         ),

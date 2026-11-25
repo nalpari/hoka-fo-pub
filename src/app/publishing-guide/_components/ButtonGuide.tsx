@@ -170,10 +170,10 @@ const auxiliaryVariants = [
       {
         label: 'Compact',
         note: '높이 40px · 글자 14px · 좌우 14px',
-        code: '<Button variant="filterTrigger" iconRight="sliders-regular"><Typography variant="body4">필터</Typography></Button>',
+        code: '<Button variant="filterTrigger" iconRight="sliders-regular"><Typography variant="b6">필터</Typography></Button>',
         preview: (
           <Button variant="filterTrigger" iconRight="sliders-regular">
-            <Typography variant="body4">필터</Typography>
+            <Typography variant="b6">필터</Typography>
           </Button>
         ),
       },
@@ -278,8 +278,8 @@ const codeLine = css({
   overflowWrap: 'anywhere',
   border: '1px solid token(colors.black.20)',
   bg: 'surface.subtle',
-  fontSize: '12px',
-  lineHeight: '1.5',
+  fontSize: 'body.12',
+  lineHeight: 'body',
 });
 
 const copyButton = css({
@@ -309,10 +309,10 @@ function ButtonVariantPanel({ variant, onCopy }: ButtonVariantPanelProps) {
       aria-labelledby={`${sectionId}-title`}
     >
       <HStack alignItems="baseline" gap="3" flexWrap="wrap">
-        <Typography as="h2" id={`${sectionId}-title`} variant="heading8">
+        <Typography as="h2" id={`${sectionId}-title`} web="h10B" mo="h8">
           {variantSpec.title}
         </Typography>
-        <Typography as="p" variant="body5" tone="subtle">
+        <Typography as="p" variant="b8" tone="subtle">
           {variantSpec.description}
         </Typography>
       </HStack>
@@ -326,10 +326,10 @@ function ButtonVariantPanel({ variant, onCopy }: ButtonVariantPanelProps) {
             aria-label={`${size.label} 버튼 예시`}
           >
             <HStack justifyContent="space-between" alignItems="flex-start" gap="3">
-<Typography as="h3" variant="body4Medium">
+              <Typography as="h3" variant="b6M">
                 {size.label}
               </Typography>
-              <Typography as="span" variant="body5" tone="subtle">
+              <Typography as="span" variant="b8" tone="subtle">
                 {size.note}
               </Typography>
             </HStack>
@@ -342,7 +342,7 @@ function ButtonVariantPanel({ variant, onCopy }: ButtonVariantPanelProps) {
                   gap="3"
                   aria-label={colorway === 'black' ? 'Black 버튼' : 'White 버튼'}
                 >
-<Typography as="h4" variant="body4Medium">
+                  <Typography as="h4" variant="b6M">
                     {colorway === 'black' ? 'Black' : 'White'}
                   </Typography>
                   <Grid columns={1} gap="3">
@@ -358,12 +358,7 @@ function ButtonVariantPanel({ variant, onCopy }: ButtonVariantPanelProps) {
                           role="group"
                           aria-label={state.label}
                         >
-                          <Typography
-                            as="span"
-                            className={stateLabel}
-                            variant="body5"
-                            weight="medium"
-                          >
+                          <Typography as="span" className={stateLabel} variant="b8M">
                             {state.label}
                           </Typography>
                           <Box className={preview} data-colorway={colorway} justifyContent="center">
@@ -451,72 +446,72 @@ function ButtonSizingGuide() {
       gap="3"
       aria-labelledby="button-sizing-guide-title"
     >
-      <Typography as="h2" id="button-sizing-guide-title" variant="heading8">
+      <Typography as="h2" id="button-sizing-guide-title" web="h10B" mo="h8">
         크기 기준 및 속성 안내
       </Typography>
       <Grid columns={{ base: 2, _mobile: 1 }} gap="3">
         <Stack className={sizeCard} gap="2">
-<Typography as="h3" variant="body4Medium">
+          <Typography as="h3" variant="b6M">
             크기 기준
           </Typography>
-          <Typography as="p" variant="body5" tone="subtle">
+          <Typography as="p" variant="b8" tone="subtle">
             Tall: 높이 48px · 글자 16px · 좌우 24px
             <br />
             Short: 높이 40px · 글자 14px · 좌우 16px
           </Typography>
         </Stack>
         <Stack className={sizeCard} gap="2">
-<Typography as="h3" variant="body4Medium">
+          <Typography as="h3" variant="b6M">
             size와 타이포
           </Typography>
-          <Typography as="p" variant="body5" tone="subtle">
+          <Typography as="p" variant="b8" tone="subtle">
             일반 버튼: tall → CTA1 Bold(700), short → CTA2 Bold(700)
             <br />
             Link: sm 12px · md 14px · lg 16px
           </Typography>
         </Stack>
         <Stack className={sizeCard} gap="2">
-<Typography as="h3" variant="body4Medium">
+          <Typography as="h3" variant="b6M">
             크기 지정
           </Typography>
-          <Typography as="p" variant="body5" tone="subtle">
+          <Typography as="p" variant="b8" tone="subtle">
             size="tall": 높이 48px · 좌우 24px
             <br />
             size="short": 높이 40px · 좌우 16px. 기본값은 tall입니다.
           </Typography>
         </Stack>
         <Stack className={sizeCard} gap="2">
-<Typography as="h3" variant="body4Medium">
+          <Typography as="h3" variant="b6M">
             높이 예외
           </Typography>
-          <Typography as="p" variant="body5" tone="subtle">
+          <Typography as="p" variant="b8" tone="subtle">
             FilterTrigger compact: 높이 40px · 글자 14px · 좌우 14px
             <br />
             Icon: 샘플 높이 36px · 글자 없음 · 좌우 0px
           </Typography>
         </Stack>
         <Stack className={sizeCard} gap="2">
-<Typography as="h3" variant="body4Medium">
+          <Typography as="h3" variant="b6M">
             라벨 크기
           </Typography>
-          <Typography as="p" variant="body5" tone="subtle">
+          <Typography as="p" variant="b8" tone="subtle">
             일반 버튼의 size는 높이와 기본 라벨 Typography를 함께 선택합니다. 글자 크기만 별도로
             유지해야 하는 경우 자식 Typography에 variant를 지정합니다.
           </Typography>
         </Stack>
         <Stack className={sizeCard} gap="2">
-<Typography as="h3" variant="body4Medium">
+          <Typography as="h3" variant="b6M">
             색상
           </Typography>
-          <Typography as="p" variant="body5" tone="subtle">
+          <Typography as="p" variant="b8" tone="subtle">
             colorway는 Black / White 조합을 선택합니다.
           </Typography>
         </Stack>
         <Stack className={sizeCard} gap="2">
-<Typography as="h3" variant="body4Medium">
+          <Typography as="h3" variant="b6M">
             상태 표현
           </Typography>
-          <Typography as="p" variant="body5" tone="subtle">
+          <Typography as="p" variant="b8" tone="subtle">
             Black 비활성: 배경 black.20 (#E9EAEB) · 글자 black.40 (#B3B3B3)
             <br />
             White 비활성: 배경 black.40 (#B3B3B3) · 글자 white.0
@@ -542,10 +537,10 @@ function AuxiliaryButtonsGuide({ onCopy }: { onCopy: (code: string) => void }) {
           aria-labelledby={`${item.id}-title`}
         >
           <HStack alignItems="baseline" gap="3" flexWrap="wrap">
-            <Typography as="h2" id={`${item.id}-title`} variant="heading8">
+            <Typography as="h2" id={`${item.id}-title`} web="h10B" mo="h8">
               {item.title}
             </Typography>
-            <Typography as="p" variant="body5" tone="subtle">
+            <Typography as="p" variant="b8" tone="subtle">
               {item.description}
             </Typography>
           </HStack>
@@ -562,10 +557,10 @@ function AuxiliaryButtonsGuide({ onCopy }: { onCopy: (code: string) => void }) {
                   flexWrap="wrap"
                   gap="2"
                 >
-<Typography as="h3" variant="body4Medium">
+                  <Typography as="h3" variant="b6M">
                     {sample.label}
                   </Typography>
-                  <Typography as="span" variant="body5" tone="subtle">
+                  <Typography as="span" variant="b8" tone="subtle">
                     {sample.note}
                   </Typography>
                 </HStack>
@@ -582,12 +577,7 @@ function AuxiliaryButtonsGuide({ onCopy }: { onCopy: (code: string) => void }) {
                         role="group"
                         aria-label={state.label}
                       >
-                        <Typography
-                          as="span"
-                          className={stateLabel}
-                          variant="body5"
-                          weight="medium"
-                        >
+                        <Typography as="span" className={stateLabel} variant="b8M">
                           {state.label}
                         </Typography>
                         <Box

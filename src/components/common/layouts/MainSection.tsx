@@ -4,7 +4,7 @@ import { css } from 'styled-system/css';
 import { Box } from 'styled-system/jsx';
 import { contentFrame } from 'styled-system/patterns';
 
-import { type TypographyVariant } from '@/components/common/atoms/Typography';
+import { type ResponsiveTypographyVariant } from '@/components/common/atoms/Typography';
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 
@@ -12,7 +12,8 @@ const heading = css({ m: '0' });
 
 export type MainSectionProps = {
   title: string;
-  titleVariant?: TypographyVariant;
+  titleVariant?: ResponsiveTypographyVariant;
+  mobileTitleVariant?: ResponsiveTypographyVariant;
   actionSlot?: ReactNode;
   children: ReactNode;
   className?: string;
@@ -42,6 +43,7 @@ const extendedContent = css({
 export function MainSection({
   title,
   titleVariant,
+  mobileTitleVariant,
   actionSlot,
   children,
   className,
@@ -73,8 +75,8 @@ export function MainSection({
         headerProps={{
           titleProps: {
             className: heading,
-            web: titleVariant ?? 'heading5',
-            mo: titleVariant ?? 'heading4',
+            web: titleVariant ?? 'h2B',
+            mo: mobileTitleVariant ?? titleVariant ?? 'h5B',
           },
           orientation: 'horizontal',
           gap: '8px',

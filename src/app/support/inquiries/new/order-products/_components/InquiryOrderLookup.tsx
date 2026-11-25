@@ -110,10 +110,10 @@ export function InquiryOrderLookup({
     >
       <Stack css={styles.root}>
         <Stack css={styles.intro}>
-          <Typography variant="body4" className={classes.lead}>
+          <Typography variant="b6" className={classes.lead}>
             1:1 문의를 원하시는 주문번호 및 상품명을 선택해 주세요.
           </Typography>
-          <Typography variant="body5" tone="tertiary" className={classes.note}>
+          <Typography variant="b8" tone="tertiary" className={classes.note}>
             *문의 접수 시 한 건의 문의에는 하나의 주문번호만 선택하실 수 있습니다. 하나의 주문번호
             안에서는 여러 상품을 함께 선택하실 수 있습니다.
           </Typography>
@@ -123,9 +123,9 @@ export function InquiryOrderLookup({
           <DateRangeSearch value={dateRange} onValueChange={setDateRange} layout="stacked" />
           <Stack css={styles.results}>
             <Flex css={styles.count}>
-              <Typography variant="body4">
+              <Typography variant="b6">
                 총{' '}
-                <Typography variant="body3" language="en" className={classes.countNumber}>
+                <Typography variant="b4" language="en" className={classes.countNumber}>
                   {filteredOrders.length}
                 </Typography>
                 건
@@ -159,14 +159,10 @@ export function InquiryOrderLookup({
                         className={classes.orderHeading}
                       >
                         <Stack as="span" css={styles.orderMeta}>
-                          <Typography variant="body4" language="en" className={classes.date}>
+                          <Typography variant="b6" language="en" className={classes.date}>
                             {order.date}
                           </Typography>
-                          <Typography
-                            variant="body5"
-                            tone="tertiary"
-                            className={classes.orderNumber}
-                          >
+                          <Typography variant="b8" tone="tertiary" className={classes.orderNumber}>
                             주문번호 {order.id}
                           </Typography>
                         </Stack>
@@ -182,8 +178,8 @@ export function InquiryOrderLookup({
                     </Flex>
                     {isExpanded && (
                       <Stack css={styles.items}>
-                        <Typography variant="body5" className={classes.itemCount}>
-                          <Typography variant="body3" language="en" className={classes.countNumber}>
+                        <Typography variant="b8" className={classes.itemCount}>
+                          <Typography variant="b4" language="en" className={classes.countNumber}>
                             {order.products.length}
                           </Typography>
                           개 상품
@@ -211,14 +207,14 @@ export function InquiryOrderLookup({
                                 content={
                                   <div className={classes.productText}>
                                     <Typography
-                                      variant="body4"
+                                      variant="b6"
                                       language="en"
                                       className={classes.productName}
                                     >
                                       {item.name}
                                     </Typography>
                                     <Typography
-                                      variant="body5"
+                                      variant="b8"
                                       language="ko"
                                       className={classes.productOptions}
                                     >{`${item.color}, ${item.size}, ${item.quantity}개`}</Typography>
@@ -247,7 +243,7 @@ export function InquiryOrderLookup({
             </Stack>
             {filteredOrders.length === 0 && (
               <Flex css={styles.empty}>
-                <Typography variant="body4" tone="tertiary">
+                <Typography variant="b6" tone="tertiary">
                   조회된 주문 내역이 없습니다.
                 </Typography>
               </Flex>

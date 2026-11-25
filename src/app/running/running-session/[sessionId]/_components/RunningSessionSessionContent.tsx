@@ -71,7 +71,7 @@ function RunningSessionApplyButton({
       disabled={registered || pending || status !== 'open'}
       onClick={onApply}
     >
-      <Typography variant="eland-event-action">
+      <Typography web="b4S" mo="b5S" language="ko">
         {registered
           ? '신청완료'
           : status === 'closed'
@@ -93,14 +93,16 @@ function RunningSessionSessionNotes({ precautions = false }: { precautions?: boo
       color="var(--color-text-tertiary)"
       aria-label={precautions ? '주의 사항' : '안내 사항'}
     >
-      <Typography as="p" variant="eland-session-note-label" className={css({ m: '0' })}>
+      <Typography as="p" variant="b6B" language="ko" className={css({ m: '0' })}>
         {precautions ? '주의 사항' : '안내 사항'} ⓘ
       </Typography>
       <Box as="ul" listStyle="none" p="0" m="0">
         {(precautions ? sessionPrecautions : sessionNotices).map((notice) => (
           <Typography
             as="li"
-            variant="eland-session-note"
+            web="b6"
+            mo="b7"
+            language="ko"
             key={notice}
             className={css({ _before: { content: '"- "' } })}
           >
@@ -152,7 +154,7 @@ function RunningSessionFacts({
           <>
             {value}
             {detail ? (
-              <Typography as="span" variant="body4" tone="tertiary" className={detailText}>
+              <Typography as="span" variant="b6" tone="tertiary" className={detailText}>
                 {detail}
               </Typography>
             ) : null}
@@ -163,10 +165,14 @@ function RunningSessionFacts({
           : undefined,
       }))}
       termProps={{
-        variant: 'eland-session-fact-label',
+        web: 'b4B',
+        mo: 'b5B',
+        language: 'ko',
       }}
       descriptionProps={{
-        variant: 'eland-product-description',
+        web: 'b4',
+        mo: 'b5',
+        language: 'ko',
         tone: undefined,
       }}
       slotStyles={{
@@ -196,10 +202,6 @@ const detailText = css({ display: 'block', mt: '4px' });
 const styles = {
   image: css({ w: '100%', h: 'auto', aspectRatio: '1', objectFit: 'cover', display: 'block' }),
   opening: css({ color: 'var(--color-red-80)', mb: '24px' }),
-  imagePlaceholderLabel: css({
-    '&&': { fontSize: '34px' },
-    _mobile: { '&&': { fontSize: '22px', fontWeight: '700', lineHeight: '34px' } },
-  }),
   recommendations: css({ _mobile: { '& > div': { gap: '16px' } } }),
   recommendationRail: css({ _mobile: { px: '11px!' } }),
 };
@@ -246,13 +248,7 @@ export function RunningSessionSessionHero({
       <Stack gap="32px" _mobile={{ px: '4', pt: '4', pb: '72px' }}>
         <Stack gap="12px" _mobile={{ gap: '18px' }}>
           <HStack>
-            <Badge
-              visual="square"
-              {...categoryBadgeColors[session.category]}
-              web="body4"
-              mo="body6"
-              weight="bold"
-            >
+            <Badge visual="square" {...categoryBadgeColors[session.category]} web="b6B" mo="b9B">
               {session.category}
             </Badge>
           </HStack>
@@ -261,17 +257,17 @@ export function RunningSessionSessionHero({
             _mobile={{ gap: '8px' }}
             title={session.title}
             titleAs="h1"
-            titleProps={{ variant: 'eland-session-title' }}
+            titleProps={{ web: 'h5B', mo: 'h6B', language: 'ko' }}
             description={
               <>
                 {session.schedule} | {session.location} {session.distance}
               </>
             }
-            descriptionProps={{ variant: 'eland-session-subtitle' }}
+            descriptionProps={{ web: 'h10', mo: 'h8', language: 'ko' }}
           />
         </Stack>
         {upcoming && session.applicationOpeningLabel ? (
-          <Typography as="p" variant="body4" weight="bold" className={styles.opening}>
+          <Typography as="p" variant="b6B" className={styles.opening}>
             ⓘ {session.applicationOpeningLabel}
           </Typography>
         ) : null}
@@ -310,15 +306,17 @@ function RunningSessionSessionPoster({ session }: Props) {
         gap: '40px',
         _mobile: { gap: '20px' },
         eyebrow: <>Hoka Run Club</>,
-        eyebrowProps: { variant: 'eland-session-banner-eyebrow' },
+        eyebrowProps: { variant: 'b1E', language: 'en' },
         titleAs: 'h2',
         titleProps: {
-          variant: 'eland-session-banner-title',
+          web: 'd1',
+          mo: 'd2',
+          language: 'en',
           className: css({ overflowWrap: 'anywhere' }),
         },
       }}
     >
-      <Typography as="span" variant="eland-session-banner-caption">
+      <Typography as="span" web="b1M" mo="b4M" language="en">
         {session.overlayDate}
         <br />
         @hoka_kr
@@ -342,7 +340,7 @@ function RunningSessionSessionGuideContent({
         title="세션 안내"
         headerProps={{
           gap: '4',
-          titleProps: { variant: 'eland-session-guide-title' },
+          titleProps: { variant: 'h8B', language: 'ko' },
           description: (
             <>
               호카 런 클럽 {title}에서
@@ -350,7 +348,7 @@ function RunningSessionSessionGuideContent({
               러너들과 함께 달리며 그룹 러닝의 즐거움을 느껴보세요!
             </>
           ),
-          descriptionProps: { variant: 'eland-body' },
+          descriptionProps: { variant: 'b4', language: 'ko' },
         }}
       >
         <RunningSessionFacts variant="guide" rows={rows} />
@@ -413,10 +411,8 @@ export function RunningSessionSessionImage() {
       }}
     >
       <Typography
-        variant="heading7"
-        mo="body2"
-        weight="medium"
-        className={styles.imagePlaceholderLabel}
+        web="h5"
+        mo="h7"
       >
         이미지 영역
       </Typography>
@@ -450,7 +446,8 @@ export function RunningSessionRecommendations({
       <CarouselSection
         className={styles.recommendations}
         title="로드 러닝 Essential"
-        titleVariant="heading6"
+        titleVariant="h4B"
+        mobileTitleVariant="h8"
         itemCount={products.length}
         platform={platform}
         slideClassName={platform === 'mobile' ? mobileSlide : undefined}
@@ -488,40 +485,40 @@ const applicationNoticeStyles = {
       '--button-height': '42px',
       _mobile: { h: '42px', minH: '42px' },
     },
-    '&& button > span > span': { fontSize: '15px' },
+    '&& button > span > span': { fontSize: 'body.15' },
   }),
   confirmFooter: css({ '&&': { mt: '32px', _mobile: { mt: '24px' } } }),
   confirmContent: css({ scrollbarWidth: 'none' }),
   summaryList: css({
     '&&': { rowGap: '16px', _mobile: { rowGap: '8px' } },
-    '& :is(dt, dd)': { fontFamily: 'korean', fontSize: '14px', lineHeight: '1.5' },
+    '& :is(dt, dd)': { fontFamily: 'ko', fontSize: 'body.14', lineHeight: 'body' },
   }),
   prompt: css({
-    fontFamily: 'korean',
-    letterSpacing: '-0.02em',
+    fontFamily: 'ko',
+    letterSpacing: 'korean',
     textAlign: 'center',
-    '&&': { lineHeight: '1.2' },
+    '&&': { lineHeight: 'body' },
   }),
   summaryTitle: css({
-    fontFamily: 'korean',
-    fontSize: '20px',
-    letterSpacing: '-0.02em',
-    _mobile: { fontSize: '16px' },
-    '&&': { lineHeight: '1.2' },
+    fontFamily: 'ko',
+    fontSize: 'body.20',
+    letterSpacing: 'korean',
+    _mobile: { fontSize: 'body.16' },
+    '&&': { lineHeight: 'body' },
   }),
   address: css({
     display: 'block',
     mt: '4px',
-    fontFamily: 'korean',
-    fontSize: '14px',
-    lineHeight: '1.5',
+    fontFamily: 'ko',
+    fontSize: 'body.14',
+    lineHeight: 'body',
   }),
   alertContent: css({
     '& > h3': {
-      fontSize: '20px',
+      fontSize: 'heading.22',
       fontWeight: '500',
-      lineHeight: '1.4',
-      _mobile: { fontSize: '16px' },
+      lineHeight: 'koreanHeading',
+      _mobile: { fontSize: 'heading.20' },
     },
   }),
 };
@@ -586,8 +583,8 @@ export function RunningSessionApplicationNotice({
           >
             <Typography
               as="h3"
-              variant="body2"
-              weight="bold"
+              variant="b2B"
+
               className={applicationNoticeStyles.summaryTitle}
             >
               신청정보
@@ -609,7 +606,7 @@ export function RunningSessionApplicationNotice({
                       {runningSessionVenue}
                       <Typography
                         as="span"
-                        variant="body4"
+                        variant="b6"
                         tone="tertiary"
                         className={applicationNoticeStyles.address}
                       >
@@ -623,8 +620,8 @@ export function RunningSessionApplicationNotice({
           </Stack>
           <Typography
             as="p"
-            variant="body3"
-            weight="medium"
+            variant="b4M"
+
             className={applicationNoticeStyles.prompt}
           >
             위 정보로 러닝세션을 신청하시겠습니까?

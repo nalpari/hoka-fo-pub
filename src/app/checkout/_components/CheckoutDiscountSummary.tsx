@@ -24,7 +24,7 @@ export function CheckoutDiscountSummary({
   return (
     <Stack gap={{ base: '28px', _mobile: '12px' }}>
       {!mobile ? (
-        <Typography as="h2" variant="headingKr8">
+        <Typography as="h2" web="h10B" mo="h8">
           주문내역
         </Typography>
       ) : null}
@@ -33,30 +33,23 @@ export function CheckoutDiscountSummary({
           gap={{ base: '10px', _mobile: '12px' }}
           _mobile={{ px: '16px', py: '20px', border: '1px solid var(--colors-black-20)' }}
         >
-          <AmountRow label="상품 금액" amount={350000} web="body3-2" mo="body4" amountWeb="body3" />
+          <AmountRow label="상품 금액" amount={350000} web="b5" mo="b6" amountWeb="b4" />
           <Stack gap={{ base: '16px', _mobile: '12px' }}>
-            <AmountRow
-              label="쿠폰 할인"
-              amount={15000}
-              web="body3-2"
-              mo="body4"
-              amountWeb="body3"
-              discount
-            />
+            <AmountRow label="쿠폰 할인" amount={15000} web="b5" mo="b6" amountWeb="b4" discount />
             <Button variant="secondary" size="short" fullWidth onClick={() => setOpen(true)}>
               조회하기
             </Button>
           </Stack>
-          <AmountRow label="배송비" amount={0} web="body3-2" amountWeb="body3" />
+          <AmountRow label="배송비" amount={0} web="b5" amountWeb="b4" />
         </Stack>
         <AmountRow
           label="총 결제 금액"
           labelWeight="700-500"
           amount={mobile ? 3200000 : 334550}
-          web="body3"
-          mo="body4"
-          amountWeb="body2-2"
-          amountMo="body3"
+          web="b4"
+          mo="b6"
+          amountWeb="b3"
+          amountMo="b4"
           borderTop={{ base: '2px solid black', _mobile: '0px' }}
           pt="20px"
           _mobile={{
@@ -74,7 +67,7 @@ export function CheckoutDiscountSummary({
           '정상 상품과 세일 상품을 함께 결제 시 쿠폰 적용 가능 상품에만 쿠폰이 적용됩니다.',
           '상품 쿠폰은 상품별로 1장씩만 적용 가능하며, 장바구니 쿠폰과 상품 쿠폰은 함께 사용하실 수 없습니다.',
         ].map((text) => (
-          <Typography key={text} web="body4" mo="body4-2" tone="tertiary">
+          <Typography key={text} web="b6" mo="b7" tone="tertiary">
             * {text}
           </Typography>
         ))}

@@ -95,7 +95,7 @@ export function LaunchCalendarDetail({
         '& > span > span': { flexDirection: 'row-reverse' },
       })}
     >
-      <Typography variant="eland-purchase-action">
+      <Typography web="b4B" mo="b5B" language="ko">
         {notified ? '입고 알림 신청 완료' : '입고 알림 신청'}
       </Typography>
     </Button>
@@ -138,7 +138,7 @@ export function LaunchCalendarDetail({
       >
         <Stack gap="24px" _mobile={{ gap: '16px' }}>
           <Stack gap="16px" pb="24px" borderBottom="1px solid #E9EAEB" _mobile={{ pb: '16px' }}>
-            <Typography as="p" variant="body3">
+            <Typography as="p" variant="b4">
               출시 알림을 받을 시점을 선택해 주세요.
             </Typography>
             <Radio
@@ -156,7 +156,7 @@ export function LaunchCalendarDetail({
           </Stack>
           <Stack gap={editingPhone ? '16px' : '0'}>
             <HStack justifyContent="space-between">
-              <Typography variant="body3">알림 받을 번호</Typography>
+              <Typography variant="b4">알림 받을 번호</Typography>
               {!editingPhone && (
                 <Button
                   type="button"
@@ -185,14 +185,11 @@ export function LaunchCalendarDetail({
                   />
                 </FormField>
               ) : (
-                <Typography
-                  variant="body2"
-                  className={css({ fontFamily: 'english', fontSize: '20px' })}
-                >
+                <Typography variant="b2" className={css({ fontFamily: 'en', fontSize: 'body.20' })}>
                   {launchNotificationPreview.maskedPhone}
                 </Typography>
               )}
-              <Typography as="p" variant="body4" className={css({ color: '#777777' })}>
+              <Typography as="p" variant="b6" className={css({ color: '#777777' })}>
                 {editingPhone
                   ? '* 입력한 번호로 알림톡이 발송되며, 회원정보에 저장됩니다.'
                   : '* 회원정보에 등록된 휴대폰 번호로 알림톡이 발송됩니다.'}
@@ -264,9 +261,9 @@ export function LaunchCalendarDetail({
             <ContentHeader
               title={product.name}
               titleAs="h1"
-              titleProps={{ variant: 'eland-product-title' }}
+              titleProps={{ web: 'h6B', mo: 'h5B', language: 'en' }}
               description={product.priceLabel}
-              descriptionProps={{ variant: 'eland-product-price' }}
+              descriptionProps={{ web: 'b3M', mo: 'b4M', language: 'en' }}
               gap="20px"
               _mobile={{ px: '16px', w: '100%', gap: '16px' }}
             />
@@ -283,9 +280,10 @@ export function LaunchCalendarDetail({
               <Icon name="clock-ten" size={mobile ? '16px' : '18px'} color="red.80" />
               <Typography
                 as="p"
-                variant="eland-launch-release"
+                variant="b3M"
+                language="ko"
                 tone="red80"
-                className={css({ _mobile: { fontSize: '16px' } })}
+                className={css({ _mobile: { fontSize: 'body.16' } })}
               >
                 {product.releaseLabel}
               </Typography>
@@ -299,7 +297,7 @@ export function LaunchCalendarDetail({
               pt="32px"
               pb="40px"
               bg="var(--color-black-10)"
-              headerProps={{ titleProps: { variant: 'heading8' } }}
+              headerProps={{ titleProps: { web: 'h10B', mo: 'h8' } }}
               _mobile={{ px: '16px', pb: '32px', w: '100%' }}
             >
               <Stack gap="40px">
@@ -307,17 +305,17 @@ export function LaunchCalendarDetail({
                   <ContentHeader
                     title={product.descriptionTitle}
                     titleAs="h3"
-                    titleProps={{ variant: 'body3', weight: 'bold' }}
+                    titleProps={{ variant: 'b4B' }}
                   />
-                  <Typography as="p" variant="eland-body">
+                  <Typography as="p" variant="b4" language="ko">
                     {product.description}
                   </Typography>
                 </Stack>
                 <DescriptionList
                   items={product.releaseInformation}
                   labelWidth="72px"
-                  termProps={{ variant: 'eland-launch-spec-label' }}
-                  descriptionProps={{ variant: 'eland-launch-spec' }}
+                  termProps={{ variant: 'b5S', language: 'ko' }}
+                  descriptionProps={{ variant: 'b5', language: 'ko' }}
                   slotStyles={{
                     root: css.raw({
                       columnGap: '12px',
@@ -339,15 +337,7 @@ export function LaunchCalendarDetail({
         bg="var(--color-black-10)"
         _mobile={{ aspectRatio: '1' }}
       >
-        <Typography
-          variant="body3"
-          weight="bold"
-          className={css({
-            fontSize: '28px',
-            lineHeight: '30.72px',
-            _mobile: { fontSize: '22px', lineHeight: '34px' },
-          })}
-        >
+        <Typography web="h8" mo="h7">
           {product.campaignPlaceholder}
         </Typography>
       </Box>

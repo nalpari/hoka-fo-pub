@@ -68,7 +68,7 @@ function ReviewDialog({
       }}
     >
       <Stack gap="20px">
-        <Typography as="p" variant="body3">
+        <Typography as="p" variant="b4">
           {productName}은(는) 어떠셨나요?
         </Typography>
         <FormField htmlFor="review-rating" error={invalid ? '별점을 선택해 주세요.' : undefined}>
@@ -85,7 +85,7 @@ function ReviewDialog({
           }}
         />
         {invalid ? (
-          <Typography variant="body5" tone="error">
+          <Typography variant="b8" tone="error">
             별점과 리뷰 내용을 입력해 주세요.
           </Typography>
         ) : null}
@@ -177,7 +177,7 @@ export function ReviewsContent({
         title="상품리뷰"
         headerProps={{
           titleAs: 'h1',
-          titleProps: { web: 'headingKr6', mo: 'headingKr5' },
+          titleProps: { web: 'h4B', mo: 'h7B' },
         }}
         gap="40px"
         _mobile={{ gap: '24px', pt: '24px' }}
@@ -221,10 +221,10 @@ export function ReviewsContent({
                   ]}
                 />
                 <HStack gap="2px">
-                  <Typography variant="body4">총</Typography>
-                  <Typography variant="body4Medium">
+                  <Typography variant="b6">총</Typography>
+                  <Typography variant="b6M">
                     {totalCount}
-                    <Typography variant="bodyKr4">건</Typography>
+                    <Typography variant="b6">건</Typography>
                   </Typography>
                 </HStack>
               </HStack>

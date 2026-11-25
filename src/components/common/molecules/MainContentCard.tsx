@@ -155,8 +155,8 @@ const descriptionStyle = cva({
       imagePill: {},
       overlay: {
         minH: '0',
-        fontSize: '20',
-        _mobile: { fontSize: 'var(--home-body-14, var(--font-sizes-14))' },
+        fontSize: 'body.20',
+        _mobile: { fontSize: 'body.14' },
       },
     },
   },
@@ -337,16 +337,15 @@ export function MainContentCard({
         titleProps={{
           className: title({ variant }),
           style: { color: foreground },
-          web: variant === 'overlay' ? 'heading6' : 'heading8',
-          mo: variant === 'titleLinks' || variant === 'descriptionLink' ? 'heading6' : 'body1',
-          weight: 'black',
+          web: variant === 'overlay' ? 'h4B' : 'h10B',
+          mo: variant === 'titleLinks' || variant === 'descriptionLink' ? 'h8B' : 'b1E',
         }}
         description={description}
         descriptionProps={{
           className: descriptionStyle({ variant: variant === 'titleLinks' ? undefined : variant }),
           style: { color: foreground },
-          web: 'bodyKr3',
-          mo: 'bodyKr4',
+          web: 'b4',
+          mo: 'b6',
         }}
       />
       <Card.Footer className={footer({ variant })}>

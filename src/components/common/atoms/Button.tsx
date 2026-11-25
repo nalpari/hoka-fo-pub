@@ -17,7 +17,7 @@ import { Typography, type TypographyProps } from '@/components/common/atoms/Typo
 
 const loadMoreStyles = {
   root: css({ fontWeight: '400!', '& *': { fontWeight: '400!' } }),
-  text: css({ '&&': { lineHeight: '1.3', _mobile: { lineHeight: '1.5' } } }),
+  text: css({ '&&': { lineHeight: 'body' } }),
 };
 
 const button = cva({
@@ -87,8 +87,8 @@ const button = cva({
     },
     fullWidth: { true: { w: '100%', '& > span': { w: '100%' } } },
     language: {
-      kr: { fontFamily: 'korean', fontWeight: 'semibold', letterSpacing: 'korean' },
-      en: { fontFamily: 'hoka', fontWeight: 'medium', letterSpacing: '0' },
+      kr: { fontFamily: 'ko', fontWeight: 'semibold', letterSpacing: 'korean' },
+      en: { fontFamily: 'en', fontWeight: 'medium', letterSpacing: '0' },
     },
     unframed: {
       true: {
@@ -215,9 +215,8 @@ function renderLoadMoreContent(
   const countLabel = counter ? `${counter.current}/${counter.total}` : (count ?? remaining);
 
   const defaultTextProps = {
-    web: 'cta1',
-    mo: 'cta2',
-    weight: 'regular',
+    web: 'b4',
+    mo: 'b6',
   } as const;
 
   if (appearance === 'inline') {
@@ -479,19 +478,19 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   const labelTypographyVariant = unframed
     ? typeof resolvedChildren === 'string' || typeof resolvedChildren === 'number'
       ? size === 'sm'
-        ? 'body5'
+        ? 'b8'
         : size === 'lg'
-          ? 'body3'
-          : 'body4'
+          ? 'b4'
+          : 'b6'
       : undefined
     : variant === 'chip'
-      ? 'body4'
+      ? 'b6'
       : variant === 'filterTrigger'
         ? undefined
         : size === 'short'
-          ? 'cta2'
+          ? 'b6M'
           : size === 'tall'
-            ? 'cta1'
+            ? 'b4M'
             : undefined;
   const variables: Record<string, string> = {
     '--button-bg': primary

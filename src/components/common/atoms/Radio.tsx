@@ -156,7 +156,7 @@ export function Radio<T extends string = string>({
                 <Icon name={radioAsset} size="100%" alt="" aria-hidden="true" className={icon} />
               </span>
             </BaseRadio.Root>
-            <Typography variant="body4">{item.label}</Typography>
+            <Typography variant="b6">{item.label}</Typography>
           </HStack>
         );
       })}
@@ -168,7 +168,7 @@ export function Radio<T extends string = string>({
     <HStack justify="space-between" gap="3" alignItems="start">
       <Box flex="1" minW="0">
         <Typography
-          variant="body4"
+          variant="b6"
           className={multilineLabel ? css({ whiteSpace: 'pre-line' }) : undefined}
         >
           {label}

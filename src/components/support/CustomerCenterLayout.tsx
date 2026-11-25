@@ -46,7 +46,7 @@ type Props = LayoutProps &
         title: string;
         description?: ReactNode;
         descriptionProps?: ContentHeaderProps['descriptionProps'];
-        mobileTitleVariant?: 'heading4' | 'heading5' | 'heading6' | 'heading7';
+        mobileTitleVariant?: 'd4' | 'h5B' | 'h2B' | 'h7B' | 'h4B' | 'h8' | 'h8B' | 'h8';
         header?: never;
       }
     | {
@@ -117,9 +117,9 @@ export function CustomerCenterLayout(props: Props) {
           title: props.title,
           headerProps: {
             titleAs: 'h1' as const,
-            titleProps: { web: 'heading6' as const, mo: props.mobileTitleVariant ?? 'heading6' },
+            titleProps: { web: 'h4B' as const, mo: props.mobileTitleVariant ?? 'h8' },
             description: props.description,
-            descriptionProps: { variant: 'body3' as const, ...props.descriptionProps },
+            descriptionProps: { variant: 'b4' as const, ...props.descriptionProps },
           },
         };
 

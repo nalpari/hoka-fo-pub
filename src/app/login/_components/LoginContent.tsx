@@ -71,7 +71,7 @@ function LoginForm({ showErrors = false, showHelp = false }: LoginFormProps) {
               />
             </HStack>
             <ButtonLink variant="link" size="md" href="/login/find-account">
-              <Typography as="span" variant="body4" weight="medium">
+              <Typography as="span" variant="b6M">
                 아이디/비밀번호 찾기
               </Typography>
             </ButtonLink>
@@ -116,7 +116,7 @@ export function LoginContent({ showErrors = false, showHelp = false }: LoginForm
         }
         headerProps={{
           titleAs: 'h1',
-          titleProps: { web: 'headingKr6', mo: 'headingKr5', id: 'login-title' },
+          titleProps: { web: 'h4B', mo: 'h7B', id: 'login-title' },
         }}
       >
         <Box>
@@ -131,10 +131,10 @@ export function LoginContent({ showErrors = false, showHelp = false }: LoginForm
             aria-labelledby="membership-title"
           >
             <Stack gap="2">
-              <Typography as="h2" web="body2" mo="body2-2" weight="bold" id="membership-title">
+              <Typography as="h2" web="b2B" mo="b3B" id="membership-title">
                 계정이 없으신가요?
               </Typography>
-              <Typography as="p" variant="body4">
+              <Typography as="p" variant="b6">
                 회원가입 후 풍성한 멤버십 혜택을 확인해보세요.
               </Typography>
             </Stack>
