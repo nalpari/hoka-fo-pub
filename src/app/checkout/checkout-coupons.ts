@@ -1,36 +1,30 @@
-export const checkoutCouponGroups = [1, 2, 3, 4].map((index) => ({
-  id: `coupon-product-${index}`,
+const productCouponOptions = [
+  { id: 'none', label: '적용 쿠폰 없음', amount: '0' },
+  { id: 'product-7', label: '[상품쿠폰] 온라인·성인·의류/용품 [7%]', amount: '- 19,460' },
+  { id: 'product-10', label: '[상품쿠폰] 온라인·성인·의류/용품 [10%]', amount: '- 27,800' },
+  { id: 'product-15', label: '[상품쿠폰] 온라인·성인·의류/용품 [15%]', amount: '- 41,700' },
+  { id: 'product-20', label: '[상품쿠폰] 온라인·성인·의류/용품 [20%]', amount: '- 55,600' },
+];
+
+export const checkoutCouponGroups = [
+  { available: 1, total: 4, allowTenPercent: false },
+  { available: 2, total: 5, allowTenPercent: true },
+  { available: 1, total: 2, allowTenPercent: false },
+  { available: 2, total: 5, allowTenPercent: true },
+].map(({ available, total, allowTenPercent }, index) => ({
+  id: `coupon-product-${index + 1}`,
   name: 'Speedgoat 7 GTX',
   image: '/images/cart/speedgoat-black.png',
   optionText: '레귤러, 브라운, 235, 1개',
   amount: 240000,
-  available: index % 2 === 0 ? 2 : 1,
-  total: index === 1 ? 4 : index === 3 ? 2 : 5,
-  options: [
-    { id: 'none', label: '적용 쿠폰 없음', amount: '0원', disabled: false },
-    {
-      id: 'family-apparel',
-      label: '[등급쿠폰] HOKA FAMILY 감사 쿠폰\n(온라인·성인·의류/용품) [7%]',
-      amount: '- 5,000원',
-      disabled: true,
-    },
-    {
-      id: 'family-shoes',
-      label: '[상품쿠폰] HOKA FAMILY 감사 쿠폰\n(온라인·성인·신발) [7%]',
-      amount: '- 13,580원',
-      disabled: false,
-    },
-    {
-      id: 'family-kids',
-      label: '[등급쿠폰] HOKA FAMILY 감사 쿠폰\n(온라인·키즈·신발/ 의류/용품) [7%]',
-      amount: '- 13,580원',
-      disabled: index % 2 !== 0,
-    },
-    {
-      id: 'family-offline',
-      label: '[NEW][등급쿠폰] HOKA FAMILY\n감사 쿠폰 (오프라인)[7%]',
-      amount: '- 13,580원',
-      disabled: true,
-    },
-  ],
+  available,
+  total,
+  initialCouponId: 'product-7',
+  options: productCouponOptions.map((option) => ({
+    ...option,
+    disabled:
+      option.id === 'product-15' ||
+      option.id === 'product-20' ||
+      (option.id === 'product-10' && !allowTenPercent),
+  })),
 }));

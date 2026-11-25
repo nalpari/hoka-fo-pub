@@ -8,11 +8,11 @@ import { css } from 'styled-system/css';
 import './work-history-animations.css';
 
 const styles = {
-  details: css({ mt: '9px', fontFamily: 'system-ui, sans-serif', fontSize: '12px' }),
+  details: css({ mt: '9px', textStyle: 'ko-common-b8' }),
   trigger: css({
     color: '#416478',
     cursor: 'pointer',
-    fontWeight: '600',
+    textStyle: 'ko-common-b8S',
     _focusVisible: { outline: '2px solid #34718c', outlineOffset: '2px' },
   }),
   content: css({
@@ -20,7 +20,6 @@ const styles = {
     p: '12px',
     bg: '#f1f6f8',
     color: '#344e5c',
-    lineHeight: '1.7',
     whiteSpace: 'pre-wrap',
     overflowWrap: 'anywhere',
   }),

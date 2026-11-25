@@ -59,14 +59,14 @@ const styles = {
     border: '1px solid #B3B3B3',
     borderRadius: '8px',
   }),
-  name: css({ display: 'block', fontSize: '16', fontWeight: 'semibold', color: '#171f38' }),
-  hex: css({ display: 'block', mt: '2', fontSize: '14', color: '#4D4D4D' }),
+  name: css({ display: 'block', fontSize: 'body.16', fontWeight: 'semibold', color: '#171f38' }),
+  hex: css({ display: 'block', mt: '2', fontSize: 'body.14', color: '#4D4D4D' }),
   copySwatch: css({
     cursor: 'pointer',
     _hover: { outline: '1px solid #777777' },
     _focusVisible: { outline: '2px solid #009DFF', outlineOffset: '3px' },
   }),
-  status: css({ minH: '24px', mb: '4', fontSize: '14', color: '#4D4D4D' }),
+  status: css({ minH: '24px', mb: '4', fontSize: 'body.14', color: '#4D4D4D' }),
 };
 
 /** 디자인 토큰의 색상 목록을 표시합니다 (Displays the design guide color composition). */
@@ -127,7 +127,7 @@ export function DesignGuideColor() {
             className={css({
               m: '0',
               mb: '4',
-              fontSize: '24',
+              fontSize: 'heading.24',
               fontWeight: 'bold',
               color: '#171f38',
             })}

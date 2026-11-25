@@ -26,7 +26,7 @@ function LocalesHeading() {
       _mobile={{ minH: '15' }}
     >
       <Icon name="globe" size={28} className={globe} />
-      <Typography as="h1" web="body2" mo="body3" weight="bold">
+      <Typography as="h1" web="b2B" mo="b4B">
         Choose your shipping country
       </Typography>
     </Flex>
@@ -61,7 +61,7 @@ const heading = css({
 
 function LocaleRegionHeading({ id, name }: Props) {
   return (
-    <Typography as="h2" variant="heading8" className={heading} id={id}>
+    <Typography as="h2" web="h10B" mo="h8" className={heading} id={id}>
       {name}
     </Typography>
   );
@@ -103,7 +103,7 @@ function LocaleCountryList({ countries }: LocaleCountryListProps) {
             height={18}
             sizes="23px"
           />
-          <Typography variant="body3" tone="primary">
+          <Typography variant="b4" tone="primary">
             {country.label}
           </Typography>
         </a>

@@ -48,8 +48,8 @@ const codeRow = css({
   overflowWrap: 'anywhere',
   border: '1px solid token(colors.black.20)',
   bg: 'surface.subtle',
-  fontSize: '12px',
-  lineHeight: '1.5',
+  fontSize: 'body.12',
+  lineHeight: 'body',
 });
 
 const copyButton = css({
@@ -73,9 +73,7 @@ function TipExample({
 }) {
   return (
     <Stack className={card} gap="3">
-<Typography variant="body4Semibold">
-        {label}
-      </Typography>
+      <Typography variant="b6S">{label}</Typography>
       <HStack justifyContent="center" alignItems="center" minH="120px">
         {children}
       </HStack>
@@ -129,10 +127,10 @@ export function HelpTipsGuide() {
     >
       <Stack minW="0" gap={{ base: '6', _mobile: '4' }}>
         <HStack alignItems="baseline" gap="3" flexWrap="wrap">
-          <Typography as="h2" variant="heading8">
+          <Typography as="h2" web="h10B" mo="h8">
             Tooltip / Toggletip
           </Typography>
-          <Typography as="p" variant="body5" tone="subtle">
+          <Typography as="p" variant="b8" tone="subtle">
             도움말의 내용과 상호작용에 맞는 유형을 선택합니다.
           </Typography>
         </HStack>
@@ -144,27 +142,27 @@ export function HelpTipsGuide() {
           scrollMarginTop="calc(var(--layout-site-header-height) + 16px)"
           aria-labelledby="help-tip-usage-title"
         >
-          <Typography as="h3" id="help-tip-usage-title" variant="heading8">
+          <Typography as="h3" id="help-tip-usage-title" web="h10B" mo="h8">
             사용 기준
           </Typography>
           <Stack gap="2">
-            <Typography as="p" variant="body4">
+            <Typography as="p" variant="b6">
               Tooltip: 폼 필드나 용어의 짧은 보조 설명을 표시합니다.
             </Typography>
-            <Typography as="p" variant="body4">
+            <Typography as="p" variant="b6">
               Toggletip: 제목·설명과 확인 버튼처럼 사용자가 조작할 내용을 표시합니다.
             </Typography>
-            <Typography as="p" variant="body5" tone="subtle">
+            <Typography as="p" variant="b8" tone="subtle">
               안내 아이콘(i 또는 ?)을 누르면 열리고, 다시 누르거나 바깥을 누르면 닫힙니다.
             </Typography>
           </Stack>
           <HStack gap="6">
             <HStack gap="2">
-              <Typography variant="body5">i 아이콘</Typography>
+              <Typography variant="b8">i 아이콘</Typography>
               <HelpTooltip label="정보 아이콘 안내" text="정보 안내 아이콘입니다." />
             </HStack>
             <HStack gap="2">
-              <Typography variant="body5">? 아이콘</Typography>
+              <Typography variant="b8">? 아이콘</Typography>
               <HelpTooltip
                 label="질문 아이콘 안내"
                 icon="question"
@@ -181,7 +179,7 @@ export function HelpTipsGuide() {
           scrollMarginTop="calc(var(--layout-site-header-height) + 16px)"
           aria-labelledby="help-tooltip-title"
         >
-          <Typography as="h3" id="help-tooltip-title" variant="heading8">
+          <Typography as="h3" id="help-tooltip-title" web="h10B" mo="h8">
             Tooltip
           </Typography>
           <Grid columns={{ base: 4, _mobile: 2 }} gap="3">
@@ -207,10 +205,10 @@ export function HelpTipsGuide() {
           scrollMarginTop="calc(var(--layout-site-header-height) + 16px)"
           aria-labelledby="help-tip-color-title"
         >
-          <Typography as="h3" id="help-tip-color-title" variant="heading8">
+          <Typography as="h3" id="help-tip-color-title" web="h10B" mo="h8">
             아이콘 색상
           </Typography>
-          <Typography as="p" variant="body5" tone="subtle">
+          <Typography as="p" variant="b8" tone="subtle">
             iconColor로 아이콘 색상을 변경합니다. 생략하면 기본 색상을 사용합니다.
           </Typography>
           <Grid columns={{ base: 2, _mobile: 1 }} gap="3">
@@ -247,7 +245,7 @@ export function HelpTipsGuide() {
           scrollMarginTop="calc(var(--layout-site-header-height) + 16px)"
           aria-labelledby="help-toggletip-title"
         >
-          <Typography as="h3" id="help-toggletip-title" variant="heading8">
+          <Typography as="h3" id="help-toggletip-title" web="h10B" mo="h8">
             Toggletip
           </Typography>
           <Grid columns={{ base: 4, _mobile: 2 }} gap="3">

@@ -61,7 +61,7 @@ export function SideNavigation({
       >
         <Stack alignItems="flex-start" gap="46px">
           <Link href={titleTo}>
-            <Typography as="span" variant="heading7">
+            <Typography as="span" web="h8B" mo="h8">
               {title}
             </Typography>
           </Link>
@@ -86,7 +86,7 @@ export function SideNavigation({
                     >
                       <Typography
                         as="span"
-                        variant="body2"
+                        variant="b2"
                         weight={item.labelWeight ?? 'medium'}
                         tone={isActive ? 'primary' : 'subtle'}
                       >
@@ -120,7 +120,7 @@ export function SideNavigation({
     >
       <Box display="block" _mobile={{ flex: 'none', mr: '10' }}>
         <Link href={titleTo}>
-          <Typography as="span" variant="heading7">
+          <Typography as="span" web="h8B" mo="h8">
             {title}
           </Typography>
         </Link>
@@ -135,7 +135,7 @@ export function SideNavigation({
             key={group.heading}
           >
             <Box py="2" _mobile={{ display: 'none' }}>
-              <Typography as="h2" variant="body2" weight="medium">
+              <Typography as="h2" variant="b2M">
                 {group.heading}
               </Typography>
             </Box>
@@ -160,7 +160,7 @@ export function SideNavigation({
                       className={navLink({ active: isActive, disabled: item.disabled })}
                       href={item.to}
                     >
-                      <Typography as="span" web="body3" mo="body5" weight="regular">
+                      <Typography as="span" web="b4" mo="b8">
                         {item.label}
                       </Typography>
                     </Link>

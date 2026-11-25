@@ -36,7 +36,7 @@ export function CartOrderActions({ selectedPreview = false }: { selectedPreview?
     );
   return (
     <Stack as="aside" gap="28px" p="24px" bg="black.10" alignSelf="start">
-      <Typography as="h2" variant="heading8">
+      <Typography as="h2" web="h10B" mo="h8">
         주문내역
       </Typography>
       <Stack gap="12px">

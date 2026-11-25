@@ -13,10 +13,10 @@ const styles = {
       content: '"·"',
       flexShrink: '0',
       color: 'var(--color-text-subtle)',
-      fontFamily: 'korean',
-      fontSize: '16px',
-      lineHeight: '24px',
-      _mobile: { fontSize: '14px', lineHeight: '21px' },
+      fontFamily: 'ko',
+      fontSize: 'body.16',
+      lineHeight: 'body',
+      _mobile: { fontSize: 'body.14', lineHeight: 'body' },
     },
   }),
 };
@@ -49,9 +49,7 @@ export function CareInstructions({
           title={`${index + 1}. ${section.title}`}
           headerProps={{
             titleAs: 'h3',
-            titleProps: isCare
-              ? { web: 'body3', mo: 'body4', weight: 'medium' }
-              : { variant: 'body4' },
+            titleProps: isCare ? { web: 'b4M', mo: 'b6M' } : { variant: 'b6' },
           }}
         >
           <Stack as="ul" gap="0" m="0" pl={isCare ? '2' : '3'} listStyleType="none">
@@ -64,11 +62,11 @@ export function CareInstructions({
                 className={isCare ? styles.careItem : undefined}
               >
                 {!isCare && (
-                  <Typography as="span" variant="body4" tone="subtle" aria-hidden="true">
+                  <Typography as="span" variant="b6" tone="subtle" aria-hidden="true">
                     ・
                   </Typography>
                 )}
-                <Typography web={isCare ? 'body3' : 'body4'} mo="body4" tone="subtle">
+                <Typography web={isCare ? 'b4' : 'b6'} mo="b6" tone="subtle">
                   {item}
                 </Typography>
               </HStack>

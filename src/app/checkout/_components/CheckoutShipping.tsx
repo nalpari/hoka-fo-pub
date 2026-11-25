@@ -170,7 +170,7 @@ function CheckoutShippingForm({
         label={dialog ? '기본 배송지로 저장' : '기본배송지로 등록'}
         className={
           dialog
-            ? css({ mt: '2', lineHeight: '21px', '& > span:last-child': { lineHeight: '21px' } })
+            ? css({ mt: '2', lineHeight: 'body', '& > span:last-child': { lineHeight: 'body' } })
             : undefined
         }
         checked={draft.isDefault}
@@ -219,7 +219,7 @@ function CheckoutSavedAddress({ errors, editButtonRef, onEdit }: CheckoutSavedAd
         h={{ base: '72px', _mobile: '56px' }}
       >
         <HStack gap="2">
-          <Typography variant="body3Medium">{saved.label}</Typography>
+          <Typography variant="b4M">{saved.label}</Typography>
           <Badge variant="outlined" visual="square">
             기본 배송지
           </Badge>
@@ -244,14 +244,14 @@ function CheckoutSavedAddress({ errors, editButtonRef, onEdit }: CheckoutSavedAd
           {infoItems.map(({ label, value }) => (
             <HStack key={label} gap="2" alignItems="center">
               <Box w={{ base: '144px', _mobile: '82px' }} flexShrink="0">
-                <Typography variant="body3" tone="subtle">
+                <Typography variant="b4" tone="subtle">
                   {label}
                 </Typography>
               </Box>
               <Stack flex="1" gap="1" minW="0">
-                <Typography variant="body4Medium">{value}</Typography>
+                <Typography variant="b6M">{value}</Typography>
                 {label === '주소' && errors?.address ? (
-                  <Typography variant="body5" tone="subtle">
+                  <Typography variant="b8" tone="subtle">
                     {errors.address}
                   </Typography>
                 ) : null}
@@ -317,6 +317,7 @@ function CheckoutDeliveryRequestSelect({
       value={value}
       onValueChange={onValueChange}
       options={[
+        { value: 'none', label: '선택 안함' },
         { value: 'door', label: '문 앞에 놓아주세요' },
         { value: 'call', label: '배송 전 연락주세요' },
         { value: 'security', label: '경비실에 맡겨주세요' },
@@ -327,7 +328,7 @@ function CheckoutDeliveryRequestSelect({
 }
 
 /** 배송 요청 선택과 직접 입력을 관리합니다. (Manages delivery instructions and custom text.) */
-function CheckoutDeliveryRequest({ initialRequest = 'door' }: { initialRequest?: string }) {
+function CheckoutDeliveryRequest({ initialRequest = 'none' }: { initialRequest?: string }) {
   const [request, setRequest] = useState(initialRequest);
   const [message, setMessage] = useState('');
   return (
@@ -349,7 +350,7 @@ export type ShippingErrors = Partial<Record<'name' | 'phone' | 'address', string
  * 주문서 연동 소유자는 Address.id(현재 number)와 수령인·배송지명·연락처·주소·기본배송지 여부를 전달해야 합니다.
  * 저장·삭제 요청은 미연결입니다. 향후 소유자가 전체 입력 payload와 ID로 요청하고 pending 중 중복 제출 방지,
  * 실패 시 draft 유지·재시도, 성공 시 목록/savedAddress 갱신 및 닫기, 오래된 조회 응답 폐기를 담당합니다.
- * 현재 입력·닫기는 로컬 UI입니다. 저장·삭제·더보기는 표시만 제공하고 요청 handler를 연결하지 않습니다. 주소명(addressName)을 포함한 draft는 로컬 입력이며 실제 저장을 실행하지 않습니다. 배송 요청은 기본 door(문 앞에 놓아주세요)이며 custom preview seed를 유지합니다. 배송 요청 전송도 연결하지 않습니다.
+ * 현재 입력·닫기는 로컬 UI입니다. 저장·삭제·더보기는 표시만 제공하고 요청 handler를 연결하지 않습니다. 주소명(addressName)을 포함한 draft는 로컬 입력이며 실제 저장을 실행하지 않습니다. 배송 요청은 기본 none(선택 안함)이며 custom preview seed를 유지합니다. 배송 요청 전송도 연결하지 않습니다.
  */
 /** 주문자와 배송지 입력 및 배송 요청을 표시합니다. (Displays checkout shipping details and delivery requests.) */
 export function CheckoutShipping({
@@ -403,7 +404,7 @@ export function CheckoutShipping({
       title="주문자 및 배송지 정보"
       headerProps={{
         titleAs: 'h2',
-        titleProps: { web: 'heading7', mo: 'heading6' },
+        titleProps: { web: 'h8B', mo: 'h8' },
         className: css({ pb: { base: '8px', _mobile: '0' } }),
       }}
     >

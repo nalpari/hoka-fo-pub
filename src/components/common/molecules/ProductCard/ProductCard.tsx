@@ -52,21 +52,21 @@ export type ProductCardProduct = Pick<Product, 'id' | 'name' | 'price' | 'primar
 const genderLabel = cva({
   base: {
     color: 'text.primary',
-    '&&': { fontSize: 'var(--layout-web-product-font-size, var(--font-sizes-16))' },
+    '&&': { fontSize: 'body.16' },
   },
   variants: {
     variant: {
       listing: {
         _mobile: {
           fontWeight: 'normal',
-          '&&': { fontSize: '14' },
+          '&&': { fontSize: 'body.14' },
           lineHeight: 'body',
         },
       },
-      history: { '&&': { fontSize: '14' } },
+      history: { '&&': { fontSize: 'body.14' } },
       showcase: {
         _mobile: {
-          '&&': { fontSize: '14' },
+          '&&': { fontSize: 'body.14' },
         },
       },
     },
@@ -81,7 +81,7 @@ type ProductGenderProps = {
 /** 상품 성별 정보를 표시합니다. (Displays a product's gender label.) */
 function ProductGender({ gender, variant = 'listing' }: ProductGenderProps) {
   return (
-    <Typography data-product-gender className={genderLabel({ variant })} variant="body3">
+    <Typography data-product-gender className={genderLabel({ variant })} variant="b4">
       {gender}
     </Typography>
   );
@@ -91,8 +91,8 @@ const productName = css({
   minW: '0',
   maxW: 'full',
   truncate: true,
-  fontSize: { base: 'var(--layout-web-product-font-size, var(--font-sizes-16))', _mobile: '14' },
-  '&[data-product-card-variant="history"]': { fontSize: '14', fontWeight: 'normal' },
+  fontSize: { base: 'body.16', _mobile: 'body.14' },
+  '&[data-product-card-variant="history"]': { fontSize: 'body.14', fontWeight: 'normal' },
   '&[data-product-card-variant="listing"]': { _mobile: { fontWeight: 'normal' } },
 });
 
@@ -110,8 +110,8 @@ function ProductName({ name, variant = 'listing' }: ProductNameProps) {
       data-product-card-variant={variant}
       data-product-name
       language={variant === 'history' && platform === 'web' ? 'ko' : 'auto'}
-      variant={variant === 'history' ? 'body4' : 'bodyKr3'}
-      mo={variant === 'history' ? 'body4' : 'bodyKr4'}
+      variant={variant === 'history' ? 'b6' : 'b4'}
+      mo={variant === 'history' ? 'b6' : 'b6'}
     >
       {name}
     </Typography>
@@ -139,7 +139,7 @@ function ProductPrice({
   const hasDiscount = originalPrice !== undefined && Boolean(discountLabel);
   const detailPrice = variant === 'detail';
   const detailPriceText = detailPrice
-    ? css({ fontSize: '18px', lineHeight: '20.8px', _mobile: { fontSize: '16px' } })
+    ? css({ fontSize: 'body.18', lineHeight: 'body', _mobile: { fontSize: 'body.16' } })
     : undefined;
 
   return (
@@ -152,8 +152,8 @@ function ProductPrice({
       {hasDiscount ? (
         <Typography
           as="del"
-          variant="body3"
-          mo="body4"
+          variant="b4"
+          mo="b6"
           tone="tertiary"
           language="en"
           aria-label={`정상가 ${won(originalPrice ?? 0)}원`}
@@ -162,7 +162,7 @@ function ProductPrice({
             .join(' ')}
         >
           {won(originalPrice ?? 0)}
-          <Typography variant="body3" mo="body4">
+          <Typography variant="b4" mo="b6">
             원
           </Typography>
         </Typography>
@@ -170,8 +170,8 @@ function ProductPrice({
       <HStack gap="2" alignItems="baseline">
         {hasDiscount ? (
           <Typography
-            variant="body3"
-            mo="body4"
+            variant="b4"
+            mo="b6"
             className={detailPriceText}
             tone={variant === 'listing' || detailPrice ? 'red80' : 'error'}
             aria-label={`${discountLabel} 할인`}
@@ -181,15 +181,13 @@ function ProductPrice({
         ) : null}
         <Typography
           language="en"
-          variant={variant === 'history' ? 'body4' : 'body3'}
-          mo="body4"
+          variant={variant === 'history' ? 'b6' : 'b4'}
+          mo="b6"
           weight={detailPrice ? 'medium' : undefined}
           className={detailPriceText}
         >
           {won(price)}
-          <Typography variant={variant === 'history' ? 'body4' : 'body3'} weight="bold">
-            원
-          </Typography>
+          <Typography variant={variant === 'history' ? 'b6B' : 'b4B'}>원</Typography>
         </Typography>
       </HStack>
     </VStack>
@@ -249,7 +247,7 @@ export function ProductIdentity({
           )}
           <HStack gap="2" color="black.60" flexWrap="wrap">
             {gender && (
-              <Typography variant="body4" weight="regular" tone="inherit">
+              <Typography variant="b6" tone="inherit">
                 {gender}
               </Typography>
             )}
@@ -258,7 +256,7 @@ export function ProductIdentity({
                 {gender && (
                   <Divider orientation="vertical" length="3" className={css({ bg: 'black.60' })} />
                 )}
-                <Typography variant="body4" weight="regular" tone="inherit">
+                <Typography variant="b6" tone="inherit">
                   {activities.join(', ')}
                 </Typography>
               </>
@@ -272,10 +270,9 @@ export function ProductIdentity({
           title={name}
           titleProps={{
             className: css({ m: '0' }),
-            variant: 'headingKr6',
-            mo: 'heading4',
+            web: 'h4B',
+            mo: 'h5B',
             language: platform === 'web' ? 'ko' : 'en',
-            weight: 'black',
           }}
         />
         <ProductPrice
@@ -321,10 +318,10 @@ export function ProductIdentity({
       )}
       {orderDate && (
         <HStack gap="0.5">
-          <Typography variant="body4" language="en">
+          <Typography variant="b6" language="en">
             {orderDate}
           </Typography>
-          <Typography variant="body4">구매</Typography>
+          <Typography variant="b6">구매</Typography>
         </HStack>
       )}
       <VStack
@@ -344,17 +341,17 @@ export function ProductIdentity({
           {identity}
         </VStack>
         {optionText && (
-          <Typography variant="body4" tone="subtle">
+          <Typography variant="b6" tone="subtle">
             {optionText}
           </Typography>
         )}
         {priceContent}
         {applicationDate && (
           <HStack gap="1" color="black.50">
-            <Typography variant="body4" tone="inherit">
+            <Typography variant="b6" tone="inherit">
               신청일 :
             </Typography>
-            <Typography variant="body4" language="en" tone="inherit">
+            <Typography variant="b6" language="en" tone="inherit">
               {applicationDate}
             </Typography>
           </HStack>
@@ -372,8 +369,8 @@ type ProductActivityProps = {
 function ProductActivity({ activities, variant }: ProductActivityProps) {
   return (
     <Typography
-      variant={variant === 'listing' ? 'body4' : 'body5'}
-      mo="body5"
+      variant={variant === 'listing' ? 'b6' : 'b8'}
+      mo="b8"
       className={
         variant === 'listing'
           ? css({
@@ -419,7 +416,7 @@ function ProductVariantSummary({
   }[display];
   if (platform === 'web' && !history) {
     return (
-      <Typography variant="body4" tone="subtle">
+      <Typography variant="b6" tone="subtle">
         {summaryText}
       </Typography>
     );
@@ -619,7 +616,7 @@ type ProductSpecProps = {
 /** 상품의 쿠셔닝·안정성·발볼 정보를 요약합니다. (Summarizes a product's cushioning, stability, and width.) */
 function ProductSpec({ cushioning, stability, width }: ProductSpecProps) {
   return (
-    <Typography tone="subtle" variant="body5">
+    <Typography tone="subtle" variant="b8">
       {cushioning} · {stability} · {width}
     </Typography>
   );
@@ -693,7 +690,7 @@ function ProductCardHeader({
             bg="black.100/50"
             pointerEvents="none"
           >
-            <Typography as="span" variant="heading6" tone="inverse">
+            <Typography as="span" web="h4B" mo="h8" tone="inverse">
               Sold Out
             </Typography>
           </Grid>
@@ -705,7 +702,7 @@ function ProductCardHeader({
 
 const mobileTilePrice = css.raw({
   '& [data-product-price] span, & [data-product-price] del': {
-    fontSize: '13',
+    fontSize: 'body.13',
     lineHeight: 'body',
   },
   '& [data-product-price] span > span': { fontWeight: 'normal' },
@@ -961,7 +958,7 @@ export function ProductCard({
             iconSize={16}
             onClick={onAddToCart}
           >
-            <Typography data-product-cart-label web="bodyKr4" mo="bodyKr5" tone="primary">
+            <Typography data-product-cart-label web="b6" mo="b8" tone="primary">
               장바구니 담기
             </Typography>
           </Button>

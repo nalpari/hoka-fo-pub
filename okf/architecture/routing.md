@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-24T08:01:17Z'
+updated: '2026-11-25T04:40:52Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -1785,6 +1785,29 @@ IA STATE의 WBS·개발자·진척율이 상위 화면에 표시된 경우 STATE
 
 2026-11-06 main 변경 보고는 origin/main의 고정 비교 범위와 Schedule 실적을 사용한다. 실적 0% 화면 전용 변경을 제외하고 공용 파일은 보고 대상 IA 번호를 명시해 담당자를 좁힐 수 있다. 출처: screenChangeHistory.ts 및 11월 6일 보고 데이터.
 
+## 마이페이지 이전 주문 없음 주소 IA 연결 (2026-11-25)
+
+마이페이지 IA 177에 이전 주문 없음 주소 `/mypage/preview-no-orders`와 해당 진입 파일을 등록했다. 상태 이름에 이동 대상을 표시하며 링크를 열면 기존 라우트의 리디렉션으로 `/mypage` 기본 화면이 열린다. 실제 주문내역 빈 목록은 IA 178의 `/mypage/orders/preview-empty`에서 확인한다. 출처는 `src/app/screen-index/screenConnections.ts` 변경과 기존 `src/app/mypage/preview-no-orders/page.tsx`의 리디렉션이다.
+
+소스 그래프를 재생성하고 개발 서버 응답의 `/mypage` 리디렉션을 확인했다. ESLint·Prettier·TypeScript 검사에 통과했다. IA 링크·진척도·그래프 테스트는 26개 중 25개가 통과했다. 이전 주문 없음 주소를 검사하는 단계는 통과했고, 같은 전수 검사의 첫 실패가 `/support/inquiries/new/preview-attachment-picker` 진입 파일의 IA 연결 누락으로 이동했다.
+
+## 러닝세션 신청 팝업 IA 연결 (2026-11-25)
+
+러닝세션 상세 IA 259의 상태별 바로가기에서 기존 고정 URL로 PC·모바일 팝업을 확인할 수 있다. 신청 확인은 공통 `selection`을, 완료와 제한 안내는 공통 `alert`를 사용한다. 두 유형의 공통 Bold 제목과 버튼 글꼴로 Figma의 굵기 모드를 반영한다.
+
+| 상태 | 기존 확인 URL |
+| --- | --- |
+| 러닝세션 신청 확인 팝업 | `/running/running-session/preview-application` |
+| 러닝세션 신청 완료 팝업 | `/running/running-session/preview-application-complete` |
+| 미성년자 신청 제한 팝업 | `/running/running-session/preview-application-underage` |
+| 모집 마감 안내 팝업 | `/running/running-session/preview-application-closed` |
+
+소스는 `src/app/screen-index/screenConnections.ts`와 기존 고정 상태 페이지 및 공통 상세 컴포넌트다. [디자인과 표시 데이터 계약](running-session-design.md#신청-팝업-4종-figma-적용-2026-11-25)을 참고한다.
+
+## 상품 상세 사이즈 가이드 치수표 연결 (2026-11-25)
+
+상품 상세 팝업과 고객센터 사이즈 가이드는 동일한 의류 치수 데이터를 읽는다. 기존 경로와 IA에서 [치수표와 팝업 안내 문구 갱신](size-guide.md#상품-상세-사이즈-가이드-내용-동기화-2026-11-25)을 확인할 수 있다.
+
 ## 상품 상세 신발 사이즈 가이드 팝업 (2026-11-09)
 
 신발 사이즈 가이드 버튼은 문구 왼쪽에 자 아이콘을 표시한다.
@@ -2052,6 +2075,22 @@ ProfileContent의 비밀번호 설정 모달에서 안내문 padding-top8px를 �
 1764px·375px 두 화면에서 숫자 입력의 점 구분 표시, 달력 입력 존재, 입력 크기와 문서 가로 넘침 없음을 확인했다.
 
 날짜 입력의 내부 여백은 좌측 12px·우측 36px, 달력은 우측 12px로 보정했다. 기존 72px 글자 공간보다 넓은 HOKA 날짜 문자열이 잘리던 문제를 80px 글자 공간으로 해소한다.
+
+## 주문서 쿠폰 조회와 배송 요청 기본값 (2026-11-25)
+
+주문서의 PC·모바일 쿠폰 할인 버튼은 ‘쿠폰 조회하기’로 표시하며 `/checkout/preview-coupons`에서 팝업을 바로 열 수 있다. 배송비 행 자리에는 임직원 할인한도·사용액·잔여한도 표시 데이터를 배치한다. 배송 요청 드롭다운은 `none`(선택 안함)으로 시작하며 `/checkout/preview-delivery-request`는 `custom`으로 직접입력란을 연다. 출처는 사용자 브라우저 코멘트와 `src/app/checkout/_components/CheckoutDiscountSummary.tsx`, `CheckoutShipping.tsx`, `src/app/checkout/checkout-summary.ts` 작업 트리다. PC 1920px·모바일 375px에서 주문서 기본값, 할인한도 문구와 직접입력 상태를 확인했다.
+
+## 주문서 임직원 할인한도 표시 (2026-11-25)
+
+주문서와 쿠폰 미리보기는 같은 임직원 할인한도 영역을 사용한다. 레이블은 Pretendard Medium 500으로 PC 14px, 모바일 13px이다. 왼쪽 정렬한 안내문과의 간격은 공통 16px이다. 공통 안내문의 할인한도·사용액·잔여한도 숫자에는 The Future HOKA 12px/700, 원 단위에는 Pretendard 12px/700, 본문에는 Pretendard 12px/400을 적용한다. 할인한도 금액 묶음은 좌우 2px, 사용액과 잔여한도 금액 묶음은 왼쪽 2px 여백을 둔다. 남은 행 폭에서 시안의 텍스트 조각과 금액 묶음 단위로 줄바꿈하며, 확인한 PC 주문서 폭에서 ‘사용 하셨습니다.’가 둘째 줄에서 시작한다. PC의 쿠폰 조회 버튼과 임직원 행 사이 간격은 24px이다. 모바일 임직원 행의 상단 안쪽 여백은 8px이다.
+
+금액은 `src/app/checkout/checkout-summary.ts`의 고정 표시값이며 표현은 `src/app/checkout/_components/CheckoutDiscountSummary.tsx`가 담당한다. [HOKA Design](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design).
+
+브라우저에서 PC 1420px·모바일 375px는 본문 두 줄, 320px 쿠폰 미리보기에서 팝업을 닫은 뒤 본문 네 줄로 표시되는 것을 확인했다. 세 폭 모두 임직원 영역의 가로 넘침은 없었다. 320px의 페이지 가로 넘침 3px는 임직원 영역을 숨긴 상태에서도 푸터 사업자정보확인 링크에서 발생했다.
+
+## 보유 쿠폰 조회 드롭다운 (2026-11-25)
+
+주문서의 ‘쿠폰 조회하기’ 버튼과 `/checkout/preview-coupons`는 같은 팝업을 사용한다. 상품별 선택은 로컬 초안이며, PC에서는 팝업 위에 선택 목록이 열리고 모바일에서는 ‘상품 쿠폰’ 바텀시트가 열린다. 작업 트리 출처는 `src/app/checkout/_components/CheckoutCouponDialog.tsx`와 `src/app/checkout/checkout-coupons.ts`다. [드롭다운 표시와 검증](ui.md#보유-쿠폰-조회-드롭다운-2026-11-25).
 
 ## 쿠폰 조회와 취소 반품 유형 연결 (2026-11-17)
 
@@ -2608,3 +2647,19 @@ productDetailPreviews의 `상품 문의하기 팝업` 항목을 기존 상품 �
 출처는 사용자 지정 문구, [이랜드 화면설계서](https://www.figma.com/design/4cJ1LkWUgme3lklyQ9U8qr/)와 `orderPreviews.ts`, `[preview]/page.tsx`, `OrdersPage.tsx`, `screenConnections.ts`의 작업 트리다. 기록: codex/gpt-6, 2026-11-24 KST.
 
 검증: PC 1440px과 모바일 375px에서 세 팝업의 직접 진입·새로고침·문구·닫기를 확인했다. 모달 너비는 PC 640px, 모바일 343px이었다. IA에서 상태명·URL로 검색할 수 있고, 각 보기 링크를 눌러 해당 팝업이 열리는 것을 확인했다. 기본 주문 조회와 기존 주문 삭제 확인도 점검했다. 타입 검사와 소스 그래프 생성은 통과했고, 관련 테스트 16개 중 15개가 통과했다. 기존 `/mypage/preview-no-orders` 리디렉션에 IA 바로가기가 없다는 검사가 실패했다.
+
+## 카카오톡 알림톡 수신 항목 표시 (2026-11-25)
+
+`/signup/information?step=additional`, `/signup/information/preview-marketing-consent`, `/mypage/profile`, `/mypage/profile/preview-edit`, `/publishing-guide`의 라우트와 고정 상태 연결에는 변경이 없다. 기존 화면의 마케팅 수신 항목만 변경했다. [화면 변경과 작업 트리 출처](ui.md#카카오톡-알림톡-수신-항목-1차-비노출-2026-11-25).
+
+## 신규 타이포그래피 퍼블리싱 가이드 (2026-11-25)
+
+`/publishing-guide`의 타이포그래피 탭에 Display·Heading·Body 규격표를 연결한다. Display와 Heading은 각각 Wide·Compact 서브 탭을 제공하고 초기값은 Wide다. Body는 공통 표 하나를 표시한다. 같은 크기의 굵기는 예시 열로 나란히 배치하고 예시 문구에서 해당 경로의 코드를 복사한다. 표의 예시는 명시적인 플랫폼 컨텍스트로 렌더링하며, 한글·영문은 각각 본문 글리프와 폰트 패밀리를 지정한다. [폰트 체계와 이관 기준](ui.md#displayheadingbody-타이포그래피-이관-2026-11-25).
+
+## 메인 홍보 팝업과 IA 연결 (2026-11-25)
+
+`/preview-promotion`은 메인과 같은 HomeContent에서 홍보 레이어 팝업을 처음부터 연다. 새로고침하면 첫 슬라이드에서 다시 시작한다. IA 2번 `Main > Pop-up`의 STATE에 ‘홍보 레이어 팝업’과 직접 URL을 등록했다. IA 1번은 기본 메인 `/`에 연결되며, 운영 노출 데이터가 전달되기 전에는 기본 메인에 팝업을 표시하지 않는다.
+
+출처는 `src/app/preview-promotion/page.tsx`, `src/app/_components/HomeContent.tsx`, `src/app/screen-index/screenConnections.ts`의 작업 트리다. 디자인과 표시 데이터 계약은 [메인 홍보 팝업](home-product-design.md#메인-홍보-팝업-2026-11-25)을 참고한다. 기록: codex/gpt-6, 2026-11-25 KST.
+
+검증에서 기본 메인 진입, IA 상태명·URL 검색, IA 1번의 기존 메인 링크와 IA 2번 보기 링크의 팝업 열기를 확인했다. 소스 그래프 생성과 관련 테스트, 변경 TSX의 ESLint·Prettier, Next.js 빌드를 통과했다. 전체 lint는 기존 `tests/wh-file-summary.test.mjs`의 전역 이름 `no-undef` 오류 8건을 보고했다.

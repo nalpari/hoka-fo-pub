@@ -4,13 +4,15 @@ title: '메인과 상품 상세 Figma 적용'
 description: '메인과 상품 상세의 PC·모바일 디자인 수치, 기존 데이터 경계와 실제 검증을 기록한다.'
 tags: [figma, home, product, responsive, panda-css]
 status: draft
-updated: '2026-11-20T06:06:08Z'
+updated: '2026-11-25T17:44:20+09:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T05:18:16Z'
 source_revision: cc691836be2cb041fd7a20787336c765463ba97e
 working_tree_sources:
   - src/app/_components/HomeContent.tsx
+  - src/app/_components/HomePromotionDialog.tsx
+  - public/images/temp/home-promotion.webp
   - src/app/homeContent.ts
   - src/app/products/[id]/_components/ProductDetailContent.tsx
   - src/components/common/layouts/MainSection.tsx
@@ -28,6 +30,16 @@ sources:
 ---
 
 # 메인과 상품 상세 Figma 적용
+
+## 메인 홍보 팝업 (2026-11-25)
+
+[HOKA 디자인]의 메인팝업 PC·모바일 프레임을 확인했다. PC 배너는 400×534px, 모바일은 375px 화면에서 좌우 여백 16px과 343×457px이다. 팝업 모서리는 10px, 하단 버튼 영역은 PC 53px·모바일 52px이다. 숫자 표시는 Pretendard Regular 15px, 하단 문구는 Medium 15px이다. 내보낸 시안에서 백색 배경이 #999999로 표시되어 검정 40% 오버레이를 적용했다. PC에는 28px 이전·다음 버튼이 있고, 모바일은 스와이프하며 키보드로 탐색할 때 버튼이 표시된다. 좁거나 낮은 화면에서는 배너 비율을 유지하며 팝업이 가용 영역에 맞게 줄어든다.
+
+IA 미리보기의 첫 장은 시안의 이미지 fill이다. 두 장은 전환 확인을 위해 기존 메인 배너를 사용한다. 현재 위치와 총 개수는 시안 예시 숫자 대신 전달된 배너 수를 따른다. 통합 소유자는 `RouteContent`의 `promotion`에 현재 `open`, 배너 `id`·`image`·`alt` 목록 및 닫기 사유 콜백을 연결한다. ‘오늘 하루 보지않기’의 저장과 운영 노출 조건은 통합 소유자가 담당한다. 미리보기에서는 두 버튼 모두 현재 화면에서 팝업을 닫는다.
+
+검증에서 PC 1920×1008과 모바일 375×771의 배너와 하단 영역을 실측했다. PC에서 이전 버튼으로 마지막 장까지 순환, 다음 버튼, 방향키, Escape를 확인했다. 모바일에서는 스와이프와 두 닫기 버튼, 새로고침으로 첫 장 복귀를 확인했다. 닫은 뒤 포커스는 메인 영역으로 돌아간다. 667×375에서도 하단 버튼까지 화면에 들어왔으며, 브라우저에서 한글 하단 문구에 실제 Pretendard Medium이 사용되는 것을 확인했다.
+
+[HOKA 디자인]: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design
 
 ## 메인
 

@@ -58,8 +58,8 @@ function IdentityVerificationContent({ onSelect }: IdentityVerificationContentPr
         header={
           <ContentHeader
             titleAs="h1"
-            titleProps={{ web: 'heading7', mo: 'heading5', id: 'verification-title' }}
-            descriptionProps={{ variant: 'body3', tone: 'subtle' }}
+            titleProps={{ web: 'h8B', mo: 'h7B', id: 'verification-title' }}
+            descriptionProps={{ variant: 'b4', tone: 'subtle' }}
             title="본인인증"
             description="HOKA 온라인 회원가입 여부 확인을 위해 본인 인증이 필요합니다"
           />
@@ -77,7 +77,7 @@ function IdentityVerificationContent({ onSelect }: IdentityVerificationContentPr
         </Grid>
       </ContentSection>
       <Box mt="4">
-        <Typography as="p" variant="body4" tone="tertiary">
+        <Typography as="p" variant="b6" tone="tertiary">
           ※ 본인 인증 시 입력하신 정보는 본인 확인 용도 외에는 사용되지 않으며 별도 저장하지
           않습니다.
         </Typography>

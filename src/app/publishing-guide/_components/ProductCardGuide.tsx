@@ -222,7 +222,7 @@ const codeRow = css({
   p: '3',
   border: '1px solid token(colors.black.20)',
   bg: 'surface.subtle',
-  fontSize: '12',
+  fontSize: 'body.12',
   lineHeight: 'normal',
 });
 
@@ -267,8 +267,8 @@ function GuideExampleFrame({
   return (
     <Stack className={exampleCard} gap="4" _mobile={mobile ? undefined : { display: 'none' }}>
       <HStack justifyContent="space-between" alignItems="baseline" gap="2" flexWrap="wrap">
-        <Typography variant="body4Semibold">{mobile ? '모바일' : '데스크탑'}</Typography>
-        <Typography variant="body5" tone="subtle">
+        <Typography variant="b6S">{mobile ? '모바일' : '데스크탑'}</Typography>
+        <Typography variant="b8" tone="subtle">
           {width} 기준
         </Typography>
       </HStack>
@@ -365,7 +365,10 @@ const fullDetails = {
 const fullDetailsStyle = css({
   '& [data-product-promotion] > span': { fontWeight: 'normal' },
   '& [data-product-promotion] > [aria-hidden]': { w: '1.5px', h: '13px' },
-  '& [data-product-price] span, & [data-product-price] del': { fontSize: '13', lineHeight: 'body' },
+  '& [data-product-price] span, & [data-product-price] del': {
+    fontSize: 'body.13',
+    lineHeight: 'body',
+  },
 });
 
 const fullDetailsCode = `import { RatingStars } from '@/components/common/atoms/RatingStars';
@@ -385,7 +388,7 @@ const fullDetails = {
 const fullDetailsStyle = css({
   '& [data-product-promotion] > span': { fontWeight: 'normal' },
   '& [data-product-promotion] > [aria-hidden]': { w: '1.5px', h: '13px' },
-  '& [data-product-price] span, & [data-product-price] del': { fontSize: '13', lineHeight: 'body' },
+  '& [data-product-price] span, & [data-product-price] del': { fontSize: 'body.13', lineHeight: 'body' },
 });
 
 const [liked, setLiked] = useState(true);
@@ -404,7 +407,7 @@ const [liked, setLiked] = useState(true);
     discountLabel={fullDetails.discountLabel}
     applicationDate={fullDetails.applicationDate}
   />
-  <Typography variant="body5" className={css({ py: '0.5' })}>
+  <Typography variant="b8" className={css({ py: '0.5' })}>
     {fullDetails.activities.join(', ')}
   </Typography>
   <Box w="163px" maxW="full">
@@ -416,7 +419,7 @@ const [liked, setLiked] = useState(true);
         <RatingStars value={fullDetails.rating} size="16px" className={css({ '&&': { gap: '4px' } })} />
       </Box>
     )}
-    {fullDetails.review && <Typography variant="body5">{fullDetails.review}</Typography>}
+    {fullDetails.review && <Typography variant="b8">{fullDetails.review}</Typography>}
   </Stack>
   <HStack justifyContent="space-between" pb="2">
     <Button variant="link" size="sm">
@@ -438,7 +441,7 @@ const [liked, setLiked] = useState(true);
       </HStack>
     </Button>
   </Box>
-  <Typography variant="body4" tone="tertiary" className={css({ textAlign: 'right' })}>
+  <Typography variant="b6" tone="tertiary" className={css({ textAlign: 'right' })}>
     {fullDetails.status}
   </Typography>
 </Stack>`;
@@ -460,7 +463,7 @@ function FullDetailsPreview() {
         discountLabel={fullDetails.discountLabel}
         applicationDate={fullDetails.applicationDate}
       />
-      <Typography variant="body5" className={css({ py: '0.5' })}>
+      <Typography variant="b8" className={css({ py: '0.5' })}>
         {fullDetails.activities.join(', ')}
       </Typography>
       <Box w="163px" maxW="full">
@@ -476,7 +479,7 @@ function FullDetailsPreview() {
             />
           </Box>
         )}
-        {fullDetails.review && <Typography variant="body5">{fullDetails.review}</Typography>}
+        {fullDetails.review && <Typography variant="b8">{fullDetails.review}</Typography>}
       </Stack>
       <HStack justifyContent="space-between" pb="2">
         <Button variant="link" size="sm">
@@ -498,7 +501,7 @@ function FullDetailsPreview() {
           </HStack>
         </Button>
       </Box>
-      <Typography variant="body4" tone="tertiary" className={css({ textAlign: 'right' })}>
+      <Typography variant="b6" tone="tertiary" className={css({ textAlign: 'right' })}>
         {fullDetails.status}
       </Typography>
     </Stack>
@@ -598,14 +601,14 @@ export function ProductCardGuide() {
     >
       <Stack minW="0" gap="8">
         <Stack gap="3">
-          <Typography as="h2" variant="heading8">
+          <Typography as="h2" web="h10B" mo="h8">
             Product Tiles
           </Typography>
-          <Typography as="p" variant="body5" tone="subtle">
+          <Typography as="p" variant="b8" tone="subtle">
             Figma 기준의 상품 타일을 비교하고 사용 코드를 복사합니다. 데스크탑에서는 두 플랫폼을
             나란히, 모바일에서는 모바일 예시를 표시합니다.
           </Typography>
-          <Typography as="p" variant="body5" tone="subtle">
+          <Typography as="p" variant="b8" tone="subtle">
             색상 옵션 12개로 캐러셀을 확인합니다. 데스크탑 목록은 마우스 또는 Tab으로 열고 좌우
             버튼을, 모바일 목록은 가로 스크롤, history는 같은 좌우 NAV를 사용합니다. 색상을 선택하고
             Escape로 닫아 보세요. 하트는 예시 안에서만 변경됩니다.
@@ -622,11 +625,13 @@ export function ProductCardGuide() {
                 target="_blank"
                 rel="noreferrer"
               >
-                <Typography variant="textLink3">{label}</Typography>
+                <Typography variant="b8M" underline>
+                  {label}
+                </Typography>
               </a>
             ))}
           </HStack>
-          <Typography as="p" variant="body5" tone="subtle">
+          <Typography as="p" variant="b8" tone="subtle">
             상품명·이미지·색상·가격은 준비된 표시 예시입니다. 프로모션 배지는 확정된 빨강을
             사용합니다.
           </Typography>
@@ -637,10 +642,10 @@ export function ProductCardGuide() {
           gap="3"
           scrollMarginTop="calc(var(--layout-site-header-height) + token(spacing.6))"
         >
-          <Typography as="h3" variant="heading8">
+          <Typography as="h3" web="h10B" mo="h8">
             {fullDetailsExample.title}
           </Typography>
-          <Typography as="p" variant="body5" tone="subtle">
+          <Typography as="p" variant="b8" tone="subtle">
             원본 Mo-Product Details의 모든 표시 항목을 확인하는 고정 예시입니다. 서로 다른 화면의
             항목을 한 번에 켠 구성으로, 실제 주문 상태나 요청 결과를 의미하지 않습니다.
           </Typography>
@@ -650,14 +655,18 @@ export function ProductCardGuide() {
               target="_blank"
               rel="noreferrer"
             >
-              <Typography variant="textLink3">전체 데이터 시안</Typography>
+              <Typography variant="b8M" underline>
+                전체 데이터 시안
+              </Typography>
             </a>
             <a
               href="https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0?node-id=1710-4920"
               target="_blank"
               rel="noreferrer"
             >
-              <Typography variant="textLink3">원본 컴포넌트</Typography>
+              <Typography variant="b8M" underline>
+                원본 컴포넌트
+              </Typography>
             </a>
           </HStack>
           <Grid columns={{ base: 2, _mobile: 1 }} gap="3" alignItems="start">
@@ -671,7 +680,7 @@ export function ProductCardGuide() {
               <FullDetailsPreview />
             </GuideExampleFrame>
             <Stack gap="3" p="4" border="1px solid token(colors.black.20)">
-              <Typography variant="body4Semibold">표시 데이터와 항목</Typography>
+              <Typography variant="b6S">표시 데이터와 항목</Typography>
               {[
                 ['Badge', 'Best | Exclusive'],
                 ['Order Date', fullDetails.orderDate + ' 구매'],
@@ -687,15 +696,13 @@ export function ProductCardGuide() {
                 ['Status', fullDetails.status],
               ].map(([label, value]) => (
                 <Stack key={label} gap="0.5">
-                  <Typography variant="body5" weight="semibold">
-                    {label}
-                  </Typography>
-                  <Typography variant="body5" tone="subtle">
+                  <Typography variant="b8S">{label}</Typography>
+                  <Typography variant="b8" tone="subtle">
                     {value}
                   </Typography>
                 </Stack>
               ))}
-              <Typography variant="body5" tone="subtle">
+              <Typography variant="b8" tone="subtle">
                 하트만 로컬로 전환합니다. 옵션변경·장바구니 담기는 미연결 표시 버튼입니다. 데스크탑
                 시안이 없는 모바일 컴포넌트 예시입니다.
               </Typography>
@@ -703,10 +710,10 @@ export function ProductCardGuide() {
           </Grid>
         </Stack>
         <Stack gap="2">
-          <Typography as="h2" variant="heading8">
+          <Typography as="h2" web="h10B" mo="h8">
             Horizontal
           </Typography>
-          <Typography as="p" variant="body5" tone="subtle">
+          <Typography as="p" variant="b8" tone="subtle">
             이미지 아래에 상품 정보를 표시하는 목록·메인·관심상품 타일입니다.
           </Typography>
         </Stack>
@@ -719,10 +726,10 @@ export function ProductCardGuide() {
             gap="3"
             scrollMarginTop="calc(var(--layout-site-header-height) + token(spacing.6))"
           >
-            <Typography as="h3" id={`${example.id}-title`} variant="heading8">
+            <Typography as="h3" id={`${example.id}-title`} web="h10B" mo="h8">
               {example.title}
             </Typography>
-            <Typography as="p" variant="body5" tone="subtle">
+            <Typography as="p" variant="b8" tone="subtle">
               {example.description}
             </Typography>
             <Grid columns={{ base: 2, _mobile: 1 }} gap="3" alignItems="stretch">
@@ -737,10 +744,10 @@ export function ProductCardGuide() {
           gap="3"
           scrollMarginTop="calc(var(--layout-site-header-height) + token(spacing.6))"
         >
-          <Typography as="h3" variant="heading8">
+          <Typography as="h3" web="h10B" mo="h8">
             {detailExample.title}
           </Typography>
-          <Typography as="p" variant="body5" tone="subtle">
+          <Typography as="p" variant="b8" tone="subtle">
             상품 상세에서 사용하는 공통 정보 영역입니다. 이미지·옵션 선택·공유·관심상품 액션은 상세
             화면이 소유합니다.
           </Typography>
@@ -770,14 +777,14 @@ export function ProductCardGuide() {
           </Grid>
         </Stack>
         <Stack gap="2">
-          <Typography as="h2" variant="heading8">
+          <Typography as="h2" web="h10B" mo="h8">
             Vertical
           </Typography>
-          <Typography as="p" variant="body5" tone="subtle">
+          <Typography as="p" variant="b8" tone="subtle">
             Figma의 Vertical 분류처럼 이미지 옆에 상품 정보를 표시합니다. 장바구니·주문/배송 화면의
             실제 요약 컴포넌트를 재사용합니다.
           </Typography>
-          <Typography as="p" variant="body5" tone="subtle">
+          <Typography as="p" variant="b8" tone="subtle">
             선택·삭제·수량·옵션변경·배송조회 액션은 각 화면에서 별도로 조합합니다.
           </Typography>
         </Stack>
@@ -790,10 +797,10 @@ export function ProductCardGuide() {
             gap="3"
             scrollMarginTop="calc(var(--layout-site-header-height) + token(spacing.6))"
           >
-            <Typography as="h3" id={`${example.id}-title`} variant="heading8">
+            <Typography as="h3" id={`${example.id}-title`} web="h10B" mo="h8">
               {example.title}
             </Typography>
-            <Typography as="p" variant="body5" tone="subtle">
+            <Typography as="p" variant="b8" tone="subtle">
               {example.description}
             </Typography>
             <Grid columns={{ base: 2, _mobile: 1 }} gap="3" alignItems="stretch">
@@ -809,10 +816,10 @@ export function ProductCardGuide() {
           gap="3"
           scrollMarginTop="calc(var(--layout-site-header-height) + token(spacing.6))"
         >
-          <Typography as="h3" id={`${myPageReviewExample.id}-title`} variant="heading8">
+          <Typography as="h3" id={`${myPageReviewExample.id}-title`} web="h10B" mo="h8">
             {myPageReviewExample.title}
           </Typography>
-          <Typography as="p" variant="body5" tone="subtle">
+          <Typography as="p" variant="b8" tone="subtle">
             {myPageReviewExample.description}
           </Typography>
           <Box>

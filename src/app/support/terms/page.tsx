@@ -42,7 +42,7 @@ export default function Page() {
     <CustomerCenterLayout
       className={css({ '&&': { _mobile: { pb: '16' } } })}
       title="약관"
-      mobileTitleVariant="heading5"
+      mobileTitleVariant="h7B"
       activePath="/support/terms"
       breadcrumbItems={[
         { label: 'Home', href: '/' },

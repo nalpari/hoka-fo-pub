@@ -4,7 +4,7 @@ title: '사이즈 가이드'
 description: '품목별 측정 안내, 선택 상태와 미확정 데이터의 표시 범위를 설명한다.'
 tags: [support, size-guide, storybook]
 status: draft
-updated: '2026-11-09T23:53:01Z'
+updated: '2026-11-25T01:20:48.907Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T04:46:17Z'
@@ -49,12 +49,23 @@ sources:
   - id: size-guide-spec-20261102
     resource: https://www.figma.com/design/4cJ1LkWUgme3lklyQ9U8qr/-
     title: '고객센터 PC 화면설계서의 사이즈 가이드 2913 노드'
+  - id: pdp-size-guide-content-20261125
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design
+    title: 상품 상세 사이즈 가이드 PC 모달과 모바일 바텀시트
   - id: size-guide-route
     resource: https://github.com/nalpari/hoka-fo-pub/blob/b3f7243062b500eb4909961667ad142cc368ff91/src/app/support/size-guide/page.tsx
     title: '기존 사이즈 가이드 라우트'
 ---
 
 # 사이즈 가이드
+
+## 상품 상세 사이즈 가이드 내용 동기화 (2026-11-25)
+
+남녀 공용 의류 US L / 한국 XL의 허리둘레를 Figma PC 모달과 모바일 바텀시트의 88–95cm에 맞췄다. 여성 cm 치수의 범위 구분을 하이픈으로 통일하고 의류 inch 치수의 정수 끝자리 .0을 시안에 맞춰 정리했다. 의류 표는 상품 상세와 고객센터가 공유한다. 상품 상세 Fit Guide의 스탠다드핏 설명에 ‘클래식’과 ‘레귤러’의 따옴표를 반영했다.
+
+Figma의 PC·모바일 프레임 15개에서 확인 가능한 신발·의류 표의 전체 셀을 수정 후 소스와 대조했다. PC 1440px와 모바일 375px에서 여성 의류 팝업의 cm/inch 전환, 치수 표기, Fit Guide 문구와 닫기를 확인했다. 고객센터의 공용 의류 표에서 US L / 한국 XL의 허리둘레 88–95cm도 확인했다. 변경 파일 ESLint·Prettier, TypeScript와 OKF 작업 트리 검사를 통과했다. [Figma 디자인][^pdp-size-guide-content-20261125].
+
+[^pdp-size-guide-content-20261125]: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design
 
 ## 상품 상세 사이즈 가이드 팝업 유지 (2026-11-10)
 

@@ -21,12 +21,12 @@ const hero = css({
 });
 
 const pageTitle = css({
-  fontFamily: 'var(--font-hoka)',
-  fontSize: '32px',
+  fontFamily: 'en',
+  fontSize: 'heading.32',
   fontWeight: '900',
   letterSpacing: '0',
-  lineHeight: '1.3',
-  _mobile: { fontSize: '24px', lineHeight: '1.2' },
+  lineHeight: 'hoka',
+  _mobile: { fontSize: 'heading.24', lineHeight: 'hoka' },
 });
 
 const tab = css({
@@ -38,19 +38,19 @@ const tab = css({
   cursor: 'pointer',
   px: '16px',
   py: '12px',
-  fontFamily: 'var(--font-pretendard)',
-  fontSize: '16px',
+  fontFamily: 'ko',
+  fontSize: 'body.16',
   fontWeight: '500',
-  lineHeight: '1.3',
-  letterSpacing: '-0.02em',
+  lineHeight: 'body',
+  letterSpacing: 'korean',
   _focusVisible: { outline: '2px solid currentColor', outlineOffset: '3px' },
-  _mobile: { px: '14px', py: '6px', fontSize: '12px', lineHeight: '18px' },
+  _mobile: { px: '14px', py: '6px', fontSize: 'body.12', lineHeight: 'body' },
 });
 
 const activeTab = css({ bg: '#000', color: '#fff', fontWeight: '600' });
 
 const categoryHeading = css({
-  _mobile: { px: '16px', '&&': { fontSize: '20px' }, lineHeight: '30px' },
+  _mobile: { px: '16px', '&&': { fontSize: 'heading.20' }, lineHeight: 'koreanHeading' },
 });
 
 /** 기획전의 앵커 카테고리와 고정 상품 목록을 표시합니다. (Displays anchored categories and fixed product listings for a special exhibition.) */
@@ -82,7 +82,7 @@ export function SpecialExhibitionContent() {
   return (
     <main>
       <section aria-label="기획전 대표 이미지" className={hero}>
-        <Typography as="p" variant="headingKr8" weight="bold">
+        <Typography as="p" web="h10" mo="h8">
           기획전 이미지 영역
         </Typography>
       </section>
@@ -156,7 +156,7 @@ export function SpecialExhibitionContent() {
               className={css({ scrollMarginTop: '160px' })}
             >
               <Stack gap="24px" _mobile={{ gap: '14px' }}>
-                <Typography as="h2" className={categoryHeading} variant="headingKr8" weight="black">
+                <Typography as="h2" className={categoryHeading} web="h10B" mo="h8B">
                   {category.title}
                 </Typography>
                 <Grid

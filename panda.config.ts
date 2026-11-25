@@ -1,9 +1,12 @@
 import { defineConfig } from '@pandacss/dev';
 
+import { typographyTextStyles, typographyTokens } from './src/styles/typography';
+
 export default defineConfig({
   // The existing global stylesheet already owns the project reset.
   preflight: false,
   include: ['./src/**/*.{ts,tsx,js,jsx}'],
+  staticCss: { css: [{ properties: { textStyle: Object.keys(typographyTextStyles) } }] },
   patterns: {
     extend: {
       contentFrame: {
@@ -35,6 +38,7 @@ export default defineConfig({
   },
   theme: {
     extend: {
+      textStyles: typographyTextStyles,
       semanticTokens: {
         colors: {
           text: {
@@ -129,42 +133,16 @@ export default defineConfig({
           },
         },
         fonts: {
-          hoka: { value: "var(--font-hoka, 'The Future HOKA'), Pretendard, Arial, sans-serif" },
-          korean: { value: 'Pretendard, Arial, sans-serif' },
+          ...typographyTokens.fonts,
           mono: { value: "'The Future HOKA Mono', monospace" },
           story: { value: "'New Spirit', 'The Future HOKA', sans-serif" },
         },
-        fontSizes: {
-          10: { value: '0.625rem' },
-          12: { value: '0.75rem' },
-          13: { value: '0.8125rem' },
-          14: { value: '0.875rem' },
-          15: { value: '0.9375rem' },
-          16: { value: '1rem' },
-          18: { value: '1.125rem' },
-          20: { value: '1.25rem' },
-          22: { value: '1.375rem' },
-          24: { value: '1.5rem' },
-          28: { value: '1.75rem' },
-          30: { value: '1.875rem' },
-          32: { value: '2rem' },
-          36: { value: '2.25rem' },
-          40: { value: '2.5rem' },
-          42: { value: '2.625rem' },
-          48: { value: '3rem' },
-          50: { value: '3.125rem' },
-          56: { value: '3.5rem' },
-          58: { value: '3.625rem' },
-          64: { value: '4rem' },
-          72: { value: '4.5rem' },
-          80: { value: '5rem' },
-          84: { value: '5.25rem' },
-          96: { value: '6rem' },
-        },
+        fontSizes: typographyTokens.fontSizes,
+        fontWeights: typographyTokens.fontWeights,
         lineHeights: {
           hoka: { value: '1' },
           koreanHeading: { value: '1.2' },
-          body: { value: '1.3' },
+          body: { value: '1.5' },
         },
         letterSpacings: {
           korean: { value: '-0.02em' },

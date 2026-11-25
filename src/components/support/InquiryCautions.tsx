@@ -43,7 +43,7 @@ export function InquiryCautions({ productInquiry = false }: { productInquiry?: b
           {
             value: 'cautions',
             title: (
-              <Typography variant="body4" tone="primary" weight="medium">
+              <Typography variant="b6M" tone="primary">
                 유의사항
               </Typography>
             ),
@@ -51,10 +51,10 @@ export function InquiryCautions({ productInquiry = false }: { productInquiry?: b
               <Stack as="ul" gap="0" listStyleType="none">
                 {items.map((item) => (
                   <HStack as="li" key={item} alignItems="flex-start" gap="1">
-                    <Typography as="span" variant="body5" tone="tertiary" aria-hidden="true">
+                    <Typography as="span" variant="b8" tone="tertiary" aria-hidden="true">
                       -
                     </Typography>
-                    <Typography variant="body5" tone="tertiary">
+                    <Typography variant="b8" tone="tertiary">
                       {item}
                     </Typography>
                   </HStack>

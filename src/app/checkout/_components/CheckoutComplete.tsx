@@ -29,10 +29,10 @@ export function CheckoutComplete() {
         textAlign="center"
       >
         <Stack alignItems="center" gap="4">
-          <Typography as="p" web="heading7" mo="heading5">
+          <Typography as="p" web="h8B" mo="h7B">
             구매해 주셔서 감사합니다.
           </Typography>
-          <Typography as="p" web="body3" mo="body4">
+          <Typography as="p" web="b4" mo="b6">
             주문이 정상적으로 접수되었습니다.
             <br />
             앞으로도 만족스러운 서비스로 보답하겠습니다.

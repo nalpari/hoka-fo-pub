@@ -63,10 +63,10 @@ export function FindAccountContent({
         title="아이디 / 비밀번호 찾기"
         headerProps={{
           titleAs: 'h1',
-          titleProps: { web: 'heading7', mo: 'heading5', id: 'find-account-title' },
+          titleProps: { web: 'h8B', mo: 'h7B', id: 'find-account-title' },
           description:
             '회원 가입 시 사용하신 휴대폰 번호를 통해 아이디 / 비밀번호를 찾으실 수 있습니다.',
-          descriptionProps: { variant: 'body3', tone: 'tertiary' },
+          descriptionProps: { variant: 'b4', tone: 'tertiary' },
           gap: { base: '10px', _mobile: '3' },
         }}
       >
@@ -130,7 +130,7 @@ export function FindAccountContent({
                   />
                   <Stack gap="2">
                     <VerificationCountdown secondsLeft={secondsLeft} />
-                    <Typography as="p" variant="body5" tone="tertiary">
+                    <Typography as="p" variant="b8" tone="tertiary">
                       입력하신 휴대폰으로 전송된 인증번호를 입력해주세요.
                       <br />
                       인증번호가 도착하지 않은 경우 3분 뒤 재요청을 눌러주세요

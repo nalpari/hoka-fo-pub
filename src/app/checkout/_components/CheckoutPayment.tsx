@@ -42,7 +42,7 @@ function CheckoutPaymentMethodNotice({ label }: { label: string | undefined }) {
   return (
     <Stack gap="1" pt="2">
       {[1, 2, 3].map((index) => (
-        <Typography key={index} variant="body5" tone="subtle">
+        <Typography key={index} variant="b8" tone="subtle">
           - {label} 안내사항 {index}
         </Typography>
       ))}
@@ -109,9 +109,7 @@ function CheckoutPaymentMethods({
             pl={{ base: '16px', _mobile: '0' }}
           >
             <CheckoutPaymentMark method={method.value} />
-            <Typography variant="body4" weight="medium">
-              {method.label}
-            </Typography>
+            <Typography variant="b6M">{method.label}</Typography>
           </Stack>
         ),
       }))}
@@ -134,7 +132,7 @@ export function CheckoutPayment({
       title="결제 정보"
       headerProps={{
         titleAs: 'h2',
-        titleProps: { web: 'heading7', mo: 'heading6' },
+        titleProps: { web: 'h8B', mo: 'h8' },
         className: css({ pb: { base: '8px', _mobile: '0' } }),
       }}
     >

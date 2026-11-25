@@ -116,7 +116,7 @@ function FormFieldRoot({
       <BaseField.Label
         htmlFor={htmlFor}
         render={(props) => (
-          <Typography {...props} as="label" variant={boxed ? 'body5' : 'body4'}>
+          <Typography {...props} as="label" variant={boxed ? 'b8' : 'b6'}>
             {props.children}
           </Typography>
         )}
@@ -177,7 +177,7 @@ export function FormFieldControl({ className, ...props }: FormFieldControlProps)
 }
 
 /** 입력 필드에 연결된 안내를 지정한 글자 스타일로 표시합니다. (Displays an associated field hint using the specified typography.) */
-export function FormFieldHint({ className, variant = 'body5', ...props }: FormFieldHintProps) {
+export function FormFieldHint({ className, variant = 'b8', ...props }: FormFieldHintProps) {
   return (
     <BaseField.Description
       {...props}
@@ -197,7 +197,7 @@ export function FormFieldMessage({ className, ...props }: FormFieldMessageProps)
       match
       {...props}
       render={(renderProps) => (
-        <Typography {...renderProps} as="p" variant="body5" tone="error">
+        <Typography {...renderProps} as="p" variant="b8" tone="error">
           {renderProps.children}
         </Typography>
       )}

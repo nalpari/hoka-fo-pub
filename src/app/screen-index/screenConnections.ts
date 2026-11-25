@@ -147,6 +147,10 @@ const connections: Record<number, ScreenConnection> = {
     route: '/',
     sourceFiles: ['src/app/page.tsx'],
   },
+  '2': {
+    previewRoutes: [{ label: '홍보 레이어 팝업', href: '/preview-promotion' }],
+    sourceFiles: ['src/app/preview-promotion/page.tsx'],
+  },
   '155': {
     sourceFiles: ['src/app/running/running-session/page.tsx'],
   },
@@ -204,8 +208,15 @@ const connections: Record<number, ScreenConnection> = {
   '177': {
     route: '/mypage',
     defaultStateLabel: '회원 요약 및 메뉴',
-    previewRoutes: [{ label: '로그아웃 확인', href: '/mypage/preview-logout' }],
-    sourceFiles: ['src/app/mypage/page.tsx', 'src/app/mypage/preview-logout/page.tsx'],
+    previewRoutes: [
+      { label: '이전 주문 없음 주소 (마이페이지 이동)', href: '/mypage/preview-no-orders' },
+      { label: '로그아웃 확인', href: '/mypage/preview-logout' },
+    ],
+    sourceFiles: [
+      'src/app/mypage/page.tsx',
+      'src/app/mypage/preview-no-orders/page.tsx',
+      'src/app/mypage/preview-logout/page.tsx',
+    ],
   },
   '178': {
     route: '/mypage/orders',
@@ -694,13 +705,19 @@ const connections: Record<number, ScreenConnection> = {
       { label: '신청 가능', href: '/running/running-session/yeouido-night' },
       { label: '모집 마감', href: '/running/running-session/bukhansan-trail' },
       { label: '신청 예정', href: '/running/running-session/inwangsan-trail' },
-      { label: '신청 확인', href: '/running/running-session/preview-application' },
-      { label: '신청 완료 안내', href: '/running/running-session/preview-application-complete' },
+      { label: '러닝세션 신청 확인 팝업', href: '/running/running-session/preview-application' },
       {
-        label: '미성년자 신청 제한',
+        label: '러닝세션 신청 완료 팝업',
+        href: '/running/running-session/preview-application-complete',
+      },
+      {
+        label: '미성년자 신청 제한 팝업',
         href: '/running/running-session/preview-application-underage',
       },
-      { label: '모집 마감 신청 안내', href: '/running/running-session/preview-application-closed' },
+      {
+        label: '모집 마감 안내 팝업',
+        href: '/running/running-session/preview-application-closed',
+      },
       { label: '신청완료 상세', href: '/running/running-session/preview-application-registered' },
     ],
     sourceFiles: [

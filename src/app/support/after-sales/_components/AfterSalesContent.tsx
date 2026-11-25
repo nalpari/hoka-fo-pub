@@ -16,16 +16,16 @@ import { ContentSection } from '@/components/common/layouts/ContentSection';
 const styles = {
   listContent: css({ flex: '1', minW: '0' }),
   mobileLineBreak: css({ display: 'none', _mobile: { display: 'block' } }),
-  quickLinkButton: css({ '&& span': { fontWeight: '400', lineHeight: '1.3' } }),
+  quickLinkButton: css({ '&& span': { fontWeight: '400', lineHeight: 'body' } }),
   bulletItem: css({
     '&::before': {
       content: '"·"',
       flexShrink: '0',
       color: 'var(--color-text-subtle)',
-      fontFamily: 'korean',
-      fontSize: '16px',
-      lineHeight: '24px',
-      _mobile: { fontSize: '14px', lineHeight: '21px' },
+      fontFamily: 'ko',
+      fontSize: 'body.16',
+      lineHeight: 'body',
+      _mobile: { fontSize: 'body.14', lineHeight: 'body' },
     },
   }),
   phoneLink: css({ textDecoration: 'underline', textUnderlineOffset: '2px' }),
@@ -51,11 +51,11 @@ function ShippingReturnsNumberedList({
       {items.map((item, index) => (
         <HStack as="li" key={index} alignItems="flex-start" gap="2">
           <Box flexShrink="0">
-            <Typography web="body3" mo="body4">
+            <Typography web="b4" mo="b6">
               {index + 1}.
             </Typography>
           </Box>
-          <Typography as="div" web="body3" mo="body4" className={styles.listContent}>
+          <Typography as="div" web="b4" mo="b6" className={styles.listContent}>
             {item}
           </Typography>
         </HStack>
@@ -69,7 +69,7 @@ function ShippingReturnsBulletList({ items }: { items: readonly ReactNode[] }) {
     <Stack as="ul" gap="0" pl="0" m="0" listStyleType="none">
       {items.map((item, index) => (
         <HStack as="li" key={index} alignItems="flex-start" gap="1" className={styles.bulletItem}>
-          <Typography web="body3" mo="body4" tone="subtle">
+          <Typography web="b4" mo="b6" tone="subtle">
             {item}
           </Typography>
         </HStack>
@@ -90,7 +90,7 @@ function ShippingReturnsGuidePanel({
   return (
     <ContentSection
       title={title}
-      headerProps={{ titleAs: 'h3', titleProps: { web: 'heading9', mo: 'heading10' } }}
+      headerProps={{ titleAs: 'h3', titleProps: { web: 'h10', mo: 'h8' } }}
       gap={compact ? '3' : { base: '6', _mobile: '4' }}
       px="0"
       pt="0"
@@ -162,27 +162,27 @@ function ReturnContact() {
   const isMobile = usePlatform() === 'mobile';
   const address = (
     <Stack key="address" gap={{ base: '3', _mobile: '2' }}>
-      <Typography variant="body3">반품 접수처</Typography>
-      <Typography variant="body4">{returnContact.address}</Typography>
+      <Typography variant="b4">반품 접수처</Typography>
+      <Typography variant="b6">{returnContact.address}</Typography>
     </Stack>
   );
 
   const hours = (
     <Stack key="hours" gap={{ base: '3', _mobile: '2' }}>
-      <Typography variant="body3">운영시간</Typography>
+      <Typography variant="b4">운영시간</Typography>
       <Stack gap="2">
         <HStack gap="1" alignItems="baseline" flexWrap="wrap">
-          <Typography as="span" variant="body3">
+          <Typography as="span" variant="b4">
             평일
           </Typography>
-          <Typography as="span" variant="body3" language="en" weight="medium">
+          <Typography as="span" variant="b4M" language="en">
             09:00~18:00
           </Typography>
-          <Typography as="span" variant="body4">
+          <Typography as="span" variant="b6">
             (점심시간 12:00~13:00)
           </Typography>
         </HStack>
-        <Typography variant="body5" tone="subtle">
+        <Typography variant="b8" tone="subtle">
           * 토,일요일 및 공휴일 휴무
         </Typography>
       </Stack>
@@ -200,13 +200,13 @@ function ReturnContact() {
     >
       <ContentSection
         title="호카 반품처"
-        headerProps={{ titleAs: 'h3', titleProps: { web: 'heading9', mo: 'heading5' } }}
+        headerProps={{ titleAs: 'h3', titleProps: { web: 'h10', mo: 'h7B' } }}
         gap={{ base: '3', _mobile: '4' }}
         flex="1"
         minW="0"
       >
         <Stack gap="2">
-          <Typography web="body2" mo="body3" language="en" weight="medium">
+          <Typography web="b2M" mo="b4M" language="en">
             TEL.{' '}
             {isMobile ? (
               <a href={returnContact.phoneHref} className={styles.phoneLink}>
@@ -216,7 +216,7 @@ function ReturnContact() {
               returnContact.phone
             )}
           </Typography>
-          <Typography web="body4" mo="body5" tone="subtle">
+          <Typography web="b6" mo="b8" tone="subtle">
             * 아래 1:1 문의를 이용하시면 더 빠르게 답변 받으실 수 있습니다.
           </Typography>
         </Stack>
@@ -277,10 +277,10 @@ function ReturnQuickLinks() {
           headerProps={{
             gap: { base: '2', _mobile: item.href === '/mypage/orders' ? '2px' : '3' },
             titleAs: 'h3',
-            titleProps: { variant: 'body2', language: 'ko' },
+            titleProps: { variant: 'b2', language: 'ko' },
             description: item.description,
             descriptionProps: {
-              variant: 'body4',
+              variant: 'b6',
               tone: 'subtle',
               className: css({ minH: '36px' }),
             },
@@ -367,7 +367,7 @@ function ProductReturnsPanel() {
       <ContentSection
         title="호카 반품 안내"
         gap={{ base: '4', _mobile: '3' }}
-        headerProps={{ titleAs: 'h3', titleProps: { web: 'heading9', mo: 'heading10' } }}
+        headerProps={{ titleAs: 'h3', titleProps: { web: 'h10', mo: 'h8' } }}
       >
         <ShippingReturnsNumberedList
           compact
@@ -381,7 +381,7 @@ function ProductReturnsPanel() {
         <ContentHeader
           titleAs="h3"
           title={<>상품 반품 절차</>}
-          titleProps={{ web: 'heading9', mo: 'heading10' }}
+          titleProps={{ web: 'h10', mo: 'h8' }}
         />
         <Stack as="ol" gap="2" m="0" p="0" listStyleType="none">
           {returnSteps.map((step, index) => (
@@ -394,10 +394,10 @@ function ProductReturnsPanel() {
               py="6"
               bg="black.10"
             >
-              <Typography variant="body3" language="en" weight="medium">
+              <Typography variant="b4M" language="en">
                 STEP {index + 1}.
               </Typography>
-              <Typography web="body3" mo="body4">
+              <Typography web="b4" mo="b6">
                 {step}
               </Typography>
             </Stack>

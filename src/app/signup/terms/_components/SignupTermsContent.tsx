@@ -41,9 +41,7 @@ function SignupTermsAgreementList(props: SignupTermsAgreementListProps) {
         onCheckedChange={props.onAllChange}
         label={
           <>
-            <Typography variant="body4" weight="medium">
-              모든 약관을 확인하고 전체동의 합니다
-            </Typography>
+            <Typography variant="b6M">모든 약관을 확인하고 전체동의 합니다</Typography>
           </>
         }
       />
@@ -61,7 +59,7 @@ function SignupTermsAgreementList(props: SignupTermsAgreementListProps) {
               )}
               label={
                 <>
-                  <Typography variant="body4">
+                  <Typography variant="b6">
                     {term.required ? '[필수]' : '(선택)'} {term.label}
                   </Typography>
                 </>
@@ -120,7 +118,7 @@ function TermsDialog({
             <p className={termsClasses.label}>{label}</p>
             {version ? (
               <Button variant="link" size="sm" className={termsLink} onClick={version.onChange}>
-                <Typography variant="body5" weight="medium">
+                <Typography variant="b8M">
                   {version.previous ? '현재 약관 보기' : '이전 약관 보기'}
                 </Typography>
               </Button>
@@ -167,7 +165,7 @@ function SignupTermsDetail({ selected, previous, onClose, onPrevious }: Props) {
     >
       {previous ? (
         <Box mb="4">
-          <Typography as="p" variant="body5">
+          <Typography as="p" variant="b8">
             이전 약관은 등록 준비 중입니다.
           </Typography>
         </Box>
@@ -178,9 +176,9 @@ function SignupTermsDetail({ selected, previous, onClose, onPrevious }: Props) {
             gap="12px"
             titleAs="h2"
             title={<>약관 타이틀{number}</>}
-            titleProps={{ variant: 'body4' }}
+            titleProps={{ variant: 'b6' }}
             description={<>{'약관내용'.repeat(155)}</>}
-            descriptionProps={{ variant: 'body4' }}
+            descriptionProps={{ variant: 'b6' }}
           />
         ))
       )}

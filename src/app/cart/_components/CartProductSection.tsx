@@ -38,15 +38,11 @@ function CartProductItem({
   const price = (mobile = false) => (
     <Stack gap="0" alignItems="flex-end" opacity={soldOut ? '0.3' : '1'}>
       {row.originalAmount ? (
-        <Typography
-          variant="body4"
-          tone="subtle"
-          className={css({ textDecoration: 'line-through' })}
-        >
+        <Typography variant="b6" tone="subtle" className={css({ textDecoration: 'line-through' })}>
           {row.originalAmount.toLocaleString()}원
         </Typography>
       ) : null}
-      <Typography variant="body4Medium">
+      <Typography variant="b6M">
         {(mobile ? (row.mobileAmount ?? amount) : amount).toLocaleString()}원
       </Typography>
     </Stack>
@@ -87,7 +83,7 @@ function CartProductItem({
         />
         {soldOut ? (
           <Box pos="absolute" inset="0" bg="rgba(0,0,0,0.3)" display="grid" placeItems="center">
-            <Typography variant="heading8" weight="bold" className={css({ color: 'white' })}>
+            <Typography web="h10" mo="h8" className={css({ color: 'white' })}>
               Sold Out
             </Typography>
           </Box>
@@ -103,10 +99,10 @@ function CartProductItem({
       </Box>
       <Stack gridColumn="3" gap="8px" alignSelf={{ base: 'center', _mobile: 'start' }}>
         <Stack gap="2px" opacity={soldOut ? '0.3' : '1'}>
-          <Typography variant="body4Medium">{product.gender}</Typography>
-          <Typography variant="body4Medium">{product.name}</Typography>
-          <Typography variant="body4" tone="subtle">
-            <Typography as="span" variant="body4" weight="400-500">
+          <Typography variant="b6M">{product.gender}</Typography>
+          <Typography variant="b6M">{product.name}</Typography>
+          <Typography variant="b6" tone="subtle">
+            <Typography as="span" web="b6" mo="b6M">
               {item.width}
             </Typography>
             , {item.color}, {item.size}
@@ -182,7 +178,7 @@ export function CartProductSection({ rows }: { rows: readonly CartPreviewRow[] }
           checked={availableKeys.length > 0 && selectedKeys.length === availableKeys.length}
           onCheckedChange={(checked) => setSelectedKeys(checked ? availableKeys : [])}
           label={
-            <Typography variant="body4">
+            <Typography variant="b6">
               전체선택 ({selectedKeys.length}/{rows.length})
             </Typography>
           }

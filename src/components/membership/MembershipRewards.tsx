@@ -55,7 +55,7 @@ function TierBadge({ tier, initial }: { tier?: string; initial?: string }) {
   const knownTier = tier === 'ELITE' || tier === 'ADVANCED' || tier === 'RUNNER' ? tier : undefined;
   return (
     <Box className={badge({ tier: knownTier })} aria-hidden="true">
-      <Typography web="heading6" mo="heading5">
+      <Typography web="h4B" mo="h7B">
         {initial}
       </Typography>
     </Box>
@@ -63,11 +63,11 @@ function TierBadge({ tier, initial }: { tier?: string; initial?: string }) {
 }
 
 const styles = {
-  supportBody: css({ '&&': { lineHeight: '1.5' } }),
+  supportBody: css({ '&&': { lineHeight: 'body' } }),
   supportBenefitTitle: css({
     '&&': {
-      lineHeight: '1.5',
-      _mobile: { lineHeight: '1.2' },
+      lineHeight: 'body',
+      _mobile: { lineHeight: 'body' },
     },
   }),
   sectionHeading: css({
@@ -95,7 +95,8 @@ function RewardBenefits({ display }: { display: MembershipBenefitsDisplay }) {
         headerProps={{
           titleAs: 'h2',
           titleProps: {
-            variant: 'heading7',
+            web: 'h8B',
+            mo: 'h8',
             className: tierHeading,
           },
         }}
@@ -130,16 +131,16 @@ function RewardBenefits({ display }: { display: MembershipBenefitsDisplay }) {
                 <ContentHeader
                   title={tier.name}
                   titleAs="h3"
-                  titleProps={{ web: 'heading8', mo: 'heading5' }}
+                  titleProps={{ web: 'h10B', mo: 'h7B' }}
                   gap="0"
                 />
               </Stack>
               <Stack gap="16px" flex="1">
                 <Typography
                   as="p"
-                  web="body2"
-                  mo="body3"
-                  weight="medium"
+                  web="b2M"
+                  mo="b4M"
+
                   className={styles.supportBody}
                 >
                   {tier.requirement}
@@ -152,15 +153,15 @@ function RewardBenefits({ display }: { display: MembershipBenefitsDisplay }) {
                 >
                   {tier.benefits.map((benefit, index) => (
                     <HStack as="li" key={benefit.title} gap="4px" alignItems="flex-start">
-                      <Typography web="body3" mo="body4" className={styles.supportBody}>
+                      <Typography web="b4" mo="b6" className={styles.supportBody}>
                         {index + 1}.
                       </Typography>
                       <Stack gap="8px" minW="0">
                         <Typography
                           as="p"
-                          web="body3"
-                          mo="body4"
-                          weight="500-400"
+                          web="b4M"
+                          mo="b6"
+
                           className={styles.supportBody}
                         >
                           {benefit.title}
@@ -181,7 +182,7 @@ function RewardBenefits({ display }: { display: MembershipBenefitsDisplay }) {
         title="HOKA 회원 공통 혜택"
         headerProps={{
           titleAs: 'h2',
-          titleProps: { web: 'heading7', mo: 'heading6', className: styles.sectionHeading },
+          titleProps: { web: 'h8B', mo: 'h8', className: styles.sectionHeading },
         }}
       >
         <Stack gap="0" pb={'40px'} _mobile={{ gap: '20px', pb: '0' }}>
@@ -209,14 +210,13 @@ function RewardBenefits({ display }: { display: MembershipBenefitsDisplay }) {
                     title={benefit.title}
                     titleAs="h3"
                     titleProps={{
-                      web: 'body2',
-                      mo: 'heading7',
+                      web: 'b2M',
+                      mo: 'h8',
                       className: styles.supportBenefitTitle,
-                      weight: 'medium',
                     }}
                     description={benefit.description}
                     descriptionProps={{
-                      variant: 'body4',
+                      variant: 'b6',
                       className: styles.supportBody,
                     }}
                     borderRight={index === 0 ? '1px solid var(--colors-black-20)' : undefined}
@@ -258,7 +258,7 @@ function RewardProgress({ progress }: { progress: NonNullable<OverviewView['tier
           w="max-content"
         >
           <Box bg="black.100" color="white" px="12px" py="10px" borderRadius="12px">
-            <Typography variant="body4">{progress.label}</Typography>
+            <Typography variant="b6">{progress.label}</Typography>
           </Box>
           <Box
             mx="auto"
@@ -305,17 +305,17 @@ function RewardProgress({ progress }: { progress: NonNullable<OverviewView['tier
           _mobile={{ w: 'full', minH: '24px' }}
         >
           {progress.currentAmount ? (
-            <Typography variant="body4" mo="body4Medium">
+            <Typography variant="b6" mo="b6M">
               {progress.currentAmount}
-              <Typography variant="bodyKr4">원</Typography>
+              <Typography variant="b6">원</Typography>
             </Typography>
           ) : null}
           {progress.targetAmount ? (
             <>
-              <Typography variant="body3">/</Typography>
-              <Typography variant="body4" tone="subtle">
+              <Typography variant="b4">/</Typography>
+              <Typography variant="b6" tone="subtle">
                 {progress.targetAmount}
-                <Typography variant="bodyKr4">원</Typography>
+                <Typography variant="b6">원</Typography>
               </Typography>
             </>
           ) : null}
@@ -356,16 +356,16 @@ export function MembershipRewards({
             <ContentHeader
               title={summary?.tier}
               titleAs="h2"
-              titleProps={{ web: 'heading6', mo: 'heading3' }}
+              titleProps={{ web: 'h4B', mo: 'h1B' }}
               description={
                 <>
-                  <Typography as="span" web="body3" mo="body4" weight="medium">
+                  <Typography as="span" web="b4M" mo="b6M">
                     {summary?.name}
                   </Typography>
                   {summary ? '님의 이번 달 멤버십 등급' : null}
                 </>
               }
-              descriptionProps={{ web: 'body3', mo: 'body4' }}
+              descriptionProps={{ web: 'b4', mo: 'b6' }}
               gap="12px"
               pt="12px"
               _mobile={{ gap: '8px', pt: '0' }}
@@ -394,18 +394,18 @@ export function MembershipRewards({
                   alignItems: 'center',
                 }}
               >
-                <Typography web="body3" mo="body4" weight="medium">
+                <Typography web="b4M" mo="b6M">
                   구매금액
                 </Typography>
                 <HStack gap="2px" justifyContent="flex-end" alignItems="baseline">
-                  <Typography web="heading8" mo="heading7">
+                  <Typography web="h10B" mo="h8">
                     {summary?.purchaseAmount}
                   </Typography>
-                  <Typography variant="body3">원</Typography>
+                  <Typography variant="b4">원</Typography>
                 </HStack>
               </Stack>
             </HStack>
-            <Typography as="p" web="body4" mo="body4-2" tone="tertiary">
+            <Typography as="p" web="b6" mo="b7" tone="tertiary">
               * 매월 1일, 전월 말일자부터 최근 1년 내 구매 금액으로 산정
             </Typography>
           </Stack>

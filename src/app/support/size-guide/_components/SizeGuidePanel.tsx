@@ -111,7 +111,7 @@ function SizeGuideChoiceGroup<T extends string>({
         })
       }
       itemRender={({ label }) => (
-        <Typography as="button" variant={compact ? 'body3' : 'body4'} weight="medium">
+        <Typography as="button" variant={compact ? 'b4M' : 'b6M'}>
           {label}
         </Typography>
       )}
@@ -122,7 +122,7 @@ function SizeGuideChoiceGroup<T extends string>({
 
   return (
     <Stack gap="4">
-      <Typography web="heading8" mo="heading6" weight="900-700">
+      <Typography web="h10B" mo="h8">
         {label}
       </Typography>
       {choices}
@@ -165,9 +165,8 @@ function SizeGuideMeasurementMethod({
       headerProps={{
         titleAs: 'h3',
         titleProps: {
-          web: 'heading8',
-          mo: 'heading6',
-          weight: '900-700',
+          web: 'h10B',
+          mo: 'h8',
           className: css({ pl: { base: '2', _mobile: '0' } }),
         },
       }}
@@ -187,17 +186,17 @@ function SizeGuideMeasurementMethod({
             px={{ base: '3', _mobile: '0' }}
             borderBottom={index < steps.length - 1 ? '1px solid token(colors.black.20)' : undefined}
           >
-            <Typography web="heading9" mo="heading10" weight="bold">
+            <Typography web="h10" mo="h8">
               STEP {index + 1}.
             </Typography>
-            <Typography web="body3" mo="body5">
+            <Typography web="b4" mo="b8">
               {step}
             </Typography>
           </Stack>
         ))}
       </Stack>
       {description && (
-        <Typography web="body3" mo="body5" tone="subtle">
+        <Typography web="b4" mo="b8" tone="subtle">
           * {description}
         </Typography>
       )}
@@ -282,9 +281,8 @@ function SizeGuideChart({ category, gender, unit, onUnitChange }: SizeGuideChart
       headerProps={{
         titleAs: 'h3',
         titleProps: {
-          web: 'heading8',
-          mo: 'heading6',
-          weight: 'black',
+          web: 'h10B',
+          mo: 'h8B',
         },
         orientation: 'horizontal',
         gap: '3',
@@ -334,7 +332,7 @@ function SizeGuideChart({ category, gender, unit, onUnitChange }: SizeGuideChart
           </tbody>
         </DataTable>
       ) : (
-        <Typography variant="body4" tone="subtle">
+        <Typography variant="b6" tone="subtle">
           해당 단위의 사이즈표는 준비 중입니다.
         </Typography>
       )}
@@ -362,7 +360,7 @@ export function SizeGuidePanel({ category }: { category: GuideCategory }) {
         ? { header: null }
         : {
             title: category.label,
-            headerProps: { titleAs: 'h2' as const, titleProps: { variant: 'heading7' as const } },
+            headerProps: { titleAs: 'h2' as const, titleProps: { variant: 'h8B' as const } },
           })}
       gap="8"
       pt={{ base: '8', _mobile: '9' }}

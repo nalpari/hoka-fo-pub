@@ -78,7 +78,7 @@ export function Wishlist({
         className={wishlist}
       />
       {label ? (
-        <Typography as="span" variant="body5">
+        <Typography as="span" variant="b8">
           {label}
         </Typography>
       ) : null}

@@ -40,6 +40,7 @@ export type CarouselSectionProps = {
   slideClassName?: string;
   title: string;
   titleVariant?: MainSectionProps['titleVariant'];
+  mobileTitleVariant?: MainSectionProps['mobileTitleVariant'];
   tabs?: ReactNode;
   beforeViewport?: ReactNode;
   desktopCenteredItemCount: number;
@@ -60,6 +61,7 @@ export declare function CarouselSection({
   slideClassName,
   title,
   titleVariant,
+  mobileTitleVariant,
   beforeViewport,
   desktopCenteredItemCount,
   desktopItemGutter,

@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-24T01:45:10Z'
+updated: '2026-11-25T04:40:52Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -6270,3 +6270,35 @@ TextFormField/TextInput, SearchField, DateRangeSearch와 각 화면의 검색·�
 `4b569dc3`에서 띄어 쓴 관심상품 표기를 사용자 요청에 따라 화면·접근성 라벨·가이드·IA 데이터와 생성 이력에서 `관심상품`으로 복원했다. 해당 커밋 이전부터 띄어 쓴 안내 문장과 다른 맞춤법 수정은 유지한다. 라우트·상태·서비스 계약은 바꾸지 않는다.
 
 출처: 해당 커밋과 관련 src 파일의 작업 트리. 문자열별 복원 개수를 원본 커밋과 대조했다. 브라우저 실행 검증은 수행하지 않았다. 기록: codex/gpt-6.
+
+## 카카오톡 알림톡 수신 항목 1차 비노출 (2026-11-25)
+
+회원가입 부가정보와 수신 확인 모달, 마이페이지 회원정보 조회·편집, 퍼블리싱 가이드의 회원정보 예시에서 `카카오톡 알림톡 수신` 항목을 `[ 카카오톡 알림톡 ] 1차 구현 불가`로 주석 처리했다. 이메일·문자 수신 항목과 기존 표시 데이터·콜백 타입을 유지한다.
+
+출처는 사용자 정정 지시와 `src/app/signup/information/_components/RegistrationContent.tsx`, `src/app/mypage/profile/_components/ProfileContent.tsx`, `src/app/publishing-guide/_components/descriptionListExamples.tsx`의 작업 트리다.
+
+2026-11-25 Codex는 PC 1440px·모바일 390px에서 해당 수신 항목의 비노출과 이메일·문자 항목 표시를 확인했다. 런칭 상세 알림 신청, 상품 상세 재입고 알림, 마이페이지 재입고 메뉴와 러닝세션 안내의 기존 표시도 확인했다. TypeScript와 변경 소스 ESLint는 통과했다.
+
+## Display·Heading·Body 타이포그래피 이관 (2026-11-25)
+
+사용자가 제공한 [HOKA 디자인 시스템](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0) 변수·로컬 Text Style 추출본을 구현 기준으로 사용한다. `src/styles/typography.ts`는 패밀리 2개·굵기 6개·계열별 크기 27개와 한글 89개·영문 71개 조합을 정의한다. 같은 px도 Display·Heading·Body의 크기 토큰을 분리한다. `Typography`의 기본 variant는 생략할 수 있고, 스타일을 적용할 때 `d1`, `h1B`, `b4M`처럼 사용한다. `web`은 Wide, `mo`는 Compact를 선택한다. H9·H10은 Wide 전용이므로 모바일과 함께 표시하는 화면에서는 Compact 값을 명시한다.
+
+| 계열 | Wide(px) | Compact(px) | 굵기 |
+| --- | --- | --- | --- |
+| Display D1–D4 | 84, 72, 58, 50 | 50, 44, 42, 40 | Black 900 |
+| Heading H1–H10 | 44, 42, 40, 36, 34, 32, 30, 28, 24, 22 | 36, 34, 32, 30, 28, 24, 22, 20 | 기본 Bold 700 / B Black 900 |
+| Body B1–B9 | 24, 20, 18, 16, 15, 14, 13, 12, 10 | 공통 | 기본 400 / M 500 / S 600 / B 700 / E 800 |
+
+Pretendard의 행간은 Display·Heading 1.2, Body 1.5이며 자간은 -0.02em이다. The Future HOKA는 Display·Heading 1, Body 1.5, 자간 0을 적용한다. 영문 폰트 face는 400·500·700·900이고 영문 Body 600·800은 같은 크기의 700으로 이관한다. 고객사 스타일, CTA·캡션·일반 링크는 공통 계열에 편입하고 링크의 밑줄은 표시 옵션으로 유지한다. 상태에 따라 굵기가 바뀌는 공용 UI는 기존 선택 계약을 유지하면서 실제 등록 조합을 선택한다.
+
+같은 역할과 플랫폼에서 크기·굵기가 가장 가까운 조합을 적용한다. 예를 들어 22px Black 제목은 Wide H10B, Compact H7B다. 기존 Wide 20px 제목은 H10으로 옮겨 22px이 된다. 기존 16px Medium CTA는 Body B4M으로 이관해 행간을 1.5로 적용한다. 16px Body의 고정 `500-700`은 `web="b4M" mo="b4B"`로 이관한다. EmptyState의 사용자 확정 제목, SupportTabs 상태 굵기 및 Button.loadMore 400은 해당 계약을 따른다.
+
+2026-11-25 Codex는 퍼블리싱 가이드에서 Wide·Compact를 전환해 160개 예시의 크기·굵기·행간·자간을 대조했다. 1440px·390px과 1024/1025px 경계에서 가이드의 고정 플랫폼과 SupportTabs 굵기를 확인했다. 한글 실제 글리프는 Pretendard Black·Bold·SemiBold, 영문 검증 표본은 The Future HOKA Black·Medium WOFF2와 대조했다. Heading의 700·900 나란히 표시와 900 예시 클릭 시 H1B 코드 복사도 확인했다. 장바구니 빈 제목은 PC 22px/900과 MO 20px/700, 공지사항 더보기는 두 플랫폼 모두 400이었다. 주문서 총 결제 금액 라벨의 반응형 조합은 PC 16px/700과 MO 14px/500이었다. Panda 생성, TypeScript, 변경 파일 ESLint, Next 프로덕션 빌드, OKF 테스트가 통과했다. 저장소 전체 ESLint는 기존 `tests/wh-file-summary.test.mjs`의 웹 API 전역 `no-undef` 8건으로 실패했다.
+
+## 보유 쿠폰 조회 드롭다운 (2026-11-25)
+
+상품별 사용 가능 수량과 전체 수량 아래 상세형 Dropdown을 표시한다. PC는 트리거 너비로 목록을 열며 모바일은 상품 쿠폰 바텀시트에 수량, 현재 선택과 목록을 표시한다. Figma의 트리거와 항목 여백은 세로 16px·가로 12px이며, 선택 라벨은 Pretendard 13px Medium/500, 목록 라벨은 Pretendard 13px Regular/400, 금액 숫자는 The Future HOKA 13px Medium/500이다. 최초 선택은 닫힌 시안의 7% 옵션을 사용한다.
+
+`Dropdown`의 기본 입력형과 정렬형 옵션은 유지한다. 상세형은 보조값, 줄바꿈과 모바일 시트 제목·안내를 지원한다. 비활성 쿠폰은 목록에 표시하고 선택을 차단한다. 쿠폰 ID별 초안은 기존 `CheckoutCouponDialog`가 관리하며 적용 버튼과 합계는 퍼블리싱 확인용이다. 작업 트리 출처는 `src/components/common/atoms/Dropdown.tsx`, `src/components/common/layouts/ModalDialog.recipe.tsx`, `src/app/checkout/_components/CheckoutCouponDialog.tsx`와 `src/app/checkout/checkout-coupons.ts`다. [HOKA Design](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design).
+
+PC 1920px와 모바일 375px에서 주문서 버튼으로 팝업을 열어 쿠폰 목록, 사용 불가 상태, 상품별 선택, Escape 닫기와 선택 후 초점 복귀를 확인했다. 양쪽에서 닫힌 트리거는 51.5px 높이였으며 금액 숫자의 계산 스타일은 HOKA 계열 13px이었다.

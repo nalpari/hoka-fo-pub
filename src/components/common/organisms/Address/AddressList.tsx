@@ -49,7 +49,7 @@ export function AddressList({
               title: '배송지 관리',
               headerProps: {
                 titleAs: 'h1',
-                titleProps: { web: 'headingKr6', mo: 'headingKr5' },
+                titleProps: { web: 'h4B', mo: 'h7B' },
                 orientation: 'horizontal',
                 alignItems: 'end',
                 pb: '10',
@@ -93,10 +93,10 @@ export function AddressList({
                       title={address.name}
                       titleAs="h2"
                       titleProps={{
-                        web: 'headingKr8',
-                        mo: 'headingKr6',
+                        web: 'h10B',
+                        mo: 'h8',
                         className: embedded
-                          ? css({ lineHeight: '1.2', _mobile: { lineHeight: '1.3' } })
+                          ? css({ lineHeight: 'body', _mobile: { lineHeight: 'body' } })
                           : undefined,
                       }}
                       orientation="horizontal"
@@ -115,20 +115,20 @@ export function AddressList({
                       className={
                         embedded
                           ? css({
-                              '& span': { lineHeight: '24px!' },
-                              _mobile: { '& span': { lineHeight: '21px!' } },
+                              '& span': { lineHeight: 'body!' },
+                              _mobile: { '& span': { lineHeight: 'body!' } },
                             })
                           : undefined
                       }
                     >
                       <Typography
-                        web="body3"
-                        mo="body4"
+                        web="b4"
+                        mo="b6"
                         language="en"
                         tone={embedded ? 'tertiary' : 'subtle'}
                         className={
                           embedded
-                            ? css({ lineHeight: '24px', _mobile: { lineHeight: '21px' } })
+                            ? css({ lineHeight: 'body', _mobile: { lineHeight: 'body' } })
                             : undefined
                         }
                       >
@@ -140,19 +140,19 @@ export function AddressList({
                         _mobile={{ flexDirection: 'column', gap: '4px' }}
                       >
                         <Typography
-                          web="body3"
-                          mo="body4"
+                          web="b4"
+                          mo="b6"
                           language="en"
                           tone={embedded ? 'tertiary' : 'subtle'}
                           className={
                             embedded
-                              ? css({ lineHeight: '24px', _mobile: { lineHeight: '21px' } })
+                              ? css({ lineHeight: 'body', _mobile: { lineHeight: 'body' } })
                               : undefined
                           }
                         >
                           {address.zip}
                         </Typography>
-                        <Typography web="body3" mo="body4" tone={embedded ? 'tertiary' : 'subtle'}>
+                        <Typography web="b4" mo="b6" tone={embedded ? 'tertiary' : 'subtle'}>
                           {address.address} {address.detail}
                         </Typography>
                       </Stack>

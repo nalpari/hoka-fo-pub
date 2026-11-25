@@ -37,8 +37,8 @@ const formCode = css({
   overflowWrap: 'anywhere',
   border: '1px solid token(colors.black.20)',
   bg: 'surface.subtle',
-  fontSize: '12px',
-  lineHeight: '1.5',
+  fontSize: 'body.12',
+  lineHeight: 'body',
 });
 
 const exampleCard = css({
@@ -135,8 +135,8 @@ function FormExample({ title, description, code, onCopy, children, className }: 
   return (
     <Stack className={[exampleCard, className].filter(Boolean).join(' ')} gap="3">
       <HStack alignItems="baseline" justifyContent="space-between" gap="2" flexWrap="wrap">
-        <Typography variant="body4Semibold">{title}</Typography>
-        <Typography variant="body5" tone="subtle">
+        <Typography variant="b6S">{title}</Typography>
+        <Typography variant="b8" tone="subtle">
           {description}
         </Typography>
       </HStack>
@@ -228,10 +228,10 @@ export function FormGuide() {
     >
       <Stack minW="0" gap={{ base: '6', _mobile: '4' }}>
         <HStack alignItems="baseline" gap="3" flexWrap="wrap">
-          <Typography as="h2" variant="heading8">
+          <Typography as="h2" web="h10B" mo="h8">
             Form
           </Typography>
-          <Typography as="p" variant="body5" tone="subtle">
+          <Typography as="p" variant="b8" tone="subtle">
             Figma 기준의 폼 상태와 타입별 예시를 확인하고 사용 코드를 복사합니다.
           </Typography>
         </HStack>
@@ -243,7 +243,7 @@ export function FormGuide() {
           aria-labelledby="form-input-fields-title"
         >
           <SectionTitle id="form-input-fields-title" title="Input Fields" />
-          <Typography variant="body5" tone="subtle">
+          <Typography variant="b8" tone="subtle">
             기본 입력은 Default, Focus, Typing, Error 상태를, 입력 타입은
             기본·비밀번호·전화번호·숫자·여러 줄을 보여줍니다.
           </Typography>
@@ -428,7 +428,7 @@ export function FormGuide() {
               onValueChange={setSortValue}
             />
           </FormExample>
-          <Typography variant="body5" tone="subtle">
+          <Typography variant="b8" tone="subtle">
             기본·선택·오류·비활성화 상태를 비교하고, 선택 필드를 눌러 메뉴를 확인합니다.
           </Typography>
           <Grid columns={{ base: 4, _mobile: 2 }} gap="3">
@@ -498,7 +498,7 @@ export function FormGuide() {
 
         <Stack as="section" id="form-checkbox" gap="3" aria-labelledby="form-checkbox-title">
           <SectionTitle id="form-checkbox-title" title="Checkbox" />
-          <Typography variant="body5" tone="subtle">
+          <Typography variant="b8" tone="subtle">
             기본·선택·비활성화·비활성화 선택 상태입니다.
           </Typography>
           <Grid columns={{ base: 4, _mobile: 2 }} gap="3">
@@ -528,7 +528,7 @@ export function FormGuide() {
 
         <Stack as="section" id="form-radio" gap="3" aria-labelledby="form-radio-title">
           <SectionTitle id="form-radio-title" title="Radio" />
-          <Typography variant="body5" tone="subtle">
+          <Typography variant="b8" tone="subtle">
             기본·선택·비활성화·비활성화 선택 상태입니다.
           </Typography>
           <Grid columns={{ base: 4, _mobile: 2 }} gap="3">
@@ -567,7 +567,7 @@ export function FormGuide() {
           aria-labelledby="form-dropdown-menu-title"
         >
           <SectionTitle id="form-dropdown-menu-title" title="Dropdown Menu" />
-          <Typography variant="body5" tone="subtle">
+          <Typography variant="b8" tone="subtle">
             PC는 팝업 목록, 모바일은 ModalDialog 바텀시트형의 Radio 목록으로 선택합니다. 아이콘과
             이미지도 함께 표시합니다.
           </Typography>
@@ -625,7 +625,7 @@ export function FormGuide() {
 
 function SectionTitle({ id, title }: { id: string; title: string }) {
   return (
-    <Typography as="h3" id={id} variant="heading8">
+    <Typography as="h3" id={id} web="h10B" mo="h8">
       {title}
     </Typography>
   );

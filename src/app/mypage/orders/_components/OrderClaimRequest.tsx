@@ -48,7 +48,7 @@ export function OrderClaimRequest({
 
   const content = (
     <Stack css={styles.root}>
-      <Typography variant="body4" className={classes.intro}>
+      <Typography variant="b6" className={classes.intro}>
         {returning ? '환불할 상품과 수량을 선택해주세요.' : '취소할 상품과 수량을 선택해주세요.'}
         <br />
         {returning
@@ -56,7 +56,7 @@ export function OrderClaimRequest({
           : '일부만 취소(부분취소)할 수 있으며, 배송비는 주문의 남은 상품이 모두 취소될 때 함께 환불됩니다.'}
       </Typography>
       <Stack css={styles.section}>
-        <Typography as="h2" variant="body3Semibold" className={classes.sectionTitle}>
+        <Typography as="h2" variant="b4S" className={classes.sectionTitle}>
           상품 선택
         </Typography>
         <Stack
@@ -87,8 +87,8 @@ export function OrderClaimRequest({
                 imageSize={{ web: 96, mobile: 64 }}
                 content={
                   <Stack css={styles.productText}>
-                    <Typography variant="body4Medium">{line.name}</Typography>
-                    <Typography variant="body4" tone="subtle">
+                    <Typography variant="b6M">{line.name}</Typography>
+                    <Typography variant="b6" tone="subtle">
                       {line.width}, {line.color}, {line.size}, 1개
                     </Typography>
                     <NumberStepper
@@ -138,7 +138,7 @@ export function OrderClaimRequest({
           renderControl={(control) => (
             <Stack css={styles.fieldControl}>
               {control}
-              <Typography variant="body5" tone="tertiary" className={classes.counter}>
+              <Typography variant="b8" tone="tertiary" className={classes.counter}>
                 {details.length} / 250
               </Typography>
             </Stack>
@@ -151,7 +151,7 @@ export function OrderClaimRequest({
             onChange: (event) => setDetails(event.target.value),
           }}
         />
-        <Typography variant="body5" tone="tertiary" className={classes.note}>
+        <Typography variant="b8" tone="tertiary" className={classes.note}>
           {returning
             ? '*단순 변심·주문 실수 등 고객님 사유의 반품은 반품비 5,000원을 부담하셔야 하며 환불 금액에서 차감됩니다. 상품 불량/파손·오배송·구성품 누락 등 회사 사유는 반품비가 무료입니다. 상품 수령 후 7일 이내에 신청할 수 있으며, 접수 후 회수 일정은 안내해 드립니다. 착용하거나 세탁한 상품은 반품이 어렵습니다.'
             : '*단순 변심·주문 실수 등 고객님 사유의 취소는 반품비 5,000원을 부담하셔야 하며 환불 금액에서 차감됩니다. 배송 지연 등 회사 사유는 반품비가 무료입니다.'}
@@ -164,17 +164,17 @@ export function OrderClaimRequest({
             ['반품비', returning ? '사유 선택 후 확인' : '- 5,000원'],
           ].map(([label, value]) => (
             <HStack key={label} css={styles.summaryRow}>
-              <Typography variant="body4" className={classes.summaryLabel}>
+              <Typography variant="b6" className={classes.summaryLabel}>
                 {label}
               </Typography>
               <Typography
-                variant="body4"
+                variant="b6"
                 className={classes.summaryValue}
                 data-summary-text={value.endsWith('원') ? undefined : ''}
               >
                 {value.endsWith('원') ? (
                   <>
-                    <Typography variant="body4" language="en" className={classes.summaryNumber}>
+                    <Typography variant="b6" language="en" className={classes.summaryNumber}>
                       {value.slice(0, -1)}
                     </Typography>
                     원
@@ -187,14 +187,14 @@ export function OrderClaimRequest({
           ))}
         </Stack>
         <HStack css={styles.summaryTotal}>
-          <Typography variant="body4" className={classes.summaryLabel}>
+          <Typography variant="b6" className={classes.summaryLabel}>
             {returning ? '환불예정금액' : '취소예정금액'}
           </Typography>
           <HStack css={styles.totalAmount}>
-            <Typography web="heading10" mo="heading7" weight="semibold">
+            <Typography web="h10" mo="h8">
               {returning && mobile ? '0' : '3,300,000'}
             </Typography>
-            <Typography variant="body3Medium">원</Typography>
+            <Typography variant="b4M">원</Typography>
           </HStack>
         </HStack>
       </Stack>

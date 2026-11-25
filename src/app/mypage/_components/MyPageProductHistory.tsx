@@ -96,12 +96,12 @@ function MyPageRestockList({ items, entries }: Props) {
                 imageSize={{ web: 96, mobile: 64 }}
                 content={
                   <Stack gap="0" minW="0">
-                    {gender && <Typography variant="body4">{gender}</Typography>}
-                    <Typography variant="body4" className={css({ fontWeight: 'medium' })}>
+                    {gender && <Typography variant="b6">{gender}</Typography>}
+                    <Typography variant="b6" className={css({ fontWeight: 'medium' })}>
                       {name}
                     </Typography>
                     <Typography
-                      variant="body4"
+                      variant="b6"
                       tone="tertiary"
                       className={css({ display: 'none', _mobile: { display: 'block', mt: '6px' } })}
                     >
@@ -112,14 +112,14 @@ function MyPageRestockList({ items, entries }: Props) {
               />
             </Box>
             <Typography
-              variant="body3"
+              variant="b4"
               tone="subtle"
               className={css({ textAlign: 'center', _mobile: { display: 'none' } })}
             >
               {requestedAt}
             </Typography>
             <Box textAlign="center" _mobile={{ alignSelf: 'center' }}>
-              <Typography variant="body3" tone="subtle">
+              <Typography variant="b4" tone="subtle">
                 {sent ? '발송완료' : '알림대기'}
               </Typography>
             </Box>
@@ -210,7 +210,7 @@ function MyPageProductHistoryNote({
           borderTop: '0',
         }}
       >
-        <Typography as="p" variant="body5" tone="tertiary">
+        <Typography as="p" variant="b8" tone="tertiary">
           {note}
         </Typography>
       </Box>
@@ -224,7 +224,7 @@ function MyPageProductHistoryNote({
     >
       <Divider />
       <Box pt="16px" whiteSpace="pre-line">
-        <Typography as="p" variant={wishlist ? 'body5' : 'body4'} tone="tertiary">
+        <Typography as="p" variant={wishlist ? 'b8' : 'b6'} tone="tertiary">
           {note}
         </Typography>
       </Box>
@@ -385,7 +385,7 @@ export function MyPageProductHistory({
         <ContentHeader
           title={current.title}
           titleAs="h1"
-          titleProps={{ web: 'heading6', mo: 'heading5' }}
+          titleProps={{ web: 'h4B', mo: 'h7B' }}
           gap="0"
           pb={items.length ? '0' : '40px'}
           borderBottom={!items.length ? '2px solid black' : undefined}
@@ -419,7 +419,7 @@ export function MyPageProductHistory({
           <Stack gap="16px">
             <MyPageRestockList entries={entries} items={items} />
             <Box whiteSpace="pre-line">
-              <Typography as="p" variant="body5" tone="tertiary">
+              <Typography as="p" variant="b8" tone="tertiary">
                 {current.note}
               </Typography>
             </Box>

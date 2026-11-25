@@ -126,7 +126,7 @@ function ColorCopyRow({
       bg="surface.subtle"
     >
       <Stack minW="0" flex="1" gap="1">
-        <Typography variant="body5" tone="subtle">
+        <Typography variant="b8" tone="subtle">
           {label}
         </Typography>
         <Box
@@ -179,11 +179,11 @@ function ColorCard({ color, onCopy }: { color: GuideColor; onCopy: (value: strin
         style={{ backgroundColor: token.var(`colors.${color.panda}`) }}
         aria-hidden="true"
       />
-<Typography as="h4" variant="body3Semibold">
+      <Typography as="h4" variant="b4S">
         {color.name}
       </Typography>
       {'description' in color ? (
-        <Typography as="p" variant="body5" tone="subtle">
+        <Typography as="p" variant="b8" tone="subtle">
           {color.description}
         </Typography>
       ) : null}
@@ -234,10 +234,10 @@ export function ColorGuide() {
     >
       <Stack minW="0" gap={{ base: '6', _mobile: '4' }}>
         <HStack alignItems="baseline" gap="3" flexWrap="wrap">
-          <Typography as="h2" variant="heading8">
+          <Typography as="h2" web="h10B" mo="h8">
             Colors
           </Typography>
-          <Typography as="p" variant="body5" tone="subtle">
+          <Typography as="p" variant="b8" tone="subtle">
             HOKA 디자인 시스템 · 13개 컬러
           </Typography>
         </HStack>
@@ -248,18 +248,18 @@ export function ColorGuide() {
           gap="3"
           scrollMarginTop="calc(var(--layout-site-header-height) + 16px)"
         >
-          <Typography as="h3" id="color-usage-title" variant="heading8">
+          <Typography as="h3" id="color-usage-title" web="h10B" mo="h8">
             사용 기준
           </Typography>
-          <Typography as="p" variant="body4">
+          <Typography as="p" variant="b6">
             HEX, Panda 토큰, CSS 변수, 사용 코드를 각각 복사할 수 있습니다. 프로젝트 마크업에서는
             등록된 토큰을 우선 사용합니다.
           </Typography>
-          <Typography as="p" variant="body5" tone="subtle">
+          <Typography as="p" variant="b8" tone="subtle">
             예: Panda 배경은 bg="blue.100", CSS 색상은 var(--color-blue-100)을 사용합니다.
             미리보기는 실제 프로젝트 토큰으로 표시합니다.
           </Typography>
-          <Typography as="p" variant="body5" tone="subtle">
+          <Typography as="p" variant="b8" tone="subtle">
             Figma의 표기 HEX와 프로젝트 값은 모두 일치합니다. Red-80의 회색 색상 칸과 반복된
             Semantic 항목은 아래에 별도로 안내합니다.
           </Typography>
@@ -273,7 +273,7 @@ export function ColorGuide() {
               _focusVisible: { outline: '2px solid var(--color-focus-ring)', outlineOffset: '2px' },
             })}
           >
-            <Typography as="span" variant="body5">
+            <Typography as="span" variant="b8">
               Figma 컬러 원본 보기
             </Typography>
           </a>
@@ -287,10 +287,10 @@ export function ColorGuide() {
             gap="3"
             scrollMarginTop="calc(var(--layout-site-header-height) + 16px)"
           >
-            <Typography as="h3" id={`${group.id}-title`} variant="heading8">
+            <Typography as="h3" id={`${group.id}-title`} web="h10B" mo="h8">
               {group.title}
             </Typography>
-            <Typography as="p" variant="body5" tone="subtle">
+            <Typography as="p" variant="b8" tone="subtle">
               {group.description}
             </Typography>
             <Grid columns={{ base: 4, _mobile: 1 }} gap="3">
@@ -307,14 +307,14 @@ export function ColorGuide() {
           gap="3"
           scrollMarginTop="calc(var(--layout-site-header-height) + 16px)"
         >
-          <Typography as="h3" id="color-semantic-title" variant="heading8">
+          <Typography as="h3" id="color-semantic-title" web="h10B" mo="h8">
             Semantic
           </Typography>
-          <Typography as="p" variant="body4">
+          <Typography as="p" variant="b6">
             Figma의 Sementic 섹션에는 Red-100과 Red-80이 다시 표시되어 있습니다. Red-100은 에러
             피드백에 사용하며, 같은 이름·HEX가 반복되는 Red-80은 Accent 카드 하나로 정리했습니다.
           </Typography>
-          <Typography as="p" variant="body5" tone="subtle">
+          <Typography as="p" variant="b8" tone="subtle">
             프로젝트에 등록된 error 토큰은 red.100을 참조합니다.
           </Typography>
           <ColorCopyRow name="에러 피드백" label="Panda 토큰" value="error" onCopy={copyValue} />

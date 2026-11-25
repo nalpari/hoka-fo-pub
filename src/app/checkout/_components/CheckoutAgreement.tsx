@@ -23,9 +23,7 @@ export function CheckoutAgreement({ showError = false }: { showError?: boolean }
             alignItems: 'flex-start',
           })}
           interactiveLabel
-          label={
-            <Typography variant="body4">주문 내용을 확인하였으며 결제에 동의합니다.</Typography>
-          }
+          label={<Typography variant="b6">주문 내용을 확인하였으며 결제에 동의합니다.</Typography>}
         />
         <ButtonLink variant="link" size="md" href="/support/terms" className={detailsLink}>
           전문보기
@@ -42,7 +40,7 @@ export function CheckoutAgreement({ showError = false }: { showError?: boolean }
           })}
           interactiveLabel
           label={
-            <Typography variant="body4">
+            <Typography variant="b6">
               개인정보 수집 · 이용내용을 확인하였으며 결제에 동의합니다.
             </Typography>
           }
@@ -57,7 +55,7 @@ export function CheckoutAgreement({ showError = false }: { showError?: boolean }
         </ButtonLink>
       </Flex>
       {showError ? (
-        <Typography as="p" variant="body5" className={css({ color: 'red.100' })} role="alert">
+        <Typography as="p" variant="b8" className={css({ color: 'red.100' })} role="alert">
           필수 항목에 동의해 주세요.
         </Typography>
       ) : null}

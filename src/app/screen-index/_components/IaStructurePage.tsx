@@ -111,9 +111,9 @@ const styles = {
       gap: '1.5',
       m: '0',
       color: '#17223d',
-      fontSize: '14px',
+      fontSize: 'heading.22',
     },
-    '& span': { color: '#68718a', fontSize: '12' /* 기존: 10px */, fontWeight: '700' },
+    '& span': { color: '#68718a', fontSize: 'body.12' /* 기존: 10px */, fontWeight: '700' },
   }),
 
   navCard: css({ p: '4' }),
@@ -133,9 +133,9 @@ const styles = {
       color: '#17223d',
       textOverflow: 'ellipsis',
       whiteSpace: 'nowrap',
-      fontSize: '12' /* 기존: 11px */,
+      fontSize: 'body.12' /* 기존: 11px */,
     },
-    '& span': { color: '#68718a', fontSize: '12' /* 기존: 10px */, fontWeight: '700' },
+    '& span': { color: '#68718a', fontSize: 'body.12' /* 기존: 10px */, fontWeight: '700' },
   }),
   selectedGroup: css({ borderColor: '#2a14b4', bg: '#e7e5ff' }),
   button: css({
@@ -145,7 +145,7 @@ const styles = {
     borderRadius: '4px',
     bg: '#edf2ff',
     color: '#3e4965',
-    fontSize: '12px',
+    fontSize: 'body.12',
     fontWeight: '700',
     cursor: 'pointer',
     _hover: { bg: '#e0e7ff' },
@@ -157,7 +157,7 @@ const styles = {
     minW: '1300px',
     borderCollapse: 'collapse',
     color: '#313a52',
-    fontSize: '12px',
+    fontSize: 'body.12',
     '& th, & td': {
       px: '3',
       py: '2.5',
@@ -169,7 +169,7 @@ const styles = {
       whiteSpace: 'nowrap',
       bg: '#dce9ff',
       color: '#253653',
-      fontSize: '12' /* 기존: 11px */,
+      fontSize: 'body.12' /* 기존: 11px */,
       fontWeight: '800',
     },
     '& td[rowspan]': { verticalAlign: 'top' },
@@ -178,7 +178,7 @@ const styles = {
     bg: '#eaf0ff',
     '& td': { borderBottomColor: '#d4e0fb' },
 
-    '& span': { color: '#68718a', fontSize: '12' /* 기존: 11px */, fontWeight: '600' },
+    '& span': { color: '#68718a', fontSize: 'body.12' /* 기존: 11px */, fontWeight: '600' },
   }),
   deletedRow: css({
     bg: '#f0f2f6',
@@ -214,17 +214,17 @@ const styles = {
     borderRadius: '3px',
     bg: '#e3e0ff',
     color: '#2a14b4',
-    fontSize: '12' /* 기존: 10px */,
+    fontSize: 'body.12' /* 기존: 10px */,
     fontWeight: '800',
   }),
-  hierarchyIcon: css({ color: '#2a14b4', fontSize: '14' /* 기존 13px */ }),
+  hierarchyIcon: css({ color: '#2a14b4', fontSize: 'body.14' /* 기존 13px */ }),
   code: css({
     color: '#5148d7',
     fontFamily: 'mono',
-    fontSize: '12' /* 기존: 11px */,
+    fontSize: '12px',
     fontWeight: '700',
   }),
-  developer: css({ fontSize: '12', whiteSpace: 'normal' }),
+  developer: css({ fontSize: 'body.12', whiteSpace: 'normal' }),
   previewColumn: css({ minW: '100px', whiteSpace: 'nowrap' }),
   preview: css({
     display: 'flex',
@@ -237,7 +237,7 @@ const styles = {
       px: '1.5',
       py: '0.5',
       borderRadius: '3px',
-      fontSize: '12' /* 기존: 10px */,
+      fontSize: 'body.12' /* 기존: 10px */,
       fontWeight: '800',
     },
     '& a': {
@@ -275,7 +275,7 @@ const styles = {
       },
     },
   }),
-  note: css({ minW: '290px', lineHeight: '1.4', whiteSpace: 'normal!' }),
+  note: css({ minW: '290px', lineHeight: 'body', whiteSpace: 'normal!' }),
   noteList: css({
     m: '0',
     pl: '16px',
@@ -539,7 +539,7 @@ export function IaStructurePage() {
         <Typography
           as="p"
           role="status"
-          className={css({ my: '2', color: '#3e4965', fontSize: '12px' })}
+          className={css({ my: '2', color: '#3e4965', fontSize: 'body.12' })}
         >
           {feedback}
         </Typography>
@@ -568,12 +568,12 @@ export function IaStructurePage() {
             </div>
             <Typography
               as="p"
-              className={css({ my: '3', color: '#2a14b4', fontSize: '32px', fontWeight: '800' })}
+              className={css({ my: '3', color: '#2a14b4', textStyle: 'en-wide-h6B' })}
             >
               {screens.length}
               <Typography as="span">개 화면</Typography>
             </Typography>
-            <Typography as="p" className={css({ color: '#68718a', fontSize: '12px' })}>
+            <Typography as="p" className={css({ color: '#68718a', fontSize: 'body.12' })}>
               IA 화면과 미리보기 경로
             </Typography>
           </article>
@@ -897,7 +897,7 @@ function GroupRows({
             <span className={styles.hierarchyIcon}>
               <Icon name="folder-open-solid" size="1em" aria-hidden="true" />
             </span>
-            <strong className={css({ color: '#2a14b4', fontSize: '14' /* 기존 13px */ })}>
+            <strong className={css({ color: '#2a14b4', fontSize: 'body.14' /* 기존 13px */ })}>
               {group.depth1}
             </strong>
             <Typography as="span">({group.screens.length} screens)</Typography>
@@ -1170,7 +1170,7 @@ function ChangeReportTable({ report }: { report: ChangeHistoryReport }) {
           minW: '1200px',
           borderCollapse: 'collapse',
           tableLayout: 'fixed',
-          fontSize: '12px',
+          fontSize: 'body.12',
           '& th, & td': {
             border: '1px solid #dbe5ff',
             p: '3',

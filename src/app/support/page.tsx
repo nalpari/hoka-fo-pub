@@ -29,15 +29,15 @@ export default function Page() {
           title="고객센터"
           titleAs="h1"
           titleProps={{
-            web: 'heading6',
-            mo: 'heading4',
+            web: 'h4B',
+            mo: 'h5B',
             className: css({ _mobile: { h: '32px' } }),
           }}
           description="문의 유형에 따라 상담 채널을 선택해 주세요. "
           descriptionProps={{
-            variant: 'body3',
-            web: 'body2',
-            mo: 'body3',
+            variant: 'b4',
+            web: 'b2',
+            mo: 'b4',
             className: css({ _mobile: { color: 'black.70' } }),
           }}
         />

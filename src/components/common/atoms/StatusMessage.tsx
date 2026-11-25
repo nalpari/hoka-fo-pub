@@ -39,7 +39,7 @@ export function StatusMessage({
       className={[textProps?.tone ? undefined : message, className].filter(Boolean).join(' ')}
       data-tone={tone}
       role={isError ? 'alert' : 'status'}
-      variant="body5"
+      variant="b8"
       {...textProps}
     >
       {children}

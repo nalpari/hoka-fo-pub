@@ -338,11 +338,12 @@ function InquiryBoardHeader({
         titleAs="h3"
         title={variant === 'product' ? title : `${title}(${count})`}
         count={variant === 'product' ? count : undefined}
-        countProps={{ variant: 'body1', weight: 'medium' }}
+        countProps={{ variant: 'b1M' }}
         variant={variant === 'product' ? 'productSection' : 'standard'}
         titleProps={{
           id: headingId,
-          variant: variant === 'product' ? 'heading8' : 'body2',
+          web: variant === 'product' ? 'h10B' : 'b2',
+          mo: variant === 'product' ? 'h8' : 'b2',
           weight: variant === 'product' ? undefined : 'bold',
         }}
         orientation="horizontal"
@@ -388,12 +389,12 @@ function InquiryBoardContent({
   variant?: 'default' | 'product';
 }) {
   return item.visibility === 'restricted' ? (
-    <Typography as="p" variant="body4" tone={variant === 'product' ? 'subtle' : undefined}>
+    <Typography as="p" variant="b6" tone={variant === 'product' ? 'subtle' : undefined}>
       비공개글은 작성자 본인만 확인할 수 있습니다.
     </Typography>
   ) : (
     <Stack gap="6">
-      <Typography as="div" variant="body4">
+      <Typography as="div" variant="b6">
         {item.content}
       </Typography>
       {item.answer != null && (
@@ -402,10 +403,8 @@ function InquiryBoardContent({
           borderTop={variant === 'product' ? '1px solid token(colors.black.20)' : undefined}
           pt={variant === 'product' ? '6' : undefined}
         >
-          <Typography variant="body4" weight="bold">
-            답변
-          </Typography>
-          <Typography as="div" variant="body4" tone={variant === 'product' ? 'subtle' : undefined}>
+          <Typography variant="b6B">답변</Typography>
+          <Typography as="div" variant="b6" tone={variant === 'product' ? 'subtle' : undefined}>
             {item.answer}
           </Typography>
         </Grid>
@@ -500,24 +499,24 @@ function InquirySubject({
         justifyContent={variant === 'product' ? 'flex-end' : undefined}
         _mobile={{ gridColumn: '1 / -1' }}
       >
-        <Typography variant="body4" className={styles.title}>
+        <Typography variant="b6" className={styles.title}>
           {item.visibility === 'restricted' ? '비공개 문의글입니다.' : item.title}
         </Typography>
         {isPrivate && <Icon name="lock-keyhole-regular" size={14} alt="" aria-hidden="true" />}
       </Flex>
-      <Typography variant="body4" tone="tertiary" className={styles.metadata}>
+      <Typography variant="b6" tone="tertiary" className={styles.metadata}>
         {item.author}
       </Typography>
       <Typography
         as="time"
         dateTime={item.date}
-        variant="body4"
+        variant="b6"
         tone="tertiary"
         className={styles.metadata}
       >
         {item.date}
       </Typography>
-      <Typography variant="body4" weight="bold" className={styles.metadata}>
+      <Typography variant="b6B" className={styles.metadata}>
         {item.status === 'answered' ? '답변완료' : variant === 'product' ? '접수' : '답변대기'}
       </Typography>
     </Grid>
@@ -706,31 +705,31 @@ export function ProductDetailInquiryContent({
 const productTechSpecsStyles = {
   heading: css({
     '&&': {
-      fontSize: '28px',
+      fontSize: 'heading.28',
       fontWeight: '900',
-      lineHeight: '30.72px',
-      _mobile: { fontSize: '22px' },
+      lineHeight: 'koreanHeading',
+      _mobile: { fontSize: 'heading.22' },
     },
   }),
   specificationLabel: css({
-    fontSize: '16px',
+    fontSize: 'body.16',
     fontWeight: '800',
-    lineHeight: '18.2px',
-    _mobile: { fontSize: '18px' },
+    lineHeight: 'body',
+    _mobile: { fontSize: 'body.18' },
     '&[lang="en"]': {
-      fontSize: '15px',
+      fontSize: 'body.15',
       fontWeight: '700',
-      _mobile: { fontSize: '18px', lineHeight: '22px' },
+      _mobile: { fontSize: 'body.18', lineHeight: 'body' },
     },
   }),
   value: css.raw({
-    '&&': { fontSize: '20px', lineHeight: '18.2px', _mobile: { fontSize: '18px' } },
+    '&&': { fontSize: 'body.20', lineHeight: 'body', _mobile: { fontSize: 'body.18' } },
   }),
   scaleTitle: css({
-    '&&': { fontSize: '20px', fontWeight: '800', lineHeight: '30px' },
+    '&&': { fontSize: 'body.20', fontWeight: '800', lineHeight: 'body' },
   }),
   scaleLabel: css({
-    '&&': { fontSize: '16px', lineHeight: '1.5', _mobile: { fontSize: '13px' } },
+    '&&': { fontSize: 'body.16', lineHeight: 'body', _mobile: { fontSize: 'body.13' } },
   }),
 };
 
@@ -782,7 +781,7 @@ function ProductDetailSpecificationList({
                   ) : null}
                   <Typography
                     as="span"
-                    variant="body3"
+                    variant="b4"
                     className={technical ? css(productTechSpecsStyles.value) : undefined}
                   >
                     {value}
@@ -792,8 +791,8 @@ function ProductDetailSpecificationList({
             </HStack>
           ),
       }))}
-      termProps={{ variant: 'body3', weight: 'bold' }}
-      descriptionProps={{ variant: 'body3', tone: undefined }}
+      termProps={{ variant: 'b4B' }}
+      descriptionProps={{ variant: 'b4', tone: undefined }}
       slotStyles={{
         root: css.raw({
           display: 'flex',
@@ -843,8 +842,7 @@ function ProductTechnicalScale({ title, labels, level, help }: ProductTechnicalS
       headerProps={{
         titleAs: 'h3',
         titleProps: {
-          variant: 'body3',
-          weight: 'bold',
+          variant: 'b4B',
           className: productTechSpecsStyles.scaleTitle,
         },
         orientation: 'horizontal',
@@ -865,7 +863,7 @@ function ProductTechnicalScale({ title, labels, level, help }: ProductTechnicalS
       <ProductTechnicalScaleBar level={level} />
       <Flex justifyContent="space-between" gap="2">
         {labels.map((label) => (
-          <Typography key={label} variant="body3" className={productTechSpecsStyles.scaleLabel}>
+          <Typography key={label} variant="b4" className={productTechSpecsStyles.scaleLabel}>
             {label}
           </Typography>
         ))}
@@ -876,10 +874,10 @@ function ProductTechnicalScale({ title, labels, level, help }: ProductTechnicalS
 
 const productDetailMobileStyles = {
   sectionHeading: css({
-    _mobile: { '&&': { fontSize: '22px', fontWeight: '900', lineHeight: '1.2' } },
+    _mobile: { '&&': { fontSize: 'heading.22', fontWeight: '900', lineHeight: 'koreanHeading' } },
   }),
   featureHeading: css({
-    _mobile: { '&&': { fontSize: '18px', fontWeight: '700', lineHeight: '1.3' } },
+    _mobile: { '&&': { fontSize: 'body.18', fontWeight: '700', lineHeight: 'body' } },
   }),
 };
 
@@ -895,7 +893,8 @@ function ProductTechSpecs({ specifications, attributes, scales }: ProductTechSpe
       headerProps={{
         titleAs: 'h2',
         titleProps: {
-          variant: 'heading7',
+          web: 'h8B',
+          mo: 'h8',
           className: productTechSpecsStyles.heading,
         },
       }}
@@ -958,11 +957,12 @@ function ProductDetailEditorial({
         title={feature.title}
         titleAs="h3"
         titleProps={{
-          variant: 'heading10',
+          web: 'h10',
+          mo: 'h8',
           className: productDetailMobileStyles.featureHeading,
         }}
         description={feature.description}
-        descriptionProps={{ variant: 'body4' }}
+        descriptionProps={{ variant: 'b6' }}
         gap="2"
       />
     </Stack>
@@ -972,7 +972,7 @@ function ProductDetailEditorial({
       title="Why you’ll love it"
       headerProps={{
         titleAs: 'h2',
-        titleProps: { variant: 'heading7', className: productDetailMobileStyles.sectionHeading },
+        titleProps: { web: 'h8B', mo: 'h8', className: productDetailMobileStyles.sectionHeading },
         orientation: 'horizontal',
         action: isCarousel ? <CarouselControls /> : undefined,
       }}
@@ -1028,10 +1028,10 @@ const link = css({
 
 const productDetailNavigationLabel = css({
   '&&': {
-    fontSize: '16px',
-    lineHeight: '18px',
-    letterSpacing: '-0.02em',
-    _mobile: { fontSize: '14px', lineHeight: '1.5' },
+    fontSize: 'body.16',
+    lineHeight: 'body',
+    letterSpacing: 'korean',
+    _mobile: { fontSize: 'body.14', lineHeight: 'body' },
   },
 });
 
@@ -1057,8 +1057,8 @@ function ProductDetailNavigation({ ref, items, activeId }: ProductDetailNavigati
           aria-current={activeId === item.id ? 'location' : undefined}
         >
           <Typography
-            web="body3"
-            mo="body4"
+            web="b4"
+            mo="b6"
             language="ko"
             weight={activeId === item.id ? 'semibold' : 'regular'}
             className={productDetailNavigationLabel}
@@ -1136,7 +1136,9 @@ function ProductDetailPlaceholder({ children }: { children: ReactNode }) {
       p="8"
       textAlign="center"
     >
-      <Typography variant="heading8">{children}</Typography>
+      <Typography web="h10B" mo="h8">
+        {children}
+      </Typography>
     </Grid>
   );
 }
@@ -1156,9 +1158,9 @@ function ProductDetailReviews({ count, id, className, children }: ProductDetailR
       headerProps={{
         titleAs: 'h2',
         count,
-        countProps: { variant: 'body1', weight: 'medium' },
+        countProps: { variant: 'b1M' },
         variant: 'productSection',
-        titleProps: { variant: 'heading8' },
+        titleProps: { web: 'h10B', mo: 'h8' },
       }}
       gap="6"
     >
@@ -1196,7 +1198,7 @@ function ProductDetailDeliverySection({ title, children }: { title: string; chil
       gap="5"
       aria-label={title}
       title={<>{title}</>}
-      headerProps={{ titleAs: 'h3', titleProps: { variant: 'heading8' } }}
+      headerProps={{ titleAs: 'h3', titleProps: { web: 'h10B', mo: 'h8' } }}
     >
       {children}
     </ContentSection>
@@ -1204,7 +1206,7 @@ function ProductDetailDeliverySection({ title, children }: { title: string; chil
 }
 function ProductDetailDeliveryList({ children }: { children: ReactNode }) {
   return (
-    <Typography as="ol" variant="body5" className={numberedList}>
+    <Typography as="ol" variant="b8" className={numberedList}>
       {children}
     </Typography>
   );
@@ -1275,20 +1277,20 @@ function ProductSupportContact() {
       <ContentHeader
         title="호카 온라인 스토어 고객센터"
         titleAs="h4"
-        titleProps={{ variant: 'body5', weight: 'bold' }}
+        titleProps={{ variant: 'b8B' }}
         gap="0"
       />
       <Stack gap="2">
-        <Typography as="p" variant="body5">
+        <Typography as="p" variant="b8">
           TEL. <ProductSupportTextLink href="tel:15660086">1566-0086</ProductSupportTextLink>
         </Typography>
-        <Typography as="p" variant="body5" tone="tertiary">
+        <Typography as="p" variant="b8" tone="tertiary">
           1:1 문의를 이용하시면 조금 더 빠르게 답변 받으실 수 있습니다.
         </Typography>
-        <Typography as="p" variant="body5" weight="bold">
+        <Typography as="p" variant="b8B">
           운영시간
         </Typography>
-        <Typography as="p" variant="body5" tone="tertiary">
+        <Typography as="p" variant="b8" tone="tertiary">
           평일 10:00~17:00 (점심시간 12:00~13:00) / 토·일요일 및 공휴일 휴무
         </Typography>
       </Stack>
@@ -1324,14 +1326,12 @@ function ProductSupportLink({ title, description, label, to }: ProductSupportLin
         gap="2"
         titleAs="h4"
         title={<>{title}</>}
-        titleProps={{ variant: 'body5', weight: 'bold' }}
+        titleProps={{ variant: 'b8B' }}
         description={<>{description}</>}
-        descriptionProps={{ variant: 'body5', tone: 'tertiary' }}
+        descriptionProps={{ variant: 'b8', tone: 'tertiary' }}
       />
       <Link href={to} className={supportLink}>
-        <Typography variant="body5" weight="medium">
-          {label}
-        </Typography>
+        <Typography variant="b8M">{label}</Typography>
       </Link>
     </Grid>
   );
@@ -1418,16 +1418,16 @@ function ProductDetailReturnGuide() {
             </>
           }
           titleAs="h4"
-          titleProps={{ variant: 'body2', tone: 'tertiary', className: processTitle }}
+          titleProps={{ variant: 'b2', tone: 'tertiary', className: processTitle }}
           gap="0"
         />
         <Stack as="ol" gap="6">
           {returnSteps.map((step, index) => (
             <li key={step} className={stepRow}>
-              <Typography variant="body1" className={stepNumber} aria-hidden="true">
+              <Typography variant="b1" className={stepNumber} aria-hidden="true">
                 {index + 1}
               </Typography>
-              <Typography variant="body5">{step}</Typography>
+              <Typography variant="b8">{step}</Typography>
             </li>
           ))}
         </Stack>
@@ -1459,20 +1459,18 @@ function ProductDetailNoticeTable({ items }: { items: readonly ProductDetailSpec
         id: label,
         term: (
           <>
-            <Typography variant="body4" weight="bold">
-              {label}
-            </Typography>
-            {note ? <Typography variant="body4">{note}</Typography> : null}
+            <Typography variant="b6B">{label}</Typography>
+            {note ? <Typography variant="b6">{note}</Typography> : null}
           </>
         ),
         description: (
-          <Typography variant="body4">
+          <Typography variant="b6">
             {typeof value === 'string' ? value : value.join(' | ')}
           </Typography>
         ),
       }))}
-      termProps={{ variant: 'body4' }}
-      descriptionProps={{ variant: 'body4', tone: 'inherit' }}
+      termProps={{ variant: 'b6' }}
+      descriptionProps={{ variant: 'b6', tone: 'inherit' }}
       slotStyles={{
         root: css.raw({
           display: 'flex',
@@ -1529,7 +1527,7 @@ function ProductDetailSupportSections({
         {
           value: 'notice',
           title: (
-            <Typography variant="body3" mo="body4" weight="bold">
+            <Typography variant="b4B" mo="b6B">
               상품 고시 정보
             </Typography>
           ),
@@ -1538,7 +1536,7 @@ function ProductDetailSupportSections({
         {
           value: 'delivery',
           title: (
-            <Typography variant="body3" mo="body4" weight="bold">
+            <Typography variant="b4B" mo="b6B">
               배송 및 반품
             </Typography>
           ),
@@ -1547,7 +1545,7 @@ function ProductDetailSupportSections({
         {
           value: 'care',
           title: (
-            <Typography variant="body3" mo="body4" weight="bold">
+            <Typography variant="b4B" mo="b6B">
               관리 방법
             </Typography>
           ),
@@ -1703,19 +1701,19 @@ const sizeGuideStyles = {
     tableLayout: 'fixed',
     w: '100%',
     textAlign: 'center',
-    fontFamily: 'korean',
-    fontSize: '14px',
-    lineHeight: '1.5',
-    letterSpacing: '-0.02em',
+    fontFamily: 'ko',
+    fontSize: 'body.14',
+    lineHeight: 'body',
+    letterSpacing: 'korean',
     '& th, & td': { border: '1px solid #E9EAEB', h: '52px', px: '4px', fontWeight: '400' },
     '& thead th': { bg: '#F5F5F7', fontWeight: '600' },
     '& tbody tr:nth-child(even)': { bg: '#F5F5F7' },
-    _mobile: { fontSize: '12px', '& th, & td': { h: '46px', px: '2px' } },
+    _mobile: { fontSize: 'body.12', '& th, & td': { h: '46px', px: '2px' } },
   }),
   apparelTable: css({
-    '& th, & td': { fontSize: '12px' },
+    '& th, & td': { fontSize: 'body.12' },
     '& tbody td:nth-child(-n+2)': { fontWeight: '600' },
-    _mobile: { '& th, & td': { fontSize: '11px' } },
+    _mobile: { '& th, & td': { fontSize: 'body.10' } },
   }),
   unitGroup: css({ display: 'flex', p: '2px', borderRadius: 'full', bg: '#D9D9D9' }),
   unitButton: css({
@@ -1726,8 +1724,8 @@ const sizeGuideStyles = {
     borderRadius: 'full',
     bg: 'transparent',
     color: 'text.primary',
-    fontFamily: 'korean',
-    fontSize: '12px',
+    fontFamily: 'ko',
+    fontSize: 'body.12',
     fontWeight: '600',
     cursor: 'pointer',
     '&[aria-pressed=true]': { bg: 'white.000' },
@@ -1752,7 +1750,7 @@ const apparelFitDescriptions = [
   {
     title: '스탠다드핏 (Standard)',
     description:
-      '가장 클래식한 핏으로, 너무 타이트하지도 너무 헐렁하지도 않은 이상적인 균형을 갖추고 있습니다. 클래식 또는 레귤러 핏이라고도 불립니다.',
+      '가장 클래식한 핏으로, 너무 타이트하지도 너무 헐렁하지도 않은 이상적인 균형을 갖추고 있습니다. ‘클래식’ 또는 ‘레귤러’ 핏이라고도 불립니다.',
   },
   {
     title: '릴렉스핏 (Relaxed)',
@@ -1795,7 +1793,7 @@ function ProductSizeGuideChart({
     <Stack minW="0" gap="40px" _mobile={{ gap: '40px' }}>
       <Stack gap="4">
         <HStack justify="space-between">
-          <Typography id={headingId} as="h3" variant="body3" weight="bold">
+          <Typography id={headingId} as="h3" variant="b4B">
             {title}
           </Typography>
           <SegmentedControl
@@ -1840,10 +1838,10 @@ function ProductSizeGuideChart({
         <>
           <Stack gap="4">
             <Stack gap="2">
-              <Typography as="h3" variant="body3" weight="bold">
+              <Typography as="h3" variant="b4B">
                 측정 방법
               </Typography>
-              <Typography as="p" variant="body4">
+              <Typography as="p" variant="b6">
                 측정한 치수를 사이즈표와 비교해 가장 알맞은 사이즈를 선택해 주세요.
               </Typography>
             </Stack>
@@ -1867,10 +1865,10 @@ function ProductSizeGuideChart({
               <Stack as="ol" listStyleType="none" gap="6" py="4" _mobile={{ py: '0' }}>
                 {measurement.steps.map((step, index) => (
                   <Stack as="li" gap="2" key={step}>
-                    <Typography variant="body4" weight="bold">
+                    <Typography variant="b6B">
                       {index + 1}. {['가슴 둘레', '허리 둘레', '엉덩이 둘레'][index]}
                     </Typography>
-                    <Typography as="p" variant="body4">
+                    <Typography as="p" variant="b6">
                       {step}
                     </Typography>
                   </Stack>
@@ -1879,16 +1877,16 @@ function ProductSizeGuideChart({
             </Grid>
           </Stack>
           <Stack gap="4">
-            <Typography as="h3" variant="body3" weight="bold">
+            <Typography as="h3" variant="b4B">
               Fit Guide
             </Typography>
             <Grid gridTemplateColumns="1fr 1fr" gap="4" _mobile={{ gridTemplateColumns: '1fr' }}>
               {apparelFitDescriptions.map(({ title: fitTitle, description }) => (
                 <Stack key={fitTitle} gap="2" p="4" bg="#F5F5F7" borderRadius="4px">
-                  <Typography as="h4" variant="body4" weight="bold">
+                  <Typography as="h4" variant="b6B">
                     {fitTitle}
                   </Typography>
-                  <Typography as="p" variant="body4">
+                  <Typography as="p" variant="b6">
                     {description}
                   </Typography>
                 </Stack>
@@ -1947,7 +1945,7 @@ function ProductSizeSelector({
         }
         allowSoldOutSelection
         error={error}
-        errorVariant="eland-product-option-error"
+        errorVariant="b6M"
         options={productSizeOptions(selectedWidth, apparel ? selectedWidth?.sizes : undefined)}
         value={value}
         onValueChange={onValueChange}
@@ -2069,15 +2067,16 @@ type ProductInformationProps = {
 };
 
 const productInformationTitleProps = {
-  variant: 'bodyKr3',
+  variant: 'b4B',
   language: 'ko',
-  weight: 'bold',
-  className: css({ '&&': { _mobile: { fontSize: '17px' } } }),
+  className: css({ '&&': { _mobile: { fontSize: 'body.16' } } }),
 } as const;
 
 const productInformationDescriptionProps = {
-  variant: 'eland-product-description',
-  className: css({ '&&': { _mobile: { fontSize: '16px', lineHeight: '1.5' } } }),
+  web: 'b4',
+  mo: 'b5',
+  language: 'ko',
+  className: css({ '&&': { _mobile: { fontSize: 'body.16', lineHeight: 'body' } } }),
 } as const;
 /** 상품 설명 섹션과 규격 정보를 의미 있는 목록으로 표시합니다. (Displays product description sections and specifications as a semantic list.) */
 function ProductInformation({ id, sections, specifications }: ProductInformationProps) {
@@ -2142,10 +2141,9 @@ function ProductInformation({ id, sections, specifications }: ProductInformation
       headerProps={{
         titleAs: 'h2',
         titleProps: {
-          variant: 'headingKr8',
-          mo: 'headingKr9',
-          weight: 'black',
-          className: css({ '&&': { _mobile: { fontSize: '22px' } } }),
+          web: 'h10B',
+          mo: 'h8B',
+          className: css({ '&&': { _mobile: { fontSize: 'body.20' } } }),
         },
       }}
     >
@@ -2188,7 +2186,7 @@ function ProductInformation({ id, sections, specifications }: ProductInformation
               aria-controls={contentId}
               onClick={() => setExpansion({ content: description.content, expanded: !expanded })}
             >
-              <Typography as="span" variant="bodyKr4" weight="semibold">
+              <Typography as="span" variant="b6S">
                 {expanded ? '닫기' : '더 보기'}
               </Typography>
             </Button>
@@ -2198,19 +2196,18 @@ function ProductInformation({ id, sections, specifications }: ProductInformation
           items={specifications.map(({ label, value }) => ({ term: label, description: value }))}
           labelWidth="var(--product-information-label-width)"
           termProps={{
-            variant: 'bodyKr4',
-            weight: 'semibold',
+            variant: 'b6S',
           }}
-          descriptionProps={{ variant: 'bodyKr4', weight: 'regular' }}
+          descriptionProps={{ variant: 'b6' }}
           slotStyles={{
             root: css.raw({ columnGap: '3', rowGap: '6', alignItems: 'center' }),
             term: css.raw({
-              '&&': { fontFamily: 'korean', fontSize: '15px' },
-              _mobile: { '&&': { fontSize: '14px' } },
+              '&&': { fontFamily: 'ko', fontSize: 'body.15' },
+              _mobile: { '&&': { fontSize: 'body.14' } },
             }),
             description: css.raw({
-              '&&': { fontFamily: 'korean', fontSize: '15px', lineHeight: '1.5' },
-              _mobile: { '&&': { fontSize: '14px' } },
+              '&&': { fontFamily: 'ko', fontSize: 'body.15', lineHeight: 'body' },
+              _mobile: { '&&': { fontSize: 'body.14' } },
             }),
           }}
         />
@@ -2283,7 +2280,9 @@ function ProductPurchaseActions({
         fullWidth
         size={platform === 'mobile' ? 'short' : 'tall'}
       >
-        <Typography variant="eland-purchase-action">{restock ? '품절' : '장바구니'}</Typography>
+        <Typography web="b4B" mo="b5B" language="ko">
+          {restock ? '품절' : '장바구니'}
+        </Typography>
       </Button>
       <Button
         variant="primary"
@@ -2291,7 +2290,7 @@ function ProductPurchaseActions({
         size={platform === 'mobile' ? 'short' : 'tall'}
         onClick={restock ? undefined : onOpenOptions}
       >
-        <Typography variant="eland-purchase-action">
+        <Typography web="b4B" mo="b5B" language="ko">
           {restock ? '입고 알림 신청하기' : '구매하기'}
         </Typography>
       </Button>
@@ -2617,19 +2616,14 @@ function AfterSalesContact({
       borderBottom="1px solid var(--color-black-20)"
       _mobile={{ gridTemplateColumns: '1fr', gap: '3', pb: '6' }}
     >
-      <ContentHeader
-        title={title}
-        titleAs="h4"
-        titleProps={{ variant: 'body5', weight: 'bold' }}
-        gap="0"
-      />
+      <ContentHeader title={title} titleAs="h4" titleProps={{ variant: 'b8B' }} gap="0" />
       <Stack gap="3">
         {descriptions.map((description) => (
-          <Typography as="p" variant="body5" key={description}>
+          <Typography as="p" variant="b8" key={description}>
             {description}
           </Typography>
         ))}
-        <Typography variant="body5">{link}</Typography>
+        <Typography variant="b8">{link}</Typography>
       </Stack>
     </Grid>
   );
@@ -2656,9 +2650,9 @@ function AfterSalesAction({
         gap="2"
         titleAs="h4"
         title={title}
-        titleProps={{ variant: 'body5', weight: 'bold' }}
+        titleProps={{ variant: 'b8B' }}
         description={description}
-        descriptionProps={{ variant: 'body5' }}
+        descriptionProps={{ variant: 'b8' }}
       />
       <ButtonLink href={href} variant="secondary" size="short">
         {label}
@@ -2740,14 +2734,14 @@ function ProductAfterSalesProcess() {
       headerProps={{
         gap: '6',
         titleAs: 'h4',
-        titleProps: { variant: 'heading10' },
+        titleProps: { web: 'h10', mo: 'h8' },
         description: (
           <>
             온라인 신청 후 접수 안내에 따라 상품을 발송해 주세요. 수선 가능 여부와 비용, 처리 일정은
             상품 확인 후 안내됩니다.
           </>
         ),
-        descriptionProps: { variant: 'body5' },
+        descriptionProps: { variant: 'b8' },
       }}
     >
       <Grid
@@ -2771,11 +2765,9 @@ function ProductAfterSalesProcess() {
       >
         {steps.map((step, index) => (
           <Stack as="li" gap="3" key={step.title}>
-            <Typography variant="cta2">STEP {index + 1}</Typography>
-            <Typography variant="body5" weight="bold">
-              {step.title}
-            </Typography>
-            <Typography as="p" variant="body5">
+            <Typography variant="b6M">STEP {index + 1}</Typography>
+            <Typography variant="b8B">{step.title}</Typography>
+            <Typography as="p" variant="b8">
               {step.description}
             </Typography>
           </Stack>
@@ -2811,7 +2803,7 @@ function ProductAfterSalesQuestions() {
       <ContentHeader
         title="궁금하신 점이 있으세요?"
         titleAs="h4"
-        titleProps={{ variant: 'heading8' }}
+        titleProps={{ web: 'h10B', mo: 'h8' }}
         gap="0"
       />
       <Stack gap="8">
@@ -2821,9 +2813,9 @@ function ProductAfterSalesQuestions() {
               gap="4"
               titleAs="h5"
               title={<>Q. {question}</>}
-              titleProps={{ variant: 'body4', weight: 'bold' }}
+              titleProps={{ variant: 'b6B' }}
               description={<>{answer}</>}
-              descriptionProps={{ variant: 'body5' }}
+              descriptionProps={{ variant: 'b8' }}
             />
           </Box>
         ))}
@@ -2834,7 +2826,7 @@ function ProductAfterSalesQuestions() {
 function ProductDetailAfterSalesContent() {
   return (
     <Stack gap="10" pt="6">
-      <Typography as="p" variant="body5">
+      <Typography as="p" variant="b8">
         HOKA 상품에 이상이 있거나 수선이 필요한 경우 구매처 또는 A/S 접수 창구로 문의해 주세요.
         <br />
         A/S 관련 문의는 고객센터 또는 1:1 문의를 이용해 주세요.
@@ -2853,17 +2845,29 @@ const wrapper = css({
 const items: AccordionEntry[] = [
   {
     value: 'inquiry',
-    title: <Typography variant="heading10">상품 문의</Typography>,
+    title: (
+      <Typography web="h10" mo="h8">
+        상품 문의
+      </Typography>
+    ),
     content: <ProductDetailInquiryContent />,
   },
   {
     value: 'delivery',
-    title: <Typography variant="heading10">배송 및 반품</Typography>,
+    title: (
+      <Typography web="h10" mo="h8">
+        배송 및 반품
+      </Typography>
+    ),
     content: <ProductDetailDeliveryContent />,
   },
   {
     value: 'after-sales',
-    title: <Typography variant="heading10">A/S 안내</Typography>,
+    title: (
+      <Typography web="h10" mo="h8">
+        A/S 안내
+      </Typography>
+    ),
     content: <ProductDetailAfterSalesContent />,
   },
 ];
@@ -3020,8 +3024,8 @@ const ProductDetailRecommendStyles = {
   section: css({
     '--layout-web-content-max-width': '1776px',
     '--layout-web-content-inline-space': '144px',
-    '& h2': { fontSize: '36px' },
-    _mobile: { '& h2': { fontSize: '22px' } },
+    '& h2': { fontSize: 'heading.36' },
+    _mobile: { '& h2': { fontSize: 'heading.22' } },
   }),
   mobileSlide: css({
     w: 'calc(160px + var(--carousel-item-gutter) + var(--carousel-item-gutter))!',
@@ -3047,7 +3051,8 @@ function ProductDetailRecommend({ products, title = '추천 상품' }: ProductDe
       slideClassName={isWeb ? undefined : ProductDetailRecommendStyles.mobileSlide}
       spacing="compact"
       title={title}
-      titleVariant="heading6"
+      titleVariant="h4B"
+      mobileTitleVariant="h8"
     >
       {products.map((product) => (
         <ProductCard key={product.id} product={product} variant="showcase" />
@@ -3128,7 +3133,9 @@ function ProductSelectedOptions({
                   alignItems="center"
                   justifyContent="space-between"
                 >
-                  <Typography variant="eland-option-name">{label}</Typography>
+                  <Typography variant="b6" language="en">
+                    {label}
+                  </Typography>
                   <Button
                     variant="icon"
                     aria-label={`${label} 삭제`}
@@ -3150,9 +3157,11 @@ function ProductSelectedOptions({
                     value={item.quantity}
                     onChange={(quantity) => onQuantityChange(index, quantity)}
                   />
-                  <Typography variant="cta1" language="en">
+                  <Typography variant="b4M" language="en">
                     {(item.amount ?? unitPrice).toLocaleString('ko-KR')}
-                    <Typography variant="eland-listing-price-unit">원</Typography>
+                    <Typography web="b4B" mo="b7B" language="ko">
+                      원
+                    </Typography>
                   </Typography>
                 </Flex>
               </Stack>
@@ -3166,14 +3175,16 @@ function ProductSelectedOptions({
         className={dataListBoundaryRecipe({ top: 'strong' })}
         aria-live="polite"
       >
-        <Typography variant="eland-option-total">
+        <Typography web="b4B" mo="b6B" language="ko">
           {previewTotal === undefined ? '합계' : '총 3개'}
         </Typography>
         <HStack alignItems="baseline" gap="0.5">
-          <Typography variant="eland-product-price">
+          <Typography web="b3M" mo="b4M" language="en">
             {(previewTotal ?? unitPrice).toLocaleString()}
           </Typography>
-          <Typography variant="eland-product-price-unit">원</Typography>
+          <Typography web="b3B" mo="b4B" language="ko">
+            원
+          </Typography>
         </HStack>
       </HStack>
     </Stack>

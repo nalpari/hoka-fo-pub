@@ -37,10 +37,10 @@ const categorySlide = css({ w: 'calc(83.2vw + var(--spacing-4))!', '& > *': { w:
 
 const categoryCard = css({
   '&&': { gap: '20px' },
-  '& h3': { fontSize: '28px', lineHeight: '1' },
+  '& h3': { fontSize: 'heading.28', lineHeight: 'hoka' },
   '& .card__header': { gap: '0' },
   '& .card__action': { mt: '4px' },
-  _mobile: { '&&': { gap: '16px' }, '& h3': { fontSize: '22px' } },
+  _mobile: { '&&': { gap: '16px' }, '& h3': { fontSize: 'heading.22' } },
 });
 
 const basicCode = `import { usePlatform } from '@/context/platform';
@@ -54,15 +54,15 @@ const platform = usePlatform();
 const items = createHomeCarouselPreviewItems(homeCategories);
 const categoryCard = css({
   '&&': { gap: '20px' },
-  '& h3': { fontSize: '28px', lineHeight: '1' },
+  '& h3': { fontSize: 'heading.28', lineHeight: 'hoka' },
   '& .card__header': { gap: '0' },
   '& .card__action': { mt: '4px' },
-  _mobile: { '&&': { gap: '16px' }, '& h3': { fontSize: '22px' } },
+  _mobile: { '&&': { gap: '16px' }, '& h3': { fontSize: 'heading.22' } },
 });
 
 <CarouselSection
   title="Shop by category"
-  titleVariant="heading4"
+  titleVariant="d4" mobileTitleVariant="h5B"
   platform={platform}
   itemCount={items.length}
   desktopCenteredItemCount={4}
@@ -93,7 +93,7 @@ const items = createHomeCarouselPreviewItems(products.slice(0, 12));
 
 <CarouselSection
   title="Best sellers"
-  titleVariant="heading4"
+  titleVariant="d4" mobileTitleVariant="h5B"
   platform={platform}
   itemCount={items.length}
   desktopCenteredItemCount={5}
@@ -147,19 +147,19 @@ export function CarouselGuide() {
     >
       <Stack minW="0" gap="6">
         <Stack gap="2">
-          <Typography as="h2" variant="heading8">
+          <Typography as="h2" web="h10B" mo="h8">
             캐러셀
           </Typography>
-          <Typography as="p" variant="body4">
+          <Typography as="p" variant="b6">
             제목·오른쪽 컨트롤·레일을 하나의 CarouselSection으로 사용합니다. 홈과 장바구니는 같은
             컴포넌트에 제목과 카드를 전달합니다.
           </Typography>
-          <Typography as="p" variant="body5" tone="subtle">
+          <Typography as="p" variant="b8" tone="subtle">
             데스크탑: 오른쪽 48px 이전·다음 버튼, 버튼 간격 10px. 모바일: 컨트롤을 숨기고 레일을
             터치로 넘깁니다. 홈과 같은 MainContentCard·ProductCard를 각각 12개 배치했습니다.
             카테고리 카드 간격은 16px, 상품 카드는 데스크탑 16px·모바일 10px입니다.
           </Typography>
-          <Typography as="p" variant="body5" tone="subtle">
+          <Typography as="p" variant="b8" tone="subtle">
             사용 파일: HomeContent.tsx / OrderRecommendations.tsx / ProductDetailContent.tsx /
             RunningSessionSessionContent.tsx
           </Typography>
@@ -173,7 +173,8 @@ export function CarouselGuide() {
         >
           <CarouselSection
             title="Shop by category"
-            titleVariant="heading4"
+            titleVariant="d4"
+            mobileTitleVariant="h5B"
             platform={platform}
             itemCount={categoryItems.length}
             desktopCenteredItemCount={4}
@@ -194,7 +195,7 @@ export function CarouselGuide() {
         </Box>
         <Stack id="carousel-basic-code" gap="3" minW="0" scrollMarginTop="100px">
           <HStack justifyContent="space-between">
-<Typography as="h3" variant="body3Semibold">
+            <Typography as="h3" variant="b4S">
               기본형 사용 코드
             </Typography>
             <Button
@@ -206,7 +207,7 @@ export function CarouselGuide() {
               코드 복사
             </Button>
           </HStack>
-          <Typography as="p" variant="body5" tone="subtle">
+          <Typography as="p" variant="b8" tone="subtle">
             탭 없이 제목 오른쪽에 컨트롤을 표시합니다. 카테고리 표시 데이터를 MainContentCard에
             전달합니다.
           </Typography>
@@ -233,7 +234,8 @@ export function CarouselGuide() {
               />
             }
             viewportKey={selectedTab}
-            titleVariant="heading4"
+            titleVariant="d4"
+            mobileTitleVariant="h5B"
             platform={platform}
             itemCount={productItems.length}
             desktopCenteredItemCount={5}
@@ -250,7 +252,7 @@ export function CarouselGuide() {
         </Box>
         <Stack id="carousel-tabs-code" gap="3" minW="0" scrollMarginTop="100px">
           <HStack justifyContent="space-between">
-<Typography as="h3" variant="body3Semibold">
+            <Typography as="h3" variant="b4S">
               탭 포함형 사용 코드
             </Typography>
             <Button
@@ -262,7 +264,7 @@ export function CarouselGuide() {
               코드 복사
             </Button>
           </HStack>
-          <Typography as="p" variant="body5" tone="subtle">
+          <Typography as="p" variant="b8" tone="subtle">
             tabs에 FilterTabs를 전달합니다. 탭 예시는 선택 상태만 변경하며 상품 목록은 부모에서
             전달합니다.
           </Typography>

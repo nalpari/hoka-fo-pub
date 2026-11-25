@@ -34,7 +34,7 @@ export function getDescriptionListExamples(platform: Platform) {
       description: '실제 화면의 데이터·스타일',
       source: 'src/app/support/inquiries/new/_components/InquiryFormContent.tsx',
       href: '/support/inquiries/new',
-      code: "import { type Platform } from '@/context/platform';\nimport { css } from 'styled-system/css';\nimport { Box } from 'styled-system/jsx';\nimport { DescriptionList } from '@/components/common/atoms/DescriptionList';\n\nfunction Example({ platform }: { platform: Platform }) {\n  return (\n    <Box px=\"8\" py=\"6\" bg=\"black.10\" _mobile={{ px: '4', py: '5' }}>\n      <DescriptionList\n        items={[\n          { term: '이름', description: '홍길동' },\n          { term: '휴대폰 번호', description: '010-1234-1234' },\n          { term: 'E-mail', description: 'hong123@naver.com' },\n        ]}\n        termProps={{ variant: 'body3', mo: 'body4', tone: 'subtle' }}\n        descriptionProps={{ variant: 'body3', mo: 'body4', tone: undefined }}\n        slotStyles={{\n          root: css.raw({\n            gridTemplateColumns: 'max-content minmax(0, 1fr)',\n            gap: '12px 22px',\n            _mobile: { gridTemplateColumns: '82px minmax(0, 1fr)', columnGap: '2' },\n          }),\n        }}\n      />\n    </Box>\n  );\n}\n",
+      code: "import { type Platform } from '@/context/platform';\nimport { css } from 'styled-system/css';\nimport { Box } from 'styled-system/jsx';\nimport { DescriptionList } from '@/components/common/atoms/DescriptionList';\n\nfunction Example({ platform }: { platform: Platform }) {\n  return (\n    <Box px=\"8\" py=\"6\" bg=\"black.10\" _mobile={{ px: '4', py: '5' }}>\n      <DescriptionList\n        items={[\n          { term: '이름', description: '홍길동' },\n          { term: '휴대폰 번호', description: '010-1234-1234' },\n          { term: 'E-mail', description: 'hong123@naver.com' },\n        ]}\n        termProps={{ variant: 'b4', mo: 'b6', tone: 'subtle' }}\n        descriptionProps={{ variant: 'b4', mo: 'b6', tone: undefined }}\n        slotStyles={{\n          root: css.raw({\n            gridTemplateColumns: 'max-content minmax(0, 1fr)',\n            gap: '12px 22px',\n            _mobile: { gridTemplateColumns: '82px minmax(0, 1fr)', columnGap: '2' },\n          }),\n        }}\n      />\n    </Box>\n  );\n}\n",
       preview: (() => {
         return (
           <Box px="8" py="6" bg="black.10" _mobile={{ px: '4', py: '5' }}>
@@ -44,8 +44,8 @@ export function getDescriptionListExamples(platform: Platform) {
                 { term: '휴대폰 번호', description: '010-1234-1234' },
                 { term: 'E-mail', description: 'hong123@naver.com' },
               ]}
-              termProps={{ variant: 'body3', mo: 'body4', tone: 'subtle' }}
-              descriptionProps={{ variant: 'body3', mo: 'body4', tone: undefined }}
+              termProps={{ variant: 'b4', mo: 'b6', tone: 'subtle' }}
+              descriptionProps={{ variant: 'b4', mo: 'b6', tone: undefined }}
               slotStyles={{
                 root: css.raw({
                   gridTemplateColumns: 'max-content minmax(0, 1fr)',
@@ -64,7 +64,7 @@ export function getDescriptionListExamples(platform: Platform) {
       description: '실제 화면의 데이터·스타일',
       source: 'src/app/products/[id]/_components/ProductDetailContent.tsx',
       href: '/products/shoe-1#product-details',
-      code: "import { Fragment } from 'react';\nimport { type Platform } from '@/context/platform';\nimport { css } from 'styled-system/css';\nimport { HStack } from 'styled-system/jsx';\nimport { DescriptionList } from '@/components/common/atoms/DescriptionList';\nimport { Divider } from '@/components/common/atoms/Divider';\nimport { Typography } from '@/components/common/atoms/Typography';\nimport { HelpTooltip } from '@/components/common/molecules/HelpTips';\nimport {\n  getProductDetailPresentation,\n  type ProductDetailSpecification,\n} from '@/app/products/[id]/productDetailPresentation';\nimport { products } from '@/mocks/products';\n\nfunction Example({ platform }: { platform: Platform }) {\n  const product = products.find((item) => item.id === 'shoe-1')!;\n  const presentation = getProductDetailPresentation(product);\n  const items: readonly ProductDetailSpecification[] = presentation.specifications;\n  const gap = '8';\n  return (\n    <DescriptionList\n      items={items.map((item) => ({\n        descriptionProps: typeof item.value === 'string' ? undefined : { variant: undefined },\n        term: (\n          <HStack as=\"span\" gap=\"2\" alignItems=\"center\">\n            {item.label}\n            {item.help ? (\n              <HelpTooltip\n                label={`${item.label} 안내`}\n                text={item.help}\n                side=\"bottom\"\n                iconColor=\"black.50\"\n                className={css({ transform: 'translateY(-1px)' })}\n              />\n            ) : null}\n          </HStack>\n        ),\n        description:\n          typeof item.value === 'string' ? (\n            item.value\n          ) : (\n            <HStack as=\"span\" gap=\"3\" flexWrap=\"wrap\">\n              {item.value.map((value, index) => (\n                <Fragment key={value}>\n                  {index > 0 ? (\n                    <Divider orientation=\"vertical\" length=\"4\" variant=\"strong\" />\n                  ) : null}\n                  <Typography as=\"span\" variant=\"body3\">\n                    {value}\n                  </Typography>\n                </Fragment>\n              ))}\n            </HStack>\n          ),\n      }))}\n      termProps={{ variant: 'body3', weight: 'bold' }}\n      descriptionProps={{ variant: 'body3', tone: undefined }}\n      slotStyles={{\n        root: css.raw({\n          display: 'flex',\n          flexDirection: 'column',\n          gridTemplateColumns: 'none',\n          gap,\n        }),\n        row: css.raw({ display: 'flex', flexDirection: 'column', gap: '2' }),\n        description: css.raw({ m: '0' }),\n      }}\n    />\n  );\n}\n",
+      code: "import { Fragment } from 'react';\nimport { type Platform } from '@/context/platform';\nimport { css } from 'styled-system/css';\nimport { HStack } from 'styled-system/jsx';\nimport { DescriptionList } from '@/components/common/atoms/DescriptionList';\nimport { Divider } from '@/components/common/atoms/Divider';\nimport { Typography } from '@/components/common/atoms/Typography';\nimport { HelpTooltip } from '@/components/common/molecules/HelpTips';\nimport {\n  getProductDetailPresentation,\n  type ProductDetailSpecification,\n} from '@/app/products/[id]/productDetailPresentation';\nimport { products } from '@/mocks/products';\n\nfunction Example({ platform }: { platform: Platform }) {\n  const product = products.find((item) => item.id === 'shoe-1')!;\n  const presentation = getProductDetailPresentation(product);\n  const items: readonly ProductDetailSpecification[] = presentation.specifications;\n  const gap = '8';\n  return (\n    <DescriptionList\n      items={items.map((item) => ({\n        descriptionProps: typeof item.value === 'string' ? undefined : { variant: undefined },\n        term: (\n          <HStack as=\"span\" gap=\"2\" alignItems=\"center\">\n            {item.label}\n            {item.help ? (\n              <HelpTooltip\n                label={`${item.label} 안내`}\n                text={item.help}\n                side=\"bottom\"\n                iconColor=\"black.50\"\n                className={css({ transform: 'translateY(-1px)' })}\n              />\n            ) : null}\n          </HStack>\n        ),\n        description:\n          typeof item.value === 'string' ? (\n            item.value\n          ) : (\n            <HStack as=\"span\" gap=\"3\" flexWrap=\"wrap\">\n              {item.value.map((value, index) => (\n                <Fragment key={value}>\n                  {index > 0 ? (\n                    <Divider orientation=\"vertical\" length=\"4\" variant=\"strong\" />\n                  ) : null}\n                  <Typography as=\"span\" variant=\"b4\">\n                    {value}\n                  </Typography>\n                </Fragment>\n              ))}\n            </HStack>\n          ),\n      }))}\n      termProps={{ variant: 'b4', weight: 'bold' }}\n      descriptionProps={{ variant: 'b4', tone: undefined }}\n      slotStyles={{\n        root: css.raw({\n          display: 'flex',\n          flexDirection: 'column',\n          gridTemplateColumns: 'none',\n          gap,\n        }),\n        row: css.raw({ display: 'flex', flexDirection: 'column', gap: '2' }),\n        description: css.raw({ m: '0' }),\n      }}\n    />\n  );\n}\n",
       preview: (() => {
         const product = products.find((item) => item.id === 'shoe-1')!;
         const presentation = getProductDetailPresentation(product);
@@ -98,7 +98,7 @@ export function getDescriptionListExamples(platform: Platform) {
                         {index > 0 ? (
                           <Divider orientation="vertical" length="4" variant="strong" />
                         ) : null}
-                        <Typography as="span" variant="body3">
+                        <Typography as="span" variant="b4">
                           {value}
                         </Typography>
                       </Fragment>
@@ -106,8 +106,8 @@ export function getDescriptionListExamples(platform: Platform) {
                   </HStack>
                 ),
             }))}
-            termProps={{ variant: 'body3', weight: 'bold' }}
-            descriptionProps={{ variant: 'body3', tone: undefined }}
+            termProps={{ variant: 'b4B' }}
+            descriptionProps={{ variant: 'b4', tone: undefined }}
             slotStyles={{
               root: css.raw({
                 display: 'flex',
@@ -128,7 +128,7 @@ export function getDescriptionListExamples(platform: Platform) {
       description: '실제 화면의 데이터·스타일',
       source: 'src/app/products/[id]/_components/ProductDetailContent.tsx',
       href: '/products/shoe-2#product-details',
-      code: "import { Fragment } from 'react';\nimport { type Platform } from '@/context/platform';\nimport { css } from 'styled-system/css';\nimport { HStack } from 'styled-system/jsx';\nimport { DescriptionList } from '@/components/common/atoms/DescriptionList';\nimport { Divider } from '@/components/common/atoms/Divider';\nimport { Typography } from '@/components/common/atoms/Typography';\nimport { HelpTooltip } from '@/components/common/molecules/HelpTips';\nimport {\n  getProductDetailPresentation,\n  type ProductDetailSpecification,\n} from '@/app/products/[id]/productDetailPresentation';\nimport { products } from '@/mocks/products';\n\nfunction Example({ platform }: { platform: Platform }) {\n  const product = products.find((item) => item.id === 'shoe-2')!;\n  const items: readonly ProductDetailSpecification[] =\n    getProductDetailPresentation(product).attributes;\n  const gap = '4';\n  return (\n    <DescriptionList\n      items={items.map((item) => ({\n        descriptionProps: typeof item.value === 'string' ? undefined : { variant: undefined },\n        term: (\n          <HStack as=\"span\" gap=\"2\" alignItems=\"center\">\n            {item.label}\n            {item.help ? (\n              <HelpTooltip\n                label={`${item.label} 안내`}\n                text={item.help}\n                side=\"bottom\"\n                iconColor=\"black.50\"\n                className={css({ transform: 'translateY(-1px)' })}\n              />\n            ) : null}\n          </HStack>\n        ),\n        description:\n          typeof item.value === 'string' ? (\n            item.value\n          ) : (\n            <HStack as=\"span\" gap=\"3\" flexWrap=\"wrap\">\n              {item.value.map((value, index) => (\n                <Fragment key={value}>\n                  {index > 0 ? (\n                    <Divider orientation=\"vertical\" length=\"4\" variant=\"strong\" />\n                  ) : null}\n                  <Typography as=\"span\" variant=\"body3\">\n                    {value}\n                  </Typography>\n                </Fragment>\n              ))}\n            </HStack>\n          ),\n      }))}\n      termProps={{ variant: 'body3', weight: 'bold' }}\n      descriptionProps={{ variant: 'body3', tone: undefined }}\n      slotStyles={{\n        root: css.raw({\n          display: 'flex',\n          flexDirection: 'column',\n          gridTemplateColumns: 'none',\n          gap,\n        }),\n        row: css.raw({ display: 'flex', flexDirection: 'column', gap: '2' }),\n        description: css.raw({ m: '0' }),\n      }}\n    />\n  );\n}\n",
+      code: "import { Fragment } from 'react';\nimport { type Platform } from '@/context/platform';\nimport { css } from 'styled-system/css';\nimport { HStack } from 'styled-system/jsx';\nimport { DescriptionList } from '@/components/common/atoms/DescriptionList';\nimport { Divider } from '@/components/common/atoms/Divider';\nimport { Typography } from '@/components/common/atoms/Typography';\nimport { HelpTooltip } from '@/components/common/molecules/HelpTips';\nimport {\n  getProductDetailPresentation,\n  type ProductDetailSpecification,\n} from '@/app/products/[id]/productDetailPresentation';\nimport { products } from '@/mocks/products';\n\nfunction Example({ platform }: { platform: Platform }) {\n  const product = products.find((item) => item.id === 'shoe-2')!;\n  const items: readonly ProductDetailSpecification[] =\n    getProductDetailPresentation(product).attributes;\n  const gap = '4';\n  return (\n    <DescriptionList\n      items={items.map((item) => ({\n        descriptionProps: typeof item.value === 'string' ? undefined : { variant: undefined },\n        term: (\n          <HStack as=\"span\" gap=\"2\" alignItems=\"center\">\n            {item.label}\n            {item.help ? (\n              <HelpTooltip\n                label={`${item.label} 안내`}\n                text={item.help}\n                side=\"bottom\"\n                iconColor=\"black.50\"\n                className={css({ transform: 'translateY(-1px)' })}\n              />\n            ) : null}\n          </HStack>\n        ),\n        description:\n          typeof item.value === 'string' ? (\n            item.value\n          ) : (\n            <HStack as=\"span\" gap=\"3\" flexWrap=\"wrap\">\n              {item.value.map((value, index) => (\n                <Fragment key={value}>\n                  {index > 0 ? (\n                    <Divider orientation=\"vertical\" length=\"4\" variant=\"strong\" />\n                  ) : null}\n                  <Typography as=\"span\" variant=\"b4\">\n                    {value}\n                  </Typography>\n                </Fragment>\n              ))}\n            </HStack>\n          ),\n      }))}\n      termProps={{ variant: 'b4', weight: 'bold' }}\n      descriptionProps={{ variant: 'b4', tone: undefined }}\n      slotStyles={{\n        root: css.raw({\n          display: 'flex',\n          flexDirection: 'column',\n          gridTemplateColumns: 'none',\n          gap,\n        }),\n        row: css.raw({ display: 'flex', flexDirection: 'column', gap: '2' }),\n        description: css.raw({ m: '0' }),\n      }}\n    />\n  );\n}\n",
       preview: (() => {
         const product = products.find((item) => item.id === 'shoe-2')!;
         const items: readonly ProductDetailSpecification[] =
@@ -162,7 +162,7 @@ export function getDescriptionListExamples(platform: Platform) {
                         {index > 0 ? (
                           <Divider orientation="vertical" length="4" variant="strong" />
                         ) : null}
-                        <Typography as="span" variant="body3">
+                        <Typography as="span" variant="b4">
                           {value}
                         </Typography>
                       </Fragment>
@@ -170,8 +170,8 @@ export function getDescriptionListExamples(platform: Platform) {
                   </HStack>
                 ),
             }))}
-            termProps={{ variant: 'body3', weight: 'bold' }}
-            descriptionProps={{ variant: 'body3', tone: undefined }}
+            termProps={{ variant: 'b4B' }}
+            descriptionProps={{ variant: 'b4', tone: undefined }}
             slotStyles={{
               root: css.raw({
                 display: 'flex',
@@ -192,7 +192,7 @@ export function getDescriptionListExamples(platform: Platform) {
       description: '실제 화면의 데이터·스타일',
       source: 'src/app/products/[id]/_components/ProductDetailContent.tsx',
       href: '/products/shoe-1#product-details',
-      code: "import { type Platform } from '@/context/platform';\nimport { css } from 'styled-system/css';\nimport { DescriptionList } from '@/components/common/atoms/DescriptionList';\nimport { Typography } from '@/components/common/atoms/Typography';\nimport {\n  getProductDetailPresentation,\n  type ProductDetailSpecification,\n} from '@/app/products/[id]/productDetailPresentation';\nimport { products } from '@/mocks/products';\n\nfunction Example({ platform }: { platform: Platform }) {\n  const product = products.find((item) => item.id === 'shoe-1')!;\n  const presentation = getProductDetailPresentation(product);\n  const items: readonly ProductDetailSpecification[] = presentation.notice;\n  return (\n    <DescriptionList\n      items={items.map(({ label, value, note }) => ({\n        id: label,\n        term: (\n          <>\n            <Typography variant=\"body4\" weight=\"bold\">\n              {label}\n            </Typography>\n            {note ? <Typography variant=\"body4\">{note}</Typography> : null}\n          </>\n        ),\n        description: (\n          <Typography variant=\"body4\">\n            {typeof value === 'string' ? value : value.join(' | ')}\n          </Typography>\n        ),\n      }))}\n      termProps={{ variant: 'body4' }}\n      descriptionProps={{ variant: 'body4', tone: 'inherit' }}\n      slotStyles={{\n        root: css.raw({\n          display: 'flex',\n          flexDirection: 'column',\n          gap: '0',\n          bg: 'black.10',\n          mb: '8',\n        }),\n        row: css.raw({\n          display: 'grid',\n          gridTemplateColumns: '28.5% minmax(0, 1fr)',\n          gap: '0',\n          minH: '60px',\n          borderBottom: '1px solid token(colors.black.20)',\n          _last: { borderBottom: 'none' },\n        }),\n        term: css.raw({\n          display: 'flex',\n          flexDirection: 'column',\n          gap: '0',\n          px: '6',\n          py: '5',\n          alignItems: 'start',\n        }),\n        description: css.raw({\n          display: 'flex',\n          flexDirection: 'column',\n          gap: '0',\n          px: '6',\n          py: '5',\n          minW: '0',\n          overflowWrap: 'anywhere',\n        }),\n      }}\n    />\n  );\n}\n",
+      code: "import { type Platform } from '@/context/platform';\nimport { css } from 'styled-system/css';\nimport { DescriptionList } from '@/components/common/atoms/DescriptionList';\nimport { Typography } from '@/components/common/atoms/Typography';\nimport {\n  getProductDetailPresentation,\n  type ProductDetailSpecification,\n} from '@/app/products/[id]/productDetailPresentation';\nimport { products } from '@/mocks/products';\n\nfunction Example({ platform }: { platform: Platform }) {\n  const product = products.find((item) => item.id === 'shoe-1')!;\n  const presentation = getProductDetailPresentation(product);\n  const items: readonly ProductDetailSpecification[] = presentation.notice;\n  return (\n    <DescriptionList\n      items={items.map(({ label, value, note }) => ({\n        id: label,\n        term: (\n          <>\n            <Typography variant=\"b6\" weight=\"bold\">\n              {label}\n            </Typography>\n            {note ? <Typography variant=\"b6\">{note}</Typography> : null}\n          </>\n        ),\n        description: (\n          <Typography variant=\"b6\">\n            {typeof value === 'string' ? value : value.join(' | ')}\n          </Typography>\n        ),\n      }))}\n      termProps={{ variant: 'b6' }}\n      descriptionProps={{ variant: 'b6', tone: 'inherit' }}\n      slotStyles={{\n        root: css.raw({\n          display: 'flex',\n          flexDirection: 'column',\n          gap: '0',\n          bg: 'black.10',\n          mb: '8',\n        }),\n        row: css.raw({\n          display: 'grid',\n          gridTemplateColumns: '28.5% minmax(0, 1fr)',\n          gap: '0',\n          minH: '60px',\n          borderBottom: '1px solid token(colors.black.20)',\n          _last: { borderBottom: 'none' },\n        }),\n        term: css.raw({\n          display: 'flex',\n          flexDirection: 'column',\n          gap: '0',\n          px: '6',\n          py: '5',\n          alignItems: 'start',\n        }),\n        description: css.raw({\n          display: 'flex',\n          flexDirection: 'column',\n          gap: '0',\n          px: '6',\n          py: '5',\n          minW: '0',\n          overflowWrap: 'anywhere',\n        }),\n      }}\n    />\n  );\n}\n",
       preview: (() => {
         const product = products.find((item) => item.id === 'shoe-1')!;
         const presentation = getProductDetailPresentation(product);
@@ -203,20 +203,18 @@ export function getDescriptionListExamples(platform: Platform) {
               id: label,
               term: (
                 <>
-                  <Typography variant="body4" weight="bold">
-                    {label}
-                  </Typography>
-                  {note ? <Typography variant="body4">{note}</Typography> : null}
+                  <Typography variant="b6B">{label}</Typography>
+                  {note ? <Typography variant="b6">{note}</Typography> : null}
                 </>
               ),
               description: (
-                <Typography variant="body4">
+                <Typography variant="b6">
                   {typeof value === 'string' ? value : value.join(' | ')}
                 </Typography>
               ),
             }))}
-            termProps={{ variant: 'body4' }}
-            descriptionProps={{ variant: 'body4', tone: 'inherit' }}
+            termProps={{ variant: 'b6' }}
+            descriptionProps={{ variant: 'b6', tone: 'inherit' }}
             slotStyles={{
               root: css.raw({
                 display: 'flex',
@@ -261,7 +259,7 @@ export function getDescriptionListExamples(platform: Platform) {
       description: '실제 화면의 데이터·스타일',
       source: 'src/app/products/[id]/_components/ProductDetailContent.tsx',
       href: '/products/shoe-1#product-information',
-      code: "import { type Platform } from '@/context/platform';\nimport { css } from 'styled-system/css';\nimport { Box } from 'styled-system/jsx';\nimport { DescriptionList } from '@/components/common/atoms/DescriptionList';\nimport { products } from '@/mocks/products';\n\nfunction Example({ platform }: { platform: Platform }) {\n  const product = products.find((item) => item.id === 'shoe-1')!;\n\n  const specifications = [\n    { label: '신발 유형', value: '안정화' },\n    { label: '추천 활동', value: '로드 러닝, 워킹, 라이프 스타일' },\n    { label: platform === 'mobile' ? '러닝 용도' : '러닝 유형', value: product.runningType },\n  ];\n  return (\n    <Box\n      css={{\n        '--product-information-label-width': '112px',\n        _mobile: { '--product-information-label-width': '88px' },\n      }}\n    >\n      <DescriptionList\n        items={specifications.map(({ label, value }) => ({ term: label, description: value }))}\n        labelWidth=\"var(--product-information-label-width)\"\n        termProps={{\n          web: 'headingKr9',\n          mo: 'bodyKr3',\n          weight: 'semibold',\n        }}\n        descriptionProps={{ variant: 'body4', tone: 'primary' }}\n        slotStyles={{\n          root: css.raw({ columnGap: '3', rowGap: '6', alignItems: 'center' }),\n          term: css.raw({ fontSize: '20px', _mobile: { fontSize: '16px' } }),\n        }}\n      />\n    </Box>\n  );\n}\n",
+      code: "import { type Platform } from '@/context/platform';\nimport { css } from 'styled-system/css';\nimport { Box } from 'styled-system/jsx';\nimport { DescriptionList } from '@/components/common/atoms/DescriptionList';\nimport { products } from '@/mocks/products';\n\nfunction Example({ platform }: { platform: Platform }) {\n  const product = products.find((item) => item.id === 'shoe-1')!;\n\n  const specifications = [\n    { label: '신발 유형', value: '안정화' },\n    { label: '추천 활동', value: '로드 러닝, 워킹, 라이프 스타일' },\n    { label: platform === 'mobile' ? '러닝 용도' : '러닝 유형', value: product.runningType },\n  ];\n  return (\n    <Box\n      css={{\n        '--product-information-label-width': '112px',\n        _mobile: { '--product-information-label-width': '88px' },\n      }}\n    >\n      <DescriptionList\n        items={specifications.map(({ label, value }) => ({ term: label, description: value }))}\n        labelWidth=\"var(--product-information-label-width)\"\n        termProps={{\n          web: 'h8',\n          mo: 'b4',\n          weight: 'semibold',\n        }}\n        descriptionProps={{ variant: 'b6', tone: 'primary' }}\n        slotStyles={{\n          root: css.raw({ columnGap: '3', rowGap: '6', alignItems: 'center' }),\n          term: css.raw({ fontSize: '20px', _mobile: { fontSize: '16px' } }),\n        }}\n      />\n    </Box>\n  );\n}\n",
       preview: (() => {
         const product = products.find((item) => item.id === 'shoe-1')!;
 
@@ -284,14 +282,13 @@ export function getDescriptionListExamples(platform: Platform) {
               }))}
               labelWidth="var(--product-information-label-width)"
               termProps={{
-                web: 'headingKr9',
-                mo: 'bodyKr3',
-                weight: 'semibold',
+                web: 'h10',
+                mo: 'b4S',
               }}
-              descriptionProps={{ variant: 'body4', tone: 'primary' }}
+              descriptionProps={{ variant: 'b6', tone: 'primary' }}
               slotStyles={{
                 root: css.raw({ columnGap: '3', rowGap: '6', alignItems: 'center' }),
-                term: css.raw({ fontSize: '20px', _mobile: { fontSize: '16px' } }),
+                term: css.raw({ fontSize: 'body.20', _mobile: { fontSize: 'body.16' } }),
               }}
             />
           </Box>
@@ -304,15 +301,15 @@ export function getDescriptionListExamples(platform: Platform) {
       description: '실제 화면의 데이터·스타일',
       source: 'src/app/launch-calendar/_components/LaunchCalendarDetail.tsx',
       href: '/launch-calendar/clifton-11-gtx',
-      code: "import { type Platform } from '@/context/platform';\nimport { css } from 'styled-system/css';\nimport { DescriptionList } from '@/components/common/atoms/DescriptionList';\nimport { launchDetail } from '@/app/launch-calendar/launchCalendar.data';\n\nfunction Example({ platform }: { platform: Platform }) {\n  const product = launchDetail;\n  return (\n    <DescriptionList\n      items={product.releaseInformation}\n      labelWidth=\"128px\"\n      termProps={{ variant: 'body4', weight: 'semibold' }}\n      descriptionProps={{ variant: 'body4' }}\n      slotStyles={{\n        root: css.raw({\n          columnGap: '40px',\n          rowGap: '24px',\n          _mobile: { columnGap: '16px' },\n        }),\n      }}\n    />\n  );\n}\n",
+      code: "import { type Platform } from '@/context/platform';\nimport { css } from 'styled-system/css';\nimport { DescriptionList } from '@/components/common/atoms/DescriptionList';\nimport { launchDetail } from '@/app/launch-calendar/launchCalendar.data';\n\nfunction Example({ platform }: { platform: Platform }) {\n  const product = launchDetail;\n  return (\n    <DescriptionList\n      items={product.releaseInformation}\n      labelWidth=\"128px\"\n      termProps={{ variant: 'b6', weight: 'semibold' }}\n      descriptionProps={{ variant: 'b6' }}\n      slotStyles={{\n        root: css.raw({\n          columnGap: '40px',\n          rowGap: '24px',\n          _mobile: { columnGap: '16px' },\n        }),\n      }}\n    />\n  );\n}\n",
       preview: (() => {
         const product = launchDetail;
         return (
           <DescriptionList
             items={product.releaseInformation}
             labelWidth="128px"
-            termProps={{ variant: 'body4', weight: 'semibold' }}
-            descriptionProps={{ variant: 'body4' }}
+            termProps={{ variant: 'b6S' }}
+            descriptionProps={{ variant: 'b6' }}
             slotStyles={{
               root: css.raw({
                 columnGap: '40px',
@@ -330,15 +327,15 @@ export function getDescriptionListExamples(platform: Platform) {
       description: '실제 화면의 데이터·스타일',
       source: 'src/app/launch-calendar/_components/LaunchCalendarDetail.tsx',
       href: '/launch-calendar/clifton-11-gtx',
-      code: "import { type Platform } from '@/context/platform';\nimport { css } from 'styled-system/css';\nimport { DescriptionList } from '@/components/common/atoms/DescriptionList';\nimport { launchDetail } from '@/app/launch-calendar/launchCalendar.data';\n\nfunction Example({ platform }: { platform: Platform }) {\n  const product = launchDetail;\n  return (\n    <DescriptionList\n      items={product.specifications}\n      labelWidth=\"80px\"\n      termProps={{ variant: 'body4', weight: 'semibold' }}\n      descriptionProps={{ variant: 'body4' }}\n      slotStyles={{ root: css.raw({ columnGap: '12px', rowGap: '24px' }) }}\n    />\n  );\n}\n",
+      code: "import { type Platform } from '@/context/platform';\nimport { css } from 'styled-system/css';\nimport { DescriptionList } from '@/components/common/atoms/DescriptionList';\nimport { launchDetail } from '@/app/launch-calendar/launchCalendar.data';\n\nfunction Example({ platform }: { platform: Platform }) {\n  const product = launchDetail;\n  return (\n    <DescriptionList\n      items={product.specifications}\n      labelWidth=\"80px\"\n      termProps={{ variant: 'b6', weight: 'semibold' }}\n      descriptionProps={{ variant: 'b6' }}\n      slotStyles={{ root: css.raw({ columnGap: '12px', rowGap: '24px' }) }}\n    />\n  );\n}\n",
       preview: (() => {
         const product = launchDetail;
         return (
           <DescriptionList
             items={product.specifications}
             labelWidth="80px"
-            termProps={{ variant: 'body4', weight: 'semibold' }}
-            descriptionProps={{ variant: 'body4' }}
+            termProps={{ variant: 'b6S' }}
+            descriptionProps={{ variant: 'b6' }}
             slotStyles={{ root: css.raw({ columnGap: '12px', rowGap: '24px' }) }}
           />
         );
@@ -351,7 +348,7 @@ export function getDescriptionListExamples(platform: Platform) {
       source:
         'src/app/running/running-session/[sessionId]/_components/RunningSessionSessionContent.tsx',
       href: '/running/running-session/yeouido-night',
-      code: "import { type Platform } from '@/context/platform';\nimport { css, cva } from 'styled-system/css';\nimport { DescriptionList } from '@/components/common/atoms/DescriptionList';\nimport { Typography } from '@/components/common/atoms/Typography';\nimport {\n  runningSessionSessions,\n  runningSessionVenue,\n  runningSessionAddress,\n} from '@/components/running-session/runningSession.data';\n\nfunction Example({ platform }: { platform: Platform }) {\n  const session = runningSessionSessions.find((item) => item.id === 'yeouido-night')!;\n  const variant: 'hero' | 'guide' = 'hero' as 'hero' | 'guide';\n  const facts = cva({\n    base: {\n      m: '0',\n    },\n    variants: {\n      variant: {\n        hero: {\n          py: '32px',\n          display: 'grid',\n          rowGap: '24px',\n          borderBlock: '1px solid var(--color-border-default)',\n          _mobile: {\n            py: '32px',\n          },\n        },\n        guide: {},\n      },\n    },\n  });\n  const detailText = css({ display: 'block', mt: '4px' });\n  const rows: { label: string; value: string; detail?: string; mobileOnly?: boolean }[] = [\n    { label: '일시', value: session.schedule },\n    { label: '장소', value: runningSessionVenue, detail: runningSessionAddress },\n    { label: '정원', value: '20명' },\n    {\n      label: '예약금',\n      value: '5,000원',\n      detail: '노쇼 방지를 위해 예약금을 받고 있습니다. 현장 출석 확인 후 자동 취소 됩니다.',\n    },\n    { label: '신청 기간', value: '1월 23일 (토) - 1월 29일 (금)' },\n  ];\n  return (\n    <DescriptionList\n      items={rows.map(({ label, value, detail, mobileOnly }) => ({\n        term: label,\n        description: (\n          <>\n            {value}\n            {detail ? (\n              <Typography as=\"span\" variant=\"body4\" tone=\"tertiary\" className={detailText}>\n                {detail}\n              </Typography>\n            ) : null}\n          </>\n        ),\n        rowClassName: mobileOnly\n          ? css({ display: 'none!', _mobile: { display: 'grid!' } })\n          : undefined,\n      }))}\n      termProps={{\n        variant: variant === 'hero' ? 'body3' : 'body4',\n        mo: variant === 'hero' ? 'body3' : 'body4',\n        weight: variant === 'hero' ? 'semibold' : 'regular',\n      }}\n      descriptionProps={{\n        variant: variant === 'hero' ? 'body3' : 'body4',\n        mo: variant === 'hero' ? 'body3' : 'body4',\n        tone: undefined,\n      }}\n      slotStyles={{\n        root: css.raw(facts.raw({ variant }), {\n          display: variant === 'hero' ? 'grid' : 'block',\n          gridTemplateColumns: 'none',\n          gap: variant === 'hero' ? '24px normal' : 'normal',\n        }),\n        row: css.raw({\n          display: 'grid',\n          gridTemplateColumns:\n            variant === 'hero' ? '58px minmax(0, 1fr)' : '60px minmax(0, 1fr)',\n          gap: '16px',\n          py: variant === 'hero' ? '0' : '24px',\n          borderTop: variant === 'guide' ? '1px solid var(--color-border-default)' : undefined,\n          _last:\n            variant === 'guide'\n              ? { borderBottom: '1px solid var(--color-border-default)' }\n              : undefined,\n          _mobile: { py: variant === 'hero' ? '0' : '24px' },\n        }),\n        description: css.raw({ m: '0' }),\n      }}\n    />\n  );\n}\n",
+      code: "import { type Platform } from '@/context/platform';\nimport { css, cva } from 'styled-system/css';\nimport { DescriptionList } from '@/components/common/atoms/DescriptionList';\nimport { Typography } from '@/components/common/atoms/Typography';\nimport {\n  runningSessionSessions,\n  runningSessionVenue,\n  runningSessionAddress,\n} from '@/components/running-session/runningSession.data';\n\nfunction Example({ platform }: { platform: Platform }) {\n  const session = runningSessionSessions.find((item) => item.id === 'yeouido-night')!;\n  const variant: 'hero' | 'guide' = 'hero' as 'hero' | 'guide';\n  const facts = cva({\n    base: {\n      m: '0',\n    },\n    variants: {\n      variant: {\n        hero: {\n          py: '32px',\n          display: 'grid',\n          rowGap: '24px',\n          borderBlock: '1px solid var(--color-border-default)',\n          _mobile: {\n            py: '32px',\n          },\n        },\n        guide: {},\n      },\n    },\n  });\n  const detailText = css({ display: 'block', mt: '4px' });\n  const rows: { label: string; value: string; detail?: string; mobileOnly?: boolean }[] = [\n    { label: '일시', value: session.schedule },\n    { label: '장소', value: runningSessionVenue, detail: runningSessionAddress },\n    { label: '정원', value: '20명' },\n    {\n      label: '예약금',\n      value: '5,000원',\n      detail: '노쇼 방지를 위해 예약금을 받고 있습니다. 현장 출석 확인 후 자동 취소 됩니다.',\n    },\n    { label: '신청 기간', value: '1월 23일 (토) - 1월 29일 (금)' },\n  ];\n  return (\n    <DescriptionList\n      items={rows.map(({ label, value, detail, mobileOnly }) => ({\n        term: label,\n        description: (\n          <>\n            {value}\n            {detail ? (\n              <Typography as=\"span\" variant=\"b6\" tone=\"tertiary\" className={detailText}>\n                {detail}\n              </Typography>\n            ) : null}\n          </>\n        ),\n        rowClassName: mobileOnly\n          ? css({ display: 'none!', _mobile: { display: 'grid!' } })\n          : undefined,\n      }))}\n      termProps={{\n        variant: variant === 'hero' ? 'b4' : 'b6',\n        mo: variant === 'hero' ? 'b4' : 'b6',\n        weight: variant === 'hero' ? 'semibold' : 'regular',\n      }}\n      descriptionProps={{\n        variant: variant === 'hero' ? 'b4' : 'b6',\n        mo: variant === 'hero' ? 'b4' : 'b6',\n        tone: undefined,\n      }}\n      slotStyles={{\n        root: css.raw(facts.raw({ variant }), {\n          display: variant === 'hero' ? 'grid' : 'block',\n          gridTemplateColumns: 'none',\n          gap: variant === 'hero' ? '24px normal' : 'normal',\n        }),\n        row: css.raw({\n          display: 'grid',\n          gridTemplateColumns:\n            variant === 'hero' ? '58px minmax(0, 1fr)' : '60px minmax(0, 1fr)',\n          gap: '16px',\n          py: variant === 'hero' ? '0' : '24px',\n          borderTop: variant === 'guide' ? '1px solid var(--color-border-default)' : undefined,\n          _last:\n            variant === 'guide'\n              ? { borderBottom: '1px solid var(--color-border-default)' }\n              : undefined,\n          _mobile: { py: variant === 'hero' ? '0' : '24px' },\n        }),\n        description: css.raw({ m: '0' }),\n      }}\n    />\n  );\n}\n",
       preview: (() => {
         const session = runningSessionSessions.find((item) => item.id === 'yeouido-night')!;
         const variant: 'hero' | 'guide' = 'hero' as 'hero' | 'guide';
@@ -394,7 +391,7 @@ export function getDescriptionListExamples(platform: Platform) {
                 <>
                   {value}
                   {detail ? (
-                    <Typography as="span" variant="body4" tone="tertiary" className={detailText}>
+                    <Typography as="span" variant="b6" tone="tertiary" className={detailText}>
                       {detail}
                     </Typography>
                   ) : null}
@@ -405,13 +402,13 @@ export function getDescriptionListExamples(platform: Platform) {
                 : undefined,
             }))}
             termProps={{
-              variant: variant === 'hero' ? 'body3' : 'body4',
-              mo: variant === 'hero' ? 'body3' : 'body4',
+              variant: variant === 'hero' ? 'b4' : 'b6',
+              mo: variant === 'hero' ? 'b4' : 'b6',
               weight: variant === 'hero' ? 'semibold' : 'regular',
             }}
             descriptionProps={{
-              variant: variant === 'hero' ? 'body3' : 'body4',
-              mo: variant === 'hero' ? 'body3' : 'body4',
+              variant: variant === 'hero' ? 'b4' : 'b6',
+              mo: variant === 'hero' ? 'b4' : 'b6',
               tone: undefined,
             }}
             slotStyles={{
@@ -447,7 +444,7 @@ export function getDescriptionListExamples(platform: Platform) {
       source:
         'src/app/running/running-session/[sessionId]/_components/RunningSessionSessionContent.tsx',
       href: '/running/running-session/yeouido-night',
-      code: "import { type Platform } from '@/context/platform';\nimport { css, cva } from 'styled-system/css';\nimport { DescriptionList } from '@/components/common/atoms/DescriptionList';\nimport { Typography } from '@/components/common/atoms/Typography';\nimport {\n  runningSessionSessions,\n  runningSessionVenue,\n  runningSessionAddress,\n} from '@/components/running-session/runningSession.data';\n\nfunction Example({ platform }: { platform: Platform }) {\n  const session = runningSessionSessions.find((item) => item.id === 'yeouido-night')!;\n  const variant: 'hero' | 'guide' = 'guide' as 'hero' | 'guide';\n  const facts = cva({\n    base: {\n      m: '0',\n    },\n    variants: {\n      variant: {\n        hero: {\n          py: '32px',\n          display: 'grid',\n          rowGap: '24px',\n          borderBlock: '1px solid var(--color-border-default)',\n          _mobile: {\n            py: '32px',\n          },\n        },\n        guide: {},\n      },\n    },\n  });\n  const detailText = css({ display: 'block', mt: '4px' });\n  const rows: { label: string; value: string; detail?: string; mobileOnly?: boolean }[] = [\n    { label: '장소', value: `${runningSessionVenue} · ${runningSessionAddress}` },\n    { label: '체크인', value: '세션 시작 20분 전부터' },\n    { label: '소요시간', value: '약 1시간 30분 소요' },\n    { label: '코스', value: session.location },\n    { label: '페이스', value: '6′30″ / 7′00″ (중급 레벨)' },\n    { label: '거리', value: session.distance },\n    { label: '준비물', value: '러닝화, 편안한 복장, 헤드 랜턴' },\n    { label: '혜택', value: '세션에서 제공되는 선물 & 트라이얼 서비스' },\n  ];\n  return (\n    <DescriptionList\n      items={rows.map(({ label, value, detail, mobileOnly }) => ({\n        term: label,\n        description: (\n          <>\n            {value}\n            {detail ? (\n              <Typography as=\"span\" variant=\"body4\" tone=\"tertiary\" className={detailText}>\n                {detail}\n              </Typography>\n            ) : null}\n          </>\n        ),\n        rowClassName: mobileOnly\n          ? css({ display: 'none!', _mobile: { display: 'grid!' } })\n          : undefined,\n      }))}\n      termProps={{\n        variant: variant === 'hero' ? 'body3' : 'body4',\n        mo: variant === 'hero' ? 'body3' : 'body4',\n        weight: variant === 'hero' ? 'semibold' : 'regular',\n      }}\n      descriptionProps={{\n        variant: variant === 'hero' ? 'body3' : 'body4',\n        mo: variant === 'hero' ? 'body3' : 'body4',\n        tone: undefined,\n      }}\n      slotStyles={{\n        root: css.raw(facts.raw({ variant }), {\n          display: variant === 'hero' ? 'grid' : 'block',\n          gridTemplateColumns: 'none',\n          gap: variant === 'hero' ? '24px normal' : 'normal',\n        }),\n        row: css.raw({\n          display: 'grid',\n          gridTemplateColumns:\n            variant === 'hero' ? '58px minmax(0, 1fr)' : '60px minmax(0, 1fr)',\n          gap: '16px',\n          py: variant === 'hero' ? '0' : '24px',\n          borderTop: variant === 'guide' ? '1px solid var(--color-border-default)' : undefined,\n          _last:\n            variant === 'guide'\n              ? { borderBottom: '1px solid var(--color-border-default)' }\n              : undefined,\n          _mobile: { py: variant === 'hero' ? '0' : '24px' },\n        }),\n        description: css.raw({ m: '0' }),\n      }}\n    />\n  );\n}\n",
+      code: "import { type Platform } from '@/context/platform';\nimport { css, cva } from 'styled-system/css';\nimport { DescriptionList } from '@/components/common/atoms/DescriptionList';\nimport { Typography } from '@/components/common/atoms/Typography';\nimport {\n  runningSessionSessions,\n  runningSessionVenue,\n  runningSessionAddress,\n} from '@/components/running-session/runningSession.data';\n\nfunction Example({ platform }: { platform: Platform }) {\n  const session = runningSessionSessions.find((item) => item.id === 'yeouido-night')!;\n  const variant: 'hero' | 'guide' = 'guide' as 'hero' | 'guide';\n  const facts = cva({\n    base: {\n      m: '0',\n    },\n    variants: {\n      variant: {\n        hero: {\n          py: '32px',\n          display: 'grid',\n          rowGap: '24px',\n          borderBlock: '1px solid var(--color-border-default)',\n          _mobile: {\n            py: '32px',\n          },\n        },\n        guide: {},\n      },\n    },\n  });\n  const detailText = css({ display: 'block', mt: '4px' });\n  const rows: { label: string; value: string; detail?: string; mobileOnly?: boolean }[] = [\n    { label: '장소', value: `${runningSessionVenue} · ${runningSessionAddress}` },\n    { label: '체크인', value: '세션 시작 20분 전부터' },\n    { label: '소요시간', value: '약 1시간 30분 소요' },\n    { label: '코스', value: session.location },\n    { label: '페이스', value: '6′30″ / 7′00″ (중급 레벨)' },\n    { label: '거리', value: session.distance },\n    { label: '준비물', value: '러닝화, 편안한 복장, 헤드 랜턴' },\n    { label: '혜택', value: '세션에서 제공되는 선물 & 트라이얼 서비스' },\n  ];\n  return (\n    <DescriptionList\n      items={rows.map(({ label, value, detail, mobileOnly }) => ({\n        term: label,\n        description: (\n          <>\n            {value}\n            {detail ? (\n              <Typography as=\"span\" variant=\"b6\" tone=\"tertiary\" className={detailText}>\n                {detail}\n              </Typography>\n            ) : null}\n          </>\n        ),\n        rowClassName: mobileOnly\n          ? css({ display: 'none!', _mobile: { display: 'grid!' } })\n          : undefined,\n      }))}\n      termProps={{\n        variant: variant === 'hero' ? 'b4' : 'b6',\n        mo: variant === 'hero' ? 'b4' : 'b6',\n        weight: variant === 'hero' ? 'semibold' : 'regular',\n      }}\n      descriptionProps={{\n        variant: variant === 'hero' ? 'b4' : 'b6',\n        mo: variant === 'hero' ? 'b4' : 'b6',\n        tone: undefined,\n      }}\n      slotStyles={{\n        root: css.raw(facts.raw({ variant }), {\n          display: variant === 'hero' ? 'grid' : 'block',\n          gridTemplateColumns: 'none',\n          gap: variant === 'hero' ? '24px normal' : 'normal',\n        }),\n        row: css.raw({\n          display: 'grid',\n          gridTemplateColumns:\n            variant === 'hero' ? '58px minmax(0, 1fr)' : '60px minmax(0, 1fr)',\n          gap: '16px',\n          py: variant === 'hero' ? '0' : '24px',\n          borderTop: variant === 'guide' ? '1px solid var(--color-border-default)' : undefined,\n          _last:\n            variant === 'guide'\n              ? { borderBottom: '1px solid var(--color-border-default)' }\n              : undefined,\n          _mobile: { py: variant === 'hero' ? '0' : '24px' },\n        }),\n        description: css.raw({ m: '0' }),\n      }}\n    />\n  );\n}\n",
       preview: (() => {
         const session = runningSessionSessions.find((item) => item.id === 'yeouido-night')!;
         const variant: 'hero' | 'guide' = 'guide' as 'hero' | 'guide';
@@ -489,7 +486,7 @@ export function getDescriptionListExamples(platform: Platform) {
                 <>
                   {value}
                   {detail ? (
-                    <Typography as="span" variant="body4" tone="tertiary" className={detailText}>
+                    <Typography as="span" variant="b6" tone="tertiary" className={detailText}>
                       {detail}
                     </Typography>
                   ) : null}
@@ -500,13 +497,13 @@ export function getDescriptionListExamples(platform: Platform) {
                 : undefined,
             }))}
             termProps={{
-              variant: variant === 'hero' ? 'body3' : 'body4',
-              mo: variant === 'hero' ? 'body3' : 'body4',
+              variant: variant === 'hero' ? 'b4' : 'b6',
+              mo: variant === 'hero' ? 'b4' : 'b6',
               weight: variant === 'hero' ? 'semibold' : 'regular',
             }}
             descriptionProps={{
-              variant: variant === 'hero' ? 'body3' : 'body4',
-              mo: variant === 'hero' ? 'body3' : 'body4',
+              variant: variant === 'hero' ? 'b4' : 'b6',
+              mo: variant === 'hero' ? 'b4' : 'b6',
               tone: undefined,
             }}
             slotStyles={{
@@ -541,7 +538,7 @@ export function getDescriptionListExamples(platform: Platform) {
       description: '실제 화면의 데이터·스타일',
       source: 'src/app/mypage/orders/_components/OrderDetails.tsx',
       href: '/mypage/orders/preview-detail',
-      code: "import { type Platform } from '@/context/platform';\nimport { css } from 'styled-system/css';\nimport { DescriptionList } from '@/components/common/atoms/DescriptionList';\nimport { previewOrders } from '@/components/orders/orders.data';\n\nfunction Example({ platform }: { platform: Platform }) {\n  const display = previewOrders[3].detailDisplay[platform];\n  return (\n    <DescriptionList\n      items={[\n        { term: '받는사람', description: display.recipient.name },\n        { term: '연락처', description: display.recipient.phone },\n        { term: '받는주소', description: display.recipient.address },\n        { term: '배송요청사항', description: display.recipient.request },\n      ]}\n      termProps={{ variant: 'body4', tone: 'tertiary' }}\n      descriptionProps={{ variant: 'body4', weight: 'medium' }}\n      slotStyles={{\n        root: css.raw({ display: 'block' }),\n        row: css.raw({\n          display: 'grid',\n          gridTemplateColumns: {\n            base: '104px minmax(0, 1fr)',\n            _mobile: '96px minmax(0, 1fr)',\n          },\n          gap: '8px',\n          py: { base: '20px', _mobile: '16px' },\n          borderBottom: '1px solid var(--colors-black-20)',\n        }),\n      }}\n    />\n  );\n}\n",
+      code: "import { type Platform } from '@/context/platform';\nimport { css } from 'styled-system/css';\nimport { DescriptionList } from '@/components/common/atoms/DescriptionList';\nimport { previewOrders } from '@/components/orders/orders.data';\n\nfunction Example({ platform }: { platform: Platform }) {\n  const display = previewOrders[3].detailDisplay[platform];\n  return (\n    <DescriptionList\n      items={[\n        { term: '받는사람', description: display.recipient.name },\n        { term: '연락처', description: display.recipient.phone },\n        { term: '받는주소', description: display.recipient.address },\n        { term: '배송요청사항', description: display.recipient.request },\n      ]}\n      termProps={{ variant: 'b6', tone: 'tertiary' }}\n      descriptionProps={{ variant: 'b6', weight: 'medium' }}\n      slotStyles={{\n        root: css.raw({ display: 'block' }),\n        row: css.raw({\n          display: 'grid',\n          gridTemplateColumns: {\n            base: '104px minmax(0, 1fr)',\n            _mobile: '96px minmax(0, 1fr)',\n          },\n          gap: '8px',\n          py: { base: '20px', _mobile: '16px' },\n          borderBottom: '1px solid var(--colors-black-20)',\n        }),\n      }}\n    />\n  );\n}\n",
       preview: (() => {
         const display = previewOrders[3].detailDisplay[platform];
         return (
@@ -552,8 +549,8 @@ export function getDescriptionListExamples(platform: Platform) {
               { term: '받는주소', description: display.recipient.address },
               { term: '배송요청사항', description: display.recipient.request },
             ]}
-            termProps={{ variant: 'body4', tone: 'tertiary' }}
-            descriptionProps={{ variant: 'body4', weight: 'medium' }}
+            termProps={{ variant: 'b6', tone: 'tertiary' }}
+            descriptionProps={{ variant: 'b6M' }}
             slotStyles={{
               root: css.raw({ display: 'block' }),
               row: css.raw({
@@ -577,7 +574,7 @@ export function getDescriptionListExamples(platform: Platform) {
       description: '실제 화면의 데이터·스타일',
       source: 'src/app/mypage/orders/_components/OrderDetails.tsx',
       href: '/mypage/orders/preview-cancel-detail',
-      code: "import { type Platform } from '@/context/platform';\nimport { css } from 'styled-system/css';\nimport {\n  DescriptionList,\n  type DescriptionListItem,\n} from '@/components/common/atoms/DescriptionList';\nimport { previewOrders } from '@/components/orders/orders.data';\n\nfunction Example({ platform }: { platform: Platform }) {\n  const claim = previewOrders[3].claims.find((item) => item.kind === 'cancel')!;\n  const display = claim.detailDisplay[platform];\n  const name = '취소';\n  const items: DescriptionListItem[] = [\n    { term: name + '접수일자', description: display.requestedAt },\n    { term: name + '접수번호', description: display.claimNumber },\n    { term: name + '완료일', description: display.completedAt },\n  ];\n  return (\n    <DescriptionList\n      items={items}\n      termProps={{ web: 'body3', mo: 'body4', tone: 'subtle' }}\n      descriptionProps={{ web: 'body3', mo: 'body4', tone: 'primary', weight: 'medium' }}\n      slotStyles={{\n        root: css.raw({ display: 'block' }),\n        row: css.raw({\n          display: 'grid',\n          gridTemplateColumns: '96px minmax(0, 1fr)',\n          gap: '8px',\n          py: { base: '20px', _mobile: '16px' },\n          borderBottom: '1px solid var(--colors-black-20)',\n        }),\n      }}\n    />\n  );\n}\n",
+      code: "import { type Platform } from '@/context/platform';\nimport { css } from 'styled-system/css';\nimport {\n  DescriptionList,\n  type DescriptionListItem,\n} from '@/components/common/atoms/DescriptionList';\nimport { previewOrders } from '@/components/orders/orders.data';\n\nfunction Example({ platform }: { platform: Platform }) {\n  const claim = previewOrders[3].claims.find((item) => item.kind === 'cancel')!;\n  const display = claim.detailDisplay[platform];\n  const name = '취소';\n  const items: DescriptionListItem[] = [\n    { term: name + '접수일자', description: display.requestedAt },\n    { term: name + '접수번호', description: display.claimNumber },\n    { term: name + '완료일', description: display.completedAt },\n  ];\n  return (\n    <DescriptionList\n      items={items}\n      termProps={{ web: 'b4', mo: 'b6', tone: 'subtle' }}\n      descriptionProps={{ web: 'b4', mo: 'b6', tone: 'primary', weight: 'medium' }}\n      slotStyles={{\n        root: css.raw({ display: 'block' }),\n        row: css.raw({\n          display: 'grid',\n          gridTemplateColumns: '96px minmax(0, 1fr)',\n          gap: '8px',\n          py: { base: '20px', _mobile: '16px' },\n          borderBottom: '1px solid var(--colors-black-20)',\n        }),\n      }}\n    />\n  );\n}\n",
       preview: (() => {
         const claim = previewOrders[3].claims.find((item) => item.kind === 'cancel')!;
         const display = claim.detailDisplay[platform];
@@ -590,8 +587,8 @@ export function getDescriptionListExamples(platform: Platform) {
         return (
           <DescriptionList
             items={items}
-            termProps={{ web: 'body3', mo: 'body4', tone: 'subtle' }}
-            descriptionProps={{ web: 'body3', mo: 'body4', tone: 'primary', weight: 'medium' }}
+            termProps={{ web: 'b4', mo: 'b6', tone: 'subtle' }}
+            descriptionProps={{ web: 'b4M', mo: 'b6M', tone: 'primary' }}
             slotStyles={{
               root: css.raw({ display: 'block' }),
               row: css.raw({
@@ -612,7 +609,7 @@ export function getDescriptionListExamples(platform: Platform) {
       description: '실제 화면의 데이터·스타일',
       source: 'src/app/mypage/orders/_components/OrderDetails.tsx',
       href: '/mypage/orders/preview-return-detail',
-      code: "import { type Platform } from '@/context/platform';\nimport { css } from 'styled-system/css';\nimport {\n  DescriptionList,\n  type DescriptionListItem,\n} from '@/components/common/atoms/DescriptionList';\nimport { previewOrders } from '@/components/orders/orders.data';\n\nfunction Example({ platform }: { platform: Platform }) {\n  const claim = previewOrders[3].claims.find((item) => item.kind === 'return')!;\n  const display = claim.detailDisplay[platform];\n  const name = '반품';\n  const items: DescriptionListItem[] = [\n    { term: name + '접수일자', description: display.requestedAt },\n    { term: name + '접수번호', description: display.claimNumber },\n    { term: name + '완료일', description: display.completedAt },\n    { term: '환불완료일', description: display.refundedAt },\n  ];\n  return (\n    <DescriptionList\n      items={items}\n      termProps={{ web: 'body3', mo: 'body4', tone: 'subtle' }}\n      descriptionProps={{ web: 'body3', mo: 'body4', tone: 'primary', weight: 'medium' }}\n      slotStyles={{\n        root: css.raw({ display: 'block' }),\n        row: css.raw({\n          display: 'grid',\n          gridTemplateColumns: '96px minmax(0, 1fr)',\n          gap: '8px',\n          py: { base: '20px', _mobile: '16px' },\n          borderBottom: '1px solid var(--colors-black-20)',\n        }),\n      }}\n    />\n  );\n}\n",
+      code: "import { type Platform } from '@/context/platform';\nimport { css } from 'styled-system/css';\nimport {\n  DescriptionList,\n  type DescriptionListItem,\n} from '@/components/common/atoms/DescriptionList';\nimport { previewOrders } from '@/components/orders/orders.data';\n\nfunction Example({ platform }: { platform: Platform }) {\n  const claim = previewOrders[3].claims.find((item) => item.kind === 'return')!;\n  const display = claim.detailDisplay[platform];\n  const name = '반품';\n  const items: DescriptionListItem[] = [\n    { term: name + '접수일자', description: display.requestedAt },\n    { term: name + '접수번호', description: display.claimNumber },\n    { term: name + '완료일', description: display.completedAt },\n    { term: '환불완료일', description: display.refundedAt },\n  ];\n  return (\n    <DescriptionList\n      items={items}\n      termProps={{ web: 'b4', mo: 'b6', tone: 'subtle' }}\n      descriptionProps={{ web: 'b4', mo: 'b6', tone: 'primary', weight: 'medium' }}\n      slotStyles={{\n        root: css.raw({ display: 'block' }),\n        row: css.raw({\n          display: 'grid',\n          gridTemplateColumns: '96px minmax(0, 1fr)',\n          gap: '8px',\n          py: { base: '20px', _mobile: '16px' },\n          borderBottom: '1px solid var(--colors-black-20)',\n        }),\n      }}\n    />\n  );\n}\n",
       preview: (() => {
         const claim = previewOrders[3].claims.find((item) => item.kind === 'return')!;
         const display = claim.detailDisplay[platform];
@@ -626,8 +623,8 @@ export function getDescriptionListExamples(platform: Platform) {
         return (
           <DescriptionList
             items={items}
-            termProps={{ web: 'body3', mo: 'body4', tone: 'subtle' }}
-            descriptionProps={{ web: 'body3', mo: 'body4', tone: 'primary', weight: 'medium' }}
+            termProps={{ web: 'b4', mo: 'b6', tone: 'subtle' }}
+            descriptionProps={{ web: 'b4M', mo: 'b6M', tone: 'primary' }}
             slotStyles={{
               root: css.raw({ display: 'block' }),
               row: css.raw({
@@ -648,7 +645,7 @@ export function getDescriptionListExamples(platform: Platform) {
       description: '실제 화면의 데이터·스타일',
       source: 'src/app/mypage/orders/_components/OrderDetails.tsx',
       href: '/mypage/orders/preview-return-detail',
-      code: "import { type Platform } from '@/context/platform';\nimport { css } from 'styled-system/css';\nimport { DescriptionList } from '@/components/common/atoms/DescriptionList';\nimport { previewOrders } from '@/components/orders/orders.data';\n\nfunction Example({ platform }: { platform: Platform }) {\n  const claim = previewOrders[3].claims.find((item) => item.kind === 'return')!;\n\n  const items = [\n    { term: '회수인', description: claim.collection?.name ?? '-' },\n    { term: '연락처', description: claim.collection?.phone ?? '-' },\n    { term: '주소', description: claim.collection?.address ?? '-' },\n    { term: '택배사', description: claim.collection?.carrier ?? '-' },\n    { term: '송장번호', description: claim.collection?.trackingNumber ?? '-' },\n    { term: '회수예정일', description: claim.collection?.scheduledDate ?? '-' },\n  ];\n  return (\n    <DescriptionList\n      items={items}\n      termProps={{ web: 'body3', mo: 'body4', tone: 'subtle' }}\n      descriptionProps={{ web: 'body3', mo: 'body4', tone: 'primary', weight: 'medium' }}\n      slotStyles={{\n        root: css.raw({ display: 'block' }),\n        row: css.raw({\n          display: 'grid',\n          gridTemplateColumns: '96px minmax(0, 1fr)',\n          gap: '8px',\n          py: { base: '20px', _mobile: '16px' },\n          borderBottom: '1px solid var(--colors-black-20)',\n        }),\n      }}\n    />\n  );\n}\n",
+      code: "import { type Platform } from '@/context/platform';\nimport { css } from 'styled-system/css';\nimport { DescriptionList } from '@/components/common/atoms/DescriptionList';\nimport { previewOrders } from '@/components/orders/orders.data';\n\nfunction Example({ platform }: { platform: Platform }) {\n  const claim = previewOrders[3].claims.find((item) => item.kind === 'return')!;\n\n  const items = [\n    { term: '회수인', description: claim.collection?.name ?? '-' },\n    { term: '연락처', description: claim.collection?.phone ?? '-' },\n    { term: '주소', description: claim.collection?.address ?? '-' },\n    { term: '택배사', description: claim.collection?.carrier ?? '-' },\n    { term: '송장번호', description: claim.collection?.trackingNumber ?? '-' },\n    { term: '회수예정일', description: claim.collection?.scheduledDate ?? '-' },\n  ];\n  return (\n    <DescriptionList\n      items={items}\n      termProps={{ web: 'b4', mo: 'b6', tone: 'subtle' }}\n      descriptionProps={{ web: 'b4', mo: 'b6', tone: 'primary', weight: 'medium' }}\n      slotStyles={{\n        root: css.raw({ display: 'block' }),\n        row: css.raw({\n          display: 'grid',\n          gridTemplateColumns: '96px minmax(0, 1fr)',\n          gap: '8px',\n          py: { base: '20px', _mobile: '16px' },\n          borderBottom: '1px solid var(--colors-black-20)',\n        }),\n      }}\n    />\n  );\n}\n",
       preview: (() => {
         const claim = previewOrders[3].claims.find((item) => item.kind === 'return')!;
 
@@ -663,8 +660,8 @@ export function getDescriptionListExamples(platform: Platform) {
         return (
           <DescriptionList
             items={items}
-            termProps={{ web: 'body3', mo: 'body4', tone: 'subtle' }}
-            descriptionProps={{ web: 'body3', mo: 'body4', tone: 'primary', weight: 'medium' }}
+            termProps={{ web: 'b4', mo: 'b6', tone: 'subtle' }}
+            descriptionProps={{ web: 'b4M', mo: 'b6M', tone: 'primary' }}
             slotStyles={{
               root: css.raw({ display: 'block' }),
               row: css.raw({
@@ -685,7 +682,7 @@ export function getDescriptionListExamples(platform: Platform) {
       description: '실제 반품 상세에서 데스크탑만 사용하는 목록',
       source: 'src/app/mypage/orders/_components/OrderDetails.tsx',
       href: '/mypage/orders/preview-return-detail',
-      code: "import { type Platform } from '@/context/platform';\nimport { css } from 'styled-system/css';\nimport { Box } from 'styled-system/jsx';\nimport { DescriptionList } from '@/components/common/atoms/DescriptionList';\nimport { previewOrders } from '@/components/orders/orders.data';\n\nfunction Example({ platform }: { platform: Platform }) {\n  const claim = previewOrders[3].claims.find((item) => item.kind === 'return')!;\n  const display = claim.detailDisplay[platform];\n  const items = [{ term: '취소사유', description: display.reason }];\n  return (\n    <Box display={{ base: 'block', _mobile: 'none' }}>\n      <DescriptionList\n        items={items}\n        termProps={{ web: 'body3', mo: 'body4', tone: 'subtle' }}\n        descriptionProps={{ web: 'body3', mo: 'body4', tone: 'primary', weight: 'medium' }}\n        slotStyles={{\n          root: css.raw({ display: 'block' }),\n          row: css.raw({\n            display: 'grid',\n            gridTemplateColumns: '96px minmax(0, 1fr)',\n            gap: '8px',\n            py: { base: '20px', _mobile: '16px' },\n            borderBottom: '1px solid var(--colors-black-20)',\n          }),\n        }}\n      />\n    </Box>\n  );\n}\n",
+      code: "import { type Platform } from '@/context/platform';\nimport { css } from 'styled-system/css';\nimport { Box } from 'styled-system/jsx';\nimport { DescriptionList } from '@/components/common/atoms/DescriptionList';\nimport { previewOrders } from '@/components/orders/orders.data';\n\nfunction Example({ platform }: { platform: Platform }) {\n  const claim = previewOrders[3].claims.find((item) => item.kind === 'return')!;\n  const display = claim.detailDisplay[platform];\n  const items = [{ term: '취소사유', description: display.reason }];\n  return (\n    <Box display={{ base: 'block', _mobile: 'none' }}>\n      <DescriptionList\n        items={items}\n        termProps={{ web: 'b4', mo: 'b6', tone: 'subtle' }}\n        descriptionProps={{ web: 'b4', mo: 'b6', tone: 'primary', weight: 'medium' }}\n        slotStyles={{\n          root: css.raw({ display: 'block' }),\n          row: css.raw({\n            display: 'grid',\n            gridTemplateColumns: '96px minmax(0, 1fr)',\n            gap: '8px',\n            py: { base: '20px', _mobile: '16px' },\n            borderBottom: '1px solid var(--colors-black-20)',\n          }),\n        }}\n      />\n    </Box>\n  );\n}\n",
       preview: (() => {
         const claim = previewOrders[3].claims.find((item) => item.kind === 'return')!;
         const display = claim.detailDisplay[platform];
@@ -694,8 +691,8 @@ export function getDescriptionListExamples(platform: Platform) {
           <Box display={{ base: 'block', _mobile: 'none' }}>
             <DescriptionList
               items={items}
-              termProps={{ web: 'body3', mo: 'body4', tone: 'subtle' }}
-              descriptionProps={{ web: 'body3', mo: 'body4', tone: 'primary', weight: 'medium' }}
+              termProps={{ web: 'b4', mo: 'b6', tone: 'subtle' }}
+              descriptionProps={{ web: 'b4M', mo: 'b6M', tone: 'primary' }}
               slotStyles={{
                 root: css.raw({ display: 'block' }),
                 row: css.raw({
@@ -717,7 +714,7 @@ export function getDescriptionListExamples(platform: Platform) {
       description: '실제 화면의 데이터·스타일',
       source: 'src/app/mypage/profile/_components/ProfileContent.tsx',
       href: '/mypage/profile/preview-edit',
-      code: "import { type Platform } from '@/context/platform';\nimport { css } from 'styled-system/css';\nimport { DescriptionList } from '@/components/common/atoms/DescriptionList';\n\nfunction Example({ platform }: { platform: Platform }) {\n  const profileDetails = [\n    ['회원 아이디', 'hon******'],\n    ['이름', '손*민'],\n    ['생년월일', '1993.05.22'],\n    ['주소', '서울시 성북구 테헤란로 27길 54 테헤란 아파트 701호'],\n    ['이메일', 'dww******@gmail.com'],\n    ['휴대폰 번호', '010-****-0522'],\n  ] as const;\n  const details = profileDetails.slice(0, 4);\n  return (\n    <DescriptionList\n      items={(details ?? profileDetails.slice(0, 4)).map(([term, description]) => ({\n        term,\n        description,\n      }))}\n      termProps={{ variant: 'body3', weight: 'semibold' }}\n      descriptionProps={{ variant: 'body3', tone: 'subtle' }}\n      slotStyles={{\n        root: css.raw({ gridTemplateColumns: 'none', gap: '0', _mobile: { gap: '6' } }),\n        row: css.raw({\n          display: 'flex',\n          flexDirection: 'column',\n          gap: '4',\n          py: '6',\n          pr: '4',\n          borderBottom: '1px solid var(--colors-black-20)',\n          _first: { pt: '0' },\n          _mobile: { gap: '3', p: '0', borderBottom: '0' },\n        }),\n        description: css.raw({ m: '0' }),\n      }}\n    />\n  );\n}\n",
+      code: "import { type Platform } from '@/context/platform';\nimport { css } from 'styled-system/css';\nimport { DescriptionList } from '@/components/common/atoms/DescriptionList';\n\nfunction Example({ platform }: { platform: Platform }) {\n  const profileDetails = [\n    ['회원 아이디', 'hon******'],\n    ['이름', '손*민'],\n    ['생년월일', '1993.05.22'],\n    ['주소', '서울시 성북구 테헤란로 27길 54 테헤란 아파트 701호'],\n    ['이메일', 'dww******@gmail.com'],\n    ['휴대폰 번호', '010-****-0522'],\n  ] as const;\n  const details = profileDetails.slice(0, 4);\n  return (\n    <DescriptionList\n      items={(details ?? profileDetails.slice(0, 4)).map(([term, description]) => ({\n        term,\n        description,\n      }))}\n      termProps={{ variant: 'b4', weight: 'semibold' }}\n      descriptionProps={{ variant: 'b4', tone: 'subtle' }}\n      slotStyles={{\n        root: css.raw({ gridTemplateColumns: 'none', gap: '0', _mobile: { gap: '6' } }),\n        row: css.raw({\n          display: 'flex',\n          flexDirection: 'column',\n          gap: '4',\n          py: '6',\n          pr: '4',\n          borderBottom: '1px solid var(--colors-black-20)',\n          _first: { pt: '0' },\n          _mobile: { gap: '3', p: '0', borderBottom: '0' },\n        }),\n        description: css.raw({ m: '0' }),\n      }}\n    />\n  );\n}\n",
       preview: (() => {
         const profileDetails = [
           ['회원 아이디', 'hon******'],
@@ -734,8 +731,8 @@ export function getDescriptionListExamples(platform: Platform) {
               term,
               description,
             }))}
-            termProps={{ variant: 'body3', weight: 'semibold' }}
-            descriptionProps={{ variant: 'body3', tone: 'subtle' }}
+            termProps={{ variant: 'b4S' }}
+            descriptionProps={{ variant: 'b4', tone: 'subtle' }}
             slotStyles={{
               root: css.raw({ gridTemplateColumns: 'none', gap: '0', _mobile: { gap: '6' } }),
               row: css.raw({
@@ -760,20 +757,20 @@ export function getDescriptionListExamples(platform: Platform) {
       description: '실제 화면의 데이터·스타일',
       source: 'src/app/mypage/profile/_components/ProfileContent.tsx',
       href: '/mypage/profile',
-      code: "import { css } from 'styled-system/css';\nimport { DescriptionList } from '@/components/common/atoms/DescriptionList';\n\nfunction Example() {\n  const emailPreference = '수신안함';\n  const smsPreference = '수신안함';\n  const kakaoPreference = '수신안함';\n  return (\n    <DescriptionList\n      items={[\n        { term: '이메일 수신', description: emailPreference },\n        { term: '문자수신(LMS, SMS)', description: smsPreference },\n        { term: '카카오톡 알림톡 수신', description: kakaoPreference },\n      ]}\n      termProps={{ web: 'bodyKr3', mo: 'bodyKr4', tone: 'primary' }}\n      descriptionProps={{ web: 'bodyKr3', mo: 'bodyKr4', tone: 'subtle' }}\n      slotStyles={{\n        root: css.raw({ '--line-heights-body': '1.5', gridTemplateColumns: 'none', gap: '24px', _mobile: { gap: '16px' } }),\n        row: css.raw({\n          display: 'flex',\n          alignItems: 'center',\n          justifyContent: 'flex-start',\n          gap: '0',\n          _mobile: { justifyContent: 'space-between' },\n        }),\n        term: css.raw({ w: '178px', _mobile: { w: 'auto' } }),\n        description: css.raw({ m: '0', _mobile: { textAlign: 'right', '--color-text-subtle': 'var(--color-text-tertiary)' } }),\n      }}\n    />\n  );\n}\n",
+      code: "import { css } from 'styled-system/css';\nimport { DescriptionList } from '@/components/common/atoms/DescriptionList';\n\nfunction Example() {\n  const emailPreference = '수신안함';\n  const smsPreference = '수신안함';\n  return (\n    <DescriptionList\n      items={[\n        { term: '이메일 수신', description: emailPreference },\n        { term: '문자수신(LMS, SMS)', description: smsPreference },\n        // [ 카카오톡 알림톡 ] 1차 구현 불가\n        // { term: '카카오톡 알림톡 수신', description: kakaoPreference },\n      ]}\n      termProps={{ web: 'b4', mo: 'b6', tone: 'primary' }}\n      descriptionProps={{ web: 'b4', mo: 'b6', tone: 'subtle' }}\n      slotStyles={{\n        root: css.raw({ '--line-heights-body': '1.5', gridTemplateColumns: 'none', gap: '24px', _mobile: { gap: '16px' } }),\n        row: css.raw({\n          display: 'flex',\n          alignItems: 'center',\n          justifyContent: 'flex-start',\n          gap: '0',\n          _mobile: { justifyContent: 'space-between' },\n        }),\n        term: css.raw({ w: '178px', _mobile: { w: 'auto' } }),\n        description: css.raw({ m: '0', _mobile: { textAlign: 'right', '--color-text-subtle': 'var(--color-text-tertiary)' } }),\n      }}\n    />\n  );\n}\n",
       preview: (() => {
         const emailPreference = '수신안함';
         const smsPreference = '수신안함';
-        const kakaoPreference = '수신안함';
         return (
           <DescriptionList
             items={[
               { term: '이메일 수신', description: emailPreference },
               { term: '문자수신(LMS, SMS)', description: smsPreference },
-              { term: '카카오톡 알림톡 수신', description: kakaoPreference },
+              // [ 카카오톡 알림톡 ] 1차 구현 불가
+              // { term: '카카오톡 알림톡 수신', description: kakaoPreference },
             ]}
-            termProps={{ web: 'bodyKr3', mo: 'bodyKr4', tone: 'primary' }}
-            descriptionProps={{ web: 'bodyKr3', mo: 'bodyKr4', tone: 'subtle' }}
+            termProps={{ web: 'b4', mo: 'b6', tone: 'primary' }}
+            descriptionProps={{ web: 'b4', mo: 'b6', tone: 'subtle' }}
             slotStyles={{
               root: css.raw({
                 '--line-heights-body': '1.5',
@@ -807,7 +804,7 @@ export function getDescriptionListExamples(platform: Platform) {
       description: '실제 화면의 데이터·스타일',
       source: 'src/app/mypage/profile/_components/ProfileContent.tsx',
       href: '/mypage/profile',
-      code: "import { css } from 'styled-system/css';\nimport { DescriptionList } from '@/components/common/atoms/DescriptionList';\n\nfunction Example() {\n  const profileDetails = [\n    ['회원 아이디', 'hon******'],\n    ['이름', '손*민'],\n    ['생년월일', '1993.05.22'],\n    ['주소', '서울시 성북구 테헤란로 27길 54 테헤란 아파트 701호'],\n    ['이메일', 'dww******@gmail.com'],\n    ['휴대폰 번호', '010-****-0522'],\n  ] as const;\n  const savedAddress = {\n    postalCode: '02157',\n    address: '서울시 성북구 테헤란로 27길 54',\n    addressDetail: '테헤란 아파트 701호',\n  };\n  const email = 'dww******@gmail.com';\n  const phone = '010-****-0522';\n  return (\n    <DescriptionList\n      items={[\n        ...profileDetails.slice(0, 2).map(([term, description]) => ({ term, description, descriptionProps: term === '이름' ? { variant: 'bodyKr3' as const } : undefined })),\n        { term: '성별', description: '남성', descriptionProps: { variant: 'bodyKr3' } },\n        { term: profileDetails[2][0], description: profileDetails[2][1] },\n        { term: '휴대폰 번호', description: phone },\n        {\n          term: '주소', descriptionProps: { variant: 'bodyKr3' },\n          description: `${savedAddress.address} ${savedAddress.addressDetail}`,\n        },\n        { term: '이메일', description: email },\n      ]}\n      termProps={{ web: 'bodyKr3', mo: 'headingKr8', weight: 'semibold', tone: 'primary' }}\n      descriptionProps={{ variant: 'body3', tone: 'subtle' }}\n      slotStyles={{\n        root: css.raw({\n          '--line-heights-body': '1.5', gridTemplateColumns: 'none',\n          gap: '48px',\n          pb: '32px',\n          borderBottom: '1px solid var(--colors-black-20)',\n          _mobile: { gap: '24px', pb: '24px' },\n        }),\n        row: css.raw({\n          display: 'flex',\n          gap: '0',\n          _mobile: { flexDirection: 'column', gap: '12px' },\n        }),\n        term: css.raw({ w: '178px', flexShrink: '0', _mobile: { w: 'auto' } }),\n        description: css.raw({ m: '0', overflowWrap: 'anywhere' }),\n      }}\n    />\n  );\n}\n",
+      code: "import { css } from 'styled-system/css';\nimport { DescriptionList } from '@/components/common/atoms/DescriptionList';\n\nfunction Example() {\n  const profileDetails = [\n    ['회원 아이디', 'hon******'],\n    ['이름', '손*민'],\n    ['생년월일', '1993.05.22'],\n    ['주소', '서울시 성북구 테헤란로 27길 54 테헤란 아파트 701호'],\n    ['이메일', 'dww******@gmail.com'],\n    ['휴대폰 번호', '010-****-0522'],\n  ] as const;\n  const savedAddress = {\n    postalCode: '02157',\n    address: '서울시 성북구 테헤란로 27길 54',\n    addressDetail: '테헤란 아파트 701호',\n  };\n  const email = 'dww******@gmail.com';\n  const phone = '010-****-0522';\n  return (\n    <DescriptionList\n      items={[\n        ...profileDetails.slice(0, 2).map(([term, description]) => ({ term, description, descriptionProps: term === '이름' ? { variant: 'b4' as const } : undefined })),\n        { term: '성별', description: '남성', descriptionProps: { variant: 'b4' } },\n        { term: profileDetails[2][0], description: profileDetails[2][1] },\n        { term: '휴대폰 번호', description: phone },\n        {\n          term: '주소', descriptionProps: { variant: 'b4' },\n          description: `${savedAddress.address} ${savedAddress.addressDetail}`,\n        },\n        { term: '이메일', description: email },\n      ]}\n      termProps={{ web: 'b4', mo: 'h8', weight: 'semibold', tone: 'primary' }}\n      descriptionProps={{ variant: 'b4', tone: 'subtle' }}\n      slotStyles={{\n        root: css.raw({\n          '--line-heights-body': '1.5', gridTemplateColumns: 'none',\n          gap: '48px',\n          pb: '32px',\n          borderBottom: '1px solid var(--colors-black-20)',\n          _mobile: { gap: '24px', pb: '24px' },\n        }),\n        row: css.raw({\n          display: 'flex',\n          gap: '0',\n          _mobile: { flexDirection: 'column', gap: '12px' },\n        }),\n        term: css.raw({ w: '178px', flexShrink: '0', _mobile: { w: 'auto' } }),\n        description: css.raw({ m: '0', overflowWrap: 'anywhere' }),\n      }}\n    />\n  );\n}\n",
       preview: (() => {
         const profileDetails = [
           ['회원 아이디', 'hon******'],
@@ -830,20 +827,20 @@ export function getDescriptionListExamples(platform: Platform) {
               ...profileDetails.slice(0, 2).map(([term, description]) => ({
                 term,
                 description,
-                descriptionProps: term === '이름' ? { variant: 'bodyKr3' as const } : undefined,
+                descriptionProps: term === '이름' ? { variant: 'b4' as const } : undefined,
               })),
-              { term: '성별', description: '남성', descriptionProps: { variant: 'bodyKr3' } },
+              { term: '성별', description: '남성', descriptionProps: { variant: 'b4' } },
               { term: profileDetails[2][0], description: profileDetails[2][1] },
               { term: '휴대폰 번호', description: phone },
               {
                 term: '주소',
-                descriptionProps: { variant: 'bodyKr3' },
+                descriptionProps: { variant: 'b4' },
                 description: `${savedAddress.address} ${savedAddress.addressDetail}`,
               },
               { term: '이메일', description: email },
             ]}
-            termProps={{ web: 'bodyKr3', mo: 'headingKr8', weight: 'semibold', tone: 'primary' }}
-            descriptionProps={{ variant: 'body3', tone: 'subtle' }}
+            termProps={{ web: 'b4S', mo: 'h8', tone: 'primary' }}
+            descriptionProps={{ variant: 'b4', tone: 'subtle' }}
             slotStyles={{
               root: css.raw({
                 '--line-heights-body': '1.5',

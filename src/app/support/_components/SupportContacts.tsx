@@ -58,9 +58,9 @@ function SupportContactCard({
       <ContentHeader
         title={title}
         titleAs="h2"
-        titleProps={{ id: headingId, web: 'heading8', mo: 'heading5' }}
+        titleProps={{ id: headingId, web: 'h10B', mo: 'h7B' }}
         description={description}
-        descriptionProps={{ variant: 'body4', tone: 'subtle' }}
+        descriptionProps={{ variant: 'b6', tone: 'subtle' }}
         gap="3"
         w={{ base: '280px', _mobile: 'full' }}
         flexShrink="0"
@@ -76,49 +76,38 @@ function SupportContactCard({
       >
         <Stack gap={{ base: '6', _mobile: '3' }}>
           <Stack gap="3">
-            {!mobile && <Typography variant="body3">전화번호</Typography>}
+            {!mobile && <Typography variant="b4">전화번호</Typography>}
             <HStack gap="1" alignItems="baseline">
-              <Typography as="span" variant="body2" weight="medium" language="en">
+              <Typography as="span" variant="b2M" language="en">
                 TEL.
               </Typography>
               <a className={phoneLink} href={phoneHref}>
-                <Typography as="span" variant="body2" language="en">
+                <Typography as="span" variant="b2" language="en">
                   {phone}
                 </Typography>
               </a>
             </HStack>
           </Stack>
           {note && (
-            <Typography as="p" variant="body4" tone="subtle">
+            <Typography as="p" variant="b6" tone="subtle">
               {note}
             </Typography>
           )}
         </Stack>
 
         <Stack gap={{ base: '3', _mobile: '2' }}>
-          <Typography variant="body3" weight="medium">
-            {mobile ? '운영시간' : operatingHoursTitle}
-          </Typography>
+          <Typography variant="b4M">{mobile ? '운영시간' : operatingHoursTitle}</Typography>
           <Stack gap={{ base: '2', _mobile: note ? '10px' : '2' }}>
             <HStack gap="1" alignItems="baseline" flexWrap="wrap">
-              {mobile && (
-                <Typography variant="body3" weight="medium">
-                  평일
-                </Typography>
-              )}
-              <Typography as="span" web="body2" mo="body3" weight="medium" language="en">
+              {mobile && <Typography variant="b4M">평일</Typography>}
+              <Typography as="span" web="b2M" mo="b4M" language="en">
                 {operatingHours}
               </Typography>
-              <Typography
-                as="span"
-                web="body3"
-                mo="body4"
-                className={css({ whiteSpace: 'nowrap' })}
-              >
+              <Typography as="span" web="b4" mo="b6" className={css({ whiteSpace: 'nowrap' })}>
                 ({lunchBreak})
               </Typography>
             </HStack>
-            <Typography as="p" variant="body4" tone="subtle">
+            <Typography as="p" variant="b6" tone="subtle">
               * {closedDays}
             </Typography>
           </Stack>

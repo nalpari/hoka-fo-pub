@@ -132,12 +132,7 @@ function CatalogFilterTrigger({
       onClick={onToggle}
       type="button"
     >
-      <Typography
-        variant="ctaKr1"
-        language="ko"
-        style={{ fontFamily: 'var(--font-family-korean)' }}
-        weight="semibold"
-      >
+      <Typography variant="b4S" language="ko" style={{ fontFamily: 'var(--font-family-korean)' }}>
         {title}
       </Typography>
       <Icon name={expanded ? 'minus-regular' : 'plus-regular'} size={16} alt="" className={icon} />
@@ -212,7 +207,11 @@ function CatalogFilterGroup({
       <Checkbox
         onValueChange={(next) => (onChange ? onChange(next) : setInternalSelected(next))}
         options={values.map((item) => ({
-          label: <Typography variant="eland-filter-option">{item}</Typography>,
+          label: (
+            <Typography variant="b6" language="ko">
+              {item}
+            </Typography>
+          ),
           value: item,
         }))}
         value={selectedValues}
@@ -397,8 +396,8 @@ function PriceRangeValue({
 }) {
   return (
     <Flex justifyContent="space-between" alignItems="center">
-      <Typography variant="body4">{formatPrice(minimumValue, showUnit)}</Typography>
-      <Typography variant="body4">{formatPrice(maximumValue, showUnit)}</Typography>
+      <Typography variant="b6">{formatPrice(minimumValue, showUnit)}</Typography>
+      <Typography variant="b6">{formatPrice(maximumValue, showUnit)}</Typography>
     </Flex>
   );
 }
@@ -459,7 +458,7 @@ function Tag({ children, onDelete }: TagProps) {
   if (!onDelete) return <span className={tag}>{children}</span>;
   return (
     <Flex className={tag} gap="1.5" alignItems="center" justifyContent="space-between">
-      <Typography variant="eland-listing-secondary" tone="primary">
+      <Typography web="b6" mo="b8" language="ko" tone="primary">
         {children}
       </Typography>
       <Button
@@ -499,9 +498,9 @@ function CatalogFilterPanelHeader({ onReset, selectedFilters }: CatalogFilterPan
         <Flex h="8" alignItems="center">
           <Button onClick={onReset} variant="link" size="md">
             <Typography
-              variant="bodyKr4"
+              variant="b6M"
               language="ko"
-              weight="medium"
+
               style={{ fontFamily: 'var(--font-family-korean)' }}
             >
               초기화
@@ -638,7 +637,11 @@ function ProductListingFilterPanel({
             value={mobileSort.value}
             onValueChange={mobileSort.onValueChange}
             options={productSortOptions.map(({ label, value }) => ({
-              label: <Typography variant="eland-filter-option">{label}</Typography>,
+              label: (
+                <Typography variant="b6" language="ko">
+                  {label}
+                </Typography>
+              ),
               value,
             }))}
           />
@@ -797,7 +800,7 @@ const PromotionCardRoot = cva({
         _mobile: {
           gap: '3',
           '& .card__header': { px: '3', gap: '2' },
-          '& h3': { fontSize: '16px', fontWeight: 'bold', lineHeight: '1.4' },
+          '& h3': { fontSize: 'heading.20', fontWeight: 'bold', lineHeight: 'koreanHeading' },
           '& .card__action': { px: '3' },
         },
       },
@@ -806,7 +809,7 @@ const PromotionCardRoot = cva({
           gap: '5',
           '& .card__header': { px: '4' },
           '& .card__action': { px: '4' },
-          '& h3': { fontSize: '24px', fontWeight: 'black', lineHeight: '1.4' },
+          '& h3': { fontSize: 'heading.24', fontWeight: 'black', lineHeight: 'koreanHeading' },
         },
       },
     },
@@ -1011,18 +1014,20 @@ function ProductListingContent({
           closeLabel="닫기"
           footer={
             <Button onClick={onMobileFilterApply} variant="primary">
-              <Typography variant="eland-filter-apply-count">
-                <Typography variant="eland-purchase-action">필터 적용하기</Typography> (
-                {mobileResultCount})
+              <Typography variant="b5M" language="en">
+                <Typography web="b4B" mo="b5B" language="ko">
+                  필터 적용하기
+                </Typography>{' '}
+                ({mobileResultCount})
               </Typography>
             </Button>
           }
           onOpenChange={onFilterDrawerOpenChange}
           title={
             <Typography
-              mo="headingKr6"
+              mo="h8"
               language="ko"
-              weight="bold"
+
               style={{ fontFamily: 'var(--font-family-korean)' }}
             >
               필터
@@ -1044,15 +1049,15 @@ function ProductListTitle({ resultCount, title }: ProductListTitleProps) {
   return (
     <HStack gap="2" alignItems="flex-end">
       <Typography
-        web="headingKr7"
-        mo="headingKr5"
+        web="h8B"
+        mo="h7B"
         language="ko"
         style={{ fontFamily: 'var(--font-family-korean)' }}
         tone="primary"
       >
         {title}
       </Typography>
-      <Typography variant="body4" language="en">
+      <Typography variant="b6" language="en">
         ({resultCount})
       </Typography>
     </HStack>
@@ -1102,15 +1107,15 @@ function SearchListingLayout({
   const emptyTitle = (
     <HStack as="h1" gap="1" alignItems="baseline" minW="0" m="0" color="black.100">
       <Typography
-        web="heading7"
-        mo="body3"
-        weight="900-500"
+        web="h8B"
+        mo="b4M"
+
         className={searchListingStyles.emptyQuery}
       >
         “{query}”에 대한
       </Typography>
-      <Typography web="heading7" mo="body3" weight="900-500" className={css({ flexShrink: '0' })}>
-        <Typography web="heading7" mo="heading7" weight="900-500">
+      <Typography web="h8B" mo="b4M" className={css({ flexShrink: '0' })}>
+        <Typography web="h8B" mo="h8">
           {resultCount}
         </Typography>
         개의 검색결과
@@ -1156,9 +1161,8 @@ function SearchListingLayout({
               titleAs="h1"
               title={`“${query}”에 대한 ${resultCount}개의 검색결과`}
               titleProps={{
-                web: 'heading6',
-                mo: 'body3',
-                weight: 'medium',
+                web: 'h4',
+                mo: 'b4M',
                 className: searchListingStyles.resultTitle,
               }}
               action={<Box flexShrink="0">{platform === 'mobile' ? filterAction : sortAction}</Box>}
@@ -1190,9 +1194,9 @@ function ProductFilterTrigger({ onClick, label = '필터' }: ProductFilterTrigge
       iconSize={16}
     >
       <Typography
-        variant="bodyKr4"
+        variant="b6S"
         language="ko"
-        weight="semibold"
+
         style={{ fontFamily: 'var(--font-family-korean)' }}
       >
         {label}
@@ -1351,7 +1355,11 @@ function ProductListingLayout({
       onValueChange={onSortChange}
       value={sort}
       options={productSortOptions.map(({ label, value }) => ({
-        label: <Typography variant="eland-filter-option">{label}</Typography>,
+        label: (
+          <Typography variant="b6" language="ko">
+            {label}
+          </Typography>
+        ),
         value,
       }))}
     />

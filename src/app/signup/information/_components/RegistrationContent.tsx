@@ -47,7 +47,7 @@ function RegistrationField({
       disabled={disabled}
       invalid={Boolean(error)}
       error={error}
-      label={<Typography variant="body5">* {label}</Typography>}
+      label={<Typography variant="b8">* {label}</Typography>}
       inputProps={{
         type: type,
         disabled: disabled,
@@ -138,7 +138,7 @@ function RegistrationPersonalFields(props: RegistrationPersonalFieldsProps) {
         type="password"
       />
       <Box mt="-2">
-        <Typography as="p" variant="body5">
+        <Typography as="p" variant="b8">
           연속적인 숫자나 생일, 전화번호 등 추측하기 쉬운 개인정보 및 아이디와 비슷한 전화번호
           사용을 피하시기 바랍니다. 비밀번호는 특수기호를 포함한 3가지 이상을 조합하여 입력해주세요.
         </Typography>
@@ -206,8 +206,8 @@ function RegistrationPreferenceRow({
       value={value}
       onValueChange={onValueChange}
       options={[
-        { value: 'yes', label: <Typography variant="body4">수신</Typography> },
-        { value: 'no', label: <Typography variant="body4">수신안함</Typography> },
+        { value: 'yes', label: <Typography variant="b6">수신</Typography> },
+        { value: 'no', label: <Typography variant="b6">수신안함</Typography> },
       ]}
     />
   );
@@ -227,7 +227,7 @@ function RegistrationAdditionalFields(props: RegistrationAdditionalFieldsProps) 
         title="마케팅 정보 수신 동의"
         headerProps={{
           titleAs: 'h2',
-          titleProps: { variant: 'body3', weight: '700-600' },
+          titleProps: { web: 'b4B', mo: 'b4S' },
           pb: '4',
           borderBottom: '1px solid var(--color-black-100)',
         }}
@@ -243,11 +243,13 @@ function RegistrationAdditionalFields(props: RegistrationAdditionalFieldsProps) 
             value={props.preferences.sms}
             onValueChange={(value) => props.onPreferenceChange('sms', value)}
           />
+          {/* [ 카카오톡 알림톡 ] 1차 구현 불가
           <RegistrationPreferenceRow
             label="카카오톡 알림톡 수신"
             value={props.preferences.kakao}
             onValueChange={(value) => props.onPreferenceChange('kakao', value)}
           />
+          */}
         </Stack>
       </ContentSection>
     </Stack>
@@ -382,7 +384,8 @@ export function RegistrationMarketingConsentSummaryModal({
       items={[
         { label: '이메일 수신', value: preferenceLabel(preferences.email) },
         { label: '문자수신(LMS, SMS)', value: preferenceLabel(preferences.sms) },
-        { label: '카카오톡 알림톡 수신', value: preferenceLabel(preferences.kakao) },
+        // [ 카카오톡 알림톡 ] 1차 구현 불가
+        // { label: '카카오톡 알림톡 수신', value: preferenceLabel(preferences.kakao) },
       ]}
     />
   );

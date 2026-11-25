@@ -27,7 +27,7 @@ export default function Page() {
     <CustomerCenterLayout
       className={styles.layout}
       title="배송 및 반품안내"
-      mobileTitleVariant="heading5"
+      mobileTitleVariant="h7B"
       activePath="/support/after-sales"
       breadcrumbItems={[
         { label: 'Home', href: '/' },
