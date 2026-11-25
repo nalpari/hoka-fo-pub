@@ -38,3 +38,8 @@ export const mobileCheckoutPreviewRows: CheckoutRow[] = [1, 2, 3].map((index) =>
   item: { ...checkoutPreviewRows[0].item, id: `mobile-checkout-shoe-${index}`, quantity: 1 },
   originalAmount: 280000,
 }));
+
+export const checkoutEmployeeDiscountNotice = {
+  usage: '할인한도 6,000,000원 중 2,994,700원을 사용하셨습니다.',
+  remaining: '(잔여한도 3,005,300 원)',
+};

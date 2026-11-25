@@ -2076,6 +2076,10 @@ ProfileContent의 비밀번호 설정 모달에서 안내문 padding-top8px를 �
 
 날짜 입력의 내부 여백은 좌측 12px·우측 36px, 달력은 우측 12px로 보정했다. 기존 72px 글자 공간보다 넓은 HOKA 날짜 문자열이 잘리던 문제를 80px 글자 공간으로 해소한다.
 
+## 주문서 쿠폰 조회와 배송 요청 기본값 (2026-11-25)
+
+주문서의 PC·모바일 쿠폰 할인 버튼은 ‘쿠폰 조회하기’로 표시하며 `/checkout/preview-coupons`에서 팝업을 바로 열 수 있다. 배송비 행 자리에는 임직원 할인한도·사용액·잔여한도 표시 데이터를 배치한다. 배송 요청 드롭다운은 `none`(선택 안함)으로 시작하며 `/checkout/preview-delivery-request`는 `custom`으로 직접입력란을 연다. 출처는 사용자 브라우저 코멘트와 `src/app/checkout/_components/CheckoutDiscountSummary.tsx`, `CheckoutShipping.tsx`, `src/app/checkout/checkout-summary.ts` 작업 트리다. PC 1920px·모바일 375px에서 주문서 기본값, 할인한도 문구와 직접입력 상태를 확인했다.
+
 ## 쿠폰 조회와 취소 반품 유형 연결 (2026-11-17)
 
 /checkout/preview-coupons, /mypage/orders/preview-cancel-request, /mypage/orders/preview-return-request의 경로와 직접 진입 상태는 그대로 유지한다. IA 표시와 모달 가이드에 모두 productSelection을 연결했다. 모달 variant는12개다.

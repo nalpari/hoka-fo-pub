@@ -3,14 +3,22 @@
 import { useState } from 'react';
 import { usePlatform } from '@/context/platform';
 
-import { Stack } from 'styled-system/jsx';
+import { css } from 'styled-system/css';
+import { HStack, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { AmountRow } from '@/components/common/molecules/AmountRow';
 
+import { checkoutEmployeeDiscountNotice } from '@/app/checkout/checkout-summary';
+
 import { CheckoutCouponDialog } from './CheckoutCouponDialog';
+
+const styles = {
+  limitLabel: css({ flexShrink: 0 }),
+  limitNotice: css({ textAlign: 'right' }),
+};
 
 /** 주문 금액과 보유 쿠폰 조회 UI를 표시합니다. (Displays prepared order totals and the coupon lookup interface.) */
 export function CheckoutDiscountSummary({
@@ -20,7 +28,7 @@ export function CheckoutDiscountSummary({
 }) {
   const [open, setOpen] = useState(initialCouponOpen);
   const mobile = usePlatform() === 'mobile';
-  // [ 개발팀 바인딩 ] 주문금액·할인·합계는 시안별 고정 표시이며 쿠폰 초안과 재계산하지 않습니다. 실제 쿠폰 적용 후 견적 응답 갱신은 주문 연결 소유자 책임입니다.
+  // [ 개발팀 바인딩 ] 주문금액·할인·합계와 임직원 할인한도는 고정 표시 데이터입니다. 주문 연결 소유자가 견적 응답에서 금액과 계정별 한도 표시값을 전달하고 쿠폰 적용 성공 후 갱신합니다.
   return (
     <Stack gap={{ base: '28px', _mobile: '12px' }}>
       {!mobile ? (
@@ -37,10 +45,19 @@ export function CheckoutDiscountSummary({
           <Stack gap={{ base: '16px', _mobile: '12px' }}>
             <AmountRow label="쿠폰 할인" amount={15000} web="b5" mo="b6" amountWeb="b4" discount />
             <Button variant="secondary" size="short" fullWidth onClick={() => setOpen(true)}>
-              조회하기
+              쿠폰 조회하기
             </Button>
           </Stack>
-          <AmountRow label="배송비" amount={0} web="b5" amountWeb="b4" />
+          <HStack alignItems="flex-start" justifyContent="space-between" gap="8px">
+            <Typography web="b5B" mo="b6" className={styles.limitLabel}>
+              임직원
+            </Typography>
+            <Typography web="b6" mo="b6" className={styles.limitNotice}>
+              {checkoutEmployeeDiscountNotice.usage}
+              <br />
+              {checkoutEmployeeDiscountNotice.remaining}
+            </Typography>
+          </HStack>
         </Stack>
         <AmountRow
           label="총 결제 금액"

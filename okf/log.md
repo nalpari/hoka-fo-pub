@@ -2,6 +2,10 @@
 
 - Figma의 홍보 팝업을 메인에 적용하고 IA 2번에 직접 확인 링크를 연결했다. [디자인과 데이터 계약](architecture/home-product-design.md#메인-홍보-팝업-2026-11-25) · [IA 연결](architecture/routing.md#메인-홍보-팝업과-ia-연결-2026-11-25).
 
+## 2026-11-25 주문서 쿠폰 조회와 배송 요청 기본값
+
+- 주문서 쿠폰 버튼 문구와 임직원 할인한도 표시를 갱신하고 배송 요청 기본값을 ‘선택 안함’으로 바꿨다. [주문서](architecture/routing.md#주문서-쿠폰-조회와-배송-요청-기본값-2026-11-25).
+
 ## 2026-11-25 Display·Heading·Body 타이포그래피 이관
 
 - Figma의 35개 변수와 160개 Text Style을 기준으로 공통 Typography와 화면 타이포를 이관했다. 퍼블리싱 가이드에서 한글·영문과 Wide·Compact의 실제 예시를 제공한다. [폰트 체계](architecture/ui.md#displayheadingbody-타이포그래피-이관-2026-11-25).
