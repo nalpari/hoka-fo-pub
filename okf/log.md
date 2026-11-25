@@ -1,3 +1,7 @@
+## 2026-11-25 메인 홍보 팝업 캐러셀
+
+- Figma의 홍보 팝업을 메인에 적용하고 IA 2번에 직접 확인 링크를 연결했다. [디자인과 데이터 계약](architecture/home-product-design.md#메인-홍보-팝업-2026-11-25) · [IA 연결](architecture/routing.md#메인-홍보-팝업과-ia-연결-2026-11-25).
+
 ## 2026-11-25 Display·Heading·Body 타이포그래피 이관
 
 - Figma의 35개 변수와 160개 Text Style을 기준으로 공통 Typography와 화면 타이포를 이관했다. 퍼블리싱 가이드에서 한글·영문과 Wide·Compact의 실제 예시를 제공한다. [폰트 체계](architecture/ui.md#displayheadingbody-타이포그래피-이관-2026-11-25).

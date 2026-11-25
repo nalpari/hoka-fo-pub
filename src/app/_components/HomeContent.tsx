@@ -35,11 +35,39 @@ import {
   shoeFinderItems,
 } from '@/app/homeContent';
 import { products } from '@/mocks/products';
+
+import { HomePromotionDialog, type HomePromotionDialogProps } from './HomePromotionDialog';
+
+type HomeContentProps = {
+  promotion?: HomePromotionDialogProps;
+  previewPromotion?: boolean;
+};
+
+const previewPromotionSlides: HomePromotionDialogProps['slides'] = [
+  {
+    id: 'preview-home-promotion',
+    image: '/images/temp/home-promotion.webp',
+    alt: '바위 위에서 뛰어오르는 두 러너',
+  },
+  {
+    id: 'preview-trail-running',
+    image: '/images/temp/home-hero-trail-mobile.png',
+    alt: '트레일 러닝 캠페인',
+  },
+  {
+    id: 'preview-city-running',
+    image: '/images/temp/home-hero-city-mobile.png',
+    alt: '시티 러닝 캠페인',
+  },
+];
+
 /** 홈 콘텐츠의 공통 폭과 모바일 전용 타이포그래피 변수를 제공합니다. (Provides shared home content width and mobile type scale variables.) */
 function HomeLayout({ platform, children }: { platform: Platform; children: ReactNode }) {
   return (
     <Box
       as="main"
+      id="home-content"
+      tabIndex={-1}
       className={`home-page-${platform}`}
       overflow="hidden"
       color="var(--color-text-primary)"
@@ -714,9 +742,25 @@ function HomeShoeFinderSection({ platform, variant = 'imagePill' }: HomeShoeFind
     </CarouselSection>
   );
 }
-/** 홈의 주요 프로모션과 상품 영역을 구성합니다. (Composes the home promotions and product sections.) */
-export function RouteContent() {
+/**
+ * 홈의 주요 프로모션과 상품 영역을 구성합니다. (Composes the home promotions and product sections.)
+ *
+ * [ 개발팀 바인딩 ]
+ * 메인 통합 소유자는 노출 조건이 확정되면 promotion.open과 현재 배너 id, image, alt를 전달합니다.
+ * promotion.onDismiss는 일반 닫기와 오늘 하루 숨김을 구분합니다. 통합 소유자가 노출 상태와 당일 숨김 저장을 처리합니다.
+ * previewPromotion은 IA 확인용 고정 배너이며 두 닫기 동작 모두 현재 화면에서만 닫습니다.
+ */
+export function RouteContent({ promotion, previewPromotion = false }: HomeContentProps) {
   const platform = usePlatform();
+  const [previewDismissed, setPreviewDismissed] = useState(false);
+  const currentPromotion = previewPromotion
+    ? {
+        open: !previewDismissed,
+        slides: previewPromotionSlides,
+        onDismiss: () => setPreviewDismissed(true),
+      }
+    : promotion;
+
   return (
     <HomeLayout platform={platform}>
       {<HomeHeroSection platform={platform} />}
@@ -724,6 +768,7 @@ export function RouteContent() {
       {<HomeShoeFinderSection platform={platform} />}
       {<HomeExploreSection />}
       <HomeBestSellerSection />
+      {currentPromotion && <HomePromotionDialog {...currentPromotion} />}
     </HomeLayout>
   );
 }

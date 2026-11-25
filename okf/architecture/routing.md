@@ -2639,3 +2639,11 @@ productDetailPreviews의 `상품 문의하기 팝업` 항목을 기존 상품 �
 ## 신규 타이포그래피 퍼블리싱 가이드 (2026-11-25)
 
 `/publishing-guide`의 타이포그래피 탭에 Display·Heading·Body 규격표를 연결한다. Display와 Heading은 각각 Wide·Compact 서브 탭을 제공하고 초기값은 Wide다. Body는 공통 표 하나를 표시한다. 같은 크기의 굵기는 예시 열로 나란히 배치하고 예시 문구에서 해당 경로의 코드를 복사한다. 표의 예시는 명시적인 플랫폼 컨텍스트로 렌더링하며, 한글·영문은 각각 본문 글리프와 폰트 패밀리를 지정한다. [폰트 체계와 이관 기준](ui.md#displayheadingbody-타이포그래피-이관-2026-11-25).
+
+## 메인 홍보 팝업과 IA 연결 (2026-11-25)
+
+`/preview-promotion`은 메인과 같은 HomeContent에서 홍보 레이어 팝업을 처음부터 연다. 새로고침하면 첫 슬라이드에서 다시 시작한다. IA 2번 `Main > Pop-up`의 STATE에 ‘홍보 레이어 팝업’과 직접 URL을 등록했다. IA 1번은 기본 메인 `/`에 연결되며, 운영 노출 데이터가 전달되기 전에는 기본 메인에 팝업을 표시하지 않는다.
+
+출처는 `src/app/preview-promotion/page.tsx`, `src/app/_components/HomeContent.tsx`, `src/app/screen-index/screenConnections.ts`의 작업 트리다. 디자인과 표시 데이터 계약은 [메인 홍보 팝업](home-product-design.md#메인-홍보-팝업-2026-11-25)을 참고한다. 기록: codex/gpt-6, 2026-11-25 KST.
+
+검증에서 기본 메인 진입, IA 상태명·URL 검색, IA 1번의 기존 메인 링크와 IA 2번 보기 링크의 팝업 열기를 확인했다. 소스 그래프 생성과 관련 테스트, 변경 TSX의 ESLint·Prettier, Next.js 빌드를 통과했다. 전체 lint는 기존 `tests/wh-file-summary.test.mjs`의 전역 이름 `no-undef` 오류 8건을 보고했다.

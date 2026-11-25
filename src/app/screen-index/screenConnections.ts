@@ -147,6 +147,10 @@ const connections: Record<number, ScreenConnection> = {
     route: '/',
     sourceFiles: ['src/app/page.tsx'],
   },
+  '2': {
+    previewRoutes: [{ label: '홍보 레이어 팝업', href: '/preview-promotion' }],
+    sourceFiles: ['src/app/preview-promotion/page.tsx'],
+  },
   '155': {
     sourceFiles: ['src/app/running/running-session/page.tsx'],
   },
