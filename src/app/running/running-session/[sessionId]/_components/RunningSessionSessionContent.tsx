@@ -473,12 +473,82 @@ type RunningSessionApplicant = {
   phone: string;
 };
 
+const applicationConfirmPreviewSession = {
+  title: '북악산 트레일 세션',
+  schedule: '10월 30일 (금) 19:30-21:30',
+};
+
+const applicationNoticeStyles = {
+  popup: css({ '&&': { _mobile: { borderRadius: '8px' } } }),
+  confirmHeader: css({ '& > button': { _mobile: { display: 'none' } } }),
+  footer: css({
+    '&& button': {
+      h: '42px',
+      minH: '42px',
+      '--button-height': '42px',
+      _mobile: { h: '42px', minH: '42px' },
+    },
+    '&& button > span > span': { fontSize: '15px' },
+  }),
+  confirmFooter: css({ '&&': { mt: '32px', _mobile: { mt: '24px' } } }),
+  confirmContent: css({ scrollbarWidth: 'none' }),
+  summaryList: css({
+    '&&': { rowGap: '16px', _mobile: { rowGap: '8px' } },
+    '& :is(dt, dd)': { fontFamily: 'korean', fontSize: '14px', lineHeight: '1.5' },
+  }),
+  prompt: css({
+    fontFamily: 'korean',
+    letterSpacing: '-0.02em',
+    textAlign: 'center',
+    '&&': { lineHeight: '1.2' },
+  }),
+  summaryTitle: css({
+    fontFamily: 'korean',
+    fontSize: '20px',
+    letterSpacing: '-0.02em',
+    _mobile: { fontSize: '16px' },
+    '&&': { lineHeight: '1.2' },
+  }),
+  address: css({
+    display: 'block',
+    mt: '4px',
+    fontFamily: 'korean',
+    fontSize: '14px',
+    lineHeight: '1.5',
+  }),
+  alertContent: css({
+    '& > h3': {
+      fontSize: '20px',
+      fontWeight: '500',
+      lineHeight: '1.4',
+      _mobile: { fontSize: '16px' },
+    },
+  }),
+};
+
+const runningSessionAlertContent = {
+  complete: {
+    title: '러닝세션 신청 완료',
+    message: '러닝세션 신청이 완료되었습니다.',
+  },
+  underage: {
+    title: '러닝세션 신청 안내',
+    message: '러닝세션은 만 18세 미만의 미성년자는',
+    continuation: '신청할 수 없습니다.',
+  },
+  closed: {
+    title: '러닝세션 신청 안내',
+    message: '해당 러닝세션은 모집이 마감되어',
+    continuation: '신청할 수 없습니다.',
+  },
+};
+
 type RunningSessionApplicationNoticeProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   state: Exclude<RunningSessionApplicationState, 'registered'>;
   applicant: RunningSessionApplicant;
-  session: RunningSessionSession;
+  session: Pick<RunningSessionSession, 'title' | 'schedule'>;
 };
 
 /** 신청 확인 정보 또는 고정 결과 안내를 표시합니다. (Displays application confirmation details or a fixed result notice.) */
@@ -498,60 +568,94 @@ export function RunningSessionApplicationNotice({
         onOpenChange={onOpenChange}
         title="러닝세션 신청 확인"
         closeLabel="러닝세션 신청 확인 닫기"
-        actions={{
-          kind: 'confirm',
-          cancelLabel: '취소',
-          confirmLabel: '확인',
-          onCancel: close,
-          onConfirm: () => {
-            /* 신청 저장은 통합 소유자가 연결합니다. */
-          },
+        popupClassName={applicationNoticeStyles.popup}
+        contentClassName={applicationNoticeStyles.confirmContent}
+        headerProps={{ className: applicationNoticeStyles.confirmHeader }}
+        footerProps={{
+          className: `${applicationNoticeStyles.footer} ${applicationNoticeStyles.confirmFooter}`,
         }}
+        actions={{ kind: 'confirm', onConfirm: close }}
       >
-        <Stack gap="24px">
-          <Typography as="h3" variant="body3" weight="bold">
-            신청정보
-          </Typography>
-          <DescriptionList
-            labelWidth="80px"
-            items={[
-              { term: '이름', description: applicant.name },
-              { term: '휴대폰번호', description: applicant.phone },
-              { term: '일시', description: session.schedule },
-              {
-                term: '장소',
-                description: (
-                  <>
-                    {runningSessionVenue}
-                    <br />
-                    {runningSessionAddress}
-                  </>
-                ),
-              },
-            ]}
-          />
-          <Typography as="p" variant="body3">
+        <Stack gap="32px" _mobile={{ gap: '24px' }}>
+          <Stack
+            gap="24px"
+            py="16px"
+            borderBlock="1px solid"
+            borderColor="black.20"
+            _mobile={{ gap: '16px' }}
+          >
+            <Typography
+              as="h3"
+              variant="body2"
+              weight="bold"
+              className={applicationNoticeStyles.summaryTitle}
+            >
+              신청정보
+            </Typography>
+            <DescriptionList
+              labelWidth="60px"
+              className={applicationNoticeStyles.summaryList}
+              termProps={{ tone: 'tertiary' }}
+              descriptionProps={{ weight: 'medium' }}
+              items={[
+                { term: '이름', description: applicant.name },
+                { term: '휴대폰번호', description: applicant.phone },
+                { term: '세션명', description: session.title },
+                { term: '일시', description: session.schedule },
+                {
+                  term: '장소',
+                  description: (
+                    <>
+                      {runningSessionVenue}
+                      <Typography
+                        as="span"
+                        variant="body4"
+                        tone="tertiary"
+                        className={applicationNoticeStyles.address}
+                      >
+                        {runningSessionAddress}
+                      </Typography>
+                    </>
+                  ),
+                },
+              ]}
+            />
+          </Stack>
+          <Typography
+            as="p"
+            variant="body3"
+            weight="medium"
+            className={applicationNoticeStyles.prompt}
+          >
             위 정보로 러닝세션을 신청하시겠습니까?
           </Typography>
         </Stack>
       </ModalDialog>
     );
   }
-  const complete = state === 'complete';
+  const notice = runningSessionAlertContent[state];
   return (
     <ModalDialog
       variant="alert"
       open={open}
       onOpenChange={onOpenChange}
-      title={complete ? '러닝세션 신청 완료' : '러닝세션 신청 안내'}
-      closeLabel="러닝세션 신청 안내 닫기"
+      title={notice.title}
+      closeLabel={state === 'complete' ? '러닝세션 신청 완료 닫기' : '러닝세션 신청 안내 닫기'}
+      popupClassName={applicationNoticeStyles.popup}
+      contentClassName={applicationNoticeStyles.alertContent}
+      footerProps={{ className: applicationNoticeStyles.footer }}
       actions={{ kind: 'single', onConfirm: close }}
       message={
-        complete
-          ? '러닝세션 신청이 완료되었습니다.'
-          : state === 'underage'
-            ? '러닝세션은 만 19세 미만의 미성년자는 신청할 수 없습니다.'
-            : '해당 러닝세션은 모집이 마감되어 신청할 수 없습니다.'
+        <>
+          {notice.message}
+          {'continuation' in notice && (
+            <>
+              {' '}
+              <Box as="br" display="none" _mobile={{ display: 'initial' }} />
+              {notice.continuation}
+            </>
+          )}
+        </>
       }
     />
   );
@@ -631,9 +735,9 @@ export function RunningSessionDetailContent({
     window.scrollTo(0, 0);
   }, [sessionId]);
   if (!session) return <SystemStatusPage status="not-found" />;
-  // [ 개발팀 바인딩 ] applicant는 고정 preview seed이며 통합 소유자가 현재 회원의 표시 이름·하이픈 전화번호를 전달합니다.
-  // 확인 버튼은 저장 미연결입니다. 실제 신청에는 session.id와 회원 식별자, 요청 pending/실패/재시도 및 성공 후 갱신을 소유자가 연결해야 합니다.
-  // 연령은 판정하지 않습니다. 본문18세/설계 팝업19세 충돌은 설계 확인 대기이며 원문을 유지합니다.
+  // [ 개발팀 바인딩 ] applicant의 기본값과 신청 확인 preview의 세션명·일시는 고정 표시 예시입니다. 상세에서 열면 현재 session의 제목·일시를 읽습니다.
+  // 확인은 팝업만 닫습니다. 통합 소유자가 회원 표시 정보와 회원·session.id를 연결하고 확인 시 요청, 중복 방지, 실패/재시도, 성공 후 상세·신청 내역 갱신을 맡습니다.
+  // 모집·연령 제한과 완료는 고정 안내 상태입니다. 통합 소유자가 실제 상태와 요청 결과를 공급해야 합니다.
   const applicationState =
     previewApplication === 'unavailable' ||
     !previewApplication ||
@@ -694,7 +798,7 @@ export function RunningSessionDetailContent({
         <RunningSessionApplicationNotice
           state={applicationState}
           applicant={applicant}
-          session={session}
+          session={previewApplication === 'confirm' ? applicationConfirmPreviewSession : session}
           open={showApplicationNotice}
           onOpenChange={setShowApplicationNotice}
         />

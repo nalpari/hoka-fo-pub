@@ -694,13 +694,19 @@ const connections: Record<number, ScreenConnection> = {
       { label: '신청 가능', href: '/running/running-session/yeouido-night' },
       { label: '모집 마감', href: '/running/running-session/bukhansan-trail' },
       { label: '신청 예정', href: '/running/running-session/inwangsan-trail' },
-      { label: '신청 확인', href: '/running/running-session/preview-application' },
-      { label: '신청 완료 안내', href: '/running/running-session/preview-application-complete' },
+      { label: '러닝세션 신청 확인 팝업', href: '/running/running-session/preview-application' },
       {
-        label: '미성년자 신청 제한',
+        label: '러닝세션 신청 완료 팝업',
+        href: '/running/running-session/preview-application-complete',
+      },
+      {
+        label: '미성년자 신청 제한 팝업',
         href: '/running/running-session/preview-application-underage',
       },
-      { label: '모집 마감 신청 안내', href: '/running/running-session/preview-application-closed' },
+      {
+        label: '모집 마감 안내 팝업',
+        href: '/running/running-session/preview-application-closed',
+      },
       { label: '신청완료 상세', href: '/running/running-session/preview-application-registered' },
     ],
     sourceFiles: [

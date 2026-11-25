@@ -4,6 +4,7 @@ title: '러닝세션 목록·상세 Figma 적용'
 description: '러닝세션 목록과 상세의 PC/MO 규격, 표시 데이터와 신청 상태 검증을 기록한다.'
 tags: [running-session, figma, responsive, binding]
 status: draft
+updated: '2026-11-25'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T04:21:59.926Z'
@@ -14,6 +15,7 @@ working_tree_sources:
   - src/components/running-session/runningSession.data.ts
   - src/app/running/running-session/[sessionId]/page.tsx
   - src/app/running/running-session/[sessionId]/_components/RunningSessionSessionContent.tsx
+  - src/app/screen-index/screenConnections.ts
   - src/components/common/atoms/Badge.tsx
   - src/stories/features/running-session/RunningSessionPreview.tsx
   - src/stories/features/binding/RemainingBinding.stories.tsx
@@ -27,9 +29,30 @@ sources:
   - id: figma-running-session
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design
     title: 'HOKA RUN CLUB 시안'
+  - id: figma-running-session-application-notices
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design
+    title: '러닝세션 신청 확인·완료·미성년자 제한·모집 마감 팝업'
 ---
 
 # 러닝세션 목록·상세 Figma 적용
+
+## 신청 팝업 4종 Figma 적용 (2026-11-25)
+
+신청 확인은 이름·휴대폰번호·세션명·일시·장소와 취소·확인 버튼을 표시한다. 상세의 CTA로 열면 현재 세션 제목과 일시를 표시하고, IA의 확인 팝업 URL에서는 시안의 북악산 트레일 세션과 10월 30일 일시를 표시한다. 완료, 미성년자 제한과 모집 마감 안내는 확인 및 닫기 아이콘을 표시한다. 제한 문구는 시안과 상세 본문의 만 18세 기준을 사용한다. 신청 확인 모바일에는 닫기 아이콘을 표시하지 않는다.
+
+네 상태 모두 기존 ModalDialog를 재사용한다. PC 팝업 최대 폭 640px·반경 10px, 모바일 양쪽 16px 여백·반경 8px, PC 버튼 너비 180px과 모바일 가용 폭을 적용했다. 버튼 높이는 42px이며 라벨은 15px이다. 확인 정보의 상하 테두리는 #E9EAEB이며 행 간격은 PC 16px·모바일 8px이다. 안내 본문은 PC 20px·모바일 16px이다.
+
+Figma 노드의 제목과 버튼 라벨은 숫자 추출값이 Regular/400이며, 연결된 굵기 모드는 각각 `Body Weights: Bold`와 `CTA Weights: Bold`다. 같은 디자인 파일에서 확인한 모드 매핑과 저장소의 모드 우선 정책에 따라 공통 모달의 Pretendard Bold/700을 적용한다. 신청정보 소제목은 Bold/700, 항목 라벨과 상세 주소는 Regular/400, 정보값·확인 질문·안내 본문은 Medium/500이다.
+
+확인과 취소는 팝업을 닫는 로컬 동작이다. 회원·세션 식별자, 신청 요청과 결과, 연령·모집 판정 및 새로고침은 통합 소유자가 연결한다. 완료와 제한 상태는 고정 확인 URL에서 표시한다. [디자인][^figma-running-session-application-notices]과 [IA 연결](routing.md#러닝세션-신청-팝업-ia-연결-2026-11-25)을 참고한다.
+
+PC 1440px·모바일 375px에서 네 상태 직접 진입, 문구, 규격, 닫기와 IA 검색·상태 링크를 확인했다. 고정 신청 확인의 새로고침, 상세의 여의도 세션명 표시, 확인 후 같은 상세 경로 유지와 Escape 닫기도 확인했다. 375×400px 뷰포트에서 확인 본문을 스크롤해도 하단 버튼이 보였다.
+
+굵기 보정 후 PC·모바일 팝업 8개에서 텍스트 50개의 크기·계산 굵기를 Figma와 대조했다. 신청 확인의 제목·소제목·버튼은 실제 Pretendard Bold, 라벨은 Regular, 정보값과 질문은 Medium face를 사용했다. Panda 재생성과 변경 파일 ESLint·Prettier·TypeScript 검사도 통과했다.
+
+마크업 인계 기준에 따라 기존 상세·팝업 소유권과 고정 URL을 사용했다. 화면 그래프 생성 후 그래프에 변경이 없었다. 변경 파일 ESLint·Prettier, Panda 생성, TypeScript와 Next 프로덕션 빌드(정적 페이지 172개)를 통과했다. IA 관련 테스트는 25개 중 24개가 통과했고 기존 `/mypage/preview-no-orders`의 활성 IA 링크 누락으로 1개가 실패했다.
+
+[^figma-running-session-application-notices]: 사용자 지정 디자인 파일의 신청 확인·완료·미성년자 신청 제한·모집 마감 PC 및 모바일 프레임 8개.
 
 ## 신청 시작 알림 색상과 목록 이미지 모서리 (2026-11-05)
 

@@ -1785,6 +1785,19 @@ IA STATE의 WBS·개발자·진척율이 상위 화면에 표시된 경우 STATE
 
 2026-11-06 main 변경 보고는 origin/main의 고정 비교 범위와 Schedule 실적을 사용한다. 실적 0% 화면 전용 변경을 제외하고 공용 파일은 보고 대상 IA 번호를 명시해 담당자를 좁힐 수 있다. 출처: screenChangeHistory.ts 및 11월 6일 보고 데이터.
 
+## 러닝세션 신청 팝업 IA 연결 (2026-11-25)
+
+러닝세션 상세 IA 259의 상태별 바로가기에서 기존 고정 URL로 PC·모바일 팝업을 확인할 수 있다. 신청 확인은 공통 `selection`을, 완료와 제한 안내는 공통 `alert`를 사용한다. 두 유형의 공통 Bold 제목과 버튼 글꼴로 Figma의 굵기 모드를 반영한다.
+
+| 상태 | 기존 확인 URL |
+| --- | --- |
+| 러닝세션 신청 확인 팝업 | `/running/running-session/preview-application` |
+| 러닝세션 신청 완료 팝업 | `/running/running-session/preview-application-complete` |
+| 미성년자 신청 제한 팝업 | `/running/running-session/preview-application-underage` |
+| 모집 마감 안내 팝업 | `/running/running-session/preview-application-closed` |
+
+소스는 `src/app/screen-index/screenConnections.ts`와 기존 고정 상태 페이지 및 공통 상세 컴포넌트다. [디자인과 표시 데이터 계약](running-session-design.md#신청-팝업-4종-figma-적용-2026-11-25)을 참고한다.
+
 ## 상품 상세 사이즈 가이드 치수표 연결 (2026-11-25)
 
 상품 상세 팝업과 고객센터 사이즈 가이드는 동일한 의류 치수 데이터를 읽는다. 기존 경로와 IA에서 [치수표와 팝업 안내 문구 갱신](size-guide.md#상품-상세-사이즈-가이드-내용-동기화-2026-11-25)을 확인할 수 있다.
