@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-24T08:01:17Z'
+updated: '2026-11-25T04:40:52Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -2631,3 +2631,7 @@ productDetailPreviews의 `상품 문의하기 팝업` 항목을 기존 상품 �
 출처는 사용자 지정 문구, [이랜드 화면설계서](https://www.figma.com/design/4cJ1LkWUgme3lklyQ9U8qr/)와 `orderPreviews.ts`, `[preview]/page.tsx`, `OrdersPage.tsx`, `screenConnections.ts`의 작업 트리다. 기록: codex/gpt-6, 2026-11-24 KST.
 
 검증: PC 1440px과 모바일 375px에서 세 팝업의 직접 진입·새로고침·문구·닫기를 확인했다. 모달 너비는 PC 640px, 모바일 343px이었다. IA에서 상태명·URL로 검색할 수 있고, 각 보기 링크를 눌러 해당 팝업이 열리는 것을 확인했다. 기본 주문 조회와 기존 주문 삭제 확인도 점검했다. 타입 검사와 소스 그래프 생성은 통과했고, 관련 테스트 16개 중 15개가 통과했다. 기존 `/mypage/preview-no-orders` 리디렉션에 IA 바로가기가 없다는 검사가 실패했다.
+
+## 카카오톡 알림톡 수신 항목 표시 (2026-11-25)
+
+`/signup/information?step=additional`, `/signup/information/preview-marketing-consent`, `/mypage/profile`, `/mypage/profile/preview-edit`, `/publishing-guide`의 라우트와 고정 상태 연결에는 변경이 없다. 기존 화면의 마케팅 수신 항목만 변경했다. [화면 변경과 작업 트리 출처](ui.md#카카오톡-알림톡-수신-항목-1차-비노출-2026-11-25).

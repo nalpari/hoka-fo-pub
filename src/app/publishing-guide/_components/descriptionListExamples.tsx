@@ -760,17 +760,17 @@ export function getDescriptionListExamples(platform: Platform) {
       description: '실제 화면의 데이터·스타일',
       source: 'src/app/mypage/profile/_components/ProfileContent.tsx',
       href: '/mypage/profile',
-      code: "import { css } from 'styled-system/css';\nimport { DescriptionList } from '@/components/common/atoms/DescriptionList';\n\nfunction Example() {\n  const emailPreference = '수신안함';\n  const smsPreference = '수신안함';\n  const kakaoPreference = '수신안함';\n  return (\n    <DescriptionList\n      items={[\n        { term: '이메일 수신', description: emailPreference },\n        { term: '문자수신(LMS, SMS)', description: smsPreference },\n        { term: '카카오톡 알림톡 수신', description: kakaoPreference },\n      ]}\n      termProps={{ web: 'bodyKr3', mo: 'bodyKr4', tone: 'primary' }}\n      descriptionProps={{ web: 'bodyKr3', mo: 'bodyKr4', tone: 'subtle' }}\n      slotStyles={{\n        root: css.raw({ '--line-heights-body': '1.5', gridTemplateColumns: 'none', gap: '24px', _mobile: { gap: '16px' } }),\n        row: css.raw({\n          display: 'flex',\n          alignItems: 'center',\n          justifyContent: 'flex-start',\n          gap: '0',\n          _mobile: { justifyContent: 'space-between' },\n        }),\n        term: css.raw({ w: '178px', _mobile: { w: 'auto' } }),\n        description: css.raw({ m: '0', _mobile: { textAlign: 'right', '--color-text-subtle': 'var(--color-text-tertiary)' } }),\n      }}\n    />\n  );\n}\n",
+      code: "import { css } from 'styled-system/css';\nimport { DescriptionList } from '@/components/common/atoms/DescriptionList';\n\nfunction Example() {\n  const emailPreference = '수신안함';\n  const smsPreference = '수신안함';\n  return (\n    <DescriptionList\n      items={[\n        { term: '이메일 수신', description: emailPreference },\n        { term: '문자수신(LMS, SMS)', description: smsPreference },\n        // [ 카카오톡 알림톡 ] 1차 구현 불가\n        // { term: '카카오톡 알림톡 수신', description: kakaoPreference },\n      ]}\n      termProps={{ web: 'bodyKr3', mo: 'bodyKr4', tone: 'primary' }}\n      descriptionProps={{ web: 'bodyKr3', mo: 'bodyKr4', tone: 'subtle' }}\n      slotStyles={{\n        root: css.raw({ '--line-heights-body': '1.5', gridTemplateColumns: 'none', gap: '24px', _mobile: { gap: '16px' } }),\n        row: css.raw({\n          display: 'flex',\n          alignItems: 'center',\n          justifyContent: 'flex-start',\n          gap: '0',\n          _mobile: { justifyContent: 'space-between' },\n        }),\n        term: css.raw({ w: '178px', _mobile: { w: 'auto' } }),\n        description: css.raw({ m: '0', _mobile: { textAlign: 'right', '--color-text-subtle': 'var(--color-text-tertiary)' } }),\n      }}\n    />\n  );\n}\n",
       preview: (() => {
         const emailPreference = '수신안함';
         const smsPreference = '수신안함';
-        const kakaoPreference = '수신안함';
         return (
           <DescriptionList
             items={[
               { term: '이메일 수신', description: emailPreference },
               { term: '문자수신(LMS, SMS)', description: smsPreference },
-              { term: '카카오톡 알림톡 수신', description: kakaoPreference },
+              // [ 카카오톡 알림톡 ] 1차 구현 불가
+              // { term: '카카오톡 알림톡 수신', description: kakaoPreference },
             ]}
             termProps={{ web: 'bodyKr3', mo: 'bodyKr4', tone: 'primary' }}
             descriptionProps={{ web: 'bodyKr3', mo: 'bodyKr4', tone: 'subtle' }}

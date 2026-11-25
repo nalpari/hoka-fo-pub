@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-24T01:45:10Z'
+updated: '2026-11-25T04:40:52Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -6270,3 +6270,11 @@ TextFormField/TextInput, SearchField, DateRangeSearch와 각 화면의 검색·�
 `4b569dc3`에서 띄어 쓴 관심상품 표기를 사용자 요청에 따라 화면·접근성 라벨·가이드·IA 데이터와 생성 이력에서 `관심상품`으로 복원했다. 해당 커밋 이전부터 띄어 쓴 안내 문장과 다른 맞춤법 수정은 유지한다. 라우트·상태·서비스 계약은 바꾸지 않는다.
 
 출처: 해당 커밋과 관련 src 파일의 작업 트리. 문자열별 복원 개수를 원본 커밋과 대조했다. 브라우저 실행 검증은 수행하지 않았다. 기록: codex/gpt-6.
+
+## 카카오톡 알림톡 수신 항목 1차 비노출 (2026-11-25)
+
+회원가입 부가정보와 수신 확인 모달, 마이페이지 회원정보 조회·편집, 퍼블리싱 가이드의 회원정보 예시에서 `카카오톡 알림톡 수신` 항목을 `[ 카카오톡 알림톡 ] 1차 구현 불가`로 주석 처리했다. 이메일·문자 수신 항목과 기존 표시 데이터·콜백 타입을 유지한다.
+
+출처는 사용자 정정 지시와 `src/app/signup/information/_components/RegistrationContent.tsx`, `src/app/mypage/profile/_components/ProfileContent.tsx`, `src/app/publishing-guide/_components/descriptionListExamples.tsx`의 작업 트리다.
+
+2026-11-25 Codex는 PC 1440px·모바일 390px에서 해당 수신 항목의 비노출과 이메일·문자 항목 표시를 확인했다. 런칭 상세 알림 신청, 상품 상세 재입고 알림, 마이페이지 재입고 메뉴와 러닝세션 안내의 기존 표시도 확인했다. TypeScript와 변경 소스 ESLint는 통과했다.
