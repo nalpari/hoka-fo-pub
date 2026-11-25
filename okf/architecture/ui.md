@@ -6294,3 +6294,11 @@ Pretendard의 행간은 Display·Heading 1.2, Body 1.5이며 자간은 -0.02em�
 같은 역할과 플랫폼에서 크기·굵기가 가장 가까운 조합을 적용한다. 예를 들어 22px Black 제목은 Wide H10B, Compact H7B다. 기존 Wide 20px 제목은 H10으로 옮겨 22px이 된다. 기존 16px Medium CTA는 Body B4M으로 이관해 행간을 1.5로 적용한다. 16px Body의 고정 `500-700`은 `web="b4M" mo="b4B"`로 이관한다. EmptyState의 사용자 확정 제목, SupportTabs 상태 굵기 및 Button.loadMore 400은 해당 계약을 따른다.
 
 2026-11-25 Codex는 퍼블리싱 가이드에서 Wide·Compact를 전환해 160개 예시의 크기·굵기·행간·자간을 대조했다. 1440px·390px과 1024/1025px 경계에서 가이드의 고정 플랫폼과 SupportTabs 굵기를 확인했다. 한글 실제 글리프는 Pretendard Black·Bold·SemiBold, 영문 검증 표본은 The Future HOKA Black·Medium WOFF2와 대조했다. Heading의 700·900 나란히 표시와 900 예시 클릭 시 H1B 코드 복사도 확인했다. 장바구니 빈 제목은 PC 22px/900과 MO 20px/700, 공지사항 더보기는 두 플랫폼 모두 400이었다. 주문서 총 결제 금액 라벨의 반응형 조합은 PC 16px/700과 MO 14px/500이었다. Panda 생성, TypeScript, 변경 파일 ESLint, Next 프로덕션 빌드, OKF 테스트가 통과했다. 저장소 전체 ESLint는 기존 `tests/wh-file-summary.test.mjs`의 웹 API 전역 `no-undef` 8건으로 실패했다.
+
+## 보유 쿠폰 조회 드롭다운 (2026-11-25)
+
+상품별 사용 가능 수량과 전체 수량 아래 상세형 Dropdown을 표시한다. PC는 트리거 너비로 목록을 열며 모바일은 상품 쿠폰 바텀시트에 수량, 현재 선택과 목록을 표시한다. Figma의 트리거와 항목 여백은 세로 16px·가로 12px이며, 선택 라벨은 Pretendard 13px Medium/500, 목록 라벨은 Pretendard 13px Regular/400, 금액 숫자는 The Future HOKA 13px Medium/500이다. 최초 선택은 닫힌 시안의 7% 옵션을 사용한다.
+
+`Dropdown`의 기본 입력형과 정렬형 옵션은 유지한다. 상세형은 보조값, 줄바꿈과 모바일 시트 제목·안내를 지원한다. 비활성 쿠폰은 목록에 표시하고 선택을 차단한다. 쿠폰 ID별 초안은 기존 `CheckoutCouponDialog`가 관리하며 적용 버튼과 합계는 퍼블리싱 확인용이다. 작업 트리 출처는 `src/components/common/atoms/Dropdown.tsx`, `src/components/common/layouts/ModalDialog.recipe.tsx`, `src/app/checkout/_components/CheckoutCouponDialog.tsx`와 `src/app/checkout/checkout-coupons.ts`다. [HOKA Design](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design).
+
+PC 1920px와 모바일 375px에서 주문서 버튼으로 팝업을 열어 쿠폰 목록, 사용 불가 상태, 상품별 선택, Escape 닫기와 선택 후 초점 복귀를 확인했다. 양쪽에서 닫힌 트리거는 51.5px 높이였으며 금액 숫자의 계산 스타일은 HOKA 계열 13px이었다.
