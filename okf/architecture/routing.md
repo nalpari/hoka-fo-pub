@@ -1785,6 +1785,12 @@ IA STATE의 WBS·개발자·진척율이 상위 화면에 표시된 경우 STATE
 
 2026-11-06 main 변경 보고는 origin/main의 고정 비교 범위와 Schedule 실적을 사용한다. 실적 0% 화면 전용 변경을 제외하고 공용 파일은 보고 대상 IA 번호를 명시해 담당자를 좁힐 수 있다. 출처: screenChangeHistory.ts 및 11월 6일 보고 데이터.
 
+## 마이페이지 이전 주문 없음 주소 IA 연결 (2026-11-25)
+
+마이페이지 IA 177에 이전 주문 없음 주소 `/mypage/preview-no-orders`와 해당 진입 파일을 등록했다. 상태 이름에 이동 대상을 표시하며 링크를 열면 기존 라우트의 리디렉션으로 `/mypage` 기본 화면이 열린다. 실제 주문내역 빈 목록은 IA 178의 `/mypage/orders/preview-empty`에서 확인한다. 출처는 `src/app/screen-index/screenConnections.ts` 변경과 기존 `src/app/mypage/preview-no-orders/page.tsx`의 리디렉션이다.
+
+소스 그래프를 재생성하고 개발 서버 응답의 `/mypage` 리디렉션을 확인했다. ESLint·Prettier·TypeScript 검사에 통과했다. IA 링크·진척도·그래프 테스트는 26개 중 25개가 통과했다. 이전 주문 없음 주소를 검사하는 단계는 통과했고, 같은 전수 검사의 첫 실패가 `/support/inquiries/new/preview-attachment-picker` 진입 파일의 IA 연결 누락으로 이동했다.
+
 ## 러닝세션 신청 팝업 IA 연결 (2026-11-25)
 
 러닝세션 상세 IA 259의 상태별 바로가기에서 기존 고정 URL로 PC·모바일 팝업을 확인할 수 있다. 신청 확인은 공통 `selection`을, 완료와 제한 안내는 공통 `alert`를 사용한다. 두 유형의 공통 Bold 제목과 버튼 글꼴로 Figma의 굵기 모드를 반영한다.
