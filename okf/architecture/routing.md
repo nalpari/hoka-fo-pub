@@ -2092,6 +2092,8 @@ ProfileContent의 비밀번호 설정 모달에서 안내문 padding-top8px를 �
 
 주문서의 ‘쿠폰 조회하기’ 버튼과 `/checkout/preview-coupons`는 같은 팝업을 사용한다. 상품별 선택은 로컬 초안이며, PC에서는 팝업 위에 선택 목록이 열리고 모바일에서는 ‘상품 쿠폰’ 바텀시트가 열린다. 작업 트리 출처는 `src/app/checkout/_components/CheckoutCouponDialog.tsx`와 `src/app/checkout/checkout-coupons.ts`다. [드롭다운 표시와 검증](ui.md#보유-쿠폰-조회-드롭다운-2026-11-25).
 
+2026-11-26 브라우저 코멘트에 따라 `CheckoutCouponDialog.tsx`의 금액 요약 라벨을 ‘주문금액’, ‘장바구니’로 표시한다.
+
 ## 쿠폰 조회와 취소 반품 유형 연결 (2026-11-17)
 
 /checkout/preview-coupons, /mypage/orders/preview-cancel-request, /mypage/orders/preview-return-request의 경로와 직접 진입 상태는 그대로 유지한다. IA 표시와 모달 가이드에 모두 productSelection을 연결했다. 모달 variant는12개다.

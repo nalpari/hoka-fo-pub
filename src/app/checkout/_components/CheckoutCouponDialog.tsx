@@ -117,10 +117,10 @@ export function CheckoutCouponDialog({ onClose }: { onClose: () => void }) {
         </Box>
         <Stack css={contentStyles.summary}>
           <Stack css={contentStyles.summaryBody}>
-            <AmountRow label="주문금액 (상품2개)" amount={3350000} />
+            <AmountRow label="주문금액" amount={3350000} />
             <AmountRow label="할인금액" amount={15000} discount />
             <AmountRow label="상품할인" amount={0} />
-            <AmountRow label="장바구니 (남은 한도 11,000원)" amount={0} />
+            <AmountRow label="장바구니" amount={0} />
           </Stack>
           <AmountRow
             label="총 결제 금액"
