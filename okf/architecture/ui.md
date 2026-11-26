@@ -6393,3 +6393,5 @@ PC와 모바일 모두 ‘현재 운영 중인 세션이 없습니다.’로 표
 상품리뷰의 작성 가능 목록과 작성한 목록은 `OrderProductSummary`의 review 설정을 공유하며 PC와 모바일 모두 96px × 96px 썸네일을 사용한다.
 
 공통 `RatingStars`는 표시형과 선택형 모두 호카 블루를 기본색으로 사용한다. 별의 채움과 윤곽은 점수를 나타낸다.
+
+VerificationCountdown은 기본 accent 색상을 사용하며 회원정보 수정에서는 red80을 지정한다.
