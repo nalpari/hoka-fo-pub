@@ -2838,6 +2838,12 @@ Codex는 PC 1255px와 모바일 390px에서 체크박스 두 개의 개별 선�
 
 PC와 모바일에서 `/mypage/recent`는 색상 개수 문구를 표시하고, `/mypage/wishlist`는 색상 캐러셀을 표시한다. [카드 설정과 검증](ui.md#관심상품-카드-색상-개수-표시-2026-11-26).
 
+## 최근 본 상품 빈 목록과 IA 상태 (2026-11-26)
+
+IA 183의 기본 페이지 `/mypage/recent`와 고정 상태 `/mypage/recent/preview-empty`는 `MyPageProductHistory`를 공유한다. IA 상태 행에 `최근 본 상품 목록 없음`으로 표시하며 기본 링크, IA 번호, 양쪽 진입 파일 연결을 유지한다. `preview-empty`는 직접 접속 시 빈 목록을 표시한다. [전체삭제 표시와 데이터 연결 범위](ui.md#최근-본-상품-전체삭제와-빈-목록-2026-11-26).
+
+작업 트리 출처는 `src/app/screen-index/screenConnections.ts`, `src/app/mypage/_components/MyPageProductHistory.tsx`다. 기존 preview 진입점은 `src/app/mypage/recent/preview-empty/page.tsx`다.
+
 ## 카카오톡 알림톡 수신 항목 표시 (2026-11-26)
 
 `/signup/information?step=additional`, `/signup/information/preview-marketing-consent`, `/mypage/profile`, `/mypage/profile/preview-edit`, `/publishing-guide?tab=description-list`의 기존 경로에서 카카오톡 알림톡 수신 항목을 다시 표시한다. [복원 범위와 소스](ui.md#카카오톡-알림톡-수신-항목-복원-2026-11-26).
