@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-26T08:08:15Z'
+updated: '2026-11-26T09:18:12Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -5722,6 +5722,12 @@ recipe의 생략·명시적 undefined는 defaultVariants의 subtle을 사용한�
 주문·취소·반품 상세는 `src/app/mypage/orders/_components/OrderDetails.tsx`에서 PC 상품 그룹과 취소·반품 이력의 열 머리글을 공통 `header` 슬롯에 연결한다. 각 상품 표에는 이름과 표·행·열 머리글·셀 역할을 지정한다. 모바일은 상품 카드로 표시한다.
 
 Chromium에서 상세 3개 경로의 PC 1255px 머리글 숨김, 접근성 트리의 열 제목과 본문 셀 개수, 모바일 390px 상품 카드와 가로 넘침 여부를 확인했다. TypeScript와 변경 소스 ESLint·Prettier를 통과했다.
+
+### 목록 영역 회색 시작선 (2026-11-26)
+
+`DataList`의 `thickSubtle`은 PC·모바일 2px, `thickToThinSubtle`은 PC 2px·모바일 1px의 `#E9EAEB` 시작선이다. 공통 경계선과 목록 레시피에서 같은 값을 사용한다. 사용자 응답 주석에 지정된 목록에는 기존 두께에 맞는 옵션을 사용하며, 기존 시작선 기본값과 머리글 숨김 옵션은 유지한다. 상품 선택과 배송 추적은 해당 `itemLayout`의 구분선 색상을 바꾼다.
+
+출처는 사용자 응답 주석, `DataList.recipe.tsx`, `ModalDialog.recipe.tsx`와 지정 화면의 작업 트리다. Chromium PC 1255px에서 대상 목록과 팝업의 검정선 제거를 재검사했다. 모바일 390px 취소·반품 목록의 행 구분선 4개는 모두 1px `#E9EAEB`였으며, 공통 레시피의 모바일 두께와 머리글 숨김도 확인했다. TypeScript와 변경 소스 ESLint·Prettier를 통과했다. [대상 화면](routing.md#목록정보-영역-시작선-색상-2026-11-26).
 
 ### 머리글 typography case
 

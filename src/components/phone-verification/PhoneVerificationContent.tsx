@@ -312,7 +312,7 @@ function PhoneVerificationAgreements(props: PhoneVerificationAgreementsProps) {
       headerProps={{
         orientation: 'horizontal',
         gap: '8px',
-        css: css.raw({ pb: '4', borderBottom: '1px solid var(--color-black-100)' }),
+        css: css.raw({ pb: '4', borderBottom: '1px solid var(--color-black-20)' }),
         titleProps: { id: 'phone-terms-title', web: 'h10', mo: 'h8' },
         action: (
           <Checkbox

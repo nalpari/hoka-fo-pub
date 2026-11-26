@@ -48,7 +48,7 @@ export function CartOrderActions({ selectedPreview = false }: { selectedPreview?
         label="총 결제 금액"
         amount={cartPreviewAmounts.total}
         emphasizeLabel
-        borderTop="2px solid black"
+        borderTop="2px solid var(--color-black-20)"
         pt="24px"
       />
       <Button variant="primary" fullWidth>

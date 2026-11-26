@@ -81,18 +81,15 @@ function DetailTableHeader({ labels }: { labels: readonly string[] }) {
   );
 }
 
+const detailSectionTitle = css({
+  w: '100%',
+  pb: { base: '24px', _mobile: '16px' },
+  borderBottom: '1px solid var(--color-black-20)',
+});
+
 function DetailSectionTitle({ children }: { children: string }) {
   return (
-    <Typography
-      as="h2"
-      web="h8B"
-      mo="h8"
-      className={css({
-        w: '100%',
-        pb: { base: '24px', _mobile: '16px' },
-        borderBottom: '1px solid var(--colors-black-100)',
-      })}
-    >
+    <Typography as="h2" web="h8B" mo="h8" className={detailSectionTitle}>
       {children}
     </Typography>
   );
@@ -487,7 +484,8 @@ function ClaimSection({ title, children }: { title: string; children: React.Reac
         },
         css: css.raw({
           pb: { base: '24px', _mobile: '16px' },
-          borderBottom: { base: '2px solid black', _mobile: '1px solid black' },
+          borderBottom: '2px solid var(--color-black-20)',
+          _mobile: { borderBottomWidth: '1px' },
         }),
       }}
     >
@@ -559,7 +557,7 @@ export function OrderClaimDetail({
         pb="16px"
         gap="2px"
         justifyContent={{ base: 'space-between', _mobile: 'flex-start' }}
-        borderBottom="1px solid black"
+        borderBottom="1px solid var(--color-black-20)"
       >
         <HStack gap={mobile ? '4px' : '8px'} flexShrink="0">
           {!mobile ? (
@@ -629,7 +627,7 @@ export function OrderClaimDetail({
           role="table"
           aria-label={`${name} 상품`}
           gap="0"
-          borderBottom="1px solid var(--colors-black-100)"
+          borderBottom="1px solid var(--color-black-20)"
         >
           <DetailTableHeader labels={[...orderProductHeaders, '진행상태']} />
           {items.map((line) => (

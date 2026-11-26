@@ -62,7 +62,7 @@ export function OrderClaimRequest({
         <Stack
           css={
             dataListRecipe.raw({
-              top: 'thinStrong',
+              top: 'thinSubtle',
               columnGap: 'unchanged',
               itemLayout: 'productSelection',
             }).root

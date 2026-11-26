@@ -52,7 +52,7 @@ function MyPageRestockList({ items, entries }: Props) {
   const platform = usePlatform();
   const preview = restockPreview[platform];
   const list = dataListRecipe({
-    top: 'strongToThin',
+    top: 'thickToThinSubtle',
     columnGap: 'metadataColumns',
   });
 
@@ -417,7 +417,7 @@ export function MyPageProductHistory({
           }
           gap="0"
           pb={items.length ? '0' : '40px'}
-          borderBottom={!items.length ? '2px solid black' : undefined}
+          borderBottom={!items.length ? '2px solid var(--color-black-20)' : undefined}
           _mobile={{
             px: !restock && items.length ? '16px' : '0',
             pt: '0',

@@ -329,7 +329,7 @@ function InquiryBoardHeader({
       justifyContent="space-between"
       gap="4"
       pb={variant === 'product' ? '23px' : '5'}
-      className={dataListBoundaryRecipe({ bottom: 'strong' })}
+      className={dataListBoundaryRecipe({ bottom: 'subtle' })}
       _mobile={
         variant === 'product'
           ? {
@@ -370,7 +370,7 @@ function InquiryBoardHeader({
                     order: '2',
                     mt: '16px',
                     py: '16px',
-                    borderTop: '1px solid var(--color-black-100)',
+                    borderTop: '1px solid var(--color-black-20)',
                   }
                 : undefined
             }
@@ -1423,7 +1423,7 @@ function ProductDetailReturnGuide() {
       <Grid
         gridTemplateColumns="minmax(0, 1fr) minmax(0, 3fr)"
         gap="8"
-        className={dataListBoundaryRecipe({ top: 'emphasis', bottom: 'defaultBorder' })}
+        className={dataListBoundaryRecipe({ top: 'thickSubtle', bottom: 'defaultBorder' })}
         py="10"
         _mobile={{ gridTemplateColumns: '1fr', gap: '6', py: '6' }}
       >
@@ -2844,7 +2844,7 @@ function ProductAfterSalesProcess() {
         m="0"
         py="10"
         px="0"
-        className={dataListBoundaryRecipe({ top: 'strong', bottom: 'muted' })}
+        className={dataListBoundaryRecipe({ top: 'thickSubtle', bottom: 'muted' })}
         _mobile={{
           gridTemplateColumns: '1fr',
           '& > li, & > li:nth-child(4), & > li:nth-child(5)': { gridColumn: 'auto' },
@@ -3263,7 +3263,7 @@ function ProductSelectedOptions({
       <HStack
         justifyContent="space-between"
         py="5"
-        className={dataListBoundaryRecipe({ top: 'strong' })}
+        className={dataListBoundaryRecipe({ top: 'thickSubtle' })}
         aria-live="polite"
       >
         <Typography web="b4B" mo="b6B" language="ko">

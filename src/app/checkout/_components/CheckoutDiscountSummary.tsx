@@ -108,7 +108,7 @@ export function CheckoutDiscountSummary({
           mo="b6"
           amountWeb="b3"
           amountMo="b4"
-          borderTop={{ base: '2px solid black', _mobile: '0px' }}
+          borderTop={{ base: '2px solid var(--color-black-20)', _mobile: '0px' }}
           pt="20px"
           _mobile={{
             bg: 'black.10',

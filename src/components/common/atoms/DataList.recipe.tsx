@@ -7,12 +7,18 @@ const strongTop = { borderTop: '2px solid var(--color-black-100)' } as const;
 
 const thinStrongTop = { borderTop: '1px solid var(--color-black-100)' } as const;
 
+const thinSubtleTop = { borderTop: '1px solid var(--color-black-20)' } as const;
+
+const thickSubtleTop = { borderTop: '2px solid var(--color-black-20)' } as const;
+
 const topBorders = {
   none: noTop,
   strong: strongTop,
   emphasis: { borderTop: '2px solid token(colors.border.strong)' },
   thinStrong: thinStrongTop,
-  thinSubtle: { borderTop: '1px solid var(--color-black-20)' },
+  thinSubtle: thinSubtleTop,
+  thickSubtle: thickSubtleTop,
+  thickToThinSubtle: { ...thickSubtleTop, _mobile: thinSubtleTop },
   strongToThin: { ...strongTop, _mobile: thinStrongTop },
   desktopStrong: { ...strongTop, _mobile: noTop },
 } as const;
@@ -142,7 +148,7 @@ export const dataListRecipe = sva({
           },
           '& th': {
             py: '16px',
-            ...bottomBorders.strong,
+            ...bottomBorders.subtle,
             fontWeight: '400',
             color: 'black.100',
             _mobile: { py: '12px' },
@@ -153,7 +159,7 @@ export const dataListRecipe = sva({
       productSelection: {
         root: {
           gap: '0',
-          ...bottomBorders.strong,
+          ...bottomBorders.subtle,
           '& > [data-list-item]': {
             gap: '16px',
             py: '16px',
@@ -195,6 +201,8 @@ export const dataListRecipe = sva({
       emphasis: { root: topBorders.emphasis },
       thinStrong: { root: topBorders.thinStrong },
       thinSubtle: { root: topBorders.thinSubtle },
+      thickSubtle: { root: topBorders.thickSubtle },
+      thickToThinSubtle: { root: topBorders.thickToThinSubtle },
       strongToThin: { root: topBorders.strongToThin },
       desktopStrong: { root: topBorders.desktopStrong },
     },

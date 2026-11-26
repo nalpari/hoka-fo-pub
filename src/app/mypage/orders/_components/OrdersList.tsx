@@ -49,9 +49,7 @@ function ClaimHistoryList({
         as="ul"
         gap="24px"
         listStyleType="none"
-        className={
-          dataListRecipe({ top: 'none', rowBorder: 'strong', columnGap: 'unchanged' }).root
-        }
+        className={dataListRecipe({ top: 'none', columnGap: 'unchanged' }).root}
       >
         {items.map((item) => (
           <Stack as="li" key={item.key} gap="0">
@@ -102,6 +100,7 @@ function ClaimHistoryList({
       gap="0"
       className={
         dataListRecipe({
+          top: 'thickSubtle',
           rowBorder: 'semanticSubtle',
           columnGap: 'unchanged',
           headerTypography: 'headingBold',

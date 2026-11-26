@@ -147,7 +147,7 @@ export const modalProductSelectionContentRecipe = sva({
       textDecoration: 'none',
       py: '16px',
     },
-    cartToggle: { borderY: '1px solid #000000', py: '20px', _mobile: { py: '16px' } },
+    cartToggle: { borderY: '1px solid var(--color-black-20)', py: '20px', _mobile: { py: '16px' } },
     fields: { gap: '8px', py: '8px' },
     fieldControl: { w: '100%', gap: '8px' },
     counter: { textAlign: 'right' },
@@ -262,7 +262,7 @@ export const modalProductSelectionContentRecipe = sva({
           alignItems: 'stretch',
           pt: '0',
           pb: '16px',
-          borderTop: '1px solid #000000',
+          borderTop: '1px solid var(--color-black-20)',
           '&:not(:last-child)': { borderBottom: '0' },
         },
         summary: { mt: '24px' },
@@ -550,7 +550,7 @@ export const modalTrackingContentRecipe = sva({
       lineHeight: 'koreanHeading',
       _mobile: { pb: '16px' },
     },
-    information: { m: '0', borderTop: '1px solid black' },
+    information: { m: '0', borderTop: '1px solid var(--color-black-20)' },
     row: {
       display: 'grid',
       gridTemplateColumns: '96px minmax(0, 1fr)',
@@ -656,9 +656,9 @@ export const modalOrderLookupContentRecipe = sva({
       },
     },
     orders: {
-      borderTop: '1px solid token(colors.black.100)',
+      borderTop: '1px solid var(--color-black-20)',
     },
-    order: { borderBottom: '1px solid token(colors.black.100)' },
+    order: { borderBottom: '1px solid var(--color-black-20)' },
     orderHeader: {
       alignItems: 'center',
       gap: '16px',

@@ -199,7 +199,13 @@ function FaqList({ entries, openQuestion, onToggle }: FaqListProps) {
               <Icon name="chevron-down-regular" size="16px" />
             </Flex>
           }
-          className={dataListRecipe({ itemLayout: 'faqAccordion', columnGap: 'unchanged' }).root}
+          className={
+            dataListRecipe({
+              top: 'thickSubtle',
+              itemLayout: 'faqAccordion',
+              columnGap: 'unchanged',
+            }).root
+          }
           multiple={false}
           value={openQuestion ? [openQuestion] : []}
           onValueChange={(values) => {

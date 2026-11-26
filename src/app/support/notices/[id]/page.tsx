@@ -47,7 +47,7 @@ export default function Page() {
       <Box
         mt={{ base: '10', _mobile: '8' }}
         className={dataListBoundaryRecipe({
-          top: 'strongToThin',
+          top: 'thickToThinSubtle',
           bottom: 'subtle',
         })}
         py="6"

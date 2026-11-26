@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-26T08:42:51Z'
+updated: '2026-11-26T09:18:12Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -2875,6 +2875,16 @@ IA 183의 기본 페이지 `/mypage/recent`와 고정 상태 `/mypage/recent/pre
 회원 이름 아래의 ‘멤버십 바코드 보기’는 모바일에서만 표시하며 바텀시트를 연다. 확인 또는 닫기를 누르면 버튼으로 포커스가 돌아간다. PC로 전환하면 바코드 버튼과 열린 바텀시트가 제거된다. 바코드는 시안의 샘플 이미지이며 실제 회원별 발급은 연동 대상이다. 모바일에서는 등급명 옆에 등급안내를 배치하고, 메뉴 제목의 구분선 아래에 첫 항목을 바로 배치한다.
 
 출처는 모바일 마이페이지·바코드 시안과 사용자 브라우저 코멘트, `src/app/mypage/_components/MyPageContent.tsx`, `public/images/mypage/membership-barcode.png`다.
+
+## 목록·정보 영역 시작선 색상 (2026-11-26)
+
+주문 취소·반품 신청과 배송 조회, 장바구니·주문서 결제 합계, 주문서 쿠폰 조회, 배송지 목록, 관심상품·최근 본 상품 빈 목록, 공지 상세, FAQ, 1:1 문의의 주문 상품 조회, 상품 상세의 문의·반품·모바일 A/S·옵션 합계, 회원가입의 휴대폰 인증약관·마케팅 수신 동의에 회색 `#E9EAEB` 시작선을 적용했다. [공통 옵션과 스타일 출처](ui.md#목록-영역-회색-시작선-2026-11-26).
+
+## 마이페이지 주문·재입고 목록 구분선 (2026-11-26)
+
+주문 상세의 받는사람 정보·결제 정보·취소·반품 내역, 취소·반품 상세의 상품 목록과 상세 섹션, 취소·반품 목록의 PC 시작선·모바일 행 구분선, 재입고 알림 상품 기본·빈 목록의 시작선을 `#E9EAEB`로 표시한다. 기존 PC·모바일 선 두께와 접근성 구조를 유지한다. 출처는 사용자 응답 주석과 `src/app/mypage/orders/_components/OrderDetails.tsx`, `src/app/mypage/orders/_components/OrdersList.tsx`, `src/app/mypage/_components/MyPageProductHistory.tsx` 작업 트리다.
+
+Chromium PC 1255px에서 상세 화면과 목록의 회색 구분선을 확인했다. 모바일 390px에서 주문·취소·반품 상세, 취소·반품 목록, 재입고 알림 기본·빈 목록의 선 색상과 두께를 확인했다.
 
 ## 주문·취소·반품 상세 PC 머리글 숨김 (2026-11-26)
 
