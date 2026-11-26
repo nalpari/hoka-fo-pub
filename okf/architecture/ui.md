@@ -6302,3 +6302,7 @@ Pretendard의 행간은 Display·Heading 1.2, Body 1.5이며 자간은 -0.02em�
 `Dropdown`의 기본 입력형과 정렬형 옵션은 유지한다. 상세형은 보조값, 줄바꿈과 모바일 시트 제목·안내를 지원한다. 비활성 쿠폰은 목록에 표시하고 선택을 차단한다. 쿠폰 ID별 초안은 기존 `CheckoutCouponDialog`가 관리하며 적용 버튼과 합계는 퍼블리싱 확인용이다. 작업 트리 출처는 `src/components/common/atoms/Dropdown.tsx`, `src/components/common/layouts/ModalDialog.recipe.tsx`, `src/app/checkout/_components/CheckoutCouponDialog.tsx`와 `src/app/checkout/checkout-coupons.ts`다. [HOKA Design](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design).
 
 PC 1920px와 모바일 375px에서 주문서 버튼으로 팝업을 열어 쿠폰 목록, 사용 불가 상태, 상품별 선택, Escape 닫기와 선택 후 초점 복귀를 확인했다. 양쪽에서 닫힌 트리거는 51.5px 높이였으며 금액 숫자의 계산 스타일은 HOKA 계열 13px이었다.
+
+## 검색 결과 제목
+
+상품 검색 제목에서 건수 뒤의 ‘검색 결과’는 띄어 쓴다.

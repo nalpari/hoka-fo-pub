@@ -1118,7 +1118,7 @@ function SearchListingLayout({
         <Typography web="h8B" mo="h8">
           {resultCount}
         </Typography>
-        개의 검색결과
+        개의 검색 결과
       </Typography>
     </HStack>
   );
@@ -1159,7 +1159,7 @@ function SearchListingLayout({
             <ContentHeader
               orientation="horizontal"
               titleAs="h1"
-              title={`“${query}”에 대한 ${resultCount}개의 검색결과`}
+              title={`“${query}”에 대한 ${resultCount}개의 검색 결과`}
               titleProps={{
                 web: 'h4',
                 mo: 'b4M',
