@@ -2101,6 +2101,26 @@ ProfileContent의 비밀번호 설정 모달에서 안내문 padding-top8px를 �
 
 2026-11-26 브라우저 코멘트에 따라 `CheckoutCouponDialog.tsx`의 금액 요약 라벨을 ‘주문금액’, ‘장바구니’로 표시한다.
 
+## 상품 상세와 주문서 ALERT 직접 확인 (2026-11-26)
+
+[HOKA Design](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 ‘퍼블 to 디자인 요청’ ALERT 모음에 있는 일곱 프레임을 상품 상세 공통 IA와 주문하기 IA 171의 STATE에 연결했다.
+
+| 화면 | 상태 | 직접 확인 URL | 유형 |
+| --- | --- | --- | --- |
+| 상품 상세 | 수량 변경 제한 | `/products/pdp-preview/quantity-limit` | alert |
+| 상품 상세 | 상품 미선택 | `/products/pdp-preview/product-not-selected` | confirm |
+| 상품 상세 | 상품 주소 복사 완료 | `/products/pdp-preview/link-copied` | alert |
+| 상품 상세 | 입고 알림 신청 완료 | `/products/pdp-preview/restock-complete` | alert |
+| 상품 상세 | 품절 상품 재입고 알림 신청 확인 | `/products/pdp-preview/restock-confirm` | confirm |
+| 상품 상세 | 장바구니 추가 완료 | `/products/pdp-preview/cart-added` | alert |
+| 주문하기 | 필수 입력 누락 안내 | `/checkout/preview-required-fields` | alert |
+
+모바일 시안의 343px 프레임과 확인·취소 버튼 구성을 확인했다. PC·모바일 공통 ModalDialog의 기존 반응형 규격과 취소·확인 순서를 적용했다. 수량 제한은 시안의 `#개` 표기를 사용하고, 주문서 안내를 닫으면 기존 필드·동의 오류가 보인다. 상태 URL은 안내를 처음부터 열고 확인·취소는 안내를 닫는다. 실제 요청 검증·복사·신청·장바구니 추가 및 결과 갱신은 각 화면 통합 소유자의 연결 범위다.
+
+출처는 위 디자인과 `productDetailPreviews.ts`, `ProductDetailContent.tsx`, `CheckoutStatePreview.tsx`, `preview-required-fields/page.tsx`, `screenConnections.ts` 작업 트리다. 기록: codex/gpt-6, 2026-11-26 KST.
+
+검증은 프로덕션 빌드의 PC 1440px와 모바일 375px에서 수행했다. 7개 모두 직접 진입 시 안내 하나가 열리고, 확인·취소 또는 Escape로 같은 경로에서 닫히며 새로고침 시 다시 열렸다. 모달 폭은 PC 640px, 모바일 343px이었다. IA의 상태명 검색, 링크와 모달 유형을 확인했다. 변경 파일 ESLint·Prettier, TypeScript, 소스 그래프 생성과 프로덕션 빌드를 통과했다. 관련 테스트 20개 중 19개가 통과했고, 기존 고객센터 첨부 방법 미리보기의 IA 소스 경로 검사가 실패했다.
+
 ## 주문서 쿠폰 변경 확인 얼럿 (2026-11-26)
 
 `/checkout/preview-coupon-change`에 직접 진입하면 주문서 위에 상품 쿠폰과 장바구니 쿠폰의 동시 사용 제한을 안내하는 변경 확인 모달이 열린다. 주문하기 IA 171에는 ‘쿠폰 변경 확인 얼럿’ 상태와 `confirm` 유형을 연결한다. ‘변경하기’, ‘취소’, 닫기, Escape 키는 모달을 닫고 ‘쿠폰 조회하기’ 버튼으로 포커스를 돌린다. 새로고침하면 모달이 다시 열린다.

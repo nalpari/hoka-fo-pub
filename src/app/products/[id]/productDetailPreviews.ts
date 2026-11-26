@@ -13,6 +13,60 @@ export const productDetailPreviews = [
   { state: 'sold-out', label: '전체 품절' },
   { state: 'options-selected', label: '옵션 선택' },
   { state: 'options-scroll', label: '옵션 선택 · 최대 높이' },
+  {
+    state: 'quantity-limit',
+    label: '상품 상세 · 수량 변경 제한',
+    notice: {
+      variant: 'alert',
+      message: '수량을 변경할 수 없습니다.',
+      description: '#개까지 구매 가능합니다.',
+    },
+  },
+  {
+    state: 'product-not-selected',
+    label: '상품 상세 · 상품 미선택',
+    notice: {
+      variant: 'confirm',
+      message: '상품이 선택되지 않았습니다.',
+      description: '상품을 먼저 선택하고 진행해주세요.',
+    },
+  },
+  {
+    state: 'link-copied',
+    label: '상품 상세 · 상품 주소 복사 완료',
+    notice: {
+      variant: 'alert',
+      message: '주소를 복사하였습니다.',
+      description: '상품의 주소를 클립보드에 복사하였습니다.',
+    },
+  },
+  {
+    state: 'restock-complete',
+    label: '상품 상세 · 입고 알림 신청 완료',
+    notice: {
+      variant: 'alert',
+      message: '입고 알림 신청되었습니다.',
+      description: '상품의 입고가 추가되면 카카오톡으로 알려드리겠습니다.',
+    },
+  },
+  {
+    state: 'restock-confirm',
+    label: '상품 상세 · 품절 상품 재입고 알림 신청 확인',
+    notice: {
+      variant: 'confirm',
+      message: '품절된 상품입니다',
+      description: '재입고 알림신청을 하시겠습니까?',
+    },
+  },
+  {
+    state: 'cart-added',
+    label: '상품 상세 · 장바구니 추가 완료',
+    notice: {
+      variant: 'alert',
+      message: '장바구니에 추가되었습니다.',
+      description: '상품을 장바구니에 추가하였습니다.',
+    },
+  },
 ] as const;
 
 export type ProductDetailPreview =
@@ -78,7 +132,13 @@ export function prepareProductDetailPreview(
     };
   }
   if (preview === 'sale') return { ...product, originalPrice: 290000, discountLabel: '20%' };
-  if (preview !== 'partial-stock' && preview !== 'restock' && preview !== 'sold-out') {
+  if (
+    preview !== 'partial-stock' &&
+    preview !== 'restock' &&
+    preview !== 'restock-confirm' &&
+    preview !== 'restock-complete' &&
+    preview !== 'sold-out'
+  ) {
     return product;
   }
 

@@ -72,6 +72,7 @@ import {
   getSelectedOptionsPreview,
   prepareProductDetailPreview,
   type ProductDetailPreview,
+  productDetailPreviews,
 } from '@/app/products/[id]/productDetailPreviews';
 import { productInquiries } from '@/app/products/[id]/productInquiries';
 import { productSizeOptions } from '@/app/products/[id]/productSizeOptions';
@@ -3181,6 +3182,10 @@ export function RouteContent({ preview }: { preview?: ProductDetailPreview }) {
   const revised = baseProduct?.id === 'shoe-1';
   const allSoldOut = preview === 'sold-out';
   const optionsPreview = preview === 'options-selected' || preview === 'options-scroll';
+  // [ 개발팀 바인딩 ] 열린 안내는 직접 URL용 fixture입니다. PDP 통합 소유자가 상품·옵션 ID와 수량으로 요청을 연결하고 결과에 맞는 안내를 열며, 처리 중 중복을 막고 실패 시 선택을 유지해 재시도하거나 성공 시 장바구니를 갱신합니다. 이 미리보기의 버튼은 안내만 닫습니다.
+  const previewEntry = productDetailPreviews.find(({ state }) => state === preview);
+  const notice = previewEntry && 'notice' in previewEntry ? previewEntry.notice : undefined;
+  const [noticeOpen, setNoticeOpen] = useState(!!notice);
   const inquiriesEmpty = revised && preview !== undefined && preview !== 'inquiries-expanded';
   const inquiriesExpanded = preview === 'inquiries-expanded';
   const initialColor = product?.colorThumbnails?.[0]?.label ?? product?.colors[0] ?? '';
@@ -3188,7 +3193,11 @@ export function RouteContent({ preview }: { preview?: ProductDetailPreview }) {
   const [width, setWidth] = useState(
     product && !apparel ? (productWidthOptions(product, initialColor)[0]?.label ?? '') : '',
   );
-  const [restockSize, setRestockSize] = useState(preview === 'restock' ? '300' : '');
+  const [restockSize, setRestockSize] = useState(
+    preview === 'restock' || preview === 'restock-confirm' || preview === 'restock-complete'
+      ? '300'
+      : '',
+  );
   const [apparelSize, setApparelSize] = useState(apparel ? 'M' : '');
   const [selectedItems, setSelectedItems] = useState<(CartItem & { amount?: number })[]>(() =>
     getSelectedOptionsPreview(preview).map((option) => ({
@@ -3357,6 +3366,23 @@ export function RouteContent({ preview }: { preview?: ProductDetailPreview }) {
         wish={wish}
       />
       {preview === 'inquiry-form' ? <ProductInquiryAction initialOpen /> : null}
+      {notice && (
+        <ModalDialog
+          variant={notice.variant}
+          open={noticeOpen}
+          onOpenChange={setNoticeOpen}
+          finalFocus={() => document.querySelector<HTMLElement>('[data-pdp-panel]')}
+          title="상품구매"
+          closeLabel="상품구매 안내 닫기"
+          message={notice.message}
+          description={notice.description}
+          actions={
+            notice.variant === 'confirm'
+              ? { kind: 'confirm', onConfirm: () => setNoticeOpen(false) }
+              : { kind: 'single', onConfirm: () => setNoticeOpen(false) }
+          }
+        />
+      )}
       {platform === 'mobile' && revised && (
         <ModalDialog
           variant="selection"

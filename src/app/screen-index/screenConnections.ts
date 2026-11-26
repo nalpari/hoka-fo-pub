@@ -177,6 +177,7 @@ const connections: Record<number, ScreenConnection> = {
     route: '/checkout',
     previewRoutes: [
       { label: '입력·동의 오류', href: '/checkout/preview-error' },
+      { label: '필수 입력 누락 안내', href: '/checkout/preview-required-fields' },
       { label: '주문 완료', href: '/checkout/preview-complete' },
       { label: '기본배송지 주소가 없는 사용자', href: '/checkout/preview-shipping' },
       { label: '배송 요청사항 직접입력', href: '/checkout/preview-delivery-request' },
@@ -186,6 +187,7 @@ const connections: Record<number, ScreenConnection> = {
     sourceFiles: [
       'src/app/checkout/page.tsx',
       'src/app/checkout/preview-error/page.tsx',
+      'src/app/checkout/preview-required-fields/page.tsx',
       'src/app/checkout/preview-complete/page.tsx',
       'src/app/checkout/preview-shipping/page.tsx',
       'src/app/checkout/preview-delivery-request/page.tsx',
@@ -924,6 +926,13 @@ export function getScreenStatePreviews(connection: ScreenConnection | undefined)
 // interaction dialogs do not establish a modal state. Keep nested dialogs together.
 const stateModalVariants: Readonly<Record<string, readonly ModalDialogVariant[]>> = {
   '/products/pdp-preview/inquiry-form': ['form'],
+  ...Object.fromEntries(
+    productDetailPreviews.flatMap((preview) =>
+      'notice' in preview
+        ? [[`/products/pdp-preview/${preview.state}`, [preview.notice.variant]]]
+        : [],
+    ),
+  ),
   '/launch-calendar/clifton-11-gtx/preview-notification': ['form'],
   '/launch-calendar/clifton-11-gtx/preview-phone-required': ['alert'],
   // CartDialogs and CheckoutStatePreview.
@@ -933,6 +942,7 @@ const stateModalVariants: Readonly<Record<string, readonly ModalDialogVariant[]>
   '/cart/preview-limit': ['alert'],
   '/checkout/preview-coupons': ['productSelection'],
   '/checkout/preview-coupon-change': ['confirm'],
+  '/checkout/preview-required-fields': ['alert'],
   '/checkout/preview-address-change': ['form'],
   '/checkout/preview-address-edit': ['form'],
   '/checkout/preview-address-new': ['form'],
