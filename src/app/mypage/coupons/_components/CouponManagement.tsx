@@ -9,6 +9,7 @@ import { Grid, HStack, Stack, VStack } from 'styled-system/jsx';
 import { Button } from '@/components/common/atoms/Button';
 import { Card } from '@/components/common/atoms/Card';
 import { EmptyState } from '@/components/common/atoms/EmptyState';
+import { Icon } from '@/components/common/atoms/Icon';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
@@ -79,14 +80,25 @@ const couponStyles = {
     pl: '33px',
     pr: '25px',
     gap: '32px',
+    backgroundImage: 'url(/images/mypage/coupon.svg)',
     backgroundSize: '100% 100%',
     backgroundRepeat: 'no-repeat',
-    _mobile: { minH: '170px', h: '170px', py: '25px', gap: '24px' },
+    _mobile: {
+      minH: '170px',
+      h: 'auto',
+      pt: '25px',
+      pb: '19px',
+      gap: '24px',
+      backgroundImage: 'url(/images/mypage/coupon-mobile.svg)',
+    },
   }),
-  detailsButton: css({ flexShrink: '0' }),
-  linkText: css({ lineHeight: 'body!' }),
-  benefitNumber: css({ lineHeight: 'body!' }),
-  benefitUnit: css({ lineHeight: 'body!' }),
+  detailsButton: css({
+    flexShrink: '0',
+    position: 'relative',
+    '&::before': { content: '""', position: 'absolute', inset: '-8px' },
+  }),
+  benefitNumber: css({ lineHeight: '1!' }),
+  benefitUnit: css({ lineHeight: '1.2!' }),
   registrationButton: css({
     w: '180px',
     _mobile: { flex: '1', minW: '0', w: 'auto', '--button-height': '42px' },
@@ -203,12 +215,14 @@ type CouponCardProps = {
 
 function CouponCard({ coupon, onDetails }: CouponCardProps) {
   return (
-    <Card
-      className={couponStyles.card}
-      style={{ backgroundImage: 'url(/images/mypage/coupon.svg)' }}
-    >
+    <Card className={couponStyles.card}>
       <ContentHeader
-        title={coupon.name}
+        title={
+          <HStack as="span" gap="12px">
+            <Icon name="ticket-simple-solid" size={20} color="blue.100" />
+            <span>{coupon.name}</span>
+          </HStack>
+        }
         titleAs="h3"
         titleProps={{
           web: 'h10B',
@@ -220,14 +234,15 @@ function CouponCard({ coupon, onDetails }: CouponCardProps) {
         alignItems="flex-start"
         action={
           <Button
-            size="sm"
-            variant="link"
+            aria-label={`${coupon.name} 상세보기`}
+            aria-haspopup="dialog"
+            size={16}
+            variant="icon"
+            color="var(--color-black-60)"
             onClick={() => onDetails(coupon)}
             className={couponStyles.detailsButton}
           >
-            <Typography variant="b8M" className={couponStyles.linkText}>
-              상세보기
-            </Typography>
+            <Icon name="circle-info-regular" size={16} />
           </Button>
         }
       />
@@ -593,7 +608,7 @@ export function RouteContent({
                 <Grid
                   gridTemplateColumns={{ base: 'repeat(2, minmax(0, 1fr))', _mobile: '1fr' }}
                   columnGap="16px"
-                  rowGap={{ base: '20px', _mobile: '16px' }}
+                  rowGap={{ base: '22px', _mobile: '16px' }}
                   w="100%"
                 >
                   {visibleCoupons.slice(0, visibleCount).map((coupon) => (

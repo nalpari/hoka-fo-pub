@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-26T06:58:59Z'
+updated: '2026-11-26T07:18:03Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -1868,6 +1868,16 @@ PC 1920px·MO 375px에서 일반·임직원 목록, 상세 직접 진입, 확인
 디자인 출처는 [HOKA Design의 마이페이지 쿠폰 섹션](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 일반·임직원 목록과 상세 프레임이다. 구현 출처는 이 문서의 작업 트리 출처에 있는 `CouponManagement.tsx`, IA 소스 그래프와 `public/images/mypage/coupon.svg`다.
 
 쿠폰 화면은 기본 `Typography` 변형을 사용한다. 쿠폰 내역 안내와 모바일 임직원 카드 문구에는 `bodyKr3`와 화면의 1.5 행간을 적용한다. 상세보기 링크, 팝업 제목과 금액의 글자 크기·굵기도 기존 Typography 옵션으로 지정한다. 섹션 제목의 모바일 굵기와 상세 본문의 1.5 행간은 화면 스타일에서 지정한다. PC 1920px·MO 375px에서 내역 안내 16px/24px, 링크 12px/400, 금액 숫자 16px/500, 팝업 제목 PC 16px/400·MO 20px/700을 실측했다.
+
+## 마이페이지 쿠폰 카드 PC·MO 시안
+
+`/mypage/coupons`의 쿠폰 내역 카드 제목 앞에 홈과 같은 티켓 모양을 20px·`blue.100`으로 표시하고 제목과 12px을 띄운다. 오른쪽의 16px 회색 정보 버튼은 쿠폰명과 ‘상세보기’를 접근 가능한 이름으로 제공하며 선택한 카드의 기존 상세창을 연다. 쿠폰명은 PC 22px·900, 모바일 20px·700이다.
+
+PC 시안의 414×195px 카드와 보이는 행 간격 22px을 적용한다. 모바일은 343×170px 전용 배경, 행 간격 16px, 콘텐츠가 줄바꿈되는 폭에서 늘어나는 최소 높이 170px을 사용한다. 기존 카드 목록의 데이터와 상세창 연결을 유지한다.
+
+출처는 사용자 브라우저 댓글, [HOKA Design 쿠폰 목록 PC·MO 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design), `src/app/mypage/coupons/_components/CouponManagement.tsx`, `public/images/mypage/coupon-mobile.svg`의 작업 트리다.
+
+Codex가 2026-11-26에 PC 1440px과 모바일 390px에서 카드 크기와 아이콘, 쿠폰명 굵기, Enter로 상세창 열기, Escape 닫기 후 포커스 복귀를 확인했다. 모바일 320px 임직원 미리보기의 쿠폰 내역은 날짜가 두 줄인 카드 높이 약 190px과 하단 여백 18px을 확인했다.
 
 ## 문의등록 상품 조회 전 영역 (2026-11-10)
 
