@@ -4,7 +4,7 @@ title: '프로젝트 개요'
 description: '서비스 목적, 기술 버전과 구현 범위를 설명한다.'
 tags: [hoka, frontend, overview]
 status: draft
-updated: '2026-11-26T04:29:51Z'
+updated: '2026-11-26T05:57:03Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
@@ -166,6 +166,8 @@ HOKA 쇼핑몰의 PC·모바일 화면을 구현하는 퍼블리싱·데모 프�
 설치된 실제 버전은 `package-lock.json`과 `npm ls next react react-dom --depth=0`으로 확인한다. Node.js 24.21.0과 npm 11.19.0은 README에 기록된 개발 기준이며, 현재 실행 환경의 버전은 별도로 확인한다.
 
 ## 구현 범위
+
+`ProductWidthOption.isSoldOut`은 상세 통합 소유자가 준비하는 선택적 발볼 품절 표시다. 옵션에 속한 사이즈별 `soldOut`과 독립적으로 공급한다. 현재 상품이 선택한 색상에서 품절 발볼을 받을 경우 첫 선택 가능 발볼을 표시한다. 두 고정 미리보기에서만 Wide를 품절로 지정한다. 출처는 `src/mocks/products.ts`와 상품 상세·미리보기의 작업 트리다. [직접 확인 경로](architecture/routing.md#상품-상세-일부-발볼-품절-상태-2026-11-26).
 
 홈, 상품 목록·상세, 검색, 장바구니·주문/결제, 로그인·회원가입, 마이페이지, 고객지원, 런클럽·러닝 콘텐츠 화면을 제공한다. URL 목록은 `src/app/**/page.tsx`가 결정한다. 현재 README는 작업 트리의 주문/결제 화면과 기능별 UI 조합, 실행·검증 절차를 반영한다.
 

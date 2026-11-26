@@ -2031,7 +2031,9 @@ function ProductVariantSelectors({
   showColor = true,
 }: ProductVariantSelectorsProps) {
   const widthOptions = productWidthOptions(product, color);
-  const selected = widthOptions.find((option) => option.label === width) ?? widthOptions[0];
+  const selected =
+    widthOptions.find((option) => option.label === width && !option.isSoldOut) ??
+    widthOptions.find((option) => !option.isSoldOut);
   return (
     <>
       <Stack gap="10">
@@ -2039,6 +2041,9 @@ function ProductVariantSelectors({
           <ProductWidthSelector
             onValueChange={onWidthChange}
             options={widthOptions.map((option) => option.label)}
+            soldOutOptions={widthOptions
+              .filter((option) => option.isSoldOut)
+              .map(({ label }) => label)}
             value={width}
           />
         )}
@@ -3174,9 +3179,7 @@ export function RouteContent({ preview }: { preview?: ProductDetailPreview }) {
   const inquiriesExpanded = preview === 'inquiries-expanded';
   const initialColor = product?.colorThumbnails?.[0]?.label ?? product?.colors[0] ?? '';
   const [color, setColor] = useState(initialColor);
-  const [width, setWidth] = useState(
-    product && !apparel ? (productWidthOptions(product, initialColor)[0]?.label ?? '') : '',
-  );
+  const [requestedWidth, setWidth] = useState('');
   const [restockSize, setRestockSize] = useState(
     preview === 'restock' || preview === 'restock-confirm' || preview === 'restock-complete'
       ? '300'
@@ -3220,6 +3223,11 @@ export function RouteContent({ preview }: { preview?: ProductDetailPreview }) {
   }, [preview, platform]);
   if (!product) return <SystemStatusPage status="not-found" />;
 
+  // [ 개발팀 바인딩 ] 통합 소유자가 색상별 발볼과 isSoldOut을 공급합니다. 이 화면에서는 현재 옵션에서 선택 가능한 발볼을 표시하고 구매·재고 요청을 실행하지 않습니다.
+  const availableWidths = productWidthOptions(product, color).filter((option) => !option.isSoldOut);
+  const selectedWidth =
+    availableWidths.find((option) => option.label === requestedWidth) ?? availableWidths[0];
+  const width = apparel ? '' : (selectedWidth?.label ?? '');
   const restock = allSoldOut || !!restockSize;
   const onQuantityChange = (index: number, quantity: number) => {
     if (!Number.isSafeInteger(quantity) || quantity < 1) return;
@@ -3243,15 +3251,14 @@ export function RouteContent({ preview }: { preview?: ProductDetailPreview }) {
     setRestockSize('');
     setColor(nextColor);
     setApparelSize('');
-    if (!apparel) setWidth(productWidthOptions(product, nextColor)[0]?.label ?? '');
+    setWidth('');
   };
   const onWidthChange = (nextWidth: string) => {
+    if (!availableWidths.some((option) => option.label === nextWidth)) return;
     setRestockSize('');
     setWidth(nextWidth);
   };
   const onSizeChange = (nextSize: string) => {
-    const options = productWidthOptions(product, color);
-    const selectedWidth = options.find((option) => option.label === width) ?? options[0];
     if (!selectedWidth?.sizes.includes(nextSize)) return;
     if (selectedWidth.soldOut.includes(nextSize)) {
       setRestockSize(nextSize);

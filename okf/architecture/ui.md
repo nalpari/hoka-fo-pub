@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-26T05:48:17Z'
+updated: '2026-11-26T05:57:03Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -6192,6 +6192,12 @@ ProductListingContent의 sticky top·maxH가 ContentLayout에서만 제공하는
 
 출처: 위 설계서, `src/app/products/[id]/_components/ProductDetailContent.tsx`와 `src/app/products/[id]/productDetailPreviews.ts`의 작업 트리. 기존 신뢰·출처 메타데이터는 유지합니다. 기록: codex/gpt-6, 2026-11-20.
 
+
+## 상품 상세 발볼 품절 표시 (2026-11-26)
+
+상세 `ProductWidthSelector`는 `soldOutOptions`에 포함된 발볼을 같은 너비의 칸에 남겨두고 비활성화한다. 발볼 품절 스타일은 배경 #E9EAEB, 라벨 #B3B3B3, The Future HOKA Medium 14px와 PC 44px·모바일 40px 높이를 적용한다. 보조 기술에는 발볼 이름과 품절 상태를 함께 전달한다. 출처는 `ProductWidthSelector.tsx` 작업 트리와 [Width Selector Button 시안](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0)이다.
+
+PC 1440px 및 모바일 390px에서 2·3개 상태의 균등 너비, 품절 계산 스타일, 클릭 차단, 3개 상태의 방향키 건너뛰기와 기존 전체 품절 화면의 발볼 선택 상태를 확인했다. IA에서 두 링크가 표시되는 것을 확인했다. TypeScript, 변경 파일 ESLint 및 소스 그래프 생성을 통과했다. 관련 테스트 19개 중 18개가 통과했고 기존 고객센터 첨부파일 미리보기의 소스 연결 검사 1개가 실패했다.
 
 ## 상품 상세 발볼 선택 옵션 수와 pill 표시 (2026-11-20)
 

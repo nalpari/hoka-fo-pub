@@ -6,7 +6,9 @@ export const productDetailPreviews = [
   { state: 'apparel', label: '의류 기본' },
   { state: 'width-single', label: '발볼 1개 · 선택기 숨김' },
   { state: 'width-double', label: '발볼 2개' },
+  { state: 'width-double-sold-out', label: '발볼 2개 · 1개 품절' },
   { state: 'width-triple', label: '발볼 3개' },
+  { state: 'width-triple-sold-out', label: '발볼 3개 · 1개 품절' },
   { state: 'inquiries-expanded', label: '신발 · 상품문의 펼침' },
   { state: 'sale', label: '할인가' },
   { state: 'partial-stock', label: '일부 사이즈 품절' },
@@ -75,6 +77,14 @@ export type ProductDetailPreview =
   | 'restock'
   | 'selection-required';
 
+const widthPreviews: Partial<Record<ProductDetailPreview, { count: number; soldOut?: boolean }>> = {
+  'width-single': { count: 1 },
+  'width-double': { count: 2 },
+  'width-double-sold-out': { count: 2, soldOut: true },
+  'width-triple': { count: 3 },
+  'width-triple-sold-out': { count: 3, soldOut: true },
+};
+
 const apparelImage = (id: number) => `/images/products/everyrun/pdp-${id}.png`;
 
 // [ 개발팀 바인딩 ] 의류·할인·품절과 아래 선택/완료 값은 PDP 인계용 표시 데이터입니다.
@@ -84,22 +94,22 @@ export function prepareProductDetailPreview(
   product: Product,
   preview?: ProductDetailPreview,
 ): Product {
-  // [ 개발팀 바인딩 ] 발볼 개수별 IA 확인용 fixture입니다. 실제 상품의 옵션을 판정하지 않으며 기본 상세 데이터는 변경하지 않습니다.
-  const widthCount =
-    preview === 'width-single'
-      ? 1
-      : preview === 'width-double'
-        ? 2
-        : preview === 'width-triple'
-          ? 3
-          : 0;
+  // [ 개발팀 바인딩 ] 발볼 개수와 두 번째 발볼의 품절 표시는 IA 직접 확인용 fixture입니다.
+  // 실제 상품의 발볼별 isSoldOut과 사이즈별 soldOut은 상세 통합 소유자가 현재 재고 표시 데이터에서 공급합니다.
+  const widthPreview = preview && widthPreviews[preview];
 
-  if (widthCount) {
+  if (widthPreview) {
     return {
       ...product,
       colorOptions: product.colorOptions?.map((option) => ({
         ...option,
-        widths: option.widths.slice(0, widthCount),
+        widths: option.widths
+          .slice(0, widthPreview.count)
+          .map((width, index) =>
+            widthPreview.soldOut && index === 1
+              ? { ...width, isSoldOut: true, soldOut: [...width.sizes] }
+              : width,
+          ),
       })),
     };
   }
