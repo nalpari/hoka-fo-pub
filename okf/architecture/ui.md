@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-26T05:02:00Z'
+updated: '2026-11-26T05:11:50Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -6260,6 +6260,12 @@ TextFormField/TextInput, SearchField, DateRangeSearch와 각 화면의 검색·�
 - 상품 상세의 문의하기 버튼은 기존 1:1 문의 입력 컴포넌트를 재사용하는 상품 문의 모달을 연다. 데스크탑은 중앙 모달, 모바일은 전체 화면을 사용한다. 고객 정보와 파일 첨부 영역은 1:1 문의 화면에서만 사용한다. 상품 유형이 고정되며 비밀글을 선택할 수 있다. 등록 요청은 미연결이다.
 
 - 상품 문의 모달의 유의사항에 부적절한 게시글 금지와 개인정보 포함 시 비밀글 문의 안내를 표시한다.
+
+## 상품 상세 헤더 타이포와 간격 실측 (2026-11-26)
+
+상세 `ProductIdentity`에서 뱃지·상품명 간격은 PC 20px·모바일 16px, 상품명·가격 간격은 양쪽 20px다. 뱃지는 PC 14px·모바일 12px를 쓰며 굵기 500, 행간 18.2px, 복수 뱃지 간격 8px·6px를 적용한다. 영문 상품명은 HOKA Black 32px·28px와 행간 30.72px다. 한글 상품명은 Pretendard Black 28px와 PC 33.6px·모바일 30.72px 행간을 사용한다. 판매가 숫자는 HOKA Medium 18px·16px와 행간 20.8px, 원 단위는 Pretendard Bold 18px·16px와 행간 130%다. 출처는 `ProductCard.tsx` 작업 트리와 [HOKA 상품 상세 Header Container PC·모바일 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)이다.
+
+PC 1440px와 모바일 375px에서 기본·의류·할인가 상세의 계산 타이포, 간격, 성별·활동 문구 비노출과 상품 목록 카드의 렌더링을 확인했다. TypeScript, 변경 파일 ESLint·Prettier를 통과했다.
 
 ## 상품 상세 Tech Specs 타이포 보정 (2026-11-24)
 

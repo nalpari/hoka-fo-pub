@@ -120,6 +120,23 @@ function ProductName({ name, variant = 'listing' }: ProductNameProps) {
 
 const won = (value: number) => value.toLocaleString('ko-KR');
 
+const detailIdentityStyles = {
+  badges: css({
+    '&&': { gap: '2', _mobile: { gap: '1.5' } },
+    '& > span:not([aria-hidden])': { lineHeight: '18.2px' },
+    '& > span[aria-hidden]': { h: '13px', _mobile: { h: '11px' } },
+  }),
+  title: css({ '&&': { m: '0', lineHeight: '30.72px' } }),
+  koreanTitle: css({ _mobile: { '&&': { lineHeight: '30.72px' } } }),
+  discount: css({
+    fontSize: 'body.18',
+    lineHeight: 'body',
+    _mobile: { fontSize: 'body.16' },
+  }),
+  price: css({ display: 'inline-flex', alignItems: 'center', '&&': { lineHeight: '20.8px' } }),
+  unit: css({ '&&': { lineHeight: '1.3', transform: 'none' } }),
+};
+
 type ProductPriceProps = {
   /** Prepared display label; preview fixtures can preserve an approved design value. */
   discountLabel?: string;
@@ -138,9 +155,7 @@ function ProductPrice({
 }: ProductPriceProps) {
   const hasDiscount = originalPrice !== undefined && Boolean(discountLabel);
   const detailPrice = variant === 'detail';
-  const detailPriceText = detailPrice
-    ? css({ fontSize: 'body.18', lineHeight: 'body', _mobile: { fontSize: 'body.16' } })
-    : undefined;
+  const detailPriceText = detailPrice ? detailIdentityStyles.discount : undefined;
 
   return (
     <VStack
@@ -181,13 +196,18 @@ function ProductPrice({
         ) : null}
         <Typography
           language="en"
-          variant={variant === 'history' ? 'b6' : 'b4'}
-          mo="b6"
-          weight={detailPrice ? 'medium' : undefined}
-          className={detailPriceText}
+          variant={detailPrice ? 'b3M' : variant === 'history' ? 'b6' : 'b4'}
+          mo={detailPrice ? 'b4M' : 'b6'}
+          className={detailPrice ? detailIdentityStyles.price : undefined}
         >
           {won(price)}
-          <Typography variant={variant === 'history' ? 'b6B' : 'b4B'}>원</Typography>
+          <Typography
+            variant={detailPrice ? 'b3B' : variant === 'history' ? 'b6B' : 'b4B'}
+            mo={detailPrice ? 'b4B' : undefined}
+            className={detailPrice ? detailIdentityStyles.unit : undefined}
+          >
+            원
+          </Typography>
         </Typography>
       </HStack>
     </VStack>
@@ -230,57 +250,82 @@ export function ProductIdentity({
   optionText,
   applicationDate,
 }: ProductIdentityProps) {
-  const platform = usePlatform();
   if (variant === 'detail') {
     return (
       <VStack alignItems="start" gap="5" _mobile={{ gap: '4' }} minW="0" w="full">
-        <VStack alignItems="start" gap="2">
-          {promotion && (
-            <Badge
-              variant="plain"
-              weight="medium"
-
-              tone={promotionTone === 'error' ? 'red80' : 'brand'}
-            >
-              {promotion}
-            </Badge>
-          )}
-          <HStack gap="2" color="black.60" flexWrap="wrap">
-            {gender && (
-              <Typography variant="b6" tone="inherit">
-                {gender}
-              </Typography>
+        {promotion || gender || activities?.length ? (
+          <VStack alignItems="start" gap="2">
+            {promotion && (
+              <Badge
+                variant="plain"
+                weight="medium"
+                web="b6"
+                mo="b8"
+                tone={promotionTone === 'error' ? 'red80' : 'brand'}
+                className={detailIdentityStyles.badges}
+              >
+                {promotion}
+              </Badge>
             )}
-            {activities?.length ? (
-              <>
+            {gender || activities?.length ? (
+              <HStack gap="2" color="black.60" flexWrap="wrap">
                 {gender && (
-                  <Divider orientation="vertical" length="3" className={css({ bg: 'black.60' })} />
+                  <Typography variant="b6" tone="inherit">
+                    {gender}
+                  </Typography>
                 )}
-                <Typography variant="b6" tone="inherit">
-                  {activities.join(', ')}
-                </Typography>
-              </>
+                {activities?.length ? (
+                  <>
+                    {gender && (
+                      <Divider
+                        orientation="vertical"
+                        length="3"
+                        className={css({ bg: 'black.60' })}
+                      />
+                    )}
+                    <Typography variant="b6" tone="inherit">
+                      {activities.join(', ')}
+                    </Typography>
+                  </>
+                ) : null}
+              </HStack>
             ) : null}
-          </HStack>
+          </VStack>
+        ) : null}
+        <VStack alignItems="start" gap="5" minW="0" w="full">
+          <ContentHeader
+            alignItems="start"
+            titleAs="h1"
+            title={name
+              .split(/(\p{Script=Hangul}+(?:\s+\p{Script=Hangul}+)*)/u)
+              .map((part, index) =>
+                index % 2 ? (
+                  <Typography
+                    key={index}
+                    web="h8B"
+                    mo="h5B"
+                    className={detailIdentityStyles.koreanTitle}
+                  >
+                    {part}
+                  </Typography>
+                ) : (
+                  part
+                ),
+              )}
+            titleProps={{
+              className: detailIdentityStyles.title,
+              web: 'h6B',
+              mo: 'h5B',
+              language: 'en',
+            }}
+          />
+          <ProductPrice
+            variant="detail"
+            price={price}
+            originalPrice={originalPrice}
+            discountLabel={discountLabel}
+          />
         </VStack>
-        <ContentHeader
-          alignItems="start"
-          gap="5"
-          titleAs="h1"
-          title={name}
-          titleProps={{
-            className: css({ m: '0' }),
-            web: 'h4B',
-            mo: 'h5B',
-            language: platform === 'web' ? 'ko' : 'en',
-          }}
-        />
-        <ProductPrice
-          variant="detail"
-          price={price}
-          originalPrice={originalPrice}
-          discountLabel={discountLabel}
-        />
       </VStack>
     );
   }

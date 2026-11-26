@@ -2505,12 +2505,6 @@ function ProductDetailHeaderActions({
   );
 }
 
-const productUseLabels: Record<Product['use'], string> = {
-  'Everyday Run': '데일리 러닝',
-  'Trail Running': '트레일 러닝',
-  Walking: '워킹',
-};
-
 type ProductDetailHeaderProps = {
   initialShareOpen?: boolean;
   apparel?: boolean;
@@ -2527,35 +2521,15 @@ function ProductDetailHeader({
 }: ProductDetailHeaderProps) {
   const platform = usePlatform();
   return (
-    <VStack
-      as="header"
-      alignItems="start"
-      gap="5"
-      _mobile={{ gap: '6' }}
-      css={{
-        _mobile: {
-          '& > div': { gap: '8px' },
-          '& > div > div:first-child': { gap: '0' },
-          '& > div > div:first-child > div': { display: 'none' },
-        },
-      }}
-    >
+    <VStack as="header" alignItems="start" gap="5" _mobile={{ gap: '6' }}>
       <ProductIdentity
         variant="detail"
         name={product.name}
-        gender={platform === 'mobile' ? undefined : product.gender}
         promotion={product.promotion}
         price={product.price}
         originalPrice={product.originalPrice}
         discountLabel={product.discountLabel}
         promotionTone={apparel || product.styleCode === 'HOKADFG34S' ? 'error' : undefined}
-        activities={
-          platform === 'mobile'
-            ? undefined
-            : apparel
-              ? ['탑&티셔츠']
-              : [...new Set([product.runningType, productUseLabels[product.use]])]
-        }
       />
       {platform === 'web' && (
         <ProductDetailHeaderActions
