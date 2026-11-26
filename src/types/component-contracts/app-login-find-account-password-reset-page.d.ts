@@ -5,7 +5,6 @@ import { type Errors, type FieldName } from '@/lib/passwordValidation';
 type Props = {
   name: FieldName;
   label: string;
-  placeholder: string;
   value: string;
   error?: string;
   onChange: (value: string) => void;
@@ -13,7 +12,6 @@ type Props = {
 declare function PasswordResetField({
   name,
   label,
-  placeholder,
   value,
   error,
   onChange,

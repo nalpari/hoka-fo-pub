@@ -22,7 +22,7 @@ export default function Page() {
   return (
     <CustomerCenterLayout
       title={title}
-      mobileTitleVariant="heading5"
+      mobileTitleVariant="h7B"
       activePath={path}
       breadcrumbItems={[
         { label: 'Home', href: '/' },
@@ -34,7 +34,7 @@ export default function Page() {
       <Stack gap="6" mt="6">
         <Divider variant="heading" display={{ base: 'block', _mobile: 'none' }} />
         <Stack as="section">
-          <Typography as="p" web="body3" mo="body4" tone="subtle">
+          <Typography as="p" web="b4" mo="b6" tone="subtle">
             디자인 작업 중입니다.
           </Typography>
         </Stack>

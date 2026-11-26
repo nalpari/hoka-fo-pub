@@ -17,8 +17,7 @@ const styles = {
     justifyContent: 'center',
     gap: '14px',
     color: '#416478',
-    fontSize: '13px',
-    fontWeight: '600',
+    textStyle: 'ko-common-b7S',
     py: '24px',
   }),
   dots: css({

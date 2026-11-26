@@ -5,18 +5,27 @@ import type { ReactNode } from 'react';
 import { css, cva } from 'styled-system/css';
 import { Box, Grid, Stack } from 'styled-system/jsx';
 
-import { Typography } from '@/components/common/atoms/Typography';
+import { Typography, type TypographyProps } from '@/components/common/atoms/Typography';
 
 import { Breadcrumb, type BreadcrumbItem } from '@/components/common/molecules/Breadcrumb';
 
 export type SidebarNavigationGroup = {
   heading: string;
-  items: { label: string; to: string; active?: boolean; disabled?: boolean }[];
+  items: {
+    label: string;
+    to: string;
+    active?: boolean;
+    disabled?: boolean;
+    /** 고객센터 메뉴는 생략 시 Medium이며 기본 사이드 메뉴의 기존 Regular는 유지합니다. */
+    labelWeight?: TypographyProps['weight'];
+  }[];
 };
 
 type SideNavigationProps = {
   title: string;
   titleTo: string;
+  /** PC 제목 타이포그래피이며 생략하면 h8B를 사용합니다. */
+  titleWeb?: TypographyProps['web'];
   groups: SidebarNavigationGroup[];
   activePath: string;
   mobileNavigation?: 'scroll' | 'hidden';
@@ -36,6 +45,7 @@ const navLink = cva({
 export function SideNavigation({
   title,
   titleTo,
+  titleWeb = 'h8B',
   groups,
   activePath,
   mobileNavigation,
@@ -44,10 +54,17 @@ export function SideNavigation({
 }: SideNavigationProps) {
   if (appearance === 'support') {
     return (
-      <Box as="aside" className={className} w="190px" _mobile={{ display: 'none' }}>
+      <Box
+        as="aside"
+        className={className}
+        w="190px"
+        alignSelf="start"
+        css={{ '--line-heights-body': '1.5' }}
+        _mobile={{ display: 'none' }}
+      >
         <Stack alignItems="flex-start" gap="46px">
           <Link href={titleTo}>
-            <Typography as="span" variant="heading7">
+            <Typography as="span" web={titleWeb} mo="h8">
               {title}
             </Typography>
           </Link>
@@ -61,9 +78,7 @@ export function SideNavigation({
                   <Box
                     key={`${item.to}-${item.label}`}
                     py="2"
-                    borderBottomWidth={isActive ? '2px' : '0'}
-                    borderBottomStyle="solid"
-                    borderBottomColor="black.100"
+                    boxShadow={isActive ? 'inset 0 -2px 0 var(--color-black-100)' : undefined}
                     pointerEvents={item.disabled ? 'none' : undefined}
                   >
                     <Link
@@ -74,8 +89,8 @@ export function SideNavigation({
                     >
                       <Typography
                         as="span"
-                        variant="body2"
-                        weight="regular"
+                        variant="b2"
+                        weight={item.labelWeight ?? 'medium'}
                         tone={isActive ? 'primary' : 'subtle'}
                       >
                         {item.label}
@@ -108,7 +123,7 @@ export function SideNavigation({
     >
       <Box display="block" _mobile={{ flex: 'none', mr: '10' }}>
         <Link href={titleTo}>
-          <Typography as="span" variant="heading7">
+          <Typography as="span" web={titleWeb} mo="h8">
             {title}
           </Typography>
         </Link>
@@ -123,7 +138,7 @@ export function SideNavigation({
             key={group.heading}
           >
             <Box py="2" _mobile={{ display: 'none' }}>
-              <Typography as="h2" variant="body2" weight="regular">
+              <Typography as="h2" variant="b2M">
                 {group.heading}
               </Typography>
             </Box>
@@ -148,7 +163,7 @@ export function SideNavigation({
                       className={navLink({ active: isActive, disabled: item.disabled })}
                       href={item.to}
                     >
-                      <Typography as="span" web="body3" mo="body5" weight="regular">
+                      <Typography as="span" web="b4" mo="b8">
                         {item.label}
                       </Typography>
                     </Link>

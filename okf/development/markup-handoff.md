@@ -4,11 +4,18 @@ title: 전체 화면 퍼블리싱 인계
 description: 전체 화면의 고정 상태 URL, IA 대응, 표시 소유권과 실제 검증 범위.
 tags: [publishing, routes, fixtures, handoff]
 status: draft
+updated: '2026-11-19T05:39:11Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:51.330Z'
 source_revision: eee69f7b80ddde079e0b634997df7f047f8e1809
 working_tree_sources:
+  - AGENTS.md
+  - .agents/skills/hoka-figma-apply/SKILL.md
+  - .agents/skills/hoka-figma-apply/agents/openai.yaml
+  - .agents/skills/hoka-markup-handoff/SKILL.md
+  - .agents/skills/hoka-markup-handoff/references/component-quality.md
+  - .agents/skills/hoka-markup-handoff/references/nextjs-integration.md
   - src/app/screen-index/screenConnections.ts
   - src/context/ShopShell.tsx
   - src/components/orders/OrdersRoute.tsx
@@ -24,6 +31,14 @@ sources:
 # 전체 화면 퍼블리싱 인계
 
 사용자 승인 범위는 전체 화면이다. 기존 디자인 반영 결과를 기반으로 서비스·시연 흐름을 제거하며, 새 서비스·업무 규칙을 구현하지 않는다. 기존 디자인 출처는 [UI](../architecture/ui.md)와 [라우팅](../architecture/routing.md)의 화면별 기록을 유지한다. 이 문서는 모든 Figma 픽셀을 새로 대조했다는 뜻이 아니다.
+
+## Figma 굵기 모드 우선 (2026-11-19)
+
+사용자 확정으로 숫자 굵기와 명시된 굵기 모드 이름이 충돌하면 모드 이름을 우선한다. `Body Weights: Medium`과 숫자 `700`은 기존 `medium/500` 및 Medium face로 구현한다. 다른 모드도 기존 프로젝트 매핑을 사용하며 굵기와 무관한 모드는 제외한다. 모드 미확인·매핑 불명확은 추가 확인 대상으로 남기고 EmptyState·더보기 등 별도 사용자 확정 규칙은 보존한다.
+
+출처는 이번 사용자 지시와 작업 트리의 [공통 정책](../../AGENTS.md#figma-font-weight-policy), [Figma 적용 스킬](../../.agents/skills/hoka-figma-apply/SKILL.md#폰트-굵기-판정), [인계 타이포그래피 기준](../../.agents/skills/hoka-markup-handoff/references/component-quality.md#figma-굵기-모드-우선)이다. 에이전트 UI 기본 프롬프트도 같은 기준을 안내한다. 관측 숫자와 선택한 구현값을 구분해 인계하며 이 갱신은 문서·UI 프롬프트에 한정한다. 화면 코드·공개 API·폰트 등록은 변경하지 않았다.
+
+검증: 충돌 사례 `Medium + 700 → medium/500`, 일치 사례 `Medium + 500 → medium/500`, 모드 미확인·매핑 불명확의 추가 확인 기준과 관련 문서 연결을 정적으로 검토했다. 실행 화면 검증은 수행하지 않았다.
 
 ## 표시와 향후 연결 책임
 

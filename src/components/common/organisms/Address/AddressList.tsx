@@ -7,7 +7,6 @@ import { Box, Stack, VStack } from 'styled-system/jsx';
 
 import { Badge } from '@/components/common/atoms/Badge';
 import { Button } from '@/components/common/atoms/Button';
-import { dataListRecipe } from '@/components/common/atoms/DataList.recipe';
 import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { Typography } from '@/components/common/atoms/Typography';
 
@@ -40,9 +39,8 @@ export function AddressList({
       <ContentSection
         flex={!embedded && !addresses.length ? '1' : undefined}
         css={embedded ? undefined : { '--line-heights-body': '1.5' }}
-        gap={addresses.length ? (embedded ? '8' : '8px') : '0'}
+        gap={addresses.length ? '32px' : '0'}
         _mobile={{
-          gap: addresses.length ? (embedded ? '6' : '8px') : '0',
           pt: embedded ? '0' : '24px',
         }}
         {...(embedded
@@ -51,7 +49,7 @@ export function AddressList({
               title: '배송지 관리',
               headerProps: {
                 titleAs: 'h1',
-                titleProps: { web: 'headingKr6', mo: 'headingKr5' },
+                titleProps: { web: 'h4B', mo: 'h7B' },
                 orientation: 'horizontal',
                 alignItems: 'end',
                 pb: '10',
@@ -73,15 +71,7 @@ export function AddressList({
       >
         {addresses.length ? (
           <Box>
-            <Stack
-              gap="0"
-              className={
-                dataListRecipe({
-                  top: embedded ? 'strong' : 'unchanged',
-                  columnGap: 'addressActions',
-                }).root
-              }
-            >
+            <Stack gap="24px">
               {addresses.map((address) => (
                 <Stack
                   as="article"
@@ -90,8 +80,9 @@ export function AddressList({
                   direction="row"
                   alignItems="center"
                   justifyContent="space-between"
-                  rowGap="24px"
-                  py="24px"
+                  gap="6"
+                  pb="24px"
+                  borderBottom="1px solid var(--colors-black-20)"
                   _mobile={{
                     flexDirection: 'column',
                     alignItems: 'stretch',
@@ -102,10 +93,10 @@ export function AddressList({
                       title={address.name}
                       titleAs="h2"
                       titleProps={{
-                        web: 'headingKr8',
-                        mo: 'headingKr6',
+                        web: 'h10B',
+                        mo: 'h8',
                         className: embedded
-                          ? css({ lineHeight: '1.2', _mobile: { lineHeight: '1.3' } })
+                          ? css({ lineHeight: 'body', _mobile: { lineHeight: 'body' } })
                           : undefined,
                       }}
                       orientation="horizontal"
@@ -113,11 +104,9 @@ export function AddressList({
                       gap="3"
                       _mobile={{ gap: '2' }}
                       action={
-                        address.isDefault || !embedded ? (
-                          <Badge variant="outlined" visual="square">
-                            {address.isDefault ? '기본 배송지' : '일반 배송지'}
-                          </Badge>
-                        ) : null
+                        <Badge variant="outlined" visual="square">
+                          {address.isDefault ? '기본 배송지' : '일반 배송지'}
+                        </Badge>
                       }
                     />
                     <Stack
@@ -126,20 +115,20 @@ export function AddressList({
                       className={
                         embedded
                           ? css({
-                              '& span': { lineHeight: '24px!' },
-                              _mobile: { '& span': { lineHeight: '21px!' } },
+                              '& span': { lineHeight: 'body!' },
+                              _mobile: { '& span': { lineHeight: 'body!' } },
                             })
                           : undefined
                       }
                     >
                       <Typography
-                        web="body3"
-                        mo="body4"
+                        web="b4"
+                        mo="b6"
                         language="en"
                         tone={embedded ? 'tertiary' : 'subtle'}
                         className={
                           embedded
-                            ? css({ lineHeight: '24px', _mobile: { lineHeight: '21px' } })
+                            ? css({ lineHeight: 'body', _mobile: { lineHeight: 'body' } })
                             : undefined
                         }
                       >
@@ -151,19 +140,19 @@ export function AddressList({
                         _mobile={{ flexDirection: 'column', gap: '4px' }}
                       >
                         <Typography
-                          web="body3"
-                          mo="body4"
+                          web="b4"
+                          mo="b6"
                           language="en"
                           tone={embedded ? 'tertiary' : 'subtle'}
                           className={
                             embedded
-                              ? css({ lineHeight: '24px', _mobile: { lineHeight: '21px' } })
+                              ? css({ lineHeight: 'body', _mobile: { lineHeight: 'body' } })
                               : undefined
                           }
                         >
                           {address.zip}
                         </Typography>
-                        <Typography web="body3" mo="body4" tone={embedded ? 'tertiary' : 'subtle'}>
+                        <Typography web="b4" mo="b6" tone={embedded ? 'tertiary' : 'subtle'}>
                           {address.address} {address.detail}
                         </Typography>
                       </Stack>

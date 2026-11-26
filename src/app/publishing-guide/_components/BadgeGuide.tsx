@@ -80,11 +80,11 @@ const examples = [
       {
         label: '글자 옵션',
         preview: (
-          <Badge variant="filled" visual="round" web="body5" mo="body5">
+          <Badge variant="filled" visual="round" web="b8" mo="b8">
             신청완료
           </Badge>
         ),
-        code: '<Badge variant="filled" visual="round" web="body5" mo="body5">신청완료</Badge>',
+        code: '<Badge variant="filled" visual="round" web="b8" mo="b8">신청완료</Badge>',
       },
     ],
   },
@@ -260,11 +260,11 @@ const examples = [
       {
         label: 'Road',
         preview: (
-          <Badge variant="filled" visual="square" bg="citrus.100" web="body4" mo="body6">
+          <Badge variant="filled" visual="square" bg="citrus.100" web="b6" mo="b9">
             Road
           </Badge>
         ),
-        code: '<Badge variant="filled" visual="square" bg="citrus.100" web="body4" mo="body6">Road</Badge>',
+        code: '<Badge variant="filled" visual="square" bg="citrus.100" web="b6" mo="b9">Road</Badge>',
       },
       {
         label: 'Trail',
@@ -273,30 +273,23 @@ const examples = [
             variant="filled"
             visual="square"
             bg="mossGreen.100"
-            web="body4"
-            mo="body6"
+            web="b6"
+            mo="b9"
             tone="inverse"
           >
             Trail
           </Badge>
         ),
-        code: '<Badge variant="filled" visual="square" bg="mossGreen.100" web="body4" mo="body6" tone="inverse">Trail</Badge>',
+        code: '<Badge variant="filled" visual="square" bg="mossGreen.100" web="b6" mo="b9" tone="inverse">Trail</Badge>',
       },
       {
         label: '세션 글자 · Bold',
         preview: (
-          <Badge
-            variant="filled"
-            visual="square"
-            bg="citrus.100"
-            web="body4"
-            mo="body6"
-            weight="bold"
-          >
+          <Badge variant="filled" visual="square" bg="citrus.100" web="b6" mo="b9" weight="bold">
             Road
           </Badge>
         ),
-        code: '<Badge variant="filled" visual="square" bg="citrus.100" web="body4" mo="body6" weight="bold">Road</Badge>',
+        code: '<Badge variant="filled" visual="square" bg="citrus.100" web="b6" mo="b9" weight="bold">Road</Badge>',
       },
     ],
   },
@@ -328,7 +321,7 @@ export function BadgeGuide() {
       pt="6"
     >
       <Stack minW="0" gap="6">
-        <Typography as="h2" variant="heading8">
+        <Typography as="h2" web="h10B" mo="h8">
           Badge · 배지
         </Typography>
         {examples.map((example) => (
@@ -341,10 +334,10 @@ export function BadgeGuide() {
             border="1px solid token(colors.black.20)"
             scrollMarginTop="calc(var(--layout-site-header-height) + 16px)"
           >
-            <Typography as="h3" variant="heading8">
+            <Typography as="h3" web="h10B" mo="h8">
               {example.title}
             </Typography>
-            <Typography variant="body5" tone="subtle">
+            <Typography variant="b8" tone="subtle">
               {example.description}
             </Typography>
             <Grid columns={{ base: 2, _mobile: 1 }} gap="3">
@@ -356,12 +349,12 @@ export function BadgeGuide() {
                   p="3"
                   border="1px solid token(colors.black.20)"
                 >
-                  <Typography variant="body4Semibold">{sample.label}</Typography>
+                  <Typography variant="b6S">{sample.label}</Typography>
                   <HStack minH="48px" justifyContent="center">
                     {example.mobilePreviewSize
                       ? (['web', 'mobile'] as const).map((platform) => (
                           <Stack key={platform} gap="2" alignItems="center" flex="1">
-                            <Typography variant="body5" tone="subtle">
+                            <Typography variant="b8" tone="subtle">
                               {platform === 'web'
                                 ? '웹 · 14px'
                                 : `모바일 · ${example.mobilePreviewSize}px`}
@@ -373,7 +366,7 @@ export function BadgeGuide() {
                         ))
                       : sample.preview}
                   </HStack>
-                  <Typography variant="body4Semibold">사용 코드</Typography>
+                  <Typography variant="b6S">사용 코드</Typography>
                   <HStack alignItems="flex-start" gap="3" p="4" bg="surface.subtle" minW="0">
                     <Box as="pre" m="0" flex="1" minW="0" overflowX="auto">
                       <code>{renderGuideCode(sample.code)}</code>

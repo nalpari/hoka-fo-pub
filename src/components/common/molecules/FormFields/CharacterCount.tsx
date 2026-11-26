@@ -12,7 +12,7 @@ export function CharacterCount({ length, limit, spaced = false, tone, className 
   const separator = spaced ? ' / ' : '/';
 
   return (
-    <Typography variant="body5" tone={tone} className={className}>
+    <Typography variant="b8" tone={tone} className={className}>
       {length}
       {separator}
       {spaced ? limit.toLocaleString() : limit}

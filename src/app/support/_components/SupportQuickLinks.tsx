@@ -40,13 +40,13 @@ export function SupportQuickLinks() {
             gap: '2',
             titleAs: 'h2',
             titleProps: {
-              web: 'heading9',
-              mo: 'heading6',
+              web: 'h10',
+              mo: 'h8',
               language: 'ko',
               className: css({ _mobile: { fontWeight: 'bold' } }),
             },
             description: item.text,
-            descriptionProps: { variant: 'body4', tone: 'subtle' },
+            descriptionProps: { variant: 'b6M', tone: 'subtle' },
           }}
           footer={
             <ButtonLink href={item.href} variant="secondary" size="short">

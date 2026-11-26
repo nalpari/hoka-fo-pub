@@ -37,8 +37,8 @@ const formCode = css({
   overflowWrap: 'anywhere',
   border: '1px solid token(colors.black.20)',
   bg: 'surface.subtle',
-  fontSize: '12px',
-  lineHeight: '1.5',
+  fontSize: 'body.12',
+  lineHeight: 'body',
 });
 
 const exampleCard = css({
@@ -87,23 +87,23 @@ const imageMenuOptions: readonly DropdownOption[] = [
 
 const codeExamples = {
   inputDefault:
-    '<TextFormField variant="boxed" id="field" label="필드명" required inputProps={{ placeholder: "텍스트를 입력해주세요" }} />',
+    '<TextFormField variant="boxed" id="field" label="필드명" required inputProps={{}} />',
   inputFocus:
-    '<TextFormField variant="boxed" id="field" label="필드명" required inputProps={{ placeholder: "텍스트를 입력해주세요" }} />',
+    '<TextFormField variant="boxed" id="field" label="필드명" required inputProps={{}} />',
   inputTyping:
     '<TextFormField variant="boxed" id="field" label="필드명" required inputProps={{ value, onChange: (event) => setValue(event.target.value) }} />',
   inputError:
-    '<TextFormField variant="boxed" id="field" label="필드명" required error="이 메시지는 레이블과 관련된 오류 정보를 보여줍니다." inputProps={{ placeholder: "텍스트를 입력해주세요" }} />',
+    '<TextFormField variant="boxed" id="field" label="필드명" required error="이 메시지는 레이블과 관련된 오류 정보를 보여줍니다." inputProps={{}} />',
   password:
-    '<TextFormField variant="boxed" id="password" label="비밀번호" required inputProps={{ type: "password", placeholder: "비밀번호를 입력해 주세요" }} />',
+    '<TextFormField variant="boxed" id="password" label="비밀번호" required inputProps={{ type: "password" }} />',
   phone:
-    '<TextFormField variant="boxed" id="phone" label="휴대폰 번호" required info="휴대폰 번호 안내" hint="HOKA의 개인정보 보호정책에 대한 자세한 내용을 확인하세요." inputProps={{ placeholder: "Example: 3333333333" }} />',
+    '<TextFormField variant="boxed" id="phone" label="휴대폰 번호" required info="휴대폰 번호 안내" hint="HOKA의 개인정보 보호정책에 대한 자세한 내용을 확인하세요." inputProps={{}} />',
   number:
-    '<TextFormField variant="boxed" id="number" label="Number" required inputProps={{ type: "number", placeholder: "숫자를 입력해 주세요" }} />',
+    '<TextFormField variant="boxed" id="number" label="Number" required inputProps={{ type: "number" }} />',
   multiline:
-    '<TextFormField variant="boxed" id="message" label="문의 내용" required inputProps={{ multiline: true, placeholder: "내용을 입력해 주세요" }} />',
+    '<TextFormField variant="boxed" id="message" label="문의 내용" required inputProps={{ multiline: true }} />',
   selection:
-    '<Dropdown ariaLabel="메뉴 선택" label="타이틀명" required placeholder="메뉴를 선택해 주세요" options={options} value={value} onValueChange={setValue} />',
+    '<Dropdown ariaLabel="메뉴 선택" label="타이틀명" required options={options} value={value} onValueChange={setValue} />',
   selectionError:
     '<Dropdown ariaLabel="메뉴 선택" label="타이틀명" required error="메뉴를 선택해 주세요." options={options} value={value} onValueChange={setValue} />',
   selectionDisabled:
@@ -115,7 +115,7 @@ const codeExamples = {
   radioDisabled:
     '<Radio ariaLabel="수신 여부" disabled options={options} value={value} onValueChange={setValue} />',
   dropdownList:
-    '<Dropdown ariaLabel="메뉴 선택" label="타이틀명" placeholder="메뉴를 선택해 주세요" options={options} value={value} onValueChange={setValue} />',
+    '<Dropdown ariaLabel="메뉴 선택" label="타이틀명" options={options} value={value} onValueChange={setValue} />',
   dropdownIconList:
     '<Dropdown ariaLabel="사용자 선택" label="타이틀명" options={options.map((option) => ({ ...option, prefix: <Icon name="hoka-user-regular" size={16} /> }))} />',
   dropdownImageList:
@@ -135,10 +135,8 @@ function FormExample({ title, description, code, onCopy, children, className }: 
   return (
     <Stack className={[exampleCard, className].filter(Boolean).join(' ')} gap="3">
       <HStack alignItems="baseline" justifyContent="space-between" gap="2" flexWrap="wrap">
-<Typography variant="body4Semibold">
-          {title}
-        </Typography>
-        <Typography variant="body5" tone="subtle">
+        <Typography variant="b6S">{title}</Typography>
+        <Typography variant="b8" tone="subtle">
           {description}
         </Typography>
       </HStack>
@@ -230,10 +228,10 @@ export function FormGuide() {
     >
       <Stack minW="0" gap={{ base: '6', _mobile: '4' }}>
         <HStack alignItems="baseline" gap="3" flexWrap="wrap">
-          <Typography as="h2" variant="heading8">
+          <Typography as="h2" web="h10B" mo="h8">
             Form
           </Typography>
-          <Typography as="p" variant="body5" tone="subtle">
+          <Typography as="p" variant="b8" tone="subtle">
             Figma 기준의 폼 상태와 타입별 예시를 확인하고 사용 코드를 복사합니다.
           </Typography>
         </HStack>
@@ -245,7 +243,7 @@ export function FormGuide() {
           aria-labelledby="form-input-fields-title"
         >
           <SectionTitle id="form-input-fields-title" title="Input Fields" />
-          <Typography variant="body5" tone="subtle">
+          <Typography variant="b8" tone="subtle">
             기본 입력은 Default, Focus, Typing, Error 상태를, 입력 타입은
             기본·비밀번호·전화번호·숫자·여러 줄을 보여줍니다.
           </Typography>
@@ -261,7 +259,7 @@ export function FormGuide() {
                 id="guide-state-default"
                 label="필드명"
                 required
-                inputProps={{ placeholder: '텍스트를 입력해주세요' }}
+                inputProps={{}}
               />
             </FormExample>
             <FormExample
@@ -276,7 +274,7 @@ export function FormGuide() {
                 id="guide-state-focus"
                 label="필드명"
                 required
-                inputProps={{ placeholder: '텍스트를 입력해주세요' }}
+                inputProps={{}}
               />
             </FormExample>
             <FormExample
@@ -308,7 +306,7 @@ export function FormGuide() {
                 label="필드명"
                 required
                 error="이 메시지는 레이블과 관련된 오류 정보를 보여줍니다."
-                inputProps={{ placeholder: '텍스트를 입력해주세요' }}
+                inputProps={{}}
               />
             </FormExample>
           </Grid>
@@ -325,7 +323,7 @@ export function FormGuide() {
                 id="guide-type-default"
                 label="필드명"
                 required
-                inputProps={{ placeholder: '텍스트를 입력해주세요' }}
+                inputProps={{}}
               />
             </FormExample>
             <FormExample
@@ -341,7 +339,6 @@ export function FormGuide() {
                 required
                 inputProps={{
                   type: 'password',
-                  placeholder: '비밀번호를 입력해 주세요',
                   value: passwordValue,
                   onChange: (event) => setPasswordValue(event.target.value),
                 }}
@@ -361,7 +358,6 @@ export function FormGuide() {
                 info="휴대폰 번호 안내"
                 hint="HOKA의 개인정보 보호정책에 대한 자세한 내용을 확인하세요."
                 inputProps={{
-                  placeholder: 'Example: 3333333333',
                   value: phoneValue,
                   onChange: (event) => setPhoneValue(event.target.value),
                 }}
@@ -380,7 +376,6 @@ export function FormGuide() {
                 required
                 inputProps={{
                   type: 'number',
-                  placeholder: '숫자를 입력해 주세요',
                   value: numberValue,
                   onChange: (event) => setNumberValue(event.target.value),
                 }}
@@ -399,7 +394,6 @@ export function FormGuide() {
                 required
                 inputProps={{
                   multiline: true,
-                  placeholder: '내용을 입력해 주세요',
                   value: messageValue,
                   onChange: (event) => setMessageValue(event.target.value),
                 }}
@@ -434,7 +428,7 @@ export function FormGuide() {
               onValueChange={setSortValue}
             />
           </FormExample>
-          <Typography variant="body5" tone="subtle">
+          <Typography variant="b8" tone="subtle">
             기본·선택·오류·비활성화 상태를 비교하고, 선택 필드를 눌러 메뉴를 확인합니다.
           </Typography>
           <Grid columns={{ base: 4, _mobile: 2 }} gap="3">
@@ -448,7 +442,6 @@ export function FormGuide() {
                 ariaLabel="기본 메뉴 선택"
                 label="타이틀명"
                 required
-                placeholder="메뉴를 선택해 주세요"
                 options={menuOptions}
                 value={selectedValue}
                 onValueChange={setSelectedValue}
@@ -479,7 +472,6 @@ export function FormGuide() {
                 ariaLabel="오류 메뉴 선택"
                 label="타이틀명"
                 required
-                placeholder="메뉴를 선택해 주세요"
                 error="메뉴를 선택해 주세요."
                 options={menuOptions}
                 value={errorValue}
@@ -506,7 +498,7 @@ export function FormGuide() {
 
         <Stack as="section" id="form-checkbox" gap="3" aria-labelledby="form-checkbox-title">
           <SectionTitle id="form-checkbox-title" title="Checkbox" />
-          <Typography variant="body5" tone="subtle">
+          <Typography variant="b8" tone="subtle">
             기본·선택·비활성화·비활성화 선택 상태입니다.
           </Typography>
           <Grid columns={{ base: 4, _mobile: 2 }} gap="3">
@@ -536,7 +528,7 @@ export function FormGuide() {
 
         <Stack as="section" id="form-radio" gap="3" aria-labelledby="form-radio-title">
           <SectionTitle id="form-radio-title" title="Radio" />
-          <Typography variant="body5" tone="subtle">
+          <Typography variant="b8" tone="subtle">
             기본·선택·비활성화·비활성화 선택 상태입니다.
           </Typography>
           <Grid columns={{ base: 4, _mobile: 2 }} gap="3">
@@ -575,7 +567,7 @@ export function FormGuide() {
           aria-labelledby="form-dropdown-menu-title"
         >
           <SectionTitle id="form-dropdown-menu-title" title="Dropdown Menu" />
-          <Typography variant="body5" tone="subtle">
+          <Typography variant="b8" tone="subtle">
             PC는 팝업 목록, 모바일은 ModalDialog 바텀시트형의 Radio 목록으로 선택합니다. 아이콘과
             이미지도 함께 표시합니다.
           </Typography>
@@ -589,7 +581,6 @@ export function FormGuide() {
               <Dropdown
                 ariaLabel="일반 메뉴"
                 label="타이틀명"
-                placeholder="메뉴를 선택해 주세요"
                 options={menuOptions}
                 value={selectedMenuValue}
                 onValueChange={setSelectedMenuValue}
@@ -604,7 +595,6 @@ export function FormGuide() {
               <Dropdown
                 ariaLabel="사용자 메뉴"
                 label="타이틀명"
-                placeholder="사용자를 선택해 주세요"
                 options={iconMenuOptions}
                 value={iconMenuValue}
                 onValueChange={setIconMenuValue}
@@ -619,7 +609,6 @@ export function FormGuide() {
               <Dropdown
                 ariaLabel="국가 메뉴"
                 label="타이틀명"
-                placeholder="국가를 선택해 주세요"
                 options={imageMenuOptions}
                 value={imageMenuValue}
                 onValueChange={setImageMenuValue}
@@ -636,7 +625,7 @@ export function FormGuide() {
 
 function SectionTitle({ id, title }: { id: string; title: string }) {
   return (
-    <Typography as="h3" id={id} variant="heading8">
+    <Typography as="h3" id={id} web="h10B" mo="h8">
       {title}
     </Typography>
   );

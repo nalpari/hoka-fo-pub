@@ -5,7 +5,10 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { usePlatform } from '@/context/platform';
 
+import { css, cx } from 'styled-system/css';
+
 import { Radio } from '@/components/common/atoms/Radio';
+import { Typography } from '@/components/common/atoms/Typography';
 
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 import { modalProductOptionRecipe } from '@/components/common/layouts/ModalDialog.recipe';
@@ -76,7 +79,15 @@ function CartOptionsDialog({
       }}
     >
       <div className={optionStyles.root} data-product-type={optionType}>
-        <h3 className={optionStyles.productName}>{product.name}</h3>
+        <Typography
+          as="h3"
+          web="b4M"
+          mo="b6M"
+
+          className={cx(optionStyles.productName, css({ letterSpacing: 'korean' }))}
+        >
+          {product.name}
+        </Typography>
         <div className={optionStyles.options}>
           {optionType === 'shoes' && (
             <Radio
@@ -93,7 +104,7 @@ function CartOptionsDialog({
           )}
           <section className={optionStyles.section} aria-label="컬러 선택">
             <h4 className={optionStyles.label}>
-              컬러: <span className={optionStyles.colorName}>{draft.color}</span>
+              <span className={optionStyles.colorName}>{draft.color.replace(/^\(\d+\)/, '')}</span>
             </h4>
             <Radio
               variant="custom"

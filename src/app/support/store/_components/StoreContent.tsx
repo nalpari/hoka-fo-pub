@@ -29,9 +29,9 @@ const styles = {
   contactDetails: css.raw({ gap: { base: '1.5', _mobile: '1' } }),
   contactRow: css.raw({ gap: '2' }),
   storeName: css({ '&': { color: '#000000' } }),
-  body: css({ '&': { lineHeight: '1.5', color: '#4D4D4D' } }),
+  body: css({ '&': { lineHeight: 'body', color: '#4D4D4D' } }),
   phoneLink: css({
-    '&': { lineHeight: '1.5', color: '#4D4D4D' },
+    '&': { lineHeight: 'body', color: '#4D4D4D' },
     _mobile: { textDecoration: 'underline', textUnderlineOffset: '2px' },
   }),
 };
@@ -50,43 +50,31 @@ export function StoreResults({ stores }: { stores: readonly StoreResult[] }) {
           title={store.name}
           headerProps={{
             titleAs: 'h3',
-            titleProps: { web: 'headingKr8', mo: 'headingKr6', className: styles.storeName },
+            titleProps: { web: 'h10B', mo: 'h8', className: styles.storeName },
           }}
         >
           <Stack css={styles.storeDetails}>
-            <Typography
-              language="ko"
-              web="body3"
-              mo="body4"
-              className={styles.body}
-              tone="tertiary"
-            >
+            <Typography language="ko" web="b4" mo="b6" className={styles.body} tone="tertiary">
               {store.address}
             </Typography>
             <Stack css={styles.contactDetails}>
               <HStack css={styles.contactRow}>
-                <Typography
-                  language="ko"
-                  web="body3"
-                  mo="body4"
-                  className={styles.body}
-                  tone="tertiary"
-                >
+                <Typography language="ko" web="b4" mo="b6" className={styles.body} tone="tertiary">
                   전화번호
                 </Typography>
                 {mobile ? (
                   <Typography
                     as="a"
                     language="ko"
-                    web="body3"
-                    mo="body4"
+                    web="b4"
+                    mo="b6"
                     href={store.phoneHref}
                     className={styles.phoneLink}
                   >
                     {store.phone}
                   </Typography>
                 ) : (
-                  <Typography language="ko" web="body3" mo="body4" className={styles.body}>
+                  <Typography language="ko" web="b4" mo="b6" className={styles.body}>
                     {store.phone}
                   </Typography>
                 )}
@@ -95,14 +83,14 @@ export function StoreResults({ stores }: { stores: readonly StoreResult[] }) {
                 <HStack css={styles.contactRow}>
                   <Typography
                     language="ko"
-                    web="body3"
-                    mo="body4"
+                    web="b4"
+                    mo="b6"
                     className={styles.body}
                     tone="tertiary"
                   >
                     운영시간
                   </Typography>
-                  <Typography language="ko" web="body3" mo="body4" className={styles.body}>
+                  <Typography language="ko" web="b4" mo="b6" className={styles.body}>
                     {store.hours}
                   </Typography>
                 </HStack>

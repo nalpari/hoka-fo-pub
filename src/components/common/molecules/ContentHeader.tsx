@@ -14,12 +14,12 @@ const contentHeaderRecipe = sva({
         title: {
           _mobile: {
             '&&': {
-              fontFamily: 'korean',
+              fontFamily: 'ko',
               fontStyle: 'normal',
-              fontSize: '20px',
+              fontSize: 'heading.20',
               fontWeight: '900',
-              lineHeight: '1.2',
-              letterSpacing: '-0.02em',
+              lineHeight: 'koreanHeading',
+              letterSpacing: 'korean',
               color: 'black.100',
             },
           },
@@ -27,12 +27,12 @@ const contentHeaderRecipe = sva({
         count: {
           _mobile: {
             '&&': {
-              fontFamily: 'hoka',
+              fontFamily: 'en',
               fontStyle: 'normal',
-              fontSize: '20px',
+              fontSize: 'body.20',
               fontWeight: '500',
-              lineHeight: '1.2',
-              letterSpacing: '0px',
+              lineHeight: 'body',
+              letterSpacing: '0',
               color: 'black.100',
             },
           },

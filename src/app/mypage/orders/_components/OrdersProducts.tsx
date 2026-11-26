@@ -37,18 +37,16 @@ export function OrderCardHeader({
       borderBottom="1px solid var(--colors-black-100)"
     >
       {compact ? (
-        <Typography variant="body5" tone="subtle">
-          <Typography as="span" variant="body5" tone="primary" weight="semibold">
+        <Typography variant="b8" tone="subtle">
+          <Typography as="span" variant="b8S" tone="primary">
             {order.date.replaceAll('-', '.')}
           </Typography>{' '}
           주문 · 주문번호 {order.id}
         </Typography>
       ) : (
         <Stack gap="4px">
-          <Typography variant="body2" weight="semibold">
-            {order.date.replaceAll('-', '.')}
-          </Typography>
-          <Typography variant="body5" tone="subtle">
+          <Typography variant="b2S">{order.date.replaceAll('-', '.')}</Typography>
+          <Typography variant="b8" tone="subtle">
             주문번호 {order.id}
           </Typography>
         </Stack>
@@ -82,7 +80,7 @@ export function OrderClaimGroup({
       headerProps={{
         orientation: 'horizontal',
         titleAs: 'h3',
-        titleProps: { variant: 'body5', tone: 'subtle' },
+        titleProps: { variant: 'b8', tone: 'subtle' },
         action: (
           <Button variant="link" size="sm" onClick={onDetail}>
             {claim.kind === 'cancel' ? '취소상세보기' : '반품상세보기'}
@@ -162,10 +160,8 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
             alignItems={{ base: 'baseline', _mobile: 'flex-start' }}
             _mobile={{ flexDirection: 'column' }}
           >
-            <Typography variant="body2" weight="semibold">
-              {order.date.replaceAll('-', '.')}
-            </Typography>
-            <Typography variant="body4" tone="tertiary">
+            <Typography variant="b2S">{order.date.replaceAll('-', '.')}</Typography>
+            <Typography variant="b6" tone="tertiary">
               주문번호 {order.id}
             </Typography>
           </HStack>
@@ -189,18 +185,20 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
           >
             {platform !== 'mobile' && index === 0 ? (
               <HStack gap="12px" px="24px" alignItems="baseline">
-                <Typography variant="heading9">{order.date.replaceAll('-', '.')}</Typography>
-                <Typography variant="body3" tone="tertiary">
+                <Typography web="h10" mo="h8">
+                  {order.date.replaceAll('-', '.')}
+                </Typography>
+                <Typography variant="b4" tone="tertiary">
                   주문번호 {order.id}
                 </Typography>
               </HStack>
             ) : null}
             <HStack justifyContent="space-between" px={{ base: '24px', _mobile: '0' }}>
               <HStack gap="2px" flexWrap="wrap">
-                <Typography web="body3" mo="body4" weight="medium" tone="red80">
+                <Typography web="b4M" mo="b6M" tone="red80">
                   {orderStatusLabels[group.status]}
                 </Typography>
-                <Typography web="body3" mo="body4" weight="medium">
+                <Typography web="b4M" mo="b6M">
                   · {group.expectedDate} {group.status === 'purchased' ? '도착' : '도착 예정'}
                 </Typography>
               </HStack>
@@ -246,13 +244,10 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
                       cartAction
                     />
                   </Box>
-                  <Typography variant="body3Medium" className={css({ textAlign: 'center' })}>
+                  <Typography variant="b4M" className={css({ textAlign: 'center' })}>
                     {line.quantity}개
                   </Typography>
-                  <Typography
-                    variant="body3Medium"
-                    className={css({ textAlign: 'right', px: '24px' })}
-                  >
+                  <Typography variant="b4M" className={css({ textAlign: 'right', px: '24px' })}>
                     {line.displayAmount === undefined ? '-' : line.displayAmount.toLocaleString()}
                     {line.displayAmount === undefined ? null : '원'}
                   </Typography>
@@ -275,7 +270,7 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
                 fullWidth={platform === 'mobile'}
                 onClick={() => actions.onTracking(order)}
               >
-                <Typography web="cta2" mo="cta1-1" weight="bold">
+                <Typography web="b6B" mo="b5B">
                   배송 조회
                 </Typography>
               </Button>
@@ -289,7 +284,7 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
                 type="button"
                 onClick={() => actions.onCancel?.(order)}
               >
-                <Typography web="cta2" mo="cta1-1" weight="bold">
+                <Typography web="b6B" mo="b5B">
                   주문 취소
                 </Typography>
               </Button>
@@ -304,7 +299,7 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
                   type="button"
                   onClick={() => actions.onReturn?.(order)}
                 >
-                  <Typography web="cta2" mo="cta1-1" weight="bold">
+                  <Typography web="b6B" mo="b5B">
                     환불 신청
                   </Typography>
                 </Button>
@@ -315,7 +310,7 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
                   fullWidth={platform === 'mobile'}
                   type="button"
                 >
-                  <Typography web="cta2" mo="cta1-1" weight="bold">
+                  <Typography web="b6B" mo="b5B">
                     구매 확정
                   </Typography>
                 </Button>
@@ -329,7 +324,7 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
                 className={styles.orderAction}
                 fullWidth={platform === 'mobile'}
               >
-                <Typography web="cta2" mo="cta1-1" weight="bold">
+                <Typography web="b6B" mo="b5B">
                   리뷰 작성하기
                 </Typography>
               </ButtonLink>
@@ -353,7 +348,7 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
             py={{ base: '16px', _mobile: '0' }}
             borderBottom={{ base: '1px solid var(--color-border-subtle)', _mobile: '0' }}
           >
-            <Typography variant="body4Medium" tone="red80">
+            <Typography variant="b6M" tone="red80">
               {claim.kind === 'cancel' ? '구매취소' : '반품요청'}
             </Typography>
             <Button variant="link" size="sm" onClick={() => actions.onClaimDetail(order, claim)}>
@@ -392,13 +387,10 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
                     cartAction
                   />
                 </Box>
-                <Typography variant="body3Medium" className={css({ textAlign: 'center' })}>
+                <Typography variant="b4M" className={css({ textAlign: 'center' })}>
                   {line.quantity}개
                 </Typography>
-                <Typography
-                  variant="body3Medium"
-                  className={css({ textAlign: 'right', px: '24px' })}
-                >
+                <Typography variant="b4M" className={css({ textAlign: 'right', px: '24px' })}>
                   {line.displayAmount?.toLocaleString()}원
                 </Typography>
               </Grid>

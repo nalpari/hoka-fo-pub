@@ -53,15 +53,16 @@ export function Breadcrumb({ items }: { items: BreadcrumbItem[] }) {
             )}
             {item.href && index < items.length - 1 ? (
               <Link className={style.link} href={item.href}>
-                <Typography variant="body4" mo="body5" className={style.label}>
+                <Typography web="b6M" mo="b8M" className={style.label}>
                   {item.label}
                 </Typography>
               </Link>
             ) : (
               <Typography
-                variant="body4"
-                mo="body5"
+                web="b6M"
+                mo="b8M"
                 tone="tertiary"
+
                 aria-current={index === items.length - 1 ? 'page' : undefined}
                 className={style.label}
               >

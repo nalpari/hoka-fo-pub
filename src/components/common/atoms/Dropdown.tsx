@@ -92,19 +92,59 @@ const styles = {
       bg: 'var(--color-black-10)',
     },
   }),
+  detailedTrigger: css({
+    '&&': { px: '12px', py: '16px', boxShadow: 'inset 0 0 0 1px #E9EAEB' },
+    '&&[data-popup-open], &&:focus-visible': {
+      boxShadow: 'inset 0 0 0 1px #B3B3B3',
+    },
+  }),
+  detailedIndicator: css({
+    display: 'flex',
+    flexShrink: 0,
+    '[data-popup-open] &': { transform: 'rotate(180deg)' },
+  }),
+  detailedItem: css({
+    display: 'block',
+    textAlign: 'left',
+    w: '100%',
+    px: '12px',
+    py: '16px',
+    cursor: 'pointer',
+    '&[data-highlighted], &:hover': { bg: 'black.10' },
+    '&[data-disabled]': { color: 'black.40', bg: 'transparent', cursor: 'not-allowed' },
+    _focusVisible: { outline: '2px solid currentColor', outlineOffset: '-2px' },
+  }),
+  detailedSheetPreview: css({
+    display: 'flex',
+    alignItems: 'center',
+    gap: '8px',
+    w: '100%',
+    px: '12px',
+    py: '16px',
+    borderBottom: '1px solid #E9EAEB',
+  }),
+  detailedSheetList: css({ border: '1px solid #B3B3B3', gap: '0' }),
+  detail: css({ flexShrink: 0, whiteSpace: 'nowrap' }),
   indicator: css({ display: 'block', flexShrink: 0 }),
 };
 
-export type DropdownOption = { value: string; label: ReactNode; prefix?: ReactNode };
+export type DropdownOption = {
+  value: string;
+  label: ReactNode;
+  prefix?: ReactNode;
+  detail?: ReactNode;
+  disabled?: boolean;
+};
 
 export type DropdownProps = {
-  variant?: 'default' | 'sort';
+  /** 기본 입력형이며 detailed는 보조값과 줄바꿈을 지원합니다. */
+  variant?: 'default' | 'sort' | 'detailed';
+  mobileSheetHeading?: { title: string; intro?: ReactNode };
   popupAlign?: 'start' | 'end';
   layer?: 'default' | 'modal';
   ariaLabel: string;
   label?: ReactNode;
   required?: boolean;
-  placeholder?: string;
   hint?: ReactNode;
   error?: ReactNode;
   invalid?: boolean;
@@ -137,7 +177,6 @@ export function Dropdown({
   ariaLabel,
   label,
   required: requiredProp,
-  placeholder,
   hint,
   error,
   invalid = false,
@@ -145,6 +184,7 @@ export function Dropdown({
   name,
   options,
   mobileNextSelection,
+  mobileSheetHeading,
   defaultValue,
   className,
   indicator,
@@ -170,23 +210,45 @@ export function Dropdown({
   const required = requiredProp ?? field?.required;
   const hasError = invalid || Boolean(error) || Boolean(field?.invalid);
   const id = useId();
-  const fallbackValue = defaultValue ?? (placeholder ? '' : (options[0]?.value ?? ''));
+  const fallbackValue = defaultValue ?? options[0]?.value ?? '';
   const [uncontrolledValue, setUncontrolledValue] = useState(fallbackValue);
   const value = controlledValue ?? uncontrolledValue;
   const selectedOption = options.find((option) => option.value === value);
 
-  const selectedLabel = selectedOption?.label ?? placeholder;
+  const selectedLabel = selectedOption?.label;
   const isSort = variant === 'sort';
+  const isDetailed = variant === 'detailed';
   const nextSelection = showNextSelection ? mobileNextSelection : undefined;
-  const sheetLabel = nextSelection?.ariaLabel ?? (isSort ? '정렬' : ariaLabel);
+  const sheetLabel =
+    nextSelection?.ariaLabel ?? mobileSheetHeading?.title ?? (isSort ? '정렬' : ariaLabel);
+
+  function renderDetailedOption(option: DropdownOption, selected = false) {
+    return (
+      <Flex
+        as="span"
+        alignItems="center"
+        justifyContent="space-between"
+        gap="8px"
+        w="100%"
+        minW="0"
+      >
+        <Typography variant={selected ? 'b7M' : 'b7'}>{option.label}</Typography>
+        {option.detail !== undefined ? (
+          <Typography variant="b7M" className={styles.detail}>
+            {option.detail}
+          </Typography>
+        ) : null}
+      </Flex>
+    );
+  }
 
   useEffect(() => {
-    if (!sheetOpen || !showNextSelection) return;
+    if (!sheetOpen || (!showNextSelection && !isDetailed)) return;
     const group = sheetOptionsRef.current;
     const selected = group?.querySelector<HTMLElement>('[role="radio"][aria-checked="true"]');
     const first = group?.querySelector<HTMLElement>('[role="radio"]');
     (selected ?? first)?.focus();
-  }, [sheetOpen, showNextSelection]);
+  }, [isDetailed, sheetOpen, showNextSelection]);
 
   const mobileSheet = sheetOpen ? (
     <ModalDialog
@@ -200,8 +262,26 @@ export function Dropdown({
         if (!open) setSheetOpen(false);
       }}
     >
+      {isDetailed ? (
+        <Stack gap="8px">
+          {mobileSheetHeading?.intro}
+          {selectedOption ? (
+            <button
+              type="button"
+              className={styles.detailedSheetPreview}
+              aria-label={sheetLabel + ' 목록 접기'}
+              onClick={() => setSheetOpen(false)}
+            >
+              {renderDetailedOption(selectedOption, true)}
+              <Icon name="hoka-nav-chevron-up-regular" size="16px" />
+            </button>
+          ) : null}
+        </Stack>
+      ) : null}
       <div ref={sheetOptionsRef}>
         <Radio
+          variant={isDetailed ? 'custom' : 'default'}
+          optionClassName={isDetailed ? styles.detailedItem : undefined}
           key={sheetLabel}
           ariaLabel={nextSelection?.ariaLabel ?? ariaLabel}
           value={draftValue}
@@ -223,7 +303,10 @@ export function Dropdown({
           }}
           options={(nextSelection?.options ?? options).map((option) => ({
             value: option.value,
-            label: option.prefix ? (
+            disabled: option.disabled,
+            label: isDetailed ? (
+              renderDetailedOption(option)
+            ) : option.prefix ? (
               <span className={css({ display: 'inline-flex', alignItems: 'center', gap: '8px' })}>
                 {option.prefix}
                 {option.label}
@@ -232,7 +315,7 @@ export function Dropdown({
               option.label
             ),
           }))}
-          className={css({ gap: '16px' })}
+          className={isDetailed ? styles.detailedSheetList : css({ gap: '16px' })}
         />
       </div>
     </ModalDialog>
@@ -276,8 +359,8 @@ export function Dropdown({
             .join(' ')}
         >
           {selectedOption?.prefix}
-          <Typography variant="body4" className={css({ '&&': { lineHeight: '1.3' } })}>
-            {placeholder ?? selectedLabel}
+          <Typography variant="b6" className={css({ '&&': { lineHeight: 'body' } })}>
+            {selectedLabel ?? '정렬'}
           </Typography>
           {indicator ?? (
             <Icon
@@ -341,6 +424,7 @@ export function Dropdown({
           }
           className={[
             styles.trigger({ disabled }),
+            isDetailed ? styles.detailedTrigger : undefined,
             isSort
               ? css({
                   '&&': {
@@ -385,7 +469,7 @@ export function Dropdown({
         >
           {label ? (
             <span className={css({ display: 'flex', alignItems: 'center', h: '16px', gap: '4px' })}>
-              <Typography variant="body5">
+              <Typography variant="b8">
                 {required ? '* ' : ''}
                 {label}
               </Typography>
@@ -403,17 +487,21 @@ export function Dropdown({
           <Flex alignItems="center" justifyContent="space-between" gap="2" w="100%">
             <Flex alignItems="center" gap="2" minW="0" flex="1">
               {selectedOption?.prefix}
-              <Typography
-                variant="body3"
-                className={[
-                  styles.label({ disabled }),
-                  isSort ? css({ '&&': { lineHeight: '1.3' } }) : '',
-                ]
-                  .filter(Boolean)
-                  .join(' ')}
-              >
-                {isSort && placeholder ? placeholder : selectedLabel}
-              </Typography>
+              {isDetailed && selectedOption ? (
+                renderDetailedOption(selectedOption, true)
+              ) : (
+                <Typography
+                  variant="b4"
+                  className={[
+                    styles.label({ disabled }),
+                    isSort ? css({ '&&': { lineHeight: 'body' } }) : '',
+                  ]
+                    .filter(Boolean)
+                    .join(' ')}
+                >
+                  {selectedLabel ?? (isSort ? '정렬' : null)}
+                </Typography>
+              )}
             </Flex>
             <BaseSelect.Icon
               className={
@@ -424,12 +512,14 @@ export function Dropdown({
                       flexShrink: 0,
                       '[data-popup-open] &': { transform: 'rotate(180deg)' },
                     })
-                  : undefined
+                  : isDetailed
+                    ? styles.detailedIndicator
+                    : undefined
               }
             >
               {indicator ?? (
                 <Icon
-                  name={isSort ? 'chevron-down-regular' : 'sort-down-solid'}
+                  name={isSort || isDetailed ? 'chevron-down-regular' : 'sort-down-solid'}
                   color={disabled ? 'var(--color-black-40)' : indicatorColor}
                   className={styles.indicator}
                   style={{
@@ -487,23 +577,32 @@ export function Dropdown({
                                 outlineOffset: '-2px',
                               },
                             })
-                          : styles.item
+                          : isDetailed
+                            ? styles.detailedItem
+                            : styles.item
                       }
                       key={option.value}
                       value={option.value}
+                      disabled={option.disabled}
                     >
-                      <Flex alignItems="center" gap="2">
-                        {isSort ? (
-                          <Icon
-                            name={
-                              option.value === value ? 'hoka-radio-checked' : 'hoka-radio-unchecked'
-                            }
-                            size="16px"
-                          />
-                        ) : null}
-                        {option.prefix}
-                        <Typography variant="body4">{option.label}</Typography>
-                      </Flex>
+                      {isDetailed ? (
+                        renderDetailedOption(option)
+                      ) : (
+                        <Flex alignItems="center" gap="2">
+                          {isSort ? (
+                            <Icon
+                              name={
+                                option.value === value
+                                  ? 'hoka-radio-checked'
+                                  : 'hoka-radio-unchecked'
+                              }
+                              size="16px"
+                            />
+                          ) : null}
+                          {option.prefix}
+                          <Typography variant="b6">{option.label}</Typography>
+                        </Flex>
+                      )}
                     </BaseSelect.Item>
                   ))}
                 </BaseSelect.List>
@@ -516,7 +615,7 @@ export function Dropdown({
       {error ? (
         <Typography
           as="p"
-          variant="body5"
+          variant="b8"
           tone="error"
           id={`${id}-error`}
           role="alert"
@@ -526,7 +625,7 @@ export function Dropdown({
         </Typography>
       ) : null}
       {hint ? (
-        <Typography as="p" variant="body5" id={`${id}-hint`} className={css({ m: '0' })}>
+        <Typography as="p" variant="b8" id={`${id}-hint`} className={css({ m: '0' })}>
           {hint}
         </Typography>
       ) : null}

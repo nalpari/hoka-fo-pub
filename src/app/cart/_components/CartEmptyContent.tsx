@@ -22,7 +22,8 @@ export function CartEmptyContent() {
       <CartEmptyState />
       <CarouselSection
         title="추천 상품"
-        titleVariant="heading6"
+        titleVariant="h4B"
+        mobileTitleVariant="h8"
         platform={platform}
         itemCount={recommendations.length}
         desktopCenteredItemCount={5}
@@ -38,6 +39,7 @@ export function CartEmptyContent() {
       >
         {recommendations.map((item) => (
           <ProductCard
+            textWeights={{ identity: 'medium' }}
             key={item.id}
             href={item.href}
             product={{

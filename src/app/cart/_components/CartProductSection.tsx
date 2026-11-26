@@ -38,15 +38,11 @@ function CartProductItem({
   const price = (mobile = false) => (
     <Stack gap="0" alignItems="flex-end" opacity={soldOut ? '0.3' : '1'}>
       {row.originalAmount ? (
-        <Typography
-          variant="body4"
-          tone="subtle"
-          className={css({ textDecoration: 'line-through' })}
-        >
+        <Typography variant="b6" tone="subtle" className={css({ textDecoration: 'line-through' })}>
           {row.originalAmount.toLocaleString()}원
         </Typography>
       ) : null}
-      <Typography variant="body4Medium">
+      <Typography variant="b6M">
         {(mobile ? (row.mobileAmount ?? amount) : amount).toLocaleString()}원
       </Typography>
     </Stack>
@@ -87,7 +83,7 @@ function CartProductItem({
         />
         {soldOut ? (
           <Box pos="absolute" inset="0" bg="rgba(0,0,0,0.3)" display="grid" placeItems="center">
-            <Typography variant="heading8" className={css({ color: 'white' })}>
+            <Typography web="h10" mo="h8" className={css({ color: 'white' })}>
               Sold Out
             </Typography>
           </Box>
@@ -103,10 +99,13 @@ function CartProductItem({
       </Box>
       <Stack gridColumn="3" gap="8px" alignSelf={{ base: 'center', _mobile: 'start' }}>
         <Stack gap="2px" opacity={soldOut ? '0.3' : '1'}>
-          <Typography variant="body4Medium">{product.gender}</Typography>
-          <Typography variant="body4Medium">{product.name}</Typography>
-          <Typography variant="body4" tone="subtle">
-            {item.width}, {item.color}, {item.size}
+          <Typography variant="b6M">{product.gender}</Typography>
+          <Typography variant="b6M">{product.name}</Typography>
+          <Typography variant="b6" tone="subtle">
+            <Typography as="span" web="b6" mo="b6M">
+              {item.width}
+            </Typography>
+            , {item.color}, {item.size}
             <Box as="span" display={{ base: 'inline', _mobile: 'none' }}>
               , {row.optionQuantity ?? item.quantity}개
             </Box>
@@ -173,20 +172,30 @@ export function CartProductSection({ rows }: { rows: readonly CartPreviewRow[] }
   // [ 개발팀 바인딩 ] rows는 고정 표시 데이터입니다. 체크·수량·옵션 초안만 로컬로 변경하며 합계·삭제·저장·주문은 미연결입니다. 장바구니 소유자가 상품/옵션 ID와 초안을 요청에 연결하고 pending·실패 시 초안 유지·재시도·성공 후 목록과 금액 갱신을 담당합니다.
   return (
     <Stack gap="0">
-      <HStack justifyContent="space-between" pb="16px">
+      <HStack justifyContent="space-between" pb="16px" flexWrap="wrap" rowGap="12px">
         <Checkbox
           aria-label="전체 상품 선택"
           checked={availableKeys.length > 0 && selectedKeys.length === availableKeys.length}
           onCheckedChange={(checked) => setSelectedKeys(checked ? availableKeys : [])}
           label={
-            <Typography variant="body4">
+            <Typography variant="b6">
               전체선택 ({selectedKeys.length}/{rows.length})
             </Typography>
           }
         />
-        <Button variant="link" size="md" disabled={selectedKeys.length === 0}>
-          선택 삭제
-        </Button>
+        <HStack gap="16px" ml="auto" _mobile={{ gap: '12px' }}>
+          <Button
+            variant="link"
+            size="md"
+            type="button"
+            disabled={!rows.some((row) => row.soldOut)}
+          >
+            품절상품 전체삭제
+          </Button>
+          <Button variant="link" size="md" disabled={selectedKeys.length === 0}>
+            선택 삭제
+          </Button>
+        </HStack>
       </HStack>
       <Stack
         as="ul"

@@ -23,7 +23,7 @@ import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 import { type InquiryOrderSelection } from '@/app/support/inquiries/new/inquiryOrders.data';
 
 const attachmentPickerStyles = {
-  popup: css({ '& header h2': { lineHeight: '1.2' } }),
+  popup: css({ '& header h2': { lineHeight: 'koreanHeading' } }),
   choices: css({ display: 'flex', flexDirection: 'column', gap: '24px', pt: '16px' }),
   choice: css({
     display: 'flex',
@@ -36,7 +36,7 @@ const attachmentPickerStyles = {
     '& > span': { justifyContent: 'flex-start', w: '100%', p: '0' },
     '& span': { textDecoration: 'none!' },
   }),
-  label: css({ lineHeight: '1.5!' }),
+  label: css({ lineHeight: 'body!' }),
 };
 
 type InquiryAttachmentListProps = {
@@ -66,7 +66,7 @@ function InquiryAttachmentList({ files, onRemove }: InquiryAttachmentListProps) 
             aria-hidden="true"
           />
           <Box minW="0" flex="1" overflowWrap="anywhere">
-            <Typography variant="body5" tone="tertiary">
+            <Typography variant="b8" tone="tertiary">
               {file.name}
             </Typography>
           </Box>
@@ -85,7 +85,7 @@ function InquiryAttachmentList({ files, onRemove }: InquiryAttachmentListProps) 
 }
 function InquiryAttachmentHelp() {
   return (
-    <Typography as="p" id="inquiry-files-help" variant="body5" tone="tertiary">
+    <Typography as="p" id="inquiry-files-help" variant="b8" tone="tertiary">
       - JPG, JPEG, PNG 파일만 첨부할 수 있습니다.
       <br />- 최대 5개까지 첨부 가능하며, 파일당 용량은 10MB 이하입니다.
     </Typography>
@@ -130,14 +130,14 @@ export function InquiryAttachments({
         orientation: 'horizontal',
         gap: '8px',
         titleProps: {
-          web: 'heading8',
-          mo: 'heading7',
+          web: 'h10B',
+          mo: 'h8',
         },
         action: (
           <Button
             variant="link"
             size="md"
-            className={css({ '& span': { fontWeight: 'normal' } })}
+            className={css({ '& span': { fontWeight: 'medium' } })}
             ref={triggerRef}
             onClick={() =>
               platform === 'mobile' ? setPickerOpen(true) : inputRef.current?.click()
@@ -218,11 +218,7 @@ export function InquiryAttachments({
               >
                 <HStack gap="16px">
                   <Icon name={icon} size="18px" aria-hidden="true" />
-                  <Typography
-                    variant="body3Medium"
-                    language="ko"
-                    className={attachmentPickerStyles.label}
-                  >
+                  <Typography variant="b4M" language="ko" className={attachmentPickerStyles.label}>
                     {label}
                   </Typography>
                 </HStack>
@@ -241,11 +237,17 @@ export function InquiryCustomerInfo() {
       <DescriptionList
         items={[
           { term: '이름', description: '홍길동' },
-          { term: '휴대폰 번호', description: '010-1234-1234' },
-          { term: 'E-mail', description: 'hong123@naver.com' },
+          {
+            term: '휴대폰 번호',
+            description: '010-1234-1234',
+          },
+          {
+            term: 'E-mail',
+            description: 'hong123@naver.com',
+          },
         ]}
-        termProps={{ variant: 'body3', mo: 'body4', tone: 'subtle' }}
-        descriptionProps={{ variant: 'body3', mo: 'body4', tone: undefined }}
+        termProps={{ variant: 'b4', mo: 'b6', tone: 'subtle' }}
+        descriptionProps={{ variant: 'b4M', mo: 'b6M', tone: undefined }}
         slotStyles={{
           root: css.raw({
             gridTemplateColumns: 'max-content minmax(0, 1fr)',
@@ -258,6 +260,7 @@ export function InquiryCustomerInfo() {
   );
 }
 type InquiryCategoryFieldsProps = {
+  productInquiry?: boolean;
   category: string;
   detailCategory: string;
   invalid: boolean;
@@ -272,16 +275,21 @@ const inquiryDetailOptions = [
   { value: '기타 문의', label: '기타 문의' },
 ] as const;
 
+const productInquiryDetailOptions = [{ value: '상품상세문의', label: '상품상세문의' }];
+
 /** 문의 분류 선택 필드를 표시합니다. (Displays inquiry category fields.) */
 export function InquiryCategoryFields({
   category,
   detailCategory,
   invalid,
   fixedErrors = false,
+  productInquiry = false,
   onCategoryChange,
   onDetailCategoryChange,
 }: InquiryCategoryFieldsProps) {
   // [ 개발팀 바인딩 ] 문의/상세 유형 값과 옵션은 이 필드 소유자와 기존 콜백을 사용합니다. 모바일은 문의 유형 선택 즉시 onCategoryChange(value)를 전달하고 같은 시트에서 상세 유형을 이어 선택합니다. 상세 선택 시 onDetailCategoryChange(value)를 전달하고 닫으며, 상세 선택 전 닫아도 이미 선택한 문의 유형은 유지합니다. PC는 두 필드를 각각 선택하며 제출·요청 계약은 변경하지 않습니다.
+  const detailOptions = productInquiry ? productInquiryDetailOptions : inquiryDetailOptions;
+
   return (
     <Stack gap="4">
       <Grid columns={2} gap="2" _mobile={{ gridTemplateColumns: '1fr', gap: '4' }}>
@@ -289,14 +297,14 @@ export function InquiryCategoryFields({
           ariaLabel="문의 유형"
           className={css({ '&&': { h: '63px', pb: '8px' } })}
           label="문의 유형"
+          disabled={productInquiry}
           required
           name="inquiry-category"
-          placeholder="문의 분류를 선택해주세요"
           value={category}
           onValueChange={onCategoryChange}
           mobileNextSelection={{
             ariaLabel: '상세 유형',
-            options: inquiryDetailOptions,
+            options: detailOptions,
             value: detailCategory,
             onValueChange: onDetailCategoryChange,
           }}
@@ -315,13 +323,12 @@ export function InquiryCategoryFields({
           label="상세 유형"
           required
           name="inquiry-detail-category"
-          placeholder="상세 유형을 선택해주세요"
           value={detailCategory}
           onValueChange={onDetailCategoryChange}
           error={
             invalid && (fixedErrors || !detailCategory) ? '상세 유형을 선택해주세요.' : undefined
           }
-          options={inquiryDetailOptions}
+          options={detailOptions}
         />
       </Grid>
     </Stack>
@@ -356,7 +363,6 @@ export function InquiryMessageFields({
           value: title,
           maxLength: 50,
           onChange: (event) => onTitleChange(event.target.value),
-          placeholder: '제목을 입력해주세요. (50자 이하)',
         }}
       />
       <TextFormField
@@ -371,7 +377,6 @@ export function InquiryMessageFields({
           value: body,
           maxLength: 1000,
           onChange: (event) => onBodyChange(event.target.value),
-          placeholder: '내용을 입력해주세요.',
           className: css({ '&&&': { h: '100px', minH: '100px' } }),
         }}
         renderControl={(control) => (
@@ -423,12 +428,12 @@ export function InquiryOrderProducts({
 }: InquiryOrderProductsProps) {
   return selection ? (
     <Stack gap="16px" pt={{ base: '24px', _mobile: '8px' }} pb={{ base: '24px', _mobile: '8px' }}>
-      <Typography web="heading8" mo="heading7">
+      <Typography web="h10B" mo="h8">
         상품 정보
       </Typography>
       <Box border="1px solid token(colors.black.20)" p="4" pb="5">
         <HStack justifyContent="space-between" mb="4" _mobile={{ alignItems: 'flex-start' }}>
-          <Typography web="heading9" mo="heading7">
+          <Typography web="h10" mo="h8">
             {selection.order.date}
           </Typography>
           <Button
@@ -442,25 +447,25 @@ export function InquiryOrderProducts({
         </HStack>
         <Stack gap="4">
           <Stack gap="2">
-            <Typography web="heading9" mo="body4">
+            <Typography web="h10" mo="b6">
               주문번호
             </Typography>
             <HStack gap="2" flexWrap="wrap">
-              <Typography variant="body4" language="en" tone="subtle">
+              <Typography variant="b6" language="en" tone="subtle">
                 {selection.order.id}
               </Typography>
-              <Typography variant="body4" language="en" tone="subtle">
+              <Typography variant="b6" language="en" tone="subtle">
                 {selection.order.date}
               </Typography>
             </HStack>
           </Stack>
           <Stack gap="2">
-            <Typography web="heading9" mo="body4">
+            <Typography web="h10" mo="b6">
               상품코드
             </Typography>
             <Stack gap="1">
               {selection.products.map((item) => (
-                <Typography key={item.id} variant="body4" language="en" tone="subtle">
+                <Typography key={item.id} variant="b6" language="en" tone="subtle">
                   {item.code}
                 </Typography>
               ))}
@@ -488,7 +493,7 @@ export function InquiryOrderProducts({
       pt={{ base: '24px', _mobile: '8px' }}
       pb={{ base: '24px', _mobile: '8px' }}
     >
-      <Typography web="heading8" mo="heading7">
+      <Typography web="h10B" mo="h8">
         상품 정보
       </Typography>
       <Stack
@@ -501,9 +506,9 @@ export function InquiryOrderProducts({
       >
         <Typography
           as="p"
-          variant="body4"
+          variant="b6"
           tone={invalid ? 'error' : 'subtle'}
-          className={css({ lineHeight: '1.5' })}
+          className={css({ lineHeight: 'body' })}
         >
           {invalid
             ? '문의하실 주문 상품을 선택해주세요.'

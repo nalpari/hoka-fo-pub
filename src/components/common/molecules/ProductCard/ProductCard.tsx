@@ -52,21 +52,21 @@ export type ProductCardProduct = Pick<Product, 'id' | 'name' | 'price' | 'primar
 const genderLabel = cva({
   base: {
     color: 'text.primary',
-    '&&': { fontSize: 'var(--layout-web-product-font-size, var(--font-sizes-16))' },
+    '&&': { fontSize: 'body.16' },
   },
   variants: {
     variant: {
       listing: {
         _mobile: {
           fontWeight: 'normal',
-          '&&': { fontSize: '14' },
+          '&&': { fontSize: 'body.14' },
           lineHeight: 'body',
         },
       },
-      history: { '&&': { fontSize: '14' } },
+      history: { '&&': { fontSize: 'body.14' } },
       showcase: {
         _mobile: {
-          '&&': { fontSize: '14' },
+          '&&': { fontSize: 'body.14' },
         },
       },
     },
@@ -81,7 +81,7 @@ type ProductGenderProps = {
 /** 상품 성별 정보를 표시합니다. (Displays a product's gender label.) */
 function ProductGender({ gender, variant = 'listing' }: ProductGenderProps) {
   return (
-    <Typography className={genderLabel({ variant })} variant="body3">
+    <Typography data-product-gender className={genderLabel({ variant })} variant="b4">
       {gender}
     </Typography>
   );
@@ -91,8 +91,8 @@ const productName = css({
   minW: '0',
   maxW: 'full',
   truncate: true,
-  fontSize: { base: 'var(--layout-web-product-font-size, var(--font-sizes-16))', _mobile: '14' },
-  '&[data-product-card-variant="history"]': { fontSize: '14', fontWeight: 'normal' },
+  fontSize: { base: 'body.16', _mobile: 'body.14' },
+  '&[data-product-card-variant="history"]': { fontSize: 'body.14', fontWeight: 'normal' },
   '&[data-product-card-variant="listing"]': { _mobile: { fontWeight: 'normal' } },
 });
 
@@ -108,9 +108,10 @@ function ProductName({ name, variant = 'listing' }: ProductNameProps) {
       as="p"
       className={productName}
       data-product-card-variant={variant}
+      data-product-name
       language={variant === 'history' && platform === 'web' ? 'ko' : 'auto'}
-      variant={variant === 'history' ? 'body4' : 'bodyKr3'}
-      mo={variant === 'history' ? 'body4' : 'bodyKr4'}
+      variant={variant === 'history' ? 'b6' : 'b4'}
+      mo={variant === 'history' ? 'b6' : 'b6'}
     >
       {name}
     </Typography>
@@ -118,6 +119,23 @@ function ProductName({ name, variant = 'listing' }: ProductNameProps) {
 }
 
 const won = (value: number) => value.toLocaleString('ko-KR');
+
+const detailIdentityStyles = {
+  badges: css({
+    '&&': { gap: '2', _mobile: { gap: '1.5' } },
+    '& > span:not([aria-hidden])': { lineHeight: '18.2px' },
+    '& > span[aria-hidden]': { h: '13px', _mobile: { h: '11px' } },
+  }),
+  title: css({ '&&': { m: '0', lineHeight: '30.72px' } }),
+  koreanTitle: css({ _mobile: { '&&': { lineHeight: '30.72px' } } }),
+  discount: css({
+    fontSize: 'body.18',
+    lineHeight: 'body',
+    _mobile: { fontSize: 'body.16' },
+  }),
+  price: css({ display: 'inline-flex', alignItems: 'center', '&&': { lineHeight: '20.8px' } }),
+  unit: css({ '&&': { lineHeight: '1.3', transform: 'none' } }),
+};
 
 type ProductPriceProps = {
   /** Prepared display label; preview fixtures can preserve an approved design value. */
@@ -137,9 +155,7 @@ function ProductPrice({
 }: ProductPriceProps) {
   const hasDiscount = originalPrice !== undefined && Boolean(discountLabel);
   const detailPrice = variant === 'detail';
-  const detailPriceText = detailPrice
-    ? css({ fontSize: '18px', lineHeight: '20.8px', _mobile: { fontSize: '16px' } })
-    : undefined;
+  const detailPriceText = detailPrice ? detailIdentityStyles.discount : undefined;
 
   return (
     <VStack
@@ -151,8 +167,8 @@ function ProductPrice({
       {hasDiscount ? (
         <Typography
           as="del"
-          variant="body3"
-          mo="body4"
+          variant="b4"
+          mo="b6"
           tone="tertiary"
           language="en"
           aria-label={`정상가 ${won(originalPrice ?? 0)}원`}
@@ -161,7 +177,7 @@ function ProductPrice({
             .join(' ')}
         >
           {won(originalPrice ?? 0)}
-          <Typography variant="body3" mo="body4">
+          <Typography variant="b4" mo="b6">
             원
           </Typography>
         </Typography>
@@ -169,8 +185,8 @@ function ProductPrice({
       <HStack gap="2" alignItems="baseline">
         {hasDiscount ? (
           <Typography
-            variant="body3"
-            mo="body4"
+            variant="b4"
+            mo="b6"
             className={detailPriceText}
             tone={variant === 'listing' || detailPrice ? 'red80' : 'error'}
             aria-label={`${discountLabel} 할인`}
@@ -180,13 +196,16 @@ function ProductPrice({
         ) : null}
         <Typography
           language="en"
-          variant={variant === 'history' ? 'body4' : 'body3'}
-          mo="body4"
-          weight={detailPrice ? 'medium' : undefined}
-          className={detailPriceText}
+          variant={detailPrice ? 'b3M' : variant === 'history' ? 'b6' : 'b4'}
+          mo={detailPrice ? 'b4M' : 'b6'}
+          className={detailPrice ? detailIdentityStyles.price : undefined}
         >
           {won(price)}
-          <Typography variant={variant === 'history' ? 'body4' : 'body3'} weight="bold">
+          <Typography
+            variant={detailPrice ? 'b3B' : variant === 'history' ? 'b6B' : 'b4B'}
+            mo={detailPrice ? 'b4B' : undefined}
+            className={detailPrice ? detailIdentityStyles.unit : undefined}
+          >
             원
           </Typography>
         </Typography>
@@ -231,58 +250,82 @@ export function ProductIdentity({
   optionText,
   applicationDate,
 }: ProductIdentityProps) {
-  const platform = usePlatform();
   if (variant === 'detail') {
     return (
       <VStack alignItems="start" gap="5" _mobile={{ gap: '4' }} minW="0" w="full">
-        <VStack alignItems="start" gap="2">
-          {promotion && (
-            <Badge
-              variant="plain"
-              weight="medium"
-
-              tone={promotionTone === 'error' ? 'red80' : 'brand'}
-            >
-              {promotion}
-            </Badge>
-          )}
-          <HStack gap="2" color="black.60" flexWrap="wrap">
-            {gender && (
-              <Typography variant="body4" weight="regular" tone="inherit">
-                {gender}
-              </Typography>
+        {promotion || gender || activities?.length ? (
+          <VStack alignItems="start" gap="2">
+            {promotion && (
+              <Badge
+                variant="plain"
+                weight="medium"
+                web="b6"
+                mo="b8"
+                tone={promotionTone === 'error' ? 'red80' : 'brand'}
+                className={detailIdentityStyles.badges}
+              >
+                {promotion}
+              </Badge>
             )}
-            {activities?.length ? (
-              <>
+            {gender || activities?.length ? (
+              <HStack gap="2" color="black.60" flexWrap="wrap">
                 {gender && (
-                  <Divider orientation="vertical" length="3" className={css({ bg: 'black.60' })} />
+                  <Typography variant="b6" tone="inherit">
+                    {gender}
+                  </Typography>
                 )}
-                <Typography variant="body4" weight="regular" tone="inherit">
-                  {activities.join(', ')}
-                </Typography>
-              </>
+                {activities?.length ? (
+                  <>
+                    {gender && (
+                      <Divider
+                        orientation="vertical"
+                        length="3"
+                        className={css({ bg: 'black.60' })}
+                      />
+                    )}
+                    <Typography variant="b6" tone="inherit">
+                      {activities.join(', ')}
+                    </Typography>
+                  </>
+                ) : null}
+              </HStack>
             ) : null}
-          </HStack>
+          </VStack>
+        ) : null}
+        <VStack alignItems="start" gap="5" minW="0" w="full">
+          <ContentHeader
+            alignItems="start"
+            titleAs="h1"
+            title={name
+              .split(/(\p{Script=Hangul}+(?:\s+\p{Script=Hangul}+)*)/u)
+              .map((part, index) =>
+                index % 2 ? (
+                  <Typography
+                    key={index}
+                    web="h8B"
+                    mo="h5B"
+                    className={detailIdentityStyles.koreanTitle}
+                  >
+                    {part}
+                  </Typography>
+                ) : (
+                  part
+                ),
+              )}
+            titleProps={{
+              className: detailIdentityStyles.title,
+              web: 'h6B',
+              mo: 'h5B',
+              language: 'en',
+            }}
+          />
+          <ProductPrice
+            variant="detail"
+            price={price}
+            originalPrice={originalPrice}
+            discountLabel={discountLabel}
+          />
         </VStack>
-        <ContentHeader
-          alignItems="start"
-          gap="5"
-          titleAs="h1"
-          title={name}
-          titleProps={{
-            className: css({ m: '0' }),
-            variant: 'headingKr6',
-            mo: 'heading4',
-            language: platform === 'web' ? 'ko' : 'en',
-            weight: 'black',
-          }}
-        />
-        <ProductPrice
-          variant="detail"
-          price={price}
-          originalPrice={originalPrice}
-          discountLabel={discountLabel}
-        />
       </VStack>
     );
   }
@@ -320,10 +363,10 @@ export function ProductIdentity({
       )}
       {orderDate && (
         <HStack gap="0.5">
-          <Typography variant="body4" language="en">
+          <Typography variant="b6" language="en">
             {orderDate}
           </Typography>
-          <Typography variant="body4">구매</Typography>
+          <Typography variant="b6">구매</Typography>
         </HStack>
       )}
       <VStack
@@ -343,17 +386,17 @@ export function ProductIdentity({
           {identity}
         </VStack>
         {optionText && (
-          <Typography variant="body4" tone="subtle">
+          <Typography variant="b6" tone="subtle">
             {optionText}
           </Typography>
         )}
         {priceContent}
         {applicationDate && (
           <HStack gap="1" color="black.50">
-            <Typography variant="body4" tone="inherit">
+            <Typography variant="b6" tone="inherit">
               신청일 :
             </Typography>
-            <Typography variant="body4" language="en" tone="inherit">
+            <Typography variant="b6" language="en" tone="inherit">
               {applicationDate}
             </Typography>
           </HStack>
@@ -371,8 +414,8 @@ type ProductActivityProps = {
 function ProductActivity({ activities, variant }: ProductActivityProps) {
   return (
     <Typography
-      variant={variant === 'listing' ? 'body4' : 'body5'}
-      mo="body5"
+      variant={variant === 'listing' ? 'b6' : 'b8'}
+      mo="b8"
       className={
         variant === 'listing'
           ? css({
@@ -412,13 +455,13 @@ function ProductVariantSummary({
   widthCount,
 }: ProductVariantSummaryProps) {
   const summaryText = {
-    colors: `${colorCount} colors`,
+    colors: `${colorCount} Colors`,
     widths: `${widthCount} widths`,
     'colors-widths': `${colorCount} colors, ${widthCount} widths`,
   }[display];
-  if (platform === 'web' && !history) {
+  if (display === 'colors' || (platform === 'web' && !history)) {
     return (
-      <Typography variant="body4" tone="subtle">
+      <Typography variant="b6" tone="subtle">
         {summaryText}
       </Typography>
     );
@@ -442,6 +485,7 @@ type ProductDetailsOptionsProps = Pick<
   | 'widthCount'
   | 'variant'
   | 'colorPreview'
+  | 'variantSummaryDisplay'
 >;
 
 function ProductDetailsOptions({
@@ -452,6 +496,7 @@ function ProductDetailsOptions({
   widthCount,
   variant,
   colorPreview,
+  variantSummaryDisplay,
 }: ProductDetailsOptionsProps) {
   const summary = (
     <>
@@ -461,6 +506,7 @@ function ProductDetailsOptions({
       <ProductVariantSummary
         colorCount={colorCount}
         colorSelection={platform === 'mobile' ? colorPreview : undefined}
+        display={variantSummaryDisplay}
         history={variant === 'history'}
         options={optionThumbnails}
         platform={platform}
@@ -553,6 +599,7 @@ type ProductDetailsProps = {
   originalPrice?: number;
   promotion?: Promotions;
   showVariantSummary?: boolean;
+  variantSummaryDisplay?: ProductVariantSummaryDisplay;
   variant: ProductCardVariant;
   widthCount: number;
 };
@@ -571,6 +618,7 @@ function ProductDetails({
   originalPrice,
   promotion,
   showVariantSummary = false,
+  variantSummaryDisplay,
   variant,
   widthCount,
 }: ProductDetailsProps) {
@@ -602,6 +650,7 @@ function ProductDetails({
             colorCount={colorCount}
             optionThumbnails={optionThumbnails}
             platform={platform}
+            variantSummaryDisplay={variantSummaryDisplay}
             widthCount={widthCount}
           />
         )}
@@ -618,7 +667,7 @@ type ProductSpecProps = {
 /** 상품의 쿠셔닝·안정성·발볼 정보를 요약합니다. (Summarizes a product's cushioning, stability, and width.) */
 function ProductSpec({ cushioning, stability, width }: ProductSpecProps) {
   return (
-    <Typography tone="subtle" variant="body5">
+    <Typography tone="subtle" variant="b8">
       {cushioning} · {stability} · {width}
     </Typography>
   );
@@ -692,7 +741,7 @@ function ProductCardHeader({
             bg="black.100/50"
             pointerEvents="none"
           >
-            <Typography as="span" variant="heading6" tone="inverse">
+            <Typography as="span" web="h4B" mo="h8" tone="inverse">
               Sold Out
             </Typography>
           </Grid>
@@ -704,7 +753,7 @@ function ProductCardHeader({
 
 const mobileTilePrice = css.raw({
   '& [data-product-price] span, & [data-product-price] del': {
-    fontSize: '13',
+    fontSize: 'body.13',
     lineHeight: 'body',
   },
   '& [data-product-price] span > span': { fontWeight: 'normal' },
@@ -724,6 +773,11 @@ const root = cva({
     _mobile: { gap: '2.5' },
   },
   variants: {
+    identityMedium: {
+      true: { '&& [data-product-name], && [data-product-gender]': { fontWeight: 'medium' } },
+    },
+    promotionMedium: { true: { '&& [data-product-promotion] > span': { fontWeight: 'medium' } } },
+    cartMedium: { true: { '&& [data-product-cart-label]': { fontWeight: 'medium' } } },
     variant: {
       listing: {
         _mobile: mobileTilePrice,
@@ -739,7 +793,12 @@ const root = cva({
       },
     },
   },
-  defaultVariants: { variant: 'listing' },
+  defaultVariants: {
+    variant: 'listing',
+    identityMedium: false,
+    promotionMedium: false,
+    cartMedium: false,
+  },
 });
 
 const action = css({
@@ -775,13 +834,18 @@ const activityLabel = (use: Product['use']) => {
   return '워킹';
 };
 
-export type ProductCardOption = 'promotion' | 'like' | 'colors' | 'specifications' | 'cart';
+export type ProductCardOption =
+  'promotion' | 'like' | 'colors' | 'color-count' | 'specifications' | 'cart';
 
 export type ProductCardProps = {
+  /** 생략 또는 undefined이면 기존 굵기를 유지하며 지정한 표시 부위에만 Medium을 적용합니다. */
+  textWeights?: { identity?: 'medium'; promotion?: 'medium'; cart?: 'medium' };
   promotionTone?: 'brand' | 'error';
   discountLabel?: string;
   soldOut?: boolean;
   activityLabels?: readonly string[];
+  /** 고정 표시 예시의 색상 개수이며, 생략하면 전달된 상품의 색상 데이터로 계산합니다. */
+  colorCount?: number;
   liked?: boolean;
   onLikedChange?: (liked: boolean) => void;
   onAddToCart?: () => void;
@@ -805,6 +869,7 @@ export function ProductCard({
   promotionTone,
   discountLabel,
   activityLabels,
+  colorCount,
   soldOut = false,
   liked,
   onLikedChange,
@@ -813,6 +878,7 @@ export function ProductCard({
   product,
   variant = 'listing',
   thumbnailVariant,
+  textWeights = {},
 }: ProductCardProps) {
   const [internalLiked, setInternalLiked] = useState(false);
   const [previewOpen, setPreviewOpen] = useState(false);
@@ -820,16 +886,23 @@ export function ProductCard({
   const platform = usePlatform();
   const isLiked = liked ?? internalLiked;
   const hasOption = (option: ProductCardOption) => options.includes(option);
+  const showColorCount = hasOption('color-count');
   const colorOptions = productOptionThumbnails(product);
   const selectedColor = colorOptions.find((option) => option.id === selectedColorId);
   const canSelectColor =
     variant === 'listing' &&
+    !showColorCount &&
     hasOption('colors') &&
     (platform === 'web' ? colorOptions.length > 0 : !!product.colorThumbnails?.length);
   const showColorPreview = platform === 'web' && canSelectColor && previewOpen;
   return (
     <Card
-      className={root({ variant })}
+      className={root({
+        variant,
+        identityMedium: textWeights.identity === 'medium',
+        promotionMedium: textWeights.promotion === 'medium',
+        cartMedium: textWeights.cart === 'medium',
+      })}
       data-color-preview-open={showColorPreview ? '' : undefined}
       onPointerEnter={(event) => {
         if (event.pointerType === 'mouse') setPreviewOpen(true);
@@ -918,7 +991,7 @@ export function ProductCard({
         promotionTone={promotionTone}
         discountLabel={discountLabel ?? product.discountLabel}
         activities={activityLabels ?? (product.use ? [activityLabel(product.use)] : [])}
-        colorCount={product.colors?.length ?? colorOptions.length}
+        colorCount={colorCount ?? product.colors?.length ?? colorOptions.length}
         gender={product.gender}
         name={product.name}
         optionThumbnails={colorOptions}
@@ -926,7 +999,8 @@ export function ProductCard({
         price={product.price}
         originalPrice={product.originalPrice}
         promotion={hasOption('promotion') ? product.promotion : undefined}
-        showVariantSummary={hasOption('colors')}
+        showVariantSummary={showColorCount || hasOption('colors')}
+        variantSummaryDisplay={showColorCount ? 'colors' : undefined}
         variant={variant}
         widthCount={productWidthCount(product)}
       />
@@ -942,7 +1016,7 @@ export function ProductCard({
             iconSize={16}
             onClick={onAddToCart}
           >
-            <Typography web="bodyKr4" mo="bodyKr5" tone="primary">
+            <Typography data-product-cart-label web="b6" mo="b8" tone="primary">
               장바구니 담기
             </Typography>
           </Button>

@@ -55,7 +55,7 @@ const styles = {
   tab: css({
     px: '16px!',
     h: '37px!',
-    '& span': { fontSize: '14px!', fontWeight: '400', lineHeight: '1.3' },
+    '&&& span': { fontSize: 'body.14!', fontWeight: '400', lineHeight: 'body' },
   }),
   calendarIcon: css({
     position: 'absolute',
@@ -76,7 +76,7 @@ const dateInput = css({
     pl: '12px',
     pr: '36px',
     borderRadius: 'full',
-    fontSize: '14px',
+    fontSize: 'body.14',
     fontWeight: 'medium',
     color: 'black.100',
     bg: 'white.0',
@@ -128,7 +128,6 @@ function DateRangeFields({
           inputMode="numeric"
           maxLength={10}
           aria-label="조회 시작일"
-          placeholder="YYYY.MM.DD"
           value={dates.start.replaceAll('-', '.')}
           onChange={(event) => onDateChange('start', formatDateInput(event.target.value))}
         />
@@ -142,7 +141,7 @@ function DateRangeFields({
         />
         <Icon name="calendar-regular" size={18} className={styles.calendarIcon} />
       </Box>
-      <Typography variant="body4">–</Typography>
+      <Typography variant="b6">–</Typography>
       <Box pos="relative" flexShrink="0">
         <TextInput
           className={dateInput}
@@ -151,7 +150,6 @@ function DateRangeFields({
           inputMode="numeric"
           maxLength={10}
           aria-label="조회 종료일"
-          placeholder="YYYY.MM.DD"
           value={dates.end.replaceAll('-', '.')}
           onChange={(event) => onDateChange('end', formatDateInput(event.target.value))}
         />
@@ -245,7 +243,7 @@ export function DateRangeSearch({
         </HStack>
       </Box>
       {message ? (
-        <Typography role="alert" variant="body5" tone="error">
+        <Typography role="alert" variant="b8" tone="error">
           {message}
         </Typography>
       ) : null}

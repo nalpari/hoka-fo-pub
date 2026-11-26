@@ -10,6 +10,7 @@ generated:
 source_revision: f47017b6a28b360f4a688bb7f85e39ab01dbef79
 audit_base_revision: 72098f5991d18f316a26d808e047691ff4a356db
 working_tree_sources:
+  - src/components/membership/MembershipRewards.tsx
   - src/components/common/atoms/Badge.tsx
   - src/components/common/atoms/Button.tsx
   - src/components/common/atoms/DescriptionList.tsx
@@ -56,7 +57,7 @@ working_tree_sources:
   - src/stories/components/common/atoms/StatusMessage/StatusMessage.stories.tsx
   - src/stories/components/common/layouts/OrderActionBar/OrderActionBar.stories.tsx
   - src/app/screen-index/sourceGraph.generated.json
-updated: '2026-11-04T01:19:32.500Z'
+updated: '2026-11-19T04:55:40.889750+00:00'
 ---
 
 # 기준 커밋 이후 공통 UI 전수 대조
@@ -183,7 +184,7 @@ updated: '2026-11-04T01:19:32.500Z'
 | [src/app/mypage/reviews/reviewFixtures.ts](../../src/app/mypage/reviews/reviewFixtures.ts)                                                                                                 | 표시 데이터/타입 소유권 유지; 새 UI 구현 없음                           |
 | [src/app/mypage/rewards/_components/RewardsContent.tsx](../../src/app/mypage/rewards/_components/RewardsContent.tsx)                                                                       | 공통 소유자로 통합; 표시/상태 계약 유지                                 |
 | [src/app/mypage/rewards/page.tsx](../../src/app/mypage/rewards/page.tsx)                                                                                                                   | 공통 소유자로 통합; 표시/상태 계약 유지                                 |
-| [src/app/mypage/rewards/rewards-data.ts](../../src/app/mypage/rewards/rewards-data.ts)                                                                                                     | 표시 데이터/타입 소유권 유지; 새 UI 구현 없음                           |
+| [src/components/membership/rewards-data.ts](../../src/components/membership/rewards-data.ts)                                                                                                     | 표시 데이터/타입 소유권 유지; 새 UI 구현 없음                           |
 | [src/app/products/[id]/_components/ProductDetailContent.tsx](../../src/app/products/[id]/_components/ProductDetailContent.tsx)                                                             | 공통 소유자로 통합; 표시/상태 계약 유지                                 |
 | [src/app/publishing-guide/_components/HelpTipsGuide.tsx](../../src/app/publishing-guide/_components/HelpTipsGuide.tsx)                                                                     | 기존 공통 조합·라우트/로컬 상태 소유권 유지; 대체가 필요한 새 중복 없음 |
 | [src/app/running/running-session/[sessionId]/_components/RunningSessionSessionContent.tsx](../../src/app/running/running-session/[sessionId]/_components/RunningSessionSessionContent.tsx) | 기존 공통 조합·라우트/로컬 상태 소유권 유지; 대체가 필요한 새 중복 없음 |
@@ -339,3 +340,5 @@ PC 1440px·MO 375px에서 17개 URL/상태, 총 34개의 변경 전후 문구·�
 ## 이전 재사용 조사 정리 (2026-11-04)
 
 2026-10-21의 컴포넌트 재사용 재점검은 후속 구현과 이 문서의 2026-11-02 공통 UI 조사보다 앞선 완료 기록이므로 별도 파일을 제거했다. 당시 후보·Base UI 카탈로그 대조·적용 범위·검증 한계와 원래 generated/source_revision/sources는 [커밋 고정 원문](https://github.com/nalpari/hoka-fo-pub/blob/5db7492d7013d077712245026ece97b1f39a130d/okf/architecture/component-reusability-2026-10-21.md)에 보존한다. 현재 배치와 재사용 판단은 [컴포넌트·모듈 소유권](component-ownership.md), 최신 프로젝트 지침과 현재 소비처를 따른다. 이번 정리에서는 UI를 변경하거나 과거 브라우저 검증을 재실행하지 않았다.
+
+2026-11-19 경로 갱신: 회원등급 데이터와 본문을 membership 도메인으로 옮겨 고객센터·마이페이지가 같은 `MembershipRewards`를 사용한다. summary/benefits 현재 표시 props와 showSummary(기본 true)를 사용하며 실제 조회는 미연결이다. 기존 감사의 출처 커밋은 유지하고 현재 작업 파일 링크만 갱신했다. 출처: `src/components/membership/MembershipRewards.tsx`, `src/components/membership/rewards-data.ts` 작업 트리. 상세 검증은 [공유 본문 기록](support-design.md#온라인-회원등급-안내와-공유-본문-2026-11-19)을 따른다.

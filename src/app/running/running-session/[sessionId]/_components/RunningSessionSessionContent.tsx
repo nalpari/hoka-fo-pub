@@ -56,21 +56,29 @@ type RunningSessionApplyButtonProps = {
   status: RunningSessionSession['status'];
   onApply?: () => void;
   pending?: boolean;
+  registered?: boolean;
 };
-function RunningSessionApplyButton({ status, onApply, pending }: RunningSessionApplyButtonProps) {
+function RunningSessionApplyButton({
+  status,
+  onApply,
+  pending,
+  registered = false,
+}: RunningSessionApplyButtonProps) {
   return (
     <Button
       variant="primary"
       className={applyButton}
-      disabled={pending || status !== 'open'}
+      disabled={registered || pending || status !== 'open'}
       onClick={onApply}
     >
-      <Typography variant="eland-event-action">
-        {status === 'closed'
-          ? '모집 마감'
-          : status === 'upcoming'
-            ? '신청이 곧 시작됩니다.'
-            : '신청하기'}
+      <Typography web="b4S" mo="b5S" language="ko">
+        {registered
+          ? '신청완료'
+          : status === 'closed'
+            ? '모집 마감'
+            : status === 'upcoming'
+              ? '신청이 곧 시작됩니다.'
+              : '신청하기'}
       </Typography>
     </Button>
   );
@@ -85,14 +93,16 @@ function RunningSessionSessionNotes({ precautions = false }: { precautions?: boo
       color="var(--color-text-tertiary)"
       aria-label={precautions ? '주의 사항' : '안내 사항'}
     >
-      <Typography as="p" variant="eland-session-note-label" className={css({ m: '0' })}>
+      <Typography as="p" variant="b6B" language="ko" className={css({ m: '0' })}>
         {precautions ? '주의 사항' : '안내 사항'} ⓘ
       </Typography>
       <Box as="ul" listStyle="none" p="0" m="0">
         {(precautions ? sessionPrecautions : sessionNotices).map((notice) => (
           <Typography
             as="li"
-            variant="eland-session-note"
+            web="b6"
+            mo="b7"
+            language="ko"
             key={notice}
             className={css({ _before: { content: '"- "' } })}
           >
@@ -144,7 +154,7 @@ function RunningSessionFacts({
           <>
             {value}
             {detail ? (
-              <Typography as="span" variant="body4" tone="tertiary" className={detailText}>
+              <Typography as="span" variant="b6" tone="tertiary" className={detailText}>
                 {detail}
               </Typography>
             ) : null}
@@ -155,10 +165,14 @@ function RunningSessionFacts({
           : undefined,
       }))}
       termProps={{
-        variant: 'eland-session-fact-label',
+        web: 'b4B',
+        mo: 'b5B',
+        language: 'ko',
       }}
       descriptionProps={{
-        variant: 'eland-product-description',
+        web: 'b4',
+        mo: 'b5',
+        language: 'ko',
         tone: undefined,
       }}
       slotStyles={{
@@ -188,12 +202,15 @@ const detailText = css({ display: 'block', mt: '4px' });
 const styles = {
   image: css({ w: '100%', h: 'auto', aspectRatio: '1', objectFit: 'cover', display: 'block' }),
   opening: css({ color: 'var(--color-red-80)', mb: '24px' }),
+  recommendations: css({ _mobile: { '& > div': { gap: '16px' } } }),
+  recommendationRail: css({ _mobile: { px: '11px!' } }),
 };
 type RunningSessionSessionHeroProps = {
   session: RunningSessionSession;
   rows: RunningSessionFact[];
   onApply?: () => void;
   pending?: boolean;
+  registered?: boolean;
 };
 /** 세션 대표 이미지와 일정·신청 정보를 표시합니다. (Displays a session hero image, schedule, and application details.) */
 export function RunningSessionSessionHero({
@@ -201,6 +218,7 @@ export function RunningSessionSessionHero({
   rows,
   onApply,
   pending,
+  registered,
 }: RunningSessionSessionHeroProps) {
   const upcoming = session.status === 'upcoming';
   const mobile = usePlatform() === 'mobile';
@@ -230,13 +248,7 @@ export function RunningSessionSessionHero({
       <Stack gap="32px" _mobile={{ px: '4', pt: '4', pb: '72px' }}>
         <Stack gap="12px" _mobile={{ gap: '18px' }}>
           <HStack>
-            <Badge
-              visual="square"
-              {...categoryBadgeColors[session.category]}
-              web="body4"
-              mo="body6"
-              weight="bold"
-            >
+            <Badge visual="square" {...categoryBadgeColors[session.category]} web="b6B" mo="b9B">
               {session.category}
             </Badge>
           </HStack>
@@ -245,24 +257,29 @@ export function RunningSessionSessionHero({
             _mobile={{ gap: '8px' }}
             title={session.title}
             titleAs="h1"
-            titleProps={{ variant: 'eland-session-title' }}
+            titleProps={{ web: 'h5B', mo: 'h6B', language: 'ko' }}
             description={
               <>
                 {session.schedule} | {session.location} {session.distance}
               </>
             }
-            descriptionProps={{ variant: 'eland-session-subtitle' }}
+            descriptionProps={{ web: 'h10', mo: 'h8', language: 'ko' }}
           />
         </Stack>
         {upcoming && session.applicationOpeningLabel ? (
-          <Typography as="p" variant="body4" weight="bold" className={styles.opening}>
+          <Typography as="p" variant="b6B" className={styles.opening}>
             ⓘ {session.applicationOpeningLabel}
           </Typography>
         ) : null}
         <RunningSessionFacts variant="hero" rows={rows} />
         <RunningSessionSessionNotes />
         <Box mt="8px" _mobile={{ display: 'none' }}>
-          <RunningSessionApplyButton status={session.status} onApply={onApply} pending={pending} />
+          <RunningSessionApplyButton
+            status={session.status}
+            onApply={onApply}
+            pending={pending}
+            registered={registered}
+          />
         </Box>
       </Stack>
     </Grid>
@@ -289,15 +306,17 @@ function RunningSessionSessionPoster({ session }: Props) {
         gap: '40px',
         _mobile: { gap: '20px' },
         eyebrow: <>Hoka Run Club</>,
-        eyebrowProps: { variant: 'eland-session-banner-eyebrow' },
+        eyebrowProps: { variant: 'b1E', language: 'en' },
         titleAs: 'h2',
         titleProps: {
-          variant: 'eland-session-banner-title',
+          web: 'd1',
+          mo: 'd2',
+          language: 'en',
           className: css({ overflowWrap: 'anywhere' }),
         },
       }}
     >
-      <Typography as="span" variant="eland-session-banner-caption">
+      <Typography as="span" web="b1M" mo="b4M" language="en">
         {session.overlayDate}
         <br />
         @hoka_kr
@@ -321,7 +340,7 @@ function RunningSessionSessionGuideContent({
         title="세션 안내"
         headerProps={{
           gap: '4',
-          titleProps: { variant: 'eland-session-guide-title' },
+          titleProps: { variant: 'h8B', language: 'ko' },
           description: (
             <>
               호카 런 클럽 {title}에서
@@ -329,7 +348,7 @@ function RunningSessionSessionGuideContent({
               러너들과 함께 달리며 그룹 러닝의 즐거움을 느껴보세요!
             </>
           ),
-          descriptionProps: { variant: 'eland-body' },
+          descriptionProps: { variant: 'b4', language: 'ko' },
         }}
       >
         <RunningSessionFacts variant="guide" rows={rows} />
@@ -385,17 +404,15 @@ export function RunningSessionSessionImage() {
       aspectRatio="2.6667"
       bg="var(--color-black-40)"
       _mobile={{
-        w: 'auto',
-        mx: 'var(--layout-mobile-inline-gutter)',
-        my: '10',
-        aspectRatio: '1.5',
+        w: '100%',
+        mx: '0',
+        my: '0',
+        aspectRatio: '1',
       }}
     >
       <Typography
-        variant="heading7"
-        mo="body2"
-        weight="medium"
-        className={css({ '&&': { fontSize: '34px' } })}
+        web="h5"
+        mo="h7"
       >
         이미지 영역
       </Typography>
@@ -403,7 +420,7 @@ export function RunningSessionSessionImage() {
   );
 }
 const mobileSlide = css({
-  w: '176px!',
+  w: '160px!',
   '& > *': { w: '100%' },
 });
 type RunningSessionRecommendationsProps = {
@@ -420,21 +437,24 @@ export function RunningSessionRecommendations({
       as="section"
       pb="192px"
       overflow="hidden"
-      _mobile={{ py: '10' }}
+      _mobile={{ py: '72px' }}
       css={{
         '--layout-web-content-max-width': '1776px',
         '--layout-web-content-inline-space': '144px',
       }}
     >
       <CarouselSection
+        className={styles.recommendations}
         title="로드 러닝 Essential"
-        titleVariant="heading6"
+        titleVariant="h4B"
+        mobileTitleVariant="h8"
         itemCount={products.length}
         platform={platform}
         slideClassName={platform === 'mobile' ? mobileSlide : undefined}
         desktopCenteredItemCount={5}
         desktopItemGutter={8}
-        mobileItemGutter={8}
+        mobileItemGutter={5}
+        railClassName={styles.recommendationRail}
       >
         {products.map((product) => (
           <ProductCard key={product.id} product={product} variant="showcase" />
@@ -443,30 +463,201 @@ export function RunningSessionRecommendations({
     </Box>
   );
 }
+type RunningSessionApplicationState = 'confirm' | 'complete' | 'underage' | 'closed' | 'registered';
+
+type RunningSessionApplicant = {
+  name: string;
+  phone: string;
+};
+
+const applicationConfirmPreviewSession = {
+  title: '북악산 트레일 세션',
+  schedule: '10월 30일 (금) 19:30-21:30',
+};
+
+const applicationNoticeStyles = {
+  popup: css({ '&&': { _mobile: { borderRadius: '8px' } } }),
+  confirmHeader: css({ '& > button': { _mobile: { display: 'none' } } }),
+  footer: css({
+    '&& button': {
+      h: '42px',
+      minH: '42px',
+      '--button-height': '42px',
+      _mobile: { h: '42px', minH: '42px' },
+    },
+    '&& button > span > span': { fontSize: 'body.15' },
+  }),
+  confirmFooter: css({ '&&': { mt: '32px', _mobile: { mt: '24px' } } }),
+  confirmContent: css({ scrollbarWidth: 'none' }),
+  summaryList: css({
+    '&&': { rowGap: '16px', _mobile: { rowGap: '8px' } },
+    '& :is(dt, dd)': { fontFamily: 'ko', fontSize: 'body.14', lineHeight: 'body' },
+  }),
+  prompt: css({
+    fontFamily: 'ko',
+    letterSpacing: 'korean',
+    textAlign: 'center',
+    '&&': { lineHeight: 'body' },
+  }),
+  summaryTitle: css({
+    fontFamily: 'ko',
+    fontSize: 'body.20',
+    letterSpacing: 'korean',
+    _mobile: { fontSize: 'body.16' },
+    '&&': { lineHeight: 'body' },
+  }),
+  address: css({
+    display: 'block',
+    mt: '4px',
+    fontFamily: 'ko',
+    fontSize: 'body.14',
+    lineHeight: 'body',
+  }),
+  alertContent: css({
+    '& > h3': {
+      fontSize: 'heading.22',
+      fontWeight: '500',
+      lineHeight: 'koreanHeading',
+      _mobile: { fontSize: 'heading.20' },
+    },
+  }),
+};
+
+const runningSessionAlertContent = {
+  complete: {
+    title: '러닝세션 신청 완료',
+    message: '러닝세션 신청이 완료되었습니다.',
+  },
+  underage: {
+    title: '러닝세션 신청 안내',
+    message: '러닝세션은 만 18세 미만의 미성년자는',
+    continuation: '신청할 수 없습니다.',
+  },
+  closed: {
+    title: '러닝세션 신청 안내',
+    message: '해당 러닝세션은 모집이 마감되어',
+    continuation: '신청할 수 없습니다.',
+  },
+};
+
 type RunningSessionApplicationNoticeProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  registered?: boolean;
+  state: Exclude<RunningSessionApplicationState, 'registered'>;
+  applicant: RunningSessionApplicant;
+  session: Pick<RunningSessionSession, 'title' | 'schedule'>;
 };
-/** 런클럽 신청 안내를 표시합니다. (Displays the run club application notice.) */
+
+/** 신청 확인 정보 또는 고정 결과 안내를 표시합니다. (Displays application confirmation details or a fixed result notice.) */
 export function RunningSessionApplicationNotice({
   open,
   onOpenChange,
-  registered,
+  state,
+  applicant,
+  session,
 }: RunningSessionApplicationNoticeProps) {
+  const close = () => onOpenChange(false);
+  if (state === 'confirm') {
+    return (
+      <ModalDialog
+        variant="selection"
+        open={open}
+        onOpenChange={onOpenChange}
+        title="러닝세션 신청 확인"
+        closeLabel="러닝세션 신청 확인 닫기"
+        popupClassName={applicationNoticeStyles.popup}
+        contentClassName={applicationNoticeStyles.confirmContent}
+        headerProps={{ className: applicationNoticeStyles.confirmHeader }}
+        footerProps={{
+          className: `${applicationNoticeStyles.footer} ${applicationNoticeStyles.confirmFooter}`,
+        }}
+        actions={{ kind: 'confirm', onConfirm: close }}
+      >
+        <Stack gap="32px" _mobile={{ gap: '24px' }}>
+          <Stack
+            gap="24px"
+            py="16px"
+            borderBlock="1px solid"
+            borderColor="black.20"
+            _mobile={{ gap: '16px' }}
+          >
+            <Typography
+              as="h3"
+              variant="b2B"
+
+              className={applicationNoticeStyles.summaryTitle}
+            >
+              신청정보
+            </Typography>
+            <DescriptionList
+              labelWidth="60px"
+              className={applicationNoticeStyles.summaryList}
+              termProps={{ tone: 'tertiary' }}
+              descriptionProps={{ weight: 'medium' }}
+              items={[
+                { term: '이름', description: applicant.name },
+                { term: '휴대폰번호', description: applicant.phone },
+                { term: '세션명', description: session.title },
+                { term: '일시', description: session.schedule },
+                {
+                  term: '장소',
+                  description: (
+                    <>
+                      {runningSessionVenue}
+                      <Typography
+                        as="span"
+                        variant="b6"
+                        tone="tertiary"
+                        className={applicationNoticeStyles.address}
+                      >
+                        {runningSessionAddress}
+                      </Typography>
+                    </>
+                  ),
+                },
+              ]}
+            />
+          </Stack>
+          <Typography
+            as="p"
+            variant="b4M"
+
+            className={applicationNoticeStyles.prompt}
+          >
+            위 정보로 러닝세션을 신청하시겠습니까?
+          </Typography>
+        </Stack>
+      </ModalDialog>
+    );
+  }
+  const notice = runningSessionAlertContent[state];
   return (
     <ModalDialog
       variant="alert"
       open={open}
       onOpenChange={onOpenChange}
-      title="세션 신청 안내"
-      closeLabel="세션 신청 안내 닫기"
-
-      actions={{ kind: 'single', onConfirm: () => onOpenChange(false) }}
-      message={<>{registered ? '세션 신청이 접수되었습니다.' : '신청 기능 준비 중입니다.'}</>}
+      title={notice.title}
+      closeLabel={state === 'complete' ? '러닝세션 신청 완료 닫기' : '러닝세션 신청 안내 닫기'}
+      popupClassName={applicationNoticeStyles.popup}
+      contentClassName={applicationNoticeStyles.alertContent}
+      footerProps={{ className: applicationNoticeStyles.footer }}
+      actions={{ kind: 'single', onConfirm: close }}
+      message={
+        <>
+          {notice.message}
+          {'continuation' in notice && (
+            <>
+              {' '}
+              <Box as="br" display="none" _mobile={{ display: 'initial' }} />
+              {notice.continuation}
+            </>
+          )}
+        </>
+      }
     />
   );
 }
+
 type RunningSessionDetailLayoutProps = {
   hero: ReactNode;
   guide: ReactNode;
@@ -486,7 +677,7 @@ export function RunningSessionDetailLayout({
     <Box as="main" _mobile={{ '& ~ footer': { mb: 'calc(96px + env(safe-area-inset-bottom))' } }}>
       {hero}
       {guide}
-      <Box _mobile={{ display: 'none' }}>{desktopContent}</Box>
+      {desktopContent}
       {mobileAction}
       {applicationNotice}
     </Box>
@@ -496,31 +687,42 @@ type RunningSessionFixedActionBarProps = {
   status: RunningSessionSession['status'];
   onApply?: () => void;
   pending?: boolean;
+  registered?: boolean;
 };
 /** 런클럽 상세의 고정 액션 영역을 표시합니다. (Displays the fixed run club detail action area.) */
 export function RunningSessionFixedActionBar({
   status,
   onApply,
   pending,
+  registered,
 }: RunningSessionFixedActionBarProps) {
   return (
     <OrderActionBar variant="mobileOnly" as="section" ariaLabel="세션 신청">
-      <RunningSessionApplyButton status={status} onApply={onApply} pending={pending} />
+      <RunningSessionApplyButton
+        status={status}
+        onApply={onApply}
+        pending={pending}
+        registered={registered}
+      />
     </OrderActionBar>
   );
 }
 /** 세션 상세와 고정 신청 안내를 표시합니다. (Displays session details and a fixed application notice.) */
 export function RunningSessionDetailContent({
   previewApplication,
+  applicant = { name: '홍길동', phone: '010-1234-5678' },
 }: {
-  previewApplication?: 'unavailable' | 'complete';
+  previewApplication?: RunningSessionApplicationState | 'unavailable';
+  applicant?: RunningSessionApplicant;
 } = {}) {
   const suppliedSession = useContext(RunningSessionSessionContext);
   const { sessionId } = useParams<{
     sessionId: string;
   }>();
   const platform = usePlatform();
-  const [showApplicationNotice, setShowApplicationNotice] = useState(Boolean(previewApplication));
+  const [showApplicationNotice, setShowApplicationNotice] = useState(
+    Boolean(previewApplication && previewApplication !== 'registered'),
+  );
   const session =
     suppliedSession ??
     runningSessionSessions.find(
@@ -530,6 +732,17 @@ export function RunningSessionDetailContent({
     window.scrollTo(0, 0);
   }, [sessionId]);
   if (!session) return <SystemStatusPage status="not-found" />;
+  // [ 개발팀 바인딩 ] applicant의 기본값과 신청 확인 preview의 세션명·일시는 고정 표시 예시입니다. 상세에서 열면 현재 session의 제목·일시를 읽습니다.
+  // 확인은 팝업만 닫습니다. 통합 소유자가 회원 표시 정보와 회원·session.id를 연결하고 확인 시 요청, 중복 방지, 실패/재시도, 성공 후 상세·신청 내역 갱신을 맡습니다.
+  // 모집·연령 제한과 완료는 고정 안내 상태입니다. 통합 소유자가 실제 상태와 요청 결과를 공급해야 합니다.
+  const applicationState =
+    previewApplication === 'unavailable' ||
+    !previewApplication ||
+    previewApplication === 'registered'
+      ? 'confirm'
+      : previewApplication;
+  const registered = previewApplication === 'registered';
+  const openApplication = () => setShowApplicationNotice(true);
   const recommendedProducts = products.slice(0, 6);
   const heroRows: readonly RunningSessionFact[] = [
     { label: '일시', value: session.schedule },
@@ -556,7 +769,12 @@ export function RunningSessionDetailContent({
     <RunningSessionDetailLayout
       hero={
         <>
-          <RunningSessionSessionHero session={session} rows={[...heroRows]} />
+          <RunningSessionSessionHero
+            session={session}
+            rows={[...heroRows]}
+            onApply={openApplication}
+            registered={registered}
+          />
         </>
       }
       guide={<RunningSessionSessionGuide session={session} rows={[...guideRows]} />}
@@ -566,10 +784,18 @@ export function RunningSessionDetailContent({
           <RunningSessionRecommendations products={recommendedProducts} platform={platform} />
         </>
       }
-      mobileAction={<RunningSessionFixedActionBar status={session.status} />}
+      mobileAction={
+        <RunningSessionFixedActionBar
+          status={session.status}
+          onApply={openApplication}
+          registered={registered}
+        />
+      }
       applicationNotice={
         <RunningSessionApplicationNotice
-          registered={previewApplication === 'complete'}
+          state={applicationState}
+          applicant={applicant}
+          session={previewApplication === 'confirm' ? applicationConfirmPreviewSession : session}
           open={showApplicationNotice}
           onOpenChange={setShowApplicationNotice}
         />

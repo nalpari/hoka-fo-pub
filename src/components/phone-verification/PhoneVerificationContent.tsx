@@ -25,12 +25,13 @@ import {
 } from '@/components/phone-verification/phone-verification.types';
 
 const styles = {
+  informationTitle: css({ '&&': { fontWeight: 'bold', _mobile: { fontWeight: 'semibold' } } }),
   carrierSection: css({ borderBottom: '1px solid var(--color-black-20)' }),
-  carrierText: css({ fontStyle: 'normal', lineHeight: '1.5!', color: 'black.100' }),
+  carrierText: css({ fontStyle: 'normal', lineHeight: 'body!', color: 'black.100' }),
   carrierContent: css({ flex: '0 0 auto!', overflowY: 'visible!' }),
   carrierPopup: css({ overflowY: 'auto!' }),
-  termsText: css({ fontStyle: 'normal', lineHeight: '1.5!', color: 'black.100' }),
-  termsLink: css({ fontStyle: 'normal', lineHeight: '1.3!', color: 'black.100' }),
+  termsText: css({ fontStyle: 'normal', lineHeight: 'body!', color: 'black.100' }),
+  termsLink: css({ fontStyle: 'normal', lineHeight: 'body!', color: 'black.100' }),
   termsDocument: css({ gap: { base: '20px', _mobile: '24px' } }),
 };
 
@@ -78,9 +79,9 @@ function PhoneVerificationDetailDialog({ open, onOpenChange }: Props) {
             className={index === mvnoCarriers.length - 1 ? undefined : styles.carrierSection}
             titleAs="h2"
             title={<>{carrier.title}</>}
-            titleProps={{ variant: 'body3Medium', language: 'ko', className: styles.carrierText }}
+            titleProps={{ variant: 'b4M', language: 'ko', className: styles.carrierText }}
             description={<>{carrier.names}</>}
-            descriptionProps={{ variant: 'body4', language: 'ko', className: styles.carrierText }}
+            descriptionProps={{ variant: 'b6', language: 'ko', className: styles.carrierText }}
           />
         ))}
       </Stack>
@@ -117,7 +118,7 @@ function PhoneVerificationDialogs({ detail, onDetail }: PhoneVerificationDialogs
               css({ minH: '240px', overflowY: 'auto', maxH: '50vh', whiteSpace: 'pre-line' })
             }
           >
-            <Typography variant="body4">
+            <Typography variant="b6">
               본인확인 서비스 이용을 위한 약관입니다. 개인정보의 수집 및 이용, 고유식별정보 처리,
               통신사 이용 및 본인확인 서비스에 관한 동의 내용을 확인해 주세요. 이 영역은 화면
               미리보기용 본문이며 실제 약관 전문은 인증 서비스 제공자가 전달한 내용으로 표시합니다.
@@ -127,7 +128,7 @@ function PhoneVerificationDialogs({ detail, onDetail }: PhoneVerificationDialogs
         <Button variant="link" onClick={() => setPrevious(!previous)}>
           이전 약관 보기
         </Button>
-        {previous ? <Typography variant="body5">이전 약관이 없습니다.</Typography> : null}
+        {previous ? <Typography variant="b8">이전 약관이 없습니다.</Typography> : null}
       </div>
     </ModalDialog>
   );
@@ -191,7 +192,7 @@ function PhoneVerificationDesignDialogs({
         <div className={termsClasses.root}>
           <div className={termsClasses.details}>
             <div className={termsClasses.heading}>
-              <Typography as="p" variant="body3Medium" language="ko" className={styles.termsText}>
+              <Typography as="p" variant="b4M" language="ko" className={styles.termsText}>
                 {`${optional ? '(선택)' : '(필수)'} ${detail ?? ''}`}
               </Typography>
               {!optional && (
@@ -201,7 +202,7 @@ function PhoneVerificationDesignDialogs({
                   size="sm"
                   onClick={() => setPickerOpen(true)}
                 >
-                  <Typography variant="textLink3" language="ko" className={styles.termsLink}>
+                  <Typography variant="b8M" underline language="ko" className={styles.termsLink}>
                     이전 약관 보기
                   </Typography>
                 </Button>
@@ -209,7 +210,7 @@ function PhoneVerificationDesignDialogs({
             </div>
             <article className={cx(termsClasses.document, styles.termsDocument)}>
               {version ? (
-                <Typography variant="body5">{version} 시행 약관은 등록 준비 중입니다.</Typography>
+                <Typography variant="b8">{version} 시행 약관은 등록 준비 중입니다.</Typography>
               ) : (
                 [1, 2].map((number) => (
                   <ContentHeader
@@ -217,13 +218,13 @@ function PhoneVerificationDesignDialogs({
                     titleAs="h2"
                     title={`약관 타이틀${number}`}
                     titleProps={{
-                      variant: 'body4Medium',
+                      variant: 'b6M',
                       language: 'ko',
                       className: styles.termsText,
                     }}
                     description={'약관내용'.repeat(155)}
                     descriptionProps={{
-                      variant: 'body4',
+                      variant: 'b6',
                       language: 'ko',
                       className: styles.termsText,
                     }}
@@ -280,7 +281,7 @@ function PhoneVerificationAgreements(props: PhoneVerificationAgreementsProps) {
         invalid={showAgreementErrors && (props.fixedAgreementErrors || !agreements[index])}
         label={
           <>
-            <Typography variant="body4">(필수) {term}</Typography>
+            <Typography variant="b6">(필수) {term}</Typography>
           </>
         }
       />
@@ -312,7 +313,7 @@ function PhoneVerificationAgreements(props: PhoneVerificationAgreementsProps) {
         orientation: 'horizontal',
         gap: '8px',
         css: css.raw({ pb: '4', borderBottom: '1px solid var(--color-black-100)' }),
-        titleProps: { id: 'phone-terms-title', web: 'heading10', mo: 'heading7' },
+        titleProps: { id: 'phone-terms-title', web: 'h10', mo: 'h8' },
         action: (
           <Checkbox
             variant="consent"
@@ -320,7 +321,7 @@ function PhoneVerificationAgreements(props: PhoneVerificationAgreementsProps) {
             onCheckedChange={props.onAllAgree}
             label={
               <>
-                <Typography variant="body4">모두동의</Typography>
+                <Typography variant="b6">모두동의</Typography>
               </>
             }
           />
@@ -343,12 +344,7 @@ type PhoneInformationFieldsProps = Pick<
 >;
 function PhoneInformationFields(props: PhoneInformationFieldsProps) {
   const { information } = props;
-  const textField = (
-    key: keyof PhoneInformation,
-    label: string,
-    placeholder: string,
-    maxLength?: number,
-  ) => {
+  const textField = (key: keyof PhoneInformation, label: string, maxLength?: number) => {
     return (
       <TextFormField
         variant="boxed"
@@ -358,7 +354,6 @@ function PhoneInformationFields(props: PhoneInformationFieldsProps) {
         error={props.fieldErrors?.[key]}
         inputProps={{
           value: information[key],
-          placeholder: placeholder,
           maxLength: maxLength,
           type: key === 'phone' ? 'tel' : 'text',
           inputMode: key === 'name' ? 'text' : 'numeric',
@@ -382,8 +377,8 @@ function PhoneInformationFields(props: PhoneInformationFieldsProps) {
   );
   return (
     <>
-      {textField('name', '이름', '이름을 입력해 주세요')}
-      {textField('birthDate', '생년월일', '생년월일 8자리를 입력해 주세요', 8)}
+      {textField('name', '이름')}
+      {textField('birthDate', '생년월일', 8)}
       <Grid columns={2} gap="2">
         {selectField('nationality', '국적', ['내국인', '외국인'])}
         {selectField('gender', '성별', ['남자', '여자'])}
@@ -406,7 +401,7 @@ function PhoneInformationFields(props: PhoneInformationFieldsProps) {
           알뜰폰 사업자 보기
         </Button>
       </Grid>
-      {textField('phone', '휴대폰 번호', '휴대폰 번호를 입력해 주세요', 13)}
+      {textField('phone', '휴대폰 번호', 13)}
     </>
   );
 }
@@ -429,7 +424,6 @@ function VerificationCodeFields(props: VerificationCodeFieldsProps) {
             inputMode: 'numeric',
             autoComplete: 'one-time-code',
             maxLength: 6,
-            placeholder: '인증번호 6자리를 입력해 주세요',
             value: code,
             onChange: (event) => props.onCodeChange(event.target.value),
           }}
@@ -439,7 +433,7 @@ function VerificationCodeFields(props: VerificationCodeFieldsProps) {
         <VerificationCountdown secondsLeft={secondsLeft} />
       </Box>
       <Box mb="2">
-        <Typography as="p" variant="body5">
+        <Typography as="p" variant="b8">
           입력하신 휴대폰번호로 전송된 인증번호를 입력해주세요. 3분 이내에 인증번호 6자리를
           입력하셔야 하며, 인증번호가 오지 않을 경우 3분 후 재요청을 눌러주세요.
         </Typography>
@@ -566,14 +560,17 @@ export function PhoneVerificationContent(props: PhoneVerificationContentProps) {
           <ContentSection
             gap="6"
             title="인증 정보"
-            headerProps={{ titleAs: 'h2', titleProps: { variant: 'headingKr10' } }}
+            headerProps={{
+              titleAs: 'h2',
+              titleProps: { web: 'h10', mo: 'h8', className: styles.informationTitle },
+            }}
           >
             <PhoneVerificationForm {...props} />
           </ContentSection>
         </Stack>
       </fieldset>
       <Box mt="4">
-        <Typography as="p" variant="body4" tone="tertiary">
+        <Typography as="p" variant="b6" tone="tertiary">
           * 인증문의 (주)KCB고객센터 02-708-1000
         </Typography>
       </Box>

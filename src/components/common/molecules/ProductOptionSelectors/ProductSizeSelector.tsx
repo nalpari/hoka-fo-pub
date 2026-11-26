@@ -13,7 +13,7 @@ import { css } from 'styled-system/css';
 import { Box, Stack } from 'styled-system/jsx';
 
 import { FormField } from '@/components/common/atoms/FormField';
-import { Typography, type TypographyVariant } from '@/components/common/atoms/Typography';
+import { type ResponsiveTypographyVariant, Typography } from '@/components/common/atoms/Typography';
 
 import {
   SizeSelector,
@@ -25,11 +25,11 @@ import { ProductOptionSection } from './ProductOptionSection';
 const styles = {
   errorText: css({
     '&&': {
-      fontSize: '14px',
+      fontSize: 'body.14',
       fontWeight: '400',
-      lineHeight: '1.5',
+      lineHeight: 'body',
       color: '#CC0000',
-      _mobile: { fontSize: '13px', fontWeight: '500', lineHeight: '1.3', color: '#E10F00' },
+      _mobile: { fontSize: 'body.13', fontWeight: '500', lineHeight: 'body', color: '#E10F00' },
     },
   }),
   errorField: css({ display: 'flex', flexDirection: 'column', gap: '8px' }),
@@ -52,7 +52,7 @@ export type ProductSizeSelectorProps = {
   action?: ReactNode;
   description?: ReactNode;
   error?: string;
-  errorVariant?: TypographyVariant;
+  errorVariant?: ResponsiveTypographyVariant;
   id?: string;
   fieldId?: string;
 };
@@ -94,7 +94,7 @@ export function ProductSizeSelector({
         htmlFor={fieldId ?? generatedId}
         className={styles.errorField}
         error={
-          <Typography variant={errorVariant ?? 'body4'} className={styles.errorText}>
+          <Typography variant={errorVariant ?? 'b6'} className={styles.errorText}>
             {error}
           </Typography>
         }
@@ -116,7 +116,7 @@ export function ProductSizeSelector({
         appearance === 'cart' ? (
           <>
             사이즈:{' '}
-            <Typography as="span" web="body3" mo="body4" weight="regular">
+            <Typography as="span" web="b4" mo="b6">
               {value}
             </Typography>
           </>

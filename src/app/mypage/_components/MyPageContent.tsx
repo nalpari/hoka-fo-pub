@@ -1,8 +1,9 @@
 'use client';
+import Image from 'next/image';
 import Link from 'next/link';
 
-import { useState } from 'react';
-import { usePlatform } from '@/context/platform';
+import { useRef, useState } from 'react';
+import { useShopPreviewLogout } from '@/context/ShopPreviewContext';
 
 import { css } from 'styled-system/css';
 import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
@@ -43,7 +44,7 @@ function MyPageMembership() {
   return (
     <Box bg="black.10" p="32px" minW="0" _mobile={{ px: '16px', py: '20px' }}>
       <Stack gap="12px">
-        <HStack justifyContent="space-between" alignItems="flex-start">
+        <HStack gap="16px">
           <HStack gap="12px" _mobile={{ gap: '8px' }}>
             <HStack
               as="span"
@@ -56,11 +57,11 @@ function MyPageMembership() {
               bg="black.100"
               color="offWhite.100"
             >
-              <Typography web="heading8" mo="heading6" language="en">
+              <Typography web="h10B" mo="h8" className={styles.rankInitial}>
                 {'R'}
               </Typography>
             </HStack>
-            <Typography web="heading7" mo="heading5" language="en">
+            <Typography web="h8B" mo="h8B" language="en">
               {'RUNNER'}
             </Typography>
           </HStack>
@@ -69,8 +70,8 @@ function MyPageMembership() {
           </ButtonLink>
         </HStack>
         <Box w="full" pl="60px" boxSizing="border-box" _mobile={{ pl: '40px' }}>
-          <Typography as="p" web="body3" mo="body5" className={styles.benefitText}>
-            {'다음 등급까지 300,000원 구매시 등급 업 혜택 제공'}
+          <Typography as="p" web="b4" mo="b8" className={styles.benefitText}>
+            {'다음 등급까지 300,000원 구매 시 등급 업 혜택 제공'}
           </Typography>
         </Box>
       </Stack>
@@ -95,18 +96,30 @@ const styles = {
     textDecoration: 'none',
     _mobile: { px: '16px', py: '20px' },
   }),
-  logoutButton: css({ _mobile: { '& > span': { '--button-label-weight': '400' } } }),
-  profileTitle: css({ lineHeight: '1', _mobile: { lineHeight: '1.2' } }),
-  benefitText: css({ '&&': { lineHeight: '1.5' } }),
-  profileName: css({ '&&': { lineHeight: '1', _mobile: { lineHeight: '1.2' } } }),
+  profileTitle: css({ lineHeight: 'body', _mobile: { display: 'flex', lineHeight: '1.2' } }),
+  rankInitial: css({ _mobile: { fontFamily: 'ko', lineHeight: 'koreanHeading' } }),
+  barcodeHeader: css({ _mobile: { mb: '16px', '& h2': { lineHeight: 'body' } } }),
+  barcodeFooter: css({
+    _mobile: {
+      borderTop: '1px solid var(--color-border-subtle)',
+      mt: '32px',
+      pt: '16px',
+      pb: '32px',
+      '&& button': { h: '44px', minH: '44px' },
+      '& button > span > span': { fontWeight: '400' },
+    },
+  }),
+  barcodeImage: css({ display: 'block', maxW: 'full', h: 'auto', opacity: 0.2 }),
+  benefitText: css({ '&&': { lineHeight: 'body' } }),
+  profileName: css({ '&&': { lineHeight: 'body', _mobile: { lineHeight: '1.2' } } }),
   menuHeader: css({
     minH: '52px',
     justifyContent: 'flex-end',
     pb: '16px',
-    borderBottom: '2px solid var(--colors-black-100)',
-    _mobile: { minH: '0', borderBottomWidth: '1px' },
+    borderBottom: '1px solid var(--colors-black-100)',
+    _mobile: { minH: '43px' },
   }),
-  menuTitle: css({ '&&': { lineHeight: '1.2' } }),
+  menuTitle: css({ '&&': { lineHeight: 'body', _mobile: { lineHeight: '1.2' } } }),
   profileLink: css({
     display: 'inline-flex',
     alignItems: 'center',
@@ -121,16 +134,16 @@ function MyPageBenefitItem({ href, label, count, unit, icon }: MyPageBenefitItem
     <Link className={styles.benefitLink} href={href}>
       <Stack h="full" minH="81px" justifyContent="space-between" _mobile={{ minH: '57px' }}>
         <HStack gap="8px">
-          <Icon name={icon} size={18} />
-          <Typography web="body2" mo="body3" className={styles.benefitText}>
+          <Icon name={icon} size={18} color="blue.100" />
+          <Typography web="b2M" mo="b4M" className={styles.benefitText}>
             {label}
           </Typography>
         </HStack>
         <HStack gap="2px" justifyContent="flex-end" alignItems="flex-end">
-          <Typography web="heading7" mo="heading5" language="en">
+          <Typography web="h8B" mo="h7B" language="en">
             {count}
           </Typography>
-          <Typography web="body2" mo="body3" className={styles.benefitText}>
+          <Typography web="b2" mo="b4" className={styles.benefitText}>
             {unit}
           </Typography>
         </HStack>
@@ -151,7 +164,7 @@ function MyPageBenefits() {
       />
       <MyPageBenefitItem
         href="/mypage/wishlist"
-        label="관심상품"
+        label="관심 상품"
         count={6}
         unit="건"
         icon="heart-solid"
@@ -161,56 +174,93 @@ function MyPageBenefits() {
 }
 
 function MyPageOverviewProfile({ onLogout }: { onLogout: () => void }) {
-  const platform = usePlatform();
+  const [barcodeOpen, setBarcodeOpen] = useState(false);
+  const barcodeTrigger = useRef<HTMLButtonElement>(null);
 
   return (
-    <ContentSection
-      gap="32px"
-      _mobile={{ gap: '16px' }}
-      title={
-        <Link className={styles.profileLink} href="/mypage/profile">
-          <HStack as="span" gap="2px" alignItems="flex-end">
-            <Typography as="span" web="heading6" mo="heading4" className={styles.profileName}>
-              {'박연진'}
-            </Typography>
-            <Typography as="span" variant="body1">
-              님
-            </Typography>
-          </HStack>
-          <Icon name="hoka-nav-chevron-right-regular" size={24} />
-        </Link>
-      }
-      headerProps={{
-        orientation: 'horizontal',
-        alignItems: 'flex-end',
-        action: (
-          <Button
-            className={styles.logoutButton}
-            {...(platform === 'mobile'
-              ? { variant: 'link', size: 'md' }
-              : { variant: 'secondary', size: 'short' })}
-            onClick={onLogout}
-          >
-            로그아웃
-          </Button>
-        ),
-        titleAs: 'h1',
-        titleProps: {
-          web: 'heading6',
-          mo: 'heading4',
-          className: styles.profileTitle,
-        },
-      }}
-    >
-      <Grid
-        gridTemplateColumns="minmax(0, 1fr) 488px"
-        gap="8px"
-        _mobile={{ gridTemplateColumns: '1fr' }}
+    <>
+      <ContentSection
+        gap="32px"
+        _mobile={{ gap: '16px' }}
+        title={
+          <Link className={styles.profileLink} href="/mypage/profile">
+            <HStack as="span" gap="2px" alignItems="flex-end" _mobile={{ alignItems: 'center' }}>
+              <Typography as="span" web="h4B" mo="h2" className={styles.profileName}>
+                {'박연진'}
+              </Typography>
+              <Typography as="span" web="b1" mo="h2">
+                님
+              </Typography>
+            </HStack>
+            <Icon name="hoka-nav-chevron-right-regular" size={24} />
+          </Link>
+        }
+        headerProps={{
+          orientation: 'horizontal',
+          alignItems: 'flex-end',
+          action: (
+            <Button variant="link" size="md" onClick={onLogout}>
+              로그아웃
+            </Button>
+          ),
+          titleAs: 'h1',
+          titleProps: {
+            web: 'h4B',
+            mo: 'h2',
+            className: styles.profileTitle,
+          },
+        }}
       >
-        <MyPageMembership />
-        <MyPageBenefits />
-      </Grid>
-    </ContentSection>
+        <Box>
+          <Button
+            ref={barcodeTrigger}
+            variant="link"
+            size="md"
+            aria-haspopup="dialog"
+            onClick={() => setBarcodeOpen(true)}
+          >
+            멤버십 바코드 보기
+          </Button>
+        </Box>
+        <Grid
+          gridTemplateColumns="minmax(0, 1fr) 488px"
+          gap="8px"
+          _mobile={{ gridTemplateColumns: '1fr' }}
+        >
+          <MyPageMembership />
+          <MyPageBenefits />
+        </Grid>
+      </ContentSection>
+      <ModalDialog
+        variant="detail"
+        title="멤버십 바코드"
+        closeLabel="멤버십 바코드 닫기"
+        open={barcodeOpen}
+        onOpenChange={setBarcodeOpen}
+        finalFocus={barcodeTrigger}
+        mobilePresentation="bottomSheet"
+        blurBackdrop={false}
+        headerProps={{ className: styles.barcodeHeader }}
+        footerProps={{ className: styles.barcodeFooter }}
+        actions={{ kind: 'single', onConfirm: () => setBarcodeOpen(false) }}
+      >
+        <Stack alignItems="center" gap="16px" textAlign="center">
+          {/* [ 개발팀 바인딩 ] 회원별 바코드는 회원정보 연동 시 교체합니다. 현재 이미지는 디자인 시안의 표시용 샘플입니다. */}
+          <Image
+            src="/images/mypage/membership-barcode.png"
+            alt="멤버십 바코드 예시"
+            width={280}
+            height={98}
+            className={styles.barcodeImage}
+          />
+          <Typography as="p" variant="b6">
+            오프라인 매장에서 바코드를 제시하면
+            <br />
+            멤버십 혜택을 받으실 수 있습니다.
+          </Typography>
+        </Stack>
+      </ModalDialog>
+    </>
   );
 }
 
@@ -224,10 +274,11 @@ function MyPageMenuItem({ label, to }: MyPageMenuItemProps) {
     <Link className={styles.menuLink} href={to}>
       <HStack
         minH="56px"
+        _mobile={{ py: '16px' }}
         justifyContent="space-between"
         borderBottom="1px solid var(--color-border-subtle)"
       >
-        <Typography variant="body3">{label}</Typography>
+        <Typography variant="b4M">{label}</Typography>
         <Icon name="hoka-nav-chevron-right-regular" size={24} />
       </HStack>
     </Link>
@@ -238,13 +289,13 @@ function MyPageMenuSection({ title, items }: { title: string; items: MyPageMenuI
   return (
     <ContentSection
       as="section"
-      gap="16px"
+      gap="0"
       aria-label={title}
       title={title}
       headerProps={{
         titleAs: 'h2',
         className: styles.menuHeader,
-        titleProps: { web: 'heading7', mo: 'heading5', className: styles.menuTitle },
+        titleProps: { web: 'h9B', mo: 'h7', className: styles.menuTitle },
       }}
     >
       <Stack gap="0">
@@ -256,10 +307,11 @@ function MyPageMenuSection({ title, items }: { title: string; items: MyPageMenuI
   );
 }
 
-/** [ 개발팀 바인딩 ] PC·모바일 상단 로그아웃은 이 owner의 logoutOpen을 공유합니다. previewLogout은 확인창의 초기 표시만 지정하며, 확인·취소는 인증 변경·로그아웃 요청 없이 확인창만 닫습니다. 실제 인증 종료 요청과 pending·실패 처리 및 완료 후 화면 갱신은 인증 연동 소유자가 연결해야 하는 미연동 경계입니다. */
+/** [ 개발팀 바인딩 ] PC·모바일 로그아웃 확인은 ShopShell의 퍼블리싱 전용 Context로 셸 로그인 표시를 해제하고 창을 닫습니다. 고객센터 개인 회원등급 요약도 같은 표시 상태를 읽습니다. 닫기는 표시 상태를 유지하며 previewLogout은 확인창 초기 표시만 지정합니다. 인증 요청·저장·완료 이동은 없고 새로고침하면 초기 fixture로 돌아갑니다. 실제 인증 종료와 pending·실패·성공 후 갱신은 인증 연동 소유자가 연결해야 합니다. */
 /** 마이페이지 요약과 메뉴를 구성하고 로그아웃을 연결합니다. (Composes the account overview and menus and connects logout.) */
 export function RouteContent({ previewLogout = false }: { previewLogout?: boolean }) {
   const [logoutOpen, setLogoutOpen] = useState(previewLogout);
+  const logoutPreview = useShopPreviewLogout();
 
   return (
     <>
@@ -283,6 +335,7 @@ export function RouteContent({ previewLogout = false }: { previewLogout?: boolea
         open={logoutOpen}
         onOpenChange={setLogoutOpen}
         onConfirm={() => {
+          logoutPreview?.();
           setLogoutOpen(false);
         }}
       />

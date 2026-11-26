@@ -6,6 +6,9 @@
 
 import Image from 'next/image';
 
+import { useLayoutEffect, useRef } from 'react';
+import { usePlatform } from '@/context/platform';
+
 import { css } from 'styled-system/css';
 
 import { Radio } from '@/components/common/atoms/Radio';
@@ -15,6 +18,8 @@ import {
   ProductOptionList,
   type ProductOptionThumbnail,
 } from '@/components/common/molecules/ProductOptionList';
+
+import { centerHorizontalScroll } from '@/lib/centerHorizontalScroll';
 
 import { ProductOptionSection } from './ProductOptionSection';
 
@@ -35,6 +40,7 @@ const styles = {
       overflowX: 'auto',
       w: 'calc(100% + 16px)',
       mr: '-16px',
+      '@media (prefers-reduced-motion: no-preference)': { scrollBehavior: 'smooth' },
     },
     '& [role="radio"]': {
       position: 'relative',
@@ -84,6 +90,17 @@ export function ProductColorSelector({
   onValueChange,
   appearance = 'detail',
 }: ProductColorSelectorProps) {
+  const platform = usePlatform();
+  const groupRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const group = groupRef.current;
+    if (platform !== 'mobile' || !group) return;
+
+    const selected = group.querySelector<HTMLElement>('[role="radio"][data-checked]');
+    if (selected) centerHorizontalScroll(group, selected);
+  }, [platform, value]);
+
   return (
     <ProductOptionSection
       appearance={appearance}
@@ -91,13 +108,13 @@ export function ProductColorSelector({
         appearance === 'cart' ? (
           <>
             컬러:{' '}
-            <Typography as="span" web="body3" mo="body4" weight="regular">
+            <Typography as="span" web="b4" mo="b6">
               {value}
             </Typography>
           </>
         ) : (
           <>
-            컬러: <Typography variant="body4">{value}</Typography>
+            컬러: <Typography variant="b6">{value}</Typography>
           </>
         )
       }
@@ -113,6 +130,7 @@ export function ProductColorSelector({
       ) : (
         <Radio
           ariaLabel="컬러 선택"
+          ref={groupRef}
           className={styles.colors}
           onValueChange={onValueChange}
           options={options.map((option) => ({

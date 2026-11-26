@@ -9,7 +9,7 @@ import { OrderActionBar } from '@/components/common/layouts/OrderActionBar';
 import { type CheckoutRow } from '@/app/checkout/checkout-summary';
 
 import { CheckoutAgreement } from './CheckoutAgreement';
-import { CheckoutDiscountSummary } from './CheckoutDiscountSummary';
+import { type CheckoutCouponPreview, CheckoutDiscountSummary } from './CheckoutDiscountSummary';
 import { CheckoutPayment, type PaymentMethod } from './CheckoutPayment';
 import {
   type AddressEditorPreview,
@@ -19,7 +19,7 @@ import {
 import { CheckoutSummary } from './CheckoutSummary';
 
 type CheckoutContentProps = {
-  initialCouponOpen?: boolean;
+  initialCouponDialog?: CheckoutCouponPreview;
   editShipping?: boolean;
   initialAddressChangeOpen?: boolean;
   initialAddressEditor?: AddressEditorPreview;
@@ -33,7 +33,7 @@ type CheckoutContentProps = {
 
 /** 주문서 섹션과 입력·선택 UI를 배치합니다. (Arranges checkout sections and input controls.) */
 export function CheckoutContent({
-  initialCouponOpen,
+  initialCouponDialog,
   editShipping = false,
   initialAddressChangeOpen,
   initialAddressEditor,
@@ -47,8 +47,8 @@ export function CheckoutContent({
   return (
     <Grid
       gridTemplateColumns={{ base: '720px 360px', _mobile: '1fr' }}
-      rowGap={{ base: '12', _mobile: '8' }}
-      columnGap={{ base: '14', _mobile: '0' }}
+      rowGap={{ base: '48px', _mobile: '32px' }}
+      columnGap={{ base: '56px', _mobile: '0px' }}
       alignItems="start"
     >
       <Box gridColumn="1" gridRow={{ base: 'auto', _mobile: '1' }}>
@@ -70,7 +70,7 @@ export function CheckoutContent({
         <CheckoutPayment payment={payment} onPaymentChange={onPaymentChange} />
       </Box>
       <Stack
-        gap={{ base: '7', _mobile: '6' }}
+        gap={{ base: '28px', _mobile: '24px' }}
         display={{ base: 'flex', _mobile: 'contents' }}
         gridColumn={{ base: '2', _mobile: '1' }}
         gridRow={{ base: '1 / span 3', _mobile: 'auto' }}
@@ -78,13 +78,13 @@ export function CheckoutContent({
         top="120px"
         bg={{ base: 'black.10', _mobile: 'transparent' }}
         border="0"
-        p={{ base: '6', _mobile: '0' }}
+        p={{ base: '24px', _mobile: '0px' }}
       >
         <Box gridColumn="1" gridRow={{ base: 'auto', _mobile: '3' }}>
           {/* 주문금액·할인금액·배송비·총 결제 금액 */}
-          <CheckoutDiscountSummary initialCouponOpen={initialCouponOpen} />
+          <CheckoutDiscountSummary initialCouponDialog={initialCouponDialog} />
         </Box>
-        <Stack gap="6" gridColumn="1" gridRow="5">
+        <Stack gap={{ base: '28px', _mobile: '0px' }} gridColumn="1" gridRow="5">
           {/* 결제 동의 */}
           <CheckoutAgreement showError={showAgreementError} />
           {/* 결제하기 액션 */}

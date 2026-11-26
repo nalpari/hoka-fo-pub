@@ -19,7 +19,6 @@ const badge = sva({
       w: 'fit-content',
       minH: '16px',
     },
-    text: { lineHeight: '1!' },
   },
   variants: {
     variant: {
@@ -31,8 +30,11 @@ const badge = sva({
       },
     },
     visual: {
-      round: { root: { borderRadius: 'full', px: '8px', py: '6px' } },
-      square: { root: { px: '8px', py: '8px' } },
+      round: { root: { minH: '32px', borderRadius: 'full', px: '8px', py: '6px' } },
+      square: {
+        root: { minH: '29px', px: '8px', py: '8px' },
+        text: { _web: { lineHeight: 'body' } },
+      },
     },
   },
   compoundVariants: [
@@ -54,8 +56,8 @@ const badge = sva({
 });
 
 const badgeTypography = {
-  round: { variant: 'bodyKr5' },
-  square: { filled: { variant: 'body4' }, outlined: { web: 'body4', mo: 'body5' } },
+  round: { variant: 'b8' },
+  square: { filled: { variant: 'b6' }, outlined: { web: 'b6', mo: 'b8' } },
 } as const;
 
 export type Promotion = 'Best' | 'New' | 'Exclusive';
@@ -111,7 +113,7 @@ export function Badge({
               />
             )}
             <Typography
-              variant="body4"
+              variant="b6"
               web={web}
               mo={mo}
               tone={tone}

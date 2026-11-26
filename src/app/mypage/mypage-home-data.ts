@@ -2,8 +2,8 @@ export const menuSections = [
   {
     title: '구매내역',
     items: [
-      { label: '주문 / 배송조회', to: '/mypage/orders' },
-      { label: '취소 / 반품내역', to: '/mypage/returns' },
+      { label: '주문/배송조회', to: '/mypage/orders' },
+      { label: '취소/반품내역', to: '/mypage/returns' },
       { label: '상품리뷰', to: '/mypage/reviews' },
     ],
   },
@@ -16,7 +16,7 @@ export const menuSections = [
     ],
   },
   {
-    title: 'MY HOKA',
+    title: 'My HOKA',
     items: [
       { label: '회원등급', to: '/mypage/rewards' },
       { label: '쿠폰', to: '/mypage/coupons' },

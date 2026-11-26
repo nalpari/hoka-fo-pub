@@ -27,7 +27,7 @@ export default function Page() {
     <CustomerCenterLayout
       className={css({ _mobile: { pb: '72px!' } })}
       title="공지사항"
-      mobileTitleVariant="heading5"
+      mobileTitleVariant="h7B"
       activePath="/support/notices"
       breadcrumbItems={[
         { label: 'Home', href: '/' },
@@ -56,12 +56,12 @@ export default function Page() {
         <ContentHeader
           title={notice.title}
           titleAs="h2"
-          titleProps={{ variant: 'heading9' }}
+          titleProps={{ web: 'h10', mo: 'h8' }}
           gap="2"
           description={notice.date}
           descriptionAs="time"
           descriptionProps={{
-            variant: 'body4',
+            variant: 'b6',
             language: 'en',
             dateTime: notice.date,
             className: css({ color: 'black.50' }),
@@ -79,27 +79,27 @@ export default function Page() {
       >
         {notice === notices[0] ? (
           <>
-            <Typography as="p" variant="body4">
+            <Typography as="p" variant="b6">
               안녕하세요, HOKA 코리아입니다.
             </Typography>
-            <Typography as="p" variant="body4">
+            <Typography as="p" variant="b6">
               네이버페이 9월 프로모션을 안내드립니다.
             </Typography>
-            <Typography as="p" variant="body4">
+            <Typography as="p" variant="b6">
               1. 이벤트 진행기간: 9월 1일 00:00 ~ 9월 14일 09:59
             </Typography>
-            <Typography as="p" variant="body4">
+            <Typography as="p" variant="b6">
               2. 네이버페이로 10만원 이상 결제 시 7천원 즉시할인
             </Typography>
-            <Typography as="p" variant="body4">
+            <Typography as="p" variant="b6">
               3. 대상 상품: 호카 공식 홈페이지 내 전 상품
             </Typography>
-            <Typography as="p" variant="body4">
+            <Typography as="p" variant="b6">
               이용해 주셔서 감사합니다.
             </Typography>
           </>
         ) : (
-          <Typography as="p" variant="body4">
+          <Typography as="p" variant="b6">
             {notice.title} 상세 안내입니다.
           </Typography>
         )}

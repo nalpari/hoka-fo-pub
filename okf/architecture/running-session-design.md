@@ -4,6 +4,7 @@ title: '러닝세션 목록·상세 Figma 적용'
 description: '러닝세션 목록과 상세의 PC/MO 규격, 표시 데이터와 신청 상태 검증을 기록한다.'
 tags: [running-session, figma, responsive, binding]
 status: draft
+updated: '2026-11-25'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T04:21:59.926Z'
@@ -14,6 +15,7 @@ working_tree_sources:
   - src/components/running-session/runningSession.data.ts
   - src/app/running/running-session/[sessionId]/page.tsx
   - src/app/running/running-session/[sessionId]/_components/RunningSessionSessionContent.tsx
+  - src/app/screen-index/screenConnections.ts
   - src/components/common/atoms/Badge.tsx
   - src/stories/features/running-session/RunningSessionPreview.tsx
   - src/stories/features/binding/RemainingBinding.stories.tsx
@@ -27,9 +29,30 @@ sources:
   - id: figma-running-session
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design
     title: 'HOKA RUN CLUB 시안'
+  - id: figma-running-session-application-notices
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design
+    title: '러닝세션 신청 확인·완료·미성년자 제한·모집 마감 팝업'
 ---
 
 # 러닝세션 목록·상세 Figma 적용
+
+## 신청 팝업 4종 Figma 적용 (2026-11-25)
+
+신청 확인은 이름·휴대폰번호·세션명·일시·장소와 취소·확인 버튼을 표시한다. 상세의 CTA로 열면 현재 세션 제목과 일시를 표시하고, IA의 확인 팝업 URL에서는 시안의 북악산 트레일 세션과 10월 30일 일시를 표시한다. 완료, 미성년자 제한과 모집 마감 안내는 확인 및 닫기 아이콘을 표시한다. 제한 문구는 시안과 상세 본문의 만 18세 기준을 사용한다. 신청 확인 모바일에는 닫기 아이콘을 표시하지 않는다.
+
+네 상태 모두 기존 ModalDialog를 재사용한다. PC 팝업 최대 폭 640px·반경 10px, 모바일 양쪽 16px 여백·반경 8px, PC 버튼 너비 180px과 모바일 가용 폭을 적용했다. 버튼 높이는 42px이며 라벨은 15px이다. 확인 정보의 상하 테두리는 #E9EAEB이며 행 간격은 PC 16px·모바일 8px이다. 안내 본문은 PC 20px·모바일 16px이다.
+
+Figma 노드의 제목과 버튼 라벨은 숫자 추출값이 Regular/400이며, 연결된 굵기 모드는 각각 `Body Weights: Bold`와 `CTA Weights: Bold`다. 같은 디자인 파일에서 확인한 모드 매핑과 저장소의 모드 우선 정책에 따라 공통 모달의 Pretendard Bold/700을 적용한다. 신청정보 소제목은 Bold/700, 항목 라벨과 상세 주소는 Regular/400, 정보값·확인 질문·안내 본문은 Medium/500이다.
+
+확인과 취소는 팝업을 닫는 로컬 동작이다. 회원·세션 식별자, 신청 요청과 결과, 연령·모집 판정 및 새로고침은 통합 소유자가 연결한다. 완료와 제한 상태는 고정 확인 URL에서 표시한다. [디자인][^figma-running-session-application-notices]과 [IA 연결](routing.md#러닝세션-신청-팝업-ia-연결-2026-11-25)을 참고한다.
+
+PC 1440px·모바일 375px에서 네 상태 직접 진입, 문구, 규격, 닫기와 IA 검색·상태 링크를 확인했다. 고정 신청 확인의 새로고침, 상세의 여의도 세션명 표시, 확인 후 같은 상세 경로 유지와 Escape 닫기도 확인했다. 375×400px 뷰포트에서 확인 본문을 스크롤해도 하단 버튼이 보였다.
+
+굵기 보정 후 PC·모바일 팝업 8개에서 텍스트 50개의 크기·계산 굵기를 Figma와 대조했다. 신청 확인의 제목·소제목·버튼은 실제 Pretendard Bold, 라벨은 Regular, 정보값과 질문은 Medium face를 사용했다. Panda 재생성과 변경 파일 ESLint·Prettier·TypeScript 검사도 통과했다.
+
+마크업 인계 기준에 따라 기존 상세·팝업 소유권과 고정 URL을 사용했다. 화면 그래프 생성 후 그래프에 변경이 없었다. 변경 파일 ESLint·Prettier, Panda 생성, TypeScript와 Next 프로덕션 빌드(정적 페이지 172개)를 통과했다. IA 관련 테스트는 25개 중 24개가 통과했고 기존 `/mypage/preview-no-orders`의 활성 IA 링크 누락으로 1개가 실패했다.
+
+[^figma-running-session-application-notices]: 사용자 지정 디자인 파일의 신청 확인·완료·미성년자 신청 제한·모집 마감 PC 및 모바일 프레임 8개.
 
 ## 신청 시작 알림 색상과 목록 이미지 모서리 (2026-11-05)
 
@@ -56,7 +79,7 @@ sources:
 - 안내 배경은 기존 black.10(#F7F7F9), PC 상하 96px·좌측 72px 기준의 최대 1558px 그리드(858/640px·60px 간격)이다. 모바일 위 48px·아래 72px·좌우 16px·포스터/안내 사이 64px이다. 포스터는 기존 세션 카테고리의 내용을 유지하며 PC 제목 84px·모바일 42px, eyebrow PC 42px·모바일 28px이다.
 - 안내 표 행은 상하 24px·라벨 60px·간격 16px이다. 안내 본문은 16px, 표 내용 14px, 주의 사항은 PC 14px/모바일 12px이다.
 - 고정 신청 바는 모바일 좌우/위 16px·아래 max(32px, safe-area)와 48px 버튼이다. 모집중/모집마감/신청예정의 기존 문구·disabled를 유지한다. footer 뒤 96px+safe-area로 가림을 방지한다.
-- PC 보조 이미지 자리 표시는 최대 1776px·2.6667 비율·상하 96px이다. showSupplementalImagePlaceholder를 명시한 여의도/기존 북촌 fixture에서만 표시한다. 실제 운영 사진은 연결되지 않았다. 추천 상품은 기존 products 표시 데이터와 Carousel을 유지하며 섹션 폭 1776px·간격 16px·제목 36px을 scope 안에서 지정했다. 모바일 추천/보조 이미지 숨김은 유지했다.
+- PC 보조 이미지 자리 표시는 최대 1776px·2.6667 비율·상하 96px이다. showSupplementalImagePlaceholder를 명시한 여의도/기존 북촌 fixture에서만 표시한다. 실제 운영 사진은 연결되지 않았다. 추천 상품은 기존 products 표시 데이터와 Carousel을 유지하며 섹션 폭 1776px·간격 16px·제목 36px을 scope 안에서 지정했다. 모바일 추천/보조 이미지 숨김은 당시 유지했으며, 아래 2026-11-23 변경으로 해제했다.
 
 ## 공통 배지와 표시 데이터
 
@@ -93,3 +116,11 @@ Panda 생성·타입 검사·대상 ESLint/Prettier·Next/Storybook 빌드와 �
 목록 카드는 Card, 상세 세션/코스 정보는 DescriptionList, 모바일 고정 신청 바는 OrderActionBar.mobileOnly를 재사용한다. 카드 article·정보 dt/dd·모바일 전용 행·58/60px 라벨 열·안전 영역·기존 신청 버튼/콜백을 유지한다. 신청 내역은 Badge.textProps와 Divider의 vertical 옵션으로 기존 글꼴과 선을 보존한다. [전체 공통 판단과 실제 비교](common-reuse-audit.md)를 참고한다.
 
 전수 대조 검토: codex/gpt-6, 2026-11-02T05:57:28Z. 미커밋 변경 출처는 [조사표](common-reuse-audit.md)의 working_tree_sources에 기록한다.
+
+## 모바일 보조 이미지와 Essential 추가 (2026-11-23)
+
+출처: [최신 러닝클럽 상세 디자인](https://www.figma.com/design/soQFEF6eeDjnQP7wY9Q96M/Main---PLP---PDP), 작업 트리의 `src/app/running/running-session/[sessionId]/_components/RunningSessionSessionContent.tsx`. 검토 주체 codex/gpt-6, 2026-11-23 KST.
+
+모바일에서 보조 이미지와 로드 러닝 Essential을 기존 컴포넌트로 표시한다. 이미지 표시 여부는 기존 showSupplementalImagePlaceholder fixture 옵션을 따른다. 모바일 이미지는 전체 콘텐츠 폭·1:1·외부 여백0, 안내 글자는 관측 Bold/700에 맞춘 Pretendard22px/700·행간34px이다. 굵기 모드 이름은 확인하지 못했다. Essential은 상하72px, 제목/목록16px, 좌측16px, 상품 간10px을 적용했다. 기존 상품 카드 폭150px과 표시 데이터는 유지한다. PC의 이미지 비율2.6667·상하96px과 추천 영역 하단192px을 유지한다. API나 서비스 계약은 추가하지 않았다.
+
+실행 검증: 375px viewport/clientWidth360px에서 이미지360×360px, 안내22px/700, 추천 상하72px, 제목/상품 시작x16px, 상품150px·다음 시작x176px 및 가로 넘침 없음을 확인했다. 상품 이미지 로드와 드래그 후 레일 이동을 확인했다. PC1440px/clientWidth1425px에서 이미지1315×493.1px, 기존 추천 패딩과 가로 넘침 없음을 확인하고 PC/MO 스크린샷을 검토했다. 변경 경로 ESLint·Prettier, 전체 TypeScript, Panda 생성을 통과했다. 설치된 Next CSS 가이드와 마크업 인계의 Panda·소유권·반응형 경계를 검토했다. 자식 상세 조회는 API429로 중단했으므로 상품/제목의 세부 최신 디자인 일치는 미확정이며 기존 표현을 유지한다. Next 전체 빌드와 실제 모바일 기기는 검증하지 않았다.

@@ -50,7 +50,7 @@ export function AddressEditor({
       title={<>{editingId === 'new' ? '배송지 추가' : '배송지 수정'}</>}
       headerProps={{
         titleAs: 'h1',
-        titleProps: { web: 'headingKr6', mo: 'headingKr5' },
+        titleProps: { web: 'h4B', mo: 'h7B' },
         pb: '40px',
         borderBottom: '2px solid black',
         _mobile: { pb: '32px' },
@@ -74,7 +74,6 @@ export function AddressEditor({
                 error={fieldError('recipient')}
                 inputProps={{
                   required: true,
-                  placeholder: '이름을 입력해 주세요',
                   value: draft.recipient,
                   onChange: (event) => update('recipient', event.target.value),
                 }}
@@ -87,7 +86,6 @@ export function AddressEditor({
                 error={fieldError('name')}
                 inputProps={{
                   required: true,
-                  placeholder: '배송지명을 입력해 주세요',
                   value: draft.name,
                   onChange: (event) => update('name', event.target.value),
                 }}
@@ -101,7 +99,6 @@ export function AddressEditor({
                 inputProps={{
                   required: true,
                   type: 'tel',
-                  placeholder: '- 없이 입력해 주세요',
                   value: draft.phone,
                   onChange: (event) => update('phone', event.target.value),
                 }}
@@ -112,7 +109,6 @@ export function AddressEditor({
                 variant="boxed"
                 inputProps={{
                   type: 'tel',
-                  placeholder: '- 없이 입력해 주세요',
                   value: draft.alternatePhone,
                   onChange: (event) => update('alternatePhone', event.target.value),
                 }}
@@ -151,7 +147,6 @@ export function AddressEditor({
                     inputProps: {
                       required: true,
                       readOnly: true,
-                      placeholder: '우편번호 찾기 버튼을 눌러주세요',
                     },
                   },
                   address: {
@@ -161,7 +156,6 @@ export function AddressEditor({
                     inputProps: {
                       required: true,
                       readOnly: true,
-                      placeholder: '주소를 입력해 주세요',
                     },
                   },
                   addressDetail: {
@@ -170,7 +164,6 @@ export function AddressEditor({
                     disabled: false,
                     inputProps: {
                       required: true,
-                      placeholder: '상세주소를 입력해 주세요',
                       type: undefined,
                       autoComplete: undefined,
                     },

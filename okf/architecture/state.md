@@ -4,12 +4,19 @@ title: '공통 상태와 데모 데이터'
 description: '로그인, 장바구니와 목 데이터의 수명 및 제약을 설명한다.'
 tags: [react, state, mock-data]
 status: draft
-updated: '2026-11-17T06:02:07.510649+00:00'
+updated: '2026-11-24T01:45:10Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
 source_revision: 84b1d96781349d795089b9e2f737aad11a02172d
 working_tree_sources:
+  - src/components/catalog/ProductListingPage.tsx
+  - src/app/screen-index/screenProgress.ts
+  - src/app/support/member-benefits/_components/MemberBenefitsContent.tsx
+  - src/app/support/member-benefits/page.tsx
+  - src/components/membership/rewards-data.ts
+  - src/components/membership/MembershipRewards.tsx
+  - src/context/ShopPreviewContext.ts
   - src/context/ShopShell.tsx
   - src/app/checkout/checkout-address-preview.ts
   - src/context/ShopShell.tsx
@@ -46,7 +53,7 @@ working_tree_sources:
   - src/components/common/organisms/Search/SearchHeader.tsx
   - src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx
   - src/app/mypage/rewards/_components/RewardsContent.tsx
-  - src/app/mypage/rewards/rewards-data.ts
+  - src/components/membership/rewards-data.ts
   - src/stories/features/mypage/MyPage.Rewards.Web.stories.tsx
   - src/app/mypage/event-entries/_components/RunClubEntriesContent.tsx
   - src/app/mypage/event-entries/eventEntries.data.ts
@@ -819,3 +826,70 @@ CheckoutShipping의 dialog 폼은 기존 ShippingDraft에 addressName을 추가�
 출처: `src/components/catalog/ProductListingPage.tsx`, `src/context/ShopShell.tsx` 작업 트리; Codex 작성, 2026-11-17. TypeScript와 대상 ESLint·Prettier를 통과했다. 브라우저에서 PC Clifton 결과 2건과 정렬, 390px 모바일 일반 결과·필터 버튼 및 검색 패널 미표시를 확인했다. 실제 검색 API는 연결하지 않았다.
 
 - 머지 충돌 해결 후 회원정보 편집 화면과 모바일 검색 화면의 셸 분기를 복구했다.
+
+## PC 헤더 로그인 표시 (2026-11-18)
+
+`김호카 님`을 표시하던 이전 규칙은 2026-11-19 사용자 요청으로 대체했다. `ShopShell`의 `HeaderTools`는 PC(`web`)에서 account 아이콘 바로 오른쪽에 기존 `isLoggedIn`이 true이면 `/mypage`의 `마이페이지`, false이면 기존 `로그인 | 회원가입` 링크를 body3로 표시한다. 장바구니는 이 묶음 오른쪽에 위치한다. 모바일 상태·메뉴와 인증 소유권은 유지한다.
+
+출처: `src/context/ShopShell.tsx` 작업 트리. 대상 ESLint와 전체 TypeScript 검사를 통과했다. 브라우저 시각 검증은 수행하지 않았다.
+
+후속 검증(2026-11-19, Codex): localhost PC1572px의 로그인 링크 위치와 `/mypage` href, MO390px의 텍스트 미표시·기존 아이콘을 확인했다. 비로그인 분기는 코드로 검토했으며 브라우저에서 상태를 바꾸어 검증하지 않았다. 대상 ESLint와 전체 TypeScript 검사 통과. 출처: `src/context/ShopShell.tsx` 작업 트리.
+
+## 로그아웃 확인의 로컬 헤더 전환 (2026-11-19)
+
+마이페이지 로그아웃 확인은 `ShopPreviewContext`로 `ShopShell`의 로컬 `previewLoggedOut`만 true로 변경한다. PC 헤더는 `로그인 | 회원가입`으로 전환하고 모바일 account도 비로그인 표시를 따른다. 확인창 닫기는 상태를 유지한다. 새로고침·셸 재마운트 시 초기 로그인 fixture로 복귀한다. 실제 인증·요청·저장·완료 이동은 없으며 이전 확인창만 닫는 규칙을 이 사용자 요청 범위에서 대체한다. Context가 없는 단독 화면에서는 확인창만 닫는다.
+
+출처: `src/context/ShopShell.tsx`, `src/context/ShopPreviewContext.ts`, `src/app/mypage/_components/MyPageContent.tsx` 작업 트리; Codex 작성, 2026-11-19.
+
+검증(2026-11-19, Codex): 브라우저 PC에서 확인창 닫기 후 마이페이지 표시 유지, 확인 후 로그인·회원가입 링크(`/login`·`/signup`) 전환과 현재 경로 유지, 새로고침 후 초기 표시 복구를 확인했다. MO390px 확인 후 account 마이페이지 아이콘 제거도 확인했다. 대상 ESLint·Prettier 및 전체 TypeScript 검사 통과.
+
+## 온라인 회원등급 안내와 공유 본문 (2026-11-19)
+
+셸의 `ShopPreviewContext`는 기존 로그아웃 콜백과 현재 isLoggedIn 표시 상태를 공유한다. `useShopPreviewLogout`의 기존 호출 계약은 유지하며 `useShopPreviewLoggedIn`으로 고객센터 개인 요약 표시를 제어한다. 실제 인증은 없고 로컬 로그아웃 확인 후 클라이언트 탐색한 고객센터도 개인 요약을 숨긴다. 새로고침 시 기존 로그인 예시를 다시 사용한다. 개인 요약과 혜택 데이터는 `MembershipRewards`의 현재 summary/benefits props를 읽으며 로컬 draft나 일회성 데이터 복사를 만들지 않는다.
+
+출처: [온라인 회원등급 안내 PC·모바일 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design), 현재 사용자 화면 코멘트, 위 working_tree_sources의 작업 트리. Codex 작성·검토, 2026-11-19.
+
+로그인 전후 고정 상태: `/support/member-benefits?preview=logged-out`과 `?preview=logged-in`을 IA213의 별도 STATE 링크로 노출한다. 기본 경로는 셸의 현재 표시 상태를 따르고, 두 preview는 인증 상태를 바꾸지 않은 채 개인 요약 노출만 고정한다. 쿼리는 `useSearchParams`로 읽으며 기존 루트 Suspense 경계를 유지한다.
+
+검증(2026-11-19, Codex): PC1920·MO375에서 두 로그인 경로의 공통 본문이 텍스트·크기·상대 위치·글자/행간/간격 계산값까지 동일함을 확인했다. 로그인 전후 query 4개 조합의 개인 요약 유무·RUNNER 확정 문구·가로 overflow 없음, IA213의 기본 및 로그인 전/후 링크를 확인했다. PC·MO에서 로컬 로그아웃 확인 후 클라이언트 탐색한 기본 고객센터의 개인 요약 숨김과 혜택 유지를 확인했다. 기존 마이페이지 로딩·오류 안내도 확인했다. Pretendard Black 실제 글리프 폰트를 확인했고 영문은 로드된 HOKA 자산을 사용한다(브라우저 내부 폰트명은 점으로 보고됨). 대상 ESLint·Prettier·전체 TypeScript·Panda·소스 그래프·프로덕션 빌드(164개 정적 페이지 생성)를 통과했다. 전체 lint는 실행하지 않았다. 실제 인증/등급 조회 API는 미연결이다.
+
+## 스테이징 굵기 반영 (2026-11-19)
+
+ShopShell의 스테이징 변경은 헤더 메뉴·푸터 제목/사업자명 Medium 표시이며 인증·플랫폼·전환 상태는 유지한다. 출처는 src/context/ShopShell.tsx의 스테이징 내용이다.
+
+## 반응형 굵기와 탭 고정 정책 반영 (2026-11-20)
+
+ShopShell의 스테이징 변경은 푸터 개인정보처리방침·사업자정보 링크 Medium, 사업자명 Bold 표시이며 플랫폼·인증·상태 수명은 유지한다. 출처: src/context/ShopShell.tsx 인덱스.
+
+## GNB 런칭캘린더 숨김 (2026-11-20)
+
+- 작업 트리 출처: `src/context/ShopShell.tsx`. PC 주요 메뉴와 모바일 쇼핑 메뉴에서 런칭캘린더 진입 항목을 제거했다. 기존 런칭캘린더 페이지와 별도 화면 안내 링크는 유지한다.
+- 마지막 메가메뉴의 Tab 경계는 헤더 도구의 첫 포커스 대상으로, 헤더 도구의 Shift+Tab은 마지막 메가메뉴의 마지막 항목으로 연결한다.
+- 검증: 대상 ESLint와 전체 TypeScript 검사를 통과했다. 브라우저 실행 검증은 수행하지 않았다.
+
+
+## 모바일 검색결과 헤더와 검색 초안 (2026-11-20)
+
+AppLayout은 모바일 /search에서도 SiteHeader를 표시한다. /search와 /search/preview-no-results의 모바일 푸터는 숨긴다. PC와 다른 경로의 헤더·푸터 조건은 유지한다. 검색결과 입력 초안은 SearchListingLayout에 두고 q가 바뀌면 기존 query key 경계에서 초기화한다. Enter 제출은 기존 쿼리를 보존하고 q를 교체하며 page를 제거해 /search로 이동한다. 조회·요청 상태·실패/재시도 및 최신 응답 교체는 기존 통합 소유자의 data 계약으로 남는다.
+
+375px 검색 제출·필터 열기·빈 결과와1440px PC를 브라우저로 확인했다. 작업 트리 출처: src/context/ShopShell.tsx, src/components/catalog/ProductListingPage.tsx.
+
+## PC 헤더 로그인 전후 표시 복구 (2026-11-23)
+
+사용자 브라우저 코멘트에 따라 `src/context/ShopShell.tsx`의 HeaderTools에서 PC 로그인 후 마이페이지 텍스트를 제거했다. 로그인 전은 사람 아이콘 → 장바구니 아이콘 → 로그인 | 회원가입, 로그인 후는 사람 아이콘 → 장바구니 아이콘 순서다. 2026-11-19의 로그인 후 텍스트 규칙을 이 지시로 대체한다. 아이콘의 접근성 이름과 링크는 유지하며 기존 state.isLoggedIn과 로컬 로그아웃 표시 소유권, 모바일 비로그인 사람 아이콘 숨김은 변경하지 않았다.
+
+검증: codex/gpt-6, 2026-11-23 KST. PC1440px에서 로그인 후 도구 텍스트는 장바구니 숫자만 남고, 로컬 로그아웃 확인 후 로그인·장바구니·로그인 텍스트·회원가입 링크의 x좌표가 순서대로 증가하는 것을 확인했다. 새로고침 후 로그인 fixture 복귀와 모바일 비로그인 사람 아이콘 display:none을 확인했다. 대상 ESLint·Prettier, 전체 TypeScript, Panda 생성 통과. 실제 인증 서비스는 연결하지 않았다. 출처는 사용자 코멘트와 해당 작업 트리다.
+
+## 폼 placeholder 제거 상태 검토 (2026-11-24)
+
+`src/context/ShopShell.tsx`의 검색 입력 안내 문구를 제거했다. 검색어 값·제출 콜백·검색 패널 상태와 자동/고정 플랫폼 판별은 변경하지 않았다. 다른 폼의 입력·선택 상태 소유권도 그대로다. 출처: 해당 context와 변경된 폼 호출부의 작업 트리. 기록: codex/gpt-6, 2026-11-24.
+
+## 타이포그래피 플랫폼 연결 (2026-11-25)
+
+Typography의 `web`·`mo`는 기존 `usePlatform()`으로 선택하고 Body는 공통 조합을 사용한다. 플랫폼 판별 기준 또는 overlay 상태 소유권은 기존 구현을 따른다. ShopShell의 내비게이션·검색·푸터 제목과 본문은 화면 역할별 신규 스타일로 연결한다. 디자인 가이드의 Wide·Compact 예시는 명시적 플랫폼을 사용한다. [폰트 체계](ui.md#displayheadingbody-타이포그래피-이관-2026-11-25).
+
+## 검색어 입력 오류 표시
+
+검색어가 비어 있으면 PC 헤더와 모바일 검색 입력의 테두리 및 오류 안내에 red80을 적용한다.
+
+PC와 모바일 검색 패널에서 최근 검색어를 한꺼번에 지우는 버튼은 ‘전체 삭제’로 표시한다.

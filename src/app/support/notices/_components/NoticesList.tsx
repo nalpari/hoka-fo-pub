@@ -20,12 +20,17 @@ function NoticeHeading({ notice, platform }: Props) {
       gap={{ base: '4', _mobile: '2' }}
       alignItems="center"
     >
-      <Typography variant="heading10" className={css({ minW: '0', overflowWrap: 'anywhere' })}>
+      <Typography
+        web="h10"
+        mo="h8"
+
+        className={css({ minW: '0', overflowWrap: 'anywhere' })}
+      >
         {notice.title}
       </Typography>
       <Typography
         as="time"
-        variant="body4"
+        variant="b6"
         dateTime={notice.date}
         className={css({ flexShrink: '0', _mobile: { color: 'black.50' } })}
         tone={platform === 'web' ? 'subtle' : undefined}
@@ -79,7 +84,10 @@ export function NoticesList({ notices, shown, platform, pending, error }: Notice
         gap="0"
         _mobile={{ display: 'none' }}
         mb="8px"
-        className={dataListRecipe({ density: 'compact' }).header}
+        className={[
+          dataListRecipe({ density: 'compact' }).header,
+          css({ '&& [data-list-cell]': { fontWeight: 'normal' } }),
+        ].join(' ')}
       >
         <span data-list-cell="title">제목</span>
         <span data-list-cell="date">등록일</span>

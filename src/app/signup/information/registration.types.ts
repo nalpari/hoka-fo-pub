@@ -1,7 +1,10 @@
 /**
  * [ 개발팀 바인딩 ]
- * RegistrationInformation은 입력 초안이며 서버 가입 DTO가 아닙니다. confirmation은 화면 검증용이고 email/domain은 어댑터에서 조합합니다.
- * 실제 제출은 통합 소유자의 가입 요청에서 identity.proof와 약관 id/version/accepted를 함께 검증합니다. 사용자 ID/휴대폰 중복 판단은 서버에서 확정합니다.
+ * RegistrationContent는 information.email에 전체 이메일 주소를 표시하고 onChange('email', value)로 초안 변경을 전달합니다.
+ * 같은 폼의 마케팅 수신 선택은 preferences로 표시하고 onPreferenceChange(key, value)로 이메일·문자 동의 변경을 전달합니다.
+ * 고정 오류는 fieldErrors.email로 표시합니다. 현재 퍼블리싱 화면은 가입 요청을 실행하지 않습니다.
+ * 서비스 연결 시 통합 소유자가 제출 시점의 초안, identity.proof, 약관 id/version/accepted와 수신 동의를 가입 요청에 매핑합니다.
+ * confirmation은 화면 검증에 사용합니다. 통합 소유자는 요청 중 중복 제출을 막고, 실패 시 초안과 오류를 유지해 재시도를 제공하며, 성공 응답 후 완료 상태를 갱신합니다.
  */
 
 import type { FormEvent } from 'react';
@@ -17,23 +20,19 @@ export type RegistrationInformation = {
   address: string;
   addressDetail: string;
   email: string;
-  domain: string;
   anniversary: string;
 };
 
 export type MarketingPreferences = { email: string; sms: string; kakao: string };
 
 export type RegistrationContentProps = {
-  stage: 'information' | 'additional';
   information: RegistrationInformation;
   preferences: MarketingPreferences;
-  domainChoice: string;
   notice: string;
   duplicateNotice: string;
   fieldErrors: {
     id: string;
     email: string;
-    domain: string;
     name: string;
     password: string;
     confirmation: string;
@@ -41,7 +40,6 @@ export type RegistrationContentProps = {
   addressOpen: boolean;
   onChange: (key: keyof RegistrationInformation, value: string) => void;
   onPreferenceChange: (key: keyof MarketingPreferences, value: string) => void;
-  onDomainChoice: (value: string) => void;
   onDuplicateCheck?: () => void;
   onAddressOpen: (open: boolean) => void;
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;

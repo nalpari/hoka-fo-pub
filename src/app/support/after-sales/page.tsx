@@ -17,25 +17,29 @@ import { CustomerCenterLayout } from '@/components/support/CustomerCenterLayout'
 
 import { tabs } from './_components/AfterSalesContent';
 
+const styles = {
+  layout: css({ color: 'black.100', '--line-heights-body': '1.5', _mobile: { pb: '16!' } }),
+};
+
 /** 배송과 반품의 세 안내 탭을 구성합니다. (Composes the three shipping and returns information tabs.) */
 export default function Page() {
   return (
     <CustomerCenterLayout
-      className={css({ color: 'black.100', '--line-heights-body': '1.5', _mobile: { pb: '16!' } })}
-      title="배송 및 반품 안내"
-      mobileTitleVariant="heading5"
+      className={styles.layout}
+      title="배송 및 반품안내"
+      mobileTitleVariant="h7B"
       activePath="/support/after-sales"
       breadcrumbItems={[
         { label: 'Home', href: '/' },
         { label: '고객센터', href: '/support' },
-        { label: '배송 및 반품 안내' },
+        { label: '배송 및 반품안내' },
       ]}
       groups={supportNavigation}
     >
       <Stack mt={{ base: '10', _mobile: '6' }} minH={{ base: '677px', _mobile: '546px' }}>
         <SupportTabs
           syncQuery
-          ariaLabel="배송 및 반품 안내 항목"
+          ariaLabel="배송 및 반품안내 항목"
           defaultValue="shipping"
           tabs={tabs}
           variant="shipping-returns"

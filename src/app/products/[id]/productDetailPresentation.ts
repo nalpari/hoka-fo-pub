@@ -1,7 +1,8 @@
 /**
- * [개발팀 바인딩]
+ * [ 개발팀 바인딩 ]
  * 상품의 규격/기술 지표/에디토리얼 표시 모델입니다. 현재 특정 시안의 검증된 내용만 해당 상품에 적용하고 다른 상품으로 복제하지 않습니다.
  * BO 상품 상세를 연결할 때 specification/scales/features를 실제 상품 코드 기준으로 변환합니다. 아직 측정하지 않은 도움말/수치를 사실로 생성하지 않습니다.
+ * specifications와 scales의 help는 항목별 안내 문구입니다. helpMaxWidth는 확인된 시안의 표시 폭이며, 줄바꿈은 툴팁에서 항목 구분에 사용합니다.
  */
 
 import type { Product } from '@/mocks/products';
@@ -10,6 +11,7 @@ export type ProductDetailSpecification = {
   label: string;
   value: string | readonly string[];
   help?: string;
+  helpMaxWidth?: number;
   note?: string;
 };
 
@@ -18,6 +20,7 @@ export type ProductTechnicalScaleData = {
   labels: readonly string[];
   level: 1 | 2 | 3 | 4 | 5;
   help?: string;
+  helpMaxWidth?: number;
 };
 
 export type ProductEditorialFeature = {
@@ -37,19 +40,34 @@ const cliftonScales: readonly ProductTechnicalScaleData[] = [
     title: '쿠셔닝',
     labels: ['반응성', '균형잡힌', '부드러움'],
     level: 5,
-    help: '모든 신발의 미드솔에는 충격을 줄이고 발을 지지해 주는 쿠셔닝이 적용되어 있습니다. 쿠션의 두께와 단단함·부드러움 정도는 모델별로 다릅니다.',
+    helpMaxWidth: 375,
+    help: [
+      '① 탄탄함: 착지 시 쿠셔닝이 덜 눌려, 지면을 또렷하게 느낄 수 있습니다.',
+      '② 균형 잡힌: 부드러움과 탄탄함 사이의 무난한 감촉으로, 데일리 러닝에 두루 어울립니다.',
+      '③ 부드러운: 발이 깊게 감싸이듯 쿠션을 누르며, 푹신한 착지감을 제공합니다.',
+    ].join('\n'),
   },
   {
     title: '안정성',
     labels: ['중립', '안정적', '높은 안정성'],
     level: 1,
-    help: '나중에 추가 예정',
+    helpMaxWidth: 374,
+    help: [
+      '① 중립: 좌우 대칭형 쿠셔닝으로 불필요한 보정 없이 필요한 지지력을 제공합니다.',
+      '② 안정적: 넓은 바닥 면적과 Active Foot Frame 기술로 균형 잡힌 안정감을 제공합니다.',
+      '③ 높은 안정성: H-Frame™ 기술로 발이 안쪽으로 과도하게 기울어지는 것을 방지하여 안정적인 주행을 돕습니다.',
+    ].join('\n'),
   },
   {
     title: '반발력',
     labels: ['자연스러운', '균형잡힌 쿠션', '강력한 추진'],
     level: 3,
-    help: '나중에 추가 예정',
+    helpMaxWidth: 375,
+    help: [
+      '① 자연스러운: 신발의 개입이 강하지 않아, 내 페이스대로 편안하게 주행할 수 있습니다.',
+      '② 균형 잡힌: 적당한 탄력이 더해져, 다양한 페이스에서 경쾌한 주행감이 느껴집니다.',
+      '③ 강력한: 튀어오르듯 되돌려주는 힘으로, 빠른 페이스 유지를 돕는 주행감이 느껴집니다.',
+    ].join('\n'),
   },
 ];
 
@@ -87,12 +105,18 @@ export function getProductDetailPresentation(product: ProductDetailInput) {
           {
             label: '무게',
             value: '312g',
-            help: '무게 관련 설명이 들어갑니다.\n무게 관련 설명이 들어갑니다.\n무게 관련 설명이 들어갑니다.',
+            helpMaxWidth: 161,
+            help: '신발 한 쪽 기준 무게입니다.\n*기준 사이즈\n남성 280mm / 여성 250mm',
           },
           {
             label: 'Heel-to-Toe Drop',
             value: '43/38mm (5mm)',
-            help: '뒤꿈치와 앞꿈치의 높이 차이를 나타냅니다.',
+            helpMaxWidth: 271,
+            help: [
+              '힐투토 드롭은 신발의 뒤꿈치와 앞꿈치의 높이 차이를 의미합니다.',
+              '① 높은 드롭: 뒤꿈치를 받쳐주며, 앞으로 굴러가듯 자연스러운 발구름을 만들어 줍니다.',
+              '② 낮은 드롭: 맨발로 선 것처럼 평평한 자세에 가까운 착지감을 줍니다.',
+            ].join('\n'),
           },
         ]
       : [

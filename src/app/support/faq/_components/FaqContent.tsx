@@ -29,6 +29,11 @@ import { supportNavigation } from '@/app/support/support.navigation';
 import { CustomerCenterLayout } from '@/components/support/CustomerCenterLayout';
 
 const styles = {
+  categoryRail: css({
+    gap: '8px',
+    _mobile: { gap: '6px', px: 'var(--layout-mobile-inline-gutter)' },
+  }),
+  categoryItem: css({ '&&& span': { fontWeight: '400', _mobile: { fontWeight: '400' } } }),
   searchForm: css({
     justifyContent: 'center',
     alignItems: 'center',
@@ -41,14 +46,13 @@ const styles = {
     minW: '0',
     _mobile: { w: 'auto', flex: '1' },
     '& > div': { py: '8px' },
-    '&& input': { fontWeight: '400', lineHeight: '1.5', _placeholder: { color: '#777777' } },
+    '&& input': { fontWeight: '400', lineHeight: 'body' },
   }),
   searchButton: css({
     flexShrink: '0',
     '--button-height': '48px',
     _mobile: { '--button-height': '42px' },
   }),
-  searchButtonLabel: css({ '&&': { fontWeight: '400', lineHeight: '1.3' } }),
 };
 
 type Props = {
@@ -58,9 +62,16 @@ type Props = {
 };
 function FaqCategoryNav({ category, categories, onCategoryChange }: Props) {
   return (
-    <Box as="nav" aria-label="FAQ 카테고리" pt="8" pb="32px" _mobile={{ pt: '6', pb: '8' }}>
+    <Box
+      as="nav"
+      aria-label="FAQ 카테고리"
+      pt="32px"
+      pb="32px"
+      _mobile={{ pt: '24px', mx: 'calc(-1 * var(--layout-mobile-inline-gutter))' }}
+    >
       <FilterTabs
         ariaLabel="FAQ 카테고리"
+        itemClassName={() => styles.categoryItem}
         onValueChange={onCategoryChange}
         options={categories.map((item) => ({
           label: item === 'AS/품질' ? 'AS/불량' : item,
@@ -68,7 +79,7 @@ function FaqCategoryNav({ category, categories, onCategoryChange }: Props) {
         }))}
         value={category}
         variant="fill"
-        railClassName={css({ gap: '8px', _mobile: { gap: '6px' } })}
+        railClassName={styles.categoryRail}
       />
     </Box>
   );
@@ -90,13 +101,12 @@ function FaqSearch({ query, onQueryChange }: FaqSearchProps) {
           as="div"
           iconPlacement="start"
           label="질문 또는 답변 검색"
-          placeholder="검색어를 입력해주세요"
           value={query}
           onValueChange={onQueryChange}
         />
       </Box>
       <Button type="submit" variant="primary" size="tall" className={styles.searchButton}>
-        <Typography web="cta1" mo="cta1-1" weight="regular" className={styles.searchButtonLabel}>
+        <Typography web="b4B" mo="b5B">
           검색
         </Typography>
       </Button>
@@ -134,10 +144,10 @@ type FaqQuestionProps = {
 function FaqQuestion({ question }: FaqQuestionProps) {
   return (
     <HStack gap="2" minW="0">
-      <Typography as="span" variant="body2" className={css({ flexShrink: 0, w: '17px' })}>
+      <Typography as="span" variant="b2" className={css({ flexShrink: 0, w: '17px' })}>
         Q
       </Typography>
-      <Typography as="span" variant="headingKr9">
+      <Typography as="span" web="h10" mo="h8">
         {question}
       </Typography>
     </HStack>
@@ -154,7 +164,7 @@ function FaqAnswer({ answer }: FaqAnswerProps) {
           {answer.split('\n\n').map((paragraph, index) => (
             <Stack gap="2.5" key={index}>
               {paragraph.split('\n').map((line, lineIndex) => (
-                <Typography as="p" variant="bodyKr4" key={lineIndex}>
+                <Typography as="p" variant="b6" key={lineIndex}>
                   {line}
                 </Typography>
               ))}
@@ -162,7 +172,7 @@ function FaqAnswer({ answer }: FaqAnswerProps) {
           ))}
         </Stack>
       ) : (
-        <Typography as="div" variant="bodyKr4">
+        <Typography as="div" variant="b6">
           {answer}
         </Typography>
       )}
@@ -253,9 +263,7 @@ export function RouteContent({ previewEmpty = false, previewExpanded = false }: 
   return (
     <CustomerCenterLayout
       className={css({ _mobile: { pb: '72px' } })}
-      header={
-        <ContentHeader title="FAQs" titleAs="h1" titleProps={{ web: 'heading6', mo: 'heading5' }} />
-      }
+      header={<ContentHeader title="FAQs" titleAs="h1" titleProps={{ web: 'h4B', mo: 'h7B' }} />}
       activePath="/support/faq"
       groups={supportNavigation}
       breadcrumbItems={[

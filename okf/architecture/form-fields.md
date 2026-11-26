@@ -4,11 +4,13 @@ title: '폼 필드 공통화 전수 조사'
 description: '전체 소스에서 반복되는 필드 조합과 공통 API, 유지해야 할 상태·검증 차이를 정리한다.'
 tags: [forms, components, reuse, audit]
 status: draft
+updated: '2026-11-26T04:27:25Z'
 generated:
   by: codex/gpt-6
   at: '2026-10-26T00:00:00Z'
 source_revision: 5d31d307e61f87d5b09773bcd0250e4c2784679d
 working_tree_sources:
+  - src/app/signup/information/_components/RegistrationContent.tsx
   - src/components/common/layouts/AccountFormLayout/AccountFormLayout.tsx
   - src/app/mypage/profile/page.tsx
   - src/components/mypage/mypage-profile.types.ts
@@ -54,6 +56,12 @@ working_tree_sources:
 
 # 폼 필드 공통화 전수 조사
 
+## 폼 placeholder 제거 (2026-11-24)
+
+사용자 확정 정책으로 입력·여러 줄 입력·검색·날짜 입력과 선택형 드롭다운의 placeholder를 제거했다. label, aria-label, 오류·hint, 값·필수 여부, 검색·선택 콜백은 유지한다. 공통 SearchField는 placeholder prop을 받지 않고, Dropdown은 선택값이 없을 때 안내 문구를 표시하지 않는다. 정렬 버튼은 선택 전에도 동작을 알 수 있도록 `정렬`을 표시한다. 폼 가이드의 복사 코드도 같은 정책을 따른다. 이 절이 아래 과거 placeholder 이관·표시 기록보다 우선한다.
+
+출처: 사용자 확정 지시와 `src/app`의 폼 호출부, `src/components/common/atoms/{Dropdown,TextInput}.tsx`, `src/components/common/molecules/{SearchField,DateRangeSearch}.tsx`, `src/components/common/organisms/{Address/AddressFields,EmailAddressFields}.tsx`, `src/components/phone-verification/PhoneVerificationContent.tsx`, `src/components/catalog/ProductListingPage.tsx`, `src/context/ShopShell.tsx` 및 관련 타입 선언의 현재 작업 트리. 기록: codex/gpt-6, 2026-11-24.
+
 ## 동의 체크박스·선호 라디오의 기본 옵션 통합 (2026-10-28)
 
 Terms는 Checkbox의 consent variant로, PreferenceField는 Radio의 선택적 label/multilineLabel로 통합하고 두 파일을 삭제했다. Checkbox는 invalid·error·containerClassName을 받아 기존 대화형 레이블·16px 컨트롤·오류 설명과 alert 연결을 보존한다. 외부 className과 label 내부 컨트롤 className의 책임을 구분한다. Radio는 label이 있을 때만 기존 가로 필드 구성을 제공하며 label이 없으면 기존 사용을 유지한다. 값·검증·동의 정책은 부모에 남는다. 기존 필드 컨텍스트와 원래 props의 aria-describedby·aria-invalid를 전달하고 그룹·기존 default/filter 모드는 유지한다. [API와 검증](ui.md#공통-래퍼-4개를-부모-옵션으로-통합-2026-10-28)을 따른다.
@@ -68,7 +76,7 @@ Terms는 Checkbox의 consent variant로, PreferenceField는 Radio의 선택적 l
 
 ## 회원정보 주소·이메일 입력 재사용 (2026-10-26)
 
-회원정보 편집은 회원가입에서 사용 중인 AddressFields(boxed), EmailAddressFields를 그대로 소비한다. 주소의 disabled 우편번호/기본주소·팝업·상세주소 계약과 이메일 아이디/도메인 분리·직접입력/목록 도메인 비활성화를 유지한다. 주소 초안·저장·취소와 이메일 검증·조합은 MyPageProfile에 남기고 공통 입력에 비즈니스 정책을 추가하지 않았다. 새로운 공용 필드 API나 컴포넌트는 없다. [화면 구성과 검증](ui.md#회원정보-주소이메일-편집-재사용-2026-10-26)을 참고한다.
+회원정보 편집에는 AddressFields(boxed)와 EmailAddressFields를 사용한다. 주소의 disabled 우편번호/기본주소·팝업·상세주소 계약과 이메일 아이디/도메인 분리·직접입력/목록 도메인 비활성화를 유지한다. 주소 초안·저장·취소와 이메일 검증·조합은 MyPageProfile에 남기고 공통 입력에 비즈니스 정책을 추가하지 않았다. 2026-11-26부터 회원가입은 기존 TextFormField 조합으로 전체 이메일 주소를 한 칸에서 받는다. [회원정보 편집](ui.md#회원정보-주소이메일-편집-재사용-2026-10-26) 및 [회원가입 입력 계약](ui.md#회원가입-이메일-입력-계약-2026-11-26).
 
 ## 회원정보 휴대폰 인증 조합 (2026-10-26)
 

@@ -99,7 +99,8 @@ export function ContentLayout({
                 title={title}
                 titleAs="h1"
                 titleProps={{
-                  variant: 'heading7',
+                  web: 'h8B',
+                  mo: 'h8',
                   className: [css({ m: '0' }), titleClassName].filter(Boolean).join(' '),
                 }}
                 orientation="horizontal"
@@ -117,7 +118,7 @@ export function ContentLayout({
                 }}
                 description={description}
                 descriptionProps={{
-                  variant: 'body5',
+                  variant: 'b8',
                   tone: 'subtle',
                   className: css({ m: '8px 0 0' }),
                 }}
@@ -125,7 +126,7 @@ export function ContentLayout({
               />
             ) : null}
             {!title && description ? (
-              <Typography as="p" tone="subtle" web="bodyKr3" mo="bodyKr4">
+              <Typography as="p" tone="subtle" web="b4" mo="b6">
                 {description}
               </Typography>
             ) : null}

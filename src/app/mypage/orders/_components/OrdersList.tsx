@@ -56,9 +56,9 @@ function ClaimHistoryList({
         {items.map((item) => (
           <Stack as="li" key={item.key} gap="0">
             <Box display="flex" pb="16px" borderBottom="1px solid var(--color-border-subtle)">
-              <Typography variant="body4" tone="tertiary">
-                <Typography as="span" variant="body4Medium" tone="primary">
-                  <Typography as="span" variant="body4Medium" language="en">
+              <Typography variant="b6" tone="tertiary">
+                <Typography as="span" variant="b6M" tone="primary">
+                  <Typography as="span" variant="b6M" language="en">
                     {platform === 'mobile'
                       ? (item.mobileOrderDate ?? item.orderDate)
                       : item.orderDate}
@@ -66,7 +66,7 @@ function ClaimHistoryList({
                   주문
                 </Typography>
                 {' · 주문번호 '}
-                <Typography as="span" variant="body4" language="en" tone="tertiary">
+                <Typography as="span" variant="b6" language="en" tone="tertiary">
                   {item.orderNumber}
                 </Typography>
               </Typography>
@@ -127,9 +127,9 @@ function ClaimHistoryList({
       )}
       {items.map((item) => (
         <Stack key={item.key} data-list-item gap="0" pt="32px">
-          <Typography variant="body3" tone="tertiary" className={css({ pl: '24px' })}>
+          <Typography variant="b4" tone="tertiary" className={css({ pl: '24px' })}>
             주문번호{' '}
-            <Typography as="span" variant="body3" language="en" tone="tertiary">
+            <Typography as="span" variant="b4" language="en" tone="tertiary">
               {item.orderNumber}
             </Typography>
           </Typography>
@@ -143,33 +143,25 @@ function ClaimHistoryList({
                 onClick={() => onDetail(item.orderId, item.claimId)}
               />
             </Box>
-            <Typography
-              variant="body3Medium"
-              language="en"
-              className={css({ textAlign: 'center' })}
-            >
+            <Typography variant="b4M" language="en" className={css({ textAlign: 'center' })}>
               {item.orderDate}
             </Typography>
-            <Typography
-              variant="body3Medium"
-              language="en"
-              className={css({ textAlign: 'center' })}
-            >
+            <Typography variant="b4M" language="en" className={css({ textAlign: 'center' })}>
               {item.line.quantity}
             </Typography>
-            <Typography variant="body3Medium" className={css({ textAlign: 'center' })}>
+            <Typography variant="b4M" className={css({ textAlign: 'center' })}>
               {item.line.displayAmount === undefined ? (
                 '-'
               ) : (
                 <>
-                  <Typography as="span" variant="body3Medium" language="en">
+                  <Typography as="span" variant="b4M" language="en">
                     {item.line.displayAmount.toLocaleString()}
                   </Typography>
                   원
                 </>
               )}
             </Typography>
-            <Typography variant="body3Medium" className={css({ textAlign: 'center' })}>
+            <Typography variant="b4M" className={css({ textAlign: 'center' })}>
               {item.status.web}
             </Typography>
           </Grid>
@@ -212,7 +204,7 @@ export function OrdersListContent({
           gap="0"
           className={
             dataListRecipe({
-              top: 'unchanged',
+              top: 'desktopStrong',
               columnGap: 'unchanged',
               headerTypography: 'headingBold',
               cellVariant: 'heading',
@@ -224,10 +216,8 @@ export function OrdersListContent({
             gridTemplateColumns="minmax(0, 536fr) minmax(0, 108fr) minmax(0, 200fr)"
             alignItems="center"
             gap={orders.length ? undefined : '0'}
-            minH="67px"
-            borderTop={'2px solid var(--colors-black-100)'}
-            borderBottom={'1px solid var(--colors-black-100)'}
             _mobile={{ display: 'none' }}
+            className={dataListRecipe().header}
           >
             {['상품/옵션정보', '수량', '가격'].map((label) => (
               <span key={label} data-list-cell>

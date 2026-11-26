@@ -28,9 +28,9 @@ type AddressFieldName = 'postalCode' | 'address' | 'addressDetail';
 type AddressFieldsVariant = 'boxed' | 'compact' | 'separated';
 
 const fields = {
-  postalCode: { label: '우편번호', placeholder: '주소 찾기 버튼을 눌러주세요' },
-  address: { label: '주소', placeholder: '주소를 입력해주세요' },
-  addressDetail: { label: '상세주소', placeholder: '상세주소를 입력해주세요' },
+  postalCode: { label: '우편번호' },
+  address: { label: '주소' },
+  addressDetail: { label: '상세주소' },
 };
 
 type AddressFieldOptions = {
@@ -59,7 +59,7 @@ function AddressField({
   onValueChange,
   options,
 }: AddressFieldProps) {
-  const { label, placeholder } = fields[field];
+  const { label } = fields[field];
   const postalCode = field === 'postalCode';
   const detail = field === 'addressDetail';
   const id = options?.id ?? `${idPrefix}-${variant === 'compact' && detail ? 'detail' : field}`;
@@ -74,7 +74,7 @@ function AddressField({
         id={id}
         error={error || undefined}
         invalid={Boolean(error)}
-        label={detail && !required ? <Typography variant="body5">* {label}</Typography> : label}
+        label={detail && !required ? <Typography variant="b8">* {label}</Typography> : label}
         required={required}
         disabled={disabled}
         inputProps={{
@@ -82,7 +82,6 @@ function AddressField({
           disabled,
           disabledAppearance: field === 'address' && variant === 'boxed' ? 'muted' : 'default',
           value,
-          placeholder,
           autoComplete: detail ? 'off' : undefined,
           onChange: onValueChange ? (event) => onValueChange(event.target.value) : undefined,
           ...options?.inputProps,
@@ -99,9 +98,9 @@ function AddressField({
       p={postalCode ? undefined : '3'}
     >
       {postalCode ? (
-        <Typography variant="body5">* {label}</Typography>
+        <Typography variant="b8">* {label}</Typography>
       ) : (
-        <Typography as="label" htmlFor={id} variant="body5">
+        <Typography as="label" htmlFor={id} variant="b8">
           * {label}
         </Typography>
       )}
@@ -112,12 +111,11 @@ function AddressField({
         value={value}
         readOnly={postalCode}
         onChange={onValueChange ? (event) => onValueChange(event.target.value) : undefined}
-        placeholder={placeholder}
         appearance="compact"
         aria-invalid={field === 'address' ? Boolean(error) : undefined}
       />
       {error ? (
-        <Typography as="p" variant="body5" className={css({ color: 'red.100' })}>
+        <Typography as="p" variant="b8" className={css({ color: 'red.100' })}>
           {error}
         </Typography>
       ) : null}
@@ -172,7 +170,7 @@ function AddressSearchModal({
       }}
     >
       <Stack>
-        <Typography as="p" variant="body4">
+        <Typography as="p" variant="b6">
           주소 검색 서비스 연결 전입니다. 미리보기 우편번호와 주소를 직접 입력해주세요.
         </Typography>
         <TextFormField
@@ -184,7 +182,6 @@ function AddressSearchModal({
           inputProps={{
             type: 'text',
             value: postalCode,
-            placeholder: '우편번호를 입력해주세요',
             autoComplete: 'off',
             onChange: (event) => onPostalCodeChange(event.target.value),
           }}
@@ -198,7 +195,6 @@ function AddressSearchModal({
           inputProps={{
             type: 'text',
             value: address,
-            placeholder: '주소를 입력해주세요',
             autoComplete: 'off',
             onChange: (event) => onAddressChange(event.target.value),
           }}

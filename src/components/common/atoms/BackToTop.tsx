@@ -93,7 +93,7 @@ export function BackToTop() {
       className={`${root} ${visible ? visibleRoot : ''}`}
       onClick={scrollToTop}
     >
-      <Typography as="span" variant="body5" mo="body5" weight="regular">
+      <Typography as="span" variant="b8" mo="b8">
         Top
       </Typography>
       <Icon aria-hidden name="arrow-up-regular" size="18px" />

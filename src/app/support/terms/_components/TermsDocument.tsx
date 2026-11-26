@@ -40,17 +40,17 @@ export function TermsDocument({ privacy }: { privacy: boolean }) {
         aria-label={privacy ? '개인정보 처리방침 내용' : '이용 약관 내용'}
       >
         {
-          <Typography variant="body5" tone="inverse">
+          <Typography variant="b8" tone="inverse">
             약관내용
           </Typography>
         }
       </Grid>
       {privacy && (
         <Stack gap="0" mt={{ base: '0', _mobile: '-1' }}>
-          <Typography variant="body5" tone="tertiary">
+          <Typography variant="b8" tone="tertiary">
             - 개인정보 처리방침 버전번호 : {'v.1.79'}
           </Typography>
-          <Typography variant="body5" tone="tertiary">
+          <Typography variant="b8" tone="tertiary">
             - 개인정보 처리방침 시행일자 : {'2026.09.02'}
           </Typography>
         </Stack>

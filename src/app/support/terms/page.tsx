@@ -26,15 +26,23 @@ export default function Page() {
   const tab = searchParams.get('tab') === 'privacy' ? 'privacy' : 'terms';
 
   const tabs = [
-    { value: 'terms', label: '이용 약관', content: <TermsDocument privacy={false} /> },
-    { value: 'privacy', label: '개인정보 처리방침', content: <TermsDocument privacy /> },
+    {
+      value: 'terms',
+      label: '이용 약관',
+      content: <TermsDocument privacy={false} />,
+    },
+    {
+      value: 'privacy',
+      label: '개인정보 처리방침',
+      content: <TermsDocument privacy />,
+    },
   ];
 
   return (
     <CustomerCenterLayout
       className={css({ '&&': { _mobile: { pb: '16' } } })}
       title="약관"
-      mobileTitleVariant="heading5"
+      mobileTitleVariant="h7B"
       activePath="/support/terms"
       breadcrumbItems={[
         { label: 'Home', href: '/' },

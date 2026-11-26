@@ -17,7 +17,7 @@ export default function Page() {
     <CustomerCenterLayout
       title="매장 찾기"
       className={styles.page}
-      mobileTitleVariant="heading5"
+      mobileTitleVariant="h7B"
       activePath="/support/store"
       breadcrumbItems={[
         { label: 'Home', href: '/' },

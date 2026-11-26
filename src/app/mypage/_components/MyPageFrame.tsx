@@ -19,6 +19,12 @@ type MyPageFrameProps = {
   fillAvailable?: boolean;
 };
 
+const styles = {
+  pageTitle: css({
+    _web: { '& h1': { fontSize: 'heading.32', fontWeight: 'bold' } },
+  }),
+};
+
 /** 공통 위치의 경로와 메인 전용 사이드바 없는 본문을 배치합니다. (Positions shared breadcrumbs and omits the sidebar for the my page overview.) */
 export function MyPageFrame({
   activePath,
@@ -69,6 +75,7 @@ export function MyPageFrame({
             mobileNavigation="hidden"
             title="마이페이지"
             titleTo="/mypage"
+            titleWeb="h10"
             className={css({
               '& a[aria-current="page"]': {
                 color: 'black.100',
@@ -79,6 +86,7 @@ export function MyPageFrame({
           />
         ) : null}
         <Box
+          className={layout === 'sidebar' ? styles.pageTitle : undefined}
           minW="0"
           display={fillAvailable ? 'flex' : undefined}
           flexDirection={fillAvailable ? 'column' : undefined}

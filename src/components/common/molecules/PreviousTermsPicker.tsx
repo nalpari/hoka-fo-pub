@@ -13,17 +13,17 @@ import { Typography } from '@/components/common/atoms/Typography';
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
 const styles = {
-  heading: css({ lineHeight: '1.5!', color: 'black.100' }),
+  heading: css({ lineHeight: 'koreanHeading!', color: 'black.100' }),
   dates: css({
     gap: '16px',
     '& label > span:last-child': {
       display: 'flex',
       alignItems: 'center',
-      fontFamily: 'korean',
-      fontSize: '14px',
+      fontFamily: 'ko',
+      fontSize: 'body.14',
       fontWeight: '400',
-      lineHeight: '21px',
-      letterSpacing: '-0.02em',
+      lineHeight: 'body',
+      letterSpacing: 'korean',
       color: 'black.100',
       transform: 'none',
     },
@@ -95,7 +95,7 @@ export function PreviousTermsPicker({
         }
       >
         <Stack gap="16px">
-          <Typography as="p" variant="body3Medium" language="ko" className={styles.heading}>
+          <Typography as="p" variant="b4M" language="ko" className={styles.heading}>
             약관 시행일을 선택해주세요
           </Typography>
           <Radio
@@ -132,7 +132,7 @@ export function PreviousTermsPicker({
       }}
     >
       <Stack gap="4">
-        <Typography as="p" variant="body3Medium" language="ko" className={styles.heading}>
+        <Typography as="p" variant="b4M" language="ko" className={styles.heading}>
           약관 시행일을 선택해주세요
         </Typography>
         <Radio

@@ -7,18 +7,42 @@ import { usePlatform } from '@/context/platform';
 import { css } from 'styled-system/css';
 import { Box, Stack } from 'styled-system/jsx';
 
-import { Icon } from '@/components/common/atoms/Icon';
 import { Radio } from '@/components/common/atoms/Radio';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
+
+const styles = {
+  paymentImage: css({
+    w: '60px',
+    maxW: 'none',
+    display: 'block',
+    position: 'absolute',
+    top: '50%',
+    transform: 'translateY(-50%)',
+  }),
+  paymentGroup: css({
+    gridTemplateColumns: 'repeat(6, minmax(0, 1fr))',
+    _mobile: { gridTemplateColumns: 'repeat(3, minmax(0, 1fr))' },
+    gap: { base: '8px!', _mobile: '4px!' },
+  }),
+  paymentOption: css({
+    minH: '80px',
+    _mobile: { minH: '85px' },
+    p: '0',
+    bg: 'transparent',
+    border: '1px solid var(--color-border-tertiary)',
+    cursor: 'pointer',
+    _focusVisible: { outline: '2px solid var(--colors-black-100)', outlineOffset: '2px' },
+  }),
+};
 
 /** 선택한 결제 수단의 안내를 표시합니다. (Displays notices for the selected payment method.) */
 function CheckoutPaymentMethodNotice({ label }: { label: string | undefined }) {
   return (
     <Stack gap="1" pt="2">
       {[1, 2, 3].map((index) => (
-        <Typography key={index} variant="body5" tone="subtle">
+        <Typography key={index} variant="b8" tone="subtle">
           - {label} 안내사항 {index}
         </Typography>
       ))}
@@ -38,14 +62,7 @@ function CheckoutPaymentMark({ method }: { method: PaymentMethod }) {
         width={60}
         height={height}
         sizes="60px"
-        className={css({
-          w: '60px',
-          maxW: 'none',
-          display: 'block',
-          position: 'absolute',
-          top: '50%',
-          transform: 'translateY(-50%)',
-        })}
+        className={styles.paymentImage}
       />
     </Box>
   );
@@ -77,20 +94,8 @@ function CheckoutPaymentMethods({
       variant="custom"
       value={payment}
       onValueChange={onPaymentChange}
-      className={css({
-        gridTemplateColumns: 'repeat(6, minmax(0, 1fr))',
-        _mobile: { gridTemplateColumns: 'repeat(3, minmax(0, 1fr))' },
-        gap: { base: '8px!', _mobile: '4px!' },
-      })}
-      optionClassName={css({
-        minH: '80px',
-        _mobile: { minH: '110px' },
-        p: '0',
-        bg: 'transparent',
-        border: '1px solid var(--colors-black-20)',
-        cursor: 'pointer',
-        _focusVisible: { outline: '2px solid var(--colors-black-100)', outlineOffset: '2px' },
-      })}
+      className={styles.paymentGroup}
+      optionClassName={styles.paymentOption}
       selectedOptionClassName={css({ borderColor: 'black.100!' })}
       options={paymentMethods.map((method) => ({
         value: method.value,
@@ -101,23 +106,10 @@ function CheckoutPaymentMethods({
             justifyContent="center"
             gap={{ base: '4px', _mobile: '10px' }}
             pos="relative"
-            pl={{ base: '42px', _mobile: '0' }}
+            pl={{ base: '16px', _mobile: '0' }}
           >
             <CheckoutPaymentMark method={method.value} />
-            <Typography web="body5" mo="body4">
-              {method.label}
-            </Typography>
-            <Icon
-              name={`hoka-radio-${payment === method.value ? 'checked' : 'unchecked'}`}
-              size={16}
-              alt=""
-              className={css({
-                pos: 'absolute',
-                left: '16px',
-                top: '20px',
-                _mobile: { pos: 'static', order: '3' },
-              })}
-            />
+            <Typography variant="b6M">{method.label}</Typography>
           </Stack>
         ),
       }))}
@@ -140,7 +132,7 @@ export function CheckoutPayment({
       title="결제 정보"
       headerProps={{
         titleAs: 'h2',
-        titleProps: { web: 'heading7', mo: 'heading6' },
+        titleProps: { web: 'h8B', mo: 'h8' },
         className: css({ pb: { base: '8px', _mobile: '0' } }),
       }}
     >

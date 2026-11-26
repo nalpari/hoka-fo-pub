@@ -44,12 +44,11 @@ export function EmailAddressFields({
         error={errors.local || undefined}
         invalid={Boolean(errors.local)}
         disabled={false}
-        label={<Typography variant="body5">* {'이메일 주소'}</Typography>}
+        label={<Typography variant="b8">* {'이메일 주소'}</Typography>}
         inputProps={{
           type: 'text',
           disabled: false,
           value: local,
-          placeholder: '이메일 주소를 입력해주세요.',
           autoComplete: 'off',
           onChange: (event) => onLocalChange(event.target.value),
         }}
@@ -60,13 +59,12 @@ export function EmailAddressFields({
         error={errors.domain || undefined}
         invalid={Boolean(errors.domain)}
         disabled={disabled}
-        label={<Typography variant="body5">* {'도메인'}</Typography>}
+        label={<Typography variant="b8">* {'도메인'}</Typography>}
         inputProps={{
           type: 'text',
           disabled,
           disabledAppearance: disabled ? 'muted' : 'default',
           value: domain,
-          placeholder: '도메인을 입력해주세요',
           autoComplete: 'off',
           onChange: (event) => onDomainChange(event.target.value),
         }}

@@ -44,7 +44,7 @@ function SignupBenefit({ iconName, title, description }: Props) {
       className={benefit}
     >
       <Icon name={iconName} size="18px" />
-      <Typography as="span" variant="body4">
+      <Typography as="span" variant="b6">
         {title} <br className={mobileBreak} />
         {description}
       </Typography>
@@ -97,8 +97,8 @@ type SignupMethodStepSignupMethodOption = {
 };
 
 const benefits: Props[] = [
-  { iconName: 'gift-regular', title: '신규가입', description: '1만원 쿠폰' },
-  { iconName: 'party-horn-regular', title: '기념일', description: '축하 쿠폰' },
+  { iconName: 'gift-regular', title: '신규가입', description: '10% 쿠폰' },
+  { iconName: 'party-horn-regular', title: '생일', description: '축하 쿠폰' },
   { iconName: 'medal-regular', title: '회원 등급별', description: '혜택' },
 ];
 
@@ -122,9 +122,9 @@ export function SignupMethodStep({ methods, onSelect }: SignupMethodStepProps) {
         header={
           <ContentHeader
             titleAs="h1"
-            titleProps={{ web: 'heading7', mo: 'heading5', id: 'signup-title' }}
-            descriptionProps={{ variant: 'body3', tone: 'tertiary' }}
-            title="가입과 동시에 시작되는 혜택!"
+            titleProps={{ web: 'h8B', mo: 'h7B', id: 'signup-title' }}
+            descriptionProps={{ variant: 'b4', tone: 'tertiary' }}
+            title="계정이 없으신가요?"
             description="HOKA Korea 온라인 회원만을 위한 특별한 혜택!"
           />
         }
@@ -137,7 +137,7 @@ export function SignupMethodStep({ methods, onSelect }: SignupMethodStepProps) {
 
         <Center>
           <Link className={benefitsLink} href="/support/member-benefits">
-            <Typography as="span" variant="textLinkKr2">
+            <Typography as="span" variant="b6M" underline>
               회원 등급별 혜택 더 보기
             </Typography>
           </Link>
@@ -154,7 +154,7 @@ export function SignupMethodStep({ methods, onSelect }: SignupMethodStepProps) {
         ))}
       </Stack>
       <Box mt="4" textAlign="center">
-        <Typography as="p" variant="body5">
+        <Typography as="p" variant="b8">
           만 14세 미만은 회원가입 및 이용이 불가합니다.
         </Typography>
       </Box>
@@ -226,10 +226,10 @@ function SignupProgress({ method, step }: SignupProgressProps) {
             )}
             key={label}
           >
-            <Typography variant="body4" weight={currentStep === position ? 'medium' : 'regular'}>
+            <Typography variant="b6" weight={currentStep === position ? 'medium' : 'regular'}>
               {position}
             </Typography>
-            <Typography variant="body5" weight={currentStep === position ? 'medium' : 'regular'}>
+            <Typography variant="b8" weight={currentStep === position ? 'medium' : 'regular'}>
               {label}
             </Typography>
           </li>
@@ -256,9 +256,9 @@ export function SignupLayout({ step, method, children }: SignupLayoutProps) {
           headerProps={{
             gap: '2',
             titleAs: 'h1',
-            titleProps: { variant: 'heading6', id: 'signup-title' },
+            titleProps: { web: 'h4B', mo: 'h8', id: 'signup-title' },
             eyebrow: 'JOIN HOKA',
-            eyebrowProps: { variant: 'body5', tone: 'tertiary', weight: 'medium' },
+            eyebrowProps: { variant: 'b8M', tone: 'tertiary' },
           }}
         >
           <SignupProgress method={method} step={step} />

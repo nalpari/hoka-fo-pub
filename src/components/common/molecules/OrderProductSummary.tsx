@@ -101,10 +101,10 @@ function OrderProductSummaryContent({
         <Stack gap={isReview ? '6px' : '4px'}>
           {orderDate && (
             <HStack gap="2px">
-              <Typography web="body3" mo="body4-2" language="en" weight="medium">
+              <Typography web="b4M" mo="b7M" language="en">
                 {orderDate}
               </Typography>
-              <Typography web="body3" mo="body4-2">
+              <Typography web="b4M" mo="b7M">
                 구매
               </Typography>
             </HStack>
@@ -112,14 +112,14 @@ function OrderProductSummaryContent({
           <Stack gap="4px">
             <Stack gap="0.5">
               {gender ? (
-                <Typography web="body5" mo={variant === 'cart' ? 'body4' : 'body5'} weight="medium">
+                <Typography web="b8M" mo={variant === 'cart' ? 'b6M' : 'b8M'}>
                   {gender}
                 </Typography>
               ) : null}
               <Typography
-                web="body3"
-                mo="body4-2"
-                weight="medium"
+                web="b4M"
+                mo="b7M"
+
                 className={variant === 'cart' ? css({ lineClamp: 2 }) : undefined}
               >
                 {name}
@@ -128,8 +128,8 @@ function OrderProductSummaryContent({
             {optionText !== undefined ? (
               <HStack gap="2" alignItems="baseline" flexWrap="wrap">
                 <Typography
-                  web={isHistory ? 'body3' : 'body4'}
-                  mo="body4"
+                  web={isHistory ? 'b4' : 'b6'}
+                  mo="b6"
                   weight={isHistory ? 'medium' : undefined}
                   tone={optionTone ?? (variant === 'coupon' ? 'primary' : 'subtle')}
                 >
@@ -139,9 +139,9 @@ function OrderProductSummaryContent({
               </HStack>
             ) : null}
             {!hideAmount && amount !== undefined ? (
-              <Typography variant="body4" weight={variant === 'coupon' ? undefined : 'medium'}>
+              <Typography variant="b6" weight={variant === 'coupon' ? undefined : 'medium'}>
                 {numericAmount && amountLanguage === 'en' ? (
-                  <Typography as="span" variant="body4Medium" language="en">
+                  <Typography as="span" variant="b6M" language="en">
                     {formattedAmount}
                   </Typography>
                 ) : (
@@ -154,7 +154,7 @@ function OrderProductSummaryContent({
         </Stack>
         {statusText ? (
           <Typography
-            variant="body4Medium"
+            variant="b6M"
             tone="tertiary"
             className={css({ mt: 'auto', textAlign: 'right' })}
           >
@@ -169,7 +169,7 @@ function OrderProductSummaryContent({
               iconLeft="hoka-bag-shopping-regular"
               iconSize={platform === 'mobile' ? '14px' : '18px'}
             >
-              <Typography web="body4" mo="body5" weight="medium">
+              <Typography web="b6M" mo="b8M">
                 장바구니 담기
               </Typography>
             </Button>
@@ -191,7 +191,7 @@ function OrderProductSummaryContent({
       {review && (
         <Box flex={columns ? '300 1 0px' : undefined} minW="0">
           <Typography
-            variant="body5"
+            variant="b8"
             className={columns ? css({ lineClamp: 1, mx: '16px' }) : undefined}
           >
             {review}

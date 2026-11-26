@@ -41,6 +41,7 @@ function OrderRecommendationItem({ item, layout = 'compact' }: Props) {
       _mobile={{ flexBasis: layout === 'compact' ? '140px' : '150px' }}
     >
       <ProductCard
+        textWeights={layout === 'checkout' ? { identity: 'medium' } : undefined}
         href={item.href}
         product={{
           id: item.id,
@@ -118,8 +119,8 @@ export function OrderRecommendations({
             </HStack>
           ) : undefined,
         titleProps: {
-          web: layout === 'checkout' ? 'headingKr6' : 'heading8',
-          mo: layout === 'checkout' ? 'headingKr6' : 'heading7',
+          web: layout === 'checkout' ? 'h4B' : 'h10B',
+          mo: layout === 'checkout' ? 'h8' : 'h8',
         },
       }}
     >

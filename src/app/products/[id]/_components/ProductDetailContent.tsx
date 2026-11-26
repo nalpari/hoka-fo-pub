@@ -31,7 +31,6 @@ import { Divider } from '@/components/common/atoms/Divider';
 import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { Icon } from '@/components/common/atoms/Icon';
 import { NumberStepper } from '@/components/common/atoms/NumberStepper';
-import { RatingStars } from '@/components/common/atoms/RatingStars';
 import { SegmentedControl } from '@/components/common/atoms/SegmentedControl';
 import { Toast, type ToastNotice } from '@/components/common/atoms/Toast';
 import { Typography } from '@/components/common/atoms/Typography';
@@ -39,6 +38,7 @@ import { Wishlist } from '@/components/common/atoms/Wishlist';
 
 import {
   Carousel,
+  CarouselControls,
   CarouselPagination,
   CarouselViewport,
 } from '@/components/common/molecules/Carousel/Carousel';
@@ -72,9 +72,15 @@ import {
   getSelectedOptionsPreview,
   prepareProductDetailPreview,
   type ProductDetailPreview,
+  productDetailPreviews,
 } from '@/app/products/[id]/productDetailPreviews';
 import { productInquiries } from '@/app/products/[id]/productInquiries';
 import { productSizeOptions } from '@/app/products/[id]/productSizeOptions';
+import {
+  InquiryCategoryFields,
+  InquiryFormActions,
+  InquiryMessageFields,
+} from '@/app/support/inquiries/new/_components/InquiryFormContent';
 import {
   type Gender,
   genderOptions,
@@ -85,6 +91,7 @@ import {
 } from '@/app/support/size-guide/size-guide.data';
 import { shoeCareSections } from '@/components/care-guide/care.data';
 import { CareInstructions } from '@/components/care-guide/CareInstructions';
+import { InquiryCautions } from '@/components/support/InquiryCautions';
 import { type Product, products, type ProductWidthOption } from '@/mocks/products';
 import { type CartItem } from '@/types/cart';
 const ProductDetailViewerContent = dynamic(() => import('./ProductDetailViewerContent'), {
@@ -331,11 +338,12 @@ function InquiryBoardHeader({
         titleAs="h3"
         title={variant === 'product' ? title : `${title}(${count})`}
         count={variant === 'product' ? count : undefined}
-        countProps={{ variant: 'body1', weight: 'medium' }}
+        countProps={{ variant: 'b1M' }}
         variant={variant === 'product' ? 'productSection' : 'standard'}
         titleProps={{
           id: headingId,
-          variant: variant === 'product' ? 'heading8' : 'body2',
+          web: variant === 'product' ? 'h10B' : 'b2',
+          mo: variant === 'product' ? 'h8' : 'b2',
           weight: variant === 'product' ? undefined : 'bold',
         }}
         orientation="horizontal"
@@ -381,12 +389,12 @@ function InquiryBoardContent({
   variant?: 'default' | 'product';
 }) {
   return item.visibility === 'restricted' ? (
-    <Typography as="p" variant="body4" tone={variant === 'product' ? 'subtle' : undefined}>
+    <Typography as="p" variant="b6" tone={variant === 'product' ? 'subtle' : undefined}>
       비공개글은 작성자 본인만 확인할 수 있습니다.
     </Typography>
   ) : (
     <Stack gap="6">
-      <Typography as="div" variant="body4">
+      <Typography as="div" variant="b6">
         {item.content}
       </Typography>
       {item.answer != null && (
@@ -395,10 +403,8 @@ function InquiryBoardContent({
           borderTop={variant === 'product' ? '1px solid token(colors.black.20)' : undefined}
           pt={variant === 'product' ? '6' : undefined}
         >
-          <Typography variant="body4" weight="bold">
-            답변
-          </Typography>
-          <Typography as="div" variant="body4" tone={variant === 'product' ? 'subtle' : undefined}>
+          <Typography variant="b6B">답변</Typography>
+          <Typography as="div" variant="b6" tone={variant === 'product' ? 'subtle' : undefined}>
             {item.answer}
           </Typography>
         </Grid>
@@ -493,24 +499,24 @@ function InquirySubject({
         justifyContent={variant === 'product' ? 'flex-end' : undefined}
         _mobile={{ gridColumn: '1 / -1' }}
       >
-        <Typography variant="body4" className={styles.title}>
+        <Typography variant="b6" className={styles.title}>
           {item.visibility === 'restricted' ? '비공개 문의글입니다.' : item.title}
         </Typography>
         {isPrivate && <Icon name="lock-keyhole-regular" size={14} alt="" aria-hidden="true" />}
       </Flex>
-      <Typography variant="body4" tone="tertiary" className={styles.metadata}>
+      <Typography variant="b6" tone="tertiary" className={styles.metadata}>
         {item.author}
       </Typography>
       <Typography
         as="time"
         dateTime={item.date}
-        variant="body4"
+        variant="b6"
         tone="tertiary"
         className={styles.metadata}
       >
         {item.date}
       </Typography>
-      <Typography variant="body4" weight="bold" className={styles.metadata}>
+      <Typography variant="b6B" className={styles.metadata}>
         {item.status === 'answered' ? '답변완료' : variant === 'product' ? '접수' : '답변대기'}
       </Typography>
     </Grid>
@@ -603,21 +609,68 @@ function InquiryBoard({
     </Box>
   );
 }
-function ProductInquiryLink() {
+function ProductInquiryAction({ initialOpen = false }: { initialOpen?: boolean }) {
+  const [open, setOpen] = useState(initialOpen);
+  const [detailCategory, setDetailCategory] = useState('상품상세문의');
+  const [title, setTitle] = useState('');
+  const [body, setBody] = useState('');
+  const triggerRef = useRef<HTMLButtonElement>(null);
+
   return (
     <Box w="120px" flexShrink="0">
-      <ButtonLink
-        href="/support/inquiries/new"
-        variant="secondary"
-        size="short"
-        fullWidth
-        style={{ '--button-height': '36px', '--button-label-weight': '400' } as CSSProperties}
+      {!initialOpen ? (
+        <Button
+          ref={triggerRef}
+          aria-haspopup="dialog"
+          onClick={() => setOpen(true)}
+          variant="secondary"
+          size="short"
+          fullWidth
+          style={{ '--button-height': '36px', '--button-label-weight': '400' } as CSSProperties}
+        >
+          문의하기
+        </Button>
+      ) : null}
+      {/* [ 개발팀 바인딩 ] 상품 상세 통합 소유자가 현재 상품 ID·문의 유형·상세 유형·제목·내용·비밀글 값을 제출과 연결합니다. 지금은 입력 및 모달 표시만 제공하며 등록 요청은 수행하지 않습니다. 요청 중 중복 제출 방지, 실패 후 입력 유지와 재시도, 성공 시 닫기와 문의 목록 갱신은 연결 소유자가 담당합니다. */}
+      <ModalDialog
+        title="상품 문의하기"
+        closeLabel="상품 문의하기 닫기"
+        variant="form"
+        size="lg"
+        mobilePresentation="fullscreen"
+        open={open}
+        onOpenChange={setOpen}
+        finalFocus={
+          initialOpen ? () => document.querySelector<HTMLElement>('[data-pdp-panel]') : triggerRef
+        }
       >
-        문의하기
-      </ButtonLink>
+        <form noValidate onSubmit={(event) => event.preventDefault()}>
+          <Stack gap="24px">
+            <InquiryCategoryFields
+              category="상품"
+              detailCategory={detailCategory}
+              invalid={false}
+              productInquiry
+              onCategoryChange={() => {}}
+              onDetailCategoryChange={setDetailCategory}
+            />
+            <InquiryMessageFields
+              title={title}
+              body={body}
+              invalid={false}
+              onTitleChange={setTitle}
+              onBodyChange={setBody}
+            />
+            <InquiryCautions productInquiry />
+            <Checkbox name="private" label="비밀글로 등록합니다." />
+            <InquiryFormActions onCancel={() => setOpen(false)} />
+          </Stack>
+        </form>
+      </ModalDialog>
     </Box>
   );
 }
+
 const board = css({ pt: '24px' });
 /** 상품 문의 목록 또는 빈 영역을 표시합니다. (Displays the product inquiry list or empty region.) */
 export function ProductDetailInquiryContent({
@@ -644,26 +697,73 @@ export function ProductDetailInquiryContent({
       loadMoreSize={16}
       className={board}
       items={empty ? [] : productInquiries}
-      action={<ProductInquiryLink />}
+      action={<ProductInquiryAction />}
     />
   );
 }
+
+const productTechSpecsStyles = {
+  heading: css({
+    '&&': {
+      fontSize: 'heading.28',
+      fontWeight: '900',
+      lineHeight: 'koreanHeading',
+      _mobile: { fontSize: 'heading.22' },
+    },
+  }),
+  specificationLabel: css({
+    fontSize: 'body.16',
+    fontWeight: '800',
+    lineHeight: 'body',
+    _mobile: { fontSize: 'body.18' },
+    '&[lang="en"]': {
+      fontSize: 'body.15',
+      fontWeight: '700',
+      _mobile: { fontSize: 'body.18', lineHeight: 'body' },
+    },
+  }),
+  value: css.raw({
+    '&&': { fontSize: 'body.20', lineHeight: 'body', _mobile: { fontSize: 'body.18' } },
+  }),
+  scaleTitle: css({
+    '&&': { fontSize: 'body.20', fontWeight: '800', lineHeight: 'body' },
+  }),
+  scaleLabel: css({
+    '&&': { fontSize: 'body.16', lineHeight: 'body', _mobile: { fontSize: 'body.13' } },
+  }),
+};
+
 type ProductDetailSpecificationListProps = {
   items: readonly ProductDetailSpecification[];
   gap: '4' | '8';
+  /** Defaults to false to preserve the ordinary product attribute list. */
+  technical?: boolean;
 };
-function ProductDetailSpecificationList({ items, gap }: ProductDetailSpecificationListProps) {
+
+function ProductDetailSpecificationList({
+  items,
+  gap,
+  technical = false,
+}: ProductDetailSpecificationListProps) {
   return (
     <DescriptionList
       items={items.map((item) => ({
         descriptionProps: typeof item.value === 'string' ? undefined : { variant: undefined },
         term: (
-          <HStack as="span" gap="2" alignItems="center">
+          <HStack
+            as="span"
+            gap="2"
+            alignItems="center"
+            lang={/\p{Script=Hangul}/u.test(item.label) ? 'ko' : 'en'}
+            className={technical ? productTechSpecsStyles.specificationLabel : undefined}
+          >
             {item.label}
             {item.help ? (
               <HelpTooltip
                 label={`${item.label} 안내`}
                 text={item.help}
+                variant="description"
+                maxWidth={item.helpMaxWidth}
                 side="bottom"
                 iconColor="black.50"
                 className={css({ transform: 'translateY(-1px)' })}
@@ -681,7 +781,11 @@ function ProductDetailSpecificationList({ items, gap }: ProductDetailSpecificati
                   {index > 0 ? (
                     <Divider orientation="vertical" length="4" variant="strong" />
                   ) : null}
-                  <Typography as="span" variant="body3">
+                  <Typography
+                    as="span"
+                    variant="b4"
+                    className={technical ? css(productTechSpecsStyles.value) : undefined}
+                  >
                     {value}
                   </Typography>
                 </Fragment>
@@ -689,8 +793,8 @@ function ProductDetailSpecificationList({ items, gap }: ProductDetailSpecificati
             </HStack>
           ),
       }))}
-      termProps={{ variant: 'body3', weight: 'bold' }}
-      descriptionProps={{ variant: 'body3', tone: undefined }}
+      termProps={{ variant: 'b4B' }}
+      descriptionProps={{ variant: 'b4', tone: undefined }}
       slotStyles={{
         root: css.raw({
           display: 'flex',
@@ -698,8 +802,16 @@ function ProductDetailSpecificationList({ items, gap }: ProductDetailSpecificati
           gridTemplateColumns: 'none',
           gap,
         }),
-        row: css.raw({ display: 'flex', flexDirection: 'column', gap: '2' }),
-        description: css.raw({ m: '0' }),
+        row: css.raw({
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '2',
+          _mobile: { flexDirection: 'row', alignItems: 'center', gap: '24px' },
+        }),
+        description: css.raw(
+          { m: '0', _mobile: { minW: '0' } },
+          technical && productTechSpecsStyles.value,
+        ),
       }}
     />
   );
@@ -725,13 +837,22 @@ function ProductTechnicalScaleBar({ level }: ProductTechnicalScaleBarProps) {
   );
 }
 /** Static qualitative scale; it is neither an editable Slider nor a numeric Meter. */
-function ProductTechnicalScale({ title, labels, level, help }: ProductTechnicalScaleData) {
+function ProductTechnicalScale({
+  title,
+  labels,
+  level,
+  help,
+  helpMaxWidth,
+}: ProductTechnicalScaleData) {
   return (
     <ContentSection
       title={title}
       headerProps={{
         titleAs: 'h3',
-        titleProps: { variant: 'body3', weight: 'bold' },
+        titleProps: {
+          variant: 'b4B',
+          className: productTechSpecsStyles.scaleTitle,
+        },
         orientation: 'horizontal',
         gap: '2',
         css: css.raw({ justifyContent: 'flex-start' }),
@@ -739,6 +860,8 @@ function ProductTechnicalScale({ title, labels, level, help }: ProductTechnicalS
           <HelpTooltip
             label={`${title} 안내`}
             text={help}
+            variant="description"
+            maxWidth={helpMaxWidth}
             side="bottom"
             iconColor="black.50"
             className={css({ transform: 'translateY(-1px)' })}
@@ -750,7 +873,7 @@ function ProductTechnicalScale({ title, labels, level, help }: ProductTechnicalS
       <ProductTechnicalScaleBar level={level} />
       <Flex justifyContent="space-between" gap="2">
         {labels.map((label) => (
-          <Typography key={label} variant="body5">
+          <Typography key={label} variant="b4" className={productTechSpecsStyles.scaleLabel}>
             {label}
           </Typography>
         ))}
@@ -758,6 +881,16 @@ function ProductTechnicalScale({ title, labels, level, help }: ProductTechnicalS
     </ContentSection>
   );
 }
+
+const productDetailMobileStyles = {
+  sectionHeading: css({
+    _mobile: { '&&': { fontSize: 'heading.22', fontWeight: '900', lineHeight: 'koreanHeading' } },
+  }),
+  featureHeading: css({
+    _mobile: { '&&': { fontSize: 'body.18', fontWeight: '700', lineHeight: 'body' } },
+  }),
+};
+
 type ProductTechSpecsProps = {
   specifications: readonly ProductDetailSpecification[];
   attributes: readonly ProductDetailSpecification[];
@@ -767,11 +900,26 @@ function ProductTechSpecs({ specifications, attributes, scales }: ProductTechSpe
   return (
     <ContentSection
       title="Tech Specs"
-      headerProps={{ titleAs: 'h2', titleProps: { variant: 'heading7' } }}
+      headerProps={{
+        titleAs: 'h2',
+        titleProps: {
+          web: 'h8B',
+          mo: 'h8',
+          className: productTechSpecsStyles.heading,
+        },
+      }}
       gap="8"
     >
-      <Grid gridTemplateColumns="minmax(0, 1fr) minmax(0, 2fr)" gap="10">
-        <ProductDetailSpecificationList items={specifications} gap="8" />
+      <Grid
+        gridTemplateColumns="minmax(0, 1fr) minmax(0, 2fr)"
+        gap="10"
+        _mobile={{ gridTemplateColumns: '1fr', gap: '10' }}
+      >
+        <ProductDetailSpecificationList
+          items={specifications}
+          gap="8"
+          technical={scales.length > 0}
+        />
         <Stack gap="8">
           {scales.length > 0 ? (
             scales.map((scale) => <ProductTechnicalScale key={scale.title} {...scale} />)
@@ -783,51 +931,84 @@ function ProductTechSpecs({ specifications, attributes, scales }: ProductTechSpe
     </ContentSection>
   );
 }
+
+// Three columns in the 1016:484 detail grid, including its 32px gap and the 1200px PC canvas.
+const editorialDesktopImageSizes =
+  'calc(((min(calc(max(100vw, 1200px) - 110px), clamp(1532px, calc(79.375vw + 8px), 2040px)) - 32px) * 1016 / 1500 - 32px) / 3)';
+
+const editorialStyles = {
+  image: css({ display: 'block', w: '100%', h: 'auto' }),
+  slide: css({
+    w: 'calc((100% - 32px) / 3 + 16px)!',
+    pr: '16px',
+    '&:last-child': { w: 'calc((100% - 32px) / 3)!', pr: '0' },
+  }),
+};
+
 function ProductDetailEditorial({
   features,
-  apparel = false,
 }: {
   features: readonly (Omit<ProductEditorialFeature, 'description'> & { description?: string })[];
-  apparel?: boolean;
 }) {
-  return (
+  const platform = usePlatform();
+  const isCarousel = platform === 'web' && features.length > 3;
+  const cards = features.map((feature) => (
+    <Stack as="article" key={feature.title} gap="6" minW="0">
+      <Image
+        sizes={platform === 'mobile' ? 'calc(100vw - 32px)' : editorialDesktopImageSizes}
+        src={feature.image}
+        alt={feature.title}
+        width={328}
+        height={411}
+        loading="lazy"
+        className={editorialStyles.image}
+      />
+      <ContentHeader
+        title={feature.title}
+        titleAs="h3"
+        titleProps={{
+          web: 'h10',
+          mo: 'h8',
+          className: productDetailMobileStyles.featureHeading,
+        }}
+        description={feature.description}
+        descriptionProps={{ variant: 'b6' }}
+        gap="2"
+      />
+    </Stack>
+  ));
+  const section = (
     <ContentSection
       title="Why you’ll love it"
-      headerProps={{ titleAs: 'h2', titleProps: { variant: 'heading7' } }}
-      gap="6"
+      headerProps={{
+        titleAs: 'h2',
+        titleProps: { web: 'h8B', mo: 'h8', className: productDetailMobileStyles.sectionHeading },
+        orientation: 'horizontal',
+        action: isCarousel ? <CarouselControls /> : undefined,
+      }}
+      gap="8"
+      minW="0"
+      _mobile={{ gap: '4' }}
     >
-      <Grid
-        gridTemplateColumns={apparel ? 'repeat(4, minmax(0, 1fr))' : 'repeat(3, minmax(0, 1fr))'}
-        gap="4"
-        _mobile={apparel ? { gridTemplateColumns: 'repeat(2, minmax(0, 1fr))' } : undefined}
-      >
-        {features.map((feature) => (
-          <Stack as="article" key={feature.title} gap="4">
-            <Image
-              sizes={
-                apparel ? '(max-width: 1024px) 50vw, 242px' : '(max-width: 1024px) 33vw, 328px'
-              }
-              src={feature.image}
-              alt={feature.title}
-              width={328}
-              height={411}
-              loading="lazy"
-              className={css({ display: 'block', w: '100%', h: 'auto' })}
-            />
-            <ContentHeader
-              title={feature.title}
-              titleAs="h3"
-              titleProps={{ variant: 'heading10' }}
-              description={feature.description}
-              descriptionProps={{ variant: 'body4' }}
-              gap="2"
-            />
-          </Stack>
-        ))}
-      </Grid>
+      {isCarousel ? (
+        <CarouselViewport mode="web" slideClassName={editorialStyles.slide} showScrollbar={false}>
+          {cards}
+        </CarouselViewport>
+      ) : (
+        <Grid
+          gridTemplateColumns="repeat(3, minmax(0, 1fr))"
+          gap="4"
+          _mobile={{ gridTemplateColumns: '1fr', gap: '12' }}
+        >
+          {cards}
+        </Grid>
+      )}
     </ContentSection>
   );
+
+  return isCarousel ? <Carousel itemCount={features.length}>{section}</Carousel> : section;
 }
+
 type ProductDetailAnchor = {
   id: string;
   label: string;
@@ -841,7 +1022,11 @@ const navigation = css({
   borderBottom: '1px solid var(--color-black-20)',
   bg: 'var(--hoka-white)',
 });
+
 const link = css({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
   textAlign: 'center',
   py: '5',
   color: 'inherit',
@@ -850,6 +1035,16 @@ const link = css({
   '&[aria-current="location"]': { borderBottomColor: 'var(--color-black-100)' },
   _focusVisible: { outline: '2px solid var(--color-focus-ring)' },
 });
+
+const productDetailNavigationLabel = css({
+  '&&': {
+    fontSize: 'body.16',
+    lineHeight: 'body',
+    letterSpacing: 'korean',
+    _mobile: { fontSize: 'body.14', lineHeight: 'body' },
+  },
+});
+
 type ProductDetailNavigationProps = {
   ref?: Ref<HTMLElement>;
   items: readonly ProductDetailAnchor[];
@@ -858,7 +1053,12 @@ type ProductDetailNavigationProps = {
 /** The measured native nav keeps its HTMLElement ref contract. */
 function ProductDetailNavigation({ ref, items, activeId }: ProductDetailNavigationProps) {
   return (
-    <nav ref={ref} aria-label="상품 상세 정보" className={navigation}>
+    <nav
+      ref={ref}
+      aria-label="상품 상세 정보"
+      className={navigation}
+      style={{ gridTemplateColumns: `repeat(${items.length}, minmax(0, 1fr))` }}
+    >
       {items.map((item) => (
         <a
           key={item.id}
@@ -866,7 +1066,15 @@ function ProductDetailNavigation({ ref, items, activeId }: ProductDetailNavigati
           className={link}
           aria-current={activeId === item.id ? 'location' : undefined}
         >
-          <Typography variant="body3">{item.label}</Typography>
+          <Typography
+            web="b4"
+            mo="b6"
+            language="ko"
+            weight={activeId === item.id ? 'semibold' : 'regular'}
+            className={productDetailNavigationLabel}
+          >
+            {item.label}
+          </Typography>
         </a>
       ))}
     </nav>
@@ -938,7 +1146,9 @@ function ProductDetailPlaceholder({ children }: { children: ReactNode }) {
       p="8"
       textAlign="center"
     >
-      <Typography variant="heading8">{children}</Typography>
+      <Typography web="h10B" mo="h8">
+        {children}
+      </Typography>
     </Grid>
   );
 }
@@ -958,9 +1168,9 @@ function ProductDetailReviews({ count, id, className, children }: ProductDetailR
       headerProps={{
         titleAs: 'h2',
         count,
-        countProps: { variant: 'body1', weight: 'medium' },
+        countProps: { variant: 'b1M' },
         variant: 'productSection',
-        titleProps: { variant: 'heading8' },
+        titleProps: { web: 'h10B', mo: 'h8' },
       }}
       gap="6"
     >
@@ -998,7 +1208,7 @@ function ProductDetailDeliverySection({ title, children }: { title: string; chil
       gap="5"
       aria-label={title}
       title={<>{title}</>}
-      headerProps={{ titleAs: 'h3', titleProps: { variant: 'heading8' } }}
+      headerProps={{ titleAs: 'h3', titleProps: { web: 'h10B', mo: 'h8' } }}
     >
       {children}
     </ContentSection>
@@ -1006,7 +1216,7 @@ function ProductDetailDeliverySection({ title, children }: { title: string; chil
 }
 function ProductDetailDeliveryList({ children }: { children: ReactNode }) {
   return (
-    <Typography as="ol" variant="body5" className={numberedList}>
+    <Typography as="ol" variant="b8" className={numberedList}>
       {children}
     </Typography>
   );
@@ -1077,20 +1287,20 @@ function ProductSupportContact() {
       <ContentHeader
         title="호카 온라인 스토어 고객센터"
         titleAs="h4"
-        titleProps={{ variant: 'body5', weight: 'bold' }}
+        titleProps={{ variant: 'b8B' }}
         gap="0"
       />
       <Stack gap="2">
-        <Typography as="p" variant="body5">
+        <Typography as="p" variant="b8">
           TEL. <ProductSupportTextLink href="tel:15660086">1566-0086</ProductSupportTextLink>
         </Typography>
-        <Typography as="p" variant="body5" tone="tertiary">
+        <Typography as="p" variant="b8" tone="tertiary">
           1:1 문의를 이용하시면 조금 더 빠르게 답변 받으실 수 있습니다.
         </Typography>
-        <Typography as="p" variant="body5" weight="bold">
+        <Typography as="p" variant="b8B">
           운영시간
         </Typography>
-        <Typography as="p" variant="body5" tone="tertiary">
+        <Typography as="p" variant="b8" tone="tertiary">
           평일 10:00~17:00 (점심시간 12:00~13:00) / 토·일요일 및 공휴일 휴무
         </Typography>
       </Stack>
@@ -1126,14 +1336,12 @@ function ProductSupportLink({ title, description, label, to }: ProductSupportLin
         gap="2"
         titleAs="h4"
         title={<>{title}</>}
-        titleProps={{ variant: 'body5', weight: 'bold' }}
+        titleProps={{ variant: 'b8B' }}
         description={<>{description}</>}
-        descriptionProps={{ variant: 'body5', tone: 'tertiary' }}
+        descriptionProps={{ variant: 'b8', tone: 'tertiary' }}
       />
       <Link href={to} className={supportLink}>
-        <Typography variant="body5" weight="medium">
-          {label}
-        </Typography>
+        <Typography variant="b8M">{label}</Typography>
       </Link>
     </Grid>
   );
@@ -1220,16 +1428,16 @@ function ProductDetailReturnGuide() {
             </>
           }
           titleAs="h4"
-          titleProps={{ variant: 'body2', tone: 'tertiary', className: processTitle }}
+          titleProps={{ variant: 'b2', tone: 'tertiary', className: processTitle }}
           gap="0"
         />
         <Stack as="ol" gap="6">
           {returnSteps.map((step, index) => (
             <li key={step} className={stepRow}>
-              <Typography variant="body1" className={stepNumber} aria-hidden="true">
+              <Typography variant="b1" className={stepNumber} aria-hidden="true">
                 {index + 1}
               </Typography>
-              <Typography variant="body5">{step}</Typography>
+              <Typography variant="b8">{step}</Typography>
             </li>
           ))}
         </Stack>
@@ -1261,20 +1469,18 @@ function ProductDetailNoticeTable({ items }: { items: readonly ProductDetailSpec
         id: label,
         term: (
           <>
-            <Typography variant="body4" weight="bold">
-              {label}
-            </Typography>
-            {note ? <Typography variant="body4">{note}</Typography> : null}
+            <Typography variant="b6B">{label}</Typography>
+            {note ? <Typography variant="b6">{note}</Typography> : null}
           </>
         ),
         description: (
-          <Typography variant="body4">
+          <Typography variant="b6">
             {typeof value === 'string' ? value : value.join(' | ')}
           </Typography>
         ),
       }))}
-      termProps={{ variant: 'body4' }}
-      descriptionProps={{ variant: 'body4', tone: 'inherit' }}
+      termProps={{ variant: 'b6' }}
+      descriptionProps={{ variant: 'b6', tone: 'inherit' }}
       slotStyles={{
         root: css.raw({
           display: 'flex',
@@ -1331,7 +1537,7 @@ function ProductDetailSupportSections({
         {
           value: 'notice',
           title: (
-            <Typography variant="body3" mo="body4" weight="bold">
+            <Typography variant="b4B" mo="b6B">
               상품 고시 정보
             </Typography>
           ),
@@ -1340,7 +1546,7 @@ function ProductDetailSupportSections({
         {
           value: 'delivery',
           title: (
-            <Typography variant="body3" mo="body4" weight="bold">
+            <Typography variant="b4B" mo="b6B">
               배송 및 반품
             </Typography>
           ),
@@ -1349,7 +1555,7 @@ function ProductDetailSupportSections({
         {
           value: 'care',
           title: (
-            <Typography variant="body3" mo="body4" weight="bold">
+            <Typography variant="b4B" mo="b6B">
               관리 방법
             </Typography>
           ),
@@ -1376,16 +1582,9 @@ function ProductDetailSections({
 }) {
   /** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 상품 연결 소유자가 표시 모델과 식별자·입력/선택 payload, 요청 중/실패/성공/재시도 및 응답 갱신을 별도로 구현해야 합니다. */
   const presentation = getProductDetailPresentation(product);
-  const anchors = apparel
-    ? [
-        productDetailAnchors[0],
-        { id: 'product-sizing', label: '사이즈' },
-        ...productDetailAnchors.slice(1),
-      ]
-    : productDetailAnchors;
   const features = apparel ? apparelFeatures : presentation.features;
   return (
-    <ProductDetailScrollSpy items={anchors}>
+    <ProductDetailScrollSpy items={productDetailAnchors}>
       <Stack gap="96px" _mobile={{ gap: '12' }}>
         <Stack id="product-details" className={destination} gap="96px" _mobile={{ gap: '12' }}>
           {!apparel && (
@@ -1395,14 +1594,9 @@ function ProductDetailSections({
               scales={presentation.scales}
             />
           )}
-          {features.length > 0 && <ProductDetailEditorial features={features} apparel={apparel} />}
+          {features.length > 0 && <ProductDetailEditorial features={features} />}
         </Stack>
         <ProductDetailPlaceholder>상세페이지 영역 (이미지세트 &amp; IMC)</ProductDetailPlaceholder>
-        {apparel && (
-          <ContentSection id="product-sizing" className={destination} title="사이즈">
-            <ProductDetailPlaceholder>크리마 영역</ProductDetailPlaceholder>
-          </ContentSection>
-        )}
         <ProductDetailReviews
           id="product-reviews"
           className={destination}
@@ -1425,6 +1619,7 @@ function ProductDetailSections({
   );
 }
 type ProductDetailMediaProps = {
+  mobileActions?: ReactNode;
   inquiriesEmpty?: boolean;
   inquiriesExpanded?: boolean;
   apparel?: boolean;
@@ -1434,6 +1629,7 @@ type ProductDetailMediaProps = {
   product: Product;
 };
 function ProductDetailMedia({
+  mobileActions,
   images,
   productName,
   onOpenImage,
@@ -1445,7 +1641,14 @@ function ProductDetailMedia({
   const platform = usePlatform();
   return (
     <Flex minW="0" direction="column" gap="96px">
-      <ProductDetailGallery onOpenImage={onOpenImage} images={images} productName={productName} />
+      <Box position="relative">
+        <ProductDetailGallery onOpenImage={onOpenImage} images={images} productName={productName} />
+        {platform === 'mobile' && (
+          <Box position="absolute" top="16px" right="16px" zIndex="2">
+            {mobileActions}
+          </Box>
+        )}
+      </Box>
       {platform === 'web' && (
         <ProductDetailSections
           product={product}
@@ -1487,9 +1690,9 @@ function ProductColorSelector({
 }
 /**
  * [ 개발팀 바인딩 ]
- * 상품 상세 연결 소유자가 현재 Product.gender를 전달하면 해당 신발 안내표를 선택합니다.
+ * 상품 상세 연결 소유자가 전달한 Product.gender로 의류 성별 안내표를 선택하며 신발은 남녀 공용 표를 표시합니다.
  * 고객센터와 공유하는 신발·의류 치수표는 준비된 표시 데이터이며, 열기와 단위 전환은 조회 없이 처리합니다.
- * 운영 치수표 승인과 갱신은 연결 소유자가 담당합니다.
+ * 신발 팝업은 공용 표의 한국 사이즈·발길이·남녀 US 열을 표시하며 의류는 상품 성별의 표를 사용합니다. 운영 치수표 승인과 갱신은 연결 소유자가 담당합니다.
  */
 const sizeGuideGenders = {
   "Men's": 'men',
@@ -1501,52 +1704,75 @@ const apparelSizeGuide =
   guideCategories.find(({ value }) => value === 'apparel') ??
   guideCategories.find(({ value }) => value === 'tops');
 
-const sizeGuideTableStyle = css.raw({
-  borderCollapse: 'separate',
-  borderSpacing: 0,
-  tableLayout: 'fixed',
-  width: 'max-content',
-  textAlign: 'center',
-  fontSize: '12px',
-  lineHeight: '1.4',
-  '& th, & td': {
-    boxSizing: 'border-box',
-    width: '68px',
-    height: '54px',
-    bg: 'white.000',
-    borderInlineEnd: '1px solid token(colors.black.10)',
-    borderBlockEnd: '1px solid token(colors.black.10)',
-    fontWeight: 'normal',
-    _mobile: { width: '63px', height: '52px' },
-  },
-  '& tr:first-child > *': { borderBlockStart: '1px solid token(colors.black.10)' },
-  '& tr > :first-child': {
-    position: 'sticky',
-    insetInlineStart: 0,
-    width: '92px',
-    bg: '#F5F5F7',
-    borderInlineStart: '1px solid token(colors.black.10)',
-    fontWeight: 'semibold',
-    _mobile: { width: '76px' },
-  },
-});
+const sizeGuideStyles = {
+  shoePopup: css({ '--modal-size-guide-width': '640px' }),
+  table: css({
+    borderCollapse: 'collapse',
+    tableLayout: 'fixed',
+    w: '100%',
+    textAlign: 'center',
+    fontFamily: 'ko',
+    fontSize: 'body.14',
+    lineHeight: 'body',
+    letterSpacing: 'korean',
+    '& th, & td': { border: '1px solid #E9EAEB', h: '52px', px: '4px', fontWeight: '400' },
+    '& thead th': { bg: '#F5F5F7', fontWeight: '600' },
+    '& tbody tr:nth-child(even)': { bg: '#F5F5F7' },
+    _mobile: { fontSize: 'body.12', '& th, & td': { h: '46px', px: '2px' } },
+  }),
+  apparelTable: css({
+    '& th, & td': { fontSize: 'body.12' },
+    '& tbody td:nth-child(-n+2)': { fontWeight: '600' },
+    _mobile: { '& th, & td': { fontSize: 'body.10' } },
+  }),
+  unitGroup: css({ display: 'flex', p: '2px', borderRadius: 'full', bg: '#D9D9D9' }),
+  unitButton: css({
+    w: '46px',
+    h: '28px',
+    border: '0',
+    p: '0',
+    borderRadius: 'full',
+    bg: 'transparent',
+    color: 'text.primary',
+    fontFamily: 'ko',
+    fontSize: 'body.12',
+    fontWeight: '600',
+    cursor: 'pointer',
+    '&[aria-pressed=true]': { bg: 'white.000' },
+    _mobile: { w: '42px', h: '26px' },
+  }),
+  measurementImage: css({ w: '100%', h: 'auto', borderRadius: '4px' }),
+};
 
 const shoeGuideUnitOptions = shoeGuide.units.map((unit) => ({ value: unit, label: unit }));
 
-const shoeGuideUnitButtonStyle = css({
-  w: '46px',
-  h: '28px',
-  border: '0',
-  p: '0',
-  borderRadius: 'full',
-  bg: 'transparent',
-  color: 'text.primary',
-  fontSize: '12px',
-  fontWeight: 'semibold',
-  cursor: 'pointer',
-  '&[aria-pressed=true]': { bg: 'white.000' },
-  _mobile: { h: '27px' },
-});
+const apparelFitDescriptions = [
+  {
+    title: '핏티드 (Fitted)',
+    description:
+      '몸에 가깝게 밀착되지만, 과도하게 조이지 않고 편안하게 몸을 감싸는 스타일입니다. 맞춤복을 입은 듯 깔끔한 실루엣을 연출하며, 활동 시 움직임이 자유롭습니다.',
+  },
+  {
+    title: '슬림핏 (Slim)',
+    description:
+      '몸에 밀착되는 핏으로, 신체 치수 대비 여유분이 보다 적어 몸의 라인을 그대로 따라갑니다. 압박감이 강한 것은 아니지만, 몸에 착 달라붙는 착용감을 선사합니다.',
+  },
+  {
+    title: '스탠다드핏 (Standard)',
+    description:
+      '가장 클래식한 핏으로, 너무 타이트하지도 너무 헐렁하지도 않은 이상적인 균형을 갖추고 있습니다. ‘클래식’ 또는 ‘레귤러’ 핏이라고도 불립니다.',
+  },
+  {
+    title: '릴렉스핏 (Relaxed)',
+    description:
+      '여유롭고 넉넉한 핏입니다. 몸을 조이지 않는 편안한 착용감을 제공하며, 다른 옷 위에 겹쳐 입기에도 좋습니다.',
+  },
+  {
+    title: '오버핏 (Oversized)',
+    description:
+      '전체적으로 넉넉하고 여유로운 실루엣입니다. 만약 몸에 더 딱 맞는 스타일을 선호하신다면, 한 사이즈 작게 선택하시는 것을 추천합니다.',
+  },
+];
 
 function ProductSizeGuideChart({
   apparel,
@@ -1562,31 +1788,41 @@ function ProductSizeGuideChart({
   onUnitChange: (unit: Unit) => void;
 }) {
   const headingId = useId();
-  const title = `${genderOptions.find((option) => option.value === gender)?.label} ${apparel ? '의류' : '신발'}`;
-  const { headers, rows } = chart;
+  const title = apparel
+    ? `${gender === 'unisex' ? '남녀 공용' : genderOptions.find((option) => option.value === gender)?.label} 의류`
+    : '신발 표준 사이즈';
+  const headers = apparel
+    ? ['US 사이즈', '한국 사이즈', '가슴 둘레', '허리 둘레', '엉덩이 둘레']
+    : ['발길이', '한국(mm)', '미국(남)', '미국(여)'];
+  const rows = apparel
+    ? chart.rows
+    : shoeGuide.charts.unisex[unit].rows.map(([kr, length, us]) => [length, kr, ...us.split('/')]);
+  const measurement = apparelSizeGuide?.measurement;
 
   return (
-    <Stack minW="0" gap="4">
-      <HStack justify="space-between">
-        <Typography id={headingId} as="h3" variant="body3" weight="bold">
-          {title}
-        </Typography>
-        <SegmentedControl
-          ariaLabel={apparel ? '치수 단위' : '발길이 단위'}
-          className={css({ display: 'flex', p: '0.5', borderRadius: 'full', bg: 'black.20' })}
-          itemClassName={() => shoeGuideUnitButtonStyle}
-          onValueChange={onUnitChange}
-          options={shoeGuideUnitOptions}
-          unstyled
-          value={unit}
-        />
-      </HStack>
-      <Box role="region" aria-labelledby={headingId} tabIndex={0} overflowX="auto">
-        <table
-          aria-label={`${title} 치수표 (${unit})`}
-          className={css(sizeGuideTableStyle, apparel && { width: 'full' })}
-        >
-          {apparel && (
+    <Stack minW="0" gap="40px" _mobile={{ gap: '40px' }}>
+      <Stack gap="4">
+        <HStack justify="space-between">
+          <Typography id={headingId} as="h3" variant="b4B">
+            {title}
+          </Typography>
+          <SegmentedControl
+            ariaLabel={apparel ? '치수 단위' : '발길이 단위'}
+            className={sizeGuideStyles.unitGroup}
+            itemClassName={() => sizeGuideStyles.unitButton}
+            onValueChange={onUnitChange}
+            options={shoeGuideUnitOptions}
+            unstyled
+            value={unit}
+          />
+        </HStack>
+        <Box role="region" aria-labelledby={headingId} tabIndex={0}>
+          <table
+            aria-label={`${title} 치수표 (${unit})`}
+            className={[sizeGuideStyles.table, apparel && sizeGuideStyles.apparelTable]
+              .filter(Boolean)
+              .join(' ')}
+          >
             <thead>
               <tr>
                 {headers.map((header) => (
@@ -1596,53 +1832,79 @@ function ProductSizeGuideChart({
                 ))}
               </tr>
             </thead>
-          )}
-          {apparel ? (
             <tbody>
-              {rows.map(([us, kr, chest, waist, hips]) => (
-                <tr key={kr}>
-                  <th scope="row">{us}</th>
-                  <td>{kr}</td>
-                  <td>{chest}</td>
-                  <td>{waist}</td>
-                  <td>{hips}</td>
+              {rows.map((row) => (
+                <tr key={row[1]}>
+                  {row.map((value, index) => (
+                    <td key={index}>{value}</td>
+                  ))}
                 </tr>
               ))}
             </tbody>
-          ) : (
-            <tbody>
-              <tr>
-                <th scope="row">한국 사이즈</th>
-                {rows.map(([kr]) => (
-                  <th key={kr} scope="col">
-                    {kr}
-                  </th>
+          </table>
+        </Box>
+      </Stack>
+      {apparel && measurement && (
+        <>
+          <Stack gap="4">
+            <Stack gap="2">
+              <Typography as="h3" variant="b4B">
+                측정 방법
+              </Typography>
+              <Typography as="p" variant="b6">
+                측정한 치수를 사이즈표와 비교해 가장 알맞은 사이즈를 선택해 주세요.
+              </Typography>
+            </Stack>
+            <Grid
+              gridTemplateColumns="1fr 1fr"
+              gap="6"
+              _mobile={{ gridTemplateColumns: '1fr', gap: '6' }}
+            >
+              <Image
+                src={
+                  gender === 'women'
+                    ? '/images/size-guide/tops-women.png'
+                    : '/images/size-guide/tops-men.png'
+                }
+                alt="가슴·허리·엉덩이 둘레 측정 위치"
+                width={gender === 'women' ? 552 : 344}
+                height={gender === 'women' ? 432 : 258}
+                sizes="(max-width: 1024px) calc(100vw - 32px), 340px"
+                className={sizeGuideStyles.measurementImage}
+              />
+              <Stack as="ol" listStyleType="none" gap="6" py="4" _mobile={{ py: '0' }}>
+                {measurement.steps.map((step, index) => (
+                  <Stack as="li" gap="2" key={step}>
+                    <Typography variant="b6B">
+                      {index + 1}. {['가슴 둘레', '허리 둘레', '엉덩이 둘레'][index]}
+                    </Typography>
+                    <Typography as="p" variant="b6">
+                      {step}
+                    </Typography>
+                  </Stack>
                 ))}
-              </tr>
-              <tr>
-                <th scope="row">
-                  US 사이즈
-                  {gender === 'unisex' && (
-                    <>
-                      <br />
-                      (남/여)
-                    </>
-                  )}
-                </th>
-                {rows.map(([kr, , us]) => (
-                  <td key={kr}>{us}</td>
-                ))}
-              </tr>
-              <tr>
-                <th scope="row">발길이</th>
-                {rows.map(([kr, length]) => (
-                  <td key={kr}>{length}</td>
-                ))}
-              </tr>
-            </tbody>
-          )}
-        </table>
-      </Box>
+              </Stack>
+            </Grid>
+          </Stack>
+          <Stack gap="4">
+            <Typography as="h3" variant="b4B">
+              Fit Guide
+            </Typography>
+            <Grid gridTemplateColumns="1fr 1fr" gap="4" _mobile={{ gridTemplateColumns: '1fr' }}>
+              {apparelFitDescriptions.map(({ title: fitTitle, description }) => (
+                <Stack key={fitTitle} gap="2" p="4" bg="#F5F5F7" borderRadius="4px">
+                  <Typography as="h4" variant="b6B">
+                    {fitTitle}
+                  </Typography>
+                  <Typography as="p" variant="b6">
+                    {description}
+                  </Typography>
+                </Stack>
+              ))}
+            </Grid>
+          </Stack>
+        </>
+      )}
     </Stack>
   );
 }
@@ -1693,7 +1955,7 @@ function ProductSizeSelector({
         }
         allowSoldOutSelection
         error={error}
-        errorVariant="eland-product-option-error"
+        errorVariant="b6M"
         options={productSizeOptions(selectedWidth, apparel ? selectedWidth?.sizes : undefined)}
         value={value}
         onValueChange={onValueChange}
@@ -1708,6 +1970,7 @@ function ProductSizeSelector({
         <ModalDialog
           title="사이즈 가이드"
           variant="sizeGuide"
+          popupClassName={apparel ? undefined : sizeGuideStyles.shoePopup}
 
           closeLabel="사이즈 가이드 닫기"
           open={guideOpen}
@@ -1741,6 +2004,8 @@ function productWidthOptions(product: Product, color: string): ProductWidthOptio
 }
 type ProductVariantSelectorsProps = {
   apparel?: boolean;
+  /** Defaults to true; the inline mobile panel displays its colour control above the identity. */
+  showColor?: boolean;
   product: Product;
   gallery: string[];
   color: string;
@@ -1763,9 +2028,12 @@ function ProductVariantSelectors({
   onWidthChange,
   onSizeChange,
   apparel,
+  showColor = true,
 }: ProductVariantSelectorsProps) {
   const widthOptions = productWidthOptions(product, color);
-  const selected = widthOptions.find((option) => option.label === width) ?? widthOptions[0];
+  const selected =
+    widthOptions.find((option) => option.label === width && !option.isSoldOut) ??
+    widthOptions.find((option) => !option.isSoldOut);
   return (
     <>
       <Stack gap="10">
@@ -1773,16 +2041,21 @@ function ProductVariantSelectors({
           <ProductWidthSelector
             onValueChange={onWidthChange}
             options={widthOptions.map((option) => option.label)}
+            soldOutOptions={widthOptions
+              .filter((option) => option.isSoldOut)
+              .map(({ label }) => label)}
             value={width}
           />
         )}
-        <ProductColorSelector
-          colors={product.colors}
-          colorThumbnails={product.colorThumbnails}
-          gallery={gallery}
-          onValueChange={onColorChange}
-          value={color}
-        />
+        {showColor && (
+          <ProductColorSelector
+            colors={product.colors}
+            colorThumbnails={product.colorThumbnails}
+            gallery={gallery}
+            onValueChange={onColorChange}
+            value={color}
+          />
+        )}
         <ProductSizeSelector
           apparel={apparel}
           error={error}
@@ -1795,40 +2068,76 @@ function ProductVariantSelectors({
     </>
   );
 }
+/** [ 개발팀 바인딩 ] 상품 상세 통합 소유자가 현재 Product.detailTitle/detailDescription을 상품별로 전달합니다. 섹션명은 고정이며 미제공 제목을 다른 상품 문구로 대체하지 않습니다. 현재는 준비된 표시 데이터만 사용하고 조회 API는 없습니다. 늦은 응답·재조회 결과의 교체와 오류/재시도는 통합 소유자가 관리하며, 이 영역은 전달된 현재 본문을 다시 측정하고 본문이 바뀌면 접힌 상태로 표시합니다. */
 type ProductInformationProps = {
   id?: string;
-  title?: string;
   sections: readonly {
-    title: string;
+    title?: string;
     content: ReactNode;
   }[];
-  initiallyExpanded?: boolean;
   specifications: readonly {
     label: string;
     value: ReactNode;
   }[];
 };
+
 const productInformationTitleProps = {
-  variant: 'bodyKr3',
+  variant: 'b4B',
   language: 'ko',
-  weight: 'bold',
-  className: css({ _mobile: { fontSize: '15px' } }),
+  className: css({ '&&': { _mobile: { fontSize: 'body.16' } } }),
 } as const;
 
 const productInformationDescriptionProps = {
-  variant: 'eland-product-description',
+  web: 'b4',
+  mo: 'b5',
+  language: 'ko',
+  className: css({ '&&': { _mobile: { fontSize: 'body.16', lineHeight: 'body' } } }),
 } as const;
 /** 상품 설명 섹션과 규격 정보를 의미 있는 목록으로 표시합니다. (Displays product description sections and specifications as a semantic list.) */
-function ProductInformation({
-  id,
-  title = '상품 정보',
-  sections,
-  specifications,
-  initiallyExpanded = false,
-}: ProductInformationProps) {
+function ProductInformation({ id, sections, specifications }: ProductInformationProps) {
   const [description, ...features] = sections;
-  const [expanded, setExpanded] = useState(initiallyExpanded);
+  const [expansion, setExpansion] = useState<{ content: ReactNode; expanded: boolean } | null>(
+    null,
+  );
+  const expanded = expansion?.content === description?.content && expansion?.expanded === true;
+  const [overflows, setOverflows] = useState<boolean | null>(null);
+  const descriptionRoot = useRef<HTMLDivElement>(null);
   const contentId = useId();
+  const descriptionProps = {
+    ...productInformationDescriptionProps,
+    className: [productInformationDescriptionProps.className, !expanded && css({ lineClamp: 5 })]
+      .filter(Boolean)
+      .join(' '),
+  };
+
+  useEffect(() => {
+    const root = descriptionRoot.current;
+    const paragraph = root?.querySelector('p');
+    if (!root || !paragraph || !description?.content) {
+      setOverflows(false);
+      return;
+    }
+    let active = true;
+    const measure = () => {
+      if (!active) return;
+      const lineHeight = Number.parseFloat(getComputedStyle(paragraph).lineHeight);
+      setOverflows(paragraph.scrollHeight > lineHeight * 5 + 1);
+    };
+    const observer = new ResizeObserver(measure);
+    observer.observe(root);
+    observer.observe(paragraph);
+    window.addEventListener('resize', measure);
+    document.fonts.addEventListener('loadingdone', measure);
+    void document.fonts.ready.then(measure);
+    measure();
+    return () => {
+      active = false;
+      observer.disconnect();
+      window.removeEventListener('resize', measure);
+      document.fonts.removeEventListener('loadingdone', measure);
+    };
+  }, [description?.content]);
+
   return (
     <ContentSection
       as="section"
@@ -1837,40 +2146,40 @@ function ProductInformation({
       pt="8"
       pb="10"
       bg="var(--color-black-10)"
-      _mobile={{ px: '4', pb: '8', w: 'calc(100% + 32px)', ml: '-16px' }}
+      _mobile={{ px: '4', py: '10', w: 'calc(100% + 32px)', ml: '-16px' }}
       css={{
         '--product-information-label-width': '80px',
         _mobile: { '--product-information-label-width': '76px' },
       }}
       id={id}
-      title={title}
+      title="상품 정보"
       headerProps={{
         titleAs: 'h2',
         titleProps: {
-          variant: 'headingKr8',
-          mo: 'headingKr9',
-          weight: 'black',
-          className: css({ _mobile: { '&&': { fontSize: '20px' } } }),
+          web: 'h10B',
+          mo: 'h8B',
+          className: css({ '&&': { _mobile: { fontSize: 'body.20' } } }),
         },
       }}
     >
       <Stack gap="10">
-        <Stack gap="6" _mobile={{ gap: '7' }} alignItems="start">
-          <Stack id={contentId} gap="6" w="100%">
-            {description && (
+        <Stack gap="6" _mobile={{ gap: '4' }} alignItems="start">
+          <Stack id={contentId} gap="6" w="100%" ref={descriptionRoot}>
+            {description?.title ? (
               <ContentHeader
                 gap="5"
                 titleAs="h3"
                 title={description.title}
                 titleProps={productInformationTitleProps}
                 description={<>{description.content}</>}
-                descriptionProps={{
-                  ...productInformationDescriptionProps,
-                  className: expanded ? undefined : css({ lineClamp: 5 }),
-                }}
+                descriptionProps={descriptionProps}
               />
-            )}
-            {expanded &&
+            ) : description?.content ? (
+              <Typography as="p" {...descriptionProps}>
+                {description.content}
+              </Typography>
+            ) : null}
+            {(expanded || overflows === false) &&
               features.map((section) => (
                 <ContentHeader
                   gap="5"
@@ -1883,16 +2192,16 @@ function ProductInformation({
                 />
               ))}
           </Stack>
-          {description && (
+          {description && overflows && (
             <Button
               variant="link"
               colorway="black"
               size="md"
               aria-expanded={expanded}
               aria-controls={contentId}
-              onClick={() => setExpanded((value) => !value)}
+              onClick={() => setExpansion({ content: description.content, expanded: !expanded })}
             >
-              <Typography as="span" variant="bodyKr4" weight="semibold">
+              <Typography as="span" variant="b6S">
                 {expanded ? '닫기' : '더 보기'}
               </Typography>
             </Button>
@@ -1902,19 +2211,18 @@ function ProductInformation({
           items={specifications.map(({ label, value }) => ({ term: label, description: value }))}
           labelWidth="var(--product-information-label-width)"
           termProps={{
-            variant: 'bodyKr4',
-            weight: 'semibold',
+            variant: 'b6S',
           }}
-          descriptionProps={{ variant: 'bodyKr4', weight: 'regular' }}
+          descriptionProps={{ variant: 'b6' }}
           slotStyles={{
             root: css.raw({ columnGap: '3', rowGap: '6', alignItems: 'center' }),
             term: css.raw({
-              '&&': { fontFamily: 'korean', fontSize: '15px' },
-              _mobile: { '&&': { fontSize: '14px' } },
+              '&&': { fontFamily: 'ko', fontSize: 'body.15' },
+              _mobile: { '&&': { fontSize: 'body.14' } },
             }),
             description: css.raw({
-              '&&': { fontFamily: 'korean', fontSize: '15px', lineHeight: '1.5' },
-              _mobile: { '&&': { fontSize: '14px' } },
+              '&&': { fontFamily: 'ko', fontSize: 'body.15', lineHeight: 'body' },
+              _mobile: { '&&': { fontSize: 'body.14' } },
             }),
           }}
         />
@@ -1987,7 +2295,9 @@ function ProductPurchaseActions({
         fullWidth
         size={platform === 'mobile' ? 'short' : 'tall'}
       >
-        <Typography variant="eland-purchase-action">{restock ? '품절' : '장바구니'}</Typography>
+        <Typography web="b4B" mo="b5B" language="ko">
+          {restock ? '품절' : '장바구니'}
+        </Typography>
       </Button>
       <Button
         variant="primary"
@@ -1995,7 +2305,7 @@ function ProductPurchaseActions({
         size={platform === 'mobile' ? 'short' : 'tall'}
         onClick={restock ? undefined : onOpenOptions}
       >
-        <Typography variant="eland-purchase-action">
+        <Typography web="b4B" mo="b5B" language="ko">
           {restock ? '입고 알림 신청하기' : '구매하기'}
         </Typography>
       </Button>
@@ -2042,6 +2352,7 @@ function ProductDetailContent({
   return (
     <Stack gap="10">
       <ProductVariantSelectors
+        showColor={platform === 'web'}
         apparel={apparel}
         color={color}
         error={error}
@@ -2076,9 +2387,8 @@ function ProductDetailContent({
       />
       <ProductInformation
         id="product-information"
-        initiallyExpanded={apparel}
         sections={[
-          { title: '어떤 날씨에도 쿠션감 있는 편안한 주행', content: product.detailDescription },
+          { title: product.detailTitle, content: product.detailDescription },
           ...(isClifton
             ? [
                 {
@@ -2094,10 +2404,6 @@ function ProductDetailContent({
             ? [
                 { label: '신발 유형', value: '안정화' },
                 { label: '추천 활동', value: '로드 러닝, 워킹, 라이프 스타일' },
-                {
-                  label: platform === 'mobile' ? '러닝 용도' : '러닝 유형',
-                  value: product.runningType,
-                },
               ]
             : apparel
               ? [{ label: '추천 활동', value: '데일리 러닝, 트레일 러닝' }]
@@ -2125,17 +2431,24 @@ function ShareButton({
     </Button>
   );
 }
+
 type ProductDetailHeaderActionsProps = {
+  initialShareOpen?: boolean;
   product: Product;
   wish: boolean;
   onWishChange: () => void;
 };
+
 function ProductDetailHeaderActions({
+  initialShareOpen = false,
   product,
   wish,
   onWishChange,
 }: ProductDetailHeaderActionsProps) {
   const platform = usePlatform();
+  const [shareOpen, setShareOpen] = useState(initialShareOpen);
+  const shareTrigger = useRef<HTMLButtonElement>(null);
+  const [copyPending, setCopyPending] = useState(false);
   const [shareNotice, setShareNotice] = useState<ToastNotice | null>(null);
   const nextNoticeId = useRef(0);
   const dismissShareNotice = useCallback((id: number) => {
@@ -2143,9 +2456,14 @@ function ProductDetailHeaderActions({
   }, []);
 
   async function copyProductLink() {
+    if (copyPending) return;
+    setCopyPending(true);
+    setShareNotice(null);
     const id = ++nextNoticeId.current;
     try {
-      await navigator.clipboard.writeText(window.location.href);
+      await navigator.clipboard.writeText(
+        new URL(`/products/${product.id}`, window.location.origin).href,
+      );
       if (id === nextNoticeId.current) {
         setShareNotice({ id, text: '링크가 복사되었습니다.' });
       }
@@ -2153,39 +2471,16 @@ function ProductDetailHeaderActions({
       if (id === nextNoticeId.current) {
         setShareNotice({ id, text: '링크를 복사하지 못했습니다.' });
       }
+    } finally {
+      setCopyPending(false);
     }
   }
 
   return (
-    <Flex alignItems="center" justifyContent="space-between" w="full">
-      <HStack gap="10px">
-        <RatingStars aria-label={`평점 ${product.rating}점`} value={product.rating} />
-        <Button
-          className={css({
-            borderColor: 'var(--color-text-subtle)',
-            color: 'var(--color-text-subtle)',
-            '--color-action-underline-color': 'var(--color-text-subtle)',
-            '--button-border-color-hover': 'var(--color-text-subtle)',
-          })}
-          variant="link"
-          onClick={() =>
-            document
-              .getElementById(
-                document.getElementById('product-reviews')
-                  ? 'product-reviews'
-                  : 'product-information',
-              )
-              ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-          }
-          type="button"
-          size="md"
-        >
-          {product.reviewCount}개 리뷰 보기
-        </Button>
-      </HStack>
+    <>
       {platform === 'mobile' && (
-        <HStack gap="4">
-          <ShareButton size="24px" onClick={copyProductLink} />
+        <HStack gap="16px">
+          <ShareButton ref={shareTrigger} size="24px" onClick={() => setShareOpen(true)} />
           <Wishlist
             active={wish}
             ariaLabel="관심상품"
@@ -2194,41 +2489,71 @@ function ProductDetailHeaderActions({
           />
         </HStack>
       )}
-      <Toast notice={shareNotice} onDismiss={dismissShareNotice} />
-    </Flex>
+      {/* [ 개발팀 바인딩 ] 공유 액션 컴포넌트는 모바일 갤러리 상단·PC 상세 헤더에 한 번만 배치됩니다. 공유 팝업과 복사 상태는 해당 컴포넌트가 소유합니다. URL 복사는 현재 상품 ID의 상세 주소를 복사하고 완료 후에만 토스트를 표시합니다. 실패 시 팝업을 유지해 재시도하며 pending 중 중복 복사를 막습니다. 카카오톡은 표시 전용 미연결 버튼이며, 실제 공유 SDK·상품 ID/제목/이미지/URL 전달과 요청 결과 처리는 상품 상세 통합 소유자가 연결해야 합니다. */}
+      <ModalDialog
+        title="공유하기"
+        closeLabel="공유하기 닫기"
+        variant="selection"
+        mobilePresentation="bottomSheet"
+        open={shareOpen}
+        onOpenChange={setShareOpen}
+        finalFocus={shareTrigger}
+      >
+        <Grid gridTemplateColumns="repeat(2, minmax(0, 1fr))" gap="8px">
+          <Button social={{ provider: 'kakao' }} iconLeft="kakao" type="button">
+            카카오톡 공유하기
+          </Button>
+          <Button
+            variant="secondary"
+            type="button"
+            iconLeft="link-simple"
+            iconSize={18}
+            loading={copyPending}
+            onClick={copyProductLink}
+          >
+            URL 복사
+          </Button>
+        </Grid>
+        <Toast notice={shareNotice} onDismiss={dismissShareNotice} />
+      </ModalDialog>
+    </>
   );
 }
-const productUseLabels: Record<Product['use'], string> = {
-  'Everyday Run': '데일리 러닝',
-  'Trail Running': '트레일 러닝',
-  Walking: '워킹',
-};
 
 type ProductDetailHeaderProps = {
+  initialShareOpen?: boolean;
   apparel?: boolean;
   product: Product;
   wish: boolean;
   onWishChange: () => void;
 };
-function ProductDetailHeader({ product, wish, onWishChange, apparel }: ProductDetailHeaderProps) {
+function ProductDetailHeader({
+  product,
+  wish,
+  onWishChange,
+  apparel,
+  initialShareOpen,
+}: ProductDetailHeaderProps) {
+  const platform = usePlatform();
   return (
     <VStack as="header" alignItems="start" gap="5" _mobile={{ gap: '6' }}>
       <ProductIdentity
         variant="detail"
         name={product.name}
-        gender={product.gender}
         promotion={product.promotion}
         price={product.price}
         originalPrice={product.originalPrice}
         discountLabel={product.discountLabel}
         promotionTone={apparel || product.styleCode === 'HOKADFG34S' ? 'error' : undefined}
-        activities={
-          apparel
-            ? ['탑&티셔츠']
-            : [...new Set([product.runningType, productUseLabels[product.use]])]
-        }
       />
-      <ProductDetailHeaderActions onWishChange={onWishChange} product={product} wish={wish} />
+      {platform === 'web' && (
+        <ProductDetailHeaderActions
+          initialShareOpen={initialShareOpen}
+          onWishChange={onWishChange}
+          product={product}
+          wish={wish}
+        />
+      )}
     </VStack>
   );
 }
@@ -2253,19 +2578,14 @@ function AfterSalesContact({
       borderBottom="1px solid var(--color-black-20)"
       _mobile={{ gridTemplateColumns: '1fr', gap: '3', pb: '6' }}
     >
-      <ContentHeader
-        title={title}
-        titleAs="h4"
-        titleProps={{ variant: 'body5', weight: 'bold' }}
-        gap="0"
-      />
+      <ContentHeader title={title} titleAs="h4" titleProps={{ variant: 'b8B' }} gap="0" />
       <Stack gap="3">
         {descriptions.map((description) => (
-          <Typography as="p" variant="body5" key={description}>
+          <Typography as="p" variant="b8" key={description}>
             {description}
           </Typography>
         ))}
-        <Typography variant="body5">{link}</Typography>
+        <Typography variant="b8">{link}</Typography>
       </Stack>
     </Grid>
   );
@@ -2292,9 +2612,9 @@ function AfterSalesAction({
         gap="2"
         titleAs="h4"
         title={title}
-        titleProps={{ variant: 'body5', weight: 'bold' }}
+        titleProps={{ variant: 'b8B' }}
         description={description}
-        descriptionProps={{ variant: 'body5' }}
+        descriptionProps={{ variant: 'b8' }}
       />
       <ButtonLink href={href} variant="secondary" size="short">
         {label}
@@ -2376,14 +2696,14 @@ function ProductAfterSalesProcess() {
       headerProps={{
         gap: '6',
         titleAs: 'h4',
-        titleProps: { variant: 'heading10' },
+        titleProps: { web: 'h10', mo: 'h8' },
         description: (
           <>
             온라인 신청 후 접수 안내에 따라 상품을 발송해 주세요. 수선 가능 여부와 비용, 처리 일정은
             상품 확인 후 안내됩니다.
           </>
         ),
-        descriptionProps: { variant: 'body5' },
+        descriptionProps: { variant: 'b8' },
       }}
     >
       <Grid
@@ -2407,11 +2727,9 @@ function ProductAfterSalesProcess() {
       >
         {steps.map((step, index) => (
           <Stack as="li" gap="3" key={step.title}>
-            <Typography variant="cta2">STEP {index + 1}</Typography>
-            <Typography variant="body5" weight="bold">
-              {step.title}
-            </Typography>
-            <Typography as="p" variant="body5">
+            <Typography variant="b6M">STEP {index + 1}</Typography>
+            <Typography variant="b8B">{step.title}</Typography>
+            <Typography as="p" variant="b8">
               {step.description}
             </Typography>
           </Stack>
@@ -2447,7 +2765,7 @@ function ProductAfterSalesQuestions() {
       <ContentHeader
         title="궁금하신 점이 있으세요?"
         titleAs="h4"
-        titleProps={{ variant: 'heading8' }}
+        titleProps={{ web: 'h10B', mo: 'h8' }}
         gap="0"
       />
       <Stack gap="8">
@@ -2457,9 +2775,9 @@ function ProductAfterSalesQuestions() {
               gap="4"
               titleAs="h5"
               title={<>Q. {question}</>}
-              titleProps={{ variant: 'body4', weight: 'bold' }}
+              titleProps={{ variant: 'b6B' }}
               description={<>{answer}</>}
-              descriptionProps={{ variant: 'body5' }}
+              descriptionProps={{ variant: 'b8' }}
             />
           </Box>
         ))}
@@ -2470,7 +2788,7 @@ function ProductAfterSalesQuestions() {
 function ProductDetailAfterSalesContent() {
   return (
     <Stack gap="10" pt="6">
-      <Typography as="p" variant="body5">
+      <Typography as="p" variant="b8">
         HOKA 상품에 이상이 있거나 수선이 필요한 경우 구매처 또는 A/S 접수 창구로 문의해 주세요.
         <br />
         A/S 관련 문의는 고객센터 또는 1:1 문의를 이용해 주세요.
@@ -2489,17 +2807,29 @@ const wrapper = css({
 const items: AccordionEntry[] = [
   {
     value: 'inquiry',
-    title: <Typography variant="heading10">상품 문의</Typography>,
+    title: (
+      <Typography web="h10" mo="h8">
+        상품 문의
+      </Typography>
+    ),
     content: <ProductDetailInquiryContent />,
   },
   {
     value: 'delivery',
-    title: <Typography variant="heading10">배송 및 반품</Typography>,
+    title: (
+      <Typography web="h10" mo="h8">
+        배송 및 반품
+      </Typography>
+    ),
     content: <ProductDetailDeliveryContent />,
   },
   {
     value: 'after-sales',
-    title: <Typography variant="heading10">A/S 안내</Typography>,
+    title: (
+      <Typography web="h10" mo="h8">
+        A/S 안내
+      </Typography>
+    ),
     content: <ProductDetailAfterSalesContent />,
   },
 ];
@@ -2544,6 +2874,7 @@ function ProductDetailSupportRegion({
   );
 }
 type ProductDetailPanelProps = {
+  initialShareOpen?: boolean;
   apparel?: boolean;
   restock?: boolean;
   inquiriesExpanded?: boolean;
@@ -2564,6 +2895,7 @@ type ProductDetailPanelProps = {
 };
 /** 상품 상세의 선택 정보와 콘텐츠를 배치합니다. (Arranges product detail selections and content.) */
 function ProductDetailPanel({
+  initialShareOpen,
   product,
   gallery,
   color,
@@ -2596,15 +2928,29 @@ function ProductDetailPanel({
       overscrollBehavior="contain"
       scrollbarWidth="thin"
       px="0"
-      _mobile={{ position: 'static', maxH: 'none', overflowY: 'visible', px: '4', pt: '6' }}
+      _mobile={{ position: 'static', maxH: 'none', overflowY: 'visible', px: '4', pt: '3' }}
     >
-      <Stack gap="10" _mobile={{ gap: '10' }}>
-        <ProductDetailHeader
-          apparel={apparel}
-          onWishChange={onWishChange}
-          product={product}
-          wish={wish}
-        />
+      <Stack gap="10" _mobile={{ gap: '8' }}>
+        <Stack gap="6">
+          {platform === 'mobile' && (
+            <Box css={{ '& > section': { flexDirection: 'column-reverse', gap: '4px' } }}>
+              <ProductColorSelector
+                colors={product.colors}
+                colorThumbnails={product.colorThumbnails}
+                gallery={gallery}
+                onValueChange={onColorChange}
+                value={color}
+              />
+            </Box>
+          )}
+          <ProductDetailHeader
+            initialShareOpen={initialShareOpen}
+            apparel={apparel}
+            onWishChange={onWishChange}
+            product={product}
+            wish={wish}
+          />
+        </Stack>
         <ProductDetailContent
           apparel={apparel}
           restock={restock}
@@ -2640,8 +2986,8 @@ const ProductDetailRecommendStyles = {
   section: css({
     '--layout-web-content-max-width': '1776px',
     '--layout-web-content-inline-space': '144px',
-    '& h2': { fontSize: '36px' },
-    _mobile: { '& h2': { fontSize: '22px' } },
+    '& h2': { fontSize: 'heading.36' },
+    _mobile: { '& h2': { fontSize: 'heading.22' } },
   }),
   mobileSlide: css({
     w: 'calc(160px + var(--carousel-item-gutter) + var(--carousel-item-gutter))!',
@@ -2667,7 +3013,8 @@ function ProductDetailRecommend({ products, title = '추천 상품' }: ProductDe
       slideClassName={isWeb ? undefined : ProductDetailRecommendStyles.mobileSlide}
       spacing="compact"
       title={title}
-      titleVariant="heading6"
+      titleVariant="h4B"
+      mobileTitleVariant="h8"
     >
       {products.map((product) => (
         <ProductCard key={product.id} product={product} variant="showcase" />
@@ -2748,14 +3095,16 @@ function ProductSelectedOptions({
                   alignItems="center"
                   justifyContent="space-between"
                 >
-                  <Typography variant="eland-option-name">{label}</Typography>
+                  <Typography variant="b6" language="en">
+                    {label}
+                  </Typography>
                   <Button
                     variant="icon"
                     aria-label={`${label} 삭제`}
                     size="24px"
                     onClick={() => onRemove(index)}
                   >
-                    <Icon name="hoka-action-xmark-regular" size={16} />
+                    <Icon name="xmark-regular" size={18} />
                   </Button>
                 </Flex>
                 <Flex
@@ -2770,9 +3119,11 @@ function ProductSelectedOptions({
                     value={item.quantity}
                     onChange={(quantity) => onQuantityChange(index, quantity)}
                   />
-                  <Typography variant="cta1" language="en">
+                  <Typography variant="b4M" language="en">
                     {(item.amount ?? unitPrice).toLocaleString('ko-KR')}
-                    <Typography variant="eland-listing-price-unit">원</Typography>
+                    <Typography web="b4B" mo="b7B" language="ko">
+                      원
+                    </Typography>
                   </Typography>
                 </Flex>
               </Stack>
@@ -2786,14 +3137,16 @@ function ProductSelectedOptions({
         className={dataListBoundaryRecipe({ top: 'strong' })}
         aria-live="polite"
       >
-        <Typography variant="eland-option-total">
+        <Typography web="b4B" mo="b6B" language="ko">
           {previewTotal === undefined ? '합계' : '총 3개'}
         </Typography>
         <HStack alignItems="baseline" gap="0.5">
-          <Typography variant="eland-product-price">
+          <Typography web="b3M" mo="b4M" language="en">
             {(previewTotal ?? unitPrice).toLocaleString()}
           </Typography>
-          <Typography variant="eland-product-price-unit">원</Typography>
+          <Typography web="b3B" mo="b4B" language="ko">
+            원
+          </Typography>
         </HStack>
       </HStack>
     </Stack>
@@ -2818,14 +3171,20 @@ export function RouteContent({ preview }: { preview?: ProductDetailPreview }) {
   const revised = baseProduct?.id === 'shoe-1';
   const allSoldOut = preview === 'sold-out';
   const optionsPreview = preview === 'options-selected' || preview === 'options-scroll';
+  // [ 개발팀 바인딩 ] 열린 안내는 직접 URL용 fixture입니다. PDP 통합 소유자가 상품·옵션 ID와 수량으로 요청을 연결하고 결과에 맞는 안내를 열며, 처리 중 중복을 막고 실패 시 선택을 유지해 재시도하거나 성공 시 장바구니를 갱신합니다. 이 미리보기의 버튼은 안내만 닫습니다.
+  const previewEntry = productDetailPreviews.find(({ state }) => state === preview);
+  const notice = previewEntry && 'notice' in previewEntry ? previewEntry.notice : undefined;
+  const [noticeOpen, setNoticeOpen] = useState(!!notice);
   const inquiriesEmpty = revised && preview !== undefined && preview !== 'inquiries-expanded';
   const inquiriesExpanded = preview === 'inquiries-expanded';
   const initialColor = product?.colorThumbnails?.[0]?.label ?? product?.colors[0] ?? '';
   const [color, setColor] = useState(initialColor);
-  const [width, setWidth] = useState(
-    product && !apparel ? (productWidthOptions(product, initialColor)[0]?.label ?? '') : '',
+  const [requestedWidth, setWidth] = useState('');
+  const [restockSize, setRestockSize] = useState(
+    preview === 'restock' || preview === 'restock-confirm' || preview === 'restock-complete'
+      ? '300'
+      : '',
   );
-  const [restockSize, setRestockSize] = useState(preview === 'restock' ? '300' : '');
   const [apparelSize, setApparelSize] = useState(apparel ? 'M' : '');
   const [selectedItems, setSelectedItems] = useState<(CartItem & { amount?: number })[]>(() =>
     getSelectedOptionsPreview(preview).map((option) => ({
@@ -2864,6 +3223,11 @@ export function RouteContent({ preview }: { preview?: ProductDetailPreview }) {
   }, [preview, platform]);
   if (!product) return <SystemStatusPage status="not-found" />;
 
+  // [ 개발팀 바인딩 ] 통합 소유자가 색상별 발볼과 isSoldOut을 공급합니다. 이 화면에서는 현재 옵션에서 선택 가능한 발볼을 표시하고 구매·재고 요청을 실행하지 않습니다.
+  const availableWidths = productWidthOptions(product, color).filter((option) => !option.isSoldOut);
+  const selectedWidth =
+    availableWidths.find((option) => option.label === requestedWidth) ?? availableWidths[0];
+  const width = apparel ? '' : (selectedWidth?.label ?? '');
   const restock = allSoldOut || !!restockSize;
   const onQuantityChange = (index: number, quantity: number) => {
     if (!Number.isSafeInteger(quantity) || quantity < 1) return;
@@ -2887,15 +3251,14 @@ export function RouteContent({ preview }: { preview?: ProductDetailPreview }) {
     setRestockSize('');
     setColor(nextColor);
     setApparelSize('');
-    if (!apparel) setWidth(productWidthOptions(product, nextColor)[0]?.label ?? '');
+    setWidth('');
   };
   const onWidthChange = (nextWidth: string) => {
+    if (!availableWidths.some((option) => option.label === nextWidth)) return;
     setRestockSize('');
     setWidth(nextWidth);
   };
   const onSizeChange = (nextSize: string) => {
-    const options = productWidthOptions(product, color);
-    const selectedWidth = options.find((option) => option.label === width) ?? options[0];
     if (!selectedWidth?.sizes.includes(nextSize)) return;
     if (selectedWidth.soldOut.includes(nextSize)) {
       setRestockSize(nextSize);
@@ -2947,6 +3310,16 @@ export function RouteContent({ preview }: { preview?: ProductDetailPreview }) {
       }
     >
       <ProductDetailMedia
+        mobileActions={
+          platform === 'mobile' ? (
+            <ProductDetailHeaderActions
+              initialShareOpen={preview === 'share'}
+              product={product}
+              wish={wish}
+              onWishChange={() => setWish(!wish)}
+            />
+          ) : undefined
+        }
         inquiriesEmpty={inquiriesEmpty}
         inquiriesExpanded={inquiriesExpanded}
         apparel={apparel}
@@ -2964,6 +3337,7 @@ export function RouteContent({ preview }: { preview?: ProductDetailPreview }) {
         }}
       />
       <ProductDetailPanel
+        initialShareOpen={preview === 'share'}
         inquiriesEmpty={inquiriesEmpty}
         inquiriesExpanded={inquiriesExpanded}
         apparel={apparel}
@@ -2982,6 +3356,24 @@ export function RouteContent({ preview }: { preview?: ProductDetailPreview }) {
         width={width}
         wish={wish}
       />
+      {preview === 'inquiry-form' ? <ProductInquiryAction initialOpen /> : null}
+      {notice && (
+        <ModalDialog
+          variant={notice.variant}
+          open={noticeOpen}
+          onOpenChange={setNoticeOpen}
+          finalFocus={() => document.querySelector<HTMLElement>('[data-pdp-panel]')}
+          title="상품구매"
+          closeLabel="상품구매 안내 닫기"
+          message={notice.message}
+          description={notice.description}
+          actions={
+            notice.variant === 'confirm'
+              ? { kind: 'confirm', onConfirm: () => setNoticeOpen(false) }
+              : { kind: 'single', onConfirm: () => setNoticeOpen(false) }
+          }
+        />
+      )}
       {platform === 'mobile' && revised && (
         <ModalDialog
           variant="selection"

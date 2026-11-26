@@ -2,7 +2,7 @@
 
 import { Radio as BaseRadio } from '@base-ui/react/radio';
 import { RadioGroup as BaseRadioGroup } from '@base-ui/react/radio-group';
-import type { ReactNode } from 'react';
+import type { ReactNode, Ref } from 'react';
 
 import { css } from 'styled-system/css';
 import { Box, HStack } from 'styled-system/jsx';
@@ -49,6 +49,7 @@ export type RadioProps<T extends string = string> = {
   label?: ReactNode;
   multilineLabel?: boolean;
   ariaLabel: string;
+  ref?: Ref<HTMLDivElement>;
   className?: string;
   disabled?: boolean;
   name?: string;
@@ -68,6 +69,7 @@ export function Radio<T extends string = string>({
   label,
   multilineLabel,
   ariaLabel,
+  ref,
   className,
   disabled = false,
   name,
@@ -82,6 +84,7 @@ export function Radio<T extends string = string>({
   const field = useFormFieldContext();
   const controls = (
     <BaseRadioGroup
+      ref={ref}
       aria-describedby={field?.describedBy}
       aria-label={ariaLabel}
       className={[
@@ -153,7 +156,7 @@ export function Radio<T extends string = string>({
                 <Icon name={radioAsset} size="100%" alt="" aria-hidden="true" className={icon} />
               </span>
             </BaseRadio.Root>
-            <Typography variant="body4">{item.label}</Typography>
+            <Typography variant="b6">{item.label}</Typography>
           </HStack>
         );
       })}
@@ -165,7 +168,7 @@ export function Radio<T extends string = string>({
     <HStack justify="space-between" gap="3" alignItems="start">
       <Box flex="1" minW="0">
         <Typography
-          variant="body4"
+          variant="b6"
           className={multilineLabel ? css({ whiteSpace: 'pre-line' }) : undefined}
         >
           {label}

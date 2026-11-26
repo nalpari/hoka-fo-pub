@@ -26,9 +26,7 @@ import {
 } from '@/app/launch-calendar/launchCalendar.data';
 
 const styles = {
-  emptyHeading: css({
-    '&&': { fontSize: '42px', lineHeight: '1', textAlign: 'center', _mobile: { fontSize: '28px' } },
-  }),
+  emptyHeading: css({ textAlign: 'center' }),
 };
 
 const actionStyle = css({
@@ -116,7 +114,8 @@ function LaunchCalendarCard({
           {item.dateLabel && !compact && (
             <Typography
               as="span"
-              variant="eland-launch-date"
+              variant="b1M"
+              language="en"
               className={css({
                 position: 'absolute',
                 top: '32px',
@@ -143,8 +142,9 @@ function LaunchCalendarCard({
           {item.releaseLabel && (
             <Typography
               as="p"
-              variant="eland-body"
-              className={css({ _mobile: { fontSize: '14px', lineHeight: '21px' } })}
+              variant="b4"
+              language="ko"
+              className={css({ _mobile: { fontSize: 'body.14', lineHeight: 'body' } })}
             >
               {item.releaseLabel}
             </Typography>
@@ -153,11 +153,13 @@ function LaunchCalendarCard({
             title={item.name}
             titleAs="h2"
             titleProps={{
-              variant: 'eland-launch-card-title',
-              className: css({ _mobile: { fontSize: '20px', lineHeight: '26px' } }),
+              web: 'h9B',
+              mo: 'h6B',
+              language: 'en',
+              className: css({ _mobile: { fontSize: 'body.20', lineHeight: 'body' } }),
             }}
             description={item.priceLabel}
-            descriptionProps={{ variant: 'body3', mo: 'body4', weight: 'medium' }}
+            descriptionProps={{ variant: 'b4M', mo: 'b6M' }}
             gap="16px"
             _mobile={{ gap: '8px' }}
           />
@@ -177,7 +179,9 @@ function LaunchCalendarCard({
               } as CSSProperties
             }
           >
-            <Typography variant="eland-event-action">{label}</Typography>
+            <Typography web="b4S" mo="b5S" language="ko">
+              {label}
+            </Typography>
           </ButtonLink>
         ) : (
           <Button
@@ -253,7 +257,9 @@ export function LaunchCalendarContent({
             title="Launch Calendar"
             titleAs="h1"
             titleProps={{
-              variant: 'eland-campaign-title',
+              web: empty ? 'h2B' : 'h1B',
+              mo: 'h5B',
+              language: 'en',
               className: empty ? styles.emptyHeading : undefined,
             }}
           />
@@ -287,8 +293,9 @@ export function LaunchCalendarContent({
                 })}
               >
                 <Typography
-                  variant="eland-launch-tabs"
-                  className={css({ _mobile: { fontSize: '14px' } })}
+                  variant="b4M"
+                  language="en"
+                  className={css({ _mobile: { fontSize: 'body.14' } })}
                 >
                   {tab.label}
                 </Typography>
@@ -315,9 +322,8 @@ export function LaunchCalendarContent({
                     titleAs="h2"
                     px="16px"
                     titleProps={{
-                      variant: 'body3',
-                      weight: 'bold',
-                      className: css({ fontSize: '18px', lineHeight: '27px' }),
+                      variant: 'b4B',
+                      className: css({ fontSize: 'body.18', lineHeight: 'body' }),
                     }}
                   />
                 )}

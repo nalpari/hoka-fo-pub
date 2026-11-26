@@ -9,6 +9,8 @@ import { css, cva } from 'styled-system/css';
 
 import { Typography } from '@/components/common/atoms/Typography';
 
+import { centerHorizontalScroll } from '@/lib/centerHorizontalScroll';
+
 const viewport = css({
   minW: '0',
   _mobile: {
@@ -16,6 +18,7 @@ const viewport = css({
     overflowX: 'auto',
     overflowY: 'hidden',
     scrollbarWidth: 'none',
+    '@media (prefers-reduced-motion: no-preference)': { scrollBehavior: 'smooth' },
     '&::-webkit-scrollbar': {
       display: 'none',
     },
@@ -308,11 +311,11 @@ export type FilterTabsProps<T extends string = string> = {
 };
 
 const typographyByVariant = {
-  default: { variant: 'cta2' },
-  plain: { web: 'cta2', mo: 'bodyKr4' },
-  fill: { variant: 'cta2' },
-  line: { variant: 'bodyKr3', weight: 'medium' },
-  outline: { variant: 'cta2' },
+  default: { variant: 'b6M' },
+  plain: { web: 'b6M', mo: 'b6' },
+  fill: { variant: 'b6M' },
+  line: { variant: 'b4M' },
+  outline: { variant: 'b6M' },
 } as const;
 
 /** 관련 결과를 바꾸는 단일 선택 필터 탭을 표시합니다. (Displays single-select filter tabs for related results.) */
@@ -336,22 +339,7 @@ export function FilterTabs<T extends string = string>({
     const viewport = viewportRef.current;
     const selectedItem = itemRefs.current.get(value);
 
-    if (!viewport || !selectedItem) return;
-
-    const viewportBounds = viewport.getBoundingClientRect();
-    const itemBounds = selectedItem.getBoundingClientRect();
-    const isVisible =
-      itemBounds.left >= viewportBounds.left && itemBounds.right <= viewportBounds.right;
-
-    if (!isVisible) {
-      viewport.scrollTo({
-        left:
-          viewport.scrollLeft +
-          (itemBounds.left +
-            itemBounds.width / 2 -
-            (viewportBounds.left + viewportBounds.width / 2)),
-      });
-    }
+    if (viewport && selectedItem) centerHorizontalScroll(viewport, selectedItem);
   }, [platform, value]);
 
   return (

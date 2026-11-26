@@ -316,6 +316,14 @@ export const iconAssets = {
     src: '/images/icon/level-access.svg',
     mode: 'image',
   },
+  'link-regular': {
+    src: '/images/icon/link-regular.svg',
+    mode: 'mask',
+  },
+  'link-simple': {
+    src: '/images/icon/link-simple.svg',
+    mode: 'mask',
+  },
   naver: {
     src: '/images/icon/naver.svg',
     mode: 'image',
@@ -482,6 +490,10 @@ export const iconAssets = {
   },
   'hoka-action-plus-regular': {
     src: '/images/icon/hoka-action-plus-regular.svg',
+    mode: 'mask',
+  },
+  'xmark-large': {
+    src: '/images/icon/xmark-large.svg',
     mode: 'mask',
   },
   'xmark-regular': {

@@ -20,7 +20,7 @@ export function ProductOptionSection({ appearance, title, children, action, id }
   if (appearance === 'cart') {
     return (
       <Stack gap="3" id={id}>
-        <Typography web="body3" mo="body4" weight="medium">
+        <Typography web="b4M" mo="b6M">
           {title}
         </Typography>
         {children}
@@ -39,7 +39,7 @@ export function ProductOptionSection({ appearance, title, children, action, id }
         orientation: 'horizontal',
         gap: '8px',
         css: css.raw({ w: 'full' }),
-        titleProps: { variant: 'body3', mo: 'body4', weight: 'bold' },
+        titleProps: { variant: 'b4B', mo: 'b6B' },
         action: action ? (
           <Flex alignItems="baseline" justifyContent="space-between">
             {action}

@@ -19,12 +19,11 @@ const styles = {
 type Props = {
   name: FieldName;
   label: string;
-  placeholder: string;
   value: string;
   error?: string;
   onChange: (value: string) => void;
 };
-function PasswordResetField({ name, label, placeholder, value, error, onChange }: Props) {
+function PasswordResetField({ name, label, value, error, onChange }: Props) {
   return (
     <TextFormField
       variant="boxed"
@@ -37,7 +36,6 @@ function PasswordResetField({ name, label, placeholder, value, error, onChange }
         name: name,
         type: 'password',
         autoComplete: 'new-password',
-        placeholder: placeholder,
         value: value,
         onChange: (event) => onChange(event.target.value),
         required: true,
@@ -79,8 +77,8 @@ export function PasswordResetContent({
         header={
           <ContentHeader
             titleAs="h1"
-            titleProps={{ web: 'heading7', mo: 'heading5', id: 'password-reset-title' }}
-            descriptionProps={{ variant: 'body3', tone: 'tertiary' }}
+            titleProps={{ web: 'h8B', mo: 'h7B', id: 'password-reset-title' }}
+            descriptionProps={{ variant: 'b4', tone: 'tertiary' }}
             title="비밀번호 재설정"
             description="새로운 비밀번호를 사용하여 로그인을 진행합니다. 새로운 비밀번호를 설정해주세요."
             css={css.raw({ gap: '10px' })}
@@ -96,7 +94,6 @@ export function PasswordResetContent({
           <PasswordResetField
             name="password"
             label="새로운 비밀번호"
-            placeholder="비밀번호를 입력해 주세요"
             value={password}
             error={errors.password}
             onChange={(value) => onFieldChange('password', value)}
@@ -104,7 +101,6 @@ export function PasswordResetContent({
           <PasswordResetField
             name="confirmation"
             label="비밀번호 확인"
-            placeholder="비밀번호를 한 번 더 입력해 주세요"
             value={confirmation}
             error={errors.confirmation}
             onChange={(value) => onFieldChange('confirmation', value)}

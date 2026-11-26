@@ -67,9 +67,9 @@ export function SystemStatusPage({ status, maintenance }: SystemStatusPageProps)
             gap={notFound ? { base: '3', _mobile: '4' } : '4'}
             titleAs="h1"
             title={message.title}
-            titleProps={{ variant: 'bodyKr2', weight: 'semibold' }}
+            titleProps={{ variant: 'b2E' }}
             description={message.description}
-            descriptionProps={{ variant: 'bodyKr4' }}
+            descriptionProps={{ variant: 'b6' }}
             w="100%"
             maxW="520px"
           />
@@ -97,16 +97,16 @@ export function SystemStatusPage({ status, maintenance }: SystemStatusPageProps)
           bg="black.10"
           textAlign="left"
         >
-          <Typography as="dt" variant="bodyKr4" weight="semibold">
+          <Typography as="dt" variant="b6M">
             일시
           </Typography>
-          <Typography as="dd" variant="bodyKr4">
+          <Typography as="dd" variant="b6">
             {maintenance.schedule}
           </Typography>
-          <Typography as="dt" variant="bodyKr4" weight="semibold">
+          <Typography as="dt" variant="b6M">
             내용
           </Typography>
-          <Typography as="dd" variant="bodyKr4">
+          <Typography as="dd" variant="b6">
             {maintenance.reason}
           </Typography>
         </Grid>

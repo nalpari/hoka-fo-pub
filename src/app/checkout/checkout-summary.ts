@@ -38,3 +38,9 @@ export const mobileCheckoutPreviewRows: CheckoutRow[] = [1, 2, 3].map((index) =>
   item: { ...checkoutPreviewRows[0].item, id: `mobile-checkout-shoe-${index}`, quantity: 1 },
   originalAmount: 280000,
 }));
+
+export const checkoutEmployeeDiscountNotice = {
+  limit: '6,000,000',
+  used: '2,994,700',
+  remaining: '3,005,300',
+};

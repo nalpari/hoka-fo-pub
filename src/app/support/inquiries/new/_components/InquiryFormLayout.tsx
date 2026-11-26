@@ -28,12 +28,12 @@ export function InquiryFormLayout({ children }: { children: ReactNode }) {
           title="1:1문의"
           titleAs="h1"
           titleProps={{
-            web: 'heading6',
-            mo: 'heading5',
+            web: 'h4B',
+            mo: 'h7B',
           }}
           description="궁금하신 점이나 불편한 사항을 알려주시면 정성껏 답변해 드리겠습니다."
           descriptionProps={{
-            variant: 'body3',
+            variant: 'b4',
             className: css({ color: 'black.100', _mobile: { color: 'black.60' } }),
           }}
         />

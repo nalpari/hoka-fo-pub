@@ -68,7 +68,7 @@ function ReviewDialog({
       }}
     >
       <Stack gap="20px">
-        <Typography as="p" variant="body3">
+        <Typography as="p" variant="b4">
           {productName}은(는) 어떠셨나요?
         </Typography>
         <FormField htmlFor="review-rating" error={invalid ? '별점을 선택해 주세요.' : undefined}>
@@ -80,13 +80,12 @@ function ReviewDialog({
           inputProps={{
             'aria-label': '리뷰 내용',
             multiline: true,
-            placeholder: '상품 사용 경험을 입력해 주세요',
             value: body,
             onChange: (event) => onBodyChange(event.target.value),
           }}
         />
         {invalid ? (
-          <Typography variant="body5" tone="error">
+          <Typography variant="b8" tone="error">
             별점과 리뷰 내용을 입력해 주세요.
           </Typography>
         ) : null}
@@ -123,6 +122,7 @@ function ReviewItem({ entry: { product, purchasedAt, review }, tab, onEdit }: Re
           variant="review"
           name={product.name}
           image={product.imageSrc}
+          imageSize={{ web: 96, mobile: 96 }}
           orderDate={purchasedAt}
           optionText={product.optionLabel}
           rating={tab === 'written' ? (review?.rating ?? 0) : undefined}
@@ -178,7 +178,7 @@ export function ReviewsContent({
         title="상품리뷰"
         headerProps={{
           titleAs: 'h1',
-          titleProps: { web: 'headingKr6', mo: 'headingKr5' },
+          titleProps: { web: 'h4B', mo: 'h7B' },
         }}
         gap="40px"
         _mobile={{ gap: '24px', pt: '24px' }}
@@ -203,13 +203,7 @@ export function ReviewsContent({
           />
           {items.length > 0 ? (
             <>
-              <HStack
-                justifyContent="space-between"
-                pt="40px"
-                pb="16px"
-                _mobile={{ pt: '32px' }}
-                borderBottom="1px solid var(--color-black-100)"
-              >
+              <HStack justifyContent="space-between" pt="40px" pb="16px" _mobile={{ pt: '32px' }}>
                 <Dropdown
                   ariaLabel="리뷰 정렬"
                   variant="sort"
@@ -222,10 +216,10 @@ export function ReviewsContent({
                   ]}
                 />
                 <HStack gap="2px">
-                  <Typography variant="body4">총</Typography>
-                  <Typography variant="body4Medium">
+                  <Typography variant="b6">총</Typography>
+                  <Typography variant="b6M">
                     {totalCount}
-                    <Typography variant="bodyKr4">건</Typography>
+                    <Typography variant="b6">건</Typography>
                   </Typography>
                 </HStack>
               </HStack>
@@ -233,7 +227,7 @@ export function ReviewsContent({
                 gap="0"
                 className={
                   tab === 'written'
-                    ? dataListRecipe({ top: 'none', headerTypography: 'heading' }).root
+                    ? dataListRecipe({ top: 'thinSubtle', headerTypography: 'heading' }).root
                     : undefined
                 }
               >
@@ -258,7 +252,9 @@ export function ReviewsContent({
                   as="ul"
                   gap="0"
                   aria-label={tab === 'ready' ? '작성 가능한 리뷰 목록' : '내가 작성한 리뷰'}
-                  className={dataListRecipe({ top: 'unchanged' }).root}
+                  className={
+                    dataListRecipe({ top: tab === 'ready' ? 'thinSubtle' : 'unchanged' }).root
+                  }
                 >
                   {items.map((entry) => (
                     <ReviewItem

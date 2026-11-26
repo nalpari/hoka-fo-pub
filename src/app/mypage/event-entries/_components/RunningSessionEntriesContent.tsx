@@ -47,7 +47,7 @@ export function RunningSessionEntriesContent({
     <MyPageFrame activePath="/mypage/event-entries" breadcrumbs={[{ label: '러닝세션 신청내역' }]}>
       <ContentSection
         title="러닝세션 신청내역"
-        headerProps={{ titleAs: 'h1', titleProps: { web: 'headingKr6', mo: 'headingKr5' } }}
+        headerProps={{ titleAs: 'h1', titleProps: { web: 'h4B', mo: 'h7B' } }}
         gap="40px"
         _mobile={{ gap: '24px', pt: '24px' }}
       >
@@ -86,10 +86,10 @@ export function RunningSessionEntriesContent({
                   ]}
                 />
                 <HStack gap="2px">
-                  <Typography variant="body4">총</Typography>
-                  <Typography variant="body4Medium">
+                  <Typography variant="b6">총</Typography>
+                  <Typography variant="b6M">
                     {totalCount}
-                    <Typography variant="bodyKr4">건</Typography>
+                    <Typography variant="b6">개</Typography>
                   </Typography>
                 </HStack>
               </HStack>
@@ -112,8 +112,8 @@ export function RunningSessionEntriesContent({
                           title={entry.session.title}
                           titleAs="h2"
                           titleProps={{
-                            web: 'headingKr8',
-                            mo: 'headingKr6',
+                            web: 'h10B',
+                            mo: 'h8',
                             className: css({
                               overflow: 'hidden',
                               textOverflow: 'ellipsis',
@@ -127,8 +127,8 @@ export function RunningSessionEntriesContent({
                         visual="round"
                         className={css({ flexShrink: '0' })}
                         tone={entry.status === '신청완료' ? 'primary' : 'tertiary'}
-                        web="body5"
-                        mo="body5"
+                        web="b8M"
+                        mo="b8M"
                       >
                         {entry.status === '취소' ? '신청취소' : entry.status}
                       </Badge>
@@ -151,32 +151,35 @@ export function RunningSessionEntriesContent({
                         </Box>
                         <Stack gap="12px" minW="0" flex="1" _mobile={{ gap: '8px' }}>
                           <HStack gap="6px" flexWrap="wrap">
-                            <Typography web="body3" mo="body4">
+                            <Typography web="b4M" mo="b6M">
                               {entry.session.location}
                             </Typography>
                             <Divider orientation="vertical" length="10px" color="black.40" />
-                            <Typography web="body3" mo="body4">
+                            <Typography web="b4M" mo="b6M">
                               {entry.session.distance}
                             </Typography>
                           </HStack>
                           <Stack gap="4px">
                             {entry.appliedAt ? (
-                              <Typography web="body3" mo="body4" tone="subtle">
+                              <Typography web="b4" mo="b6" tone="subtle">
                                 신청일 : {entry.appliedAt}
                               </Typography>
                             ) : null}
-                            <Typography web="body3" mo="body4" tone="subtle">
+                            <Typography web="b4" mo="b6" tone="subtle">
                               진행일시 : {entry.session.schedule}
                             </Typography>
                           </Stack>
                         </Stack>
                       </HStack>
                       {entry.canCancel ? (
-                        <Box justifySelf="end">
-                          <Button variant="link" size="md" onClick={() => setOpen(true)}>
-                            신청 취소
-                          </Button>
-                        </Box>
+                        <Button
+                          variant="secondary"
+                          size="short"
+                          fullWidth
+                          onClick={() => setOpen(true)}
+                        >
+                          신청 취소
+                        </Button>
                       ) : null}
                     </Grid>
                   </Stack>

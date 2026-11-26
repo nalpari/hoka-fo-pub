@@ -82,7 +82,6 @@ function SizeGuideChoiceGroup<T extends string>({
   onValueChange: (value: T) => void;
   compact?: boolean;
 }) {
-  const platform = usePlatform();
   const grouped = !compact;
   const choices = (
     <SegmentedControl
@@ -111,12 +110,8 @@ function SizeGuideChoiceGroup<T extends string>({
           grouped,
         })
       }
-      itemRender={({ label, value: optionValue }) => (
-        <Typography
-          as="button"
-          variant={compact ? 'body3' : 'body4'}
-          weight={grouped && optionValue === value ? 'semibold' : 'regular'}
-        >
+      itemRender={({ label }) => (
+        <Typography as="button" variant={compact ? 'b4M' : 'b6M'}>
           {label}
         </Typography>
       )}
@@ -127,7 +122,7 @@ function SizeGuideChoiceGroup<T extends string>({
 
   return (
     <Stack gap="4">
-      <Typography web="heading8" mo="heading6" weight={platform === 'mobile' ? 'bold' : 'black'}>
+      <Typography web="h10B" mo="h8">
         {label}
       </Typography>
       {choices}
@@ -163,7 +158,6 @@ function SizeGuideMeasurementMethod({
   steps,
   description,
 }: SizeGuideMeasurementMethodProps) {
-  const platform = usePlatform();
   return (
     <ContentSection
       as="div"
@@ -171,9 +165,8 @@ function SizeGuideMeasurementMethod({
       headerProps={{
         titleAs: 'h3',
         titleProps: {
-          web: 'heading8',
-          mo: 'heading6',
-          weight: platform === 'mobile' ? 'bold' : 'black',
+          web: 'h10B',
+          mo: 'h8',
           className: css({ pl: { base: '2', _mobile: '0' } }),
         },
       }}
@@ -193,17 +186,17 @@ function SizeGuideMeasurementMethod({
             px={{ base: '3', _mobile: '0' }}
             borderBottom={index < steps.length - 1 ? '1px solid token(colors.black.20)' : undefined}
           >
-            <Typography web="heading9" mo="heading10" weight="bold">
+            <Typography web="h10" mo="h8">
               STEP {index + 1}.
             </Typography>
-            <Typography web="body3" mo="body5">
+            <Typography web="b4" mo="b8">
               {step}
             </Typography>
           </Stack>
         ))}
       </Stack>
       {description && (
-        <Typography web="body3" mo="body5" tone="subtle">
+        <Typography web="b4" mo="b8" tone="subtle">
           * {description}
         </Typography>
       )}
@@ -276,7 +269,6 @@ type SizeGuideChartProps = {
 };
 
 function SizeGuideChart({ category, gender, unit, onUnitChange }: SizeGuideChartProps) {
-  const platform = usePlatform();
   const chart = category.charts[gender]?.[unit];
   const shoes = category.value === 'shoes';
   const genderLabel = genderOptions.find((item) => item.value === gender)?.label;
@@ -289,9 +281,8 @@ function SizeGuideChart({ category, gender, unit, onUnitChange }: SizeGuideChart
       headerProps={{
         titleAs: 'h3',
         titleProps: {
-          web: 'heading8',
-          mo: 'heading6',
-          weight: platform === 'mobile' ? 'bold' : 'black',
+          web: 'h10B',
+          mo: 'h8B',
         },
         orientation: 'horizontal',
         gap: '3',
@@ -312,7 +303,13 @@ function SizeGuideChart({ category, gender, unit, onUnitChange }: SizeGuideChart
           <thead>
             <tr>
               {chart.headers.map((label, index) => (
-                <th key={index} scope="col">
+                <th
+                  key={index}
+                  scope="col"
+                  className={
+                    index === 1 && shoes ? css({ '&&&': { fontWeight: 'medium' } }) : undefined
+                  }
+                >
                   {label}
                 </th>
               ))}
@@ -335,7 +332,7 @@ function SizeGuideChart({ category, gender, unit, onUnitChange }: SizeGuideChart
           </tbody>
         </DataTable>
       ) : (
-        <Typography variant="body4" tone="subtle">
+        <Typography variant="b6" tone="subtle">
           해당 단위의 사이즈표는 준비 중입니다.
         </Typography>
       )}
@@ -363,7 +360,7 @@ export function SizeGuidePanel({ category }: { category: GuideCategory }) {
         ? { header: null }
         : {
             title: category.label,
-            headerProps: { titleAs: 'h2' as const, titleProps: { variant: 'heading7' as const } },
+            headerProps: { titleAs: 'h2' as const, titleProps: { variant: 'h8B' as const } },
           })}
       gap="8"
       pt={{ base: '8', _mobile: '9' }}

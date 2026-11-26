@@ -38,7 +38,6 @@ function LoginForm({ showErrors = false, showHelp = false }: LoginFormProps) {
               name: 'username',
               type: 'text',
               autoComplete: 'username',
-              placeholder: '아이디를 입력해 주세요',
               value: id,
               onChange: (event) => setId(event.target.value),
             }}
@@ -50,13 +49,12 @@ function LoginForm({ showErrors = false, showHelp = false }: LoginFormProps) {
             required
             error={
               showErrors
-                ? '영문, 숫자, 특수문자를 모두 포함하여 10~12자로 입력해 주세요'
+                ? '영문, 숫자, 특수문자를 모두 포함하여 10~20자로 입력해 주세요'
                 : undefined
             }
             inputProps={{
               name: 'password',
               autoComplete: 'current-password',
-              placeholder: '비밀번호를 입력해 주세요',
               type: 'password',
               value: password,
               onChange: (event) => setPassword(event.target.value),
@@ -69,11 +67,11 @@ function LoginForm({ showErrors = false, showHelp = false }: LoginFormProps) {
                 defaultOpen={showHelp}
                 label="아이디 저장 주의사항"
                 title="주의해주세요"
-                description="공용으로 사용하는 장소에서는 아이디 저장하기 사용에 유의해주세요."
+                description="공용으로 사용하는 장치에서는 아이디 저장하기의 사용에 유의해주세요."
               />
             </HStack>
             <ButtonLink variant="link" size="md" href="/login/find-account">
-              <Typography as="span" variant="body4">
+              <Typography as="span" variant="b6M">
                 아이디/비밀번호 찾기
               </Typography>
             </ButtonLink>
@@ -118,7 +116,7 @@ export function LoginContent({ showErrors = false, showHelp = false }: LoginForm
         }
         headerProps={{
           titleAs: 'h1',
-          titleProps: { web: 'headingKr6', mo: 'headingKr5', id: 'login-title' },
+          titleProps: { web: 'h4B', mo: 'h7B', id: 'login-title' },
         }}
       >
         <Box>
@@ -133,11 +131,11 @@ export function LoginContent({ showErrors = false, showHelp = false }: LoginForm
             aria-labelledby="membership-title"
           >
             <Stack gap="2">
-<Typography as="h2" variant="body3Medium" id="membership-title">
-                가입과 동시에 시작되는 혜택!
+              <Typography as="h2" web="b2B" mo="b3B" id="membership-title">
+                계정이 없으신가요?
               </Typography>
-              <Typography as="p" variant="body4">
-                신규가입 쿠폰과 기념일 축하쿠폰, 등급별 혜택을 받으세요.
+              <Typography as="p" variant="b6">
+                회원가입 후 풍성한 멤버십 혜택을 확인해보세요.
               </Typography>
             </Stack>
             <ButtonLink href="/signup" fullWidth variant="secondary">

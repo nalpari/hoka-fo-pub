@@ -79,7 +79,7 @@ export function Toast({
 
   return (
     <Box ref={toastRef} className={toastStyle} role="status" aria-live="polite" aria-atomic="true">
-<Typography variant="body4Medium" tone="inverse">
+      <Typography variant="b6M" tone="inverse">
         {notice.text}
       </Typography>
     </Box>

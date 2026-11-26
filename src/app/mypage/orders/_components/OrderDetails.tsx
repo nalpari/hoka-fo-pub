@@ -4,6 +4,7 @@ import { css } from 'styled-system/css';
 import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Button, ButtonLink } from '@/components/common/atoms/Button';
+import { dataListBoundaryRecipe, dataListRecipe } from '@/components/common/atoms/DataList.recipe';
 import {
   DescriptionList,
   type DescriptionListItem,
@@ -35,14 +36,14 @@ export function OrderInformationSection({
       gap="0"
       headerProps={{
         titleAs: 'h2',
-        titleProps: { web: 'heading10', mo: 'heading7' },
+        titleProps: { web: 'h10', mo: 'h8' },
         css: css.raw({ pb: '12px', borderBottom: '1px solid var(--colors-black-100)' }),
       }}
     >
       <DescriptionList
         items={items}
-        termProps={{ variant: 'body4', tone: 'subtle' }}
-        descriptionProps={{ variant: 'body4', tone: 'primary' }}
+        termProps={{ variant: 'b6', tone: 'subtle' }}
+        descriptionProps={{ variant: 'b6', tone: 'primary' }}
         slotStyles={{
           root: css.raw({ display: 'block' }),
           row: css.raw({
@@ -66,12 +67,26 @@ type OrderDetailProps = {
   onClaimDetail: (claimId: string) => void;
 };
 
+const orderProductHeaders = ['상품/옵션정보', '수량', '가격'];
+
+function DetailTableHeader({ labels }: { labels: readonly string[] }) {
+  return (
+    <Grid role="row" data-list-header className={dataListRecipe().header}>
+      {labels.map((label) => (
+        <span key={label} role="columnheader" data-list-cell>
+          {label}
+        </span>
+      ))}
+    </Grid>
+  );
+}
+
 function DetailSectionTitle({ children }: { children: string }) {
   return (
     <Typography
       as="h2"
-      web="heading7"
-      mo="heading6"
+      web="h8B"
+      mo="h8"
       className={css({
         w: '100%',
         pb: { base: '24px', _mobile: '16px' },
@@ -85,8 +100,8 @@ function DetailSectionTitle({ children }: { children: string }) {
 
 function DetailProduct({ line }: { line: OrderLine }) {
   return (
-    <>
-      <Box gridColumn="1" minW="0" pl="24px">
+    <Grid role="row" gridTemplateColumns="minmax(0, 1fr) 108px 200px" gap="0" alignItems="center">
+      <Box role="cell" gridColumn="1" minW="0" pl="24px">
         <OrderProductSummary
           variant="history"
           image={line.image}
@@ -95,23 +110,23 @@ function DetailProduct({ line }: { line: OrderLine }) {
           cartAction
         />
       </Box>
-      <Typography variant="body4Medium" className={css({ textAlign: 'center' })}>
+      <Typography role="cell" variant="b6M" className={css({ textAlign: 'center' })}>
         {line.quantity}개
       </Typography>
-      <Typography variant="body4Medium" className={css({ textAlign: 'center' })}>
+      <Typography role="cell" variant="b6M" className={css({ textAlign: 'center' })}>
         {line.displayAmount === undefined ? '-' : `${line.displayAmount.toLocaleString()}원`}
       </Typography>
-    </>
+    </Grid>
   );
 }
 
 function DetailAmountRow({ label, amount }: { label: string; amount: number }) {
   return (
     <HStack justifyContent="space-between" gap="16px">
-      <Typography variant="body4" tone="subtle">
+      <Typography variant="b6" tone="subtle">
         {label}
       </Typography>
-      <Typography variant="body4Medium">{amount.toLocaleString()}원</Typography>
+      <Typography variant="b6M">{amount.toLocaleString()}원</Typography>
     </HStack>
   );
 }
@@ -122,35 +137,30 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
   const mobile = usePlatform() === 'mobile';
   return (
     <Stack gap="0">
-      {!mobile ? (
-        <Grid
-          gridTemplateColumns="minmax(0, 1fr) 108px 200px"
-          gap="0"
-          py="20px"
-          borderY="1px solid var(--colors-black-100)"
-        >
-          {['상품/옵션정보', '수량', '가격'].map((label) => (
-            <Typography
-              key={label}
-              variant="body3Semibold"
-              className={css({ textAlign: 'center' })}
-            >
-              {label}
-            </Typography>
-          ))}
-        </Grid>
-      ) : null}
-      <Stack gap="0" borderBottom={{ base: '1px solid var(--colors-black-100)', _mobile: '0' }}>
+      <Stack
+        gap="0"
+        className={mobile ? undefined : dataListBoundaryRecipe({ top: 'thinStrong' })}
+        borderBottom={{ base: '1px solid var(--colors-black-100)', _mobile: '0' }}
+      >
         <HStack
           gap="8px"
           py={{ base: '32px', _mobile: '16px' }}
           borderBottom={{ base: '0', _mobile: '1px solid var(--colors-black-100)' }}
         >
-          <Typography variant="body4Semibold">
+          <Typography variant="b6S">
             {display.date}
-            {mobile ? ' 주문' : ''}
+            {mobile ? (
+              <>
+                {' '}
+                <Typography as="span" variant="b6M">
+                  주문
+                </Typography>
+              </>
+            ) : (
+              ''
+            )}
           </Typography>
-          <Typography variant="body4" tone="tertiary">
+          <Typography variant="b6" tone="tertiary">
             · 주문번호 {display.orderNumber}
           </Typography>
         </HStack>
@@ -167,8 +177,8 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
                 pl={{ base: '24px', _mobile: '0' }}
                 pr={{ base: '24px', _mobile: '0' }}
               >
-                <Typography variant="body4">
-                  <Typography as="span" variant="body4Semibold" tone="red80">
+                <Typography variant="b6">
+                  <Typography as="span" web="b6S" mo="b6M" tone="red80">
                     {display.status}
                   </Typography>
                   {' · '}
@@ -180,34 +190,34 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
                   </Button>
                 ) : null}
               </HStack>
-              {display.activeItems.map((line) =>
-                mobile ? (
-                  <OrderProductSummary
-                    variant="history"
-                    key={line.key}
-                    image={line.image}
-                    name={line.name}
-                    optionText={`${line.width}, ${line.color}, ${line.size}, ${mobile ? (line.mobileQuantity ?? line.quantity) : line.quantity}개`}
-                    amount={
-                      line.displayAmount === undefined
-                        ? undefined
-                        : mobile
-                          ? (line.mobileDisplayAmount ?? line.displayAmount)
-                          : line.displayAmount
-                    }
-                    cartAction
-                  />
-                ) : (
-                  <Grid
-                    key={line.key}
-                    gridTemplateColumns="minmax(0, 1fr) 108px 200px"
-                    gap="0"
-                    alignItems="center"
-                  >
-                    <DetailProduct line={line} />
-                  </Grid>
-                ),
-              )}
+              <Stack
+                gap={{ base: '24px', _mobile: '12px' }}
+                role={mobile ? undefined : 'table'}
+                aria-label={mobile ? undefined : '주문 상품'}
+              >
+                {!mobile && <DetailTableHeader labels={orderProductHeaders} />}
+                {display.activeItems.map((line) =>
+                  mobile ? (
+                    <OrderProductSummary
+                      variant="history"
+                      key={line.key}
+                      image={line.image}
+                      name={line.name}
+                      optionText={`${line.width}, ${line.color}, ${line.size}, ${mobile ? (line.mobileQuantity ?? line.quantity) : line.quantity}개`}
+                      amount={
+                        line.displayAmount === undefined
+                          ? undefined
+                          : mobile
+                            ? (line.mobileDisplayAmount ?? line.displayAmount)
+                            : line.displayAmount
+                      }
+                      cartAction
+                    />
+                  ) : (
+                    <DetailProduct key={line.key} line={line} />
+                  ),
+                )}
+              </Stack>
             </Stack>
             {!mobile ? (
               <HStack justifyContent="flex-end" gap="8px" pr="8px">
@@ -243,39 +253,41 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
               gap="16px"
               px={{ base: '24px', _mobile: '0' }}
             >
-              <Typography variant="body4" tone={mobile ? 'tertiary' : 'error'}>
+              <Typography variant="b6M" tone={mobile ? 'tertiary' : 'error'}>
                 {group.label}
               </Typography>
               <Button variant="link" size="md" onClick={() => actions.onClaimDetail(group.id)}>
                 {group.detailLabel}
               </Button>
             </HStack>
-            {group.items.map((line) =>
-              mobile ? (
-                <OrderProductSummary
-                  variant="history"
-                  key={line.key}
-                  image={line.image}
-                  name={line.name}
-                  optionText={`${line.width}, ${line.color}, ${line.size}, ${mobile ? (line.mobileQuantity ?? line.quantity) : line.quantity}개`}
-                  amount={
-                    line.displayAmount === undefined
-                      ? undefined
-                      : mobile
-                        ? (line.mobileDisplayAmount ?? line.displayAmount)
-                        : line.displayAmount
-                  }
-                />
-              ) : (
-                <Grid
-                  key={line.key}
-                  gridTemplateColumns="minmax(0, 1fr) 108px 200px"
-                  gap="0"
-                  alignItems="center"
-                >
-                  <DetailProduct line={line} />
-                </Grid>
-              ),
+            {group.items.length > 0 && (
+              <Stack
+                gap={{ base: '16px', _mobile: '8px' }}
+                role={mobile ? undefined : 'table'}
+                aria-label={mobile ? undefined : `${group.label} 상품`}
+              >
+                {!mobile && <DetailTableHeader labels={orderProductHeaders} />}
+                {group.items.map((line) =>
+                  mobile ? (
+                    <OrderProductSummary
+                      variant="history"
+                      key={line.key}
+                      image={line.image}
+                      name={line.name}
+                      optionText={`${line.width}, ${line.color}, ${line.size}, ${mobile ? (line.mobileQuantity ?? line.quantity) : line.quantity}개`}
+                      amount={
+                        line.displayAmount === undefined
+                          ? undefined
+                          : mobile
+                            ? (line.mobileDisplayAmount ?? line.displayAmount)
+                            : line.displayAmount
+                      }
+                    />
+                  ) : (
+                    <DetailProduct key={line.key} line={line} />
+                  ),
+                )}
+              </Stack>
             )}
           </Stack>
         ))}
@@ -289,8 +301,8 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
             { term: '받는주소', description: display.recipient.address },
             { term: '배송요청사항', description: display.recipient.request },
           ]}
-          termProps={{ variant: 'body4', tone: 'tertiary' }}
-          descriptionProps={{ variant: 'body4', weight: 'medium' }}
+          termProps={{ variant: 'b6', tone: 'tertiary' }}
+          descriptionProps={{ variant: 'b6M' }}
           slotStyles={{
             root: css.raw({ display: 'block' }),
             row: css.raw({
@@ -310,10 +322,10 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
           justifyContent="space-between"
           borderBottom="1px solid var(--colors-black-20)"
         >
-          <Typography variant="body4" tone="tertiary">
+          <Typography variant="b6" tone="tertiary">
             결제수단
           </Typography>
-          <Typography variant="body4Medium">{display.paymentMethod}</Typography>
+          <Typography variant="b6M">{display.paymentMethod}</Typography>
         </HStack>
         <HStack
           alignItems="stretch"
@@ -340,21 +352,19 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
             alignItems={{ base: 'flex-end', _mobile: 'stretch' }}
           >
             <HStack justifyContent="space-between" w="100%">
-              <Typography variant="body4" tone="subtle">
+              <Typography variant="b6M" tone="subtle">
                 결제예정금액
               </Typography>
               {mobile ? (
-                <Typography variant="body3Semibold">
-                  {display.payableAmount.toLocaleString()}원
-                </Typography>
+                <Typography variant="b4S">{display.payableAmount.toLocaleString()}원</Typography>
               ) : null}
             </HStack>
             {!mobile ? (
               <>
-                <Typography variant="body5" tone="tertiary">
+                <Typography variant="b8" tone="tertiary">
                   (상품금액 - 할인금액 - 배송비)
                 </Typography>
-                <Typography variant="heading7">
+                <Typography web="h8B" mo="h8">
                   {display.payableAmount.toLocaleString()}원
                 </Typography>
               </>
@@ -367,23 +377,6 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
           <DetailSectionTitle>
             {mobile ? '취소·반품·교환 내역' : '취소 · 반품 내역'}
           </DetailSectionTitle>
-          {!mobile ? (
-            <Grid
-              gridTemplateColumns="minmax(0, 1fr) 200px 140px"
-              py="20px"
-              borderBottom="1px solid var(--colors-black-100)"
-            >
-              {['상품/옵션정보', '환불금액', '처리상태'].map((label) => (
-                <Typography
-                  key={label}
-                  variant="body3Semibold"
-                  className={css({ textAlign: 'center' })}
-                >
-                  {label}
-                </Typography>
-              ))}
-            </Grid>
-          ) : null}
           {display.history.map((entry) => (
             <Stack
               key={entry.id}
@@ -392,11 +385,11 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
               borderBottom="1px solid var(--colors-black-20)"
             >
               <HStack justifyContent="space-between">
-                <Typography variant="body4" tone="tertiary">
+                <Typography variant="b6" tone="tertiary">
                   접수일 : {entry.requestedAt}
                 </Typography>
                 {mobile ? (
-                  <Typography variant="body4" tone="tertiary">
+                  <Typography variant="b6M" tone="tertiary">
                     {entry.status}
                   </Typography>
                 ) : null}
@@ -415,25 +408,37 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
                   <DetailAmountRow label="환불금액" amount={entry.refund} />
                 </Stack>
               ) : (
-                <Grid gridTemplateColumns="minmax(0, 1fr) 200px 140px" gap="0" alignItems="center">
-                  <Stack gap="16px">
-                    {entry.items.map((line) => (
-                      <OrderProductSummary
-                        variant="history"
-                        key={line.key}
-                        image={line.image}
-                        name={line.name}
-                        optionText={`${line.width}, ${line.color}, ${line.size}, ${mobile ? (line.mobileQuantity ?? line.quantity) : line.quantity}개`}
-                      />
-                    ))}
-                  </Stack>
-                  <Typography variant="body4Medium" className={css({ textAlign: 'center' })}>
-                    {entry.refund.toLocaleString()}원
-                  </Typography>
-                  <Typography variant="body4Medium" className={css({ textAlign: 'center' })}>
-                    {entry.status}
-                  </Typography>
-                </Grid>
+                <Stack
+                  role="table"
+                  aria-label={`취소·반품 상품, 접수일 ${entry.requestedAt}`}
+                  gap="0"
+                >
+                  <DetailTableHeader labels={['상품/옵션정보', '환불금액', '처리상태']} />
+                  <Grid
+                    role="row"
+                    gridTemplateColumns="minmax(0, 1fr) 200px 140px"
+                    gap="0"
+                    alignItems="center"
+                  >
+                    <Stack role="cell" gap="16px">
+                      {entry.items.map((line) => (
+                        <OrderProductSummary
+                          variant="history"
+                          key={line.key}
+                          image={line.image}
+                          name={line.name}
+                          optionText={`${line.width}, ${line.color}, ${line.size}, ${mobile ? (line.mobileQuantity ?? line.quantity) : line.quantity}개`}
+                        />
+                      ))}
+                    </Stack>
+                    <Typography role="cell" variant="b6M" className={css({ textAlign: 'center' })}>
+                      {entry.refund.toLocaleString()}원
+                    </Typography>
+                    <Typography role="cell" variant="b6M" className={css({ textAlign: 'center' })}>
+                      {entry.status}
+                    </Typography>
+                  </Grid>
+                </Stack>
               )}
             </Stack>
           ))}
@@ -477,9 +482,8 @@ function ClaimSection({ title, children }: { title: string; children: React.Reac
       headerProps={{
         titleAs: 'h2',
         titleProps: {
-          web: 'heading7',
-          mo: 'heading6',
-          weight: usePlatform() === 'mobile' ? 'bold' : 'black',
+          web: 'h8B',
+          mo: 'h8',
         },
         css: css.raw({
           pb: { base: '24px', _mobile: '16px' },
@@ -496,8 +500,8 @@ function ClaimInformation({ items }: { items: readonly DescriptionListItem[] }) 
   return (
     <DescriptionList
       items={items}
-      termProps={{ web: 'body3', mo: 'body4', tone: 'subtle' }}
-      descriptionProps={{ web: 'body3', mo: 'body4', tone: 'primary', weight: 'medium' }}
+      termProps={{ web: 'b4', mo: 'b6', tone: 'subtle' }}
+      descriptionProps={{ web: 'b4M', mo: 'b6M', tone: 'primary' }}
       slotStyles={{
         root: css.raw({ display: 'block' }),
         row: css.raw({
@@ -542,7 +546,7 @@ export function OrderClaimDetail({
       '-'
     ) : (
       <>
-        <Typography as="span" web="body3" mo="body4" language="en" weight="medium">
+        <Typography as="span" web="b4M" mo="b6M" language="en">
           {value.toLocaleString()}
         </Typography>
         원
@@ -559,46 +563,41 @@ export function OrderClaimDetail({
       >
         <HStack gap={mobile ? '4px' : '8px'} flexShrink="0">
           {!mobile ? (
-            <Typography variant="body3Medium" tone="subtle">
+            <Typography variant="b4M" tone="subtle">
               주문일자
             </Typography>
           ) : null}
           <Typography
-            web="body3"
-            mo="body4"
+            web="b4M"
+            mo="b6M"
             language={mobile ? 'en' : 'ko'}
-            weight="medium"
+
             tone="primary"
           >
             {date}
           </Typography>
           {mobile ? (
-            <Typography variant="body4Medium" tone="primary">
+            <Typography variant="b6M" tone="primary">
               주문
             </Typography>
           ) : null}
         </HStack>
         {mobile ? (
           <Box w="8px" flexShrink="0" textAlign="center">
-            <Typography variant="body4" tone="primary">
+            <Typography variant="b6" tone="primary">
               ·
             </Typography>
           </Box>
         ) : null}
         <HStack gap={mobile ? '4px' : '8px'} flexShrink="0">
-          <Typography
-            web="body3"
-            mo="body4"
-            weight={mobile ? 'regular' : 'medium'}
-            tone={mobile ? 'tertiary' : 'subtle'}
-          >
+          <Typography web="b4M" mo="b6" tone={mobile ? 'tertiary' : 'subtle'}>
             주문번호
           </Typography>
           <Typography
-            web="body3"
-            mo="body4"
+            web="b4M"
+            mo="b6"
             language={mobile ? 'en' : 'ko'}
-            weight={mobile ? 'regular' : 'medium'}
+
             tone={mobile ? 'tertiary' : 'primary'}
           >
             {number}
@@ -626,27 +625,23 @@ export function OrderClaimDetail({
           ))}
         </Stack>
       ) : (
-        <Stack gap="0" borderBottom="1px solid var(--colors-black-100)">
-          <Grid gridTemplateColumns={columns} gap="0" py="20px" borderBottom="1px solid black">
-            {['상품/옵션정보', '수량', '가격', '진행상태'].map((label) => (
-              <Typography
-                key={label}
-                variant="body3Semibold"
-                className={css({ textAlign: 'center' })}
-              >
-                {label}
-              </Typography>
-            ))}
-          </Grid>
+        <Stack
+          role="table"
+          aria-label={`${name} 상품`}
+          gap="0"
+          borderBottom="1px solid var(--colors-black-100)"
+        >
+          <DetailTableHeader labels={[...orderProductHeaders, '진행상태']} />
           {items.map((line) => (
             <Grid
               key={line.key}
+              role="row"
               gridTemplateColumns={columns}
               gap="0"
               alignItems="center"
               py="32px"
             >
-              <Box px="24px">
+              <Box role="cell" px="24px">
                 <OrderProductSummary
                   variant="history"
                   image={line.image}
@@ -654,16 +649,20 @@ export function OrderClaimDetail({
                   optionText={`${line.width}, ${line.color}, ${line.size}`}
                 />
               </Box>
-              <Typography variant="body3" className={css({ textAlign: 'center' })}>
-                <Typography as="span" variant="body3Medium" language="en">
+              <Typography role="cell" variant="b4" className={css({ textAlign: 'center' })}>
+                <Typography as="span" variant="b4M" language="en">
                   {line.quantity}
                 </Typography>
                 개
               </Typography>
-              <Typography variant="body3Medium" className={css({ textAlign: 'right', px: '24px' })}>
+              <Typography
+                role="cell"
+                variant="b4M"
+                className={css({ textAlign: 'right', px: '24px' })}
+              >
                 {money(line.displayAmount)}
               </Typography>
-              <Typography variant="body3Medium" className={css({ textAlign: 'center' })}>
+              <Typography role="cell" variant="b4M" className={css({ textAlign: 'center' })}>
                 {status}
               </Typography>
             </Grid>
@@ -717,14 +716,14 @@ export function OrderClaimDetail({
               py={{ base: '20px', _mobile: '16px' }}
               borderBottom="1px solid var(--colors-black-20)"
             >
-              <Typography web="body3" mo="body4" weight="medium">
+              <Typography web="b4M" mo="b6M">
                 {reason}
               </Typography>
-              {mobile ? <Typography variant="body5">{details}</Typography> : null}
+              {mobile ? <Typography variant="b8">{details}</Typography> : null}
             </Stack>
             {!mobile && details ? (
               <Typography
-                variant="body4"
+                variant="b6"
                 className={css({ py: '20px', borderBottom: '1px solid var(--colors-black-20)' })}
               >
                 {details}
@@ -740,10 +739,10 @@ export function OrderClaimDetail({
           justifyContent={mobile ? 'space-between' : 'flex-start'}
           borderBottom="1px solid var(--colors-black-20)"
         >
-          <Typography web="body3" mo="body4" tone="subtle" className={css({ w: '96px' })}>
+          <Typography web="b4" mo="b6" tone="subtle" className={css({ w: '96px' })}>
             환불수단
           </Typography>
-          <Typography web="body3" mo="body4" weight="medium">
+          <Typography web="b4M" mo="b6M">
             {claim.refundMethod ?? '-'}
           </Typography>
         </HStack>
@@ -765,13 +764,13 @@ export function OrderClaimDetail({
               { label: '반품비', value: money(fee) },
             ].map((row) => (
               <HStack key={row.label} justifyContent="space-between" gap="8px">
-                <Typography web="body3" mo="body4" tone="subtle">
+                <Typography web="b4" mo="b6" tone="subtle">
                   {row.label}
                 </Typography>
-                <Typography web="body3" mo="body4" weight="medium">
+                <Typography web="b4M" mo="b6M">
                   {row.value}
                   {row.label === '반품비' && display.feeNote ? (
-                    <Typography as="span" variant="body5" tone="subtle">
+                    <Typography as="span" variant="b8" tone="subtle">
                       {' '}
                       {display.feeNote}
                     </Typography>
@@ -781,10 +780,10 @@ export function OrderClaimDetail({
             ))}
             {mobile ? (
               <HStack justifyContent="space-between">
-                <Typography variant="body4" tone="subtle">
+                <Typography variant="b6" tone="subtle">
                   총 환불금액
                 </Typography>
-                <Typography variant="body3Semibold">{refund?.toLocaleString() ?? '-'}원</Typography>
+                <Typography variant="b4S">{refund?.toLocaleString() ?? '-'}원</Typography>
               </HStack>
             ) : null}
           </Stack>
@@ -797,18 +796,18 @@ export function OrderClaimDetail({
               justifyContent="center"
               gap="24px"
             >
-              <Typography variant="body3Medium">결제예정금액</Typography>
+              <Typography variant="b4M">결제예정금액</Typography>
               <HStack gap="2px" alignItems="flex-end">
-                <Typography variant="heading7" language="en">
+                <Typography web="h8B" mo="h8" language="en">
                   {refund?.toLocaleString() ?? '-'}
                 </Typography>
-                <Typography variant="body2">원</Typography>
+                <Typography variant="b2">원</Typography>
               </HStack>
             </Stack>
           ) : null}
         </HStack>
         <Typography
-          variant="body5"
+          variant="b8"
           tone="tertiary"
           className={css({ pt: { base: '16px', _mobile: '12px' } })}
         >

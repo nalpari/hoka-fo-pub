@@ -1,12 +1,23 @@
 'use client';
 
-import type { ComponentPropsWithoutRef, ElementType, ReactNode } from 'react';
-import { isValidElement } from 'react';
+import {
+  type ComponentPropsWithoutRef,
+  type ElementType,
+  isValidElement,
+  type ReactNode,
+} from 'react';
 import { usePlatform } from '@/context/platform';
 
 import { css, cva, cx } from 'styled-system/css';
 
-import { elandTypographyRecipe, elandTypographyVariants } from './Typography.eland';
+import {
+  type ResponsiveTypographyVariant,
+  type TypographyLanguage,
+  type TypographyStyleKey,
+  type TypographyVariant,
+  typographyWeights,
+} from '@/styles/typography';
+
 import {
   isNamedTone,
   resolveToneColor,
@@ -14,654 +25,22 @@ import {
   typographyTones,
 } from './Typography.tone';
 
-export { elandTypographyVariants };
+export type { ResponsiveTypographyVariant, TypographyVariant } from '@/styles/typography';
 
 export type { TypographyTone } from './Typography.tone';
 
-export const figmaTypographyVariants = {
-  heading1: {
-    fontFamily: 'hoka',
-    fontSize: 'var(--font-sizes-84)',
-    fontWeight: 'black',
-    lineHeight: 'hoka',
-    letterSpacing: '0',
-    _mobile: {
-      fontSize: 'var(--font-sizes-50)',
-      fontWeight: 'black',
-    },
-  },
-  heading2: {
-    fontFamily: 'hoka',
-    fontSize: 'var(--font-sizes-72)',
-    fontWeight: 'black',
-    lineHeight: 'hoka',
-    letterSpacing: '0',
-    _mobile: {
-      fontSize: 'var(--font-sizes-42)',
-      fontWeight: 'black',
-    },
-  },
-  heading3: {
-    fontFamily: 'hoka',
-    fontSize: 'var(--font-sizes-58)',
-    fontWeight: 'black',
-    lineHeight: 'hoka',
-    letterSpacing: '0',
-    _mobile: {
-      fontSize: 'var(--font-sizes-36)',
-      fontWeight: 'black',
-    },
-  },
-  heading4: {
-    fontFamily: 'hoka',
-    fontSize: 'var(--font-sizes-50)',
-    fontWeight: 'black',
-    lineHeight: 'hoka',
-    letterSpacing: '0',
-    _mobile: {
-      fontSize: 'var(--font-sizes-28)',
-      fontWeight: 'black',
-    },
-  },
-  heading5: {
-    fontFamily: 'hoka',
-    fontSize: 'var(--font-sizes-42)',
-    fontWeight: 'black',
-    lineHeight: 'hoka',
-    letterSpacing: '0',
-    _mobile: {
-      fontSize: 'var(--font-sizes-22)',
-      fontWeight: 'black',
-    },
-  },
-  heading6: {
-    fontFamily: 'hoka',
-    fontSize: 'var(--font-sizes-36)',
-    fontWeight: 'black',
-    lineHeight: 'hoka',
-    letterSpacing: '0',
-    _mobile: {
-      fontSize: 'var(--font-sizes-20)',
-      fontWeight: 'bold',
-    },
-  },
-  heading6B: {
-    fontFamily: 'hoka',
-    fontSize: 'var(--font-sizes-30)',
-    fontWeight: 'black',
-    lineHeight: 'hoka',
-    letterSpacing: '0',
-    _mobile: {
-      fontSize: 'var(--font-sizes-20)',
-      fontWeight: 'black',
-    },
-  },
-  heading7: {
-    fontFamily: 'hoka',
-    fontSize: 'var(--font-sizes-28)',
-    fontWeight: 'black',
-    lineHeight: 'hoka',
-    letterSpacing: '0',
-    _mobile: {
-      fontSize: 'var(--font-sizes-16)',
-      fontWeight: 'bold',
-    },
-  },
-  heading8: {
-    fontFamily: 'hoka',
-    fontSize: 'var(--font-sizes-22)',
-    fontWeight: 'black',
-    lineHeight: 'hoka',
-    letterSpacing: '0',
-    _mobile: {
-      fontSize: 'var(--font-sizes-16)',
-      fontWeight: 'medium',
-    },
-  },
-  heading9: {
-    fontFamily: 'hoka',
-    fontSize: 'var(--font-sizes-20)',
-    fontWeight: 'bold',
-    lineHeight: 'hoka',
-    letterSpacing: '0',
-    _mobile: {
-      fontSize: 'var(--font-sizes-16)',
-      fontWeight: 'medium',
-    },
-  },
-  heading10: {
-    fontFamily: 'hoka',
-    fontSize: 'var(--font-sizes-16)',
-    fontWeight: 'bold',
-    lineHeight: 'hoka',
-    letterSpacing: '0',
-    _mobile: {
-      fontSize: 'var(--font-sizes-16)',
-      fontWeight: 'medium',
-    },
-  },
-  body1: {
-    fontFamily: 'hoka',
-    fontSize: 'var(--font-sizes-24)',
-    fontWeight: 'normal',
-    lineHeight: 'body',
-    letterSpacing: '0',
-  },
-  body2: {
-    fontFamily: 'hoka',
-    fontSize: 'var(--font-sizes-20)',
-    fontWeight: 'normal',
-    lineHeight: 'body',
-    letterSpacing: '0',
-  },
-  'body2-2': {
-    fontFamily: 'hoka',
-    fontSize: 'var(--font-sizes-18)',
-    fontWeight: 'normal',
-    lineHeight: 'body',
-    letterSpacing: '0',
-  },
-  body3: {
-    fontFamily: 'hoka',
-    fontSize: 'var(--font-sizes-16)',
-    fontWeight: 'normal',
-    lineHeight: 'body',
-    letterSpacing: '0',
-  },
-  body3Medium: {
-    fontFamily: 'hoka',
-    fontSize: 'var(--font-sizes-16)',
-    fontWeight: 'medium',
-    lineHeight: 'body',
-    letterSpacing: '0',
-  },
-  body3Semibold: {
-    fontFamily: 'hoka',
-    fontSize: 'var(--font-sizes-16)',
-    fontWeight: 'semibold',
-    lineHeight: 'body',
-    letterSpacing: '0',
-  },
-  'body3-2': {
-    fontFamily: 'hoka',
-    fontSize: 'var(--font-sizes-15)',
-    fontWeight: 'normal',
-    lineHeight: 'body',
-    letterSpacing: '0',
-  },
-  body4: {
-    fontFamily: 'hoka',
-    fontSize: 'var(--font-sizes-14)',
-    fontWeight: 'normal',
-    lineHeight: 'body',
-    letterSpacing: '0',
-  },
-  body4Medium: {
-    fontFamily: 'hoka',
-    fontSize: 'var(--font-sizes-14)',
-    fontWeight: 'medium',
-    lineHeight: 'body',
-    letterSpacing: '0',
-  },
-  body4Semibold: {
-    fontFamily: 'hoka',
-    fontSize: 'var(--font-sizes-14)',
-    fontWeight: 'semibold',
-    lineHeight: 'body',
-    letterSpacing: '0',
-  },
-  'body4-2': {
-    fontFamily: 'hoka',
-    fontSize: 'var(--font-sizes-13)',
-    fontWeight: 'normal',
-    lineHeight: 'body',
-    letterSpacing: '0',
-  },
-  body5: {
-    fontFamily: 'hoka',
-    fontSize: 'var(--font-sizes-12)',
-    fontWeight: 'normal',
-    lineHeight: 'body',
-    letterSpacing: '0',
-  },
-  body6: {
-    fontFamily: 'hoka',
-    fontSize: 'var(--font-sizes-10)',
-    fontWeight: 'normal',
-    lineHeight: 'body',
-    letterSpacing: '0',
-  },
-  cta1: {
-    fontFamily: 'hoka',
-    fontSize: '16',
-    fontWeight: 'medium',
-    lineHeight: 'body',
-    letterSpacing: '0',
-  },
-  'cta1-1': {
-    fontFamily: 'hoka',
-    fontSize: 'var(--font-sizes-15)',
-    fontWeight: 'medium',
-    lineHeight: 'body',
-    letterSpacing: '0',
-  },
-  cta2: {
-    fontFamily: 'hoka',
-    fontSize: '14',
-    fontWeight: 'medium',
-    lineHeight: 'body',
-    letterSpacing: '0',
-  },
-  cta3: {
-    fontFamily: 'hoka',
-    fontSize: 'var(--font-sizes-12)',
-    fontWeight: 'medium',
-    lineHeight: 'body',
-    letterSpacing: '0',
-  },
-  caption1: {
-    fontFamily: 'hoka',
-    fontSize: 'var(--font-sizes-14)',
-    fontWeight: 'normal',
-    lineHeight: '170%',
-    letterSpacing: '0',
-  },
-  caption2: {
-    fontFamily: 'hoka',
-    fontSize: 'var(--font-sizes-13)',
-    fontWeight: 'normal',
-    lineHeight: '165%',
-    letterSpacing: '0',
-  },
-  textLink1: {
-    fontFamily: 'hoka',
-    fontSize: '16',
-    fontWeight: 'medium',
-    lineHeight: 'body',
-    letterSpacing: '0',
-    textDecoration: 'underline',
-  },
-  textLink2: {
-    fontFamily: 'hoka',
-    fontSize: '14',
-    fontWeight: 'medium',
-    lineHeight: 'body',
-    letterSpacing: '0',
-    textDecoration: 'underline',
-  },
-  textLink3: {
-    fontFamily: 'hoka',
-    fontSize: '12',
-    fontWeight: 'medium',
-    lineHeight: 'body',
-    letterSpacing: '0',
-    textDecoration: 'underline',
-  },
-  headingKr1: {
-    fontFamily: 'korean',
-    fontSize: 'var(--font-sizes-84)',
-    fontWeight: 'black',
-    lineHeight: 'koreanHeading',
-    letterSpacing: 'korean',
-    _mobile: {
-      fontSize: 'var(--font-sizes-50)',
-      fontWeight: 'black',
-    },
-  },
-  headingKr2: {
-    fontFamily: 'korean',
-    fontSize: 'var(--font-sizes-72)',
-    fontWeight: 'black',
-    lineHeight: 'koreanHeading',
-    letterSpacing: 'korean',
-    _mobile: {
-      fontSize: 'var(--font-sizes-42)',
-      fontWeight: 'black',
-    },
-  },
-  headingKr3: {
-    fontFamily: 'korean',
-    fontSize: 'var(--font-sizes-58)',
-    fontWeight: 'black',
-    lineHeight: 'koreanHeading',
-    letterSpacing: 'korean',
-    _mobile: {
-      fontSize: 'var(--font-sizes-36)',
-      fontWeight: 'black',
-    },
-  },
-  headingKr4: {
-    fontFamily: 'korean',
-    fontSize: 'var(--font-sizes-50)',
-    fontWeight: 'black',
-    lineHeight: 'koreanHeading',
-    letterSpacing: 'korean',
-    _mobile: {
-      fontSize: 'var(--font-sizes-28)',
-      fontWeight: 'black',
-    },
-  },
-  headingKr5: {
-    fontFamily: 'korean',
-    fontSize: 'var(--font-sizes-42)',
-    fontWeight: 'black',
-    lineHeight: 'koreanHeading',
-    letterSpacing: 'korean',
-    _mobile: {
-      fontSize: 'var(--font-sizes-22)',
-      fontWeight: 'black',
-    },
-  },
-  headingKr6: {
-    fontFamily: 'korean',
-    fontSize: 'var(--font-sizes-36)',
-    fontWeight: 'black',
-    lineHeight: 'koreanHeading',
-    letterSpacing: 'korean',
-    _mobile: {
-      fontSize: 'var(--font-sizes-20)',
-      fontWeight: 'bold',
-    },
-  },
-  headingKr6B: {
-    fontFamily: 'korean',
-    fontSize: 'var(--font-sizes-30)',
-    fontWeight: 'black',
-    lineHeight: 'koreanHeading',
-    letterSpacing: 'korean',
-    _mobile: {
-      fontSize: 'var(--font-sizes-20)',
-      fontWeight: 'black',
-    },
-  },
-  headingKr7: {
-    fontFamily: 'korean',
-    fontSize: 'var(--font-sizes-28)',
-    fontWeight: 'black',
-    lineHeight: 'koreanHeading',
-    letterSpacing: 'korean',
-    _mobile: {
-      fontSize: 'var(--font-sizes-16)',
-      fontWeight: 'semibold',
-    },
-  },
-  headingKr8: {
-    fontFamily: 'korean',
-    fontSize: 'var(--font-sizes-22)',
-    fontWeight: 'black',
-    lineHeight: 'koreanHeading',
-    letterSpacing: 'korean',
-    _mobile: {
-      fontSize: 'var(--font-sizes-16)',
-      fontWeight: 'semibold',
-    },
-  },
-  headingKr9: {
-    fontFamily: 'korean',
-    fontSize: 'var(--font-sizes-20)',
-    fontWeight: 'bold',
-    lineHeight: 'koreanHeading',
-    letterSpacing: 'korean',
-    _mobile: {
-      fontSize: 'var(--font-sizes-16)',
-      fontWeight: 'semibold',
-    },
-  },
-  headingKr10: {
-    fontFamily: 'korean',
-    fontSize: 'var(--font-sizes-16)',
-    fontWeight: 'semibold',
-    lineHeight: 'koreanHeading',
-    letterSpacing: 'korean',
-    _mobile: {
-      fontSize: 'var(--font-sizes-16)',
-      fontWeight: 'semibold',
-    },
-  },
-  bodyKr1: {
-    fontFamily: 'korean',
-    fontSize: 'var(--font-sizes-24)',
-    fontWeight: 'normal',
-    lineHeight: 'body',
-    letterSpacing: 'korean',
-  },
-  bodyKr2: {
-    fontFamily: 'korean',
-    fontSize: 'var(--font-sizes-20)',
-    fontWeight: 'normal',
-    lineHeight: 'body',
-    letterSpacing: 'korean',
-  },
-  'bodyKr2-2': {
-    fontFamily: 'korean',
-    fontSize: 'var(--font-sizes-18)',
-    fontWeight: 'normal',
-    lineHeight: 'body',
-    letterSpacing: 'korean',
-  },
-  bodyKr3: {
-    fontFamily: 'korean',
-    fontSize: 'var(--font-sizes-16)',
-    fontWeight: 'normal',
-    lineHeight: 'body',
-    letterSpacing: 'korean',
-  },
-  bodyKr3Medium: {
-    fontFamily: 'korean',
-    fontSize: 'var(--font-sizes-16)',
-    fontWeight: 'medium',
-    lineHeight: 'body',
-    letterSpacing: 'korean',
-  },
-  bodyKr3Semibold: {
-    fontFamily: 'korean',
-    fontSize: 'var(--font-sizes-16)',
-    fontWeight: 'semibold',
-    lineHeight: 'body',
-    letterSpacing: 'korean',
-  },
-  'bodyKr3-2': {
-    fontFamily: 'korean',
-    fontSize: 'var(--font-sizes-15)',
-    fontWeight: 'normal',
-    lineHeight: 'body',
-    letterSpacing: 'korean',
-  },
-  bodyKr4: {
-    fontFamily: 'korean',
-    fontSize: 'var(--font-sizes-14)',
-    fontWeight: 'normal',
-    lineHeight: 'body',
-    letterSpacing: 'korean',
-  },
-  bodyKr4Medium: {
-    fontFamily: 'korean',
-    fontSize: 'var(--font-sizes-14)',
-    fontWeight: 'medium',
-    lineHeight: 'body',
-    letterSpacing: 'korean',
-  },
-  bodyKr4Semibold: {
-    fontFamily: 'korean',
-    fontSize: 'var(--font-sizes-14)',
-    fontWeight: 'semibold',
-    lineHeight: 'body',
-    letterSpacing: 'korean',
-  },
-  'bodyKr4-2': {
-    fontFamily: 'korean',
-    fontSize: 'var(--font-sizes-13)',
-    fontWeight: 'normal',
-    lineHeight: 'body',
-    letterSpacing: 'korean',
-  },
-  bodyKr5: {
-    fontFamily: 'korean',
-    fontSize: 'var(--font-sizes-12)',
-    fontWeight: 'normal',
-    lineHeight: 'body',
-    letterSpacing: 'korean',
-  },
-  bodyKr6: {
-    fontFamily: 'korean',
-    fontSize: 'var(--font-sizes-10)',
-    fontWeight: 'normal',
-    lineHeight: 'body',
-    letterSpacing: 'korean',
-  },
-  ctaKr1: {
-    fontFamily: 'korean',
-    fontSize: '16',
-    fontWeight: 'semibold',
-    lineHeight: 'body',
-    letterSpacing: 'korean',
-  },
-  'ctaKr1-1': {
-    fontFamily: 'korean',
-    fontSize: 'var(--font-sizes-15)',
-    fontWeight: 'semibold',
-    lineHeight: 'body',
-    letterSpacing: 'korean',
-  },
-  ctaKr2: {
-    fontFamily: 'korean',
-    fontSize: '14',
-    fontWeight: 'semibold',
-    lineHeight: 'body',
-    letterSpacing: 'korean',
-  },
-  ctaKr3: {
-    fontFamily: 'korean',
-    fontSize: 'var(--font-sizes-12)',
-    fontWeight: 'semibold',
-    lineHeight: 'body',
-    letterSpacing: 'korean',
-  },
-  captionKr1: {
-    fontFamily: 'korean',
-    fontSize: 'var(--font-sizes-14)',
-    fontWeight: 'normal',
-    lineHeight: '170%',
-    letterSpacing: 'korean',
-  },
-  captionKr2: {
-    fontFamily: 'korean',
-    fontSize: 'var(--font-sizes-13)',
-    fontWeight: 'normal',
-    lineHeight: '165%',
-    letterSpacing: 'korean',
-  },
-  textLinkKr1: {
-    fontFamily: 'korean',
-    fontSize: '16',
-    fontWeight: 'medium',
-    lineHeight: 'body',
-    letterSpacing: 'korean',
-    textDecoration: 'underline',
-  },
-  textLinkKr2: {
-    fontFamily: 'korean',
-    fontSize: '14',
-    fontWeight: 'medium',
-    lineHeight: 'body',
-    letterSpacing: 'korean',
-    textDecoration: 'underline',
-  },
-  textLinkKr3: {
-    fontFamily: 'korean',
-    fontSize: '12',
-    fontWeight: 'medium',
-    lineHeight: 'body',
-    letterSpacing: 'korean',
-    textDecoration: 'underline',
-  },
-} as const;
-
 const typographyTone = cva({ variants: { tone: typographyTones } });
 
-const typography = cva({
-  base: { fontFamily: 'var(--font-family-base)', transform: 'translateY(1px)' },
-  variants: {
-    variant: {
-      ...figmaTypographyVariants,
-      ...elandTypographyRecipe.config.variants?.variant,
-      cta2: {
-        ...figmaTypographyVariants.cta2,
-        _mobile: { fontSize: 'var(--home-body-14, var(--font-sizes-14))' },
-      },
-      ctaKr2: {
-        ...figmaTypographyVariants.ctaKr2,
-        _mobile: { fontSize: 'var(--home-body-14, var(--font-sizes-14))' },
-      },
-      textLink2: {
-        ...figmaTypographyVariants.textLink2,
-        _mobile: { fontSize: 'var(--home-body-14, var(--font-sizes-14))' },
-      },
-      textLinkKr2: {
-        ...figmaTypographyVariants.textLinkKr2,
-        _mobile: { fontSize: 'var(--home-body-14, var(--font-sizes-14))' },
-      },
-    },
-    weight: {
-      regular: {
-        fontWeight: 'normal',
-        _mobile: { fontWeight: 'normal' },
-      },
-      medium: {
-        fontWeight: 'medium',
-        _mobile: { fontWeight: 'medium' },
-      },
-      semibold: {
-        fontWeight: 'semibold',
-        _mobile: { fontWeight: 'semibold' },
-      },
-      bold: {
-        fontWeight: 'bold',
-        _mobile: { fontWeight: 'bold' },
-      },
-      black: {
-        fontWeight: 'black',
-        _mobile: { fontWeight: 'black' },
-      },
-      inherit: {
-        fontWeight: 'inherit',
-        _mobile: { fontWeight: 'inherit' },
-      },
-    },
-    script: {
-      en: { fontFamily: 'hoka', letterSpacing: '0' },
-      ko: { fontFamily: 'korean', letterSpacing: 'korean' },
-    },
-    tone: typographyTones,
-  },
-});
+const typographyBase = css({ transform: 'translateY(1px)' });
 
-export type TypographyVariant =
-  | `heading${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | '6B'}`
-  | `headingKr${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | '6B'}`
-  | `body${1 | 2 | 3 | 4 | 5 | 6 | '2-2' | '3-2' | '4-2'}`
-  | `body${3 | 4}${'Medium' | 'Semibold'}`
-  | `bodyKr${1 | 2 | 3 | 4 | 5 | 6 | '2-2' | '3-2' | '4-2'}`
-  | `bodyKr${3 | 4}${'Medium' | 'Semibold'}`
-  | 'ctaKr1'
-  | 'ctaKr1-1'
-  | 'ctaKr2'
-  | 'ctaKr3'
-  | 'captionKr1'
-  | 'captionKr2'
-  | 'textLinkKr1'
-  | 'textLinkKr2'
-  | 'textLinkKr3'
-  | 'cta1'
-  | 'cta1-1'
-  | 'cta2'
-  | 'cta3'
-  | 'caption1'
-  | 'caption2'
-  | 'textLink1'
-  | 'textLink2'
-  | 'textLink3'
-  | keyof typeof elandTypographyVariants;
+const inheritedWeight = css({ fontWeight: 'inherit' });
+
+const underlined = css({ textDecoration: 'underline' });
+
+type WeightValue = (typeof typographyWeights)[keyof typeof typographyWeights];
+
+export type TypographyWeight =
+  keyof typeof typographyWeights | 'inherit' | `${WeightValue}-${WeightValue}`;
 
 export type TypographyProps<T extends ElementType = 'span'> = Omit<
   ComponentPropsWithoutRef<T>,
@@ -670,17 +49,15 @@ export type TypographyProps<T extends ElementType = 'span'> = Omit<
   as?: T;
   children: ReactNode;
   tone?: TypographyTone;
-  /** Visually hides text while keeping it available to screen readers. */
   srOnly?: boolean;
-  /** Explicit tone overrides the inherited color. */
-  variant?: TypographyVariant;
-  /** Web override; falls back to variant when omitted. */
+  variant?: ResponsiveTypographyVariant;
   web?: TypographyVariant;
-  /** Mobile override; falls back to variant when omitted. */
-  mo?: TypographyVariant;
-  /** Defaults to auto: Hangul selects KR for paired variants; other semantic variants stay unchanged. */
-  language?: 'auto' | 'en' | 'ko';
-  weight?: 'regular' | 'medium' | 'semibold' | 'bold' | 'black' | 'inherit';
+  mo?: ResponsiveTypographyVariant;
+  /** Defaults to auto. Hangul text selects Pretendard. */
+  language?: 'auto' | TypographyLanguage;
+  /** Use a variant suffix for fixed weights. Dynamic states resolve to a registered style. */
+  weight?: TypographyWeight;
+  underline?: boolean;
 };
 
 function containsHangul(children: ReactNode): boolean {
@@ -692,24 +69,45 @@ function containsHangul(children: ReactNode): boolean {
   return false;
 }
 
-function resolveLanguageVariant(
-  variant: TypographyVariant | undefined,
-  language: TypographyProps['language'],
-  children: ReactNode,
-): TypographyVariant | undefined {
-  if (!variant || !language) return variant;
+function resolveVariant(
+  variant: TypographyVariant,
+  language: TypographyLanguage,
+  mobile: boolean,
+  weight: TypographyWeight | undefined,
+): TypographyVariant {
+  if (variant.startsWith('d')) return variant;
 
-  const pair =
-    /^(heading|body|caption|cta|textLink)(?:Kr)?(\d+(?:-\d+)?B?)(Medium|Semibold)?$/.exec(variant);
-  if (!pair) return variant;
+  const requested =
+    weight && weight !== 'inherit'
+      ? weight in typographyWeights
+        ? typographyWeights[weight as keyof typeof typographyWeights]
+        : Number(weight.split('-')[mobile ? 1 : 0])
+      : undefined;
 
-  const korean = language === 'ko' || (language === 'auto' && containsHangul(children));
-  const resolved = `${pair[1]}${korean ? 'Kr' : ''}${pair[2]}${pair[3] ?? ''}`;
+  if (variant.startsWith('h')) {
+    return requested === undefined
+      ? variant
+      : (variant.replace(/B?$/, requested >= 800 ? 'B' : '') as TypographyVariant);
+  }
 
-  return resolved in figmaTypographyVariants ? (resolved as TypographyVariant) : variant;
+  const level = variant.slice(0, 2);
+  const existing = variant.slice(2);
+  const suffix =
+    requested === undefined
+      ? existing
+      : requested >= 800
+        ? 'E'
+        : requested >= 700
+          ? 'B'
+          : requested >= 600
+            ? 'S'
+            : requested >= 500
+              ? 'M'
+              : '';
+  return `${level}${language === 'en' && (suffix === 'S' || suffix === 'E') ? 'B' : suffix}` as TypographyVariant;
 }
 
-/** 웹·모바일의 HOKA 및 고객사 타이포그래피를 적용합니다. (Applies HOKA and customer typography on web and mobile.) */
+/** 화면과 언어에 맞는 HOKA 텍스트 스타일을 적용합니다. (Applies HOKA text styles for the active platform and language.) */
 export function Typography<T extends ElementType = 'span'>({
   as,
   children,
@@ -722,30 +120,28 @@ export function Typography<T extends ElementType = 'span'>({
   mo,
   language = 'auto',
   weight,
+  underline = false,
   ...props
 }: TypographyProps<T>) {
   const Element = as ?? 'span';
-  const platform = usePlatform();
-  const selectedVariant = (platform === 'mobile' ? mo : web) ?? variant;
-  const resolvedVariant = resolveLanguageVariant(selectedVariant, language, children);
-  const resolvedTone = tone ?? (selectedVariant ? 'inherit' : undefined);
-
-  const namedTone = resolvedTone && isNamedTone(resolvedTone) ? resolvedTone : undefined;
+  const mobile = usePlatform() === 'mobile';
+  const selected = (mobile ? mo : web) ?? variant;
+  const lang = language === 'auto' ? (containsHangul(children) ? 'ko' : 'en') : language;
+  const resolved = selected && resolveVariant(selected, lang, mobile, weight);
+  const platform = resolved?.startsWith('b') ? 'common' : mobile ? 'compact' : 'wide';
+  const textStyle = resolved && (`${lang}-${platform}-${resolved}` as TypographyStyleKey);
+  const namedTone = tone && isNamedTone(tone) ? tone : undefined;
 
   return (
     <Element
       {...props}
       style={tone && !namedTone ? { color: resolveToneColor(tone), ...style } : style}
       className={cx(
-        selectedVariant
-          ? typography({
-              tone: namedTone,
-              variant: resolvedVariant,
-              weight,
-            })
-          : namedTone
-            ? typographyTone({ tone: namedTone })
-            : undefined,
+        textStyle && typographyBase,
+        textStyle && css({ textStyle }),
+        namedTone && typographyTone({ tone: namedTone }),
+        textStyle && weight === 'inherit' && inheritedWeight,
+        underline && underlined,
         srOnly && css({ srOnly: true }),
         className,
       )}

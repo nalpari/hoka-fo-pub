@@ -1,5 +1,6 @@
 import type { ModalDialogVariant } from '@/components/common/layouts/ModalDialog';
 
+import { orderPreviews } from '@/app/mypage/orders/orderPreviews';
 import { productDetailPreviews } from '@/app/products/[id]/productDetailPreviews';
 import {
   getProductListingIaKey,
@@ -146,6 +147,10 @@ const connections: Record<number, ScreenConnection> = {
     route: '/',
     sourceFiles: ['src/app/page.tsx'],
   },
+  '2': {
+    previewRoutes: [{ label: '홍보 레이어 팝업', href: '/preview-promotion' }],
+    sourceFiles: ['src/app/preview-promotion/page.tsx'],
+  },
   '155': {
     sourceFiles: ['src/app/running/running-session/page.tsx'],
   },
@@ -172,18 +177,22 @@ const connections: Record<number, ScreenConnection> = {
     route: '/checkout',
     previewRoutes: [
       { label: '입력·동의 오류', href: '/checkout/preview-error' },
+      { label: '필수 입력 누락 안내', href: '/checkout/preview-required-fields' },
       { label: '주문 완료', href: '/checkout/preview-complete' },
       { label: '기본배송지 주소가 없는 사용자', href: '/checkout/preview-shipping' },
       { label: '배송 요청사항 직접입력', href: '/checkout/preview-delivery-request' },
       { label: '보유 쿠폰 조회', href: '/checkout/preview-coupons' },
+      { label: '쿠폰 변경 확인 얼럿', href: '/checkout/preview-coupon-change' },
     ],
     sourceFiles: [
       'src/app/checkout/page.tsx',
       'src/app/checkout/preview-error/page.tsx',
+      'src/app/checkout/preview-required-fields/page.tsx',
       'src/app/checkout/preview-complete/page.tsx',
       'src/app/checkout/preview-shipping/page.tsx',
       'src/app/checkout/preview-delivery-request/page.tsx',
       'src/app/checkout/preview-coupons/page.tsx',
+      'src/app/checkout/preview-coupon-change/page.tsx',
     ],
   },
   '172': {
@@ -203,19 +212,22 @@ const connections: Record<number, ScreenConnection> = {
   '177': {
     route: '/mypage',
     defaultStateLabel: '회원 요약 및 메뉴',
-    previewRoutes: [{ label: '로그아웃 확인', href: '/mypage/preview-logout' }],
-    sourceFiles: ['src/app/mypage/page.tsx', 'src/app/mypage/preview-logout/page.tsx'],
+    previewRoutes: [
+      { label: '이전 주문 없음 주소 (마이페이지 이동)', href: '/mypage/preview-no-orders' },
+      { label: '로그아웃 확인', href: '/mypage/preview-logout' },
+    ],
+    sourceFiles: [
+      'src/app/mypage/page.tsx',
+      'src/app/mypage/preview-no-orders/page.tsx',
+      'src/app/mypage/preview-logout/page.tsx',
+    ],
   },
   '178': {
     route: '/mypage/orders',
     defaultStateLabel: '목록 있음',
     previewRoutes: [
       { label: '빈 목록', href: '/mypage/orders/preview-empty' },
-      { label: '주문 취소 신청', href: '/mypage/orders/preview-cancel-request' },
-      { label: '반품 신청', href: '/mypage/orders/preview-return-request' },
-      { label: '배송 조회', href: '/mypage/orders/preview-tracking' },
-      { label: '구매 확정 확인', href: '/mypage/orders/preview-purchase-confirm' },
-      { label: '주문 삭제 확인', href: '/mypage/orders/preview-delete-confirm' },
+      ...orderPreviews.map(({ label, href }) => ({ label, href })),
     ],
     sourceFiles: [
       'src/app/mypage/orders/page.tsx',
@@ -492,6 +504,11 @@ const connections: Record<number, ScreenConnection> = {
     sourceFiles: ['src/app/support/store/page.tsx'],
   },
   '213': {
+    defaultStateLabel: '현재 로그인 상태',
+    previewRoutes: [
+      { label: '로그인 전', href: '/support/member-benefits?preview=logged-out' },
+      { label: '로그인 후', href: '/support/member-benefits?preview=logged-in' },
+    ],
     route: '/support/member-benefits',
     sourceFiles: ['src/app/support/member-benefits/page.tsx'],
   },
@@ -666,10 +683,6 @@ const connections: Record<number, ScreenConnection> = {
     route: '/login/account-locked/complete',
     sourceFiles: ['src/app/login/account-locked/complete/page.tsx'],
   },
-  '255': {
-    route: '/signup/information?step=additional',
-    sourceFiles: ['src/app/signup/information/page.tsx'],
-  },
   '256': {
     route: '/signup/information/preview-marketing-consent',
     sourceFiles: [
@@ -692,13 +705,28 @@ const connections: Record<number, ScreenConnection> = {
       { label: '신청 가능', href: '/running/running-session/yeouido-night' },
       { label: '모집 마감', href: '/running/running-session/bukhansan-trail' },
       { label: '신청 예정', href: '/running/running-session/inwangsan-trail' },
-      { label: '신청 안내', href: '/running/running-session/preview-application' },
-      { label: '신청 완료 안내', href: '/running/running-session/preview-application-complete' },
+      { label: '러닝세션 신청 확인 팝업', href: '/running/running-session/preview-application' },
+      {
+        label: '러닝세션 신청 완료 팝업',
+        href: '/running/running-session/preview-application-complete',
+      },
+      {
+        label: '미성년자 신청 제한 팝업',
+        href: '/running/running-session/preview-application-underage',
+      },
+      {
+        label: '모집 마감 안내 팝업',
+        href: '/running/running-session/preview-application-closed',
+      },
+      { label: '신청완료 상세', href: '/running/running-session/preview-application-registered' },
     ],
     sourceFiles: [
       'src/app/running/running-session/[sessionId]/page.tsx',
       'src/app/running/running-session/preview-application/page.tsx',
       'src/app/running/running-session/preview-application-complete/page.tsx',
+      'src/app/running/running-session/preview-application-underage/page.tsx',
+      'src/app/running/running-session/preview-application-closed/page.tsx',
+      'src/app/running/running-session/preview-application-registered/page.tsx',
     ],
   },
   '260': {
@@ -897,6 +925,14 @@ export function getScreenStatePreviews(connection: ScreenConnection | undefined)
 // Only dialogs opened by the route's prepared state are listed; shared imports and closed
 // interaction dialogs do not establish a modal state. Keep nested dialogs together.
 const stateModalVariants: Readonly<Record<string, readonly ModalDialogVariant[]>> = {
+  '/products/pdp-preview/inquiry-form': ['form'],
+  ...Object.fromEntries(
+    productDetailPreviews.flatMap((preview) =>
+      'notice' in preview
+        ? [[`/products/pdp-preview/${preview.state}`, [preview.notice.variant]]]
+        : [],
+    ),
+  ),
   '/launch-calendar/clifton-11-gtx/preview-notification': ['form'],
   '/launch-calendar/clifton-11-gtx/preview-phone-required': ['alert'],
   // CartDialogs and CheckoutStatePreview.
@@ -905,6 +941,8 @@ const stateModalVariants: Readonly<Record<string, readonly ModalDialogVariant[]>
   '/cart/preview-options-apparel-changed': ['productOption'],
   '/cart/preview-limit': ['alert'],
   '/checkout/preview-coupons': ['productSelection'],
+  '/checkout/preview-coupon-change': ['confirm'],
+  '/checkout/preview-required-fields': ['alert'],
   '/checkout/preview-address-change': ['form'],
   '/checkout/preview-address-edit': ['form'],
   '/checkout/preview-address-new': ['form'],
@@ -915,6 +953,9 @@ const stateModalVariants: Readonly<Record<string, readonly ModalDialogVariant[]>
   '/mypage/orders/preview-tracking': ['tracking'],
   '/mypage/orders/preview-purchase-confirm': ['confirm'],
   '/mypage/orders/preview-delete-confirm': ['confirm'],
+  '/mypage/orders/preview-delete-blocked': ['alert'],
+  '/mypage/orders/preview-cart-sold-out': ['alert'],
+  '/mypage/orders/preview-cart-added': ['alert'],
   '/mypage/reviews/preview-new': ['form'],
   '/mypage/reviews/preview-edit': ['form'],
   '/mypage/reviews/preview-error': ['form'],
@@ -957,8 +998,10 @@ const stateModalVariants: Readonly<Record<string, readonly ModalDialogVariant[]>
   // These PDP option sheets open only in the existing mobile presentation.
   '/products/pdp-preview/options-selected': ['selection'],
   '/products/pdp-preview/options-scroll': ['selection'],
-  '/running/running-session/preview-application': ['alert'],
+  '/running/running-session/preview-application': ['selection'],
   '/running/running-session/preview-application-complete': ['alert'],
+  '/running/running-session/preview-application-underage': ['alert'],
+  '/running/running-session/preview-application-closed': ['alert'],
 };
 
 /** 지정 STATE URL에서 처음 열리는 모달 유형을 반환합니다. */

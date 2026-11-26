@@ -1,285 +1,249 @@
 'use client';
 
 import { useState } from 'react';
+import { PlatformProvider } from '@/context/platform';
 
 import { css } from 'styled-system/css';
-import { Stack } from 'styled-system/jsx';
-import { token, type Token } from 'styled-system/tokens';
 
-import { figmaTypographyVariants, Typography } from '@/components/common/atoms/Typography';
+import { Typography } from '@/components/common/atoms/Typography';
 
-import { ContentLayout } from '@/components/common/layouts/ContentLayout';
+import { SupportTabs } from '@/components/common/molecules/SupportTabs';
 
-type GuideVariant = keyof typeof figmaTypographyVariants;
+import { type ResponsiveTypographyVariant, typographyStyles } from '@/styles/typography';
 
-const guideVariants = Object.keys(figmaTypographyVariants) as GuideVariant[];
+const groups = [
+  { id: 'display', title: 'Display' },
+  { id: 'heading', title: 'Heading' },
+  { id: 'body', title: 'Body' },
+] as const;
 
-const pairedVariants = guideVariants
-  .filter((name) => !name.includes('Kr') && !name.startsWith('mono'))
-  .map((english) => ({
-    english,
-    korean: english.replace(/(\d+)$/, 'Kr$1') as GuideVariant,
-  }));
+const platforms = [
+  { value: 'wide', label: 'Wide' },
+  { value: 'compact', label: 'Compact' },
+] as const;
 
-const columnLabels = [
-  'Variant',
-  'Web Font Size',
-  'Mobile Font Size',
-  'Font Weight',
-  'Font Family',
-  'Line Height',
-  'Letter Spacing',
-];
-
-const comparisonColumnLabels = ['Variant', 'Lang', ...columnLabels.slice(1), 'Example'];
-
-const lineHeightValues: Record<string, string> = {
-  body: '130%',
-  hoka: '100%',
-  koreanHeading: '120%',
-};
-
-function getFontSize(value: string) {
-  const size = value.replace(/^var\(--font-sizes-(.+)\)$/, '$1');
-
-  const rem = token(`fontSizes.${size}` as Extract<Token, `fontSizes.${string}`>);
-
-  return `${Number.parseFloat(rem) * 16}px / ${rem}`;
-}
-
-function getLineHeight(value: string) {
-  return lineHeightValues[value] ?? value;
-}
-
-function getTypographyValues(variant: GuideVariant) {
-  const definition = figmaTypographyVariants[variant];
-  const mobile = '_mobile' in definition ? definition._mobile : definition;
-  const webWeight = token(`fontWeights.${definition.fontWeight}`);
-  const mobileWeight = token(`fontWeights.${mobile.fontWeight}`);
-
-  return [
-    getFontSize(definition.fontSize),
-    getFontSize(mobile.fontSize),
-    variant.startsWith('body')
-      ? `${webWeight} / ${token('fontWeights.medium')}`
-      : webWeight === mobileWeight
-        ? webWeight
-        : `${webWeight} / 모바일 ${mobileWeight}`,
-    definition.fontFamily === 'korean' ? 'Pretendard' : 'The Future HOKA',
-    getLineHeight(definition.lineHeight),
-    definition.letterSpacing === '0' ? '0' : token(`letterSpacings.${definition.letterSpacing}`),
-  ];
-}
+export const typographyGuideSections = groups.map(({ id, title }) => ({
+  id: `typography-${id}`,
+  title,
+  description: id === 'body' ? '공통' : 'Wide · Compact',
+}));
 
 const styles = {
-  page: css({
-    maxW: 'none',
-    bg: '#f6f8ff',
-    px: '6',
-    py: '6',
-    _mobile: { px: '4', py: '4' },
-  }),
-  typographySection: css({
+  section: css({
+    display: 'grid',
+    gap: '3',
     minW: '0',
-    p: '6',
-    border: '1px solid #dbe5ff',
-    borderRadius: '10px',
-    bg: '#fff',
-    color: '#171f38',
-    _mobile: { p: '4' },
-    '& h2': { m: '0', mb: '3', fontSize: '20', fontWeight: 'bold' },
-    '& p': { m: '0', mb: '5', fontSize: '14', lineHeight: '1.7', color: '#68718a' },
+    scrollMarginTop: 'calc(var(--layout-site-header-height) + 16px)',
   }),
-  tableScroll: css({
-    overflowX: 'auto',
+  scroll: css({
     maxW: '100%',
-    border: '1px solid #dbe5ff',
-    borderRadius: '8px',
-    _focusVisible: { outline: '2px solid #2a14b4', outlineOffset: '2px' },
+    overflowX: 'auto',
+    border: '1px solid token(colors.black.20)',
+    borderRadius: '2',
   }),
+  platformTable: css({ mt: '3' }),
   table: css({
     w: '100%',
+    minW: '680px',
     borderCollapse: 'collapse',
-    fontSize: '14',
-    lineHeight: '1.5',
+    textAlign: 'left',
+    '& th, & td': { px: '3', py: '2', borderBottom: '1px solid token(colors.black.20)' },
+    '& thead th': { bg: 'surface.subtle' },
+  }),
+  copy: css({
+    p: '0',
+    border: '0',
+    bg: 'transparent',
+    color: 'inherit',
     textAlign: 'left',
     whiteSpace: 'nowrap',
-    fontVariantNumeric: 'tabular-nums',
-    '& th, & td': { py: '3', px: '4', borderBottom: '1px solid #dbe5ff' },
-    '& thead th': { bg: '#f6f8ff', fontWeight: 'bold' },
-    '& tbody th': { fontWeight: 'semibold' },
-    '& tbody:last-child tr:last-child > *': { borderBottom: '0' },
-  }),
-  pairedTable: css({
-    minW: '1100px',
-    '& tbody:nth-of-type(even)': { bg: '#fafbff' },
-    '& [rowspan]': { verticalAlign: 'middle' },
-    '& tbody:last-child [rowspan]': { borderBottom: '0' },
-  }),
-  variantCell: css({
     cursor: 'pointer',
-    _hover: { bg: '#e8edf3' },
+    _focusVisible: { outline: '2px solid token(colors.blue.100)' },
   }),
-  copyButton: css({
-    display: 'block',
-    w: '100%',
-    bg: 'transparent',
-    border: '0',
-    p: '0',
-    color: 'inherit',
-    font: 'inherit',
-    textAlign: 'left',
-    cursor: 'pointer',
-    _focusVisible: { outline: '2px solid #009DFF', outlineOffset: '4px' },
-  }),
-  status: css({ minH: '24px', fontSize: '14', color: '#4D4D4D' }),
 };
 
-/** 한영 타이포그래피 규격과 실제 글자 예시를 비교합니다. (Compares English and Korean typography specifications and rendered samples.) */
+type StyleEntry = (typeof typographyStyles)[number];
+
+const exampleWeights = {
+  display: [900],
+  heading: [700, 900],
+  body: [400, 500, 600, 700, 800],
+} as const;
+
+function TypographyExample({
+  entry,
+  onCopy,
+}: {
+  entry: StyleEntry;
+  onCopy: (path: string, code: string) => void;
+}) {
+  const sample = entry.language === 'ko' ? '호카 타이포그래피' : 'The Future HOKA';
+  const platform = entry.platform === 'compact' ? 'mobile' : 'web';
+  const variantProp =
+    entry.platform === 'common' ? 'variant' : entry.platform === 'wide' ? 'web' : 'mo';
+  const code = `<Typography ${variantProp}="${entry.variant}" language="${entry.language}">${sample}</Typography>`;
+  const sampleProps =
+    entry.platform === 'wide'
+      ? { web: entry.variant }
+      : entry.platform === 'compact'
+        ? { mo: entry.variant as ResponsiveTypographyVariant }
+        : { variant: entry.variant as ResponsiveTypographyVariant };
+
+  return (
+    <button
+      type="button"
+      className={styles.copy}
+      aria-label={`${entry.path} 예시 코드 복사`}
+      onClick={() => onCopy(entry.path, code)}
+    >
+      <PlatformProvider platform={platform}>
+        <Typography {...sampleProps} language={entry.language} data-typography-style={entry.key}>
+          {sample}
+        </Typography>
+      </PlatformProvider>
+    </button>
+  );
+}
+
+function TypographyStyleTable({
+  label,
+  entries,
+  onCopy,
+  withinTab = false,
+}: {
+  label: string;
+  entries: readonly StyleEntry[];
+  onCopy: (path: string, code: string) => void;
+  withinTab?: boolean;
+}) {
+  const weights = exampleWeights[entries[0].group];
+  const rows = new Map<string, StyleEntry[]>();
+  for (const entry of entries) {
+    const path = entry.path.replace(/[BMSE]$/, '');
+    const row = rows.get(path);
+    if (row) row.push(entry);
+    else rows.set(path, [entry]);
+  }
+
+  return (
+    <div
+      className={withinTab ? `${styles.scroll} ${styles.platformTable}` : styles.scroll}
+      role="region"
+      aria-label={label}
+      tabIndex={0}
+    >
+      <table className={styles.table}>
+        <thead>
+          <tr>
+            {[
+              'Figma 경로',
+              '글꼴',
+              '크기',
+              '행간',
+              '자간',
+              ...weights.map((weight) => `예시 ${weight}`),
+            ].map((column) => (
+              <th key={column} scope="col">
+                <Typography variant="b6B">{column}</Typography>
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {[...rows].map(([path, [entry, ...variants]]) => (
+            <tr key={path}>
+              <th scope="row">
+                <Typography variant="b6M" language="en">
+                  {path}
+                </Typography>
+              </th>
+              {[
+                entry.fontFamily,
+                `${entry.fontSize}px`,
+                `${entry.lineHeight * 100}%`,
+                entry.letterSpacing,
+              ].map((value, index) => (
+                <td key={index}>
+                  <Typography variant="b7" language="en">
+                    {value}
+                  </Typography>
+                </td>
+              ))}
+              {weights.map((weight) => {
+                const example =
+                  entry.fontWeight === weight
+                    ? entry
+                    : variants.find((variant) => variant.fontWeight === weight);
+                return (
+                  <td key={weight}>
+                    {example ? <TypographyExample entry={example} onCopy={onCopy} /> : '—'}
+                  </td>
+                );
+              })}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+/** Figma의 등록 스타일과 실제 렌더링을 보여주는 비교표입니다. (Shows registered Figma text styles and live examples.) */
 export function DesignGuideTypography() {
   const [copyStatus, setCopyStatus] = useState('');
 
-  async function copyVariant(variant: GuideVariant) {
-    const code = `<Typography variant="${variant}">가나다라마바사abcdefg</Typography>`;
-
+  async function copyStyle(path: string, code: string) {
     try {
-      if (!navigator.clipboard?.writeText) {
-        setCopyStatus(`클립보드를 사용할 수 없습니다. ${code}를 직접 복사해 주세요.`);
-        return;
-      }
-
       await navigator.clipboard.writeText(code);
-      setCopyStatus(`${variant} 코드 복사 완료`);
+      setCopyStatus(`${path} 코드 복사 완료`);
     } catch {
-      setCopyStatus(`복사하지 못했습니다. ${code}를 직접 복사해 주세요.`);
+      setCopyStatus(`코드를 복사하지 못했습니다. ${code}`);
     }
   }
 
   return (
-    <ContentLayout
-      className={styles.page}
-      breadcrumbItems={[
-        { label: 'HOME', href: '/' },
-        { label: 'DEVELOPMENT' },
-        { label: '디자인 가이드' },
-        { label: 'Typography' },
-      ]}
-      title="Typography"
-      description="디자인 가이드의 영문·한글 타이포그래피와 실제 렌더링 예시입니다."
-    >
-      <Typography as="p" className={styles.status}>
-        Variant 셀을 클릭하면 Typography 예시 코드를 복사합니다.
+    <>
+      <Typography as="p" variant="b8" tone="subtle">
+        예시 문구를 클릭하면 해당 스타일의 적용 코드가 복사됩니다.
       </Typography>
-      <Typography
-        as="p"
-        className={styles.status}
-        role="status"
-        aria-live="polite"
-        aria-atomic="true"
-      >
+      <Typography as="p" variant="b8" role="status" aria-live="polite">
         {copyStatus}
       </Typography>
-      <Stack gap="6" mt="6">
-        <section className={styles.typographySection} aria-labelledby="typography-comparison-title">
-          <Typography as="h2" id="typography-comparison-title">
-            Typography · 한영 비교
-          </Typography>
-          <Typography as="p">
-            디자인 가이드의 Heading, Body, CTA, Text Link를 같은 번호의 EN·KO 행으로 비교합니다.
-            크기는 기본 루트 16px 기준의 px/rem으로 병기합니다. 실제 rem 크기는 사용자 기본 글자
-            크기 설정을 따릅니다. Body는 400/500 예시를 함께 표시하며, 모바일 굵기가 다르면 별도로
-            표기합니다. 좁은 화면에서는 표를 좌우로 스크롤할 수 있습니다.
-          </Typography>
-          <Typography as="p">
-            국문 Heading은 행간 120%·자간 -0.02em, 영문 Heading은 행간 100%·자간 0을 유지합니다.
-            영문·국문 가이드의 모바일 Heading은 H7까지이며, 기존 H8·H9는 모바일에서 영문
-            16px/500·국문 16px/600으로 표시하는 호환 규칙을 유지합니다.
-          </Typography>
-          <div
-            className={styles.tableScroll}
-            role="region"
-            aria-label="한영 타이포그래피 비교표"
-            tabIndex={0}
-          >
-            <table
-              className={`${styles.table} ${styles.pairedTable}`}
-              aria-labelledby="typography-comparison-title"
-            >
-              <thead>
-                <tr>
-                  {comparisonColumnLabels.map((label) => (
-                    <th key={label} scope="col">
-                      {label}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              {pairedVariants.map(({ english, korean }) => {
-                const enValues = getTypographyValues(english);
-                const koValues = getTypographyValues(korean);
-
-                return (
-                  <tbody key={english}>
-                    <tr>
-                      <th
-                        scope="rowgroup"
-                        rowSpan={2}
-                        className={styles.variantCell}
-                        onClick={() => void copyVariant(english)}
-                      >
-                        <button
-                          type="button"
-                          className={styles.copyButton}
-                          aria-label={`${english} Typography 코드 복사`}
-                        >
-                          {english}
-                        </button>
-                      </th>
-                      <th scope="row">EN</th>
-                      {enValues.map((value, index) => (
-                        <td
-                          key={columnLabels[index + 1]}
-                          rowSpan={value === koValues[index] ? 2 : 1}
-                        >
-                          {value}
-                        </td>
-                      ))}
-                      <td>
-                        <Typography variant={english} lang="en">
-                          abcdefghijklmn
-                        </Typography>
-                        {english.startsWith('body') && (
-                          <Typography as="div" variant={english} lang="en" weight="medium">
-                            abcdefghijklmn
-                          </Typography>
-                        )}
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">KO</th>
-                      {koValues.map((value, index) =>
-                        value === enValues[index] ? null : (
-                          <td key={columnLabels[index + 1]}>{value}</td>
-                        ),
-                      )}
-                      <td>
-                        <Typography variant={korean} lang="ko">
-                          가나다라마바사
-                        </Typography>
-                        {korean.startsWith('body') && (
-                          <Typography as="div" variant={korean} lang="ko" weight="medium">
-                            가나다라마바사
-                          </Typography>
-                        )}
-                      </td>
-                    </tr>
-                  </tbody>
-                );
-              })}
-            </table>
-          </div>
-        </section>
-      </Stack>
-    </ContentLayout>
+      {groups.map(({ id, title }) => {
+        const entries = typographyStyles.filter((entry) => entry.group === id);
+        return (
+          <section key={id} id={`typography-${id}`} className={styles.section}>
+            <Typography as="h3" web="h10B" mo="h7B">
+              {title}
+            </Typography>
+            {id === 'body' ? (
+              <TypographyStyleTable
+                label="Body 스타일 비교표"
+                entries={entries}
+                onCopy={copyStyle}
+              />
+            ) : (
+              <SupportTabs
+                ariaLabel={`${title} 플랫폼`}
+                defaultValue="wide"
+                variant="guide"
+                tabs={platforms.map(({ value, label }) => ({
+                  value,
+                  label,
+                  content: (
+                    <TypographyStyleTable
+                      label={`${title} ${label} 스타일 비교표`}
+                      entries={entries.filter((entry) => entry.platform === value)}
+                      onCopy={copyStyle}
+                      withinTab
+                    />
+                  ),
+                }))}
+              />
+            )}
+          </section>
+        );
+      })}
+    </>
   );
 }

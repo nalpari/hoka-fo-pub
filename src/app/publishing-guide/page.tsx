@@ -57,13 +57,13 @@ export default function PublishingGuidePage() {
       pb={{ base: '24', _mobile: '24' }}
     >
       <Stack gap="1">
-        <Typography as="p" variant="body5" tone="subtle">
+        <Typography as="p" variant="b8" tone="subtle">
           PUBLISHING GUIDE / COMPONENTS
         </Typography>
         <HStack>
-          <Typography as="h1" variant="heading8">
+          <Typography as="h1" web="h10B" mo="h8">
             퍼블리싱 가이드
-            <Typography as="span" variant="body5" tone="subtle">
+            <Typography as="span" variant="b8" tone="subtle">
               &nbsp;: 공통 컴포넌트의 스타일·상태를 확인하고 사용 코드를 복사합니다.
             </Typography>
           </Typography>

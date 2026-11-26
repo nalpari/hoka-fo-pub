@@ -50,9 +50,9 @@ export function AccountPageLayout({
             title={title}
             headerProps={{
               titleAs: 'h1',
-              titleProps: { web: 'heading7', mo: 'heading5' },
+              titleProps: { web: 'h8B', mo: 'h7B' },
               description,
-              descriptionProps: { variant: 'body3', tone: 'tertiary' },
+              descriptionProps: { variant: 'b4', tone: 'tertiary' },
             }}
           >
             {children}

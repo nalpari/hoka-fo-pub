@@ -1,10 +1,11 @@
 import { type ReactNode } from 'react';
 
-import { type TypographyVariant } from '@/components/common/atoms/Typography';
+import { type ResponsiveTypographyVariant } from '@/components/common/atoms/Typography';
 
 export type MainSectionProps = {
   title: string;
-  titleVariant?: TypographyVariant;
+  titleVariant?: ResponsiveTypographyVariant;
+  mobileTitleVariant?: ResponsiveTypographyVariant;
   actionSlot?: ReactNode;
   children: ReactNode;
   className?: string;
@@ -16,6 +17,7 @@ export type MainSectionProps = {
 export declare function MainSection({
   title,
   titleVariant,
+  mobileTitleVariant,
   actionSlot,
   children,
   className,

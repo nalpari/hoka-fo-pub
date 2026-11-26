@@ -7,6 +7,7 @@
  * shoes/apparel 탭은 로컬 표시 상태이며 원격 요청·저장·성공/실패 처리는 구현하지 않았습니다.
  */
 
+import { css } from 'styled-system/css';
 import { Box } from 'styled-system/jsx';
 
 import { SupportTabs } from '@/components/common/molecules/SupportTabs';
@@ -15,6 +16,8 @@ import { supportNavigation } from '@/app/support/support.navigation';
 import { CustomerCenterLayout } from '@/components/support/CustomerCenterLayout';
 
 import { CareContent } from './_components/CareContent';
+
+const styles = { layout: css({ color: 'black.100', '--line-heights-body': '1.5' }) };
 
 const tabs = [
   { value: 'shoes', label: '신발', content: <CareContent category="shoes" /> },
@@ -29,8 +32,9 @@ const tabs = [
 export default function Page() {
   return (
     <CustomerCenterLayout
+      className={styles.layout}
       title="세탁 및 손질 방법 안내"
-      mobileTitleVariant="heading5"
+      mobileTitleVariant="h7B"
       activePath="/support/care"
       breadcrumbItems={[
         { label: 'Home', href: '/' },

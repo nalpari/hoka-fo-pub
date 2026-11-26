@@ -2,9 +2,9 @@
 
 import { Popover } from '@base-ui/react/popover';
 import { Tooltip as BaseTooltip } from '@base-ui/react/tooltip';
-import { useState } from 'react';
+import { type CSSProperties, useState } from 'react';
 
-import { css } from 'styled-system/css';
+import { css, cva } from 'styled-system/css';
 import { Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
@@ -24,7 +24,7 @@ type SignifierProps = {
 type TooltipProps = SignifierProps & {
   text: string;
   side?: HelpTipSide;
-};
+} & ({ variant?: 'standard'; maxWidth?: never } | { variant: 'description'; maxWidth?: number });
 
 type ToggletipProps = SignifierProps & {
   defaultOpen?: boolean;
@@ -34,7 +34,7 @@ type ToggletipProps = SignifierProps & {
   side?: HelpTipSide;
 };
 
-const popup = css({
+const popupBase = css.raw({
   maxW: 'min(280px, calc(100vw - 32px))',
   bg: 'surface.default',
   color: 'black.100',
@@ -43,11 +43,25 @@ const popup = css({
   outline: 'none',
 });
 
-const tooltipPopup = css({
-  px: '2',
-  py: '3',
-  textAlign: 'center',
-  whiteSpace: 'normal',
+const popup = css(popupBase);
+
+const tooltipPopup = cva({
+  base: popupBase,
+  variants: {
+    variant: {
+      standard: { px: '2', py: '3', textAlign: 'center', whiteSpace: 'normal' },
+      description: {
+        w: 'min(var(--help-tooltip-max-width, 375px), calc(100vw - 32px))',
+        maxW: 'none',
+        p: '3',
+        bg: 'white.0',
+        filter: 'drop-shadow(0 4px 16px rgba(0, 0, 0, 0.16))',
+        textAlign: 'left',
+        overflowWrap: 'anywhere',
+      },
+    },
+  },
+  defaultVariants: { variant: 'standard' },
 });
 
 const toggletipPopup = css({
@@ -59,19 +73,19 @@ const toggletipPopup = css({
 const arrow = css({
   display: 'grid',
   placeItems: 'center',
-  w: '17px',
+  w: 'var(--help-tip-arrow-width, 17px)',
   h: '8px',
   '&[data-side=top]': { bottom: '-7px' },
   '&[data-side=bottom]': { top: '-7px', '& img': { transform: 'rotate(180deg)' } },
   '&[data-side=right]': {
     left: '-7px',
     w: '8px',
-    h: '17px',
+    h: 'var(--help-tip-arrow-width, 17px)',
     '& img': {
       pos: 'absolute',
       top: '50%',
       left: '50%',
-      w: '17px',
+      w: 'var(--help-tip-arrow-width, 17px)',
       h: '8px',
       maxW: 'none',
       transform: 'translate(-50%, -50%) rotate(90deg)',
@@ -80,12 +94,12 @@ const arrow = css({
   '&[data-side=left]': {
     right: '-7px',
     w: '8px',
-    h: '17px',
+    h: 'var(--help-tip-arrow-width, 17px)',
     '& img': {
       pos: 'absolute',
       top: '50%',
       left: '50%',
-      w: '17px',
+      w: 'var(--help-tip-arrow-width, 17px)',
       h: '8px',
       maxW: 'none',
       transform: 'translate(-50%, -50%) rotate(-90deg)',
@@ -94,6 +108,8 @@ const arrow = css({
 });
 
 const positioner = css({ zIndex: '100' });
+
+const wideArrow = css({ '--help-tip-arrow-width': '34px' });
 
 function renderSignifier({ label, icon = 'info', iconColor, className }: SignifierProps) {
   return (
@@ -107,17 +123,22 @@ function renderSignifier({ label, icon = 'info', iconColor, className }: Signifi
   );
 }
 
-function TipArrow({ kind }: { kind: 'tooltip' | 'toggletip' }) {
+function TipArrow({ kind, wide = false }: { kind: 'tooltip' | 'toggletip'; wide?: boolean }) {
   const Arrow = kind === 'tooltip' ? BaseTooltip.Arrow : Popover.Arrow;
 
   return (
-    <Arrow className={arrow}>
-      <Icon name="arrow" size={17} style={{ height: 8 }} aria-hidden="true" />
+    <Arrow className={wide ? `${arrow} ${wideArrow}` : arrow}>
+      <Icon
+        name="arrow"
+        size={wide ? 34 : 17}
+        style={{ height: 8, objectFit: wide ? 'fill' : undefined }}
+        aria-hidden="true"
+      />
     </Arrow>
   );
 }
 
-/** 짧은 보조 설명을 안내 아이콘에 표시합니다. (Shows brief helper text from an info icon.) */
+/** 안내 아이콘에서 보조 설명을 표시하며 기본 스타일은 standard입니다. (Shows helper text from an info icon and defaults to the standard style.) */
 export function HelpTooltip({
   label,
   text,
@@ -125,8 +146,11 @@ export function HelpTooltip({
   iconColor,
   className,
   side = 'top',
+  variant = 'standard',
+  maxWidth,
 }: TooltipProps) {
   const [open, setOpen] = useState(false);
+  const description = variant === 'description';
 
   return (
     <BaseTooltip.Root open={open} onOpenChange={setOpen}>
@@ -138,15 +162,24 @@ export function HelpTooltip({
       <BaseTooltip.Portal>
         <BaseTooltip.Positioner
           side={side}
+          align={description ? 'start' : undefined}
+          alignOffset={description ? -40 : undefined}
           sideOffset={10}
           collisionPadding={16}
           className={positioner}
         >
-          <BaseTooltip.Popup className={`${popup} ${tooltipPopup}`}>
-            <Typography variant="body5" className={css({ whiteSpace: 'pre-line' })}>
+          <BaseTooltip.Popup
+            className={tooltipPopup({ variant })}
+            style={
+              maxWidth === undefined
+                ? undefined
+                : ({ '--help-tooltip-max-width': `${maxWidth}px` } as CSSProperties)
+            }
+          >
+            <Typography variant="b8" className={css({ whiteSpace: 'pre-line' })}>
               {text}
             </Typography>
-            <TipArrow kind="tooltip" />
+            <TipArrow kind="tooltip" wide={description} />
           </BaseTooltip.Popup>
         </BaseTooltip.Positioner>
       </BaseTooltip.Portal>
@@ -181,7 +214,7 @@ export function HelpToggletip({
               {title ? (
                 <Popover.Title
                   render={(props) => (
-<Typography {...props} as="h2" variant="body4Medium">
+                    <Typography {...props} as="h2" variant="b6M">
                       {props.children}
                     </Typography>
                   )}
@@ -191,7 +224,7 @@ export function HelpToggletip({
               ) : null}
               <Popover.Description
                 render={(props) => (
-                  <Typography {...props} as="p" variant="body5">
+                  <Typography {...props} as="p" variant="b8">
                     {props.children}
                   </Typography>
                 )}

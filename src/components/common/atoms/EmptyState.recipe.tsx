@@ -219,13 +219,13 @@ export const emptyStateRecipe = sva({
         },
         title: {
           '&&': {
-            fontSize: '16px',
+            fontSize: 'body.16',
             fontWeight: 'normal',
             lineHeight: '1.5',
             maxW: '320px',
             color: 'var(--color-text-subtle)',
             _mobile: {
-              fontSize: '14px',
+              fontSize: 'body.14',
               fontWeight: 'normal',
               lineHeight: '1.5',
               maxW: 'none',
@@ -235,21 +235,20 @@ export const emptyStateRecipe = sva({
       },
       launch: {
         root: { py: '0', _mobile: { py: '0', minH: '340px' } },
-        // Keep the current mobile weight explicitly instead of relying on a Typography cascade conflict.
         title: {
           '&&': {
-            fontSize: '22px',
-            fontWeight: '900',
+            fontSize: 'heading.22',
+            fontWeight: 'normal',
             lineHeight: '1.2',
-            _mobile: { fontSize: '22px', fontWeight: '600' },
+            _mobile: { fontSize: 'heading.20' },
           },
         },
         description: {
           '&&': {
-            fontSize: '16px',
+            fontSize: 'body.16',
             fontWeight: '400',
             lineHeight: '1.5',
-            _mobile: { fontSize: '14px' },
+            _mobile: { fontSize: 'body.14' },
           },
         },
       },
@@ -328,18 +327,14 @@ export type EmptyStateLayout = NonNullable<
   NonNullable<Parameters<typeof emptyStateRecipe>[0]>['layout']
 >;
 
-const largeMobileTitle = {
-  _mobile: { fontSize: 'var(--font-sizes-20)', fontWeight: 'bold' },
-} as const;
-
 const bodyTitle = {
-  fontSize: 'var(--font-sizes-16)',
+  fontSize: 'body.16',
   fontWeight: 'normal',
   lineHeight: 'body',
-  _mobile: { fontSize: 'var(--font-sizes-14)', fontWeight: 'normal' },
+  _mobile: { fontSize: 'body.14', fontWeight: 'normal' },
 } as const;
 
-const descriptionMobile = { _mobile: { fontSize: 'var(--font-sizes-14)' } } as const;
+const descriptionMobile = { _mobile: { fontSize: 'body.14' } } as const;
 
 const tertiaryBody = { ...bodyTitle, color: 'var(--color-text-tertiary)' } as const;
 
@@ -347,20 +342,20 @@ const emptyStateTypographyRecipe = sva({
   slots: ['title', 'description'],
   base: {
     title: {
-      fontFamily: 'hoka',
+      fontFamily: 'en',
       transform: 'translateY(1px)',
       color: 'inherit',
-      fontSize: 'var(--font-sizes-22)',
-      fontWeight: 'black',
-      lineHeight: 'hoka',
+      fontSize: 'heading.22',
+      fontWeight: 'normal',
+      lineHeight: 'koreanHeading',
       letterSpacing: '0',
-      _mobile: { fontSize: 'var(--font-sizes-16)', fontWeight: 'bold' },
+      _mobile: { fontSize: 'heading.20' },
     },
     description: {
-      fontFamily: 'hoka',
+      fontFamily: 'en',
       transform: 'translateY(1px)',
       color: 'inherit',
-      fontSize: 'var(--font-sizes-16)',
+      fontSize: 'body.16',
       fontWeight: 'normal',
       lineHeight: 'body',
       letterSpacing: '0',
@@ -370,16 +365,15 @@ const emptyStateTypographyRecipe = sva({
     titleKorean: {
       true: {
         title: {
-          fontFamily: 'korean',
+          fontFamily: 'ko',
           lineHeight: 'koreanHeading',
           letterSpacing: 'korean',
-          _mobile: { fontWeight: 'semibold' },
         },
       },
       false: {},
     },
     descriptionKorean: {
-      true: { description: { fontFamily: 'korean', letterSpacing: 'korean' } },
+      true: { description: { fontFamily: 'ko', letterSpacing: 'korean' } },
       false: {},
     },
     layout: {
@@ -387,15 +381,14 @@ const emptyStateTypographyRecipe = sva({
       table: { title: bodyTitle },
       cart: {
         title: {
-          fontFamily: 'korean',
+          fontFamily: 'ko',
           fontStyle: 'normal',
-          fontSize: '22px',
-          fontWeight: '900',
+          fontSize: 'heading.22',
           lineHeight: '1.2',
           letterSpacing: '-0.02em',
           textAlign: 'center',
           color: 'black.100',
-          _mobile: { fontSize: '20px', fontWeight: '700' },
+          _mobile: { fontSize: 'heading.20' },
         },
       },
       claimHistory: {
@@ -408,20 +401,19 @@ const emptyStateTypographyRecipe = sva({
           _mobile: { ...bodyTitle._mobile, maxW: 'none', lineHeight: 'body' },
         },
       },
-      history: { title: largeMobileTitle, description: descriptionMobile },
-      wishlist: { title: largeMobileTitle, description: descriptionMobile },
-      restock: { title: largeMobileTitle, description: descriptionMobile },
-      address: { title: largeMobileTitle, description: descriptionMobile },
-      embeddedAddress: { title: largeMobileTitle, description: descriptionMobile },
-      reviews: { title: largeMobileTitle },
+      history: { description: descriptionMobile },
+      wishlist: { description: descriptionMobile },
+      restock: { description: descriptionMobile },
+      address: { description: descriptionMobile },
+      embeddedAddress: { description: descriptionMobile },
+      reviews: {},
       catalog: {},
       search: {
         title: {
-          fontSize: '22px',
-          fontWeight: '900',
+          fontSize: 'heading.22',
           lineHeight: '1.2',
           color: 'black.100',
-          _mobile: { fontSize: '20px', fontWeight: '700' },
+          _mobile: { fontSize: 'heading.20' },
         },
         description: {
           ...bodyTitle,
@@ -435,22 +427,22 @@ const emptyStateTypographyRecipe = sva({
       faq: {
         title: {
           ...tertiaryBody,
-          fontSize: 'var(--font-sizes-14)',
-          _mobile: { fontSize: 'var(--font-sizes-12)', fontWeight: 'normal' },
+          fontSize: 'body.14',
+          _mobile: { fontSize: 'body.12', fontWeight: 'normal' },
         },
       },
       orderSummary: { description: descriptionMobile },
       orders: {},
       launch: {},
-      runningSession: { title: largeMobileTitle },
+      runningSession: {},
       productInquiry: {
         title: {
           ...bodyTitle,
           color: 'var(--color-text-primary)',
-          _mobile: { fontSize: 'var(--font-sizes-16)', fontWeight: 'normal' },
+          _mobile: { fontSize: 'body.16', fontWeight: 'normal' },
         },
       },
-      inquiryBoard: { title: { ...tertiaryBody, fontSize: 'var(--font-sizes-14)' } },
+      inquiryBoard: { title: { ...tertiaryBody, fontSize: 'body.14' } },
     },
   },
   // Apply language defaults before the layout's explicit responsive type scale.

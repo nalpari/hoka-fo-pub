@@ -131,6 +131,9 @@ const confirmedDesignReceipts: Partial<
   210: { pcDesign: 'received', moDesign: 'received' },
   211: { pcDesign: 'received', moDesign: 'received' },
   212: { pcDesign: 'received', moDesign: 'received' },
+  // 2026-11-19 사용자 제공 온라인 회원등급 안내 PC/MO 최종 시안.
+  // https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design
+  213: { pcDesign: 'received', moDesign: 'received' },
   216: { pcDesign: 'received', moDesign: 'received' },
   217: { pcDesign: 'received', moDesign: 'received' },
   218: { pcDesign: 'received', moDesign: 'received' },
@@ -211,7 +214,7 @@ export const confirmedPublishingProgress: Readonly<
   210: { pcPublishing: 'ready', moPublishing: 'ready' },
   211: { pcPublishing: 'ready', moPublishing: 'ready' },
   212: { pcPublishing: 'revision', moPublishing: 'revision' },
-  213: { pcPublishing: 'pending', moPublishing: 'pending' },
+  213: { pcPublishing: 'ready', moPublishing: 'ready' },
   216: { pcPublishing: 'ready', moPublishing: 'ready' },
   217: { pcPublishing: 'ready', moPublishing: 'ready' },
   218: { pcPublishing: 'ready', moPublishing: 'ready' },
@@ -236,7 +239,7 @@ export const confirmedPublishingProgress: Readonly<
 };
 
 const myPagePcNavigationNote =
-  'PC 공통 메뉴: 첨부의 구매내역·상품내역·MY HOKA·Q&A·계정관리 대신 쇼핑·HOKA MEMBERS·계정 관리 구성을 사용함.';
+  'PC 공통 메뉴: 첨부의 구매내역·상품내역·My HOKA·Q&A·계정관리 대신 쇼핑·HOKA MEMBERS·계정 관리 구성을 사용함.';
 
 const phoneTermsReviewNote =
   'PC/MO 수정: 인증 약관의 이전 버전 선택이 첨부의 별도 선택창(PC 라디오·MO 휠)이 아닌 본문 안 버튼 목록임.';
@@ -262,7 +265,7 @@ export const screenReviewNotes: Readonly<Partial<Record<number, string>>> = {
   205: `PC 수정: 배송지 수정 폼이 시안의 중앙 좁은 폭 대신 본문 전체 너비임. ${myPagePcNavigationNote}`,
   208: 'MO 수정: 첨부 공지 목록은 제목 오른쪽에 날짜를 표시하나 현재는 제목 아래에 표시함.',
   212: 'PC/MO 수정: 지도에 시안에 없는 어두운 API 지도 노출 영역 안내 오버레이가 남아 있음.',
-  213: '미작업: 본문은 디자인 작업 중 안내만 있음. 첨부에는 별도 회원등급 안내 본문 시안 없음.',
+  213: '2026-11-19 PC/MO 최종 시안 적용: 등급 3종·공통 혜택 4종을 마이페이지와 공유하며 개인 등급 요약은 제외. RUNNER 반품 쿠폰은 사용자 확정 문구인 1장·연1회로 PC/MO에 통일.',
   260: 'PC 수정: 이미지 왼쪽·설명 오른쪽 배치가 시안의 큰 이미지 위·설명 아래 2열과 다름. PC/MO 성별·발볼 선택도 시안의 pill형 대신 사각 버튼임. 첨부는 진행중이며 확정 이미지·치수 추가 확인 필요.',
   234: phoneTermsReviewNote,
   235: '미작업: 본인인증 선택 화면의 아이핀 버튼만 있으며 클릭 후 인증 화면·동작 없음. 첨부에 아이핀 내부 화면은 없음.',

@@ -190,7 +190,7 @@ function SingleCheckbox({
         render={(props, state) => renderCheckboxControl(props, state, variant)}
       />
       <Typography
-        variant="body4"
+        variant="b6"
         id={hasInteractiveLabel ? labelId : undefined}
         onClick={(event) => {
           if (
@@ -204,7 +204,7 @@ function SingleCheckbox({
         }}
       >
         {consent ? (
-          <Typography variant="body4" tone={hasError ? 'error' : 'inherit'}>
+          <Typography variant="b6" tone={hasError ? 'error' : 'inherit'}>
             {checkboxLabel}
           </Typography>
         ) : (
@@ -220,7 +220,7 @@ function SingleCheckbox({
       {error ? (
         <Typography
           as="p"
-          variant="body5"
+          variant="b8"
           tone="error"
           id={`${errorId}-error`}
           role="alert"
@@ -276,7 +276,7 @@ function CheckboxGroup<T extends string>({
             key={item.value}
           >
             {controlNode}
-            <Typography variant="body4">{item.label}</Typography>
+            <Typography variant="b6">{item.label}</Typography>
           </Stack>
         );
       })}

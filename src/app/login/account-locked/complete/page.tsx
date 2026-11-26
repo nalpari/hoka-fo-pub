@@ -10,7 +10,6 @@ import { css } from 'styled-system/css';
 import { Box } from 'styled-system/jsx';
 
 import { ButtonLink } from '@/components/common/atoms/Button';
-import { Icon } from '@/components/common/atoms/Icon';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
@@ -36,10 +35,9 @@ export default function Page() {
           gap="9"
           title={
             <>
-              <Typography as="span" web="heading7" mo="heading5">
+              <Typography as="span" web="h8B" mo="h7B">
                 계정 잠금 해제 완료
               </Typography>
-              <Icon name="unlock-keyhole-regular" size="18px" />
             </>
           }
           headerProps={{
@@ -51,11 +49,11 @@ export default function Page() {
             description: (
               <>
                 {' '}
-                <Typography as="span" variant="bodyKr3" tone="tertiary">
+                <Typography as="span" variant="b4" tone="tertiary">
                   계정 잠금 상태가 성공적으로 해제되었습니다.
                 </Typography>
                 <br />
-                <Typography as="span" variant="bodyKr3" tone="tertiary">
+                <Typography as="span" variant="b4" tone="tertiary">
                   다시 로그인을 진행해 주세요.
                 </Typography>
               </>
