@@ -2889,3 +2889,5 @@ PC와 모바일에서 `/mypage/recent`는 색상 개수 문구를 표시하고, 
 출처는 사용자 브라우저 코멘트와 `src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx` 작업 트리다. Codex가 2026-11-26에 PC 1296px·모바일 390px에서 세 상태의 검정색과 투명 배경, 목록 상단선 1px #E9EAEB, 제목과 썸네일의 시맨틱, 취소 버튼의 1px 아웃라인을 확인했다. 모바일에서 취소 확인창 열기와 Escape 닫기, 북악산 세션 썸네일을 통한 상세 이동도 확인했다.
 
 목록의 날짜 라벨은 접수일과 세션일시로 표기한다.
+
+마이페이지 홈 프로필의 호칭 ‘님’은 제목 크기(PC 36px, 모바일 34px)를 상속하며 두 화면 모두 Medium(500)으로 표시한다.

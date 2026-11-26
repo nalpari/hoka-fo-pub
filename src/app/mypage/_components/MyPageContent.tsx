@@ -188,9 +188,7 @@ function MyPageOverviewProfile({ onLogout }: { onLogout: () => void }) {
               <Typography as="span" web="h4B" mo="h2" className={styles.profileName}>
                 {'박연진'}
               </Typography>
-              <Typography as="span" web="b1" mo="h2">
-                님
-              </Typography>
+              <span className={css({ fontWeight: 'medium' })}>님</span>
             </HStack>
             <Icon name="hoka-nav-chevron-right-regular" size={24} />
           </Link>
