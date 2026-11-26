@@ -6413,3 +6413,7 @@ PC 1440×900과 모바일 360×768에서 버튼 높이 40px, 빈 화면 비활�
 출처는 사용자의 색상 및 공통 적용 지시, `ProductCard.tsx`, `MyPageProductHistory.tsx`, `ProductDetailContent.tsx`, 퍼블리싱 가이드 `ProductCardGuide.tsx` 작업 트리다. PC 1440×900과 모바일 360×768에서 최근 본 상품·관심상품·퍼블리싱 가이드의 프로모션 색을 rgb(225, 15, 0)으로 확인했다. 기록: codex/gpt-6, 2026-11-26T08:49:24.875Z.
 
 공통 오류·점검 화면(`SystemStatusPage`)의 제목은 PC 20px·모바일 18px Medium(500), 안내 본문은 두 화면 모두 14px Regular(400)이다.
+
+## 최근 본 상품 빈 목록 타이포그래피
+
+`src/components/common/atoms/EmptyState.recipe.tsx`의 history 레이아웃은 제목을 PC 20px·모바일 18px, 설명을 PC 16px·모바일 14px로 표시한다. 두 문구 모두 Regular(400)를 사용한다.

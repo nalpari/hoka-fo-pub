@@ -401,7 +401,10 @@ const emptyStateTypographyRecipe = sva({
           _mobile: { ...bodyTitle._mobile, maxW: 'none', lineHeight: 'body' },
         },
       },
-      history: { description: descriptionMobile },
+      history: {
+        title: { fontSize: 'heading.20', _mobile: { fontSize: 'body.18' } },
+        description: descriptionMobile,
+      },
       wishlist: { description: descriptionMobile },
       restock: { description: descriptionMobile },
       address: { description: descriptionMobile },
