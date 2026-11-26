@@ -31,7 +31,13 @@ const noticeLink = css({
 
 const styles = {
   title: css({ flex: '1', minW: '0', overflowWrap: 'anywhere' }),
-  date: css({ w: '105px', flexShrink: '0', textAlign: 'right', _mobile: { w: '74px' } }),
+  date: css({
+    minW: '105px',
+    flexShrink: '0',
+    whiteSpace: 'nowrap',
+    textAlign: 'right',
+    _mobile: { minW: '74px' },
+  }),
 };
 
 /** 공지사항 목록을 표시합니다. (Displays the notice list.) */
