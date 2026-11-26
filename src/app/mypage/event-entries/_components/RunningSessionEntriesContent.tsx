@@ -172,11 +172,14 @@ export function RunningSessionEntriesContent({
                         </Stack>
                       </HStack>
                       {entry.canCancel ? (
-                        <Box justifySelf="end">
-                          <Button variant="link" size="md" onClick={() => setOpen(true)}>
-                            신청 취소
-                          </Button>
-                        </Box>
+                        <Button
+                          variant="secondary"
+                          size="short"
+                          fullWidth
+                          onClick={() => setOpen(true)}
+                        >
+                          신청 취소
+                        </Button>
                       ) : null}
                     </Grid>
                   </Stack>
