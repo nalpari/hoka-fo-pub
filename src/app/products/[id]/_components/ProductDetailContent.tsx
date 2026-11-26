@@ -31,7 +31,6 @@ import { Divider } from '@/components/common/atoms/Divider';
 import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { Icon } from '@/components/common/atoms/Icon';
 import { NumberStepper } from '@/components/common/atoms/NumberStepper';
-import { RatingStars } from '@/components/common/atoms/RatingStars';
 import { SegmentedControl } from '@/components/common/atoms/SegmentedControl';
 import { Toast, type ToastNotice } from '@/components/common/atoms/Toast';
 import { Typography } from '@/components/common/atoms/Typography';
@@ -73,6 +72,7 @@ import {
   getSelectedOptionsPreview,
   prepareProductDetailPreview,
   type ProductDetailPreview,
+  productDetailPreviews,
 } from '@/app/products/[id]/productDetailPreviews';
 import { productInquiries } from '@/app/products/[id]/productInquiries';
 import { productSizeOptions } from '@/app/products/[id]/productSizeOptions';
@@ -762,6 +762,8 @@ function ProductDetailSpecificationList({
               <HelpTooltip
                 label={`${item.label} 안내`}
                 text={item.help}
+                variant="description"
+                maxWidth={item.helpMaxWidth}
                 side="bottom"
                 iconColor="black.50"
                 className={css({ transform: 'translateY(-1px)' })}
@@ -835,7 +837,13 @@ function ProductTechnicalScaleBar({ level }: ProductTechnicalScaleBarProps) {
   );
 }
 /** Static qualitative scale; it is neither an editable Slider nor a numeric Meter. */
-function ProductTechnicalScale({ title, labels, level, help }: ProductTechnicalScaleData) {
+function ProductTechnicalScale({
+  title,
+  labels,
+  level,
+  help,
+  helpMaxWidth,
+}: ProductTechnicalScaleData) {
   return (
     <ContentSection
       title={title}
@@ -852,6 +860,8 @@ function ProductTechnicalScale({ title, labels, level, help }: ProductTechnicalS
           <HelpTooltip
             label={`${title} 안내`}
             text={help}
+            variant="description"
+            maxWidth={helpMaxWidth}
             side="bottom"
             iconColor="black.50"
             className={css({ transform: 'translateY(-1px)' })}
@@ -2021,7 +2031,9 @@ function ProductVariantSelectors({
   showColor = true,
 }: ProductVariantSelectorsProps) {
   const widthOptions = productWidthOptions(product, color);
-  const selected = widthOptions.find((option) => option.label === width) ?? widthOptions[0];
+  const selected =
+    widthOptions.find((option) => option.label === width && !option.isSoldOut) ??
+    widthOptions.find((option) => !option.isSoldOut);
   return (
     <>
       <Stack gap="10">
@@ -2029,6 +2041,9 @@ function ProductVariantSelectors({
           <ProductWidthSelector
             onValueChange={onWidthChange}
             options={widthOptions.map((option) => option.label)}
+            soldOutOptions={widthOptions
+              .filter((option) => option.isSoldOut)
+              .map(({ label }) => label)}
             value={width}
           />
         )}
@@ -2462,34 +2477,7 @@ function ProductDetailHeaderActions({
   }
 
   return (
-    <Flex alignItems="center" justifyContent="space-between" w="full">
-      {platform === 'web' && (
-        <HStack gap="10px">
-          <RatingStars aria-label={`평점 ${product.rating}점`} value={product.rating} />
-          <Button
-            className={css({
-              borderColor: 'var(--color-text-subtle)',
-              color: 'var(--color-text-subtle)',
-              '--color-action-underline-color': 'var(--color-text-subtle)',
-              '--button-border-color-hover': 'var(--color-text-subtle)',
-            })}
-            variant="link"
-            onClick={() =>
-              document
-                .getElementById(
-                  document.getElementById('product-reviews')
-                    ? 'product-reviews'
-                    : 'product-information',
-                )
-                ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-            }
-            type="button"
-            size="md"
-          >
-            {product.reviewCount}개 리뷰 보기
-          </Button>
-        </HStack>
-      )}
+    <>
       {platform === 'mobile' && (
         <HStack gap="16px">
           <ShareButton ref={shareTrigger} size="24px" onClick={() => setShareOpen(true)} />
@@ -2528,15 +2516,9 @@ function ProductDetailHeaderActions({
         </Grid>
         <Toast notice={shareNotice} onDismiss={dismissShareNotice} />
       </ModalDialog>
-    </Flex>
+    </>
   );
 }
-
-const productUseLabels: Record<Product['use'], string> = {
-  'Everyday Run': '데일리 러닝',
-  'Trail Running': '트레일 러닝',
-  Walking: '워킹',
-};
 
 type ProductDetailHeaderProps = {
   initialShareOpen?: boolean;
@@ -2554,35 +2536,15 @@ function ProductDetailHeader({
 }: ProductDetailHeaderProps) {
   const platform = usePlatform();
   return (
-    <VStack
-      as="header"
-      alignItems="start"
-      gap="5"
-      _mobile={{ gap: '6' }}
-      css={{
-        _mobile: {
-          '& > div': { gap: '8px' },
-          '& > div > div:first-child': { gap: '0' },
-          '& > div > div:first-child > div': { display: 'none' },
-        },
-      }}
-    >
+    <VStack as="header" alignItems="start" gap="5" _mobile={{ gap: '6' }}>
       <ProductIdentity
         variant="detail"
         name={product.name}
-        gender={platform === 'mobile' ? undefined : product.gender}
         promotion={product.promotion}
         price={product.price}
         originalPrice={product.originalPrice}
         discountLabel={product.discountLabel}
         promotionTone={apparel || product.styleCode === 'HOKADFG34S' ? 'error' : undefined}
-        activities={
-          platform === 'mobile'
-            ? undefined
-            : apparel
-              ? ['탑&티셔츠']
-              : [...new Set([product.runningType, productUseLabels[product.use]])]
-        }
       />
       {platform === 'web' && (
         <ProductDetailHeaderActions
@@ -3209,14 +3171,20 @@ export function RouteContent({ preview }: { preview?: ProductDetailPreview }) {
   const revised = baseProduct?.id === 'shoe-1';
   const allSoldOut = preview === 'sold-out';
   const optionsPreview = preview === 'options-selected' || preview === 'options-scroll';
+  // [ 개발팀 바인딩 ] 열린 안내는 직접 URL용 fixture입니다. PDP 통합 소유자가 상품·옵션 ID와 수량으로 요청을 연결하고 결과에 맞는 안내를 열며, 처리 중 중복을 막고 실패 시 선택을 유지해 재시도하거나 성공 시 장바구니를 갱신합니다. 이 미리보기의 버튼은 안내만 닫습니다.
+  const previewEntry = productDetailPreviews.find(({ state }) => state === preview);
+  const notice = previewEntry && 'notice' in previewEntry ? previewEntry.notice : undefined;
+  const [noticeOpen, setNoticeOpen] = useState(!!notice);
   const inquiriesEmpty = revised && preview !== undefined && preview !== 'inquiries-expanded';
   const inquiriesExpanded = preview === 'inquiries-expanded';
   const initialColor = product?.colorThumbnails?.[0]?.label ?? product?.colors[0] ?? '';
   const [color, setColor] = useState(initialColor);
-  const [width, setWidth] = useState(
-    product && !apparel ? (productWidthOptions(product, initialColor)[0]?.label ?? '') : '',
+  const [requestedWidth, setWidth] = useState('');
+  const [restockSize, setRestockSize] = useState(
+    preview === 'restock' || preview === 'restock-confirm' || preview === 'restock-complete'
+      ? '300'
+      : '',
   );
-  const [restockSize, setRestockSize] = useState(preview === 'restock' ? '300' : '');
   const [apparelSize, setApparelSize] = useState(apparel ? 'M' : '');
   const [selectedItems, setSelectedItems] = useState<(CartItem & { amount?: number })[]>(() =>
     getSelectedOptionsPreview(preview).map((option) => ({
@@ -3255,6 +3223,11 @@ export function RouteContent({ preview }: { preview?: ProductDetailPreview }) {
   }, [preview, platform]);
   if (!product) return <SystemStatusPage status="not-found" />;
 
+  // [ 개발팀 바인딩 ] 통합 소유자가 색상별 발볼과 isSoldOut을 공급합니다. 이 화면에서는 현재 옵션에서 선택 가능한 발볼을 표시하고 구매·재고 요청을 실행하지 않습니다.
+  const availableWidths = productWidthOptions(product, color).filter((option) => !option.isSoldOut);
+  const selectedWidth =
+    availableWidths.find((option) => option.label === requestedWidth) ?? availableWidths[0];
+  const width = apparel ? '' : (selectedWidth?.label ?? '');
   const restock = allSoldOut || !!restockSize;
   const onQuantityChange = (index: number, quantity: number) => {
     if (!Number.isSafeInteger(quantity) || quantity < 1) return;
@@ -3278,15 +3251,14 @@ export function RouteContent({ preview }: { preview?: ProductDetailPreview }) {
     setRestockSize('');
     setColor(nextColor);
     setApparelSize('');
-    if (!apparel) setWidth(productWidthOptions(product, nextColor)[0]?.label ?? '');
+    setWidth('');
   };
   const onWidthChange = (nextWidth: string) => {
+    if (!availableWidths.some((option) => option.label === nextWidth)) return;
     setRestockSize('');
     setWidth(nextWidth);
   };
   const onSizeChange = (nextSize: string) => {
-    const options = productWidthOptions(product, color);
-    const selectedWidth = options.find((option) => option.label === width) ?? options[0];
     if (!selectedWidth?.sizes.includes(nextSize)) return;
     if (selectedWidth.soldOut.includes(nextSize)) {
       setRestockSize(nextSize);
@@ -3385,6 +3357,23 @@ export function RouteContent({ preview }: { preview?: ProductDetailPreview }) {
         wish={wish}
       />
       {preview === 'inquiry-form' ? <ProductInquiryAction initialOpen /> : null}
+      {notice && (
+        <ModalDialog
+          variant={notice.variant}
+          open={noticeOpen}
+          onOpenChange={setNoticeOpen}
+          finalFocus={() => document.querySelector<HTMLElement>('[data-pdp-panel]')}
+          title="상품구매"
+          closeLabel="상품구매 안내 닫기"
+          message={notice.message}
+          description={notice.description}
+          actions={
+            notice.variant === 'confirm'
+              ? { kind: 'confirm', onConfirm: () => setNoticeOpen(false) }
+              : { kind: 'single', onConfirm: () => setNoticeOpen(false) }
+          }
+        />
+      )}
       {platform === 'mobile' && revised && (
         <ModalDialog
           variant="selection"

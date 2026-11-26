@@ -120,6 +120,23 @@ function ProductName({ name, variant = 'listing' }: ProductNameProps) {
 
 const won = (value: number) => value.toLocaleString('ko-KR');
 
+const detailIdentityStyles = {
+  badges: css({
+    '&&': { gap: '2', _mobile: { gap: '1.5' } },
+    '& > span:not([aria-hidden])': { lineHeight: '18.2px' },
+    '& > span[aria-hidden]': { h: '13px', _mobile: { h: '11px' } },
+  }),
+  title: css({ '&&': { m: '0', lineHeight: '30.72px' } }),
+  koreanTitle: css({ _mobile: { '&&': { lineHeight: '30.72px' } } }),
+  discount: css({
+    fontSize: 'body.18',
+    lineHeight: 'body',
+    _mobile: { fontSize: 'body.16' },
+  }),
+  price: css({ display: 'inline-flex', alignItems: 'center', '&&': { lineHeight: '20.8px' } }),
+  unit: css({ '&&': { lineHeight: '1.3', transform: 'none' } }),
+};
+
 type ProductPriceProps = {
   /** Prepared display label; preview fixtures can preserve an approved design value. */
   discountLabel?: string;
@@ -138,9 +155,7 @@ function ProductPrice({
 }: ProductPriceProps) {
   const hasDiscount = originalPrice !== undefined && Boolean(discountLabel);
   const detailPrice = variant === 'detail';
-  const detailPriceText = detailPrice
-    ? css({ fontSize: 'body.18', lineHeight: 'body', _mobile: { fontSize: 'body.16' } })
-    : undefined;
+  const detailPriceText = detailPrice ? detailIdentityStyles.discount : undefined;
 
   return (
     <VStack
@@ -181,13 +196,18 @@ function ProductPrice({
         ) : null}
         <Typography
           language="en"
-          variant={variant === 'history' ? 'b6' : 'b4'}
-          mo="b6"
-          weight={detailPrice ? 'medium' : undefined}
-          className={detailPriceText}
+          variant={detailPrice ? 'b3M' : variant === 'history' ? 'b6' : 'b4'}
+          mo={detailPrice ? 'b4M' : 'b6'}
+          className={detailPrice ? detailIdentityStyles.price : undefined}
         >
           {won(price)}
-          <Typography variant={variant === 'history' ? 'b6B' : 'b4B'}>원</Typography>
+          <Typography
+            variant={detailPrice ? 'b3B' : variant === 'history' ? 'b6B' : 'b4B'}
+            mo={detailPrice ? 'b4B' : undefined}
+            className={detailPrice ? detailIdentityStyles.unit : undefined}
+          >
+            원
+          </Typography>
         </Typography>
       </HStack>
     </VStack>
@@ -230,57 +250,82 @@ export function ProductIdentity({
   optionText,
   applicationDate,
 }: ProductIdentityProps) {
-  const platform = usePlatform();
   if (variant === 'detail') {
     return (
       <VStack alignItems="start" gap="5" _mobile={{ gap: '4' }} minW="0" w="full">
-        <VStack alignItems="start" gap="2">
-          {promotion && (
-            <Badge
-              variant="plain"
-              weight="medium"
-
-              tone={promotionTone === 'error' ? 'red80' : 'brand'}
-            >
-              {promotion}
-            </Badge>
-          )}
-          <HStack gap="2" color="black.60" flexWrap="wrap">
-            {gender && (
-              <Typography variant="b6" tone="inherit">
-                {gender}
-              </Typography>
+        {promotion || gender || activities?.length ? (
+          <VStack alignItems="start" gap="2">
+            {promotion && (
+              <Badge
+                variant="plain"
+                weight="medium"
+                web="b6"
+                mo="b8"
+                tone={promotionTone === 'error' ? 'red80' : 'brand'}
+                className={detailIdentityStyles.badges}
+              >
+                {promotion}
+              </Badge>
             )}
-            {activities?.length ? (
-              <>
+            {gender || activities?.length ? (
+              <HStack gap="2" color="black.60" flexWrap="wrap">
                 {gender && (
-                  <Divider orientation="vertical" length="3" className={css({ bg: 'black.60' })} />
+                  <Typography variant="b6" tone="inherit">
+                    {gender}
+                  </Typography>
                 )}
-                <Typography variant="b6" tone="inherit">
-                  {activities.join(', ')}
-                </Typography>
-              </>
+                {activities?.length ? (
+                  <>
+                    {gender && (
+                      <Divider
+                        orientation="vertical"
+                        length="3"
+                        className={css({ bg: 'black.60' })}
+                      />
+                    )}
+                    <Typography variant="b6" tone="inherit">
+                      {activities.join(', ')}
+                    </Typography>
+                  </>
+                ) : null}
+              </HStack>
             ) : null}
-          </HStack>
+          </VStack>
+        ) : null}
+        <VStack alignItems="start" gap="5" minW="0" w="full">
+          <ContentHeader
+            alignItems="start"
+            titleAs="h1"
+            title={name
+              .split(/(\p{Script=Hangul}+(?:\s+\p{Script=Hangul}+)*)/u)
+              .map((part, index) =>
+                index % 2 ? (
+                  <Typography
+                    key={index}
+                    web="h8B"
+                    mo="h5B"
+                    className={detailIdentityStyles.koreanTitle}
+                  >
+                    {part}
+                  </Typography>
+                ) : (
+                  part
+                ),
+              )}
+            titleProps={{
+              className: detailIdentityStyles.title,
+              web: 'h6B',
+              mo: 'h5B',
+              language: 'en',
+            }}
+          />
+          <ProductPrice
+            variant="detail"
+            price={price}
+            originalPrice={originalPrice}
+            discountLabel={discountLabel}
+          />
         </VStack>
-        <ContentHeader
-          alignItems="start"
-          gap="5"
-          titleAs="h1"
-          title={name}
-          titleProps={{
-            className: css({ m: '0' }),
-            web: 'h4B',
-            mo: 'h5B',
-            language: platform === 'web' ? 'ko' : 'en',
-          }}
-        />
-        <ProductPrice
-          variant="detail"
-          price={price}
-          originalPrice={originalPrice}
-          discountLabel={discountLabel}
-        />
       </VStack>
     );
   }
@@ -410,11 +455,11 @@ function ProductVariantSummary({
   widthCount,
 }: ProductVariantSummaryProps) {
   const summaryText = {
-    colors: `${colorCount} colors`,
+    colors: `${colorCount} Colors`,
     widths: `${widthCount} widths`,
     'colors-widths': `${colorCount} colors, ${widthCount} widths`,
   }[display];
-  if (platform === 'web' && !history) {
+  if (display === 'colors' || (platform === 'web' && !history)) {
     return (
       <Typography variant="b6" tone="subtle">
         {summaryText}
@@ -440,6 +485,7 @@ type ProductDetailsOptionsProps = Pick<
   | 'widthCount'
   | 'variant'
   | 'colorPreview'
+  | 'variantSummaryDisplay'
 >;
 
 function ProductDetailsOptions({
@@ -450,6 +496,7 @@ function ProductDetailsOptions({
   widthCount,
   variant,
   colorPreview,
+  variantSummaryDisplay,
 }: ProductDetailsOptionsProps) {
   const summary = (
     <>
@@ -459,6 +506,7 @@ function ProductDetailsOptions({
       <ProductVariantSummary
         colorCount={colorCount}
         colorSelection={platform === 'mobile' ? colorPreview : undefined}
+        display={variantSummaryDisplay}
         history={variant === 'history'}
         options={optionThumbnails}
         platform={platform}
@@ -551,6 +599,7 @@ type ProductDetailsProps = {
   originalPrice?: number;
   promotion?: Promotions;
   showVariantSummary?: boolean;
+  variantSummaryDisplay?: ProductVariantSummaryDisplay;
   variant: ProductCardVariant;
   widthCount: number;
 };
@@ -569,6 +618,7 @@ function ProductDetails({
   originalPrice,
   promotion,
   showVariantSummary = false,
+  variantSummaryDisplay,
   variant,
   widthCount,
 }: ProductDetailsProps) {
@@ -600,6 +650,7 @@ function ProductDetails({
             colorCount={colorCount}
             optionThumbnails={optionThumbnails}
             platform={platform}
+            variantSummaryDisplay={variantSummaryDisplay}
             widthCount={widthCount}
           />
         )}
@@ -783,7 +834,8 @@ const activityLabel = (use: Product['use']) => {
   return '워킹';
 };
 
-export type ProductCardOption = 'promotion' | 'like' | 'colors' | 'specifications' | 'cart';
+export type ProductCardOption =
+  'promotion' | 'like' | 'colors' | 'color-count' | 'specifications' | 'cart';
 
 export type ProductCardProps = {
   /** 생략 또는 undefined이면 기존 굵기를 유지하며 지정한 표시 부위에만 Medium을 적용합니다. */
@@ -792,6 +844,8 @@ export type ProductCardProps = {
   discountLabel?: string;
   soldOut?: boolean;
   activityLabels?: readonly string[];
+  /** 고정 표시 예시의 색상 개수이며, 생략하면 전달된 상품의 색상 데이터로 계산합니다. */
+  colorCount?: number;
   liked?: boolean;
   onLikedChange?: (liked: boolean) => void;
   onAddToCart?: () => void;
@@ -815,6 +869,7 @@ export function ProductCard({
   promotionTone,
   discountLabel,
   activityLabels,
+  colorCount,
   soldOut = false,
   liked,
   onLikedChange,
@@ -831,10 +886,12 @@ export function ProductCard({
   const platform = usePlatform();
   const isLiked = liked ?? internalLiked;
   const hasOption = (option: ProductCardOption) => options.includes(option);
+  const showColorCount = hasOption('color-count');
   const colorOptions = productOptionThumbnails(product);
   const selectedColor = colorOptions.find((option) => option.id === selectedColorId);
   const canSelectColor =
     variant === 'listing' &&
+    !showColorCount &&
     hasOption('colors') &&
     (platform === 'web' ? colorOptions.length > 0 : !!product.colorThumbnails?.length);
   const showColorPreview = platform === 'web' && canSelectColor && previewOpen;
@@ -934,7 +991,7 @@ export function ProductCard({
         promotionTone={promotionTone}
         discountLabel={discountLabel ?? product.discountLabel}
         activities={activityLabels ?? (product.use ? [activityLabel(product.use)] : [])}
-        colorCount={product.colors?.length ?? colorOptions.length}
+        colorCount={colorCount ?? product.colors?.length ?? colorOptions.length}
         gender={product.gender}
         name={product.name}
         optionThumbnails={colorOptions}
@@ -942,7 +999,8 @@ export function ProductCard({
         price={product.price}
         originalPrice={product.originalPrice}
         promotion={hasOption('promotion') ? product.promotion : undefined}
-        showVariantSummary={hasOption('colors')}
+        showVariantSummary={showColorCount || hasOption('colors')}
+        variantSummaryDisplay={showColorCount ? 'colors' : undefined}
         variant={variant}
         widthCount={productWidthCount(product)}
       />

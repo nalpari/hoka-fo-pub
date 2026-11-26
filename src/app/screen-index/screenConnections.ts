@@ -177,18 +177,22 @@ const connections: Record<number, ScreenConnection> = {
     route: '/checkout',
     previewRoutes: [
       { label: '입력·동의 오류', href: '/checkout/preview-error' },
+      { label: '필수 입력 누락 안내', href: '/checkout/preview-required-fields' },
       { label: '주문 완료', href: '/checkout/preview-complete' },
       { label: '기본배송지 주소가 없는 사용자', href: '/checkout/preview-shipping' },
       { label: '배송 요청사항 직접입력', href: '/checkout/preview-delivery-request' },
       { label: '보유 쿠폰 조회', href: '/checkout/preview-coupons' },
+      { label: '쿠폰 변경 확인 얼럿', href: '/checkout/preview-coupon-change' },
     ],
     sourceFiles: [
       'src/app/checkout/page.tsx',
       'src/app/checkout/preview-error/page.tsx',
+      'src/app/checkout/preview-required-fields/page.tsx',
       'src/app/checkout/preview-complete/page.tsx',
       'src/app/checkout/preview-shipping/page.tsx',
       'src/app/checkout/preview-delivery-request/page.tsx',
       'src/app/checkout/preview-coupons/page.tsx',
+      'src/app/checkout/preview-coupon-change/page.tsx',
     ],
   },
   '172': {
@@ -679,10 +683,6 @@ const connections: Record<number, ScreenConnection> = {
     route: '/login/account-locked/complete',
     sourceFiles: ['src/app/login/account-locked/complete/page.tsx'],
   },
-  '255': {
-    route: '/signup/information?step=additional',
-    sourceFiles: ['src/app/signup/information/page.tsx'],
-  },
   '256': {
     route: '/signup/information/preview-marketing-consent',
     sourceFiles: [
@@ -926,6 +926,13 @@ export function getScreenStatePreviews(connection: ScreenConnection | undefined)
 // interaction dialogs do not establish a modal state. Keep nested dialogs together.
 const stateModalVariants: Readonly<Record<string, readonly ModalDialogVariant[]>> = {
   '/products/pdp-preview/inquiry-form': ['form'],
+  ...Object.fromEntries(
+    productDetailPreviews.flatMap((preview) =>
+      'notice' in preview
+        ? [[`/products/pdp-preview/${preview.state}`, [preview.notice.variant]]]
+        : [],
+    ),
+  ),
   '/launch-calendar/clifton-11-gtx/preview-notification': ['form'],
   '/launch-calendar/clifton-11-gtx/preview-phone-required': ['alert'],
   // CartDialogs and CheckoutStatePreview.
@@ -934,6 +941,8 @@ const stateModalVariants: Readonly<Record<string, readonly ModalDialogVariant[]>
   '/cart/preview-options-apparel-changed': ['productOption'],
   '/cart/preview-limit': ['alert'],
   '/checkout/preview-coupons': ['productSelection'],
+  '/checkout/preview-coupon-change': ['confirm'],
+  '/checkout/preview-required-fields': ['alert'],
   '/checkout/preview-address-change': ['form'],
   '/checkout/preview-address-edit': ['form'],
   '/checkout/preview-address-new': ['form'],

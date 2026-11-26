@@ -3,6 +3,8 @@ export type ProductWidthOption = {
   label: 'Regular' | 'Wide' | 'X-Wide';
   sizes: string[];
   soldOut: string[];
+  /** Prepared width-level sold-out state supplied independently of size availability. */
+  isSoldOut?: boolean;
 };
 export type ProductColorOption = {
   color: string;

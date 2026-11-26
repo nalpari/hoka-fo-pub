@@ -1,5 +1,4 @@
 'use client';
-import { useSearchParams } from 'next/navigation';
 
 import { useState } from 'react';
 
@@ -23,15 +22,13 @@ const emptyInformation: RegistrationInformation = {
   address: '',
   addressDetail: '',
   email: '',
-  domain: '',
   anniversary: '',
 };
 const fixedErrors = {
   id: '아이디는 영어소문자로 시작해야 하며, 영어,숫자,_(언더바)를 사용하여 5~20자로 구성할 수 있습니다.',
   email: '올바른 이메일 형식으로 입력해 주세요',
-  domain: '올바른 도메인 형식으로 입력해 주세요',
   name: '올바른 이름을 입력해주세요',
-  password: '영문, 숫자, 특수문자를 모두 포함하여 10~12자로 입력해 주세요',
+  password: '영문, 숫자, 특수문자를 모두 포함하여 10~20자로 입력해 주세요',
   confirmation: '비밀번호가 일치하지 않습니다',
   postalCode: '우편번호를 입력해 주세요.',
   address: '주소를 입력해 주세요.',
@@ -46,8 +43,6 @@ export function RegistrationStatePreview({
   marketing?: boolean;
   errors?: boolean;
 }) {
-  const searchParams = useSearchParams();
-  const additional = marketing || searchParams.get('step') === 'additional';
   const [information, setInformation] = useState(
     errors
       ? emptyInformation
@@ -58,21 +53,18 @@ export function RegistrationStatePreview({
     sms: 'no',
     kakao: 'no',
   });
-  const [domainChoice, setDomainChoice] = useState('direct');
   const [addressOpen, setAddressOpen] = useState(false);
   const [open, setOpen] = useState(marketing);
   return (
     <>
       <RegistrationContent
-        stage={additional ? 'additional' : 'information'}
         information={information}
         preferences={preferences}
-        domainChoice={domainChoice}
         notice=""
         duplicateNotice=""
         fieldErrors={
-          !errors || marketing
-            ? { id: '', email: '', domain: '', name: '', password: '', confirmation: '' }
+          !errors
+            ? { id: '', email: '', name: '', password: '', confirmation: '' }
             : fixedErrors
         }
         addressOpen={addressOpen}
@@ -81,7 +73,6 @@ export function RegistrationStatePreview({
         onPreferenceChange={(key, value) =>
           setPreferences((previous) => ({ ...previous, [key]: value }))
         }
-        onDomainChoice={setDomainChoice}
         onSubmit={(event) => event.preventDefault()}
       />
       {open && (

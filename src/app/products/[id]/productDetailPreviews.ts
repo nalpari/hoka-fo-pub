@@ -6,13 +6,69 @@ export const productDetailPreviews = [
   { state: 'apparel', label: '의류 기본' },
   { state: 'width-single', label: '발볼 1개 · 선택기 숨김' },
   { state: 'width-double', label: '발볼 2개' },
+  { state: 'width-double-sold-out', label: '발볼 2개 · 1개 품절' },
   { state: 'width-triple', label: '발볼 3개' },
+  { state: 'width-triple-sold-out', label: '발볼 3개 · 1개 품절' },
   { state: 'inquiries-expanded', label: '신발 · 상품문의 펼침' },
   { state: 'sale', label: '할인가' },
   { state: 'partial-stock', label: '일부 사이즈 품절' },
   { state: 'sold-out', label: '전체 품절' },
   { state: 'options-selected', label: '옵션 선택' },
   { state: 'options-scroll', label: '옵션 선택 · 최대 높이' },
+  {
+    state: 'quantity-limit',
+    label: '상품 상세 · 수량 변경 제한',
+    notice: {
+      variant: 'alert',
+      message: '수량을 변경할 수 없습니다.',
+      description: '#개까지 구매 가능합니다.',
+    },
+  },
+  {
+    state: 'product-not-selected',
+    label: '상품 상세 · 상품 미선택',
+    notice: {
+      variant: 'confirm',
+      message: '상품이 선택되지 않았습니다.',
+      description: '상품을 먼저 선택하고 진행해주세요.',
+    },
+  },
+  {
+    state: 'link-copied',
+    label: '상품 상세 · 상품 주소 복사 완료',
+    notice: {
+      variant: 'alert',
+      message: '주소를 복사하였습니다.',
+      description: '상품의 주소를 클립보드에 복사하였습니다.',
+    },
+  },
+  {
+    state: 'restock-complete',
+    label: '상품 상세 · 입고 알림 신청 완료',
+    notice: {
+      variant: 'alert',
+      message: '입고 알림 신청되었습니다.',
+      description: '상품의 입고가 추가되면 카카오톡으로 알려드리겠습니다.',
+    },
+  },
+  {
+    state: 'restock-confirm',
+    label: '상품 상세 · 품절 상품 재입고 알림 신청 확인',
+    notice: {
+      variant: 'confirm',
+      message: '품절된 상품입니다',
+      description: '재입고 알림신청을 하시겠습니까?',
+    },
+  },
+  {
+    state: 'cart-added',
+    label: '상품 상세 · 장바구니 추가 완료',
+    notice: {
+      variant: 'alert',
+      message: '장바구니에 추가되었습니다.',
+      description: '상품을 장바구니에 추가하였습니다.',
+    },
+  },
 ] as const;
 
 export type ProductDetailPreview =
@@ -20,6 +76,14 @@ export type ProductDetailPreview =
   | 'empty-inquiries'
   | 'restock'
   | 'selection-required';
+
+const widthPreviews: Partial<Record<ProductDetailPreview, { count: number; soldOut?: boolean }>> = {
+  'width-single': { count: 1 },
+  'width-double': { count: 2 },
+  'width-double-sold-out': { count: 2, soldOut: true },
+  'width-triple': { count: 3 },
+  'width-triple-sold-out': { count: 3, soldOut: true },
+};
 
 const apparelImage = (id: number) => `/images/products/everyrun/pdp-${id}.png`;
 
@@ -30,22 +94,22 @@ export function prepareProductDetailPreview(
   product: Product,
   preview?: ProductDetailPreview,
 ): Product {
-  // [ 개발팀 바인딩 ] 발볼 개수별 IA 확인용 fixture입니다. 실제 상품의 옵션을 판정하지 않으며 기본 상세 데이터는 변경하지 않습니다.
-  const widthCount =
-    preview === 'width-single'
-      ? 1
-      : preview === 'width-double'
-        ? 2
-        : preview === 'width-triple'
-          ? 3
-          : 0;
+  // [ 개발팀 바인딩 ] 발볼 개수와 두 번째 발볼의 품절 표시는 IA 직접 확인용 fixture입니다.
+  // 실제 상품의 발볼별 isSoldOut과 사이즈별 soldOut은 상세 통합 소유자가 현재 재고 표시 데이터에서 공급합니다.
+  const widthPreview = preview && widthPreviews[preview];
 
-  if (widthCount) {
+  if (widthPreview) {
     return {
       ...product,
       colorOptions: product.colorOptions?.map((option) => ({
         ...option,
-        widths: option.widths.slice(0, widthCount),
+        widths: option.widths
+          .slice(0, widthPreview.count)
+          .map((width, index) =>
+            widthPreview.soldOut && index === 1
+              ? { ...width, isSoldOut: true, soldOut: [...width.sizes] }
+              : width,
+          ),
       })),
     };
   }
@@ -78,7 +142,13 @@ export function prepareProductDetailPreview(
     };
   }
   if (preview === 'sale') return { ...product, originalPrice: 290000, discountLabel: '20%' };
-  if (preview !== 'partial-stock' && preview !== 'restock' && preview !== 'sold-out') {
+  if (
+    preview !== 'partial-stock' &&
+    preview !== 'restock' &&
+    preview !== 'restock-confirm' &&
+    preview !== 'restock-complete' &&
+    preview !== 'sold-out'
+  ) {
     return product;
   }
 

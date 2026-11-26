@@ -4,12 +4,13 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-25T04:40:52Z'
+updated: '2026-11-26T06:58:59Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/types/component-contracts/app-signup-information-page.d.ts
   - src/app/products/[id]/_components/ProductDetailContent.tsx
   - src/app/products/[id]/productDetailPreviews.ts
   - src/app/support/after-sales/_components/AfterSalesContent.tsx
@@ -1308,6 +1309,12 @@ IA 191의 기존 `previewRoutes`를 통해 STATE 행이 자동 표시되므로 �
 
 출처: 위 프레임·메뉴·주문 파일과 `src/app/mypage/event-entries/_components/RunClubEntriesContent.tsx`, `member-activity/page.tsx`, `payment-methods/page.tsx`, `refund-account/page.tsx`, `referral/_components/ReferralContent.tsx` 작업 트리. 사용자 확정 및 작성: 2026-10-30 (Asia/Seoul).
 
+## 마이페이지 PC 공통 제목 (2026-11-26)
+
+`MyPageFrame`의 `sidebar` 레이아웃은 PC에서 `SideNavigation`의 `titleWeb="h10"`으로 ‘마이페이지’를 22px·700으로 표시한다. 본문 영역의 기존 `h1`은 32px·700을 적용한다. 공용 `SideNavigation`의 `titleWeb` 생략 기본값은 `h8B`이며 모바일 사이드바 표시와 본문 타이포는 기존 설정을 따른다.
+
+출처는 사용자 브라우저 댓글·공통 적용 요청과 `src/app/mypage/_components/MyPageFrame.tsx`, `src/components/common/layouts/SidebarNavigationLayout.tsx` 작업 트리다. Codex가 PC 1440px에서 리뷰·주문·반품·상품내역·쿠폰·러닝세션·회원정보·배송지의 본문 `h1`과 사이드바 제목을 확인했다. PC 1240px에서 리뷰 등 표본과 고객센터 `SUPPORT` 28px·900을 확인했다. 모바일 390px에서는 리뷰·주문·배송지의 기존 22px·900 제목과 숨겨진 사이드바를 확인했다.
+
 ## 장바구니·로그인 마크업 확인 기준 (2026-10-30)
 
 사용자 요청에 따라 두 화면은 기본 마크업과 고정 상태를 확인하는 인계 방식으로 전환했다. 주문·삭제·옵션 확인·로그인·소셜 로그인은 서비스 동작 없이 표시하며, 주문 액션의 동적 checkout href를 제거했다. 일반 탐색 링크는 유지한다. 장바구니 체크·수량·관심상품과 모달 선택/닫기, 로그인 입력·비밀번호 표시·체크·도움말은 로컬 UI로 유지한다. 고정 단품/행 금액과 합계는 조작으로 재계산하지 않는다.
@@ -1473,6 +1480,20 @@ ProfilePhoneVerification은 6자리 코드 불일치를 SingleActionDialog로 �
 사용자의 시스템 기획 변경에 따라 마이페이지 회원정보 조회·편집의 결혼유무 표시/라디오를 제거했다. 유일한 부가정보 항목이었으므로 빈 제목·구분선·간격 그룹도 제거하고 마케팅 수신 동의 다음에 저장/취소 액션을 표시한다. MyPageProfile의 상태와 관련 prop/callback, MaritalStatus 타입을 함께 삭제했다. 회원가입은 이미 해당 항목이 제거된 상태이며 src 전체 검색에서 결혼유무·maritalStatus·MaritalStatus·marital-status의 운영 구현 참조가 남지 않는 것을 확인했다(비노출을 확인하는 스토리 assertion은 제외). 아래 과거 Figma/병합 기록의 결혼유무 설명은 당시 상태에 대한 이력이며 현재 구현은 이 절을 따른다. 주소·이메일 편집과 휴대폰 인증·비밀번호 팝업은 유지한다.
 
 브라우저에서 편집·조회 화면 모두 결혼유무·부가정보 제목·라디오가 없는 것을 확인했다. 타입 검사·마이페이지 및 변경 공통 컴포넌트/스토리 ESLint·Panda 생성 포함 프로덕션 빌드·Storybook 빌드를 통과했다.
+
+## 비밀번호 길이 안내 문구 (2026-11-26)
+
+`src/lib/passwordValidation.ts`의 안내 문자열은 10~20자이며, 검증 정규식의 허용 범위는 10~12자다. Codex가 2026-11-26에 `node --test tests/account-recovery.test.mjs`에서 기존 10~12자 검증 사례를 포함한 4개 테스트 통과를 확인했다.
+
+## 회원가입 마케팅 수신 동의 배치 (2026-11-26)
+
+회원 정보 폼의 이메일 주소 아래에 마케팅 정보 수신 동의 섹션을 PC·모바일 모두 40px 간격으로 배치한다. 이메일·문자 라디오 값은 기존 `preferences`와 `onPreferenceChange`로 관리한다. 수신내역 모달과 고정 오류 화면은 통합 폼을 사용한다. 출처는 사용자 브라우저 주석과 `RegistrationContent.tsx`, `RegistrationStatePreview.tsx`, `registration.types.ts` 작업 트리다. [경로와 검증](routing.md#회원가입-마케팅-수신-동의-통합-2026-11-26).
+
+## 회원가입 이메일 입력 계약 (2026-11-26)
+
+회원가입 `RegistrationContent`는 기존 boxed 텍스트 필드에 `type="email"`과 `autoComplete="email"`을 적용한다. `RegistrationInformation.email`은 전체 주소를 담고 `fieldErrors.email`은 해당 입력의 오류를 표시한다. 회원가입의 분리 도메인 값·선택 상태와 이전 컴포넌트 선언을 제거했다. 실제 가입 요청은 통합 소유자의 연결 범위다.
+
+마이페이지 회원정보 편집은 `EmailAddressFields`로 로컬 부분과 도메인을 입력한다. Codex는 `/mypage/profile/preview-edit`에서 도메인 선택이 표시되는 것을 확인했다. 출처는 회원가입 정보 입력 구현과 `app-signup-information-page.d.ts`의 작업 트리, 사용자 브라우저 주석이다.
 
 ## 회원정보 주소·이메일 편집 재사용 (2026-10-26)
 
@@ -5504,7 +5525,9 @@ PC1920×1080/MO375×812에서 별도 p 두 개, 계산 타이포·간격16px과 
 
 ## EmptyState 고정 디자인 규칙 (2026-11-18)
 
-사용자가 확정한 heading형 제목 기준은 PC22px·900·행간120%, 모바일20px·700·행간120%다. 본문형 안내와 description은 기존 개별 계약을 유지한다. 이 결정은 업데이트되지 않은 Figma·스크린샷·위의 과거 검증 수치보다 우선하며, 디자인 링크 추가만으로 이전 PC28px/MO22px을 복원하지 않는다. 변경에는 고정 규칙을 바꾸라는 사용자의 명시적 지시가 필요하다. 강제 작업 지침은 [AGENTS.md](../../AGENTS.md#emptystate-fixed-design-rule), 구현 소유자는 EmptyState.recipe.tsx다. 기본값과 heading형 layout override를 함께 유지한다. 이번 작업은 정책 문서만 변경했고 화면 스타일은 직전 검증 결과를 유지한다. 출처: 사용자 고정 규칙 요청과 현재 구현.
+2026-11-26 사용자 공통 수정 요청에 따라 heading형 제목은 PC 22px·모바일 20px, 양쪽 모두 Regular(400)·행간 120%로 표시한다. `src/components/common/atoms/EmptyState.recipe.tsx`의 공통 기본값과 heading형 layout에 적용한다. 본문형 안내, 설명, 독립 compound title과 명시적 타이포 override는 기존 계약을 유지한다. 화면 기본 규칙은 [AGENTS.md](../../AGENTS.md#emptystate-fixed-design-rule)에 기록한다.
+
+출처는 사용자 요청과 첨부된 상품리뷰 피드백, `EmptyState.recipe.tsx` 작업 트리다. Codex가 PC 1440px과 모바일 390px에서 리뷰 두 빈 상태, 장바구니, 검색, 런칭의 제목 굵기 400과 크기·행간을 확인했다. 공지사항의 본문형 안내는 PC 16px·모바일 14px·굵기 400이었다.
 
 ## 주문 조회 없음 PC 시안 반영 (2026-11-18)
 
@@ -5556,9 +5579,7 @@ EmptyState의 claimHistory layout은 PC 높이267px·중앙 배치·하단 #E9EA
 
 - 관심상품 의류 예시는 공통 ProductThumbnail의 상품목록 비율을 사용하며 신발과 연결 상품의 기본 비율은 유지한다.
 
-- ProductCard의 cart 옵션으로 관심상품에 장바구니 담기 버튼을 표시한다. 아이콘과 문구는 공통 버튼을 사용하며 요청은 연결되지 않았다.
-
-- 관심상품 장바구니 담기 버튼은 상품 내용과 동일한 모바일 좌우 여백을 사용하고 윗간격은 모바일 6px, PC 12px로 맞춘다.
+- 관심상품 카드에는 색상 캐러셀을 표시한다. 장바구니 담기 버튼은 후속 요청으로 제거했다. [현재 관심상품 카드 설정](#관심상품-카드-색상-개수-표시-2026-11-26).
 
 - 배송지 관리에서 기본 배송지 외 항목에도 PC와 모바일 모두 일반 배송지 배지를 표시한다.
 
@@ -5681,6 +5702,18 @@ recipe의 생략·명시적 undefined는 defaultVariants의 subtle을 사용한�
 - density 기본값 standard는 머리글 세로20px, compact는16px이다. 공지사항의 아래8px은 기존 호출부에 유지한다.
 - 경계선 옵션은 top/mobileTop/bottom이며 생략·undefined·unchanged는 해당 선을 추가하지 않는다. top strong은2px #000000, emphasis는 기존 token border.strong의 #111이다. thinStrong/ thinSubtle은1px 검정/회색이다. bottom은 검정·#E9EAEB·black.40·기존 border.default(#D8D8D8)와 두 PC/MO 전환 조합을 보존한다. 값 통일을 이유로 #111/#D8D8D8을 #000000/#E9EAEB로 바꾸지 않는다.
 - rowBorder 기본값 subtle, mobileTop 기본값 unchanged다. 항목 경계선과 전체 목록 경계선을 중복으로 추가하지 않는다. EmptyState의 본문형/heading형 확정 규칙·공지 모바일200px과 선 소유권은 유지한다.
+
+### 공통 목록 머리글 숨김 (2026-11-26)
+
+`dataListRecipe`의 `headerVisibility` 기본값은 `visuallyHidden`이다. `header` 슬롯은 시각적 공간을 차지하지 않으며 기존 DOM과 접근성 노출 규칙을 유지한다. 화면에 머리글을 표시하는 호출부는 `visible`을 명시한다. 주문/배송 조회도 공통 헤더 슬롯을 사용하고 PC 상단 2px 선은 목록 본체가 맡는다.
+
+재입고 알림 목록은 표·행·열 머리글·셀 역할을 연결한다. 모바일에서 상품정보 아래에 표시하는 신청일은 시각용이며, 보조 기술은 같은 행의 신청일 셀을 읽는다.
+
+출처는 사용자 브라우저 코멘트와 `src/components/common/atoms/DataList.recipe.tsx`, `src/app/mypage/_components/MyPageProductHistory.tsx`, `src/app/mypage/orders/_components/OrdersList.tsx` 작업 트리다. Chromium에서 재입고 PC 1255px·모바일 390px의 접근성 트리에 열 제목 3개와 본문 셀 6개가 노출되는 것을 확인했다. PC 주문/배송 조회와 공지사항의 시각적 숨김, 주문 목록의 접근성 텍스트와 상단 2px 선, 재입고 빈 화면도 확인했다.
+
+주문·취소·반품 상세는 `src/app/mypage/orders/_components/OrderDetails.tsx`에서 PC 상품 그룹과 취소·반품 이력의 열 머리글을 공통 `header` 슬롯에 연결한다. 각 상품 표에는 이름과 표·행·열 머리글·셀 역할을 지정한다. 모바일은 상품 카드로 표시한다.
+
+Chromium에서 상세 3개 경로의 PC 1255px 머리글 숨김, 접근성 트리의 열 제목과 본문 셀 개수, 모바일 390px 상품 카드와 가로 넘침 여부를 확인했다. TypeScript와 변경 소스 ESLint·Prettier를 통과했다.
 
 ### 머리글 typography case
 
@@ -6180,6 +6213,12 @@ ProductListingContent의 sticky top·maxH가 ContentLayout에서만 제공하는
 출처: 위 설계서, `src/app/products/[id]/_components/ProductDetailContent.tsx`와 `src/app/products/[id]/productDetailPreviews.ts`의 작업 트리. 기존 신뢰·출처 메타데이터는 유지합니다. 기록: codex/gpt-6, 2026-11-20.
 
 
+## 상품 상세 발볼 품절 표시 (2026-11-26)
+
+상세 `ProductWidthSelector`는 `soldOutOptions`에 포함된 발볼을 같은 너비의 칸에 남겨두고 비활성화한다. 발볼 품절 스타일은 배경 #E9EAEB, 라벨 #B3B3B3, The Future HOKA Medium 14px와 PC 44px·모바일 40px 높이를 적용한다. 보조 기술에는 발볼 이름과 품절 상태를 함께 전달한다. 출처는 `ProductWidthSelector.tsx` 작업 트리와 [Width Selector Button 시안](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0)이다.
+
+PC 1440px 및 모바일 390px에서 2·3개 상태의 균등 너비, 품절 계산 스타일, 클릭 차단, 3개 상태의 방향키 건너뛰기와 기존 전체 품절 화면의 발볼 선택 상태를 확인했다. IA에서 두 링크가 표시되는 것을 확인했다. TypeScript, 변경 파일 ESLint 및 소스 그래프 생성을 통과했다. 관련 테스트 19개 중 18개가 통과했고 기존 고객센터 첨부파일 미리보기의 소스 연결 검사 1개가 실패했다.
+
 ## 상품 상세 발볼 선택 옵션 수와 pill 표시 (2026-11-20)
 
 사용자 제공2/3개 옵션 시안과 단일 옵션 비노출 지시에 따라 detail 발볼 선택기를 수정했다.2/3개는 동일 너비 분할·#E9EAEB 배경·2px 안쪽 여백·검정 선택 pill을 사용한다. 높이는 PC48px/모바일44px, 라벨은 PC16px/모바일14px이며 첨부 이미지 기준 선택Regular400·미선택Medium500으로 구현했다. Figma 조회 제한으로 원본 굵기 모드는 미확인이다. 옵션1개 이하이면 detail에서 null을 반환하며 값 변경 이벤트를 만들지 않는다. 기존 부모의 발볼값·사이즈 연결을 유지한다. appearance 생략 기본detail과 명시cart의 기존 표현·disabled·포커스 처리는 유지한다.
@@ -6246,7 +6285,23 @@ TextFormField/TextInput, SearchField, DateRangeSearch와 각 화면의 검색·�
 
 - 상품 문의 모달의 유의사항에 부적절한 게시글 금지와 개인정보 포함 시 비밀글 문의 안내를 표시한다.
 
+## 상품 상세 헤더 타이포와 간격 실측 (2026-11-26)
+
+상세 `ProductIdentity`에서 뱃지·상품명 간격은 PC 20px·모바일 16px, 상품명·가격 간격은 양쪽 20px다. 뱃지는 PC 14px·모바일 12px를 쓰며 굵기 500, 행간 18.2px, 복수 뱃지 간격 8px·6px를 적용한다. 영문 상품명은 HOKA Black 32px·28px와 행간 30.72px다. 한글 상품명은 Pretendard Black 28px와 PC 33.6px·모바일 30.72px 행간을 사용한다. 판매가 숫자는 HOKA Medium 18px·16px와 행간 20.8px, 원 단위는 Pretendard Bold 18px·16px와 행간 130%다. 출처는 `ProductCard.tsx` 작업 트리와 [HOKA 상품 상세 Header Container PC·모바일 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)이다.
+
+PC 1440px와 모바일 375px에서 기본·의류·할인가 상세의 계산 타이포, 간격, 성별·활동 문구 비노출과 상품 목록 카드의 렌더링을 확인했다. TypeScript, 변경 파일 ESLint·Prettier를 통과했다.
+
+## 상품 상세 Tech Specs 툴팁 스타일 (2026-11-26)
+
+`HelpTooltip`에서 `variant`를 생략하거나 `undefined`로 전달하면 `standard`의 가운데 정렬과 17×8px 화살표를 적용한다. 기술 지표 안내는 `description`을 선택해 흰 배경, 4px 모서리, 12px 안쪽 여백, 왼쪽 정렬, Pretendard Regular 12px·행간 18px, 34×8px 화살표와 `0 4px 16px rgba(0, 0, 0, 0.16)` 그림자를 적용한다. 출처는 `HelpTips.tsx`, `ProductDetailContent.tsx`, `productDetailPresentation.ts` 작업 트리와 [HOKA 상품 상세 Tooltip Info Container 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)이다.
+
+설명형의 선택적 `maxWidth`는 픽셀 단위이며 기본은 375px다. 무게·힐투토 드롭·쿠셔닝·안정성·반발력의 본체 폭을 시안의 그림자 여백을 제외한 161·271·375·374·375px로 적용했다. 팝업은 화면 좌우 16px 여유를 반영해 너비를 제한하고 기존 포털 위치 보정을 사용한다.
+
+Codex는 PC 1440px의 마우스 올리기와 모바일 375px의 탭으로 다섯 툴팁을 열어 폭·패딩·글자 크기·정렬·그림자·화살표와 Escape 닫기를 확인했다. 모바일에서 긴 툴팁 세 개의 폭은 343px다. 가이드의 기본 툴팁을 포커스로 열어 가운데 정렬과 17px 화살표를 확인했고 기본 토글팁 열기·닫기도 확인했다. TypeScript, 변경 파일 ESLint·Prettier와 상품 상세 표시 데이터 테스트 3개를 통과했다.
+
 ## 상품 상세 Tech Specs 타이포 보정 (2026-11-24)
+
+[Tech Specs 툴팁 문구와 PC·모바일 검증](routing.md#클리프톤-상품-상세-기술-지표-도움말-2026-11-26)을 참고한다.
 
 [상품 상세 디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 PC·모바일 Tech Specs를 대조해 기존 body3/body5 일괄 사용을 해당 영역의 표현으로 보정했다. `ProductDetailContent.tsx`의 기존 목록·제목 소유권과 DescriptionList/ContentSection/Tooltip을 유지하며 공통 Typography 기본값은 바꾸지 않는다.
 
@@ -6271,13 +6326,19 @@ TextFormField/TextInput, SearchField, DateRangeSearch와 각 화면의 검색·�
 
 출처: 해당 커밋과 관련 src 파일의 작업 트리. 문자열별 복원 개수를 원본 커밋과 대조했다. 브라우저 실행 검증은 수행하지 않았다. 기록: codex/gpt-6.
 
-## 카카오톡 알림톡 수신 항목 1차 비노출 (2026-11-25)
+## 관심상품 카드 색상 개수 표시 (2026-11-26)
 
-회원가입 부가정보와 수신 확인 모달, 마이페이지 회원정보 조회·편집, 퍼블리싱 가이드의 회원정보 예시에서 `카카오톡 알림톡 수신` 항목을 `[ 카카오톡 알림톡 ] 1차 구현 불가`로 주석 처리했다. 이메일·문자 수신 항목과 기존 표시 데이터·콜백 타입을 유지한다.
+관심상품의 색상 개수 표시는 `4b881d82`에서 적용했다. 후속 요청에 따라 관심상품은 `colors` 옵션으로 색상 캐러셀을 복원하고, 최근 본 상품은 `color-count` 옵션으로 PC·모바일 모두 `N Colors`를 표시한다. 최근 본 상품의 고정 예시는 6으로 지정하며, 연결된 목록은 전달된 상품의 색상 개수를 사용한다.
 
-출처는 사용자 정정 지시와 `src/app/signup/information/_components/RegistrationContent.tsx`, `src/app/mypage/profile/_components/ProfileContent.tsx`, `src/app/publishing-guide/_components/descriptionListExamples.tsx`의 작업 트리다.
+출처는 사용자 브라우저 코멘트, 후속 요청, `src/app/mypage/_components/MyPageProductHistory.tsx` 작업 트리다. 로컬 서버 응답에서 최근 본 상품 카드 6개에 `6 Colors` 문구, 관심상품 카드 6개에 색상 캐러셀이 렌더되는 것을 확인했다.
 
-2026-11-25 Codex는 PC 1440px·모바일 390px에서 해당 수신 항목의 비노출과 이메일·문자 항목 표시를 확인했다. 런칭 상세 알림 신청, 상품 상세 재입고 알림, 마이페이지 재입고 메뉴와 러닝세션 안내의 기존 표시도 확인했다. TypeScript와 변경 소스 ESLint는 통과했다.
+## 카카오톡 알림톡 수신 항목 복원 (2026-11-26)
+
+`ff75a9c1`의 비노출 변경을 되돌려 회원가입 부가정보와 수신 확인 모달, 마이페이지 회원정보 조회·편집, 퍼블리싱 가이드의 회원정보 예시에서 `카카오톡 알림톡 수신` 항목을 다시 표시한다. 회원가입 양식과 회원정보 편집은 기존 카카오톡 수신 상태와 변경 콜백을 사용한다.
+
+출처는 사용자 복원 요청, `ff75a9c1`의 변경 내역과 `src/app/signup/information/_components/RegistrationContent.tsx`, `src/app/mypage/profile/_components/ProfileContent.tsx`, `src/app/publishing-guide/_components/descriptionListExamples.tsx`의 작업 트리다.
+
+Codex는 로컬 Next.js 서버에서 [관련 경로](routing.md#카카오톡-알림톡-수신-항목-표시-2026-11-26) 5개의 HTTP 200 응답과 HTML의 수신 항목 문구를 확인했다. TypeScript와 변경 소스 ESLint를 통과했다.
 
 ## Display·Heading·Body 타이포그래피 이관 (2026-11-25)
 

@@ -3,7 +3,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { useRef, useState } from 'react';
-import { usePlatform } from '@/context/platform';
 import { useShopPreviewLogout } from '@/context/ShopPreviewContext';
 
 import { css } from 'styled-system/css';
@@ -45,11 +44,7 @@ function MyPageMembership() {
   return (
     <Box bg="black.10" p="32px" minW="0" _mobile={{ px: '16px', py: '20px' }}>
       <Stack gap="12px">
-        <HStack
-          justifyContent="space-between"
-          alignItems="flex-start"
-          _mobile={{ justifyContent: 'flex-start', alignItems: 'center', gap: '16px' }}
-        >
+        <HStack gap="16px">
           <HStack gap="12px" _mobile={{ gap: '8px' }}>
             <HStack
               as="span"
@@ -121,8 +116,8 @@ const styles = {
     minH: '52px',
     justifyContent: 'flex-end',
     pb: '16px',
-    borderBottom: '2px solid var(--colors-black-100)',
-    _mobile: { minH: '43px', borderBottomWidth: '1px' },
+    borderBottom: '1px solid var(--colors-black-100)',
+    _mobile: { minH: '43px' },
   }),
   menuTitle: css({ '&&': { lineHeight: 'body', _mobile: { lineHeight: '1.2' } } }),
   profileLink: css({
@@ -179,7 +174,6 @@ function MyPageBenefits() {
 }
 
 function MyPageOverviewProfile({ onLogout }: { onLogout: () => void }) {
-  const platform = usePlatform();
   const [barcodeOpen, setBarcodeOpen] = useState(false);
   const barcodeTrigger = useRef<HTMLButtonElement>(null);
 
@@ -205,12 +199,7 @@ function MyPageOverviewProfile({ onLogout }: { onLogout: () => void }) {
           orientation: 'horizontal',
           alignItems: 'flex-end',
           action: (
-            <Button
-              {...(platform === 'mobile'
-                ? { variant: 'link', size: 'md' }
-                : { variant: 'secondary', size: 'short' })}
-              onClick={onLogout}
-            >
+            <Button variant="link" size="md" onClick={onLogout}>
               로그아웃
             </Button>
           ),
@@ -300,14 +289,13 @@ function MyPageMenuSection({ title, items }: { title: string; items: MyPageMenuI
   return (
     <ContentSection
       as="section"
-      gap="16px"
-      _mobile={{ gap: '0' }}
+      gap="0"
       aria-label={title}
       title={title}
       headerProps={{
         titleAs: 'h2',
         className: styles.menuHeader,
-        titleProps: { web: 'h8B', mo: 'h7', className: styles.menuTitle },
+        titleProps: { web: 'h9B', mo: 'h7', className: styles.menuTitle },
       }}
     >
       <Stack gap="0">

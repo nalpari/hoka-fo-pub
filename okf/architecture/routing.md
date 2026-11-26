@@ -4,15 +4,19 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-25T04:40:52Z'
+updated: '2026-11-26T06:58:59Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
-  - id: mypage-membership-barcode-design
-    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql
-    title: 모바일 마이페이지 요약과 멤버십 바코드
+  - src/app/signup/information/_components/RegistrationContent.tsx
+  - src/app/signup/information/_components/RegistrationStatePreview.tsx
+  - src/app/signup/information/preview-marketing-consent/page.tsx
+  - src/app/checkout/preview-coupon-change/page.tsx
+  - src/app/checkout/_components/CheckoutStatePreview.tsx
+  - src/app/checkout/_components/CheckoutDiscountSummary.tsx
+  - src/app/screen-index/screenConnections.ts
   - src/app/signup/verify/_components/IdentityVerificationContent.tsx
   - src/app/mypage/orders/orderPreviews.ts
   - src/app/signup/_components/SignupContent.tsx
@@ -358,6 +362,9 @@ working_tree_sources:
   - src/stories/features/Mockup/signup/SignupSteps.stories.tsx
   - src/app/locales/page.tsx
 sources:
+  - id: mypage-membership-barcode-design
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql
+    title: 모바일 마이페이지 요약과 멤버십 바코드
   - id: orders-design-review
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql
     title: 장바구니·주문·취소·반품 최신 화면 시안
@@ -712,6 +719,8 @@ IA의 경로·클라이언트 경계는 유지한다. `storybookLinks.ts`의 실
 ## 마이페이지 홈 프레임 재사용 (2026-10-28)
 
 /mypage의 RouteContent는 MyPageFrame의 centered 레이아웃으로 main과 Home·마이페이지 breadcrumb를 구성한다. 페이지는 기존 본문과 로그아웃 상태·콜백, RoutePreview의 LogoutDialog 계약을 계속 소유한다. 하위 마이페이지는 기본 sidebar를 사용하고 URL·페이지 export·플랫폼 판별은 바꾸지 않았다. 작업 트리 출처: src/app/mypage/page.tsx, src/app/mypage/_components/MyPageFrame.tsx. [프레임 API와 검증](ui.md#mypageframe-중앙-정렬-레이아웃-2026-10-28)을 참고한다.
+
+2026-11-26부터 마이페이지의 `sidebar` 레이아웃은 PC에서 사이드바 제목 22px·700과 기존 본문 `h1` 32px·700을 공통 적용한다. `/mypage`의 `centered` 프로필과 `/mypage/rewards`의 개인 등급 요약은 각 화면의 제목 체계를 유지한다. [스타일 소유권과 검증](ui.md#마이페이지-pc-공통-제목-2026-11-26).
 
 ## 부모 옵션을 통한 계정·고객센터 구성 (2026-10-28)
 
@@ -2096,6 +2105,36 @@ ProfileContent의 비밀번호 설정 모달에서 안내문 padding-top8px를 �
 
 주문서의 ‘쿠폰 조회하기’ 버튼과 `/checkout/preview-coupons`는 같은 팝업을 사용한다. 상품별 선택은 로컬 초안이며, PC에서는 팝업 위에 선택 목록이 열리고 모바일에서는 ‘상품 쿠폰’ 바텀시트가 열린다. 작업 트리 출처는 `src/app/checkout/_components/CheckoutCouponDialog.tsx`와 `src/app/checkout/checkout-coupons.ts`다. [드롭다운 표시와 검증](ui.md#보유-쿠폰-조회-드롭다운-2026-11-25).
 
+2026-11-26 브라우저 코멘트에 따라 `CheckoutCouponDialog.tsx`의 금액 요약 라벨을 ‘주문금액’, ‘장바구니’로 표시한다.
+
+## 상품 상세와 주문서 ALERT 직접 확인 (2026-11-26)
+
+[HOKA Design](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 ‘퍼블 to 디자인 요청’ ALERT 모음에 있는 일곱 프레임을 상품 상세 공통 IA와 주문하기 IA 171의 STATE에 연결했다.
+
+| 화면 | 상태 | 직접 확인 URL | 유형 |
+| --- | --- | --- | --- |
+| 상품 상세 | 수량 변경 제한 | `/products/pdp-preview/quantity-limit` | alert |
+| 상품 상세 | 상품 미선택 | `/products/pdp-preview/product-not-selected` | confirm |
+| 상품 상세 | 상품 주소 복사 완료 | `/products/pdp-preview/link-copied` | alert |
+| 상품 상세 | 입고 알림 신청 완료 | `/products/pdp-preview/restock-complete` | alert |
+| 상품 상세 | 품절 상품 재입고 알림 신청 확인 | `/products/pdp-preview/restock-confirm` | confirm |
+| 상품 상세 | 장바구니 추가 완료 | `/products/pdp-preview/cart-added` | alert |
+| 주문하기 | 필수 입력 누락 안내 | `/checkout/preview-required-fields` | alert |
+
+모바일 시안의 343px 프레임과 확인·취소 버튼 구성을 확인했다. PC·모바일 공통 ModalDialog의 기존 반응형 규격과 취소·확인 순서를 적용했다. 수량 제한은 시안의 `#개` 표기를 사용하고, 주문서 안내를 닫으면 기존 필드·동의 오류가 보인다. 상태 URL은 안내를 처음부터 열고 확인·취소는 안내를 닫는다. 실제 요청 검증·복사·신청·장바구니 추가 및 결과 갱신은 각 화면 통합 소유자의 연결 범위다.
+
+출처는 위 디자인과 `productDetailPreviews.ts`, `ProductDetailContent.tsx`, `CheckoutStatePreview.tsx`, `preview-required-fields/page.tsx`, `screenConnections.ts` 작업 트리다. 기록: codex/gpt-6, 2026-11-26 KST.
+
+검증은 프로덕션 빌드의 PC 1440px와 모바일 375px에서 수행했다. 7개 모두 직접 진입 시 안내 하나가 열리고, 확인·취소 또는 Escape로 같은 경로에서 닫히며 새로고침 시 다시 열렸다. 모달 폭은 PC 640px, 모바일 343px이었다. IA의 상태명 검색, 링크와 모달 유형을 확인했다. 변경 파일 ESLint·Prettier, TypeScript, 소스 그래프 생성과 프로덕션 빌드를 통과했다. 관련 테스트 20개 중 19개가 통과했고, 기존 고객센터 첨부 방법 미리보기의 IA 소스 경로 검사가 실패했다.
+
+## 주문서 쿠폰 변경 확인 얼럿 (2026-11-26)
+
+`/checkout/preview-coupon-change`에 직접 진입하면 주문서 위에 상품 쿠폰과 장바구니 쿠폰의 동시 사용 제한을 안내하는 변경 확인 모달이 열린다. 주문하기 IA 171에는 ‘쿠폰 변경 확인 얼럿’ 상태와 `confirm` 유형을 연결한다. ‘변경하기’, ‘취소’, 닫기, Escape 키는 모달을 닫고 ‘쿠폰 조회하기’ 버튼으로 포커스를 돌린다. 새로고침하면 모달이 다시 열린다.
+
+첨부 화면의 문구와 액션 순서를 적용하고 크기와 타이포그래피는 공통 모달 스타일을 사용한다. 쿠폰 충돌 판정과 쿠폰 교체 요청 및 주문 견적 갱신은 실제 주문 연결 소유자의 책임이다. 이 경로는 고정 상태를 표시한다. 출처는 사용자 첨부 화면과 작업 트리의 주문서 상태 페이지, 할인 요약 및 IA 연결 파일이다.
+
+Codex는 브라우저에서 PC 1440px와 모바일 375px의 직접 진입·새로고침·버튼 순서·닫기·포커스 복귀 및 기존 보유 쿠폰 조회 미리보기를 확인했다. IA에서 상태명과 URL로 검색해 새 탭으로 열리는 것도 확인했다. 대상 ESLint·Prettier, 전체 TypeScript와 Panda 생성은 통과했다. IA 회귀 검사 16건 중 15건이 통과했으며 기존 문의 첨부파일 선택 미리보기의 소스 연결 검사는 실패했다. 실제 쿠폰 요청은 검증 범위에 포함되지 않는다.
+
 ## 쿠폰 조회와 취소 반품 유형 연결 (2026-11-17)
 
 /checkout/preview-coupons, /mypage/orders/preview-cancel-request, /mypage/orders/preview-return-request의 경로와 직접 진입 상태는 그대로 유지한다. IA 표시와 모달 가이드에 모두 productSelection을 연결했다. 모달 variant는12개다.
@@ -2301,6 +2340,18 @@ Table.recipe를 DataList.recipe로 이전하고 기존 목록·합계·상세·�
 2026-11-18 DataList top API 정리: CheckoutSummary·MyPageProductHistory·ReviewsContent·NoticesList·공지상세의 mobileTop을 기존 PC/MO 조합에 대응하는 top strongToThin/desktopStrong으로 교체했다. URL·DOM·데이터/서비스 계약은 유지한다. 사용하지 않는 row 슬롯 제거는 호출부 변경을 요구하지 않았다. 스타일 등가 검사와 실제 옵션 표는 ui.md에 기록한다.
 
 2026-11-18 DataList columnGap 기본flush 적용: CheckoutSummary·ReviewsContent의 명시적 flush 호출을 dataListRecipe().list로 줄였다. 이전 명시적 flush와 모든 슬롯 스타일이 같으며 기존 머리글-본문 사이0·경로·상태·서비스 계약은 유지한다.
+
+## 상품리뷰 목록 시작선
+
+상품리뷰의 정렬·건수 아래 시작선은 목록 행과 같은 1px 회색 `#E9EAEB`를 `DataList`의 `top: thinSubtle`로 적용한다. 작성 가능한 리뷰는 목록 `ul`, 내가 작성한 리뷰는 머리글과 `ul`을 묶는 목록 부모가 시작선을 소유한다.
+
+출처는 사용자 브라우저 댓글과 `src/app/mypage/reviews/_components/ReviewsContent.tsx`의 작업 트리다. Codex가 2026-11-26에 `/mypage/reviews`와 `/mypage/reviews/preview-written`의 PC 1440px·모바일 390px에서 시작선과 목록 행의 색상 일치, 시작선 두께 1px, 정렬 영역 하단선 0px을 확인했다.
+
+## 상품리뷰 목록 썸네일
+
+작성 가능한 리뷰와 내가 작성한 리뷰 목록은 `OrderProductSummary`의 `imageSize`에 PC·모바일 모두 96px를 전달한다. 썸네일은 96×96px 영역에서 상품 이미지 비율을 유지한다.
+
+출처는 사용자 브라우저 댓글·후속 요청과 `src/app/mypage/reviews/_components/ReviewsContent.tsx`의 작업 트리다. Codex가 2026-11-26에 `/mypage/reviews`와 `/mypage/reviews/preview-written`의 PC 1440px, 모바일 390px·320px에서 모든 행의 썸네일 크기와 리뷰 버튼 배치를 확인했다. 320px의 페이지 가로 넘침 3px은 기존 64px 크기를 적용한 비교에서도 같은 값이었다.
 
 2026-11-18 동일 부모 DataList root/list 통합: cart·결제·재입고·배송지의 class 배열을 하나의 root 호출로 줄였다. 리뷰 본문은 top unchanged로 기존 바깥 머리글 선 소유권을 유지한다. 기존 슬롯 list만 제거하고 URL·DOM·상태·서비스 계약은 유지한다. 옵션별 검증은 ui.md에 기록한다.
 
@@ -2544,6 +2595,10 @@ LoginContent 제목의 들여쓰기와 약관 페이지 tabs 객체 줄바꿈만
 검사: 대상3개 소스 ESLint·Prettier, 전체 TypeScript, Panda 생성 및 OKF 작업 트리 관련 문서 매핑 검사를 통과했다. 커밋/푸시는 수행하지 않았다.
 
 
+## 상품 상세 일부 발볼 품절 상태 (2026-11-26)
+
+`/products/pdp-preview/width-double-sold-out`과 `/products/pdp-preview/width-triple-sold-out`은 각각 발볼 2개·3개 중 두 번째 Wide가 품절인 고정 화면이다. 기존 `productDetailPreviews` 목록을 통해 두 경로가 상품 상세 공통 IA의 STATE에 연결된다. 소스는 `productDetailPreviews.ts`와 `ProductDetailContent.tsx`의 작업 트리다. [품절 표현과 검증](ui.md#상품-상세-발볼-품절-표시-2026-11-26).
+
 ## 발볼 개수별 PDP 상태와 장바구니 일괄 삭제 표시 (2026-11-20)
 
 기존 /products/pdp-preview/[state]에서 width-single·width-double·width-triple을 추가했다. productDetailPreviews의 한국어 상태명을 screenConnections의 기존 map이 IA 상품상세 행에 자동 연결한다. 기존 sourceFiles에 상태 라우트·fixture 파일이 포함되어 있으며 screen-files 재생성 결과 추가 소스 그래프 변경은 없다. 기본 상품 데이터는 유지하고 각 상태 fixture에서 발볼 배열만1/2/3개로 제한한다.1개는 detail 선택기를 숨기며 사이즈는 유지한다.
@@ -2555,6 +2610,8 @@ LoginContent 제목의 들여쓰기와 약관 페이지 tabs 객체 줄바꿈만
 추가 확인: IA에서 발볼 검색 후 세 링크가 보이며375px의 세 URL도0/2/3개 상태와 가로 넘침 없음을 확인했다. PC 장바구니 버튼 순서도 확인했다. 대상ESLint·전체TypeScript·Panda 생성·screen-files 재생성·Next.js 프로덕션 빌드를 통과했다. 장바구니 스크린샷 캡처는 브라우저 타임아웃으로 확보하지 못했고 DOM·계산 폭으로 확인했다.
 
 ## 주문서 쿠폰 중복 사용 안내 (2026-11-20)
+
+2026-11-26에 할인 금액 요약 아래의 상품 쿠폰 사용 수량 및 장바구니 쿠폰과의 중복 사용 안내를 목록에서 제거했다. 최대 할인 쿠폰 자동 적용과 쿠폰 적용 가능 상품에 대한 안내는 계속 표시한다. 출처는 `src/app/checkout/_components/CheckoutDiscountSummary.tsx`의 문구 목록이다.
 
 CheckoutDiscountSummary의 금액 요약 아래 기존 쿠폰 안내 목록에 '* 상품 쿠폰은 상품별로 1장씩만 적용 가능하며, 장바구니 쿠폰과 상품 쿠폰은 함께 사용하실 수 없습니다.' 문구를 추가했다. 기존 Typography web=body4/mo=body4-2·tertiary 톤과 목록 간격을 재사용해 PC/MO에 표시한다. 기존 두 안내와 쿠폰 조회/선택 UI는 유지하며 할인 계산이나 실제 중복 적용 제한을 구현한 변경은 아니다. 출처: 사용자 첨부 주문/결제 이미지와 직접 지정 문구. 작업 트리 출처: src/app/checkout/_components/CheckoutDiscountSummary.tsx.
 
@@ -2608,6 +2665,52 @@ CartDialogs의 상품명을 PC/MO500으로 보정하고 색상 표시의 접두�
 
 출처: `src/app/login/_components/LoginContent.tsx`, `src/app/signup/_components/SignupContent.tsx`의 작업 트리. Git diff로 문자열 변경을 확인했으며 브라우저 검증은 수행하지 않았다. 기록: codex/gpt-6, 2026-11-23T05:09:10.640861+00:00.
 
+## 로그인 저장 도움말 문구 (2026-11-26)
+
+`/login`의 아이디 저장 도움말은 `공용으로 사용하는 장치에서는 아이디 저장하기의 사용에 유의해주세요.`라고 안내한다. 고정 미리보기 `/login/preview-help`도 같은 문구를 사용한다.
+
+2026-11-26에 Codex가 `src/app/login/_components/LoginContent.tsx` 작업 트리의 Git diff에서 문구를 확인했다.
+
+## 계정 잠금 해제 완료 제목 (2026-11-26)
+
+`/login/account-locked/complete`의 `계정 잠금 해제 완료` 제목 옆 자물쇠 아이콘을 제거했다. Codex가 2026-11-26에 `src/app/login/account-locked/complete/page.tsx` 작업 트리의 Git diff에서 변경을 확인했다.
+
+## 회원가입 혜택 문구 (2026-11-26)
+
+`/signup`의 가입 방식 선택 화면은 신규가입 혜택을 `10% 쿠폰`, 축하 쿠폰의 지급 계기를 `생일`로 안내한다. Codex가 2026-11-26에 `src/app/signup/_components/SignupContent.tsx` 작업 트리의 표시 데이터를 확인했다.
+
+## 회원가입 마케팅 수신 동의 통합 (2026-11-26)
+
+`/signup/information`의 회원 정보 폼에 이메일·문자 수신 동의를 통합했다. `step=additional` 분기를 제거해 이전 쿼리 URL로 접속해도 통합 폼을 표시한다. IA 255번 부가정보는 `삭제 / 제외`로 표시하고 직접 링크를 제거했다. IA 256번은 회원 정보 입력 바로 아래에서 수신내역 모달의 기존 미리보기 URL을 연다. 출처는 사용자 브라우저 주석 및 회원가입·IA 연결 파일의 작업 트리다. [IA 기준](../project.md#회원가입-부가정보-ia-삭제-2026-11-26).
+
+Codex는 PC 1440px·모바일 390px에서 이메일 입력·동의 선택과 모달 표시를 확인했다. 기존 쿼리 URL, 고정 입력 오류와 IA의 삭제 표시·모달 링크도 확인했다. TypeScript와 변경 파일 ESLint는 통과했다. IA 관련 테스트는 26개 중 25개가 통과했으며, 고객센터 `/support/inquiries/new/preview-attachment-picker`의 소스 연결 검사가 실패했다.
+
+사용자 정정에 따라 이메일 주소와 마케팅 수신 동의 사이의 간격을 PC·모바일 모두 40px로 맞췄다. Codex는 1440px·1025px·1024px·390px에서 간격을 실측하고 TypeScript와 변경 파일 ESLint를 확인했다. 출처는 사용자 브라우저 주석과 `RegistrationContent.tsx` 작업 트리다.
+
+## 회원가입 이메일 주소 단일 입력 (2026-11-26)
+
+`/signup/information`과 `/signup/information/preview-error`는 전체 이메일 주소를 받는 입력 한 칸을 공유한다. 고정 오류 화면은 이메일 형식 오류를 그 입력 아래에 표시한다. 출처는 사용자의 브라우저 주석과 회원가입 정보 입력 화면의 작업 트리다.
+
+Codex는 PC 1440px·모바일 390px에서 두 URL을 직접 열어 도메인 컨트롤 제거, 전체 이메일 주소 입력, 고정 이메일 오류 표시와 다음 버튼의 폼 연결을 확인했다. [이메일 입력 계약](ui.md#회원가입-이메일-입력-계약-2026-11-26).
+
+## 비밀번호 길이 안내 문구 (2026-11-26)
+
+로그인, 비밀번호 재설정, 회원가입 정보 입력의 고정 오류 미리보기에서 비밀번호 안내 길이를 10~20자로 표시한다. 출처는 `LoginContent.tsx`, `PasswordResetStatePreview.tsx`, `RegistrationStatePreview.tsx`의 작업 트리다. [공용 검증과 문구](ui.md#비밀번호-길이-안내-문구-2026-11-26).
+
+## 계정 잠금 안내의 PASS 인증 문구 (2026-11-26)
+
+`/login/account-locked`의 안내 문구를 `PASS 인증화면으로 이동합니다.`로 수정했다. 확인 버튼은 `/login/account-locked/verification`으로 이동한다. 출처는 `src/app/login/account-locked/_components/AccountLockedContent.tsx` 작업 트리와 해당 라우트의 `page.tsx`다.
+
+## 회원가입 완료 안내 문구 (2026-11-26)
+
+`/signup/complete`는 `회원가입이 성공적으로 완료되었습니다!`와 `쇼핑하러 가기 전 로그인을 진행해주세요.`를 표시한다. `쇼핑하러 가기` 버튼은 홈(`/`)으로 이동한다. 출처는 `src/app/signup/complete/page.tsx` 작업 트리다.
+
+## 회원가입 본인인증 안내와 선택 항목 (2026-11-26)
+
+`/signup/verify`는 HOKA Korea 온라인 회원가입 여부를 확인하기 위해 본인 인증이 필요하다고 안내한다. 화면에는 `휴대폰 인증하기`만 표시하며, 이 버튼은 `/signup/verify/phone`으로 이동한다. Codex가 2026-11-26에 `src/app/signup/verify/_components/IdentityVerificationContent.tsx` 작업 트리의 버튼 문구와 연결 경로를 확인했다.
+
+인증 영역은 기존 한 열 너비로 유지하고 아이콘과 버튼을 가로 가운데에 배치한다. 병합 결과는 단일 `ButtonLink`로 이동하며 모바일 버튼의 최소 높이는 44px이다. 병합 전 `49ec13be`에서는 PC 1440px와 모바일 390px에서 가로 정렬과 인증 화면 진입을 확인했다. 출처는 사용자 브라우저 주석과 `IdentityVerificationContent.tsx`다.
+
 ## 러닝세션 상세 모바일 추가 영역 (2026-11-23)
 
 `src/app/running/running-session/[sessionId]/_components/RunningSessionSessionContent.tsx`의 상세 레이아웃에서 모바일 보조 이미지와 Essential 숨김을 해제했다. 기존 desktopContent 슬롯의 타입·호출 계약과 라우트·고정 신청 바·fixture 표시 조건은 유지한다. PC/MO 측정 및 남은 디자인 확인 범위는 [러닝세션 디자인](running-session-design.md#모바일-보조-이미지와-essential-추가-2026-11-23)에 기록했다. 출처는 해당 작업 트리와 최신 파일 단위 Figma 링크이며 검토 주체 codex/gpt-6, 2026-11-23 KST다.
@@ -2617,6 +2720,24 @@ CartDialogs의 상품명을 PC/MO500으로 보정하고 색상 표시의 접두�
 로그인·가입·계정 찾기·주문서·마이페이지·문의·런칭 캘린더·검색·IA와 퍼블리싱 가이드의 기존 URL에서 입력 및 선택 안내 문구를 제거했다. 경로, preview URL, 라우트 소유권과 이동 동작은 변경하지 않았다. 출처: 해당 `src/app` 작업 트리와 `src/components/catalog/ProductListingPage.tsx`. 기록: codex/gpt-6, 2026-11-24.
 
 - 상품 상세의 문의하기 버튼은 기존 1:1 문의 입력 컴포넌트를 재사용하는 상품 문의 모달을 연다. 데스크탑은 중앙 모달, 모바일은 전체 화면을 사용한다. 고객 정보와 파일 첨부 영역은 1:1 문의 화면에서만 사용한다. 상품 유형이 고정되며 비밀글을 선택할 수 있다. 등록 요청은 미연결이다.
+
+## 상품 상세 헤더 타이포와 간격 (2026-11-26)
+
+상품 상세의 `ProductDetailHeader`에서 성별·활동 문구 전달과 모바일 숨김 선택자를 제거했다. 기본 신발, 의류, 할인 미리보기가 공통 `ProductIdentity` 상세 스타일을 사용한다. 모바일 상단·좌우 여백은 패널의 12px·16px를 사용한다. 출처는 사용자 주석과 `ProductDetailContent.tsx` 작업 트리다. [타이포와 간격 실측](ui.md#상품-상세-헤더-타이포와-간격-실측-2026-11-26).
+
+## 상품 상세 상단 리뷰 요약 제거 (2026-11-26)
+
+상품 상세 헤더에서 별점과 리뷰 바로가기를 제거했다. 본문 탐색의 ‘리뷰’ 링크는 기존 `#product-reviews`로 이동한다. 출처는 사용자 브라우저 주석과 `ProductDetailContent.tsx` 작업 트리다. Codex는 `/products/shoe-1`의 PC 1440px와 모바일 390px에서 상단 요약 비노출과 본문 리뷰 이동을 확인했다. 모바일 공유 팝업 열기·닫기, TypeScript와 변경 파일 ESLint도 확인했다.
+
+## 클리프톤 상품 상세 기술 지표 도움말 (2026-11-26)
+
+`/products/[id]`의 클리프톤 fixture(`HOKADFG34S`)에 무게, 힐투토 드롭, 쿠셔닝, 안정성, 반발력 도움말을 적용했다. 무게는 한 쪽과 기준 사이즈를 안내하며, 드롭과 척도는 단계별 설명을 줄바꿈으로 구분한다. Codex는 2026-11-26에 `src/app/products/[id]/productDetailPresentation.ts`의 표시 모델에서 다섯 도움말의 줄 수와 다른 상품의 척도 미표시를 확인했다.
+
+기존 `HelpTooltip`은 화면 너비에 맞게 문장을 줄바꿈하고 안내 항목 사이의 줄바꿈을 유지한다. [HOKA 상품 상세 Tooltip 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design).
+
+2026-11-26 후속 시안에 맞춰 `ProductDetailContent.tsx`의 기술 지표 도움말에 `HelpTooltip variant="description"`과 항목별 표시 폭을 연결했다. `productDetailPresentation.ts`는 안내 문구와 폭을 제공한다. [상세 툴팁 스타일과 검증](ui.md#상품-상세-tech-specs-툴팁-스타일-2026-11-26).
+
+Codex는 `/products/shoe-1`의 PC 1440px에서 마우스를 올리고 모바일 390px에서 탭해 다섯 문구를 확인했다. 항목 간 줄바꿈, 가로 화면 범위 및 Escape 닫기를 확인했다. 상품 상세 표시 데이터 테스트 3개, TypeScript, 변경 파일 ESLint·Prettier 검사를 통과했다.
 
 ## 상품 상세 Tech Specs 타이포 보정 (2026-11-24)
 
@@ -2652,9 +2773,28 @@ productDetailPreviews의 `상품 문의하기 팝업` 항목을 기존 상품 �
 
 검증: PC 1440px과 모바일 375px에서 세 팝업의 직접 진입·새로고침·문구·닫기를 확인했다. 모달 너비는 PC 640px, 모바일 343px이었다. IA에서 상태명·URL로 검색할 수 있고, 각 보기 링크를 눌러 해당 팝업이 열리는 것을 확인했다. 기본 주문 조회와 기존 주문 삭제 확인도 점검했다. 타입 검사와 소스 그래프 생성은 통과했고, 관련 테스트 16개 중 15개가 통과했다. 기존 `/mypage/preview-no-orders` 리디렉션에 IA 바로가기가 없다는 검사가 실패했다.
 
-## 카카오톡 알림톡 수신 항목 표시 (2026-11-25)
+## 재입고 알림 상품 목록 기획 변경 (2026-11-26)
 
-`/signup/information?step=additional`, `/signup/information/preview-marketing-consent`, `/mypage/profile`, `/mypage/profile/preview-edit`, `/publishing-guide`의 라우트와 고정 상태 연결에는 변경이 없다. 기존 화면의 마케팅 수신 항목만 변경했다. [화면 변경과 작업 트리 출처](ui.md#카카오톡-알림톡-수신-항목-1차-비노출-2026-11-25).
+재입고 알림 상품과 주문/배송 조회는 공통 `DataList` 설정으로 머리글을 시각적으로 숨긴다. 재입고 알림의 열 제목과 본문 셀은 표 의미를 유지한다. 주문/배송 조회의 PC 상단 2px 선은 목록 본체에 적용한다. [공통 머리글 기본값과 검증](ui.md#공통-목록-머리글-숨김-2026-11-26).
+
+`/mypage/restock-alerts`의 목록은 품절 상품 상세에서 재입고 알림을 신청하면 문자로 알려주며 신청한 알림을 삭제하면 발송이 취소된다고 안내한다. 출처는 `src/app/mypage/_components/MyPageProductHistory.tsx`의 표시 문구다.
+
+IA 184의 재입고 알림 상품 목록(`/mypage/restock-alerts`)에 수정된 기획을 적용했다.
+
+- PC와 모바일에서 각 상품 행의 상품정보 왼쪽에 개별 선택 체크박스를 배치한다.
+- 목록 위 오른쪽에 `삭제` 버튼을 배치한다. 빈 목록에서는 목록 컨트롤을 표시하지 않는다.
+
+첨부된 PC 기획 화면과 사용자 브라우저 코멘트, `src/app/mypage/_components/MyPageProductHistory.tsx`, `src/app/mypage/restock-alerts/page.tsx` 작업 트리가 출처다. 체크는 화면에서만 관리하며, 삭제 요청과 삭제 대상 정책은 재입고 통합 소유자가 연결한다.
+
+Codex는 PC 1255px와 모바일 390px에서 체크박스 두 개의 개별 선택, 목록 위 버튼의 오른쪽 정렬, 가로 넘침 여부를 확인했다. 모바일 빈 목록에는 두 컨트롤이 렌더되지 않았다. TypeScript와 변경 소스 ESLint·Prettier를 통과했다.
+
+## 관심상품 카드 색상 개수 표시 (2026-11-26)
+
+PC와 모바일에서 `/mypage/recent`는 색상 개수 문구를 표시하고, `/mypage/wishlist`는 색상 캐러셀을 표시한다. [카드 설정과 검증](ui.md#관심상품-카드-색상-개수-표시-2026-11-26).
+
+## 카카오톡 알림톡 수신 항목 표시 (2026-11-26)
+
+`/signup/information?step=additional`, `/signup/information/preview-marketing-consent`, `/mypage/profile`, `/mypage/profile/preview-edit`, `/publishing-guide?tab=description-list`의 기존 경로에서 카카오톡 알림톡 수신 항목을 다시 표시한다. [복원 범위와 소스](ui.md#카카오톡-알림톡-수신-항목-복원-2026-11-26).
 
 ## 신규 타이포그래피 퍼블리싱 가이드 (2026-11-25)
 
@@ -2670,7 +2810,7 @@ productDetailPreviews의 `상품 문의하기 팝업` 항목을 기존 상품 �
 
 ## 회원가입 본인인증
 
-/signup/verify는 HOKA Korea 온라인 회원가입 안내와 ‘PASS 인증하기’ 버튼을 표시하며 /signup/verify/phone으로 연결한다. 버튼 높이는 PC 48px, 모바일 44px이다.
+[회원가입 본인인증 안내와 선택 항목](#회원가입-본인인증-안내와-선택-항목-2026-11-26)에서 병합 후 문구와 단일 인증 링크 구성을 확인할 수 있다.
 
 ## 회원가입 혜택 안내
 
@@ -2683,6 +2823,22 @@ productDetailPreviews의 `상품 문의하기 팝업` 항목을 기존 상품 �
 회원 이름 아래의 ‘멤버십 바코드 보기’가 모바일에서는 바텀시트, PC에서는 가운데 모달을 연다. 확인 또는 닫기를 누르면 버튼으로 포커스가 돌아간다. 바코드는 시안의 샘플 이미지이며 실제 회원별 발급은 연동 대상이다. 모바일에서는 등급명 옆에 등급안내를 배치하고, 메뉴 제목의 구분선 아래에 첫 항목을 바로 배치한다.
 
 출처는 모바일 마이페이지와 바코드 시안, `src/app/mypage/_components/MyPageContent.tsx`, `public/images/mypage/membership-barcode.png`다. 2026-11-26에 모바일 375px와 PC 1440px에서 바코드 표시와 확인 후 포커스 복귀를 확인했다.
+
+## 주문·취소·반품 상세 PC 머리글 숨김 (2026-11-26)
+
+`/mypage/orders/preview-detail`, `/mypage/orders/preview-cancel-detail`, `/mypage/orders/preview-return-detail`의 PC 상품 표에 공통 `DataList` 머리글 숨김을 적용했다. 주문 상세의 취소·반품 내역 표도 포함한다. [표 구조와 검증](ui.md#공통-목록-머리글-숨김-2026-11-26).
+
+## 마이페이지 PC 메뉴 제목과 구분선
+
+`/mypage`의 메뉴 섹션 다섯 곳은 PC에서 제목을 24px·900으로 표시하고 1px 구분선 아래에 첫 메뉴 행을 바로 배치한다. 기존 메뉴 행 높이와 링크 경로를 유지한다. 모바일은 기존 제목 22px·700, 구분선 1px, 목록 간격 0px을 사용한다.
+
+출처는 사용자 브라우저 댓글 1~5와 `src/app/mypage/_components/MyPageContent.tsx`의 작업 트리다. Codex가 2026-11-26에 PC 1440px과 모바일 390px에서 다섯 섹션의 계산 스타일, 구분선과 목록 사이 거리, 링크 경로를 확인했다.
+
+## 마이페이지 등급안내와 상단 로그아웃
+
+`/mypage`는 PC와 모바일에서 RUNNER 오른쪽 16px에 ‘등급안내’를 배치한다. ‘등급안내’는 `/mypage/rewards`로 연결하고, 상단 ‘로그아웃’은 테두리 없는 14px 밑줄 텍스트 버튼으로 기존 확인창을 연다.
+
+출처는 사용자 브라우저 댓글 1~2와 `src/app/mypage/_components/MyPageContent.tsx`의 작업 트리다. Codex가 2026-11-26에 PC 1255px과 모바일 390px에서 등급안내 위치와 경로, 로그아웃 계산 스타일, 확인창 열기와 Escape로 닫은 뒤 포커스 복귀를 확인했다.
 
 ## 러닝세션 신청내역 취소 버튼
 

@@ -4,12 +4,13 @@ title: '폼 필드 공통화 전수 조사'
 description: '전체 소스에서 반복되는 필드 조합과 공통 API, 유지해야 할 상태·검증 차이를 정리한다.'
 tags: [forms, components, reuse, audit]
 status: draft
-updated: '2026-11-24T01:45:10Z'
+updated: '2026-11-26T04:27:25Z'
 generated:
   by: codex/gpt-6
   at: '2026-10-26T00:00:00Z'
 source_revision: 5d31d307e61f87d5b09773bcd0250e4c2784679d
 working_tree_sources:
+  - src/app/signup/information/_components/RegistrationContent.tsx
   - src/components/common/layouts/AccountFormLayout/AccountFormLayout.tsx
   - src/app/mypage/profile/page.tsx
   - src/components/mypage/mypage-profile.types.ts
@@ -75,7 +76,7 @@ Terms는 Checkbox의 consent variant로, PreferenceField는 Radio의 선택적 l
 
 ## 회원정보 주소·이메일 입력 재사용 (2026-10-26)
 
-회원정보 편집은 회원가입에서 사용 중인 AddressFields(boxed), EmailAddressFields를 그대로 소비한다. 주소의 disabled 우편번호/기본주소·팝업·상세주소 계약과 이메일 아이디/도메인 분리·직접입력/목록 도메인 비활성화를 유지한다. 주소 초안·저장·취소와 이메일 검증·조합은 MyPageProfile에 남기고 공통 입력에 비즈니스 정책을 추가하지 않았다. 새로운 공용 필드 API나 컴포넌트는 없다. [화면 구성과 검증](ui.md#회원정보-주소이메일-편집-재사용-2026-10-26)을 참고한다.
+회원정보 편집에는 AddressFields(boxed)와 EmailAddressFields를 사용한다. 주소의 disabled 우편번호/기본주소·팝업·상세주소 계약과 이메일 아이디/도메인 분리·직접입력/목록 도메인 비활성화를 유지한다. 주소 초안·저장·취소와 이메일 검증·조합은 MyPageProfile에 남기고 공통 입력에 비즈니스 정책을 추가하지 않았다. 2026-11-26부터 회원가입은 기존 TextFormField 조합으로 전체 이메일 주소를 한 칸에서 받는다. [회원정보 편집](ui.md#회원정보-주소이메일-편집-재사용-2026-10-26) 및 [회원가입 입력 계약](ui.md#회원가입-이메일-입력-계약-2026-11-26).
 
 ## 회원정보 휴대폰 인증 조합 (2026-10-26)
 

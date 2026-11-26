@@ -75,6 +75,7 @@ const headingText = {
 /**
  * top은 PC·모바일을 묶은 시작선 유형이며 기본값은 strong입니다. 기존 상단선 소유자가 따로 있으면 unchanged를 지정합니다. strongToThin은 PC2px/MO1px 검정, desktopStrong은 모바일 선 없음입니다.
  * 목록의 기존 DOM에 연결합니다. headerTypography는 data-list-header의 직접 data-list-cell(또는 기존 cell 슬롯)만 지정하며 본문 typography에는 관여하지 않습니다.
+ * headerVisibility 생략 또는 undefined는 visuallyHidden으로 머리글 공간을 제거하고 보조 기술에 유지합니다. 화면에 표시하려면 visible을 지정합니다.
  * columnGap의 기본값 flush는 항목 가로 간격0입니다. 명시적 unchanged만 간격을 추가하지 않습니다. productControls는 PC16/MO8px,
  * addressActions는 PC/MO24px이며 각 case가 반응형 값을 함께 소유합니다. rowGap은 변경하지 않습니다.
  * itemLayout 기본값 unchanged는 항목 배치를 추가하지 않습니다. productSelection은 항목 gap16/py16과 마지막 중복선 제거, 목록 gap0/검정 하단선을 소유합니다.
@@ -93,6 +94,10 @@ export const dataListRecipe = sva({
   },
   variants: {
     density: { standard: {}, compact: { header: { py: '16px' } } },
+    headerVisibility: {
+      visible: {},
+      visuallyHidden: { header: { srOnly: true, py: '0', borderBottomWidth: '0' } },
+    },
     itemLayout: {
       unchanged: {},
       faqAccordion: {
@@ -252,6 +257,7 @@ export const dataListRecipe = sva({
   },
   defaultVariants: {
     density: 'standard',
+    headerVisibility: 'visuallyHidden',
     itemLayout: 'unchanged',
     headerTypography: 'unchanged',
     top: 'strong',

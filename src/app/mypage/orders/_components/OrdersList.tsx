@@ -204,7 +204,7 @@ export function OrdersListContent({
           gap="0"
           className={
             dataListRecipe({
-              top: 'unchanged',
+              top: 'desktopStrong',
               columnGap: 'unchanged',
               headerTypography: 'headingBold',
               cellVariant: 'heading',
@@ -216,10 +216,8 @@ export function OrdersListContent({
             gridTemplateColumns="minmax(0, 536fr) minmax(0, 108fr) minmax(0, 200fr)"
             alignItems="center"
             gap={orders.length ? undefined : '0'}
-            minH="67px"
-            borderTop={'2px solid var(--colors-black-100)'}
-            borderBottom={'1px solid var(--colors-black-100)'}
             _mobile={{ display: 'none' }}
+            className={dataListRecipe().header}
           >
             {['상품/옵션정보', '수량', '가격'].map((label) => (
               <span key={label} data-list-cell>

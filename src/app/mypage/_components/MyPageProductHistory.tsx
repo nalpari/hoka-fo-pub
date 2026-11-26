@@ -6,6 +6,8 @@ import { usePlatform } from '@/context/platform';
 import { css } from 'styled-system/css';
 import { Box, Grid, Stack } from 'styled-system/jsx';
 
+import { Button } from '@/components/common/atoms/Button';
+import { Checkbox } from '@/components/common/atoms/Checkbox';
 import { dataListRecipe } from '@/components/common/atoms/DataList.recipe';
 import { Divider } from '@/components/common/atoms/Divider';
 import { EmptyState } from '@/components/common/atoms/EmptyState';
@@ -26,6 +28,12 @@ type Props = {
   entries?: readonly HistoryItem[];
   items: readonly HistoryItem[];
 };
+
+const restockListStyles = {
+  mobileDate: css({ display: 'none', _mobile: { display: 'block', mt: '6px' } }),
+  dateCell: css({ textAlign: 'center', _mobile: { srOnly: true } }),
+};
+
 const restockPreview = {
   web: {
     name: 'Speedgoat 7 GTX',
@@ -43,27 +51,16 @@ const restockPreview = {
 function MyPageRestockList({ items, entries }: Props) {
   const platform = usePlatform();
   const preview = restockPreview[platform];
+  const list = dataListRecipe({
+    top: 'strongToThin',
+    columnGap: 'metadataColumns',
+  });
+
   return (
-    <Stack
-      gap="0"
-      className={
-        dataListRecipe({
-          top: 'strongToThin',
-          headerTypography: 'heading',
-          columnGap: 'metadataColumns',
-        }).root
-      }
-    >
-      <Grid
-        gridTemplateColumns="minmax(0, 1fr) 150px 150px"
-        gap="0"
-        display={{ base: 'grid', _mobile: 'none' }}
-        textAlign="center"
-        data-list-header
-        className={dataListRecipe().header}
-      >
+    <Stack gap="0" role="table" aria-label="재입고 알림 상품" className={list.root}>
+      <Grid role="row" data-list-header className={list.header}>
         {['상품정보', '신청일', '상태'].map((label) => (
-          <span data-list-cell key={label}>
+          <span role="columnheader" data-list-cell key={label}>
             {label}
           </span>
         ))}
@@ -78,6 +75,7 @@ function MyPageRestockList({ items, entries }: Props) {
         return (
           <Grid
             key={id}
+            role="row"
             gridTemplateColumns={{
               base: 'minmax(0, 1fr) 150px 150px',
               _mobile: 'minmax(0, 1fr) auto',
@@ -88,7 +86,16 @@ function MyPageRestockList({ items, entries }: Props) {
             py="32px"
             _mobile={{ py: '24px' }}
           >
-            <Box px="24px" _mobile={{ px: '0' }} minW="0">
+            <Box
+              role="cell"
+              display="flex"
+              alignItems="center"
+              gap="16px"
+              px="24px"
+              _mobile={{ gap: '8px', px: '0' }}
+              minW="0"
+            >
+              <Checkbox label={null} aria-label={`${name} 재입고 알림 선택`} />
               <OrderProductSummary
                 variant="cart"
                 name={name ?? ''}
@@ -101,9 +108,10 @@ function MyPageRestockList({ items, entries }: Props) {
                       {name}
                     </Typography>
                     <Typography
+                      aria-hidden="true"
                       variant="b6"
                       tone="tertiary"
-                      className={css({ display: 'none', _mobile: { display: 'block', mt: '6px' } })}
+                      className={restockListStyles.mobileDate}
                     >
                       신청일 : {requestedAt}
                     </Typography>
@@ -112,13 +120,14 @@ function MyPageRestockList({ items, entries }: Props) {
               />
             </Box>
             <Typography
+              role="cell"
               variant="b4"
               tone="subtle"
-              className={css({ textAlign: 'center', _mobile: { display: 'none' } })}
+              className={restockListStyles.dateCell}
             >
               {requestedAt}
             </Typography>
-            <Box textAlign="center" _mobile={{ alignSelf: 'center' }}>
+            <Box role="cell" textAlign="center" _mobile={{ alignSelf: 'center' }}>
               <Typography variant="b4" tone="subtle">
                 {sent ? '발송완료' : '알림대기'}
               </Typography>
@@ -159,9 +168,7 @@ function MyPageProductHistoryGrid({
     >
       {items.map((item) => (
         <ProductCard
-          textWeights={
-            wishlist ? { identity: 'medium', promotion: 'medium', cart: 'medium' } : undefined
-          }
+          textWeights={wishlist ? { identity: 'medium', promotion: 'medium' } : undefined}
           key={item.id}
           variant="history"
           thumbnailVariant={wishlist && !entries && item.apparel ? 'listing' : undefined}
@@ -178,11 +185,10 @@ function MyPageProductHistoryGrid({
               ? ['데일리 러닝', '워킹']
               : undefined
           }
+          colorCount={recent && !entries ? recentPreview.colorCount : undefined}
           liked={liked.includes(item.id)}
           onLikedChange={(active) => onLikedChange(item.id, active)}
-          options={
-            wishlist ? ['promotion', 'like', 'colors', 'cart'] : ['promotion', 'like', 'colors']
-          }
+          options={['promotion', 'like', recent ? 'color-count' : 'colors']}
           product={item.product}
         />
       ))}
@@ -275,6 +281,7 @@ const wishlistMobilePreview = {
 } as const;
 // 화면 시안의 플랫폼별 표시 fixture이며 연결된 상품·찜 데이터에는 적용하지 않습니다.
 const recentPreview = {
+  colorCount: 6,
   web: { product, promotionTone: 'error' },
   mobile: {
     promotionTone: 'brand',
@@ -282,14 +289,15 @@ const recentPreview = {
     product: { ...product, promotion: 'Best', originalPrice: 280000 } as Product,
   },
 } as const;
+
 const previewItems = {
   wishlist: {
     web: [
-      { id: '0', product: product, liked: true },
+      { id: '0', product, liked: true },
       { id: '1', product: wishlistApparelPreview, liked: true, apparel: true },
-      { id: '2', product: product, liked: true },
+      { id: '2', product, liked: true },
       { id: '3', product: wishlistApparelPreview, liked: true, apparel: true },
-      { id: '4', product: product, liked: true },
+      { id: '4', product, liked: true },
       { id: '5', product: wishlistApparelPreview, liked: true, apparel: true },
     ],
     mobile: [
@@ -345,7 +353,7 @@ const config = {
   'restock-alerts': {
     title: '재입고 알림 상품',
     empty: '재입고 알림 상품 목록이 비어있습니다',
-    note: '* 품절 상품의 재입고 알림을 신청하면, 재입고 시 카카오톡 알림 메세지로 알려드립니다.\n* 알림 신청은 재입고 알림을 지원하는 품절 상품의 상세 화면에서 할 수 있습니다.',
+    note: '* 품절 상품의 상세 화면에서 재입고 알림을 신청하면, 재입고 시 문자로 알려드립니다.\n* 재입고 알림 신청 상태에서 알림 내용을 삭제 시 알림 발송이 취소됩니다.',
   },
 } as const;
 /** 계정의 상품 내역과 목록 상태를 구성합니다 (Displays the my page product history composition). */
@@ -366,6 +374,10 @@ export function MyPageProductHistory({
     .map((item) => item.id);
   const current = config[kind];
   const restock = kind === 'restock-alerts';
+
+  // [ 개발팀 바인딩 ] 재입고 목록은 현재 entries 또는 고정 예시를 표시하고 행 체크만 로컬로 처리합니다.
+  // 삭제 버튼은 표시용입니다. 재입고 통합 소유자가 정책에 따른 요청 대상의 신청 행 ID를 연결하고,
+  // 요청 중 중복 방지, 실패 시 선택 유지와 재시도, 성공 후 목록 재조회와 이전 응답 배제를 담당합니다.
   return (
     <MyPageFrame
       fillAvailable={!items.length}
@@ -417,6 +429,14 @@ export function MyPageProductHistory({
           />
         ) : restock ? (
           <Stack gap="16px">
+            <Button
+              type="button"
+              variant="secondary"
+              size="short"
+              className={css({ alignSelf: 'flex-end' })}
+            >
+              삭제
+            </Button>
             <MyPageRestockList entries={entries} items={items} />
             <Box whiteSpace="pre-line">
               <Typography as="p" variant="b8" tone="tertiary">

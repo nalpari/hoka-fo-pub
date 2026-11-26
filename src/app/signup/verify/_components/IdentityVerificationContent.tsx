@@ -23,19 +23,26 @@ export function RouteContent() {
       _mobile={{ pt: '40px', pb: '32px', minH: 'calc(100svh - var(--layout-site-header-height))' }}
     >
       <ContentSection
+        as="section"
+        aria-labelledby="verification-title"
         maxW={{ base: '500px', _mobile: 'none' }}
         mx="auto"
         gap={{ base: '72px', _mobile: '32px' }}
         title="본인인증"
         headerProps={{
           titleAs: 'h1',
-          titleProps: { web: 'h8B', mo: 'h7B' },
+          titleProps: { web: 'h8B', mo: 'h7B', id: 'verification-title' },
           description: 'HOKA Korea 온라인 회원가입 여부 확인을 위해 본인 인증이 필요합니다.',
           descriptionProps: { variant: 'b4', tone: 'tertiary' },
         }}
       >
         <Stack gap="16px">
-          <Stack alignItems="center" gap={{ base: '48px', _mobile: '24px' }}>
+          <Stack
+            alignItems="center"
+            gap={{ base: '48px', _mobile: '24px' }}
+            w="calc((100% - 8px) / 2)"
+            mx="auto"
+          >
             <Icon name="phone-verification" size="80px" aria-hidden="true" />
             <ButtonLink
               variant="primary"
@@ -43,7 +50,7 @@ export function RouteContent() {
               fullWidth
               className={styles.phoneAction}
             >
-              PASS 인증하기
+              휴대폰 인증하기
             </ButtonLink>
           </Stack>
           <Typography as="p" web="b6" mo="b7" tone="tertiary">

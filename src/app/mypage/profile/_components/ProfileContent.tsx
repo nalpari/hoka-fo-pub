@@ -148,6 +148,7 @@ export function ProfileEditForm({
   passwordChanged,
   emailPreference,
   smsPreference,
+  kakaoPreference,
   fieldErrors,
   onEmailLocalChange,
   onEmailDomainChange,
@@ -157,6 +158,7 @@ export function ProfileEditForm({
   onPhoneChange,
   onEmailPreferenceChange,
   onSmsPreferenceChange,
+  onKakaoPreferenceChange,
   onCancel,
   onWithdraw,
   details,
@@ -348,7 +350,6 @@ export function ProfileEditForm({
                         { value: '수신안함', label: '수신안함' },
                       ]}
                     />
-                    {/* [ 카카오톡 알림톡 ] 1차 구현 불가
                     <Radio
                       ariaLabel="카카오톡 알림톡 수신"
                       name="kakao-preference"
@@ -364,7 +365,6 @@ export function ProfileEditForm({
                         { value: '수신안함', label: '수신안함' },
                       ]}
                     />
-                    */}
                   </Stack>
                   <FormActionGroup
                     size="tall"
@@ -802,8 +802,7 @@ export function ProfileContent({
                   items={[
                     { term: '이메일 수신', description: emailPreference },
                     { term: '문자수신(LMS, SMS)', description: smsPreference },
-                    // [ 카카오톡 알림톡 ] 1차 구현 불가
-                    // { term: '카카오톡 알림톡 수신', description: kakaoPreference },
+                    { term: '카카오톡 알림톡 수신', description: kakaoPreference },
                   ]}
                   termProps={{ web: 'b4', mo: 'b6', tone: 'primary' }}
                   descriptionProps={{ web: 'b4', mo: 'b6', tone: 'subtle' }}

@@ -46,11 +46,18 @@ const root = css({
     color: 'var(--color-text-inverse)',
     cursor: 'not-allowed',
   },
+  '& [role="radio"][data-disabled]:has([data-width-sold-out])': {
+    bg: '#E9EAEB',
+    color: 'black.40',
+    '& [data-width-label]': { fontSize: 'body.14', fontWeight: '500' },
+  },
 });
 
 export type ProductWidthSelectorProps = {
   /** Detail controls are hidden for zero or one option; the controlled value is preserved. */
   options: readonly string[];
+  /** Detail options that remain visible but cannot be selected because they are sold out. */
+  soldOutOptions?: readonly string[];
   appearance?: 'detail' | 'cart';
   value: string;
   onValueChange: (width: string) => void;
@@ -60,6 +67,7 @@ export type ProductWidthSelectorProps = {
 /** 상품 상세와 장바구니의 발볼 선택을 표시합니다. (Displays width selection for product details and cart options.) */
 export function ProductWidthSelector({
   options,
+  soldOutOptions,
   appearance = 'detail',
   value,
   onValueChange,
@@ -102,7 +110,7 @@ export function ProductWidthSelector({
     );
   }
 
-  // [ 개발팀 바인딩 ] 상품 소유자가 전달한 선택지는 변경하지 않습니다. 상세의 단일 옵션은 표시만 생략하며 선택값·사이즈 연결과 변경 콜백은 기존 부모가 유지합니다.
+  // [ 개발팀 바인딩 ] 상세 소유자가 options와 soldOutOptions를 전달합니다. 품절값의 선택 이벤트는 차단하고, 부모가 현재 재고에 맞는 선택값과 사이즈를 연결합니다. 단일 옵션은 표시를 생략합니다.
   if (options.length <= 1) return null;
 
   return (
@@ -111,14 +119,24 @@ export function ProductWidthSelector({
       className={root}
       disabled={disabled}
       onValueChange={onValueChange}
-      options={options.map((option) => ({
-        label: (
-          <Typography data-width-label variant="b6" tone="inherit">
-            {option}
-          </Typography>
-        ),
-        value: option,
-      }))}
+      options={options.map((option) => {
+        const soldOut = soldOutOptions?.includes(option);
+        return {
+          disabled: soldOut,
+          label: (
+            <Typography
+              data-width-label
+              data-width-sold-out={soldOut ? '' : undefined}
+              variant="b6"
+              tone="inherit"
+            >
+              {option}
+              {soldOut && <Typography srOnly> 품절</Typography>}
+            </Typography>
+          ),
+          value: option,
+        };
+      })}
       value={value}
       variant="custom"
     />
