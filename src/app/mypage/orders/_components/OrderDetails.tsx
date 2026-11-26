@@ -4,6 +4,7 @@ import { css } from 'styled-system/css';
 import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
 import { Button, ButtonLink } from '@/components/common/atoms/Button';
+import { dataListBoundaryRecipe, dataListRecipe } from '@/components/common/atoms/DataList.recipe';
 import {
   DescriptionList,
   type DescriptionListItem,
@@ -66,6 +67,20 @@ type OrderDetailProps = {
   onClaimDetail: (claimId: string) => void;
 };
 
+const orderProductHeaders = ['상품/옵션정보', '수량', '가격'];
+
+function DetailTableHeader({ labels }: { labels: readonly string[] }) {
+  return (
+    <Grid role="row" data-list-header className={dataListRecipe().header}>
+      {labels.map((label) => (
+        <span key={label} role="columnheader" data-list-cell>
+          {label}
+        </span>
+      ))}
+    </Grid>
+  );
+}
+
 function DetailSectionTitle({ children }: { children: string }) {
   return (
     <Typography
@@ -85,8 +100,8 @@ function DetailSectionTitle({ children }: { children: string }) {
 
 function DetailProduct({ line }: { line: OrderLine }) {
   return (
-    <>
-      <Box gridColumn="1" minW="0" pl="24px">
+    <Grid role="row" gridTemplateColumns="minmax(0, 1fr) 108px 200px" gap="0" alignItems="center">
+      <Box role="cell" gridColumn="1" minW="0" pl="24px">
         <OrderProductSummary
           variant="history"
           image={line.image}
@@ -95,13 +110,13 @@ function DetailProduct({ line }: { line: OrderLine }) {
           cartAction
         />
       </Box>
-      <Typography variant="b6M" className={css({ textAlign: 'center' })}>
+      <Typography role="cell" variant="b6M" className={css({ textAlign: 'center' })}>
         {line.quantity}개
       </Typography>
-      <Typography variant="b6M" className={css({ textAlign: 'center' })}>
+      <Typography role="cell" variant="b6M" className={css({ textAlign: 'center' })}>
         {line.displayAmount === undefined ? '-' : `${line.displayAmount.toLocaleString()}원`}
       </Typography>
-    </>
+    </Grid>
   );
 }
 
@@ -122,26 +137,11 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
   const mobile = usePlatform() === 'mobile';
   return (
     <Stack gap="0">
-      {!mobile ? (
-        <Grid
-          gridTemplateColumns="minmax(0, 1fr) 108px 200px"
-          gap="0"
-          py="20px"
-          borderY="1px solid var(--colors-black-100)"
-        >
-          {['상품/옵션정보', '수량', '가격'].map((label) => (
-            <Typography
-              key={label}
-              variant="b4B"
-
-              className={css({ textAlign: 'center' })}
-            >
-              {label}
-            </Typography>
-          ))}
-        </Grid>
-      ) : null}
-      <Stack gap="0" borderBottom={{ base: '1px solid var(--colors-black-100)', _mobile: '0' }}>
+      <Stack
+        gap="0"
+        className={mobile ? undefined : dataListBoundaryRecipe({ top: 'thinStrong' })}
+        borderBottom={{ base: '1px solid var(--colors-black-100)', _mobile: '0' }}
+      >
         <HStack
           gap="8px"
           py={{ base: '32px', _mobile: '16px' }}
@@ -190,34 +190,34 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
                   </Button>
                 ) : null}
               </HStack>
-              {display.activeItems.map((line) =>
-                mobile ? (
-                  <OrderProductSummary
-                    variant="history"
-                    key={line.key}
-                    image={line.image}
-                    name={line.name}
-                    optionText={`${line.width}, ${line.color}, ${line.size}, ${mobile ? (line.mobileQuantity ?? line.quantity) : line.quantity}개`}
-                    amount={
-                      line.displayAmount === undefined
-                        ? undefined
-                        : mobile
-                          ? (line.mobileDisplayAmount ?? line.displayAmount)
-                          : line.displayAmount
-                    }
-                    cartAction
-                  />
-                ) : (
-                  <Grid
-                    key={line.key}
-                    gridTemplateColumns="minmax(0, 1fr) 108px 200px"
-                    gap="0"
-                    alignItems="center"
-                  >
-                    <DetailProduct line={line} />
-                  </Grid>
-                ),
-              )}
+              <Stack
+                gap={{ base: '24px', _mobile: '12px' }}
+                role={mobile ? undefined : 'table'}
+                aria-label={mobile ? undefined : '주문 상품'}
+              >
+                {!mobile && <DetailTableHeader labels={orderProductHeaders} />}
+                {display.activeItems.map((line) =>
+                  mobile ? (
+                    <OrderProductSummary
+                      variant="history"
+                      key={line.key}
+                      image={line.image}
+                      name={line.name}
+                      optionText={`${line.width}, ${line.color}, ${line.size}, ${mobile ? (line.mobileQuantity ?? line.quantity) : line.quantity}개`}
+                      amount={
+                        line.displayAmount === undefined
+                          ? undefined
+                          : mobile
+                            ? (line.mobileDisplayAmount ?? line.displayAmount)
+                            : line.displayAmount
+                      }
+                      cartAction
+                    />
+                  ) : (
+                    <DetailProduct key={line.key} line={line} />
+                  ),
+                )}
+              </Stack>
             </Stack>
             {!mobile ? (
               <HStack justifyContent="flex-end" gap="8px" pr="8px">
@@ -260,32 +260,34 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
                 {group.detailLabel}
               </Button>
             </HStack>
-            {group.items.map((line) =>
-              mobile ? (
-                <OrderProductSummary
-                  variant="history"
-                  key={line.key}
-                  image={line.image}
-                  name={line.name}
-                  optionText={`${line.width}, ${line.color}, ${line.size}, ${mobile ? (line.mobileQuantity ?? line.quantity) : line.quantity}개`}
-                  amount={
-                    line.displayAmount === undefined
-                      ? undefined
-                      : mobile
-                        ? (line.mobileDisplayAmount ?? line.displayAmount)
-                        : line.displayAmount
-                  }
-                />
-              ) : (
-                <Grid
-                  key={line.key}
-                  gridTemplateColumns="minmax(0, 1fr) 108px 200px"
-                  gap="0"
-                  alignItems="center"
-                >
-                  <DetailProduct line={line} />
-                </Grid>
-              ),
+            {group.items.length > 0 && (
+              <Stack
+                gap={{ base: '16px', _mobile: '8px' }}
+                role={mobile ? undefined : 'table'}
+                aria-label={mobile ? undefined : `${group.label} 상품`}
+              >
+                {!mobile && <DetailTableHeader labels={orderProductHeaders} />}
+                {group.items.map((line) =>
+                  mobile ? (
+                    <OrderProductSummary
+                      variant="history"
+                      key={line.key}
+                      image={line.image}
+                      name={line.name}
+                      optionText={`${line.width}, ${line.color}, ${line.size}, ${mobile ? (line.mobileQuantity ?? line.quantity) : line.quantity}개`}
+                      amount={
+                        line.displayAmount === undefined
+                          ? undefined
+                          : mobile
+                            ? (line.mobileDisplayAmount ?? line.displayAmount)
+                            : line.displayAmount
+                      }
+                    />
+                  ) : (
+                    <DetailProduct key={line.key} line={line} />
+                  ),
+                )}
+              </Stack>
             )}
           </Stack>
         ))}
@@ -375,24 +377,6 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
           <DetailSectionTitle>
             {mobile ? '취소·반품·교환 내역' : '취소 · 반품 내역'}
           </DetailSectionTitle>
-          {!mobile ? (
-            <Grid
-              gridTemplateColumns="minmax(0, 1fr) 200px 140px"
-              py="20px"
-              borderBottom="1px solid var(--colors-black-100)"
-            >
-              {['상품/옵션정보', '환불금액', '처리상태'].map((label) => (
-                <Typography
-                  key={label}
-                  variant="b4B"
-
-                  className={css({ textAlign: 'center' })}
-                >
-                  {label}
-                </Typography>
-              ))}
-            </Grid>
-          ) : null}
           {display.history.map((entry) => (
             <Stack
               key={entry.id}
@@ -424,25 +408,37 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
                   <DetailAmountRow label="환불금액" amount={entry.refund} />
                 </Stack>
               ) : (
-                <Grid gridTemplateColumns="minmax(0, 1fr) 200px 140px" gap="0" alignItems="center">
-                  <Stack gap="16px">
-                    {entry.items.map((line) => (
-                      <OrderProductSummary
-                        variant="history"
-                        key={line.key}
-                        image={line.image}
-                        name={line.name}
-                        optionText={`${line.width}, ${line.color}, ${line.size}, ${mobile ? (line.mobileQuantity ?? line.quantity) : line.quantity}개`}
-                      />
-                    ))}
-                  </Stack>
-                  <Typography variant="b6M" className={css({ textAlign: 'center' })}>
-                    {entry.refund.toLocaleString()}원
-                  </Typography>
-                  <Typography variant="b6M" className={css({ textAlign: 'center' })}>
-                    {entry.status}
-                  </Typography>
-                </Grid>
+                <Stack
+                  role="table"
+                  aria-label={`취소·반품 상품, 접수일 ${entry.requestedAt}`}
+                  gap="0"
+                >
+                  <DetailTableHeader labels={['상품/옵션정보', '환불금액', '처리상태']} />
+                  <Grid
+                    role="row"
+                    gridTemplateColumns="minmax(0, 1fr) 200px 140px"
+                    gap="0"
+                    alignItems="center"
+                  >
+                    <Stack role="cell" gap="16px">
+                      {entry.items.map((line) => (
+                        <OrderProductSummary
+                          variant="history"
+                          key={line.key}
+                          image={line.image}
+                          name={line.name}
+                          optionText={`${line.width}, ${line.color}, ${line.size}, ${mobile ? (line.mobileQuantity ?? line.quantity) : line.quantity}개`}
+                        />
+                      ))}
+                    </Stack>
+                    <Typography role="cell" variant="b6M" className={css({ textAlign: 'center' })}>
+                      {entry.refund.toLocaleString()}원
+                    </Typography>
+                    <Typography role="cell" variant="b6M" className={css({ textAlign: 'center' })}>
+                      {entry.status}
+                    </Typography>
+                  </Grid>
+                </Stack>
               )}
             </Stack>
           ))}
@@ -629,28 +625,23 @@ export function OrderClaimDetail({
           ))}
         </Stack>
       ) : (
-        <Stack gap="0" borderBottom="1px solid var(--colors-black-100)">
-          <Grid gridTemplateColumns={columns} gap="0" py="20px" borderBottom="1px solid black">
-            {['상품/옵션정보', '수량', '가격', '진행상태'].map((label) => (
-              <Typography
-                key={label}
-                variant="b4B"
-
-                className={css({ textAlign: 'center' })}
-              >
-                {label}
-              </Typography>
-            ))}
-          </Grid>
+        <Stack
+          role="table"
+          aria-label={`${name} 상품`}
+          gap="0"
+          borderBottom="1px solid var(--colors-black-100)"
+        >
+          <DetailTableHeader labels={[...orderProductHeaders, '진행상태']} />
           {items.map((line) => (
             <Grid
               key={line.key}
+              role="row"
               gridTemplateColumns={columns}
               gap="0"
               alignItems="center"
               py="32px"
             >
-              <Box px="24px">
+              <Box role="cell" px="24px">
                 <OrderProductSummary
                   variant="history"
                   image={line.image}
@@ -658,16 +649,20 @@ export function OrderClaimDetail({
                   optionText={`${line.width}, ${line.color}, ${line.size}`}
                 />
               </Box>
-              <Typography variant="b4" className={css({ textAlign: 'center' })}>
+              <Typography role="cell" variant="b4" className={css({ textAlign: 'center' })}>
                 <Typography as="span" variant="b4M" language="en">
                   {line.quantity}
                 </Typography>
                 개
               </Typography>
-              <Typography variant="b4M" className={css({ textAlign: 'right', px: '24px' })}>
+              <Typography
+                role="cell"
+                variant="b4M"
+                className={css({ textAlign: 'right', px: '24px' })}
+              >
                 {money(line.displayAmount)}
               </Typography>
-              <Typography variant="b4M" className={css({ textAlign: 'center' })}>
+              <Typography role="cell" variant="b4M" className={css({ textAlign: 'center' })}>
                 {status}
               </Typography>
             </Grid>

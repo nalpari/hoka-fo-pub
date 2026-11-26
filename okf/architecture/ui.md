@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-26T06:09:07Z'
+updated: '2026-11-26T06:31:16Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -5702,6 +5702,10 @@ recipe의 생략·명시적 undefined는 defaultVariants의 subtle을 사용한�
 재입고 알림 목록은 표·행·열 머리글·셀 역할을 연결한다. 모바일에서 상품정보 아래에 표시하는 신청일은 시각용이며, 보조 기술은 같은 행의 신청일 셀을 읽는다.
 
 출처는 사용자 브라우저 코멘트와 `src/components/common/atoms/DataList.recipe.tsx`, `src/app/mypage/_components/MyPageProductHistory.tsx`, `src/app/mypage/orders/_components/OrdersList.tsx` 작업 트리다. Chromium에서 재입고 PC 1255px·모바일 390px의 접근성 트리에 열 제목 3개와 본문 셀 6개가 노출되는 것을 확인했다. PC 주문/배송 조회와 공지사항의 시각적 숨김, 주문 목록의 접근성 텍스트와 상단 2px 선, 재입고 빈 화면도 확인했다.
+
+주문·취소·반품 상세는 `src/app/mypage/orders/_components/OrderDetails.tsx`에서 PC 상품 그룹과 취소·반품 이력의 열 머리글을 공통 `header` 슬롯에 연결한다. 각 상품 표에는 이름과 표·행·열 머리글·셀 역할을 지정한다. 모바일은 상품 카드로 표시한다.
+
+Chromium에서 상세 3개 경로의 PC 1255px 머리글 숨김, 접근성 트리의 열 제목과 본문 셀 개수, 모바일 390px 상품 카드와 가로 넘침 여부를 확인했다. TypeScript와 변경 소스 ESLint·Prettier를 통과했다.
 
 ### 머리글 typography case
 
