@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-26T06:31:16Z'
+updated: '2026-11-26T06:52:35Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -5519,7 +5519,9 @@ PC1920×1080/MO375×812에서 별도 p 두 개, 계산 타이포·간격16px과 
 
 ## EmptyState 고정 디자인 규칙 (2026-11-18)
 
-사용자가 확정한 heading형 제목 기준은 PC22px·900·행간120%, 모바일20px·700·행간120%다. 본문형 안내와 description은 기존 개별 계약을 유지한다. 이 결정은 업데이트되지 않은 Figma·스크린샷·위의 과거 검증 수치보다 우선하며, 디자인 링크 추가만으로 이전 PC28px/MO22px을 복원하지 않는다. 변경에는 고정 규칙을 바꾸라는 사용자의 명시적 지시가 필요하다. 강제 작업 지침은 [AGENTS.md](../../AGENTS.md#emptystate-fixed-design-rule), 구현 소유자는 EmptyState.recipe.tsx다. 기본값과 heading형 layout override를 함께 유지한다. 이번 작업은 정책 문서만 변경했고 화면 스타일은 직전 검증 결과를 유지한다. 출처: 사용자 고정 규칙 요청과 현재 구현.
+2026-11-26 사용자 공통 수정 요청에 따라 heading형 제목은 PC 22px·모바일 20px, 양쪽 모두 Regular(400)·행간 120%로 표시한다. `src/components/common/atoms/EmptyState.recipe.tsx`의 공통 기본값과 heading형 layout에 적용한다. 본문형 안내, 설명, 독립 compound title과 명시적 타이포 override는 기존 계약을 유지한다. 화면 기본 규칙은 [AGENTS.md](../../AGENTS.md#emptystate-fixed-design-rule)에 기록한다.
+
+출처는 사용자 요청과 첨부된 상품리뷰 피드백, `EmptyState.recipe.tsx` 작업 트리다. Codex가 PC 1440px과 모바일 390px에서 리뷰 두 빈 상태, 장바구니, 검색, 런칭의 제목 굵기 400과 크기·행간을 확인했다. 공지사항의 본문형 안내는 PC 16px·모바일 14px·굵기 400이었다.
 
 ## 주문 조회 없음 PC 시안 반영 (2026-11-18)
 

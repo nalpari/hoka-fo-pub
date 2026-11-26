@@ -238,9 +238,9 @@ export const emptyStateRecipe = sva({
         title: {
           '&&': {
             fontSize: 'heading.22',
-            fontWeight: '900',
+            fontWeight: 'normal',
             lineHeight: '1.2',
-            _mobile: { fontSize: 'heading.20', fontWeight: '700' },
+            _mobile: { fontSize: 'heading.20' },
           },
         },
         description: {
@@ -327,10 +327,6 @@ export type EmptyStateLayout = NonNullable<
   NonNullable<Parameters<typeof emptyStateRecipe>[0]>['layout']
 >;
 
-const largeMobileTitle = {
-  _mobile: { fontSize: 'heading.20', fontWeight: 'bold' },
-} as const;
-
 const bodyTitle = {
   fontSize: 'body.16',
   fontWeight: 'normal',
@@ -350,10 +346,10 @@ const emptyStateTypographyRecipe = sva({
       transform: 'translateY(1px)',
       color: 'inherit',
       fontSize: 'heading.22',
-      fontWeight: 'black',
+      fontWeight: 'normal',
       lineHeight: 'koreanHeading',
       letterSpacing: '0',
-      _mobile: { fontSize: 'heading.20', fontWeight: 'bold' },
+      _mobile: { fontSize: 'heading.20' },
     },
     description: {
       fontFamily: 'en',
@@ -388,12 +384,11 @@ const emptyStateTypographyRecipe = sva({
           fontFamily: 'ko',
           fontStyle: 'normal',
           fontSize: 'heading.22',
-          fontWeight: '900',
           lineHeight: '1.2',
           letterSpacing: '-0.02em',
           textAlign: 'center',
           color: 'black.100',
-          _mobile: { fontSize: 'heading.20', fontWeight: '700' },
+          _mobile: { fontSize: 'heading.20' },
         },
       },
       claimHistory: {
@@ -406,20 +401,19 @@ const emptyStateTypographyRecipe = sva({
           _mobile: { ...bodyTitle._mobile, maxW: 'none', lineHeight: 'body' },
         },
       },
-      history: { title: largeMobileTitle, description: descriptionMobile },
-      wishlist: { title: largeMobileTitle, description: descriptionMobile },
-      restock: { title: largeMobileTitle, description: descriptionMobile },
-      address: { title: largeMobileTitle, description: descriptionMobile },
-      embeddedAddress: { title: largeMobileTitle, description: descriptionMobile },
-      reviews: { title: largeMobileTitle },
+      history: { description: descriptionMobile },
+      wishlist: { description: descriptionMobile },
+      restock: { description: descriptionMobile },
+      address: { description: descriptionMobile },
+      embeddedAddress: { description: descriptionMobile },
+      reviews: {},
       catalog: {},
       search: {
         title: {
           fontSize: 'heading.22',
-          fontWeight: '900',
           lineHeight: '1.2',
           color: 'black.100',
-          _mobile: { fontSize: 'heading.20', fontWeight: '700' },
+          _mobile: { fontSize: 'heading.20' },
         },
         description: {
           ...bodyTitle,
@@ -440,7 +434,7 @@ const emptyStateTypographyRecipe = sva({
       orderSummary: { description: descriptionMobile },
       orders: {},
       launch: {},
-      runningSession: { title: largeMobileTitle },
+      runningSession: {},
       productInquiry: {
         title: {
           ...bodyTitle,

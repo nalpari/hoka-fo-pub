@@ -80,7 +80,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 ### EmptyState fixed design rule
 
-- **사용자 확정 디자인 규칙 (2026-11-18):** EmptyState의 heading형 제목은 PC **22px / 900 / line-height 120%**, 모바일 **20px / 700 / line-height 120%**를 사용한다. 본문형 빈 안내와 description에는 이 heading 크기를 일괄 적용하지 않는다.
+- **사용자 확정 디자인 규칙 (2026-11-26):** 공통 레시피의 EmptyState heading형 제목은 PC **22px / Regular(400) / line-height 120%**, 모바일 **20px / Regular(400) / line-height 120%**를 사용한다. 본문형 빈 안내와 description에는 이 heading 크기를 일괄 적용하지 않는다.
 - 이 규칙은 업데이트되지 않은 Figma·스크린샷·과거 OKF 기록의 PC28px/MO22px보다 우선한다. 디자인 동기화·리팩터링·시안 검수 중에도 이전 수치로 되돌리지 않는다. 크기를 다시 바꾸려면 이 규칙을 변경한다는 사용자의 명시적 지시가 필요하며, 새로운 디자인 링크만으로 변경 승인으로 간주하지 않는다.
 - 스타일 소유자는 `src/components/common/atoms/EmptyState.recipe.tsx`다. 공통 기본값과 cart/search 등 heading형 layout override를 함께 유지하고 호출부의 typography props/className으로 과거 크기를 재도입하지 않는다. 독립 compound title과 외부 override 호환 API는 유지한다.
 

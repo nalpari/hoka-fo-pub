@@ -955,7 +955,7 @@ Font Awesome 아이콘은 공식 이름과 확인된 스타일을 사용한다. 
 
 [EmptyState 제목 한 단계 축소](ui.md#emptystate-제목-한-단계-축소-2026-11-18)는 공통 제목의 최신 PC·모바일 크기를 설명한다.
 
-[EmptyState 고정 디자인 규칙](error-empty-guide.md#emptystate-고정-디자인-규칙-2026-11-18)은 오래된 시안보다 우선하는 PC22px/MO20px 기준과 변경 권한을 정의한다.
+[EmptyState 고정 디자인 규칙](error-empty-guide.md#emptystate-고정-디자인-규칙-2026-11-18)은 PC 22px·모바일 20px의 제목 크기와 공통 Regular(400) 굵기를 설명한다.
 
 - [주문 조회 없음 PC 시안](ui.md#주문-조회-없음-pc-시안-반영-2026-11-18) - 빈 목록 표 헤더·267px 안내·조회 버튼 중앙 정렬과 MO 행간21px.
 
