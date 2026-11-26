@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-26T06:31:16Z'
+updated: '2026-11-26T06:33:44Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -2819,6 +2819,12 @@ PC와 모바일에서 `/mypage/recent`는 색상 개수 문구를 표시하고, 
 `/mypage`의 메뉴 섹션 다섯 곳은 PC에서 제목을 24px·900으로 표시하고 1px 구분선 아래에 첫 메뉴 행을 바로 배치한다. 기존 메뉴 행 높이와 링크 경로를 유지한다. 모바일은 기존 제목 22px·700, 구분선 1px, 목록 간격 0px을 사용한다.
 
 출처는 사용자 브라우저 댓글 1~5와 `src/app/mypage/_components/MyPageContent.tsx`의 작업 트리다. Codex가 2026-11-26에 PC 1440px과 모바일 390px에서 다섯 섹션의 계산 스타일, 구분선과 목록 사이 거리, 링크 경로를 확인했다.
+
+## 마이페이지 등급안내와 상단 로그아웃
+
+`/mypage`는 PC와 모바일에서 RUNNER 오른쪽 16px에 ‘등급안내’를 배치한다. ‘등급안내’는 `/mypage/rewards`로 연결하고, 상단 ‘로그아웃’은 테두리 없는 14px 밑줄 텍스트 버튼으로 기존 확인창을 연다.
+
+출처는 사용자 브라우저 댓글 1~2와 `src/app/mypage/_components/MyPageContent.tsx`의 작업 트리다. Codex가 2026-11-26에 PC 1255px과 모바일 390px에서 등급안내 위치와 경로, 로그아웃 계산 스타일, 확인창 열기와 Escape로 닫은 뒤 포커스 복귀를 확인했다.
 
 ## 러닝세션 신청내역 취소 버튼
 
