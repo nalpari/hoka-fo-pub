@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-26T05:34:51Z'
+updated: '2026-11-26T05:36:53Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -2756,9 +2756,9 @@ productDetailPreviews의 `상품 문의하기 팝업` 항목을 기존 상품 �
 IA 184의 재입고 알림 상품 목록(`/mypage/restock-alerts`)에 수정된 기획을 적용했다.
 
 - PC와 모바일에서 각 상품 행의 상품정보 왼쪽에 개별 선택 체크박스를 배치한다.
-- 목록 위 오른쪽에 `전체삭제` 버튼을 배치한다. 빈 목록에서는 목록 컨트롤을 표시하지 않는다.
+- 목록 위 오른쪽에 `삭제` 버튼을 배치한다. 빈 목록에서는 목록 컨트롤을 표시하지 않는다.
 
-첨부된 PC 기획 화면과 사용자 브라우저 코멘트, `src/app/mypage/_components/MyPageProductHistory.tsx`, `src/app/mypage/restock-alerts/page.tsx` 작업 트리가 출처다. 체크는 화면에서만 관리하며, `전체삭제` 요청과 삭제 대상 정책은 재입고 통합 소유자가 연결한다.
+첨부된 PC 기획 화면과 사용자 브라우저 코멘트, `src/app/mypage/_components/MyPageProductHistory.tsx`, `src/app/mypage/restock-alerts/page.tsx` 작업 트리가 출처다. 체크는 화면에서만 관리하며, 삭제 요청과 삭제 대상 정책은 재입고 통합 소유자가 연결한다.
 
 Codex는 PC 1255px와 모바일 390px에서 체크박스 두 개의 개별 선택, 목록 위 버튼의 오른쪽 정렬, 가로 넘침 여부를 확인했다. 모바일 빈 목록에는 두 컨트롤이 렌더되지 않았다. TypeScript와 변경 소스 ESLint·Prettier를 통과했다.
 
