@@ -181,6 +181,7 @@ const connections: Record<number, ScreenConnection> = {
       { label: '기본배송지 주소가 없는 사용자', href: '/checkout/preview-shipping' },
       { label: '배송 요청사항 직접입력', href: '/checkout/preview-delivery-request' },
       { label: '보유 쿠폰 조회', href: '/checkout/preview-coupons' },
+      { label: '쿠폰 변경 확인 얼럿', href: '/checkout/preview-coupon-change' },
     ],
     sourceFiles: [
       'src/app/checkout/page.tsx',
@@ -189,6 +190,7 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/checkout/preview-shipping/page.tsx',
       'src/app/checkout/preview-delivery-request/page.tsx',
       'src/app/checkout/preview-coupons/page.tsx',
+      'src/app/checkout/preview-coupon-change/page.tsx',
     ],
   },
   '172': {
@@ -934,6 +936,7 @@ const stateModalVariants: Readonly<Record<string, readonly ModalDialogVariant[]>
   '/cart/preview-options-apparel-changed': ['productOption'],
   '/cart/preview-limit': ['alert'],
   '/checkout/preview-coupons': ['productSelection'],
+  '/checkout/preview-coupon-change': ['confirm'],
   '/checkout/preview-address-change': ['form'],
   '/checkout/preview-address-edit': ['form'],
   '/checkout/preview-address-new': ['form'],

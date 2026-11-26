@@ -4,12 +4,16 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-25T04:40:52Z'
+updated: '2026-11-26T02:23:29.774Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/checkout/preview-coupon-change/page.tsx
+  - src/app/checkout/_components/CheckoutStatePreview.tsx
+  - src/app/checkout/_components/CheckoutDiscountSummary.tsx
+  - src/app/screen-index/screenConnections.ts
   - src/app/mypage/orders/orderPreviews.ts
   - src/app/signup/_components/SignupContent.tsx
   - src/app/mypage/mypage.data.ts
@@ -2093,6 +2097,14 @@ ProfileContent의 비밀번호 설정 모달에서 안내문 padding-top8px를 �
 주문서의 ‘쿠폰 조회하기’ 버튼과 `/checkout/preview-coupons`는 같은 팝업을 사용한다. 상품별 선택은 로컬 초안이며, PC에서는 팝업 위에 선택 목록이 열리고 모바일에서는 ‘상품 쿠폰’ 바텀시트가 열린다. 작업 트리 출처는 `src/app/checkout/_components/CheckoutCouponDialog.tsx`와 `src/app/checkout/checkout-coupons.ts`다. [드롭다운 표시와 검증](ui.md#보유-쿠폰-조회-드롭다운-2026-11-25).
 
 2026-11-26 브라우저 코멘트에 따라 `CheckoutCouponDialog.tsx`의 금액 요약 라벨을 ‘주문금액’, ‘장바구니’로 표시한다.
+
+## 주문서 쿠폰 변경 확인 얼럿 (2026-11-26)
+
+`/checkout/preview-coupon-change`에 직접 진입하면 주문서 위에 상품 쿠폰과 장바구니 쿠폰의 동시 사용 제한을 안내하는 변경 확인 모달이 열린다. 주문하기 IA 171에는 ‘쿠폰 변경 확인 얼럿’ 상태와 `confirm` 유형을 연결한다. ‘변경하기’, ‘취소’, 닫기, Escape 키는 모달을 닫고 ‘쿠폰 조회하기’ 버튼으로 포커스를 돌린다. 새로고침하면 모달이 다시 열린다.
+
+첨부 화면의 문구와 액션 순서를 적용하고 크기와 타이포그래피는 공통 모달 스타일을 사용한다. 쿠폰 충돌 판정과 쿠폰 교체 요청 및 주문 견적 갱신은 실제 주문 연결 소유자의 책임이다. 이 경로는 고정 상태를 표시한다. 출처는 사용자 첨부 화면과 작업 트리의 주문서 상태 페이지, 할인 요약 및 IA 연결 파일이다.
+
+Codex는 브라우저에서 PC 1440px와 모바일 375px의 직접 진입·새로고침·버튼 순서·닫기·포커스 복귀 및 기존 보유 쿠폰 조회 미리보기를 확인했다. IA에서 상태명과 URL로 검색해 새 탭으로 열리는 것도 확인했다. 대상 ESLint·Prettier, 전체 TypeScript와 Panda 생성은 통과했다. IA 회귀 검사 16건 중 15건이 통과했으며 기존 문의 첨부파일 선택 미리보기의 소스 연결 검사는 실패했다. 실제 쿠폰 요청은 검증 범위에 포함되지 않는다.
 
 ## 쿠폰 조회와 취소 반품 유형 연결 (2026-11-17)
 

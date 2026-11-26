@@ -15,12 +15,13 @@ import type { PaymentMethod } from './CheckoutPayment';
  * [ 개발팀 바인딩 ] preview는 고정 상품·금액·오류를 표시합니다. 로컬 쿠폰 선택은 할인액을 계산하지 않으며 동의 필수 여부도 검증하지 않습니다.
  * 결제 제출·검증·주문 생성은 연결하지 않습니다. error 상태의 필드 안내와 동의 오류는 고정된 화면 확인용입니다.
  */
-/** 주문서의 입력·요청사항·오류·완료 상태를 직접 표시합니다. (Displays fixed checkout input, delivery instructions, error, and completion states.) */
+/** 주문서의 입력·쿠폰·오류·완료 상태를 직접 표시합니다. (Displays fixed checkout input, coupon, error, and completion states.) */
 export function CheckoutStatePreview({
   state,
 }: {
   state:
     | 'coupons'
+    | 'coupon-change'
     | 'error'
     | 'complete'
     | 'shipping'
@@ -38,7 +39,9 @@ export function CheckoutStatePreview({
         <CheckoutComplete />
       ) : (
         <CheckoutContent
-          initialCouponOpen={state === 'coupons'}
+          initialCouponDialog={
+            state === 'coupon-change' ? 'change' : state === 'coupons' ? 'lookup' : undefined
+          }
           editShipping={state === 'shipping' || state === 'error'}
           initialAddressChangeOpen={
             state === 'address-change' || state === 'address-edit' || state === 'address-new'
