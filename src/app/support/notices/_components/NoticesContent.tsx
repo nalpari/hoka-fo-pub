@@ -1,6 +1,5 @@
 'use client';
 import { useState } from 'react';
-import { usePlatform } from '@/context/platform';
 
 import { css } from 'styled-system/css';
 import { Stack, VStack } from 'styled-system/jsx';
@@ -15,7 +14,6 @@ import { NoticesList } from './NoticesList';
 /** 공지 목록과 화면별 상세 탐색을 구성합니다. (Composes notices and platform-specific detail navigation.) */
 export function NoticesContent({ previewEmpty = false }: { previewEmpty?: boolean }) {
   const items = previewEmpty ? [] : notices;
-  const platform = usePlatform();
   const pageSize = 10;
   const [shown, setShown] = useState(pageSize);
   const more =
@@ -57,7 +55,6 @@ export function NoticesContent({ previewEmpty = false }: { previewEmpty?: boolea
         <NoticesList
           notices={items}
           shown={shown}
-          platform={platform}
           pending={false}
           error={Boolean(undefined)}
         />
