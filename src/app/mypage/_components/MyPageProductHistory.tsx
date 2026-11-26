@@ -6,6 +6,8 @@ import { usePlatform } from '@/context/platform';
 import { css } from 'styled-system/css';
 import { Box, Grid, Stack } from 'styled-system/jsx';
 
+import { Button } from '@/components/common/atoms/Button';
+import { Checkbox } from '@/components/common/atoms/Checkbox';
 import { dataListRecipe } from '@/components/common/atoms/DataList.recipe';
 import { Divider } from '@/components/common/atoms/Divider';
 import { EmptyState } from '@/components/common/atoms/EmptyState';
@@ -88,7 +90,15 @@ function MyPageRestockList({ items, entries }: Props) {
             py="32px"
             _mobile={{ py: '24px' }}
           >
-            <Box px="24px" _mobile={{ px: '0' }} minW="0">
+            <Box
+              display="flex"
+              alignItems="center"
+              gap="16px"
+              px="24px"
+              _mobile={{ gap: '8px', px: '0' }}
+              minW="0"
+            >
+              <Checkbox label={null} aria-label={`${name} 재입고 알림 선택`} />
               <OrderProductSummary
                 variant="cart"
                 name={name ?? ''}
@@ -366,6 +376,10 @@ export function MyPageProductHistory({
     .map((item) => item.id);
   const current = config[kind];
   const restock = kind === 'restock-alerts';
+
+  // [ 개발팀 바인딩 ] 재입고 목록은 현재 entries 또는 고정 예시를 표시하고 행 체크만 로컬로 처리합니다.
+  // 전체삭제는 표시용입니다. 재입고 통합 소유자가 정책에 따른 요청 대상의 신청 행 ID를 연결하고,
+  // 요청 중 중복 방지, 실패 시 선택 유지와 재시도, 성공 후 목록 재조회와 이전 응답 배제를 담당합니다.
   return (
     <MyPageFrame
       fillAvailable={!items.length}
@@ -417,6 +431,14 @@ export function MyPageProductHistory({
           />
         ) : restock ? (
           <Stack gap="16px">
+            <Button
+              type="button"
+              variant="secondary"
+              size="short"
+              className={css({ alignSelf: 'flex-end' })}
+            >
+              전체삭제
+            </Button>
             <MyPageRestockList entries={entries} items={items} />
             <Box whiteSpace="pre-line">
               <Typography as="p" variant="b8" tone="tertiary">

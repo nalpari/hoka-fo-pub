@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-26T05:20:24Z'
+updated: '2026-11-26T05:26:56Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -2746,6 +2746,17 @@ productDetailPreviews의 `상품 문의하기 팝업` 항목을 기존 상품 �
 출처는 사용자 지정 문구, [이랜드 화면설계서](https://www.figma.com/design/4cJ1LkWUgme3lklyQ9U8qr/)와 `orderPreviews.ts`, `[preview]/page.tsx`, `OrdersPage.tsx`, `screenConnections.ts`의 작업 트리다. 기록: codex/gpt-6, 2026-11-24 KST.
 
 검증: PC 1440px과 모바일 375px에서 세 팝업의 직접 진입·새로고침·문구·닫기를 확인했다. 모달 너비는 PC 640px, 모바일 343px이었다. IA에서 상태명·URL로 검색할 수 있고, 각 보기 링크를 눌러 해당 팝업이 열리는 것을 확인했다. 기본 주문 조회와 기존 주문 삭제 확인도 점검했다. 타입 검사와 소스 그래프 생성은 통과했고, 관련 테스트 16개 중 15개가 통과했다. 기존 `/mypage/preview-no-orders` 리디렉션에 IA 바로가기가 없다는 검사가 실패했다.
+
+## 재입고 알림 상품 목록 기획 변경 (2026-11-26)
+
+IA 184의 재입고 알림 상품 목록(`/mypage/restock-alerts`)에 수정된 기획을 적용했다.
+
+- PC와 모바일에서 각 상품 행의 상품정보 왼쪽에 개별 선택 체크박스를 배치한다.
+- 목록 위 오른쪽에 `전체삭제` 버튼을 배치한다. 빈 목록에서는 목록 컨트롤을 표시하지 않는다.
+
+첨부된 PC 기획 화면과 사용자 브라우저 코멘트, `src/app/mypage/_components/MyPageProductHistory.tsx`, `src/app/mypage/restock-alerts/page.tsx` 작업 트리가 출처다. 체크는 화면에서만 관리하며, `전체삭제` 요청과 삭제 대상 정책은 재입고 통합 소유자가 연결한다.
+
+Codex는 PC 1255px와 모바일 390px에서 체크박스 두 개의 개별 선택, 목록 위 버튼의 오른쪽 정렬, 가로 넘침 여부를 확인했다. 모바일 빈 목록에는 두 컨트롤이 렌더되지 않았다. TypeScript와 변경 소스 ESLint·Prettier를 통과했다.
 
 ## 관심상품 카드 색상 개수 표시 (2026-11-26)
 
