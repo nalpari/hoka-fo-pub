@@ -179,7 +179,6 @@ export function ProfileEditForm({
             titleAs: 'h1',
             titleProps: { web: 'h6', mo: 'h7', tone: 'primary' },
             pb: { base: '40px', _mobile: '32px' },
-            borderBottom: '2px solid black',
           }}
         >
           <Grid
@@ -725,17 +724,12 @@ export function ProfileContent({
         />
       ) : (
         <ContentSection
-          gap="32px"
+          gap={{ base: '40px', _mobile: '32px' }}
           title="회원정보"
           css={{ '--line-heights-body': '1.5' }}
           _mobile={{ pt: '24px' }}
           headerProps={{
             titleAs: 'h1',
-            pb: { base: '40px', _mobile: '0' },
-            borderBottom: {
-              base: '2px solid var(--colors-black-100)',
-              _mobile: '0',
-            },
             titleProps: { web: 'h6', mo: 'h7', tone: 'primary' },
           }}
         >
@@ -845,7 +839,6 @@ export function ProfileContent({
             className={css({
               w: '180px',
               alignSelf: 'center',
-              mt: '16px',
               _mobile: { w: '100%', mt: '8px', '&&': { '--button-height': '44px' } },
             })}
             onClick={() => {
