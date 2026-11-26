@@ -121,8 +121,8 @@ const styles = {
     minH: '52px',
     justifyContent: 'flex-end',
     pb: '16px',
-    borderBottom: '2px solid var(--colors-black-100)',
-    _mobile: { minH: '43px', borderBottomWidth: '1px' },
+    borderBottom: '1px solid var(--colors-black-100)',
+    _mobile: { minH: '43px' },
   }),
   menuTitle: css({ '&&': { lineHeight: 'body', _mobile: { lineHeight: '1.2' } } }),
   profileLink: css({
@@ -300,14 +300,13 @@ function MyPageMenuSection({ title, items }: { title: string; items: MyPageMenuI
   return (
     <ContentSection
       as="section"
-      gap="16px"
-      _mobile={{ gap: '0' }}
+      gap="0"
       aria-label={title}
       title={title}
       headerProps={{
         titleAs: 'h2',
         className: styles.menuHeader,
-        titleProps: { web: 'h8B', mo: 'h7', className: styles.menuTitle },
+        titleProps: { web: 'h9B', mo: 'h7', className: styles.menuTitle },
       }}
     >
       <Stack gap="0">

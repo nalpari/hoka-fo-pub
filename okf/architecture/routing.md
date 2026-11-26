@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-26T06:09:07Z'
+updated: '2026-11-26T06:27:13Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -2809,6 +2809,12 @@ PC와 모바일에서 `/mypage/recent`는 색상 개수 문구를 표시하고, 
 회원 이름 아래의 ‘멤버십 바코드 보기’가 모바일에서는 바텀시트, PC에서는 가운데 모달을 연다. 확인 또는 닫기를 누르면 버튼으로 포커스가 돌아간다. 바코드는 시안의 샘플 이미지이며 실제 회원별 발급은 연동 대상이다. 모바일에서는 등급명 옆에 등급안내를 배치하고, 메뉴 제목의 구분선 아래에 첫 항목을 바로 배치한다.
 
 출처는 모바일 마이페이지와 바코드 시안, `src/app/mypage/_components/MyPageContent.tsx`, `public/images/mypage/membership-barcode.png`다. 2026-11-26에 모바일 375px와 PC 1440px에서 바코드 표시와 확인 후 포커스 복귀를 확인했다.
+
+## 마이페이지 PC 메뉴 제목과 구분선
+
+`/mypage`의 메뉴 섹션 다섯 곳은 PC에서 제목을 24px·900으로 표시하고 1px 구분선 아래에 첫 메뉴 행을 바로 배치한다. 기존 메뉴 행 높이와 링크 경로를 유지한다. 모바일은 기존 제목 22px·700, 구분선 1px, 목록 간격 0px을 사용한다.
+
+출처는 사용자 브라우저 댓글 1~5와 `src/app/mypage/_components/MyPageContent.tsx`의 작업 트리다. Codex가 2026-11-26에 PC 1440px과 모바일 390px에서 다섯 섹션의 계산 스타일, 구분선과 목록 사이 거리, 링크 경로를 확인했다.
 
 ## 러닝세션 신청내역 취소 버튼
 
