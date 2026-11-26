@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-26T06:58:59Z'
+updated: '2026-11-26T08:08:15Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -4896,9 +4896,17 @@ Codex가 PC 브라우저에서 네 옵션, 낮은가격순 선택 시 Clifton �
 
 ## 모바일 상품 목록과 검색 결과의 색상 선택 (2026-11-10)
 
-공통 `ProductCard`의 모바일 목록에서 `colorThumbnails`가 제공되면 썸네일을 버튼으로 표시한다. 선택한 옵션 ID로 현재 이미지 데이터를 찾아 카드 대표 이미지에 반영한다. 색상 이름만 제공되는 상품은 기존 읽기 전용 썸네일을 유지한다. 선택은 카드 안의 미리보기 상태이며 URL, 상품 상세 링크와 서비스 데이터에 영향을 주지 않는다.
+공통 `ProductCard`의 모바일 목록에서 `colorThumbnails`가 제공되면 썸네일을 버튼으로 표시한다. 선택한 옵션 ID로 현재 이미지 데이터를 찾아 카드 대표 이미지에 반영한다. 색상 이름만 제공되는 상품은 기존 읽기 전용 썸네일을 유지한다. 선택은 카드 안의 미리보기 상태이며 현재 페이지 URL은 그대로 유지된다. 상품 상세 링크 동작은 [색상별 상품 상세 이동](#목록-카드의-색상별-상품-상세-이동-2026-11-26)을 따른다.
 
 Codex가 473px 모바일 목록과 검색 결과에서 Summit Pace 4의 색상 버튼을 연속 선택해 대표 이미지와 `aria-pressed`가 바뀌고 URL이 유지됨을 확인했다. 1440px 목록에서 PC 호버 미리보기의 색상 선택도 확인했다. 대상 ESLint와 타입 검사를 통과했다. 출처는 사용자 브라우저 주석과 `src/components/common/molecules/ProductCard/ProductCard.tsx` 작업 트리다.
+
+## 목록 카드의 색상별 상품 상세 이동 (2026-11-26)
+
+검색·상품 목록에서 색상 칩은 현재 옵션 ID만 선택한다. 사진과 상품명 링크는 모바일 및 PC 미리보기에서 표시 중인 색상의 `href`를 함께 사용한다. 선택된 옵션이 없거나 색상별 주소가 비어 있으면 카드 `href`, 그 값도 생략하면 대표 상품 ID의 상세 경로로 연결한다. PC 미리보기를 닫으면 두 링크도 기존 카드 주소로 돌아간다. 목록 소유자가 색상별 상세 주소를 준비해 `product.colorThumbnails`에 전달한다.
+
+검증은 타입 검사, 변경 소스 ESLint, PC·모바일 렌더링 12개 사례를 통과했다. 임의의 옵션 ID, 상세 주소 미제공, 현재 옵션 교체·제거, PC 미리보기 닫힘, 추천 카드 링크를 확인했다. 로컬 브라우저에서 검증 페이지의 초기 HTML은 렌더됐으나 클라이언트 초기화가 완료되지 않아 실제 클릭 이동은 확인하지 못했다.
+
+출처는 사용자 요청과 `src/components/common/molecules/ProductCard/ProductCard.tsx`, `src/components/common/molecules/ProductOptionList.tsx`, `src/mocks/products.ts` 작업 트리다. 기록은 Codex, 2026-11-26이다.
 
 ## 배송지 변경 모달 footer (2026-11-05)
 

@@ -43,6 +43,7 @@ export type Product = {
     id: string;
     label: string;
     image: string;
+    href?: string;
     galleryImages?: string[];
   }[];
   /** 상품정보의 상품별 제목이며 미제공 시 다른 상품의 문구를 대신 표시하지 않습니다. */

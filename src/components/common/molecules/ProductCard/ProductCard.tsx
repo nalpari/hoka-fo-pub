@@ -98,10 +98,11 @@ const productName = css({
 
 type ProductNameProps = {
   name: string;
+  href?: string;
   variant?: ProductCardVariant;
 };
 /** Product name styled for its card presentation context. */
-function ProductName({ name, variant = 'listing' }: ProductNameProps) {
+function ProductName({ name, href, variant = 'listing' }: ProductNameProps) {
   const platform = usePlatform();
   return (
     <Typography
@@ -113,7 +114,7 @@ function ProductName({ name, variant = 'listing' }: ProductNameProps) {
       variant={variant === 'history' ? 'b6' : 'b4'}
       mo={variant === 'history' ? 'b6' : 'b6'}
     >
-      {name}
+      {href ? <Link href={href}>{name}</Link> : name}
     </Typography>
   );
 }
@@ -230,6 +231,7 @@ export type ProductIdentityProps = Omit<
 > & {
   variant: ProductCardVariant | 'detail';
   activities?: readonly string[];
+  nameHref?: string;
   orderDate?: string;
   optionText?: string;
   applicationDate?: string;
@@ -246,6 +248,7 @@ export function ProductIdentity({
   discountLabel,
   variant,
   activities,
+  nameHref,
   orderDate,
   optionText,
   applicationDate,
@@ -332,7 +335,7 @@ export function ProductIdentity({
   const identity = (
     <>
       {gender && <ProductGender gender={gender} variant={variant} />}
-      <ProductName name={name} variant={variant} />
+      <ProductName name={name} href={nameHref} variant={variant} />
     </>
   );
   const priceContent = (
@@ -593,6 +596,7 @@ type ProductDetailsProps = {
   colorCount: number;
   gender?: ProductGenderOption;
   name: string;
+  nameHref?: string;
   optionThumbnails: readonly ProductOptionThumbnail[];
   platform: Platform;
   price: number;
@@ -612,6 +616,7 @@ function ProductDetails({
   colorCount,
   gender,
   name,
+  nameHref,
   optionThumbnails,
   platform,
   price,
@@ -637,6 +642,7 @@ function ProductDetails({
           promotion={promotion}
           gender={gender}
           name={name}
+          nameHref={nameHref}
           price={price}
           originalPrice={originalPrice}
           variant={variant}
@@ -704,7 +710,7 @@ type ProductCardHeaderProps = {
   platform: Platform;
   selectedImage?: string;
   product: ProductCardProduct;
-  href?: string;
+  href: string;
   soldOut?: boolean;
   variant: ProductThumbnailVariant;
 };
@@ -719,7 +725,7 @@ function ProductCardHeader({
 }: ProductCardHeaderProps) {
   return (
     <Card.Header className={ProductCardHeaderRoot}>
-      <Link href={href ?? `/products/${product.id}`} className={css({ pos: 'relative' })}>
+      <Link href={href} className={css({ pos: 'relative' })}>
         <ProductThumbnail
           alt={product.name}
           hover
@@ -857,11 +863,11 @@ export type ProductCardProps = {
 };
 
 /**
- * [ 개발팀 바인딩 ] 목록 소유자가 product의 상품 ID·colorThumbnails 옵션 ID/이미지를 제공합니다.
+ * [ 개발팀 바인딩 ] 검색·상품 목록 소유자가 대표 상품 ID와 product.colorThumbnails의 옵션 ID·이미지·선택적 상세 href를 전달합니다.
  * 추천 목록은 id/name/price/primaryImage와 선택적 gender/href만 전달할 수 있으며 미제공 활동·색상·스펙을 만들어 채우지 않습니다.
- * PC 목록의 호버/키보드 포커스에서 요약을 48px 색상 캐러셀로 교체하며, 선택 ID는 현재 옵션에서 찾아 이미지 미리보기에만 사용합니다.
- * 모바일 목록에서는 색상별 썸네일이 제공되면 선택한 이미지를 대표 이미지에 표시합니다.
- * 색상 선택은 요청·저장·재고 판정 없이 로컬로 처리합니다. 관심상품 연결과 상세 링크는 기존 소유자가 담당합니다.
+ * 선택 ID는 현재 옵션에서 찾으며, PC 미리보기·모바일에서 선택 이미지와 상세 링크를 함께 반영합니다.
+ * 색상 URL이 없으면 카드 href 또는 대표 상품 ID 경로를 사용합니다. 고정 예시에는 실제 색상별 URL을 가정하지 않습니다.
+ * 칩 선택은 로컬 상태만 갱신하고, 이미지·목록 상품명 링크를 눌렀을 때 상세로 이동합니다.
  */
 /** 상품 이미지와 요약을 표시하고 목록에서 색상 미리보기를 제공합니다. (Displays product imagery, details, and color previews in listings.) */
 export function ProductCard({
@@ -895,6 +901,10 @@ export function ProductCard({
     hasOption('colors') &&
     (platform === 'web' ? colorOptions.length > 0 : !!product.colorThumbnails?.length);
   const showColorPreview = platform === 'web' && canSelectColor && previewOpen;
+  const previewColor =
+    canSelectColor && (platform === 'mobile' || showColorPreview) ? selectedColor : undefined;
+  const detailHref = previewColor?.href || (href ?? `/products/${product.id}`);
+
   return (
     <Card
       className={root({
@@ -928,13 +938,9 @@ export function ProductCard({
       }}
     >
       <ProductCardHeader
-        href={href}
+        href={detailHref}
         platform={platform}
-        selectedImage={
-          canSelectColor && (platform === 'mobile' || showColorPreview)
-            ? selectedColor?.image
-            : undefined
-        }
+        selectedImage={previewColor?.image}
         product={product}
         soldOut={soldOut}
         variant={thumbnailVariant ?? variant}
@@ -994,6 +1000,7 @@ export function ProductCard({
         colorCount={colorCount ?? product.colors?.length ?? colorOptions.length}
         gender={product.gender}
         name={product.name}
+        nameHref={variant === 'listing' ? detailHref : undefined}
         optionThumbnails={colorOptions}
         platform={platform}
         price={product.price}

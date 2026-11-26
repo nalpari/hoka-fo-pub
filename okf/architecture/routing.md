@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-26T07:57:41Z'
+updated: '2026-11-26T08:08:15Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -2248,6 +2248,8 @@ PC 1305px에서 매장명22px/900/26.4px·자간-0.44px, 본문16px/24px·자간
 출처: 위 두 파일의 스테이징된 변경, Codex의 충돌 해결 중 소스 차이 검토(2026-11-17). 이번 충돌 해결에서는 브라우저·빌드 검증을 재실행하지 않았다.
 
 ## 모바일 검색 결과 IA 연결 (2026-11-17)
+
+2026-11-26 검색·상품 목록의 색상 칩은 현재 경로와 검색 조건을 유지한다. 상세 이동은 공통 카드의 사진·상품명 링크에서 발생하며, 기존 상세 라우트가 목록 소유자가 전달한 색상별 상품 주소를 받는다. 출처는 `src/components/common/molecules/ProductCard/ProductCard.tsx` 작업 트리다. [카드 링크 규칙](ui.md#목록-카드의-색상별-상품-상세-이동-2026-11-26)
 
 IA247은 기존 `/search`와 `/search/preview-no-results`를 유지하며 모바일도 일반 검색 결과 페이지로 표시한다. 소스 그래프에서 제거된 검색 입력·검색 헤더 의존성을 정식 생성 명령으로 갱신했다. 출처: `src/app/screen-index/sourceGraph.generated.json`, `src/components/catalog/ProductListingPage.tsx`, `src/context/ShopShell.tsx` 작업 트리; Codex, 2026-11-17.
 

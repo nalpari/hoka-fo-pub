@@ -120,6 +120,8 @@ export type ProductOptionThumbnail = {
   id: string;
   image: string;
   label: string;
+  /** Optional detail URL for this color in product cards. */
+  href?: string;
 };
 
 export type ProductOptionListProps = {
