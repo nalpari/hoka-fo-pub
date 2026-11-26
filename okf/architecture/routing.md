@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-26T07:18:03Z'
+updated: '2026-11-26T07:38:39Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -1075,6 +1075,10 @@ FilterTrigger compact와 regular의 높이는 모두 40px이다. Compact는 글�
 ## 회원정보 조회·수정 Figma 적용 (2026-10-30)
 
 `/mypage/profile`과 `/mypage/profile/preview-edit`는 기존 진입점을 유지한다. 공통 ProfileEditForm이 수정 화면 제목·기본정보·폼을 소유하므로 직접 preview에서도 전체 맥락이 보인다. 새 URL·page export·플랫폼 판단·MyPageFrame은 추가/변경하지 않았다. 기존 인증번호·만료·비밀번호 완료 preview는 기존 컴포넌트를 계속 사용한다. 디자인 [1813:89280](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design?node-id=1813-89280)과 관련 작업 트리 TSX가 출처이며 PC/모바일 실제 두 경로와 Next.js build를 확인했다.
+
+### 회원정보 조회 제목 (2026-11-26)
+
+`/mypage/profile` 기본 조회 화면의 본문 제목은 ‘회원정보’다. 출처는 사용자 브라우저 코멘트와 `src/app/mypage/profile/_components/ProfileContent.tsx` 작업 트리다.
 
 ## 쿠폰 시안과 기존 상태 URL (2026-10-30)
 

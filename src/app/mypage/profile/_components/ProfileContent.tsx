@@ -732,7 +732,7 @@ export function ProfileContent({
       ) : (
         <ContentSection
           gap={{ base: '32px', _mobile: '24px' }}
-          title="회원정보 확인"
+          title="회원정보"
           css={{ '--line-heights-body': '1.5' }}
           _mobile={{ pt: '24px' }}
           headerProps={{
