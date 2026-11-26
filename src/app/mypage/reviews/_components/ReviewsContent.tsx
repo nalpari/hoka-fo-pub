@@ -202,13 +202,7 @@ export function ReviewsContent({
           />
           {items.length > 0 ? (
             <>
-              <HStack
-                justifyContent="space-between"
-                pt="40px"
-                pb="16px"
-                _mobile={{ pt: '32px' }}
-                borderBottom="1px solid var(--color-black-100)"
-              >
+              <HStack justifyContent="space-between" pt="40px" pb="16px" _mobile={{ pt: '32px' }}>
                 <Dropdown
                   ariaLabel="리뷰 정렬"
                   variant="sort"
@@ -232,7 +226,7 @@ export function ReviewsContent({
                 gap="0"
                 className={
                   tab === 'written'
-                    ? dataListRecipe({ top: 'none', headerTypography: 'heading' }).root
+                    ? dataListRecipe({ top: 'thinSubtle', headerTypography: 'heading' }).root
                     : undefined
                 }
               >
@@ -257,7 +251,9 @@ export function ReviewsContent({
                   as="ul"
                   gap="0"
                   aria-label={tab === 'ready' ? '작성 가능한 리뷰 목록' : '내가 작성한 리뷰'}
-                  className={dataListRecipe({ top: 'unchanged' }).root}
+                  className={
+                    dataListRecipe({ top: tab === 'ready' ? 'thinSubtle' : 'unchanged' }).root
+                  }
                 >
                   {items.map((entry) => (
                     <ReviewItem
