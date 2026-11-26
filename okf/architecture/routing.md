@@ -2753,6 +2753,8 @@ productDetailPreviews의 `상품 문의하기 팝업` 항목을 기존 상품 �
 
 ## 재입고 알림 상품 목록 기획 변경 (2026-11-26)
 
+`/mypage/restock-alerts`의 목록 안내는 품절 상품의 상세 화면에서 알림을 신청하면 재입고 시 문자로 알려준다고 표시한다. 출처는 `src/app/mypage/_components/MyPageProductHistory.tsx`의 안내 문구다.
+
 IA 184의 재입고 알림 상품 목록(`/mypage/restock-alerts`)에 수정된 기획을 적용했다.
 
 - PC와 모바일에서 각 상품 행의 상품정보 왼쪽에 개별 선택 체크박스를 배치한다.
