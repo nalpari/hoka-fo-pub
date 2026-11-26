@@ -1364,7 +1364,7 @@ function RecentSearches({
         titleProps: { web: 'h10B', mo: 'h7B', id: 'recent-search-title' },
         action: (
           <Button variant="link" size="md" onClick={onClear}>
-            전체 삭제
+            전체삭제
           </Button>
         ),
       }}

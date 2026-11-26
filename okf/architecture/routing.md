@@ -2861,3 +2861,5 @@ PC와 모바일에서 `/mypage/recent`는 색상 개수 문구를 표시하고, 
 마이페이지 ‘작성한 리뷰’의 수정하기 버튼은 PC에서 행 오른쪽의 테두리형으로, 모바일에서 리뷰 아래 12px 간격의 전체 너비 검정 버튼으로 표시한다. 두 버튼의 높이는 40px이며 같은 리뷰 수정 창을 연다. 출처는 [상품리뷰 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql)과 `src/app/mypage/reviews/_components/ReviewsContent.tsx`다.
 
 모바일의 ‘작성 가능한 리뷰’도 상품 정보 아래 12px 간격으로 높이 40px의 검정 리뷰 작성 버튼을 전체 너비로 표시한다.
+
+화면 변경 이력에서 마이페이지 쿠폰과 러닝세션 신청내역의 메뉴 그룹은 `My HOKA`로 표기한다.
