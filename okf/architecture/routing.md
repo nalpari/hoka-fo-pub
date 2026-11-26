@@ -2687,3 +2687,5 @@ productDetailPreviews의 `상품 문의하기 팝업` 항목을 기존 상품 �
 ## 러닝세션 신청내역 취소 버튼
 
 `RunningSessionEntriesContent`는 취소 가능한 신청에 공통 secondary short 버튼을 표시한다. PC에서는 세션 정보 오른쪽 하단에, 모바일에서는 세션 정보 아래 12px 간격으로 한 줄 전체에 배치한다. 두 화면 모두 버튼 높이는 40px이며 누르면 취소 확인창이 열린다. 출처는 [러닝세션 신청내역 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql)과 신청내역 컴포넌트다.
+
+러닝세션 신청내역의 목록 합계는 PC와 모바일에서 탭별 수량에 ‘개’를 붙여 표시한다.
