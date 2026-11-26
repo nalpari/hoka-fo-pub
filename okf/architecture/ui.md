@@ -6314,3 +6314,5 @@ PC와 모바일 모두 ‘현재 운영 중인 세션이 없습니다.’로 표
 ## 회원 공통 혜택 목록 (2026-11-26)
 
 마이페이지와 고객센터가 공유하는 `MembershipRewards`는 전달받은 공통 혜택을 목록으로 표시한다. 웹 2열과 모바일 개별 카드의 타이포그래피와 구분선은 [회원 공통 혜택 개정](support-design.md#회원-공통-혜택-개정-2026-11-26)을 따른다.
+
+회원등급 안내 목록은 모바일에서 맨 위와 각 등급 하단에 1px 구분선을 두고 행 안쪽에 상하 24px, 좌우 16px 여백을 둔다. PC는 제목 아래 2px 선과 각 행 하단의 1px 선을 사용한다. 출처는 `src/components/membership/MembershipRewards.tsx`와 [회원등급 안내 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql)이다.

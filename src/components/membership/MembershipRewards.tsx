@@ -121,7 +121,7 @@ function RewardBenefits({ display }: { display: MembershipBenefitsDisplay }) {
           },
         }}
       >
-        <Stack gap="0" _mobile={{ border: '1px solid var(--colors-black-20)', py: '32px' }}>
+        <Stack gap="0" _mobile={{ borderTop: '1px solid var(--color-border-subtle)' }}>
           {tiers.map((tier) => (
             <HStack
               key={tier.name}
@@ -130,14 +130,12 @@ function RewardBenefits({ display }: { display: MembershipBenefitsDisplay }) {
               pl="56px"
               pr={tier.name === 'ELITE' ? '32px' : '56px'}
               py="40px"
-              borderBottom="1px solid var(--colors-black-20)"
+              borderBottom="1px solid var(--color-border-subtle)"
               _mobile={{
                 flexDirection: 'column',
                 gap: '16px',
                 px: '16px',
                 py: '24px',
-                '&:first-child': { pt: '0' },
-                '&:last-child': { pb: '0', borderBottom: '0' },
               }}
             >
               <Stack
