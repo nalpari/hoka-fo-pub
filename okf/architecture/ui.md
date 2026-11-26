@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-26T04:43:04Z'
+updated: '2026-11-26T04:50:26Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -6262,6 +6262,8 @@ TextFormField/TextInput, SearchField, DateRangeSearch와 각 화면의 검색·�
 - 상품 문의 모달의 유의사항에 부적절한 게시글 금지와 개인정보 포함 시 비밀글 문의 안내를 표시한다.
 
 ## 상품 상세 Tech Specs 타이포 보정 (2026-11-24)
+
+[Tech Specs 툴팁 문구와 PC·모바일 검증](routing.md#클리프톤-상품-상세-기술-지표-도움말-2026-11-26)을 참고한다.
 
 [상품 상세 디자인](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 PC·모바일 Tech Specs를 대조해 기존 body3/body5 일괄 사용을 해당 영역의 표현으로 보정했다. `ProductDetailContent.tsx`의 기존 목록·제목 소유권과 DescriptionList/ContentSection/Tooltip을 유지하며 공통 Typography 기본값은 바꾸지 않는다.
 
