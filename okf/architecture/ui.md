@@ -6381,3 +6381,5 @@ PC와 모바일 모두 ‘현재 운영 중인 세션이 없습니다.’로 표
 회원등급 개인 요약은 모바일과 PC에서 같은 크기의 등급 배지를 등급명 왼쪽에 표시한다. RUNNER 배지는 63px × 72px이고 등급명은 36px, 이름과 안내 문구는 PC 16px·모바일 14px이며 이름의 굵기는 700이다. 아래 등급 안내 목록은 모바일용 작은 배지를 사용한다. 출처는 `src/components/membership/MembershipRewards.tsx`와 [회원등급 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql)이다.
 
 상품리뷰의 작성 가능 목록과 작성한 목록은 `OrderProductSummary`의 review 설정을 공유하며 PC와 모바일 모두 96px × 96px 썸네일을 사용한다.
+
+공통 `RatingStars`는 표시형과 선택형 모두 호카 블루를 기본색으로 사용한다. 별의 채움과 윤곽은 점수를 나타낸다.
