@@ -2597,6 +2597,8 @@ LoginContent 제목의 들여쓰기와 약관 페이지 tabs 객체 줄바꿈만
 
 ## 주문서 쿠폰 중복 사용 안내 (2026-11-20)
 
+2026-11-26에 할인 금액 요약 아래의 상품 쿠폰 사용 수량 및 장바구니 쿠폰과의 중복 사용 안내를 목록에서 제거했다. 최대 할인 쿠폰 자동 적용과 쿠폰 적용 가능 상품에 대한 안내는 계속 표시한다. 출처는 `src/app/checkout/_components/CheckoutDiscountSummary.tsx`의 문구 목록이다.
+
 CheckoutDiscountSummary의 금액 요약 아래 기존 쿠폰 안내 목록에 '* 상품 쿠폰은 상품별로 1장씩만 적용 가능하며, 장바구니 쿠폰과 상품 쿠폰은 함께 사용하실 수 없습니다.' 문구를 추가했다. 기존 Typography web=body4/mo=body4-2·tertiary 톤과 목록 간격을 재사용해 PC/MO에 표시한다. 기존 두 안내와 쿠폰 조회/선택 UI는 유지하며 할인 계산이나 실제 중복 적용 제한을 구현한 변경은 아니다. 출처: 사용자 첨부 주문/결제 이미지와 직접 지정 문구. 작업 트리 출처: src/app/checkout/_components/CheckoutDiscountSummary.tsx.
 
 

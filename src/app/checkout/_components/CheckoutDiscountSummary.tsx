@@ -123,7 +123,6 @@ export function CheckoutDiscountSummary({
         {[
           '쿠폰 보유 시 최대 할인 쿠폰으로 자동 적용됩니다.',
           '정상 상품과 세일 상품을 함께 결제 시 쿠폰 적용 가능 상품에만 쿠폰이 적용됩니다.',
-          '상품 쿠폰은 상품별로 1장씩만 적용 가능하며, 장바구니 쿠폰과 상품 쿠폰은 함께 사용하실 수 없습니다.',
         ].map((text) => (
           <Typography key={text} web="b6" mo="b7" tone="tertiary">
             * {text}
