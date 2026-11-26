@@ -5915,7 +5915,7 @@
             }
           ],
           "attribution": "final-lines",
-          "owners": [{ "path": "마이페이지|MY HOKA|쿠폰", "href": null }],
+          "owners": [{ "path": "마이페이지|My HOKA|쿠폰", "href": null }],
           "affectedIa": [196, 197]
         },
         {
@@ -5957,7 +5957,7 @@
             }
           ],
           "attribution": "final-lines",
-          "owners": [{ "path": "마이페이지|MY HOKA|러닝세션 신청내역", "href": null }],
+          "owners": [{ "path": "마이페이지|My HOKA|러닝세션 신청내역", "href": null }],
           "affectedIa": [200]
         },
         {

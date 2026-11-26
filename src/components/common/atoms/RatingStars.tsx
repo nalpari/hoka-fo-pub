@@ -136,7 +136,7 @@ function HalfRatingStar({ size }: Pick<RatingStarsProps, 'size'>) {
 export function RatingStars({
   value,
   size,
-  color,
+  color = 'var(--hoka-brand)',
   className,
   style,
   'aria-label': ariaLabel,

@@ -28,7 +28,7 @@ const badge = cva({
     h: '72px',
     bg: 'offWhite.100',
     clipPath: 'polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)',
-    _mobile: { w: '42px', h: '48px' },
+    _mobile: { '&[data-compact]': { w: '42px', h: '48px' } },
   },
   variants: {
     tier: {
@@ -37,14 +37,14 @@ const badge = cva({
         bg: 'blue.100',
         borderRadius: 'full',
         clipPath: 'none',
-        _mobile: { w: '48px' },
+        _mobile: { '&[data-compact]': { w: '48px' } },
       },
       ADVANCED: {
         w: '72px',
         h: '70px',
         bg: 'citrus.100',
         clipPath: 'polygon(50% 0,100% 38%,81% 100%,19% 100%,0 38%)',
-        _mobile: { w: '48px', h: '46px' },
+        _mobile: { '&[data-compact]': { w: '48px', h: '46px' } },
       },
       RUNNER: {},
     },
@@ -52,11 +52,23 @@ const badge = cva({
 });
 
 /** 등급별 도형과 이니셜을 표시합니다. (Displays the membership tier shape and initial.) */
-function TierBadge({ tier, initial }: { tier?: string; initial?: string }) {
+function TierBadge({
+  tier,
+  initial,
+  compactOnMobile = false,
+}: {
+  tier?: string;
+  initial?: string;
+  compactOnMobile?: boolean;
+}) {
   const knownTier = tier === 'ELITE' || tier === 'ADVANCED' || tier === 'RUNNER' ? tier : undefined;
   return (
-    <Box className={badge({ tier: knownTier })} aria-hidden="true">
-      <Typography web="h4B" mo="h7B">
+    <Box
+      className={badge({ tier: knownTier })}
+      data-compact={compactOnMobile || undefined}
+      aria-hidden="true"
+    >
+      <Typography web="h4B" mo={compactOnMobile ? 'h7B' : 'h1B'}>
         {initial}
       </Typography>
     </Box>
@@ -121,7 +133,7 @@ function RewardBenefits({ display }: { display: MembershipBenefitsDisplay }) {
           },
         }}
       >
-        <Stack gap="0" _mobile={{ border: '1px solid var(--colors-black-20)', py: '32px' }}>
+        <Stack gap="0" _mobile={{ borderTop: '1px solid var(--color-border-subtle)' }}>
           {tiers.map((tier) => (
             <HStack
               key={tier.name}
@@ -130,14 +142,12 @@ function RewardBenefits({ display }: { display: MembershipBenefitsDisplay }) {
               pl="56px"
               pr={tier.name === 'ELITE' ? '32px' : '56px'}
               py="40px"
-              borderBottom="1px solid var(--colors-black-20)"
+              borderBottom="1px solid var(--color-border-subtle)"
               _mobile={{
                 flexDirection: 'column',
                 gap: '16px',
                 px: '16px',
                 py: '24px',
-                '&:first-child': { pt: '0' },
-                '&:last-child': { pb: '0', borderBottom: '0' },
               }}
             >
               <Stack
@@ -147,7 +157,7 @@ function RewardBenefits({ display }: { display: MembershipBenefitsDisplay }) {
                 alignItems="center"
                 _mobile={{ flexDirection: 'row', w: 'auto', gap: '8px' }}
               >
-                <TierBadge tier={tier.name} initial={tier.initial} />
+                <TierBadge tier={tier.name} initial={tier.initial} compactOnMobile />
                 <ContentHeader
                   title={tier.name}
                   titleAs="h3"
@@ -356,16 +366,14 @@ export function MembershipRewards({
       {showSummary ? (
         <Stack gap="32px" _mobile={{ gap: '24px' }}>
           <HStack gap="16px" alignItems="flex-start">
-            <Box display={{ base: 'block', _mobile: 'none' }} aria-hidden="true">
-              <TierBadge tier={summary?.tier} initial={summary?.tierInitial} />
-            </Box>
+            {summary?.tier ? <TierBadge tier={summary.tier} initial={summary.tierInitial} /> : null}
             <ContentHeader
               title={summary?.tier}
               titleAs="h2"
               titleProps={{ web: 'h4B', mo: 'h1B' }}
               description={
                 <>
-                  <Typography as="span" web="b4M" mo="b6M">
+                  <Typography as="span" web="b4B" mo="b6B">
                     {summary?.name}
                   </Typography>
                   {summary ? '님의 이번 달 멤버십 등급' : null}
@@ -374,7 +382,6 @@ export function MembershipRewards({
               descriptionProps={{ web: 'b4', mo: 'b6' }}
               gap="12px"
               pt="12px"
-              _mobile={{ gap: '8px', pt: '0' }}
             />
           </HStack>
           <Stack gap="12px">
