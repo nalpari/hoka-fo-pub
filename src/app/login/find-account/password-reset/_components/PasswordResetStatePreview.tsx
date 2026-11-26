@@ -20,7 +20,7 @@ export function PasswordResetStatePreview({
         complete || !errors
           ? {}
           : {
-              password: '영문, 숫자, 특수문자를 모두 포함하여 10~12자로 입력해 주세요',
+              password: '영문, 숫자, 특수문자를 모두 포함하여 10~20자로 입력해 주세요',
               confirmation: '동일한 비밀번호가 입력되었는지 확인해주세요.',
             }
       }

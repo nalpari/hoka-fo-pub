@@ -1475,6 +1475,10 @@ ProfilePhoneVerification은 6자리 코드 불일치를 SingleActionDialog로 �
 
 브라우저에서 편집·조회 화면 모두 결혼유무·부가정보 제목·라디오가 없는 것을 확인했다. 타입 검사·마이페이지 및 변경 공통 컴포넌트/스토리 ESLint·Panda 생성 포함 프로덕션 빌드·Storybook 빌드를 통과했다.
 
+## 비밀번호 길이 안내 문구 (2026-11-26)
+
+`src/lib/passwordValidation.ts`의 안내 문자열은 10~20자이며, 검증 정규식의 허용 범위는 10~12자다. Codex가 2026-11-26에 `node --test tests/account-recovery.test.mjs`에서 기존 10~12자 검증 사례를 포함한 4개 테스트 통과를 확인했다.
+
 ## 회원가입 마케팅 수신 동의 배치 (2026-11-26)
 
 회원 정보 폼의 이메일 주소 아래에 기존 마케팅 정보 수신 동의 섹션을 24px 간격으로 배치한다. 이메일·문자 라디오 값은 기존 `preferences`와 `onPreferenceChange`로 관리한다. 수신내역 모달과 고정 오류 화면은 통합 폼을 사용한다. 출처는 사용자 브라우저 주석과 `RegistrationContent.tsx`, `RegistrationStatePreview.tsx`, `registration.types.ts` 작업 트리다. [경로와 검증](routing.md#회원가입-마케팅-수신-동의-통합-2026-11-26).

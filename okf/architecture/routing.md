@@ -2647,6 +2647,10 @@ Codex는 PC 1440px·모바일 390px에서 이메일 입력·동의 선택과 모
 
 Codex는 PC 1440px·모바일 390px에서 두 URL을 직접 열어 도메인 컨트롤 제거, 전체 이메일 주소 입력, 고정 이메일 오류 표시와 다음 버튼의 폼 연결을 확인했다. [이메일 입력 계약](ui.md#회원가입-이메일-입력-계약-2026-11-26).
 
+## 비밀번호 길이 안내 문구 (2026-11-26)
+
+로그인, 비밀번호 재설정, 회원가입 정보 입력의 고정 오류 미리보기에서 비밀번호 안내 길이를 10~20자로 표시한다. 출처는 `LoginContent.tsx`, `PasswordResetStatePreview.tsx`, `RegistrationStatePreview.tsx`의 작업 트리다. [공용 검증과 문구](ui.md#비밀번호-길이-안내-문구-2026-11-26).
+
 ## 회원가입 본인인증 안내와 선택 항목 (2026-11-26)
 
 `/signup/verify`는 HOKA Korea 온라인 회원가입 여부를 확인하기 위해 본인 인증이 필요하다고 안내한다. 화면에는 `PASS 인증하기`만 표시하며, 이 버튼은 기존 휴대폰 인증 화면으로 이동한다. Codex가 2026-11-26에 `src/app/signup/verify/_components/IdentityVerificationContent.tsx` 작업 트리의 표시 항목과 연결 경로를 확인했다.

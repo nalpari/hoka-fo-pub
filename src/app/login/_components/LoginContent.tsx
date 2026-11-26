@@ -49,7 +49,7 @@ function LoginForm({ showErrors = false, showHelp = false }: LoginFormProps) {
             required
             error={
               showErrors
-                ? '영문, 숫자, 특수문자를 모두 포함하여 10~12자로 입력해 주세요'
+                ? '영문, 숫자, 특수문자를 모두 포함하여 10~20자로 입력해 주세요'
                 : undefined
             }
             inputProps={{
