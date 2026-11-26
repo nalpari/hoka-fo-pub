@@ -2668,3 +2668,7 @@ productDetailPreviews의 `상품 문의하기 팝업` 항목을 기존 상품 �
 ## 회원가입 본인인증
 
 /signup/verify는 HOKA Korea 온라인 회원가입 안내와 휴대폰 인증만 표시하며 /signup/verify/phone으로 연결한다. 버튼 높이는 PC 48px, 모바일 44px이다.
+
+## 회원가입 혜택 안내
+
+/signup의 첫 두 혜택은 신규가입 10% 쿠폰과 생일 축하 쿠폰으로 표시한다.
