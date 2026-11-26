@@ -30,7 +30,7 @@ export function RouteContent() {
         headerProps={{
           titleAs: 'h1',
           titleProps: { web: 'h8B', mo: 'h7B' },
-          description: 'HOKA 온라인 회원가입 여부 확인을 위해 본인 인증이 필요합니다',
+          description: 'HOKA Korea 온라인 회원가입 여부 확인을 위해 본인 인증이 필요합니다',
           descriptionProps: { variant: 'b4', tone: 'tertiary' },
         }}
       >
