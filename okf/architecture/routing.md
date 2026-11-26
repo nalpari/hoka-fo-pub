@@ -10,6 +10,7 @@ generated:
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/signup/verify/_components/IdentityVerificationContent.tsx
   - src/app/mypage/orders/orderPreviews.ts
   - src/app/signup/_components/SignupContent.tsx
   - src/app/mypage/mypage.data.ts
@@ -2663,3 +2664,7 @@ productDetailPreviews의 `상품 문의하기 팝업` 항목을 기존 상품 �
 출처는 `src/app/preview-promotion/page.tsx`, `src/app/_components/HomeContent.tsx`, `src/app/screen-index/screenConnections.ts`의 작업 트리다. 디자인과 표시 데이터 계약은 [메인 홍보 팝업](home-product-design.md#메인-홍보-팝업-2026-11-25)을 참고한다. 기록: codex/gpt-6, 2026-11-25 KST.
 
 검증에서 기본 메인 진입, IA 상태명·URL 검색, IA 1번의 기존 메인 링크와 IA 2번 보기 링크의 팝업 열기를 확인했다. 소스 그래프 생성과 관련 테스트, 변경 TSX의 ESLint·Prettier, Next.js 빌드를 통과했다. 전체 lint는 기존 `tests/wh-file-summary.test.mjs`의 전역 이름 `no-undef` 오류 8건을 보고했다.
+
+## 회원가입 본인인증
+
+/signup/verify는 휴대폰 인증만 표시하며 /signup/verify/phone으로 연결한다. 버튼 높이는 PC 48px, 모바일 44px이다.
