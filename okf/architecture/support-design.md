@@ -375,7 +375,7 @@ PC1398/MO375에서10개 요약 기호가 모두·이고 모든 앵커 대상이 
 
 두 경로는 `MembershipRewards` 하나의 본문을 사용한다. `MembershipRewards`가 개인 요약·등급 배지·진행률·등급 3종·공통 혜택 4종을 소유하며 내부 보조 컴포넌트를 같은 모듈에 둔다. 마이페이지와 고객센터의 제목·좌측 탐색·breadcrumb은 각 기존 프레임이 유지한다. 고객센터 `_components/MemberBenefitsContent`는 셸의 현재 로그인 표시를 showSummary에 전달하는 라우트 연결 소유자다.
 
-시안 수치: PC 본문844px, 제목36px/900·등급 제목28px/900, 등급 행 padding40px/56px와 badge72px(ELITE)·72×70px(ADVANCED)·63×72px(RUNNER), 조건20px/행간150%, 혜택16px/행간150%. MO 본문343px(375px 화면의 좌우16px), 등급 제목22px, 조건16px·혜택14px/행간150%, badge48px·48×46px·42×48px, 세로 목록 테두리1px #E9EAEB, 공통 혜택 배경 #F7F7F9·padding24px/16px를 적용한다. 본문은 두 경로에서 같은 시안 규격을 사용한다.
+시안 수치: PC 본문844px, 제목36px/900·등급 제목28px/900, 등급 행 padding40px/56px와 badge72px(ELITE)·72×70px(ADVANCED)·63×72px(RUNNER), 조건20px/행간150%, 혜택16px/행간150%. MO 본문343px(375px 화면의 좌우16px), 등급 제목22px, 조건16px·혜택14px/행간150%, badge48px·48×46px·42×48px, 세로 목록 테두리1px #E9EAEB, 공통 혜택은 아래 2026-11-26 개정 시안을 따른다. 본문은 두 경로에서 같은 시안 규격을 사용한다.
 
 공개 표시 계약: summary는 개인 요약의 현재 props이고 benefits는 등급 조건·공통 혜택의 현재 props다. 생략하면 공유 고정 예시를 사용한다. showSummary는 기본 true이며 고객센터만 로그인 표시 상태를 명시적으로 전달한다. 기존 마이페이지 loading/error 직접 URL과 display 입력은 유지한다. 실제 인증·정책/개인 등급 API·쿠폰 지급·금액 계산은 구현하지 않았다.
 
@@ -423,3 +423,9 @@ PC1398/MO375에서10개 요약 기호가 모두·이고 모든 앵커 대상이 
 - 모바일 FAQ 카테고리 탭은 화면 양쪽 끝까지 스크롤되며, 첫 탭 앞과 마지막 탭 뒤에 16px 여백을 둔다.
 
 - 공통 `FilterTabs`는 모바일에서 탭이 가로로 넘칠 때 선택한 항목을 가운데 방향으로 스크롤한다. 움직임 줄이기 설정에서는 즉시 이동하며 FAQ도 같은 동작을 사용한다.
+
+## 회원 공통 혜택 개정 (2026-11-26)
+
+마이페이지 회원등급과 고객센터 온라인 회원등급 안내는 같은 쿠폰 목록을 표시한다. PC는 2열로 정렬하고 각 행에 하단 구분선과 60px 세로 구분선을 둔다. 모바일은 제목 아래 16px부터 한 열로 배치한다. 카드는 최소 높이 128px, 안쪽 여백 24px, 카드 간격 12px이다. 각 쿠폰명 앞에는 공통 티켓 아이콘을 20px로 표시한다. 쿠폰명은 PC 20px Medium, 모바일 16px Bold, 설명은 모두 14px Regular다.
+
+출처는 [회원 공통 혜택 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql)과 `src/components/membership/MembershipRewards.tsx`다.
