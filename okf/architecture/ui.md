@@ -6427,3 +6427,7 @@ PC 1440×900과 모바일 360×768에서 버튼 높이 40px, 빈 화면 비활�
 ## 공통 안내·확인 모달 타이포그래피
 
 `src/components/common/layouts/ModalDialog.recipe.tsx`에서 상단 제목은 PC 24px·모바일 20px Bold, 일반 안내 제목은 PC 20px·모바일 18px Bold, 설명은 양쪽 16px Regular를 적용한다. 아이디 찾기 결과값은 별도 결과형 타이포그래피를 사용한다.
+
+## 고객센터 제목과 상단 구분선
+
+DataList.recipe.tsx의 thinTertiary는 목록과 상세 영역에서 공유하는 1px solid 구분선이며 색상은 color/text/tertiary다.

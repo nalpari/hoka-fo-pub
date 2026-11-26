@@ -147,7 +147,7 @@ function FaqQuestion({ question }: FaqQuestionProps) {
       <Typography as="span" variant="b2" className={css({ flexShrink: 0, w: '17px' })}>
         Q
       </Typography>
-      <Typography as="span" web="h10" mo="h8">
+      <Typography as="span" variant="b3M">
         {question}
       </Typography>
     </HStack>
@@ -201,7 +201,7 @@ function FaqList({ entries, openQuestion, onToggle }: FaqListProps) {
           }
           className={
             dataListRecipe({
-              top: 'thickSubtle',
+              top: 'thinTertiary',
               itemLayout: 'faqAccordion',
               columnGap: 'unchanged',
             }).root

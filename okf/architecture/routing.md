@@ -2948,3 +2948,7 @@ Chromium PC 1255px에서 상세 화면과 목록의 회색 구분선을 확인�
 PC는 본문 폭에 열을 균등 배치하고 행 높이는 52px이다. 모바일은 행 높이 46px이며 첫 열을 포함해 2–3열의 첫 열은 85.75px, 4–5열은 균등 배분, 6열 이상은 첫 열 고정과 최소 66px 열의 내부 가로 스크롤을 적용한다. 제목은 Pretendard Black PC 24px·모바일 20px, 단위는 우측 '단위: cm'다.
 
 출처는 상품상세 컴포넌트와 표시 모델·미리보기 작업 트리, 사용자 제공 [HOKA 상품 상세 PC·모바일 및 사이즈 실측표 가이드](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)다. [표시 데이터 계약](../project.md#상품-상세-실측표-표시-데이터-2026-11-26)과 [검증](../development/verification.md#상품-상세-사이즈-실측표-검증-2026-11-26)을 참고한다.
+
+## 고객센터 제목과 상단 구분선
+
+FAQ 질문과 공지 상세 게시글 제목은 PC·모바일 모두 18px Medium이며 목록 시작선과 상세 제목 위 선은 thinTertiary를 사용한다. 출처는 FaqContent.tsx와 공지 상세 page.tsx다.
