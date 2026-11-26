@@ -2861,3 +2861,11 @@ PC와 모바일에서 `/mypage/recent`는 색상 개수 문구를 표시하고, 
 `RunningSessionEntriesContent`는 취소 가능한 신청에 공통 secondary short 버튼을 표시한다. PC에서는 세션 정보 오른쪽 하단에, 모바일에서는 세션 정보 아래 12px 간격으로 한 줄 전체에 배치한다. 두 화면 모두 버튼 높이는 40px이며 누르면 취소 확인창이 열린다. 출처는 [러닝세션 신청내역 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql)과 신청내역 컴포넌트다.
 
 러닝세션 신청내역의 목록 합계는 PC와 모바일에서 탭별 수량에 ‘개’를 붙여 표시한다.
+
+## 러닝세션 신청내역 상태 표시와 상세 링크
+
+`/mypage/event-entries`의 종료·신청완료·신청취소 상태는 공통 Typography의 기본 검정색으로 표시한다. 상품리뷰와 같은 `DataList`의 `top: 'thinSubtle'` 옵션이 정렬 영역 아래 목록 상단에 1px 회색 선을 표시한다. 세션 상세 경로는 96px 썸네일 링크에 연결하고 기존 세션 제목을 링크의 접근성 이름으로 사용한다. 신청 취소 버튼은 공통 secondary short 스타일을 사용한다.
+
+출처는 사용자 브라우저 코멘트와 `src/app/mypage/event-entries/_components/RunningSessionEntriesContent.tsx` 작업 트리다. Codex가 2026-11-26에 PC 1296px·모바일 390px에서 세 상태의 검정색과 투명 배경, 목록 상단선 1px #E9EAEB, 제목과 썸네일의 시맨틱, 취소 버튼의 1px 아웃라인을 확인했다. 모바일에서 취소 확인창 열기와 Escape 닫기, 북악산 세션 썸네일을 통한 상세 이동도 확인했다.
+
+목록의 날짜 라벨은 접수일과 세션일시로 표기한다.
