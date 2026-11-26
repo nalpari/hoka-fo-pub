@@ -766,14 +766,14 @@ export function ProfileContent({
               slotStyles={{
                 root: css.raw({
                   gridTemplateColumns: 'none',
-                  gap: '48px',
+                  gap: '24px',
                   pb: '32px',
                   borderBottom: '1px solid var(--colors-black-20)',
-                  _mobile: { gap: '24px', pb: '24px' },
+                  _mobile: { pb: '24px' },
                 }),
                 row: css.raw({
                   display: 'flex',
-                  columnGap: '92px',
+                  columnGap: '24px',
                   _mobile: { flexDirection: 'column', gap: '12px' },
                 }),
                 term: css.raw({
