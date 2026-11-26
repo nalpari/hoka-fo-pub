@@ -97,8 +97,8 @@ type SignupMethodStepSignupMethodOption = {
 };
 
 const benefits: Props[] = [
-  { iconName: 'gift-regular', title: '신규가입', description: '1만원 쿠폰' },
-  { iconName: 'party-horn-regular', title: '기념일', description: '축하 쿠폰' },
+  { iconName: 'gift-regular', title: '신규가입', description: '10% 쿠폰' },
+  { iconName: 'party-horn-regular', title: '생일', description: '축하 쿠폰' },
   { iconName: 'medal-regular', title: '회원 등급별', description: '혜택' },
 ];
 
