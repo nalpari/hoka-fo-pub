@@ -179,7 +179,6 @@ export function ProfileEditForm({
             titleAs: 'h1',
             titleProps: { web: 'h6', mo: 'h7', tone: 'primary' },
             pb: { base: '40px', _mobile: '32px' },
-            borderBottom: '2px solid black',
           }}
         >
           <Grid
