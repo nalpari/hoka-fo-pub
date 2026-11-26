@@ -67,7 +67,7 @@ function LoginForm({ showErrors = false, showHelp = false }: LoginFormProps) {
                 defaultOpen={showHelp}
                 label="아이디 저장 주의사항"
                 title="주의해주세요"
-                description="공용으로 사용하는 장소에서는 아이디 저장하기 사용에 유의해주세요."
+                description="공용으로 사용하는 장치에서는 이메일 저장하기의 사용에 유의해주세요"
               />
             </HStack>
             <ButtonLink variant="link" size="md" href="/login/find-account">

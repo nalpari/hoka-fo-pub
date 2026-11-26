@@ -2618,6 +2618,12 @@ CartDialogs의 상품명을 PC/MO500으로 보정하고 색상 표시의 접두�
 
 출처: `src/app/login/_components/LoginContent.tsx`, `src/app/signup/_components/SignupContent.tsx`의 작업 트리. Git diff로 문자열 변경을 확인했으며 브라우저 검증은 수행하지 않았다. 기록: codex/gpt-6, 2026-11-23T05:09:10.640861+00:00.
 
+## 로그인 저장 도움말 문구 (2026-11-26)
+
+`/login`의 저장 도움말은 `공용으로 사용하는 장치에서는 이메일 저장하기의 사용에 유의해주세요`라고 안내한다. 도움말을 열린 상태로 보여 주는 고정 미리보기도 같은 문구를 사용한다.
+
+2026-11-26에 Codex가 `src/app/login/_components/LoginContent.tsx` 작업 트리의 Git diff에서 문구를 확인했다.
+
 ## 러닝세션 상세 모바일 추가 영역 (2026-11-23)
 
 `src/app/running/running-session/[sessionId]/_components/RunningSessionSessionContent.tsx`의 상세 레이아웃에서 모바일 보조 이미지와 Essential 숨김을 해제했다. 기존 desktopContent 슬롯의 타입·호출 계약과 라우트·고정 신청 바·fixture 표시 조건은 유지한다. PC/MO 측정 및 남은 디자인 확인 범위는 [러닝세션 디자인](running-session-design.md#모바일-보조-이미지와-essential-추가-2026-11-23)에 기록했다. 출처는 해당 작업 트리와 최신 파일 단위 Figma 링크이며 검토 주체 codex/gpt-6, 2026-11-23 KST다.
