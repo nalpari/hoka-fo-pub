@@ -318,7 +318,7 @@ function RunningSessionEmptyState() {
     <Box role="status">
       <EmptyState
         layout="runningSession"
-        title="현재 운영중인 세션이 없습니다."
+        title="현재 운영 중인 세션이 없습니다."
         action={mobile ? undefined : <RunningSessionHistoryLink />}
       />
     </Box>
