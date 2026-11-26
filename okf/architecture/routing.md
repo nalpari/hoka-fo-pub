@@ -10,6 +10,9 @@ generated:
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - id: mypage-membership-barcode-design
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql
+    title: 모바일 마이페이지 요약과 멤버십 바코드
   - src/app/signup/verify/_components/IdentityVerificationContent.tsx
   - src/app/mypage/orders/orderPreviews.ts
   - src/app/signup/_components/SignupContent.tsx
@@ -2672,3 +2675,9 @@ productDetailPreviews의 `상품 문의하기 팝업` 항목을 기존 상품 �
 ## 회원가입 혜택 안내
 
 /signup의 첫 두 혜택은 신규가입 10% 쿠폰과 생일 축하 쿠폰으로 표시한다.
+
+## 마이페이지 멤버십 바코드
+
+회원 이름 아래의 ‘멤버십 바코드 보기’가 모바일에서는 바텀시트, PC에서는 가운데 모달을 연다. 확인 또는 닫기를 누르면 버튼으로 포커스가 돌아간다. 바코드는 시안의 샘플 이미지이며 실제 회원별 발급은 연동 대상이다. 모바일에서는 등급명 옆에 등급안내를 배치하고, 메뉴 제목의 구분선 아래에 첫 항목을 바로 배치한다.
+
+출처는 모바일 마이페이지와 바코드 시안, `src/app/mypage/_components/MyPageContent.tsx`, `public/images/mypage/membership-barcode.png`다. 2026-11-26에 모바일 375px와 PC 1440px에서 바코드 표시와 확인 후 포커스 복귀를 확인했다.
