@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-26T05:02:00Z'
+updated: '2026-11-26T05:05:19Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -2676,6 +2676,10 @@ Codex는 PC 1440px·모바일 390px에서 두 URL을 직접 열어 도메인 컨
 로그인·가입·계정 찾기·주문서·마이페이지·문의·런칭 캘린더·검색·IA와 퍼블리싱 가이드의 기존 URL에서 입력 및 선택 안내 문구를 제거했다. 경로, preview URL, 라우트 소유권과 이동 동작은 변경하지 않았다. 출처: 해당 `src/app` 작업 트리와 `src/components/catalog/ProductListingPage.tsx`. 기록: codex/gpt-6, 2026-11-24.
 
 - 상품 상세의 문의하기 버튼은 기존 1:1 문의 입력 컴포넌트를 재사용하는 상품 문의 모달을 연다. 데스크탑은 중앙 모달, 모바일은 전체 화면을 사용한다. 고객 정보와 파일 첨부 영역은 1:1 문의 화면에서만 사용한다. 상품 유형이 고정되며 비밀글을 선택할 수 있다. 등록 요청은 미연결이다.
+
+## 상품 상세 상단 리뷰 요약 제거 (2026-11-26)
+
+상품 상세 헤더에서 별점과 리뷰 바로가기를 제거했다. 본문 탐색의 ‘리뷰’ 링크는 기존 `#product-reviews`로 이동한다. 출처는 사용자 브라우저 주석과 `ProductDetailContent.tsx` 작업 트리다. Codex는 `/products/shoe-1`의 PC 1440px와 모바일 390px에서 상단 요약 비노출과 본문 리뷰 이동을 확인했다. 모바일 공유 팝업 열기·닫기, TypeScript와 변경 파일 ESLint도 확인했다.
 
 ## 클리프톤 상품 상세 기술 지표 도움말 (2026-11-26)
 

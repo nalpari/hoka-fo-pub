@@ -31,7 +31,6 @@ import { Divider } from '@/components/common/atoms/Divider';
 import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { Icon } from '@/components/common/atoms/Icon';
 import { NumberStepper } from '@/components/common/atoms/NumberStepper';
-import { RatingStars } from '@/components/common/atoms/RatingStars';
 import { SegmentedControl } from '@/components/common/atoms/SegmentedControl';
 import { Toast, type ToastNotice } from '@/components/common/atoms/Toast';
 import { Typography } from '@/components/common/atoms/Typography';
@@ -2462,34 +2461,7 @@ function ProductDetailHeaderActions({
   }
 
   return (
-    <Flex alignItems="center" justifyContent="space-between" w="full">
-      {platform === 'web' && (
-        <HStack gap="10px">
-          <RatingStars aria-label={`평점 ${product.rating}점`} value={product.rating} />
-          <Button
-            className={css({
-              borderColor: 'var(--color-text-subtle)',
-              color: 'var(--color-text-subtle)',
-              '--color-action-underline-color': 'var(--color-text-subtle)',
-              '--button-border-color-hover': 'var(--color-text-subtle)',
-            })}
-            variant="link"
-            onClick={() =>
-              document
-                .getElementById(
-                  document.getElementById('product-reviews')
-                    ? 'product-reviews'
-                    : 'product-information',
-                )
-                ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-            }
-            type="button"
-            size="md"
-          >
-            {product.reviewCount}개 리뷰 보기
-          </Button>
-        </HStack>
-      )}
+    <>
       {platform === 'mobile' && (
         <HStack gap="16px">
           <ShareButton ref={shareTrigger} size="24px" onClick={() => setShareOpen(true)} />
@@ -2528,7 +2500,7 @@ function ProductDetailHeaderActions({
         </Grid>
         <Toast notice={shareNotice} onDismiss={dismissShareNotice} />
       </ModalDialog>
-    </Flex>
+    </>
   );
 }
 
