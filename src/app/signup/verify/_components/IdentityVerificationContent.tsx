@@ -68,7 +68,7 @@ function IdentityVerificationContent({ onSelect }: IdentityVerificationContentPr
         <Grid columns={2} gap="2">
           {(
             [
-              { id: 'phone', label: 'PASS 인증하기', iconName: 'phone-verification' },
+              { id: 'phone', label: '휴대폰 인증하기', iconName: 'phone-verification' },
               // { id: 'ipin', label: '아이핀 인증', iconName: 'ipin-verification' },
             ] as const
           ).map((method) => (

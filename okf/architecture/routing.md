@@ -2661,7 +2661,7 @@ Codex는 PC 1440px·모바일 390px에서 두 URL을 직접 열어 도메인 컨
 
 ## 회원가입 본인인증 안내와 선택 항목 (2026-11-26)
 
-`/signup/verify`는 HOKA Korea 온라인 회원가입 여부를 확인하기 위해 본인 인증이 필요하다고 안내한다. 화면에는 `PASS 인증하기`만 표시하며, 이 버튼은 기존 휴대폰 인증 화면으로 이동한다. Codex가 2026-11-26에 `src/app/signup/verify/_components/IdentityVerificationContent.tsx` 작업 트리의 표시 항목과 연결 경로를 확인했다.
+`/signup/verify`는 HOKA Korea 온라인 회원가입 여부를 확인하기 위해 본인 인증이 필요하다고 안내한다. 화면에는 `휴대폰 인증하기`만 표시하며, 이 버튼은 `/signup/verify/phone`으로 이동한다. Codex가 2026-11-26에 `src/app/signup/verify/_components/IdentityVerificationContent.tsx` 작업 트리의 버튼 문구와 연결 경로를 확인했다.
 
 ## 러닝세션 상세 모바일 추가 영역 (2026-11-23)
 
