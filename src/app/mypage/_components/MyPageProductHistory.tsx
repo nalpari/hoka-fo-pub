@@ -20,7 +20,7 @@ import { ContentSection } from '@/components/common/layouts/ContentSection';
 import { MyPageFrame } from '@/app/mypage/_components/MyPageFrame';
 import { type Product, products } from '@/mocks/products';
 import { type HistoryItem } from '@/types/mypage-display';
-type PreviewItem = HistoryItem & { apparel?: boolean };
+type PreviewItem = HistoryItem & { apparel?: boolean; colorCount?: number };
 
 type Props = {
   entries?: readonly HistoryItem[];
@@ -159,9 +159,7 @@ function MyPageProductHistoryGrid({
     >
       {items.map((item) => (
         <ProductCard
-          textWeights={
-            wishlist ? { identity: 'medium', promotion: 'medium', cart: 'medium' } : undefined
-          }
+          textWeights={wishlist ? { identity: 'medium', promotion: 'medium' } : undefined}
           key={item.id}
           variant="history"
           thumbnailVariant={wishlist && !entries && item.apparel ? 'listing' : undefined}
@@ -178,11 +176,10 @@ function MyPageProductHistoryGrid({
               ? ['데일리 러닝', '워킹']
               : undefined
           }
+          colorCount={entries ? undefined : item.colorCount}
           liked={liked.includes(item.id)}
           onLikedChange={(active) => onLikedChange(item.id, active)}
-          options={
-            wishlist ? ['promotion', 'like', 'colors', 'cart'] : ['promotion', 'like', 'colors']
-          }
+          options={['promotion', 'like', wishlist ? 'color-count' : 'colors']}
           product={item.product}
         />
       ))}
@@ -282,22 +279,25 @@ const recentPreview = {
     product: { ...product, promotion: 'Best', originalPrice: 280000 } as Product,
   },
 } as const;
+
+const wishlistShoePreview = { liked: true, colorCount: 6 } as const;
+
 const previewItems = {
   wishlist: {
     web: [
-      { id: '0', product: product, liked: true },
+      { id: '0', product, ...wishlistShoePreview },
       { id: '1', product: wishlistApparelPreview, liked: true, apparel: true },
-      { id: '2', product: product, liked: true },
+      { id: '2', product, ...wishlistShoePreview },
       { id: '3', product: wishlistApparelPreview, liked: true, apparel: true },
-      { id: '4', product: product, liked: true },
+      { id: '4', product, ...wishlistShoePreview },
       { id: '5', product: wishlistApparelPreview, liked: true, apparel: true },
     ],
     mobile: [
-      { id: '0', product: wishlistMobilePreview.product, liked: true },
+      { id: '0', product: wishlistMobilePreview.product, ...wishlistShoePreview },
       { id: '1', product: wishlistApparelPreview, liked: true, apparel: true },
-      { id: '2', product: wishlistMobilePreview.product, liked: true },
+      { id: '2', product: wishlistMobilePreview.product, ...wishlistShoePreview },
       { id: '3', product: wishlistApparelPreview, liked: true, apparel: true },
-      { id: '4', product: wishlistMobilePreview.product, liked: true },
+      { id: '4', product: wishlistMobilePreview.product, ...wishlistShoePreview },
       { id: '5', product: wishlistApparelPreview, liked: true, apparel: true },
     ],
   },

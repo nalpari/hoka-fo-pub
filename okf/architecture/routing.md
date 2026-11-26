@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-26T05:11:50Z'
+updated: '2026-11-26T05:20:24Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -2746,6 +2746,10 @@ productDetailPreviews의 `상품 문의하기 팝업` 항목을 기존 상품 �
 출처는 사용자 지정 문구, [이랜드 화면설계서](https://www.figma.com/design/4cJ1LkWUgme3lklyQ9U8qr/)와 `orderPreviews.ts`, `[preview]/page.tsx`, `OrdersPage.tsx`, `screenConnections.ts`의 작업 트리다. 기록: codex/gpt-6, 2026-11-24 KST.
 
 검증: PC 1440px과 모바일 375px에서 세 팝업의 직접 진입·새로고침·문구·닫기를 확인했다. 모달 너비는 PC 640px, 모바일 343px이었다. IA에서 상태명·URL로 검색할 수 있고, 각 보기 링크를 눌러 해당 팝업이 열리는 것을 확인했다. 기본 주문 조회와 기존 주문 삭제 확인도 점검했다. 타입 검사와 소스 그래프 생성은 통과했고, 관련 테스트 16개 중 15개가 통과했다. 기존 `/mypage/preview-no-orders` 리디렉션에 IA 바로가기가 없다는 검사가 실패했다.
+
+## 관심상품 카드 색상 개수 표시 (2026-11-26)
+
+`/mypage/wishlist`의 PC·모바일 카드에는 장바구니 담기 버튼과 색상 캐러셀 대신 색상 개수 문구를 표시한다. `/mypage/recent`는 기존 색상 캐러셀을 사용한다. [카드 설정과 검증](ui.md#관심상품-카드-색상-개수-표시-2026-11-26).
 
 ## 카카오톡 알림톡 수신 항목 표시 (2026-11-26)
 

@@ -455,11 +455,11 @@ function ProductVariantSummary({
   widthCount,
 }: ProductVariantSummaryProps) {
   const summaryText = {
-    colors: `${colorCount} colors`,
+    colors: `${colorCount} Colors`,
     widths: `${widthCount} widths`,
     'colors-widths': `${colorCount} colors, ${widthCount} widths`,
   }[display];
-  if (platform === 'web' && !history) {
+  if (display === 'colors' || (platform === 'web' && !history)) {
     return (
       <Typography variant="b6" tone="subtle">
         {summaryText}
@@ -485,6 +485,7 @@ type ProductDetailsOptionsProps = Pick<
   | 'widthCount'
   | 'variant'
   | 'colorPreview'
+  | 'variantSummaryDisplay'
 >;
 
 function ProductDetailsOptions({
@@ -495,6 +496,7 @@ function ProductDetailsOptions({
   widthCount,
   variant,
   colorPreview,
+  variantSummaryDisplay,
 }: ProductDetailsOptionsProps) {
   const summary = (
     <>
@@ -504,6 +506,7 @@ function ProductDetailsOptions({
       <ProductVariantSummary
         colorCount={colorCount}
         colorSelection={platform === 'mobile' ? colorPreview : undefined}
+        display={variantSummaryDisplay}
         history={variant === 'history'}
         options={optionThumbnails}
         platform={platform}
@@ -596,6 +599,7 @@ type ProductDetailsProps = {
   originalPrice?: number;
   promotion?: Promotions;
   showVariantSummary?: boolean;
+  variantSummaryDisplay?: ProductVariantSummaryDisplay;
   variant: ProductCardVariant;
   widthCount: number;
 };
@@ -614,6 +618,7 @@ function ProductDetails({
   originalPrice,
   promotion,
   showVariantSummary = false,
+  variantSummaryDisplay,
   variant,
   widthCount,
 }: ProductDetailsProps) {
@@ -645,6 +650,7 @@ function ProductDetails({
             colorCount={colorCount}
             optionThumbnails={optionThumbnails}
             platform={platform}
+            variantSummaryDisplay={variantSummaryDisplay}
             widthCount={widthCount}
           />
         )}
@@ -828,7 +834,8 @@ const activityLabel = (use: Product['use']) => {
   return '워킹';
 };
 
-export type ProductCardOption = 'promotion' | 'like' | 'colors' | 'specifications' | 'cart';
+export type ProductCardOption =
+  'promotion' | 'like' | 'colors' | 'color-count' | 'specifications' | 'cart';
 
 export type ProductCardProps = {
   /** 생략 또는 undefined이면 기존 굵기를 유지하며 지정한 표시 부위에만 Medium을 적용합니다. */
@@ -837,6 +844,8 @@ export type ProductCardProps = {
   discountLabel?: string;
   soldOut?: boolean;
   activityLabels?: readonly string[];
+  /** 고정 표시 예시의 색상 개수이며, 생략하면 전달된 상품의 색상 데이터로 계산합니다. */
+  colorCount?: number;
   liked?: boolean;
   onLikedChange?: (liked: boolean) => void;
   onAddToCart?: () => void;
@@ -860,6 +869,7 @@ export function ProductCard({
   promotionTone,
   discountLabel,
   activityLabels,
+  colorCount,
   soldOut = false,
   liked,
   onLikedChange,
@@ -876,10 +886,12 @@ export function ProductCard({
   const platform = usePlatform();
   const isLiked = liked ?? internalLiked;
   const hasOption = (option: ProductCardOption) => options.includes(option);
+  const showColorCount = hasOption('color-count');
   const colorOptions = productOptionThumbnails(product);
   const selectedColor = colorOptions.find((option) => option.id === selectedColorId);
   const canSelectColor =
     variant === 'listing' &&
+    !showColorCount &&
     hasOption('colors') &&
     (platform === 'web' ? colorOptions.length > 0 : !!product.colorThumbnails?.length);
   const showColorPreview = platform === 'web' && canSelectColor && previewOpen;
@@ -979,7 +991,7 @@ export function ProductCard({
         promotionTone={promotionTone}
         discountLabel={discountLabel ?? product.discountLabel}
         activities={activityLabels ?? (product.use ? [activityLabel(product.use)] : [])}
-        colorCount={product.colors?.length ?? colorOptions.length}
+        colorCount={colorCount ?? product.colors?.length ?? colorOptions.length}
         gender={product.gender}
         name={product.name}
         optionThumbnails={colorOptions}
@@ -987,7 +999,8 @@ export function ProductCard({
         price={product.price}
         originalPrice={product.originalPrice}
         promotion={hasOption('promotion') ? product.promotion : undefined}
-        showVariantSummary={hasOption('colors')}
+        showVariantSummary={showColorCount || hasOption('colors')}
+        variantSummaryDisplay={showColorCount ? 'colors' : undefined}
         variant={variant}
         widthCount={productWidthCount(product)}
       />
