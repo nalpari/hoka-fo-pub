@@ -25,6 +25,7 @@ import {
   type Preference,
   type ProfileAddress,
   type ProfileEditProps,
+  type ProfilePhonePreview,
 } from '@/app/mypage/profile/mypage-profile.types';
 import { type Errors, type FieldName } from '@/lib/passwordValidation';
 import { getPhoneDigits } from '@/lib/phoneNumber';
@@ -33,7 +34,7 @@ type Props = {
   phone: string;
   error?: string;
   verified: boolean;
-  previewState?: 'idle' | 'code-entry' | 'expired';
+  previewState?: ProfilePhonePreview;
   onPhoneChange: (value: string) => void;
 };
 /** 회원정보의 휴대폰 입력과 고정 인증 상태를 표시합니다. (Displays profile phone input and fixed verification states.) */
@@ -41,9 +42,9 @@ function ProfilePhoneVerification({ phone, error, verified, previewState, onPhon
   const [code, setCode] = useState('');
   const codeInput = useRef<HTMLInputElement>(null);
   const [notice, setNotice] = useState<'mismatch' | 'expired' | null>(
-    previewState === 'expired' ? 'expired' : null,
+    previewState === 'expired' || previewState === 'mismatch' ? previewState : null,
   );
-  const requested = previewState === 'code-entry' || previewState === 'expired';
+  const requested = previewState !== undefined && previewState !== 'idle';
   const expired = previewState === 'expired';
   const phoneError = '';
   const codeError = '';

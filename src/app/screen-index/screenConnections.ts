@@ -393,6 +393,7 @@ const connections: Record<number, ScreenConnection> = {
     route: '/mypage/profile',
     previewRoutes: [
       { label: '인증번호 입력', href: '/mypage/profile/preview-code-entry' },
+      { label: '인증번호 불일치', href: '/mypage/profile/preview-code-mismatch' },
       { label: '인증 만료', href: '/mypage/profile/preview-expired' },
       { label: '비밀번호 변경 완료', href: '/mypage/profile/preview-password-complete' },
       { label: '저장 확인', href: '/mypage/profile/preview-save' },
@@ -964,6 +965,7 @@ const stateModalVariants: Readonly<Record<string, readonly ModalDialogVariant[]>
   '/mypage/event-entries/preview-cancel': ['confirm'],
   '/mypage/addresses/preview-delete': ['confirm'],
   // ProfileContent and ProfileStatePreview select distinct variants for each step.
+  '/mypage/profile/preview-code-mismatch': ['alert'],
   '/mypage/profile/preview-expired': ['alert'],
   '/support/inquiries/new/preview-attachment-picker': ['selection'],
   '/mypage/profile/preview-password': ['form'],

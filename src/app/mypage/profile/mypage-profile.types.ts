@@ -10,10 +10,12 @@ export type ProfileValues = {
 
 export type ProfileAddress = { postalCode: string; address: string; addressDetail: string };
 
+export type ProfilePhonePreview = 'idle' | 'code-entry' | 'expired' | 'mismatch';
+
 export type ProfileEditProps = ProfileValues & {
   pending?: boolean;
   details?: readonly (readonly [string, string])[];
-  previewPhone?: 'idle' | 'code-entry' | 'expired';
+  previewPhone?: ProfilePhonePreview;
   address: ProfileAddress;
   addressOpen: boolean;
   passwordChanged: boolean;

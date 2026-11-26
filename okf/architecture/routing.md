@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-26T07:47:06Z'
+updated: '2026-11-26T07:49:23Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -1087,6 +1087,14 @@ FilterTrigger compact와 regular의 높이는 모두 40px이다. Compact는 글�
 수정 및 입력 오류 미리보기의 이메일은 `TextFormField` 하나에서 전체 주소를 입력한다. 기존 도메인 입력과 선택란은 제거했다. 오류 표시는 `fieldErrors.email`에 연결한다. 수정 폼의 저장은 표시 검수용이다. 출처는 사용자 브라우저 코멘트, 회원정보 조회·수정 작업 트리와 [HOKA Design](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)이다.
 
 2026-11-26에 PC 1920px과 모바일 375px에서 조회·수정 제목, 기본정보 라벨과 값, 마케팅 제목, 버튼 글자 크기·굵기, 열 간격, 모바일 조회 제목 아래 32px 여백을 계산값으로 확인했다. 두 화면 폭에서 이메일 입력과 가로 넘침 여부도 확인했다.
+
+### 회원정보 인증번호 불일치 알럿 (2026-11-26)
+
+`/mypage/profile/preview-code-mismatch`로 직접 진입하면 회원정보 수정 화면의 인증번호 입력과 ‘인증번호 불일치’ 알럿을 표시한다. 기존 `ProfilePhoneVerification`과 공통 `ModalDialog`를 사용하며, 확인으로 알럿을 닫는다. IA 201 회원정보 관리의 상태 링크와 모달 유형에 이 경로를 등록했다. 고정 미리보기는 인증·만료·재요청을 실행하지 않는다.
+
+출처는 사용자 요청, [HOKA Design](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design), `src/app/mypage/profile`과 `src/app/screen-index/screenConnections.ts` 작업 트리다.
+
+2026-11-26에 PC 1920px·모바일 375px에서 알럿 직접 진입과 확인 후 닫기를 확인했다. 기존 인증 만료와 이메일 입력 오류 미리보기도 열었으며, IA 구조도에서 상태명을 검색하고 ‘보기’ 링크로 새 경로에 진입했다.
 
 ## 쿠폰 시안과 기존 상태 URL (2026-10-30)
 
