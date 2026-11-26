@@ -261,7 +261,7 @@ const connections: Record<number, ScreenConnection> = {
   '183': {
     route: '/mypage/recent',
     defaultStateLabel: '목록 있음',
-    previewRoutes: [{ label: '빈 목록', href: '/mypage/recent/preview-empty' }],
+    previewRoutes: [{ label: '최근 본 상품 목록 없음', href: '/mypage/recent/preview-empty' }],
     sourceFiles: ['src/app/mypage/recent/page.tsx', 'src/app/mypage/recent/preview-empty/page.tsx'],
   },
   '184': {

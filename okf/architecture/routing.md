@@ -2838,6 +2838,12 @@ Codex는 PC 1255px와 모바일 390px에서 체크박스 두 개의 개별 선�
 
 PC와 모바일에서 `/mypage/recent`는 색상 개수 문구를 표시하고, `/mypage/wishlist`는 색상 캐러셀을 표시한다. [카드 설정과 검증](ui.md#관심상품-카드-색상-개수-표시-2026-11-26).
 
+## 최근 본 상품 빈 목록과 IA 상태 (2026-11-26)
+
+IA 183의 기본 페이지 `/mypage/recent`와 고정 상태 `/mypage/recent/preview-empty`는 `MyPageProductHistory`를 공유한다. IA 상태 행에 `최근 본 상품 목록 없음`으로 표시하며 기본 링크, IA 번호, 양쪽 진입 파일 연결을 유지한다. `preview-empty`는 직접 접속 시 빈 목록을 표시한다. [전체삭제 표시와 데이터 연결 범위](ui.md#최근-본-상품-전체삭제와-빈-목록-2026-11-26).
+
+작업 트리 출처는 `src/app/screen-index/screenConnections.ts`, `src/app/mypage/_components/MyPageProductHistory.tsx`다. 기존 preview 진입점은 `src/app/mypage/recent/preview-empty/page.tsx`다.
+
 ## 카카오톡 알림톡 수신 항목 표시 (2026-11-26)
 
 `/signup/information?step=additional`, `/signup/information/preview-marketing-consent`, `/mypage/profile`, `/mypage/profile/preview-edit`, `/publishing-guide?tab=description-list`의 기존 경로에서 카카오톡 알림톡 수신 항목을 다시 표시한다. [복원 범위와 소스](ui.md#카카오톡-알림톡-수신-항목-복원-2026-11-26).
@@ -2919,3 +2925,8 @@ PC와 모바일에서 `/mypage/recent`는 색상 개수 문구를 표시하고, 
 회원정보 수정의 인증번호 입력란 아래 남은 시간은 PC·모바일에서 red80으로 표시한다.
 
 고객센터 공지사항 목록은 PC·모바일 모두 열 제목 없이 연한 1px 상단선과 행 하단선을 표시한다. 공지 제목은 PC 18px·모바일 16px Medium, 날짜는 PC 16px·모바일 14px Regular로 첫 줄 오른쪽에 배치한다. 날짜 열은 내용에 맞게 늘어나며 날짜 전체를 한 줄에 표시한다.
+
+
+## 상품 상세와 상품 타일 가이드의 프로모션 색상 (2026-11-26)
+
+상품 상세, 최근 본 상품, 퍼블리싱 가이드의 타일 탭은 공통 `ProductIdentity`의 빨강 프로모션 배지를 표시한다. 해당 페이지의 색상 지정 호출과 가이드 예시를 정리했다. 별도 경로나 표시 상태의 URL은 추가하지 않았다. [공통 색상과 출처](ui.md#상품-카드-프로모션-배지-공통-색상-2026-11-26).
