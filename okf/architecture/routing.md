@@ -2655,6 +2655,10 @@ Codex는 PC 1440px·모바일 390px에서 두 URL을 직접 열어 도메인 컨
 
 `/login/account-locked`의 안내 문구를 `PASS 인증화면으로 이동합니다.`로 수정했다. 확인 버튼은 `/login/account-locked/verification`으로 이동한다. 출처는 `src/app/login/account-locked/_components/AccountLockedContent.tsx` 작업 트리와 해당 라우트의 `page.tsx`다.
 
+## 회원가입 완료 안내 문구 (2026-11-26)
+
+`/signup/complete`는 `회원가입이 성공적으로 완료되었습니다!`와 `쇼핑하러 가기 전 로그인을 진행해주세요.`를 표시한다. `쇼핑하러 가기` 버튼은 홈(`/`)으로 이동한다. 출처는 `src/app/signup/complete/page.tsx` 작업 트리다.
+
 ## 회원가입 본인인증 안내와 선택 항목 (2026-11-26)
 
 `/signup/verify`는 HOKA Korea 온라인 회원가입 여부를 확인하기 위해 본인 인증이 필요하다고 안내한다. 화면에는 `PASS 인증하기`만 표시하며, 이 버튼은 기존 휴대폰 인증 화면으로 이동한다. Codex가 2026-11-26에 `src/app/signup/verify/_components/IdentityVerificationContent.tsx` 작업 트리의 표시 항목과 연결 경로를 확인했다.
