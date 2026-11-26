@@ -19,9 +19,7 @@ export function ProfileStatePreview({
   phoneState?: 'idle' | 'code-entry' | 'expired';
 }) {
   const [passwordOpen, setPasswordOpen] = useState(passwordComplete || Boolean(passwordState));
-  const [emailLocal, setEmailLocal] = useState('');
-  const [emailDomain, setEmailDomain] = useState('');
-  const [domainChoice, setDomainChoice] = useState('direct');
+  const [email, setEmail] = useState('');
   const [address, setAddress] = useState({ postalCode: '', address: '', addressDetail: '' });
   const [addressOpen, setAddressOpen] = useState(false);
   const [phone, setPhone] = useState(phoneState === 'idle' ? '010-3333-0000' : '');
@@ -39,9 +37,7 @@ export function ProfileStatePreview({
           ['주소', '서울시 성북구 테헤란로 27길 54 테헤란 아파트 701호'],
         ]}
         previewPhone={phoneState === 'idle' ? undefined : phoneState}
-        emailLocal={emailLocal}
-        emailDomain={emailDomain}
-        domainChoice={domainChoice}
+        email={email}
         address={address}
         addressOpen={addressOpen}
         phone={phone}
@@ -54,7 +50,6 @@ export function ProfileStatePreview({
           errors
             ? {
                 email: '이메일을 입력해 주세요.',
-                domain: '이메일 도메인을 입력해 주세요.',
                 phone: '휴대폰 번호를 올바르게 입력해주세요.',
                 postalCode: '우편번호를 입력해 주세요.',
                 address: '주소를 입력해 주세요.',
@@ -62,12 +57,7 @@ export function ProfileStatePreview({
               }
             : {}
         }
-        onEmailLocalChange={setEmailLocal}
-        onEmailDomainChange={setEmailDomain}
-        onDomainChoice={(value) => {
-          setDomainChoice(value);
-          setEmailDomain(value === 'direct' ? '' : value);
-        }}
+        onEmailChange={setEmail}
         onAddressChange={(key, value) => setAddress((previous) => ({ ...previous, [key]: value }))}
         onAddressOpenChange={setAddressOpen}
         onPhoneChange={setPhone}

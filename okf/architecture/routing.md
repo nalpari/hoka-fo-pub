@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-26T07:38:39Z'
+updated: '2026-11-26T07:47:06Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -1079,6 +1079,14 @@ FilterTrigger compact와 regular의 높이는 모두 40px이다. Compact는 글�
 ### 회원정보 조회 제목 (2026-11-26)
 
 `/mypage/profile` 기본 조회 화면의 본문 제목은 ‘회원정보’다. 출처는 사용자 브라우저 코멘트와 `src/app/mypage/profile/_components/ProfileContent.tsx` 작업 트리다.
+
+### 회원정보 조회·수정 콘텐츠 (2026-11-26)
+
+조회·수정 본문 제목은 PC 32px·700, 모바일 22px·700이며 기본정보 항목은 PC 16px·500, 모바일 16px·600이다. 조회 화면의 PC 기본정보는 라벨 너비 86px와 열 간격 92px을 적용한다. 모바일 조회는 제목 아래 선을 제거하고 첫 항목까지 32px 간격을 둔다. 수정 화면의 PC 두 열 간격은 시안과 같은 58px이다. 마케팅 정보 수신 동의 제목은 조회 PC 22px·700, 수정 PC 22px·900, 모바일 공통 16px·600이다.
+
+수정 및 입력 오류 미리보기의 이메일은 `TextFormField` 하나에서 전체 주소를 입력한다. 기존 도메인 입력과 선택란은 제거했다. 오류 표시는 `fieldErrors.email`에 연결한다. 수정 폼의 저장은 표시 검수용이다. 출처는 사용자 브라우저 코멘트, 회원정보 조회·수정 작업 트리와 [HOKA Design](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)이다.
+
+2026-11-26에 PC 1920px과 모바일 375px에서 조회·수정 제목, 기본정보 라벨과 값, 마케팅 제목, 버튼 글자 크기·굵기, 열 간격, 모바일 조회 제목 아래 32px 여백을 계산값으로 확인했다. 두 화면 폭에서 이메일 입력과 가로 넘침 여부도 확인했다.
 
 ## 쿠폰 시안과 기존 상태 URL (2026-10-30)
 
