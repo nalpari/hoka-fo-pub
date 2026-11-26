@@ -762,6 +762,8 @@ function ProductDetailSpecificationList({
               <HelpTooltip
                 label={`${item.label} 안내`}
                 text={item.help}
+                variant="description"
+                maxWidth={item.helpMaxWidth}
                 side="bottom"
                 iconColor="black.50"
                 className={css({ transform: 'translateY(-1px)' })}
@@ -835,7 +837,13 @@ function ProductTechnicalScaleBar({ level }: ProductTechnicalScaleBarProps) {
   );
 }
 /** Static qualitative scale; it is neither an editable Slider nor a numeric Meter. */
-function ProductTechnicalScale({ title, labels, level, help }: ProductTechnicalScaleData) {
+function ProductTechnicalScale({
+  title,
+  labels,
+  level,
+  help,
+  helpMaxWidth,
+}: ProductTechnicalScaleData) {
   return (
     <ContentSection
       title={title}
@@ -852,6 +860,8 @@ function ProductTechnicalScale({ title, labels, level, help }: ProductTechnicalS
           <HelpTooltip
             label={`${title} 안내`}
             text={help}
+            variant="description"
+            maxWidth={helpMaxWidth}
             side="bottom"
             iconColor="black.50"
             className={css({ transform: 'translateY(-1px)' })}

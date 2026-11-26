@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-26T05:34:51Z'
+updated: '2026-11-26T05:48:17Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -6264,6 +6264,14 @@ TextFormField/TextInput, SearchField, DateRangeSearch와 각 화면의 검색·�
 상세 `ProductIdentity`에서 뱃지·상품명 간격은 PC 20px·모바일 16px, 상품명·가격 간격은 양쪽 20px다. 뱃지는 PC 14px·모바일 12px를 쓰며 굵기 500, 행간 18.2px, 복수 뱃지 간격 8px·6px를 적용한다. 영문 상품명은 HOKA Black 32px·28px와 행간 30.72px다. 한글 상품명은 Pretendard Black 28px와 PC 33.6px·모바일 30.72px 행간을 사용한다. 판매가 숫자는 HOKA Medium 18px·16px와 행간 20.8px, 원 단위는 Pretendard Bold 18px·16px와 행간 130%다. 출처는 `ProductCard.tsx` 작업 트리와 [HOKA 상품 상세 Header Container PC·모바일 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)이다.
 
 PC 1440px와 모바일 375px에서 기본·의류·할인가 상세의 계산 타이포, 간격, 성별·활동 문구 비노출과 상품 목록 카드의 렌더링을 확인했다. TypeScript, 변경 파일 ESLint·Prettier를 통과했다.
+
+## 상품 상세 Tech Specs 툴팁 스타일 (2026-11-26)
+
+`HelpTooltip`에서 `variant`를 생략하거나 `undefined`로 전달하면 `standard`의 가운데 정렬과 17×8px 화살표를 적용한다. 기술 지표 안내는 `description`을 선택해 흰 배경, 4px 모서리, 12px 안쪽 여백, 왼쪽 정렬, Pretendard Regular 12px·행간 18px, 34×8px 화살표와 `0 4px 16px rgba(0, 0, 0, 0.16)` 그림자를 적용한다. 출처는 `HelpTips.tsx`, `ProductDetailContent.tsx`, `productDetailPresentation.ts` 작업 트리와 [HOKA 상품 상세 Tooltip Info Container 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)이다.
+
+설명형의 선택적 `maxWidth`는 픽셀 단위이며 기본은 375px다. 무게·힐투토 드롭·쿠셔닝·안정성·반발력의 본체 폭을 시안의 그림자 여백을 제외한 161·271·375·374·375px로 적용했다. 팝업은 화면 좌우 16px 여유를 반영해 너비를 제한하고 기존 포털 위치 보정을 사용한다.
+
+Codex는 PC 1440px의 마우스 올리기와 모바일 375px의 탭으로 다섯 툴팁을 열어 폭·패딩·글자 크기·정렬·그림자·화살표와 Escape 닫기를 확인했다. 모바일에서 긴 툴팁 세 개의 폭은 343px다. 가이드의 기본 툴팁을 포커스로 열어 가운데 정렬과 17px 화살표를 확인했고 기본 토글팁 열기·닫기도 확인했다. TypeScript, 변경 파일 ESLint·Prettier와 상품 상세 표시 데이터 테스트 3개를 통과했다.
 
 ## 상품 상세 Tech Specs 타이포 보정 (2026-11-24)
 

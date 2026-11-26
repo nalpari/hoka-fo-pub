@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-26T05:36:53Z'
+updated: '2026-11-26T05:48:17Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -2714,6 +2714,8 @@ Codex는 PC 1440px·모바일 390px에서 두 URL을 직접 열어 도메인 컨
 `/products/[id]`의 클리프톤 fixture(`HOKADFG34S`)에 무게, 힐투토 드롭, 쿠셔닝, 안정성, 반발력 도움말을 적용했다. 무게는 한 쪽과 기준 사이즈를 안내하며, 드롭과 척도는 단계별 설명을 줄바꿈으로 구분한다. Codex는 2026-11-26에 `src/app/products/[id]/productDetailPresentation.ts`의 표시 모델에서 다섯 도움말의 줄 수와 다른 상품의 척도 미표시를 확인했다.
 
 기존 `HelpTooltip`은 화면 너비에 맞게 문장을 줄바꿈하고 안내 항목 사이의 줄바꿈을 유지한다. [HOKA 상품 상세 Tooltip 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design).
+
+2026-11-26 후속 시안에 맞춰 `ProductDetailContent.tsx`의 기술 지표 도움말에 `HelpTooltip variant="description"`과 항목별 표시 폭을 연결했다. `productDetailPresentation.ts`는 안내 문구와 폭을 제공한다. [상세 툴팁 스타일과 검증](ui.md#상품-상세-tech-specs-툴팁-스타일-2026-11-26).
 
 Codex는 `/products/shoe-1`의 PC 1440px에서 마우스를 올리고 모바일 390px에서 탭해 다섯 문구를 확인했다. 항목 간 줄바꿈, 가로 화면 범위 및 Escape 닫기를 확인했다. 상품 상세 표시 데이터 테스트 3개, TypeScript, 변경 파일 ESLint·Prettier 검사를 통과했다.
 
