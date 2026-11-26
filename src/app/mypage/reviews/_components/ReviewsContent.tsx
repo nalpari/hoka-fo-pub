@@ -101,11 +101,7 @@ type ReviewItemProps = {
 };
 
 function ReviewItem({ entry: { product, purchasedAt, review }, tab, onEdit }: ReviewItemProps) {
-  const platform = usePlatform();
-  const actionProps =
-    platform === 'mobile'
-      ? ({ variant: 'link', size: 'md' } as const)
-      : ({ variant: 'secondary', size: 'short' } as const);
+  const mobile = usePlatform() === 'mobile';
   return (
     <Flex
       as="li"
@@ -113,7 +109,9 @@ function ReviewItem({ entry: { product, purchasedAt, review }, tab, onEdit }: Re
       rowGap="0"
       py={tab === 'written' ? '32px' : '16px'}
       _mobile={{
-        alignItems: 'flex-start',
+        flexDirection: 'column',
+        alignItems: 'stretch',
+        rowGap: '12px',
         py: '16px',
       }}
     >
@@ -133,7 +131,13 @@ function ReviewItem({ entry: { product, purchasedAt, review }, tab, onEdit }: Re
         justify="flex-end"
         _mobile={{ flex: '0 0 auto' }}
       >
-        <Button {...actionProps} onClick={onEdit}>
+        <Button
+          variant={mobile ? 'primary' : 'secondary'}
+          size="short"
+          fullWidth={mobile}
+          className={mobile || tab === 'written' ? css({ '& > span > span': { lineHeight: '1.3' } }) : undefined}
+          onClick={onEdit}
+        >
           {tab === 'ready' ? '리뷰 작성' : '수정하기'}
         </Button>
       </Flex>

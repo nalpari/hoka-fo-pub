@@ -2689,3 +2689,9 @@ productDetailPreviews의 `상품 문의하기 팝업` 항목을 기존 상품 �
 `RunningSessionEntriesContent`는 취소 가능한 신청에 공통 secondary short 버튼을 표시한다. PC에서는 세션 정보 오른쪽 하단에, 모바일에서는 세션 정보 아래 12px 간격으로 한 줄 전체에 배치한다. 두 화면 모두 버튼 높이는 40px이며 누르면 취소 확인창이 열린다. 출처는 [러닝세션 신청내역 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql)과 신청내역 컴포넌트다.
 
 러닝세션 신청내역의 목록 합계는 PC와 모바일에서 탭별 수량에 ‘개’를 붙여 표시한다.
+
+## 상품리뷰 수정 버튼
+
+마이페이지 ‘작성한 리뷰’의 수정하기 버튼은 PC에서 행 오른쪽의 테두리형으로, 모바일에서 리뷰 아래 12px 간격의 전체 너비 검정 버튼으로 표시한다. 두 버튼의 높이는 40px이며 같은 리뷰 수정 창을 연다. 출처는 [상품리뷰 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql)과 `src/app/mypage/reviews/_components/ReviewsContent.tsx`다.
+
+모바일의 ‘작성 가능한 리뷰’도 상품 정보 아래 12px 간격으로 높이 40px의 검정 리뷰 작성 버튼을 전체 너비로 표시한다.

@@ -30,7 +30,7 @@ const defaultImageSizes = {
   checkout: { web: 96, mobile: 80 },
   coupon: { web: 88, mobile: 80 },
   history: { web: 96, mobile: 96 },
-  review: { web: 64, mobile: 64 },
+  review: { web: 96, mobile: 96 },
 } as const satisfies Record<SummaryVariant, { web: SummaryImageSize; mobile: SummaryImageSize }>;
 
 const summaryImageSizes = {
