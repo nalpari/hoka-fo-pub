@@ -6,6 +6,15 @@ export type ProductWidthOption = {
   /** Prepared width-level sold-out state supplied independently of size availability. */
   isSoldOut?: boolean;
 };
+
+export type ProductMeasurementChart = {
+  sizes: readonly string[];
+  rows: readonly {
+    label: string;
+    valuesCm: readonly (number | string)[];
+  }[];
+};
+
 export type ProductColorOption = {
   color: string;
   widths: ProductWidthOption[];
@@ -15,6 +24,13 @@ export type Product = {
   id: string;
   name: string;
   category: '라이프스타일' | '러닝' | '트레일' | '리커버리';
+  productKind?: 'footwear' | 'apparel' | 'accessories';
+  /**
+   * [ 개발팀 바인딩 ] 상품상세 통합 소유자가 현재 상품 ID에 해당하는 실측표를 표시용으로 전달합니다.
+   * 각 측정 행의 cm 값은 sizes와 같은 순서입니다. 의류·용품의 실측표가 제공되면 탭과 본문을 함께 표시합니다.
+   * 상품 상세 응답을 교체할 때 통합 소유자가 최신 상품의 값만 전달합니다. 실측표 자체는 읽기 전용입니다.
+   */
+  measurementChart?: ProductMeasurementChart;
   gender?: "Men's" | "Women's" | 'All Gender';
   price: number;
   originalPrice?: number;

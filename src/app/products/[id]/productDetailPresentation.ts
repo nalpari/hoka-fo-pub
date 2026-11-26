@@ -35,6 +35,24 @@ export const productDetailAnchors = [
   { id: 'product-inquiries', label: '상품 문의' },
 ] as const;
 
+export const productDetailSizeAnchor = { id: 'product-size', label: '사이즈' } as const;
+
+export const productDetailAnchorsWithSize = [
+  productDetailAnchors[0],
+  productDetailSizeAnchor,
+  ...productDetailAnchors.slice(1),
+] as const;
+
+export function getProductMeasurementChart({
+  productKind,
+  measurementChart,
+}: Pick<Product, 'productKind' | 'measurementChart'>) {
+  if (productKind !== 'apparel' && productKind !== 'accessories') return undefined;
+  return measurementChart?.sizes.length && measurementChart.rows.length
+    ? measurementChart
+    : undefined;
+}
+
 const cliftonScales: readonly ProductTechnicalScaleData[] = [
   {
     title: '쿠셔닝',
