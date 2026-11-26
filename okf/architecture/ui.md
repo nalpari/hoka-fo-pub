@@ -6417,3 +6417,7 @@ PC 1440×900과 모바일 360×768에서 버튼 높이 40px, 빈 화면 비활�
 ## 최근 본 상품 빈 목록 타이포그래피
 
 `src/components/common/atoms/EmptyState.recipe.tsx`의 history 레이아웃은 제목을 PC 20px·모바일 18px, 설명을 PC 16px·모바일 14px로 표시한다. 두 문구 모두 Regular(400)를 사용한다.
+
+## 공통 안내·확인 모달 타이포그래피
+
+`src/components/common/layouts/ModalDialog.recipe.tsx`에서 상단 제목은 PC 24px·모바일 20px Bold, 일반 안내 제목은 PC 20px·모바일 18px Bold, 설명은 양쪽 16px Regular를 적용한다. 아이디 찾기 결과값은 별도 결과형 타이포그래피를 사용한다.

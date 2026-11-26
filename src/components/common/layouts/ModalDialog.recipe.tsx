@@ -4,7 +4,7 @@ import type { SystemStyleObject } from 'styled-system/types';
 import { dataListBoundaryRecipe } from '@/components/common/atoms/DataList.recipe';
 
 const notice = {
-  title: { fontWeight: '700', fontStyle: 'normal', color: 'black.100' },
+  title: { fontWeight: '700', lineHeight: 'body', fontStyle: 'normal', color: 'black.100' },
   message: { fontStyle: 'normal', color: 'black.100' },
   description: { fontStyle: 'normal', color: 'black.100' },
   content: { p: '24px 32px 40px', _mobile: { p: '24px 16px' } },
@@ -820,8 +820,9 @@ export const modalDialogRecipe = sva({
     },
     message: {
       m: '0',
-      textStyle: 'ko-wide-h8B',
-      _mobile: { textStyle: 'ko-compact-h8B' },
+      textStyle: 'ko-common-b2B',
+      lineHeight: 'koreanHeading',
+      _mobile: { textStyle: 'ko-common-b3B', lineHeight: 'koreanHeading' },
     },
     description: {
       m: '0',
@@ -1081,8 +1082,9 @@ export const modalDialogRecipe = sva({
         },
         message: {
           textStyle: 'en-wide-h8',
+          lineHeight: '1',
           mb: '32px',
-          _mobile: { textStyle: 'en-compact-h7', mb: '52px' },
+          _mobile: { textStyle: 'en-compact-h7', lineHeight: '1', mb: '52px' },
         },
         description: { fontSize: 'body.14', color: '#777777', _mobile: { mb: '16px' } },
       },
