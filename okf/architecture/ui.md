@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-26T04:50:26Z'
+updated: '2026-11-26T05:02:00Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -6288,13 +6288,13 @@ TextFormField/TextInput, SearchField, DateRangeSearch와 각 화면의 검색·�
 
 출처: 해당 커밋과 관련 src 파일의 작업 트리. 문자열별 복원 개수를 원본 커밋과 대조했다. 브라우저 실행 검증은 수행하지 않았다. 기록: codex/gpt-6.
 
-## 카카오톡 알림톡 수신 항목 1차 비노출 (2026-11-25)
+## 카카오톡 알림톡 수신 항목 복원 (2026-11-26)
 
-회원가입 부가정보와 수신 확인 모달, 마이페이지 회원정보 조회·편집, 퍼블리싱 가이드의 회원정보 예시에서 `카카오톡 알림톡 수신` 항목을 `[ 카카오톡 알림톡 ] 1차 구현 불가`로 주석 처리했다. 이메일·문자 수신 항목과 기존 표시 데이터·콜백 타입을 유지한다.
+`ff75a9c1`의 비노출 변경을 되돌려 회원가입 부가정보와 수신 확인 모달, 마이페이지 회원정보 조회·편집, 퍼블리싱 가이드의 회원정보 예시에서 `카카오톡 알림톡 수신` 항목을 다시 표시한다. 회원가입 양식과 회원정보 편집은 기존 카카오톡 수신 상태와 변경 콜백을 사용한다.
 
-출처는 사용자 정정 지시와 `src/app/signup/information/_components/RegistrationContent.tsx`, `src/app/mypage/profile/_components/ProfileContent.tsx`, `src/app/publishing-guide/_components/descriptionListExamples.tsx`의 작업 트리다.
+출처는 사용자 복원 요청, `ff75a9c1`의 변경 내역과 `src/app/signup/information/_components/RegistrationContent.tsx`, `src/app/mypage/profile/_components/ProfileContent.tsx`, `src/app/publishing-guide/_components/descriptionListExamples.tsx`의 작업 트리다.
 
-2026-11-25 Codex는 PC 1440px·모바일 390px에서 해당 수신 항목의 비노출과 이메일·문자 항목 표시를 확인했다. 런칭 상세 알림 신청, 상품 상세 재입고 알림, 마이페이지 재입고 메뉴와 러닝세션 안내의 기존 표시도 확인했다. TypeScript와 변경 소스 ESLint는 통과했다.
+Codex는 로컬 Next.js 서버에서 [관련 경로](routing.md#카카오톡-알림톡-수신-항목-표시-2026-11-26) 5개의 HTTP 200 응답과 HTML의 수신 항목 문구를 확인했다. TypeScript와 변경 소스 ESLint를 통과했다.
 
 ## Display·Heading·Body 타이포그래피 이관 (2026-11-25)
 

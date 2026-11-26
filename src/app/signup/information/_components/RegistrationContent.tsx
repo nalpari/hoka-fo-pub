@@ -219,13 +219,11 @@ function RegistrationAdditionalFields(props: RegistrationAdditionalFieldsProps) 
             value={props.preferences.sms}
             onValueChange={(value) => props.onPreferenceChange('sms', value)}
           />
-          {/* [ 카카오톡 알림톡 ] 1차 구현 불가
           <RegistrationPreferenceRow
             label="카카오톡 알림톡 수신"
             value={props.preferences.kakao}
             onValueChange={(value) => props.onPreferenceChange('kakao', value)}
           />
-          */}
         </Stack>
       </ContentSection>
     </Stack>
@@ -356,8 +354,7 @@ export function RegistrationMarketingConsentSummaryModal({
       items={[
         { label: '이메일 수신', value: preferenceLabel(preferences.email) },
         { label: '문자수신(LMS, SMS)', value: preferenceLabel(preferences.sms) },
-        // [ 카카오톡 알림톡 ] 1차 구현 불가
-        // { label: '카카오톡 알림톡 수신', value: preferenceLabel(preferences.kakao) },
+        { label: '카카오톡 알림톡 수신', value: preferenceLabel(preferences.kakao) },
       ]}
     />
   );
