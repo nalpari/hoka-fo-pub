@@ -22,7 +22,7 @@ import { ContentSection } from '@/components/common/layouts/ContentSection';
 import { MyPageFrame } from '@/app/mypage/_components/MyPageFrame';
 import { type Product, products } from '@/mocks/products';
 import { type HistoryItem } from '@/types/mypage-display';
-type PreviewItem = HistoryItem & { apparel?: boolean; colorCount?: number };
+type PreviewItem = HistoryItem & { apparel?: boolean };
 
 type Props = {
   entries?: readonly HistoryItem[];
@@ -186,10 +186,10 @@ function MyPageProductHistoryGrid({
               ? ['데일리 러닝', '워킹']
               : undefined
           }
-          colorCount={entries ? undefined : item.colorCount}
+          colorCount={recent && !entries ? recentPreview.colorCount : undefined}
           liked={liked.includes(item.id)}
           onLikedChange={(active) => onLikedChange(item.id, active)}
-          options={['promotion', 'like', wishlist ? 'color-count' : 'colors']}
+          options={['promotion', 'like', recent ? 'color-count' : 'colors']}
           product={item.product}
         />
       ))}
@@ -282,6 +282,7 @@ const wishlistMobilePreview = {
 } as const;
 // 화면 시안의 플랫폼별 표시 fixture이며 연결된 상품·찜 데이터에는 적용하지 않습니다.
 const recentPreview = {
+  colorCount: 6,
   web: { product, promotionTone: 'error' },
   mobile: {
     promotionTone: 'brand',
@@ -290,24 +291,22 @@ const recentPreview = {
   },
 } as const;
 
-const wishlistShoePreview = { liked: true, colorCount: 6 } as const;
-
 const previewItems = {
   wishlist: {
     web: [
-      { id: '0', product, ...wishlistShoePreview },
+      { id: '0', product, liked: true },
       { id: '1', product: wishlistApparelPreview, liked: true, apparel: true },
-      { id: '2', product, ...wishlistShoePreview },
+      { id: '2', product, liked: true },
       { id: '3', product: wishlistApparelPreview, liked: true, apparel: true },
-      { id: '4', product, ...wishlistShoePreview },
+      { id: '4', product, liked: true },
       { id: '5', product: wishlistApparelPreview, liked: true, apparel: true },
     ],
     mobile: [
-      { id: '0', product: wishlistMobilePreview.product, ...wishlistShoePreview },
+      { id: '0', product: wishlistMobilePreview.product, liked: true },
       { id: '1', product: wishlistApparelPreview, liked: true, apparel: true },
-      { id: '2', product: wishlistMobilePreview.product, ...wishlistShoePreview },
+      { id: '2', product: wishlistMobilePreview.product, liked: true },
       { id: '3', product: wishlistApparelPreview, liked: true, apparel: true },
-      { id: '4', product: wishlistMobilePreview.product, ...wishlistShoePreview },
+      { id: '4', product: wishlistMobilePreview.product, liked: true },
       { id: '5', product: wishlistApparelPreview, liked: true, apparel: true },
     ],
   },

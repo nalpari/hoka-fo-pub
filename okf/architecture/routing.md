@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-26T05:26:56Z'
+updated: '2026-11-26T05:34:51Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -2764,7 +2764,7 @@ Codex는 PC 1255px와 모바일 390px에서 체크박스 두 개의 개별 선�
 
 ## 관심상품 카드 색상 개수 표시 (2026-11-26)
 
-`/mypage/wishlist`의 PC·모바일 카드에는 장바구니 담기 버튼과 색상 캐러셀 대신 색상 개수 문구를 표시한다. `/mypage/recent`는 기존 색상 캐러셀을 사용한다. [카드 설정과 검증](ui.md#관심상품-카드-색상-개수-표시-2026-11-26).
+PC와 모바일에서 `/mypage/recent`는 색상 개수 문구를 표시하고, `/mypage/wishlist`는 색상 캐러셀을 표시한다. [카드 설정과 검증](ui.md#관심상품-카드-색상-개수-표시-2026-11-26).
 
 ## 카카오톡 알림톡 수신 항목 표시 (2026-11-26)
 
