@@ -2683,3 +2683,7 @@ productDetailPreviews의 `상품 문의하기 팝업` 항목을 기존 상품 �
 회원 이름 아래의 ‘멤버십 바코드 보기’가 모바일에서는 바텀시트, PC에서는 가운데 모달을 연다. 확인 또는 닫기를 누르면 버튼으로 포커스가 돌아간다. 바코드는 시안의 샘플 이미지이며 실제 회원별 발급은 연동 대상이다. 모바일에서는 등급명 옆에 등급안내를 배치하고, 메뉴 제목의 구분선 아래에 첫 항목을 바로 배치한다.
 
 출처는 모바일 마이페이지와 바코드 시안, `src/app/mypage/_components/MyPageContent.tsx`, `public/images/mypage/membership-barcode.png`다. 2026-11-26에 모바일 375px와 PC 1440px에서 바코드 표시와 확인 후 포커스 복귀를 확인했다.
+
+## 러닝세션 신청내역 취소 버튼
+
+`RunningSessionEntriesContent`는 취소 가능한 신청에 공통 secondary short 버튼을 표시한다. PC에서는 세션 정보 오른쪽 하단에, 모바일에서는 세션 정보 아래 12px 간격으로 한 줄 전체에 배치한다. 두 화면 모두 버튼 높이는 40px이며 누르면 취소 확인창이 열린다. 출처는 [러닝세션 신청내역 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql)과 신청내역 컴포넌트다.
