@@ -17,6 +17,7 @@ working_tree_sources:
   - src/app/checkout/_components/CheckoutStatePreview.tsx
   - src/app/checkout/_components/CheckoutDiscountSummary.tsx
   - src/app/screen-index/screenConnections.ts
+  - src/app/signup/verify/_components/IdentityVerificationContent.tsx
   - src/app/mypage/orders/orderPreviews.ts
   - src/app/signup/_components/SignupContent.tsx
   - src/app/mypage/mypage.data.ts
@@ -361,6 +362,9 @@ working_tree_sources:
   - src/stories/features/Mockup/signup/SignupSteps.stories.tsx
   - src/app/locales/page.tsx
 sources:
+  - id: mypage-membership-barcode-design
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql
+    title: 모바일 마이페이지 요약과 멤버십 바코드
   - id: orders-design-review
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql
     title: 장바구니·주문·취소·반품 최신 화면 시안
@@ -2685,7 +2689,7 @@ Codex는 PC 1440px·모바일 390px에서 두 URL을 직접 열어 도메인 컨
 
 `/signup/verify`는 HOKA Korea 온라인 회원가입 여부를 확인하기 위해 본인 인증이 필요하다고 안내한다. 화면에는 `휴대폰 인증하기`만 표시하며, 이 버튼은 `/signup/verify/phone`으로 이동한다. Codex가 2026-11-26에 `src/app/signup/verify/_components/IdentityVerificationContent.tsx` 작업 트리의 버튼 문구와 연결 경로를 확인했다.
 
-인증 수단이 하나일 때 아이콘과 버튼의 폭을 기존 한 열 너비로 유지하고 인증 영역 가운데에 배치한다. Codex는 PC 1440px와 모바일 390px에서 아이콘·버튼의 가로 중심과 버튼으로 휴대폰 인증 화면에 진입하는 동작을 확인했다. TypeScript와 변경 파일 ESLint를 통과했다. 출처는 사용자 브라우저 주석과 `IdentityVerificationContent.tsx` 작업 트리다.
+인증 영역은 기존 한 열 너비로 유지하고 아이콘과 버튼을 가로 가운데에 배치한다. 병합 결과는 단일 `ButtonLink`로 이동하며 모바일 버튼의 최소 높이는 44px이다. 병합 전 `49ec13be`에서는 PC 1440px와 모바일 390px에서 가로 정렬과 인증 화면 진입을 확인했다. 출처는 사용자 브라우저 주석과 `IdentityVerificationContent.tsx`다.
 
 ## 러닝세션 상세 모바일 추가 영역 (2026-11-23)
 
@@ -2777,3 +2781,19 @@ Codex는 PC 1255px와 모바일 390px에서 체크박스 두 개의 개별 선�
 출처는 `src/app/preview-promotion/page.tsx`, `src/app/_components/HomeContent.tsx`, `src/app/screen-index/screenConnections.ts`의 작업 트리다. 디자인과 표시 데이터 계약은 [메인 홍보 팝업](home-product-design.md#메인-홍보-팝업-2026-11-25)을 참고한다. 기록: codex/gpt-6, 2026-11-25 KST.
 
 검증에서 기본 메인 진입, IA 상태명·URL 검색, IA 1번의 기존 메인 링크와 IA 2번 보기 링크의 팝업 열기를 확인했다. 소스 그래프 생성과 관련 테스트, 변경 TSX의 ESLint·Prettier, Next.js 빌드를 통과했다. 전체 lint는 기존 `tests/wh-file-summary.test.mjs`의 전역 이름 `no-undef` 오류 8건을 보고했다.
+
+## 회원가입 본인인증
+
+[회원가입 본인인증 안내와 선택 항목](#회원가입-본인인증-안내와-선택-항목-2026-11-26)에서 병합 후 문구와 단일 인증 링크 구성을 확인할 수 있다.
+
+## 회원가입 혜택 안내
+
+/signup의 첫 두 혜택은 신규가입 10% 쿠폰과 생일 축하 쿠폰으로 표시한다.
+
+## 마이페이지 멤버십 바코드
+
+마이페이지 구매내역의 ‘주문/배송조회’와 ‘취소/반품내역’ 메뉴는 PC와 모바일에서 같은 문구를 사용한다. 두 링크는 `src/app/mypage/mypage-home-data.ts`에서 관리한다.
+
+회원 이름 아래의 ‘멤버십 바코드 보기’가 모바일에서는 바텀시트, PC에서는 가운데 모달을 연다. 확인 또는 닫기를 누르면 버튼으로 포커스가 돌아간다. 바코드는 시안의 샘플 이미지이며 실제 회원별 발급은 연동 대상이다. 모바일에서는 등급명 옆에 등급안내를 배치하고, 메뉴 제목의 구분선 아래에 첫 항목을 바로 배치한다.
+
+출처는 모바일 마이페이지와 바코드 시안, `src/app/mypage/_components/MyPageContent.tsx`, `public/images/mypage/membership-barcode.png`다. 2026-11-26에 모바일 375px와 PC 1440px에서 바코드 표시와 확인 후 포커스 복귀를 확인했다.

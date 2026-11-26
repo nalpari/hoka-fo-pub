@@ -1,7 +1,8 @@
 'use client';
+import Image from 'next/image';
 import Link from 'next/link';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { usePlatform } from '@/context/platform';
 import { useShopPreviewLogout } from '@/context/ShopPreviewContext';
 
@@ -44,7 +45,11 @@ function MyPageMembership() {
   return (
     <Box bg="black.10" p="32px" minW="0" _mobile={{ px: '16px', py: '20px' }}>
       <Stack gap="12px">
-        <HStack justifyContent="space-between" alignItems="flex-start">
+        <HStack
+          justifyContent="space-between"
+          alignItems="flex-start"
+          _mobile={{ justifyContent: 'flex-start', alignItems: 'center', gap: '16px' }}
+        >
           <HStack gap="12px" _mobile={{ gap: '8px' }}>
             <HStack
               as="span"
@@ -57,11 +62,11 @@ function MyPageMembership() {
               bg="black.100"
               color="offWhite.100"
             >
-              <Typography web="h10B" mo="h8" language="en">
+              <Typography web="h10B" mo="h8" className={styles.rankInitial}>
                 {'R'}
               </Typography>
             </HStack>
-            <Typography web="h8B" mo="h7B" language="en">
+            <Typography web="h8B" mo="h8B" language="en">
               {'RUNNER'}
             </Typography>
           </HStack>
@@ -96,18 +101,30 @@ const styles = {
     textDecoration: 'none',
     _mobile: { px: '16px', py: '20px' },
   }),
-  logoutButton: css({ _mobile: { '& > span': { '--button-label-weight': '400' } } }),
-  profileTitle: css({ lineHeight: 'body', _mobile: { lineHeight: 'body' } }),
+  profileTitle: css({ lineHeight: 'body', _mobile: { display: 'flex', lineHeight: '1.2' } }),
+  rankInitial: css({ _mobile: { fontFamily: 'ko', lineHeight: 'koreanHeading' } }),
+  barcodeHeader: css({ _mobile: { mb: '16px', '& h2': { lineHeight: 'body' } } }),
+  barcodeFooter: css({
+    _mobile: {
+      borderTop: '1px solid var(--color-border-subtle)',
+      mt: '32px',
+      pt: '16px',
+      pb: '32px',
+      '&& button': { h: '44px', minH: '44px' },
+      '& button > span > span': { fontWeight: '400' },
+    },
+  }),
+  barcodeImage: css({ display: 'block', maxW: 'full', h: 'auto', opacity: 0.2 }),
   benefitText: css({ '&&': { lineHeight: 'body' } }),
-  profileName: css({ '&&': { lineHeight: 'body', _mobile: { lineHeight: 'body' } } }),
+  profileName: css({ '&&': { lineHeight: 'body', _mobile: { lineHeight: '1.2' } } }),
   menuHeader: css({
     minH: '52px',
     justifyContent: 'flex-end',
     pb: '16px',
     borderBottom: '2px solid var(--colors-black-100)',
-    _mobile: { minH: '0', borderBottomWidth: '1px' },
+    _mobile: { minH: '43px', borderBottomWidth: '1px' },
   }),
-  menuTitle: css({ '&&': { lineHeight: 'body' } }),
+  menuTitle: css({ '&&': { lineHeight: 'body', _mobile: { lineHeight: '1.2' } } }),
   profileLink: css({
     display: 'inline-flex',
     alignItems: 'center',
@@ -122,7 +139,7 @@ function MyPageBenefitItem({ href, label, count, unit, icon }: MyPageBenefitItem
     <Link className={styles.benefitLink} href={href}>
       <Stack h="full" minH="81px" justifyContent="space-between" _mobile={{ minH: '57px' }}>
         <HStack gap="8px">
-          <Icon name={icon} size={18} />
+          <Icon name={icon} size={18} color="blue.100" />
           <Typography web="b2M" mo="b4M" className={styles.benefitText}>
             {label}
           </Typography>
@@ -152,7 +169,7 @@ function MyPageBenefits() {
       />
       <MyPageBenefitItem
         href="/mypage/wishlist"
-        label="관심상품"
+        label="관심 상품"
         count={6}
         unit="건"
         icon="heart-solid"
@@ -163,55 +180,98 @@ function MyPageBenefits() {
 
 function MyPageOverviewProfile({ onLogout }: { onLogout: () => void }) {
   const platform = usePlatform();
+  const [barcodeOpen, setBarcodeOpen] = useState(false);
+  const barcodeTrigger = useRef<HTMLButtonElement>(null);
 
   return (
-    <ContentSection
-      gap="32px"
-      _mobile={{ gap: '16px' }}
-      title={
-        <Link className={styles.profileLink} href="/mypage/profile">
-          <HStack as="span" gap="2px" alignItems="flex-end">
-            <Typography as="span" web="h4B" mo="h5B" className={styles.profileName}>
-              {'박연진'}
-            </Typography>
-            <Typography as="span" variant="b1">
-              님
-            </Typography>
-          </HStack>
-          <Icon name="hoka-nav-chevron-right-regular" size={24} />
-        </Link>
-      }
-      headerProps={{
-        orientation: 'horizontal',
-        alignItems: 'flex-end',
-        action: (
-          <Button
-            className={styles.logoutButton}
-            {...(platform === 'mobile'
-              ? { variant: 'link', size: 'md' }
-              : { variant: 'secondary', size: 'short' })}
-            onClick={onLogout}
-          >
-            로그아웃
-          </Button>
-        ),
-        titleAs: 'h1',
-        titleProps: {
-          web: 'h4B',
-          mo: 'h5B',
-          className: styles.profileTitle,
-        },
-      }}
-    >
-      <Grid
-        gridTemplateColumns="minmax(0, 1fr) 488px"
-        gap="8px"
-        _mobile={{ gridTemplateColumns: '1fr' }}
+    <>
+      <ContentSection
+        gap="32px"
+        _mobile={{ gap: '16px' }}
+        title={
+          <Link className={styles.profileLink} href="/mypage/profile">
+            <HStack as="span" gap="2px" alignItems="flex-end" _mobile={{ alignItems: 'center' }}>
+              <Typography as="span" web="h4B" mo="h2" className={styles.profileName}>
+                {'박연진'}
+              </Typography>
+              <Typography as="span" web="b1" mo="h2">
+                님
+              </Typography>
+            </HStack>
+            <Icon name="hoka-nav-chevron-right-regular" size={24} />
+          </Link>
+        }
+        headerProps={{
+          orientation: 'horizontal',
+          alignItems: 'flex-end',
+          action: (
+            <Button
+              {...(platform === 'mobile'
+                ? { variant: 'link', size: 'md' }
+                : { variant: 'secondary', size: 'short' })}
+              onClick={onLogout}
+            >
+              로그아웃
+            </Button>
+          ),
+          titleAs: 'h1',
+          titleProps: {
+            web: 'h4B',
+            mo: 'h2',
+            className: styles.profileTitle,
+          },
+        }}
       >
-        <MyPageMembership />
-        <MyPageBenefits />
-      </Grid>
-    </ContentSection>
+        <Box>
+          <Button
+            ref={barcodeTrigger}
+            variant="link"
+            size="md"
+            aria-haspopup="dialog"
+            onClick={() => setBarcodeOpen(true)}
+          >
+            멤버십 바코드 보기
+          </Button>
+        </Box>
+        <Grid
+          gridTemplateColumns="minmax(0, 1fr) 488px"
+          gap="8px"
+          _mobile={{ gridTemplateColumns: '1fr' }}
+        >
+          <MyPageMembership />
+          <MyPageBenefits />
+        </Grid>
+      </ContentSection>
+      <ModalDialog
+        variant="detail"
+        title="멤버십 바코드"
+        closeLabel="멤버십 바코드 닫기"
+        open={barcodeOpen}
+        onOpenChange={setBarcodeOpen}
+        finalFocus={barcodeTrigger}
+        mobilePresentation="bottomSheet"
+        blurBackdrop={false}
+        headerProps={{ className: styles.barcodeHeader }}
+        footerProps={{ className: styles.barcodeFooter }}
+        actions={{ kind: 'single', onConfirm: () => setBarcodeOpen(false) }}
+      >
+        <Stack alignItems="center" gap="16px" textAlign="center">
+          {/* [ 개발팀 바인딩 ] 회원별 바코드는 회원정보 연동 시 교체합니다. 현재 이미지는 디자인 시안의 표시용 샘플입니다. */}
+          <Image
+            src="/images/mypage/membership-barcode.png"
+            alt="멤버십 바코드 예시"
+            width={280}
+            height={98}
+            className={styles.barcodeImage}
+          />
+          <Typography as="p" variant="b6">
+            오프라인 매장에서 바코드를 제시하면
+            <br />
+            멤버십 혜택을 받으실 수 있습니다.
+          </Typography>
+        </Stack>
+      </ModalDialog>
+    </>
   );
 }
 
@@ -225,6 +285,7 @@ function MyPageMenuItem({ label, to }: MyPageMenuItemProps) {
     <Link className={styles.menuLink} href={to}>
       <HStack
         minH="56px"
+        _mobile={{ py: '16px' }}
         justifyContent="space-between"
         borderBottom="1px solid var(--color-border-subtle)"
       >
@@ -240,12 +301,13 @@ function MyPageMenuSection({ title, items }: { title: string; items: MyPageMenuI
     <ContentSection
       as="section"
       gap="16px"
+      _mobile={{ gap: '0' }}
       aria-label={title}
       title={title}
       headerProps={{
         titleAs: 'h2',
         className: styles.menuHeader,
-        titleProps: { web: 'h8B', mo: 'h7B', className: styles.menuTitle },
+        titleProps: { web: 'h8B', mo: 'h7', className: styles.menuTitle },
       }}
     >
       <Stack gap="0">
