@@ -202,9 +202,10 @@ export function OrdersListContent({
         {/* 주문 상품 목록 및 빈 화면 */}
         <Stack
           gap="0"
+          borderTop={{ base: '2px solid var(--color-black-20)', _mobile: '0' }}
           className={
             dataListRecipe({
-              top: 'desktopStrong',
+              top: 'unchanged',
               columnGap: 'unchanged',
               headerTypography: 'headingBold',
               cellVariant: 'heading',

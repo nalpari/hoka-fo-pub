@@ -139,13 +139,13 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
     <Stack gap="0">
       <Stack
         gap="0"
-        className={mobile ? undefined : dataListBoundaryRecipe({ top: 'thinStrong' })}
-        borderBottom={{ base: '1px solid var(--colors-black-100)', _mobile: '0' }}
+        className={mobile ? undefined : dataListBoundaryRecipe({ top: 'thinSubtle' })}
+        borderBottom={{ base: '1px solid var(--colors-black-20)', _mobile: '0' }}
       >
         <HStack
           gap="8px"
           py={{ base: '32px', _mobile: '16px' }}
-          borderBottom={{ base: '0', _mobile: '1px solid var(--colors-black-100)' }}
+          borderBottom={{ base: '0', _mobile: '1px solid var(--colors-black-20)' }}
         >
           <Typography variant="b6S">
             {display.date}

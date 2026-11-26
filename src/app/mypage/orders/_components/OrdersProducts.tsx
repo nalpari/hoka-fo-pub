@@ -145,7 +145,7 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
       as="li"
       gap={{ base: '16px', _mobile: '0' }}
       py={{ base: '32px', _mobile: '0' }}
-      borderBottom={{ base: '1px solid var(--colors-black-100)', _mobile: '0' }}
+      borderBottom={{ base: '1px solid var(--colors-black-20)', _mobile: '0' }}
       listStyleType="none"
     >
       {platform === 'mobile' ? (
@@ -153,7 +153,7 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
           justifyContent="space-between"
           alignItems="flex-end"
           py="16px"
-          borderBottom="1px solid var(--colors-black-100)"
+          borderBottom="1px solid var(--colors-black-20)"
         >
           <HStack
             gap={{ base: '16px', _mobile: '4px' }}

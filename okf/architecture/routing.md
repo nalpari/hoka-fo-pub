@@ -428,6 +428,12 @@ IA 166의 원본/보정 비고는 `[ 11/16 기획 원복 ] 기획전 목록 페�
 
 # 라우팅과 플랫폼
 
+## 장바구니·주문하기·주문내역 상품 구분선 (2026-11-26)
+
+`/cart`, `/checkout`, `/mypage/orders`와 주문 상세의 상품 목록 구분선은 `black.20`(`#E9EAEB`)을 사용한다. 장바구니의 시작선과 상품 행은 이미 이 색을 사용한다. 주문하기의 시작선은 PC 2px·모바일 1px, 주문내역 목록의 시작선은 PC 2px·모바일 미표시다. 주문내역 카드와 상세의 상품 영역 구분선은 PC·모바일의 기존 두께와 표시 조건을 따른다. 공통 DataList의 헤더 표시 설정과 결제 금액 요약선은 기존 규격을 따른다.
+
+구현 근거는 `CartProductSection.tsx`, `CheckoutSummary.tsx`, `OrdersList.tsx`, `OrdersProducts.tsx`, `OrderDetails.tsx`에 있다. 브라우저에서 PC 1440px의 구분선 색상과 두께를 확인했다. 390px에서는 모바일 클래스의 CSS 계산값을 확인했으며 자동 모바일 전환이 확인되지 않은 화면에는 확인용 클래스를 적용했다. Panda CSS 생성, 대상 ESLint·Prettier와 전체 TypeScript 검사를 통과했다.
+
 ## 회원등급 안내 문구 (2026-11-19)
 
 `src/app/mypage/rewards/rewards-data.ts`의 ELITE 혜택은 “스페셜 래플 응모 기회 제공”으로 표시한다. PC·모바일은 `RewardsContent.tsx`의 `RewardBenefits`에서 같은 `tiers` 데이터를 사용한다. 괄호 안의 임시 문구만 제거했으며 라우팅·스타일·다른 혜택은 변경하지 않았다. 소스 검색과 공통 렌더링 경로를 확인했으며 브라우저 시각 검증은 수행하지 않았다.

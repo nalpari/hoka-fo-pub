@@ -27,7 +27,11 @@ export function CheckoutSummary({ rows }: { rows: readonly CheckoutRow[] }) {
     >
       <Stack
         gap="0"
-        className={dataListRecipe({ top: 'strongToThin', headerTypography: 'heading' }).root}
+        borderTop={{
+          base: '2px solid var(--color-black-20)',
+          _mobile: '1px solid var(--color-black-20)',
+        }}
+        className={dataListRecipe({ top: 'unchanged', headerTypography: 'heading' }).root}
       >
         {!mobile ? (
           <Grid
