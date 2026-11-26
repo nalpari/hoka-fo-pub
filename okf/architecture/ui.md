@@ -6084,6 +6084,8 @@ PC1461/MO375에서 선택700·미선택400, 탭 전환 후 굵기 이동과 STEP
 
 ## 온라인 회원등급 안내와 공유 본문 (2026-11-19)
 
+공통 혜택의 신규 가입 10% 할인 쿠폰과 첫 구매 감사 1만원 쿠폰 설명에서 슬래시 뒤 띄어쓰기를 조정했다. 출처는 `src/components/membership/rewards-data.ts`의 `commonBenefits`다.
+
 회원등급 두 경로의 본문은 `src/components/membership/MembershipRewards.tsx` 하나로 통합했다. 개인 요약·진행률·배지와 등급·공통 혜택을 내부 모듈에서 함께 소유한다. 기존 `RewardsContent`는 마이페이지 프레임과 고정 조회 피드백만 담당하고 고객센터 소유자는 로그인 표시 상태만 showSummary로 전달한다. 도메인 표시 fixture는 membership/rewards-data.ts에 모으며 이전 라우트 전용 data 경로는 제거했다. 기본 showSummary=true를 JSDoc·함수 기본값에 명시하며 undefined도 같은 기본 동작이다. 최신 사용자 확정 RUNNER 1장·연1회와 PC/MO 시안 규격을 양쪽 공통 본문에 적용했다. 세부 규격은 [고객센터 시안 기록](support-design.md#온라인-회원등급-안내와-공유-본문-2026-11-19)을 따른다.
 
 출처: [온라인 회원등급 안내 PC·모바일 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design), 현재 사용자 화면 코멘트, 위 working_tree_sources의 작업 트리. Codex 작성·검토, 2026-11-19.
