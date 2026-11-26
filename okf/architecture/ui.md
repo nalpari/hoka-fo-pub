@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-26T04:29:51Z'
+updated: '2026-11-26T04:43:04Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -1481,7 +1481,7 @@ ProfilePhoneVerification은 6자리 코드 불일치를 SingleActionDialog로 �
 
 ## 회원가입 마케팅 수신 동의 배치 (2026-11-26)
 
-회원 정보 폼의 이메일 주소 아래에 기존 마케팅 정보 수신 동의 섹션을 24px 간격으로 배치한다. 이메일·문자 라디오 값은 기존 `preferences`와 `onPreferenceChange`로 관리한다. 수신내역 모달과 고정 오류 화면은 통합 폼을 사용한다. 출처는 사용자 브라우저 주석과 `RegistrationContent.tsx`, `RegistrationStatePreview.tsx`, `registration.types.ts` 작업 트리다. [경로와 검증](routing.md#회원가입-마케팅-수신-동의-통합-2026-11-26).
+회원 정보 폼의 이메일 주소 아래에 마케팅 정보 수신 동의 섹션을 PC·모바일 모두 40px 간격으로 배치한다. 이메일·문자 라디오 값은 기존 `preferences`와 `onPreferenceChange`로 관리한다. 수신내역 모달과 고정 오류 화면은 통합 폼을 사용한다. 출처는 사용자 브라우저 주석과 `RegistrationContent.tsx`, `RegistrationStatePreview.tsx`, `registration.types.ts` 작업 트리다. [경로와 검증](routing.md#회원가입-마케팅-수신-동의-통합-2026-11-26).
 
 ## 회원가입 이메일 입력 계약 (2026-11-26)
 

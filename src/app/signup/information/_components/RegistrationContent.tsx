@@ -194,7 +194,7 @@ type RegistrationAdditionalFieldsProps = Pick<
 >;
 function RegistrationAdditionalFields(props: RegistrationAdditionalFieldsProps) {
   return (
-    <Stack gap="6">
+    <Stack gap="6" mt="4">
       <ContentSection
         as="section"
         gap="6"
