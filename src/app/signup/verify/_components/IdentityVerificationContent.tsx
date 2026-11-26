@@ -61,15 +61,15 @@ function IdentityVerificationContent({ onSelect }: IdentityVerificationContentPr
             titleProps={{ web: 'h8B', mo: 'h7B', id: 'verification-title' }}
             descriptionProps={{ variant: 'b4', tone: 'subtle' }}
             title="본인인증"
-            description="HOKA 온라인 회원가입 여부 확인을 위해 본인 인증이 필요합니다"
+            description="HOKA Korea 온라인 회원가입 여부 확인을 위해 본인 인증이 필요합니다."
           />
         }
       >
         <Grid columns={2} gap="2">
           {(
             [
-              { id: 'phone', label: '휴대폰 인증', iconName: 'phone-verification' },
-              { id: 'ipin', label: '아이핀 인증', iconName: 'ipin-verification' },
+              { id: 'phone', label: 'PASS 인증하기', iconName: 'phone-verification' },
+              // { id: 'ipin', label: '아이핀 인증', iconName: 'ipin-verification' },
             ] as const
           ).map((method) => (
             <VerificationMethodCard key={method.id} method={method} onSelect={onSelect} />

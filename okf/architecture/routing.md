@@ -2632,6 +2632,10 @@ CartDialogs의 상품명을 PC/MO500으로 보정하고 색상 표시의 접두�
 
 `/signup`의 가입 방식 선택 화면은 신규가입 혜택을 `10% 쿠폰`, 축하 쿠폰의 지급 계기를 `생일`로 안내한다. Codex가 2026-11-26에 `src/app/signup/_components/SignupContent.tsx` 작업 트리의 표시 데이터를 확인했다.
 
+## 회원가입 본인인증 안내와 선택 항목 (2026-11-26)
+
+`/signup/verify`는 HOKA Korea 온라인 회원가입 여부를 확인하기 위해 본인 인증이 필요하다고 안내한다. 화면에는 `PASS 인증하기`만 표시하며, 이 버튼은 기존 휴대폰 인증 화면으로 이동한다. Codex가 2026-11-26에 `src/app/signup/verify/_components/IdentityVerificationContent.tsx` 작업 트리의 표시 항목과 연결 경로를 확인했다.
+
 ## 러닝세션 상세 모바일 추가 영역 (2026-11-23)
 
 `src/app/running/running-session/[sessionId]/_components/RunningSessionSessionContent.tsx`의 상세 레이아웃에서 모바일 보조 이미지와 Essential 숨김을 해제했다. 기존 desktopContent 슬롯의 타입·호출 계약과 라우트·고정 신청 바·fixture 표시 조건은 유지한다. PC/MO 측정 및 남은 디자인 확인 범위는 [러닝세션 디자인](running-session-design.md#모바일-보조-이미지와-essential-추가-2026-11-23)에 기록했다. 출처는 해당 작업 트리와 최신 파일 단위 Figma 링크이며 검토 주체 codex/gpt-6, 2026-11-23 KST다.
