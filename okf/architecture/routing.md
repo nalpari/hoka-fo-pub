@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-26T08:08:15Z'
+updated: '2026-11-26T08:18:00Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -2866,9 +2866,9 @@ PC와 모바일에서 `/mypage/recent`는 색상 개수 문구를 표시하고, 
 
 마이페이지 구매내역의 ‘주문/배송조회’와 ‘취소/반품내역’ 메뉴는 PC와 모바일에서 같은 문구를 사용한다. 두 링크는 `src/app/mypage/mypage-home-data.ts`에서 관리한다.
 
-회원 이름 아래의 ‘멤버십 바코드 보기’가 모바일에서는 바텀시트, PC에서는 가운데 모달을 연다. 확인 또는 닫기를 누르면 버튼으로 포커스가 돌아간다. 바코드는 시안의 샘플 이미지이며 실제 회원별 발급은 연동 대상이다. 모바일에서는 등급명 옆에 등급안내를 배치하고, 메뉴 제목의 구분선 아래에 첫 항목을 바로 배치한다.
+회원 이름 아래의 ‘멤버십 바코드 보기’는 모바일에서만 표시하며 바텀시트를 연다. 확인 또는 닫기를 누르면 버튼으로 포커스가 돌아간다. PC로 전환하면 바코드 버튼과 열린 바텀시트가 제거된다. 바코드는 시안의 샘플 이미지이며 실제 회원별 발급은 연동 대상이다. 모바일에서는 등급명 옆에 등급안내를 배치하고, 메뉴 제목의 구분선 아래에 첫 항목을 바로 배치한다.
 
-출처는 모바일 마이페이지와 바코드 시안, `src/app/mypage/_components/MyPageContent.tsx`, `public/images/mypage/membership-barcode.png`다. 2026-11-26에 모바일 375px와 PC 1440px에서 바코드 표시와 확인 후 포커스 복귀를 확인했다.
+출처는 모바일 마이페이지·바코드 시안과 사용자 브라우저 코멘트, `src/app/mypage/_components/MyPageContent.tsx`, `public/images/mypage/membership-barcode.png`다.
 
 ## 주문·취소·반품 상세 PC 머리글 숨김 (2026-11-26)
 
