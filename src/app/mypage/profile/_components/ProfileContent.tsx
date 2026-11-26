@@ -68,10 +68,9 @@ function ProfilePhoneVerification({ phone, error, verified, previewState, onPhon
       />
       <Button
         type="button"
-        fullWidth
         variant="primary"
-        size="tall"
-        className={css({ alignSelf: 'flex-end', w: 'auto', _mobile: { w: '100%' } })}
+        size="short"
+        className={profileStyles.requestButton}
         disabled={verified || (requested && !expired)}
       >
         {requested ? '인증번호 재요청' : '인증번호 요청'}
@@ -131,6 +130,7 @@ function ProfilePhoneVerification({ phone, error, verified, previewState, onPhon
 }
 
 const profileStyles = {
+  requestButton: css({ alignSelf: 'center', w: '180px', _mobile: { w: 'full' } }),
   mobileActionLabel: { _mobile: { '& button > span > span': { fontSize: 'body.15' } } },
   mobileHeadingLineHeight: css({ _mobile: { lineHeight: 'koreanHeading' } }),
 };
@@ -143,6 +143,7 @@ export function ProfileEditForm({
   address,
   addressOpen,
   phone,
+  savedPhone,
   phoneVerified,
   passwordChanged,
   emailPreference,
@@ -203,7 +204,7 @@ export function ProfileEditForm({
                     })),
                   { term: '성별', description: '남성', descriptionProps: { variant: 'b4' } },
                   { term: '생년월일', description: (details ?? profileDetails)[2][1] },
-                  { term: '휴대폰 번호', description: phone },
+                  { term: '휴대폰 번호', description: savedPhone },
                 ]}
                 termProps={{
                   web: 'b4M',
@@ -273,15 +274,13 @@ export function ProfileEditForm({
               </Stack>
             </Stack>
             <Stack gap="16px">
-              {previewPhone && (
-                <ProfilePhoneVerification
-                  previewState={previewPhone}
-                  phone={phone}
-                  verified={phoneVerified}
-                  error={fieldErrors.phone}
-                  onPhoneChange={onPhoneChange}
-                />
-              )}
+              <ProfilePhoneVerification
+                previewState={previewPhone}
+                phone={phone}
+                verified={phoneVerified}
+                error={fieldErrors.phone}
+                onPhoneChange={onPhoneChange}
+              />
               <AddressFields
                 variant="boxed"
                 idPrefix="profile"
@@ -664,7 +663,8 @@ export function ProfileContent({
   const [address, setAddress] = useState(initialAddress);
   const [savedAddress] = useState(initialAddress);
   const [addressOpen, setAddressOpen] = useState(false);
-  const [phone, setPhone] = useState('010-****-0522');
+  const savedPhone = '010-****-0522';
+  const [phone, setPhone] = useState('');
   const [phoneVerified, setPhoneVerified] = useState(false);
   const [passwordChanged] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<ProfileEditProps['fieldErrors']>({});
@@ -694,6 +694,7 @@ export function ProfileContent({
           address={address}
           addressOpen={addressOpen}
           phone={phone}
+          savedPhone={savedPhone}
           phoneVerified={phoneVerified}
           passwordChanged={passwordChanged}
           emailPreference={emailPreference}
@@ -743,7 +744,7 @@ export function ProfileContent({
                 })),
                 { term: '성별', description: '남성', descriptionProps: { variant: 'b4' } },
                 { term: profileDetails[2][0], description: profileDetails[2][1] },
-                { term: '휴대폰 번호', description: phone },
+                { term: '휴대폰 번호', description: savedPhone },
                 {
                   term: '주소',
                   descriptionProps: { variant: 'b4' },

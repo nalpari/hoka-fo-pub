@@ -13,6 +13,7 @@ export type ProfileAddress = { postalCode: string; address: string; addressDetai
 export type ProfilePhonePreview = 'idle' | 'code-entry' | 'expired' | 'mismatch';
 
 export type ProfileEditProps = ProfileValues & {
+  savedPhone: string;
   pending?: boolean;
   details?: readonly (readonly [string, string])[];
   previewPhone?: ProfilePhonePreview;
