@@ -118,6 +118,16 @@ export function prepareProductDetailPreview(
     return {
       ...product,
       id: 'everyrun',
+      productKind: 'apparel',
+      measurementChart: {
+        sizes: ['XS(080)', 'S(085)', 'M(090)', 'L(095)', 'XL(100)', 'XXL(105)'],
+        rows: [
+          { label: '어깨너비', valuesCm: [32.5, 34, 35.5, 37, 38.5, 40] },
+          { label: '소매길이', valuesCm: [83.5, 86, 88.5, 91, 93.5, 96] },
+          { label: '가슴둘레', valuesCm: [115, 120, 125, 130, 135, 140] },
+          { label: '전체길이', valuesCm: [66, 67, 69, 71, 73, 75] },
+        ],
+      },
       name: 'EveryRun 긴팔티',
       gender: "Women's",
       promotion: ['Best', 'Exclusive'],

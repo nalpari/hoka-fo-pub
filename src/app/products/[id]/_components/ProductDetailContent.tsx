@@ -62,7 +62,10 @@ import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
 import {
   getProductDetailPresentation,
+  getProductMeasurementChart,
   productDetailAnchors,
+  productDetailAnchorsWithSize,
+  productDetailSizeAnchor,
   type ProductDetailSpecification,
   type ProductEditorialFeature,
   type ProductTechnicalScaleData,
@@ -92,7 +95,12 @@ import {
 import { shoeCareSections } from '@/components/care-guide/care.data';
 import { CareInstructions } from '@/components/care-guide/CareInstructions';
 import { InquiryCautions } from '@/components/support/InquiryCautions';
-import { type Product, products, type ProductWidthOption } from '@/mocks/products';
+import {
+  type Product,
+  type ProductMeasurementChart,
+  products,
+  type ProductWidthOption,
+} from '@/mocks/products';
 import { type CartItem } from '@/types/cart';
 const ProductDetailViewerContent = dynamic(() => import('./ProductDetailViewerContent'), {
   loading: () => <Typography role="status">상품 이미지를 불러오는 중입니다.</Typography>,
@@ -1569,6 +1577,128 @@ const destination = css({
   scrollMarginTop:
     'calc(var(--layout-site-header-height) + var(--product-detail-nav-height, 0px) + 24px)',
 });
+const measurementTableStyles = {
+  table: css({
+    w: '100%',
+    tableLayout: 'fixed',
+    borderCollapse: 'separate',
+    borderSpacing: '0',
+    textAlign: 'center',
+    whiteSpace: 'nowrap',
+    '& th, & td': {
+      h: '52px',
+      borderRight: '1px solid var(--color-black-20)',
+      borderBottom: '1px solid var(--color-black-20)',
+      verticalAlign: 'middle',
+      _mobile: { h: '46px' },
+    },
+    '& tr > :first-child': { borderLeft: '1px solid var(--color-black-20)' },
+    '& thead th': { borderTop: '1px solid var(--color-black-20)' },
+    '& thead th, & tbody tr:nth-child(even) > *': { bg: 'black.10' },
+    '& tbody tr:nth-child(odd) > *': { bg: 'white' },
+    _mobile: {
+      '&[data-column-layout="narrow"] col:first-child': { w: '85.75px' },
+      '&[data-column-layout="scroll"]': { minW: 'var(--measurement-table-min-width)' },
+      '&[data-column-layout="scroll"] tr > :first-child': { pos: 'sticky', left: '0', zIndex: '1' },
+    },
+  }),
+  unit: css({ textAlign: 'right', color: '#777777' }),
+};
+
+function ProductMeasurementSection({ chart }: { chart: ProductMeasurementChart }) {
+  const platform = usePlatform();
+  const headingId = useId();
+  const unitId = useId();
+  const columnCount = chart.sizes.length + 1;
+  const columnLayout = columnCount <= 3 ? 'narrow' : columnCount >= 6 ? 'scroll' : 'even';
+  const scrollable = platform === 'mobile' && columnLayout === 'scroll';
+  const tableStyle = {
+    '--measurement-table-min-width': String(columnCount * 66) + 'px',
+  } as CSSProperties;
+
+  return (
+    <ContentSection
+      as="section"
+      id={productDetailSizeAnchor.id}
+      className={destination}
+      title={productDetailSizeAnchor.label}
+      headerProps={{ titleProps: { id: headingId, web: 'h9B', mo: 'h8B', language: 'ko' } }}
+      minW="0"
+      gap="6"
+      _mobile={{ gap: '4' }}
+    >
+      <Stack gap="4" minW="0">
+        <Box
+          overflowX="auto"
+          role={scrollable ? 'region' : undefined}
+          aria-label={scrollable ? '사이즈 실측표 가로 스크롤' : undefined}
+          tabIndex={scrollable ? 0 : undefined}
+        >
+          <table
+            aria-labelledby={headingId}
+            aria-describedby={unitId}
+            className={measurementTableStyles.table}
+            data-column-layout={columnLayout}
+            style={tableStyle}
+          >
+            <colgroup>
+              <col />
+              <col span={chart.sizes.length} />
+            </colgroup>
+            <thead>
+              <tr>
+                <th scope="col">
+                  <Typography web="b6S" mo="b7S" language="ko">
+                    사이즈
+                  </Typography>
+                </th>
+                {chart.sizes.map((size) => (
+                  <th key={size} scope="col">
+                    <Typography web="b6M" mo="b7M">
+                      {size}
+                    </Typography>
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {chart.rows.map(({ label, valuesCm }) => (
+                <tr key={label}>
+                  <th scope="row">
+                    <Typography web="b6S" mo="b7S" language="ko">
+                      {label}
+                    </Typography>
+                  </th>
+                  {chart.sizes.map((size, index) => (
+                    <td key={size}>
+                      <Typography web="b6" mo="b7" language="en">
+                        {valuesCm[index]}
+                      </Typography>
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </Box>
+        <Typography
+          as="p"
+          id={unitId}
+          className={measurementTableStyles.unit}
+          web="b6"
+          mo="b7"
+          language="ko"
+        >
+          단위:{' '}
+          <Typography web="b6" mo="b7" language="en">
+            cm
+          </Typography>
+        </Typography>
+      </Stack>
+    </ContentSection>
+  );
+}
+
 function ProductDetailSections({
   product,
   inquiriesEmpty = false,
@@ -1583,8 +1713,10 @@ function ProductDetailSections({
   /** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 상품 연결 소유자가 표시 모델과 식별자·입력/선택 payload, 요청 중/실패/성공/재시도 및 응답 갱신을 별도로 구현해야 합니다. */
   const presentation = getProductDetailPresentation(product);
   const features = apparel ? apparelFeatures : presentation.features;
+  const measurementChart = getProductMeasurementChart(product);
+  const anchors = measurementChart ? productDetailAnchorsWithSize : productDetailAnchors;
   return (
-    <ProductDetailScrollSpy items={productDetailAnchors}>
+    <ProductDetailScrollSpy items={anchors}>
       <Stack gap="96px" _mobile={{ gap: '12' }}>
         <Stack id="product-details" className={destination} gap="96px" _mobile={{ gap: '12' }}>
           {!apparel && (
@@ -1597,6 +1729,7 @@ function ProductDetailSections({
           {features.length > 0 && <ProductDetailEditorial features={features} />}
         </Stack>
         <ProductDetailPlaceholder>상세페이지 영역 (이미지세트 &amp; IMC)</ProductDetailPlaceholder>
+        {measurementChart && <ProductMeasurementSection chart={measurementChart} />}
         <ProductDetailReviews
           id="product-reviews"
           className={destination}
@@ -2964,7 +3097,7 @@ function ProductDetailPanel({
           width={width}
         />
         {platform === 'mobile' &&
-          (revised ? (
+          (revised || getProductMeasurementChart(product) ? (
             <ProductDetailSections
               product={product}
               inquiriesEmpty={inquiriesEmpty}
