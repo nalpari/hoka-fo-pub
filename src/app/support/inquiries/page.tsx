@@ -38,7 +38,7 @@ export default function Page() {
       empty={inquiries.length === 0}
       mobileTitleSize={preview === 'attachmentPreview' ? '22px' : '24px'}
     >
-      <Divider variant="heading" mo="subtle" />
+      <Divider variant="subtle" />
       <Stack gap="0" pt="6" pb={{ base: '6', _mobile: '8' }}>
         {inquiries.length === 0 ? (
           <EmptyState
