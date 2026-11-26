@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-26T04:43:04Z'
+updated: '2026-11-26T04:54:38Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -2664,6 +2664,8 @@ Codex는 PC 1440px·모바일 390px에서 두 URL을 직접 열어 도메인 컨
 ## 회원가입 본인인증 안내와 선택 항목 (2026-11-26)
 
 `/signup/verify`는 HOKA Korea 온라인 회원가입 여부를 확인하기 위해 본인 인증이 필요하다고 안내한다. 화면에는 `휴대폰 인증하기`만 표시하며, 이 버튼은 `/signup/verify/phone`으로 이동한다. Codex가 2026-11-26에 `src/app/signup/verify/_components/IdentityVerificationContent.tsx` 작업 트리의 버튼 문구와 연결 경로를 확인했다.
+
+인증 수단이 하나일 때 아이콘과 버튼의 폭을 기존 한 열 너비로 유지하고 인증 영역 가운데에 배치한다. Codex는 PC 1440px와 모바일 390px에서 아이콘·버튼의 가로 중심과 버튼으로 휴대폰 인증 화면에 진입하는 동작을 확인했다. TypeScript와 변경 파일 ESLint를 통과했다. 출처는 사용자 브라우저 주석과 `IdentityVerificationContent.tsx` 작업 트리다.
 
 ## 러닝세션 상세 모바일 추가 영역 (2026-11-23)
 

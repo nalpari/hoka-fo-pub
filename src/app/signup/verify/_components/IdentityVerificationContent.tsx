@@ -15,6 +15,13 @@ import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 
 const styles = {
+  methods: css({
+    '& > :only-child': {
+      gridColumn: '1 / -1',
+      justifySelf: 'center',
+      w: 'calc((100% - 8px) / 2)',
+    },
+  }),
   illustration: css({
     border: '1px solid var(--color-black-20)',
     color: 'text.primary',
@@ -65,7 +72,7 @@ function IdentityVerificationContent({ onSelect }: IdentityVerificationContentPr
           />
         }
       >
-        <Grid columns={2} gap="2">
+        <Grid columns={2} gap="2" className={styles.methods}>
           {(
             [
               { id: 'phone', label: '휴대폰 인증하기', iconName: 'phone-verification' },
