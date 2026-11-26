@@ -172,7 +172,6 @@ function MyPageProductHistoryGrid({
           key={item.id}
           variant="history"
           thumbnailVariant={wishlist && !entries && item.apparel ? 'listing' : undefined}
-          promotionTone={recent && !entries ? recentPreview[platform].promotionTone : undefined}
           discountLabel={
             (recent || (wishlist && !item.apparel)) && !entries && platform === 'mobile'
               ? recent
@@ -284,9 +283,8 @@ const wishlistMobilePreview = {
 // 화면 시안의 플랫폼별 표시 fixture이며 연결된 상품·찜 데이터에는 적용하지 않습니다.
 const recentPreview = {
   colorCount: 6,
-  web: { product, promotionTone: 'error' },
+  web: { product },
   mobile: {
-    promotionTone: 'brand',
     discountLabel: '20%',
     product: { ...product, promotion: 'Best', originalPrice: 280000 } as Product,
   },

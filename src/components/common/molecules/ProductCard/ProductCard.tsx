@@ -218,14 +218,7 @@ function ProductPrice({
 export type ProductIdentityProps = Omit<
   Pick<
     ProductDetailsProps,
-    | 'promotion'
-    | 'promotionTone'
-    | 'gender'
-    | 'name'
-    | 'price'
-    | 'originalPrice'
-    | 'discountLabel'
-    | 'variant'
+    'promotion' | 'gender' | 'name' | 'price' | 'originalPrice' | 'discountLabel' | 'variant'
   >,
   'variant'
 > & {
@@ -240,7 +233,6 @@ export type ProductIdentityProps = Omit<
 /** 상품 타일과 상세 화면의 배지·식별 정보·가격을 표시합니다. (Displays shared identity and price information for product tiles and detail pages.) */
 export function ProductIdentity({
   promotion,
-  promotionTone,
   gender,
   name,
   price,
@@ -264,7 +256,7 @@ export function ProductIdentity({
                 weight="medium"
                 web="b6"
                 mo="b8"
-                tone={promotionTone === 'error' ? 'red80' : 'brand'}
+                tone="red80"
                 className={detailIdentityStyles.badges}
               >
                 {promotion}
@@ -355,12 +347,7 @@ export function ProductIdentity({
       w="full"
     >
       {promotion && (
-        <Badge
-          variant="plain"
-          data-product-promotion
-
-          tone={promotionTone === 'error' || variant === 'listing' ? 'red80' : 'brand'}
-        >
+        <Badge variant="plain" data-product-promotion tone="red80">
           {promotion}
         </Badge>
       )}
@@ -590,7 +577,6 @@ type ProductDetailsProps = {
     selectedId?: string;
     onSelect: (id: string) => void;
   };
-  promotionTone?: 'brand' | 'error';
   discountLabel?: string;
   activities?: readonly string[];
   colorCount: number;
@@ -610,7 +596,6 @@ type ProductDetailsProps = {
 /** 상품 카드의 이름·성별·가격 요약을 구성합니다. (Composes product name, gender, and price details for a product card.) */
 function ProductDetails({
   colorPreview,
-  promotionTone,
   discountLabel,
   activities,
   colorCount,
@@ -637,7 +622,6 @@ function ProductDetails({
         w="full"
       >
         <ProductIdentity
-          promotionTone={promotionTone}
           discountLabel={discountLabel}
           promotion={promotion}
           gender={gender}
@@ -846,7 +830,6 @@ export type ProductCardOption =
 export type ProductCardProps = {
   /** 생략 또는 undefined이면 기존 굵기를 유지하며 지정한 표시 부위에만 Medium을 적용합니다. */
   textWeights?: { identity?: 'medium'; promotion?: 'medium'; cart?: 'medium' };
-  promotionTone?: 'brand' | 'error';
   discountLabel?: string;
   soldOut?: boolean;
   activityLabels?: readonly string[];
@@ -872,7 +855,6 @@ export type ProductCardProps = {
 /** 상품 이미지와 요약을 표시하고 목록에서 색상 미리보기를 제공합니다. (Displays product imagery, details, and color previews in listings.) */
 export function ProductCard({
   href,
-  promotionTone,
   discountLabel,
   activityLabels,
   colorCount,
@@ -994,7 +976,6 @@ export function ProductCard({
               }
             : undefined
         }
-        promotionTone={promotionTone}
         discountLabel={discountLabel ?? product.discountLabel}
         activities={activityLabels ?? (product.use ? [activityLabel(product.use)] : [])}
         colorCount={colorCount ?? product.colors?.length ?? colorOptions.length}

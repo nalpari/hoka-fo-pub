@@ -6405,3 +6405,9 @@ VerificationCountdown은 기본 accent 색상을 사용하며 회원정보 수�
 출처는 [HOKA 설계서](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 최근 본 상품 목록 화면과 `src/app/mypage/_components/MyPageProductHistory.tsx` 작업 트리다. 제공 설계서는 360×768 모바일 기준이다.
 
 PC 1440×900과 모바일 360×768에서 버튼 높이 40px, 빈 화면 비활성, 안내와 가로 넘침 없음, 빈 제목 22px/20px·400·행간 120%를 확인했다. IA에서 상태명과 URL로 검색 후 양쪽 플랫폼에서 링크를 열고 빈 목록 직접 URL을 새로고침했다. 기록: codex/gpt-6, 2026-11-26T08:49:18.710Z.
+
+## 상품 카드 프로모션 배지 공통 색상 (2026-11-26)
+
+사용자 확정으로 상품 목록·검색·상품 내역·쇼케이스와 상세의 `ProductIdentity`에서 `New`, `Best`, `Exclusive` 라벨을 기존 red80 토큰(#E10F00)으로 표시한다. PC와 모바일에 동일하게 적용하며 여러 라벨 사이 구분선도 같은 색을 사용한다. `promotionTone` 입력과 사용처별 지정을 제거했다. 앞선 상품 내역의 플랫폼별 배지색 기록은 이 공통 기준으로 갱신한다.
+
+출처는 사용자의 색상 및 공통 적용 지시, `ProductCard.tsx`, `MyPageProductHistory.tsx`, `ProductDetailContent.tsx`, 퍼블리싱 가이드 `ProductCardGuide.tsx` 작업 트리다. PC 1440×900과 모바일 360×768에서 최근 본 상품·관심상품·퍼블리싱 가이드의 프로모션 색을 rgb(225, 15, 0)으로 확인했다. 기록: codex/gpt-6, 2026-11-26T08:49:24.875Z.

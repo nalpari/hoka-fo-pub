@@ -2522,7 +2522,6 @@ function ProductDetailHeaderActions({
 
 type ProductDetailHeaderProps = {
   initialShareOpen?: boolean;
-  apparel?: boolean;
   product: Product;
   wish: boolean;
   onWishChange: () => void;
@@ -2531,7 +2530,6 @@ function ProductDetailHeader({
   product,
   wish,
   onWishChange,
-  apparel,
   initialShareOpen,
 }: ProductDetailHeaderProps) {
   const platform = usePlatform();
@@ -2544,7 +2542,6 @@ function ProductDetailHeader({
         price={product.price}
         originalPrice={product.originalPrice}
         discountLabel={product.discountLabel}
-        promotionTone={apparel || product.styleCode === 'HOKADFG34S' ? 'error' : undefined}
       />
       {platform === 'web' && (
         <ProductDetailHeaderActions
@@ -2945,7 +2942,6 @@ function ProductDetailPanel({
           )}
           <ProductDetailHeader
             initialShareOpen={initialShareOpen}
-            apparel={apparel}
             onWishChange={onWishChange}
             product={product}
             wish={wish}

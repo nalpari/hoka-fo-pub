@@ -240,7 +240,6 @@ function exampleCode(example: TileExample, platform: Platform) {
 <ProductCard
   product={${example.discounted ? `{ ...product, originalPrice: ${platform === 'mobile' ? 280000 : 290000}, price: 240000, discountLabel: "20%" }` : 'product'}}
   variant="${example.variant}"
-  promotionTone="error"
   options={${JSON.stringify(example.options)}}
   activityLabels={["데일리 러닝", "워킹"]}
   liked={liked}
@@ -339,7 +338,6 @@ function ProductExample({
       <ProductCard
         product={displayProduct}
         variant={example.variant}
-        promotionTone="error"
         options={example.options}
         activityLabels={['데일리 러닝', '워킹']}
         soldOut={example.soldOut}
@@ -397,7 +395,6 @@ const [liked, setLiked] = useState(true);
   <ProductIdentity
     variant="listing"
     promotion={product.promotion}
-    promotionTone="error"
     orderDate={fullDetails.orderDate}
     gender={product.gender}
     name={product.name}
@@ -453,7 +450,6 @@ function FullDetailsPreview() {
       <ProductIdentity
         variant="listing"
         promotion={product.promotion}
-        promotionTone="error"
         orderDate={fullDetails.orderDate}
         gender={product.gender}
         name={product.name}
@@ -760,13 +756,12 @@ export function ProductCardGuide() {
                 width={platform === 'web' ? '371px' : '343px'}
                 onCopy={copyCode}
                 code={
-                  '<ProductIdentity\n  variant="detail"\n  promotionTone="error"\n  promotion={product.promotion}\n  gender={product.gender}\n  activities={["데일리 러닝", "워킹"]}\n  name={product.name}\n  price={product.price}\n/>'
+                  '<ProductIdentity\n  variant="detail"\n  promotion={product.promotion}\n  gender={product.gender}\n  activities={["데일리 러닝", "워킹"]}\n  name={product.name}\n  price={product.price}\n/>'
                 }
               >
                 <ProductIdentity
                   variant="detail"
                   promotion={product.promotion}
-                  promotionTone="error"
                   gender={product.gender}
                   activities={['데일리 러닝', '워킹']}
                   name={product.name}
