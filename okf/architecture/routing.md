@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-26T05:57:03Z'
+updated: '2026-11-26T06:09:07Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -2758,6 +2758,8 @@ productDetailPreviews의 `상품 문의하기 팝업` 항목을 기존 상품 �
 검증: PC 1440px과 모바일 375px에서 세 팝업의 직접 진입·새로고침·문구·닫기를 확인했다. 모달 너비는 PC 640px, 모바일 343px이었다. IA에서 상태명·URL로 검색할 수 있고, 각 보기 링크를 눌러 해당 팝업이 열리는 것을 확인했다. 기본 주문 조회와 기존 주문 삭제 확인도 점검했다. 타입 검사와 소스 그래프 생성은 통과했고, 관련 테스트 16개 중 15개가 통과했다. 기존 `/mypage/preview-no-orders` 리디렉션에 IA 바로가기가 없다는 검사가 실패했다.
 
 ## 재입고 알림 상품 목록 기획 변경 (2026-11-26)
+
+재입고 알림 상품과 주문/배송 조회는 공통 `DataList` 설정으로 머리글을 시각적으로 숨긴다. 재입고 알림의 열 제목과 본문 셀은 표 의미를 유지한다. 주문/배송 조회의 PC 상단 2px 선은 목록 본체에 적용한다. [공통 머리글 기본값과 검증](ui.md#공통-목록-머리글-숨김-2026-11-26).
 
 `/mypage/restock-alerts`의 목록은 품절 상품 상세에서 재입고 알림을 신청하면 문자로 알려주며 신청한 알림을 삭제하면 발송이 취소된다고 안내한다. 출처는 `src/app/mypage/_components/MyPageProductHistory.tsx`의 표시 문구다.
 

@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-26T05:57:03Z'
+updated: '2026-11-26T06:09:07Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -5694,6 +5694,14 @@ recipe의 생략·명시적 undefined는 defaultVariants의 subtle을 사용한�
 - density 기본값 standard는 머리글 세로20px, compact는16px이다. 공지사항의 아래8px은 기존 호출부에 유지한다.
 - 경계선 옵션은 top/mobileTop/bottom이며 생략·undefined·unchanged는 해당 선을 추가하지 않는다. top strong은2px #000000, emphasis는 기존 token border.strong의 #111이다. thinStrong/ thinSubtle은1px 검정/회색이다. bottom은 검정·#E9EAEB·black.40·기존 border.default(#D8D8D8)와 두 PC/MO 전환 조합을 보존한다. 값 통일을 이유로 #111/#D8D8D8을 #000000/#E9EAEB로 바꾸지 않는다.
 - rowBorder 기본값 subtle, mobileTop 기본값 unchanged다. 항목 경계선과 전체 목록 경계선을 중복으로 추가하지 않는다. EmptyState의 본문형/heading형 확정 규칙·공지 모바일200px과 선 소유권은 유지한다.
+
+### 공통 목록 머리글 숨김 (2026-11-26)
+
+`dataListRecipe`의 `headerVisibility` 기본값은 `visuallyHidden`이다. `header` 슬롯은 시각적 공간을 차지하지 않으며 기존 DOM과 접근성 노출 규칙을 유지한다. 화면에 머리글을 표시하는 호출부는 `visible`을 명시한다. 주문/배송 조회도 공통 헤더 슬롯을 사용하고 PC 상단 2px 선은 목록 본체가 맡는다.
+
+재입고 알림 목록은 표·행·열 머리글·셀 역할을 연결한다. 모바일에서 상품정보 아래에 표시하는 신청일은 시각용이며, 보조 기술은 같은 행의 신청일 셀을 읽는다.
+
+출처는 사용자 브라우저 코멘트와 `src/components/common/atoms/DataList.recipe.tsx`, `src/app/mypage/_components/MyPageProductHistory.tsx`, `src/app/mypage/orders/_components/OrdersList.tsx` 작업 트리다. Chromium에서 재입고 PC 1255px·모바일 390px의 접근성 트리에 열 제목 3개와 본문 셀 6개가 노출되는 것을 확인했다. PC 주문/배송 조회와 공지사항의 시각적 숨김, 주문 목록의 접근성 텍스트와 상단 2px 선, 재입고 빈 화면도 확인했다.
 
 ### 머리글 typography case
 

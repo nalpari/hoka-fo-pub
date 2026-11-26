@@ -28,6 +28,12 @@ type Props = {
   entries?: readonly HistoryItem[];
   items: readonly HistoryItem[];
 };
+
+const restockListStyles = {
+  mobileDate: css({ display: 'none', _mobile: { display: 'block', mt: '6px' } }),
+  dateCell: css({ textAlign: 'center', _mobile: { srOnly: true } }),
+};
+
 const restockPreview = {
   web: {
     name: 'Speedgoat 7 GTX',
@@ -45,27 +51,16 @@ const restockPreview = {
 function MyPageRestockList({ items, entries }: Props) {
   const platform = usePlatform();
   const preview = restockPreview[platform];
+  const list = dataListRecipe({
+    top: 'strongToThin',
+    columnGap: 'metadataColumns',
+  });
+
   return (
-    <Stack
-      gap="0"
-      className={
-        dataListRecipe({
-          top: 'strongToThin',
-          headerTypography: 'heading',
-          columnGap: 'metadataColumns',
-        }).root
-      }
-    >
-      <Grid
-        gridTemplateColumns="minmax(0, 1fr) 150px 150px"
-        gap="0"
-        display={{ base: 'grid', _mobile: 'none' }}
-        textAlign="center"
-        data-list-header
-        className={dataListRecipe().header}
-      >
+    <Stack gap="0" role="table" aria-label="재입고 알림 상품" className={list.root}>
+      <Grid role="row" data-list-header className={list.header}>
         {['상품정보', '신청일', '상태'].map((label) => (
-          <span data-list-cell key={label}>
+          <span role="columnheader" data-list-cell key={label}>
             {label}
           </span>
         ))}
@@ -80,6 +75,7 @@ function MyPageRestockList({ items, entries }: Props) {
         return (
           <Grid
             key={id}
+            role="row"
             gridTemplateColumns={{
               base: 'minmax(0, 1fr) 150px 150px',
               _mobile: 'minmax(0, 1fr) auto',
@@ -91,6 +87,7 @@ function MyPageRestockList({ items, entries }: Props) {
             _mobile={{ py: '24px' }}
           >
             <Box
+              role="cell"
               display="flex"
               alignItems="center"
               gap="16px"
@@ -111,9 +108,10 @@ function MyPageRestockList({ items, entries }: Props) {
                       {name}
                     </Typography>
                     <Typography
+                      aria-hidden="true"
                       variant="b6"
                       tone="tertiary"
-                      className={css({ display: 'none', _mobile: { display: 'block', mt: '6px' } })}
+                      className={restockListStyles.mobileDate}
                     >
                       신청일 : {requestedAt}
                     </Typography>
@@ -122,13 +120,14 @@ function MyPageRestockList({ items, entries }: Props) {
               />
             </Box>
             <Typography
+              role="cell"
               variant="b4"
               tone="subtle"
-              className={css({ textAlign: 'center', _mobile: { display: 'none' } })}
+              className={restockListStyles.dateCell}
             >
               {requestedAt}
             </Typography>
-            <Box textAlign="center" _mobile={{ alignSelf: 'center' }}>
+            <Box role="cell" textAlign="center" _mobile={{ alignSelf: 'center' }}>
               <Typography variant="b4" tone="subtle">
                 {sent ? '발송완료' : '알림대기'}
               </Typography>
