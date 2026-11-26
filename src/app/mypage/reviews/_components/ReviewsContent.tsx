@@ -122,6 +122,7 @@ function ReviewItem({ entry: { product, purchasedAt, review }, tab, onEdit }: Re
           variant="review"
           name={product.name}
           image={product.imageSrc}
+          imageSize={{ web: 96, mobile: 96 }}
           orderDate={purchasedAt}
           optionText={product.optionLabel}
           rating={tab === 'written' ? (review?.rating ?? 0) : undefined}

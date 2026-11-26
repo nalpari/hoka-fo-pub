@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-26T06:42:26Z'
+updated: '2026-11-26T06:47:27Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -2344,6 +2344,12 @@ Table.recipe를 DataList.recipe로 이전하고 기존 목록·합계·상세·�
 상품리뷰의 정렬·건수 아래 시작선은 목록 행과 같은 1px 회색 `#E9EAEB`를 `DataList`의 `top: thinSubtle`로 적용한다. 작성 가능한 리뷰는 목록 `ul`, 내가 작성한 리뷰는 머리글과 `ul`을 묶는 목록 부모가 시작선을 소유한다.
 
 출처는 사용자 브라우저 댓글과 `src/app/mypage/reviews/_components/ReviewsContent.tsx`의 작업 트리다. Codex가 2026-11-26에 `/mypage/reviews`와 `/mypage/reviews/preview-written`의 PC 1440px·모바일 390px에서 시작선과 목록 행의 색상 일치, 시작선 두께 1px, 정렬 영역 하단선 0px을 확인했다.
+
+## 상품리뷰 목록 썸네일
+
+작성 가능한 리뷰와 내가 작성한 리뷰 목록은 `OrderProductSummary`의 `imageSize`에 PC·모바일 모두 96px를 전달한다. 썸네일은 96×96px 영역에서 상품 이미지 비율을 유지한다.
+
+출처는 사용자 브라우저 댓글·후속 요청과 `src/app/mypage/reviews/_components/ReviewsContent.tsx`의 작업 트리다. Codex가 2026-11-26에 `/mypage/reviews`와 `/mypage/reviews/preview-written`의 PC 1440px, 모바일 390px·320px에서 모든 행의 썸네일 크기와 리뷰 버튼 배치를 확인했다. 320px의 페이지 가로 넘침 3px은 기존 64px 크기를 적용한 비교에서도 같은 값이었다.
 
 2026-11-18 동일 부모 DataList root/list 통합: cart·결제·재입고·배송지의 class 배열을 하나의 root 호출로 줄였다. 리뷰 본문은 top unchanged로 기존 바깥 머리글 선 소유권을 유지한다. 기존 슬롯 list만 제거하고 URL·DOM·상태·서비스 계약은 유지한다. 옵션별 검증은 ui.md에 기록한다.
 
