@@ -24,6 +24,8 @@ export type SidebarNavigationGroup = {
 type SideNavigationProps = {
   title: string;
   titleTo: string;
+  /** PC 제목 타이포그래피이며 생략하면 h8B를 사용합니다. */
+  titleWeb?: TypographyProps['web'];
   groups: SidebarNavigationGroup[];
   activePath: string;
   mobileNavigation?: 'scroll' | 'hidden';
@@ -43,6 +45,7 @@ const navLink = cva({
 export function SideNavigation({
   title,
   titleTo,
+  titleWeb = 'h8B',
   groups,
   activePath,
   mobileNavigation,
@@ -61,7 +64,7 @@ export function SideNavigation({
       >
         <Stack alignItems="flex-start" gap="46px">
           <Link href={titleTo}>
-            <Typography as="span" web="h8B" mo="h8">
+            <Typography as="span" web={titleWeb} mo="h8">
               {title}
             </Typography>
           </Link>
@@ -120,7 +123,7 @@ export function SideNavigation({
     >
       <Box display="block" _mobile={{ flex: 'none', mr: '10' }}>
         <Link href={titleTo}>
-          <Typography as="span" web="h8B" mo="h8">
+          <Typography as="span" web={titleWeb} mo="h8">
             {title}
           </Typography>
         </Link>

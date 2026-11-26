@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-26T06:52:35Z'
+updated: '2026-11-26T06:58:59Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -1308,6 +1308,12 @@ IA 191의 기존 `previewRoutes`를 통해 STATE 행이 자동 표시되므로 �
 검증: 메인 main 1개/aside 0개, 주문·멤버십 활동·결제수단·환불계좌 main 1개/aside 1개를 확인했다. 같은 PC viewport에서 메인과 주문 breadcrumb x=32/y=162, MO에서 메인과 상품리뷰 breadcrumb x=16/y=126이 일치했다. 신청내역·쿠폰에서도 공통 메뉴와 검정 밑줄을 확인했다. 공통 플랫폼 판별과 centered 사용처 1곳을 보존했다.
 
 출처: 위 프레임·메뉴·주문 파일과 `src/app/mypage/event-entries/_components/RunClubEntriesContent.tsx`, `member-activity/page.tsx`, `payment-methods/page.tsx`, `refund-account/page.tsx`, `referral/_components/ReferralContent.tsx` 작업 트리. 사용자 확정 및 작성: 2026-10-30 (Asia/Seoul).
+
+## 마이페이지 PC 공통 제목 (2026-11-26)
+
+`MyPageFrame`의 `sidebar` 레이아웃은 PC에서 `SideNavigation`의 `titleWeb="h10"`으로 ‘마이페이지’를 22px·700으로 표시한다. 본문 영역의 기존 `h1`은 32px·700을 적용한다. 공용 `SideNavigation`의 `titleWeb` 생략 기본값은 `h8B`이며 모바일 사이드바 표시와 본문 타이포는 기존 설정을 따른다.
+
+출처는 사용자 브라우저 댓글·공통 적용 요청과 `src/app/mypage/_components/MyPageFrame.tsx`, `src/components/common/layouts/SidebarNavigationLayout.tsx` 작업 트리다. Codex가 PC 1440px에서 리뷰·주문·반품·상품내역·쿠폰·러닝세션·회원정보·배송지의 본문 `h1`과 사이드바 제목을 확인했다. PC 1240px에서 리뷰 등 표본과 고객센터 `SUPPORT` 28px·900을 확인했다. 모바일 390px에서는 리뷰·주문·배송지의 기존 22px·900 제목과 숨겨진 사이드바를 확인했다.
 
 ## 장바구니·로그인 마크업 확인 기준 (2026-10-30)
 

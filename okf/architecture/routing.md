@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-26T06:47:27Z'
+updated: '2026-11-26T06:58:59Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -719,6 +719,8 @@ IA의 경로·클라이언트 경계는 유지한다. `storybookLinks.ts`의 실
 ## 마이페이지 홈 프레임 재사용 (2026-10-28)
 
 /mypage의 RouteContent는 MyPageFrame의 centered 레이아웃으로 main과 Home·마이페이지 breadcrumb를 구성한다. 페이지는 기존 본문과 로그아웃 상태·콜백, RoutePreview의 LogoutDialog 계약을 계속 소유한다. 하위 마이페이지는 기본 sidebar를 사용하고 URL·페이지 export·플랫폼 판별은 바꾸지 않았다. 작업 트리 출처: src/app/mypage/page.tsx, src/app/mypage/_components/MyPageFrame.tsx. [프레임 API와 검증](ui.md#mypageframe-중앙-정렬-레이아웃-2026-10-28)을 참고한다.
+
+2026-11-26부터 마이페이지의 `sidebar` 레이아웃은 PC에서 사이드바 제목 22px·700과 기존 본문 `h1` 32px·700을 공통 적용한다. `/mypage`의 `centered` 프로필과 `/mypage/rewards`의 개인 등급 요약은 각 화면의 제목 체계를 유지한다. [스타일 소유권과 검증](ui.md#마이페이지-pc-공통-제목-2026-11-26).
 
 ## 부모 옵션을 통한 계정·고객센터 구성 (2026-10-28)
 
