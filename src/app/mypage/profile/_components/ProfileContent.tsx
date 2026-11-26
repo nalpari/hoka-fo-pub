@@ -28,7 +28,7 @@ import {
   type ProfilePhonePreview,
 } from '@/app/mypage/profile/mypage-profile.types';
 import { type Errors, type FieldName } from '@/lib/passwordValidation';
-import { getPhoneDigits } from '@/lib/phoneNumber';
+import { formatPhoneNumber, getPhoneDigits, isValidPhone } from '@/lib/phoneNumber';
 
 type Props = {
   phone: string;
@@ -44,10 +44,21 @@ function ProfilePhoneVerification({ phone, error, verified, previewState, onPhon
   const [notice, setNotice] = useState<'mismatch' | 'expired' | null>(
     previewState === 'expired' || previewState === 'mismatch' ? previewState : null,
   );
-  const requested = previewState !== undefined && previewState !== 'idle';
-  const expired = previewState === 'expired';
-  const phoneError = '';
-  const codeError = '';
+  const [stage, setStage] = useState<ProfilePhonePreview>(previewState ?? 'idle');
+  const [phoneError, setPhoneError] = useState('');
+  const [confirmedPreview, setConfirmedPreview] = useState(false);
+  const requested = stage !== 'idle';
+  const expired = stage === 'expired';
+  // [ 개발팀 바인딩 ] 요청과 확인은 화면 상태만 시연한다. 실제 문자 발송과 코드 검증, 만료 시각은 회원정보 연동 시 서버 응답으로 연결한다.
+  function requestCode() {
+    if (!isValidPhone(phone)) {
+      setPhoneError('휴대폰 번호를 올바르게 입력해주세요.');
+      return;
+    }
+    setCode('');
+    setStage('code-entry');
+    setConfirmedPreview(false);
+  }
   const dismissNotice = () => setNotice(null);
   return (
     <Stack gap="24px" alignItems="stretch">
@@ -62,8 +73,14 @@ function ProfilePhoneVerification({ phone, error, verified, previewState, onPhon
           type: 'tel',
           inputMode: 'numeric',
           autoComplete: 'tel-national',
-          value: phone,
-          onChange: (event) => onPhoneChange(getPhoneDigits(event.target.value)),
+          value: formatPhoneNumber(phone),
+          onChange: (event) => {
+            onPhoneChange(getPhoneDigits(event.target.value));
+            setStage('idle');
+            setCode('');
+            setPhoneError('');
+            setConfirmedPreview(false);
+          },
         }}
       />
       <Button
@@ -71,36 +88,47 @@ function ProfilePhoneVerification({ phone, error, verified, previewState, onPhon
         variant="primary"
         size="short"
         className={profileStyles.requestButton}
+        onClick={requestCode}
         disabled={verified || (requested && !expired)}
       >
         {requested ? '인증번호 재요청' : '인증번호 요청'}
       </Button>
       {requested ? (
-        <Stack gap="12px">
-          <TextFormField
-            label="인증번호"
-            id="profile-verification-code"
-            variant="boxed"
-            required
-            error={expired ? '인증 시간이 만료되었습니다. 인증번호를 재요청해 주세요.' : codeError}
-            inputProps={{
-              inputMode: 'numeric',
-              autoComplete: 'one-time-code',
-              maxLength: 6,
-              ref: codeInput,
-              value: code,
-              disabled: expired,
-              onChange: (event) => {
-                setCode(event.target.value.replace(/\D/g, '').slice(0, 6));
-              },
-            }}
-          />
-          <VerificationCountdown secondsLeft={expired ? 0 : 125} />
-          <StatusMessage>{'인증번호 입력 화면의 고정 예시입니다.'}</StatusMessage>
-          <Button type="button" fullWidth variant="primary" disabled={expired}>
+        <>
+          <Stack gap="8px">
+            <TextFormField
+              label="인증번호"
+              id="profile-verification-code"
+              variant="boxed"
+              required
+              error={expired ? '인증 시간이 만료되었습니다. 인증번호를 재요청해 주세요.' : undefined}
+              inputProps={{
+                inputMode: 'numeric',
+                autoComplete: 'one-time-code',
+                maxLength: 6,
+                ref: codeInput,
+                value: code,
+                disabled: expired,
+                onChange: (event) => {
+                  setConfirmedPreview(false);
+                  setCode(event.target.value.replace(/\D/g, '').slice(0, 6));
+                },
+              }}
+            />
+            <VerificationCountdown secondsLeft={expired ? 0 : 125} />
+          </Stack>
+          <Button
+            type="button"
+            variant="primary"
+            size="short"
+            className={profileStyles.requestButton}
+            disabled={expired || code.length !== 6 || confirmedPreview}
+            onClick={() => setConfirmedPreview(true)}
+          >
             인증번호 확인
           </Button>
-        </Stack>
+          {confirmedPreview && <StatusMessage>인증번호 확인 미리보기입니다.</StatusMessage>}
+        </>
       ) : null}
       {verified ? (
         <StatusMessage tone="success">휴대폰 인증이 완료되었습니다.</StatusMessage>
