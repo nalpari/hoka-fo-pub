@@ -201,7 +201,7 @@ function FaqList({ entries, openQuestion, onToggle }: FaqListProps) {
           }
           className={
             dataListRecipe({
-              top: 'thinTertiary',
+              top: 'thinSubtle',
               itemLayout: 'faqAccordion',
               columnGap: 'unchanged',
             }).root

@@ -2951,4 +2951,4 @@ PC는 본문 폭에 열을 균등 배치하고 행 높이는 52px이다. 모바�
 
 ## 고객센터 제목과 상단 구분선
 
-FAQ 질문과 공지 상세 게시글 제목은 PC·모바일 모두 18px Medium이며 목록 시작선과 상세 제목 위 선은 thinTertiary를 사용한다. 출처는 FaqContent.tsx와 공지 상세 page.tsx다.
+FAQ 질문과 공지 상세 게시글 제목은 PC·모바일 모두 18px Medium이며 FAQ 목록 시작선은 thinSubtle(black.20), 공지 상세 제목 위 선은 thinTertiary를 사용한다. 출처는 FaqContent.tsx와 공지 상세 page.tsx다.
