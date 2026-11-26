@@ -3,6 +3,7 @@
 import { css, cva } from 'styled-system/css';
 import { Box, Grid, HStack, Stack } from 'styled-system/jsx';
 
+import { Icon } from '@/components/common/atoms/Icon';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
@@ -64,16 +65,35 @@ function TierBadge({ tier, initial }: { tier?: string; initial?: string }) {
 
 const styles = {
   supportBody: css({ '&&': { lineHeight: 'body' } }),
-  supportBenefitTitle: css({
-    '&&': {
-      lineHeight: 'body',
-      _mobile: { lineHeight: 'body' },
-    },
+  commonBenefitHeading: css({
+    _web: { pb: '16px', borderBottom: '2px solid black' },
   }),
-  sectionHeading: css({
-    pb: '16px',
-    borderBottom: '2px solid black',
-    _mobile: { pb: '12px', borderBottom: '1px solid black' },
+  commonBenefit: css({
+    _web: {
+      py: '32px',
+      borderBottom: '1px solid var(--color-border-subtle)',
+      '&:nth-child(even)': { pl: '20px' },
+      '&:nth-child(odd)': {
+        pr: '20px',
+        position: 'relative',
+        '&:not(:last-child)::after': {
+          content: '""',
+          position: 'absolute',
+          right: '20px',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          w: '1px',
+          h: '60px',
+          bg: 'offWhite.100',
+        },
+      },
+    },
+    _mobile: {
+      minH: '128px',
+      p: '24px',
+      border: '1px solid var(--color-border-tertiary)',
+      '&:nth-child(4) h3': { gap: '12px' },
+    },
   }),
 };
 
@@ -178,55 +198,41 @@ function RewardBenefits({ display }: { display: MembershipBenefitsDisplay }) {
       <ContentSection
         as="section"
         gap="0"
-        _mobile={{ bg: 'black.10', px: '16px', py: '24px', gap: '20px' }}
+        _mobile={{ gap: '16px' }}
         title="HOKA 회원 공통 혜택"
         headerProps={{
           titleAs: 'h2',
-          titleProps: { web: 'h8B', mo: 'h8', className: styles.sectionHeading },
+          titleProps: { web: 'h8', mo: 'h8', className: styles.commonBenefitHeading },
         }}
       >
-        <Stack gap="0" pb={'40px'} _mobile={{ gap: '20px', pb: '0' }}>
-          {[commonBenefits.slice(0, 2), commonBenefits.slice(2, 4)]
-            .filter((row) => row.length > 0)
-            .map((row) => (
-              <Grid
-                key={row[0].title}
-                gridTemplateColumns="repeat(2, minmax(0, 1fr))"
-                columnGap="40px"
-                py="32px"
-                borderBottom="1px solid var(--colors-black-20)"
-                _mobile={{
-                  gridTemplateColumns: 'minmax(0, 1fr)',
-                  gap: '20px',
-                  py: 0,
-                  borderBottom: 0,
-                }}
-              >
-                {row.map((benefit, index) => (
-                  <ContentHeader
-                    as="section"
-                    key={benefit.title}
-                    gap="16px"
-                    title={benefit.title}
-                    titleAs="h3"
-                    titleProps={{
-                      web: 'b2M',
-                      mo: 'h8',
-                      className: styles.supportBenefitTitle,
-                    }}
-                    description={benefit.description}
-                    descriptionProps={{
-                      variant: 'b6',
-                      className: styles.supportBody,
-                    }}
-                    borderRight={index === 0 ? '1px solid var(--colors-black-20)' : undefined}
-                    pr={index === 0 ? '40px' : undefined}
-                    _mobile={{ gap: '12px', borderRight: 0, pr: 0 }}
-                  />
-                ))}
-              </Grid>
-            ))}
-        </Stack>
+        <Grid
+          as="ul"
+          columns={2}
+          gap="0"
+          pb="40px"
+          _mobile={{ gridTemplateColumns: '1fr', gap: '12px', pb: '0' }}
+        >
+          {commonBenefits.map((benefit) => (
+            <Stack
+              as="li"
+              key={benefit.title}
+              minW="0"
+              gap="16px"
+              _mobile={{ gap: '12px' }}
+              className={styles.commonBenefit}
+            >
+              <HStack as="h3" gap="12px" _mobile={{ gap: '8px' }}>
+                <Icon name="ticket-simple-solid" size={20} color="blue.100" />
+                <Typography web="b2M" mo="b4B">
+                  {benefit.title}
+                </Typography>
+              </HStack>
+              <Typography as="p" variant="b6">
+                {benefit.description}
+              </Typography>
+            </Stack>
+          ))}
+        </Grid>
       </ContentSection>
     </Stack>
   );
