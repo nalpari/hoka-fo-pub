@@ -67,7 +67,7 @@ export function SystemStatusPage({ status, maintenance }: SystemStatusPageProps)
             gap={notFound ? { base: '3', _mobile: '4' } : '4'}
             titleAs="h1"
             title={message.title}
-            titleProps={{ variant: 'b2E' }}
+            titleProps={{ web: 'b2M', mo: 'b3M' }}
             description={message.description}
             descriptionProps={{ variant: 'b6' }}
             w="100%"

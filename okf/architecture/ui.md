@@ -6411,3 +6411,5 @@ PC 1440×900과 모바일 360×768에서 버튼 높이 40px, 빈 화면 비활�
 사용자 확정으로 상품 목록·검색·상품 내역·쇼케이스와 상세의 `ProductIdentity`에서 `New`, `Best`, `Exclusive` 라벨을 기존 red80 토큰(#E10F00)으로 표시한다. PC와 모바일에 동일하게 적용하며 여러 라벨 사이 구분선도 같은 색을 사용한다. `promotionTone` 입력과 사용처별 지정을 제거했다. 앞선 상품 내역의 플랫폼별 배지색 기록은 이 공통 기준으로 갱신한다.
 
 출처는 사용자의 색상 및 공통 적용 지시, `ProductCard.tsx`, `MyPageProductHistory.tsx`, `ProductDetailContent.tsx`, 퍼블리싱 가이드 `ProductCardGuide.tsx` 작업 트리다. PC 1440×900과 모바일 360×768에서 최근 본 상품·관심상품·퍼블리싱 가이드의 프로모션 색을 rgb(225, 15, 0)으로 확인했다. 기록: codex/gpt-6, 2026-11-26T08:49:24.875Z.
+
+공통 오류·점검 화면(`SystemStatusPage`)의 제목은 PC 20px·모바일 18px Medium(500), 안내 본문은 두 화면 모두 14px Regular(400)이다.
