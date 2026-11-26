@@ -1263,7 +1263,7 @@ function SearchForm({ query, onQueryChange, onSearch, error = '' }: SearchFormPr
         onSearch={onSearch}
         iconPlacement="start"
         rootStyles={css.raw({
-          borderColor: error ? 'red.100' : 'black.100',
+          borderColor: error ? 'red.80' : 'black.100',
           display: mobile ? 'flex' : 'none',
         })}
         inputProps={{
@@ -1280,7 +1280,7 @@ function SearchForm({ query, onQueryChange, onSearch, error = '' }: SearchFormPr
       <Button variant="unstyled" type="submit" hidden aria-label="검색 실행" />
       {error ? (
         <Box p={{ base: '32px', _mobile: '8px 0 0' }}>
-          <StatusMessage tone="error" textProps={{ tone: 'error' }} id="site-search-error">
+          <StatusMessage tone="error" textProps={{ tone: 'red80' }} id="site-search-error">
             {error}
           </StatusMessage>
         </Box>
@@ -2199,7 +2199,7 @@ function HeaderSearch({
         gap="8px"
         px="12px"
         border="1px solid"
-        borderColor={error ? 'red.100' : 'black.100'}
+        borderColor={error ? 'red.80' : 'black.100'}
         borderRadius="999px"
         bg="white.0"
         _focusWithin={{ borderWidth: '2px' }}

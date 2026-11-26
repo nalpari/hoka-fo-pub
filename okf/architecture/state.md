@@ -887,3 +887,7 @@ AppLayout은 모바일 /search에서도 SiteHeader를 표시한다. /search와 /
 ## 타이포그래피 플랫폼 연결 (2026-11-25)
 
 Typography의 `web`·`mo`는 기존 `usePlatform()`으로 선택하고 Body는 공통 조합을 사용한다. 플랫폼 판별 기준 또는 overlay 상태 소유권은 기존 구현을 따른다. ShopShell의 내비게이션·검색·푸터 제목과 본문은 화면 역할별 신규 스타일로 연결한다. 디자인 가이드의 Wide·Compact 예시는 명시적 플랫폼을 사용한다. [폰트 체계](ui.md#displayheadingbody-타이포그래피-이관-2026-11-25).
+
+## 검색어 입력 오류 표시
+
+검색어가 비어 있으면 PC 헤더와 모바일 검색 입력의 테두리 및 오류 안내에 red80을 적용한다.
