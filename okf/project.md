@@ -4,7 +4,7 @@ title: '프로젝트 개요'
 description: '서비스 목적, 기술 버전과 구현 범위를 설명한다.'
 tags: [hoka, frontend, overview]
 status: draft
-updated: '2026-11-23T04:45:34.967867+00:00'
+updated: '2026-11-26T04:29:51Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
@@ -116,6 +116,10 @@ sources:
 `src/data/megaMenu.ts`의 기존 `explore` 메뉴 표시명을 Story로 변경했다. PC GNB와 모바일 전체메뉴가 같은 데이터를 사용한다. 메뉴 식별자와 하위 링크는 기존 연결을 따르며 런칭캘린더는 `/launch-calendar`의 탐색 링크로 제공한다. 표시·키보드 동작은 [GNB 상태 문서](architecture/state.md#gnb-story와-런칭캘린더-2026-11-11)에 기록했다.
 
 2026-11-09: 아이콘 가이드의 문의 첨부파일 사용 화면 링크와 카드 제목을 검토했다. PDF·이미지 카드가 첨부파일 미리보기 URL을 가리키고 한글 용도명으로 표시되도록 바꿨으며, 프로젝트 목적과 구현 범위 설명에는 영향이 없다. 출처: 작업 트리의 `src/app/publishing-guide/_components/IconGuide.tsx`.
+
+## 회원가입 부가정보 IA 삭제 (2026-11-26)
+
+회원가입 부가정보 IA 255번은 회원 정보 입력에 통합되어 `삭제 / 제외` 상태다. 마케팅 정보 수신내역 모달 IA 256번은 기존 번호를 사용하고 회원 정보 입력의 직접 하위에 배치한다. 출처는 사용자 요청과 `src/data/screenRegistry.ts` 작업 트리다. [경로와 검증](architecture/routing.md#회원가입-마케팅-수신-동의-통합-2026-11-26).
 
 ## IA 러닝세션 비고 문구 정리 (2026-11-04)
 

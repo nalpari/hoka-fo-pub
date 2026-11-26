@@ -681,10 +681,6 @@ const connections: Record<number, ScreenConnection> = {
     route: '/login/account-locked/complete',
     sourceFiles: ['src/app/login/account-locked/complete/page.tsx'],
   },
-  '255': {
-    route: '/signup/information?step=additional',
-    sourceFiles: ['src/app/signup/information/page.tsx'],
-  },
   '256': {
     route: '/signup/information/preview-marketing-consent',
     sourceFiles: [

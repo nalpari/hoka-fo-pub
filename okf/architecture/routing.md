@@ -4,12 +4,15 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-26T02:23:29.774Z'
+updated: '2026-11-26T04:29:51Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/signup/information/_components/RegistrationContent.tsx
+  - src/app/signup/information/_components/RegistrationStatePreview.tsx
+  - src/app/signup/information/preview-marketing-consent/page.tsx
   - src/app/checkout/preview-coupon-change/page.tsx
   - src/app/checkout/_components/CheckoutStatePreview.tsx
   - src/app/checkout/_components/CheckoutDiscountSummary.tsx
@@ -2631,6 +2634,18 @@ CartDialogs의 상품명을 PC/MO500으로 보정하고 색상 표시의 접두�
 ## 회원가입 혜택 문구 (2026-11-26)
 
 `/signup`의 가입 방식 선택 화면은 신규가입 혜택을 `10% 쿠폰`, 축하 쿠폰의 지급 계기를 `생일`로 안내한다. Codex가 2026-11-26에 `src/app/signup/_components/SignupContent.tsx` 작업 트리의 표시 데이터를 확인했다.
+
+## 회원가입 마케팅 수신 동의 통합 (2026-11-26)
+
+`/signup/information`의 회원 정보 폼에 이메일·문자 수신 동의를 통합했다. `step=additional` 분기를 제거해 이전 쿼리 URL로 접속해도 통합 폼을 표시한다. IA 255번 부가정보는 `삭제 / 제외`로 표시하고 직접 링크를 제거했다. IA 256번은 회원 정보 입력 바로 아래에서 수신내역 모달의 기존 미리보기 URL을 연다. 출처는 사용자 브라우저 주석 및 회원가입·IA 연결 파일의 작업 트리다. [IA 기준](../project.md#회원가입-부가정보-ia-삭제-2026-11-26).
+
+Codex는 PC 1440px·모바일 390px에서 이메일 입력·동의 선택과 모달 표시를 확인했다. 기존 쿼리 URL, 고정 입력 오류와 IA의 삭제 표시·모달 링크도 확인했다. TypeScript와 변경 파일 ESLint는 통과했다. IA 관련 테스트는 26개 중 25개가 통과했으며, 고객센터 `/support/inquiries/new/preview-attachment-picker`의 소스 연결 검사가 실패했다.
+
+## 회원가입 이메일 주소 단일 입력 (2026-11-26)
+
+`/signup/information`과 `/signup/information/preview-error`는 전체 이메일 주소를 받는 입력 한 칸을 공유한다. 고정 오류 화면은 이메일 형식 오류를 그 입력 아래에 표시한다. 출처는 사용자의 브라우저 주석과 회원가입 정보 입력 화면의 작업 트리다.
+
+Codex는 PC 1440px·모바일 390px에서 두 URL을 직접 열어 도메인 컨트롤 제거, 전체 이메일 주소 입력, 고정 이메일 오류 표시와 다음 버튼의 폼 연결을 확인했다. [이메일 입력 계약](ui.md#회원가입-이메일-입력-계약-2026-11-26).
 
 ## 회원가입 본인인증 안내와 선택 항목 (2026-11-26)
 

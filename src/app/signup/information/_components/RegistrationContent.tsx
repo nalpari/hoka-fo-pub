@@ -10,7 +10,6 @@ import { BindingFeedback } from '@/components/common/molecules/BindingFeedback';
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
 
 import { AddressFields } from '@/components/common/organisms/Address/AddressFields';
-import { EmailAddressFields } from '@/components/common/organisms/EmailAddressFields';
 
 import { AccountPageLayout } from '@/components/common/layouts/AccountPageLayout';
 import { ContentSection } from '@/components/common/layouts/ContentSection';
@@ -62,7 +61,9 @@ function RegistrationField({
                 ? 'username'
                 : key === 'phone'
                   ? 'tel'
-                  : 'off',
+                  : key === 'email'
+                    ? 'email'
+                    : 'off',
         onChange: (event) => onChange(key, event.target.value),
       }}
     />
@@ -88,31 +89,6 @@ function RegistrationIdFields(props: RegistrationIdFieldsProps) {
       </Button>
       {props.duplicateNotice ? <StatusMessage>{props.duplicateNotice}</StatusMessage> : null}
     </Stack>
-  );
-}
-type RegistrationEmailFieldsProps = Pick<
-  RegistrationContentProps,
-  'information' | 'fieldErrors' | 'onChange' | 'domainChoice' | 'onDomainChoice'
->;
-const options = [
-  { value: 'direct', label: '직접입력' },
-  { value: 'naver.com', label: 'naver.com' },
-  { value: 'gmail.com', label: 'gmail.com' },
-  { value: 'daum.net', label: 'daum.net' },
-];
-function RegistrationEmailFields(props: RegistrationEmailFieldsProps) {
-  return (
-    <EmailAddressFields
-      idPrefix="registration"
-      local={props.information.email}
-      domain={props.information.domain}
-      domainChoice={props.domainChoice}
-      errors={{ local: props.fieldErrors.email, domain: props.fieldErrors.domain }}
-      options={options}
-      onLocalChange={(value) => props.onChange('email', value)}
-      onDomainChange={(value) => props.onChange('domain', value)}
-      onDomainChoice={props.onDomainChoice}
-    />
   );
 }
 type RegistrationPersonalFieldsProps = Pick<
@@ -259,7 +235,7 @@ function RegistrationAdditionalFields(props: RegistrationAdditionalFieldsProps) 
 export function RegistrationContent(props: RegistrationContentProps) {
   return (
     <AccountPageLayout
-      title={props.stage === 'information' ? '회원 정보' : '부가 정보'}
+      title="회원 정보"
       actionsSpacing="compact"
       actions={
         <>
@@ -274,43 +250,39 @@ export function RegistrationContent(props: RegistrationContentProps) {
     >
       <form id="registration-form" noValidate onSubmit={props.onSubmit}>
         <Stack gap="6">
-          {props.stage === 'information' ? (
-            <>
-              <RegistrationIdFields
-                information={props.information}
-                fieldErrors={props.fieldErrors}
-                onChange={props.onChange}
-                onDuplicateCheck={props.onDuplicateCheck}
-                duplicateNotice={props.duplicateNotice}
-              />
-              <Stack gap="4">
-                <RegistrationPersonalFields
-                  information={props.information}
-                  fieldErrors={props.fieldErrors}
-                  onChange={props.onChange}
-                />
-                <RegistrationAddressFields
-                  information={props.information}
-                  fieldErrors={props.fieldErrors}
-                  onChange={props.onChange}
-                  addressOpen={props.addressOpen}
-                  onAddressOpen={props.onAddressOpen}
-                />
-                <RegistrationEmailFields
-                  information={props.information}
-                  fieldErrors={props.fieldErrors}
-                  onChange={props.onChange}
-                  domainChoice={props.domainChoice}
-                  onDomainChoice={props.onDomainChoice}
-                />
-              </Stack>
-            </>
-          ) : (
-            <RegistrationAdditionalFields
-              preferences={props.preferences}
-              onPreferenceChange={props.onPreferenceChange}
+          <RegistrationIdFields
+            information={props.information}
+            fieldErrors={props.fieldErrors}
+            onChange={props.onChange}
+            onDuplicateCheck={props.onDuplicateCheck}
+            duplicateNotice={props.duplicateNotice}
+          />
+          <Stack gap="4">
+            <RegistrationPersonalFields
+              information={props.information}
+              fieldErrors={props.fieldErrors}
+              onChange={props.onChange}
             />
-          )}
+            <RegistrationAddressFields
+              information={props.information}
+              fieldErrors={props.fieldErrors}
+              onChange={props.onChange}
+              addressOpen={props.addressOpen}
+              onAddressOpen={props.onAddressOpen}
+            />
+            <RegistrationField
+              information={props.information}
+              fieldErrors={props.fieldErrors}
+              onChange={props.onChange}
+              fieldKey="email"
+              label="이메일 주소"
+              type="email"
+            />
+          </Stack>
+          <RegistrationAdditionalFields
+            preferences={props.preferences}
+            onPreferenceChange={props.onPreferenceChange}
+          />
           {props.notice ? <StatusMessage tone="error">{props.notice}</StatusMessage> : null}
         </Stack>
       </form>
@@ -343,11 +315,11 @@ function MarketingConsentSummaryModal({
       variant="alert"
       open={open}
       onOpenChange={onOpenChange}
-      title="마케팅 정보 수신내역 안내"
+      title="부가정보"
       closeLabel="마케팅 정보 수신내역 안내 닫기"
 
       actions={{ kind: 'single', onConfirm: onConfirm, buttonProps: { disabled: pending } }}
-      message="마케팅 정보 수신 내역"
+      message="마케팅 정보 수신 동의 내역"
       description={items.map(({ label, value }, index) => (
         <span key={label}>
           {index > 0 && <br />}

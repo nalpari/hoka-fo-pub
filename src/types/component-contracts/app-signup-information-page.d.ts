@@ -29,13 +29,6 @@ type RegistrationIdFieldsProps = Pick<
 declare function RegistrationIdFields(
   props: RegistrationIdFieldsProps,
 ): import('react').JSX.Element;
-type RegistrationEmailFieldsProps = Pick<
-  RegistrationContentProps,
-  'information' | 'fieldErrors' | 'onChange' | 'domainChoice' | 'onDomainChoice'
->;
-declare function RegistrationEmailFields(
-  props: RegistrationEmailFieldsProps,
-): import('react').JSX.Element;
 type RegistrationPersonalFieldsProps = Pick<
   RegistrationContentProps,
   'information' | 'fieldErrors' | 'onChange'
@@ -103,7 +96,6 @@ export default function Page(): import('react').JSX.Element;
 export {
   RegistrationField,
   RegistrationIdFields,
-  RegistrationEmailFields,
   RegistrationPersonalFields,
   RegistrationAddressFields,
   RegistrationPreferenceRow,

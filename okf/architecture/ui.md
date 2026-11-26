@@ -4,12 +4,13 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-25T04:40:52Z'
+updated: '2026-11-26T04:29:51Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/types/component-contracts/app-signup-information-page.d.ts
   - src/app/products/[id]/_components/ProductDetailContent.tsx
   - src/app/products/[id]/productDetailPreviews.ts
   - src/app/support/after-sales/_components/AfterSalesContent.tsx
@@ -1473,6 +1474,16 @@ ProfilePhoneVerification은 6자리 코드 불일치를 SingleActionDialog로 �
 사용자의 시스템 기획 변경에 따라 마이페이지 회원정보 조회·편집의 결혼유무 표시/라디오를 제거했다. 유일한 부가정보 항목이었으므로 빈 제목·구분선·간격 그룹도 제거하고 마케팅 수신 동의 다음에 저장/취소 액션을 표시한다. MyPageProfile의 상태와 관련 prop/callback, MaritalStatus 타입을 함께 삭제했다. 회원가입은 이미 해당 항목이 제거된 상태이며 src 전체 검색에서 결혼유무·maritalStatus·MaritalStatus·marital-status의 운영 구현 참조가 남지 않는 것을 확인했다(비노출을 확인하는 스토리 assertion은 제외). 아래 과거 Figma/병합 기록의 결혼유무 설명은 당시 상태에 대한 이력이며 현재 구현은 이 절을 따른다. 주소·이메일 편집과 휴대폰 인증·비밀번호 팝업은 유지한다.
 
 브라우저에서 편집·조회 화면 모두 결혼유무·부가정보 제목·라디오가 없는 것을 확인했다. 타입 검사·마이페이지 및 변경 공통 컴포넌트/스토리 ESLint·Panda 생성 포함 프로덕션 빌드·Storybook 빌드를 통과했다.
+
+## 회원가입 마케팅 수신 동의 배치 (2026-11-26)
+
+회원 정보 폼의 이메일 주소 아래에 기존 마케팅 정보 수신 동의 섹션을 24px 간격으로 배치한다. 이메일·문자 라디오 값은 기존 `preferences`와 `onPreferenceChange`로 관리한다. 수신내역 모달과 고정 오류 화면은 통합 폼을 사용한다. 출처는 사용자 브라우저 주석과 `RegistrationContent.tsx`, `RegistrationStatePreview.tsx`, `registration.types.ts` 작업 트리다. [경로와 검증](routing.md#회원가입-마케팅-수신-동의-통합-2026-11-26).
+
+## 회원가입 이메일 입력 계약 (2026-11-26)
+
+회원가입 `RegistrationContent`는 기존 boxed 텍스트 필드에 `type="email"`과 `autoComplete="email"`을 적용한다. `RegistrationInformation.email`은 전체 주소를 담고 `fieldErrors.email`은 해당 입력의 오류를 표시한다. 회원가입의 분리 도메인 값·선택 상태와 이전 컴포넌트 선언을 제거했다. 실제 가입 요청은 통합 소유자의 연결 범위다.
+
+마이페이지 회원정보 편집은 `EmailAddressFields`로 로컬 부분과 도메인을 입력한다. Codex는 `/mypage/profile/preview-edit`에서 도메인 선택이 표시되는 것을 확인했다. 출처는 회원가입 정보 입력 구현과 `app-signup-information-page.d.ts`의 작업 트리, 사용자 브라우저 주석이다.
 
 ## 회원정보 주소·이메일 편집 재사용 (2026-10-26)
 
