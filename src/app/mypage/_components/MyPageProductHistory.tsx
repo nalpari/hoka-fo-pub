@@ -417,7 +417,7 @@ export function MyPageProductHistory({
           }
           gap="0"
           pb={items.length ? '0' : '40px'}
-          borderBottom={!items.length ? '2px solid var(--color-black-20)' : undefined}
+          borderBottom={isEmpty && restock ? '2px solid var(--color-black-20)' : undefined}
           _mobile={{
             px: !restock && items.length ? '16px' : '0',
             pt: '0',
