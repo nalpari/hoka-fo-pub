@@ -98,7 +98,7 @@ function DetailSectionTitle({ children }: { children: string }) {
 function DetailProduct({ line }: { line: OrderLine }) {
   return (
     <Grid role="row" gridTemplateColumns="minmax(0, 1fr) 108px 200px" gap="0" alignItems="center">
-      <Box role="cell" gridColumn="1" minW="0" pl="24px">
+      <Box role="cell" gridColumn="1" minW="0">
         <OrderProductSummary
           variant="history"
           image={line.image}
@@ -168,12 +168,7 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
             borderBottom="1px solid var(--colors-black-20)"
           >
             <Stack gap={{ base: '24px', _mobile: '12px' }}>
-              <HStack
-                justifyContent="space-between"
-                gap="8px"
-                pl={{ base: '24px', _mobile: '0' }}
-                pr={{ base: '24px', _mobile: '0' }}
-              >
+              <HStack justifyContent="space-between" gap="8px" pr={{ base: '24px', _mobile: '0' }}>
                 <Typography variant="b6">
                   <Typography as="span" web="b6S" mo="b6M" tone="red80">
                     {display.status}
@@ -245,11 +240,7 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
             py={{ base: '32px', _mobile: '24px' }}
             borderBottom="1px solid var(--colors-black-20)"
           >
-            <HStack
-              justifyContent={{ base: 'flex-start', _mobile: 'space-between' }}
-              gap="16px"
-              px={{ base: '24px', _mobile: '0' }}
-            >
+            <HStack justifyContent={{ base: 'flex-start', _mobile: 'space-between' }} gap="16px">
               <Typography variant="b6M" tone={mobile ? 'tertiary' : 'error'}>
                 {group.label}
               </Typography>
