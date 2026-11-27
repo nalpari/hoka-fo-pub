@@ -170,7 +170,7 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
             <Stack gap={{ base: '24px', _mobile: '12px' }}>
               <HStack justifyContent="space-between" gap="8px" pr={{ base: '24px', _mobile: '0' }}>
                 <Typography variant="b6">
-                  <Typography as="span" web="b6S" mo="b6M" tone="red80">
+                  <Typography as="span" web="b6S" mo="b6M" tone="accent">
                     {display.status}
                   </Typography>
                   {' · '}

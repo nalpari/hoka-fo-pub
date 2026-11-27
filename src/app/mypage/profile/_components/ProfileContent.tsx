@@ -115,7 +115,7 @@ function ProfilePhoneVerification({ phone, error, verified, previewState, onPhon
                 },
               }}
             />
-            <VerificationCountdown secondsLeft={expired ? 0 : 125} tone="red80" />
+            <VerificationCountdown secondsLeft={expired ? 0 : 125} />
           </Stack>
           <Button
             type="button"

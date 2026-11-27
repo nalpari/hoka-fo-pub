@@ -201,7 +201,7 @@ function RunningSessionFacts({
 const detailText = css({ display: 'block', mt: '4px' });
 const styles = {
   image: css({ w: '100%', h: 'auto', aspectRatio: '1', objectFit: 'cover', display: 'block' }),
-  opening: css({ color: 'var(--color-red-80)', mb: '24px' }),
+  opening: css({ color: 'accent', mb: '24px' }),
   recommendations: css({ _mobile: { '& > div': { gap: '16px' } } }),
   recommendationRail: css({ _mobile: { px: '11px!' } }),
 };

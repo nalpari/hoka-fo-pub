@@ -13,7 +13,7 @@ const muted = (
 );
 
 const promotion = (
-  <Badge variant="plain" tone="red80">
+  <Badge variant="plain" tone="accent">
     Exclusive
   </Badge>
 );

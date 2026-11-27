@@ -6409,7 +6409,7 @@ PC와 모바일 모두 ‘현재 운영 중인 세션이 없습니다.’로 표
 
 공통 `RatingStars`는 표시형과 선택형 모두 호카 블루를 기본색으로 사용한다. 별의 채움과 윤곽은 점수를 나타낸다.
 
-VerificationCountdown은 기본 accent 색상을 사용하며 회원정보 수정에서는 red80을 지정한다.
+VerificationCountdown은 모든 호출부에 accent를 적용한다. Typography와 Badge의 강조 색상 이름은 accent이며 Panda의 red.80(#E10F00)을 참조한다. 원색 토큰은 색상 가이드에서 계속 표시한다.
 
 ## 최근 본 상품 전체삭제와 빈 목록 (2026-11-26)
 

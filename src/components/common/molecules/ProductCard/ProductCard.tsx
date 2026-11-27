@@ -192,7 +192,7 @@ function ProductPrice({
             variant="b4"
             mo="b6"
             className={detailPriceText}
-            tone={variant === 'listing' || detailPrice ? 'red80' : 'error'}
+            tone={variant === 'listing' || detailPrice ? 'accent' : 'error'}
             aria-label={`${discountLabel} 할인`}
           >
             {discountLabel}
@@ -259,7 +259,7 @@ export function ProductIdentity({
                 weight="medium"
                 web="b6"
                 mo="b8"
-                tone="red80"
+                tone="accent"
                 className={detailIdentityStyles.badges}
               >
                 {promotion}
@@ -350,7 +350,7 @@ export function ProductIdentity({
       w="full"
     >
       {promotion && (
-        <Badge variant="plain" data-product-promotion tone="red80">
+        <Badge variant="plain" data-product-promotion tone="accent">
           {promotion}
         </Badge>
       )}

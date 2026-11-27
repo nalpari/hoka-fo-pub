@@ -15,7 +15,6 @@ export const typographyTones = {
   black40: { color: 'var(--color-black-40)' },
   black20: { color: 'var(--color-black-20)' },
   black10: { color: 'var(--color-black-10)' },
-  red80: { color: 'var(--color-red-80)' },
 } as const;
 
 type NamedTone = keyof typeof typographyTones;
