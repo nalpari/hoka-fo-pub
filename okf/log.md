@@ -1,3 +1,7 @@
+## 2026-11-27 메인 PC·모바일 시안 반영
+
+- Hero, Shop by category, Explore, Best sellers의 이미지·글자·간격을 시안에 맞췄다. 모바일 섹션 순서를 시안에 맞췄다. [시안과 브라우저 실측](architecture/home-product-design.md#메인-섹션-실측-2026-11-27).
+
 ## 2026-11-27 주요 PC 화면 제목 굵기 변경
 
 - 고객센터·주문/결제의 코멘트 8곳과 관련 화면의 일반 제목에 같은 크기의 Bold 700을 적용했다. [적용 범위](architecture/routing.md#주요-pc-화면-제목의-bold-적용-2026-11-27).

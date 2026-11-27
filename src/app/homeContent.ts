@@ -4,10 +4,13 @@
  * 링크는 내부 경로/외부 URL 의미를 유지하고 배너 표시 순서/이미지/대체 텍스트를 같은 콘텐츠 응답에서 갱신합니다.
  */
 
+import type { Platform } from '@/context/platform';
+
 import type {
   MainContentCardAction,
   MainContentCardImageAspectRatio,
 } from '@/components/common/molecules/MainContentCard';
+import type { ProductCardProduct } from '@/components/common/molecules/ProductCard/ProductCard';
 
 export type HomeCategory = {
   actions: readonly MainContentCardAction[];
@@ -74,16 +77,66 @@ export const bestSellerTabs = [
   '리커버리',
 ] as const;
 
+const trailPreviewItems = {
+  'clifton-url': { name: 'Clifton URL', gender: 'Men’s' },
+  'speedgoat-brown': { name: 'Speedgoat 7 GTX', gender: 'All Gender' },
+  'speedgoat-black': { name: 'Speedgoat 7 GTX', gender: 'Men’s', mobileGender: 'Women’s' },
+  'speedgoat-red': { name: 'Speedgoat 7 GTX', gender: 'Women’s' },
+  'clifton-olive': { name: 'Clifton 11', gender: 'Men’s' },
+  'clifton-grey': { name: 'Clifton 11', gender: 'Men’s' },
+};
+
+const trailPreviewOrder = {
+  web: [
+    'clifton-url',
+    'speedgoat-brown',
+    'speedgoat-black',
+    'speedgoat-red',
+    'clifton-olive',
+    'clifton-grey',
+  ],
+  mobile: [
+    'speedgoat-brown',
+    'speedgoat-black',
+    'clifton-olive',
+    'speedgoat-red',
+    'clifton-url',
+    'clifton-grey',
+  ],
+} as const satisfies Record<Platform, readonly (keyof typeof trailPreviewItems)[]>;
+
+/**
+ * [ 개발팀 바인딩 ]
+ * 트레일 러닝 탭의 고정 시안 데이터입니다. 키는 카드 표시용이며 실제 상품 ID가 아닙니다.
+ * 홈 통합 소유자가 카테고리 변경에 따라 현재 상품 목록·상세 href를 연결합니다.
+ * 현재는 시안 카드가 카테고리 목록으로 이동하며 상품 조회 요청은 실행하지 않습니다.
+ */
+export function getHomeTrailPreviewProducts(platform: Platform): ProductCardProduct[] {
+  const imagePlatform = platform === 'web' ? 'pc' : 'mo';
+  return trailPreviewOrder[platform].map((key) => {
+    const item = trailPreviewItems[key];
+    return {
+      id: key,
+      name: item.name,
+      gender: platform === 'mobile' && 'mobileGender' in item ? item.mobileGender : item.gender,
+      price: 240000,
+      primaryImage: `/images/home/best-sellers/${imagePlatform}-${key}.webp`,
+    };
+  });
+}
+
 export type HomeExplore = {
   actions: readonly MainContentCardAction[];
   description: string;
   image: string;
   imageAspectRatio?: MainContentCardImageAspectRatio;
+  mobileDescription?: string;
+  mobileImage: string;
   title: string;
 };
 
 const homeExploreImageAspectRatio: MainContentCardImageAspectRatio = {
-  desktop: '500 / 667',
+  desktop: '500 / 665.77',
   mobile: '375 / 500',
 };
 
@@ -91,15 +144,20 @@ export const homeExplores: readonly HomeExplore[] = [
   {
     title: 'Marathon Pack',
     description: '획기적인 속도와 지속적인 편안함을 위해 설계되었습니다.',
-    image: '/images/temp/@explore-1.png',
+    image: '/images/home/explore/pc-marathon-pack.webp',
     imageAspectRatio: homeExploreImageAspectRatio,
+    mobileDescription: '획기적인 속도와 지속적인 편안함을 위해\n설계되었습니다.',
+    mobileImage: '/images/home/explore/mo-marathon-pack.webp',
     actions: [{ label: '상품 보러가기', to: '/explore' }],
   },
   {
     title: 'Fly to the finish',
     description: '레이스 당일을 위해 제작된 가벼운 장비로, 오직 달리기에만 집중할 수 있습니다.',
-    image: '/images/temp/@explore-2.png',
+    image: '/images/home/explore/pc-fly-to-the-finish.webp',
     imageAspectRatio: homeExploreImageAspectRatio,
+    mobileDescription:
+      '레이스 당일을 위해 제작된 가벼운 장비로,\n오직 달리기에만 집중할 수 있습니다.',
+    mobileImage: '/images/home/explore/mo-fly-to-the-finish.webp',
     actions: [
       { label: '남성 보러가기', to: '/explore' },
       { label: '여성 보러가기', to: '/explore' },
@@ -108,8 +166,9 @@ export const homeExplores: readonly HomeExplore[] = [
   {
     title: 'Clifton 11 GTX',
     description: 'A cushioned ride, rain or shine.',
-    image: '/images/temp/@explore-3.png',
+    image: '/images/home/explore/pc-clifton-11-gtx.webp',
     imageAspectRatio: homeExploreImageAspectRatio,
+    mobileImage: '/images/home/explore/mo-clifton-11-gtx.webp',
     actions: [
       { label: '남성 보러가기', to: '/explore' },
       { label: '여성 보러가기', to: '/explore' },

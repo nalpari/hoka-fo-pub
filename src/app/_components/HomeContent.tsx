@@ -29,6 +29,7 @@ import { MainSection } from '@/components/common/layouts/MainSection';
 import { createHomeCarouselPreviewItems } from '@/app/homeCarouselPreview';
 import {
   bestSellerTabs,
+  getHomeTrailPreviewProducts,
   homeCategories,
   homeExplores,
   type HomeShoeFinderCardVariant,
@@ -73,7 +74,7 @@ function HomeLayout({ platform, children }: { platform: Platform; children: Reac
       color="var(--color-text-primary)"
       bg="var(--color-surface-default)"
       fontFamily="var(--font-family-base)"
-      pb="28"
+      pb="24"
       _mobile={{ pb: '72px' }}
       css={{
         _mobile: {
@@ -89,7 +90,7 @@ function HomeLayout({ platform, children }: { platform: Platform; children: Reac
           '--home-body-40': 'clamp(2.5rem, calc(1.90362595rem + 2.54452926vw), 3.125rem)',
           '--home-pagination-dot': 'clamp(0.375rem, calc(0.19608779rem + 0.76335878vw), 0.5625rem)',
           '--home-pagination-active': 'clamp(2rem, calc(1.04580153rem + 4.07124682vw), 3rem)',
-          '--home-pagination-gap': 'clamp(0.5rem, calc(0.26145038rem + 1.0178117vw), 0.75rem)',
+          '--home-pagination-gap': 'clamp(0.4375rem, calc(0.139313rem + 1.272265vw), 0.75rem)',
         },
       }}
     >
@@ -108,24 +109,58 @@ const mobileRail = css({
 });
 
 const mobileSlide = css({
-  // The 375px frame has 150px cards and 10px gaps.
-  w: 'calc(40vw + 10px)!',
+  // The 375px frame has 151px cards and 10px gaps.
+  w: 'calc(40.2667vw + 10px)!',
   px: '5px!',
   '& > *': { w: '100%!' },
 });
+
+const bestSellerSection = css({
+  '& > div': { gap: '20px' },
+  '& h2': { lineHeight: '33.5px' },
+  '& article.card': { gap: '12px' },
+  '& article div:has(> [data-product-gender])': { gap: '0' },
+  '& article div:has(> [data-product-price])': { gap: '10px' },
+  '& [data-product-gender], & [data-product-name]': { lineHeight: '1.3' },
+  '& [data-product-price] span': { lineHeight: '1.3', fontWeight: 'medium' },
+  _mobile: {
+    '& > div': { gap: '16px' },
+    '& h2': { lineHeight: '31px', transform: 'translateY(-3px)' },
+    '& article.card': { gap: '8px' },
+    '& article div:has(> [data-product-gender])': { gap: '2px' },
+    '& article div:has(> [data-product-price])': { gap: '4px' },
+    '& [data-product-price] span': { fontSize: 'body.14' },
+  },
+});
+
+const bestSellerTabRail = css({ '&&': { gap: '8px', _mobile: { gap: '6px' } } });
+
+const bestSellerTab = css({
+  '&&': { height: '35px' },
+  '& > span': { fontSize: 'body.16', lineHeight: '1.3' },
+  _mobile: {
+    '&&': { height: '30px', px: '15px' },
+    '& > span': { fontSize: 'body.12' },
+  },
+});
+
 type BestSellerTab = (typeof bestSellerTabs)[number];
+
 const bestSellerFilterTabs: readonly FilterTabOption<BestSellerTab>[] = bestSellerTabs.map(
   (tab) => ({
     label: tab,
     value: tab,
   }),
 );
-const getBestSellerProducts = (tab: BestSellerTab) => {
+
+const mobileBestSellerFilterTabs = bestSellerFilterTabs.map((tab) =>
+  tab.value === '로드 러닝' ? { ...tab, label: '로드러닝' } : tab,
+);
+
+const getBestSellerProducts = (tab: Exclude<BestSellerTab, '트레일 러닝'>) => {
   if (tab === '전체') return products.slice(0, 12);
   if (tab === '로드 러닝')
     return products.filter((product) => product.category === '러닝').slice(0, 12);
-  if (tab === '트레일 러닝')
-    return products.filter((product) => product.category === '트레일').slice(0, 12);
   if (tab === '라이프스타일') {
     return products.filter((product) => product.category === '라이프스타일').slice(0, 12);
   }
@@ -136,15 +171,21 @@ const getBestSellerProducts = (tab: BestSellerTab) => {
 function HomeBestSellerSection() {
   const platform = usePlatform();
   const isWeb = platform === 'web';
-  const [selectedTab, setSelectedTab] = useState<BestSellerTab>('전체');
-  const bestSellerProducts = createHomeCarouselPreviewItems(getBestSellerProducts(selectedTab));
+  const [selectedTab, setSelectedTab] = useState<BestSellerTab>('트레일 러닝');
+  const isTrailPreview = selectedTab === '트레일 러닝';
+  const bestSellerProducts = createHomeCarouselPreviewItems(
+    isTrailPreview ? getHomeTrailPreviewProducts(platform) : getBestSellerProducts(selectedTab),
+  );
   return (
     <CarouselSection
+      className={bestSellerSection}
       tabs={
         <FilterTabs
           ariaLabel="베스트셀러 카테고리 필터"
+          itemClassName={() => bestSellerTab}
           onValueChange={setSelectedTab}
-          options={bestSellerFilterTabs}
+          options={isWeb ? bestSellerFilterTabs : mobileBestSellerFilterTabs}
+          railClassName={bestSellerTabRail}
           value={selectedTab}
           variant="fill"
         />
@@ -158,12 +199,19 @@ function HomeBestSellerSection() {
       slideClassName={isWeb ? undefined : mobileSlide}
       spacing="tight"
       title="Best sellers"
-      titleVariant="d4"
-      mobileTitleVariant="h5B"
+      titleVariant="h1B"
+      mobileTitleVariant="h4B"
       viewportKey={selectedTab}
     >
       {bestSellerProducts.map((product, index) => (
-        <ProductCard key={`${product.id}-${index}`} product={product} variant="showcase" />
+        <ProductCard
+          href={isTrailPreview ? '/products?activity=trail-running' : undefined}
+          key={`${product.id}-${index}`}
+          product={product}
+          textWeights={{ identity: 'medium' }}
+          thumbnailVariant="listing"
+          variant="showcase"
+        />
       ))}
     </CarouselSection>
   );
@@ -177,20 +225,33 @@ const HomeCategorySectionMobileSlide = css({
 type HomeCategorySectionProps = {
   platform: Platform;
 };
-const categoryCard = css({
-  '&&': { gap: '20px' },
-  '& h3': { fontSize: 'heading.28', lineHeight: 'hoka' },
-  '& .card__header': { gap: '0' },
-  '& .card__action': { mt: '4px' },
+
+const categorySection = css({
+  '& h2': { lineHeight: '38.4px', transform: 'translateY(5.5px)' },
   _mobile: {
-    '&&': { gap: '16px' },
-    '& h3': { fontSize: 'heading.22' },
+    '& > div': { gap: '16px' },
+    '& h2': { lineHeight: '31px', transform: 'translateY(-3px)' },
+  },
+});
+
+const categoryCard = css({
+  '&&': { gap: '0' },
+  '& h3': { textStyle: 'en-wide-h8B', lineHeight: '28px' },
+  '& .card__header': { gap: '0', mt: '17px' },
+  '& .card__footer': { mt: '18px' },
+  '& .card__action a > span > span': { textStyle: 'ko-common-b4S', lineHeight: '1.3' },
+  _mobile: {
+    '& h3': { textStyle: 'en-compact-h6B', lineHeight: '23.04px' },
+    '& .card__header': { mt: '16px' },
+    '& .card__footer': { mt: '12.5px' },
+    '& .card__action a > span > span': { textStyle: 'ko-common-b6S', lineHeight: '1.3' },
   },
 });
 function HomeCategorySection({ platform }: HomeCategorySectionProps) {
   const isWeb = platform === 'web';
   return (
     <CarouselSection
+      className={categorySection}
       desktopCenteredItemCount={4}
       desktopItemGutter={8}
       itemCount={homeCategories.length}
@@ -199,8 +260,8 @@ function HomeCategorySection({ platform }: HomeCategorySectionProps) {
       mobileRail="bleed"
       slideClassName={isWeb ? undefined : HomeCategorySectionMobileSlide}
       title="Shop by category"
-      titleVariant="d4"
-      mobileTitleVariant="h5B"
+      titleVariant="h1B"
+      mobileTitleVariant="h4B"
     >
       {homeCategories.map((category) => (
         <MainContentCard className={categoryCard} key={category.title} {...category} />
@@ -208,31 +269,69 @@ function HomeCategorySection({ platform }: HomeCategorySectionProps) {
     </CarouselSection>
   );
 }
-const exploreCard = css({
-  '&&': { gap: '20px' },
-  '& h3': { fontSize: 'heading.28', lineHeight: 'hoka' },
-  '& .card__header': { gap: '24px' },
-  '& .card__header p': { minH: '0', fontFamily: 'var(--font-family-base)' },
+
+const exploreSection = css({
+  '& h2': { lineHeight: '34px' },
   _mobile: {
-    '&&': { aspectRatio: '375 / 500', p: '16px 16px 50px', gap: '20px' },
-    '& .card__header': { gap: '20px' },
+    '& > div': { gap: '16px' },
+    '& h2': { lineHeight: '31px', transform: 'translateY(-3px)' },
   },
 });
+
+const exploreCard = css({
+  '&&': { gap: '0' },
+  '& h3': { textStyle: 'en-wide-h8B', lineHeight: '28px' },
+  '& .card__header': { gap: '16px', mt: '17px' },
+  '& .card__header p': { minH: '0' },
+  '& .card__footer': { mt: '14.5px' },
+  '& .card__action a > span > span': { textStyle: 'ko-common-b4S', lineHeight: '1.3' },
+  _mobile: {
+    '&&': { aspectRatio: '375 / 500', p: '16px 16px 50px' },
+    // The mobile photo exports already include the designed gradient.
+    '& .card__content > div[aria-hidden="true"]': { display: 'none' },
+    '& h3': { textStyle: 'en-compact-h6B', lineHeight: '23.04px' },
+    '& .card__header': { gap: '12.5px', mt: '0' },
+    '& .card__header p': { lineHeight: '18.2px', whiteSpace: 'pre-line' },
+    '& .card__footer': { mt: '16.5px' },
+    '& .card__action': { gap: '8px' },
+    '& .card__action a': {
+      minH: 'var(--home-body-40, 40px)',
+      '--button-padding-x': 'var(--home-body-16, 16px)',
+    },
+    '& .card__action a > span > span': { textStyle: 'ko-common-b6B', lineHeight: '1.3' },
+  },
+});
+
+const exploreMobileCopy = css({ fontWeight: 'medium' });
+
 function HomeExploreSection() {
   const platform = usePlatform();
   const isMobile = platform === 'mobile';
   return (
-    <MainSection title="Explore" titleVariant="d4" mobileTitleVariant="h5B">
+    <MainSection
+      className={exploreSection}
+      title="Explore"
+      titleVariant="h1B"
+      mobileTitleVariant="h4B"
+    >
       <Grid
         gridTemplateColumns="repeat(3, 1fr)"
         gap="4"
         _mobile={{ gap: '2', gridTemplateColumns: 'repeat(1, 1fr)' }}
       >
-        {homeExplores.map((explore) => (
+        {homeExplores.map(({ mobileImage, mobileDescription, ...explore }) => (
           <MainContentCard
             className={exploreCard}
             key={explore.title}
             {...explore}
+            image={isMobile ? mobileImage : explore.image}
+            description={
+              isMobile && mobileDescription ? (
+                <span className={exploreMobileCopy}>{mobileDescription}</span>
+              ) : (
+                explore.description
+              )
+            }
             actions={explore.actions.map((action) => ({
               ...action,
               variant: isMobile ? 'primary' : action.variant,
@@ -255,24 +354,52 @@ type HeroCopyAction = {
 type HeroCopyProps = {
   content: HeroCopyContent;
   actions: readonly HeroCopyAction[];
+  platform: Platform;
 };
+
 const title = css({
+  '--hero-title-leading': '76.8px',
   m: '0',
+  '&&': {
+    fontSize: '80px',
+    lineHeight: 'var(--hero-title-leading)',
+    transform: 'translateY(-5.5px)',
+  },
+  _mobile: {
+    '--hero-title-leading': '0.96',
+    '&&': { fontSize: 'var(--home-title-40, 40px)', transform: 'translateY(-2.5px)' },
+  },
 });
+
 const description = css({
+  '--hero-description-offset': '-1px',
   m: '0',
-  '&&': { fontFamily: 'var(--font-family-base)' },
   w: 'auto',
-  _mobile: { w: '100%', maxW: '100%', overflowWrap: 'anywhere' },
+  transform: 'translateY(var(--hero-description-offset))',
+  _mobile: {
+    '--hero-description-offset': '2px',
+    w: '100%',
+    maxW: '100%',
+    overflowWrap: 'anywhere',
+    '&&': { lineHeight: '1.3' },
+  },
 });
+
+const heroTechnology = css({ fontFamily: 'en' });
+
+const heroAction = css({
+  '& > span > span': { textStyle: 'ko-common-b4S', lineHeight: '1.3' },
+  _mobile: { '& > span > span': { textStyle: 'ko-common-b6B', lineHeight: '1.3' } },
+});
+
 /** 홈 Hero의 제목·설명·행동 링크를 배치합니다. (Arranges the home hero title, description, and action links.) */
-function HeroCopy({ content, actions }: HeroCopyProps) {
+function HeroCopy({ content, actions, platform }: HeroCopyProps) {
   return (
     <VStack
       alignItems="flex-start"
       position="absolute"
       zIndex="1"
-      top="50%"
+      top="calc(50% - 2px)"
       left="50%"
       className={contentFrame({
         mobileWidth: 'calc(100% - var(--layout-mobile-content-inline-space))',
@@ -284,19 +411,19 @@ function HeroCopy({ content, actions }: HeroCopyProps) {
         left: 'var(--layout-mobile-inline-gutter)',
         transform: 'none',
       }}
-      gap={{ base: '36px', _mobile: '24px' }}
+      gap={{ base: '24px', _mobile: '20px' }}
     >
       <ContentHeader
         title={content.title}
         titleAs="h1"
         alignItems="flex-start"
         maxW="100%"
-        gap="24px"
+        gap={{ base: '14px', _mobile: '10px' }}
         titleProps={{
           className: title,
           tone: 'inverse',
           web: 'd1',
-          mo: 'd3',
+          mo: 'd4',
         }}
         description={content.description}
         descriptionAs="div"
@@ -304,14 +431,15 @@ function HeroCopy({ content, actions }: HeroCopyProps) {
           className: description,
           tone: 'inverse',
           web: 'b1',
-          mo: 'b4',
+          mo: 'b4M',
         }}
       />
       <HStack alignItems="flex-start" flexWrap="wrap" maxW="100%" gap="8px">
         {actions.map((action) => (
           <ButtonLink
-            size="tall"
+            className={heroAction}
             key={`${action.to}-${action.label}`}
+            size={platform === 'mobile' ? 'short' : 'tall'}
             variant="primary"
             colorway="white"
             href={action.to}
@@ -337,6 +465,7 @@ type HeroPaginationProps = {
 };
 const paginationButton = css({
   '--hero-pagination-dot': '8px',
+  '--hero-pagination-active-size': '42px',
   w: 'var(--hero-pagination-dot)',
   h: 'var(--hero-pagination-dot)',
   p: '0',
@@ -348,12 +477,12 @@ const paginationButton = css({
   cursor: 'pointer',
   transition: 'width 200ms ease',
   '&[aria-pressed="true"]': {
-    w: '42px',
+    w: 'var(--hero-pagination-active-size)',
     bg: 'color-mix(in srgb, var(--color-white-000) 50%, transparent)',
   },
   _mobile: {
     '--hero-pagination-dot': 'var(--home-pagination-dot, 6px)',
-    '&[aria-pressed="true"]': { w: 'var(--home-pagination-active, 32px)' },
+    '--hero-pagination-active-size': 'var(--home-pagination-active, 32px)',
   },
   _focusVisible: { outline: '2px solid var(--color-text-inverse)', outlineOffset: '3px' },
 });
@@ -385,11 +514,11 @@ function HeroPagination({
       pos="absolute"
       zIndex="1"
       right="0"
-      bottom="32px"
+      bottom="40px"
       left="0"
       justifyContent="center"
       gap="2"
-      _mobile={{ bottom: '12px', gap: 'var(--home-pagination-gap, var(--spacing-2))' }}
+      _mobile={{ bottom: '18px', gap: 'var(--home-pagination-gap, 7px)' }}
       role="group"
     >
       {slides.map((slide, index) => (
@@ -448,6 +577,7 @@ type HeroAction = HeroCopyAction;
 type HeroContentSlide = HeroSlideProps & {
   actions: readonly HeroAction[];
   content: HeroCopyContent;
+  mobileImageHasGradient?: boolean;
 };
 type HeroProps = {
   slides: readonly HeroContentSlide[];
@@ -466,7 +596,7 @@ function usePrefersReducedMotion() {
   }, []);
   return prefersReducedMotion;
 }
-function Hero({ ariaLabel, platform, slides }: HeroProps) {
+function Hero({ ariaLabel, platform = 'web', slides }: HeroProps) {
   const [activeSlide, setActiveSlide] = useState(0);
   const [autoplayCycle, setAutoplayCycle] = useState(0);
   const [isFocused, setIsFocused] = useState(false);
@@ -608,17 +738,16 @@ function Hero({ ariaLabel, platform, slides }: HeroProps) {
           ))}
         </Flex>
       </Box>
-      <Box
-        pos="absolute"
-        inset="0"
-        pointerEvents="none"
-        _mobile={{
-          background:
-            'linear-gradient(180deg, color-mix(in srgb, var(--color-black-100) 0%, transparent) 41.11%, color-mix(in srgb, var(--color-black-100) 30%, transparent) 76.91%)',
-        }}
-        aria-hidden="true"
-      />
-      <HeroCopy content={currentSlide.content} actions={currentSlide.actions} />
+      {platform === 'mobile' && !currentSlide.mobileImageHasGradient && (
+        <Box
+          pos="absolute"
+          inset="0"
+          pointerEvents="none"
+          background="linear-gradient(180deg, color-mix(in srgb, var(--color-black-100) 0%, transparent) 41.11%, color-mix(in srgb, var(--color-black-100) 30%, transparent) 76.91%)"
+          aria-hidden="true"
+        />
+      )}
+      <HeroCopy content={currentSlide.content} actions={currentSlide.actions} platform={platform} />
       <HeroPagination
         activeSlide={activeSlide}
         isProgressPaused={isPaused || prefersReducedMotion !== false}
@@ -647,14 +776,15 @@ function HomeHeroSection({ platform }: HomeHeroSectionProps) {
             title: 'TECTON X 4',
             description: (
               <>
-                <span>새롭게 선보이는 초고속 ProFly X 기술로</span>
+                새롭게 선보이는 초고속 <span className={heroTechnology}>ProFly X</span> 기술로
                 <br />
                 당신의 최고 기록에 도전하세요.
               </>
             ),
           },
-          desktopImage: '/images/temp/MainBannerWeb.png',
-          mobileImage: '/images/temp/MainBannerMobile.png',
+          desktopImage: '/images/home/hero/pc-tecton-x-4.webp',
+          mobileImage: '/images/home/hero/mo-tecton-x-4.webp',
+          mobileImageHasGradient: true,
           actions: [
             { label: '남성 보러가기', to: '/products' },
             { label: '여성 보러가기', to: '/products' },
@@ -791,14 +921,17 @@ export function RouteContent({ promotion, previewPromotion = false }: HomeConten
         onDismiss: () => setPreviewDismissed(true),
       }
     : promotion;
+  const category = <HomeCategorySection key="category" platform={platform} />;
+  const explore = <HomeExploreSection key="explore" />;
+  const bestSellers = <HomeBestSellerSection key="best-sellers" />;
+  const shoeFinder = <HomeShoeFinderSection key="shoe-finder" platform={platform} />;
 
   return (
     <HomeLayout platform={platform}>
-      {<HomeHeroSection platform={platform} />}
-      {<HomeCategorySection platform={platform} />}
-      {<HomeShoeFinderSection platform={platform} />}
-      {<HomeExploreSection />}
-      <HomeBestSellerSection />
+      <HomeHeroSection platform={platform} />
+      {platform === 'web'
+        ? [category, shoeFinder, explore, bestSellers]
+        : [category, bestSellers, explore, shoeFinder]}
       {currentPromotion && <HomePromotionDialog {...currentPromotion} />}
     </HomeLayout>
   );

@@ -501,7 +501,9 @@ IA 166의 원본/보정 비고는 `[ 11/16 기획 원복 ] 기획전 목록 페�
 
 `src/app/screen-index/sourceGraph.generated.json`의 주문 상세 연결 목록을 현재 import 관계로 갱신해 사용하지 않는 `BottomSheet.tsx`를 제외했다. `OrderDetails.tsx`의 참조와 `npm run screen-files` 재실행 결과를 확인했으며 화면 URL과 라우트 동작에는 영향이 없다.
 
-홈 `/`의 섹션 순서는 히어로 → 카테고리 → Find my HOKA → Explore → Best Seller다. 홈의 `HomeContent.tsx`가 PC와 모바일의 공통 순서를 정한다. 러닝세션의 ‘신청 시작’ 알림은 기존 상세 경로에서 신청 예정 상태일 때 표시하며, 색상은 [러닝세션 디자인](running-session-design.md#신청-시작-알림-색상과-목록-이미지-모서리-2026-11-05)을 따른다.
+홈 `/`의 PC 섹션 순서는 Hero → Shop by category → Find my HOKA → Explore → Best sellers다. 모바일 순서는 Hero → Shop by category → Best sellers → Explore → Find my HOKA다. `HomeContent.tsx`가 플랫폼과 순서를 결정하며, 동일한 키로 각 섹션의 상태를 보존한다. [메인 시안과 검증](home-product-design.md#메인-섹션-실측-2026-11-27).
+
+러닝세션의 ‘신청 시작’ 알림은 기존 상세 경로에서 신청 예정 상태일 때 표시하며, 색상은 [러닝세션 디자인](running-session-design.md#신청-시작-알림-색상과-목록-이미지-모서리-2026-11-05)을 따른다.
 
 ## 배송지 관리 목록 (2026-11-05)
 
