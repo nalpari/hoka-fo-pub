@@ -4,7 +4,7 @@ title: '사이즈 가이드'
 description: '품목별 측정 안내, 선택 상태와 미확정 데이터의 표시 범위를 설명한다.'
 tags: [support, size-guide, storybook]
 status: draft
-updated: '2026-11-25T01:20:48.907Z'
+updated: '2026-11-27T12:55:12+09:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T04:46:17Z'
@@ -34,6 +34,9 @@ working_tree_sources:
   - src/stories/features/support/SupportPages.scenarios.tsx
   - public/images/size-guide/
 sources:
+  - id: support-size-guide-layout-20261127
+    resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design
+    title: '고객센터 사이즈 가이드 신발·의류·용품 PC 및 모바일'
   - id: size-guide-desktop-selector
     resource: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design
     title: 'PC 성별 선택·차트·단위 탭'
@@ -58,6 +61,24 @@ sources:
 ---
 
 # 사이즈 가이드
+
+## 고객센터 사이즈 가이드 디자인 반영 (2026-11-27)
+
+카테고리와 성별은 PC에서 40px 간격으로 한 줄에 놓고 모바일에서 위아래로 배치한다. 두 선택 그룹 높이는 PC 48px, 모바일 44px이다. 선택값은 검은색 바탕으로 표시하며 카테고리 변경 시 해당 카테고리의 첫 성별과 기본 단위로 시작한다.
+
+성별·카테고리 이름이 들어간 차트 제목 오른쪽에 cm/inch 선택 버튼을 둔다. 차트의 제목 행은 PC 최소 36px, 모바일 최소 32px을 확보해 단위 선택이 없는 용품으로 바꿔도 제목과 표의 시작 위치가 유지된다. 기존 치수 데이터를 46px 높이, 가운데 정렬, 13px 텍스트로 표시한다. 국가 코드는 신발과 의류 모두 미국(US)·한국(KR)로 통일했다. 용품은 공용 선택과 양말 차트만 제공한다.
+
+측정 방법 안내는 차트 아래에 배치한다. 시안의 신발 그림과 남성·공용 의류 및 여성 의류 이미지를 4:3으로 표시한다. PC는 288×216px 이미지 오른쪽에 설명을, 모바일은 본문 너비를 채우는 이미지 아래에 설명을 놓는다. PC 소제목은 22px/900, 모바일 소제목은 20px/700을 적용한다.
+
+표시 데이터와 상호작용의 작업 트리 출처는 `src/app/support/size-guide/page.tsx`, `src/app/support/size-guide/_components/SizeGuidePanel.tsx`, `src/app/support/size-guide/size-guide.data.ts`, `public/images/size-guide/support-size-*.png`다. 운영 치수표와 이미지의 갱신은 라우트에 데이터를 전달하는 연동 담당자가 맡는다. [Figma 디자인][^support-size-guide-layout-20261127].
+
+Codex는 2026-11-27 Chromium의 PC 1920px과 모바일 375px에서 각 13개 선택 조합과 키보드 선택, 캡슐·표 치수, 측정 이미지 로드를 확인했다. PC 288×216px과 모바일 본문 343px의 4:3 이미지 및 PC·모바일 리사이즈 시 여성 의류 inch 선택 유지를 확인했다. 제목과 표 머리글은 렌더링 글리프의 Pretendard Black·Bold·Medium을 대조했다. Figma의 옛 스타일명은 실측 크기와 굵기에 맞춰 현재 Typography 스타일에 매핑했다. 개발 서버의 공통 홍보 배너와 Windows 스크롤바는 시안의 절대 위치와 구분했다.
+
+320px에서 가이드 본문은 가로로 넘치지 않았으며 공통 푸터의 사업자정보확인 링크가 3px 넘치는 현상은 고객센터 메인에서도 재현됐다. 치수 데이터를 공유하는 상품 상세 의류 팝업도 PC 1440px과 모바일 375px에서 열고 cm/inch 전환과 닫기를 확인했다. 변경 범위 ESLint·Prettier, Panda, TypeScript, Next 프로덕션 빌드, App Router·IA 그래프·OKF 테스트 11개와 작업 트리 문서 누락 검사가 통과했다. 전체 ESLint는 `tests/wh-file-summary.test.mjs`의 브라우저 전역 변수 `no-undef` 8건을 보고했다.
+
+[^support-size-guide-layout-20261127]: https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design
+
+제목 행 후속 검증(2026-11-27): PC 1454px과 모바일 375px에서 의류 → 용품 → 신발 → 의류로 전환했다. 제목 행은 각각 36px과 32px이었고 제목과 표의 시작 좌표가 전환 전후 동일했다. 용품에서 단위 버튼이 표시되지 않는 것도 확인했다.
 
 ## 상품 상세 사이즈 가이드 내용 동기화 (2026-11-25)
 

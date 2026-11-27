@@ -3,10 +3,9 @@
 import Image from 'next/image';
 
 import { useState } from 'react';
-import { usePlatform } from '@/context/platform';
 
-import { css, cva } from 'styled-system/css';
-import { Box, Grid, Stack } from 'styled-system/jsx';
+import { css } from 'styled-system/css';
+import { Box, Flex, Grid, Stack } from 'styled-system/jsx';
 
 import { DataTable } from '@/components/common/atoms/DataTable';
 import {
@@ -24,292 +23,212 @@ import {
   type Unit,
 } from '@/app/support/size-guide/size-guide.data';
 
-const option = cva({
-  base: {
-    minH: '37px',
-    px: '4',
-    border: '0',
-    borderRadius: '30px',
+const styles = {
+  choiceGroup: css({
+    display: 'flex',
+    alignItems: 'center',
+    p: '2px',
+    h: '48px',
+    borderRadius: '52px',
     bg: 'black.20',
+    _mobile: { h: '44px' },
+  }),
+  choiceButton: css({
+    flex: '1 1 0',
+    minW: '0',
+    h: '44px',
+    border: '0',
+    borderRadius: '52px',
+    bg: 'transparent',
     color: 'black.100',
     cursor: 'pointer',
-    _focusVisible: { outline: '2px solid var(--color-focus-ring)', outlineOffset: '2px' },
-  },
-  variants: {
-    grouped: {
-      true: {
-        h: '44px',
-        minH: '44px',
-        px: '10',
-        _mobile: { h: '40px', minH: '40px', w: '64px', px: '0' },
-      },
+    '&[aria-pressed=true]': { bg: 'black.100', color: 'white' },
+    _focusVisible: { outline: '2px solid var(--color-focus-ring)', outlineOffset: '-2px' },
+    _mobile: { h: '40px' },
+  }),
+  unitGroup: css({
+    display: 'flex',
+    alignItems: 'stretch',
+    flexShrink: '0',
+    bg: '#D9D9D9',
+    p: '2px',
+    h: '36px',
+    borderRadius: 'full',
+    _mobile: { h: '32px' },
+  }),
+  unitButton: css({
+    w: '51px',
+    border: '0',
+    borderRadius: 'full',
+    bg: 'transparent',
+    color: 'black.100',
+    cursor: 'pointer',
+    '&[aria-pressed=true]': { bg: 'white' },
+    _focusVisible: { outline: '2px solid var(--color-focus-ring)', outlineOffset: '-2px' },
+    _mobile: { w: '47px' },
+  }),
+  chartHeader: css({ minH: '36px', _mobile: { minH: '32px' } }),
+  chart: css({
+    '&&': {
+      fontSize: 'body.13',
+      lineHeight: 'body',
+      textAlign: 'center',
+      '& th, & td': { h: '46px', px: '1' },
+      '& thead th': { bg: 'black.10', fontSize: 'body.13', fontWeight: 'medium' },
     },
-    selected: {
-      true: { bg: 'var(--color-black-100)', color: 'white', borderColor: 'var(--color-black-100)' },
-    },
-    compact: {
-      true: {
-        flex: '1',
-        minH: '44px',
-        px: '4',
-        borderBottom: '1px solid token(colors.black.40)',
-        borderRadius: '0',
-        bg: 'transparent',
-        color: 'black.100',
-        _mobile: { minH: '36.8px' },
-        '&[aria-pressed=true]': {
-          bg: 'transparent',
-          color: 'black.100',
-          borderBottom: '2px solid black',
-        },
-      },
-    },
-  },
-  compoundVariants: [{ grouped: true, selected: true, css: { _mobile: { w: 'auto', px: '5' } } }],
-});
-
-/** 사이즈 가이드의 선택 항목을 일반 또는 조밀한 버튼으로 표시합니다. (Displays size guide choices as regular or compact buttons.) */
-function SizeGuideChoiceGroup<T extends string>({
-  label,
-  options,
-  value,
-  onValueChange,
-  compact = false,
-}: {
-  label: string;
-  options: readonly SegmentedControlOption<T>[];
-  value: T;
-  onValueChange: (value: T) => void;
-  compact?: boolean;
-}) {
-  const grouped = !compact;
-  const choices = (
-    <SegmentedControl
-      unstyled
-      ariaLabel={label}
-      options={options}
-      value={value}
-      onValueChange={onValueChange}
-      className={css({
-        display: 'flex',
-        flexWrap: 'nowrap',
-        gap: '0',
-        w: compact ? '270px' : 'fit-content',
-        p: grouped ? '1' : '0',
-        bg: grouped ? 'black.20' : undefined,
-        borderRadius: grouped ? '52px' : undefined,
-        _mobile: {
-          p: grouped ? '0.5' : '0',
-          w: 'fit-content',
-        },
-      })}
-      itemClassName={(_, selected) =>
-        option({
-          selected,
-          compact,
-          grouped,
-        })
-      }
-      itemRender={({ label }) => (
-        <Typography as="button" variant={compact ? 'b4M' : 'b6M'}>
-          {label}
-        </Typography>
-      )}
-    />
-  );
-
-  if (compact) return choices;
-
-  return (
-    <Stack gap="4">
-      <Typography web="h10B" mo="h8">
-        {label}
-      </Typography>
-      {choices}
-    </Stack>
-  );
-}
-
-function SizeGuideMeasurementImage({ image, label }: { image: string; label: string }) {
-  return (
-    <Box pos="relative" w="100%" h={{ base: '422px', _mobile: '274px' }} bg="#E0E0E0">
-      <Image
-        src={`/images/size-guide/${image}.png`}
-        alt={`${label} 치수 측정 위치`}
-        fill
-        sizes="(max-width: 1024px) calc(100vw - 32px), 844px"
-        className={css({
-          objectFit: 'contain',
-          objectPosition: 'center',
-        })}
-      />
-    </Box>
-  );
-}
-
-type SizeGuideMeasurementMethodProps = {
-  title: string;
-  steps: readonly string[];
-  description?: string;
+  }),
 };
 
-function SizeGuideMeasurementMethod({
-  title,
-  steps,
-  description,
-}: SizeGuideMeasurementMethodProps) {
-  return (
-    <ContentSection
-      as="div"
-      title={title}
-      headerProps={{
-        titleAs: 'h3',
-        titleProps: {
-          web: 'h10B',
-          mo: 'h8',
-          className: css({ pl: { base: '2', _mobile: '0' } }),
-        },
-      }}
-      gap="2"
-      bg="black.10"
-      px={{ base: '5', _mobile: '3' }}
-      py={{ base: '8', _mobile: '6' }}
-      flex="1"
-    >
-      <Stack as="ol" gap="0" listStyleType="none" m="0" p="0">
-        {steps.map((step, index) => (
-          <Stack
-            as="li"
-            key={step}
-            gap="3"
-            py="4"
-            px={{ base: '3', _mobile: '0' }}
-            borderBottom={index < steps.length - 1 ? '1px solid token(colors.black.20)' : undefined}
-          >
-            <Typography web="h10" mo="h8">
-              STEP {index + 1}.
-            </Typography>
-            <Typography web="b4" mo="b8">
-              {step}
-            </Typography>
-          </Stack>
-        ))}
-      </Stack>
-      {description && (
-        <Typography web="b4" mo="b8" tone="subtle">
-          * {description}
-        </Typography>
-      )}
-    </ContentSection>
-  );
-}
-
-const footWidthSteps = [
-  '종이 위에 발을 올리고 양 발의 윤곽을 따라 그려 주세요.',
-  '발 앞부분의 가장 넓은 지점(엄지발가락과 새끼발가락 아래쪽) 사이의 너비를 측정해 주세요.',
-  '양발 중 더 넓은 발을 기준으로 사이즈표와 비교하여 적합한 발볼 옵션을 확인해 주세요.',
-] as const;
-
-function SizeGuideMeasurementInstructions({
-  label,
-  shoes,
-  steps,
-}: {
-  label: string;
-  shoes: boolean;
-  steps: readonly string[];
-}) {
-  return (
-    <Stack
-      gap="4"
-      flexDirection={{ base: shoes ? 'row' : 'column', _mobile: 'column' }}
-      alignItems="stretch"
-    >
-      <SizeGuideMeasurementMethod
-        title={`${shoes ? '발 길이' : label} 측정 방법`}
-        steps={steps}
-        description={
-          shoes ? undefined : '측정한 치수를 사이즈표와 비교해 가장 알맞은 사이즈를 선택해 주세요.'
-        }
-      />
-      {shoes && <SizeGuideMeasurementMethod title="발볼 너비 측정 방법" steps={footWidthSteps} />}
-    </Stack>
-  );
-}
-
-function SizeGuideMeasurements({ category, gender }: { category: GuideCategory; gender: Gender }) {
-  const { label, measurement, value } = category;
-  if (!measurement) return null;
-
-  const image =
-    gender === 'women' ? (measurement.womenImage ?? measurement.image) : measurement.image;
-
-  return (
-    <Grid gridTemplateColumns="minmax(0, 1fr)" gap={{ base: '6', _mobile: '8' }} alignItems="start">
-      <SizeGuideMeasurementImage image={image} label={label} />
-      <SizeGuideMeasurementInstructions
-        label={label}
-        shoes={value === 'shoes'}
-        steps={measurement.steps}
-      />
-    </Grid>
-  );
-}
+const sectionTitle = { web: 'h10B', mo: 'h8' } as const;
 
 const unitOptions = [
   { value: 'cm', label: 'cm' },
   { value: 'inch', label: 'inch' },
 ] as const;
 
-type SizeGuideChartProps = {
+function SizeGuideChoiceGroup<T extends string>({
+  label,
+  options,
+  value,
+  onValueChange,
+}: {
+  label: string;
+  options: readonly SegmentedControlOption<T>[];
+  value: T;
+  onValueChange: (value: T) => void;
+}) {
+  const single = options.length === 1;
+
+  return (
+    <ContentSection
+      title={label}
+      headerProps={{ titleProps: sectionTitle }}
+      gap="4"
+      w={single ? { base: '164px', _mobile: '117px' } : '100%'}
+    >
+      <SegmentedControl
+        ariaLabel={label}
+        className={styles.choiceGroup}
+        itemClassName={() => styles.choiceButton}
+        itemRender={({ label }) => (
+          <Typography as="button" variant="b6">
+            {label}
+          </Typography>
+        )}
+        options={options}
+        value={value}
+        onValueChange={onValueChange}
+        unstyled
+      />
+    </ContentSection>
+  );
+}
+
+function SizeGuideMeasurements({ category, gender }: { category: GuideCategory; gender: Gender }) {
+  const { label, measurement } = category;
+  if (!measurement) return null;
+
+  const image =
+    gender === 'women' ? (measurement.womenImage ?? measurement.image) : measurement.image;
+
+  return (
+    <ContentSection
+      title="측정 방법 안내"
+      headerProps={{
+        titleProps: sectionTitle,
+        description: '측정한 치수를 사이즈표와 비교해 가장 알맞은 사이즈를 선택해 주세요.',
+        descriptionProps: { web: 'b4', mo: 'b6' },
+        gap: { base: '3', _mobile: '2' },
+      }}
+      gap={{ base: '6', _mobile: '4' }}
+    >
+      <Grid
+        gridTemplateColumns={{ base: '288px minmax(0, 1fr)', _mobile: 'minmax(0, 1fr)' }}
+        gap={{ base: '10', _mobile: '6' }}
+        alignItems="start"
+      >
+        <Box pos="relative" w="100%" aspectRatio="4 / 3" bg="#E0E0E0">
+          <Image
+            src={`/images/size-guide/${image}.png`}
+            alt={`${label} 치수 측정 위치`}
+            fill
+            sizes="(max-width: 1024px) calc(100vw - 32px), 288px"
+            className={css({ objectFit: 'contain' })}
+          />
+        </Box>
+        <Stack as="ol" gap="4" listStyleType="none" role="list" m="0" p="0">
+          {measurement.steps.map((step, index) => (
+            <Stack as="li" key={step} gap="2">
+              <Flex gap="1">
+                <Typography variant="b4B" language="en">
+                  {index + 1}.
+                </Typography>
+                <Typography variant="b4B">{measurement.stepTitles[index]}</Typography>
+              </Flex>
+              <Typography as="p" variant="b6">
+                {step}
+              </Typography>
+            </Stack>
+          ))}
+        </Stack>
+      </Grid>
+    </ContentSection>
+  );
+}
+
+function SizeGuideChart({
+  category,
+  gender,
+  unit,
+  onUnitChange,
+}: {
   category: GuideCategory;
   gender: Gender;
   unit: Unit;
   onUnitChange: (unit: Unit) => void;
-};
-
-function SizeGuideChart({ category, gender, unit, onUnitChange }: SizeGuideChartProps) {
+}) {
   const chart = category.charts[gender]?.[unit];
-  const shoes = category.value === 'shoes';
   const genderLabel = genderOptions.find((item) => item.value === gender)?.label;
-  const caption = `${category.chartTitle ?? category.label} ${genderLabel} 사이즈 차트 (${unit === 'cm' ? 'CM' : 'INCH'})`;
+  const title = category.chartTitle ?? `${genderLabel} ${category.label} 사이즈 차트`;
 
   return (
     <ContentSection
-      title={category.chartTitle ?? '사이즈 차트'}
+      title={title}
       gap="4"
       headerProps={{
-        titleAs: 'h3',
-        titleProps: {
-          web: 'h10B',
-          mo: 'h8B',
-        },
+        titleProps: sectionTitle,
         orientation: 'horizontal',
-        gap: '3',
+        gap: '2',
+        className: styles.chartHeader,
         action:
           category.units.length > 1 ? (
-            <SizeGuideChoiceGroup
-              label="측정 단위"
+            <SegmentedControl
+              ariaLabel="측정 단위"
+              className={styles.unitGroup}
+              itemClassName={() => styles.unitButton}
+              itemRender={({ label }) => (
+                <Typography as="button" variant="b6">
+                  {label}
+                </Typography>
+              )}
               options={unitOptions.filter(({ value }) => category.units.includes(value))}
               value={unit}
               onValueChange={onUnitChange}
-              compact
+              unstyled
             />
           ) : undefined,
       }}
     >
       {chart ? (
-        <DataTable caption={caption} variant="striped" density={shoes ? 'regular' : 'compact'}>
+        <DataTable
+          caption={category.units.length > 1 ? `${title} (${unit.toUpperCase()})` : title}
+          variant="striped"
+          className={styles.chart}
+        >
           <thead>
             <tr>
-              {chart.headers.map((label, index) => (
-                <th
-                  key={index}
-                  scope="col"
-                  className={
-                    index === 1 && shoes ? css({ '&&&': { fontWeight: 'medium' } }) : undefined
-                  }
-                >
+              {chart.headers.map((label) => (
+                <th key={label} scope="col">
                   {label}
                 </th>
               ))}
@@ -340,39 +259,48 @@ function SizeGuideChart({ category, gender, unit, onUnitChange }: SizeGuideChart
   );
 }
 
-/** 사이즈 기준과 측정 안내를 표시합니다 (Displays the size guide panel composition). */
-export function SizeGuidePanel({ category }: { category: GuideCategory }) {
-  const platform = usePlatform();
+/** 카테고리와 성별에 맞는 사이즈표와 측정 안내를 표시합니다. (Displays the chart and measurement guide for the selected category and gender.) */
+export function SizeGuidePanel({
+  categories,
+}: {
+  categories: readonly [GuideCategory, ...GuideCategory[]];
+}) {
+  const [categoryValue, setCategoryValue] = useState(categories[0].value);
+  const category = categories.find(({ value }) => value === categoryValue) ?? categories[0];
   const [gender, setGender] = useState<Gender>(category.genders[0]);
-  const [unit, setUnit] = useState<Unit>('cm');
-  const genderSelection = (
-    <SizeGuideChoiceGroup
-      label="성별 선택"
-      options={genderOptions.filter(({ value }) => category.genders.includes(value))}
-      value={gender}
-      onValueChange={setGender}
-    />
-  );
+  const [unit, setUnit] = useState<Unit>(category.units[0]);
 
   return (
-    <ContentSection
-      {...(platform === 'mobile'
-        ? { header: null }
-        : {
-            title: category.label,
-            headerProps: { titleAs: 'h2' as const, titleProps: { variant: 'h8B' as const } },
-          })}
-      gap="8"
-      pt={{ base: '8', _mobile: '9' }}
-      pb="0"
-    >
-      <Stack gap={{ base: '14', _mobile: '8' }}>
-        <SizeGuideMeasurements category={category} gender={gender} />
-        <Stack gap="6">
-          {genderSelection}
-          <SizeGuideChart category={category} gender={gender} unit={unit} onUnitChange={setUnit} />
-        </Stack>
-      </Stack>
-    </ContentSection>
+    <Stack gap="10" pt={{ base: '10', _mobile: '14' }} pb={{ _mobile: '6' }}>
+      <Grid
+        gridTemplateColumns={{
+          base: 'repeat(2, minmax(0, 342px))',
+          _mobile: 'minmax(0, 1fr)',
+        }}
+        gap="10"
+      >
+        <SizeGuideChoiceGroup
+          label="카테고리 선택"
+          options={categories}
+          value={category.value}
+          onValueChange={(value) => {
+            const next = categories.find((option) => option.value === value);
+            if (!next || next.value === category.value) return;
+
+            setCategoryValue(next.value);
+            setGender(next.genders[0]);
+            setUnit(next.units[0]);
+          }}
+        />
+        <SizeGuideChoiceGroup
+          label="성별 선택"
+          options={genderOptions.filter(({ value }) => category.genders.includes(value))}
+          value={gender}
+          onValueChange={setGender}
+        />
+      </Grid>
+      <SizeGuideChart category={category} gender={gender} unit={unit} onUnitChange={setUnit} />
+      <SizeGuideMeasurements category={category} gender={gender} />
+    </Stack>
   );
 }
