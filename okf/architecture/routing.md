@@ -4,12 +4,13 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-27T10:36:50+09:00'
+updated: '2026-11-27T10:57:43+09:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/screen-review/page.tsx
   - public/images/products/hoka-run-hat/vgl-1.webp
   - public/images/products/hoka-run-hat/vgl-2.webp
   - public/images/products/hoka-run-hat/vgl-3.webp
@@ -3032,3 +3033,13 @@ Chromium PC 1476px·모바일 375px에서 세 빈 화면의 구분선과 최근 
 `/mypage/recent`와 `/mypage/wishlist`의 PC 상품 카드 목록은 제목의 왼쪽 시작선에 맞춘다. 두 화면은 `MyPageProductHistory.tsx`에서 최대 260px 카드 열 세 개와 16px 열 간격을 공유한다. 최근 본 상품의 PC 일반 목록은 제목 헤더 오른쪽에 32px 여백을 두어 `전체삭제` 버튼을 왼쪽으로 옮긴다. 빈 목록과 모바일은 기존 헤더 배치를 사용한다. 출처는 사용자 브라우저 코멘트와 `src/app/mypage/_components/MyPageProductHistory.tsx` 작업 트리다.
 
 Chromium PC 1476px에서 두 목록의 제목과 첫 카드 좌표가 각각 일치하고, 카드 폭은 기존 260px이며 최근 본 상품의 전체삭제 버튼이 32px 이동한 것을 확인했다. 모바일 375px에서 두 목록의 2열과 기존 시작선을 확인했다.
+
+## IA 구조도와 화면검수용 목록 2026-11-27
+
+개발용 /screen-index와 검수용 /screen-review가 IA 계층, NAV 필터, 검색과 상태 URL을 공유한다. 둘 다 화면 현황부터 표시하고 트리를 기본 펼침으로 시작한다. 새 검색어와 전체 초기화는 접힌 트리를 다시 연다. 화면 상태는 준비된 이름과 URL별 모달 유형 배지로 표시한다.
+
+검수용 표는 메뉴·화면 계층, 구분, 새창의 세 열로 구성한다. 업무 열과 개발담당자 필터·보고서를 렌더링하지 않고 업무 필드는 검수 검색 대상에서도 제외한다. 보고서 쿼리는 개발용 경로에서만 읽는다. 두 경로는 같은 접근 범위를 갖는다.
+
+검수용 화면에서는 상품 목록과 검색 상태를 나누고, 발볼이나 옵션 선택처럼 같은 항목의 예시를 펼치고 접을 수 있게 묶는다. 빈 화면에는 EMPTY를 표시하며 이미 열린 모달 유형도 함께 표시한다. 모든 보기 링크는 기존 상태 URL을 그대로 연다. 출처는 사용자 브라우저 코멘트와 IaStructurePage, ScreenReviewPage 작업 트리다.
+
+Codex는 PC 1424px와 모바일 375px에서 두 목록의 링크 243개, 트리 기본 펼침, 발볼 접기와 검색 재펼침, 숨긴 업무 데이터의 검색 제외, 초기화와 개발용 보고서 열기·닫기를 확인했다. PC 검색 빈 상태와 모바일 최근 본 상품 새창, 1024/1025px 및 1199/1200px 경계, 보고서가 열린 상태의 리사이즈도 확인했다. 기존 미리보기·보고서 검사 26개 중 24개가 통과했고, 상품 상세의 care 공통 파일 및 문의 첨부 선택의 소스 연결 2건은 변경 전 레지스트리에서도 실패했다.

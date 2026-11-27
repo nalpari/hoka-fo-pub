@@ -47,7 +47,7 @@ import {
   matchesScreenDeveloper,
 } from '@/app/screen-index/screenDevelopers';
 import wbsActualSnapshot from '@/app/screen-index/wbsActualSnapshot.json';
-import { type ScreenDefinition, screens } from '@/data/screenRegistry';
+import { getScreenMenuChangeNote, type ScreenDefinition, screens } from '@/data/screenRegistry';
 
 const reportDates = [
   ...new Set(screenChangeReports.map((report) => report.collectedAtKst.slice(0, 10))),
@@ -66,9 +66,46 @@ type TreeRow = {
   ancestors: string[];
   depth: number;
   label: string;
+  menuChangeNote?: string;
   isBranch: boolean;
   screen?: ScreenDefinition;
 };
+
+type PreviewTree = {
+  path: string;
+  collapsedPaths: ReadonlySet<string>;
+  onToggle: (path: string) => void;
+};
+
+const reviewPreviewGroups: [label: string, path: RegExp][] = [
+  ['상품 목록', /^\/products(?:\/preview-(?:no-results|sold-out))?$/],
+  ['검색', /^\/search(?:\/preview-no-results)?$/],
+  ['상품 유형', /^\/products\/pdp-preview\/(?:apparel|accessories)$/],
+  ['발볼', /^\/products\/pdp-preview\/width-/],
+  ['상품문의', /^\/products\/(?:pdp-preview\/inquiries-expanded|preview-empty-inquiries)$/],
+  ['사이즈 재고', /^\/products\/pdp-preview\/(?:partial-stock|sold-out)$/],
+  ['옵션 선택', /^\/products\/pdp-preview\/options-(?:selected|scroll)$/],
+  ['입고 알림', /^\/products\/(?:pdp-preview\/restock-(?:complete|confirm)|preview-restock)$/],
+  ['옵션 변경', /^\/cart\/preview-options(?:-apparel(?:-changed)?)?$/],
+  ['접수완료', /^\/support\/inquiries\/preview-pending(?:-attachments)?$/],
+  ['답변완료', /^\/support\/inquiries\/preview-(?:answered|attachments)$/],
+  ['첨부파일', /^\/support\/inquiries\/new\/preview-attachment-/],
+  [
+    '주문 상품 조회',
+    /^\/support\/inquiries\/new\/(?:order-products(?:\/|$)|preview-order-(?:lookup|selected)$)/,
+  ],
+  ['작성 가능한 리뷰', /^\/mypage\/reviews\/preview-(?:ready|empty)$/],
+  ['내가 작성한 리뷰', /^\/mypage\/reviews\/preview-written(?:-empty)?$/],
+];
+
+function getReviewPreviewGroup(href: string) {
+  const path = href.split(/[?#]/)[0];
+  return reviewPreviewGroups.find(([, route]) => route.test(path))?.[0];
+}
+
+function isEmptyPreview(label: string) {
+  return label === '빈 목록' || label.endsWith('없음');
+}
 
 const productScreenCodes = ['eland_hca_01', 'eland_hca_02'] as const;
 
@@ -173,6 +210,14 @@ const styles = {
       fontWeight: '800',
     },
     '& td[rowspan]': { verticalAlign: 'top' },
+    '&[data-review]': {
+      minW: '0',
+      tableLayout: 'fixed',
+      '& > thead > tr > th:nth-child(2)': { w: '18%', _mobile: { w: '64px' } },
+      '& > thead > tr > th:nth-child(3)': { w: '16%', _mobile: { w: '70px' } },
+      '& > tbody > tr > td': { overflowWrap: 'anywhere' },
+      _mobile: { '--ia-indent': '10px' },
+    },
   }),
   groupRow: css({
     bg: '#eaf0ff',
@@ -180,6 +225,7 @@ const styles = {
 
     '& span': { color: '#68718a', fontSize: 'body.12' /* 기존: 11px */, fontWeight: '600' },
   }),
+  previewGroupRow: css({ bg: '#f2f5fb' }),
   deletedRow: css({
     bg: '#f0f2f6',
     color: '#858a97',
@@ -187,7 +233,17 @@ const styles = {
     opacity: '0.72',
   }),
   treeCell: css({ minW: '320px' }),
-  treeItem: css({ display: 'flex', alignItems: 'center', gap: '1.5' }),
+  treeItem: css({ display: 'flex', alignItems: 'center', gap: '1.5', flexWrap: 'wrap' }),
+  modalBadge: css({
+    px: '1.5',
+    py: '0.5',
+    borderRadius: '3px',
+    bg: '#edf0f5',
+    color: '#3e4965',
+    fontSize: 'body.12',
+    fontWeight: '700',
+    whiteSpace: 'nowrap',
+  }),
   collapseButton: css({
     minW: 'var(--touch-target-min-size)',
     minH: 'var(--touch-target-min-size)',
@@ -353,6 +409,7 @@ function createTreeRows(group: ScreenGroup): TreeRow[] {
           ancestors,
           depth,
           label: screen.depths[depth],
+          menuChangeNote: getScreenMenuChangeNote(screen, depth),
           isBranch,
           screen,
         });
@@ -368,6 +425,7 @@ function createTreeRows(group: ScreenGroup): TreeRow[] {
         ancestors,
         depth,
         label: screen.depths[depth],
+        menuChangeNote: getScreenMenuChangeNote(screen, depth),
         isBranch,
       });
     }
@@ -377,49 +435,13 @@ function createTreeRows(group: ScreenGroup): TreeRow[] {
 }
 
 /** IA 화면 계층과 미리보기 경로를 탐색합니다. (Browses the IA hierarchy and preview routes.) */
-export function IaStructurePage() {
+export function IaStructurePage({ reviewOnly = false }: { reviewOnly?: boolean }) {
+  const columnCount = reviewOnly ? 3 : 6;
   const [feedback, setFeedback] = useState('');
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const reportLocation = getReportUrlState(searchParams.toString());
-  const reportOpen = reportLocation.open;
-  const reportTrigger = useRef<HTMLButtonElement>(null);
-  const [selectedReportDate, setSelectedReportDate] = useState(reportDates[0] ?? '');
-  const [reportDeveloperFilter, setReportDeveloperFilter] = useState('all');
-  const reportReturnFocus = useRef<HTMLElement | null>(null);
-  const openReport = () => {
-    reportReturnFocus.current =
-      document.activeElement instanceof HTMLElement ? document.activeElement : null;
-    router.push(
-      getReportNavigationUrl(
-        pathname,
-        searchParams.toString(),
-        { date: selectedReportDate, developer: reportDeveloperFilter },
-        window.location.hash,
-      ),
-      { scroll: false },
-    );
-  };
-  const activeReportDate = reportOpen ? reportLocation.date : selectedReportDate;
-  const activeReportDeveloper = reportOpen ? reportLocation.developer : reportDeveloperFilter;
-  const onReportOpenChange = (open: boolean) => {
-    if (open) {
-      openReport();
-      return;
-    }
-    if (reportDates.includes(activeReportDate)) setSelectedReportDate(activeReportDate);
-    setReportDeveloperFilter(activeReportDeveloper);
-    router.replace(
-      getReportNavigationUrl(pathname, searchParams.toString(), null, window.location.hash),
-      { scroll: false },
-    );
-  };
   const [activeDepth1, setActiveDepth1] = useState('all');
   const [productDepth1, setProductDepth1] = useState('all');
   const [query, setQuery] = useState('');
   const [developerFilter, setDeveloperFilter] = useState('all');
-  const [productMenuExpanded, setProductMenuExpanded] = useState(false);
   const [collapsedPaths, setCollapsedPaths] = useState<Set<string>>(new Set());
 
   const groups = useMemo<ScreenGroup[]>(
@@ -451,34 +473,40 @@ export function IaStructurePage() {
           : group.depth1 === activeDepth1 && !isProductScreen(screen)),
     ),
   }));
+  const searchTerm = query.trim().toLowerCase();
   const visibleGroups = activeGroups
     .map((group) => ({
       ...group,
       screens: group.screens.filter((screen) => {
-        const searchable = [
+        if (!reviewOnly && !matchesScreenDeveloper(screen, developerFilter)) return false;
+        if (!searchTerm) return true;
+
+        const connection = getScreenConnection(screen);
+        const reviewTerms = [
           ...screen.depths,
-          ...(screen.sourceDepths ?? []),
-          String(screen.sourceIaNumber ?? ''),
-          String(screen.iaNumber),
-          getScreenConnection(screen).route ?? '',
-          getScreenModalSearchText(getScreenConnection(screen)),
-          ...(getScreenConnection(screen).previewRoutes ?? []).flatMap(({ label, href }) => [
+          screen.category,
+          getScreenModalSearchText(connection),
+          ...getScreenStatePreviews(connection).flatMap(({ label, href }) => [
             label,
             href,
+            ...(reviewOnly
+              ? [getReviewPreviewGroup(href) ?? '', isEmptyPreview(label) ? 'EMPTY' : '']
+              : []),
           ]),
-          ...getScreenConnection(screen).sourceFiles,
-          screen.category,
-          screen.screenCode,
-          screen.note,
-          ...getScreenDevelopers(screen).flatMap(({ name, area }) => [name, area]),
-        ]
-          .join(' ')
-          .toLowerCase();
-
-        return (
-          matchesScreenDeveloper(screen, developerFilter) &&
-          searchable.includes(query.trim().toLowerCase())
-        );
+        ];
+        const developerTerms = reviewOnly
+          ? []
+          : [
+              ...(screen.sourceDepths ?? []),
+              String(screen.sourceIaNumber ?? ''),
+              String(screen.iaNumber),
+              connection.route ?? '',
+              ...connection.sourceFiles,
+              screen.screenCode,
+              screen.note,
+              ...getScreenDevelopers(screen).flatMap(({ name, area }) => [name, area]),
+            ];
+        return [...reviewTerms, ...developerTerms].join(' ').toLowerCase().includes(searchTerm);
       }),
     }))
     .filter((group) => group.screens.length > 0);
@@ -503,7 +531,7 @@ export function IaStructurePage() {
     new Set(visibleProductScreens.map((screen) => screen.depths[0])),
   );
   const productSectionOpen = !collapsedPaths.has('상품 공통 화면');
-  const productTreeOpen = productMenuExpanded || query.trim().length > 0;
+  const productTreeOpen = !collapsedPaths.has('상품 공통 화면/연결 메뉴');
   const copyPreviewPath = (path: string) => {
     setFeedback('');
     if (!navigator.clipboard) {
@@ -526,15 +554,7 @@ export function IaStructurePage() {
   };
 
   return (
-    <ContentLayout
-      className={styles.page}
-      breadcrumbItems={[
-        { label: 'HOME', href: '/' },
-        { label: 'DEVELOPMENT' },
-        { label: 'IA 구조도' },
-      ]}
-      title="IA 구조도"
-    >
+    <ContentLayout className={styles.page}>
       {feedback && (
         <Typography
           as="p"
@@ -634,8 +654,10 @@ export function IaStructurePage() {
               className={styles.button}
               onClick={() => {
                 setActiveDepth1('all');
+                setProductDepth1('all');
                 setQuery('');
                 setDeveloperFilter('all');
+                setCollapsedPaths(new Set());
               }}
             >
               전체 초기화
@@ -656,97 +678,75 @@ export function IaStructurePage() {
             <TextInput
               className={styles.search}
               value={query}
-              onChange={(event) => setQuery(event.target.value)}
+              onChange={(event) => {
+                const nextQuery = event.target.value;
+                setQuery(nextQuery);
+                if (nextQuery.trim() && nextQuery.trim().toLowerCase() !== searchTerm) {
+                  setCollapsedPaths(new Set());
+                }
+              }}
               aria-label="IA 화면 검색"
             />
-            <Select
-              aria-label="개발담당자 필터"
-              value={developerFilter}
-              onChange={(event) => setDeveloperFilter(event.target.value)}
-              className={css({ w: 'auto', minW: '140px' })}
-            >
-              <option value="all">개발담당자 전체</option>
-              {developerNames.map((value) => (
-                <option key={value} value={value}>
-                  {value}
-                </option>
-              ))}
-              <option value="unassigned">미지정</option>
-            </Select>
+            {!reviewOnly && (
+              <Select
+                aria-label="개발담당자 필터"
+                value={developerFilter}
+                onChange={(event) => setDeveloperFilter(event.target.value)}
+                className={css({ w: 'auto', minW: '140px' })}
+              >
+                <option value="all">개발담당자 전체</option>
+                {developerNames.map((value) => (
+                  <option key={value} value={value}>
+                    {value}
+                  </option>
+                ))}
+                <option value="unassigned">미지정</option>
+              </Select>
+            )}
           </Flex>
-          <Flex gap="2" alignItems="center" flexWrap="wrap">
-            <Select
-              aria-label="퍼블 보고서 날짜"
-              value={reportDates.includes(activeReportDate) ? activeReportDate : selectedReportDate}
-              onChange={(event) => setSelectedReportDate(event.target.value)}
-              className={css({ w: 'auto', minW: '140px' })}
-            >
-              {reportDates.map((date) => (
-                <option key={date} value={date}>
-                  {date}
-                </option>
-              ))}
-            </Select>
-            <Select
-              aria-label="보고서 개발담당자 필터"
-              value={activeReportDeveloper}
-              onChange={(event) => setReportDeveloperFilter(event.target.value)}
-              className={css({ w: 'auto', minW: '140px' })}
-            >
-              <option value="all">보고서 담당자 전체</option>
-              {developerNames.map((name) => (
-                <option key={name} value={name}>
-                  {name}
-                </option>
-              ))}
-              <option value="unassigned">미지정</option>
-            </Select>
-            <button
-              type="button"
-              className={styles.button}
-              onClick={() => openReport()}
-              ref={reportTrigger}
-              aria-haspopup="dialog"
-              disabled={!selectedReportDate}
-            >
-              퍼블 변경사항 보고서
-            </button>
-          </Flex>
+          {!reviewOnly && <ChangeReportControls />}
         </Flex>
       </Box>
-      <MainChangeReportDialog
-        open={reportOpen}
-        developer={activeReportDeveloper}
-        date={activeReportDate}
-        onOpenChange={onReportOpenChange}
-        finalFocus={() => reportReturnFocus.current ?? reportTrigger.current}
-      />
       <section aria-label="IA 화면 목록">
         <Box overflowX="auto" border="1px solid #dbe5ff" borderRadius="7px" bg="#fff">
-          <table className={styles.table}>
+          <table className={styles.table} data-review={reviewOnly || undefined}>
             <thead>
               <tr>
-                <th rowSpan={2} scope="col">
+                <th rowSpan={reviewOnly ? undefined : 2} scope="col">
                   메뉴 / 화면 계층 (IA Tree)
                 </th>
-                <th rowSpan={2} scope="col">
+                <th rowSpan={reviewOnly ? undefined : 2} scope="col">
                   구분
                 </th>
-                <th rowSpan={2} scope="col" className={styles.previewColumn}>
+                <th
+                  rowSpan={reviewOnly ? undefined : 2}
+                  scope="col"
+                  className={styles.previewColumn}
+                >
                   새창
                 </th>
-                <th scope="col">화면코드</th>
-                <th rowSpan={2} scope="col" title={wbsActualSnapshot.source + ' · 실적(AB열)'}>
-                  개발자 (진척율)
-                </th>
-                <th scope="col">비고 / 이슈</th>
+                {!reviewOnly && (
+                  <>
+                    <th scope="col">화면코드</th>
+                    <th
+                      rowSpan={reviewOnly ? undefined : 2}
+                      scope="col"
+                      title={wbsActualSnapshot.source + ' · 실적(AB열)'}
+                    >
+                      개발자 (진척율)
+                    </th>
+                    <th scope="col">비고 / 이슈</th>
+                  </>
+                )}
               </tr>
-              <tr>
-                <th scope="col" title={'WBS 확인일: ' + developerWbsSource.checkedAt}>
-                  WBS
-                </th>
-                <th scope="col">작업 파일</th>
-              </tr>
+              {!reviewOnly && (
+                <tr>
+                  <th scope="col" title={'WBS 확인일: ' + developerWbsSource.checkedAt}>
+                    WBS
+                  </th>
+                  <th scope="col">작업 파일</th>
+                </tr>
+              )}
             </thead>
             <tbody>
               {productGroups.length > 0 && (
@@ -782,40 +782,51 @@ export function IaStructurePage() {
                     </td>
                     <td>대분류</td>
                     <td>-</td>
-                    <td colSpan={2} className={styles.code}>
-                      {productDepths
-                        .map((depth) => 'CAT_' + (depth === '공통' ? 'COMMON' : depth))
-                        .join(', ')}
-                    </td>
-                    <td className={styles.note}>
-                      <Stack gap="2">
-                        {productGroups.map((group) => (
-                          <ProductNotes
-                            key={group.code}
-                            screens={group.screens}
-                            label={group.code === 'eland_hca_01' ? '상품 목록' : '상품 상세'}
-                          />
-                        ))}
-                      </Stack>
-                    </td>
+                    {!reviewOnly && (
+                      <>
+                        <td colSpan={2} className={styles.code}>
+                          {productDepths
+                            .map((depth) => 'CAT_' + (depth === '공통' ? 'COMMON' : depth))
+                            .join(', ')}
+                        </td>
+                        <td className={styles.note}>
+                          <Stack gap="2">
+                            {productGroups.map((group) => (
+                              <ProductNotes
+                                key={group.code}
+                                screens={group.screens}
+                                label={group.code === 'eland_hca_01' ? '상품 목록' : '상품 상세'}
+                              />
+                            ))}
+                          </Stack>
+                        </td>
+                      </>
+                    )}
                   </tr>
                   {productSectionOpen && (
                     <>
-                      {productGroups.map((group) => (
-                        <ProductRows
-                          key={group.code}
-                          screens={group.screens}
-                          onCopyPath={copyPreviewPath}
-                        />
-                      ))}
+                      {productGroups.map((group) => {
+                        const path = '상품 공통 화면/' + group.code;
+                        return (
+                          <ProductRows
+                            key={group.code}
+                            screens={group.screens}
+                            reviewOnly={reviewOnly}
+                            path={path}
+                            collapsedPaths={collapsedPaths}
+                            onToggle={togglePath}
+                            onCopyPath={copyPreviewPath}
+                          />
+                        );
+                      })}
                       <tr>
-                        <td colSpan={6}>
+                        <td colSpan={columnCount}>
                           <button
                             type="button"
                             className={styles.button}
                             aria-expanded={productTreeOpen}
                             aria-controls="product-menu-tree"
-                            onClick={() => setProductMenuExpanded((current) => !current)}
+                            onClick={() => togglePath('상품 공통 화면/연결 메뉴')}
                           >
                             연결 메뉴 {productTreeOpen ? '접기' : '펼치기'}
                           </button>
@@ -823,7 +834,7 @@ export function IaStructurePage() {
                       </tr>
                       {productTreeOpen && (
                         <tr id="product-menu-tree">
-                          <td colSpan={6}>
+                          <td colSpan={columnCount}>
                             <ProductMenuTree screens={visibleProductScreens} />
                           </td>
                         </tr>
@@ -836,6 +847,7 @@ export function IaStructurePage() {
                 <GroupRows
                   key={group.depth1}
                   group={group}
+                  reviewOnly={reviewOnly}
                   collapsedPaths={collapsedPaths}
                   onToggle={togglePath}
                   onCopyPath={copyPreviewPath}
@@ -860,17 +872,19 @@ export function IaStructurePage() {
 
 function GroupRows({
   group,
+  reviewOnly,
   collapsedPaths,
   onToggle,
   onCopyPath,
 }: {
   group: ScreenGroup;
+  reviewOnly: boolean;
   collapsedPaths: ReadonlySet<string>;
   onToggle: (path: string) => void;
   onCopyPath: (path: string) => void;
 }) {
   const treeRows = createTreeRows(group);
-  const siblingFiles = getSiblingScreenSourceFiles(group.screens);
+  const siblingFiles = reviewOnly ? undefined : getSiblingScreenSourceFiles(group.screens);
   const groupPath = group.depth1;
   const groupOpen = !collapsedPaths.has(groupPath);
 
@@ -883,6 +897,7 @@ function GroupRows({
               type="button"
               className={styles.collapseButton}
               aria-label={group.depth1 + (groupOpen ? ' 접기' : ' 펼치기')}
+              aria-expanded={groupOpen}
               onClick={() => onToggle(groupPath)}
             >
               <Icon
@@ -905,10 +920,14 @@ function GroupRows({
         </td>
         <td>대분류</td>
         <td>-</td>
-        <td colSpan={2} className={styles.code}>
-          CAT_{group.depth1.replaceAll(' ', '_').toUpperCase()}
-        </td>
-        <td className={styles.note}>확정 IA 기준 화면 영역</td>
+        {!reviewOnly && (
+          <>
+            <td colSpan={2} className={styles.code}>
+              CAT_{group.depth1.replaceAll(' ', '_').toUpperCase()}
+            </td>
+            <td className={styles.note}>확정 IA 기준 화면 영역</td>
+          </>
+        )}
       </tr>
       {groupOpen &&
         treeRows.map((row) => {
@@ -919,28 +938,40 @@ function GroupRows({
 
           const connection = row.screen ? getScreenConnection(row.screen) : undefined;
           const statePreviews = deleted ? [] : getScreenStatePreviews(connection);
-          const groupFiles = siblingFiles.get(row.path) ?? [];
-          const inheritedFiles = Array.from(
-            new Set([
-              ...(row.screen ? getAncestorScreenSourceFiles(row.screen, group.screens) : []),
-              ...row.ancestors.flatMap((path) => siblingFiles.get(path) ?? []),
-            ]),
-          );
-          const componentFiles = Array.from(
-            new Set([...(connection ? getScreenComponentFiles(connection) : []), ...groupFiles]),
-          ).filter((file) => !inheritedFiles.includes(file));
-          const sharedFiles = connection ? getSharedStateSourceFiles([connection]) : [];
+          const groupFiles = siblingFiles?.get(row.path) ?? [];
+          const inheritedFiles = reviewOnly
+            ? []
+            : Array.from(
+                new Set([
+                  ...(row.screen ? getAncestorScreenSourceFiles(row.screen, group.screens) : []),
+                  ...row.ancestors.flatMap((path) => siblingFiles?.get(path) ?? []),
+                ]),
+              );
+          const componentFiles = reviewOnly
+            ? []
+            : Array.from(
+                new Set([
+                  ...(connection ? getScreenComponentFiles(connection) : []),
+                  ...groupFiles,
+                ]),
+              ).filter((file) => !inheritedFiles.includes(file));
+          const sharedFiles =
+            !reviewOnly && connection ? getSharedStateSourceFiles([connection]) : [];
           const hasStateRows = statePreviews.length > 0;
           const rowClass = deleted ? styles.deletedRow : '';
-          const noteEntries = row.screen ? splitNoteEntries(row.screen.note) : [];
+          const rowSpan = !reviewOnly && row.screen ? 2 : undefined;
+          const noteEntries = reviewOnly ? [] : splitNoteEntries(row.screen?.note ?? '');
+          if (!reviewOnly && row.menuChangeNote) noteEntries.unshift(row.menuChangeNote);
 
           return (
             <Fragment key={row.id}>
               <tr className={rowClass}>
-                <td className={styles.treeCell} rowSpan={row.screen ? 2 : undefined}>
+                <td className={styles.treeCell} rowSpan={rowSpan}>
                   <div
                     className={styles.treeItem}
-                    style={{ paddingLeft: String((row.depth + 1) * 20) + 'px' }}
+                    style={{
+                      paddingInlineStart: 'calc(' + (row.depth + 1) + ' * var(--ia-indent, 20px))',
+                    }}
                   >
                     {row.isBranch || hasStateRows ? (
                       <button
@@ -980,11 +1011,11 @@ function GroupRows({
                     <Typography as="span">{row.label}</Typography>
                   </div>
                 </td>
-                <td rowSpan={row.screen ? 2 : undefined}>
+                <td rowSpan={rowSpan}>
                   {row.screen?.category ??
                     (row.depth === 1 ? '중분류' : row.depth === 2 ? '소분류' : '상세')}
                 </td>
-                <td rowSpan={row.screen ? 2 : undefined}>
+                <td rowSpan={rowSpan}>
                   <Stack gap="1">
                     {deleted
                       ? '삭제 / 제외'
@@ -995,29 +1026,33 @@ function GroupRows({
                           : '-'}
                   </Stack>
                 </td>
-                <td className={styles.code}>{row.screen?.screenCode ?? '-'}</td>
-                <td rowSpan={row.screen ? 2 : undefined} className={styles.developer}>
-                  {row.screen ? <ScreenDevelopers screens={[row.screen]} /> : '-'}
-                </td>
-                <td className={styles.note}>
-                  {deleted && (
-                    <Typography as="span" className={styles.deletedTag}>
-                      삭제 / 제외
-                    </Typography>
-                  )}
-                  {noteEntries.length ? (
-                    <ul className={styles.noteList}>
-                      {noteEntries.map((entry) => (
-                        <li key={entry}>{entry}</li>
-                      ))}
-                    </ul>
-                  ) : componentFiles.length ? null : (
-                    '-'
-                  )}
-                  {componentFiles.length > 0 && <SourceFiles files={componentFiles} />}
-                </td>
+                {!reviewOnly && (
+                  <>
+                    <td className={styles.code}>{row.screen?.screenCode ?? '-'}</td>
+                    <td rowSpan={rowSpan} className={styles.developer}>
+                      {row.screen ? <ScreenDevelopers screens={[row.screen]} /> : '-'}
+                    </td>
+                    <td className={styles.note}>
+                      {deleted && (
+                        <Typography as="span" className={styles.deletedTag}>
+                          삭제 / 제외
+                        </Typography>
+                      )}
+                      {noteEntries.length ? (
+                        <ul className={styles.noteList}>
+                          {noteEntries.map((entry) => (
+                            <li key={entry}>{entry}</li>
+                          ))}
+                        </ul>
+                      ) : componentFiles.length ? null : (
+                        '-'
+                      )}
+                      {componentFiles.length > 0 && <SourceFiles files={componentFiles} />}
+                    </td>
+                  </>
+                )}
               </tr>
-              {row.screen && (
+              {!reviewOnly && row.screen && (
                 <tr className={rowClass}>
                   <td className={styles.code}>
                     <ScreenWbsNumbers screens={[row.screen]} />
@@ -1046,6 +1081,8 @@ function GroupRows({
               {!collapsedPaths.has(row.path) && (
                 <StatePreviewRows
                   previews={statePreviews}
+                  reviewOnly={reviewOnly}
+                  tree={{ path: row.path, collapsedPaths, onToggle }}
                   screens={row.screen ? [row.screen] : []}
                   sharedFiles={[...sharedFiles, ...inheritedFiles, ...groupFiles]}
                   depth={row.depth + 2}
@@ -1061,68 +1098,83 @@ function GroupRows({
 
 function StatePreviewRows({
   previews,
+  reviewOnly,
+  tree,
   sharedFiles,
   screens: members,
   depth,
   onCopyPath,
 }: {
   previews: NonNullable<ScreenConnection['previewRoutes']>;
+  reviewOnly: boolean;
+  tree: PreviewTree;
   sharedFiles: readonly string[];
   screens: ScreenDefinition[];
   depth: number;
   onCopyPath: (path: string) => void;
 }) {
-  return (
-    <>
-      {previews.map(({ label, href }) => {
-        const owners = members.filter((screen) =>
+  const renderPreview = ({ label, href }: (typeof previews)[number], rowDepth: number) => {
+    const owners = reviewOnly
+      ? []
+      : members.filter((screen) =>
           getScreenStatePreviews(getScreenConnection(screen)).some(
             (preview) => preview.href === href,
           ),
         );
-        const modalVariants = getScreenStateModalVariants(href);
-        const showAssignment = owners.some((screen) => {
-          const parentAssignments = getScreenDevelopers(screen);
-          const stateAssignments = getScreenDevelopers(screen, href);
-          return (
-            stateAssignments.length !== parentAssignments.length ||
-            stateAssignments.some(
-              ({ wbs, name }) =>
-                !parentAssignments.some((parent) => parent.wbs === wbs && parent.name === name),
-            )
-          );
-        });
-        return (
-          <tr key={href}>
-            <td className={styles.treeCell}>
-              <div className={styles.treeItem} style={{ paddingLeft: String(depth * 20) + 'px' }}>
-                <span className={styles.spacer} />
-                <span className={styles.depthMarker}>STATE</span>
-                <Typography as="span">{label}</Typography>
-              </div>
-            </td>
-            <td>
-              <Stack gap="1">
-                <span>상태</span>
-                {modalVariants.map((variant) => (
-                  <code key={variant}>{`variant="${variant}"`}</code>
-                ))}
-              </Stack>
-            </td>
-            <td>
-              <div className={styles.preview}>
-                <Link
-                  href={href}
-                  aria-label={label + ' 보기'}
-                  target="_blank"
-                  rel="noreferrer"
-                  title={href + ' (경로 복사 및 새 창 열기)'}
-                  onClick={() => onCopyPath(href)}
-                >
-                  보기
-                </Link>
-              </div>
-            </td>
+    const modalVariants = getScreenStateModalVariants(href);
+    const showAssignment = owners.some((screen) => {
+      const parentAssignments = getScreenDevelopers(screen);
+      const stateAssignments = getScreenDevelopers(screen, href);
+      return (
+        stateAssignments.length !== parentAssignments.length ||
+        stateAssignments.some(
+          ({ wbs, name }) =>
+            !parentAssignments.some((parent) => parent.wbs === wbs && parent.name === name),
+        )
+      );
+    });
+    return (
+      <tr key={href}>
+        <td className={styles.treeCell}>
+          <div
+            className={styles.treeItem}
+            style={{ paddingInlineStart: 'calc(' + rowDepth + ' * var(--ia-indent, 20px))' }}
+          >
+            <span className={styles.spacer} />
+            <Typography as="span">{label}</Typography>
+            {reviewOnly && isEmptyPreview(label) && (
+              <span className={styles.modalBadge}>EMPTY</span>
+            )}
+            {modalVariants.map((variant) => (
+              <span key={variant} className={styles.modalBadge}>
+                {variant.toUpperCase()}
+              </span>
+            ))}
+          </div>
+        </td>
+        <td>
+          <Stack gap="1">
+            <span>상태</span>
+            {!reviewOnly &&
+              modalVariants.map((variant) => <code key={variant}>{`variant="${variant}"`}</code>)}
+          </Stack>
+        </td>
+        <td>
+          <div className={styles.preview}>
+            <Link
+              href={href}
+              aria-label={label + ' 보기'}
+              target="_blank"
+              rel="noreferrer"
+              title={href + ' (경로 복사 및 새 창 열기)'}
+              onClick={() => onCopyPath(href)}
+            >
+              보기
+            </Link>
+          </div>
+        </td>
+        {!reviewOnly && (
+          <>
             <td className={styles.code}>
               {showAssignment && <ScreenWbsNumbers screens={owners} href={href} />}
             </td>
@@ -1147,9 +1199,149 @@ function StatePreviewRows({
                 )}
               />
             </td>
-          </tr>
+          </>
+        )}
+      </tr>
+    );
+  };
+
+  if (!reviewOnly) return <>{previews.map((preview) => renderPreview(preview, depth))}</>;
+
+  const groups = new Map<string, typeof previews>();
+  previews.forEach((preview) => {
+    const group = getReviewPreviewGroup(preview.href);
+    if (!group) return;
+    const members = groups.get(group) ?? [];
+    members.push(preview);
+    groups.set(group, members);
+  });
+  return (
+    <>
+      {previews.map((preview) => {
+        const group = getReviewPreviewGroup(preview.href);
+        const examples = group ? groups.get(group) : undefined;
+        if (!group || !examples || examples.length < 2) return renderPreview(preview, depth);
+        if (examples[0] !== preview) return null;
+
+        const path = tree.path + '|preview-group|' + group;
+        const expanded = !tree.collapsedPaths.has(path);
+        return (
+          <Fragment key={path}>
+            <tr className={styles.previewGroupRow}>
+              <td colSpan={3}>
+                <div
+                  className={styles.treeItem}
+                  style={{ paddingInlineStart: 'calc(' + depth + ' * var(--ia-indent, 20px))' }}
+                >
+                  <button
+                    type="button"
+                    className={styles.collapseButton}
+                    aria-label={group + (expanded ? ' 접기' : ' 펼치기')}
+                    aria-expanded={expanded}
+                    onClick={() => tree.onToggle(path)}
+                  >
+                    <Icon
+                      name={expanded ? 'chevron-down-regular' : 'chevron-right-solid'}
+                      size="1em"
+                      aria-hidden="true"
+                    />
+                  </button>
+                  <strong>{group}</strong>
+                </div>
+              </td>
+            </tr>
+            {expanded && examples.map((example) => renderPreview(example, depth + 1))}
+          </Fragment>
         );
       })}
+    </>
+  );
+}
+
+function ChangeReportControls() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const reportLocation = getReportUrlState(searchParams.toString());
+  const reportOpen = reportLocation.open;
+  const reportTrigger = useRef<HTMLButtonElement>(null);
+  const [selectedReportDate, setSelectedReportDate] = useState(reportDates[0] ?? '');
+  const [reportDeveloperFilter, setReportDeveloperFilter] = useState('all');
+  const reportReturnFocus = useRef<HTMLElement | null>(null);
+  const openReport = () => {
+    reportReturnFocus.current =
+      document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    router.push(
+      getReportNavigationUrl(
+        pathname,
+        searchParams.toString(),
+        { date: selectedReportDate, developer: reportDeveloperFilter },
+        window.location.hash,
+      ),
+      { scroll: false },
+    );
+  };
+  const activeReportDate = reportOpen ? reportLocation.date : selectedReportDate;
+  const activeReportDeveloper = reportOpen ? reportLocation.developer : reportDeveloperFilter;
+  const onReportOpenChange = (open: boolean) => {
+    if (open) {
+      openReport();
+      return;
+    }
+    if (reportDates.includes(activeReportDate)) setSelectedReportDate(activeReportDate);
+    setReportDeveloperFilter(activeReportDeveloper);
+    router.replace(
+      getReportNavigationUrl(pathname, searchParams.toString(), null, window.location.hash),
+      { scroll: false },
+    );
+  };
+  return (
+    <>
+      <Flex gap="2" alignItems="center" flexWrap="wrap">
+        <Select
+          aria-label="퍼블 보고서 날짜"
+          value={reportDates.includes(activeReportDate) ? activeReportDate : selectedReportDate}
+          onChange={(event) => setSelectedReportDate(event.target.value)}
+          className={css({ w: 'auto', minW: '140px' })}
+        >
+          {reportDates.map((date) => (
+            <option key={date} value={date}>
+              {date}
+            </option>
+          ))}
+        </Select>
+        <Select
+          aria-label="보고서 개발담당자 필터"
+          value={activeReportDeveloper}
+          onChange={(event) => setReportDeveloperFilter(event.target.value)}
+          className={css({ w: 'auto', minW: '140px' })}
+        >
+          <option value="all">보고서 담당자 전체</option>
+          {developerNames.map((name) => (
+            <option key={name} value={name}>
+              {name}
+            </option>
+          ))}
+          <option value="unassigned">미지정</option>
+        </Select>
+        <button
+          type="button"
+          className={styles.button}
+          onClick={() => openReport()}
+          ref={reportTrigger}
+          aria-haspopup="dialog"
+          disabled={!selectedReportDate}
+        >
+          퍼블 변경사항 보고서
+        </button>
+      </Flex>
+      <MainChangeReportDialog
+        open={reportOpen}
+        developer={activeReportDeveloper}
+        date={activeReportDate}
+        onOpenChange={onReportOpenChange}
+        finalFocus={() => reportReturnFocus.current ?? reportTrigger.current}
+      />
     </>
   );
 }
@@ -1469,11 +1661,17 @@ function ProductNotes({ screens: members, label }: { screens: ScreenDefinition[]
 
 function ProductRows({
   screens: members,
+  reviewOnly,
+  path,
+  collapsedPaths,
+  onToggle,
   onCopyPath,
 }: {
   screens: ScreenDefinition[];
+  reviewOnly: boolean;
   onCopyPath: (path: string) => void;
-}) {
+} & PreviewTree) {
+  const expanded = !collapsedPaths.has(path);
   const representative = members[0];
   // 카테고리별 query를 모두 기본 상태로 늘리지 않고 현재 대표 화면과 검색 진입점을 유지합니다.
   const stateConnections = new Map<string, ScreenConnection>();
@@ -1489,52 +1687,84 @@ function ProductRows({
         .map((preview) => [preview.href, preview]),
     ).values(),
   );
-  const label = representative.screenCode === 'eland_hca_01' ? '상품 목록' : '상품 상세';
   const isListing = representative.screenCode === 'eland_hca_01';
-  const sharedFiles = getSharedStateSourceFiles(Array.from(stateConnections.values()));
-  const componentFiles = Array.from(
-    new Set(
-      members.flatMap((screen) => getScreenComponentFiles(getScreenConnection(screen), isListing)),
-    ),
-  );
+  const label = isListing ? (reviewOnly ? '상품 목록 · 검색' : '상품 목록') : '상품 상세';
+  const rowSpan = reviewOnly ? undefined : 2;
+  const sharedFiles = reviewOnly
+    ? []
+    : getSharedStateSourceFiles(Array.from(stateConnections.values()));
+  const componentFiles = reviewOnly
+    ? []
+    : Array.from(
+        new Set(
+          members.flatMap((screen) =>
+            getScreenComponentFiles(getScreenConnection(screen), isListing),
+          ),
+        ),
+      );
   const files = isListing ? [] : sharedFiles;
   return (
     <>
       <tr>
-        <td rowSpan={2} className={styles.treeCell}>
-          <Stack gap="2">
-            <strong>{label}</strong>
-            <span>
-              {Array.from(new Set(members.map((screen) => screen.depths[0]))).join(' · ')} ·{' '}
-              {members.length}개 IA
-            </span>
-          </Stack>
+        <td rowSpan={rowSpan} className={styles.treeCell}>
+          <div className={styles.treeItem}>
+            <button
+              type="button"
+              className={styles.collapseButton}
+              aria-label={label + (expanded ? ' 접기' : ' 펼치기')}
+              aria-expanded={expanded}
+              onClick={() => onToggle(path)}
+            >
+              <Icon
+                name={expanded ? 'chevron-down-regular' : 'chevron-right-solid'}
+                size="1em"
+                aria-hidden="true"
+              />
+            </button>
+            <Stack gap="2">
+              <strong>{label}</strong>
+              <span>
+                {Array.from(new Set(members.map((screen) => screen.depths[0]))).join(' · ')} ·{' '}
+                {members.length}개 IA
+              </span>
+            </Stack>
+          </div>
         </td>
-        <td rowSpan={2}>page</td>
-        <td rowSpan={2}>대표 화면</td>
-        <td className={styles.code}>{representative.screenCode}</td>
-        <td rowSpan={2} className={styles.developer}>
-          <ScreenDevelopers screens={members} />
-        </td>
-        <td className={styles.note}>
-          <SourceFiles files={componentFiles} />
-        </td>
+        <td rowSpan={rowSpan}>page</td>
+        <td rowSpan={rowSpan}>대표 화면</td>
+        {!reviewOnly && (
+          <>
+            <td className={styles.code}>{representative.screenCode}</td>
+            <td rowSpan={rowSpan} className={styles.developer}>
+              <ScreenDevelopers screens={members} />
+            </td>
+            <td className={styles.note}>
+              <SourceFiles files={componentFiles} />
+            </td>
+          </>
+        )}
       </tr>
-      <tr>
-        <td className={styles.code}>
-          <ScreenWbsNumbers screens={members} />
-        </td>
-        <td className={styles.note}>
-          <SourceFiles files={files} />
-        </td>
-      </tr>
-      <StatePreviewRows
-        previews={statePreviews}
-        sharedFiles={sharedFiles}
-        screens={members}
-        depth={2}
-        onCopyPath={onCopyPath}
-      />
+      {!reviewOnly && (
+        <tr>
+          <td className={styles.code}>
+            <ScreenWbsNumbers screens={members} />
+          </td>
+          <td className={styles.note}>
+            <SourceFiles files={files} />
+          </td>
+        </tr>
+      )}
+      {expanded && (
+        <StatePreviewRows
+          previews={statePreviews}
+          reviewOnly={reviewOnly}
+          tree={{ path, collapsedPaths, onToggle }}
+          sharedFiles={sharedFiles}
+          screens={members}
+          depth={2}
+          onCopyPath={onCopyPath}
+        />
+      )}
     </>
   );
 }

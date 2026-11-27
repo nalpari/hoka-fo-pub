@@ -609,6 +609,44 @@ function normalizeScreens(rawDefinitions: readonly RawScreenDefinition[]): Scree
   );
 }
 
+// 실제 메뉴·화면에서 확인한 변경입니다. 원본 계층과 화면 식별자는 별도로 보존합니다.
+const currentMenuPaths: Readonly<Record<string, readonly string[]>> = {
+  '런칭 캘린더|Coming': ['런칭 캘린더', 'Upcoming'],
+  '마이페이지|구매내역|주문배송 조회': ['마이페이지', '구매내역', '주문/배송조회'],
+  '마이페이지|구매내역|취소/반품 내역': ['마이페이지', '구매내역', '취소/반품내역'],
+  '마이페이지|상품내역|오늘 본 상품': ['마이페이지', '상품내역', '최근 본 상품'],
+  '마이페이지|Q&A|상품리뷰': ['마이페이지', '구매내역', '상품리뷰'],
+  '마이페이지|계정관리|회원정보확인 및 수정': ['마이페이지', '계정관리', '회원정보 관리'],
+  'SUPPORT|1:1문의': ['SUPPORT', '1:1 문의'],
+  'SUPPORT|사이즈가이드': ['SUPPORT', '사이즈 가이드'],
+  '회원가입|자체 회원|가입완료': ['회원가입', '자체 회원', '회원가입 완료'],
+};
+
+function getCurrentMenuDepths(depths: ScreenDefinition['depths']): ScreenDefinition['depths'] {
+  for (let length = depths.length; length > 0; length -= 1) {
+    const currentPath = currentMenuPaths[depths.slice(0, length).join('|')];
+    if (currentPath) {
+      return depths.map(
+        (label, depth) => currentPath[depth] ?? label,
+      ) as ScreenDefinition['depths'];
+    }
+  }
+  return depths;
+}
+
+/** 변경된 메뉴의 원본 경로를 해당 IA 행의 비고에 표시합니다. */
+export function getScreenMenuChangeNote(screen: ScreenDefinition, depth: number) {
+  const sourcePath = screen.sourceDepths?.slice(0, depth + 1);
+  if (!sourcePath) return undefined;
+  const currentPath = currentMenuPaths[sourcePath.join('|')];
+  if (!currentPath) return undefined;
+
+  const parentChanged = sourcePath.slice(0, -1).join('|') !== currentPath.slice(0, -1).join('|');
+  const previous = parentChanged ? sourcePath.slice(1).join(' > ') : sourcePath[depth];
+  const current = parentChanged ? currentPath.slice(1).join(' > ') : currentPath[depth];
+  return 'IA 원본 ‘' + previous + '’ → 현재 ‘' + current + '’';
+}
+
 function mergeSourceScreens(): ScreenDefinition[] {
   const definitions = normalizeScreens(rawScreens);
   return definitions.flatMap((screen) => {
@@ -632,9 +670,11 @@ function mergeSourceScreens(): ScreenDefinition[] {
       sourceIaNumber: source.iaNumber,
       sourceDepths: source.depths as ScreenDefinition['depths'],
       sourceNote: source.note,
-      // 최종 GNB 순서와 명칭은 보존하고 나머지 계층은 원본을 반영합니다.
+      // 상품 최종 GNB는 보존하고 화면에서 확인한 메뉴명은 표시 계층에만 적용합니다.
       depths:
-        screen.iaNumber <= 152 ? screen.depths : (source.depths as ScreenDefinition['depths']),
+        screen.iaNumber <= 152
+          ? screen.depths
+          : getCurrentMenuDepths(source.depths as ScreenDefinition['depths']),
       category: source.category as ScreenCategory,
       page: source.page,
       requiresLogin: source.requiresLogin,
