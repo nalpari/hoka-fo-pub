@@ -82,7 +82,7 @@ export function InquiryListPreview({
       : displayed;
   return (
     <InquiryListLayout empty={empty} mobileTitleSize={state === 'attachments' ? '22px' : '24px'}>
-      <Divider variant="heading" mo="subtle" />
+      <Divider variant="subtle" />
       <Stack gap="0" pt={{ base: '8', _mobile: '6' }} pb="8">
         {empty && (
           <Stack

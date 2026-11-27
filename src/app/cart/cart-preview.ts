@@ -8,9 +8,9 @@ export type CartPreviewRow = {
   soldOut: boolean;
   initialSelected: boolean;
   originalAmount?: number;
+  discountLabel?: string;
   mobileAmount?: number;
   initialFavorite?: boolean;
-  optionQuantity?: number;
   optionPreview?: { item: CartItem; product: Product; unavailableColors?: readonly string[] };
 };
 
@@ -92,18 +92,18 @@ export const cartPreviewRows: CartPreviewRow[] = [0, 1, 2, 3, 4].map((index) => 
   amount: 240000,
   mobileAmount: index === 4 ? 139000 : undefined,
   originalAmount: index === 1 ? 280000 : undefined,
+  discountLabel: index === 1 ? '20%' : undefined,
   soldOut: index > 2,
   initialSelected: index < 3,
   initialFavorite: index === 1,
-  optionQuantity: 1,
   optionPreview: { ...cartOptionPreview, unavailableColors: ['White'] },
 }));
 
 export const cartPreviewAmounts = {
   product: 349000,
   discount: 17450,
-  shipping: 3000,
-  total: 334550,
+  shipping: 0,
+  total: 331550,
   mobileTotal: 240000,
   selectedTotal: 240000,
 };

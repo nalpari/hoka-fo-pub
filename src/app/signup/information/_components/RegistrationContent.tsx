@@ -205,7 +205,7 @@ function RegistrationAdditionalFields(props: RegistrationAdditionalFieldsProps) 
           titleAs: 'h2',
           titleProps: { web: 'b4B', mo: 'b4S' },
           pb: '4',
-          borderBottom: '1px solid var(--color-black-100)',
+          borderBottom: '1px solid var(--color-black-20)',
         }}
       >
         <Stack gap="6" _mobile={{ gap: '4' }}>

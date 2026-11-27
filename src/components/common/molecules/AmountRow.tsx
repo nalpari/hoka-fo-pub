@@ -56,11 +56,11 @@ export function AmountRow({
       )}
       {emphasis ? (
         <HStack alignItems="baseline" gap="0.5">
-          <Typography web="h8B" mo="h8" tone={discount ? 'red80' : undefined}>
+          <Typography web="h8B" mo="h8" tone={discount ? 'accent' : undefined}>
             {discount ? '- ' : ''}
             {amount.toLocaleString()}
           </Typography>
-          <Typography variant="b4" tone={discount ? 'red80' : undefined}>
+          <Typography variant="b4" tone={discount ? 'accent' : undefined}>
             원
           </Typography>
         </HStack>
@@ -71,7 +71,7 @@ export function AmountRow({
             web={amountWeb ?? web}
             mo={amountMo ?? mo}
             language="en"
-            tone={discount ? 'red80' : undefined}
+            tone={discount ? 'accent' : undefined}
             weight="medium"
           >
             {discount ? '-' : ''}
@@ -81,13 +81,13 @@ export function AmountRow({
             variant="b6"
             web={amountWeb ?? web}
             mo={amountMo ?? mo}
-            tone={discount ? 'red80' : undefined}
+            tone={discount ? 'accent' : undefined}
           >
             원
           </Typography>
         </HStack>
       ) : (
-        <Typography variant="b6" web={web} mo={mo} tone={discount ? 'red80' : undefined}>
+        <Typography variant="b6" web={web} mo={mo} tone={discount ? 'accent' : undefined}>
           {discount ? '- ' : ''}
           {amount.toLocaleString()}원
         </Typography>

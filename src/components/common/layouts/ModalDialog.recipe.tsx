@@ -4,7 +4,7 @@ import type { SystemStyleObject } from 'styled-system/types';
 import { dataListBoundaryRecipe } from '@/components/common/atoms/DataList.recipe';
 
 const notice = {
-  title: { fontWeight: '700', fontStyle: 'normal', color: 'black.100' },
+  title: { fontWeight: '700', lineHeight: 'body', fontStyle: 'normal', color: 'black.100' },
   message: { fontStyle: 'normal', color: 'black.100' },
   description: { fontStyle: 'normal', color: 'black.100' },
   content: { p: '24px 32px 40px', _mobile: { p: '24px 16px' } },
@@ -147,7 +147,7 @@ export const modalProductSelectionContentRecipe = sva({
       textDecoration: 'none',
       py: '16px',
     },
-    cartToggle: { borderY: '1px solid #000000', py: '20px', _mobile: { py: '16px' } },
+    cartToggle: { borderY: '1px solid var(--color-black-20)', py: '20px', _mobile: { py: '16px' } },
     fields: { gap: '8px', py: '8px' },
     fieldControl: { w: '100%', gap: '8px' },
     counter: { textAlign: 'right' },
@@ -262,7 +262,7 @@ export const modalProductSelectionContentRecipe = sva({
           alignItems: 'stretch',
           pt: '0',
           pb: '16px',
-          borderTop: '1px solid #000000',
+          borderTop: '1px solid var(--color-black-20)',
           '&:not(:last-child)': { borderBottom: '0' },
         },
         summary: { mt: '24px' },
@@ -550,7 +550,7 @@ export const modalTrackingContentRecipe = sva({
       lineHeight: 'koreanHeading',
       _mobile: { pb: '16px' },
     },
-    information: { m: '0', borderTop: '1px solid black' },
+    information: { m: '0', borderTop: '1px solid var(--color-black-20)' },
     row: {
       display: 'grid',
       gridTemplateColumns: '96px minmax(0, 1fr)',
@@ -656,9 +656,9 @@ export const modalOrderLookupContentRecipe = sva({
       },
     },
     orders: {
-      borderTop: '1px solid token(colors.black.100)',
+      borderTop: '1px solid var(--color-black-20)',
     },
-    order: { borderBottom: '1px solid token(colors.black.100)' },
+    order: { borderBottom: '1px solid var(--color-black-20)' },
     orderHeader: {
       alignItems: 'center',
       gap: '16px',
@@ -820,8 +820,9 @@ export const modalDialogRecipe = sva({
     },
     message: {
       m: '0',
-      textStyle: 'ko-wide-h8B',
-      _mobile: { textStyle: 'ko-compact-h8B' },
+      textStyle: 'ko-common-b2B',
+      lineHeight: 'koreanHeading',
+      _mobile: { textStyle: 'ko-common-b3B', lineHeight: 'koreanHeading' },
     },
     description: {
       m: '0',
@@ -1081,8 +1082,9 @@ export const modalDialogRecipe = sva({
         },
         message: {
           textStyle: 'en-wide-h8',
+          lineHeight: '1',
           mb: '32px',
-          _mobile: { textStyle: 'en-compact-h7', mb: '52px' },
+          _mobile: { textStyle: 'en-compact-h7', lineHeight: '1', mb: '52px' },
         },
         description: { fontSize: 'body.14', color: '#777777', _mobile: { mb: '16px' } },
       },

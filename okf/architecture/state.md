@@ -4,7 +4,7 @@ title: '공통 상태와 데모 데이터'
 description: '로그인, 장바구니와 목 데이터의 수명 및 제약을 설명한다.'
 tags: [react, state, mock-data]
 status: draft
-updated: '2026-11-24T01:45:10Z'
+updated: '2026-11-27T10:57:43+09:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
@@ -890,6 +890,10 @@ Typography의 `web`·`mo`는 기존 `usePlatform()`으로 선택하고 Body는 �
 
 ## 검색어 입력 오류 표시
 
-검색어가 비어 있으면 PC 헤더와 모바일 검색 입력의 테두리 및 오류 안내에 red80을 적용한다.
+검색어가 비어 있으면 PC 헤더와 모바일 검색 입력의 테두리에 red.80, 오류 안내 글자에 accent를 적용한다.
 
 PC와 모바일 검색 패널에서 최근 검색어를 한꺼번에 지우는 버튼은 ‘전체삭제’로 표시한다.
+
+## IA 검수 목록의 공통 셸 2026-11-27
+
+ShopShell의 AppLayout은 /screen-index와 /screen-review에서 공통 쇼핑 헤더·푸터를 생략하고 독립 IA 목록을 표시한다. 두 경로 모두 기존 플랫폼 컨텍스트로 반응형 스타일을 적용한다. 출처는 src/context/ShopShell.tsx 작업 트리다.

@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { useRef, useState } from 'react';
+import { usePlatform } from '@/context/platform';
 import { useShopPreviewLogout } from '@/context/ShopPreviewContext';
 
 import { css } from 'styled-system/css';
@@ -174,63 +175,69 @@ function MyPageBenefits() {
 }
 
 function MyPageOverviewProfile({ onLogout }: { onLogout: () => void }) {
+  const platform = usePlatform();
+
+  return (
+    <ContentSection
+      gap="32px"
+      _mobile={{ gap: '16px' }}
+      title={
+        <Link className={styles.profileLink} href="/mypage/profile">
+          <HStack as="span" gap="2px" alignItems="flex-end" _mobile={{ alignItems: 'center' }}>
+            <Typography as="span" web="h4B" mo="h2" className={styles.profileName}>
+              {'박연진'}
+            </Typography>
+            <span className={css({ fontWeight: 'medium' })}>님</span>
+          </HStack>
+          <Icon name="hoka-nav-chevron-right-regular" size={24} />
+        </Link>
+      }
+      headerProps={{
+        orientation: 'horizontal',
+        alignItems: 'flex-end',
+        action: (
+          <Button variant="link" size="md" onClick={onLogout}>
+            로그아웃
+          </Button>
+        ),
+        titleAs: 'h1',
+        titleProps: {
+          web: 'h4B',
+          mo: 'h2',
+          className: styles.profileTitle,
+        },
+      }}
+    >
+      {platform === 'mobile' ? <MyPageMembershipBarcode /> : null}
+      <Grid
+        gridTemplateColumns="minmax(0, 1fr) 488px"
+        gap="8px"
+        _mobile={{ gridTemplateColumns: '1fr' }}
+      >
+        <MyPageMembership />
+        <MyPageBenefits />
+      </Grid>
+    </ContentSection>
+  );
+}
+
+function MyPageMembershipBarcode() {
   const [barcodeOpen, setBarcodeOpen] = useState(false);
   const barcodeTrigger = useRef<HTMLButtonElement>(null);
 
   return (
     <>
-      <ContentSection
-        gap="32px"
-        _mobile={{ gap: '16px' }}
-        title={
-          <Link className={styles.profileLink} href="/mypage/profile">
-            <HStack as="span" gap="2px" alignItems="flex-end" _mobile={{ alignItems: 'center' }}>
-              <Typography as="span" web="h4B" mo="h2" className={styles.profileName}>
-                {'박연진'}
-              </Typography>
-              <Typography as="span" web="b1" mo="h2">
-                님
-              </Typography>
-            </HStack>
-            <Icon name="hoka-nav-chevron-right-regular" size={24} />
-          </Link>
-        }
-        headerProps={{
-          orientation: 'horizontal',
-          alignItems: 'flex-end',
-          action: (
-            <Button variant="link" size="md" onClick={onLogout}>
-              로그아웃
-            </Button>
-          ),
-          titleAs: 'h1',
-          titleProps: {
-            web: 'h4B',
-            mo: 'h2',
-            className: styles.profileTitle,
-          },
-        }}
-      >
-        <Box>
-          <Button
-            ref={barcodeTrigger}
-            variant="link"
-            size="md"
-            aria-haspopup="dialog"
-            onClick={() => setBarcodeOpen(true)}
-          >
-            멤버십 바코드 보기
-          </Button>
-        </Box>
-        <Grid
-          gridTemplateColumns="minmax(0, 1fr) 488px"
-          gap="8px"
-          _mobile={{ gridTemplateColumns: '1fr' }}
+      <Box>
+        <Button
+          ref={barcodeTrigger}
+          variant="link"
+          size="md"
+          aria-haspopup="dialog"
+          onClick={() => setBarcodeOpen(true)}
         >
-          <MyPageMembership />
-          <MyPageBenefits />
-        </Grid>
-      </ContentSection>
+          멤버십 바코드 보기
+        </Button>
+      </Box>
       <ModalDialog
         variant="detail"
         title="멤버십 바코드"

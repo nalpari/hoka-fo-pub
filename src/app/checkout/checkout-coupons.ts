@@ -15,7 +15,7 @@ export const checkoutCouponGroups = [
   id: `coupon-product-${index + 1}`,
   name: 'Speedgoat 7 GTX',
   image: '/images/cart/speedgoat-black.png',
-  optionText: '레귤러, 브라운, 235, 1개',
+  optionText: '브라운, 235, 레귤러, 1개',
   amount: 240000,
   available,
   total,

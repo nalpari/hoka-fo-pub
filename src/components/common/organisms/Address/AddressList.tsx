@@ -53,7 +53,7 @@ export function AddressList({
                 orientation: 'horizontal',
                 alignItems: 'end',
                 pb: '10',
-                borderBottom: '2px solid black',
+                borderBottom: '2px solid var(--color-black-20)',
                 _mobile: { pb: '32px' },
                 action: addresses.length ? (
                   <Button

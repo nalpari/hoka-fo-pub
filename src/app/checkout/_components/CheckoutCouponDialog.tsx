@@ -60,7 +60,7 @@ export function CheckoutCouponDialog({ onClose }: { onClose: () => void }) {
             <HStack gap="8px">
               <Typography variant="b6">
                 사용 가능 쿠폰{' '}
-                <Typography variant="b6M" language="en" tone="red80">
+                <Typography variant="b6M" language="en" tone="accent">
                   {group.available}
                 </Typography>
                 개
@@ -123,7 +123,7 @@ export function CheckoutCouponDialog({ onClose }: { onClose: () => void }) {
             <AmountRow label="장바구니" amount={0} />
           </Stack>
           <AmountRow
-            label="총 결제 금액"
+            label="총 결제금액"
             amount={3200000}
             emphasis
             css={contentStyles.summaryTotal}

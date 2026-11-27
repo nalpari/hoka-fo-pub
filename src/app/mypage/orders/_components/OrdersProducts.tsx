@@ -12,6 +12,7 @@ import { ContentSection } from '@/components/common/layouts/ContentSection';
 
 import { getClaimLines, orderStatusLabels } from '@/components/orders/order-policy';
 import type { OrderClaim, OrderLine, OrderRecord } from '@/components/orders/orders.types';
+import { formatProductOptions } from '@/lib/formatProductOptions';
 
 const styles = {
   orderAction: css({ minW: '107px', _mobile: { minW: '0', '&&': { '--button-height': '44px' } } }),
@@ -95,7 +96,10 @@ export function OrderClaimGroup({
             key={line.key}
             image={line.image}
             name={line.name}
-            optionText={`${line.width}, ${line.color}, ${line.size}, ${platform === 'mobile' ? (line.mobileQuantity ?? line.quantity) : line.quantity}개`}
+            optionText={formatProductOptions(
+              line,
+              platform === 'mobile' ? (line.mobileQuantity ?? line.quantity) : line.quantity,
+            )}
             amount={
               line.displayAmount === undefined
                 ? undefined
@@ -145,7 +149,7 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
       as="li"
       gap={{ base: '16px', _mobile: '0' }}
       py={{ base: '32px', _mobile: '0' }}
-      borderBottom={{ base: '1px solid var(--colors-black-100)', _mobile: '0' }}
+      borderBottom={{ base: '1px solid var(--colors-black-20)', _mobile: '0' }}
       listStyleType="none"
     >
       {platform === 'mobile' ? (
@@ -153,7 +157,7 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
           justifyContent="space-between"
           alignItems="flex-end"
           py="16px"
-          borderBottom="1px solid var(--colors-black-100)"
+          borderBottom="1px solid var(--colors-black-20)"
         >
           <HStack
             gap={{ base: '16px', _mobile: '4px' }}
@@ -184,7 +188,7 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
             borderBottom={{ base: '1px solid var(--colors-black-20)', _mobile: '0' }}
           >
             {platform !== 'mobile' && index === 0 ? (
-              <HStack gap="12px" px="24px" alignItems="baseline">
+              <HStack gap="12px" pe="24px" alignItems="baseline">
                 <Typography web="h10" mo="h8">
                   {order.date.replaceAll('-', '.')}
                 </Typography>
@@ -193,9 +197,9 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
                 </Typography>
               </HStack>
             ) : null}
-            <HStack justifyContent="space-between" px={{ base: '24px', _mobile: '0' }}>
+            <HStack justifyContent="space-between" pe={{ base: '24px', _mobile: '0' }}>
               <HStack gap="2px" flexWrap="wrap">
-                <Typography web="b4M" mo="b6M" tone="red80">
+                <Typography web="b4M" mo="b6M" tone="accent">
                   {orderStatusLabels[group.status]}
                 </Typography>
                 <Typography web="b4M" mo="b6M">
@@ -218,7 +222,7 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
                   key={line.key}
                   image={line.image}
                   name={line.name}
-                  optionText={`${line.width}, ${line.color}, ${line.size}, ${platform === 'mobile' ? (line.mobileQuantity ?? line.quantity) : line.quantity}개`}
+                  optionText={formatProductOptions(line, line.mobileQuantity ?? line.quantity)}
                   amount={
                     line.displayAmount === undefined
                       ? undefined
@@ -235,12 +239,12 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
                   alignItems="center"
                   gap="0"
                 >
-                  <Box px="24px">
+                  <Box pe="24px">
                     <OrderProductSummary
                       variant="history"
                       image={line.image}
                       name={line.name}
-                      optionText={`${line.width}, ${line.color}, ${line.size}`}
+                      optionText={formatProductOptions(line)}
                       cartAction
                     />
                   </Box>
@@ -262,7 +266,7 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
             pr={{ base: '8px', _mobile: '0' }}
             _mobile={{ mt: '16px', flexDirection: 'column', alignItems: 'stretch' }}
           >
-            {['preparing', 'shipping', 'delivered', 'purchased'].includes(group.status) ? (
+            {['shipping', 'delivered', 'purchased'].includes(group.status) ? (
               <Button
                 variant="secondary"
                 size="short"
@@ -344,12 +348,12 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
             gap="16px"
             alignItems="center"
             justifyContent={{ base: 'flex-start', _mobile: 'space-between' }}
-            px={{ base: '24px', _mobile: '0' }}
+            pe={{ base: '24px', _mobile: '0' }}
             py={{ base: '16px', _mobile: '0' }}
             borderBottom={{ base: '1px solid var(--color-border-subtle)', _mobile: '0' }}
           >
-            <Typography variant="b6M" tone="red80">
-              {claim.kind === 'cancel' ? '구매취소' : '반품요청'}
+            <Typography variant="b6M" tone="accent">
+              {claim.kind === 'cancel' ? '취소완료' : '환불신청'}
             </Typography>
             <Button variant="link" size="sm" onClick={() => actions.onClaimDetail(order, claim)}>
               {claim.kind === 'cancel' ? '취소상세보기' : '반품상세보기'}
@@ -362,7 +366,7 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
                 key={line.key}
                 image={line.image}
                 name={line.name}
-                optionText={`${line.width}, ${line.color}, ${line.size}, ${platform === 'mobile' ? (line.mobileQuantity ?? line.quantity) : line.quantity}개`}
+                optionText={formatProductOptions(line, line.mobileQuantity ?? line.quantity)}
                 amount={
                   line.displayAmount === undefined
                     ? undefined
@@ -378,13 +382,12 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
                 alignItems="center"
                 gap="0"
               >
-                <Box px="24px">
+                <Box pe="24px">
                   <OrderProductSummary
                     variant="history"
                     image={line.image}
                     name={line.name}
-                    optionText={`${line.width}, ${line.color}, ${line.size}`}
-                    cartAction
+                    optionText={formatProductOptions(line)}
                   />
                 </Box>
                 <Typography variant="b4M" className={css({ textAlign: 'center' })}>

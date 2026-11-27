@@ -2,13 +2,13 @@
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 
 import {
   Component,
-  type ComponentPropsWithoutRef,
   type CSSProperties,
   Fragment,
+  type MouseEventHandler,
   type ReactNode,
   type Ref,
   useCallback,
@@ -60,9 +60,13 @@ import { ContentLayout } from '@/components/common/layouts/ContentLayout';
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
+import { productDetailCare } from '@/app/products/[id]/productDetailCare';
 import {
   getProductDetailPresentation,
+  getProductMeasurementChart,
   productDetailAnchors,
+  productDetailAnchorsWithSize,
+  productDetailSizeAnchor,
   type ProductDetailSpecification,
   type ProductEditorialFeature,
   type ProductTechnicalScaleData,
@@ -73,6 +77,7 @@ import {
   prepareProductDetailPreview,
   type ProductDetailPreview,
   productDetailPreviews,
+  restockPhoneRequiredNotice,
 } from '@/app/products/[id]/productDetailPreviews';
 import { productInquiries } from '@/app/products/[id]/productInquiries';
 import { productSizeOptions } from '@/app/products/[id]/productSizeOptions';
@@ -89,10 +94,14 @@ import {
   shoeGuide,
   type Unit,
 } from '@/app/support/size-guide/size-guide.data';
-import { shoeCareSections } from '@/components/care-guide/care.data';
-import { CareInstructions } from '@/components/care-guide/CareInstructions';
 import { InquiryCautions } from '@/components/support/InquiryCautions';
-import { type Product, products, type ProductWidthOption } from '@/mocks/products';
+import { formatProductOptions } from '@/lib/formatProductOptions';
+import {
+  type Product,
+  type ProductMeasurementChart,
+  products,
+  type ProductWidthOption,
+} from '@/mocks/products';
 import { type CartItem } from '@/types/cart';
 const ProductDetailViewerContent = dynamic(() => import('./ProductDetailViewerContent'), {
   loading: () => <Typography role="status">상품 이미지를 불러오는 중입니다.</Typography>,
@@ -321,7 +330,7 @@ function InquiryBoardHeader({
       justifyContent="space-between"
       gap="4"
       pb={variant === 'product' ? '23px' : '5'}
-      className={dataListBoundaryRecipe({ bottom: 'strong' })}
+      className={dataListBoundaryRecipe({ bottom: 'subtle' })}
       _mobile={
         variant === 'product'
           ? {
@@ -362,7 +371,7 @@ function InquiryBoardHeader({
                     order: '2',
                     mt: '16px',
                     py: '16px',
-                    borderTop: '1px solid var(--color-black-100)',
+                    borderTop: '1px solid var(--color-black-20)',
                   }
                 : undefined
             }
@@ -1178,289 +1187,108 @@ function ProductDetailReviews({ count, id, className, children }: ProductDetailR
     </ContentSection>
   );
 }
-const textLink = css({
-  color: 'text.primary',
-  textDecoration: 'underline',
-  textUnderlineOffset: '3px',
-  _focusVisible: { outline: '2px solid', outlineOffset: '4px' },
-});
-type ProductSupportTextLinkProps = Omit<ComponentPropsWithoutRef<'a'>, 'className' | 'href'> & {
-  href: string;
+const deliveryStyles = {
+  list: css({ listStyleType: 'decimal', pl: '4' }),
+  precautions: css({ listStyleType: 'disc', pl: '4' }),
+  link: css({
+    color: 'text.primary',
+    textDecoration: 'underline',
+    textUnderlineOffset: '3px',
+    alignSelf: 'flex-start',
+    _focusVisible: { outline: '2px solid', outlineOffset: '4px' },
+  }),
 };
-function ProductSupportTextLink({ href, ...props }: ProductSupportTextLinkProps) {
-  return href.startsWith('/') ? (
-    <Link {...props} href={href} className={textLink} />
-  ) : (
-    <a {...props} href={href} className={textLink} />
-  );
-}
-const numberedList = css({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '4',
-  listStyleType: 'decimal',
-  pl: '4',
-});
-function ProductDetailDeliverySection({ title, children }: { title: string; children: ReactNode }) {
+
+function ProductDetailDeliveryContent() {
   return (
-    <ContentSection
-      as="section"
-      gap="5"
-      aria-label={title}
-      title={<>{title}</>}
-      headerProps={{ titleAs: 'h3', titleProps: { web: 'h10B', mo: 'h8' } }}
-    >
-      {children}
-    </ContentSection>
-  );
-}
-function ProductDetailDeliveryList({ children }: { children: ReactNode }) {
-  return (
-    <Typography as="ol" variant="b8" className={numberedList}>
-      {children}
-    </Typography>
-  );
-}
-function ProductDetailShippingGuide() {
-  return (
-    <ProductDetailDeliverySection title="배송 안내">
-      <ProductDetailDeliveryList>
-        <li>구매 금액에 관계없이 전 상품 무료배송입니다.</li>
-        <li>결제일로부터 1~5일 이내에 상품이 출고됩니다. (토·일요일 및 공휴일 제외)</li>
-        <li>상품은 호카 물류센터 또는 매장에서 발송됩니다.</li>
-        <li>
-          <ProductSupportTextLink href="/mypage/orders">
-            마이페이지 &gt; 주문/배송 조회
-          </ProductSupportTextLink>
-          에서 구매하신 상품의 배송 상태를 확인하실 수 있습니다.
-        </li>
-      </ProductDetailDeliveryList>
-    </ProductDetailDeliverySection>
-  );
-}
-const bulletList = css({ listStyleType: 'disc', pl: '4', mt: '3' });
-function ProductDetailReturnPrecautions() {
-  return (
-    <ProductDetailDeliverySection title="반품 유의사항">
-      <ProductDetailDeliveryList>
-        <li>상품 수령일로부터 7일 이내에 반품을 신청해 주세요.</li>
-        <li>
-          호카 온라인 스토어에서 구매하신 상품은 온라인으로 반품을 신청해 주세요. 교환을 원하시는
-          경우 고객센터의 안내를 확인해 주세요. 온라인 구매 상품의 오프라인 매장 반품은 불가합니다.
-        </li>
-        <li>
-          다음과 같은 경우 반품 처리가 불가합니다.
-          <ul className={bulletList}>
-            <li>상품을 이미 착용하거나 사용한 경우</li>
-            <li>단순 변심으로 상품 수령일로부터 7일이 경과한 경우</li>
-            <li>
-              상품 또는 구성품(신발 박스, 가격 택, 라벨, 폴리백 등)을 분실하거나 훼손한 경우 (신발
-              박스에 테이프를 붙이거나 운송장을 부착한 경우 포함)
-            </li>
-            <li>사은품을 사용하거나 분실 또는 훼손한 경우</li>
-            <li>소비자의 책임으로 상품 가치가 감소한 경우</li>
-          </ul>
-        </li>
-        <li>
-          반품 배송비 안내
-          <ul className={bulletList}>
-            <li>상품 불량 또는 오배송으로 인한 반품 배송비는 호카가 부담합니다.</li>
-            <li>고객님의 단순 변심으로 인한 반품 배송비는 고객님 부담입니다.</li>
-            <li>제주도 및 도서 산간 지역은 추가 배송비가 발생할 수 있습니다.</li>
-            <li>정확한 반품 배송비와 결제 방법은 반품 접수 시 안내를 확인해 주세요.</li>
-            <li>타 택배사를 이용하실 경우 발송 전 고객센터에 문의해 주세요.</li>
-          </ul>
-        </li>
-      </ProductDetailDeliveryList>
-    </ProductDetailDeliverySection>
-  );
-}
-function ProductSupportContact() {
-  return (
-    <Grid
-      gridTemplateColumns="minmax(0, 1fr) minmax(0, 2fr)"
-      gap="6"
-      pb="6"
-      borderBottom="1px solid token(colors.border.default)"
-      _mobile={{ gridTemplateColumns: '1fr', gap: '3' }}
-    >
-      <ContentHeader
-        title="호카 온라인 스토어 고객센터"
-        titleAs="h4"
-        titleProps={{ variant: 'b8B' }}
-        gap="0"
-      />
-      <Stack gap="2">
-        <Typography as="p" variant="b8">
-          TEL. <ProductSupportTextLink href="tel:15660086">1566-0086</ProductSupportTextLink>
-        </Typography>
-        <Typography as="p" variant="b8" tone="tertiary">
-          1:1 문의를 이용하시면 조금 더 빠르게 답변 받으실 수 있습니다.
-        </Typography>
-        <Typography as="p" variant="b8B">
-          운영시간
-        </Typography>
-        <Typography as="p" variant="b8" tone="tertiary">
-          평일 10:00~17:00 (점심시간 12:00~13:00) / 토·일요일 및 공휴일 휴무
-        </Typography>
-      </Stack>
-    </Grid>
-  );
-}
-const supportLink = css({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  minHeight: '44px',
-  px: '4',
-  bg: 'surface.subtle',
-  color: 'text.primary',
-  _hover: { bg: 'black.20' },
-  _focusVisible: { outline: '2px solid', outlineOffset: '4px' },
-});
-type ProductSupportLinkProps = {
-  title: string;
-  description: string;
-  label: string;
-  to: string;
-};
-function ProductSupportLink({ title, description, label, to }: ProductSupportLinkProps) {
-  return (
-    <Grid
-      gridTemplateColumns="minmax(0, 1fr) 160px"
-      alignItems="center"
-      gap="5"
-      _mobile={{ gridTemplateColumns: '1fr', gap: '3' }}
-    >
-      <ContentHeader
+    <Stack gap="5" py="6" wordBreak="keep-all" overflowWrap="anywhere" _mobile={{ py: '4' }}>
+      <ContentSection
+        as="section"
+        title="배송"
         gap="2"
-        titleAs="h4"
-        title={<>{title}</>}
-        titleProps={{ variant: 'b8B' }}
-        description={<>{description}</>}
-        descriptionProps={{ variant: 'b8', tone: 'tertiary' }}
-      />
-      <Link href={to} className={supportLink}>
-        <Typography variant="b8M">{label}</Typography>
+        headerProps={{ titleAs: 'h3', titleProps: { variant: 'b5B' } }}
+      >
+        <Typography as="ol" variant="b8" className={deliveryStyles.list}>
+          <li>전상품 무료배송됩니다.</li>
+          <li>
+            결제일로부터 1~5일 이내 CJ 대한통운을 통해 출고됩니다. (*주말 및 공휴일 제외)
+            <br />
+            단, 지역 및 택배사 사정에 따라 배송이 지연될 수 있습니다.
+          </li>
+        </Typography>
+      </ContentSection>
+      <ContentSection
+        as="section"
+        title="반품"
+        gap="2"
+        headerProps={{ titleAs: 'h3', titleProps: { variant: 'b5B' } }}
+      >
+        <Typography as="ol" variant="b8" className={deliveryStyles.list}>
+          <li>상품 수령 후 7일 이내 마이페이지 &gt; 주문/배송조회에서 반품 신청이 가능합니다.</li>
+          <li>반품 신청 후 2~3일 이내 CJ 대한통운에서 상품을 수거합니다.</li>
+          <li>
+            단순 변심으로 인한 반품 배송비 5,000원(최초 배송비 포함)은 고객 부담이며, 상품 불량 및
+            오배송의 경우 호카에서 부담합니다.
+          </li>
+          <li>반품 상품 검수 완료 후 결제하신 수단으로 환불이 진행됩니다.</li>
+          <li>
+            별도의 상품 교환 서비스를 제공하지 않습니다. 교환을 원하실 경우 기존 상품 반품 후
+            재구매해 주시기 바랍니다.
+          </li>
+        </Typography>
+      </ContentSection>
+      <ContentSection
+        as="section"
+        title="반품 주의 사항"
+        gap="2"
+        headerProps={{ titleAs: 'h3', titleProps: { variant: 'b5B' } }}
+      >
+        <Stack gap="0">
+          <Typography as="p" variant="b8">
+            다음과 같은 경우에는 반품이 불가능합니다.
+          </Typography>
+          <Typography as="ul" variant="b8" className={deliveryStyles.precautions}>
+            <li>상품 수령일로부터 7일이 지난 경우</li>
+            <li>
+              상품을 사용하거나 상품 및 구성품(신발 박스, 택, 라벨, 포장재 등)이 분실·훼손된 경우
+            </li>
+            <li>사은품이 분실·훼손되었거나 언더웨어 패키지 스티커를 개봉한 경우</li>
+            <li>기타 관련 법령에 따라 청약 철회가 제한되는 경우</li>
+          </Typography>
+        </Stack>
+      </ContentSection>
+      <Link href="/support/after-sales" className={deliveryStyles.link}>
+        <Typography variant="b8">
+          배송 및 반품 상세 안내 바로 가기<span aria-hidden="true">↗</span>
+        </Typography>
       </Link>
-    </Grid>
+    </Stack>
   );
 }
-const supportLinks = [
-  {
-    title: '배송 및 반품 관련 1:1 문의',
-    description: '궁금하신 내용을 1:1 문의에 남겨 주시면 확인하여 답변드리겠습니다.',
-    label: '1:1 문의',
-    to: '/support/inquiries',
-  },
-  {
-    title: 'FAQs',
-    description: '자주 묻는 질문의 답변을 찾아보세요.',
-    label: 'FAQs',
-    to: '/support/faq',
-  },
-  {
-    title: '주문/배송 조회',
-    description: '구매하신 상품의 주문 및 배송 내역을 확인하실 수 있습니다.',
-    label: '주문/배송 조회',
-    to: '/mypage/orders',
-  },
-];
-function ProductDetailDeliverySupport() {
+
+// [ 개발팀 바인딩 ] 상세 연결 소유자가 현재 상품의 productKind를 전달합니다. 관리 문구는 유형별 고정 표시 데이터이며 조회 요청이나 추가 상태는 없습니다. 상품 교체 시 현재 유형으로 다시 표시하고, 유형이 없는 기존 상품은 신발 안내를 표시합니다.
+function ProductDetailCareContent({ productKind = 'footwear' }: Pick<Product, 'productKind'>) {
   return (
-    <Stack
-      as="section"
-      border="1px solid token(colors.border.default)"
-      p="8"
-      gap="6"
-      _mobile={{ p: '5' }}
-      aria-label="배송 및 반품 고객센터"
-    >
-      <ProductSupportContact />
-      {supportLinks.map(({ title, description, label, to }) => (
-        <ProductSupportLink
-          key={to}
+    <Stack gap="5" py={{ base: '6', _mobile: '4' }} wordBreak="keep-all" overflowWrap="anywhere">
+      {productDetailCare[productKind].map(({ title, instructions }) => (
+        <ContentSection
+          key={title}
+          as="section"
           title={title}
-          description={description}
-          label={label}
-          to={to}
-        />
+          gap="2"
+          headerProps={{ titleAs: 'h3', titleProps: { variant: 'b5B' } }}
+        >
+          <Typography as="ol" variant="b7" className={deliveryStyles.list}>
+            {instructions.map((instruction) => (
+              <li key={instruction}>{instruction}</li>
+            ))}
+          </Typography>
+        </ContentSection>
       ))}
     </Stack>
   );
 }
-const processTitle = css({
-  borderRight: '1px solid token(colors.border.default)',
-  pr: '6',
-  _mobile: { borderRight: 'none', pr: '0' },
-});
-const stepRow = css({ display: 'flex', alignItems: 'center', gap: '5' });
-const stepNumber = css({ flexShrink: '0', width: '8' });
-const returnSteps = [
-  '마이페이지 > 주문/배송 조회 > 주문 상세 내역 확인',
-  '반품할 상품을 선택하여 반품 신청 후 수거 일정 확인',
-  '최초 수령 상태와 동일하게 이중 포장하여 방문 기사님께 전달',
-  '호카 물류센터에 상품 도착',
-  '반품 요청 내용 및 상품 상태 확인',
-  '반품 완료 및 결제수단별 환불 진행',
-];
-function ProductDetailReturnGuide() {
-  return (
-    <ProductDetailDeliverySection title="호카 반품 안내">
-      <ProductDetailDeliveryList>
-        <li>온라인 스토어에서 구매하신 상품은 온라인으로 반품을 신청하실 수 있습니다.</li>
-        <li>고객님 변심으로 발생하는 반품 배송비는 환불 금액에서 차감될 수 있습니다.</li>
-        <li>상품과 구성품을 수령 당시 상태로 포장하여 지정 택배사의 수거를 기다려 주세요.</li>
-      </ProductDetailDeliveryList>
-      <Grid
-        gridTemplateColumns="minmax(0, 1fr) minmax(0, 3fr)"
-        gap="8"
-        className={dataListBoundaryRecipe({ top: 'emphasis', bottom: 'defaultBorder' })}
-        py="10"
-        _mobile={{ gridTemplateColumns: '1fr', gap: '6', py: '6' }}
-      >
-        <ContentHeader
-          title={
-            <>
-              상품 반품
-              <br />
-              STEP
-            </>
-          }
-          titleAs="h4"
-          titleProps={{ variant: 'b2', tone: 'tertiary', className: processTitle }}
-          gap="0"
-        />
-        <Stack as="ol" gap="6">
-          {returnSteps.map((step, index) => (
-            <li key={step} className={stepRow}>
-              <Typography variant="b1" className={stepNumber} aria-hidden="true">
-                {index + 1}
-              </Typography>
-              <Typography variant="b8">{step}</Typography>
-            </li>
-          ))}
-        </Stack>
-      </Grid>
-    </ProductDetailDeliverySection>
-  );
-}
-function ProductDetailDeliveryContent() {
-  return (
-    <Stack
-      gap="12"
-      py="6"
-      wordBreak="keep-all"
-      overflowWrap="anywhere"
-      _mobile={{ gap: '8', py: '4' }}
-    >
-      <ProductDetailShippingGuide />
-      <ProductDetailReturnPrecautions />
-      <ProductDetailDeliverySupport />
-      <ProductDetailReturnGuide />
-    </Stack>
-  );
-}
+
 /** 상품 고시 정보를 이름과 값의 목록으로 표시합니다. (Displays product specifications as a list of labels and values.) */
 function ProductDetailNoticeTable({ items }: { items: readonly ProductDetailSpecification[] }) {
   return (
@@ -1523,8 +1351,9 @@ const item = css({ borderBottom: '1px solid var(--color-black-20)' });
 const ProductDetailSupportSectionsTrigger = css({ minH: '77px' });
 /** 상품 고시·배송·관리 안내 섹션을 구성합니다. (Composes product specification, delivery, and care sections.) */
 function ProductDetailSupportSections({
+  productKind,
   specifications,
-}: {
+}: Pick<Product, 'productKind'> & {
   specifications: readonly ProductDetailSpecification[];
 }) {
   return (
@@ -1559,7 +1388,7 @@ function ProductDetailSupportSections({
               관리 방법
             </Typography>
           ),
-          content: <CareInstructions sections={shoeCareSections} />,
+          content: <ProductDetailCareContent productKind={productKind} />,
         },
       ]}
     />
@@ -1569,6 +1398,128 @@ const destination = css({
   scrollMarginTop:
     'calc(var(--layout-site-header-height) + var(--product-detail-nav-height, 0px) + 24px)',
 });
+const measurementTableStyles = {
+  table: css({
+    w: '100%',
+    tableLayout: 'fixed',
+    borderCollapse: 'separate',
+    borderSpacing: '0',
+    textAlign: 'center',
+    whiteSpace: 'nowrap',
+    '& th, & td': {
+      h: '52px',
+      borderRight: '1px solid var(--color-black-20)',
+      borderBottom: '1px solid var(--color-black-20)',
+      verticalAlign: 'middle',
+      _mobile: { h: '46px' },
+    },
+    '& tr > :first-child': { borderLeft: '1px solid var(--color-black-20)' },
+    '& thead th': { borderTop: '1px solid var(--color-black-20)' },
+    '& thead th, & tbody tr:nth-child(even) > *': { bg: 'black.10' },
+    '& tbody tr:nth-child(odd) > *': { bg: 'white' },
+    _mobile: {
+      '&[data-column-layout="narrow"] col:first-child': { w: '85.75px' },
+      '&[data-column-layout="scroll"]': { minW: 'var(--measurement-table-min-width)' },
+      '&[data-column-layout="scroll"] tr > :first-child': { pos: 'sticky', left: '0', zIndex: '1' },
+    },
+  }),
+  unit: css({ textAlign: 'right', color: '#777777' }),
+};
+
+function ProductMeasurementSection({ chart }: { chart: ProductMeasurementChart }) {
+  const platform = usePlatform();
+  const headingId = useId();
+  const unitId = useId();
+  const columnCount = chart.sizes.length + 1;
+  const columnLayout = columnCount <= 3 ? 'narrow' : columnCount >= 6 ? 'scroll' : 'even';
+  const scrollable = platform === 'mobile' && columnLayout === 'scroll';
+  const tableStyle = {
+    '--measurement-table-min-width': String(columnCount * 66) + 'px',
+  } as CSSProperties;
+
+  return (
+    <ContentSection
+      as="section"
+      id={productDetailSizeAnchor.id}
+      className={destination}
+      title={productDetailSizeAnchor.label}
+      headerProps={{ titleProps: { id: headingId, web: 'h9B', mo: 'h8B', language: 'ko' } }}
+      minW="0"
+      gap="6"
+      _mobile={{ gap: '4' }}
+    >
+      <Stack gap="4" minW="0">
+        <Box
+          overflowX="auto"
+          role={scrollable ? 'region' : undefined}
+          aria-label={scrollable ? '사이즈 실측표 가로 스크롤' : undefined}
+          tabIndex={scrollable ? 0 : undefined}
+        >
+          <table
+            aria-labelledby={headingId}
+            aria-describedby={unitId}
+            className={measurementTableStyles.table}
+            data-column-layout={columnLayout}
+            style={tableStyle}
+          >
+            <colgroup>
+              <col />
+              <col span={chart.sizes.length} />
+            </colgroup>
+            <thead>
+              <tr>
+                <th scope="col">
+                  <Typography web="b6S" mo="b7S" language="ko">
+                    사이즈
+                  </Typography>
+                </th>
+                {chart.sizes.map((size) => (
+                  <th key={size} scope="col">
+                    <Typography web="b6M" mo="b7M">
+                      {size}
+                    </Typography>
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {chart.rows.map(({ label, valuesCm }) => (
+                <tr key={label}>
+                  <th scope="row">
+                    <Typography web="b6S" mo="b7S" language="ko">
+                      {label}
+                    </Typography>
+                  </th>
+                  {chart.sizes.map((size, index) => (
+                    <td key={size}>
+                      <Typography web="b6" mo="b7" language="en">
+                        {valuesCm[index]}
+                      </Typography>
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </Box>
+        <Typography
+          as="p"
+          id={unitId}
+          className={measurementTableStyles.unit}
+          web="b6"
+          mo="b7"
+          language="ko"
+        >
+          단위:{' '}
+          <Typography web="b6" mo="b7" language="en">
+            cm
+          </Typography>
+        </Typography>
+      </Stack>
+    </ContentSection>
+  );
+}
+
 function ProductDetailSections({
   product,
   inquiriesEmpty = false,
@@ -1582,12 +1533,15 @@ function ProductDetailSections({
 }) {
   /** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 상품 연결 소유자가 표시 모델과 식별자·입력/선택 payload, 요청 중/실패/성공/재시도 및 응답 갱신을 별도로 구현해야 합니다. */
   const presentation = getProductDetailPresentation(product);
+  const footwear = !apparel && product.productKind !== 'accessories';
   const features = apparel ? apparelFeatures : presentation.features;
+  const measurementChart = getProductMeasurementChart(product);
+  const anchors = measurementChart ? productDetailAnchorsWithSize : productDetailAnchors;
   return (
-    <ProductDetailScrollSpy items={productDetailAnchors}>
+    <ProductDetailScrollSpy items={anchors}>
       <Stack gap="96px" _mobile={{ gap: '12' }}>
         <Stack id="product-details" className={destination} gap="96px" _mobile={{ gap: '12' }}>
-          {!apparel && (
+          {footwear && (
             <ProductTechSpecs
               specifications={presentation.specifications}
               attributes={presentation.attributes}
@@ -1597,6 +1551,7 @@ function ProductDetailSections({
           {features.length > 0 && <ProductDetailEditorial features={features} />}
         </Stack>
         <ProductDetailPlaceholder>상세페이지 영역 (이미지세트 &amp; IMC)</ProductDetailPlaceholder>
+        {measurementChart && <ProductMeasurementSection chart={measurementChart} />}
         <ProductDetailReviews
           id="product-reviews"
           className={destination}
@@ -1605,12 +1560,13 @@ function ProductDetailSections({
         <Stack id="product-inquiries" className={destination} gap="24px">
           <ProductDetailInquiryContent empty={inquiriesEmpty} expanded={inquiriesExpanded} />
           <ProductDetailSupportSections
+            productKind={product.productKind}
             specifications={
-              apparel
-                ? presentation.notice.filter(
+              footwear
+                ? presentation.notice
+                : presentation.notice.filter(
                     (entry) => entry.label === '컬러' || entry.label === '스타일코드',
                   )
-                : presentation.notice
             }
           />
         </Stack>
@@ -1912,6 +1868,7 @@ function ProductSizeGuideChart({
 type ProductSizeSelectorProps = {
   selectedWidth?: ProductWidthOption;
   apparel?: boolean;
+  sizes?: readonly string[];
   guideGender?: Gender;
   value: string;
   error: string;
@@ -1921,6 +1878,7 @@ type ProductSizeSelectorProps = {
 function ProductSizeSelector({
   selectedWidth,
   apparel,
+  sizes,
   guideGender,
   value,
   error,
@@ -1956,7 +1914,7 @@ function ProductSizeSelector({
         allowSoldOutSelection
         error={error}
         errorVariant="b6M"
-        options={productSizeOptions(selectedWidth, apparel ? selectedWidth?.sizes : undefined)}
+        options={productSizeOptions(selectedWidth, sizes)}
         value={value}
         onValueChange={onValueChange}
         // 1차 제외: 사이즈 추천
@@ -2031,13 +1989,14 @@ function ProductVariantSelectors({
   showColor = true,
 }: ProductVariantSelectorsProps) {
   const widthOptions = productWidthOptions(product, color);
+  const accessories = product.productKind === 'accessories';
   const selected =
     widthOptions.find((option) => option.label === width && !option.isSoldOut) ??
     widthOptions.find((option) => !option.isSoldOut);
   return (
     <>
       <Stack gap="10">
-        {!apparel && (
+        {!apparel && !accessories && (
           <ProductWidthSelector
             onValueChange={onWidthChange}
             options={widthOptions.map((option) => option.label)}
@@ -2058,10 +2017,13 @@ function ProductVariantSelectors({
         )}
         <ProductSizeSelector
           apparel={apparel}
+          sizes={apparel || accessories ? selected?.sizes : undefined}
           error={error}
           onValueChange={onSizeChange}
           selectedWidth={selected}
-          guideGender={product.gender ? sizeGuideGenders[product.gender] : undefined}
+          guideGender={
+            !accessories && product.gender ? sizeGuideGenders[product.gender] : undefined
+          }
           value={size}
         />
       </Stack>
@@ -2263,6 +2225,7 @@ const ProductPurchaseActionsRoot = cva({
 // [ 개발팀 바인딩 ] 구매/장바구니/입고알림 CTA는 상태 확인용 표시입니다. 요청·검증·장바구니 변경·완료 이동은 연결하지 않으며 실제 연결은 상품상세 통합 소유자가 담당합니다.
 type ProductPurchaseActionsProps = {
   onOpenOptions?: () => void;
+  onRequestRestock?: MouseEventHandler<HTMLButtonElement>;
   restock?: boolean;
 } & (
   { placement: 'inline'; wishlist?: ReactNode } | { placement: 'fixed' | 'sheet'; wishlist?: never }
@@ -2272,6 +2235,7 @@ function ProductPurchaseActions({
   placement,
   restock,
   onOpenOptions,
+  onRequestRestock,
   wishlist,
 }: ProductPurchaseActionsProps) {
   const platform = usePlatform();
@@ -2303,7 +2267,7 @@ function ProductPurchaseActions({
         variant="primary"
         fullWidth
         size={platform === 'mobile' ? 'short' : 'tall'}
-        onClick={restock ? undefined : onOpenOptions}
+        onClick={restock ? onRequestRestock : onOpenOptions}
       >
         <Typography web="b4B" mo="b5B" language="ko">
           {restock ? '입고 알림 신청하기' : '구매하기'}
@@ -2314,6 +2278,7 @@ function ProductPurchaseActions({
   );
 }
 type ProductDetailContentProps = {
+  onRequestRestock?: MouseEventHandler<HTMLButtonElement>;
   apparel?: boolean;
   restock?: boolean;
   product: Product;
@@ -2344,6 +2309,7 @@ function ProductDetailContent({
   onColorChange,
   onWidthChange,
   onSizeChange,
+  onRequestRestock,
   apparel,
   restock,
 }: ProductDetailContentProps) {
@@ -2367,6 +2333,7 @@ function ProductDetailContent({
       {selectedOptions}
       <ProductPurchaseActions
         restock={restock}
+        onRequestRestock={onRequestRestock}
         placement="inline"
         wishlist={
           platform === 'web' ? (
@@ -2410,7 +2377,9 @@ function ProductDetailContent({
               : [
                   { label: '컬러', value: color },
                   { label: '스타일코드', value: product.styleCode },
-                  { label: '발볼 넓이', value: width },
+                  ...(product.productKind === 'accessories'
+                    ? []
+                    : [{ label: '발볼 넓이', value: width }]),
                 ]),
         ]}
       />
@@ -2522,7 +2491,6 @@ function ProductDetailHeaderActions({
 
 type ProductDetailHeaderProps = {
   initialShareOpen?: boolean;
-  apparel?: boolean;
   product: Product;
   wish: boolean;
   onWishChange: () => void;
@@ -2531,7 +2499,6 @@ function ProductDetailHeader({
   product,
   wish,
   onWishChange,
-  apparel,
   initialShareOpen,
 }: ProductDetailHeaderProps) {
   const platform = usePlatform();
@@ -2544,7 +2511,6 @@ function ProductDetailHeader({
         price={product.price}
         originalPrice={product.originalPrice}
         discountLabel={product.discountLabel}
-        promotionTone={apparel || product.styleCode === 'HOKADFG34S' ? 'error' : undefined}
       />
       {platform === 'web' && (
         <ProductDetailHeaderActions
@@ -2714,7 +2680,7 @@ function ProductAfterSalesProcess() {
         m="0"
         py="10"
         px="0"
-        className={dataListBoundaryRecipe({ top: 'strong', bottom: 'muted' })}
+        className={dataListBoundaryRecipe({ top: 'thickSubtle', bottom: 'muted' })}
         _mobile={{
           gridTemplateColumns: '1fr',
           '& > li, & > li:nth-child(4), & > li:nth-child(5)': { gridColumn: 'auto' },
@@ -2833,20 +2799,33 @@ const items: AccordionEntry[] = [
     content: <ProductDetailAfterSalesContent />,
   },
 ];
-function ProductDetailSupport({ inquiriesEmpty = false }: { inquiriesEmpty?: boolean }) {
+function ProductDetailSupport({
+  inquiriesEmpty = false,
+  productKind,
+}: Pick<Product, 'productKind'> & { inquiriesEmpty?: boolean }) {
+  const supportItems = inquiriesEmpty
+    ? items.map((item) =>
+        item.value === 'inquiry'
+          ? { ...item, content: <ProductDetailInquiryContent empty /> }
+          : item,
+      )
+    : items;
   return (
     <Box as="section" aria-label="상품 안내" borderTop="1px solid var(--color-black-20)">
       <Accordion
         indicatorSize="13px"
-        items={
-          inquiriesEmpty
-            ? items.map((item) =>
-                item.value === 'inquiry'
-                  ? { ...item, content: <ProductDetailInquiryContent empty /> }
-                  : item,
-              )
-            : items
-        }
+        items={[
+          ...supportItems,
+          {
+            value: 'care',
+            title: (
+              <Typography web="h10" mo="h8">
+                관리 방법
+              </Typography>
+            ),
+            content: <ProductDetailCareContent productKind={productKind} />,
+          },
+        ]}
         defaultValue={inquiriesEmpty ? ['inquiry'] : undefined}
         multiple={false}
         itemClassName={wrapper}
@@ -2857,7 +2836,8 @@ function ProductDetailSupport({ inquiriesEmpty = false }: { inquiriesEmpty?: boo
 function ProductDetailSupportRegion({
   platform,
   inquiriesEmpty,
-}: {
+  productKind,
+}: Pick<Product, 'productKind'> & {
   platform: Platform;
   inquiriesEmpty?: boolean;
 }) {
@@ -2869,11 +2849,12 @@ function ProductDetailSupportRegion({
       display={platform === 'mobile' ? 'none' : undefined}
       _mobile={{ display: platform === 'mobile' ? 'block' : 'none' }}
     >
-      <ProductDetailSupport inquiriesEmpty={inquiriesEmpty} />
+      <ProductDetailSupport inquiriesEmpty={inquiriesEmpty} productKind={productKind} />
     </Box>
   );
 }
 type ProductDetailPanelProps = {
+  onRequestRestock?: MouseEventHandler<HTMLButtonElement>;
   initialShareOpen?: boolean;
   apparel?: boolean;
   restock?: boolean;
@@ -2908,6 +2889,7 @@ function ProductDetailPanel({
   onWidthChange,
   onSizeChange,
   onWishChange,
+  onRequestRestock,
   inquiriesEmpty,
   inquiriesExpanded,
   apparel,
@@ -2945,7 +2927,6 @@ function ProductDetailPanel({
           )}
           <ProductDetailHeader
             initialShareOpen={initialShareOpen}
-            apparel={apparel}
             onWishChange={onWishChange}
             product={product}
             wish={wish}
@@ -2954,6 +2935,7 @@ function ProductDetailPanel({
         <ProductDetailContent
           apparel={apparel}
           restock={restock}
+          onRequestRestock={onRequestRestock}
           selectedOptions={selectedOptions}
           wish={wish}
           onWishChange={onWishChange}
@@ -2968,7 +2950,7 @@ function ProductDetailPanel({
           width={width}
         />
         {platform === 'mobile' &&
-          (revised ? (
+          (revised || getProductMeasurementChart(product) ? (
             <ProductDetailSections
               product={product}
               inquiriesEmpty={inquiriesEmpty}
@@ -2976,7 +2958,11 @@ function ProductDetailPanel({
               apparel={apparel}
             />
           ) : (
-            <ProductDetailSupportRegion platform="mobile" inquiriesEmpty={inquiriesEmpty} />
+            <ProductDetailSupportRegion
+              platform="mobile"
+              inquiriesEmpty={inquiriesEmpty}
+              productKind={product.productKind}
+            />
           ))}
       </Stack>
     </Box>
@@ -3032,6 +3018,7 @@ function ProductDetailRecommendations({ products }: { products: Product[] }) {
 }
 type ProductDetailFooterProps = {
   onOpenOptions?: () => void;
+  onRequestRestock?: MouseEventHandler<HTMLButtonElement>;
   restock?: boolean;
   recommendations: Product[];
 };
@@ -3041,13 +3028,19 @@ function ProductDetailFooter({
   recommendations,
   restock,
   onOpenOptions,
+  onRequestRestock,
 }: ProductDetailFooterProps) {
   const platform = usePlatform();
   return (
     <>
       <ProductDetailRecommendations products={recommendations} />
       {platform === 'mobile' && (
-        <ProductPurchaseActions restock={restock} placement="fixed" onOpenOptions={onOpenOptions} />
+        <ProductPurchaseActions
+          restock={restock}
+          placement="fixed"
+          onOpenOptions={onOpenOptions}
+          onRequestRestock={onRequestRestock}
+        />
       )}
     </>
   );
@@ -3085,7 +3078,7 @@ function ProductSelectedOptions({
         }
       >
         {items.map((item, index) => {
-          const label = [item.color, item.size, item.width].filter(Boolean).join(', ');
+          const label = formatProductOptions(item);
           return (
             <li key={JSON.stringify([item.id, item.color, item.width, item.size])}>
               <Stack data-list-option>
@@ -3134,7 +3127,7 @@ function ProductSelectedOptions({
       <HStack
         justifyContent="space-between"
         py="5"
-        className={dataListBoundaryRecipe({ top: 'strong' })}
+        className={dataListBoundaryRecipe({ top: 'thickSubtle' })}
         aria-live="polite"
       >
         <Typography web="b4B" mo="b6B" language="ko">
@@ -3157,9 +3150,17 @@ const maxProductSheet = css({
   _mobile: { maxH: 'calc(100dvh - 92px)' },
 });
 
+type RouteContentProps = {
+  preview?: ProductDetailPreview;
+  // [ 개발팀 바인딩 ] PDP 통합 소유자가 현재 카카오 가입 회원에게 등록된 휴대폰 번호가 없다고 확인한 경우에만 전달합니다.
+  // 입고알림 CTA에서 번호 등록 안내를 열고, 확인 시 onEditProfile을 호출합니다. 회원정보 갱신 후 이 옵션을 다시 판단하며 안내에서 신청 요청은 실행하지 않습니다.
+  restockPhoneRegistration?: { onEditProfile: () => void };
+};
+
 /** 상품 옵션과 입고알림 선택 및 이미지 열람을 로컬로 표시합니다. (Displays local product-option and restock selections and image viewing.) */
-export function RouteContent({ preview }: { preview?: ProductDetailPreview }) {
+export function RouteContent({ preview, restockPhoneRegistration }: RouteContentProps) {
   const platform = usePlatform();
+  const router = useRouter();
   const catalogue = products;
   const { id } = useParams<{
     id: string;
@@ -3167,25 +3168,39 @@ export function RouteContent({ preview }: { preview?: ProductDetailPreview }) {
   /** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 상품 연결 소유자가 표시 모델과 식별자·입력/선택 payload, 요청 중/실패/성공/재시도 및 응답 갱신을 별도로 구현해야 합니다. */
   const baseProduct = catalogue.find((item) => item.id === (preview ? 'shoe-1' : id));
   const product = baseProduct && prepareProductDetailPreview(baseProduct, preview);
-  const apparel = preview === 'apparel';
+  const apparel = product?.productKind === 'apparel';
+  const accessories = product?.productKind === 'accessories';
   const revised = baseProduct?.id === 'shoe-1';
   const allSoldOut = preview === 'sold-out';
   const optionsPreview = preview === 'options-selected' || preview === 'options-scroll';
-  // [ 개발팀 바인딩 ] 열린 안내는 직접 URL용 fixture입니다. PDP 통합 소유자가 상품·옵션 ID와 수량으로 요청을 연결하고 결과에 맞는 안내를 열며, 처리 중 중복을 막고 실패 시 선택을 유지해 재시도하거나 성공 시 장바구니를 갱신합니다. 이 미리보기의 버튼은 안내만 닫습니다.
+  // [ 개발팀 바인딩 ] 처음부터 열린 안내는 직접 URL용 fixture입니다. PDP 통합 소유자가 상품·옵션 ID와 수량으로 요청을 연결하고 결과에 맞는 안내를 열며, 처리 중 중복을 막고 실패 시 선택을 유지해 재시도하거나 성공 시 장바구니를 갱신합니다.
   const previewEntry = productDetailPreviews.find(({ state }) => state === preview);
-  const notice = previewEntry && 'notice' in previewEntry ? previewEntry.notice : undefined;
-  const [noticeOpen, setNoticeOpen] = useState(!!notice);
+  const previewNotice = previewEntry && 'notice' in previewEntry ? previewEntry.notice : undefined;
+  const notice =
+    previewNotice ?? (restockPhoneRegistration ? restockPhoneRequiredNotice : undefined);
+  const phoneRequired = notice === restockPhoneRequiredNotice;
+  const [noticeOpen, setNoticeOpen] = useState(!!previewNotice);
+  const noticeTrigger = useRef<HTMLButtonElement | null>(null);
+  const onRequestRestock: MouseEventHandler<HTMLButtonElement> | undefined = phoneRequired
+    ? (event) => {
+        noticeTrigger.current = event.currentTarget;
+        setNoticeOpen(true);
+      }
+    : undefined;
   const inquiriesEmpty = revised && preview !== undefined && preview !== 'inquiries-expanded';
   const inquiriesExpanded = preview === 'inquiries-expanded';
   const initialColor = product?.colorThumbnails?.[0]?.label ?? product?.colors[0] ?? '';
   const [color, setColor] = useState(initialColor);
   const [requestedWidth, setWidth] = useState('');
   const [restockSize, setRestockSize] = useState(
-    preview === 'restock' || preview === 'restock-confirm' || preview === 'restock-complete'
+    preview === 'restock' ||
+      preview === 'restock-confirm' ||
+      preview === 'restock-complete' ||
+      preview === 'restock-phone-required'
       ? '300'
       : '',
   );
-  const [apparelSize, setApparelSize] = useState(apparel ? 'M' : '');
+  const [selectedSize, setSelectedSize] = useState(preview === 'apparel' ? 'M' : '');
   const [selectedItems, setSelectedItems] = useState<(CartItem & { amount?: number })[]>(() =>
     getSelectedOptionsPreview(preview).map((option) => ({
       ...option,
@@ -3227,7 +3242,7 @@ export function RouteContent({ preview }: { preview?: ProductDetailPreview }) {
   const availableWidths = productWidthOptions(product, color).filter((option) => !option.isSoldOut);
   const selectedWidth =
     availableWidths.find((option) => option.label === requestedWidth) ?? availableWidths[0];
-  const width = apparel ? '' : (selectedWidth?.label ?? '');
+  const width = apparel || accessories ? '' : (selectedWidth?.label ?? '');
   const restock = allSoldOut || !!restockSize;
   const onQuantityChange = (index: number, quantity: number) => {
     if (!Number.isSafeInteger(quantity) || quantity < 1) return;
@@ -3250,7 +3265,7 @@ export function RouteContent({ preview }: { preview?: ProductDetailPreview }) {
   const onColorChange = (nextColor: string) => {
     setRestockSize('');
     setColor(nextColor);
-    setApparelSize('');
+    setSelectedSize('');
     setWidth('');
   };
   const onWidthChange = (nextWidth: string) => {
@@ -3265,7 +3280,7 @@ export function RouteContent({ preview }: { preview?: ProductDetailPreview }) {
       return;
     }
     setRestockSize('');
-    if (apparel) setApparelSize(nextSize);
+    if (apparel || accessories) setSelectedSize(nextSize);
     setSelectedItems((items) => {
       const matches = (item: CartItem) =>
         item.color === color && item.width === width && item.size === nextSize;
@@ -3297,6 +3312,7 @@ export function RouteContent({ preview }: { preview?: ProductDetailPreview }) {
         <ProductDetailFooter
           restock={restock}
           recommendations={recommendations}
+          onRequestRestock={onRequestRestock}
           onOpenOptions={
             revised
               ? () => {
@@ -3342,6 +3358,7 @@ export function RouteContent({ preview }: { preview?: ProductDetailPreview }) {
         inquiriesExpanded={inquiriesExpanded}
         apparel={apparel}
         restock={restock}
+        onRequestRestock={onRequestRestock}
         revised={revised}
         selectedOptions={platform === 'web' || !revised ? selectedOptions : null}
         color={color}
@@ -3352,7 +3369,7 @@ export function RouteContent({ preview }: { preview?: ProductDetailPreview }) {
         onWidthChange={onWidthChange}
         onWishChange={() => setWish(!wish)}
         product={product}
-        size={restockSize || apparelSize}
+        size={restockSize || selectedSize}
         width={width}
         wish={wish}
       />
@@ -3362,16 +3379,55 @@ export function RouteContent({ preview }: { preview?: ProductDetailPreview }) {
           variant={notice.variant}
           open={noticeOpen}
           onOpenChange={setNoticeOpen}
-          finalFocus={() => document.querySelector<HTMLElement>('[data-pdp-panel]')}
+          finalFocus={() =>
+            noticeTrigger.current?.isConnected
+              ? noticeTrigger.current
+              : document.querySelector<HTMLElement>('[data-pdp-panel]')
+          }
           title="상품구매"
           closeLabel="상품구매 안내 닫기"
           message={notice.message}
-          description={notice.description}
-          actions={
-            notice.variant === 'confirm'
-              ? { kind: 'confirm', onConfirm: () => setNoticeOpen(false) }
-              : { kind: 'single', onConfirm: () => setNoticeOpen(false) }
+          description={
+            'nextStep' in notice ? (
+              <span className={css({ wordBreak: 'keep-all' })}>
+                {notice.description}
+                <br />
+                {notice.nextStep}
+              </span>
+            ) : (
+              notice.description
+            )
           }
+          {...(phoneRequired
+            ? {
+                footer: (
+                  <>
+                    <Button
+                      variant="primary"
+                      fullWidth
+                      onClick={() => {
+                        setNoticeOpen(false);
+                        if (restockPhoneRegistration) {
+                          restockPhoneRegistration.onEditProfile();
+                        } else {
+                          router.push('/mypage/profile/preview-edit');
+                        }
+                      }}
+                    >
+                      확인
+                    </Button>
+                    <Button variant="secondary" fullWidth onClick={() => setNoticeOpen(false)}>
+                      취소
+                    </Button>
+                  </>
+                ),
+              }
+            : {
+                actions: {
+                  kind: notice.variant === 'confirm' ? 'confirm' : 'single',
+                  onConfirm: () => setNoticeOpen(false),
+                } as const,
+              })}
         />
       )}
       {platform === 'mobile' && revised && (
@@ -3387,7 +3443,13 @@ export function RouteContent({ preview }: { preview?: ProductDetailPreview }) {
           mobilePresentation="bottomSheet"
           scrollable={preview === 'options-scroll'}
           popupClassName={preview === 'options-scroll' ? maxProductSheet : undefined}
-          footer={<ProductPurchaseActions restock={restock} placement="sheet" />}
+          footer={
+            <ProductPurchaseActions
+              restock={restock}
+              placement="sheet"
+              onRequestRestock={onRequestRestock}
+            />
+          }
         >
           <Stack gap="6">
             {(!optionsPreview || !selectedItems.length) && (
@@ -3397,7 +3459,7 @@ export function RouteContent({ preview }: { preview?: ProductDetailPreview }) {
                 gallery={gallery}
                 color={color}
                 width={width}
-                size={restockSize || apparelSize}
+                size={restockSize || selectedSize}
                 error={error}
                 onColorChange={onColorChange}
                 onWidthChange={onWidthChange}

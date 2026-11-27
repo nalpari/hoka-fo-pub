@@ -331,7 +331,7 @@ export const previewOrders: OrderRecord[] = [
             claimNumber: '202610290034518',
             completedAt: '2026. 10. 12',
             refundedAt: '2026. 10. 20',
-            reason: '단순변심',
+            reason: '단순 변심',
             details:
               '주문 후 상품 정보를 다시 확인하는 과정에서 제가 원했던 색상과 사이즈가 잘못 선택된 것을 확인했습니다. 상품이 발송되기 전이라면 주문을 취소하고 싶습니다. 동일한 상품을 올바른 옵션으로 다시 주문할 예정이며, 기존 주문에 대한 취소 및 결제 금액 환불 처리를 요청드립니다. 또한 취소가 정상적으로 접수되었는지 확인 부탁드립니다. 주문 과정에서 옵션을 꼼꼼하게 확인하지 못한 점 양해 부탁드리며, 빠른 처리와 안내를 부탁드립니다. 감사합니다. 번거로우시겠지만 확인 후 처리 결과를 안내해 주시면 감사하겠습니다.',
             items: [{ ...line('cancelled-1', 2), width: '레귤러', displayAmount: 360000 }],
@@ -381,12 +381,12 @@ export const previewOrders: OrderRecord[] = [
           web: {
             orderDate: '2026. 12. 12',
             orderNumber: '202610290034518',
-            status: '취소완료',
+            status: '환불완료',
             requestedAt: '2026. 10. 12',
             claimNumber: '202610290034518',
             completedAt: '2026. 10. 12',
             refundedAt: '2026. 10. 20',
-            reason: '단순변심',
+            reason: '단순 변심',
             details: '',
             items: [{ ...line('returned-1', 2), width: '레귤러', displayAmount: 360000 }],
             productAmount: 3350000,

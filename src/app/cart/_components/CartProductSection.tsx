@@ -15,8 +15,11 @@ import { NumberStepper } from '@/components/common/atoms/NumberStepper';
 import { Typography } from '@/components/common/atoms/Typography';
 import { Wishlist } from '@/components/common/atoms/Wishlist';
 
+import { ProductPrice } from '@/components/common/molecules/ProductCard/ProductCard';
+
 import { itemKey } from '@/app/cart/cart-item';
 import { type CartPreviewRow } from '@/app/cart/cart-preview';
+import { formatProductOptions } from '@/lib/formatProductOptions';
 import { getCartImage } from '@/mocks/cartDisplay';
 
 import { CartDialogs } from './CartDialogs';
@@ -33,25 +36,24 @@ function CartProductItem({
   onOptions: () => void;
 }) {
   const { item, product, amount, soldOut } = row;
+  const colorAndSize = formatProductOptions({ color: item.color, size: item.size });
   const [quantity, setQuantity] = useState(item.quantity);
   const [favorite, setFavorite] = useState(row.initialFavorite ?? false);
   const price = (mobile = false) => (
-    <Stack gap="0" alignItems="flex-end" opacity={soldOut ? '0.3' : '1'}>
-      {row.originalAmount ? (
-        <Typography variant="b6" tone="subtle" className={css({ textDecoration: 'line-through' })}>
-          {row.originalAmount.toLocaleString()}원
-        </Typography>
-      ) : null}
-      <Typography variant="b6M">
-        {(mobile ? (row.mobileAmount ?? amount) : amount).toLocaleString()}원
-      </Typography>
-    </Stack>
+    <Box opacity={soldOut ? '0.3' : '1'}>
+      <ProductPrice
+        align={mobile ? 'start' : 'end'}
+        price={mobile ? (row.mobileAmount ?? amount) : amount}
+        originalPrice={row.originalAmount}
+        discountLabel={row.discountLabel}
+      />
+    </Box>
   );
   return (
     <Grid
       as="li"
       gridTemplateColumns={{
-        base: '16px 144px minmax(0, 1fr) 108px 86px 20px',
+        base: '16px 144px minmax(0, 1fr) 108px minmax(120px, max-content) 20px',
         _mobile: '16px 96px minmax(0, 1fr) 20px',
       }}
       rowGap="0"
@@ -97,18 +99,24 @@ function CartProductItem({
           />
         </Box>
       </Box>
-      <Stack gridColumn="3" gap="8px" alignSelf={{ base: 'center', _mobile: 'start' }}>
-        <Stack gap="2px" opacity={soldOut ? '0.3' : '1'}>
+      <Stack
+        gridColumn="3"
+        gap="6px"
+        alignSelf={{ base: 'center', _mobile: 'start' }}
+      >
+        <Stack gap={{ base: '4px', _mobile: '2px' }} opacity={soldOut ? '0.3' : '1'}>
           <Typography variant="b6M">{product.gender}</Typography>
           <Typography variant="b6M">{product.name}</Typography>
           <Typography variant="b6" tone="subtle">
-            <Typography as="span" web="b6" mo="b6M">
-              {item.width}
-            </Typography>
-            , {item.color}, {item.size}
-            <Box as="span" display={{ base: 'inline', _mobile: 'none' }}>
-              , {row.optionQuantity ?? item.quantity}개
-            </Box>
+            {colorAndSize}
+            {item.width?.trim() && (
+              <>
+                {colorAndSize && ', '}
+                <Typography as="span" web="b6" mo="b6M">
+                  {item.width}
+                </Typography>
+              </>
+            )}
           </Typography>
         </Stack>
         <Button
@@ -119,12 +127,15 @@ function CartProductItem({
         >
           옵션 변경
         </Button>
+        <Box display={{ base: 'none', _mobile: 'block' }} pt="2px">
+          {price(true)}
+        </Box>
       </Stack>
       <HStack
         gridColumn={{ base: '4', _mobile: '3 / span 2' }}
         gridRow={{ base: '1', _mobile: '2' }}
         alignSelf={{ base: 'center', _mobile: 'end' }}
-        mt={{ base: '0', _mobile: '12px' }}
+        mt={{ base: '0', _mobile: '16px' }}
         justifyContent="space-between"
         gap="8px"
       >
@@ -140,13 +151,13 @@ function CartProductItem({
             />
           </fieldset>
         </Box>
-        <Box display={{ base: 'none', _mobile: 'block' }}>{price(true)}</Box>
       </HStack>
       <Box
         gridColumn="5"
         gridRow="1"
         alignSelf="center"
         display={{ base: 'block', _mobile: 'none' }}
+        whiteSpace="nowrap"
       >
         {price()}
       </Box>
@@ -184,14 +195,14 @@ export function CartProductSection({ rows }: { rows: readonly CartPreviewRow[] }
           }
         />
         <HStack gap="16px" ml="auto" _mobile={{ gap: '12px' }}>
-          <Button
+          {/* <Button
             variant="link"
             size="md"
             type="button"
             disabled={!rows.some((row) => row.soldOut)}
           >
             품절상품 전체삭제
-          </Button>
+          </Button> */}
           <Button variant="link" size="md" disabled={selectedKeys.length === 0}>
             선택 삭제
           </Button>

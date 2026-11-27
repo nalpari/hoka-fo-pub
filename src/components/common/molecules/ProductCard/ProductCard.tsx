@@ -98,10 +98,11 @@ const productName = css({
 
 type ProductNameProps = {
   name: string;
+  href?: string;
   variant?: ProductCardVariant;
 };
 /** Product name styled for its card presentation context. */
-function ProductName({ name, variant = 'listing' }: ProductNameProps) {
+function ProductName({ name, href, variant = 'listing' }: ProductNameProps) {
   const platform = usePlatform();
   return (
     <Typography
@@ -113,7 +114,7 @@ function ProductName({ name, variant = 'listing' }: ProductNameProps) {
       variant={variant === 'history' ? 'b6' : 'b4'}
       mo={variant === 'history' ? 'b6' : 'b6'}
     >
-      {name}
+      {href ? <Link href={href}>{name}</Link> : name}
     </Typography>
   );
 }
@@ -138,6 +139,8 @@ const detailIdentityStyles = {
 };
 
 type ProductPriceProps = {
+  /** Alignment within the price block. Defaults to start. */
+  align?: 'start' | 'end';
   /** Prepared display label; preview fixtures can preserve an approved design value. */
   discountLabel?: string;
   /** Current selling price, including any discount. */
@@ -148,6 +151,7 @@ type ProductPriceProps = {
 };
 /** 판매가와 선택적 정상가·할인율을 표시합니다. (Displays the selling price with an optional original price and discount rate.) */
 function ProductPrice({
+  align = 'start',
   price,
   originalPrice,
   discountLabel,
@@ -162,7 +166,7 @@ function ProductPrice({
       data-product-price
       data-product-card-variant={variant}
       gap={detailPrice ? '14px' : '1'}
-      alignItems="flex-start"
+      alignItems={align === 'end' ? 'flex-end' : 'flex-start'}
     >
       {hasDiscount ? (
         <Typography
@@ -188,7 +192,7 @@ function ProductPrice({
             variant="b4"
             mo="b6"
             className={detailPriceText}
-            tone={variant === 'listing' || detailPrice ? 'red80' : 'error'}
+            tone={variant === 'listing' || detailPrice ? 'accent' : 'error'}
             aria-label={`${discountLabel} 할인`}
           >
             {discountLabel}
@@ -217,19 +221,13 @@ function ProductPrice({
 export type ProductIdentityProps = Omit<
   Pick<
     ProductDetailsProps,
-    | 'promotion'
-    | 'promotionTone'
-    | 'gender'
-    | 'name'
-    | 'price'
-    | 'originalPrice'
-    | 'discountLabel'
-    | 'variant'
+    'promotion' | 'gender' | 'name' | 'price' | 'originalPrice' | 'discountLabel' | 'variant'
   >,
   'variant'
 > & {
   variant: ProductCardVariant | 'detail';
   activities?: readonly string[];
+  nameHref?: string;
   orderDate?: string;
   optionText?: string;
   applicationDate?: string;
@@ -238,7 +236,6 @@ export type ProductIdentityProps = Omit<
 /** 상품 타일과 상세 화면의 배지·식별 정보·가격을 표시합니다. (Displays shared identity and price information for product tiles and detail pages.) */
 export function ProductIdentity({
   promotion,
-  promotionTone,
   gender,
   name,
   price,
@@ -246,6 +243,7 @@ export function ProductIdentity({
   discountLabel,
   variant,
   activities,
+  nameHref,
   orderDate,
   optionText,
   applicationDate,
@@ -261,7 +259,7 @@ export function ProductIdentity({
                 weight="medium"
                 web="b6"
                 mo="b8"
-                tone={promotionTone === 'error' ? 'red80' : 'brand'}
+                tone="accent"
                 className={detailIdentityStyles.badges}
               >
                 {promotion}
@@ -332,7 +330,7 @@ export function ProductIdentity({
   const identity = (
     <>
       {gender && <ProductGender gender={gender} variant={variant} />}
-      <ProductName name={name} variant={variant} />
+      <ProductName name={name} href={nameHref} variant={variant} />
     </>
   );
   const priceContent = (
@@ -352,12 +350,7 @@ export function ProductIdentity({
       w="full"
     >
       {promotion && (
-        <Badge
-          variant="plain"
-          data-product-promotion
-
-          tone={promotionTone === 'error' || variant === 'listing' ? 'red80' : 'brand'}
-        >
+        <Badge variant="plain" data-product-promotion tone="accent">
           {promotion}
         </Badge>
       )}
@@ -587,12 +580,12 @@ type ProductDetailsProps = {
     selectedId?: string;
     onSelect: (id: string) => void;
   };
-  promotionTone?: 'brand' | 'error';
   discountLabel?: string;
   activities?: readonly string[];
   colorCount: number;
   gender?: ProductGenderOption;
   name: string;
+  nameHref?: string;
   optionThumbnails: readonly ProductOptionThumbnail[];
   platform: Platform;
   price: number;
@@ -606,12 +599,12 @@ type ProductDetailsProps = {
 /** 상품 카드의 이름·성별·가격 요약을 구성합니다. (Composes product name, gender, and price details for a product card.) */
 function ProductDetails({
   colorPreview,
-  promotionTone,
   discountLabel,
   activities,
   colorCount,
   gender,
   name,
+  nameHref,
   optionThumbnails,
   platform,
   price,
@@ -632,11 +625,11 @@ function ProductDetails({
         w="full"
       >
         <ProductIdentity
-          promotionTone={promotionTone}
           discountLabel={discountLabel}
           promotion={promotion}
           gender={gender}
           name={name}
+          nameHref={nameHref}
           price={price}
           originalPrice={originalPrice}
           variant={variant}
@@ -704,7 +697,7 @@ type ProductCardHeaderProps = {
   platform: Platform;
   selectedImage?: string;
   product: ProductCardProduct;
-  href?: string;
+  href: string;
   soldOut?: boolean;
   variant: ProductThumbnailVariant;
 };
@@ -719,7 +712,7 @@ function ProductCardHeader({
 }: ProductCardHeaderProps) {
   return (
     <Card.Header className={ProductCardHeaderRoot}>
-      <Link href={href ?? `/products/${product.id}`} className={css({ pos: 'relative' })}>
+      <Link href={href} className={css({ pos: 'relative' })}>
         <ProductThumbnail
           alt={product.name}
           hover
@@ -840,7 +833,6 @@ export type ProductCardOption =
 export type ProductCardProps = {
   /** 생략 또는 undefined이면 기존 굵기를 유지하며 지정한 표시 부위에만 Medium을 적용합니다. */
   textWeights?: { identity?: 'medium'; promotion?: 'medium'; cart?: 'medium' };
-  promotionTone?: 'brand' | 'error';
   discountLabel?: string;
   soldOut?: boolean;
   activityLabels?: readonly string[];
@@ -857,16 +849,15 @@ export type ProductCardProps = {
 };
 
 /**
- * [ 개발팀 바인딩 ] 목록 소유자가 product의 상품 ID·colorThumbnails 옵션 ID/이미지를 제공합니다.
+ * [ 개발팀 바인딩 ] 검색·상품 목록 소유자가 대표 상품 ID와 product.colorThumbnails의 옵션 ID·이미지·선택적 상세 href를 전달합니다.
  * 추천 목록은 id/name/price/primaryImage와 선택적 gender/href만 전달할 수 있으며 미제공 활동·색상·스펙을 만들어 채우지 않습니다.
- * PC 목록의 호버/키보드 포커스에서 요약을 48px 색상 캐러셀로 교체하며, 선택 ID는 현재 옵션에서 찾아 이미지 미리보기에만 사용합니다.
- * 모바일 목록에서는 색상별 썸네일이 제공되면 선택한 이미지를 대표 이미지에 표시합니다.
- * 색상 선택은 요청·저장·재고 판정 없이 로컬로 처리합니다. 관심상품 연결과 상세 링크는 기존 소유자가 담당합니다.
+ * 선택 ID는 현재 옵션에서 찾으며, PC 미리보기·모바일에서 선택 이미지와 상세 링크를 함께 반영합니다.
+ * 색상 URL이 없으면 카드 href 또는 대표 상품 ID 경로를 사용합니다. 고정 예시에는 실제 색상별 URL을 가정하지 않습니다.
+ * 칩 선택은 로컬 상태만 갱신하고, 이미지·목록 상품명 링크를 눌렀을 때 상세로 이동합니다.
  */
 /** 상품 이미지와 요약을 표시하고 목록에서 색상 미리보기를 제공합니다. (Displays product imagery, details, and color previews in listings.) */
 export function ProductCard({
   href,
-  promotionTone,
   discountLabel,
   activityLabels,
   colorCount,
@@ -895,6 +886,10 @@ export function ProductCard({
     hasOption('colors') &&
     (platform === 'web' ? colorOptions.length > 0 : !!product.colorThumbnails?.length);
   const showColorPreview = platform === 'web' && canSelectColor && previewOpen;
+  const previewColor =
+    canSelectColor && (platform === 'mobile' || showColorPreview) ? selectedColor : undefined;
+  const detailHref = previewColor?.href || (href ?? `/products/${product.id}`);
+
   return (
     <Card
       className={root({
@@ -928,13 +923,9 @@ export function ProductCard({
       }}
     >
       <ProductCardHeader
-        href={href}
+        href={detailHref}
         platform={platform}
-        selectedImage={
-          canSelectColor && (platform === 'mobile' || showColorPreview)
-            ? selectedColor?.image
-            : undefined
-        }
+        selectedImage={previewColor?.image}
         product={product}
         soldOut={soldOut}
         variant={thumbnailVariant ?? variant}
@@ -988,12 +979,12 @@ export function ProductCard({
               }
             : undefined
         }
-        promotionTone={promotionTone}
         discountLabel={discountLabel ?? product.discountLabel}
         activities={activityLabels ?? (product.use ? [activityLabel(product.use)] : [])}
         colorCount={colorCount ?? product.colors?.length ?? colorOptions.length}
         gender={product.gender}
         name={product.name}
+        nameHref={variant === 'listing' ? detailHref : undefined}
         optionThumbnails={colorOptions}
         platform={platform}
         price={product.price}

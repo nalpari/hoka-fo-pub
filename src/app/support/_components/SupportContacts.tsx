@@ -43,6 +43,12 @@ function SupportContactCard({
 }: Props) {
   const mobile = usePlatform() === 'mobile';
 
+  const phoneText = (
+    <Typography as="span" variant="b2" language="en">
+      {phone}
+    </Typography>
+  );
+
   return (
     <Stack
       as="section"
@@ -81,11 +87,13 @@ function SupportContactCard({
               <Typography as="span" variant="b2M" language="en">
                 TEL.
               </Typography>
-              <a className={phoneLink} href={phoneHref}>
-                <Typography as="span" variant="b2" language="en">
-                  {phone}
-                </Typography>
-              </a>
+              {mobile ? (
+                <a className={phoneLink} href={phoneHref}>
+                  {phoneText}
+                </a>
+              ) : (
+                phoneText
+              )}
             </HStack>
           </Stack>
           {note && (
@@ -120,6 +128,7 @@ function SupportContactCard({
 /**
  * [ 개발팀 바인딩 ]
  * /support는 @/data/supportContacts의 고정 연락처·운영시간을 푸터와 공유합니다.
+ * 연락처 카드는 모바일에서만 phoneHref를 통화 링크에 연결합니다.
  * 운영정보 갱신 책임과 전화 링크 계약은 해당 데이터 소유자의 주석을 따릅니다.
  */
 

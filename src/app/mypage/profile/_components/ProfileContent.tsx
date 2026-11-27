@@ -16,7 +16,6 @@ import { TextFormField } from '@/components/common/molecules/FormFields/TextForm
 import { VerificationCountdown } from '@/components/common/molecules/FormFields/VerificationCountdown';
 
 import { AddressFields } from '@/components/common/organisms/Address/AddressFields';
-import { EmailAddressFields } from '@/components/common/organisms/EmailAddressFields';
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 import { ModalDialog } from '@/components/common/layouts/ModalDialog';
@@ -26,15 +25,16 @@ import {
   type Preference,
   type ProfileAddress,
   type ProfileEditProps,
+  type ProfilePhonePreview,
 } from '@/app/mypage/profile/mypage-profile.types';
 import { type Errors, type FieldName } from '@/lib/passwordValidation';
-import { getPhoneDigits } from '@/lib/phoneNumber';
+import { formatPhoneNumber, getPhoneDigits, isValidPhone } from '@/lib/phoneNumber';
 
 type Props = {
   phone: string;
   error?: string;
   verified: boolean;
-  previewState?: 'idle' | 'code-entry' | 'expired';
+  previewState?: ProfilePhonePreview;
   onPhoneChange: (value: string) => void;
 };
 /** 회원정보의 휴대폰 입력과 고정 인증 상태를 표시합니다. (Displays profile phone input and fixed verification states.) */
@@ -42,12 +42,23 @@ function ProfilePhoneVerification({ phone, error, verified, previewState, onPhon
   const [code, setCode] = useState('');
   const codeInput = useRef<HTMLInputElement>(null);
   const [notice, setNotice] = useState<'mismatch' | 'expired' | null>(
-    previewState === 'expired' ? 'expired' : null,
+    previewState === 'expired' || previewState === 'mismatch' ? previewState : null,
   );
-  const requested = previewState === 'code-entry' || previewState === 'expired';
-  const expired = previewState === 'expired';
-  const phoneError = '';
-  const codeError = '';
+  const [stage, setStage] = useState<ProfilePhonePreview>(previewState ?? 'idle');
+  const [phoneError, setPhoneError] = useState('');
+  const [confirmedPreview, setConfirmedPreview] = useState(false);
+  const requested = stage !== 'idle';
+  const expired = stage === 'expired';
+  // [ 개발팀 바인딩 ] 요청과 확인은 화면 상태만 시연한다. 실제 문자 발송과 코드 검증, 만료 시각은 회원정보 연동 시 서버 응답으로 연결한다.
+  function requestCode() {
+    if (!isValidPhone(phone)) {
+      setPhoneError('휴대폰 번호를 올바르게 입력해주세요.');
+      return;
+    }
+    setCode('');
+    setStage('code-entry');
+    setConfirmedPreview(false);
+  }
   const dismissNotice = () => setNotice(null);
   return (
     <Stack gap="24px" alignItems="stretch">
@@ -62,46 +73,62 @@ function ProfilePhoneVerification({ phone, error, verified, previewState, onPhon
           type: 'tel',
           inputMode: 'numeric',
           autoComplete: 'tel-national',
-          value: phone,
-          onChange: (event) => onPhoneChange(getPhoneDigits(event.target.value)),
+          value: formatPhoneNumber(phone),
+          onChange: (event) => {
+            onPhoneChange(getPhoneDigits(event.target.value));
+            setStage('idle');
+            setCode('');
+            setPhoneError('');
+            setConfirmedPreview(false);
+          },
         }}
       />
       <Button
         type="button"
-        fullWidth
         variant="primary"
-        size="tall"
-        className={css({ alignSelf: 'flex-end', w: 'auto', _mobile: { w: '100%' } })}
+        size="short"
+        className={profileStyles.requestButton}
+        onClick={requestCode}
         disabled={verified || (requested && !expired)}
       >
         {requested ? '인증번호 재요청' : '인증번호 요청'}
       </Button>
       {requested ? (
-        <Stack gap="12px">
-          <TextFormField
-            label="인증번호"
-            id="profile-verification-code"
-            variant="boxed"
-            required
-            error={expired ? '인증 시간이 만료되었습니다. 인증번호를 재요청해 주세요.' : codeError}
-            inputProps={{
-              inputMode: 'numeric',
-              autoComplete: 'one-time-code',
-              maxLength: 6,
-              ref: codeInput,
-              value: code,
-              disabled: expired,
-              onChange: (event) => {
-                setCode(event.target.value.replace(/\D/g, '').slice(0, 6));
-              },
-            }}
-          />
-          <VerificationCountdown secondsLeft={expired ? 0 : 125} />
-          <StatusMessage>{'인증번호 입력 화면의 고정 예시입니다.'}</StatusMessage>
-          <Button type="button" fullWidth variant="primary" disabled={expired}>
+        <>
+          <Stack gap="8px">
+            <TextFormField
+              label="인증번호"
+              id="profile-verification-code"
+              variant="boxed"
+              required
+              error={expired ? '인증 시간이 만료되었습니다. 인증번호를 재요청해 주세요.' : undefined}
+              inputProps={{
+                inputMode: 'numeric',
+                autoComplete: 'one-time-code',
+                maxLength: 6,
+                ref: codeInput,
+                value: code,
+                disabled: expired,
+                onChange: (event) => {
+                  setConfirmedPreview(false);
+                  setCode(event.target.value.replace(/\D/g, '').slice(0, 6));
+                },
+              }}
+            />
+            <VerificationCountdown secondsLeft={expired ? 0 : 125} />
+          </Stack>
+          <Button
+            type="button"
+            variant="primary"
+            size="short"
+            className={profileStyles.requestButton}
+            disabled={expired || code.length !== 6 || confirmedPreview}
+            onClick={() => setConfirmedPreview(true)}
+          >
             인증번호 확인
           </Button>
-        </Stack>
+          {confirmedPreview && <StatusMessage>인증번호 확인 미리보기입니다.</StatusMessage>}
+        </>
       ) : null}
       {verified ? (
         <StatusMessage tone="success">휴대폰 인증이 완료되었습니다.</StatusMessage>
@@ -129,36 +156,33 @@ function ProfilePhoneVerification({ phone, error, verified, previewState, onPhon
     </Stack>
   );
 }
-const domainOptions = [
-  { value: 'direct', label: '직접입력' },
-  { value: 'naver.com', label: 'naver.com' },
-  { value: 'gmail.com', label: 'gmail.com' },
-  { value: 'daum.net', label: 'daum.net' },
-];
+
+const profileStyles = {
+  requestButton: css({ alignSelf: 'center', w: '180px', _mobile: { w: 'full' } }),
+  mobileActionLabel: { _mobile: { '& button > span > span': { fontSize: 'body.15' } } },
+  mobileHeadingLineHeight: css({ _mobile: { lineHeight: 'koreanHeading' } }),
+};
+
+/** [ 개발팀 바인딩 ] 이메일 주소는 ProfileContent가 email 및 onEmailChange로 관리하는 단일 입력 초안이며 fieldErrors.email은 입력란 오류를 표시합니다. 현재 저장 요청은 연결되어 있지 않습니다. 회원정보 통합 소유자가 저장 시 이메일·주소·수신 동의를 제출 데이터로 전달하고, 요청 중 중복 제출 방지, 실패 시 입력 유지와 재시도, 성공 후 조회 정보 갱신을 담당합니다. */
 /** 회원정보 수정 마크업을 표시합니다. (Displays profile editing markup.) */
 export function ProfileEditForm({
   previewPhone,
-  emailLocal,
-  emailDomain,
-  domainChoice,
+  email,
   address,
   addressOpen,
   phone,
+  savedPhone,
   phoneVerified,
   passwordChanged,
   emailPreference,
   smsPreference,
-  kakaoPreference,
   fieldErrors,
-  onEmailLocalChange,
-  onEmailDomainChange,
-  onDomainChoice,
+  onEmailChange,
   onAddressChange,
   onAddressOpenChange,
   onPhoneChange,
   onEmailPreferenceChange,
   onSmsPreferenceChange,
-  onKakaoPreferenceChange,
   onCancel,
   onWithdraw,
   details,
@@ -174,15 +198,13 @@ export function ProfileEditForm({
     <>
       <form noValidate onSubmit={submit}>
         <ContentSection
-          gap={{ base: '48px', _mobile: '32px' }}
+          gap={{ base: '40px', _mobile: '32px' }}
           css={{ '--line-heights-body': '1.5' }}
           _mobile={{ pt: '24px' }}
           title="회원정보 수정"
           headerProps={{
             titleAs: 'h1',
-            titleProps: { web: 'h4B', mo: 'h7B', tone: 'primary' },
-            pb: { base: '40px', _mobile: '32px' },
-            borderBottom: '2px solid black',
+            titleProps: { web: 'h6', mo: 'h7', tone: 'primary' },
           }}
         >
           <Grid
@@ -207,11 +229,11 @@ export function ProfileEditForm({
                     })),
                   { term: '성별', description: '남성', descriptionProps: { variant: 'b4' } },
                   { term: '생년월일', description: (details ?? profileDetails)[2][1] },
-                  { term: '휴대폰 번호', description: phone },
+                  { term: '휴대폰 번호', description: savedPhone },
                 ]}
                 termProps={{
                   web: 'b4M',
-                  mo: 'h8',
+                  mo: 'b4S',
                   tone: 'primary',
                 }}
                 descriptionProps={{ variant: 'b4', tone: 'subtle' }}
@@ -231,6 +253,7 @@ export function ProfileEditForm({
                     _first: { pt: '0' },
                     _mobile: { gap: '12px', p: '0', borderBottom: '0' },
                   }),
+                  term: css.raw({ _mobile: { lineHeight: 'koreanHeading' } }),
                   description: css.raw({ m: '0' }),
                 }}
               />
@@ -263,9 +286,7 @@ export function ProfileEditForm({
                 pr="16px"
                 className={css({ _mobile: { display: 'none' } })}
               >
-                <Typography web="b6M" mo="b6">
-                  탈퇴를 원하실 경우 회원탈퇴를 눌러주세요.
-                </Typography>
+                <Typography variant="b4M">탈퇴를 원하실 경우 회원탈퇴를 눌러주세요.</Typography>
                 <Button
                   size="short"
                   variant="secondary"
@@ -278,15 +299,13 @@ export function ProfileEditForm({
               </Stack>
             </Stack>
             <Stack gap="16px">
-              {previewPhone && (
-                <ProfilePhoneVerification
-                  previewState={previewPhone}
-                  phone={phone}
-                  verified={phoneVerified}
-                  error={fieldErrors.phone}
-                  onPhoneChange={onPhoneChange}
-                />
-              )}
+              <ProfilePhoneVerification
+                previewState={previewPhone}
+                phone={phone}
+                verified={phoneVerified}
+                error={fieldErrors.phone}
+                onPhoneChange={onPhoneChange}
+              />
               <AddressFields
                 variant="boxed"
                 idPrefix="profile"
@@ -299,16 +318,18 @@ export function ProfileEditForm({
                 searchOpen={addressOpen}
                 onSearchOpenChange={onAddressOpenChange}
               />
-              <EmailAddressFields
-                idPrefix="profile"
-                local={emailLocal}
-                domain={emailDomain}
-                domainChoice={domainChoice}
-                options={domainOptions}
-                errors={{ local: fieldErrors.email, domain: fieldErrors.domain }}
-                onLocalChange={onEmailLocalChange}
-                onDomainChange={onEmailDomainChange}
-                onDomainChoice={onDomainChoice}
+              <TextFormField
+                id="profile-email"
+                variant="boxed"
+                required
+                error={fieldErrors.email}
+                label="이메일 주소"
+                inputProps={{
+                  type: 'email',
+                  value: email,
+                  autoComplete: 'email',
+                  onChange: (event) => onEmailChange(event.target.value),
+                }}
               />
               <Stack gap="32px" pt="24px" pb="32px" _mobile={{ pt: '8px', pb: '24px' }}>
                 <ContentSection
@@ -316,7 +337,11 @@ export function ProfileEditForm({
                   title="마케팅 정보 수신 동의"
                   headerProps={{
                     titleAs: 'h2',
-                    titleProps: { web: 'h10B', mo: 'h8' },
+                    titleProps: {
+                      web: 'h10B',
+                      mo: 'b4S',
+                      className: profileStyles.mobileHeadingLineHeight,
+                    },
                   }}
                 >
                   <Stack
@@ -330,7 +355,7 @@ export function ProfileEditForm({
                       value={emailPreference}
                       onValueChange={onEmailPreferenceChange}
                       label={
-                        <Typography web="b6M" mo="b6">
+                        <Typography web="b4M" mo="b6">
                           이메일 수신
                         </Typography>
                       }
@@ -344,20 +369,9 @@ export function ProfileEditForm({
                       name="sms-preference"
                       value={smsPreference}
                       onValueChange={onSmsPreferenceChange}
-                      label="문자수신(LMS, SMS)"
-                      options={[
-                        { value: '수신', label: '수신' },
-                        { value: '수신안함', label: '수신안함' },
-                      ]}
-                    />
-                    <Radio
-                      ariaLabel="카카오톡 알림톡 수신"
-                      name="kakao-preference"
-                      value={kakaoPreference}
-                      onValueChange={onKakaoPreferenceChange}
                       label={
-                        <Typography web="b6M" mo="b6">
-                          카카오톡 알림톡 수신
+                        <Typography web="b4M" mo="b6">
+                          문자수신(LMS, SMS)
                         </Typography>
                       }
                       options={[
@@ -374,6 +388,7 @@ export function ProfileEditForm({
                     w="368px"
                     maxW="100%"
                     alignSelf="center"
+                    css={profileStyles.mobileActionLabel}
                   />
                   <Stack
                     gap="16px"
@@ -388,7 +403,7 @@ export function ProfileEditForm({
                       onClick={onWithdraw}
                       className={css({ alignSelf: 'flex-start' })}
                     >
-                      회원탈퇴
+                      <Typography variant="b6M">회원탈퇴</Typography>
                     </Button>
                   </Stack>
                 </ContentSection>
@@ -654,13 +669,12 @@ export function ProfileContent({
 } = {}) {
   const [editing, setEditing] = useState(Boolean(preview && !preview.startsWith('withdraw')));
   const [email] = useState('dww******@gmail.com');
-  const [emailLocal, setEmailLocal] = useState('dww******');
-  const [emailDomain, setEmailDomain] = useState('gmail.com');
-  const [domainChoice, setDomainChoice] = useState('gmail.com');
+  const [emailDraft, setEmailDraft] = useState(email);
   const [address, setAddress] = useState(initialAddress);
   const [savedAddress] = useState(initialAddress);
   const [addressOpen, setAddressOpen] = useState(false);
-  const [phone, setPhone] = useState('010-****-0522');
+  const savedPhone = '010-****-0522';
+  const [phone, setPhone] = useState('');
   const [phoneVerified, setPhoneVerified] = useState(false);
   const [passwordChanged] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<ProfileEditProps['fieldErrors']>({});
@@ -686,30 +700,20 @@ export function ProfileContent({
     <MyPageFrame activePath="/mypage/profile" breadcrumbs={[{ label: '회원정보 관리' }]}>
       {editing ? (
         <ProfileEditForm
-          emailLocal={emailLocal}
-          emailDomain={emailDomain}
-          domainChoice={domainChoice}
+          email={emailDraft}
           address={address}
           addressOpen={addressOpen}
           phone={phone}
+          savedPhone={savedPhone}
           phoneVerified={phoneVerified}
           passwordChanged={passwordChanged}
           emailPreference={emailPreference}
           smsPreference={smsPreference}
           kakaoPreference={kakaoPreference}
           fieldErrors={fieldErrors}
-          onEmailLocalChange={(value) => {
-            setEmailLocal(value);
+          onEmailChange={(value) => {
+            setEmailDraft(value);
             setFieldErrors((previous) => ({ ...previous, email: undefined }));
-          }}
-          onEmailDomainChange={(value) => {
-            setEmailDomain(value);
-            setFieldErrors((previous) => ({ ...previous, domain: undefined }));
-          }}
-          onDomainChoice={(value) => {
-            setDomainChoice(value);
-            setEmailDomain(value === 'direct' ? '' : value);
-            setFieldErrors((previous) => ({ ...previous, domain: undefined }));
           }}
           onAddressChange={(field, value) => {
             setAddress((previous) => ({ ...previous, [field]: value }));
@@ -731,18 +735,13 @@ export function ProfileContent({
         />
       ) : (
         <ContentSection
-          gap={{ base: '32px', _mobile: '24px' }}
-          title="회원정보 확인"
+          gap={{ base: '40px', _mobile: '32px' }}
+          title="회원정보"
           css={{ '--line-heights-body': '1.5' }}
           _mobile={{ pt: '24px' }}
           headerProps={{
             titleAs: 'h1',
-            pb: { base: '40px', _mobile: '32px' },
-            borderBottom: {
-              base: '2px solid var(--colors-black-100)',
-              _mobile: '1px solid var(--colors-black-100)',
-            },
-            titleProps: { web: 'h4B', mo: 'h7B', tone: 'primary' },
+            titleProps: { web: 'h6', mo: 'h7', tone: 'primary' },
           }}
         >
           <Stack gap={{ base: '40px', _mobile: '24px' }}>
@@ -755,7 +754,7 @@ export function ProfileContent({
                 })),
                 { term: '성별', description: '남성', descriptionProps: { variant: 'b4' } },
                 { term: profileDetails[2][0], description: profileDetails[2][1] },
-                { term: '휴대폰 번호', description: phone },
+                { term: '휴대폰 번호', description: savedPhone },
                 {
                   term: '주소',
                   descriptionProps: { variant: 'b4' },
@@ -765,24 +764,28 @@ export function ProfileContent({
               ]}
               termProps={{
                 web: 'b4M',
-                mo: 'h8',
+                mo: 'b4S',
                 tone: 'primary',
               }}
               descriptionProps={{ variant: 'b4', tone: 'subtle' }}
               slotStyles={{
                 root: css.raw({
                   gridTemplateColumns: 'none',
-                  gap: '48px',
+                  gap: '24px',
                   pb: '32px',
                   borderBottom: '1px solid var(--colors-black-20)',
-                  _mobile: { gap: '24px', pb: '24px' },
+                  _mobile: { pb: '24px' },
                 }),
                 row: css.raw({
                   display: 'flex',
-                  gap: '0',
+                  columnGap: '24px',
                   _mobile: { flexDirection: 'column', gap: '12px' },
                 }),
-                term: css.raw({ w: '178px', flexShrink: '0', _mobile: { w: 'auto' } }),
+                term: css.raw({
+                  w: '86px',
+                  flexShrink: '0',
+                  _mobile: { w: 'auto', lineHeight: 'koreanHeading' },
+                }),
                 description: css.raw({ m: '0', overflowWrap: 'anywhere' }),
               }}
             />
@@ -795,16 +798,20 @@ export function ProfileContent({
                 _mobile={{ pb: '24px' }}
                 headerProps={{
                   titleAs: 'h2',
-                  titleProps: { web: 'h10B', mo: 'h8', tone: 'primary' },
+                  titleProps: {
+                    web: 'h10',
+                    mo: 'b4S',
+                    tone: 'primary',
+                    className: profileStyles.mobileHeadingLineHeight,
+                  },
                 }}
               >
                 <DescriptionList
                   items={[
                     { term: '이메일 수신', description: emailPreference },
                     { term: '문자수신(LMS, SMS)', description: smsPreference },
-                    { term: '카카오톡 알림톡 수신', description: kakaoPreference },
                   ]}
-                  termProps={{ web: 'b4', mo: 'b6', tone: 'primary' }}
+                  termProps={{ web: 'b4M', mo: 'b6', tone: 'primary' }}
                   descriptionProps={{ web: 'b4', mo: 'b6', tone: 'subtle' }}
                   slotStyles={{
                     root: css.raw({
@@ -830,7 +837,7 @@ export function ProfileContent({
                   }}
                 />
               </ContentSection>
-              <Typography as="p" web="b8" mo="b7" language="ko" tone="tertiary">
+              <Typography as="p" web="b6" mo="b7" language="ko" tone="tertiary">
                 *가려진 회원 정보 조회 및 회원정보 변경, 회원 탈퇴는 회원정보 수정 페이지에서
                 가능합니다.
               </Typography>
@@ -842,7 +849,6 @@ export function ProfileContent({
             className={css({
               w: '180px',
               alignSelf: 'center',
-              mt: '16px',
               _mobile: { w: '100%', mt: '8px', '&&': { '--button-height': '44px' } },
             })}
             onClick={() => {
@@ -850,7 +856,9 @@ export function ProfileContent({
               setEditing(true);
             }}
           >
-            회원정보 수정
+            <Typography web="b4B" mo="b5B">
+              회원정보 수정
+            </Typography>
           </Button>
         </ContentSection>
       )}

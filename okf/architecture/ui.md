@@ -4,12 +4,13 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-26T06:58:59Z'
+updated: '2026-11-27T13:22:17+09:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/lib/formatProductOptions.ts
   - src/types/component-contracts/app-signup-information-page.d.ts
   - src/app/products/[id]/_components/ProductDetailContent.tsx
   - src/app/products/[id]/productDetailPreviews.ts
@@ -4896,9 +4897,17 @@ Codex가 PC 브라우저에서 네 옵션, 낮은가격순 선택 시 Clifton �
 
 ## 모바일 상품 목록과 검색 결과의 색상 선택 (2026-11-10)
 
-공통 `ProductCard`의 모바일 목록에서 `colorThumbnails`가 제공되면 썸네일을 버튼으로 표시한다. 선택한 옵션 ID로 현재 이미지 데이터를 찾아 카드 대표 이미지에 반영한다. 색상 이름만 제공되는 상품은 기존 읽기 전용 썸네일을 유지한다. 선택은 카드 안의 미리보기 상태이며 URL, 상품 상세 링크와 서비스 데이터에 영향을 주지 않는다.
+공통 `ProductCard`의 모바일 목록에서 `colorThumbnails`가 제공되면 썸네일을 버튼으로 표시한다. 선택한 옵션 ID로 현재 이미지 데이터를 찾아 카드 대표 이미지에 반영한다. 색상 이름만 제공되는 상품은 기존 읽기 전용 썸네일을 유지한다. 선택은 카드 안의 미리보기 상태이며 현재 페이지 URL은 그대로 유지된다. 상품 상세 링크 동작은 [색상별 상품 상세 이동](#목록-카드의-색상별-상품-상세-이동-2026-11-26)을 따른다.
 
 Codex가 473px 모바일 목록과 검색 결과에서 Summit Pace 4의 색상 버튼을 연속 선택해 대표 이미지와 `aria-pressed`가 바뀌고 URL이 유지됨을 확인했다. 1440px 목록에서 PC 호버 미리보기의 색상 선택도 확인했다. 대상 ESLint와 타입 검사를 통과했다. 출처는 사용자 브라우저 주석과 `src/components/common/molecules/ProductCard/ProductCard.tsx` 작업 트리다.
+
+## 목록 카드의 색상별 상품 상세 이동 (2026-11-26)
+
+검색·상품 목록에서 색상 칩은 현재 옵션 ID만 선택한다. 사진과 상품명 링크는 모바일 및 PC 미리보기에서 표시 중인 색상의 `href`를 함께 사용한다. 선택된 옵션이 없거나 색상별 주소가 비어 있으면 카드 `href`, 그 값도 생략하면 대표 상품 ID의 상세 경로로 연결한다. PC 미리보기를 닫으면 두 링크도 기존 카드 주소로 돌아간다. 목록 소유자가 색상별 상세 주소를 준비해 `product.colorThumbnails`에 전달한다.
+
+검증은 타입 검사, 변경 소스 ESLint, PC·모바일 렌더링 12개 사례를 통과했다. 임의의 옵션 ID, 상세 주소 미제공, 현재 옵션 교체·제거, PC 미리보기 닫힘, 추천 카드 링크를 확인했다. 로컬 브라우저에서 검증 페이지의 초기 HTML은 렌더됐으나 클라이언트 초기화가 완료되지 않아 실제 클릭 이동은 확인하지 못했다.
+
+출처는 사용자 요청과 `src/components/common/molecules/ProductCard/ProductCard.tsx`, `src/components/common/molecules/ProductOptionList.tsx`, `src/mocks/products.ts` 작업 트리다. 기록은 Codex, 2026-11-26이다.
 
 ## 배송지 변경 모달 footer (2026-11-05)
 
@@ -5541,7 +5550,7 @@ EmptyState.recipe.tsx의 orders layout만 PC 높이267px·가로/세로 중앙 �
 
 ## 공용 기간·날짜 조회 UI (2026-11-18)
 
-DateRangeSearch는 기간 버튼(1년·6개월·3개월·1개월·직접설정), 상시 날짜 입력과 조회 버튼을 함께 소유한다. 주문/취소 목록과 문의 주문 상품 조회 모달이 직접 사용하며 OrdersStatus의 전달용 OrdersFilters는 제거했다. 모달 recipe의 tabs/tab 스타일은 공용 소유자로 이동했다. PC inline 배치와 PC/MO stacked 배치를 지원하며 layout 생략·undefined의 기본값은 inline(PC 한 줄/MO 두 줄)이다. 함수 매개변수와 Panda cva defaultVariants에 같은 기본값을 선언한다. 모달은 stacked를 명시한다. 모바일에도 기간 순서는1년·6개월·3개월·1개월·직접설정이고 날짜·조회가 항상 보인다. 날짜130×36px, 날짜 사이6px·조회와24px, 세로 배치는24px 간격을 사용한다. 조회 버튼과 날짜는 모든 플랫폼에서 수직 중앙 정렬한다.
+DateRangeSearch는 기간 버튼, 상시 날짜 입력과 조회 버튼을 함께 소유한다. 2026-11-27부터 PC·모바일 공통 기간 순서는 1개월·3개월·6개월·1년·직접설정이다. 순서의 출처는 `src/components/common/molecules/DateRangeSearch.tsx`의 `periodOptions`다. 주문/취소 목록과 문의 주문 상품 조회 모달이 직접 사용하며 OrdersStatus의 전달용 OrdersFilters는 제거했다. 모달 recipe의 tabs/tab 스타일은 공용 소유자로 이동했다. PC inline 배치와 PC/MO stacked 배치를 지원하며 layout 생략·undefined의 기본값은 inline(PC 한 줄/MO 두 줄)이다. 함수 매개변수와 Panda cva defaultVariants에 같은 기본값을 선언한다. 모달은 stacked를 명시한다. 날짜130×36px, 날짜 사이6px·조회와24px, 세로 배치는24px 간격을 사용한다. 조회 버튼과 날짜는 모든 플랫폼에서 수직 중앙 정렬한다.
 
 화면 소유자가 DateRangeValue { period, start, end } 초안을 소유하며 onValueChange가 값을 원자적으로 교체한다. period는1/3/6/12/custom이다. preset은 클릭 시점의 로컬 오늘을 종료일로 사용하고 달력 월 단위로 시작일을 구하며 월말·윤년을 보정한다. referenceDate로 명시적 기준일을 전달할 수 있다. custom 클릭은 날짜를 유지하고, 텍스트/네이티브 date 입력 편집은 날짜와custom을 함께 전달한다. 외부 교체 데이터는 현재 props에서 읽으며 effect로 편집값을 동기화하지 않는다.
 
@@ -5613,7 +5622,7 @@ EmptyState의 claimHistory layout은 PC 높이267px·중앙 배치·하단 #E9EA
 
 - 상품내역의 모바일 제목 숨김 조건을 여백과 제목 표시에서 공유하고 목록의 좌우 확장 조건을 단순화했다. 기존 여백 값과 최근 본 상품 빈 화면 보정은 유지한다.
 
-- 관심상품·최근 본 상품·재입고 알림 빈 화면은 PC와 모바일에서 제목과 검정 2px 구분선을 표시한다. 제목 아래 패딩은 PC 40px, 모바일 32px이다. 모바일에서 제목이 다시 표시되어 이전 최근 본 상품 빈 화면의 음수 마진은 제거했다.
+- 관심상품·최근 본 상품·재입고 알림 빈 화면은 PC와 모바일에서 제목을 표시한다. 제목 아래 패딩은 PC 40px, 모바일 32px이다. 모바일에서 제목이 다시 표시되어 이전 최근 본 상품 빈 화면의 음수 마진은 제거했다. 세 상품내역 빈 화면의 제목과 빈 안내 사이에 구분선을 표시하지 않는다.
 
 ## 추가 마이페이지 변경 병합 (2026-11-18)
 
@@ -5714,6 +5723,12 @@ recipe의 생략·명시적 undefined는 defaultVariants의 subtle을 사용한�
 주문·취소·반품 상세는 `src/app/mypage/orders/_components/OrderDetails.tsx`에서 PC 상품 그룹과 취소·반품 이력의 열 머리글을 공통 `header` 슬롯에 연결한다. 각 상품 표에는 이름과 표·행·열 머리글·셀 역할을 지정한다. 모바일은 상품 카드로 표시한다.
 
 Chromium에서 상세 3개 경로의 PC 1255px 머리글 숨김, 접근성 트리의 열 제목과 본문 셀 개수, 모바일 390px 상품 카드와 가로 넘침 여부를 확인했다. TypeScript와 변경 소스 ESLint·Prettier를 통과했다.
+
+### 목록 영역 회색 시작선 (2026-11-26)
+
+`DataList`의 `thickSubtle`은 PC·모바일 2px, `thickToThinSubtle`은 PC 2px·모바일 1px의 `#E9EAEB` 시작선이다. 공통 경계선과 목록 레시피에서 같은 값을 사용한다. 사용자 응답 주석에 지정된 목록에는 기존 두께에 맞는 옵션을 사용하며, 기존 시작선 기본값과 머리글 숨김 옵션은 유지한다. 상품 선택과 배송 추적은 해당 `itemLayout`의 구분선 색상을 바꾼다.
+
+출처는 사용자 응답 주석, `DataList.recipe.tsx`, `ModalDialog.recipe.tsx`와 지정 화면의 작업 트리다. Chromium PC 1255px에서 대상 목록과 팝업의 검정선 제거를 재검사했다. 모바일 390px 취소·반품 목록의 행 구분선 4개는 모두 1px `#E9EAEB`였으며, 공통 레시피의 모바일 두께와 머리글 숨김도 확인했다. TypeScript와 변경 소스 ESLint·Prettier를 통과했다. [대상 화면](routing.md#목록정보-영역-시작선-색상-2026-11-26).
 
 ### 머리글 typography case
 
@@ -6084,6 +6099,8 @@ PC1461/MO375에서 선택700·미선택400, 탭 전환 후 굵기 이동과 STEP
 
 ## 온라인 회원등급 안내와 공유 본문 (2026-11-19)
 
+공통 혜택의 신규 가입 10% 할인 쿠폰과 첫 구매 감사 1만원 쿠폰 설명에서 슬래시 뒤 띄어쓰기를 조정했다. 출처는 `src/components/membership/rewards-data.ts`의 `commonBenefits`다.
+
 회원등급 두 경로의 본문은 `src/components/membership/MembershipRewards.tsx` 하나로 통합했다. 개인 요약·진행률·배지와 등급·공통 혜택을 내부 모듈에서 함께 소유한다. 기존 `RewardsContent`는 마이페이지 프레임과 고정 조회 피드백만 담당하고 고객센터 소유자는 로그인 표시 상태만 showSummary로 전달한다. 도메인 표시 fixture는 membership/rewards-data.ts에 모으며 이전 라우트 전용 data 경로는 제거했다. 기본 showSummary=true를 JSDoc·함수 기본값에 명시하며 undefined도 같은 기본 동작이다. 최신 사용자 확정 RUNNER 1장·연1회와 PC/MO 시안 규격을 양쪽 공통 본문에 적용했다. 세부 규격은 [고객센터 시안 기록](support-design.md#온라인-회원등급-안내와-공유-본문-2026-11-19)을 따른다.
 
 출처: [온라인 회원등급 안내 PC·모바일 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design), 현재 사용자 화면 코멘트, 위 working_tree_sources의 작업 트리. Codex 작성·검토, 2026-11-19.
@@ -6383,3 +6400,91 @@ PC와 모바일 모두 ‘현재 운영 중인 세션이 없습니다.’로 표
 상품리뷰의 작성 가능 목록과 작성한 목록은 `OrderProductSummary`의 review 설정을 공유하며 PC와 모바일 모두 96px × 96px 썸네일을 사용한다.
 
 공통 `RatingStars`는 표시형과 선택형 모두 호카 블루를 기본색으로 사용한다. 별의 채움과 윤곽은 점수를 나타낸다.
+
+VerificationCountdown은 모든 호출부에 accent를 적용한다. Typography와 Badge의 강조 색상 이름은 accent이며 Panda의 red.80(#E10F00)을 참조한다. 원색 토큰은 색상 가이드에서 계속 표시한다.
+
+## 최근 본 상품 전체삭제와 빈 목록 (2026-11-26)
+
+설계서의 최근 본 상품 목록 있음·없음 화면에 맞춰 제목 오른쪽에 `전체삭제`를 표시한다. 설계서의 모바일 버튼은 53×21px이지만 앱에서는 기존 `Button`의 secondary/short 규격을 사용한다. 목록이 비면 비활성으로 표시한다. EmptyState의 제목과 상품 페이지 방문 안내는 모바일에서 각각 두 줄이며, 최대 50개·14일 보관 안내는 목록과 빈 화면에서 별도로 표시한다. 빈 제목은 공통 기준인 PC 22px·모바일 20px, 400, 행간 120%를 따른다.
+
+전체삭제 서비스는 마이페이지 통합 소유자가 연결한다. 버튼은 표시용이며 연결 시 요청 중 중복을 막고, 실패 시 목록 유지 및 재시도, 성공 시 목록·건수 갱신과 이전 응답 배제를 담당한다.
+
+출처는 [HOKA 설계서](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)의 최근 본 상품 목록 화면과 `src/app/mypage/_components/MyPageProductHistory.tsx` 작업 트리다. 제공 설계서는 360×768 모바일 기준이다.
+
+PC 1440×900과 모바일 360×768에서 버튼 높이 40px, 빈 화면 비활성, 안내와 가로 넘침 없음, 빈 제목 22px/20px·400·행간 120%를 확인했다. IA에서 상태명과 URL로 검색 후 양쪽 플랫폼에서 링크를 열고 빈 목록 직접 URL을 새로고침했다. 기록: codex/gpt-6, 2026-11-26T08:49:18.710Z.
+
+## 상품 카드 프로모션 배지 공통 색상 (2026-11-26)
+
+사용자 확정으로 상품 목록·검색·상품 내역·쇼케이스와 상세의 `ProductIdentity`에서 `New`, `Best`, `Exclusive` 라벨을 기존 red80 토큰(#E10F00)으로 표시한다. PC와 모바일에 동일하게 적용하며 여러 라벨 사이 구분선도 같은 색을 사용한다. `promotionTone` 입력과 사용처별 지정을 제거했다. 앞선 상품 내역의 플랫폼별 배지색 기록은 이 공통 기준으로 갱신한다.
+
+출처는 사용자의 색상 및 공통 적용 지시, `ProductCard.tsx`, `MyPageProductHistory.tsx`, `ProductDetailContent.tsx`, 퍼블리싱 가이드 `ProductCardGuide.tsx` 작업 트리다. PC 1440×900과 모바일 360×768에서 최근 본 상품·관심상품·퍼블리싱 가이드의 프로모션 색을 rgb(225, 15, 0)으로 확인했다. 기록: codex/gpt-6, 2026-11-26T08:49:24.875Z.
+
+공통 오류·점검 화면(`SystemStatusPage`)의 제목은 PC 20px·모바일 18px Medium(500), 안내 본문은 두 화면 모두 14px Regular(400)이다.
+
+## 최근 본 상품 빈 목록 타이포그래피
+
+`src/components/common/atoms/EmptyState.recipe.tsx`의 history 레이아웃은 제목을 PC 20px·모바일 18px, 설명을 PC 16px·모바일 14px로 표시한다. 두 문구 모두 Regular(400)를 사용한다.
+
+## 공통 안내·확인 모달 타이포그래피
+
+`src/components/common/layouts/ModalDialog.recipe.tsx`에서 상단 제목은 PC 24px·모바일 20px Bold, 일반 안내 제목은 PC 20px·모바일 18px Bold, 설명은 양쪽 16px Regular를 적용한다. 아이디 찾기 결과값은 별도 결과형 타이포그래피를 사용한다.
+
+## 고객센터 제목과 상단 구분선
+
+DataList.recipe.tsx의 thinTertiary는 목록과 상세 영역에서 공유하는 1px solid 구분선이며 색상은 color/text/tertiary다.
+
+
+
+## 마이페이지 회원등급 PC·모바일 디자인 2026-11-27
+
+사용자 브라우저 코멘트에 따라 마이페이지 산정 안내는 첫 문장 뒤에서 줄을 나누고, `※`로 시작하는 실제 구매금액 안내 문장은 쉼표 뒤 강제 줄바꿈 없이 이어서 표시한다. 좁은 화면에서는 영역 너비에 맞춰 자연스럽게 줄바꿈한다. `MembershipRewards.tsx`의 마이페이지 공통 안내에 적용한다.
+
+사용자 브라우저 코멘트에 따라 100% 진행 상태의 상향 예정에는 `0원 구매시 등급 업!`, ELITE 달성에는 `ELITE 달성!` 툴팁을 표시한다. `MembershipRewards.tsx`는 너비 12px인 꼬리의 중심을 몸체 좌우 끝에서 최소 18px 떨어뜨리고, 꼬리 윗면을 몸체에 1px 겹쳐 반지름 12px인 모서리에서도 연결되도록 한다.
+
+마이페이지 툴팁은 진행 바 너비를 기준으로 꼬리 끝과 원형 핸들 중심을 맞춘다. 양 끝에서도 꼬리가 몸체에서 떨어지지 않도록 몸체 위치를 함께 조정한다. Chromium PC 1574px·모바일 375px에서 28%·32%·100%의 중심 차이가 0.02px 미만이고 꼬리 겹침이 1px인 것을 확인했다. 실제 구매금액 안내는 PC에서 한 줄이고 두 폭에서 모두 가로 넘침이 없었다. 출처는 사용자 브라우저 코멘트와 `MembershipRewards.tsx` 작업 트리다.
+
+PC 구매금액 카드는 240px 너비와 32px 안쪽 여백을 사용한다. 라벨은 왼쪽 위에, 금액은 오른쪽 아래에 두고 숫자와 원 단위는 아래쪽 끝을 맞추며 2px를 띄운다. 라벨은 Pretendard 16px/500, 숫자는 The Future HOKA 22px/900, 원 단위는 Pretendard 16px/400이다. 모바일은 진행 카드와 12px를 띄우고 라벨과 금액을 한 행에 배치한다. 라벨은 Pretendard 14px/500, 숫자는 The Future HOKA 16px/700, 원 단위는 Pretendard 16px/400이며 숫자와 원 단위를 2px 간격으로 세로 중앙에 맞춘다.
+
+마이페이지의 진행 바 아래 안내는 `tierProgress.notice` 문자열을 표시한다. 날짜·금액의 숫자와 영문 등급명은 The Future HOKA Medium, 한글과 단위는 Pretendard Medium을 사용한다. PC·모바일 모두 13px/500과 150% 행간을 적용한다. 안내는 진행 카드 왼쪽에서 32px 들어가며 금액 행과 PC 8px, 모바일 16px 간격을 둔다. 모바일 안내는 내용 너비를 기준으로 오른쪽 정렬하며 좁은 폭에서는 자연스럽게 줄바꿈한다. 진행 바와 금액 행 사이의 24px 간격은 PC에서 가로로, 모바일에서 세로로 적용한다. 출처는 `MembershipRewards.tsx`, `mypage-display.ts` 작업 트리와 [회원등급 안내 PC·모바일 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)이다.
+
+최신 마이페이지 산정 시안은 진행 바의 8px 높이와 24px 표시점을 유지한다. 툴팁은 PC 14px·모바일 12px이며 본문은 400, 일반 툴팁의 첫 금액 숫자는 500이다. 하락 위험의 툴팁은 두 플랫폼에서 12px/400이다. 새 문구가 줄바꿈될 때 툴팁 높이는 내용에 맞춰 늘어난다. 모바일 진행 카드 최소 높이는 159px이다. 실제 확정 구매금액이 기준을 초과해도 숫자를 그대로 표시하고 진행 바만 최대 100%를 표시한다. 산정 기준 안내는 매월 3일과 전월 말일 기준 최근 1년 구매금액을 명시한다. [케이스와 IA 연결](routing.md#마이페이지-회원등급-산정-케이스-2026-11-27).
+
+Chromium PC 1630px·모바일 375px에서 상향 예정·유지·하락 위험·하락 예정의 문자별 폰트, 크기·굵기와 안내 위치를 확인했다. 하락 예정은 모바일 750px·320px에서도 간격과 안내 영역의 가로 넘침 여부를 확인했다.
+
+`MembershipRewards`의 `layout="account"`는 마이페이지에서 사용한다. PC 등급 안내와 공통 혜택 제목은 28px/700, 등급명은 22px/900이다. PC의 등급 조건은 20px로 ELITE·ADVANCED는 700, RUNNER는 500을 사용한다. 등급 혜택 목록은 16px/500과 세로 간격 8px을 적용한다. 배지와 설명 열 사이 간격은 56px, 공통 혜택 두 열 사이는 40px이다.
+
+모바일 요약의 등급명은 36px/900이고 배지는 등급 안내 행 오른쪽에 배치한다. 등급명은 22px/900, 등급 조건은 16px/700, 혜택 설명은 14px/400이다. 등급 설명 목록의 세로 간격은 4px이다. 공통 혜택 제목과 쿠폰명은 20px/700이고 구분선 목록의 행 안쪽 여백은 20px이다. `rewards-data.ts`의 선택적 `accountMobile`은 쿠폰명과 유효 기간의 줄 구성을 제공한다. 생략하면 기본 제목과 설명을 사용한다.
+
+출처는 [HOKA 마이페이지 회원등급 PC·모바일 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)과 `src/components/membership/MembershipRewards.tsx`, `src/components/membership/rewards-data.ts` 작업 트리다. 원본의 Regular·Medium·Bold·Black 스타일 및 숫자 굵기를 대응하는 기존 폰트로 매핑했다. 변수의 굵기 모드 이름은 확인하지 못했다. 2026-11-27 KST에 Chromium PC 1440px과 모바일 375px에서 계산 스타일과 배치, 모바일 쿠폰 줄 구성, Pretendard Medium·Regular·Bold의 실제 사용과 HOKA 900 face 로드를 확인했다. 모바일 320px에서 회원등급 본문은 가로 넘침이 없었고 상단 공용 배너 링크에서 약 3px 넘침이 관찰됐다.
+
+Figma 원본의 회원등급 본문 텍스트 레이어 82개(PC 42개, 모바일 40개)를 문자 구간 단위로 재확인했다. 같은 레이어 안의 글자별 굵기 변경은 없었다. 모바일 쿠폰 설명 세 곳의 유효 기간은 글자 구간 색상 `#707070`을 사용하며, 카카오 쿠폰은 유효 기간 레이어 전체가 같은 색상이다. 모두 14px/400이다. 모바일 쿠폰명 네 곳은 20px/700과 행간 140%를 사용한다. PC·모바일 진행 안내의 강조 금액 숫자는 Pretendard 14px/500이고, 뒤 문구는 14px/400이다. 진행률 현재 금액과 목표 금액에는 The Future HOKA 14px/500·400을 각각 사용하며, 뒤의 단위는 같은 크기·굵기의 Pretendard다.
+
+Chromium PC 1440px·모바일 375px에서 숫자와 단위의 계산 폰트·굵기를 각각 확인했다. 모바일에서 쿠폰명 네 곳의 28px 행간과 유효 기간 네 곳의 400 굵기 및 `#707070` 색상을 확인했다. 고객센터 모바일 기본 배치의 쿠폰명은 기존 16px/700과 24px 행간을 사용한다.
+
+## 상품 옵션 요약 순서 2026-11-27
+
+`src/lib/formatProductOptions.ts`는 준비된 상품 옵션을 `색상, 사이즈, 발볼` 순서로 연결한다. 빈 값에는 구분자를 붙이지 않으며 화면에서 수량을 전달하면 마지막에 표시한다. `Black, 250, Regular`, 발볼이 없는 `Black, M, 2개`, 빈 옵션을 직접 검증했다. 퍼블리싱 가이드 예시와 주문서 쿠폰 표시 데이터에도 같은 순서를 사용한다. 출처는 사용자 응답 주석, `AGENTS.md`와 `formatProductOptions.ts` 작업 트리다. [적용 화면과 브라우저 검증](routing.md#상품-옵션-순서와-반품-상세-표시-2026-11-27).
+
+## 주문 취소·반품 상태 문구 2026-11-27
+
+주문 취소·반품의 사유 코드 `mind`와 관련 상세 예시는 `단순 변심`으로 표시한다. 반품 상세의 완료 예시는 두 플랫폼 모두 `환불완료`를 사용한다. 출처는 `src/components/orders/order-policy.ts`, `src/components/orders/orders.data.ts` 작업 트리와 사용자 확인이다.
+
+## 회원등급 진행 금액과 단위 줄바꿈 2026-11-27
+
+진행 금액 행은 PC 기본 너비를 최소 너비로 사용하고 숫자와 원 단위를 한 줄에 표시한다. 숫자와 단위의 기존 폰트와 굵기는 유지한다. Codex는 마이페이지 회원등급과 로그인 상태 고객센터에서 1424px, 1025px, 375px, 320px로 한 줄 표시와 금액 영역 가로 넘침 여부를 확인했다. 출처는 사용자 브라우저 코멘트와 src/components/membership/MembershipRewards.tsx 작업 트리다.
+
+## 상품 목록과 검색 신상품순 기본 정렬 2026-11-27
+
+상품 목록과 검색 결과의 PC 정렬 드롭다운과 모바일 필터는 신상품순·높은가격순·낮은가격순을 공유한다. 정렬 미지정, 빈 값, 알 수 없는 값, 기존 베스트순은 신상품순으로 표시한다. 표시 fixture의 신상품 정렬은 기존 New 프로모션 우선과 ID 순서를 사용한다.
+
+Featured 진입 URL의 sort 토큰은 분류명과 이동 경로를 표시한다. 기존 sort=popular, sort=new, sort=coming-soon, sort=sale은 그대로 진입한다. Featured 목록에서 선택한 정렬은 order에 기록하고, 일반 목록과 검색은 sort에 기록한다. 통합 소유자가 실제 조회를 연결하며 data.items 표시는 전달된 순서를 따른다.
+
+출처는 사용자 브라우저 코멘트와 ProductListingPage.tsx, productSortOptions.ts, productListingMetadata.ts, filterProducts.ts 작업 트리다. Codex는 PC 상품 목록과 검색·기존 Best 링크의 정렬 항목과 기본 선택, 가격순 선택 후 Best 제목과 뒤로가기, 모바일 필터의 기본 선택과 적용 후 URL을 확인했다.
+
+## 회원등급 최신 혜택 문구 2026-11-27
+
+ELITE·ADVANCED·RUNNER의 할인 쿠폰은 월 1회로 표시한다. 무료 반품 쿠폰은 ELITE 3장·연 3회, ADVANCED 2장·연 2회다. RUNNER의 등급 조건은 회원 가입 시 기본 설정 등급으로 표시한다. PC 시안은 RUNNER에 3장·연 3회를 중복 표기하고 모바일 시안은 1장·연 1회다. 사용자 확정과 모바일 시안에 따라 두 플랫폼 모두 1장·연 1회를 사용한다. 신규 가입·첫 구매·카카오 쿠폰의 PC 문구 띄어쓰기를 시안에 맞췄다. 고객센터와 마이페이지는 이 혜택 데이터를 공유한다.
+
+마이페이지 미리보기의 구매금액은 PC 258,000원과 모바일 182,500원이며, 진행 툴팁은 두 플랫폼에서 120,000원 구매시 등급 업!을 표시한다. Codex는 PC 1920px와 모바일 375px에서 혜택 문구, 구매금액에 실제 로드된 The Future HOKA PC 22px/900·모바일 16px/700, 툴팁 숫자의 Pretendard 14px/500과 금액의 한 줄 표시를 확인했다. 고객센터 로그인 전후와 회원등급 조회 중·실패 미리보기도 확인했다. 출처는 [HOKA Design 회원등급 PC·모바일 프레임](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design), 사용자 코멘트 및 rewards-data.ts 작업 트리다.
+
+비밀번호 재설정의 비밀번호 입력 조건은 영문·숫자·특수문자를 포함한 10~20자이며 입력 중 오류에는 공통 TextFormField를 사용한다. 출처는 `src/lib/passwordValidation.ts`다.

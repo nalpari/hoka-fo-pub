@@ -1,6 +1,6 @@
 import { Typography } from '@/components/common/atoms/Typography';
 
-/** 인증번호 입력의 남은 시간을 강조 색상으로 표시합니다. (Displays the remaining verification time using the accent color.) */
+/** 인증번호 입력의 남은 시간을 강조 색상으로 표시합니다. (Displays the remaining verification time in the accent tone.) */
 export function VerificationCountdown({ secondsLeft }: { secondsLeft: number }) {
   return (
     <Typography as="p" variant="b8" tone="accent">

@@ -42,13 +42,15 @@ export function CartOrderActions({ selectedPreview = false }: { selectedPreview?
       <Stack gap="12px">
         <AmountRow label="주문 금액" amount={cartPreviewAmounts.product} />
         <AmountRow label="할인 금액" amount={cartPreviewAmounts.discount} discount />
+        {/* 무료배송 정책으로 배송비 행을 숨깁니다.
         <AmountRow label="배송비" amount={cartPreviewAmounts.shipping} />
+        */}
       </Stack>
       <AmountRow
-        label="총 결제 금액"
+        label="총 결제금액"
         amount={cartPreviewAmounts.total}
         emphasizeLabel
-        borderTop="2px solid black"
+        borderTop="2px solid var(--color-black-20)"
         pt="24px"
       />
       <Button variant="primary" fullWidth>

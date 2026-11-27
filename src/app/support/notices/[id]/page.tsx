@@ -47,7 +47,7 @@ export default function Page() {
       <Box
         mt={{ base: '10', _mobile: '8' }}
         className={dataListBoundaryRecipe({
-          top: 'strongToThin',
+          top: 'thinSubtle',
           bottom: 'subtle',
         })}
         py="6"
@@ -56,7 +56,7 @@ export default function Page() {
         <ContentHeader
           title={notice.title}
           titleAs="h2"
-          titleProps={{ web: 'h10', mo: 'h8' }}
+          titleProps={{ variant: 'b3M' }}
           gap="2"
           description={notice.date}
           descriptionAs="time"

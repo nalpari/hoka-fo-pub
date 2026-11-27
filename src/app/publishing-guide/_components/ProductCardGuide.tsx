@@ -25,6 +25,7 @@ import { ProductOptionList } from '@/components/common/molecules/ProductOptionLi
 
 import { reviewListPreview } from '@/app/mypage/reviews/reviewFixtures';
 import type { OrderLine } from '@/components/orders/orders.types';
+import { formatProductOptions } from '@/lib/formatProductOptions';
 import { type Product, products } from '@/mocks/products';
 
 import { renderGuideCode } from './GuideCode';
@@ -240,7 +241,6 @@ function exampleCode(example: TileExample, platform: Platform) {
 <ProductCard
   product={${example.discounted ? `{ ...product, originalPrice: ${platform === 'mobile' ? 280000 : 290000}, price: 240000, discountLabel: "20%" }` : 'product'}}
   variant="${example.variant}"
-  promotionTone="error"
   options={${JSON.stringify(example.options)}}
   activityLabels={["데일리 러닝", "워킹"]}
   liked={liked}
@@ -339,7 +339,6 @@ function ProductExample({
       <ProductCard
         product={displayProduct}
         variant={example.variant}
-        promotionTone="error"
         options={example.options}
         activityLabels={['데일리 러닝', '워킹']}
         soldOut={example.soldOut}
@@ -352,7 +351,7 @@ function ProductExample({
 
 const fullDetails = {
   orderDate: '2026.08.18',
-  optionText: '옵션 : 레귤러 / 브라운 / 235 / 1개',
+  optionText: '옵션 : 브라운, 235, 레귤러, 1개',
   originalPrice: 280000,
   discountLabel: '20%',
   applicationDate: '2026.05.22',
@@ -375,7 +374,7 @@ const fullDetailsCode = `import { RatingStars } from '@/components/common/atoms/
 
 const fullDetails = {
   orderDate: '2026.08.18',
-  optionText: '옵션 : 레귤러 / 브라운 / 235 / 1개',
+  optionText: '옵션 : 브라운, 235, 레귤러, 1개',
   originalPrice: 280000,
   discountLabel: '20%',
   applicationDate: '2026.05.22',
@@ -397,7 +396,6 @@ const [liked, setLiked] = useState(true);
   <ProductIdentity
     variant="listing"
     promotion={product.promotion}
-    promotionTone="error"
     orderDate={fullDetails.orderDate}
     gender={product.gender}
     name={product.name}
@@ -453,7 +451,6 @@ function FullDetailsPreview() {
       <ProductIdentity
         variant="listing"
         promotion={product.promotion}
-        promotionTone="error"
         orderDate={fullDetails.orderDate}
         gender={product.gender}
         name={product.name}
@@ -524,14 +521,14 @@ function VerticalProductExample({
   image={product.primaryImage}
   name={product.name}
   gender={product.gender}
-  optionText="옵션 : Regular / 브라운 / 235 / 1개"
+  optionText="옵션 : 브라운, 235, Regular, 1개"
   amount={240000}
 />`
     : `<OrderProductSummary
   variant="history"
   image={orderLine.image}
   name={orderLine.name}
-  optionText="Regular, 브라운, 235, 1개"
+  optionText="브라운, 235, Regular, 1개"
   amount={240000}${example.kind === 'claim' ? '\n  imageSize={{ web: 96, mobile: 64 }}' : '\n  cartAction'}
 />`;
   return (
@@ -548,7 +545,7 @@ function VerticalProductExample({
           image={product.primaryImage}
           name={product.name}
           gender={product.gender}
-          optionText="옵션 : Regular / 브라운 / 235 / 1개"
+          optionText="옵션 : 브라운, 235, Regular, 1개"
           amount={240000}
         />
       ) : (
@@ -556,7 +553,7 @@ function VerticalProductExample({
           variant="history"
           image={orderLine.image}
           name={orderLine.name}
-          optionText={`${orderLine.width}, ${orderLine.color}, ${orderLine.size}, ${orderLine.quantity}개`}
+          optionText={formatProductOptions(orderLine, orderLine.quantity)}
           amount={orderLine.displayAmount}
           cartAction={example.kind === 'history'}
           imageSize={example.kind === 'claim' ? { web: 96, mobile: 64 } : undefined}
@@ -760,13 +757,12 @@ export function ProductCardGuide() {
                 width={platform === 'web' ? '371px' : '343px'}
                 onCopy={copyCode}
                 code={
-                  '<ProductIdentity\n  variant="detail"\n  promotionTone="error"\n  promotion={product.promotion}\n  gender={product.gender}\n  activities={["데일리 러닝", "워킹"]}\n  name={product.name}\n  price={product.price}\n/>'
+                  '<ProductIdentity\n  variant="detail"\n  promotion={product.promotion}\n  gender={product.gender}\n  activities={["데일리 러닝", "워킹"]}\n  name={product.name}\n  price={product.price}\n/>'
                 }
               >
                 <ProductIdentity
                   variant="detail"
                   promotion={product.promotion}
-                  promotionTone="error"
                   gender={product.gender}
                   activities={['데일리 러닝', '워킹']}
                   name={product.name}

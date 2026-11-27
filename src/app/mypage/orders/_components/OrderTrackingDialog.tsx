@@ -87,7 +87,9 @@ export function OrderTrackingDialog({
         </section>
         <section aria-label="상품추적">
           <h3 className={styles.heading}>상품추적</h3>
-          <table className={dataListRecipe({ itemLayout: 'trackingTable' }).root}>
+          <table
+            className={dataListRecipe({ top: 'thickSubtle', itemLayout: 'trackingTable' }).root}
+          >
             <caption className={styles.caption}>상품 배송 추적 이력</caption>
             <thead>
               <tr>

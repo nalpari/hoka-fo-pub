@@ -10,23 +10,19 @@ export type ProfileValues = {
 
 export type ProfileAddress = { postalCode: string; address: string; addressDetail: string };
 
-export type ProfileEditProps = Omit<ProfileValues, 'email'> & {
+export type ProfilePhonePreview = 'idle' | 'code-entry' | 'expired' | 'mismatch';
+
+export type ProfileEditProps = ProfileValues & {
+  savedPhone: string;
   pending?: boolean;
   details?: readonly (readonly [string, string])[];
-  previewPhone?: 'idle' | 'code-entry' | 'expired';
-  emailLocal: string;
-  emailDomain: string;
-  domainChoice: string;
+  previewPhone?: ProfilePhonePreview;
   address: ProfileAddress;
   addressOpen: boolean;
   passwordChanged: boolean;
   phoneVerified: boolean;
-  fieldErrors: { email?: string; domain?: string; phone?: string } & Partial<
-    Record<keyof ProfileAddress, string>
-  >;
-  onEmailLocalChange: (value: string) => void;
-  onEmailDomainChange: (value: string) => void;
-  onDomainChoice: (value: string) => void;
+  fieldErrors: { email?: string; phone?: string } & Partial<Record<keyof ProfileAddress, string>>;
+  onEmailChange: (value: string) => void;
   onAddressChange: (field: keyof ProfileAddress, value: string) => void;
   onAddressOpenChange: (open: boolean) => void;
   onPhoneChange: (value: string) => void;

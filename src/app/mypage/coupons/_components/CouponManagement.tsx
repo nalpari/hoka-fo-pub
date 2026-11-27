@@ -107,9 +107,8 @@ const couponStyles = {
 };
 
 const couponSectionTitle = {
-  web: 'h8B',
+  web: 'h8',
   mo: 'h8',
-  className: css({ _mobile: { fontWeight: 'bold' } }),
 } as const;
 
 /* 1차 개발 범위 제외: 쿠폰 등록 입력·안내 마크업 (재개 시 TextFormField import 복원).
@@ -224,11 +223,7 @@ function CouponCard({ coupon, onDetails }: CouponCardProps) {
           </HStack>
         }
         titleAs="h3"
-        titleProps={{
-          web: 'h10B',
-          mo: 'h8',
-          className: couponSectionTitle.className,
-        }}
+        titleProps={{ web: 'h10B', mo: 'h8' }}
         orientation="horizontal"
         gap="8px"
         alignItems="flex-start"
@@ -503,7 +498,7 @@ export function RouteContent({
     <MyPageFrame activePath="/mypage/coupons" breadcrumbs={[{ label: '쿠폰' }]}>
       <ContentSection
         title="쿠폰"
-        headerProps={{ titleAs: 'h1', titleProps: { web: 'h4B', mo: 'h7B' } }}
+        headerProps={{ titleAs: 'h1', titleProps: { web: 'h4B', mo: 'h7' } }}
         gap="48px"
         _mobile={{ gap: '32px', pt: '24px' }}
         css={{ '--line-heights-body': '1.5' }}
@@ -546,9 +541,9 @@ export function RouteContent({
           ) : null}
           <ContentSection
             as="section"
-            gap="24px"
+            gap={visibleCoupons.length ? { base: '12px', _mobile: '8px' } : '24px'}
             aria-label="쿠폰 내역"
-            title="쿠폰 내역"
+            title="보유 쿠폰"
             headerProps={{
               gap: { base: '12px', _mobile: '16px' },
               titleAs: 'h2',
@@ -559,20 +554,8 @@ export function RouteContent({
                 className: couponDescription,
               },
             }}
-            footer={
-              more ? (
-                <VStack>
-                  <Button
-                    variant="plain"
-                    size="lg"
-                    onClick={more.onLoadMore}
-                    loadMore={{ counter: more.counter }}
-                  />
-                </VStack>
-              ) : null
-            }
           >
-            <Stack gap={{ base: '12px', _mobile: '24px' }}>
+            <Stack gap="24px">
               {/* 1차 개발 범위 제외: 전체 / 상품할인 / 배송할인 탭.
         <SegmentedControl
           ariaLabel="쿠폰 종류"
@@ -616,6 +599,16 @@ export function RouteContent({
                   ))}
                 </Grid>
               </Stack>
+              {more ? (
+                <VStack>
+                  <Button
+                    variant="plain"
+                    size="lg"
+                    onClick={more.onLoadMore}
+                    loadMore={{ counter: more.counter }}
+                  />
+                </VStack>
+              ) : null}
             </Stack>
           </ContentSection>
         </Stack>

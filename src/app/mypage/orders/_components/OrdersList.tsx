@@ -49,9 +49,7 @@ function ClaimHistoryList({
         as="ul"
         gap="24px"
         listStyleType="none"
-        className={
-          dataListRecipe({ top: 'none', rowBorder: 'strong', columnGap: 'unchanged' }).root
-        }
+        className={dataListRecipe({ top: 'none', columnGap: 'unchanged' }).root}
       >
         {items.map((item) => (
           <Stack as="li" key={item.key} gap="0">
@@ -102,6 +100,7 @@ function ClaimHistoryList({
       gap="0"
       className={
         dataListRecipe({
+          top: 'thickSubtle',
           rowBorder: 'semanticSubtle',
           columnGap: 'unchanged',
           headerTypography: 'headingBold',
@@ -127,14 +126,14 @@ function ClaimHistoryList({
       )}
       {items.map((item) => (
         <Stack key={item.key} data-list-item gap="0" pt="32px">
-          <Typography variant="b4" tone="tertiary" className={css({ pl: '24px' })}>
+          <Typography variant="b4" tone="tertiary">
             주문번호{' '}
             <Typography as="span" variant="b4" language="en" tone="tertiary">
               {item.orderNumber}
             </Typography>
           </Typography>
           <Grid gridTemplateColumns={columns} alignItems="center" gap="0" pt="16px" pb="32px">
-            <Box px="24px">
+            <Box pe="24px">
               <OrderProductSummary
                 variant="history"
                 image={item.line.image}
@@ -202,9 +201,10 @@ export function OrdersListContent({
         {/* 주문 상품 목록 및 빈 화면 */}
         <Stack
           gap="0"
+          borderTop={{ base: '2px solid var(--color-black-20)', _mobile: '0' }}
           className={
             dataListRecipe({
-              top: 'desktopStrong',
+              top: 'unchanged',
               columnGap: 'unchanged',
               headerTypography: 'headingBold',
               cellVariant: 'heading',

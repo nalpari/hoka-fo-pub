@@ -1,6 +1,7 @@
 import type { ModalDialogVariant } from '@/components/common/layouts/ModalDialog';
 
 import { orderPreviews } from '@/app/mypage/orders/orderPreviews';
+import { rewardsPreviews } from '@/app/mypage/rewards/rewardsPreviews';
 import { productDetailPreviews } from '@/app/products/[id]/productDetailPreviews';
 import {
   getProductListingIaKey,
@@ -17,6 +18,7 @@ export type ScreenConnection = {
   previewRoutes?: {
     label: string;
     href: string;
+    group?: string;
   }[];
   sourceFiles: string[];
 };
@@ -261,7 +263,7 @@ const connections: Record<number, ScreenConnection> = {
   '183': {
     route: '/mypage/recent',
     defaultStateLabel: '목록 있음',
-    previewRoutes: [{ label: '빈 목록', href: '/mypage/recent/preview-empty' }],
+    previewRoutes: [{ label: '최근 본 상품 목록 없음', href: '/mypage/recent/preview-empty' }],
     sourceFiles: ['src/app/mypage/recent/page.tsx', 'src/app/mypage/recent/preview-empty/page.tsx'],
   },
   '184': {
@@ -317,6 +319,7 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/support/inquiries/new/page.tsx',
       'src/app/support/inquiries/new/preview-error/page.tsx',
       'src/app/support/inquiries/new/preview-order-required/page.tsx',
+      'src/app/support/inquiries/new/preview-attachment-picker/page.tsx',
       'src/app/support/inquiries/new/preview-attachment-type/page.tsx',
       'src/app/support/inquiries/new/preview-attachment-size/page.tsx',
       'src/app/support/inquiries/new/preview-attachment-count/page.tsx',
@@ -347,15 +350,17 @@ const connections: Record<number, ScreenConnection> = {
     ],
   },
   '195': {
-    previewRoutes: [
-      { label: '조회 중', href: '/mypage/rewards/preview-loading' },
-      { label: '조회 실패', href: '/mypage/rewards/preview-load-error' },
-    ],
+    previewRoutes: rewardsPreviews
+      .filter(({ state }) => state !== 'downgrade-risk')
+      .map(({ label, state }) => ({
+        label,
+        href: `/mypage/rewards/preview/${state}`,
+        group: '회원등급 산정 케이스',
+      })),
     route: '/mypage/rewards',
     sourceFiles: [
       'src/app/mypage/rewards/page.tsx',
-      'src/app/mypage/rewards/preview-loading/page.tsx',
-      'src/app/mypage/rewards/preview-load-error/page.tsx',
+      'src/app/mypage/rewards/preview/[state]/page.tsx',
     ],
   },
   '196': {
@@ -393,6 +398,7 @@ const connections: Record<number, ScreenConnection> = {
     route: '/mypage/profile',
     previewRoutes: [
       { label: '인증번호 입력', href: '/mypage/profile/preview-code-entry' },
+      { label: '인증번호 불일치', href: '/mypage/profile/preview-code-mismatch' },
       { label: '인증 만료', href: '/mypage/profile/preview-expired' },
       { label: '비밀번호 변경 완료', href: '/mypage/profile/preview-password-complete' },
       { label: '저장 확인', href: '/mypage/profile/preview-save' },
@@ -492,6 +498,7 @@ const connections: Record<number, ScreenConnection> = {
       'src/app/support/inquiries/new/page.tsx',
       'src/app/support/inquiries/new/preview-error/page.tsx',
       'src/app/support/inquiries/new/preview-order-required/page.tsx',
+      'src/app/support/inquiries/new/preview-attachment-picker/page.tsx',
       'src/app/support/inquiries/new/preview-attachment-type/page.tsx',
       'src/app/support/inquiries/new/preview-attachment-size/page.tsx',
       'src/app/support/inquiries/new/preview-attachment-count/page.tsx',
@@ -912,7 +919,9 @@ export function getScreenConnection(screen: ScreenDefinition): ScreenConnection 
   return { ...connection, sourceFiles: resolveSourceFiles(connection.sourceFiles) };
 }
 
-export function getScreenStatePreviews(connection: ScreenConnection | undefined) {
+export function getScreenStatePreviews(
+  connection: ScreenConnection | undefined,
+): NonNullable<ScreenConnection['previewRoutes']> {
   const previews = connection?.previewRoutes ?? [];
   return connection?.route
     ? [
@@ -964,6 +973,7 @@ const stateModalVariants: Readonly<Record<string, readonly ModalDialogVariant[]>
   '/mypage/event-entries/preview-cancel': ['confirm'],
   '/mypage/addresses/preview-delete': ['confirm'],
   // ProfileContent and ProfileStatePreview select distinct variants for each step.
+  '/mypage/profile/preview-code-mismatch': ['alert'],
   '/mypage/profile/preview-expired': ['alert'],
   '/support/inquiries/new/preview-attachment-picker': ['selection'],
   '/mypage/profile/preview-password': ['form'],

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 
+import { css } from 'styled-system/css';
 import { Box, HStack, Stack } from 'styled-system/jsx';
 
 import { Button, ButtonLink } from '@/components/common/atoms/Button';
@@ -116,7 +117,12 @@ export function LoginContent({ showErrors = false, showHelp = false }: LoginForm
         }
         headerProps={{
           titleAs: 'h1',
-          titleProps: { web: 'h4B', mo: 'h7B', id: 'login-title' },
+          titleProps: {
+            web: 'h7',
+            mo: 'h4',
+            id: 'login-title',
+            className: css({ textAlign: 'center' }),
+          },
         }}
       >
         <Box>
@@ -130,7 +136,7 @@ export function LoginContent({ showErrors = false, showHelp = false }: LoginForm
             _mobile={{ mt: '8', pt: '8' }}
             aria-labelledby="membership-title"
           >
-            <Stack gap="2">
+            <Stack gap="2" textAlign="center">
               <Typography as="h2" web="b2B" mo="b3B" id="membership-title">
                 계정이 없으신가요?
               </Typography>

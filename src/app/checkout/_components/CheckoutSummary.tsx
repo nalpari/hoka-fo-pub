@@ -13,6 +13,7 @@ import { OrderProductSummary } from '@/components/common/molecules/OrderProductS
 import { ContentSection } from '@/components/common/layouts/ContentSection';
 
 import { type CheckoutRow } from '@/app/checkout/checkout-summary';
+import { formatProductOptions } from '@/lib/formatProductOptions';
 import { getCartImage } from '@/mocks/cartDisplay';
 
 /** 주문 상품의 준비된 수량·정상가·판매가를 표시합니다. (Displays prepared checkout quantities, original prices, and selling prices.) */
@@ -27,7 +28,11 @@ export function CheckoutSummary({ rows }: { rows: readonly CheckoutRow[] }) {
     >
       <Stack
         gap="0"
-        className={dataListRecipe({ top: 'strongToThin', headerTypography: 'heading' }).root}
+        borderTop={{
+          base: '2px solid var(--color-black-20)',
+          _mobile: '1px solid var(--color-black-20)',
+        }}
+        className={dataListRecipe({ top: 'unchanged', headerTypography: 'heading' }).root}
       >
         {!mobile ? (
           <Grid
@@ -61,7 +66,7 @@ export function CheckoutSummary({ rows }: { rows: readonly CheckoutRow[] }) {
                       <Stack gap="4px" minW="0">
                         <Typography variant="b6M">{product.name}</Typography>
                         <Typography variant="b8" tone="subtle">
-                          {item.width}, {item.color}, {item.size}, {item.quantity}개
+                          {formatProductOptions(item, item.quantity)}
                         </Typography>
                         {originalAmount ? (
                           <Typography
@@ -76,7 +81,7 @@ export function CheckoutSummary({ rows }: { rows: readonly CheckoutRow[] }) {
                       </Stack>
                     ),
                   }
-                : { optionText: `${item.width}, ${item.color}, ${item.size}`, hideAmount: true })}
+                : { optionText: formatProductOptions(item), hideAmount: true })}
               name={product.name}
             />
             {!mobile ? (

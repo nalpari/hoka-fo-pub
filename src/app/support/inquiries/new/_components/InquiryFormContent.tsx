@@ -135,16 +135,15 @@ export function InquiryAttachments({
         },
         action: (
           <Button
-            variant="link"
-            size="md"
-            className={css({ '& span': { fontWeight: 'medium' } })}
+            variant="secondary"
+            size="short"
             ref={triggerRef}
             onClick={() =>
               platform === 'mobile' ? setPickerOpen(true) : inputRef.current?.click()
             }
             aria-describedby="inquiry-files-help"
           >
-            파일찾기
+            파일 찾기
           </Button>
         ),
       }}
@@ -431,7 +430,11 @@ export function InquiryOrderProducts({
       <Typography web="h10B" mo="h8">
         상품 정보
       </Typography>
-      <Box border="1px solid token(colors.black.20)" p="4" pb="5">
+      <Box
+        border="1px solid token(colors.black.20)"
+        p={{ base: '24px', _mobile: '16px' }}
+        pb={{ base: '24px', _mobile: '20px' }}
+      >
         <HStack justifyContent="space-between" mb="4" _mobile={{ alignItems: 'flex-start' }}>
           <Typography web="h10" mo="h8">
             {selection.order.date}
@@ -472,18 +475,19 @@ export function InquiryOrderProducts({
             </Stack>
           </Stack>
         </Stack>
+        <Flex justifyContent="flex-end" mt={{ base: '24px', _mobile: '16px' }}>
+          <Button
+            size="short"
+            variant="secondary"
+            className={css({ _mobile: { w: '100%' } })}
+            ref={lookupButtonRef}
+            aria-haspopup="dialog"
+            onClick={onLookup}
+          >
+            상품 변경
+          </Button>
+        </Flex>
       </Box>
-      <Flex justifyContent="flex-start" gap="2">
-        <Button
-          size="tall"
-          variant="secondary"
-          ref={lookupButtonRef}
-          aria-haspopup="dialog"
-          onClick={onLookup}
-        >
-          상품변경
-        </Button>
-      </Flex>
     </Stack>
   ) : (
     <Stack

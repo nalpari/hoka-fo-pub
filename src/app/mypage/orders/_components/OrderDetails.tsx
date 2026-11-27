@@ -21,6 +21,7 @@ import type {
   OrderDetailDisplay,
   OrderLine,
 } from '@/components/orders/orders.types';
+import { formatProductOptions } from '@/lib/formatProductOptions';
 
 /** 주문 상세의 구분선이 있는 항목별 정보를 표시합니다. (Displays ruled key-value information for an order.) */
 export function OrderInformationSection({
@@ -62,8 +63,7 @@ export function OrderInformationSection({
 type OrderDetailProps = {
   display: OrderDetailDisplay;
   onList: () => void;
-  onDetail: () => void;
-  onTracking: () => void;
+  onTracking?: () => void;
   onClaimDetail: (claimId: string) => void;
 };
 
@@ -81,18 +81,15 @@ function DetailTableHeader({ labels }: { labels: readonly string[] }) {
   );
 }
 
+const detailSectionTitle = css({
+  w: '100%',
+  pb: { base: '24px', _mobile: '16px' },
+  borderBottom: '1px solid var(--color-black-20)',
+});
+
 function DetailSectionTitle({ children }: { children: string }) {
   return (
-    <Typography
-      as="h2"
-      web="h8B"
-      mo="h8"
-      className={css({
-        w: '100%',
-        pb: { base: '24px', _mobile: '16px' },
-        borderBottom: '1px solid var(--colors-black-100)',
-      })}
-    >
+    <Typography as="h2" web="h8B" mo="h8" className={detailSectionTitle}>
       {children}
     </Typography>
   );
@@ -101,12 +98,12 @@ function DetailSectionTitle({ children }: { children: string }) {
 function DetailProduct({ line }: { line: OrderLine }) {
   return (
     <Grid role="row" gridTemplateColumns="minmax(0, 1fr) 108px 200px" gap="0" alignItems="center">
-      <Box role="cell" gridColumn="1" minW="0" pl="24px">
+      <Box role="cell" gridColumn="1" minW="0">
         <OrderProductSummary
           variant="history"
           image={line.image}
           name={line.name}
-          optionText={`${line.width}, ${line.color}, ${line.size}`}
+          optionText={formatProductOptions(line)}
           cartAction
         />
       </Box>
@@ -131,7 +128,7 @@ function DetailAmountRow({ label, amount }: { label: string; amount: number }) {
   );
 }
 
-/** [ 개발팀 바인딩 ] display는 호출자가 준비한 상품 그룹·내역·받는사람·결제 표시값입니다. 주문 기능 소유자가 표시 모델과 조회 결과 갱신을 연결하며 이 컴포넌트는 상품 분류·복제·금액 계산·상태 판단을 하지 않습니다. 콜백은 화면 확인용 상세/배송조회/목록 전환이며 삭제는 고정 확인 URL입니다. */
+/** [ 개발팀 바인딩 ] display는 호출자가 준비한 상품 그룹·내역·받는사람·결제 표시값입니다. 주문 기능 소유자가 표시 모델과 조회 결과 갱신을 연결하며 이 컴포넌트는 상품 분류·복제·금액 계산·상태 판단을 하지 않습니다. onTracking을 전달하면 PC에서 배송 조회 버튼을 표시하며, 상품준비중에는 호출자가 생략합니다. 콜백은 화면 확인용 상세/배송조회/목록 전환이며 삭제는 고정 확인 URL입니다. */
 /** 준비된 주문 상세 데이터를 PC·모바일 마크업으로 표시합니다. (Renders prepared order detail data for desktop and mobile.) */
 export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
   const mobile = usePlatform() === 'mobile';
@@ -139,13 +136,13 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
     <Stack gap="0">
       <Stack
         gap="0"
-        className={mobile ? undefined : dataListBoundaryRecipe({ top: 'thinStrong' })}
-        borderBottom={{ base: '1px solid var(--colors-black-100)', _mobile: '0' }}
+        className={mobile ? undefined : dataListBoundaryRecipe({ top: 'thinSubtle' })}
+        borderBottom={{ base: '1px solid var(--colors-black-20)', _mobile: '0' }}
       >
         <HStack
           gap="8px"
           py={{ base: '32px', _mobile: '16px' }}
-          borderBottom={{ base: '0', _mobile: '1px solid var(--colors-black-100)' }}
+          borderBottom={{ base: '0', _mobile: '1px solid var(--colors-black-20)' }}
         >
           <Typography variant="b6S">
             {display.date}
@@ -171,24 +168,14 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
             borderBottom="1px solid var(--colors-black-20)"
           >
             <Stack gap={{ base: '24px', _mobile: '12px' }}>
-              <HStack
-                justifyContent="space-between"
-                gap="8px"
-                pl={{ base: '24px', _mobile: '0' }}
-                pr={{ base: '24px', _mobile: '0' }}
-              >
+              <HStack justifyContent="space-between" gap="8px" pr={{ base: '24px', _mobile: '0' }}>
                 <Typography variant="b6">
-                  <Typography as="span" web="b6S" mo="b6M" tone="red80">
+                  <Typography as="span" web="b6S" mo="b6M" tone="accent">
                     {display.status}
                   </Typography>
                   {' · '}
                   {display.expectedDate} 도착
                 </Typography>
-                {!mobile ? (
-                  <Button variant="link" size="md" onClick={actions.onDetail}>
-                    주문상세보기
-                  </Button>
-                ) : null}
               </HStack>
               <Stack
                 gap={{ base: '24px', _mobile: '12px' }}
@@ -203,7 +190,7 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
                       key={line.key}
                       image={line.image}
                       name={line.name}
-                      optionText={`${line.width}, ${line.color}, ${line.size}, ${mobile ? (line.mobileQuantity ?? line.quantity) : line.quantity}개`}
+                      optionText={formatProductOptions(line, line.mobileQuantity ?? line.quantity)}
                       amount={
                         line.displayAmount === undefined
                           ? undefined
@@ -221,14 +208,16 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
             </Stack>
             {!mobile ? (
               <HStack justifyContent="flex-end" gap="8px" pr="8px">
-                <Button
-                  variant="secondary"
-                  size="short"
-                  className={css({ minW: '107px' })}
-                  onClick={actions.onTracking}
-                >
-                  배송 조회
-                </Button>
+                {actions.onTracking && (
+                  <Button
+                    variant="secondary"
+                    size="short"
+                    className={css({ minW: '107px' })}
+                    onClick={actions.onTracking}
+                  >
+                    배송 조회
+                  </Button>
+                )}
                 <ButtonLink
                   href={display.reviewHref}
                   variant="secondary"
@@ -248,11 +237,7 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
             py={{ base: '32px', _mobile: '24px' }}
             borderBottom="1px solid var(--colors-black-20)"
           >
-            <HStack
-              justifyContent={{ base: 'flex-start', _mobile: 'space-between' }}
-              gap="16px"
-              px={{ base: '24px', _mobile: '0' }}
-            >
+            <HStack justifyContent={{ base: 'flex-start', _mobile: 'space-between' }} gap="16px">
               <Typography variant="b6M" tone={mobile ? 'tertiary' : 'error'}>
                 {group.label}
               </Typography>
@@ -274,7 +259,7 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
                       key={line.key}
                       image={line.image}
                       name={line.name}
-                      optionText={`${line.width}, ${line.color}, ${line.size}, ${mobile ? (line.mobileQuantity ?? line.quantity) : line.quantity}개`}
+                      optionText={formatProductOptions(line, line.mobileQuantity ?? line.quantity)}
                       amount={
                         line.displayAmount === undefined
                           ? undefined
@@ -341,7 +326,9 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
           >
             <DetailAmountRow label="상품금액" amount={display.productAmount} />
             <DetailAmountRow label="할인금액" amount={display.discountAmount} />
+            {/* 무료배송 정책으로 배송비 행을 숨깁니다.
             <DetailAmountRow label="배송비" amount={display.shippingAmount} />
+            */}
           </Stack>
           <Stack
             flex="1"
@@ -353,7 +340,7 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
           >
             <HStack justifyContent="space-between" w="100%">
               <Typography variant="b6M" tone="subtle">
-                결제예정금액
+                결제금액
               </Typography>
               {mobile ? (
                 <Typography variant="b4S">{display.payableAmount.toLocaleString()}원</Typography>
@@ -362,7 +349,7 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
             {!mobile ? (
               <>
                 <Typography variant="b8" tone="tertiary">
-                  (상품금액 - 할인금액 - 배송비)
+                  (상품금액 - 할인금액)
                 </Typography>
                 <Typography web="h8B" mo="h8">
                   {display.payableAmount.toLocaleString()}원
@@ -402,7 +389,7 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
                       key={line.key}
                       image={line.image}
                       name={line.name}
-                      optionText={`${line.width}, ${line.color}, ${line.size}, ${mobile ? (line.mobileQuantity ?? line.quantity) : line.quantity}개`}
+                      optionText={formatProductOptions(line, line.mobileQuantity ?? line.quantity)}
                     />
                   ))}
                   <DetailAmountRow label="환불금액" amount={entry.refund} />
@@ -427,7 +414,7 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
                           key={line.key}
                           image={line.image}
                           name={line.name}
-                          optionText={`${line.width}, ${line.color}, ${line.size}, ${mobile ? (line.mobileQuantity ?? line.quantity) : line.quantity}개`}
+                          optionText={formatProductOptions(line, line.quantity)}
                         />
                       ))}
                     </Stack>
@@ -487,7 +474,8 @@ function ClaimSection({ title, children }: { title: string; children: React.Reac
         },
         css: css.raw({
           pb: { base: '24px', _mobile: '16px' },
-          borderBottom: { base: '2px solid black', _mobile: '1px solid black' },
+          borderBottom: '2px solid var(--color-black-20)',
+          _mobile: { borderBottomWidth: '1px' },
         }),
       }}
     >
@@ -559,7 +547,7 @@ export function OrderClaimDetail({
         pb="16px"
         gap="2px"
         justifyContent={{ base: 'space-between', _mobile: 'flex-start' }}
-        borderBottom="1px solid black"
+        borderBottom="1px solid var(--color-black-20)"
       >
         <HStack gap={mobile ? '4px' : '8px'} flexShrink="0">
           {!mobile ? (
@@ -612,7 +600,7 @@ export function OrderClaimDetail({
               key={line.key}
               image={line.image}
               name={line.name}
-              optionText={`${line.width}, ${line.color}, ${line.size}, ${mobile ? (line.mobileQuantity ?? line.quantity) : line.quantity}개`}
+              optionText={formatProductOptions(line, line.mobileQuantity ?? line.quantity)}
               amount={
                 line.displayAmount === undefined
                   ? undefined
@@ -629,7 +617,7 @@ export function OrderClaimDetail({
           role="table"
           aria-label={`${name} 상품`}
           gap="0"
-          borderBottom="1px solid var(--colors-black-100)"
+          borderBottom="1px solid var(--color-black-20)"
         >
           <DetailTableHeader labels={[...orderProductHeaders, '진행상태']} />
           {items.map((line) => (
@@ -641,12 +629,12 @@ export function OrderClaimDetail({
               alignItems="center"
               py="32px"
             >
-              <Box role="cell" px="24px">
+              <Box role="cell" pe="24px">
                 <OrderProductSummary
                   variant="history"
                   image={line.image}
                   name={line.name}
-                  optionText={`${line.width}, ${line.color}, ${line.size}`}
+                  optionText={formatProductOptions(line)}
                 />
               </Box>
               <Typography role="cell" variant="b4" className={css({ textAlign: 'center' })}>
@@ -693,7 +681,7 @@ export function OrderClaimDetail({
         />
       </ClaimSection>
       {!cancel ? (
-        <ClaimSection title="상세 회수 정보">
+        <ClaimSection title="상품 회수정보">
           <ClaimInformation
             items={[
               { term: '회수인', description: claim.collection?.name ?? '-' },
@@ -706,9 +694,9 @@ export function OrderClaimDetail({
           />
         </ClaimSection>
       ) : null}
-      <ClaimSection title={mobile ? '취소 사유' : cancel ? '취소사유' : '환불사유'}>
+      <ClaimSection title={mobile ? '취소 사유' : cancel ? '취소 사유' : '환불사유'}>
         {!mobile && !cancel ? (
-          <ClaimInformation items={[{ term: '취소사유', description: reason }]} />
+          <ClaimInformation items={[{ term: '취소 사유', description: reason }]} />
         ) : (
           <Stack gap="0">
             <Stack
@@ -740,7 +728,7 @@ export function OrderClaimDetail({
           borderBottom="1px solid var(--colors-black-20)"
         >
           <Typography web="b4" mo="b6" tone="subtle" className={css({ w: '96px' })}>
-            환불수단
+            환불 수단
           </Typography>
           <Typography web="b4M" mo="b6M">
             {claim.refundMethod ?? '-'}
@@ -760,7 +748,8 @@ export function OrderClaimDetail({
           >
             {[
               { label: '상품금액', value: money(amount) },
-              ...(!mobile ? [{ label: '배송비', value: '0원' }] : []),
+              // 무료배송 정책으로 배송비 행을 숨깁니다.
+              // ...(!mobile ? [{ label: '배송비', value: '0원' }] : []),
               { label: '반품비', value: money(fee) },
             ].map((row) => (
               <HStack key={row.label} justifyContent="space-between" gap="8px">
@@ -796,7 +785,7 @@ export function OrderClaimDetail({
               justifyContent="center"
               gap="24px"
             >
-              <Typography variant="b4M">결제예정금액</Typography>
+              <Typography variant="b4M">{cancel ? '결제금액' : '총 환불금액'}</Typography>
               <HStack gap="2px" alignItems="flex-end">
                 <Typography web="h8B" mo="h8" language="en">
                   {refund?.toLocaleString() ?? '-'}
@@ -811,7 +800,7 @@ export function OrderClaimDetail({
           tone="tertiary"
           className={css({ pt: { base: '16px', _mobile: '12px' } })}
         >
-          * 결제 취소 요청이 전달된 후 환불까지 영업일 기준 3~7일이 소요됩니다.
+          결제 취소 요청이 전달된 후 환불까지 영업일 기준 3~7일이 소요됩니다.
         </Typography>
       </ClaimSection>
       <Box

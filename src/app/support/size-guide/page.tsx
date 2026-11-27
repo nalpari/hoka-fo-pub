@@ -1,25 +1,14 @@
 /**
  * [ 개발팀 바인딩 ]
- * 이 라우트는 설계서에서 준비한 guideCategories 표시 데이터를 SizeGuidePanel에 전달합니다.
- * 연동 담당자는 value/label/chartTitle/measurement/genders/units/charts를 승인된 안내 데이터로 갱신합니다.
- * measurement가 없는 품목에는 성별 선택과 차트만 표시합니다.
- * 요청·저장·재고 판정은 없는 정적 안내이며, 실제 상품 재고는 상품 옵션 데이터 소유자가 연결합니다.
+ * 라우트가 guideCategories의 품목·성별·단위별 표시 데이터와 측정 안내를 SizeGuidePanel에 전달합니다.
+ * 연동 담당자가 승인된 치수표와 이미지로 갱신합니다. 선택은 화면 표시만 바꾸며 요청·저장·재고 판정은 없습니다.
+ * 용품처럼 measurement가 없는 품목은 선택 영역과 차트만 표시합니다.
  */
-
-import { Stack } from 'styled-system/jsx';
-
-import { SupportTabs } from '@/components/common/molecules/SupportTabs';
 
 import { SizeGuidePanel } from '@/app/support/size-guide/_components/SizeGuidePanel';
 import { guideCategories } from '@/app/support/size-guide/size-guide.data';
 import { supportNavigation } from '@/app/support/support.navigation';
 import { CustomerCenterLayout } from '@/components/support/CustomerCenterLayout';
-
-const tabs = guideCategories.map((category) => ({
-  value: category.value,
-  label: category.label,
-  content: <SizeGuidePanel category={category} />,
-}));
 
 /** 상품 사이즈 선택을 위한 안내를 표시합니다. (Displays guidance for selecting product sizes.) */
 export default function Page() {
@@ -35,14 +24,7 @@ export default function Page() {
       ]}
       groups={supportNavigation}
     >
-      <Stack mt={{ base: '10', _mobile: '4' }}>
-        <SupportTabs
-          ariaLabel="사이즈 가이드 품목"
-          defaultValue="shoes"
-          variant="guide"
-          tabs={tabs}
-        />
-      </Stack>
+      <SizeGuidePanel categories={guideCategories} />
     </CustomerCenterLayout>
   );
 }

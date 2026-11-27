@@ -24,12 +24,14 @@ const genderFeaturedTitleLabels: Record<string, string> = {
   kids: "Kids'",
 };
 
-const featuredListingMetadata: Record<string, { breadcrumb: string; title: string }> = {
-  popular: { breadcrumb: 'Best Sellers', title: 'Running Best Sellers' },
-  new: { breadcrumb: 'New Arrivals', title: 'New Arrivals' },
-  'coming-soon': { breadcrumb: 'Coming Soon', title: 'Coming Soon' },
-  sale: { breadcrumb: 'Sale', title: 'Sale' },
-};
+const featuredListingMetadata = new Map(
+  Object.entries({
+    popular: { breadcrumb: 'Best Sellers', title: 'Running Best Sellers' },
+    new: { breadcrumb: 'New Arrivals', title: 'New Arrivals' },
+    'coming-soon': { breadcrumb: 'Coming Soon', title: 'Coming Soon' },
+    sale: { breadcrumb: 'Sale', title: 'Sale' },
+  }),
+);
 
 const activityBreadcrumbLabels: Record<string, string> = {
   'road-running': '로드 러닝',
@@ -122,6 +124,10 @@ type ListingRoute = {
 
 const normalizedKey = (value: string) => value.trim().toLowerCase();
 
+export function isFeaturedListingToken(value: string | null) {
+  return value !== null && featuredListingMetadata.has(normalizedKey(value));
+}
+
 export function getBreadcrumbItems({
   gender,
   category,
@@ -131,7 +137,7 @@ export function getBreadcrumbItems({
   const normalizedGender = normalizedKey(gender);
   const normalizedCategory = normalizedKey(category);
   const genderBreadcrumb = genderBreadcrumbs[normalizedGender];
-  const featuredListing = featuredListingMetadata[normalizedKey(sort)];
+  const featuredListing = featuredListingMetadata.get(normalizedKey(sort));
   const activityLabel = activityBreadcrumbLabels[normalizedKey(activity)];
   const categoryLabel = categoryBreadcrumbLabels[normalizedCategory] ?? category;
   const categoryGroupLabel = categoryGroupLabels[normalizedCategory] ?? '신발';
@@ -169,7 +175,7 @@ export function getBreadcrumbItems({
 
 export function getProductListingTitle({ gender, category, activity, sort }: ListingRoute) {
   const genderLabel = genderTitleLabels[normalizedKey(gender)];
-  const featuredListing = featuredListingMetadata[normalizedKey(sort)];
+  const featuredListing = featuredListingMetadata.get(normalizedKey(sort));
   const productLabel =
     activityTitleLabels[normalizedKey(activity)] ??
     categoryTitleLabels[normalizedKey(category)] ??

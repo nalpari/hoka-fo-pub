@@ -1,3 +1,10 @@
+import type { OverviewView } from '@/types/mypage-display';
+
+export type MembershipSummaryDisplay = Pick<
+  OverviewView,
+  'name' | 'tier' | 'tierInitial' | 'purchaseAmount' | 'tierProgress'
+>;
+
 // 회원등급 화면의 공통 표시 예시입니다.
 export const rewardPreview = {
   name: '박연진',
@@ -19,7 +26,15 @@ export type MembershipBenefitsDisplay = {
     requirement: string;
     benefits: readonly { title: string }[];
   }[];
-  commonBenefits: readonly { title: string; description: string }[];
+  commonBenefits: readonly {
+    title: string;
+    description: string;
+    accountMobile?: {
+      titleLines?: readonly [string, string];
+      description?: string;
+      validity: string;
+    };
+  }[];
 };
 
 export const tiers = [
@@ -28,8 +43,8 @@ export const tiers = [
     initial: 'E',
     requirement: '구매 금액 100만원 이상',
     benefits: [
-      { title: '10% 할인 쿠폰 (*분기별 1회 지급)', detail: '' },
-      { title: '무료 반품 쿠폰 3장(*연 1회 지급)', detail: '' },
+      { title: '10% 할인 쿠폰 (*월 1회 지급)', detail: '' },
+      { title: '무료 반품 쿠폰 3장(*연 3회 지급)', detail: '' },
       { title: '스페셜 래플 응모 기회 제공', detail: '' },
     ],
   },
@@ -38,17 +53,17 @@ export const tiers = [
     initial: 'A',
     requirement: '구매 금액 30만원 이상',
     benefits: [
-      { title: '7% 할인 쿠폰 (*분기별 1회 지급)', detail: '' },
-      { title: '무료 반품 쿠폰 2장(*연 1회 지급)', detail: '' },
+      { title: '7% 할인 쿠폰(*월 1회 지급)', detail: '' },
+      { title: '무료 반품 쿠폰 2장(*연 2회 지급)', detail: '' },
     ],
   },
   {
     name: 'RUNNER',
     initial: 'R',
-    requirement: '회원 가입 즉시',
+    requirement: '회원 가입 시 기본 설정 등급',
     benefits: [
       {
-        title: '5% 할인 쿠폰 (*분기별 1회 지급)',
+        title: '5% 할인 쿠폰(*월 1회 지급)',
         detail: '',
       },
       {
@@ -63,13 +78,32 @@ export const commonBenefits = [
   {
     title: '신규 가입 10% 할인 쿠폰',
     description: '최초 신규 가입 시 1회 지급/재가입 시 지급 불가/유효 기간 1년',
+    accountMobile: {
+      description: '최초 신규 가입 시 1회 지급 / 재가입 시 지급 불가',
+      validity: '유효 기간 1년',
+    },
   },
   {
     title: '첫 구매 감사 1만원 쿠폰',
     description: '최초 1회 지급/ 구매 확정 후 24시간 이내 지급/유효 기간 6개월',
+    accountMobile: {
+      description: '최초 1회 지급 / 구매 확정 후 24시간 이내 지급',
+      validity: '유효 기간 6개월',
+    },
   },
-  { title: '생일 축하 1만원 쿠폰', description: '매달 고객 별 생일 자동 발급, 유효 기간 6개월' },
-  { title: '카카오 플러스 친구 추가 시 5,000원 쿠폰', description: '유효 기간 6개월' },
+  {
+    title: '생일 축하 1만원 쿠폰',
+    description: '매달 고객 별 생일 자동 발급, 유효 기간 6개월',
+    accountMobile: { description: '매달 고객별 생일 자동 발급', validity: '유효 기간 6개월' },
+  },
+  {
+    title: '카카오 플러스 친구 추가 시 5,000원 쿠폰',
+    description: '유효기간 6개월',
+    accountMobile: {
+      titleLines: ['카카오 플러스 친구 추가 시', '5,000원 쿠폰'],
+      validity: '유효 기간 6개월',
+    },
+  },
 ] as const;
 
 export const membershipBenefitsPreview: MembershipBenefitsDisplay = { tiers, commonBenefits };

@@ -101,14 +101,14 @@ export function CheckoutDiscountSummary({
           </HStack>
         </Stack>
         <AmountRow
-          label="총 결제 금액"
+          label="총 결제금액"
           labelWeight="700-500"
           amount={mobile ? 3200000 : 334550}
           web="b4"
           mo="b6"
           amountWeb="b3"
           amountMo="b4"
-          borderTop={{ base: '2px solid black', _mobile: '0px' }}
+          borderTop={{ base: '2px solid var(--color-black-20)', _mobile: '0px' }}
           pt="20px"
           _mobile={{
             bg: 'black.10',

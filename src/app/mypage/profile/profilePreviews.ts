@@ -15,6 +15,11 @@ export const profilePreviews = [
     state: 'unverified',
   },
   {
+    href: '/mypage/profile/preview-code-mismatch',
+    label: '인증번호 불일치',
+    state: 'mismatch',
+  },
+  {
     href: '/mypage/profile/preview-withdraw',
     label: '탈퇴 확인',
     state: 'withdraw',

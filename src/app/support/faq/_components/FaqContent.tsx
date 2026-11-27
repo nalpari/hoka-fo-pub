@@ -147,7 +147,7 @@ function FaqQuestion({ question }: FaqQuestionProps) {
       <Typography as="span" variant="b2" className={css({ flexShrink: 0, w: '17px' })}>
         Q
       </Typography>
-      <Typography as="span" web="h10" mo="h8">
+      <Typography as="span" variant="b3M">
         {question}
       </Typography>
     </HStack>
@@ -199,7 +199,13 @@ function FaqList({ entries, openQuestion, onToggle }: FaqListProps) {
               <Icon name="chevron-down-regular" size="16px" />
             </Flex>
           }
-          className={dataListRecipe({ itemLayout: 'faqAccordion', columnGap: 'unchanged' }).root}
+          className={
+            dataListRecipe({
+              top: 'thinSubtle',
+              itemLayout: 'faqAccordion',
+              columnGap: 'unchanged',
+            }).root
+          }
           multiple={false}
           value={openQuestion ? [openQuestion] : []}
           onValueChange={(values) => {

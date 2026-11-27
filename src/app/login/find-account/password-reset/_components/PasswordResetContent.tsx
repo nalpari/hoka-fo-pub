@@ -44,7 +44,12 @@ function PasswordResetField({ name, label, value, error, onChange }: Props) {
   );
 }
 const PasswordResetContentStyles = {
-  form: css({ display: 'flex', flexDirection: 'column', gap: '4' }),
+  form: css({
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '4',
+    '& p[role="alert"]': { color: 'error' },
+  }),
   button: css({
     mt: '2',
   }),

@@ -4,7 +4,7 @@ title: '변경 검증'
 description: '변경 범위에 맞는 정적 검사, 빌드와 수동 검증을 안내한다.'
 tags: [verification, testing, build]
 status: draft
-updated: '2026-11-18T00:05:21.422467+00:00'
+updated: '2026-11-27T11:11:39+09:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T09:59:35Z'
@@ -870,3 +870,15 @@ node --test tests/empty-state-types.test.mjs tests/modal-dialog-types.test.mjs�
 EmptyState 모바일 제목 기대값을20px·bold로 갱신한 기존 타입·recipe 검사2개가 통과했다. notices table compound와 모바일200px 예외, 쿠폰0건 건수 숨김 및 더보기 미연결 disabled 제거는 해당 수정 시 파일 lint를 실행했다. 공지사항 PC220px/MO120px 실측은200px 예외 적용 전 기록이며 최신200px 예외는 recipe 검사와 lint로 확인했다. 러닝세션 탭 문구와 더보기 정상 상태·숫자 상속은 브라우저로 확인했다. 전체 빌드는 이번 커밋에서 실행하지 않았다. 출처: 현재 대화의 실제 검사 결과·tests/empty-state-types.test.mjs와 관련 작업 트리.
 
 - Badge의 외형과 기본값, 반응형 글자 크기, 복수 라벨 구분선은 `node --test tests/form-controls.test.mjs`로 확인한다. 2026-11-19 배지 정리에서 전체 48개가 통과했다.
+
+## 상품 상세 사이즈 실측표 검증 (2026-11-26)
+
+상품상세 표시 테스트 6개에서 기존 Clifton 동작, 의류·용품 실측표 노출과 누락, 구매 옵션과 독립된 용품 1–6개 사이즈 데이터와 최신 응답 선택, EveryRun 시안의 6개 열과 4개 측정값 행을 검사했다. 출처는 `tests/product-detail-presentation.test.mjs`, 상품상세 표시 모델과 프리뷰 작업 트리다.
+
+Codex는 프로덕션 빌드의 EveryRun 화면을 PC 1920px·모바일 375px에서 확인했다. PC 표는 1016px·52px 행, 모바일 표는 343px 안쪽에 462px·46px 행으로 표시됐다. 제목은 Pretendard Black 24px·20px이고 수치와 사이즈 라벨은 The Future HOKA로 표시됐다. 탭 이동 시 제목이 고정 내비게이션 아래 24px에 도달했고, 리뷰 쪽으로 스크롤하면 활성 탭이 갱신됐다. 모바일 표는 첫 열의 위치를 유지하면서 119px을 내부 스크롤했으며 페이지 가로 넘침이 없었다. PC·모바일 캡처에서 IMC와 리뷰 사이 순서, 단위, 줄무늬와 테두리를 확인했다.
+
+임시 검증용 용품 데이터의 사이즈 1–6개로 모바일의 첫 열 85.75px·균등 배분·고정 열 스크롤을 각각 확인했다. 같은 화면에서 실측 데이터가 바뀌면 현재 열과 값이 표시됐고, 데이터 누락·신발·유형 미제공·실측 없는 의류에서는 탭과 본문이 함께 사라졌다. 기본 신발 상세에서도 두 요소가 없음을 확인했다. 변경 파일 ESLint·Prettier, TypeScript, Panda CSS 생성이 통과했다. 검증용 경로 제거 후 Next.js 빌드와 App Router·상품상세 테스트 8개가 통과했다.
+
+## IA 관리 자료와 첨부 진입점 재검증 2026-11-27
+
+preview-links의 공통 파일 기대를 현재 상품 상세의 관리 자료로 갱신하고 고객센터 자료가 상품 상세로 분류되지 않는지 확인했다. 고정 미리보기 연결 검사와 main-change-history를 다시 실행해 합계 26건이 모두 통과했다. 출처는 tests/preview-links.test.mjs 작업 트리와 Codex 실행 결과다. 프로덕션 빌드에서 /screen-review가 생성됐으며 App Router 검사를 포함한 관련 테스트 28건을 통과했다.
