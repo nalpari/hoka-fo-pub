@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-27T15:40:04+09:00'
+updated: '2026-11-27T06:49:57Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -3137,3 +3137,11 @@ PC 주문/배송조회 목록의 주문 정보와 상태, 주문·취소·반품
 출처는 사용자 첨부 이미지, `ProductDetailContent.tsx`, `productDetailPreviews.ts`, `IaStructurePage.tsx` 작업 트리다. Codex가 2026-11-27 KST에 PC 1440px·모바일 375px에서 직접 진입, 새로고침, 취소 후 재열기, Escape 후 버튼 포커스 복귀, 회원정보 수정 이동을 확인했다. IA에서 모바일 상태명 검색과 보기 링크 이동, PC URL 검색과 `confirm` 표시를 확인했다.
 
 모바일 옵션 시트에서 품절 사이즈 선택 후 안내가 시트 위에 열리며 취소 시 시트의 입고 알림 버튼으로 포커스가 돌아왔다. 기존 재입고 신청 확인 팝업이 표시되는 것도 확인했다. TypeScript, 변경 파일 ESLint·Prettier, IA 관련 테스트 26개가 통과했다. 전체 ESLint는 이 작업에서 변경하지 않은 `tests/wh-file-summary.test.mjs`의 전역 이름 `no-undef` 오류 8건을 보고했다.
+
+## 양말 상품 상세와 사이즈 가이드 (2026-11-27)
+
+`/products/pdp-preview/socks`는 Merino Crew Sock(1178675), Black(BLK) 사진 4장과 S·M·L·XL 옵션을 표시한다. 표시 가격은 고정 미리보기 값이다. 상품 상세의 사이즈 가이드는 PC 중앙 모달과 모바일 바텀시트에서 고객센터 사이즈가이드 용품 탭의 양말 차트를 공유한다. 표의 열은 사이즈와 발 사이즈이며 S 210–230, M 230–250, L 250–270, XL 270–290의 네 구간을 표시한다.
+
+IA 43·100의 MEN·WOMEN 양말 상세 기본 링크는 양말 화면을 연다. `양말 사이즈 가이드 팝업` 상태 URL `/products/pdp-preview/socks-size-guide`로 진입하면 모달이 처음부터 열린다. 출처는 `productDetailPreviews.ts`, `ProductDetailContent.tsx`, `screenConnections.ts`, `size-guide.data.ts`와 공식 이미지 서버의 1178675-BLK 갤러리다. [상품 출처](https://www.hoka.com/en/us/all-gender-apparel/merino-crew-sock/1178675.html?dwvar_1178675_color=BLK).
+
+Codex는 2026-11-27 KST에 프로덕션 빌드에서 PC 1440px 모달과 모바일 375px 바텀시트를 열고 Escape로 닫은 뒤 트리거 포커스 복귀를 확인했다. 양쪽 플랫폼에서 갤러리 사진 4장, 고객센터 표와 같은 4개 행, 페이지 가로 넘침 없음을 확인했다. IA의 기본·팝업 링크와 팝업 직접 진입을 확인했고, 모자의 미표시 및 기존 의류·신발 가이드도 확인했다. Next.js 빌드, TypeScript, 대상 ESLint·Prettier와 App Router·상품상세 테스트 8개가 통과했다.

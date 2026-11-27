@@ -38,6 +38,8 @@ export type Product = {
   colors: string[];
   sizes: string[];
   hasSizeGuide?: boolean;
+  /** [ 개발팀 바인딩 ] 상품상세 통합 소유자가 양말 표 대상 상품에 'socks'를 전달합니다. */
+  sizeGuide?: 'socks';
   soldOut: string[];
   rating: number;
   /** 목록 카드의 품절 표시이며 실제 재고 판정은 연결 소유자가 전달합니다. */

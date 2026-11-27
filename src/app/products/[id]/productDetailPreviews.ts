@@ -12,6 +12,8 @@ export const productDetailPreviews = [
   { state: 'inquiry-form', label: '상품 문의하기 팝업' },
   { state: 'apparel', label: '의류 기본' },
   { state: 'accessories', label: '용품 기본' },
+  { state: 'socks', label: '양말 기본' },
+  { state: 'socks-size-guide', label: '양말 사이즈 가이드 팝업' },
   { state: 'width-single', label: '발볼 1개 · 선택기 숨김' },
   { state: 'width-double', label: '발볼 2개' },
   { state: 'width-double-sold-out', label: '발볼 2개 · 1개 품절' },
@@ -190,6 +192,34 @@ export function prepareProductDetailPreview(
       reviewCount: 0,
       detailTitle: undefined,
       detailDescription: 'HOKA의 러닝용 캡입니다.',
+    };
+  }
+  if (preview === 'socks' || preview === 'socks-size-guide') {
+    const galleryImages = [1, 2, 3, 4].map(
+      (view) => '/images/products/merino-crew-sock/blk-' + view + '.webp',
+    );
+    return {
+      ...product,
+      id: 'merino-crew-sock',
+      productKind: 'accessories',
+      sizeGuide: 'socks',
+      name: 'Merino Crew Sock',
+      price: 39000,
+      gender: 'All Gender',
+      styleCode: '1178675',
+      promotion: undefined,
+      colors: ['Black'],
+      sizes: ['S', 'M', 'L', 'XL'],
+      soldOut: [],
+      colorOptions: undefined,
+      colorThumbnails: [{ id: 'BLK', label: 'Black', image: galleryImages[0], galleryImages }],
+      measurementChart: undefined,
+      galleryImages,
+      primaryImage: galleryImages[0],
+      hoverImage: galleryImages[1],
+      reviewCount: 0,
+      detailTitle: undefined,
+      detailDescription: '메리노 울 혼방 소재를 사용한 남녀 공용 크루 길이 러닝 양말입니다.',
     };
   }
   if (preview === 'sale') return { ...product, originalPrice: 290000, discountLabel: '20%' };

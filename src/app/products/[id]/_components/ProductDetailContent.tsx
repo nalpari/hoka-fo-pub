@@ -1647,7 +1647,8 @@ function ProductColorSelector({
 /**
  * [ 개발팀 바인딩 ]
  * 상품 상세 연결 소유자가 전달한 Product.gender로 의류 성별 안내표를 선택하며 신발은 남녀 공용 표를 표시합니다.
- * 고객센터와 공유하는 신발·의류 치수표는 준비된 표시 데이터이며, 열기와 단위 전환은 조회 없이 처리합니다.
+ * Product.sizeGuide가 'socks'이면 고객센터 용품 표의 공용 사이즈 구간을 표시합니다.
+ * 고객센터와 공유하는 신발·의류·양말 치수표는 준비된 표시 데이터이며, 열기와 단위 전환은 조회 없이 처리합니다.
  * 신발 팝업은 공용 표의 한국 사이즈·발길이·남녀 US 열을 표시하며 의류는 상품 성별의 표를 사용합니다. 운영 치수표 승인과 갱신은 연결 소유자가 담당합니다.
  */
 const sizeGuideGenders = {
@@ -1660,8 +1661,12 @@ const apparelSizeGuide =
   guideCategories.find(({ value }) => value === 'apparel') ??
   guideCategories.find(({ value }) => value === 'tops');
 
+const socksSizeGuide = guideCategories.find(({ value }) => value === 'accessories');
+
+type ProductSizeGuideKind = 'footwear' | 'apparel' | 'socks';
+
 const sizeGuideStyles = {
-  shoePopup: css({ '--modal-size-guide-width': '640px' }),
+  compactPopup: css({ '--modal-size-guide-width': '640px' }),
   table: css({
     borderCollapse: 'collapse',
     tableLayout: 'fixed',
@@ -1731,28 +1736,39 @@ const apparelFitDescriptions = [
 ];
 
 function ProductSizeGuideChart({
-  apparel,
+  guideKind,
   chart,
   gender,
   unit,
   onUnitChange,
 }: {
-  apparel?: boolean;
+  guideKind: ProductSizeGuideKind;
   chart: GuideChart;
   gender: Gender;
   unit: Unit;
   onUnitChange: (unit: Unit) => void;
 }) {
   const headingId = useId();
-  const title = apparel
-    ? `${gender === 'unisex' ? '남녀 공용' : genderOptions.find((option) => option.value === gender)?.label} 의류`
-    : '신발 표준 사이즈';
-  const headers = apparel
-    ? ['US 사이즈', '한국 사이즈', '가슴 둘레', '허리 둘레', '엉덩이 둘레']
-    : ['발길이', '한국(mm)', '미국(남)', '미국(여)'];
-  const rows = apparel
-    ? chart.rows
-    : shoeGuide.charts.unisex[unit].rows.map(([kr, length, us]) => [length, kr, ...us.split('/')]);
+  const apparel = guideKind === 'apparel';
+  const socks = guideKind === 'socks';
+  const title = socks
+    ? (socksSizeGuide?.chartTitle ?? '양말 사이즈 차트')
+    : apparel
+      ? `${gender === 'unisex' ? '남녀 공용' : genderOptions.find((option) => option.value === gender)?.label} 의류`
+      : '신발 표준 사이즈';
+  const headers = socks
+    ? chart.headers
+    : apparel
+      ? ['US 사이즈', '한국 사이즈', '가슴 둘레', '허리 둘레', '엉덩이 둘레']
+      : ['발길이', '한국(mm)', '미국(남)', '미국(여)'];
+  const rows =
+    guideKind !== 'footwear'
+      ? chart.rows
+      : shoeGuide.charts.unisex[unit].rows.map(([kr, length, us]) => [
+          length,
+          kr,
+          ...us.split('/'),
+        ]);
   const measurement = apparelSizeGuide?.measurement;
 
   return (
@@ -1762,19 +1778,21 @@ function ProductSizeGuideChart({
           <Typography id={headingId} as="h3" variant="b4B">
             {title}
           </Typography>
-          <SegmentedControl
-            ariaLabel={apparel ? '치수 단위' : '발길이 단위'}
-            className={sizeGuideStyles.unitGroup}
-            itemClassName={() => sizeGuideStyles.unitButton}
-            onValueChange={onUnitChange}
-            options={shoeGuideUnitOptions}
-            unstyled
-            value={unit}
-          />
+          {!socks && (
+            <SegmentedControl
+              ariaLabel={apparel ? '치수 단위' : '발길이 단위'}
+              className={sizeGuideStyles.unitGroup}
+              itemClassName={() => sizeGuideStyles.unitButton}
+              onValueChange={onUnitChange}
+              options={shoeGuideUnitOptions}
+              unstyled
+              value={unit}
+            />
+          )}
         </HStack>
         <Box role="region" aria-labelledby={headingId} tabIndex={0}>
           <table
-            aria-label={`${title} 치수표 (${unit})`}
+            aria-label={socks ? title : `${title} 치수표 (${unit})`}
             className={[sizeGuideStyles.table, apparel && sizeGuideStyles.apparelTable]
               .filter(Boolean)
               .join(' ')}
@@ -1791,9 +1809,15 @@ function ProductSizeGuideChart({
             <tbody>
               {rows.map((row) => (
                 <tr key={row[1]}>
-                  {row.map((value, index) => (
-                    <td key={index}>{value}</td>
-                  ))}
+                  {row.map((value, index) =>
+                    socks && index === 0 ? (
+                      <th key={index} scope="row">
+                        {value}
+                      </th>
+                    ) : (
+                      <td key={index}>{value}</td>
+                    ),
+                  )}
                 </tr>
               ))}
             </tbody>
@@ -1867,7 +1891,8 @@ function ProductSizeGuideChart({
 
 type ProductSizeSelectorProps = {
   selectedWidth?: ProductWidthOption;
-  apparel?: boolean;
+  guideKind: ProductSizeGuideKind;
+  initialSizeGuideOpen?: boolean;
   sizes?: readonly string[];
   guideGender?: Gender;
   value: string;
@@ -1877,17 +1902,19 @@ type ProductSizeSelectorProps = {
 /** 상품 재고 선택지와 사이즈 가이드·오류 안내를 조합합니다. (Composes product availability, size guidance, and validation feedback.) */
 function ProductSizeSelector({
   selectedWidth,
-  apparel,
+  guideKind,
+  initialSizeGuideOpen = false,
   sizes,
   guideGender,
   value,
   error,
   onValueChange,
 }: ProductSizeSelectorProps) {
-  const [guideOpen, setGuideOpen] = useState(false);
+  const [guideOpen, setGuideOpen] = useState(initialSizeGuideOpen);
   const [guideUnit, setGuideUnit] = useState<Unit>('cm');
   const guideButton = useRef<HTMLButtonElement>(null);
-  const guide = apparel ? apparelSizeGuide : shoeGuide;
+  const guide =
+    guideKind === 'socks' ? socksSizeGuide : guideKind === 'apparel' ? apparelSizeGuide : shoeGuide;
   const chart = guideGender ? guide?.charts[guideGender]?.[guideUnit] : undefined;
 
   return (
@@ -1928,8 +1955,7 @@ function ProductSizeSelector({
         <ModalDialog
           title="사이즈 가이드"
           variant="sizeGuide"
-          popupClassName={apparel ? undefined : sizeGuideStyles.shoePopup}
-
+          popupClassName={guideKind === 'apparel' ? undefined : sizeGuideStyles.compactPopup}
           closeLabel="사이즈 가이드 닫기"
           open={guideOpen}
           onOpenChange={setGuideOpen}
@@ -1937,7 +1963,7 @@ function ProductSizeSelector({
           mobilePresentation="bottomSheet"
         >
           <ProductSizeGuideChart
-            apparel={apparel}
+            guideKind={guideKind}
             chart={chart}
             gender={guideGender}
             unit={guideUnit}
@@ -1961,6 +1987,7 @@ function productWidthOptions(product: Product, color: string): ProductWidthOptio
 }
 type ProductVariantSelectorsProps = {
   apparel?: boolean;
+  initialSizeGuideOpen?: boolean;
   /** Defaults to true; the inline mobile panel displays its colour control above the identity. */
   showColor?: boolean;
   product: Product;
@@ -1985,10 +2012,12 @@ function ProductVariantSelectors({
   onWidthChange,
   onSizeChange,
   apparel,
+  initialSizeGuideOpen,
   showColor = true,
 }: ProductVariantSelectorsProps) {
   const widthOptions = productWidthOptions(product, color);
   const accessories = product.productKind === 'accessories';
+  const socks = accessories && product.sizeGuide === 'socks';
   const selected =
     widthOptions.find((option) => option.label === width && !option.isSoldOut) ??
     widthOptions.find((option) => !option.isSoldOut);
@@ -2015,13 +2044,18 @@ function ProductVariantSelectors({
           />
         )}
         <ProductSizeSelector
-          apparel={apparel}
+          guideKind={socks ? 'socks' : apparel ? 'apparel' : 'footwear'}
+          initialSizeGuideOpen={initialSizeGuideOpen}
           sizes={apparel || accessories ? selected?.sizes : undefined}
           error={error}
           onValueChange={onSizeChange}
           selectedWidth={selected}
           guideGender={
-            !accessories && product.gender ? sizeGuideGenders[product.gender] : undefined
+            socks
+              ? 'unisex'
+              : !accessories && product.gender
+                ? sizeGuideGenders[product.gender]
+                : undefined
           }
           value={size}
         />
@@ -2277,6 +2311,7 @@ function ProductPurchaseActions({
   );
 }
 type ProductDetailContentProps = {
+  initialSizeGuideOpen?: boolean;
   onRequestRestock?: MouseEventHandler<HTMLButtonElement>;
   apparel?: boolean;
   restock?: boolean;
@@ -2296,6 +2331,7 @@ type ProductDetailContentProps = {
 /** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 상품 연결 소유자가 표시 모델과 식별자·입력/선택 payload, 요청 중/실패/성공/재시도 및 응답 갱신을 별도로 구현해야 합니다. */
 /** 상품 상세의 선택 정보와 콘텐츠를 배치합니다. (Arranges product detail selections and content.) */
 function ProductDetailContent({
+  initialSizeGuideOpen,
   product,
   gallery,
   color,
@@ -2319,6 +2355,7 @@ function ProductDetailContent({
       <ProductVariantSelectors
         showColor={platform === 'web'}
         apparel={apparel}
+        initialSizeGuideOpen={initialSizeGuideOpen}
         color={color}
         error={error}
         gallery={gallery}
@@ -2853,6 +2890,7 @@ function ProductDetailSupportRegion({
   );
 }
 type ProductDetailPanelProps = {
+  initialSizeGuideOpen?: boolean;
   onRequestRestock?: MouseEventHandler<HTMLButtonElement>;
   initialShareOpen?: boolean;
   apparel?: boolean;
@@ -2876,6 +2914,7 @@ type ProductDetailPanelProps = {
 /** 상품 상세의 선택 정보와 콘텐츠를 배치합니다. (Arranges product detail selections and content.) */
 function ProductDetailPanel({
   initialShareOpen,
+  initialSizeGuideOpen,
   product,
   gallery,
   color,
@@ -2933,6 +2972,7 @@ function ProductDetailPanel({
         </Stack>
         <ProductDetailContent
           apparel={apparel}
+          initialSizeGuideOpen={initialSizeGuideOpen}
           restock={restock}
           onRequestRestock={onRequestRestock}
           selectedOptions={selectedOptions}
@@ -3353,6 +3393,7 @@ export function RouteContent({ preview, restockPhoneRegistration }: RouteContent
       />
       <ProductDetailPanel
         initialShareOpen={preview === 'share'}
+        initialSizeGuideOpen={preview === 'socks-size-guide'}
         inquiriesEmpty={inquiriesEmpty}
         inquiriesExpanded={inquiriesExpanded}
         apparel={apparel}
