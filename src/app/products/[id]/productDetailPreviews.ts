@@ -1,5 +1,12 @@
 import type { Product } from '@/mocks/products';
 
+export const restockPhoneRequiredNotice = {
+  variant: 'confirm',
+  message: '휴대폰 번호를 등록해주세요.',
+  description: '입고알림신청을 위해서는 휴대폰 번호가 필요합니다.',
+  nextStep: '[확인]을 누르면 회원정보수정 화면으로 이동합니다.',
+} as const;
+
 export const productDetailPreviews = [
   { state: 'share', label: '공유하기 팝업' },
   { state: 'inquiry-form', label: '상품 문의하기 팝업' },
@@ -60,6 +67,11 @@ export const productDetailPreviews = [
       message: '품절된 상품입니다',
       description: '재입고 알림신청을 하시겠습니까?',
     },
+  },
+  {
+    state: 'restock-phone-required',
+    label: '상품 상세 · 입고 알림 휴대폰 번호 등록 안내',
+    notice: restockPhoneRequiredNotice,
   },
   {
     state: 'cart-added',
@@ -186,6 +198,7 @@ export function prepareProductDetailPreview(
     preview !== 'restock' &&
     preview !== 'restock-confirm' &&
     preview !== 'restock-complete' &&
+    preview !== 'restock-phone-required' &&
     preview !== 'sold-out'
   ) {
     return product;

@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-27T13:54:04+09:00'
+updated: '2026-11-27T15:02:12+09:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -3105,3 +3105,15 @@ Chromium PC 1440px·모바일 375px에서 기본과 다섯 상태를 직접 열�
 PC 주문/배송조회 목록의 주문 정보와 상태, 주문·취소·반품 상품을 목록 왼쪽에 맞춘다. 취소/반품내역 목록의 주문번호와 상품, 취소 상세와 반품 상세의 상품도 같은 시작선을 사용한다. 기존 24px 안쪽 여백에서 왼쪽 값만 제거한다. 출처는 사용자 브라우저 코멘트와 OrdersProducts.tsx, OrdersList.tsx, OrderDetails.tsx 작업 트리다.
 
 브라우저에서 PC 1414px과 모바일 375px로 네 경로를 열어 상품 썸네일이 본문 시작선과 일치하는 것을 확인했다. 주문/배송조회 PC에서는 주문 날짜의 시작선도 확인했다.
+
+## 상품 상세 입고 알림 휴대폰 번호 등록 안내 2026-11-27
+
+`/products/pdp-preview/restock-phone-required`는 카카오 가입 회원에게 등록된 휴대폰 번호가 없는 상태를 보여준다. 품절 옵션을 선택하고 `상품구매` 안내를 연 상태로 시작한다. 확인은 기존 회원정보 수정 미리보기 `/mypage/profile/preview-edit`로 이동하고, 취소와 닫기는 상품 상세에 머문다. 입고 알림 신청하기 버튼으로 안내를 다시 열 수 있다.
+
+상품 상세 공통 IA(`eland_hca_02`)의 입고 알림 그룹에 `상품 상세 · 입고 알림 휴대폰 번호 등록 안내`를 추가했다. 기존 동적 진입점과 IA 연결이 `productDetailPreviews`에서 상태와 `confirm` 유형을 읽는다. 소스 그래프 재생성 결과는 동일하다.
+
+실제 상품 상세는 통합 소유자가 현재 회원의 가입 유형과 휴대폰 번호 등록 여부를 확인한 뒤 `RouteContent`에 `restockPhoneRegistration`을 전달한다. 확인은 연결된 `onEditProfile`을 호출한다. 회원 조회와 입고 알림 신청 요청은 서비스 연결 범위로 남아 있다.
+
+출처는 사용자 첨부 이미지, `ProductDetailContent.tsx`, `productDetailPreviews.ts`, `IaStructurePage.tsx` 작업 트리다. Codex가 2026-11-27 KST에 PC 1440px·모바일 375px에서 직접 진입, 새로고침, 취소 후 재열기, Escape 후 버튼 포커스 복귀, 회원정보 수정 이동을 확인했다. IA에서 모바일 상태명 검색과 보기 링크 이동, PC URL 검색과 `confirm` 표시를 확인했다.
+
+모바일 옵션 시트에서 품절 사이즈 선택 후 안내가 시트 위에 열리며 취소 시 시트의 입고 알림 버튼으로 포커스가 돌아왔다. 기존 재입고 신청 확인 팝업이 표시되는 것도 확인했다. TypeScript, 변경 파일 ESLint·Prettier, IA 관련 테스트 26개가 통과했다. 전체 ESLint는 이 작업에서 변경하지 않은 `tests/wh-file-summary.test.mjs`의 전역 이름 `no-undef` 오류 8건을 보고했다.

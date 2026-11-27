@@ -85,7 +85,10 @@ const reviewPreviewGroups: [label: string, path: RegExp][] = [
   ['상품문의', /^\/products\/(?:pdp-preview\/inquiries-expanded|preview-empty-inquiries)$/],
   ['사이즈 재고', /^\/products\/pdp-preview\/(?:partial-stock|sold-out)$/],
   ['옵션 선택', /^\/products\/pdp-preview\/options-(?:selected|scroll)$/],
-  ['입고 알림', /^\/products\/(?:pdp-preview\/restock-(?:complete|confirm)|preview-restock)$/],
+  [
+    '입고 알림',
+    /^\/products\/(?:pdp-preview\/restock-(?:complete|confirm|phone-required)|preview-restock)$/,
+  ],
   ['옵션 변경', /^\/cart\/preview-options(?:-apparel(?:-changed)?)?$/],
   ['접수완료', /^\/support\/inquiries\/preview-pending(?:-attachments)?$/],
   ['답변완료', /^\/support\/inquiries\/preview-(?:answered|attachments)$/],
