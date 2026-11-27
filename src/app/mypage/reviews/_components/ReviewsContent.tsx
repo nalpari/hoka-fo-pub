@@ -4,16 +4,17 @@ import { useState } from 'react';
 import { usePlatform } from '@/context/platform';
 
 import { css } from 'styled-system/css';
-import { Box, Flex, Grid, HStack, Stack, VStack } from 'styled-system/jsx';
+import { Box, Flex, HStack, Stack, VStack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
-import { dataListBoundaryRecipe, dataListRecipe } from '@/components/common/atoms/DataList.recipe';
+import { dataListRecipe } from '@/components/common/atoms/DataList.recipe';
 import { Dropdown } from '@/components/common/atoms/Dropdown';
 import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { FormField } from '@/components/common/atoms/FormField';
 import { RatingStars } from '@/components/common/atoms/RatingStars';
 import { SegmentedControl } from '@/components/common/atoms/SegmentedControl';
 import { Typography } from '@/components/common/atoms/Typography';
+import { Wishlist } from '@/components/common/atoms/Wishlist';
 
 import { TextFormField } from '@/components/common/molecules/FormFields/TextFormField';
 import { OrderProductSummary } from '@/components/common/molecules/OrderProductSummary';
@@ -25,6 +26,7 @@ import { MyPageFrame } from '@/app/mypage/_components/MyPageFrame';
 import {
   demoWrittenReview,
   reviewListPreview,
+  reviewPagePreview,
   reviewStatePreview,
 } from '@/app/mypage/reviews/reviewFixtures';
 import type { ReviewListEntry, ReviewTab } from '@/app/mypage/reviews/reviews.types';
@@ -94,6 +96,22 @@ function ReviewDialog({
   );
 }
 
+const styles = {
+  tabs: css({
+    borderBottomWidth: '0',
+    _mobile: { w: 'calc(100% + 32px)', mx: '-16px' },
+  }),
+  tab: css({
+    minH: '54px',
+    '&[aria-pressed=false]': { borderBottom: '1px solid var(--color-black-40)' },
+    '&[aria-pressed=true]': { borderBottom: '2px solid var(--color-black-100)' },
+    _mobile: { minH: '44px' },
+  }),
+  action: css({ flexShrink: '0', '& > span > span': { lineHeight: '1.3' } }),
+  stars: css({ '&&': { gap: '4px' } }),
+  reviewText: css({ lineClamp: 1 }),
+};
+
 type ReviewItemProps = {
   entry: ReviewListEntry;
   tab: ReviewTab;
@@ -102,58 +120,129 @@ type ReviewItemProps = {
 
 function ReviewItem({ entry: { product, purchasedAt, review }, tab, onEdit }: ReviewItemProps) {
   const mobile = usePlatform() === 'mobile';
+  const written = tab === 'written';
+  const productRating = written ? product.rating : undefined;
+  const [favorite, setFavorite] = useState(false);
+  const date = (
+    <>
+      <Typography web="b6M" mo="b7M" language="en">
+        {purchasedAt}
+      </Typography>
+      <Typography web="b6M" mo="b7M">
+        구매
+      </Typography>
+    </>
+  );
+
   return (
     <Flex
       as="li"
       alignItems="center"
-      rowGap="0"
-      py={tab === 'written' ? '32px' : '16px'}
-      _mobile={{
-        flexDirection: 'column',
-        alignItems: 'stretch',
-        rowGap: '12px',
-        py: '16px',
-      }}
+      py="16px"
+      _mobile={{ flexDirection: 'column', alignItems: 'stretch', gap: '12px' }}
     >
-      <Box flex="1" minW="0">
+      <Box pos="relative" flex="1" minW="0">
         <OrderProductSummary
           variant="review"
           name={product.name}
           image={product.imageSrc}
-          imageSize={{ web: 96, mobile: 96 }}
-          orderDate={purchasedAt}
-          optionText={product.optionLabel}
-          rating={tab === 'written' ? (review?.rating ?? 0) : undefined}
-          review={tab === 'written' ? review?.body : undefined}
+          content={
+            <Stack
+              flex="1"
+              minW="0"
+              gap="6px"
+              minH={written ? { base: '98px', _mobile: '128px' } : undefined}
+            >
+              {mobile && <HStack gap="2px">{date}</HStack>}
+              <Stack gap="4px">
+                <Typography web="b4M" mo="b7M">
+                  {product.name}
+                </Typography>
+                {written && !mobile ? (
+                  product.price && (
+                    <Typography variant="b3B" language="en">
+                      {product.price}
+                    </Typography>
+                  )
+                ) : (
+                  <Typography web="b4" mo="b8" tone="subtle">
+                    {product.optionLabel}
+                  </Typography>
+                )}
+              </Stack>
+              {written && (
+                <Stack gap="8px" pt={{ base: '12px', _mobile: '4px' }} maxW={{ _mobile: '190px' }}>
+                  {productRating && (
+                    <HStack gap="8px">
+                      <RatingStars
+                        value={productRating.value}
+                        size="16px"
+                        color={mobile ? 'var(--color-black-100)' : undefined}
+                        className={styles.stars}
+                      />
+                      <Typography variant="b8" language="en">
+                        ({productRating.count})
+                      </Typography>
+                    </HStack>
+                  )}
+                  {mobile && review?.body && (
+                    <Typography as="p" variant="b8" className={styles.reviewText}>
+                      {review.body}
+                    </Typography>
+                  )}
+                </Stack>
+              )}
+            </Stack>
+          }
         />
+        <Box pos="absolute" top="0" left="64px">
+          <Wishlist
+            active={favorite}
+            ariaLabel={`${product.name} 관심상품`}
+            iconSize="16px"
+            size="32px"
+            onActiveChange={setFavorite}
+          />
+        </Box>
       </Box>
-      <Flex
-        flex={tab === 'written' ? '0 0 84px' : '0 0 auto'}
-        justify="flex-end"
-        _mobile={{ flex: '0 0 auto' }}
+      {!mobile && (
+        <>
+          {written && (
+            <Box flex="0 1 300px" minW="0" px="16px">
+              {review?.body && (
+                <Typography as="p" variant="b6" className={styles.reviewText}>
+                  {review.body}
+                </Typography>
+              )}
+            </Box>
+          )}
+          <HStack flex={written ? '0 0 160px' : '0 0 200px'} justify="center" gap="2px">
+            {date}
+          </HStack>
+        </>
+      )}
+      <Button
+        variant="primary"
+        size="short"
+        fullWidth={mobile}
+        className={styles.action}
+        onClick={onEdit}
       >
-        <Button
-          variant={mobile ? 'primary' : 'secondary'}
-          size="short"
-          fullWidth={mobile}
-          className={mobile || tab === 'written' ? css({ '& > span > span': { lineHeight: '1.3' } }) : undefined}
-          onClick={onEdit}
-        >
-          {tab === 'ready' ? '리뷰 작성' : '수정하기'}
-        </Button>
-      </Flex>
+        {written ? '수정하기' : '리뷰 작성'}
+      </Button>
     </Flex>
   );
 }
 
 /** 리뷰 목록·빈 상태와 작성·수정 오류를 고정 표시합니다. (Displays prepared review lists, empty states, and editing errors.)
- * [ 개발팀 바인딩 ] 디자인 목록·빈 결과·편집 오류 fixture이며 저장·조회·페이지 추가 요청은 실행하지 않습니다. 이 화면의 더보기는 표시용 카운터만 제공해 비활성입니다. 목록 버튼은 고정 예시 팝업을 열며 실제 리뷰/구매 ID와 요청·목록 갱신은 통합 소유자가 연결합니다. 작성한 목록은 PC와 모바일 모두 2건을 표시합니다. 이 preview의 편집은 저장 성공을 표시하거나 데이터를 갱신하지 않습니다.
+ * [ 개발팀 바인딩 ] 디자인 목록·빈 결과·편집 오류 fixture이며 저장·조회·페이지 추가 요청은 실행하지 않습니다. 작성 가능한 리뷰의 더보기는 표시용 카운터입니다. 관심상품 토글은 화면 내 표시 상태이며 저장하지 않습니다. 목록 버튼은 고정 예시 팝업을 열며 실제 리뷰/구매 ID, 관심상품 상태와 요청·목록 갱신은 통합 소유자가 연결합니다. PC·모바일 목록과 총 건수는 시안별 fixture입니다. 이 preview의 편집은 저장 성공을 표시하거나 데이터를 갱신하지 않습니다.
  */
 export function ReviewsContent({
   state,
 }: {
   state: 'ready-list' | 'written-list' | 'empty' | 'written-empty' | 'new' | 'edit' | 'error';
 }) {
+  const platform = usePlatform();
   const list = state === 'ready-list' || state === 'written-list';
   const empty = state === 'empty' || state === 'written-empty';
   const [tab, setTab] = useState<ReviewTab>(
@@ -168,21 +257,21 @@ export function ReviewsContent({
   const display = empty
     ? reviewStatePreview.empty
     : list
-      ? reviewListPreview[tab]
+      ? reviewPagePreview[platform][tab]
       : reviewStatePreview[state === 'edit' ? 'edit' : 'new'];
   const { items, totalCount, more } = display;
   return (
     <MyPageFrame
       fillAvailable={items.length === 0}
       activePath="/mypage/reviews"
-      breadcrumbs={[{ label: '상품리뷰' }]}
+      breadcrumbs={[{ label: '구매내역', href: '/mypage/orders' }, { label: '상품리뷰' }]}
     >
       <ContentSection
         flex={items.length === 0 ? '1' : undefined}
         title="상품리뷰"
         headerProps={{
           titleAs: 'h1',
-          titleProps: { web: 'h4B', mo: 'h7B' },
+          titleProps: { web: 'h6', mo: 'h7', className: css({ color: 'black.100' }) },
         }}
         gap="40px"
         _mobile={{ gap: '24px', pt: '24px' }}
@@ -197,7 +286,8 @@ export function ReviewsContent({
           <SegmentedControl
             ariaLabel="상품리뷰 구분"
             variant="underline"
-            className={css({ _mobile: { w: 'calc(100% + 32px)', mx: '-16px' } })}
+            className={styles.tabs}
+            itemClassName={() => styles.tab}
             value={tab}
             onValueChange={setTab}
             options={[
@@ -221,67 +311,45 @@ export function ReviewsContent({
                 />
                 <HStack gap="2px">
                   <Typography variant="b6">총</Typography>
-                  <Typography variant="b6M">
-                    {totalCount}
-                    <Typography variant="b6">건</Typography>
-                  </Typography>
+                  <HStack gap="0">
+                    <Typography variant="b6M" language="en">
+                      {totalCount}
+                    </Typography>
+                    <Typography variant="b6">
+                      {platform === 'mobile' && tab === 'ready' ? '개' : '건'}
+                    </Typography>
+                  </HStack>
                 </HStack>
               </HStack>
               <Stack
+                as="ul"
                 gap="0"
-                className={
-                  tab === 'written'
-                    ? dataListRecipe({ top: 'thinSubtle', headerTypography: 'heading' }).root
-                    : undefined
-                }
+                aria-label={tab === 'ready' ? '작성 가능한 리뷰 목록' : '내가 작성한 리뷰'}
+                className={dataListRecipe({ top: 'thinSubtle' }).root}
               >
-                {tab === 'written' && (
-                  <Grid
-                    display={{ base: 'grid', _mobile: 'none' }}
-                    gridTemplateColumns="minmax(0, 340fr) minmax(96px, 120fr) minmax(0, 300fr) 84px"
-                    gap="0"
-                    textAlign="center"
-                    data-list-header
-                    className={css(
-                      dataListRecipe.raw().header,
-                      dataListBoundaryRecipe.raw({ top: 'strong' }),
-                    )}
-                  >
-                    <span data-list-cell>상품정보</span>
-                    <span data-list-cell>평점</span>
-                    <span data-list-cell>리뷰</span>
-                  </Grid>
-                )}
-                <Stack
-                  as="ul"
-                  gap="0"
-                  aria-label={tab === 'ready' ? '작성 가능한 리뷰 목록' : '내가 작성한 리뷰'}
-                  className={
-                    dataListRecipe({ top: tab === 'ready' ? 'thinSubtle' : 'unchanged' }).root
-                  }
-                >
-                  {items.map((entry) => (
-                    <ReviewItem
-                      key={entry.id}
-                      entry={entry}
-                      tab={tab}
-                      onEdit={() => {
-                        setRating(tab === 'written' ? demoWrittenReview.rating : 0);
-                        setBody(tab === 'written' ? demoWrittenReview.body : '');
-                        setOpen(true);
-                      }}
-                    />
-                  ))}
-                </Stack>
+                {items.map((entry) => (
+                  <ReviewItem
+                    key={entry.id}
+                    entry={entry}
+                    tab={tab}
+                    onEdit={() => {
+                      setRating(tab === 'written' ? demoWrittenReview.rating : 0);
+                      setBody(tab === 'written' ? demoWrittenReview.body : '');
+                      setOpen(true);
+                    }}
+                  />
+                ))}
               </Stack>
-              <VStack mt="24px">
-                <Button
-                  variant="plain"
-                  size="lg"
-                  onClick={more.onLoadMore}
-                  loadMore={{ counter: more.counter }}
-                />
-              </VStack>
+              {tab === 'ready' && (
+                <VStack mt="24px">
+                  <Button
+                    variant="plain"
+                    size="lg"
+                    onClick={more.onLoadMore}
+                    loadMore={{ counter: more.counter }}
+                  />
+                </VStack>
+              )}
             </>
           ) : (
             <EmptyState

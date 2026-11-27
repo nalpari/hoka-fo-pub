@@ -2420,9 +2420,13 @@ Table.recipe를 DataList.recipe로 이전하고 기존 목록·합계·상세·�
 
 2026-11-18 DataList columnGap 기본flush 적용: CheckoutSummary·ReviewsContent의 명시적 flush 호출을 dataListRecipe().list로 줄였다. 이전 명시적 flush와 모든 슬롯 스타일이 같으며 기존 머리글-본문 사이0·경로·상태·서비스 계약은 유지한다.
 
+## 상품리뷰 목록 PC·모바일 시안 반영 (2026-11-27)
+
+`/mypage/reviews`와 기존 작성 가능·내가 작성한 리뷰 확인 경로는 같은 목록 구현을 사용한다. 두 탭의 PC·모바일 시안에 맞춰 행을 배치하고 구매내역 경로를 breadcrumb에 추가했다. 작성·수정 팝업과 빈 목록의 기존 직접 경로를 유지한다. [목록 UI와 표시 데이터](ui.md#상품리뷰-목록-pc모바일-시안-반영-2026-11-27).
+
 ## 상품리뷰 목록 시작선
 
-상품리뷰의 정렬·건수 아래 시작선은 목록 행과 같은 1px 회색 `#E9EAEB`를 `DataList`의 `top: thinSubtle`로 적용한다. 작성 가능한 리뷰는 목록 `ul`, 내가 작성한 리뷰는 머리글과 `ul`을 묶는 목록 부모가 시작선을 소유한다.
+상품리뷰의 정렬·건수 아래 시작선은 목록 행과 같은 1px 회색 `#E9EAEB`를 `DataList`의 `top: thinSubtle`로 적용한다. 두 리뷰 탭의 목록 `ul`이 시작선을 소유한다.
 
 출처는 사용자 브라우저 댓글과 `src/app/mypage/reviews/_components/ReviewsContent.tsx`의 작업 트리다. Codex가 2026-11-26에 `/mypage/reviews`와 `/mypage/reviews/preview-written`의 PC 1440px·모바일 390px에서 시작선과 목록 행의 색상 일치, 시작선 두께 1px, 정렬 영역 하단선 0px을 확인했다.
 

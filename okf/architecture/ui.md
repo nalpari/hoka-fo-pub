@@ -1288,6 +1288,14 @@ Panda `fonts.hoka`는 `var(--font-hoka, 'The Future HOKA'), Pretendard, Arial, s
 
 검증 (2026-10-30, Codex): 변경 TSX/Panda 설정 ESLint·Prettier, 전체 타입 검사, Panda 생성과 최종 Next/Storybook production build를 통과했다. 앱과 production 서버에서 영문 제목의 계산 family가 `hoka`이며 CDP에서 커스텀 폰트의 실제 글리프 사용을 확인했다. 폰트 내부 family/PostScript 이름은 `.`으로 표시되어, 생성된 Regular·Medium·Bold·Black 파일을 제공된 HOKA 원본과 SHA-256으로 대조해 모두 일치함을 확인했다. Storybook의 명시적 PC/MO scale은 기존 `The Future HOKA` 등록으로 렌더링되며 H9 20/16px, H10 16/16px과 한글 H6 36px·900/20px·600·24px 행간을 확인했다. 실제 PLP와 production PLP에서 PC/MO 사이즈 32px·선택 스와치 외곽 38px·선 1px·내부 32px·PC 컨테이너 1532px을 측정했다. 상품 옵션 Detail·Cart story는 모두 기존 40px을 유지했다. 당시 남았던 전체 lint의 import 정렬 오류 8개는 후속 퍼블리싱 가이드 import 정렬 작업에서 해소했다. 라우트·상태·요청 계약 변경은 없다.
 
+## 상품리뷰 목록 PC·모바일 시안 반영 (2026-11-27)
+
+화면 제목은 PC 32px·모바일 22px의 Bold 700이다. 공통 SegmentedControl의 리뷰 탭 높이는 PC 54px·모바일 44px이며 선택 700·미선택 400을 사용한다. 본문 상품 이미지는 96px 정사각형이다. PC 구매일은 오른쪽에 독립적으로 배치하고, 모바일 구매일은 상품명 위에 표시한다. 작성 리뷰는 PC에서 가격·상품 평점과 리뷰 요약을 분리하고 모바일에서는 옵션·상품 평점·한 줄 리뷰를 이미지 옆에 배치한다. ‘리뷰 작성’과 ‘수정하기’는 공통 primary 버튼이며 모바일에서는 행 너비를 채운다. 더보기는 작성 가능한 리뷰에 표시한다. 최신 브라우저 코멘트에 맞춰 PC 작성 리뷰 행의 위아래 여백을 16px로 적용한다.
+
+표시 fixture는 작성 가능 PC 3행·모바일 7행, 작성한 리뷰 양쪽 2행이다. 정렬 옆 표기 건수는 두 플랫폼의 원본 시안을 따른다. 상품 평점과 작성자의 리뷰 별점을 별도로 표시한다. 썸네일 관심상품 토글과 리뷰 팝업은 화면에서 확인할 수 있으며 실제 저장과 추가 조회는 연결되어 있지 않다. 출처는 `src/app/mypage/reviews/` 작업 트리, 사용자 버튼 코멘트와 [HOKA 상품리뷰 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)이다.
+
+Chromium PC 1920px와 모바일 375px의 두 탭에서 제목·탭·96px 이미지·40px 버튼을 실측했다. PC 작성 목록의 이미지 위 여백 16px과 행 높이 131px, 모바일 작성 목록의 행 높이 213px을 확인했다. 양쪽 목록의 가로 넘침이 없었고, 탭 전환, 정렬 선택, 두 빈 화면, 관심상품 토글과 수정 팝업의 Escape 닫기 및 포커스 복귀를 확인했다. 변경 TSX ESLint·Prettier, TypeScript, Panda 생성과 라우트·IA 링크 검사 18개를 통과했다.
+
 ## 상품리뷰 디자인 목록과 STATE (2026-10-30)
 
 사용자 첨부의 작성 가능한 목록·작성 가능한 리뷰 없음·작성한 리뷰 목록을 반영했다. `MyPageReviewsContent`가 상품리뷰 h1과 탭·정렬·건수·목록을 소유한다. h1은 모바일에서 접근성 트리에 유지하며 시각적으로 숨긴다. 작성 가능 목록에는 표 헤더 없이 상품명/옵션과 PC pill 작성 버튼·MO 구매일/텍스트 링크를 표시한다. 작성한 목록은 PC 상품정보/평점/리뷰 열과 수정 버튼, MO 구매 정보 아래 별점·본문으로 표시한다. 더보기는 PC 160px/MO 전체 폭이다.

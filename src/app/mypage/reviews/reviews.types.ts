@@ -10,7 +10,14 @@ export type WrittenReview = { rating: number; body: string };
 
 export type ReviewListEntry = {
   id: number | string;
-  product: { name: string; imageSrc: string; optionLabel: string; gender?: string; price?: string };
+  product: {
+    name: string;
+    imageSrc: string;
+    optionLabel: string;
+    gender?: string;
+    price?: string;
+    rating?: { value: number; count: number };
+  };
   purchasedAt: string;
   review?: WrittenReview;
 };
