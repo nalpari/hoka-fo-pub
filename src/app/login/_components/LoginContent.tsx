@@ -108,18 +108,12 @@ export function LoginContent({ showErrors = false, showHelp = false }: LoginForm
     <AccountPageLayout>
       <ContentSection
         gap="10"
-        title={
-          <>
-            HOKA Korea에
-            <br />
-            오신것을 환영합니다
-          </>
-        }
+        title={<>HOKA Korea에 오신것을 환영합니다</>}
         headerProps={{
           titleAs: 'h1',
           titleProps: {
             web: 'h7',
-            mo: 'h4',
+            mo: 'h8',
             id: 'login-title',
             className: css({ textAlign: 'center' }),
           },

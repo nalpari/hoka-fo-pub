@@ -89,7 +89,7 @@ export function RunningSessionEntriesContent({
                   <Typography variant="b6">총</Typography>
                   <Typography variant="b6M">
                     {totalCount}
-                    <Typography variant="b6">개</Typography>
+                    <Typography variant="b6">건</Typography>
                   </Typography>
                 </HStack>
               </HStack>
