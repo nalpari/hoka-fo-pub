@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-27T12:58:24+09:00'
+updated: '2026-11-27T13:22:17+09:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -3077,3 +3077,7 @@ Codex는 PC 1424px와 모바일 375px에서 두 목록의 링크 243개, 트리 
 ## 1:1 문의 선택 상품 변경
 
 선택한 주문 정보 박스 안 하단에 상품 변경 버튼을 배치한다. PC는 우측 정렬, 모바일은 박스 안쪽 전체 너비를 사용한다. 출처는 `InquiryFormContent.tsx`다.
+
+## 마이페이지 회원등급의 PC·모바일 요약 예시 2026-11-27
+
+/mypage/rewards의 RewardsContent는 display가 생략된 경우에 PC·모바일 요약 예시를 선택한다. 전달받은 OverviewView는 그대로 표시하고, 기존 조회 중·실패 경로는 개인 진행률을 숨긴다. 출처는 RewardsContent.tsx와 rewards-data.ts 작업 트리다. [혜택과 검증](ui.md#회원등급-최신-혜택-문구-2026-11-27).
