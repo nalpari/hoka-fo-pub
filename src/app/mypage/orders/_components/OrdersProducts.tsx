@@ -349,7 +349,7 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
             borderBottom={{ base: '1px solid var(--color-border-subtle)', _mobile: '0' }}
           >
             <Typography variant="b6M" tone="red80">
-              {claim.kind === 'cancel' ? '구매취소' : '반품요청'}
+              {claim.kind === 'cancel' ? '취소완료' : '환불신청'}
             </Typography>
             <Button variant="link" size="sm" onClick={() => actions.onClaimDetail(order, claim)}>
               {claim.kind === 'cancel' ? '취소상세보기' : '반품상세보기'}

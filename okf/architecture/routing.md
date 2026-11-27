@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-27T10:05:10+09:00'
+updated: '2026-11-27T10:07:31+09:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -2964,6 +2964,8 @@ FAQ 질문과 공지 상세 게시글 제목은 PC·모바일 모두 18px Medium
 ## 주문 카드의 취소·반품 상품 액션
 
 구매취소·반품요청 상품의 장바구니 담기 버튼은 PC·모바일 모두 표시하지 않는다. 출처는 `src/app/mypage/orders/_components/OrdersProducts.tsx`다.
+
+2026-11-27 사용자 요청에 따라 `/mypage/orders` 주문 카드의 취소 상태는 `취소완료`, 반품 상태는 `환불신청`으로 표시한다. Codex가 `OrdersProducts.tsx` 작업 트리로 PC 1427px과 모바일 375px에서 각 상태 옆의 `취소상세보기`·`반품상세보기` 표시를 확인했다.
 
 ## 장바구니 무료배송과 주문 상세 왼쪽 정렬 2026-11-27
 
