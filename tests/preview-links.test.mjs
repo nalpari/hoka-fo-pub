@@ -137,7 +137,8 @@ test('shared state dependencies move to the owner without lifting entry pages or
   const shared = getSharedStateSourceFiles([detail]);
   assert.ok(shared.includes('src/app/products/[id]/productDetailPresentation.ts'));
   assert.ok(shared.includes('src/app/products/[id]/productInquiries.ts'));
-  assert.ok(shared.includes('src/components/care-guide/care.data.ts'));
+  assert.ok(shared.includes('src/app/products/[id]/productDetailCare.ts'));
+  assert.ok(!shared.includes('src/components/care-guide/care.data.ts'));
   assert.ok(
     shared.every((file) => !file.includes('/_components/') && !/\/page\.[jt]sx?$/.test(file)),
   );

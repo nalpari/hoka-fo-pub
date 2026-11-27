@@ -5,6 +5,8 @@ type ProductCareSection = {
   instructions: readonly string[];
 };
 
+// [ 개발팀 바인딩 ] 상품 상세의 productKind별 제목과 관리 문구를 제공하는 고정 표시 데이터입니다.
+// 상세 표시 소유자가 현재 유형으로 선택하며, 유형 생략 시 신발 문구를 사용합니다. 요청이나 별도 재조회는 없습니다.
 export const productDetailCare = {
   footwear: [
     {
