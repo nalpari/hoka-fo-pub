@@ -2962,3 +2962,7 @@ FAQ 질문과 공지 상세 게시글 제목은 PC·모바일 모두 18px Medium
 ## 주문 상세 진입 버튼
 
 주문상세보기 버튼은 주문 목록에서 제공한다. 주문 상세의 배송 상태 행은 상태와 도착 안내를 표시한다. 출처는 `src/app/mypage/orders/_components/OrderDetails.tsx`와 `OrdersContent.tsx`다.
+
+## 장바구니 상품 할인율
+
+장바구니 상품 가격은 표시 데이터의 선택적 `discountLabel`을 판매가 옆에 표시한다. PC·모바일 미리보기는 할인 상품에 `20%`를 사용한다. 출처는 `src/app/cart/cart-preview.ts`와 `src/app/cart/_components/CartProductSection.tsx`다.

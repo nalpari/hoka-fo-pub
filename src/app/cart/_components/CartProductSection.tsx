@@ -42,9 +42,16 @@ function CartProductItem({
           {row.originalAmount.toLocaleString()}원
         </Typography>
       ) : null}
-      <Typography variant="b6M">
-        {(mobile ? (row.mobileAmount ?? amount) : amount).toLocaleString()}원
-      </Typography>
+      <HStack gap="4px" alignItems="baseline">
+        {row.discountLabel && (
+          <Typography variant="b6M" tone="red80" aria-label={`${row.discountLabel} 할인`}>
+            {row.discountLabel}
+          </Typography>
+        )}
+        <Typography variant="b6M">
+          {(mobile ? (row.mobileAmount ?? amount) : amount).toLocaleString()}원
+        </Typography>
+      </HStack>
     </Stack>
   );
   return (
