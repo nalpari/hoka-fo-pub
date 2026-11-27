@@ -2965,7 +2965,7 @@ FAQ 질문과 공지 상세 게시글 제목은 PC·모바일 모두 18px Medium
 
 ## 장바구니 상품 할인율
 
-장바구니 상품 가격은 공통 `ProductPrice`를 오른쪽 정렬로 사용하며 표시 데이터의 선택적 `discountLabel`을 판매가 옆에 표시한다. PC·모바일 미리보기는 할인 상품에 `20%`를 사용한다. 출처는 `src/app/cart/cart-preview.ts`와 `src/app/cart/_components/CartProductSection.tsx`다.
+장바구니 상품 가격은 공통 `ProductPrice`를 사용한다. PC에서는 오른쪽 가격 열에 배치하고, 모바일에서는 옵션 변경 아래 왼쪽에 정렬하며 가격 아래 16px 간격으로 수량 조절을 배치한다. 표시 데이터의 선택적 `discountLabel`을 판매가 옆에 표시한다. PC·모바일 미리보기는 할인 상품에 `20%`를 사용한다. 출처는 `src/app/cart/cart-preview.ts`와 `src/app/cart/_components/CartProductSection.tsx`다.
 
 ## 회원정보 관리·수정 표시
 

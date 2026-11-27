@@ -40,7 +40,7 @@ function CartProductItem({
   const price = (mobile = false) => (
     <Box opacity={soldOut ? '0.3' : '1'}>
       <ProductPrice
-        align="end"
+        align={mobile ? 'start' : 'end'}
         price={mobile ? (row.mobileAmount ?? amount) : amount}
         originalPrice={row.originalAmount}
         discountLabel={row.discountLabel}
@@ -97,7 +97,11 @@ function CartProductItem({
           />
         </Box>
       </Box>
-      <Stack gridColumn="3" gap="8px" alignSelf={{ base: 'center', _mobile: 'start' }}>
+      <Stack
+        gridColumn="3"
+        gap={{ base: '8px', _mobile: '6px' }}
+        alignSelf={{ base: 'center', _mobile: 'start' }}
+      >
         <Stack gap="2px" opacity={soldOut ? '0.3' : '1'}>
           <Typography variant="b6M">{product.gender}</Typography>
           <Typography variant="b6M">{product.name}</Typography>
@@ -119,12 +123,15 @@ function CartProductItem({
         >
           옵션 변경
         </Button>
+        <Box display={{ base: 'none', _mobile: 'block' }} pt="2px">
+          {price(true)}
+        </Box>
       </Stack>
       <HStack
         gridColumn={{ base: '4', _mobile: '3 / span 2' }}
         gridRow={{ base: '1', _mobile: '2' }}
         alignSelf={{ base: 'center', _mobile: 'end' }}
-        mt={{ base: '0', _mobile: '12px' }}
+        mt={{ base: '0', _mobile: '16px' }}
         justifyContent="space-between"
         gap="8px"
       >
@@ -140,7 +147,6 @@ function CartProductItem({
             />
           </fieldset>
         </Box>
-        <Box display={{ base: 'none', _mobile: 'block' }}>{price(true)}</Box>
       </HStack>
       <Box
         gridColumn="5"
