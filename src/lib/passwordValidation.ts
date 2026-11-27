@@ -1,7 +1,7 @@
 export const passwordRequirementsMessage =
   '영문, 숫자, 특수문자를 모두 포함하여 10~20자로 입력해 주세요';
 
-const passwordPattern = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[^a-zA-Z0-9\s])\S{10,12}$/;
+const passwordPattern = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[^a-zA-Z0-9\s])\S{10,20}$/;
 
 export function isValidPassword(value: string): boolean {
   return passwordPattern.test(value);
