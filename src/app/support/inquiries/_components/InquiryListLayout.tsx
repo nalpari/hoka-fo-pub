@@ -40,7 +40,7 @@ export function InquiryListLayout({
           title="1:1문의"
           titleAs="h1"
           titleProps={{
-            web: 'h4B',
+            web: 'h4',
             mo: mobileTitleSize === '22px' ? 'h7B' : 'h6B',
           }}
           action={

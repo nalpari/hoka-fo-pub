@@ -29,7 +29,7 @@ export default function Page() {
           title="고객센터"
           titleAs="h1"
           titleProps={{
-            web: 'h4B',
+            web: 'h4',
             mo: 'h5B',
             className: css({ _mobile: { h: '32px' } }),
           }}

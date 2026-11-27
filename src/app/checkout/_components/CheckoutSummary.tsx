@@ -24,7 +24,7 @@ export function CheckoutSummary({ rows }: { rows: readonly CheckoutRow[] }) {
       as="section"
       gap="24px"
       title="주문상품 정보 및 할인 적용"
-      headerProps={{ titleAs: 'h2', titleProps: { web: 'h8B', mo: 'h8' } }}
+      headerProps={{ titleAs: 'h2', titleProps: { web: 'h8', mo: 'h8' } }}
     >
       <Stack
         gap="0"

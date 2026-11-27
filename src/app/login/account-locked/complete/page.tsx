@@ -35,7 +35,7 @@ export default function Page() {
           gap="9"
           title={
             <>
-              <Typography as="span" web="h8B" mo="h7B">
+              <Typography as="span" web="h8" mo="h7B">
                 계정 잠금 해제 완료
               </Typography>
             </>

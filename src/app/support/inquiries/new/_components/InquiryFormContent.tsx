@@ -130,7 +130,7 @@ export function InquiryAttachments({
         orientation: 'horizontal',
         gap: '8px',
         titleProps: {
-          web: 'h10B',
+          web: 'h10',
           mo: 'h8',
         },
         action: (
@@ -426,7 +426,7 @@ export function InquiryOrderProducts({
 }: InquiryOrderProductsProps) {
   return selection ? (
     <Stack gap="16px" pt={{ base: '24px', _mobile: '8px' }} pb={{ base: '24px', _mobile: '8px' }}>
-      <Typography web="h10B" mo="h8">
+      <Typography web="h10" mo="h8">
         상품 정보
       </Typography>
       <Box
@@ -496,7 +496,7 @@ export function InquiryOrderProducts({
       pt={{ base: '24px', _mobile: '8px' }}
       pb={{ base: '24px', _mobile: '8px' }}
     >
-      <Typography web="h10B" mo="h8">
+      <Typography web="h10" mo="h8">
         상품 정보
       </Typography>
       <Stack

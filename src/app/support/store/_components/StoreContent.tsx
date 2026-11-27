@@ -50,7 +50,7 @@ export function StoreResults({ stores }: { stores: readonly StoreResult[] }) {
           title={store.name}
           headerProps={{
             titleAs: 'h3',
-            titleProps: { web: 'h10B', mo: 'h8', className: styles.storeName },
+            titleProps: { web: 'h10', mo: 'h8', className: styles.storeName },
           }}
         >
           <Stack css={styles.storeDetails}>

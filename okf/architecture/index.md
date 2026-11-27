@@ -1,5 +1,7 @@
 # 아키텍처
 
+- [주요 PC 화면 제목의 Bold 적용](routing.md#주요-pc-화면-제목의-bold-적용-2026-11-27) - 고객센터·주문/결제 및 관련 화면의 700 제목.
+
 - [메인 Find my HOKA 카드](home-product-design.md#find-my-hoka-카드-2026-11-27) - PC·모바일 카드 크기, 이미지 대비 제목 위치와 모바일 Black 제목.
 
 - [양말 상품 상세와 사이즈 가이드](routing.md#양말-상품-상세와-사이즈-가이드-2026-11-27) - Merino Crew Sock 갤러리, 고객센터 공용 차트와 IA 43·100 연결.

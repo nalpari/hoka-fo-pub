@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-27T15:31:02+09:00'
+updated: '2026-11-27T17:19:04+09:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -6365,7 +6365,15 @@ Codex는 PC 1440px의 마우스 올리기와 모바일 375px의 탭으로 다섯
 
 Codex는 로컬 Next.js 서버에서 [관련 경로](routing.md#카카오톡-알림톡-수신-항목-표시-2026-11-26) 5개의 HTTP 200 응답과 HTML의 수신 항목 문구를 확인했다. TypeScript와 변경 소스 ESLint를 통과했다.
 
+## 주요 PC 화면 제목의 Bold 적용 (2026-11-27)
+
+일반 화면의 PC 주 제목과 관련 섹션 제목은 기존 Heading 번호의 Bold 700을 사용한다. `h4B`, `h8B`, `h10B`에서 각각 같은 크기·행간·글꼴의 `h4`, `h8`, `h10`으로 바꿨다. `SidebarNavigationLayout`의 고객센터 모드 제목은 `h8`, `AccountPageLayout`의 제목은 PC `h8`을 사용한다. 모바일 제목, 마케팅용 Display, 화면별로 확정된 Black 제목과 EmptyState 규칙은 유지한다. 출처는 사용자 브라우저 코멘트와 두 공통 프레임 및 화면별 호출부의 작업 트리다.
+
+검증은 로컬 Chromium의 PC 1300px·모바일 390px에서 수행했다. 고객센터와 주문/결제의 코멘트 8곳이 PC에서 700인 것을 확인했다. 고객센터 모바일 제목은 28px/900, 주문/결제 모바일 주 제목은 22px/900과 섹션 제목 20px/700을 유지한다. 장바구니 및 주문·취소·반품 상세의 변경 소제목을 함께 확인했다. 변경 TSX의 ESLint·Prettier와 전체 TypeScript 검사를 통과했다.
+
 ## Display·Heading·Body 타이포그래피 이관 (2026-11-25)
+
+2026-11-27 화면별 제목 변경은 [주요 PC 화면 제목의 Bold 적용](#주요-pc-화면-제목의-bold-적용-2026-11-27)에 기록한다.
 
 사용자가 제공한 [HOKA 디자인 시스템](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0) 변수·로컬 Text Style 추출본을 구현 기준으로 사용한다. `src/styles/typography.ts`는 패밀리 2개·굵기 6개·계열별 크기 27개와 한글 89개·영문 71개 조합을 정의한다. 같은 px도 Display·Heading·Body의 크기 토큰을 분리한다. `Typography`의 기본 variant는 생략할 수 있고, 스타일을 적용할 때 `d1`, `h1B`, `b4M`처럼 사용한다. `web`은 Wide, `mo`는 Compact를 선택한다. H9·H10은 Wide 전용이므로 모바일과 함께 표시하는 화면에서는 Compact 값을 명시한다.
 

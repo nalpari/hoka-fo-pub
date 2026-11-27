@@ -89,7 +89,7 @@ const detailSectionTitle = css({
 
 function DetailSectionTitle({ children }: { children: string }) {
   return (
-    <Typography as="h2" web="h8B" mo="h8" className={detailSectionTitle}>
+    <Typography as="h2" web="h8" mo="h8" className={detailSectionTitle}>
       {children}
     </Typography>
   );
@@ -469,7 +469,7 @@ function ClaimSection({ title, children }: { title: string; children: React.Reac
       headerProps={{
         titleAs: 'h2',
         titleProps: {
-          web: 'h8B',
+          web: 'h8',
           mo: 'h8',
         },
         css: css.raw({

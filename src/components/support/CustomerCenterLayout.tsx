@@ -117,7 +117,7 @@ export function CustomerCenterLayout(props: Props) {
           title: props.title,
           headerProps: {
             titleAs: 'h1' as const,
-            titleProps: { web: 'h4B' as const, mo: props.mobileTitleVariant ?? 'h8' },
+            titleProps: { web: 'h4' as const, mo: props.mobileTitleVariant ?? 'h8' },
             description: props.description,
             descriptionProps: { variant: 'b4' as const, ...props.descriptionProps },
           },

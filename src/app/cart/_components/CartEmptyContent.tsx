@@ -22,7 +22,7 @@ export function CartEmptyContent() {
       <CartEmptyState />
       <CarouselSection
         title="추천 상품"
-        titleVariant="h4B"
+        titleVariant="h4"
         mobileTitleVariant="h8"
         platform={platform}
         itemCount={recommendations.length}

@@ -165,7 +165,7 @@ export function CheckoutPayment({
       title="결제 정보"
       headerProps={{
         titleAs: 'h2',
-        titleProps: { web: 'h8B', mo: 'h8' },
+        titleProps: { web: 'h8', mo: 'h8' },
         className: css({ pb: { base: '8px', _mobile: '0' } }),
       }}
     >

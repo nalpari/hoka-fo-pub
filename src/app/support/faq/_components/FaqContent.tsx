@@ -269,7 +269,7 @@ export function RouteContent({ previewEmpty = false, previewExpanded = false }: 
   return (
     <CustomerCenterLayout
       className={css({ _mobile: { pb: '72px' } })}
-      header={<ContentHeader title="FAQs" titleAs="h1" titleProps={{ web: 'h4B', mo: 'h7B' }} />}
+      header={<ContentHeader title="FAQs" titleAs="h1" titleProps={{ web: 'h4', mo: 'h7B' }} />}
       activePath="/support/faq"
       groups={supportNavigation}
       breadcrumbItems={[

@@ -59,7 +59,7 @@ export function CheckoutDiscountSummary({
   return (
     <Stack gap={{ base: '28px', _mobile: '12px' }}>
       {!mobile ? (
-        <Typography as="h2" web="h10B" mo="h8">
+        <Typography as="h2" web="h10" mo="h8">
           주문내역
         </Typography>
       ) : null}

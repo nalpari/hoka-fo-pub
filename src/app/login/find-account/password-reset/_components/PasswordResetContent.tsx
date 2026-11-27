@@ -82,7 +82,7 @@ export function PasswordResetContent({
         header={
           <ContentHeader
             titleAs="h1"
-            titleProps={{ web: 'h8B', mo: 'h7B', id: 'password-reset-title' }}
+            titleProps={{ web: 'h8', mo: 'h7B', id: 'password-reset-title' }}
             descriptionProps={{ variant: 'b4', tone: 'tertiary' }}
             title="비밀번호 재설정"
             description="새로운 비밀번호를 사용하여 로그인을 진행합니다. 새로운 비밀번호를 설정해주세요."

@@ -251,6 +251,7 @@ export function SidebarNavigationLayout({
         mobileNavigation={support ? 'hidden' : mobileNavigation}
         title={navigationTitle}
         titleTo={titleTo}
+        titleWeb={support ? 'h8' : undefined}
       />
       {support ? children : <Box minW="0">{children}</Box>}
     </Grid>

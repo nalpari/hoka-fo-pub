@@ -31,7 +31,7 @@ export function CartContent() {
         gap={{ base: '56px', _mobile: '0' }}
       >
         <Stack gap={{ base: '40px', _mobile: '32px' }} minW="0">
-          <ContentHeader title="장바구니" titleAs="h1" titleProps={{ web: 'h4B', mo: 'h7B' }} />
+          <ContentHeader title="장바구니" titleAs="h1" titleProps={{ web: 'h4', mo: 'h7B' }} />
           <CartProductSection rows={cartPreviewRows} />
         </Stack>
         <CartOrderActions />
@@ -39,7 +39,7 @@ export function CartContent() {
       {/* [ 개발팀 바인딩 ] 추천 상품은 준비된 fixture이며 실제 조회와 로딩·오류 처리는 장바구니 연결 소유자가 담당합니다. */}
       <CarouselSection
         title="추천 상품"
-        titleVariant="h4B"
+        titleVariant="h4"
         mobileTitleVariant="h8"
         platform={platform}
         itemCount={recommendations.length}
