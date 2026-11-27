@@ -51,7 +51,7 @@ function CartProductItem({
     <Grid
       as="li"
       gridTemplateColumns={{
-        base: '16px 144px minmax(0, 1fr) 108px 86px 20px',
+        base: '16px 144px minmax(0, 1fr) 108px minmax(120px, max-content) 20px',
         _mobile: '16px 96px minmax(0, 1fr) 20px',
       }}
       rowGap="0"
@@ -99,10 +99,10 @@ function CartProductItem({
       </Box>
       <Stack
         gridColumn="3"
-        gap={{ base: '8px', _mobile: '6px' }}
+        gap="6px"
         alignSelf={{ base: 'center', _mobile: 'start' }}
       >
-        <Stack gap="2px" opacity={soldOut ? '0.3' : '1'}>
+        <Stack gap={{ base: '4px', _mobile: '2px' }} opacity={soldOut ? '0.3' : '1'}>
           <Typography variant="b6M">{product.gender}</Typography>
           <Typography variant="b6M">{product.name}</Typography>
           <Typography variant="b6" tone="subtle">
@@ -153,6 +153,7 @@ function CartProductItem({
         gridRow="1"
         alignSelf="center"
         display={{ base: 'block', _mobile: 'none' }}
+        whiteSpace="nowrap"
       >
         {price()}
       </Box>
