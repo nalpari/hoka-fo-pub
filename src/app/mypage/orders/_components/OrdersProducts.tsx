@@ -199,7 +199,7 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
             ) : null}
             <HStack justifyContent="space-between" pe={{ base: '24px', _mobile: '0' }}>
               <HStack gap="2px" flexWrap="wrap">
-                <Typography web="b4M" mo="b6M" tone="red80">
+                <Typography web="b4M" mo="b6M" tone="accent">
                   {orderStatusLabels[group.status]}
                 </Typography>
                 <Typography web="b4M" mo="b6M">
@@ -352,7 +352,7 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
             py={{ base: '16px', _mobile: '0' }}
             borderBottom={{ base: '1px solid var(--color-border-subtle)', _mobile: '0' }}
           >
-            <Typography variant="b6M" tone="red80">
+            <Typography variant="b6M" tone="accent">
               {claim.kind === 'cancel' ? '취소완료' : '환불신청'}
             </Typography>
             <Button variant="link" size="sm" onClick={() => actions.onClaimDetail(order, claim)}>

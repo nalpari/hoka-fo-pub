@@ -60,7 +60,7 @@ export function CheckoutCouponDialog({ onClose }: { onClose: () => void }) {
             <HStack gap="8px">
               <Typography variant="b6">
                 사용 가능 쿠폰{' '}
-                <Typography variant="b6M" language="en" tone="red80">
+                <Typography variant="b6M" language="en" tone="accent">
                   {group.available}
                 </Typography>
                 개

@@ -1280,7 +1280,7 @@ function SearchForm({ query, onQueryChange, onSearch, error = '' }: SearchFormPr
       <Button variant="unstyled" type="submit" hidden aria-label="검색 실행" />
       {error ? (
         <Box p={{ base: '32px', _mobile: '8px 0 0' }}>
-          <StatusMessage tone="error" textProps={{ tone: 'red80' }} id="site-search-error">
+          <StatusMessage tone="error" textProps={{ tone: 'accent' }} id="site-search-error">
             {error}
           </StatusMessage>
         </Box>
@@ -1839,7 +1839,7 @@ function MegaMenuList({ columns, onClose }: MegaMenuListProps) {
                   >
                     <Typography
                       variant="b4"
-                      tone={item.label === 'Sale' ? 'red80' : 'primary'}
+                      tone={item.label === 'Sale' ? 'accent' : 'primary'}
                       className={cx(
                         css({
                           'a:hover > &, a:active > &, a:focus-visible > &': {

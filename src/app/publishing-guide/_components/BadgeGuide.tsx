@@ -232,13 +232,13 @@ const examples = [
         code: '<Badge variant="plain" tone="brand">{["Best", "Exclusive"]}</Badge>',
       },
       {
-        label: '복수 · red80 / Bold',
+        label: '복수 · accent / Bold',
         preview: (
-          <Badge variant="plain" tone="red80" weight="bold">
+          <Badge variant="plain" tone="accent" weight="bold">
             {['New', 'Exclusive']}
           </Badge>
         ),
-        code: '<Badge variant="plain" tone="red80" weight="bold">{["New", "Exclusive"]}</Badge>',
+        code: '<Badge variant="plain" tone="accent" weight="bold">{["New", "Exclusive"]}</Badge>',
       },
       {
         label: '빈 배열 · 표시 없음',

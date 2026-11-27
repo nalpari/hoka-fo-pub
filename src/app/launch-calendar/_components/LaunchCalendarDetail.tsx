@@ -282,7 +282,7 @@ export function LaunchCalendarDetail({
                 as="p"
                 variant="b3M"
                 language="ko"
-                tone="red80"
+                tone="accent"
                 className={css({ _mobile: { fontSize: 'body.16' } })}
               >
                 {product.releaseLabel}
