@@ -1118,6 +1118,11 @@ export const modalDialogRecipe = sva({
   },
   compoundVariants: [
     {
+      variant: ['alert', 'confirm'],
+      mobilePresentation: 'popup',
+      css: { popup: { _mobile: { borderRadius: '8px' } } },
+    },
+    {
       variant: 'image',
       sheet: true,
       css: {

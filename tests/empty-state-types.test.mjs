@@ -20,7 +20,7 @@ import { emptyStateRecipe } from '@/components/common/atoms/EmptyState.recipe';
 const omitted = <EmptyState title="빈 목록" />;
 const undefinedVariant = <EmptyState variant={undefined} title="빈 목록" />;
 const variants: NonNullable<ComponentProps<typeof EmptyState>['variant']>[] = ['standard', 'minimal', 'plain', 'page', 'content'];
-const states = variants.map(variant => <EmptyState variant={variant} title="제목" description="설명" action={<button>확인</button>} role="status" as="section" titleProps={{ as: 'p', web: 'body3', mo: 'body4', tone: 'tertiary' }} descriptionProps={{ variant: 'body3' }} layoutProps={{ pt: '20px', _mobile: { py: '8' } }} />);
+const states = variants.map(variant => <EmptyState variant={variant} title="제목" description="설명" action={<button>확인</button>} role="status" as="section" titleProps={{ as: 'p', web: 'b4', mo: 'b6', tone: 'tertiary' }} descriptionProps={{ variant: 'b4' }} layoutProps={{ pt: '20px', _mobile: { py: '8' } }} />);
 const layouts: NonNullable<ComponentProps<typeof EmptyState>['layout']>[] = ['default', 'cart', 'claimHistory', 'history', 'wishlist', 'restock', 'address', 'embeddedAddress', 'reviews', 'catalog', 'search', 'inquiries', 'inquiryPreview', 'faq', 'orderSummary', 'orders', 'launch', 'runningSession', 'productInquiry', 'inquiryBoard'];
 layouts.map(layout => <EmptyState variant="page" layout={layout} title="제목" />);
 const iconState = <EmptyState layout="cart" icon={<svg aria-hidden="true" />} title="빈 목록" />;
@@ -75,9 +75,13 @@ test('layout typography wins over language defaults and legacy overrides retain 
     customTitle: false,
     customDescription: false,
   };
-  const review = getEmptyStateStyles({ variant: 'page', layout: 'reviews' }, korean);
-  assert.equal(review.title._mobile.fontWeight, 'bold');
-  assert.equal(review.title._mobile.fontSize, 'var(--font-sizes-20)');
+  for (const layout of ['default', 'reviews', 'history', 'address', 'cart', 'search', 'launch']) {
+    const { title } = getEmptyStateStyles({ variant: 'page', layout }, korean);
+    const style = layout === 'launch' ? title['&&'] : title;
+    assert.equal(style.fontSize, 'heading.20', layout);
+    assert.equal(style._mobile.fontSize, 'body.18', layout);
+    assert.equal(style.fontWeight, 'normal', layout);
+  }
   const inquiry = getEmptyStateStyles({ variant: 'plain', layout: 'inquiries' }, korean);
   assert.equal(inquiry.title.lineHeight, 'body');
   assert.equal(inquiry.title._mobile.fontWeight, 'normal');
@@ -85,8 +89,9 @@ test('layout typography wins over language defaults and legacy overrides retain 
     {},
     { ...korean, titleKorean: false, descriptionKorean: false },
   );
-  assert.equal(english.title.fontFamily, 'hoka');
-  assert.equal(english.title._mobile.fontWeight, 'bold');
+  assert.equal(english.title.fontFamily, 'en');
+  assert.equal(english.title.fontWeight, 'normal');
+  assert.equal(english.title._mobile.fontSize, 'body.18');
   const legacy = getEmptyStateStyles(
     { layout: 'reviews' },
     { ...korean, customTitle: true, customDescription: true },

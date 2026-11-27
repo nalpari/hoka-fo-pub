@@ -27,6 +27,10 @@ type AddressFieldName = 'postalCode' | 'address' | 'addressDetail';
 
 type AddressFieldsVariant = 'boxed' | 'compact' | 'separated';
 
+type AddressSearchAppearance = 'default' | 'account';
+
+const accountSearchPopup = css({ '&&': { borderRadius: '8px' } });
+
 const fields = {
   postalCode: { label: '우편번호' },
   address: { label: '주소' },
@@ -128,6 +132,7 @@ type AddressSearchModalProps = {
   postalCode: string;
   address: string;
   idPrefix?: string;
+  appearance: AddressSearchAppearance;
   onOpenChange: (open: boolean) => void;
   onPostalCodeChange: (value: string) => void;
   onAddressChange: (value: string) => void;
@@ -139,6 +144,7 @@ function AddressSearchModal({
   postalCode,
   address,
   idPrefix = 'address-search',
+  appearance,
   onOpenChange,
   onPostalCodeChange,
   onAddressChange,
@@ -152,6 +158,7 @@ function AddressSearchModal({
   return (
     <ModalDialog
       variant="form"
+      popupClassName={appearance === 'account' ? accountSearchPopup : undefined}
       open={open}
       onOpenChange={(nextOpen) => {
         if (!nextOpen) setSubmitted(false);
@@ -214,6 +221,8 @@ type Props = {
   variant: AddressFieldsVariant;
   detailLayout?: 'stack' | 'columns';
   fieldOptions?: Partial<Record<AddressFieldName, AddressFieldOptions>>;
+  /** Defaults to the standard search layout. Account search aligns to the boxed input and uses an 8px popup radius. */
+  searchAppearance?: AddressSearchAppearance;
   searchLabel?: string;
   idPrefix: string;
   value: AddressValue;
@@ -228,6 +237,7 @@ export function AddressFields({
   variant,
   detailLayout = 'stack',
   fieldOptions,
+  searchAppearance = 'default',
   searchLabel = '주소 찾기',
   idPrefix,
   value,
@@ -283,11 +293,18 @@ export function AddressFields({
           {searchButton}
         </HStack>
       ) : (
-        <HStack gap="6" alignItems="center">
+        <HStack gap="6" alignItems={searchAppearance === 'account' ? 'flex-start' : 'center'}>
           <Box flex="1" minW="0">
             {postalCodeField}
           </Box>
-          <Box flexShrink="0">{searchButton}</Box>
+          <Box
+            flexShrink="0"
+            h={searchAppearance === 'account' ? 'formField' : undefined}
+            display={searchAppearance === 'account' ? 'flex' : undefined}
+            alignItems="center"
+          >
+            {searchButton}
+          </Box>
         </HStack>
       )}
       {detailLayout === 'columns' ? (
@@ -303,6 +320,7 @@ export function AddressFields({
       )}
       <AddressSearchModal
         open={searchOpen}
+        appearance={searchAppearance}
         onOpenChange={onSearchOpenChange}
         idPrefix={idPrefix}
         postalCode={value.postalCode}

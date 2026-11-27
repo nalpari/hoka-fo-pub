@@ -170,7 +170,7 @@ PC1920×1080/MO375×812에서 별도 p 두 개, 계산 타이포·간격16px과 
 
 ## EmptyState 고정 디자인 규칙 (2026-11-18)
 
-2026-11-26 공통 수정부터 heading형 제목은 PC 22px·모바일 20px, 양쪽 모두 Regular(400)·행간 120%를 사용한다. 본문형 안내와 설명은 기존 개별 계약을 유지한다. 작업 지침은 [AGENTS.md](../../AGENTS.md#emptystate-fixed-design-rule), 적용 범위와 검증은 [EmptyState 공통 규칙](ui.md#emptystate-고정-디자인-규칙-2026-11-18)에 기록한다.
+2026-11-27 사용자 브라우저 주석에 따라 heading형 제목은 PC 20px·모바일 18px, 양쪽 모두 Regular(400)·행간 120%를 사용한다. 본문형 안내와 설명은 기존 개별 계약을 유지한다. 작업 지침은 [AGENTS.md](../../AGENTS.md#emptystate-fixed-design-rule), 적용 범위와 검증은 [EmptyState 공통 규칙](ui.md#emptystate-고정-디자인-규칙-2026-11-18)에 기록한다.
 
 ## 주문 조회 없음 PC 시안 반영 (2026-11-18)
 

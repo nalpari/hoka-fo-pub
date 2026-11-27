@@ -68,7 +68,7 @@ function MyPageRestockList({ items, entries }: Props) {
   const deleteTrigger = useRef<HTMLButtonElement>(null);
   const preview = restockPreview[platform];
   const list = dataListRecipe({
-    top: 'thickToThinSubtle',
+    top: 'thinSubtle',
     columnGap: 'metadataColumns',
   });
 

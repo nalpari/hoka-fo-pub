@@ -36,7 +36,7 @@ const badge = cva({
       '&[data-placement="compact"]': { w: '42px', h: '48px' },
       '&[data-placement="side"]': {
         position: 'absolute',
-        top: '16px',
+        top: '28px',
         right: '0',
         w: '56.7px',
         h: '64.8px',
@@ -99,7 +99,7 @@ function TierBadge({
 const styles = {
   supportBody: css({ '&&': { lineHeight: 'body' } }),
   accountPurchaseAmount: css({ _mobile: { '&&': { lineHeight: 'hoka' } } }),
-  accountBenefitHeading: css({ pb: '16px', borderBottom: '2px solid black' }),
+  accountBenefitHeading: css({ pb: '16px', borderBottom: '1px solid black' }),
   accountBenefit: css({
     _web: {
       py: '32px',
@@ -174,10 +174,13 @@ const styles = {
   }),
 };
 
-const tierHeading = css({
-  pb: '16px',
-  borderBottom: '2px solid black',
-  _mobile: { display: 'none' },
+const tierHeading = cva({
+  base: {
+    pb: '16px',
+    borderBottom: '2px solid black',
+    _mobile: { display: 'none' },
+  },
+  variants: { account: { true: { borderBottomWidth: '1px' } } },
 });
 
 function RewardBenefits({
@@ -201,7 +204,7 @@ function RewardBenefits({
           titleProps: {
             web: account ? 'h8' : 'h8B',
             mo: 'h8',
-            className: tierHeading,
+            className: tierHeading({ account }),
           },
         }}
       >
@@ -223,7 +226,7 @@ function RewardBenefits({
                       gap: '8px',
                       pl: '0',
                       pr: '88px',
-                      pt: '18px',
+                      pt: '28px',
                       pb: index === tiers.length - 1 ? '0' : '28px',
                       borderBottom: index === tiers.length - 1 ? '0' : undefined,
                     }
@@ -261,7 +264,7 @@ function RewardBenefits({
               <Stack gap="16px" flex="1" _mobile={{ gap: account ? '8px' : '16px' }}>
                 <Typography
                   as="p"
-                  web={account && tier.name !== 'RUNNER' ? 'b2B' : 'b2M'}
+                  web={account ? 'b2B' : 'b2M'}
                   mo={account ? 'b4B' : 'b4M'}
                   className={styles.supportBody}
                 >

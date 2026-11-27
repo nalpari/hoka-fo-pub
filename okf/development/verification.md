@@ -846,6 +846,12 @@ CheckoutDiscountSummary의 마일리지 문구 삭제를 검토했다. 앞선 �
 
 2026-11-17 추가 검증: npm run build가 TypeScript와 정적 페이지164개 생성을 포함해 통과했다. 기존 서비스·라우팅·플랫폼 소유권과 화면별 override를 유지하는 인계 스킬 검토도 수행했다.
 
+## EmptyState 공통 제목 크기 계약 (2026-11-27)
+
+`tests/empty-state-types.test.mjs`는 공통·상품리뷰·최근 본 상품·배송지·장바구니·검색·런칭캘린더의 제목이 PC 20px·모바일 18px, Regular(400)를 따르는지 검사한다. 문의 본문 타이포, 명시적 타이포 override와 compound API 검사도 포함한다. 타입 fixture의 타이포 명칭은 현재 `b4`·`b6`로 갱신했다. [표시 규격](../architecture/ui.md#emptystate-고정-디자인-규칙-2026-11-18).
+
+Codex는 2026-11-27 KST에 Chromium PC 1513px·모바일 375px에서 상품리뷰·배송지·장바구니·검색·런칭캘린더 빈 제목의 20px/18px, 400, 행간 120%를 확인했다. 공지사항 빈 안내는 16px/14px, 배송지와 검색 빈 설명은 16px/14px이다. 세 러닝세션 행의 구분선은 양쪽 플랫폼에서 1×10px이며 배송지 추가·수정 제목은 `#000000`, 실제 제목 아래 간격은 40px/32px이다. 로그아웃 confirm과 비밀번호 재설정·주문서 필수 입력 alert의 반경은 PC 10px, 모바일 375px·605px에서 8px이며 Escape로 닫힌다. EmptyState와 ModalDialog 계약 테스트 3개가 통과했다.
+
 ## EmptyState layout 타입과 화면 보존 (2026-11-17)
 
 EmptyState 타입 계약 검사에 layout의 default/undefined·17개 선택값(기본값 포함) 및 잘못된 layout 거부를 추가했다. 기존 variant 생략·undefined·5개 명시값과 compound/named API·layoutProps 호환 검사도 유지한다. node --test tests/empty-state-types.test.mjs tests/modal-dialog-types.test.mjs의2개 검사, 전체 TypeScript와 대상 ESLint/Prettier, Panda 생성이 통과했다. 현재38개 기존 PC/MO 상태의 측정 결과가 변경 전과 같았다. 전체 lint의 기존 wh-file-summary no-undef8건은 남아 있다. 실제 검증 분기와 구조는 [UI 문서](../architecture/ui.md#emptystate-화면별-layout-통합-2026-11-17)에 기록한다. 출처: 사용자 요청, 해당 테스트·EmptyState/recipe 및 호출부 작업 트리, Codex 실제 검사.

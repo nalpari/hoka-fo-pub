@@ -24,7 +24,10 @@ import { MyPageFrame } from '@/app/mypage/_components/MyPageFrame';
 import { eventEntryPreview } from '@/app/mypage/event-entries/eventEntries.data';
 import { runningSessionImage } from '@/components/running-session/runningSession.data';
 
+const sessionDivider = { h: '10px', w: '1px', bg: 'black.40', flexShrink: 0 } as const;
+
 const styles = {
+  sessionDivider: css(sessionDivider),
   title: css({ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }),
   thumbnailLink: css({ position: 'relative', w: '96px', h: '96px', flexShrink: '0' }),
 };
@@ -116,7 +119,12 @@ export function RunningSessionEntriesContent({
                         minW="0"
                         flex="1"
                       />
-                      <Typography className={css({ flexShrink: '0' })} tone="primary" variant="b8">
+                      <Typography
+                        className={css({ flexShrink: '0' })}
+                        tone="primary"
+                        web="b4"
+                        mo="b6"
+                      >
                         {entry.status === '취소' ? '신청취소' : entry.status}
                       </Typography>
                     </HStack>
@@ -145,7 +153,12 @@ export function RunningSessionEntriesContent({
                             <Typography web="b4M" mo="b6M">
                               {entry.session.location}
                             </Typography>
-                            <Divider orientation="vertical" length="10px" color="black.40" />
+                            <Divider
+                              orientation="vertical"
+                              length={sessionDivider.h}
+                              color={sessionDivider.bg}
+                              className={styles.sessionDivider}
+                            />
                             <Typography web="b4M" mo="b6M">
                               {entry.session.distance}
                             </Typography>
@@ -153,7 +166,7 @@ export function RunningSessionEntriesContent({
                           <Stack gap="4px">
                             {entry.appliedAt ? (
                               <Typography web="b4" mo="b6" tone="subtle">
-                              접수일 : {entry.appliedAt}
+                                접수일 : {entry.appliedAt}
                               </Typography>
                             ) : null}
                             <Typography web="b4" mo="b6" tone="subtle">

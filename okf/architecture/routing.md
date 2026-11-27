@@ -3200,6 +3200,14 @@ PC 주문/배송조회 목록의 주문 정보와 상태, 주문·취소·반품
 
 로그인 환영 제목은 강제 줄바꿈 없이 가운데 정렬하며 모바일은 h8을 사용한다. 가입 본인인증의 PASS 인증 영역은 본문 너비를 사용하고 마이페이지 러닝세션 신청내역은 건수 단위를 ‘건’으로 표시한다. 출처는 해당 화면의 작업 트리다.
 
+## 마이페이지와 FAQ UI 검수 확인 경로 (2026-11-27)
+
+배송지 추가·수정의 페이지 제목과 첫 입력란 사이 간격은 PC 40px·모바일 32px이다. `AddressEditor`의 `ContentSection`이 한 번만 적용한다. `/mypage/addresses/preview-new`와 `/mypage/addresses/preview-edit`에서 확인한다. 러닝세션 신청내역의 각 행은 장소와 거리 사이에 세로 구분선을 표시한다. 출처는 사용자 브라우저 주석과 두 화면 소유자의 작업 트리다.
+
+`/mypage`는 인사말을 표시하고 `/mypage/preview-logout`은 확인창을 처음부터 연다. 취소·닫기는 표시 상태를 유지하고 확인은 기존 로컬 헤더 표시를 전환한다. `/mypage/rewards`, `/mypage/event-entries`, `/mypage/restock-alerts`에서 등급·상태 라벨·목록선을 확인한다.
+
+`/mypage/profile`은 값 열, `/mypage/profile/preview-error`는 고정 오류와 인증번호 요청 간격을 확인한다. `/mypage/addresses`는 목록, `/mypage/addresses/preview-new`와 `/mypage/addresses/preview-error`는 추가·오류, `/mypage/addresses/preview-empty`와 `/mypage/reviews/preview-empty`는 빈 화면 제목을 확인한다. 우편번호 찾기는 기존 로컬 팝업이며 검색 서비스 연결은 기존 주소 검색 소유자가 맡는다. `/support/faq`에서 두 줄 질문의 첫 줄과 `Q` 정렬을 확인한다. [적용 규격과 소스](ui.md#마이페이지와-faq-ui-검수-반영-2026-11-27).
+
 ## 양말 상품 상세와 사이즈 가이드 (2026-11-27)
 
 `/products/pdp-preview/socks`는 Merino Crew Sock(1178675), Black(BLK) 사진 4장과 S·M·L·XL 옵션을 표시한다. 표시 가격은 고정 미리보기 값이다. 상품 상세의 사이즈 가이드는 PC 중앙 모달과 모바일 바텀시트에서 고객센터 사이즈가이드 용품 탭의 양말 차트를 공유한다. 표의 열은 사이즈와 발 사이즈이며 S 210–230, M 230–250, L 250–270, XL 270–290의 네 구간을 표시한다.

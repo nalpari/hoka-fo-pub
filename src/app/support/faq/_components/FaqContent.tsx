@@ -53,6 +53,7 @@ const styles = {
     '--button-height': '48px',
     _mobile: { '--button-height': '42px' },
   }),
+  questionMarker: css({ flexShrink: '0', w: '17px' }),
 };
 
 type Props = {
@@ -143,8 +144,8 @@ type FaqQuestionProps = {
 };
 function FaqQuestion({ question }: FaqQuestionProps) {
   return (
-    <HStack gap="2" minW="0">
-      <Typography as="span" variant="b2" className={css({ flexShrink: 0, w: '17px' })}>
+    <HStack gap="2" minW="0" alignItems="baseline">
+      <Typography as="span" variant="b2B" className={styles.questionMarker}>
         Q
       </Typography>
       <Typography as="span" variant="b3M">

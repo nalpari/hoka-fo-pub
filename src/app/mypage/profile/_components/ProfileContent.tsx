@@ -61,7 +61,7 @@ function ProfilePhoneVerification({ phone, error, verified, previewState, onPhon
   }
   const dismissNotice = () => setNotice(null);
   return (
-    <Stack gap="24px" alignItems="stretch">
+    <Stack gap="24px" mb="8px" alignItems="stretch">
       <TextFormField
         id="profile-phone"
         label="휴대폰 번호"
@@ -101,7 +101,9 @@ function ProfilePhoneVerification({ phone, error, verified, previewState, onPhon
               id="profile-verification-code"
               variant="boxed"
               required
-              error={expired ? '인증 시간이 만료되었습니다. 인증번호를 재요청해 주세요.' : undefined}
+              error={
+                expired ? '인증 시간이 만료되었습니다. 인증번호를 재요청해 주세요.' : undefined
+              }
               inputProps={{
                 inputMode: 'numeric',
                 autoComplete: 'one-time-code',
@@ -158,6 +160,7 @@ function ProfilePhoneVerification({ phone, error, verified, previewState, onPhon
 }
 
 const profileStyles = {
+  editFields: css({ '& .form-field__message': { color: 'error' } }),
   requestButton: css({ alignSelf: 'center', w: '180px', _mobile: { w: 'full' } }),
   mobileActionLabel: { _mobile: { '& button > span > span': { fontSize: 'body.15' } } },
   mobileHeadingLineHeight: css({ _mobile: { lineHeight: 'koreanHeading' } }),
@@ -298,7 +301,7 @@ export function ProfileEditForm({
                 </Button>
               </Stack>
             </Stack>
-            <Stack gap="16px">
+            <Stack gap="16px" className={profileStyles.editFields}>
               <ProfilePhoneVerification
                 previewState={previewPhone}
                 phone={phone}
@@ -308,6 +311,7 @@ export function ProfileEditForm({
               />
               <AddressFields
                 variant="boxed"
+                searchAppearance="account"
                 idPrefix="profile"
                 searchLabel="우편번호 찾기"
                 detailLayout="columns"
@@ -338,8 +342,8 @@ export function ProfileEditForm({
                   headerProps={{
                     titleAs: 'h2',
                     titleProps: {
-                      web: 'h10B',
-                      mo: 'b4S',
+                      web: 'h10',
+                      mo: 'b4B',
                       className: profileStyles.mobileHeadingLineHeight,
                     },
                   }}
@@ -781,7 +785,7 @@ export function ProfileContent({
                   _mobile: { flexDirection: 'column', gap: '12px' },
                 }),
                 term: css.raw({
-                  w: '86px',
+                  w: '154px',
                   flexShrink: '0',
                   _mobile: { w: 'auto', lineHeight: 'koreanHeading' },
                 }),

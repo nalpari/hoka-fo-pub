@@ -49,11 +49,11 @@ export function AddressList({
               title: '배송지 관리',
               headerProps: {
                 titleAs: 'h1',
-                titleProps: { web: 'h4B', mo: 'h7B' },
+                titleProps: { web: 'h4', mo: 'h7' },
                 orientation: 'horizontal',
                 alignItems: 'end',
                 pb: '10',
-                borderBottom: '2px solid var(--color-black-20)',
+                borderBottom: addresses.length ? '1px solid var(--color-black-20)' : undefined,
                 _mobile: { pb: '32px' },
                 action: addresses.length ? (
                   <Button

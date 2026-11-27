@@ -10,7 +10,6 @@
   initial-value: 88px;
 }
 
-$ink: #111;
 $white: #fff;
 $line: #d8d8d8;
 $soft: #f2f2f2;
@@ -24,7 +23,7 @@ $soft: #f2f2f2;
     // Reserved until the licensed New Spirit webfont is supplied.
     --font-family-story: 'New Spirit', var(--font-hoka, 'The Future HOKA'), sans-serif;
     font-family: var(--font-family-base);
-    color: $ink;
+    color: var(--color-text-primary, #000);
     background: $white;
     --line: #{$line};
     --soft: #{$soft};

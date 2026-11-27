@@ -1,5 +1,10 @@
 import { css, sva } from 'styled-system/css';
 
+const headingTitleSize = {
+  fontSize: 'heading.20',
+  _mobile: { fontSize: 'body.18' },
+} as const;
+
 const historyRoot = {
   minH: '795px',
   pt: '160px',
@@ -237,10 +242,9 @@ export const emptyStateRecipe = sva({
         root: { py: '0', _mobile: { py: '0', minH: '340px' } },
         title: {
           '&&': {
-            fontSize: 'heading.22',
+            ...headingTitleSize,
             fontWeight: 'normal',
             lineHeight: '1.2',
-            _mobile: { fontSize: 'heading.20' },
           },
         },
         description: {
@@ -345,11 +349,10 @@ const emptyStateTypographyRecipe = sva({
       fontFamily: 'en',
       transform: 'translateY(1px)',
       color: 'inherit',
-      fontSize: 'heading.22',
+      ...headingTitleSize,
       fontWeight: 'normal',
       lineHeight: 'koreanHeading',
       letterSpacing: '0',
-      _mobile: { fontSize: 'heading.20' },
     },
     description: {
       fontFamily: 'en',
@@ -383,12 +386,10 @@ const emptyStateTypographyRecipe = sva({
         title: {
           fontFamily: 'ko',
           fontStyle: 'normal',
-          fontSize: 'heading.22',
           lineHeight: '1.2',
           letterSpacing: '-0.02em',
           textAlign: 'center',
           color: 'black.100',
-          _mobile: { fontSize: 'heading.20' },
         },
       },
       claimHistory: {
@@ -401,10 +402,7 @@ const emptyStateTypographyRecipe = sva({
           _mobile: { ...bodyTitle._mobile, maxW: 'none', lineHeight: 'body' },
         },
       },
-      history: {
-        title: { fontSize: 'heading.20', _mobile: { fontSize: 'body.18' } },
-        description: descriptionMobile,
-      },
+      history: { description: descriptionMobile },
       wishlist: { description: descriptionMobile },
       restock: { description: descriptionMobile },
       address: { description: descriptionMobile },
@@ -413,10 +411,8 @@ const emptyStateTypographyRecipe = sva({
       catalog: {},
       search: {
         title: {
-          fontSize: 'heading.22',
           lineHeight: '1.2',
           color: 'black.100',
-          _mobile: { fontSize: 'heading.20' },
         },
         description: {
           ...bodyTitle,

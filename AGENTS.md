@@ -68,6 +68,8 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 ## Shared component defaults
 
+- **공통 모달 모서리 규칙 (2026-11-27):** `ModalDialog`의 모바일 가운데 팝업은 `alert`·`confirm`에서 반경 8px로 고정한다. 반경은 공통 레시피에서 관리한다.
+
 ### NumberStepper fixed icon design rule
 
 - **사용자 확정 (2026-11-19):** `src/components/common/atoms/NumberStepper.tsx`의 현재 아이콘 표시 크기를 고정한다. PC는 18px, 모바일은 16px 프레임이며 plus/minus SVG의 내부 여백 보정인 `maskSize: '150%'`와 `WebkitMaskSize: '150%'`를 유지한다. trash도 동일한 PC18px/MO16px 프레임을 사용한다.
@@ -80,9 +82,9 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 ### EmptyState fixed design rule
 
-- **사용자 확정 디자인 규칙 (2026-11-26):** 공통 레시피의 EmptyState heading형 제목은 PC **22px / Regular(400) / line-height 120%**, 모바일 **20px / Regular(400) / line-height 120%**를 사용한다. 본문형 빈 안내와 description에는 이 heading 크기를 일괄 적용하지 않는다.
-- 이 규칙은 업데이트되지 않은 Figma·스크린샷·과거 OKF 기록의 PC28px/MO22px보다 우선한다. 디자인 동기화·리팩터링·시안 검수 중에도 이전 수치로 되돌리지 않는다. 크기를 다시 바꾸려면 이 규칙을 변경한다는 사용자의 명시적 지시가 필요하며, 새로운 디자인 링크만으로 변경 승인으로 간주하지 않는다.
-- 스타일 소유자는 `src/components/common/atoms/EmptyState.recipe.tsx`다. 공통 기본값과 cart/search 등 heading형 layout override를 함께 유지하고 호출부의 typography props/className으로 과거 크기를 재도입하지 않는다. 독립 compound title과 외부 override 호환 API는 유지한다.
+- **사용자 확정 디자인 규칙 (2026-11-27):** 공통 레시피의 EmptyState heading형 제목은 PC **20px / Regular(400) / line-height 120%**, 모바일 **18px / Regular(400) / line-height 120%**를 사용한다. 본문형 빈 안내와 description에는 이 heading 크기를 일괄 적용하지 않는다.
+- 이 규칙은 Figma·스크린샷·과거 OKF 기록의 이전 수치보다 우선한다. 디자인 동기화·리팩터링·시안 검수 중에도 이전 수치로 되돌리지 않는다. 크기를 다시 바꾸려면 이 규칙을 변경한다는 사용자의 명시적 지시가 필요하며, 새로운 디자인 링크만으로 변경 승인으로 간주하지 않는다.
+- 스타일 소유자는 `src/components/common/atoms/EmptyState.recipe.tsx`다. 공통 기본값과 cart/search/launch 등 heading형 layout의 크기를 일치시키고 호출부의 typography props/className으로 과거 크기를 재도입하지 않는다. 독립 compound title과 외부 override 호환 API는 유지한다.
 
 
 - When adding or refactoring an optional presentation prop such as `variant`, explicitly define its existing default in the component parameter and the corresponding Panda recipe `defaultVariants`. Preserve existing explicit default variant selections unless removal is explicitly requested. Keep the prop optional so omission and explicit `undefined` preserve the same existing behavior; do not make existing callers supply a new required prop merely to support a recipe extraction.

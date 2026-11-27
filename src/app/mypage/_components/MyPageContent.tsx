@@ -32,10 +32,9 @@ function LogoutDialog({ open, onOpenChange, onConfirm }: LogoutDialogProps) {
       closeLabel="로그아웃 확인창 닫기"
       onOpenChange={onOpenChange}
       open={open}
-
+      popupClassName={styles.logoutPopup}
       title="로그아웃"
-      actions={{ kind: 'single', onConfirm, buttonProps: { size: 'tall' } }}
-
+      actions={{ kind: 'confirm', onConfirm, buttonProps: { size: 'tall' } }}
       message={<>로그아웃 하시겠습니까?</>}
     />
   );
@@ -89,6 +88,7 @@ type MyPageBenefitItemProps = {
 };
 
 const styles = {
+  logoutPopup: css({ '&&': { boxShadow: 'none' } }),
   benefitLink: css({
     minW: '0',
     bg: 'black.10',
@@ -183,11 +183,13 @@ function MyPageOverviewProfile({ onLogout }: { onLogout: () => void }) {
       _mobile={{ gap: '16px' }}
       title={
         <Link className={styles.profileLink} href="/mypage/profile">
-          <HStack as="span" gap="2px" alignItems="flex-end" _mobile={{ alignItems: 'center' }}>
-            <Typography as="span" web="h4B" mo="h2" className={styles.profileName}>
+          <HStack as="span" gap="2px" alignItems="baseline">
+            <Typography as="span" web="h4" mo="h2" tone="black.100" className={styles.profileName}>
               {'박연진'}
             </Typography>
-            <span className={css({ fontWeight: 'medium' })}>님</span>
+            <Typography as="span" variant="b1M" tone="black.100">
+              님
+            </Typography>
           </HStack>
           <Icon name="hoka-nav-chevron-right-regular" size={24} />
         </Link>
@@ -202,8 +204,9 @@ function MyPageOverviewProfile({ onLogout }: { onLogout: () => void }) {
         ),
         titleAs: 'h1',
         titleProps: {
-          web: 'h4B',
+          web: 'h4',
           mo: 'h2',
+          tone: 'black.100',
           className: styles.profileTitle,
         },
       }}
@@ -301,7 +304,7 @@ function MyPageMenuSection({ title, items }: { title: string; items: MyPageMenuI
       headerProps={{
         titleAs: 'h2',
         className: styles.menuHeader,
-        titleProps: { web: 'h9B', mo: 'h7', className: styles.menuTitle },
+        titleProps: { web: 'h9', mo: 'h7', tone: 'black.100', className: styles.menuTitle },
       }}
     >
       <Stack gap="0">

@@ -19,6 +19,10 @@ import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
 import { type Address } from '@/types/mypage-address.types';
 
+const addressEditorForm = css({ '& .form-field__message': { color: 'error' } });
+
+const addressEditorTitle = css({ '&&': { transform: 'none' } });
+
 /** 배송지 편집 입력과 저장 액션을 표시합니다. (Displays address editing fields and save actions.) */
 export function AddressEditor({
   editingId,
@@ -45,18 +49,16 @@ export function AddressEditor({
 
   return (
     <ContentSection
-      gap="32px"
-      _mobile={{ gap: '24px', pt: '24px' }}
+      gap="40px"
+      _mobile={{ gap: '32px', pt: '24px' }}
       title={<>{editingId === 'new' ? '배송지 추가' : '배송지 수정'}</>}
       headerProps={{
         titleAs: 'h1',
-        titleProps: { web: 'h4B', mo: 'h7B' },
-        pb: '40px',
-        borderBottom: '2px solid black',
-        _mobile: { pb: '32px' },
+        titleProps: { web: 'h4', mo: 'h7', className: addressEditorTitle },
       }}
     >
       <form
+        className={addressEditorForm}
         noValidate
         onSubmit={(event) => {
           event.preventDefault();
@@ -115,6 +117,7 @@ export function AddressEditor({
               />
               <AddressFields
                 variant="boxed"
+                searchAppearance="account"
                 idPrefix="mypage-address"
                 searchLabel="우편번호 찾기"
                 searchOpen={addressOpen}
