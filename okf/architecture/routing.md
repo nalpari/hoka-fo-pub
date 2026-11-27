@@ -4,12 +4,17 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-27T09:22:46+09:00'
+updated: '2026-11-27T09:54:04+09:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - public/images/products/hoka-run-hat/vgl-1.webp
+  - public/images/products/hoka-run-hat/vgl-2.webp
+  - public/images/products/hoka-run-hat/vgl-3.webp
+  - public/images/products/hoka-run-hat/vgl-4.webp
+  - src/app/products/[id]/productDetailCare.ts
   - src/app/cart/_components/CartOrderActions.tsx
   - src/app/signup/information/_components/RegistrationContent.tsx
   - src/app/signup/information/_components/RegistrationStatePreview.tsx
@@ -2973,6 +2978,18 @@ FAQ 질문과 공지 상세 게시글 제목은 PC·모바일 모두 18px Medium
 무료배송 정책에 따라 주문 상세 결제 정보와 취소·반품 상세가 공유하는 환불안내에서 배송비 행을 주석 처리했다. 주문 상세 PC 결제예정금액의 설명은 `(상품금액 - 할인금액)`이다. 결제예정금액·환불금액의 표시 데이터와 반품비 행은 유지한다.
 
 출처는 사용자 브라우저 코멘트와 `src/app/mypage/orders/_components/OrderDetails.tsx` 작업 트리다. Codex가 2026-11-27 KST에 PC 1427px과 모바일 375px에서 주문·취소·반품 상세의 배송비 숨김 및 금액 표시를 확인했다. 주문 상세 PC에서 수정한 결제예정금액 설명을 확인했다.
+
+## 상품 상세의 배송·반품과 유형별 관리 방법 2026-11-27
+
+상품 상세의 배송 및 반품 아코디언은 배송 2개 항목, 반품 5개 항목, 반품 주의 사항 4개 항목을 표시한다. CJ 대한통운 출고·수거 및 단순 변심 반품 배송비 5,000원 안내를 포함한다. 상세 안내 링크는 고객센터 `/support/after-sales`로 이동한다.
+
+관리 방법은 현재 상품의 `productKind`로 구분한다. 신발은 착화·관리 5개와 GORE-TEX® 소재 관리 3개, 의류와 용품은 각 5개 항목을 표시한다. 유형이 없는 기존 상품은 신발 안내를 사용한다. PC·모바일은 기존 Typography 토큰으로 관리 제목 15px Bold, 본문 13px Regular를 표시한다.
+
+상품 상세 IA에 `용품 기본`을 추가했다. `/products/pdp-preview/accessories`는 HOKA Run Hat(1164330), Varsity Navy / Gold(VGL) 색상과 용품 관리 문구를 표시한다. 공식 상품 갤러리 사진 4장을 1200×1479 WebP로 저장해 PC 그리드, 모바일 캐러셀 및 색상 썸네일에 연결했다. 원화 가격은 미리보기 고정값이다. [HOKA 미국 상품 페이지](https://www.hoka.com/en/us/all-gender-apparel/hoka-run-hat/1164330.html?dwvar_1164330_color=VGL).
+
+출처는 사용자 브라우저 코멘트, [HOKA 디자인의 배송 및 반품과 관리 방법](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design), `ProductDetailContent.tsx`, `productDetailCare.ts`, `productDetailPreviews.ts` 작업 트리다. Codex가 2026-11-27 KST에 PC 1427px와 모바일 375px에서 세 유형의 관리 안내, 제목·본문 크기, 상품 상세의 배송 및 반품 항목을 확인했다. 모바일에서 고객센터 이동을 확인했고 IA 검색에서 용품 기본과 링크를 확인했다.
+
+Codex는 2026-11-27 KST에 PC 1427px와 모바일 375px에서 HOKA Run Hat 사진 4장의 로딩과 색상 표시를 확인했다. 모바일에서 두 번째 사진으로 전환되는 것을 확인했다.
 
 ## 마이페이지 회원등급 표시 옵션 2026-11-27
 

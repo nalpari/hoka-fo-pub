@@ -4,6 +4,7 @@ export const productDetailPreviews = [
   { state: 'share', label: '공유하기 팝업' },
   { state: 'inquiry-form', label: '상품 문의하기 팝업' },
   { state: 'apparel', label: '의류 기본' },
+  { state: 'accessories', label: '용품 기본' },
   { state: 'width-single', label: '발볼 1개 · 선택기 숨김' },
   { state: 'width-double', label: '발볼 2개' },
   { state: 'width-double-sold-out', label: '발볼 2개 · 1개 품절' },
@@ -149,6 +150,34 @@ export function prepareProductDetailPreview(
       detailTitle: '어떤 날씨에도 쿠션감 있는 편안한 주행',
       detailDescription:
         '회복 훈련부터 유지 훈련까지, 피부에 직접 닿는 레이어 역할을 하는 EveryRun 긴팔 티셔츠는 일상 훈련에 가장 적합한 아이템으로 빠르게 자리 잡았습니다. 통기성과 땀 흡수 기능이 뛰어난 FlyLite™ 소재로 제작되었으며, 혁신적인 측면 통풍구로 최상의 활동성을 보장합니다. 반사 로고와 세련된 엄지손가락 구멍으로 마무리된 이 긴팔 티셔츠는 처음부터 끝까지 가볍고 쾌적한 착용감을 선사합니다.',
+    };
+  }
+  if (preview === 'accessories') {
+    const color = 'Varsity Navy / Gold';
+    const galleryImages = [1, 2, 3, 4].map(
+      (view) => `/images/products/hoka-run-hat/vgl-${view}.webp`,
+    );
+    return {
+      ...product,
+      id: 'accessories-preview',
+      productKind: 'accessories',
+      name: 'HOKA Run Hat',
+      price: 39000,
+      gender: 'All Gender',
+      styleCode: '1164330',
+      promotion: undefined,
+      colors: [color],
+      sizes: ['FREE'],
+      soldOut: [],
+      colorOptions: undefined,
+      colorThumbnails: [{ id: 'VGL', label: color, image: galleryImages[0], galleryImages }],
+      measurementChart: undefined,
+      galleryImages,
+      primaryImage: galleryImages[0],
+      hoverImage: galleryImages[1],
+      reviewCount: 0,
+      detailTitle: undefined,
+      detailDescription: 'HOKA의 러닝용 캡입니다.',
     };
   }
   if (preview === 'sale') return { ...product, originalPrice: 290000, discountLabel: '20%' };
