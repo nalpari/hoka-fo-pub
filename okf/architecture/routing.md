@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-27T12:58:24+09:00'
+updated: '2026-11-27T13:22:17+09:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -3071,3 +3071,7 @@ Codex는 PC 1424px와 모바일 375px에서 두 목록의 링크 243개, 트리 
 ## 최근 본 상품의 전체삭제와 그리드 끝선 2026-11-27
 
 최근 본 상품의 PC 일반 목록은 제목 헤더와 상품 그리드를 하나의 너비로 맞춘다. 상한은 260px 카드 세 열과 16px 열 간격 두 개를 합한 812px이며 좁은 폭에서는 카드와 제목 헤더가 함께 줄어든다. 기존의 고정 32px 헤더 오른쪽 여백을 이 규칙으로 대체한다. 출처는 사용자 브라우저 코멘트와 MyPageProductHistory.tsx 작업 트리다. Codex는 PC 1025px·1199px·1200px·1440px·1920px에서 버튼과 오른쪽 카드 끝선 차이가 0px임을 확인했다. 모바일 375px·1024px의 기존 배치, 빈 목록의 버튼 비활성화, 관심상품 PC 세 열을 함께 확인했다.
+
+## 마이페이지 회원등급의 PC·모바일 요약 예시 2026-11-27
+
+/mypage/rewards의 RewardsContent는 display가 생략된 경우에 PC·모바일 요약 예시를 선택한다. 전달받은 OverviewView는 그대로 표시하고, 기존 조회 중·실패 경로는 개인 진행률을 숨긴다. 출처는 RewardsContent.tsx와 rewards-data.ts 작업 트리다. [혜택과 검증](ui.md#회원등급-최신-혜택-문구-2026-11-27).
