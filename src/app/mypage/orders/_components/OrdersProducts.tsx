@@ -188,7 +188,7 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
             borderBottom={{ base: '1px solid var(--colors-black-20)', _mobile: '0' }}
           >
             {platform !== 'mobile' && index === 0 ? (
-              <HStack gap="12px" px="24px" alignItems="baseline">
+              <HStack gap="12px" pe="24px" alignItems="baseline">
                 <Typography web="h10" mo="h8">
                   {order.date.replaceAll('-', '.')}
                 </Typography>
@@ -197,7 +197,7 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
                 </Typography>
               </HStack>
             ) : null}
-            <HStack justifyContent="space-between" px={{ base: '24px', _mobile: '0' }}>
+            <HStack justifyContent="space-between" pe={{ base: '24px', _mobile: '0' }}>
               <HStack gap="2px" flexWrap="wrap">
                 <Typography web="b4M" mo="b6M" tone="red80">
                   {orderStatusLabels[group.status]}
@@ -239,7 +239,7 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
                   alignItems="center"
                   gap="0"
                 >
-                  <Box px="24px">
+                  <Box pe="24px">
                     <OrderProductSummary
                       variant="history"
                       image={line.image}
@@ -348,7 +348,7 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
             gap="16px"
             alignItems="center"
             justifyContent={{ base: 'flex-start', _mobile: 'space-between' }}
-            px={{ base: '24px', _mobile: '0' }}
+            pe={{ base: '24px', _mobile: '0' }}
             py={{ base: '16px', _mobile: '0' }}
             borderBottom={{ base: '1px solid var(--color-border-subtle)', _mobile: '0' }}
           >
@@ -382,7 +382,7 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
                 alignItems="center"
                 gap="0"
               >
-                <Box px="24px">
+                <Box pe="24px">
                   <OrderProductSummary
                     variant="history"
                     image={line.image}

@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-27T13:22:17+09:00'
+updated: '2026-11-27T13:54:04+09:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -3095,3 +3095,9 @@ Chromium PC 1440px·모바일 375px에서 기본과 다섯 상태를 직접 열�
 1:1 문의 파일 첨부 헤더의 파일 찾기 버튼은 PC·모바일 공통 Secondary Short를 사용한다. 출처는 `InquiryFormContent.tsx`다.
 
 공지사항 목록의 PC 행은 왼쪽 패딩 없이 제목을 목록 시작선에 맞추고 오른쪽 패딩은 16px을 사용한다. 출처는 `NoticesList.tsx`다.
+
+## 주문과 취소·반품 목록의 왼쪽 정렬 2026-11-27
+
+PC 주문/배송조회 목록의 주문 정보와 상태, 주문·취소·반품 상품을 목록 왼쪽에 맞춘다. 취소/반품내역 목록의 주문번호와 상품, 취소 상세와 반품 상세의 상품도 같은 시작선을 사용한다. 기존 24px 안쪽 여백에서 왼쪽 값만 제거한다. 출처는 사용자 브라우저 코멘트와 OrdersProducts.tsx, OrdersList.tsx, OrderDetails.tsx 작업 트리다.
+
+브라우저에서 PC 1414px과 모바일 375px로 네 경로를 열어 상품 썸네일이 본문 시작선과 일치하는 것을 확인했다. 주문/배송조회 PC에서는 주문 날짜의 시작선도 확인했다.
