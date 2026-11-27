@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-27T10:00:39+09:00'
+updated: '2026-11-27T10:05:10+09:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -3000,3 +3000,7 @@ Codex는 2026-11-27 KST에 PC 1427px와 모바일 375px에서 HOKA Run Hat 사�
 ## 장바구니 삭제 버튼과 옵션 문구 2026-11-27
 
 장바구니의 `품절상품 전체삭제` 버튼을 주석 처리하고, 상품 옵션 문구는 발볼·색상·사이즈까지만 표시한다. 수량은 기존 수량 조절기로 표시한다. 출처는 사용자 브라우저 코멘트와 `CartProductSection.tsx`, `cart-preview.ts` 작업 트리다. Codex가 PC 1427px과 모바일 375px에서 버튼 숨김, 상품 5개의 옵션 문구와 수량 조절기 및 `선택 삭제` 표시를 확인했다. 모바일에서 옵션 변경 팝업이 열리는 것도 확인했다.
+
+## 상품준비중 배송 조회 버튼 2026-11-27
+
+`/mypage/orders` 목록은 상품 그룹의 상태가 배송중·배송완료·구매확정일 때 배송 조회 버튼을 표시한다. 주문 상세는 선택 주문의 상태가 상품준비중이면 `OrdersContent`에서 배송 조회 콜백을 생략하며, `OrderDetail`은 해당 콜백이 있는 PC 화면에서 버튼을 표시한다. 출처는 사용자 지시와 `OrdersProducts.tsx`, `OrdersContent.tsx`, `OrderDetails.tsx` 작업 트리다. Codex가 PC 1427px과 모바일 375px에서 상품준비중 목록의 배송 조회 숨김과 주문 취소 표시를 확인했다. PC에서는 목록에서 상품준비중 상세로 들어가 배송 조회가 숨겨지는 것과 구매확정 상세의 버튼 표시를 확인했다.

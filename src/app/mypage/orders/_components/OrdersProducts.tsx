@@ -262,7 +262,7 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
             pr={{ base: '8px', _mobile: '0' }}
             _mobile={{ mt: '16px', flexDirection: 'column', alignItems: 'stretch' }}
           >
-            {['preparing', 'shipping', 'delivered', 'purchased'].includes(group.status) ? (
+            {['shipping', 'delivered', 'purchased'].includes(group.status) ? (
               <Button
                 variant="secondary"
                 size="short"

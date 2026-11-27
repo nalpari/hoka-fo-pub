@@ -63,7 +63,7 @@ type OrderDetailProps = {
   display: OrderDetailDisplay;
   onList: () => void;
   onDetail: () => void;
-  onTracking: () => void;
+  onTracking?: () => void;
   onClaimDetail: (claimId: string) => void;
 };
 
@@ -128,7 +128,7 @@ function DetailAmountRow({ label, amount }: { label: string; amount: number }) {
   );
 }
 
-/** [ 개발팀 바인딩 ] display는 호출자가 준비한 상품 그룹·내역·받는사람·결제 표시값입니다. 주문 기능 소유자가 표시 모델과 조회 결과 갱신을 연결하며 이 컴포넌트는 상품 분류·복제·금액 계산·상태 판단을 하지 않습니다. 콜백은 화면 확인용 상세/배송조회/목록 전환이며 삭제는 고정 확인 URL입니다. */
+/** [ 개발팀 바인딩 ] display는 호출자가 준비한 상품 그룹·내역·받는사람·결제 표시값입니다. 주문 기능 소유자가 표시 모델과 조회 결과 갱신을 연결하며 이 컴포넌트는 상품 분류·복제·금액 계산·상태 판단을 하지 않습니다. onTracking을 전달하면 PC에서 배송 조회 버튼을 표시하며, 상품준비중에는 호출자가 생략합니다. 콜백은 화면 확인용 상세/배송조회/목록 전환이며 삭제는 고정 확인 URL입니다. */
 /** 준비된 주문 상세 데이터를 PC·모바일 마크업으로 표시합니다. (Renders prepared order detail data for desktop and mobile.) */
 export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
   const mobile = usePlatform() === 'mobile';
@@ -213,14 +213,16 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
             </Stack>
             {!mobile ? (
               <HStack justifyContent="flex-end" gap="8px" pr="8px">
-                <Button
-                  variant="secondary"
-                  size="short"
-                  className={css({ minW: '107px' })}
-                  onClick={actions.onTracking}
-                >
-                  배송 조회
-                </Button>
+                {actions.onTracking && (
+                  <Button
+                    variant="secondary"
+                    size="short"
+                    className={css({ minW: '107px' })}
+                    onClick={actions.onTracking}
+                  >
+                    배송 조회
+                  </Button>
+                )}
                 <ButtonLink
                   href={display.reviewHref}
                   variant="secondary"
