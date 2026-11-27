@@ -135,16 +135,15 @@ export function InquiryAttachments({
         },
         action: (
           <Button
-            variant="link"
-            size="md"
-            className={css({ '& span': { fontWeight: 'medium' } })}
+            variant="secondary"
+            size="short"
             ref={triggerRef}
             onClick={() =>
               platform === 'mobile' ? setPickerOpen(true) : inputRef.current?.click()
             }
             aria-describedby="inquiry-files-help"
           >
-            파일찾기
+            파일 찾기
           </Button>
         ),
       }}

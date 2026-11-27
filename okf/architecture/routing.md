@@ -3077,3 +3077,5 @@ Codex는 PC 1424px와 모바일 375px에서 두 목록의 링크 243개, 트리 
 ## 1:1 문의 선택 상품 변경
 
 선택한 주문 정보 박스 안 하단에 상품 변경 버튼을 배치한다. PC는 우측 정렬, 모바일은 박스 안쪽 전체 너비를 사용한다. 출처는 `InquiryFormContent.tsx`다.
+
+1:1 문의 파일 첨부 헤더의 파일 찾기 버튼은 PC·모바일 공통 Secondary Short를 사용한다. 출처는 `InquiryFormContent.tsx`다.
