@@ -20,7 +20,7 @@ export function CheckoutLayout({
       title={
         completed ? null : (
           /** 주문/결제 페이지 제목 */
-          <ContentHeader title="주문/결제" titleAs="h1" titleProps={{ web: 'h4', mo: 'h7B' }} />
+          <ContentHeader title="주문/결제" titleAs="h1" titleProps={{ web: 'h4', mo: 'h7' }} />
         )
       }
       maxWidth={completed ? 'none' : '1204px'}

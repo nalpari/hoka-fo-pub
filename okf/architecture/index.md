@@ -1,6 +1,6 @@
 # 아키텍처
 
-- [주요 PC 화면 제목의 Bold 적용](routing.md#주요-pc-화면-제목의-bold-적용-2026-11-27) - 고객센터·주문/결제 및 관련 화면의 700 제목.
+- [주요 PC 화면 제목의 Bold 적용](routing.md#주요-pc-화면-제목의-bold-적용-2026-11-27) - 고객센터·주문/결제 및 관련 화면의 PC·모바일 700 제목.
 
 - [메인 PC·모바일 시안과 스타일](home-product-design.md#메인-섹션-실측-2026-11-27) - Hero, 카테고리, Explore, Best sellers 실측과 홈 전용 Panda 스타일.
 

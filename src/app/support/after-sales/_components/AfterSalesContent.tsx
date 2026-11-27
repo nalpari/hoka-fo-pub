@@ -200,7 +200,7 @@ function ReturnContact() {
     >
       <ContentSection
         title="호카 반품처"
-        headerProps={{ titleAs: 'h3', titleProps: { web: 'h10', mo: 'h7B' } }}
+        headerProps={{ titleAs: 'h3', titleProps: { web: 'h10', mo: 'h7' } }}
         gap={{ base: '3', _mobile: '4' }}
         flex="1"
         minW="0"

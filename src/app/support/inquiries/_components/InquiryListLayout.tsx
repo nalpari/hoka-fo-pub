@@ -41,7 +41,7 @@ export function InquiryListLayout({
           titleAs="h1"
           titleProps={{
             web: 'h4',
-            mo: mobileTitleSize === '22px' ? 'h7B' : 'h6B',
+            mo: mobileTitleSize === '22px' ? 'h7' : 'h6',
           }}
           action={
             <ButtonLink

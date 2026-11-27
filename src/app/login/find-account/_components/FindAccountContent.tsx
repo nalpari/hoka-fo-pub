@@ -63,7 +63,7 @@ export function FindAccountContent({
         title="아이디 / 비밀번호 찾기"
         headerProps={{
           titleAs: 'h1',
-          titleProps: { web: 'h8', mo: 'h7B', id: 'find-account-title' },
+          titleProps: { web: 'h8', mo: 'h7', id: 'find-account-title' },
           description:
             '회원 가입 시 사용하신 휴대폰 번호를 통해 아이디 / 비밀번호를 찾으실 수 있습니다.',
           descriptionProps: { variant: 'b4', tone: 'tertiary' },

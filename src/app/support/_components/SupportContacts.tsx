@@ -64,7 +64,7 @@ function SupportContactCard({
       <ContentHeader
         title={title}
         titleAs="h2"
-        titleProps={{ id: headingId, web: 'h10', mo: 'h7B' }}
+        titleProps={{ id: headingId, web: 'h10', mo: 'h7' }}
         description={description}
         descriptionProps={{ variant: 'b6', tone: 'subtle' }}
         gap="3"

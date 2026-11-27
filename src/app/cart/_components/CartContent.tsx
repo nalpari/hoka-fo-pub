@@ -31,7 +31,7 @@ export function CartContent() {
         gap={{ base: '56px', _mobile: '0' }}
       >
         <Stack gap={{ base: '40px', _mobile: '32px' }} minW="0">
-          <ContentHeader title="장바구니" titleAs="h1" titleProps={{ web: 'h4', mo: 'h7B' }} />
+          <ContentHeader title="장바구니" titleAs="h1" titleProps={{ web: 'h4', mo: 'h7' }} />
           <CartProductSection rows={cartPreviewRows} />
         </Stack>
         <CartOrderActions />

@@ -30,7 +30,7 @@ export default function Page() {
           titleAs="h1"
           titleProps={{
             web: 'h4',
-            mo: 'h5B',
+            mo: 'h5',
             className: css({ _mobile: { h: '32px' } }),
           }}
           description="문의 유형에 따라 상담 채널을 선택해 주세요. "

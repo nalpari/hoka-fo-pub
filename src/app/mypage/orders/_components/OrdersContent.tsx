@@ -63,7 +63,7 @@ export function OrdersContent({
       <Stack gap="0">
         <ContentSection
           title={title}
-          headerProps={{ titleAs: 'h1', titleProps: { web: 'h4B', mo: 'h7B' } }}
+          headerProps={{ titleAs: 'h1', titleProps: { web: 'h4B', mo: 'h7' } }}
           gap={
             view === 'claim' || returns
               ? { base: '40px', _mobile: '24px' }

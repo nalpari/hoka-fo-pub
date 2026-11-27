@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-27T17:19:04+09:00'
+updated: '2026-11-27T17:33:04+09:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -440,6 +440,8 @@ IA 166의 원본/보정 비고는 `[ 11/16 기획 원복 ] 기획전 목록 페�
 브라우저 코멘트에 따라 `/support`와 `/checkout`의 지정 제목을 700으로 변경했다. 같은 기준을 고객센터 하위 화면, 장바구니와 추천 영역, 계정 찾기·비밀번호 재설정·계정 잠금 해제 완료 및 회원가입 단계 제목에 적용했다. 마이페이지 주문·취소·반품 상세에서 공유하는 본문 소제목도 700을 사용한다. 같은 컴포넌트를 사용하는 고정 상태 URL에도 해당 제목 스타일이 적용된다.
 
 출처는 사용자 브라우저 코멘트와 `src/app/support/`, `src/app/checkout/`, `src/app/cart/`, `src/app/login/`, `src/app/signup/`, `src/app/mypage/orders/_components/OrderDetails.tsx`의 변경된 작업 트리다. [공통 타이포그래피 적용 범위](ui.md#주요-pc-화면-제목의-bold-적용-2026-11-27)를 참고한다.
+
+후속 모바일 보정으로 고객센터·주문/결제·장바구니·계정 및 마이페이지 주문·취소·반품 화면의 해당 제목도 700을 사용한다. 기존 공유 레이아웃을 사용하는 고정 상태 URL에 함께 적용하고 각 화면의 제목 크기는 유지한다.
 
 홈 `/`의 Find my HOKA 캐러셀은 PC 중앙 그리드와 모바일 가로 스와이프를 사용한다. 카드 비율과 반응형 텍스트 위치는 [Find my HOKA 카드 실측](home-product-design.md#find-my-hoka-카드-2026-11-27)을 따른다.
 

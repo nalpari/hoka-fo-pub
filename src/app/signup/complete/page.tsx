@@ -19,7 +19,7 @@ export default function Page() {
   return (
     <AccountPageLayout contentWidth="500px">
       <VStack gap="0" alignItems="stretch" textAlign="center">
-        <Typography as="h1" web="h4" mo="h5B">
+        <Typography as="h1" web="h4" mo="h5">
           회원가입 완료
         </Typography>
         <Center py="9">

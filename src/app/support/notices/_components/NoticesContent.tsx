@@ -30,7 +30,7 @@ export function NoticesContent({ previewEmpty = false }: { previewEmpty?: boolea
         _mobile: { pb: '72px!', '& h1': { fontSize: 'heading.24' } },
       })}
       title="공지사항"
-      mobileTitleVariant="h7B"
+      mobileTitleVariant="h7"
       activePath="/support/notices"
       breadcrumbItems={[
         { label: 'Home', href: '/' },

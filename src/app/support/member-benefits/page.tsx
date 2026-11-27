@@ -12,7 +12,7 @@ export default function Page() {
   return (
     <CustomerCenterLayout
       title={title}
-      mobileTitleVariant="h7B"
+      mobileTitleVariant="h7"
       activePath="/support/member-benefits"
       breadcrumbItems={[
         { label: 'Home', href: '/' },

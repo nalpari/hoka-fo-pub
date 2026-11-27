@@ -27,7 +27,7 @@ export default function Page() {
     <CustomerCenterLayout
       className={css({ _mobile: { pb: '72px!' } })}
       title="공지사항"
-      mobileTitleVariant="h7B"
+      mobileTitleVariant="h7"
       activePath="/support/notices"
       breadcrumbItems={[
         { label: 'Home', href: '/' },

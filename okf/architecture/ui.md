@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-27T17:19:04+09:00'
+updated: '2026-11-27T17:33:04+09:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -6367,9 +6367,11 @@ Codex는 로컬 Next.js 서버에서 [관련 경로](routing.md#카카오톡-알
 
 ## 주요 PC 화면 제목의 Bold 적용 (2026-11-27)
 
-일반 화면의 PC 주 제목과 관련 섹션 제목은 기존 Heading 번호의 Bold 700을 사용한다. `h4B`, `h8B`, `h10B`에서 각각 같은 크기·행간·글꼴의 `h4`, `h8`, `h10`으로 바꿨다. `SidebarNavigationLayout`의 고객센터 모드 제목은 `h8`, `AccountPageLayout`의 제목은 PC `h8`을 사용한다. 모바일 제목, 마케팅용 Display, 화면별로 확정된 Black 제목과 EmptyState 규칙은 유지한다. 출처는 사용자 브라우저 코멘트와 두 공통 프레임 및 화면별 호출부의 작업 트리다.
+일반 화면의 PC 주 제목과 관련 섹션 제목은 기존 Heading 번호의 Bold 700을 사용한다. `h4B`, `h8B`, `h10B`에서 각각 같은 크기·행간·글꼴의 `h4`, `h8`, `h10`으로 바꿨다. `SidebarNavigationLayout`의 고객센터 모드 제목은 `h8`, `AccountPageLayout`의 제목은 PC `h8`을 사용한다. 마케팅용 Display, 화면별로 확정된 Black 제목과 EmptyState 규칙은 유지한다. 출처는 사용자 브라우저 코멘트와 두 공통 프레임 및 화면별 호출부의 작업 트리다.
 
-검증은 로컬 Chromium의 PC 1300px·모바일 390px에서 수행했다. 고객센터와 주문/결제의 코멘트 8곳이 PC에서 700인 것을 확인했다. 고객센터 모바일 제목은 28px/900, 주문/결제 모바일 주 제목은 22px/900과 섹션 제목 20px/700을 유지한다. 장바구니 및 주문·취소·반품 상세의 변경 소제목을 함께 확인했다. 변경 TSX의 ESLint·Prettier와 전체 TypeScript 검사를 통과했다.
+검증은 로컬 Chromium의 PC 1300px·모바일 390px에서 수행했다. 고객센터와 주문/결제의 코멘트 8곳이 PC에서 700인 것을 확인했다. 최초 PC 반영 시 모바일 고객센터 제목은 28px/900, 주문/결제 주 제목은 22px/900과 섹션 제목은 20px/700이었다. 장바구니 및 주문·취소·반품 상세의 변경 소제목을 함께 확인했다. 변경 TSX의 ESLint·Prettier와 전체 TypeScript 검사를 통과했다.
+
+후속 보정으로 모바일 Heading의 `h5B`, `h6B`, `h7B` 사용처를 같은 크기의 `h5`, `h6`, `h7`로 바꿨다. 고객센터·주문/결제·장바구니·계정 제목, 마이페이지 주문·취소·반품 제목과 배송 안내 소제목에 적용한다. 모바일 `SUPPORT` 사이드바는 숨김을 유지한다. 로컬 Chromium 390px에서 고객센터 메인 제목 28px·연락처 카드 제목 22px, 주문/결제 주 제목 22px·섹션 제목 20px가 모두 700으로 표시됨을 확인했다. 두 화면의 PC 1300px 제목 굵기와 크기도 확인했다.
 
 ## Display·Heading·Body 타이포그래피 이관 (2026-11-25)
 

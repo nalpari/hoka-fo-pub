@@ -4,7 +4,7 @@ title: '고객센터 첨부 시안 반영'
 description: '고객센터 메인·FAQ·공지·문의·매장·안내·약관 화면의 시안 차이와 공통 컴포넌트 구성을 기록한다.'
 tags: [support, design, components, responsive]
 status: draft
-updated: '2026-11-27T17:19:04+09:00'
+updated: '2026-11-27T17:33:04+09:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T08:15:31Z'
@@ -105,7 +105,7 @@ sources:
 
 PC 고객센터 메인 제목은 36px, `SUPPORT` 사이드바 제목은 28px, `제품 및 매장 문의`와 `온라인 스토어 문의`는 22px로 각각 Bold 700을 적용한다. 고객센터 하위 페이지의 주 제목, 문의 작성 양식의 소제목과 매장 목록 이름도 같은 굵기를 사용한다. 출처는 사용자 브라우저 코멘트와 `src/app/support/`, `src/components/support/CustomerCenterLayout.tsx`, `src/components/common/layouts/SidebarNavigationLayout.tsx` 작업 트리다.
 
-로컬 Chromium 1300px에서 메인의 코멘트 4곳, FAQ·공지·문의 목록과 작성·매장 찾기의 변경 제목을 확인했다. 390px에서 메인 주 제목 28px/900, 연락처 카드 제목 22px/900과 사이드바 숨김을 확인했다.
+로컬 Chromium 1300px에서 메인의 코멘트 4곳, FAQ·공지·문의 목록과 작성·매장 찾기의 변경 제목을 확인했다. 최초 PC 반영 시 390px의 메인 주 제목은 28px/900, 연락처 카드 제목은 22px/900이었다. 후속 모바일 보정에서 해당 제목을 같은 크기의 700으로 바꿨다. FAQ·공지·문의 작성·매장 등 하위 화면 제목과 배송 안내의 해당 소제목에도 적용하며, 모바일 사이드바는 숨김을 유지한다.
 
 ## 고객센터 메인 전화 링크 (2026-11-27)
 

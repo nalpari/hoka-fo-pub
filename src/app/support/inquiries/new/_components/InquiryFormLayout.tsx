@@ -29,7 +29,7 @@ export function InquiryFormLayout({ children }: { children: ReactNode }) {
           titleAs="h1"
           titleProps={{
             web: 'h4',
-            mo: 'h7B',
+            mo: 'h7',
           }}
           description="궁금하신 점이나 불편한 사항을 알려주시면 정성껏 답변해 드리겠습니다."
           descriptionProps={{

@@ -46,7 +46,7 @@ type Props = LayoutProps &
         title: string;
         description?: ReactNode;
         descriptionProps?: ContentHeaderProps['descriptionProps'];
-        mobileTitleVariant?: 'd4' | 'h5B' | 'h2B' | 'h7B' | 'h4B' | 'h8' | 'h8B' | 'h8';
+        mobileTitleVariant?: 'd4' | 'h5B' | 'h2B' | 'h7B' | 'h4B' | 'h7' | 'h8' | 'h8B';
         header?: never;
       }
     | {
