@@ -1,6 +1,6 @@
 'use client';
 /** [ 개발팀 바인딩 ] 현재는 준비된 표시 데이터와 고정 상태의 마크업입니다. 입력·선택·열람·열기/닫기만 로컬로 처리하며 인증·조회·저장·삭제·결제·완료 전환은 실행하지 않습니다. 실제 마이페이지 연결 소유자가 표시 모델과 식별자·입력/선택 payload, 요청 중/실패/성공/재시도 및 응답 갱신을 별도로 구현해야 합니다. */
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { usePlatform } from '@/context/platform';
 
 import { css } from 'styled-system/css';
@@ -18,10 +18,12 @@ import { OrderProductSummary } from '@/components/common/molecules/OrderProductS
 import { ProductCard } from '@/components/common/molecules/ProductCard/ProductCard';
 
 import { ContentSection } from '@/components/common/layouts/ContentSection';
+import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 
 import { MyPageFrame } from '@/app/mypage/_components/MyPageFrame';
 import { type Product, products } from '@/mocks/products';
 import { type HistoryItem } from '@/types/mypage-display';
+
 type PreviewItem = HistoryItem & { apparel?: boolean };
 
 type Props = {
@@ -45,6 +47,37 @@ const restockListStyles = {
   }),
 };
 
+const restockConfirmStyles = {
+  popup: css({ '&&': { maxW: '345px', borderRadius: '0', _mobile: { borderRadius: '0' } } }),
+  header: css({
+    '&&': {
+      p: '16px',
+      minH: '56px',
+      bg: 'black.10',
+      '& h2': { fontSize: '16px', fontWeight: '400' },
+      _mobile: { pt: '16px', '& h2': { fontSize: '16px' } },
+    },
+  }),
+  content: css({
+    '&&': {
+      p: '24px 16px 16px',
+      '& h3': { fontSize: '20px' },
+      '& p': { fontSize: '14px' },
+      _mobile: { pb: '16px', '& h3': { fontSize: '20px' } },
+    },
+  }),
+  footer: css({
+    '&&': {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+      gap: '20px',
+      p: '0 16px 24px',
+      '& button': { w: '100%', h: '40px', minH: '40px', p: '0 8px' },
+      '& button > span > span': { fontSize: '14px' },
+    },
+  }),
+};
+
 const restockPreview = {
   web: {
     name: 'Speedgoat 7 GTX',
@@ -59,14 +92,22 @@ const restockPreview = {
     statuses: ['waiting', 'waiting'],
   },
 } as const;
+
 function MyPageRestockList({ items, entries }: Props) {
   const platform = usePlatform();
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const deleteTrigger = useRef<HTMLButtonElement>(null);
   const preview = restockPreview[platform];
   const list = dataListRecipe({
     top: 'thickToThinSubtle',
     columnGap: 'metadataColumns',
   });
 
+  const closeConfirm = () => setSelectedId(null);
+
+  // [ 개발팀 바인딩 ] 현재 행 X는 신청 ID를 선택하고 확인창을 엽니다. 확인은 창만 닫는 퍼블리싱 동작입니다.
+  // 마이페이지 통합 소유자가 현재 entries의 selectedId로 확인 시 삭제를 요청합니다. 요청 중 중복을 막고
+  // 실패 시 행과 대화상자를 유지해 재시도를 제공하며, 성공 후 닫고 목록을 갱신해 이전 응답을 배제합니다.
   return (
     <Stack gap="0" role="table" aria-label="재입고 알림 상품" className={list.root}>
       <Grid role="row" data-list-header className={list.header}>
@@ -140,6 +181,10 @@ function MyPageRestockList({ items, entries }: Props) {
                 size={20}
                 aria-label={`${name} 재입고 알림 삭제`}
                 className={restockListStyles.removeButton}
+                onClick={(event) => {
+                  deleteTrigger.current = event.currentTarget;
+                  setSelectedId(id);
+                }}
               >
                 <Icon name="xmark-regular" size={20} />
               </Button>
@@ -147,6 +192,32 @@ function MyPageRestockList({ items, entries }: Props) {
           </Grid>
         );
       })}
+      <ModalDialog
+        variant="confirm"
+        open={selectedId !== null && items.some((entry) => entry.id === selectedId)}
+        onOpenChange={(open) => {
+          if (!open) closeConfirm();
+        }}
+        finalFocus={deleteTrigger}
+        title="재입고 알림 상품"
+        closeLabel="재입고 알림 상품 닫기"
+        message="선택된 알림을 삭제하시겠습니까?"
+        description="선택한 알림이 취소됩니다. 삭제 하시겠습니까?"
+        popupClassName={restockConfirmStyles.popup}
+        headerProps={{ className: restockConfirmStyles.header }}
+        contentClassName={restockConfirmStyles.content}
+        footerProps={{ className: restockConfirmStyles.footer }}
+        footer={
+          <>
+            <Button type="button" variant="primary" onClick={closeConfirm}>
+              확인
+            </Button>
+            <Button type="button" variant="secondary" onClick={closeConfirm}>
+              취소
+            </Button>
+          </>
+        }
+      />
     </Stack>
   );
 }
@@ -395,9 +466,6 @@ export function MyPageProductHistory({
   // [ 개발팀 바인딩 ] 최근 본 상품 전체삭제는 표시용입니다. 통합 소유자가 해당 계정 또는 세션의
   // 전체 열람 이력을 대상으로 클릭 시 요청하고, 요청 중 중복 방지와 실패 시 기존 목록 유지 및 재시도를 처리합니다.
   // 성공 시 entries와 전체 건수를 갱신하고 이전 조회 응답을 배제합니다.
-  // [ 개발팀 바인딩 ] 재입고 목록은 현재 entries 또는 고정 예시를 표시합니다. 행 X는 미연결 표시입니다.
-  // 통합 소유자가 클릭한 entries의 신청 행 ID로 삭제 요청을 연결하고, 요청 중 중복 방지와
-  // 실패 시 행 유지·재시도, 성공 후 목록 재조회와 이전 응답 배제를 담당합니다.
   return (
     <MyPageFrame
       fillAvailable={!items.length}
