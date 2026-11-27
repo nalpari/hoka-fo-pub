@@ -102,8 +102,8 @@ export const cartPreviewRows: CartPreviewRow[] = [0, 1, 2, 3, 4].map((index) => 
 export const cartPreviewAmounts = {
   product: 349000,
   discount: 17450,
-  shipping: 3000,
-  total: 334550,
+  shipping: 0,
+  total: 331550,
   mobileTotal: 240000,
   selectedTotal: 240000,
 };

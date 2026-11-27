@@ -4,12 +4,13 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-26T09:18:12Z'
+updated: '2026-11-27T09:22:46+09:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/cart/_components/CartOrderActions.tsx
   - src/app/signup/information/_components/RegistrationContent.tsx
   - src/app/signup/information/_components/RegistrationStatePreview.tsx
   - src/app/signup/information/preview-marketing-consent/page.tsx
@@ -2958,6 +2959,14 @@ FAQ 질문과 공지 상세 게시글 제목은 PC·모바일 모두 18px Medium
 ## 주문 카드의 취소·반품 상품 액션
 
 구매취소·반품요청 상품의 장바구니 담기 버튼은 PC·모바일 모두 표시하지 않는다. 출처는 `src/app/mypage/orders/_components/OrdersProducts.tsx`다.
+
+## 주문 결제 정보와 환불안내의 배송비 표시 2026-11-27
+
+`/cart`의 PC 주문내역에서 무료배송 정책에 따라 배송비 행을 주석 처리했다. 고정 배송비는 0원, PC 총 결제 금액은 331,550원이다. 모바일 하단 구매 영역은 기존 240,000원 표시를 유지한다.
+
+무료배송 정책에 따라 주문 상세 결제 정보와 취소·반품 상세가 공유하는 환불안내에서 배송비 행을 주석 처리했다. 주문 상세 PC 결제예정금액의 설명은 `(상품금액 - 할인금액)`이다. 결제예정금액·환불금액의 표시 데이터와 반품비 행은 유지한다.
+
+출처는 사용자 브라우저 코멘트와 `src/app/mypage/orders/_components/OrderDetails.tsx` 작업 트리다. Codex가 2026-11-27 KST에 PC 1427px과 모바일 375px에서 주문·취소·반품 상세의 배송비 숨김 및 금액 표시를 확인했다. 주문 상세 PC에서 수정한 결제예정금액 설명을 확인했다.
 
 ## 마이페이지 회원등급 표시 옵션 2026-11-27
 

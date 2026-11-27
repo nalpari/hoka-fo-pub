@@ -338,7 +338,9 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
           >
             <DetailAmountRow label="상품금액" amount={display.productAmount} />
             <DetailAmountRow label="할인금액" amount={display.discountAmount} />
+            {/* 무료배송 정책으로 배송비 행을 숨깁니다.
             <DetailAmountRow label="배송비" amount={display.shippingAmount} />
+            */}
           </Stack>
           <Stack
             flex="1"
@@ -359,7 +361,7 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
             {!mobile ? (
               <>
                 <Typography variant="b8" tone="tertiary">
-                  (상품금액 - 할인금액 - 배송비)
+                  (상품금액 - 할인금액)
                 </Typography>
                 <Typography web="h8B" mo="h8">
                   {display.payableAmount.toLocaleString()}원
@@ -758,7 +760,8 @@ export function OrderClaimDetail({
           >
             {[
               { label: '상품금액', value: money(amount) },
-              ...(!mobile ? [{ label: '배송비', value: '0원' }] : []),
+              // 무료배송 정책으로 배송비 행을 숨깁니다.
+              // ...(!mobile ? [{ label: '배송비', value: '0원' }] : []),
               { label: '반품비', value: money(fee) },
             ].map((row) => (
               <HStack key={row.label} justifyContent="space-between" gap="8px">
