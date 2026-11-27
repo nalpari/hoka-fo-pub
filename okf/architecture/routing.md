@@ -3026,3 +3026,9 @@ Codex는 2026-11-27 KST에 PC 1427px와 모바일 375px에서 HOKA Run Hat 사�
 `/mypage/recent/preview-empty`와 `/mypage/wishlist/preview-empty`는 공용 `MyPageProductHistory.tsx`의 빈 목록 제목 아래 구분선을 숨긴다. 같은 컴포넌트의 `/mypage/restock-alerts/preview-empty`는 2px 구분선을 사용한다. 출처는 두 빈 목록의 사용자 브라우저 코멘트와 작업 트리다.
 
 Chromium PC 1476px·모바일 375px에서 세 빈 화면의 구분선과 최근 본 상품 일반 목록 및 전체삭제 버튼의 표시 상태를 확인했다.
+
+## 최근 본 상품과 관심상품 PC 목록 정렬 2026-11-27
+
+`/mypage/recent`와 `/mypage/wishlist`의 PC 상품 카드 목록은 제목의 왼쪽 시작선에 맞춘다. 두 화면은 `MyPageProductHistory.tsx`에서 최대 260px 카드 열 세 개와 16px 열 간격을 공유한다. 최근 본 상품의 PC 일반 목록은 제목 헤더 오른쪽에 32px 여백을 두어 `전체삭제` 버튼을 왼쪽으로 옮긴다. 빈 목록과 모바일은 기존 헤더 배치를 사용한다. 출처는 사용자 브라우저 코멘트와 `src/app/mypage/_components/MyPageProductHistory.tsx` 작업 트리다.
+
+Chromium PC 1476px에서 두 목록의 제목과 첫 카드 좌표가 각각 일치하고, 카드 폭은 기존 260px이며 최근 본 상품의 전체삭제 버튼이 32px 이동한 것을 확인했다. 모바일 375px에서 두 목록의 2열과 기존 시작선을 확인했다.

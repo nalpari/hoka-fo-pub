@@ -157,14 +157,13 @@ function MyPageProductHistoryGrid({
   return (
     <Grid
       gridTemplateColumns={{
-        base: recent ? 'repeat(3, minmax(0, 260px))' : 'repeat(3, minmax(0, 1fr))',
+        base: 'repeat(3, minmax(0, 260px))',
         _mobile: 'repeat(2, minmax(0, 1fr))',
       }}
-      px={wishlist ? '16px' : '0'}
-      justifyContent={recent ? 'center' : undefined}
+      justifyContent={{ _web: 'start' }}
       columnGap="16px"
       rowGap="48px"
-      _mobile={{ px: '0', columnGap: '8px', rowGap: '40px' }}
+      _mobile={{ columnGap: '8px', rowGap: '40px' }}
     >
       {items.map((item) => (
         <ProductCard
@@ -417,6 +416,7 @@ export function MyPageProductHistory({
           }
           gap="0"
           pb={items.length ? '0' : '40px'}
+          pr={recent && !isEmpty ? { _web: '32px' } : undefined}
           borderBottom={isEmpty && restock ? '2px solid var(--color-black-20)' : undefined}
           _mobile={{
             px: !restock && items.length ? '16px' : '0',
