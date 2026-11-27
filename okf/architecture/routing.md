@@ -3117,14 +3117,14 @@ IA 195의 기본 화면은 RUNNER다. 개발용 `/screen-index`와 검수용 `/s
 
 사용자 화면검수 코멘트에 따라 회원등급 조회 중·조회 실패의 전용 미리보기와 IA 연결을 제거했다. 로컬에서 두 주소의 404 응답, 기본·하락 예정 경로의 200 응답 및 Chromium에서 개발용·검수용 IA의 산정 케이스 네 개를 확인했다. 실제 조회 상태와 재시도는 마이페이지 통합 소유자가 연결한다.
 
-| 상태 | 주소 | 설계서의 표시 기준 |
-| --- | --- | --- |
-| 기본 RUNNER | `/mypage/rewards` | ADVANCED 기준 미달인 RUNNER에 상시 노출 |
-| 상향 예정 | `/mypage/rewards/preview/upgrade-scheduled` | 상위 기준에 도달한 주문의 구매 확정부터 다음 달 3일 산정 완료까지. 진행 바 끝에 `0원 구매시 등급 업!`, 아래에 변경 예정일을 표시 |
-| 유지 | `/mypage/rewards/preview/maintained` | 현재 기준 이상·상위 기준 미만일 때 월 3일 산정 완료 후부터 다음 달 2일까지. `680,000원 구매시 등급 업!` 툴팁과 유지 예정일을 함께 표시 |
-| 하락 위험 | `/mypage/rewards/preview/downgrade-risk` | 현재 기준에 미달할 때 월 3일 산정 완료 후부터 말일까지. 직접 URL에서 확인 |
-| 하락 예정 | `/mypage/rewards/preview/downgrade-scheduled` | 720,000원 추가 구매 시 ELITE 유지 툴팁과 11월 30일까지의 구매 확정 안내를 표시 |
-| ELITE 달성 | `/mypage/rewards/preview/elite-achieved` | 차트 100%와 ELITE 달성 툴팁을 보여주는 별도 설계 예시 |
+| 상태        | 주소                                          | 설계서의 표시 기준                                                                                                                     |
+| ----------- | --------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| 기본 RUNNER | `/mypage/rewards`                             | ADVANCED 기준 미달인 RUNNER에 상시 노출                                                                                                |
+| 상향 예정   | `/mypage/rewards/preview/upgrade-scheduled`   | 상위 기준에 도달한 주문의 구매 확정부터 다음 달 3일 산정 완료까지. 진행 바 끝에 `0원 구매시 등급 업!`, 아래에 변경 예정일을 표시       |
+| 유지        | `/mypage/rewards/preview/maintained`          | 현재 기준 이상·상위 기준 미만일 때 월 3일 산정 완료 후부터 다음 달 2일까지. `680,000원 구매시 등급 업!` 툴팁과 유지 예정일을 함께 표시 |
+| 하락 위험   | `/mypage/rewards/preview/downgrade-risk`      | 현재 기준에 미달할 때 월 3일 산정 완료 후부터 말일까지. 직접 URL에서 확인                                                              |
+| 하락 예정   | `/mypage/rewards/preview/downgrade-scheduled` | 720,000원 추가 구매 시 ELITE 유지 툴팁과 11월 30일까지의 구매 확정 안내를 표시                                                         |
+| ELITE 달성  | `/mypage/rewards/preview/elite-achieved`      | 차트 100%와 ELITE 달성 툴팁을 보여주는 별도 설계 예시                                                                                  |
 
 이 주소들은 `rewardsPreviews.ts`와 `preview/[state]/page.tsx`에서 고정 표시 데이터를 읽는다. 상태 판정·날짜 계산·실제 요청은 통합 소유자의 책임이다. PC에는 기존 마이페이지 요약 배치를 사용하고, 모바일 예시에서 읽은 문구와 상태를 두 플랫폼에 적용했다. 출처는 사용자 브라우저 코멘트와 [HOKA 설계서의 회원등급 산정 케이스](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)다.
 
@@ -3163,6 +3163,16 @@ PC 주문/배송조회 목록의 주문 정보와 상태, 주문·취소·반품
 출처는 사용자 첨부 이미지, `ProductDetailContent.tsx`, `productDetailPreviews.ts`, `IaStructurePage.tsx` 작업 트리다. Codex가 2026-11-27 KST에 PC 1440px·모바일 375px에서 직접 진입, 새로고침, 취소 후 재열기, Escape 후 버튼 포커스 복귀, 회원정보 수정 이동을 확인했다. IA에서 모바일 상태명 검색과 보기 링크 이동, PC URL 검색과 `confirm` 표시를 확인했다.
 
 모바일 옵션 시트에서 품절 사이즈 선택 후 안내가 시트 위에 열리며 취소 시 시트의 입고 알림 버튼으로 포커스가 돌아왔다. 기존 재입고 신청 확인 팝업이 표시되는 것도 확인했다. TypeScript, 변경 파일 ESLint·Prettier, IA 관련 테스트 26개가 통과했다. 전체 ESLint는 이 작업에서 변경하지 않은 `tests/wh-file-summary.test.mjs`의 전역 이름 `no-undef` 오류 8건을 보고했다.
+
+회원가입 방식 선택의 제목은 ‘가입과 동시에 시작되는 혜택!’이며 PC·모바일에서 혜택 제목과 설명을 Bold(700)로 가운데 정렬한다. 출처는 `SignupContent.tsx`다.
+
+회원가입 회원정보의 아이디·이름·비밀번호·비밀번호 재확인·우편번호·주소·상세주소·이메일 필드 오류 문구에 PC·모바일 공통 error 토큰을 적용한다. 출처는 `RegistrationContent.tsx`다.
+
+주문·결제의 결제 정보는 선택한 카카오페이·네이버페이·토스페이·삼성페이·PAYCO 안내를 PC와 모바일에 공통 표시한다. 신용카드에는 안내 영역을 표시하지 않는다. 출처는 화면설계서의 결제사별 안내사항과 `CheckoutPayment.tsx`다.
+
+로컬 주문·결제 화면의 PC 1440px과 모바일 390px에서 결제수단 6개를 선택해 안내 표시 개수와 신용카드 안내 영역 미표시를 확인했다. 변경 파일 ESLint를 통과했다.
+
+로그인 환영 제목은 강제 줄바꿈 없이 가운데 정렬하며 모바일은 h8을 사용한다. 가입 본인인증의 PASS 인증 영역은 본문 너비를 사용하고 마이페이지 러닝세션 신청내역은 건수 단위를 ‘건’으로 표시한다. 출처는 해당 화면의 작업 트리다.
 
 ## 양말 상품 상세와 사이즈 가이드 (2026-11-27)
 

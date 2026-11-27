@@ -37,12 +37,7 @@ export function RouteContent() {
         }}
       >
         <Stack gap="16px">
-          <Stack
-            alignItems="center"
-            gap={{ base: '48px', _mobile: '24px' }}
-            w="calc((100% - 8px) / 2)"
-            mx="auto"
-          >
+          <Stack alignItems="center" gap={{ base: '48px', _mobile: '24px' }}>
             <Icon name="phone-verification" size="80px" aria-hidden="true" />
             <ButtonLink
               variant="primary"

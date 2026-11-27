@@ -1,7 +1,7 @@
 'use client';
 
 import { Dialog } from '@base-ui/react/dialog';
-import { type ComponentProps, type CSSProperties, type ReactNode } from 'react';
+import { type ComponentProps, type CSSProperties, type ReactNode, useRef } from 'react';
 import { usePlatform } from '@/context/platform';
 
 import { css, cx } from 'styled-system/css';
@@ -195,6 +195,7 @@ export function ModalDialog({
   title,
 }: ModalDialogProps) {
   const platform = usePlatform();
+  const popupRef = useRef<HTMLDivElement>(null);
   const sheet = mobilePresentation === 'bottomSheet' && platform === 'mobile';
   const footerInContent =
     platform === 'mobile' && mobilePresentation === 'fullscreen' && !mobileFixedFooter;
@@ -255,6 +256,8 @@ export function ModalDialog({
           <Dialog.Backdrop forceRender className={classes.backdrop} />
           <Dialog.Viewport className={classes.viewport}>
             <Dialog.Popup
+              ref={popupRef}
+              initialFocus={popupRef}
               finalFocus={finalFocus}
               data-modal-variant={variant}
               className={cx(classes.popup, popupClassName)}

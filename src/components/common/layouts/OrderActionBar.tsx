@@ -29,7 +29,7 @@ export function OrderActionBar({
       left="0"
       right="0"
       zIndex={mobileOnly ? '20' : '2'}
-      bg="white"
+      bg={{ base: 'transparent', _mobile: 'white' }}
       borderTop={{
         base: '0',
         _mobile: mobileOnly

@@ -6496,3 +6496,7 @@ ELITE·ADVANCED·RUNNER의 할인 쿠폰은 월 1회로 표시한다. 무료 반
 마이페이지 미리보기의 구매금액은 PC 258,000원과 모바일 182,500원이며, 진행 툴팁은 두 플랫폼에서 120,000원 구매시 등급 업!을 표시한다. Codex는 PC 1920px와 모바일 375px에서 혜택 문구, 구매금액에 실제 로드된 The Future HOKA PC 22px/900·모바일 16px/700, 툴팁 숫자의 Pretendard 14px/500과 금액의 한 줄 표시를 확인했다. 고객센터 로그인 전후와 회원등급 조회 중·실패 미리보기도 확인했다. 출처는 [HOKA Design 회원등급 PC·모바일 프레임](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design), 사용자 코멘트 및 rewards-data.ts 작업 트리다.
 
 비밀번호 재설정의 비밀번호 입력 조건은 영문·숫자·특수문자를 포함한 10~20자이며 입력 중 오류에는 공통 TextFormField를 사용한다. 출처는 `src/lib/passwordValidation.ts`다.
+
+공통 모달은 열릴 때 팝업 자체에 포커스를 둔다. Tab으로 닫기 버튼을 선택하면 공통 아이콘 버튼의 키보드 포커스 표시를 사용한다.
+
+OrderActionBar는 PC에서 투명 배경으로 상위 주문내역 패널 색을 드러내고, 모바일 고정 영역은 흰 배경을 사용한다.

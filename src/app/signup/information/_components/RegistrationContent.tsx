@@ -247,7 +247,7 @@ export function RegistrationContent(props: RegistrationContentProps) {
       }
     >
       <form id="registration-form" noValidate onSubmit={props.onSubmit}>
-        <Stack gap="6">
+        <Stack gap="6" css={{ '& p[role="alert"]': { color: 'error' } }}>
           <RegistrationIdFields
             information={props.information}
             fieldErrors={props.fieldErrors}
