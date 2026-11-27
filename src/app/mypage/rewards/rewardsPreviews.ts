@@ -75,11 +75,7 @@ export const rewardsPreviews = [
       tierProgress: {
         ...downgradeSummary.tierProgress,
         label: '720,000원 구매시 ELITE 등급 유지!',
-        notice: {
-          before: '11월 30일까지 720,000원 더 구매확정하면 ',
-          tier: downgradeSummary.tier,
-          after: ' 등급이 유지돼요',
-        },
+        notice: '11월 30일까지 720,000원 더 구매확정하면 ELITE 등급이 유지돼요',
       },
     },
   },

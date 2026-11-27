@@ -20,8 +20,8 @@ export type OverviewView = {
     percent: number;
     label?: string;
     labelSize?: 'compact';
-    /** 연결 소유자는 일반 문구 또는 등급명 강조를 위한 앞뒤 문구와 등급명을 전달합니다. */
-    notice?: string | { before: string; tier: string; after: string };
+    /** 연결 소유자는 완성된 문구를 전달하고 마이페이지에서 문자별 폰트를 적용합니다. */
+    notice?: string;
     currentAmount?: string;
     targetAmount?: string;
   };

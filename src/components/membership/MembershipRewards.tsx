@@ -134,7 +134,10 @@ const styles = {
   accountBenefitDescription: css({ _mobile: { pl: '28px' } }),
   accountCouponTitle: css({ _mobile: { '&&': { lineHeight: '1.4' }, whiteSpace: 'pre-line' } }),
   accountValidity: css({ color: '#707070' }),
-  progressNotice: css({ _web: { gridColumn: '1 / -1' } }),
+  progressNotice: css({
+    _web: { gridColumn: '1 / -1', mt: '4px' },
+    _mobile: { alignSelf: 'flex-start', maxW: 'full', mt: '8px', textAlign: 'right' },
+  }),
   accountTooltip: css({
     textAlign: 'center',
     overflowWrap: 'anywhere',
@@ -387,8 +390,6 @@ function RewardProgress({
     : 0;
   const label = progress.label ?? '';
   const notice = progress.notice;
-  const noticeText =
-    typeof notice === 'string' ? notice : notice && notice.before + notice.tier + notice.after;
   const hasAccountTooltip = account && Boolean(label);
   const progressPosition = `${percent}%`;
   // The tail base must clear the 12px corner radius by half its 12px width.
@@ -444,10 +445,11 @@ function RewardProgress({
             <Box bg="black.100" color="white" px="12px" py="10px" borderRadius="12px">
               <Typography
                 variant={progress.labelSize === 'compact' ? 'b8' : 'b6'}
+                mo={account ? 'b8' : undefined}
                 language={account ? 'ko' : 'auto'}
               >
                 {labelAmount ? (
-                  <Typography variant="b6M" language="ko">
+                  <Typography variant="b6M" mo="b8M" language="ko">
                     {labelAmount}
                   </Typography>
                 ) : null}
@@ -485,7 +487,7 @@ function RewardProgress({
           borderRadius="full"
           position="relative"
           role="progressbar"
-          aria-label={label || noticeText || '등급 산정 구매금액'}
+          aria-label={label || notice || '등급 산정 구매금액'}
           aria-valuemin={0}
           aria-valuemax={100}
           aria-valuenow={percent}
@@ -539,21 +541,23 @@ function RewardProgress({
       {notice ? (
         <Typography
           as="p"
-          variant={typeof notice === 'string' ? 'b8' : 'b7M'}
-          language={typeof notice === 'string' ? 'auto' : 'ko'}
-          className={hasAccountTooltip ? styles.progressNotice : undefined}
+          variant={account ? 'b7M' : 'b8'}
+          language={account ? 'ko' : 'auto'}
+          className={account ? styles.progressNotice : undefined}
         >
-          {typeof notice === 'string' ? (
-            notice
-          ) : (
-            <>
-              {notice.before}
-              <Typography as="strong" variant="b7B" language="en">
-                {notice.tier}
-              </Typography>
-              {notice.after}
-            </>
-          )}
+          {account
+            ? notice
+                .split(/([A-Za-z]+|\p{Decimal_Number}+(?:[,.]\p{Decimal_Number}+)*)/u)
+                .map((part, index) =>
+                  index % 2 === 0 ? (
+                    part
+                  ) : (
+                    <Typography key={index} variant="b7M" language="en">
+                      {part}
+                    </Typography>
+                  ),
+                )
+            : notice}
         </Typography>
       ) : null}
     </Stack>
@@ -652,6 +656,7 @@ export function MembershipRewards({
                   justifyContent="flex-end"
                   alignItems="baseline"
                   _web={account ? { alignItems: 'flex-end' } : undefined}
+                  _mobile={account ? { alignItems: 'center' } : undefined}
                 >
                   <Typography
                     web="h10B"
