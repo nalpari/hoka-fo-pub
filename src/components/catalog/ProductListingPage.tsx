@@ -48,8 +48,12 @@ import { filterProducts, sortProducts } from '@/components/catalog/product-listi
 import {
   getBreadcrumbItems,
   getProductListingTitle,
+  isFeaturedListingToken,
 } from '@/components/catalog/product-listing/productListingMetadata';
-import { productSortOptions } from '@/components/catalog/product-listing/productSortOptions';
+import {
+  getProductSort,
+  productSortOptions,
+} from '@/components/catalog/product-listing/productSortOptions';
 import type { FilterValues } from '@/components/catalog/productListing.types';
 import {
   activityLabels,
@@ -1426,8 +1430,8 @@ function ProductListingLayout({
   );
 }
 /**
- * [ 개발팀 바인딩 ] 정렬 선택은 URL의 sort를 변경하고 준비된 예시 상품에 적용됩니다.
- * 실제 검색 연동 시 통합 소유자가 q·sort·필터 변경을 기준으로 재조회하고, 최신 요청의 상품 목록·건수·추가 조회 가능 여부·요청 중/오류 상태를 data로 전달합니다. 실패 시 같은 조건의 재시도와 이전 응답 제외도 통합 소유자가 담당합니다.
+ * [ 개발팀 바인딩 ] 정렬 선택은 일반 목록의 sort, Featured 목록의 order에 기록합니다. Featured의 sort 토큰은 분류이고 정렬 기본값은 신상품순입니다.
+ * 통합 소유자가 분류·정렬·q·필터 변경에 따라 재조회하고 최신 상품·건수·추가 조회 가능 여부·요청 중/오류를 data로 전달합니다. 실패 시 재시도와 이전 응답 제외도 통합 소유자가 담당합니다. 현재 정렬은 예시 상품에 적용됩니다.
  */
 type ProductListingPageProps = {
   data?: {
@@ -1451,7 +1455,6 @@ const facetKeys = [
   'support',
   'width',
 ] as const;
-const sortTokenLabels: Record<string, string> = { new: '신상품순', popular: '베스트순' };
 const productsPerLoad = 36;
 const emptyFilters = (): FilterValues => ({
   activity: [],
@@ -1505,8 +1508,9 @@ export function ProductListingPage({ searchQuery = '', data }: ProductListingPag
   }, [maxPrice, minPrice, paramsKey]);
   const [mobileFilters, setMobileFilters] = useState<FilterValues>(activeFilters);
   const selectedSort = params.get('sort');
-  const sort = (selectedSort && sortTokenLabels[selectedSort]) || selectedSort || '베스트순';
-  const [mobileSort, setMobileSort] = useState(sort);
+  const sortKey = isFeaturedListingToken(selectedSort) ? 'order' : 'sort';
+  const sort = getProductSort(params.get(sortKey));
+  const [mobileSort, setMobileSort] = useState<string>(sort);
   const breadcrumbItems = getBreadcrumbItems({
     gender: activeFilters.gender[0] ?? '',
     category,
@@ -1554,7 +1558,7 @@ export function ProductListingPage({ searchQuery = '', data }: ProductListingPag
   };
   const reset = () => {
     const next = new URLSearchParams();
-    for (const key of ['q', 'sort']) {
+    for (const key of ['q', 'sort', 'order']) {
       const value = params.get(key);
       if (value) next.set(key, value);
     }
@@ -1583,7 +1587,7 @@ export function ProductListingPage({ searchQuery = '', data }: ProductListingPag
       values.forEach((value) => next.append(key, value));
     });
     next.delete('page');
-    next.set('sort', mobileSort);
+    if (mobileSort !== sort) next.set(sortKey, mobileSort);
     setParams(next);
     setMinPrice(mobileFilters.minPrice);
     setMaxPrice(mobileFilters.maxPrice);
@@ -1652,7 +1656,7 @@ export function ProductListingPage({ searchQuery = '', data }: ProductListingPag
       onMobileFilterApply={applyMobileFilters}
       onLoadMore={loadMore}
       onReset={reset}
-      onSortChange={(nextSort) => update('sort', nextSort)}
+      onSortChange={(nextSort) => update(sortKey, nextSort)}
       isSearchPage={isSearchPage}
       hasActiveFilters={
         facetKeys.some((key) => params.has(key)) ||

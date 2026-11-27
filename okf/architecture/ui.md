@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-27T11:15:34+09:00'
+updated: '2026-11-27T13:12:29+09:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -6456,3 +6456,11 @@ Chromium PC 1440px·모바일 375px에서 숫자와 단위의 계산 폰트·굵
 ## 회원등급 진행 금액과 단위 줄바꿈 2026-11-27
 
 진행 금액 행은 PC 기본 너비를 최소 너비로 사용하고 숫자와 원 단위를 한 줄에 표시한다. 숫자와 단위의 기존 폰트와 굵기는 유지한다. Codex는 마이페이지 회원등급과 로그인 상태 고객센터에서 1424px, 1025px, 375px, 320px로 한 줄 표시와 금액 영역 가로 넘침 여부를 확인했다. 출처는 사용자 브라우저 코멘트와 src/components/membership/MembershipRewards.tsx 작업 트리다.
+
+## 상품 목록과 검색 신상품순 기본 정렬 2026-11-27
+
+상품 목록과 검색 결과의 PC 정렬 드롭다운과 모바일 필터는 신상품순·높은가격순·낮은가격순을 공유한다. 정렬 미지정, 빈 값, 알 수 없는 값, 기존 베스트순은 신상품순으로 표시한다. 표시 fixture의 신상품 정렬은 기존 New 프로모션 우선과 ID 순서를 사용한다.
+
+Featured 진입 URL의 sort 토큰은 분류명과 이동 경로를 표시한다. 기존 sort=popular, sort=new, sort=coming-soon, sort=sale은 그대로 진입한다. Featured 목록에서 선택한 정렬은 order에 기록하고, 일반 목록과 검색은 sort에 기록한다. 통합 소유자가 실제 조회를 연결하며 data.items 표시는 전달된 순서를 따른다.
+
+출처는 사용자 브라우저 코멘트와 ProductListingPage.tsx, productSortOptions.ts, productListingMetadata.ts, filterProducts.ts 작업 트리다. Codex는 PC 상품 목록과 검색·기존 Best 링크의 정렬 항목과 기본 선택, 가격순 선택 후 Best 제목과 뒤로가기, 모바일 필터의 기본 선택과 적용 후 URL을 확인했다.

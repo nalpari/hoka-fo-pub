@@ -1,4 +1,5 @@
 import { matchesProductFilters } from '@/components/catalog/product-listing/productFilterPolicy';
+import type { ProductSort } from '@/components/catalog/product-listing/productSortOptions';
 import type { Product } from '@/mocks/products';
 
 export type ProductListingFilters = {
@@ -24,15 +25,13 @@ export function filterProducts(products: Product[], filters: ProductListingFilte
 const compareId = (a: Product, b: Product) =>
   a.id.localeCompare(b.id, undefined, { numeric: true });
 
-export function sortProducts(products: Product[], sort: string) {
+export function sortProducts(products: Product[], sort: ProductSort) {
   return [...products].sort((a, b) =>
     sort === '낮은가격순'
       ? a.price - b.price
       : sort === '높은가격순'
         ? b.price - a.price
-        : sort === '신상품순'
-          ? Number(b.promotion?.includes('New') ?? false) -
-              Number(a.promotion?.includes('New') ?? false) || compareId(a, b)
-          : compareId(a, b),
+        : Number(b.promotion?.includes('New') ?? false) -
+            Number(a.promotion?.includes('New') ?? false) || compareId(a, b),
   );
 }
