@@ -2954,3 +2954,7 @@ PC는 본문 폭에 열을 균등 배치하고 행 높이는 52px이다. 모바�
 FAQ 질문과 공지 상세 게시글 제목은 PC·모바일 모두 18px Medium이며 FAQ 목록 시작선과 공지 상세 제목 위 구분선은 모두 thinSubtle(1px solid black.20)을 사용한다. 출처는 FaqContent.tsx와 공지 상세 page.tsx다.
 
 1:1 문의 목록과 목록 미리보기의 상단 구분선은 PC·모바일 모두 공통 Divider의 subtle(1px, black.20)을 사용한다. 출처는 src/app/support/inquiries/page.tsx와 _components/InquiryListPreview.tsx다.
+
+## 주문 카드의 취소·반품 상품 액션
+
+구매취소·반품요청 상품의 장바구니 담기 버튼은 PC·모바일 모두 표시하지 않는다. 출처는 `src/app/mypage/orders/_components/OrdersProducts.tsx`다.

@@ -384,7 +384,6 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
                     image={line.image}
                     name={line.name}
                     optionText={`${line.width}, ${line.color}, ${line.size}`}
-                    cartAction
                   />
                 </Box>
                 <Typography variant="b4M" className={css({ textAlign: 'center' })}>
