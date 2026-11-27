@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-27T09:54:04+09:00'
+updated: '2026-11-27T10:00:39+09:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -2996,3 +2996,7 @@ Codex는 2026-11-27 KST에 PC 1427px와 모바일 375px에서 HOKA Run Hat 사�
 `/mypage/rewards`의 `RewardsContent.tsx`는 공용 `MembershipRewards`에 `layout="account"`를 전달한다. 기존 기본·조회 중·조회 실패 경로에 같은 표시 옵션을 적용한다. 고객센터 `/support/member-benefits`는 생략 시 적용되는 `standard`를 사용하며 기존 로그인 표시 조건을 따른다. 구매 금액과 쿠폰 지급 조건은 기존 표시 데이터를 읽는다. [시안 수치와 화면 확인](ui.md#마이페이지-회원등급-pc모바일-디자인-2026-11-27).
 
 작업 트리의 `src/app/mypage/rewards/_components/RewardsContent.tsx`를 출처로 기록한다. Chromium에서 마이페이지 조회 중·실패 문구와 고객센터 로그인 전후 미리보기의 개인 요약 표시를 확인했다.
+
+## 장바구니 삭제 버튼과 옵션 문구 2026-11-27
+
+장바구니의 `품절상품 전체삭제` 버튼을 주석 처리하고, 상품 옵션 문구는 발볼·색상·사이즈까지만 표시한다. 수량은 기존 수량 조절기로 표시한다. 출처는 사용자 브라우저 코멘트와 `CartProductSection.tsx`, `cart-preview.ts` 작업 트리다. Codex가 PC 1427px과 모바일 375px에서 버튼 숨김, 상품 5개의 옵션 문구와 수량 조절기 및 `선택 삭제` 표시를 확인했다. 모바일에서 옵션 변경 팝업이 열리는 것도 확인했다.

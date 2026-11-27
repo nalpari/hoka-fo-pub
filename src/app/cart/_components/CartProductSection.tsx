@@ -106,9 +106,6 @@ function CartProductItem({
               {item.width}
             </Typography>
             , {item.color}, {item.size}
-            <Box as="span" display={{ base: 'inline', _mobile: 'none' }}>
-              , {row.optionQuantity ?? item.quantity}개
-            </Box>
           </Typography>
         </Stack>
         <Button
@@ -184,14 +181,14 @@ export function CartProductSection({ rows }: { rows: readonly CartPreviewRow[] }
           }
         />
         <HStack gap="16px" ml="auto" _mobile={{ gap: '12px' }}>
-          <Button
+          {/* <Button
             variant="link"
             size="md"
             type="button"
             disabled={!rows.some((row) => row.soldOut)}
           >
             품절상품 전체삭제
-          </Button>
+          </Button> */}
           <Button variant="link" size="md" disabled={selectedKeys.length === 0}>
             선택 삭제
           </Button>
