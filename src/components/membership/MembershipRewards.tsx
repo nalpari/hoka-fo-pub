@@ -17,6 +17,7 @@ import type { OverviewView } from '@/types/mypage-display';
 import {
   type MembershipBenefitsDisplay,
   membershipBenefitsPreview,
+  type MembershipSummaryDisplay,
   rewardPreview,
 } from './rewards-data';
 
@@ -383,9 +384,11 @@ function RewardProgress({
   const percent = Number.isFinite(progress.percent)
     ? Math.max(0, Math.min(100, progress.percent))
     : 0;
-  const [labelAmount = '', labelText = progress.label] = account
-    ? progress.label.split(/^(\p{Decimal_Number}+(?:[,.]\p{Decimal_Number}+)*)/u).slice(1)
-    : [];
+  const label = progress.label ?? '';
+  const [labelAmount = '', labelText = label] =
+    account && progress.labelSize !== 'compact'
+      ? label.split(/^(\p{Decimal_Number}+(?:[,.]\p{Decimal_Number}+)*)/u).slice(1)
+      : [];
   return (
     <Stack
       flex="1"
@@ -395,43 +398,54 @@ function RewardProgress({
       bg="black.10"
       px="32px"
       py="32px"
-      _mobile={{ w: 'full', py: '24px', gap: '8px' }}
+      _mobile={{ w: 'full', py: '24px', gap: '8px', minH: account ? '159px' : undefined }}
     >
-      <Box
-        position="relative"
-        h={account ? '47px' : '44px'}
-        mr={account ? '168px' : '180px'}
-        _mobile={{ h: '47px', mr: '0' }}
-      >
+      {label ? (
         <Box
-          position="absolute"
-          style={{ left: account ? `clamp(56px, ${percent}%, 100% - 56px)` : `${percent}%` }}
-          transform="translateX(-50%)"
-          bottom="0"
-          maxW="none"
-          w={account ? 'min(175px, calc(100% + 64px))' : 'max-content'}
-          className={account ? styles.accountTooltip : undefined}
+          position="relative"
+          h={account ? undefined : '44px'}
+          mr={account ? '168px' : '180px'}
+          _mobile={{ h: account ? undefined : '47px', mr: '0' }}
         >
-          <Box bg="black.100" color="white" px="12px" py="10px" borderRadius="12px">
-            <Typography variant="b6" language={account ? 'ko' : 'auto'}>
-              {labelAmount ? (
-                <Typography variant="b6M" language="ko">
-                  {labelAmount}
-                </Typography>
-              ) : null}
-              {labelText}
-            </Typography>
-          </Box>
           <Box
-            mx="auto"
-            w="12px"
-            h="6px"
-            bg="black.100"
-            clipPath="polygon(0 0,100% 0,50% 100%)"
-            mt={account ? '0' : '-1px'}
-          />
+            position={account ? 'relative' : 'absolute'}
+            style={{
+              left: `${percent}%`,
+              transform: account ? `translateX(-${percent}%)` : undefined,
+            }}
+            transform={account ? undefined : 'translateX(-50%)'}
+            bottom={account ? undefined : '0'}
+            maxW={account ? 'min(260px, 100%)' : 'none'}
+            w="max-content"
+            className={account ? styles.accountTooltip : undefined}
+          >
+            <Box bg="black.100" color="white" px="12px" py="10px" borderRadius="12px">
+              <Typography
+                variant={progress.labelSize === 'compact' ? 'b8' : 'b6'}
+                language={account ? 'ko' : 'auto'}
+              >
+                {labelAmount ? (
+                  <Typography variant="b6M" language="ko">
+                    {labelAmount}
+                  </Typography>
+                ) : null}
+                {labelText}
+              </Typography>
+            </Box>
+            <Box
+              mx={account ? undefined : 'auto'}
+              position={account ? 'relative' : undefined}
+              style={account ? { left: `clamp(6px, ${percent}%, 100% - 6px)` } : undefined}
+              transform={account ? 'translateX(-50%)' : undefined}
+              w="12px"
+              h="6px"
+              bg="black.100"
+              clipPath="polygon(0 0,100% 0,50% 100%)"
+              mt={account ? '0' : '-1px'}
+            />
+          </Box>
         </Box>
-      </Box>
+      ) : null}
       <HStack gap="24px" minH="24px" _mobile={{ flexDirection: 'column', alignItems: 'stretch' }}>
         <Box
           flex="1"
@@ -440,7 +454,7 @@ function RewardProgress({
           borderRadius="full"
           position="relative"
           role="progressbar"
-          aria-label={progress.label}
+          aria-label={label || progress.notice || '등급 산정 구매금액'}
           aria-valuemin={0}
           aria-valuemax={100}
           aria-valuenow={percent}
@@ -490,14 +504,14 @@ function RewardProgress({
           ) : null}
         </HStack>
       </HStack>
+      {progress.notice ? (
+        <Typography as="p" variant="b8">
+          {progress.notice}
+        </Typography>
+      ) : null}
     </Stack>
   );
 }
-
-type MembershipSummaryDisplay = Pick<
-  OverviewView,
-  'name' | 'tier' | 'tierInitial' | 'purchaseAmount' | 'tierProgress'
->;
 
 type MembershipRewardsProps = {
   /** 준비된 개인 등급 표시 데이터이며 null이면 기존 빈 요약을 표시합니다. */
@@ -594,9 +608,17 @@ export function MembershipRewards({
                 </HStack>
               </Stack>
             </HStack>
-            <Typography as="p" web="b6" mo="b7" tone="tertiary">
-              * 매월 1일, 전월 말일자부터 최근 1년 내 구매 금액으로 산정
-            </Typography>
+            {account ? (
+              <Typography as="p" web="b6" mo="b7" tone="tertiary">
+                매월 3일, 전월 말일까지를 기준으로 최근 1년간의 구매 금액으로 회원 등급 산정
+                <br />※ 현재 구매금액은 실제 구매 확정 금액을 기준으로 표시되며, 등급별 기준 금액을
+                초과한 경우에도 실제 금액으로 표시됩니다.
+              </Typography>
+            ) : (
+              <Typography as="p" web="b6" mo="b7" tone="tertiary">
+                * 매월 1일, 전월 말일자부터 최근 1년 내 구매 금액으로 산정
+              </Typography>
+            )}
           </Stack>
         </Stack>
       ) : null}

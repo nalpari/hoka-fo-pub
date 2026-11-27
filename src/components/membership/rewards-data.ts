@@ -1,3 +1,10 @@
+import type { OverviewView } from '@/types/mypage-display';
+
+export type MembershipSummaryDisplay = Pick<
+  OverviewView,
+  'name' | 'tier' | 'tierInitial' | 'purchaseAmount' | 'tierProgress'
+>;
+
 // 회원등급 화면의 공통 표시 예시입니다.
 export const rewardPreview = {
   name: '박연진',
@@ -10,17 +17,6 @@ export const rewardPreview = {
     currentAmount: '180,000',
     targetAmount: '300,000',
   },
-} as const;
-
-// 최신 마이페이지 시안의 개인 요약 예시이며 운영 구매금액과는 별개입니다.
-const accountSummaryPreview = {
-  ...rewardPreview,
-  tierProgress: { ...rewardPreview.tierProgress, label: '120,000원 구매시 등급 업!' },
-} as const;
-
-export const accountRewardPreview = {
-  web: { ...accountSummaryPreview, purchaseAmount: '258,000' },
-  mobile: accountSummaryPreview,
 } as const;
 
 export type MembershipBenefitsDisplay = {

@@ -2989,6 +2989,8 @@ Codex는 2026-11-27 KST에 PC 1427px와 모바일 375px에서 HOKA Run Hat 사�
 
 ## 마이페이지 회원등급 표시 옵션 2026-11-27
 
+회원등급 산정 시나리오와 IA 연결은 [회원등급 산정 케이스](#마이페이지-회원등급-산정-케이스-2026-11-27)를 따른다.
+
 `/mypage/rewards`의 `RewardsContent.tsx`는 공용 `MembershipRewards`에 `layout="account"`를 전달한다. 기존 기본·조회 중·조회 실패 경로에 같은 표시 옵션을 적용한다. 고객센터 `/support/member-benefits`는 생략 시 적용되는 `standard`를 사용하며 기존 로그인 표시 조건을 따른다. 구매 금액과 쿠폰 지급 조건은 기존 표시 데이터를 읽는다. [시안 수치와 화면 확인](ui.md#마이페이지-회원등급-pc모바일-디자인-2026-11-27).
 
 작업 트리의 `src/app/mypage/rewards/_components/RewardsContent.tsx`를 출처로 기록한다. Chromium에서 마이페이지 조회 중·실패 문구와 고객센터 로그인 전후 미리보기의 개인 요약 표시를 확인했다.
@@ -3071,7 +3073,24 @@ Codex는 PC 1424px와 모바일 375px에서 두 목록의 링크 243개, 트리 
 
 ## 마이페이지 회원등급의 PC·모바일 요약 예시 2026-11-27
 
-/mypage/rewards의 RewardsContent는 display가 생략된 경우에 PC·모바일 요약 예시를 선택한다. 전달받은 OverviewView는 그대로 표시하고, 기존 조회 중·실패 경로는 개인 진행률을 숨긴다. 출처는 RewardsContent.tsx와 rewards-data.ts 작업 트리다. [혜택과 검증](ui.md#회원등급-최신-혜택-문구-2026-11-27).
+`/mypage/rewards`는 `display`가 생략되면 PC·모바일 공통 RUNNER 예시를 표시한다. 통합 소유자가 전달한 현재 `display`의 표시값을 읽으며, 기존 조회 중·실패 경로는 개인 진행률을 숨긴다. 출처는 `RewardsContent.tsx`와 `rewardsPreviews.ts` 작업 트리다. [혜택과 검증](ui.md#회원등급-최신-혜택-문구-2026-11-27).
+
+## 마이페이지 회원등급 산정 케이스 2026-11-27
+
+IA 195의 기본 화면은 RUNNER다. 개발용 `/screen-index`와 검수용 `/screen-review`에서 추가 미리보기 다섯 개를 **회원등급 산정 케이스** 그룹으로 접고 펼친다. 기존 조회 중·조회 실패 링크는 그룹 밖에 둔다. 그룹명·상태명·URL로 검색할 수 있다.
+
+| 상태 | 주소 | 설계서의 표시 기준 |
+| --- | --- | --- |
+| 기본 RUNNER | `/mypage/rewards` | ADVANCED 기준 미달인 RUNNER에 상시 노출 |
+| 상향 예정 | `/mypage/rewards/preview/upgrade-scheduled` | 상위 기준에 도달한 주문의 구매 확정부터 다음 달 3일 산정 완료까지 |
+| 유지 | `/mypage/rewards/preview/maintained` | 현재 기준 이상·상위 기준 미만일 때 월 3일 산정 완료 후부터 다음 달 2일까지 |
+| 하락 위험 | `/mypage/rewards/preview/downgrade-risk` | 현재 기준에 미달할 때 월 3일 산정 완료 후부터 말일까지 |
+| 하락 예정 | `/mypage/rewards/preview/downgrade-scheduled` | 말일까지 유지 기준을 충족하지 못한 경우 다음 달 1일부터 3일 산정 완료까지 |
+| ELITE 달성 | `/mypage/rewards/preview/elite-achieved` | 차트 100%와 ELITE 달성 툴팁을 보여주는 별도 설계 예시 |
+
+이 주소들은 `rewardsPreviews.ts`와 `preview/[state]/page.tsx`에서 고정 표시 데이터를 읽는다. 상태 판정·날짜 계산·실제 요청은 통합 소유자의 책임이다. PC에는 기존 마이페이지 요약 배치를 사용하고, 모바일 예시에서 읽은 문구와 상태를 두 플랫폼에 적용했다. 출처는 사용자 브라우저 코멘트와 [HOKA 설계서의 회원등급 산정 케이스](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)다.
+
+Chromium PC 1440px·모바일 375px에서 기본과 다섯 상태를 직접 열어 등급, 구매금액, 진행률, 안내 문구 및 요약 영역 가로 넘침 여부를 확인했다. 개발용 IA와 화면검수용 목록에서 그룹 접기와 검색 후 다시 펼쳐지는 동작, 개별 URL 및 그룹 밖 조회 중·실패 링크를 확인했다. 고객센터 로그인 예시의 기존 산정 안내도 확인했다. IA·소스 그래프 검사 16개와 Next.js 프로덕션 빌드가 통과했다.
 
 1:1 문의 파일 첨부 헤더의 파일 찾기 버튼은 PC·모바일 공통 Secondary Short를 사용한다. 출처는 `InquiryFormContent.tsx`다.
 
