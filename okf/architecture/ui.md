@@ -10,6 +10,7 @@ generated:
   at: '2026-11-03T06:11:12Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/components/common/atoms/SegmentedControl.tsx
   - src/lib/formatProductOptions.ts
   - src/types/component-contracts/app-signup-information-page.d.ts
   - src/app/products/[id]/_components/ProductDetailContent.tsx
@@ -1035,6 +1036,10 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## SegmentedControl 단위 버튼 (2026-11-27)
+
+`SegmentedControl`의 `variant` 기본값은 `default`다. 고객센터와 상품 상세 사이즈 가이드는 짧은 단위 라벨을 위해 `compactPill`을 명시한다. 이 표현은 Base UI Toggle 버튼에서 12px/600 라벨을 가로·세로 중앙에 배치하고 선택 버튼을 흰색으로 표시한다. 값을 관리하는 곳은 각 화면이다. [사용처와 실측](size-guide.md#고객센터와-상품-상세-단위-버튼-통일-2026-11-27).
 
 ## 공통 모달 오버레이 (2026-11-27)
 

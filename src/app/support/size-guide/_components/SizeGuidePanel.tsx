@@ -34,9 +34,14 @@ const styles = {
     _mobile: { h: '44px' },
   }),
   choiceButton: css({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     flex: '1 1 0',
     minW: '0',
     h: '44px',
+    p: '0',
+    textStyle: 'ko-common-b6',
     border: '0',
     borderRadius: '52px',
     bg: 'transparent',
@@ -45,27 +50,6 @@ const styles = {
     '&[aria-pressed=true]': { bg: 'black.100', color: 'white' },
     _focusVisible: { outline: '2px solid var(--color-focus-ring)', outlineOffset: '-2px' },
     _mobile: { h: '40px' },
-  }),
-  unitGroup: css({
-    display: 'flex',
-    alignItems: 'stretch',
-    flexShrink: '0',
-    bg: '#D9D9D9',
-    p: '2px',
-    h: '36px',
-    borderRadius: 'full',
-    _mobile: { h: '32px' },
-  }),
-  unitButton: css({
-    w: '51px',
-    border: '0',
-    borderRadius: 'full',
-    bg: 'transparent',
-    color: 'black.100',
-    cursor: 'pointer',
-    '&[aria-pressed=true]': { bg: 'white' },
-    _focusVisible: { outline: '2px solid var(--color-focus-ring)', outlineOffset: '-2px' },
-    _mobile: { w: '47px' },
   }),
   chartHeader: css({ minH: '36px', _mobile: { minH: '32px' } }),
   chart: css({
@@ -110,11 +94,6 @@ function SizeGuideChoiceGroup<T extends string>({
         ariaLabel={label}
         className={styles.choiceGroup}
         itemClassName={() => styles.choiceButton}
-        itemRender={({ label }) => (
-          <Typography as="button" variant="b6">
-            {label}
-          </Typography>
-        )}
         options={options}
         value={value}
         onValueChange={onValueChange}
@@ -135,7 +114,7 @@ function SizeGuideMeasurements({ category, gender }: { category: GuideCategory; 
     <ContentSection
       title="측정 방법 안내"
       headerProps={{
-        titleProps: { ...sectionTitle, web: 'h10B' },
+        titleProps: sectionTitle,
         description: '측정한 치수를 사이즈표와 비교해 가장 알맞은 사이즈를 선택해 주세요.',
         descriptionProps: { web: 'b4', mo: 'b6' },
         gap: { base: '3', _mobile: '2' },
@@ -204,17 +183,10 @@ function SizeGuideChart({
           category.units.length > 1 ? (
             <SegmentedControl
               ariaLabel="측정 단위"
-              className={styles.unitGroup}
-              itemClassName={() => styles.unitButton}
-              itemRender={({ label }) => (
-                <Typography as="button" variant="b6">
-                  {label}
-                </Typography>
-              )}
+              variant="compactPill"
               options={unitOptions.filter(({ value }) => category.units.includes(value))}
               value={unit}
               onValueChange={onUnitChange}
-              unstyled
             />
           ) : undefined,
       }}

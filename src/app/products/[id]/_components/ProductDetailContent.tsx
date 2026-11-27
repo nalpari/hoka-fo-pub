@@ -1686,22 +1686,6 @@ const sizeGuideStyles = {
     '& tbody td:nth-child(-n+2)': { fontWeight: '600' },
     _mobile: { '& th, & td': { fontSize: 'body.10' } },
   }),
-  unitGroup: css({ display: 'flex', p: '2px', borderRadius: 'full', bg: '#D9D9D9' }),
-  unitButton: css({
-    w: '46px',
-    h: '28px',
-    border: '0',
-    p: '0',
-    borderRadius: 'full',
-    bg: 'transparent',
-    color: 'text.primary',
-    fontFamily: 'ko',
-    fontSize: 'body.12',
-    fontWeight: '600',
-    cursor: 'pointer',
-    '&[aria-pressed=true]': { bg: 'white.000' },
-    _mobile: { w: '42px', h: '26px' },
-  }),
   measurementImage: css({ w: '100%', h: 'auto', borderRadius: '4px' }),
 };
 
@@ -1781,11 +1765,9 @@ function ProductSizeGuideChart({
           {!socks && (
             <SegmentedControl
               ariaLabel={apparel ? '치수 단위' : '발길이 단위'}
-              className={sizeGuideStyles.unitGroup}
-              itemClassName={() => sizeGuideStyles.unitButton}
+              variant="compactPill"
               onValueChange={onUnitChange}
               options={shoeGuideUnitOptions}
-              unstyled
               value={unit}
             />
           )}

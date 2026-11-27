@@ -4,12 +4,13 @@ title: '사이즈 가이드'
 description: '품목별 측정 안내, 선택 상태와 미확정 데이터의 표시 범위를 설명한다.'
 tags: [support, size-guide, storybook]
 status: draft
-updated: '2026-11-27T12:55:12+09:00'
+updated: '2026-11-27T18:00:30+09:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T04:46:17Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/components/common/atoms/SegmentedControl.tsx
   - src/app/products/[id]/_components/ProductDetailContent.tsx
   - src/components/common/atoms/DataTable.tsx
   - src/app/support/size-guide/page.tsx
@@ -62,13 +63,25 @@ sources:
 
 # 사이즈 가이드
 
+## 고객센터 선택 버튼 정렬과 측정 안내 제목 (2026-11-27)
+
+카테고리·성별 선택 버튼은 버튼 요소에 한글 본문 스타일을 직접 적용해 기존 14px/400 글자를 가로·세로 중앙에 배치한다. 버튼 전체에 적용되던 `Typography`의 1px 아래 이동은 제거했다. Chromium PC 1440px과 모바일 390px에서 선택 그룹과 각 버튼의 세로 중심이 일치하고, 의류·여성·용품의 공용 상태로 전환되는 것을 확인했다.
+
+‘측정 방법 안내’ 제목도 다른 사이즈 가이드 소제목과 같은 스타일을 사용한다. Chromium에서 신발·의류의 제목이 PC 22px/700, 모바일 20px/700으로 표시되는 것을 확인했다. 출처는 사용자 브라우저 코멘트와 `src/app/support/size-guide/_components/SizeGuidePanel.tsx` 작업 트리다.
+
+## 고객센터와 상품 상세 단위 버튼 통일 (2026-11-27)
+
+사용자 브라우저 코멘트의 상품 상세 의류 팝업을 기준으로 고객센터의 cm/inch 버튼을 맞췄다. 두 화면은 공통 `SegmentedControl`의 `compactPill` 표현을 사용한다. 전체 크기는 PC 96×32px, 모바일 88×30px이며 회색 바탕, 흰색 선택 표시, 12px/600 글자를 사용한다. 라벨은 버튼 가로·세로 중앙에 정렬된다. 고객센터 차트 제목 행은 PC 최소 36px, 모바일 최소 32px을 확보한다.
+
+Codex는 Chromium PC 1440px과 모바일 390px에서 고객센터와 상품 상세 의류 팝업의 크기·글자 굵기·선택 색상·중앙 정렬과 inch 전환을 확인했다. 고객센터에서 키보드로 cm를 선택하고 용품으로 전환했을 때 단위 버튼이 사라지며 표 시작 위치가 유지되는 것도 확인했다. 출처는 사용자 브라우저 코멘트와 위에 나열한 세 컴포넌트의 작업 트리다.
+
 ## 고객센터 사이즈 가이드 디자인 반영 (2026-11-27)
 
 카테고리와 성별은 PC에서 40px 간격으로 한 줄에 놓고 모바일에서 위아래로 배치한다. 두 선택 그룹 높이는 PC 48px, 모바일 44px이다. 선택값은 검은색 바탕으로 표시하며 카테고리 변경 시 해당 카테고리의 첫 성별과 기본 단위로 시작한다.
 
 성별·카테고리 이름이 들어간 차트 제목 오른쪽에 cm/inch 선택 버튼을 둔다. 차트의 제목 행은 PC 최소 36px, 모바일 최소 32px을 확보해 단위 선택이 없는 용품으로 바꿔도 제목과 표의 시작 위치가 유지된다. 기존 치수 데이터를 46px 높이, 가운데 정렬, 13px 텍스트로 표시한다. 국가 코드는 신발과 의류 모두 미국(US)·한국(KR)로 통일했다. 용품은 공용 선택과 양말 차트만 제공한다.
 
-측정 방법 안내는 차트 아래에 배치한다. 시안의 신발 그림과 남성·공용 의류 및 여성 의류 이미지를 4:3으로 표시한다. PC는 288×216px 이미지 오른쪽에 설명을, 모바일은 본문 너비를 채우는 이미지 아래에 설명을 놓는다. 측정 방법 안내 제목은 PC 22px/900, 모바일 20px/700을 적용한다. 사용자 브라우저 코멘트에 따라 카테고리·성별 선택 제목과 사이즈 차트 제목은 PC 22px/700, 모바일 20px/700을 사용한다. Chromium PC 1300px·모바일 390px에서 이 제목과 공용 신발에서 의류로 전환한 차트의 크기·굵기를 확인했다. 공용 신발의 inch 전환과 측정 방법 안내 제목도 확인했다. 출처는 `src/app/support/size-guide/_components/SizeGuidePanel.tsx` 작업 트리다.
+측정 방법 안내는 차트 아래에 배치한다. 시안의 신발 그림과 남성·공용 의류 및 여성 의류 이미지를 4:3으로 표시한다. PC는 288×216px 이미지 오른쪽에 설명을, 모바일은 본문 너비를 채우는 이미지 아래에 설명을 놓는다. 사용자 브라우저 코멘트에 따라 카테고리·성별 선택 제목, 사이즈 차트 제목, 측정 방법 안내 제목은 PC 22px/700과 모바일 20px/700을 사용한다. Chromium PC 1300px·모바일 390px에서 카테고리·성별 선택 제목과 공용 신발에서 의류로 전환한 차트의 크기·굵기를 확인했다. 공용 신발의 inch 전환도 확인했다. 출처는 `src/app/support/size-guide/_components/SizeGuidePanel.tsx` 작업 트리다.
 
 표시 데이터와 상호작용의 작업 트리 출처는 `src/app/support/size-guide/page.tsx`, `src/app/support/size-guide/_components/SizeGuidePanel.tsx`, `src/app/support/size-guide/size-guide.data.ts`, `public/images/size-guide/support-size-*.png`다. 운영 치수표와 이미지의 갱신은 라우트에 데이터를 전달하는 연동 담당자가 맡는다. [Figma 디자인][^support-size-guide-layout-20261127].
 

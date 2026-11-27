@@ -15,6 +15,14 @@ const root = cva({
     fullWidth: { true: { '& > button': { flex: '1' } }, false: {} },
     variant: {
       default: {},
+      compactPill: {
+        flexShrink: '0',
+        flexWrap: 'nowrap',
+        gap: '0',
+        p: '2px',
+        borderRadius: 'full',
+        bg: '#D9D9D9',
+      },
       underline: {
         w: '100%',
         flexWrap: 'nowrap',
@@ -31,6 +39,25 @@ const item = cva({
   variants: {
     variant: {
       default: {},
+      compactPill: {
+        display: 'inline-flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        w: '46px',
+        h: '28px',
+        p: '0',
+        border: '0',
+        borderRadius: 'full',
+        bg: 'transparent',
+        color: 'text.primary',
+        fontFamily: 'ko',
+        fontSize: 'body.12',
+        fontWeight: '600',
+        lineHeight: '1',
+        cursor: 'pointer',
+        _focusVisible: { outline: '2px solid var(--color-focus-ring)', outlineOffset: '-2px' },
+        _mobile: { w: '42px', h: '26px' },
+      },
       underline: {
         flex: '1',
         minW: '0',
@@ -52,6 +79,11 @@ const item = cva({
     },
   },
   compoundVariants: [
+    {
+      variant: 'compactPill',
+      active: true,
+      css: { bg: 'white.0', color: 'text.primary' },
+    },
     {
       variant: 'underline',
       active: true,
@@ -76,7 +108,8 @@ export type SegmentedControlProps<T extends string = string> = {
   onValueChange: (value: T) => void;
   ariaLabel: string;
   fullWidth?: boolean;
-  variant?: 'default' | 'underline';
+  /** Defaults to `default`. Use `compactPill` for short labels such as measurement units. */
+  variant?: 'default' | 'compactPill' | 'underline';
   className?: string;
   /** Use native toggle buttons and let the caller own all presentation styles. */
   unstyled?: boolean;
@@ -120,7 +153,7 @@ export function SegmentedControl<T extends string = string>({
           disabled={option.disabled}
           key={option.value}
           className={[
-            !unstyled && variant === 'underline'
+            !unstyled && variant !== 'default'
               ? item({ variant, active: option.value === value })
               : '',
             itemClassName?.(option, option.value === value),
@@ -129,7 +162,7 @@ export function SegmentedControl<T extends string = string>({
             .join(' ')}
           render={
             itemRender?.(option) ??
-            (unstyled ? undefined : variant === 'underline' ? (
+            (unstyled || variant === 'compactPill' ? undefined : variant === 'underline' ? (
               <Typography
                 as="button"
                 web="b4"
