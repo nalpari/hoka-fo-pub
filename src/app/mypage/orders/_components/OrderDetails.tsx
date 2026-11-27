@@ -629,7 +629,7 @@ export function OrderClaimDetail({
               alignItems="center"
               py="32px"
             >
-              <Box role="cell" px="24px">
+              <Box role="cell" pe="24px">
                 <OrderProductSummary
                   variant="history"
                   image={line.image}

@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-27T13:22:17+09:00'
+updated: '2026-11-27T15:02:12+09:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -2989,6 +2989,8 @@ Codex는 2026-11-27 KST에 PC 1427px와 모바일 375px에서 HOKA Run Hat 사�
 
 ## 마이페이지 회원등급 표시 옵션 2026-11-27
 
+회원등급 산정 시나리오와 IA 연결은 [회원등급 산정 케이스](#마이페이지-회원등급-산정-케이스-2026-11-27)를 따른다.
+
 `/mypage/rewards`의 `RewardsContent.tsx`는 공용 `MembershipRewards`에 `layout="account"`를 전달한다. 기존 기본·조회 중·조회 실패 경로에 같은 표시 옵션을 적용한다. 고객센터 `/support/member-benefits`는 생략 시 적용되는 `standard`를 사용하며 기존 로그인 표시 조건을 따른다. 구매 금액과 쿠폰 지급 조건은 기존 표시 데이터를 읽는다. [시안 수치와 화면 확인](ui.md#마이페이지-회원등급-pc모바일-디자인-2026-11-27).
 
 작업 트리의 `src/app/mypage/rewards/_components/RewardsContent.tsx`를 출처로 기록한다. Chromium에서 마이페이지 조회 중·실패 문구와 고객센터 로그인 전후 미리보기의 개인 요약 표시를 확인했다.
@@ -3071,7 +3073,30 @@ Codex는 PC 1424px와 모바일 375px에서 두 목록의 링크 243개, 트리 
 
 ## 마이페이지 회원등급의 PC·모바일 요약 예시 2026-11-27
 
-/mypage/rewards의 RewardsContent는 display가 생략된 경우에 PC·모바일 요약 예시를 선택한다. 전달받은 OverviewView는 그대로 표시하고, 기존 조회 중·실패 경로는 개인 진행률을 숨긴다. 출처는 RewardsContent.tsx와 rewards-data.ts 작업 트리다. [혜택과 검증](ui.md#회원등급-최신-혜택-문구-2026-11-27).
+`/mypage/rewards`는 `display`가 생략되면 PC·모바일 공통 RUNNER 예시를 표시한다. 통합 소유자가 전달한 현재 `display`의 표시값을 읽는다. 출처는 `RewardsContent.tsx`와 `rewardsPreviews.ts` 작업 트리다. [혜택과 검증](ui.md#회원등급-최신-혜택-문구-2026-11-27).
+
+## 마이페이지 회원등급 산정 케이스 2026-11-27
+
+IA 195의 기본 화면은 RUNNER다. 개발용 `/screen-index`와 검수용 `/screen-review`에서 상향 예정·유지·하락 예정·ELITE 달성 미리보기를 **회원등급 산정 케이스** 그룹으로 접고 펼친다. 하락 위험은 기존 직접 주소에서 열 수 있다. IA에 표시되는 케이스는 그룹명·상태명·URL로 검색할 수 있다.
+
+사용자 화면검수 코멘트에 따라 회원등급 조회 중·조회 실패의 전용 미리보기와 IA 연결을 제거했다. 로컬에서 두 주소의 404 응답, 기본·하락 예정 경로의 200 응답 및 Chromium에서 개발용·검수용 IA의 산정 케이스 네 개를 확인했다. 실제 조회 상태와 재시도는 마이페이지 통합 소유자가 연결한다.
+
+| 상태 | 주소 | 설계서의 표시 기준 |
+| --- | --- | --- |
+| 기본 RUNNER | `/mypage/rewards` | ADVANCED 기준 미달인 RUNNER에 상시 노출 |
+| 상향 예정 | `/mypage/rewards/preview/upgrade-scheduled` | 상위 기준에 도달한 주문의 구매 확정부터 다음 달 3일 산정 완료까지. 진행 바 끝에 `0원 구매시 등급 업!`, 아래에 변경 예정일을 표시 |
+| 유지 | `/mypage/rewards/preview/maintained` | 현재 기준 이상·상위 기준 미만일 때 월 3일 산정 완료 후부터 다음 달 2일까지. `680,000원 구매시 등급 업!` 툴팁과 유지 예정일을 함께 표시 |
+| 하락 위험 | `/mypage/rewards/preview/downgrade-risk` | 현재 기준에 미달할 때 월 3일 산정 완료 후부터 말일까지. 직접 URL에서 확인 |
+| 하락 예정 | `/mypage/rewards/preview/downgrade-scheduled` | 720,000원 추가 구매 시 ELITE 유지 툴팁과 11월 30일까지의 구매 확정 안내를 표시 |
+| ELITE 달성 | `/mypage/rewards/preview/elite-achieved` | 차트 100%와 ELITE 달성 툴팁을 보여주는 별도 설계 예시 |
+
+이 주소들은 `rewardsPreviews.ts`와 `preview/[state]/page.tsx`에서 고정 표시 데이터를 읽는다. 상태 판정·날짜 계산·실제 요청은 통합 소유자의 책임이다. PC에는 기존 마이페이지 요약 배치를 사용하고, 모바일 예시에서 읽은 문구와 상태를 두 플랫폼에 적용했다. 출처는 사용자 브라우저 코멘트와 [HOKA 설계서의 회원등급 산정 케이스](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)다.
+
+안내 문구가 있는 상향 예정·유지·하락 위험·하락 예정은 기존 문구와 공통 안내 스타일을 사용한다. [PC·모바일 안내 타이포그래피](ui.md#마이페이지-회원등급-pc모바일-디자인-2026-11-27).
+
+Chromium PC 1440px·모바일 375px에서 기본과 다섯 상태를 직접 열어 등급, 구매금액, 진행률, 안내 문구 및 요약 영역 가로 넘침 여부를 확인했다. 개발용 IA와 화면검수용 목록에서 그룹 접기와 검색 후 다시 펼쳐지는 동작, 개별 URL 및 그룹 밖 조회 중·실패 링크를 확인했다. 고객센터 로그인 예시의 기존 산정 안내도 확인했다. IA·소스 그래프 검사 16개와 Next.js 프로덕션 빌드가 통과했다.
+
+후속 코멘트 반영 후 Chromium PC 1574px·모바일 375px에서 상향 예정·유지·하락 예정·ELITE 달성·하락 위험의 문구와 툴팁을 확인했다. 개발용 IA와 화면검수용 목록에는 하락 위험을 제외한 네 케이스가 연결되고, 하락 위험 직접 URL은 열린다.
 
 1:1 문의 파일 첨부 헤더의 파일 찾기 버튼은 PC·모바일 공통 Secondary Short를 사용한다. 출처는 `InquiryFormContent.tsx`다.
 
@@ -3084,3 +3109,21 @@ Codex는 PC 1424px와 모바일 375px에서 두 목록의 링크 243개, 트리 
 비밀번호 재설정 기본 화면에서는 새 비밀번호 입력값이 영문·숫자·특수문자를 모두 포함한 10~20자 조건을 충족하지 않으면 새 비밀번호 입력란 아래에 안내를 표시한다. 출처는 `PasswordResetStatePreview.tsx`와 `src/lib/passwordValidation.ts`다.
 
 비밀번호 재설정의 새 비밀번호 조건과 확인 불일치 오류 문구는 PC·모바일에서 error으로 표시한다. 출처는 `PasswordResetContent.tsx`다.
+
+## 주문과 취소·반품 목록의 왼쪽 정렬 2026-11-27
+
+PC 주문/배송조회 목록의 주문 정보와 상태, 주문·취소·반품 상품을 목록 왼쪽에 맞춘다. 취소/반품내역 목록의 주문번호와 상품, 취소 상세와 반품 상세의 상품도 같은 시작선을 사용한다. 기존 24px 안쪽 여백에서 왼쪽 값만 제거한다. 출처는 사용자 브라우저 코멘트와 OrdersProducts.tsx, OrdersList.tsx, OrderDetails.tsx 작업 트리다.
+
+브라우저에서 PC 1414px과 모바일 375px로 네 경로를 열어 상품 썸네일이 본문 시작선과 일치하는 것을 확인했다. 주문/배송조회 PC에서는 주문 날짜의 시작선도 확인했다.
+
+## 상품 상세 입고 알림 휴대폰 번호 등록 안내 2026-11-27
+
+`/products/pdp-preview/restock-phone-required`는 카카오 가입 회원에게 등록된 휴대폰 번호가 없는 상태를 보여준다. 품절 옵션을 선택하고 `상품구매` 안내를 연 상태로 시작한다. 확인은 기존 회원정보 수정 미리보기 `/mypage/profile/preview-edit`로 이동하고, 취소와 닫기는 상품 상세에 머문다. 입고 알림 신청하기 버튼으로 안내를 다시 열 수 있다.
+
+상품 상세 공통 IA(`eland_hca_02`)의 입고 알림 그룹에 `상품 상세 · 입고 알림 휴대폰 번호 등록 안내`를 추가했다. 기존 동적 진입점과 IA 연결이 `productDetailPreviews`에서 상태와 `confirm` 유형을 읽는다. 소스 그래프 재생성 결과는 동일하다.
+
+실제 상품 상세는 통합 소유자가 현재 회원의 가입 유형과 휴대폰 번호 등록 여부를 확인한 뒤 `RouteContent`에 `restockPhoneRegistration`을 전달한다. 확인은 연결된 `onEditProfile`을 호출한다. 회원 조회와 입고 알림 신청 요청은 서비스 연결 범위로 남아 있다.
+
+출처는 사용자 첨부 이미지, `ProductDetailContent.tsx`, `productDetailPreviews.ts`, `IaStructurePage.tsx` 작업 트리다. Codex가 2026-11-27 KST에 PC 1440px·모바일 375px에서 직접 진입, 새로고침, 취소 후 재열기, Escape 후 버튼 포커스 복귀, 회원정보 수정 이동을 확인했다. IA에서 모바일 상태명 검색과 보기 링크 이동, PC URL 검색과 `confirm` 표시를 확인했다.
+
+모바일 옵션 시트에서 품절 사이즈 선택 후 안내가 시트 위에 열리며 취소 시 시트의 입고 알림 버튼으로 포커스가 돌아왔다. 기존 재입고 신청 확인 팝업이 표시되는 것도 확인했다. TypeScript, 변경 파일 ESLint·Prettier, IA 관련 테스트 26개가 통과했다. 전체 ESLint는 이 작업에서 변경하지 않은 `tests/wh-file-summary.test.mjs`의 전역 이름 `no-undef` 오류 8건을 보고했다.

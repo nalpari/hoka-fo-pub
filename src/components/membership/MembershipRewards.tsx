@@ -17,6 +17,7 @@ import type { OverviewView } from '@/types/mypage-display';
 import {
   type MembershipBenefitsDisplay,
   membershipBenefitsPreview,
+  type MembershipSummaryDisplay,
   rewardPreview,
 } from './rewards-data';
 
@@ -133,6 +134,10 @@ const styles = {
   accountBenefitDescription: css({ _mobile: { pl: '28px' } }),
   accountCouponTitle: css({ _mobile: { '&&': { lineHeight: '1.4' }, whiteSpace: 'pre-line' } }),
   accountValidity: css({ color: '#707070' }),
+  progressNotice: css({
+    _web: { gridColumn: '1 / -1', mt: '4px' },
+    _mobile: { alignSelf: 'flex-start', maxW: 'full', mt: '8px', textAlign: 'right' },
+  }),
   accountTooltip: css({
     textAlign: 'center',
     overflowWrap: 'anywhere',
@@ -383,9 +388,16 @@ function RewardProgress({
   const percent = Number.isFinite(progress.percent)
     ? Math.max(0, Math.min(100, progress.percent))
     : 0;
-  const [labelAmount = '', labelText = progress.label] = account
-    ? progress.label.split(/^(\p{Decimal_Number}+(?:[,.]\p{Decimal_Number}+)*)/u).slice(1)
-    : [];
+  const label = progress.label ?? '';
+  const notice = progress.notice;
+  const hasAccountTooltip = account && Boolean(label);
+  const progressPosition = `${percent}%`;
+  // The tail base must clear the 12px corner radius by half its 12px width.
+  const tailInset = '18px';
+  const [labelAmount = '', labelText = label] =
+    account && progress.labelSize !== 'compact'
+      ? label.split(/^(\p{Decimal_Number}+(?:[,.]\p{Decimal_Number}+)*)/u).slice(1)
+      : [];
   return (
     <Stack
       flex="1"
@@ -395,44 +407,79 @@ function RewardProgress({
       bg="black.10"
       px="32px"
       py="32px"
-      _mobile={{ w: 'full', py: '24px', gap: '8px' }}
+      _web={
+        hasAccountTooltip
+          ? {
+              display: 'grid',
+              gridTemplateColumns: 'minmax(0, 1fr) max-content',
+              columnGap: '24px',
+              alignItems: 'center',
+              alignContent: 'center',
+            }
+          : undefined
+      }
+      _mobile={{ w: 'full', py: '24px', gap: '8px', minH: account ? '159px' : undefined }}
     >
-      <Box
-        position="relative"
-        h={account ? '47px' : '44px'}
-        mr={account ? '168px' : '180px'}
-        _mobile={{ h: '47px', mr: '0' }}
-      >
+      {label ? (
         <Box
-          position="absolute"
-          style={{ left: account ? `clamp(56px, ${percent}%, 100% - 56px)` : `${percent}%` }}
-          transform="translateX(-50%)"
-          bottom="0"
-          maxW="none"
-          w={account ? 'min(175px, calc(100% + 64px))' : 'max-content'}
-          className={account ? styles.accountTooltip : undefined}
+          position="relative"
+          h={account ? undefined : '44px'}
+          mr={account ? '0' : '180px'}
+          _web={hasAccountTooltip ? { gridColumn: '1' } : undefined}
+          _mobile={{ h: account ? undefined : '47px', mr: '0' }}
         >
-          <Box bg="black.100" color="white" px="12px" py="10px" borderRadius="12px">
-            <Typography variant="b6" language={account ? 'ko' : 'auto'}>
-              {labelAmount ? (
-                <Typography variant="b6M" language="ko">
-                  {labelAmount}
-                </Typography>
-              ) : null}
-              {labelText}
-            </Typography>
-          </Box>
           <Box
-            mx="auto"
-            w="12px"
-            h="6px"
-            bg="black.100"
-            clipPath="polygon(0 0,100% 0,50% 100%)"
-            mt={account ? '0' : '-1px'}
-          />
+            position={account ? 'relative' : 'absolute'}
+            style={{
+              left: progressPosition,
+              transform: account
+                ? `translateX(clamp(calc(${tailInset} - 100%), -${progressPosition}, -${tailInset}))`
+                : undefined,
+            }}
+            transform={account ? undefined : 'translateX(-50%)'}
+            bottom={account ? undefined : '0'}
+            maxW={account ? 'min(260px, 100%)' : 'none'}
+            w="max-content"
+            className={account ? styles.accountTooltip : undefined}
+          >
+            <Box bg="black.100" color="white" px="12px" py="10px" borderRadius="12px">
+              <Typography
+                variant={progress.labelSize === 'compact' ? 'b8' : 'b6'}
+                mo={account ? 'b8' : undefined}
+                language={account ? 'ko' : 'auto'}
+              >
+                {labelAmount ? (
+                  <Typography variant="b6M" mo="b8M" language="ko">
+                    {labelAmount}
+                  </Typography>
+                ) : null}
+                {labelText}
+              </Typography>
+            </Box>
+            <Box
+              mx={account ? undefined : 'auto'}
+              position={account ? 'relative' : undefined}
+              style={
+                account
+                  ? { left: `clamp(${tailInset}, ${progressPosition}, 100% - ${tailInset})` }
+                  : undefined
+              }
+              transform={account ? 'translateX(-50%)' : undefined}
+              w="12px"
+              h="6px"
+              bg="black.100"
+              clipPath="polygon(0 0,100% 0,50% 100%)"
+              mt="-1px"
+            />
+          </Box>
         </Box>
-      </Box>
-      <HStack gap="24px" minH="24px" _mobile={{ flexDirection: 'column', alignItems: 'stretch' }}>
+      ) : null}
+      <HStack
+        gap="24px"
+        minH="24px"
+        _web={hasAccountTooltip ? { display: 'contents' } : undefined}
+        _mobile={{ flexDirection: 'column', alignItems: 'stretch' }}
+      >
         <Box
           flex="1"
           h="8px"
@@ -440,16 +487,17 @@ function RewardProgress({
           borderRadius="full"
           position="relative"
           role="progressbar"
-          aria-label={progress.label}
+          aria-label={label || notice || '등급 산정 구매금액'}
           aria-valuemin={0}
           aria-valuemax={100}
           aria-valuenow={percent}
+          _web={hasAccountTooltip ? { gridColumn: '1' } : undefined}
           _mobile={{ flex: 'none' }}
         >
           <Box style={{ width: `${percent}%` }} h="full" bg="black.100" borderRadius="full" />
           <Box
             position="absolute"
-            style={{ left: `${percent}%` }}
+            style={{ left: progressPosition }}
             top="50%"
             transform="translate(-50%,-50%)"
             w="24px"
@@ -490,14 +538,31 @@ function RewardProgress({
           ) : null}
         </HStack>
       </HStack>
+      {notice ? (
+        <Typography
+          as="p"
+          variant={account ? 'b7M' : 'b8'}
+          language={account ? 'ko' : 'auto'}
+          className={account ? styles.progressNotice : undefined}
+        >
+          {account
+            ? notice
+                .split(/([A-Za-z]+|\p{Decimal_Number}+(?:[,.]\p{Decimal_Number}+)*)/u)
+                .map((part, index) =>
+                  index % 2 === 0 ? (
+                    part
+                  ) : (
+                    <Typography key={index} variant="b7M" language="en">
+                      {part}
+                    </Typography>
+                  ),
+                )
+            : notice}
+        </Typography>
+      ) : null}
     </Stack>
   );
 }
-
-type MembershipSummaryDisplay = Pick<
-  OverviewView,
-  'name' | 'tier' | 'tierInitial' | 'purchaseAmount' | 'tierProgress'
->;
 
 type MembershipRewardsProps = {
   /** 준비된 개인 등급 표시 데이터이며 null이면 기존 빈 요약을 표시합니다. */
@@ -579,10 +644,20 @@ export function MembershipRewards({
                   alignItems: 'center',
                 }}
               >
-                <Typography web="b4M" mo="b6M">
+                <Typography
+                  web="b4M"
+                  mo="b6M"
+                  className={account ? css({ _web: { alignSelf: 'flex-start' } }) : undefined}
+                >
                   구매금액
                 </Typography>
-                <HStack gap="2px" justifyContent="flex-end" alignItems="baseline">
+                <HStack
+                  gap="2px"
+                  justifyContent="flex-end"
+                  alignItems="baseline"
+                  _web={account ? { alignItems: 'flex-end' } : undefined}
+                  _mobile={account ? { alignItems: 'center' } : undefined}
+                >
                   <Typography
                     web="h10B"
                     mo={account ? 'b4B' : 'h8'}
@@ -594,9 +669,17 @@ export function MembershipRewards({
                 </HStack>
               </Stack>
             </HStack>
-            <Typography as="p" web="b6" mo="b7" tone="tertiary">
-              * 매월 1일, 전월 말일자부터 최근 1년 내 구매 금액으로 산정
-            </Typography>
+            {account ? (
+              <Typography as="p" web="b6" mo="b7" tone="tertiary">
+                매월 3일, 전월 말일까지를 기준으로 최근 1년간의 구매 금액으로 회원 등급 산정
+                <br />※ 현재 구매금액은 실제 구매 확정 금액을 기준으로 표시되며, 등급별 기준 금액을
+                초과한 경우에도 실제 금액으로 표시됩니다.
+              </Typography>
+            ) : (
+              <Typography as="p" web="b6" mo="b7" tone="tertiary">
+                * 매월 1일, 전월 말일자부터 최근 1년 내 구매 금액으로 산정
+              </Typography>
+            )}
           </Stack>
         </Stack>
       ) : null}

@@ -126,14 +126,14 @@ function ClaimHistoryList({
       )}
       {items.map((item) => (
         <Stack key={item.key} data-list-item gap="0" pt="32px">
-          <Typography variant="b4" tone="tertiary" className={css({ pl: '24px' })}>
+          <Typography variant="b4" tone="tertiary">
             주문번호{' '}
             <Typography as="span" variant="b4" language="en" tone="tertiary">
               {item.orderNumber}
             </Typography>
           </Typography>
           <Grid gridTemplateColumns={columns} alignItems="center" gap="0" pt="16px" pb="32px">
-            <Box px="24px">
+            <Box pe="24px">
               <OrderProductSummary
                 variant="history"
                 image={item.line.image}

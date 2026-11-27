@@ -2,12 +2,13 @@
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 
 import {
   Component,
   type CSSProperties,
   Fragment,
+  type MouseEventHandler,
   type ReactNode,
   type Ref,
   useCallback,
@@ -76,6 +77,7 @@ import {
   prepareProductDetailPreview,
   type ProductDetailPreview,
   productDetailPreviews,
+  restockPhoneRequiredNotice,
 } from '@/app/products/[id]/productDetailPreviews';
 import { productInquiries } from '@/app/products/[id]/productInquiries';
 import { productSizeOptions } from '@/app/products/[id]/productSizeOptions';
@@ -2223,6 +2225,7 @@ const ProductPurchaseActionsRoot = cva({
 // [ 개발팀 바인딩 ] 구매/장바구니/입고알림 CTA는 상태 확인용 표시입니다. 요청·검증·장바구니 변경·완료 이동은 연결하지 않으며 실제 연결은 상품상세 통합 소유자가 담당합니다.
 type ProductPurchaseActionsProps = {
   onOpenOptions?: () => void;
+  onRequestRestock?: MouseEventHandler<HTMLButtonElement>;
   restock?: boolean;
 } & (
   { placement: 'inline'; wishlist?: ReactNode } | { placement: 'fixed' | 'sheet'; wishlist?: never }
@@ -2232,6 +2235,7 @@ function ProductPurchaseActions({
   placement,
   restock,
   onOpenOptions,
+  onRequestRestock,
   wishlist,
 }: ProductPurchaseActionsProps) {
   const platform = usePlatform();
@@ -2263,7 +2267,7 @@ function ProductPurchaseActions({
         variant="primary"
         fullWidth
         size={platform === 'mobile' ? 'short' : 'tall'}
-        onClick={restock ? undefined : onOpenOptions}
+        onClick={restock ? onRequestRestock : onOpenOptions}
       >
         <Typography web="b4B" mo="b5B" language="ko">
           {restock ? '입고 알림 신청하기' : '구매하기'}
@@ -2274,6 +2278,7 @@ function ProductPurchaseActions({
   );
 }
 type ProductDetailContentProps = {
+  onRequestRestock?: MouseEventHandler<HTMLButtonElement>;
   apparel?: boolean;
   restock?: boolean;
   product: Product;
@@ -2304,6 +2309,7 @@ function ProductDetailContent({
   onColorChange,
   onWidthChange,
   onSizeChange,
+  onRequestRestock,
   apparel,
   restock,
 }: ProductDetailContentProps) {
@@ -2327,6 +2333,7 @@ function ProductDetailContent({
       {selectedOptions}
       <ProductPurchaseActions
         restock={restock}
+        onRequestRestock={onRequestRestock}
         placement="inline"
         wishlist={
           platform === 'web' ? (
@@ -2847,6 +2854,7 @@ function ProductDetailSupportRegion({
   );
 }
 type ProductDetailPanelProps = {
+  onRequestRestock?: MouseEventHandler<HTMLButtonElement>;
   initialShareOpen?: boolean;
   apparel?: boolean;
   restock?: boolean;
@@ -2881,6 +2889,7 @@ function ProductDetailPanel({
   onWidthChange,
   onSizeChange,
   onWishChange,
+  onRequestRestock,
   inquiriesEmpty,
   inquiriesExpanded,
   apparel,
@@ -2926,6 +2935,7 @@ function ProductDetailPanel({
         <ProductDetailContent
           apparel={apparel}
           restock={restock}
+          onRequestRestock={onRequestRestock}
           selectedOptions={selectedOptions}
           wish={wish}
           onWishChange={onWishChange}
@@ -3008,6 +3018,7 @@ function ProductDetailRecommendations({ products }: { products: Product[] }) {
 }
 type ProductDetailFooterProps = {
   onOpenOptions?: () => void;
+  onRequestRestock?: MouseEventHandler<HTMLButtonElement>;
   restock?: boolean;
   recommendations: Product[];
 };
@@ -3017,13 +3028,19 @@ function ProductDetailFooter({
   recommendations,
   restock,
   onOpenOptions,
+  onRequestRestock,
 }: ProductDetailFooterProps) {
   const platform = usePlatform();
   return (
     <>
       <ProductDetailRecommendations products={recommendations} />
       {platform === 'mobile' && (
-        <ProductPurchaseActions restock={restock} placement="fixed" onOpenOptions={onOpenOptions} />
+        <ProductPurchaseActions
+          restock={restock}
+          placement="fixed"
+          onOpenOptions={onOpenOptions}
+          onRequestRestock={onRequestRestock}
+        />
       )}
     </>
   );
@@ -3133,9 +3150,17 @@ const maxProductSheet = css({
   _mobile: { maxH: 'calc(100dvh - 92px)' },
 });
 
+type RouteContentProps = {
+  preview?: ProductDetailPreview;
+  // [ 개발팀 바인딩 ] PDP 통합 소유자가 현재 카카오 가입 회원에게 등록된 휴대폰 번호가 없다고 확인한 경우에만 전달합니다.
+  // 입고알림 CTA에서 번호 등록 안내를 열고, 확인 시 onEditProfile을 호출합니다. 회원정보 갱신 후 이 옵션을 다시 판단하며 안내에서 신청 요청은 실행하지 않습니다.
+  restockPhoneRegistration?: { onEditProfile: () => void };
+};
+
 /** 상품 옵션과 입고알림 선택 및 이미지 열람을 로컬로 표시합니다. (Displays local product-option and restock selections and image viewing.) */
-export function RouteContent({ preview }: { preview?: ProductDetailPreview }) {
+export function RouteContent({ preview, restockPhoneRegistration }: RouteContentProps) {
   const platform = usePlatform();
+  const router = useRouter();
   const catalogue = products;
   const { id } = useParams<{
     id: string;
@@ -3148,17 +3173,30 @@ export function RouteContent({ preview }: { preview?: ProductDetailPreview }) {
   const revised = baseProduct?.id === 'shoe-1';
   const allSoldOut = preview === 'sold-out';
   const optionsPreview = preview === 'options-selected' || preview === 'options-scroll';
-  // [ 개발팀 바인딩 ] 열린 안내는 직접 URL용 fixture입니다. PDP 통합 소유자가 상품·옵션 ID와 수량으로 요청을 연결하고 결과에 맞는 안내를 열며, 처리 중 중복을 막고 실패 시 선택을 유지해 재시도하거나 성공 시 장바구니를 갱신합니다. 이 미리보기의 버튼은 안내만 닫습니다.
+  // [ 개발팀 바인딩 ] 처음부터 열린 안내는 직접 URL용 fixture입니다. PDP 통합 소유자가 상품·옵션 ID와 수량으로 요청을 연결하고 결과에 맞는 안내를 열며, 처리 중 중복을 막고 실패 시 선택을 유지해 재시도하거나 성공 시 장바구니를 갱신합니다.
   const previewEntry = productDetailPreviews.find(({ state }) => state === preview);
-  const notice = previewEntry && 'notice' in previewEntry ? previewEntry.notice : undefined;
-  const [noticeOpen, setNoticeOpen] = useState(!!notice);
+  const previewNotice = previewEntry && 'notice' in previewEntry ? previewEntry.notice : undefined;
+  const notice =
+    previewNotice ?? (restockPhoneRegistration ? restockPhoneRequiredNotice : undefined);
+  const phoneRequired = notice === restockPhoneRequiredNotice;
+  const [noticeOpen, setNoticeOpen] = useState(!!previewNotice);
+  const noticeTrigger = useRef<HTMLButtonElement | null>(null);
+  const onRequestRestock: MouseEventHandler<HTMLButtonElement> | undefined = phoneRequired
+    ? (event) => {
+        noticeTrigger.current = event.currentTarget;
+        setNoticeOpen(true);
+      }
+    : undefined;
   const inquiriesEmpty = revised && preview !== undefined && preview !== 'inquiries-expanded';
   const inquiriesExpanded = preview === 'inquiries-expanded';
   const initialColor = product?.colorThumbnails?.[0]?.label ?? product?.colors[0] ?? '';
   const [color, setColor] = useState(initialColor);
   const [requestedWidth, setWidth] = useState('');
   const [restockSize, setRestockSize] = useState(
-    preview === 'restock' || preview === 'restock-confirm' || preview === 'restock-complete'
+    preview === 'restock' ||
+      preview === 'restock-confirm' ||
+      preview === 'restock-complete' ||
+      preview === 'restock-phone-required'
       ? '300'
       : '',
   );
@@ -3274,6 +3312,7 @@ export function RouteContent({ preview }: { preview?: ProductDetailPreview }) {
         <ProductDetailFooter
           restock={restock}
           recommendations={recommendations}
+          onRequestRestock={onRequestRestock}
           onOpenOptions={
             revised
               ? () => {
@@ -3319,6 +3358,7 @@ export function RouteContent({ preview }: { preview?: ProductDetailPreview }) {
         inquiriesExpanded={inquiriesExpanded}
         apparel={apparel}
         restock={restock}
+        onRequestRestock={onRequestRestock}
         revised={revised}
         selectedOptions={platform === 'web' || !revised ? selectedOptions : null}
         color={color}
@@ -3339,16 +3379,55 @@ export function RouteContent({ preview }: { preview?: ProductDetailPreview }) {
           variant={notice.variant}
           open={noticeOpen}
           onOpenChange={setNoticeOpen}
-          finalFocus={() => document.querySelector<HTMLElement>('[data-pdp-panel]')}
+          finalFocus={() =>
+            noticeTrigger.current?.isConnected
+              ? noticeTrigger.current
+              : document.querySelector<HTMLElement>('[data-pdp-panel]')
+          }
           title="상품구매"
           closeLabel="상품구매 안내 닫기"
           message={notice.message}
-          description={notice.description}
-          actions={
-            notice.variant === 'confirm'
-              ? { kind: 'confirm', onConfirm: () => setNoticeOpen(false) }
-              : { kind: 'single', onConfirm: () => setNoticeOpen(false) }
+          description={
+            'nextStep' in notice ? (
+              <span className={css({ wordBreak: 'keep-all' })}>
+                {notice.description}
+                <br />
+                {notice.nextStep}
+              </span>
+            ) : (
+              notice.description
+            )
           }
+          {...(phoneRequired
+            ? {
+                footer: (
+                  <>
+                    <Button
+                      variant="primary"
+                      fullWidth
+                      onClick={() => {
+                        setNoticeOpen(false);
+                        if (restockPhoneRegistration) {
+                          restockPhoneRegistration.onEditProfile();
+                        } else {
+                          router.push('/mypage/profile/preview-edit');
+                        }
+                      }}
+                    >
+                      확인
+                    </Button>
+                    <Button variant="secondary" fullWidth onClick={() => setNoticeOpen(false)}>
+                      취소
+                    </Button>
+                  </>
+                ),
+              }
+            : {
+                actions: {
+                  kind: notice.variant === 'confirm' ? 'confirm' : 'single',
+                  onConfirm: () => setNoticeOpen(false),
+                } as const,
+              })}
         />
       )}
       {platform === 'mobile' && revised && (
@@ -3364,7 +3443,13 @@ export function RouteContent({ preview }: { preview?: ProductDetailPreview }) {
           mobilePresentation="bottomSheet"
           scrollable={preview === 'options-scroll'}
           popupClassName={preview === 'options-scroll' ? maxProductSheet : undefined}
-          footer={<ProductPurchaseActions restock={restock} placement="sheet" />}
+          footer={
+            <ProductPurchaseActions
+              restock={restock}
+              placement="sheet"
+              onRequestRestock={onRequestRestock}
+            />
+          }
         >
           <Stack gap="6">
             {(!optionsPreview || !selectedItems.length) && (

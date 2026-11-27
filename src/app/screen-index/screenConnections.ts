@@ -1,6 +1,7 @@
 import type { ModalDialogVariant } from '@/components/common/layouts/ModalDialog';
 
 import { orderPreviews } from '@/app/mypage/orders/orderPreviews';
+import { rewardsPreviews } from '@/app/mypage/rewards/rewardsPreviews';
 import { productDetailPreviews } from '@/app/products/[id]/productDetailPreviews';
 import {
   getProductListingIaKey,
@@ -17,6 +18,7 @@ export type ScreenConnection = {
   previewRoutes?: {
     label: string;
     href: string;
+    group?: string;
   }[];
   sourceFiles: string[];
 };
@@ -348,15 +350,17 @@ const connections: Record<number, ScreenConnection> = {
     ],
   },
   '195': {
-    previewRoutes: [
-      { label: '조회 중', href: '/mypage/rewards/preview-loading' },
-      { label: '조회 실패', href: '/mypage/rewards/preview-load-error' },
-    ],
+    previewRoutes: rewardsPreviews
+      .filter(({ state }) => state !== 'downgrade-risk')
+      .map(({ label, state }) => ({
+        label,
+        href: `/mypage/rewards/preview/${state}`,
+        group: '회원등급 산정 케이스',
+      })),
     route: '/mypage/rewards',
     sourceFiles: [
       'src/app/mypage/rewards/page.tsx',
-      'src/app/mypage/rewards/preview-loading/page.tsx',
-      'src/app/mypage/rewards/preview-load-error/page.tsx',
+      'src/app/mypage/rewards/preview/[state]/page.tsx',
     ],
   },
   '196': {
@@ -915,7 +919,9 @@ export function getScreenConnection(screen: ScreenDefinition): ScreenConnection 
   return { ...connection, sourceFiles: resolveSourceFiles(connection.sourceFiles) };
 }
 
-export function getScreenStatePreviews(connection: ScreenConnection | undefined) {
+export function getScreenStatePreviews(
+  connection: ScreenConnection | undefined,
+): NonNullable<ScreenConnection['previewRoutes']> {
   const previews = connection?.previewRoutes ?? [];
   return connection?.route
     ? [

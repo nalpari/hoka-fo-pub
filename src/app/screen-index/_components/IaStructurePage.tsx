@@ -85,7 +85,10 @@ const reviewPreviewGroups: [label: string, path: RegExp][] = [
   ['상품문의', /^\/products\/(?:pdp-preview\/inquiries-expanded|preview-empty-inquiries)$/],
   ['사이즈 재고', /^\/products\/pdp-preview\/(?:partial-stock|sold-out)$/],
   ['옵션 선택', /^\/products\/pdp-preview\/options-(?:selected|scroll)$/],
-  ['입고 알림', /^\/products\/(?:pdp-preview\/restock-(?:complete|confirm)|preview-restock)$/],
+  [
+    '입고 알림',
+    /^\/products\/(?:pdp-preview\/restock-(?:complete|confirm|phone-required)|preview-restock)$/,
+  ],
   ['옵션 변경', /^\/cart\/preview-options(?:-apparel(?:-changed)?)?$/],
   ['접수완료', /^\/support\/inquiries\/preview-pending(?:-attachments)?$/],
   ['답변완료', /^\/support\/inquiries\/preview-(?:answered|attachments)$/],
@@ -486,9 +489,10 @@ export function IaStructurePage({ reviewOnly = false }: { reviewOnly?: boolean }
           ...screen.depths,
           screen.category,
           getScreenModalSearchText(connection),
-          ...getScreenStatePreviews(connection).flatMap(({ label, href }) => [
+          ...getScreenStatePreviews(connection).flatMap(({ label, href, group }) => [
             label,
             href,
+            group ?? '',
             ...(reviewOnly
               ? [getReviewPreviewGroup(href) ?? '', isEmptyPreview(label) ? 'EMPTY' : '']
               : []),
@@ -1205,11 +1209,11 @@ function StatePreviewRows({
     );
   };
 
-  if (!reviewOnly) return <>{previews.map((preview) => renderPreview(preview, depth))}</>;
-
+  const getGroup = ({ group, href }: (typeof previews)[number]) =>
+    group ?? (reviewOnly ? getReviewPreviewGroup(href) : undefined);
   const groups = new Map<string, typeof previews>();
   previews.forEach((preview) => {
-    const group = getReviewPreviewGroup(preview.href);
+    const group = getGroup(preview);
     if (!group) return;
     const members = groups.get(group) ?? [];
     members.push(preview);
@@ -1218,7 +1222,7 @@ function StatePreviewRows({
   return (
     <>
       {previews.map((preview) => {
-        const group = getReviewPreviewGroup(preview.href);
+        const group = getGroup(preview);
         const examples = group ? groups.get(group) : undefined;
         if (!group || !examples || examples.length < 2) return renderPreview(preview, depth);
         if (examples[0] !== preview) return null;
@@ -1228,7 +1232,7 @@ function StatePreviewRows({
         return (
           <Fragment key={path}>
             <tr className={styles.previewGroupRow}>
-              <td colSpan={3}>
+              <td colSpan={reviewOnly ? 3 : 6}>
                 <div
                   className={styles.treeItem}
                   style={{ paddingInlineStart: 'calc(' + depth + ' * var(--ia-indent, 20px))' }}
