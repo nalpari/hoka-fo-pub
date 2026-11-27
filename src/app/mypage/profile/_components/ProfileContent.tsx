@@ -176,7 +176,6 @@ export function ProfileEditForm({
   passwordChanged,
   emailPreference,
   smsPreference,
-  kakaoPreference,
   fieldErrors,
   onEmailChange,
   onAddressChange,
@@ -184,7 +183,6 @@ export function ProfileEditForm({
   onPhoneChange,
   onEmailPreferenceChange,
   onSmsPreferenceChange,
-  onKakaoPreferenceChange,
   onCancel,
   onWithdraw,
   details,
@@ -200,14 +198,13 @@ export function ProfileEditForm({
     <>
       <form noValidate onSubmit={submit}>
         <ContentSection
-          gap={{ base: '48px', _mobile: '32px' }}
+          gap={{ base: '40px', _mobile: '32px' }}
           css={{ '--line-heights-body': '1.5' }}
           _mobile={{ pt: '24px' }}
           title="회원정보 수정"
           headerProps={{
             titleAs: 'h1',
             titleProps: { web: 'h6', mo: 'h7', tone: 'primary' },
-            pb: { base: '40px', _mobile: '32px' },
           }}
         >
           <Grid
@@ -375,21 +372,6 @@ export function ProfileEditForm({
                       label={
                         <Typography web="b4M" mo="b6">
                           문자수신(LMS, SMS)
-                        </Typography>
-                      }
-                      options={[
-                        { value: '수신', label: '수신' },
-                        { value: '수신안함', label: '수신안함' },
-                      ]}
-                    />
-                    <Radio
-                      ariaLabel="카카오톡 알림톡 수신"
-                      name="kakao-preference"
-                      value={kakaoPreference}
-                      onValueChange={onKakaoPreferenceChange}
-                      label={
-                        <Typography web="b4M" mo="b6">
-                          카카오톡 알림톡 수신
                         </Typography>
                       }
                       options={[
@@ -828,7 +810,6 @@ export function ProfileContent({
                   items={[
                     { term: '이메일 수신', description: emailPreference },
                     { term: '문자수신(LMS, SMS)', description: smsPreference },
-                    { term: '카카오톡 알림톡 수신', description: kakaoPreference },
                   ]}
                   termProps={{ web: 'b4M', mo: 'b6', tone: 'primary' }}
                   descriptionProps={{ web: 'b4', mo: 'b6', tone: 'subtle' }}

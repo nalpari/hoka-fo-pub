@@ -2966,3 +2966,7 @@ FAQ 질문과 공지 상세 게시글 제목은 PC·모바일 모두 18px Medium
 ## 장바구니 상품 할인율
 
 장바구니 상품 가격은 표시 데이터의 선택적 `discountLabel`을 판매가 옆에 표시한다. PC·모바일 미리보기는 할인 상품에 `20%`를 사용한다. 출처는 `src/app/cart/cart-preview.ts`와 `src/app/cart/_components/CartProductSection.tsx`다.
+
+## 회원정보 관리·수정 표시
+
+카카오톡 알림톡 수신 항목은 회원정보 관리와 수정 화면에서 표시하지 않는다. 수정 화면의 제목과 본문 간격은 ContentSection의 PC 40px·모바일 32px 간격을 사용한다. 출처는 `src/app/mypage/profile/_components/ProfileContent.tsx`다.
