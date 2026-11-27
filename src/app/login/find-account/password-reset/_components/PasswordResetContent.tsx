@@ -48,7 +48,7 @@ const PasswordResetContentStyles = {
     display: 'flex',
     flexDirection: 'column',
     gap: '4',
-    '& p[role="alert"]': { color: 'var(--color-red-80)' },
+    '& p[role="alert"]': { color: 'error' },
   }),
   button: css({
     mt: '2',
