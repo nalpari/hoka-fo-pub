@@ -19,7 +19,14 @@ export type MembershipBenefitsDisplay = {
     requirement: string;
     benefits: readonly { title: string }[];
   }[];
-  commonBenefits: readonly { title: string; description: string }[];
+  commonBenefits: readonly {
+    title: string;
+    description: string;
+    accountMobile?: {
+      titleLines?: readonly [string, string];
+      descriptionLines: readonly [string, string?];
+    };
+  }[];
 };
 
 export const tiers = [
@@ -63,13 +70,30 @@ export const commonBenefits = [
   {
     title: '신규 가입 10% 할인 쿠폰',
     description: '최초 신규 가입 시 1회 지급/ 재가입 시 지급 불가/ 유효 기간 1년',
+    accountMobile: {
+      descriptionLines: ['최초 신규 가입 시 1회 지급 / 재가입 시 지급 불가', '유효 기간 1년'],
+    },
   },
   {
     title: '첫 구매 감사 1만원 쿠폰',
     description: '최초 1회 지급/ 구매 확정 후 24시간 이내 지급/ 유효 기간 6개월',
+    accountMobile: {
+      descriptionLines: ['최초 1회 지급 / 구매 확정 후 24시간 이내 지급', '유효 기간 6개월'],
+    },
   },
-  { title: '생일 축하 1만원 쿠폰', description: '매달 고객 별 생일 자동 발급, 유효 기간 6개월' },
-  { title: '카카오 플러스 친구 추가 시 5,000원 쿠폰', description: '유효 기간 6개월' },
+  {
+    title: '생일 축하 1만원 쿠폰',
+    description: '매달 고객 별 생일 자동 발급, 유효 기간 6개월',
+    accountMobile: { descriptionLines: ['매달 고객별 생일 자동 발급', '유효 기간 6개월'] },
+  },
+  {
+    title: '카카오 플러스 친구 추가 시 5,000원 쿠폰',
+    description: '유효 기간 6개월',
+    accountMobile: {
+      titleLines: ['카카오 플러스 친구 추가 시', '5,000원 쿠폰'],
+      descriptionLines: ['유효 기간 6개월'],
+    },
+  },
 ] as const;
 
 export const membershipBenefitsPreview: MembershipBenefitsDisplay = { tiers, commonBenefits };

@@ -2958,3 +2958,9 @@ FAQ 질문과 공지 상세 게시글 제목은 PC·모바일 모두 18px Medium
 ## 주문 카드의 취소·반품 상품 액션
 
 구매취소·반품요청 상품의 장바구니 담기 버튼은 PC·모바일 모두 표시하지 않는다. 출처는 `src/app/mypage/orders/_components/OrdersProducts.tsx`다.
+
+## 마이페이지 회원등급 표시 옵션 2026-11-27
+
+`/mypage/rewards`의 `RewardsContent.tsx`는 공용 `MembershipRewards`에 `layout="account"`를 전달한다. 기존 기본·조회 중·조회 실패 경로에 같은 표시 옵션을 적용한다. 고객센터 `/support/member-benefits`는 생략 시 적용되는 `standard`를 사용하며 기존 로그인 표시 조건을 따른다. 구매 금액과 쿠폰 지급 조건은 기존 표시 데이터를 읽는다. [시안 수치와 화면 확인](ui.md#마이페이지-회원등급-pc모바일-디자인-2026-11-27).
+
+작업 트리의 `src/app/mypage/rewards/_components/RewardsContent.tsx`를 출처로 기록한다. Chromium에서 마이페이지 조회 중·실패 문구와 고객센터 로그인 전후 미리보기의 개인 요약 표시를 확인했다.

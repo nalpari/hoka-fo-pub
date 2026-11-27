@@ -6431,3 +6431,11 @@ PC 1440×900과 모바일 360×768에서 버튼 높이 40px, 빈 화면 비활�
 ## 고객센터 제목과 상단 구분선
 
 DataList.recipe.tsx의 thinTertiary는 목록과 상세 영역에서 공유하는 1px solid 구분선이며 색상은 color/text/tertiary다.
+
+## 마이페이지 회원등급 PC·모바일 디자인 2026-11-27
+
+`MembershipRewards`의 `layout="account"`는 마이페이지에서 사용한다. PC 등급 안내와 공통 혜택 제목은 28px/700, 등급명은 22px/900이다. PC의 등급 조건은 20px로 ELITE·ADVANCED는 700, RUNNER는 500을 사용한다. 등급 혜택 목록은 16px/500과 세로 간격 8px을 적용한다. 배지와 설명 열 사이 간격은 56px, 공통 혜택 두 열 사이는 40px이다.
+
+모바일 요약의 등급명은 36px/900이고 배지는 등급 안내 행 오른쪽에 배치한다. 등급명은 22px/900, 등급 조건은 16px/700, 혜택 설명은 14px/400이다. 등급 설명 목록의 세로 간격은 4px이다. 공통 혜택 제목과 쿠폰명은 20px/700이고 구분선 목록의 행 안쪽 여백은 20px이다. `rewards-data.ts`의 선택적 `accountMobile`은 쿠폰명과 유효 기간의 줄 구성을 제공한다. 생략하면 기본 제목과 설명을 사용한다.
+
+출처는 [HOKA 마이페이지 회원등급 PC·모바일 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)과 `src/components/membership/MembershipRewards.tsx`, `src/components/membership/rewards-data.ts` 작업 트리다. 원본의 Regular·Medium·Bold·Black 스타일 및 숫자 굵기를 대응하는 기존 폰트로 매핑했다. 변수의 굵기 모드 이름은 확인하지 못했다. 2026-11-27 KST에 Chromium PC 1440px과 모바일 375px에서 계산 스타일과 배치, 모바일 쿠폰 줄 구성, Pretendard Medium·Regular·Bold의 실제 사용과 HOKA 900 face 로드를 확인했다. 모바일 320px에서 회원등급 본문은 가로 넘침이 없었고 상단 공용 배너 링크에서 약 3px 넘침이 관찰됐다.
