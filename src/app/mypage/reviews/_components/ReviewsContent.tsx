@@ -97,16 +97,6 @@ function ReviewDialog({
 }
 
 const styles = {
-  tabs: css({
-    borderBottomWidth: '0',
-    _mobile: { w: 'calc(100% + 32px)', mx: '-16px' },
-  }),
-  tab: css({
-    minH: '54px',
-    '&[aria-pressed=false]': { borderBottom: '1px solid var(--color-black-40)' },
-    '&[aria-pressed=true]': { borderBottom: '2px solid var(--color-black-100)' },
-    _mobile: { minH: '44px' },
-  }),
   action: css({ flexShrink: '0', '& > span > span': { lineHeight: '1.3' } }),
   stars: css({ '&&': { gap: '4px' } }),
   reviewText: css({ lineClamp: 1 }),
@@ -285,9 +275,7 @@ export function ReviewsContent({
           {/* [ 개발팀 바인딩 ] 정렬 선택은 현재 화면의 로컬 상태이며 서버 조회와 목록 갱신은 연동 소유자가 담당합니다. */}
           <SegmentedControl
             ariaLabel="상품리뷰 구분"
-            variant="underline"
-            className={styles.tabs}
-            itemClassName={() => styles.tab}
+            variant="underlineList"
             value={tab}
             onValueChange={setTab}
             options={[

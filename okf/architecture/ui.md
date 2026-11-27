@@ -1037,6 +1037,12 @@ sources:
 
 # 컴포넌트와 스타일
 
+## 마이페이지 목록 탭 높이 통일 (2026-11-27)
+
+러닝세션 신청내역과 상품리뷰는 `SegmentedControl variant="underlineList"`를 사용한다. 탭 높이는 PC 54px·모바일 44px이며, 비선택 버튼의 회색 1px 선과 선택 버튼의 검정 2px 선이 하단선을 구성한다. 모바일에서는 탭이 본문의 좌우 16px 여백을 상쇄한다. 기본 `variant`는 `default`이고, `underline`의 44px 규격은 유지한다. 출처는 사용자 브라우저 코멘트와 `SegmentedControl.tsx`, `ReviewsContent.tsx`, `RunningSessionEntriesContent.tsx` 작업 트리다.
+
+Chromium PC 1440px·모바일 390px에서 신청내역 기본 화면과 작성한 리뷰 미리보기의 탭 위치·높이, 밑줄 색상·두께, 정렬 줄의 시작 좌표가 각각 일치하는 것을 확인했다. 신청내역 빈 목록 미리보기에서도 탭이 표시된다.
+
 ## SegmentedControl 단위 버튼 (2026-11-27)
 
 `SegmentedControl`의 `variant` 기본값은 `default`다. 고객센터와 상품 상세 사이즈 가이드는 짧은 단위 라벨을 위해 `compactPill`을 명시한다. 이 표현은 Base UI Toggle 버튼에서 12px/600 라벨을 가로·세로 중앙에 배치하고 선택 버튼을 흰색으로 표시한다. 값을 관리하는 곳은 각 화면이다. [사용처와 실측](size-guide.md#고객센터와-상품-상세-단위-버튼-통일-2026-11-27).

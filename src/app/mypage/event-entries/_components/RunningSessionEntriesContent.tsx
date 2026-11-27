@@ -60,8 +60,7 @@ export function RunningSessionEntriesContent({
         <Box>
           <SegmentedControl
             ariaLabel="신청 상태"
-            variant="underline"
-            className={css({ _mobile: { w: 'calc(100% + 32px)', mx: '-16px' } })}
+            variant="underlineList"
             value={tab}
             onValueChange={setTab}
             options={[

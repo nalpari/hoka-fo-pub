@@ -9,6 +9,19 @@ import { cva } from 'styled-system/css';
 import { Button } from '@/components/common/atoms/Button';
 import { Typography } from '@/components/common/atoms/Typography';
 
+const underlineRoot = { w: '100%', flexWrap: 'nowrap', gap: '0' } as const;
+
+const underlineItem = {
+  flex: '1',
+  minW: '0',
+  minH: '44px',
+  border: '0',
+  borderBottom: '2px solid transparent',
+  bg: 'transparent',
+  color: 'var(--color-text-primary)',
+  cursor: 'pointer',
+} as const;
+
 const root = cva({
   base: { display: 'flex', flexWrap: 'wrap', gap: '2' },
   variants: {
@@ -24,10 +37,12 @@ const root = cva({
         bg: '#D9D9D9',
       },
       underline: {
-        w: '100%',
-        flexWrap: 'nowrap',
-        gap: '0',
+        ...underlineRoot,
         borderBottom: '1px solid var(--colors-black-20)',
+      },
+      underlineList: {
+        ...underlineRoot,
+        _mobile: { w: 'calc(100% + 32px)', mx: '-16px' },
       },
     },
   },
@@ -58,15 +73,13 @@ const item = cva({
         _focusVisible: { outline: '2px solid var(--color-focus-ring)', outlineOffset: '-2px' },
         _mobile: { w: '42px', h: '26px' },
       },
-      underline: {
-        flex: '1',
-        minW: '0',
-        minH: '44px',
-        border: '0',
-        borderBottom: '2px solid transparent',
-        bg: 'transparent',
-        color: 'var(--color-text-primary)',
-        cursor: 'pointer',
+      underline: underlineItem,
+      underlineList: {
+        ...underlineItem,
+        minH: '54px',
+        '&[aria-pressed=false]': { borderBottom: '1px solid var(--color-black-40)' },
+        '&[aria-pressed=true]': { borderBottom: '2px solid var(--color-black-100)' },
+        _mobile: { minH: '44px' },
       },
     },
     active: {
@@ -85,7 +98,7 @@ const item = cva({
       css: { bg: 'white.0', color: 'text.primary' },
     },
     {
-      variant: 'underline',
+      variant: ['underline', 'underlineList'],
       active: true,
       css: {
         bg: 'transparent',
@@ -108,8 +121,8 @@ export type SegmentedControlProps<T extends string = string> = {
   onValueChange: (value: T) => void;
   ariaLabel: string;
   fullWidth?: boolean;
-  /** Defaults to `default`. Use `compactPill` for short labels such as measurement units. */
-  variant?: 'default' | 'compactPill' | 'underline';
+  /** Defaults to `default`. `underlineList` uses taller desktop tabs and offsets 16px mobile gutters. */
+  variant?: 'default' | 'compactPill' | 'underline' | 'underlineList';
   className?: string;
   /** Use native toggle buttons and let the caller own all presentation styles. */
   unstyled?: boolean;
@@ -131,6 +144,8 @@ export function SegmentedControl<T extends string = string>({
   itemClassName,
   itemRender,
 }: SegmentedControlProps<T>) {
+  const underlined = variant === 'underline' || variant === 'underlineList';
+
   return (
     <ToggleGroup
       aria-label={ariaLabel}
@@ -162,7 +177,7 @@ export function SegmentedControl<T extends string = string>({
             .join(' ')}
           render={
             itemRender?.(option) ??
-            (unstyled || variant === 'compactPill' ? undefined : variant === 'underline' ? (
+            (unstyled || variant === 'compactPill' ? undefined : underlined ? (
               <Typography
                 as="button"
                 web="b4"
