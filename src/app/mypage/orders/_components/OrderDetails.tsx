@@ -62,7 +62,6 @@ export function OrderInformationSection({
 type OrderDetailProps = {
   display: OrderDetailDisplay;
   onList: () => void;
-  onDetail: () => void;
   onTracking: () => void;
   onClaimDetail: (claimId: string) => void;
 };
@@ -181,11 +180,6 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
                   {' · '}
                   {display.expectedDate} 도착
                 </Typography>
-                {!mobile ? (
-                  <Button variant="link" size="md" onClick={actions.onDetail}>
-                    주문상세보기
-                  </Button>
-                ) : null}
               </HStack>
               <Stack
                 gap={{ base: '24px', _mobile: '12px' }}

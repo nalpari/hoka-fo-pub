@@ -83,7 +83,6 @@ export function OrdersContent({
             <OrderDetail
               display={selectedOrder.detailDisplay[platform === 'mobile' ? 'mobile' : 'web']}
               onList={onList}
-              onDetail={() => props.onDetail(selectedOrder)}
               onTracking={() => props.onTracking(selectedOrder)}
               onClaimDetail={(claimId) => {
                 const claim = selectedOrder.claims.find((item) => item.id === claimId);

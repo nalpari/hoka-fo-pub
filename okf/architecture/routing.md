@@ -2958,3 +2958,7 @@ FAQ 질문과 공지 상세 게시글 제목은 PC·모바일 모두 18px Medium
 ## 주문 카드의 취소·반품 상품 액션
 
 구매취소·반품요청 상품의 장바구니 담기 버튼은 PC·모바일 모두 표시하지 않는다. 출처는 `src/app/mypage/orders/_components/OrdersProducts.tsx`다.
+
+## 주문 상세 진입 버튼
+
+주문상세보기 버튼은 주문 목록에서 제공한다. 주문 상세의 배송 상태 행은 상태와 도착 안내를 표시한다. 출처는 `src/app/mypage/orders/_components/OrderDetails.tsx`와 `OrdersContent.tsx`다.
