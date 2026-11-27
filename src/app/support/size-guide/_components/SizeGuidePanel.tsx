@@ -79,7 +79,7 @@ const styles = {
   }),
 };
 
-const sectionTitle = { web: 'h10B', mo: 'h8' } as const;
+const sectionTitle = { web: 'h10', mo: 'h8' } as const;
 
 const unitOptions = [
   { value: 'cm', label: 'cm' },
@@ -135,7 +135,7 @@ function SizeGuideMeasurements({ category, gender }: { category: GuideCategory; 
     <ContentSection
       title="측정 방법 안내"
       headerProps={{
-        titleProps: sectionTitle,
+        titleProps: { ...sectionTitle, web: 'h10B' },
         description: '측정한 치수를 사이즈표와 비교해 가장 알맞은 사이즈를 선택해 주세요.',
         descriptionProps: { web: 'b4', mo: 'b6' },
         gap: { base: '3', _mobile: '2' },

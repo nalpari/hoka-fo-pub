@@ -68,7 +68,7 @@ sources:
 
 성별·카테고리 이름이 들어간 차트 제목 오른쪽에 cm/inch 선택 버튼을 둔다. 차트의 제목 행은 PC 최소 36px, 모바일 최소 32px을 확보해 단위 선택이 없는 용품으로 바꿔도 제목과 표의 시작 위치가 유지된다. 기존 치수 데이터를 46px 높이, 가운데 정렬, 13px 텍스트로 표시한다. 국가 코드는 신발과 의류 모두 미국(US)·한국(KR)로 통일했다. 용품은 공용 선택과 양말 차트만 제공한다.
 
-측정 방법 안내는 차트 아래에 배치한다. 시안의 신발 그림과 남성·공용 의류 및 여성 의류 이미지를 4:3으로 표시한다. PC는 288×216px 이미지 오른쪽에 설명을, 모바일은 본문 너비를 채우는 이미지 아래에 설명을 놓는다. PC 소제목은 22px/900, 모바일 소제목은 20px/700을 적용한다.
+측정 방법 안내는 차트 아래에 배치한다. 시안의 신발 그림과 남성·공용 의류 및 여성 의류 이미지를 4:3으로 표시한다. PC는 288×216px 이미지 오른쪽에 설명을, 모바일은 본문 너비를 채우는 이미지 아래에 설명을 놓는다. 측정 방법 안내 제목은 PC 22px/900, 모바일 20px/700을 적용한다. 사용자 브라우저 코멘트에 따라 카테고리·성별 선택 제목과 사이즈 차트 제목은 PC 22px/700, 모바일 20px/700을 사용한다. Chromium PC 1300px·모바일 390px에서 이 제목과 공용 신발에서 의류로 전환한 차트의 크기·굵기를 확인했다. 공용 신발의 inch 전환과 측정 방법 안내 제목도 확인했다. 출처는 `src/app/support/size-guide/_components/SizeGuidePanel.tsx` 작업 트리다.
 
 표시 데이터와 상호작용의 작업 트리 출처는 `src/app/support/size-guide/page.tsx`, `src/app/support/size-guide/_components/SizeGuidePanel.tsx`, `src/app/support/size-guide/size-guide.data.ts`, `public/images/size-guide/support-size-*.png`다. 운영 치수표와 이미지의 갱신은 라우트에 데이터를 전달하는 연동 담당자가 맡는다. [Figma 디자인][^support-size-guide-layout-20261127].
 
