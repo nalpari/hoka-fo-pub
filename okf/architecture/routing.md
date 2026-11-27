@@ -3076,3 +3076,5 @@ Codex는 PC 1424px와 모바일 375px에서 두 목록의 링크 243개, 트리 
 1:1 문의 파일 첨부 헤더의 파일 찾기 버튼은 PC·모바일 공통 Secondary Short를 사용한다. 출처는 `InquiryFormContent.tsx`다.
 
 공지사항 목록의 PC 행은 왼쪽 패딩 없이 제목을 목록 시작선에 맞추고 오른쪽 패딩은 16px을 사용한다. 출처는 `NoticesList.tsx`다.
+
+로그인 환영 제목은 PC·모바일 30px Bold(700)로 가운데 정렬하고, 회원가입 안내 제목·본문도 가운데 정렬한다. 안내 제목은 Bold(700)를 사용한다. 출처는 `LoginContent.tsx`다.
