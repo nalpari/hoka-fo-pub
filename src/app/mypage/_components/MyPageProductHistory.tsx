@@ -47,37 +47,6 @@ const restockListStyles = {
   }),
 };
 
-const restockConfirmStyles = {
-  popup: css({ '&&': { maxW: '345px', borderRadius: '0', _mobile: { borderRadius: '0' } } }),
-  header: css({
-    '&&': {
-      p: '16px',
-      minH: '56px',
-      bg: 'black.10',
-      '& h2': { fontSize: '16px', fontWeight: '400' },
-      _mobile: { pt: '16px', '& h2': { fontSize: '16px' } },
-    },
-  }),
-  content: css({
-    '&&': {
-      p: '24px 16px 16px',
-      '& h3': { fontSize: '20px' },
-      '& p': { fontSize: '14px' },
-      _mobile: { pb: '16px', '& h3': { fontSize: '20px' } },
-    },
-  }),
-  footer: css({
-    '&&': {
-      display: 'grid',
-      gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
-      gap: '20px',
-      p: '0 16px 24px',
-      '& button': { w: '100%', h: '40px', minH: '40px', p: '0 8px' },
-      '& button > span > span': { fontSize: '14px' },
-    },
-  }),
-};
-
 const restockPreview = {
   web: {
     name: 'Speedgoat 7 GTX',
@@ -203,20 +172,7 @@ function MyPageRestockList({ items, entries }: Props) {
         closeLabel="재입고 알림 상품 닫기"
         message="선택된 알림을 삭제하시겠습니까?"
         description="선택한 알림이 취소됩니다. 삭제 하시겠습니까?"
-        popupClassName={restockConfirmStyles.popup}
-        headerProps={{ className: restockConfirmStyles.header }}
-        contentClassName={restockConfirmStyles.content}
-        footerProps={{ className: restockConfirmStyles.footer }}
-        footer={
-          <>
-            <Button type="button" variant="primary" onClick={closeConfirm}>
-              확인
-            </Button>
-            <Button type="button" variant="secondary" onClick={closeConfirm}>
-              취소
-            </Button>
-          </>
-        }
+        actions={{ kind: 'confirm', onConfirm: closeConfirm }}
       />
     </Stack>
   );
