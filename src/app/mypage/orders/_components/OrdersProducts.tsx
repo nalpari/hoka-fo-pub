@@ -12,6 +12,7 @@ import { ContentSection } from '@/components/common/layouts/ContentSection';
 
 import { getClaimLines, orderStatusLabels } from '@/components/orders/order-policy';
 import type { OrderClaim, OrderLine, OrderRecord } from '@/components/orders/orders.types';
+import { formatProductOptions } from '@/lib/formatProductOptions';
 
 const styles = {
   orderAction: css({ minW: '107px', _mobile: { minW: '0', '&&': { '--button-height': '44px' } } }),
@@ -95,7 +96,10 @@ export function OrderClaimGroup({
             key={line.key}
             image={line.image}
             name={line.name}
-            optionText={`${line.width}, ${line.color}, ${line.size}, ${platform === 'mobile' ? (line.mobileQuantity ?? line.quantity) : line.quantity}개`}
+            optionText={formatProductOptions(
+              line,
+              platform === 'mobile' ? (line.mobileQuantity ?? line.quantity) : line.quantity,
+            )}
             amount={
               line.displayAmount === undefined
                 ? undefined
@@ -218,7 +222,7 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
                   key={line.key}
                   image={line.image}
                   name={line.name}
-                  optionText={`${line.width}, ${line.color}, ${line.size}, ${platform === 'mobile' ? (line.mobileQuantity ?? line.quantity) : line.quantity}개`}
+                  optionText={formatProductOptions(line, line.mobileQuantity ?? line.quantity)}
                   amount={
                     line.displayAmount === undefined
                       ? undefined
@@ -240,7 +244,7 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
                       variant="history"
                       image={line.image}
                       name={line.name}
-                      optionText={`${line.width}, ${line.color}, ${line.size}`}
+                      optionText={formatProductOptions(line)}
                       cartAction
                     />
                   </Box>
@@ -262,7 +266,7 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
             pr={{ base: '8px', _mobile: '0' }}
             _mobile={{ mt: '16px', flexDirection: 'column', alignItems: 'stretch' }}
           >
-            {['preparing', 'shipping', 'delivered', 'purchased'].includes(group.status) ? (
+            {['shipping', 'delivered', 'purchased'].includes(group.status) ? (
               <Button
                 variant="secondary"
                 size="short"
@@ -349,7 +353,7 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
             borderBottom={{ base: '1px solid var(--color-border-subtle)', _mobile: '0' }}
           >
             <Typography variant="b6M" tone="red80">
-              {claim.kind === 'cancel' ? '구매취소' : '반품요청'}
+              {claim.kind === 'cancel' ? '취소완료' : '환불신청'}
             </Typography>
             <Button variant="link" size="sm" onClick={() => actions.onClaimDetail(order, claim)}>
               {claim.kind === 'cancel' ? '취소상세보기' : '반품상세보기'}
@@ -362,7 +366,7 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
                 key={line.key}
                 image={line.image}
                 name={line.name}
-                optionText={`${line.width}, ${line.color}, ${line.size}, ${platform === 'mobile' ? (line.mobileQuantity ?? line.quantity) : line.quantity}개`}
+                optionText={formatProductOptions(line, line.mobileQuantity ?? line.quantity)}
                 amount={
                   line.displayAmount === undefined
                     ? undefined
@@ -383,7 +387,7 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
                     variant="history"
                     image={line.image}
                     name={line.name}
-                    optionText={`${line.width}, ${line.color}, ${line.size}`}
+                    optionText={formatProductOptions(line)}
                   />
                 </Box>
                 <Typography variant="b4M" className={css({ textAlign: 'center' })}>

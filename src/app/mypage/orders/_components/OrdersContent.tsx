@@ -83,18 +83,8 @@ export function OrdersContent({
             <OrderDetail
               display={selectedOrder.detailDisplay[platform === 'mobile' ? 'mobile' : 'web']}
               onList={onList}
-              onTracking={() => props.onTracking(selectedOrder)}
-              onClaimDetail={(claimId) => {
-                const claim = selectedOrder.claims.find((item) => item.id === claimId);
-                if (claim) props.onClaimDetail(selectedOrder, claim);
-              }}
-            />
-          ) : (
-            <OrdersListContent {...props} returns={returns} />
-          )}
-          {dialogs}
-        </ContentSection>
-      </Stack>
-    </MyPageFrame>
-  );
-}
+              onTracking={
+                selectedOrder.status === 'preparing'
+                  ? undefined
+                  : () => props.onTracking(selectedOrder)
+              }

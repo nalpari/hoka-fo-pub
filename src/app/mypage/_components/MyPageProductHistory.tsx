@@ -7,10 +7,10 @@ import { css } from 'styled-system/css';
 import { Box, Grid, Stack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
-import { Checkbox } from '@/components/common/atoms/Checkbox';
 import { dataListRecipe } from '@/components/common/atoms/DataList.recipe';
 import { Divider } from '@/components/common/atoms/Divider';
 import { EmptyState } from '@/components/common/atoms/EmptyState';
+import { Icon } from '@/components/common/atoms/Icon';
 import { Typography } from '@/components/common/atoms/Typography';
 
 import { ContentHeader } from '@/components/common/molecules/ContentHeader';
@@ -32,6 +32,12 @@ type Props = {
 const restockListStyles = {
   mobileDate: css({ display: 'none', _mobile: { display: 'block', mt: '6px' } }),
   dateCell: css({ textAlign: 'center', _mobile: { srOnly: true } }),
+  removeButton: css({
+    position: 'absolute',
+    insetInlineEnd: '0',
+    top: '32px',
+    _mobile: { top: '24px' },
+  }),
 };
 
 const restockPreview = {
@@ -82,20 +88,12 @@ function MyPageRestockList({ items, entries }: Props) {
             }}
             alignItems="center"
             data-list-item
+            position="relative"
             rowGap="0"
             py="32px"
             _mobile={{ py: '24px' }}
           >
-            <Box
-              role="cell"
-              display="flex"
-              alignItems="center"
-              gap="16px"
-              px="24px"
-              _mobile={{ gap: '8px', px: '0' }}
-              minW="0"
-            >
-              <Checkbox label={null} aria-label={`${name} 재입고 알림 선택`} />
+            <Box role="cell" display="flex" alignItems="center" pe={{ _web: '24px' }} minW="0">
               <OrderProductSummary
                 variant="cart"
                 name={name ?? ''}
@@ -127,10 +125,19 @@ function MyPageRestockList({ items, entries }: Props) {
             >
               {requestedAt}
             </Typography>
-            <Box role="cell" textAlign="center" _mobile={{ alignSelf: 'center' }}>
+            <Box role="cell" textAlign="center" _mobile={{ alignSelf: 'center', pe: '28px' }}>
               <Typography variant="b4" tone="subtle">
                 {sent ? '발송완료' : '알림대기'}
               </Typography>
+              <Button
+                type="button"
+                variant="icon"
+                size={20}
+                aria-label={`${name} 재입고 알림 삭제`}
+                className={restockListStyles.removeButton}
+              >
+                <Icon name="xmark-regular" size={20} />
+              </Button>
             </Box>
           </Grid>
         );
@@ -157,21 +164,20 @@ function MyPageProductHistoryGrid({
   return (
     <Grid
       gridTemplateColumns={{
-        base: recent ? 'repeat(3, minmax(0, 260px))' : 'repeat(3, minmax(0, 1fr))',
+        base: 'repeat(3, minmax(0, 260px))',
         _mobile: 'repeat(2, minmax(0, 1fr))',
       }}
-      px={wishlist ? '16px' : '0'}
-      justifyContent={recent ? 'center' : undefined}
+      justifyContent={{ _web: 'start' }}
       columnGap="16px"
       rowGap="48px"
-      _mobile={{ px: '0', columnGap: '8px', rowGap: '40px' }}
+      _mobile={{ columnGap: '8px', rowGap: '40px' }}
     >
       {items.map((item) => (
         <ProductCard
           textWeights={wishlist ? { identity: 'medium', promotion: 'medium' } : undefined}
           key={item.id}
           variant="history"
-          thumbnailVariant={wishlist && !entries && item.apparel ? 'listing' : undefined}
+          thumbnailVariant="listing"
           discountLabel={
             (recent || (wishlist && !item.apparel)) && !entries && platform === 'mobile'
               ? recent
@@ -208,7 +214,7 @@ function MyPageProductHistoryNote({
   if (recent) {
     return (
       <Box
-        borderTop="1px solid var(--colors-black-10)"
+        borderTop={empty ? undefined : '1px solid var(--colors-black-10)'}
         pt="16px"
         _mobile={{
           mt: '0',
@@ -384,9 +390,9 @@ export function MyPageProductHistory({
   // [ 개발팀 바인딩 ] 최근 본 상품 전체삭제는 표시용입니다. 통합 소유자가 해당 계정 또는 세션의
   // 전체 열람 이력을 대상으로 클릭 시 요청하고, 요청 중 중복 방지와 실패 시 기존 목록 유지 및 재시도를 처리합니다.
   // 성공 시 entries와 전체 건수를 갱신하고 이전 조회 응답을 배제합니다.
-  // [ 개발팀 바인딩 ] 재입고 목록은 현재 entries 또는 고정 예시를 표시하고 행 체크만 로컬로 처리합니다.
-  // 삭제 버튼은 표시용입니다. 재입고 통합 소유자가 정책에 따른 요청 대상의 신청 행 ID를 연결하고,
-  // 요청 중 중복 방지, 실패 시 선택 유지와 재시도, 성공 후 목록 재조회와 이전 응답 배제를 담당합니다.
+  // [ 개발팀 바인딩 ] 재입고 목록은 현재 entries 또는 고정 예시를 표시합니다. 행 X는 미연결 표시입니다.
+  // 통합 소유자가 클릭한 entries의 신청 행 ID로 삭제 요청을 연결하고, 요청 중 중복 방지와
+  // 실패 시 행 유지·재시도, 성공 후 목록 재조회와 이전 응답 배제를 담당합니다.
   return (
     <MyPageFrame
       fillAvailable={!items.length}
@@ -417,7 +423,7 @@ export function MyPageProductHistory({
           }
           gap="0"
           pb={items.length ? '0' : '40px'}
-          borderBottom={!items.length ? '2px solid var(--color-black-20)' : undefined}
+          pr={recent && !isEmpty ? { _web: '32px' } : undefined}
           _mobile={{
             px: !restock && items.length ? '16px' : '0',
             pt: '0',
@@ -442,14 +448,6 @@ export function MyPageProductHistory({
           />
         ) : restock ? (
           <Stack gap="16px">
-            <Button
-              type="button"
-              variant="secondary"
-              size="short"
-              className={css({ alignSelf: 'flex-end' })}
-            >
-              삭제
-            </Button>
             <MyPageRestockList entries={entries} items={items} />
             <Box whiteSpace="pre-line">
               <Typography as="p" variant="b8" tone="tertiary">

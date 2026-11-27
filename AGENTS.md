@@ -101,6 +101,10 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 ## Styling rules
 
+- 상품 옵션을 한 줄로 요약할 때 공통 `formatProductOptions`로 색상, 사이즈, 발볼 순서로 표시한다. 없는 옵션은 구분자와 함께 생략하고, 화면에서 수량을 함께 표시하는 경우 옵션 뒤에 둔다.
+
+- 상품 종류가 섞일 수 있는 상품 카드 목록은 PC·모바일 모두 의류 기준 이미지 프레임 비율 `371 / 464`를 적용한다. 현재 표시 중인 상품 종류에 따라 비율을 바꾸지 않고 목록 단위로 `ProductThumbnail`의 `listing`을 사용한다. `ProductCard`의 본문 variant가 별도로 필요한 경우 `thumbnailVariant="listing"`으로 이미지 비율을 지정한다.
+
 - Runtime platform selection belongs to `src/context/platform.tsx`: automatic mode is mobile through 1024px, while explicit preview platforms remain fixed. Keep `usePlatform()`, app/body/portal classes and responsive styles consistent; preserve server/first-hydration compatibility and state owners without duplicating interactive trees.
 - Automatic PC mode uses a 1200px canvas below a 1200px viewport. At 1200px and above, vertical scrollbars must not introduce horizontal overflow. Verify 1024/1025px and 1199/1200px boundaries, resizing with open overlays and explicit preview modes separately. See the [hoka-markup-handoff references/folder-and-responsive.md](.agents/skills/hoka-markup-handoff/references/folder-and-responsive.md).
 

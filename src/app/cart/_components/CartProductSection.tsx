@@ -19,6 +19,7 @@ import { ProductPrice } from '@/components/common/molecules/ProductCard/ProductC
 
 import { itemKey } from '@/app/cart/cart-item';
 import { type CartPreviewRow } from '@/app/cart/cart-preview';
+import { formatProductOptions } from '@/lib/formatProductOptions';
 import { getCartImage } from '@/mocks/cartDisplay';
 
 import { CartDialogs } from './CartDialogs';
@@ -35,6 +36,7 @@ function CartProductItem({
   onOptions: () => void;
 }) {
   const { item, product, amount, soldOut } = row;
+  const colorAndSize = formatProductOptions({ color: item.color, size: item.size });
   const [quantity, setQuantity] = useState(item.quantity);
   const [favorite, setFavorite] = useState(row.initialFavorite ?? false);
   const price = (mobile = false) => (
@@ -106,13 +108,15 @@ function CartProductItem({
           <Typography variant="b6M">{product.gender}</Typography>
           <Typography variant="b6M">{product.name}</Typography>
           <Typography variant="b6" tone="subtle">
-            <Typography as="span" web="b6" mo="b6M">
-              {item.width}
-            </Typography>
-            , {item.color}, {item.size}
-            <Box as="span" display={{ base: 'inline', _mobile: 'none' }}>
-              , {row.optionQuantity ?? item.quantity}개
-            </Box>
+            {colorAndSize}
+            {item.width?.trim() && (
+              <>
+                {colorAndSize && ', '}
+                <Typography as="span" web="b6" mo="b6M">
+                  {item.width}
+                </Typography>
+              </>
+            )}
           </Typography>
         </Stack>
         <Button
@@ -191,14 +195,14 @@ export function CartProductSection({ rows }: { rows: readonly CartPreviewRow[] }
           }
         />
         <HStack gap="16px" ml="auto" _mobile={{ gap: '12px' }}>
-          <Button
+          {/* <Button
             variant="link"
             size="md"
             type="button"
             disabled={!rows.some((row) => row.soldOut)}
           >
             품절상품 전체삭제
-          </Button>
+          </Button> */}
           <Button variant="link" size="md" disabled={selectedKeys.length === 0}>
             선택 삭제
           </Button>

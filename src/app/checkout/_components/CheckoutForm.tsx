@@ -81,7 +81,7 @@ export function CheckoutContent({
         p={{ base: '24px', _mobile: '0px' }}
       >
         <Box gridColumn="1" gridRow={{ base: 'auto', _mobile: '3' }}>
-          {/* 주문금액·할인금액·배송비·총 결제 금액 */}
+          {/* 주문금액·할인금액·배송비·총 결제금액 */}
           <CheckoutDiscountSummary initialCouponDialog={initialCouponDialog} />
         </Box>
         <Stack gap={{ base: '28px', _mobile: '0px' }} gridColumn="1" gridRow="5">

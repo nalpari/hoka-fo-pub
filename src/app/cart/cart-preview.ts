@@ -11,7 +11,6 @@ export type CartPreviewRow = {
   discountLabel?: string;
   mobileAmount?: number;
   initialFavorite?: boolean;
-  optionQuantity?: number;
   optionPreview?: { item: CartItem; product: Product; unavailableColors?: readonly string[] };
 };
 
@@ -97,15 +96,14 @@ export const cartPreviewRows: CartPreviewRow[] = [0, 1, 2, 3, 4].map((index) => 
   soldOut: index > 2,
   initialSelected: index < 3,
   initialFavorite: index === 1,
-  optionQuantity: 1,
   optionPreview: { ...cartOptionPreview, unavailableColors: ['White'] },
 }));
 
 export const cartPreviewAmounts = {
   product: 349000,
   discount: 17450,
-  shipping: 3000,
-  total: 334550,
+  shipping: 0,
+  total: 331550,
   mobileTotal: 240000,
   selectedTotal: 240000,
 };

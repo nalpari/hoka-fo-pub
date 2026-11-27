@@ -27,10 +27,10 @@ export type DateRangeSearchProps = {
 };
 
 const periodOptions = [
-  { value: '12', label: '1년' },
-  { value: '6', label: '6개월' },
-  { value: '3', label: '3개월' },
   { value: '1', label: '1개월' },
+  { value: '3', label: '3개월' },
+  { value: '6', label: '6개월' },
+  { value: '12', label: '1년' },
   { value: 'custom', label: '직접설정' },
 ] as const;
 

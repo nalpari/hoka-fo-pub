@@ -22,7 +22,7 @@ export function RewardsPageContent({
         error={preview === 'error' ? '회원등급을 불러오지 못했습니다.' : undefined}
       />
       <Box _mobile={{ pt: '24px' }}>
-        <MembershipRewards summary={summary} />
+        <MembershipRewards summary={summary} layout="account" />
       </Box>
     </MyPageFrame>
   );

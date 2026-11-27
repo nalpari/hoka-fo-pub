@@ -4,12 +4,19 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-26T09:18:12Z'
+updated: '2026-11-27T12:43:54+09:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b3f7243062b500eb4909961667ad142cc368ff91
 working_tree_sources:
+  - src/app/screen-review/page.tsx
+  - public/images/products/hoka-run-hat/vgl-1.webp
+  - public/images/products/hoka-run-hat/vgl-2.webp
+  - public/images/products/hoka-run-hat/vgl-3.webp
+  - public/images/products/hoka-run-hat/vgl-4.webp
+  - src/app/products/[id]/productDetailCare.ts
+  - src/app/cart/_components/CartOrderActions.tsx
   - src/app/signup/information/_components/RegistrationContent.tsx
   - src/app/signup/information/_components/RegistrationStatePreview.tsx
   - src/app/signup/information/preview-marketing-consent/page.tsx
@@ -2959,14 +2966,98 @@ FAQ 질문과 공지 상세 게시글 제목은 PC·모바일 모두 18px Medium
 
 구매취소·반품요청 상품의 장바구니 담기 버튼은 PC·모바일 모두 표시하지 않는다. 출처는 `src/app/mypage/orders/_components/OrdersProducts.tsx`다.
 
-## 주문 상세 진입 버튼
 
-주문상세보기 버튼은 주문 목록에서 제공한다. 주문 상세의 배송 상태 행은 상태와 도착 안내를 표시한다. 출처는 `src/app/mypage/orders/_components/OrderDetails.tsx`와 `OrdersContent.tsx`다.
 
-## 장바구니 상품 할인율
+2026-11-27 사용자 요청에 따라 `/mypage/orders` 주문 카드의 취소 상태는 `취소완료`, 반품 상태는 `환불신청`으로 표시한다. Codex가 `OrdersProducts.tsx` 작업 트리로 PC 1427px과 모바일 375px에서 각 상태 옆의 `취소상세보기`·`반품상세보기` 표시를 확인했다.
 
-장바구니 상품 가격은 공통 `ProductPrice`를 사용한다. PC에서는 최소 120px인 가격 열에 오른쪽 정렬하고 할인율과 금액이 한 줄에 들어가도록 열이 늘어날 수 있게 한다. 모바일에서는 옵션 변경 아래 왼쪽에 정렬하며 가격 아래 16px 간격으로 수량 조절을 배치한다. 표시 데이터의 선택적 `discountLabel`을 판매가 옆에 표시한다. PC·모바일 미리보기는 할인 상품에 `20%`를 사용한다. 출처는 `src/app/cart/cart-preview.ts`와 `src/app/cart/_components/CartProductSection.tsx`다.
+## 장바구니 무료배송과 주문 상세 왼쪽 정렬 2026-11-27
 
-## 회원정보 관리·수정 표시
+`/cart`의 PC 주문내역에서 무료배송 정책에 따라 배송비 행을 주석 처리했다. 고정 배송비는 0원, PC 총 결제 금액은 331,550원이다. 모바일 하단 구매 영역은 기존 240,000원 표시를 유지한다.
 
-카카오톡 알림톡 수신 항목은 회원정보 관리와 수정 화면에서 표시하지 않는다. 수정 화면의 제목과 본문 간격은 ContentSection의 PC 40px·모바일 32px 간격을 사용한다. 출처는 `src/app/mypage/profile/_components/ProfileContent.tsx`다.
+`/mypage/orders/preview-detail`의 PC 상품 목록에서 상태 문구와 상품 행의 왼쪽 24px 안쪽 여백을 제거했다. 구매확정·구매취소·반품요청 그룹의 왼쪽 시작선을 상세 제목에 맞춘다.
+
+출처는 사용자 브라우저 코멘트와 `CartOrderActions.tsx`, `cart-preview.ts`, `OrderDetails.tsx` 작업 트리다. Codex가 2026-11-27 KST에 PC 1427px과 모바일 375px에서 장바구니 결제 금액과 배송비 행 숨김, 주문 상세 상태 문구 정렬을 확인했다. PC 상품 이미지 세 개의 왼쪽 정렬도 확인했다.
+
+## 주문 결제 정보와 환불안내의 배송비 표시 2026-11-27
+
+무료배송 정책에 따라 주문 상세 결제 정보와 취소·반품 상세가 공유하는 환불안내에서 배송비 행을 주석 처리했다. 주문 상세 PC 결제예정금액의 설명은 `(상품금액 - 할인금액)`이다. 결제예정금액·환불금액의 표시 데이터와 반품비 행은 유지한다.
+
+출처는 사용자 브라우저 코멘트와 `src/app/mypage/orders/_components/OrderDetails.tsx` 작업 트리다. Codex가 2026-11-27 KST에 PC 1427px과 모바일 375px에서 주문·취소·반품 상세의 배송비 숨김 및 금액 표시를 확인했다. 주문 상세 PC에서 수정한 결제예정금액 설명을 확인했다.
+
+## 상품 상세의 배송·반품과 유형별 관리 방법 2026-11-27
+
+상품 상세의 배송 및 반품 아코디언은 배송 2개 항목, 반품 5개 항목, 반품 주의 사항 4개 항목을 표시한다. CJ 대한통운 출고·수거 및 단순 변심 반품 배송비 5,000원 안내를 포함한다. 상세 안내 링크는 고객센터 `/support/after-sales`로 이동한다.
+
+관리 방법은 현재 상품의 `productKind`로 구분한다. 신발은 착화·관리 5개와 GORE-TEX® 소재 관리 3개, 의류와 용품은 각 5개 항목을 표시한다. 유형이 없는 기존 상품은 신발 안내를 사용한다. PC·모바일은 기존 Typography 토큰으로 관리 제목 15px Bold, 본문 13px Regular를 표시한다.
+
+상품 상세 IA에 `용품 기본`을 추가했다. `/products/pdp-preview/accessories`는 HOKA Run Hat(1164330), Varsity Navy / Gold(VGL) 색상과 용품 관리 문구를 표시한다. 공식 상품 갤러리 사진 4장을 1200×1479 WebP로 저장해 PC 그리드, 모바일 캐러셀 및 색상 썸네일에 연결했다. 원화 가격은 미리보기 고정값이다. [HOKA 미국 상품 페이지](https://www.hoka.com/en/us/all-gender-apparel/hoka-run-hat/1164330.html?dwvar_1164330_color=VGL).
+
+출처는 사용자 브라우저 코멘트, [HOKA 디자인의 배송 및 반품과 관리 방법](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design), `ProductDetailContent.tsx`, `productDetailCare.ts`, `productDetailPreviews.ts` 작업 트리다. Codex가 2026-11-27 KST에 PC 1427px와 모바일 375px에서 세 유형의 관리 안내, 제목·본문 크기, 상품 상세의 배송 및 반품 항목을 확인했다. 모바일에서 고객센터 이동을 확인했고 IA 검색에서 용품 기본과 링크를 확인했다.
+
+Codex는 2026-11-27 KST에 PC 1427px와 모바일 375px에서 HOKA Run Hat 사진 4장의 로딩과 색상 표시를 확인했다. 모바일에서 두 번째 사진으로 전환되는 것을 확인했다.
+
+## 마이페이지 회원등급 표시 옵션 2026-11-27
+
+`/mypage/rewards`의 `RewardsContent.tsx`는 공용 `MembershipRewards`에 `layout="account"`를 전달한다. 기존 기본·조회 중·조회 실패 경로에 같은 표시 옵션을 적용한다. 고객센터 `/support/member-benefits`는 생략 시 적용되는 `standard`를 사용하며 기존 로그인 표시 조건을 따른다. 구매 금액과 쿠폰 지급 조건은 기존 표시 데이터를 읽는다. [시안 수치와 화면 확인](ui.md#마이페이지-회원등급-pc모바일-디자인-2026-11-27).
+
+작업 트리의 `src/app/mypage/rewards/_components/RewardsContent.tsx`를 출처로 기록한다. Chromium에서 마이페이지 조회 중·실패 문구와 고객센터 로그인 전후 미리보기의 개인 요약 표시를 확인했다.
+
+## 장바구니 삭제 버튼과 옵션 문구 2026-11-27
+
+장바구니의 `품절상품 전체삭제` 버튼을 주석 처리하고, 상품 옵션 문구는 발볼·색상·사이즈까지만 표시한다. 수량은 기존 수량 조절기로 표시한다. 출처는 사용자 브라우저 코멘트와 `CartProductSection.tsx`, `cart-preview.ts` 작업 트리다. Codex가 PC 1427px과 모바일 375px에서 버튼 숨김, 상품 5개의 옵션 문구와 수량 조절기 및 `선택 삭제` 표시를 확인했다. 모바일에서 옵션 변경 팝업이 열리는 것도 확인했다.
+
+## 상품준비중 배송 조회 버튼 2026-11-27
+
+`/mypage/orders` 목록은 상품 그룹의 상태가 배송중·배송완료·구매확정일 때 배송 조회 버튼을 표시한다. 주문 상세는 선택 주문의 상태가 상품준비중이면 `OrdersContent`에서 배송 조회 콜백을 생략하며, `OrderDetail`은 해당 콜백이 있는 PC 화면에서 버튼을 표시한다. 출처는 사용자 지시와 `OrdersProducts.tsx`, `OrdersContent.tsx`, `OrderDetails.tsx` 작업 트리다. Codex가 PC 1427px과 모바일 375px에서 상품준비중 목록의 배송 조회 숨김과 주문 취소 표시를 확인했다. PC에서는 목록에서 상품준비중 상세로 들어가 배송 조회가 숨겨지는 것과 구매확정 상세의 버튼 표시를 확인했다.
+
+## 혼합 상품 목록 이미지 비율 2026-11-27
+
+신발·의류 등 상품 종류가 섞일 수 있는 카드 목록은 의류 기준 `371 / 464` 이미지 프레임을 목록 전체에 사용한다. `/mypage/wishlist`와 `/mypage/recent`는 고정 예시·연결 목록에 동일하게 공용 `ProductCard.thumbnailVariant="listing"`을 전달한다. 상품 카테고리와 조회 결과가 바뀌어도 같은 목록 비율을 사용한다. 출처는 사용자 브라우저 코멘트, `AGENTS.md`와 `MyPageProductHistory.tsx` 작업 트리다. Codex가 PC 1427px과 모바일 375px에서 두 목록의 카드 6개씩이 같은 비율과 높이를 사용하는 것을 확인했다.
+
+## 상품 옵션 순서와 반품 상세 표시 2026-11-27
+
+장바구니·상품 상세·주문서·주문 및 취소·반품 상세·신청·문의 주문 조회의 옵션 요약은 색상, 사이즈, 발볼 순서다. PC·모바일의 기존 수량 표시 위치를 따르며, 요약에 수량을 표시할 경우 옵션 뒤에 둔다. [공통 옵션 표시](ui.md#상품-옵션-요약-순서-2026-11-27).
+
+`/mypage/orders/preview-return-detail`의 회수 섹션 제목은 `상품 회수정보`, 고정 진행상태는 `환불완료`, 금액 라벨은 PC·모바일 모두 `총 환불금액`이다. PC 반품 상품 표에는 기존 `상품/옵션정보 · 수량 · 가격 · 진행상태` 헤더를 사용한다. 출처는 사용자 응답 주석과 `OrderDetails.tsx`, `orders.data.ts` 작업 트리다. Codex가 PC 1427px와 모바일 375px에서 장바구니, 주문서, 주문 목록·상세와 취소·반품 상세의 옵션 순서를 확인했다. 같은 두 해상도에서 반품 문구와 취소 상세 상태를 확인했고 PC에서 기존 표 헤더도 확인했다.
+
+## 결제와 환불 화면 문구 2026-11-27
+
+장바구니·주문서와 쿠폰 팝업에는 `총 결제금액`을 사용한다. 주문 상세와 PC 취소 상세에는 `결제금액`을 사용한다. 취소·반품 관련 화면과 퍼블리싱 가이드의 `취소 사유`, `단순 변심`, `환불 수단` 띄어쓰기를 정리하고 환불 소요기간 안내의 별표를 제거했다. 출처는 사용자 포함 지시와 `CartOrderActions.tsx`, `CheckoutCouponDialog.tsx`, `CheckoutDiscountSummary.tsx`, `CheckoutForm.tsx`, `OrderClaimRequest.tsx`, `OrderDetails.tsx`, `descriptionListExamples.tsx` 작업 트리다. 공용 상태 문구는 [주문 취소·반품 표시](ui.md#주문-취소반품-상태-문구-2026-11-27)를 참고한다.
+
+## 주문 취소 신청의 반품비 표시 2026-11-27
+
+`OrderClaimRequest`의 반품비 안내와 금액 요약 행은 반품 신청에만 표시한다. 주문 취소 신청은 상품금액과 취소예정금액의 기존 고정 표시값을 사용한다. 출처는 사용자 브라우저 코멘트와 `src/app/mypage/orders/_components/OrderClaimRequest.tsx` 작업 트리다. Codex가 2026-11-27 KST에 PC 1333px·모바일 375px에서 두 신청 미리보기의 반품비 및 예정금액 표시를 확인했다.
+
+## 최근 본 상품과 관심상품 빈 목록 구분선 2026-11-27
+
+`/mypage/recent/preview-empty`와 `/mypage/wishlist/preview-empty`는 공용 `MyPageProductHistory.tsx`의 빈 목록 제목 아래 구분선을 숨긴다. 같은 컴포넌트의 `/mypage/restock-alerts/preview-empty`는 2px 구분선을 사용한다. 출처는 두 빈 목록의 사용자 브라우저 코멘트와 작업 트리다.
+
+Chromium PC 1476px·모바일 375px에서 세 빈 화면의 구분선과 최근 본 상품 일반 목록 및 전체삭제 버튼의 표시 상태를 확인했다.
+
+## 최근 본 상품과 관심상품 PC 목록 정렬 2026-11-27
+
+`/mypage/recent`와 `/mypage/wishlist`의 PC 상품 카드 목록은 제목의 왼쪽 시작선에 맞춘다. 두 화면은 `MyPageProductHistory.tsx`에서 최대 260px 카드 열 세 개와 16px 열 간격을 공유한다. 최근 본 상품의 PC 일반 목록은 제목 헤더 오른쪽에 32px 여백을 두어 `전체삭제` 버튼을 왼쪽으로 옮긴다. 빈 목록과 모바일은 기존 헤더 배치를 사용한다. 출처는 사용자 브라우저 코멘트와 `src/app/mypage/_components/MyPageProductHistory.tsx` 작업 트리다.
+
+Chromium PC 1476px에서 두 목록의 제목과 첫 카드 좌표가 각각 일치하고, 카드 폭은 기존 260px이며 최근 본 상품의 전체삭제 버튼이 32px 이동한 것을 확인했다. 모바일 375px에서 두 목록의 2열과 기존 시작선을 확인했다.
+
+## IA 구조도와 화면검수용 목록 2026-11-27
+
+개발용 /screen-index와 검수용 /screen-review가 IA 계층, NAV 필터, 검색과 상태 URL을 공유한다. 둘 다 화면 현황부터 표시하고 트리를 기본 펼침으로 시작한다. 새 검색어와 전체 초기화는 접힌 트리를 다시 연다. 화면 상태는 준비된 이름과 URL별 모달 유형 배지로 표시한다.
+
+검수용 표는 메뉴·화면 계층, 구분, 새창의 세 열로 구성한다. 업무 열과 개발담당자 필터·보고서를 렌더링하지 않고 업무 필드는 검수 검색 대상에서도 제외한다. 보고서 쿼리는 개발용 경로에서만 읽는다. 두 경로는 같은 접근 범위를 갖는다.
+
+검수용 화면에서는 상품 목록과 검색 상태를 나누고, 발볼이나 옵션 선택처럼 같은 항목의 예시를 펼치고 접을 수 있게 묶는다. 빈 화면에는 EMPTY를 표시하며 이미 열린 모달 유형도 함께 표시한다. 모든 보기 링크는 기존 상태 URL을 그대로 연다. 출처는 사용자 브라우저 코멘트와 IaStructurePage, ScreenReviewPage 작업 트리다.
+
+Codex는 PC 1424px와 모바일 375px에서 두 목록의 링크 243개, 트리 기본 펼침, 발볼 접기와 검색 재펼침, 숨긴 업무 데이터의 검색 제외, 초기화와 개발용 보고서 열기·닫기를 확인했다. PC 검색 빈 상태와 모바일 최근 본 상품 새창, 1024/1025px 및 1199/1200px 경계, 보고서가 열린 상태의 리사이즈도 확인했다. 기존 미리보기·보고서 검사 26개 중 24개가 통과했고, 상품 상세의 care 공통 파일 및 문의 첨부 선택의 소스 연결 2건은 변경 전 레지스트리에서도 실패했다.
+
+## IA 공통 관리 자료와 문의 첨부 진입점 2026-11-27
+
+상품 상세의 공통 작업 파일은 유형별 관리 문구를 실제로 제공하는 productDetailCare.ts를 표시한다. 고객센터 관리 안내 데이터는 별도 소유다. 모바일 첨부 방법 선택 페이지는 고객센터와 마이페이지 문의 등록의 고정 상태 URL 및 소스 진입점 양쪽에 연결된다. 출처는 productDetailCare.ts와 screenConnections.ts 작업 트리다.
+
+## 상품내역 빈 화면 구분선 제거 2026-11-27
+
+관심상품·최근 본 상품·재입고 알림 상품의 빈 목록에는 제목 아래 구분선을 표시하지 않는다. 최근 본 상품의 빈 화면 하단 안내 앞 선도 제거했으며 일반 최근 본 상품의 PC 하단 안내에는 기존 선을 적용한다. 출처는 사용자 브라우저 코멘트와 MyPageProductHistory.tsx 작업 트리다. Codex는 Chromium PC 1414px 및 모바일 375px에서 세 빈 목록의 경계선과 PC 일반 최근 본 상품 안내의 경계선을 확인했다.
+
+## 재입고 알림 상품의 행별 삭제 버튼 2026-11-27
+
+/mypage/restock-alerts 목록의 상품 행 오른쪽 위에 장바구니와 같은 20px X 버튼을 배치한다. 개별 선택 체크박스와 목록 위 삭제 버튼은 제거했다. 통합 소유자는 entries의 신청 행 ID로 삭제 요청을 연결한다. 현재 버튼은 표시용이며 빈 목록에는 표시하지 않는다. 출처는 사용자 브라우저 코멘트와 MyPageProductHistory.tsx 작업 트리다. Codex는 PC 1414px·모바일 375px 및 320px에서 위치, 크기, 상태 문구와의 간격, 체크박스와 상단 버튼의 부재를 확인했다. 체크박스가 있던 쪽의 상품정보 셀 시작 여백을 제거했다. PC 1414px·1200px와 모바일 375px에서 두 썸네일이 목록 시작선에 맞고 X 버튼이 오른쪽 끝에 놓이는 것을 확인했다. 빈 목록과 변경 파일의 ESLint·Prettier, TypeScript도 확인했다.

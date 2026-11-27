@@ -2805,7 +2805,7 @@ function AppLayout({
   if (platform === 'web' && menuOpen) {
     setMenuOpen(false);
   }
-  if (pathname === '/screen-index') return <>{children}</>;
+  if (pathname === '/screen-index' || pathname === '/screen-review') return <>{children}</>;
   return (
     <>
       <div
