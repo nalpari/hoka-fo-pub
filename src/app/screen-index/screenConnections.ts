@@ -351,11 +351,13 @@ const connections: Record<number, ScreenConnection> = {
   },
   '195': {
     previewRoutes: [
-      ...rewardsPreviews.map(({ label, state }) => ({
-        label,
-        href: `/mypage/rewards/preview/${state}`,
-        group: '회원등급 산정 케이스',
-      })),
+      ...rewardsPreviews
+        .filter(({ state }) => state !== 'downgrade-risk')
+        .map(({ label, state }) => ({
+          label,
+          href: `/mypage/rewards/preview/${state}`,
+          group: '회원등급 산정 케이스',
+        })),
       { label: '조회 중', href: '/mypage/rewards/preview-loading' },
       { label: '조회 실패', href: '/mypage/rewards/preview-load-error' },
     ],
