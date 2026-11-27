@@ -139,6 +139,8 @@ const detailIdentityStyles = {
 };
 
 type ProductPriceProps = {
+  /** Alignment within the price block. Defaults to start. */
+  align?: 'start' | 'end';
   /** Prepared display label; preview fixtures can preserve an approved design value. */
   discountLabel?: string;
   /** Current selling price, including any discount. */
@@ -149,6 +151,7 @@ type ProductPriceProps = {
 };
 /** 판매가와 선택적 정상가·할인율을 표시합니다. (Displays the selling price with an optional original price and discount rate.) */
 function ProductPrice({
+  align = 'start',
   price,
   originalPrice,
   discountLabel,
@@ -163,7 +166,7 @@ function ProductPrice({
       data-product-price
       data-product-card-variant={variant}
       gap={detailPrice ? '14px' : '1'}
-      alignItems="flex-start"
+      alignItems={align === 'end' ? 'flex-end' : 'flex-start'}
     >
       {hasDiscount ? (
         <Typography

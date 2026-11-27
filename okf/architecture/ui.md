@@ -6431,3 +6431,5 @@ PC 1440×900과 모바일 360×768에서 버튼 높이 40px, 빈 화면 비활�
 ## 고객센터 제목과 상단 구분선
 
 DataList.recipe.tsx의 thinTertiary는 목록과 상세 영역에서 공유하는 1px solid 구분선이며 색상은 color/text/tertiary다.
+
+`ProductPrice`의 `align`은 기본값 `start` 또는 `end`를 사용한다. 장바구니는 `end`를 사용한다. 출처는 `ProductCard.tsx`다.

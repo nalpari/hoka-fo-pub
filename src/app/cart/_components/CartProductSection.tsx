@@ -15,6 +15,8 @@ import { NumberStepper } from '@/components/common/atoms/NumberStepper';
 import { Typography } from '@/components/common/atoms/Typography';
 import { Wishlist } from '@/components/common/atoms/Wishlist';
 
+import { ProductPrice } from '@/components/common/molecules/ProductCard/ProductCard';
+
 import { itemKey } from '@/app/cart/cart-item';
 import { type CartPreviewRow } from '@/app/cart/cart-preview';
 import { getCartImage } from '@/mocks/cartDisplay';
@@ -36,23 +38,14 @@ function CartProductItem({
   const [quantity, setQuantity] = useState(item.quantity);
   const [favorite, setFavorite] = useState(row.initialFavorite ?? false);
   const price = (mobile = false) => (
-    <Stack gap="0" alignItems="flex-end" opacity={soldOut ? '0.3' : '1'}>
-      {row.originalAmount ? (
-        <Typography variant="b6" tone="subtle" className={css({ textDecoration: 'line-through' })}>
-          {row.originalAmount.toLocaleString()}원
-        </Typography>
-      ) : null}
-      <HStack gap="4px" alignItems="baseline">
-        {row.discountLabel && (
-          <Typography variant="b6M" tone="red80" aria-label={`${row.discountLabel} 할인`}>
-            {row.discountLabel}
-          </Typography>
-        )}
-        <Typography variant="b6M">
-          {(mobile ? (row.mobileAmount ?? amount) : amount).toLocaleString()}원
-        </Typography>
-      </HStack>
-    </Stack>
+    <Box opacity={soldOut ? '0.3' : '1'}>
+      <ProductPrice
+        align="end"
+        price={mobile ? (row.mobileAmount ?? amount) : amount}
+        originalPrice={row.originalAmount}
+        discountLabel={row.discountLabel}
+      />
+    </Box>
   );
   return (
     <Grid
