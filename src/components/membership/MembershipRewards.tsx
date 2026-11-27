@@ -461,8 +461,9 @@ function RewardProgress({
         </Box>
         <HStack
           gap="6px"
-          w={account ? '144px' : '156px'}
+          minW={account ? '144px' : '156px'}
           flexShrink="0"
+          whiteSpace="nowrap"
           justifyContent="flex-end"
           _mobile={{ w: 'full', minH: '24px' }}
         >

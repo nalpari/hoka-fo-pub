@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-27T10:36:50+09:00'
+updated: '2026-11-27T11:16:00+09:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -6452,3 +6452,7 @@ Chromium PC 1440px·모바일 375px에서 숫자와 단위의 계산 폰트·굵
 ## 주문 취소·반품 상태 문구 2026-11-27
 
 주문 취소·반품의 사유 코드 `mind`와 관련 상세 예시는 `단순 변심`으로 표시한다. 반품 상세의 완료 예시는 두 플랫폼 모두 `환불완료`를 사용한다. 출처는 `src/components/orders/order-policy.ts`, `src/components/orders/orders.data.ts` 작업 트리와 사용자 확인이다.
+
+## 회원등급 진행 금액과 단위 줄바꿈 2026-11-27
+
+진행 금액 행은 PC 기본 너비를 최소 너비로 사용하고 숫자와 원 단위를 한 줄에 표시한다. 숫자와 단위의 기존 폰트와 굵기는 유지한다. Codex는 마이페이지 회원등급과 로그인 상태 고객센터에서 1424px, 1025px, 375px, 320px로 한 줄 표시와 금액 영역 가로 넘침 여부를 확인했다. 출처는 사용자 브라우저 코멘트와 src/components/membership/MembershipRewards.tsx 작업 트리다.
