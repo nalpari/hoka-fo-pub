@@ -3022,6 +3022,10 @@ Codex는 2026-11-27 KST에 PC 1427px와 모바일 375px에서 HOKA Run Hat 사�
 
 장바구니·주문서와 쿠폰 팝업에는 `총 결제금액`을 사용한다. 주문 상세와 PC 취소 상세에는 `결제금액`을 사용한다. 취소·반품 관련 화면과 퍼블리싱 가이드의 `취소 사유`, `단순 변심`, `환불 수단` 띄어쓰기를 정리하고 환불 소요기간 안내의 별표를 제거했다. 출처는 사용자 포함 지시와 `CartOrderActions.tsx`, `CheckoutCouponDialog.tsx`, `CheckoutDiscountSummary.tsx`, `CheckoutForm.tsx`, `OrderClaimRequest.tsx`, `OrderDetails.tsx`, `descriptionListExamples.tsx` 작업 트리다. 공용 상태 문구는 [주문 취소·반품 표시](ui.md#주문-취소반품-상태-문구-2026-11-27)를 참고한다.
 
+## 주문 취소 신청의 반품비 표시 2026-11-27
+
+`OrderClaimRequest`의 반품비 안내와 금액 요약 행은 반품 신청에만 표시한다. 주문 취소 신청은 상품금액과 취소예정금액의 기존 고정 표시값을 사용한다. 출처는 사용자 브라우저 코멘트와 `src/app/mypage/orders/_components/OrderClaimRequest.tsx` 작업 트리다. Codex가 2026-11-27 KST에 PC 1333px·모바일 375px에서 두 신청 미리보기의 반품비 및 예정금액 표시를 확인했다.
+
 ## 최근 본 상품과 관심상품 빈 목록 구분선 2026-11-27
 
 `/mypage/recent/preview-empty`와 `/mypage/wishlist/preview-empty`는 공용 `MyPageProductHistory.tsx`의 빈 목록 제목 아래 구분선을 숨긴다. 같은 컴포넌트의 `/mypage/restock-alerts/preview-empty`는 2px 구분선을 사용한다. 출처는 두 빈 목록의 사용자 브라우저 코멘트와 작업 트리다.

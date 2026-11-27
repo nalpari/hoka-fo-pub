@@ -152,17 +152,20 @@ export function OrderClaimRequest({
             onChange: (event) => setDetails(event.target.value),
           }}
         />
-        <Typography variant="b8" tone="tertiary" className={classes.note}>
-          {returning
-            ? '*단순 변심·주문 실수 등 고객님 사유의 반품은 반품비 5,000원을 부담하셔야 하며 환불 금액에서 차감됩니다. 상품 불량/파손·오배송·구성품 누락 등 회사 사유는 반품비가 무료입니다. 상품 수령 후 7일 이내에 신청할 수 있으며, 접수 후 회수 일정은 안내해 드립니다. 착용하거나 세탁한 상품은 반품이 어렵습니다.'
-            : '*단순 변심·주문 실수 등 고객님 사유의 취소는 반품비 5,000원을 부담하셔야 하며 환불 금액에서 차감됩니다. 배송 지연 등 회사 사유는 반품비가 무료입니다.'}
-        </Typography>
+        {returning && (
+          <Typography variant="b8" tone="tertiary" className={classes.note}>
+            *단순 변심·주문 실수 등 고객님 사유의 반품은 반품비 5,000원을 부담하셔야 하며 환불
+            금액에서 차감됩니다. 상품 불량/파손·오배송·구성품 누락 등 회사 사유는 반품비가
+            무료입니다. 상품 수령 후 7일 이내에 신청할 수 있으며, 접수 후 회수 일정은 안내해
+            드립니다. 착용하거나 세탁한 상품은 반품이 어렵습니다.
+          </Typography>
+        )}
       </Stack>
       <Stack css={styles.summary}>
         <Stack css={styles.summaryBody}>
           {[
             ['상품금액', returning && mobile ? '0원' : '3,350,000원'],
-            ['반품비', returning ? '사유 선택 후 확인' : '- 5,000원'],
+            ...(returning ? [['반품비', '사유 선택 후 확인']] : []),
           ].map(([label, value]) => (
             <HStack key={label} css={styles.summaryRow}>
               <Typography variant="b6" className={classes.summaryLabel}>
