@@ -124,7 +124,6 @@ export function LaunchCalendarDetail({
         closeLabel="알림 신청 닫기"
         variant="form"
         mobilePresentation="bottomSheet"
-        blurBackdrop={false}
         footer={
           <Button
             type="button"

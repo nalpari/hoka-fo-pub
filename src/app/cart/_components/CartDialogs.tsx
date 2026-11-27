@@ -68,7 +68,6 @@ function CartOptionsDialog({
       title={platform === 'mobile' ? '옵션 변경' : '옵션 변경하기'}
       closeLabel="옵션 변경 닫기"
       mobilePresentation="bottomSheet"
-      blurBackdrop={false}
       actions={{
         kind: 'confirm',
         onConfirm: onClose,

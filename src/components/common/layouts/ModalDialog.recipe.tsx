@@ -780,7 +780,7 @@ export const modalDialogRecipe = sva({
       placeItems: 'center',
       p: '24px',
     },
-    backdrop: { position: 'fixed', inset: '0', zIndex: '99' },
+    backdrop: { position: 'fixed', inset: '0', zIndex: '-1' },
     popup: {
       w: '100%',
       maxW: '640px',
@@ -858,7 +858,6 @@ export const modalDialogRecipe = sva({
       productSelection: productSelectionModal,
       orderLookup: {
         ...contentModal,
-        backdrop: { bg: 'color-mix(in srgb, var(--color-black-100) 40%, transparent)' },
         popup: { borderRadius: '0', boxShadow: 'none' },
         header: {
           pt: '40px',
@@ -992,10 +991,9 @@ export const modalDialogRecipe = sva({
       },
     },
     overlayTone: {
-      dark: { backdrop: { bg: 'color-mix(in srgb, var(--color-black-100) 50%, transparent)' } },
-      light: { backdrop: { bg: 'color-mix(in srgb, var(--color-white-000) 50%, transparent)' } },
+      dark: { backdrop: { bg: 'color-mix(in srgb, var(--color-black-100) 30%, transparent)' } },
+      light: { backdrop: { bg: 'color-mix(in srgb, var(--color-white-000) 30%, transparent)' } },
     },
-    blur: { true: { backdrop: { backdropFilter: 'blur(48px)' } } },
     hasFooter: {
       true: {
         popup: { display: 'flex', flexDirection: 'column', overflow: 'hidden' },

@@ -38,7 +38,6 @@ export function CheckoutCouponDialog({ onClose }: { onClose: () => void }) {
       title="보유 쿠폰 조회"
       closeLabel="보유 쿠폰 조회 닫기"
       mobilePresentation="bottomSheet"
-      blurBackdrop={false}
       footerProps={{ className: styles.footer }}
       footer={
         <Button variant="primary" size="tall">

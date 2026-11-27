@@ -68,8 +68,8 @@ type ModalDialogBaseProps = {
   mobilePresentation?: ModalMobilePresentation;
   /** Keep the footer outside the scroll area on mobile fullscreen dialogs. */
   mobileFixedFooter?: boolean;
+  /** 밝은 화면은 검정(dark, 기본값), 어두운 화면은 흰색(light) 오버레이를 사용합니다. */
   overlayTone?: ModalOverlayTone;
-  blurBackdrop?: boolean;
   popupClassName?: string;
   contentClassName?: string;
   /** 모바일 바텀시트를 최대 높이로 확장하고 본문만 스크롤합니다. */
@@ -185,7 +185,6 @@ export function ModalDialog({
   mobilePresentation = 'popup',
   mobileFixedFooter = false,
   overlayTone = 'dark',
-  blurBackdrop = true,
   popupClassName,
   contentClassName,
   scrollable = false,
@@ -208,7 +207,6 @@ export function ModalDialog({
       size,
       mobilePresentation,
       overlayTone,
-      blur: blurBackdrop,
       sheet,
       scrollable,
       hasFooter,

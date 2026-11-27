@@ -246,7 +246,6 @@ function MyPageMembershipBarcode() {
         onOpenChange={setBarcodeOpen}
         finalFocus={barcodeTrigger}
         mobilePresentation="bottomSheet"
-        blurBackdrop={false}
         headerProps={{ className: styles.barcodeHeader }}
         footerProps={{ className: styles.barcodeFooter }}
         actions={{ kind: 'single', onConfirm: () => setBarcodeOpen(false) }}

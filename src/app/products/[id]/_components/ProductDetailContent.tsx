@@ -1935,7 +1935,6 @@ function ProductSizeSelector({
           onOpenChange={setGuideOpen}
           finalFocus={guideButton}
           mobilePresentation="bottomSheet"
-          blurBackdrop={false}
         >
           <ProductSizeGuideChart
             apparel={apparel}

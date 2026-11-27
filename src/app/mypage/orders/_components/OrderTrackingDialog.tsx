@@ -62,7 +62,6 @@ export function OrderTrackingDialog({
       title="배송조회"
       closeLabel="배송조회 닫기"
       mobilePresentation="bottomSheet"
-      blurBackdrop={false}
       actions={{ kind: 'single', label: '닫기', onConfirm: onClose }}
     >
       <div className={styles.root}>

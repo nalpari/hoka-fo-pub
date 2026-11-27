@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-27T13:22:17+09:00'
+updated: '2026-11-27T15:31:02+09:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -1035,6 +1035,14 @@ sources:
 ---
 
 # 컴포넌트와 스타일
+
+## 공통 모달 오버레이 (2026-11-27)
+
+`ModalDialog`는 사용자 확정 기준에 따라 PC와 모바일에서 오버레이 불투명도 30%를 사용한다. 밝은 화면은 기본 `overlayTone="dark"`의 검정 `#000000`, 어두운 화면은 `overlayTone="light"`의 흰색 `#ffffff`를 사용한다. 오버레이는 기존 모달 포털의 스택 안에서 `z-index: -1`로 본문 아래에 배치되며 배경 블러와 `blurBackdrop` 옵션은 삭제했다.
+
+출처는 `src/components/common/layouts/ModalDialog.recipe.tsx`, `src/components/common/layouts/ModalDialog.tsx`, [HOKA 디자인 시스템의 Overlay 안내](https://www.figma.com/design/0dCBZJvU7aacxImQTV843M/HOKA-design-system-v1.0)와 후속 사용자 지시다. 색상과 쌓임 순서는 디자인 시스템을 따르고 불투명도 30%와 블러 삭제는 후속 지시를 적용했다.
+
+검증(Codex, 2026-11-27)은 Panda 생성, 변경 파일 ESLint, TypeScript, Next.js 프로덕션 빌드를 통과했다. 프로덕션 미리보기에서 PC 1440px과 모바일 390px의 검정·흰색 오버레이 불투명도, 블러 제거, 팝업 쌓임 순서와 바깥 클릭·Escape 닫기 및 포커스 복귀를 확인했다. 상품 상세 공유 팝업을 연 채 1200·1199·1025·1024px로 바꿔도 30%와 쌓임 순서가 유지됨을 확인했다.
 
 ## 공통 Back to Top atom 분리 (2026-11-16)
 

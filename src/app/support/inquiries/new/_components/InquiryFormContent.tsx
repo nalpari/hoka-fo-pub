@@ -190,7 +190,6 @@ export function InquiryAttachments({
           closeLabel="파일첨부 닫기"
           mobilePresentation="bottomSheet"
           popupClassName={attachmentPickerStyles.popup}
-          blurBackdrop={false}
           finalFocus={triggerRef}
         >
           <div className={attachmentPickerStyles.choices}>

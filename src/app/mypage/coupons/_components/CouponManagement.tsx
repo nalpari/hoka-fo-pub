@@ -352,7 +352,6 @@ function CouponDetailsDialog({ coupon, onOpenChange }: CouponDetailsDialogProps)
       onOpenChange={onOpenChange}
 
       mobilePresentation="fullscreen"
-      blurBackdrop={false}
       title="쿠폰 상세보기"
       actions={{
         kind: 'single',

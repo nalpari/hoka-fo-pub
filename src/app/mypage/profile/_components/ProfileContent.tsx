@@ -513,7 +513,6 @@ export function ProfilePasswordDialog({
       {...(input
         ? {
             mobilePresentation: 'bottomSheet' as const,
-            blurBackdrop: false,
             headerProps: { css: { mb: '32px', _mobile: { mb: '16px' } } },
             contentClassName: css({
               '&&': { p: '0 32px', _mobile: { p: '0 16px 24px' } },

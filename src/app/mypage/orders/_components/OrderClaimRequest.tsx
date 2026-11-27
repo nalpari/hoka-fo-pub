@@ -212,7 +212,6 @@ export function OrderClaimRequest({
       onOpenChange={(open) => !open && onClose()}
       title={title}
       closeLabel={`${title} 닫기`}
-      blurBackdrop={false}
       mobilePresentation="bottomSheet"
       footer={
         <Button variant="primary" size="tall" fullWidth type="button">
