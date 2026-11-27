@@ -3082,15 +3082,17 @@ IA 195의 기본 화면은 RUNNER다. 개발용 `/screen-index`와 검수용 `/s
 | 상태 | 주소 | 설계서의 표시 기준 |
 | --- | --- | --- |
 | 기본 RUNNER | `/mypage/rewards` | ADVANCED 기준 미달인 RUNNER에 상시 노출 |
-| 상향 예정 | `/mypage/rewards/preview/upgrade-scheduled` | 상위 기준에 도달한 주문의 구매 확정부터 다음 달 3일 산정 완료까지 |
-| 유지 | `/mypage/rewards/preview/maintained` | 현재 기준 이상·상위 기준 미만일 때 월 3일 산정 완료 후부터 다음 달 2일까지 |
-| 하락 위험 | `/mypage/rewards/preview/downgrade-risk` | 현재 기준에 미달할 때 월 3일 산정 완료 후부터 말일까지 |
-| 하락 예정 | `/mypage/rewards/preview/downgrade-scheduled` | 말일까지 유지 기준을 충족하지 못한 경우 다음 달 1일부터 3일 산정 완료까지 |
+| 상향 예정 | `/mypage/rewards/preview/upgrade-scheduled` | 상위 기준에 도달한 주문의 구매 확정부터 다음 달 3일 산정 완료까지. 진행 바 끝에 `0원 구매시 등급 업!`, 아래에 변경 예정일을 표시 |
+| 유지 | `/mypage/rewards/preview/maintained` | 현재 기준 이상·상위 기준 미만일 때 월 3일 산정 완료 후부터 다음 달 2일까지. `680,000원 구매시 등급 업!` 툴팁과 유지 예정일을 함께 표시 |
+| 하락 위험 | `/mypage/rewards/preview/downgrade-risk` | 현재 기준에 미달할 때 월 3일 산정 완료 후부터 말일까지. 직접 URL에서 확인 |
+| 하락 예정 | `/mypage/rewards/preview/downgrade-scheduled` | 720,000원 추가 구매 시 ELITE 유지 툴팁과 11월 30일까지의 구매 확정 안내를 표시. 안내 안의 등급명 `ELITE`를 강조 |
 | ELITE 달성 | `/mypage/rewards/preview/elite-achieved` | 차트 100%와 ELITE 달성 툴팁을 보여주는 별도 설계 예시 |
 
 이 주소들은 `rewardsPreviews.ts`와 `preview/[state]/page.tsx`에서 고정 표시 데이터를 읽는다. 상태 판정·날짜 계산·실제 요청은 통합 소유자의 책임이다. PC에는 기존 마이페이지 요약 배치를 사용하고, 모바일 예시에서 읽은 문구와 상태를 두 플랫폼에 적용했다. 출처는 사용자 브라우저 코멘트와 [HOKA 설계서의 회원등급 산정 케이스](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)다.
 
 Chromium PC 1440px·모바일 375px에서 기본과 다섯 상태를 직접 열어 등급, 구매금액, 진행률, 안내 문구 및 요약 영역 가로 넘침 여부를 확인했다. 개발용 IA와 화면검수용 목록에서 그룹 접기와 검색 후 다시 펼쳐지는 동작, 개별 URL 및 그룹 밖 조회 중·실패 링크를 확인했다. 고객센터 로그인 예시의 기존 산정 안내도 확인했다. IA·소스 그래프 검사 16개와 Next.js 프로덕션 빌드가 통과했다.
+
+후속 코멘트 반영 후 Chromium PC 1574px·모바일 375px에서 상향 예정·유지·하락 예정·ELITE 달성·하락 위험의 문구와 툴팁을 확인했다. 개발용 IA와 화면검수용 목록에는 하락 위험을 제외한 네 케이스가 연결되고, 하락 위험 직접 URL은 열린다.
 
 1:1 문의 파일 첨부 헤더의 파일 찾기 버튼은 PC·모바일 공통 Secondary Short를 사용한다. 출처는 `InquiryFormContent.tsx`다.
 

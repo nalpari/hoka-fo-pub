@@ -134,6 +134,7 @@ const styles = {
   accountBenefitDescription: css({ _mobile: { pl: '28px' } }),
   accountCouponTitle: css({ _mobile: { '&&': { lineHeight: '1.4' }, whiteSpace: 'pre-line' } }),
   accountValidity: css({ color: '#707070' }),
+  progressNotice: css({ _web: { gridColumn: '1 / -1' } }),
   accountTooltip: css({
     textAlign: 'center',
     overflowWrap: 'anywhere',
@@ -385,6 +386,13 @@ function RewardProgress({
     ? Math.max(0, Math.min(100, progress.percent))
     : 0;
   const label = progress.label ?? '';
+  const notice = progress.notice;
+  const noticeText =
+    typeof notice === 'string' ? notice : notice && notice.before + notice.tier + notice.after;
+  const hasAccountTooltip = account && Boolean(label);
+  const progressPosition = `${percent}%`;
+  // The tail base must clear the 12px corner radius by half its 12px width.
+  const tailInset = '18px';
   const [labelAmount = '', labelText = label] =
     account && progress.labelSize !== 'compact'
       ? label.split(/^(\p{Decimal_Number}+(?:[,.]\p{Decimal_Number}+)*)/u).slice(1)
@@ -398,20 +406,34 @@ function RewardProgress({
       bg="black.10"
       px="32px"
       py="32px"
+      _web={
+        hasAccountTooltip
+          ? {
+              display: 'grid',
+              gridTemplateColumns: 'minmax(0, 1fr) max-content',
+              columnGap: '24px',
+              alignItems: 'center',
+              alignContent: 'center',
+            }
+          : undefined
+      }
       _mobile={{ w: 'full', py: '24px', gap: '8px', minH: account ? '159px' : undefined }}
     >
       {label ? (
         <Box
           position="relative"
           h={account ? undefined : '44px'}
-          mr={account ? '168px' : '180px'}
+          mr={account ? '0' : '180px'}
+          _web={hasAccountTooltip ? { gridColumn: '1' } : undefined}
           _mobile={{ h: account ? undefined : '47px', mr: '0' }}
         >
           <Box
             position={account ? 'relative' : 'absolute'}
             style={{
-              left: `${percent}%`,
-              transform: account ? `translateX(-${percent}%)` : undefined,
+              left: progressPosition,
+              transform: account
+                ? `translateX(clamp(calc(${tailInset} - 100%), -${progressPosition}, -${tailInset}))`
+                : undefined,
             }}
             transform={account ? undefined : 'translateX(-50%)'}
             bottom={account ? undefined : '0'}
@@ -435,18 +457,27 @@ function RewardProgress({
             <Box
               mx={account ? undefined : 'auto'}
               position={account ? 'relative' : undefined}
-              style={account ? { left: `clamp(6px, ${percent}%, 100% - 6px)` } : undefined}
+              style={
+                account
+                  ? { left: `clamp(${tailInset}, ${progressPosition}, 100% - ${tailInset})` }
+                  : undefined
+              }
               transform={account ? 'translateX(-50%)' : undefined}
               w="12px"
               h="6px"
               bg="black.100"
               clipPath="polygon(0 0,100% 0,50% 100%)"
-              mt={account ? '0' : '-1px'}
+              mt="-1px"
             />
           </Box>
         </Box>
       ) : null}
-      <HStack gap="24px" minH="24px" _mobile={{ flexDirection: 'column', alignItems: 'stretch' }}>
+      <HStack
+        gap="24px"
+        minH="24px"
+        _web={hasAccountTooltip ? { display: 'contents' } : undefined}
+        _mobile={{ flexDirection: 'column', alignItems: 'stretch' }}
+      >
         <Box
           flex="1"
           h="8px"
@@ -454,16 +485,17 @@ function RewardProgress({
           borderRadius="full"
           position="relative"
           role="progressbar"
-          aria-label={label || progress.notice || '등급 산정 구매금액'}
+          aria-label={label || noticeText || '등급 산정 구매금액'}
           aria-valuemin={0}
           aria-valuemax={100}
           aria-valuenow={percent}
+          _web={hasAccountTooltip ? { gridColumn: '1' } : undefined}
           _mobile={{ flex: 'none' }}
         >
           <Box style={{ width: `${percent}%` }} h="full" bg="black.100" borderRadius="full" />
           <Box
             position="absolute"
-            style={{ left: `${percent}%` }}
+            style={{ left: progressPosition }}
             top="50%"
             transform="translate(-50%,-50%)"
             w="24px"
@@ -504,9 +536,24 @@ function RewardProgress({
           ) : null}
         </HStack>
       </HStack>
-      {progress.notice ? (
-        <Typography as="p" variant="b8">
-          {progress.notice}
+      {notice ? (
+        <Typography
+          as="p"
+          variant={typeof notice === 'string' ? 'b8' : 'b7M'}
+          language={typeof notice === 'string' ? 'auto' : 'ko'}
+          className={hasAccountTooltip ? styles.progressNotice : undefined}
+        >
+          {typeof notice === 'string' ? (
+            notice
+          ) : (
+            <>
+              {notice.before}
+              <Typography as="strong" variant="b7B" language="en">
+                {notice.tier}
+              </Typography>
+              {notice.after}
+            </>
+          )}
         </Typography>
       ) : null}
     </Stack>
@@ -593,10 +640,19 @@ export function MembershipRewards({
                   alignItems: 'center',
                 }}
               >
-                <Typography web="b4M" mo="b6M">
+                <Typography
+                  web="b4M"
+                  mo="b6M"
+                  className={account ? css({ _web: { alignSelf: 'flex-start' } }) : undefined}
+                >
                   구매금액
                 </Typography>
-                <HStack gap="2px" justifyContent="flex-end" alignItems="baseline">
+                <HStack
+                  gap="2px"
+                  justifyContent="flex-end"
+                  alignItems="baseline"
+                  _web={account ? { alignItems: 'flex-end' } : undefined}
+                >
                   <Typography
                     web="h10B"
                     mo={account ? 'b4B' : 'h8'}

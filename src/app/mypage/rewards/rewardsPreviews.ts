@@ -30,6 +30,7 @@ export const rewardsPreviews = [
       purchaseAmount: '320,000',
       tierProgress: {
         percent: 100,
+        label: '0원 구매시 등급 업!',
         currentAmount: '320,000',
         targetAmount: '300,000',
         notice: '12월 3일 ADVANCED로 변경될 예정이에요.',
@@ -46,6 +47,7 @@ export const rewardsPreviews = [
       purchaseAmount: '320,000',
       tierProgress: {
         percent: 32,
+        label: '680,000원 구매시 등급 업!',
         currentAmount: '320,000',
         targetAmount: '1,000,000',
         notice: '12월 3일에도 ADVANCED 등급이 유지될 예정이에요.',
@@ -72,7 +74,12 @@ export const rewardsPreviews = [
       ...downgradeSummary,
       tierProgress: {
         ...downgradeSummary.tierProgress,
-        notice: '12월 3일 RUNNER로 변경될 예정이에요.',
+        label: '720,000원 구매시 ELITE 등급 유지!',
+        notice: {
+          before: '11월 30일까지 720,000원 더 구매확정하면 ',
+          tier: downgradeSummary.tier,
+          after: ' 등급이 유지돼요',
+        },
       },
     },
   },
