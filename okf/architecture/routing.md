@@ -2664,6 +2664,8 @@ LoginContent 제목의 들여쓰기와 약관 페이지 tabs 객체 줄바꿈만
 
 Codex는 2026-11-27에 `/products/shoe-1`을 1920px PC와 375px MO에서 펼치고 다시 접었다. PC 484px·MO 375px 상품 정보 패널에서 Figma의 본문 줄바꿈, 글자 계산 스타일, 네 줄 말줄임, 러닝 라벨, 열 간격과 각 상태의 전체 높이를 비교했다. Chrome의 텍스트 세로 좌표는 시안과 일부 소수점 차이가 있다.
 
+2026-11-27 후속 비교에서 Codex는 PC 484px·MO 375px 패널의 더 보기·닫기 네 상태를 2배로 캡처하고 Figma 이미지의 텍스트 행 위치를 CSS px로 환산했다. 보정 전 PC 펼침의 새로운 특징 제목·본문과 닫기 라벨은 1.5px 아래에 있었다. MO 펼침은 첫 본문의 5·6번째 줄과 새로운 특징 제목이 1.5px 아래에 있었다. `ProductInformation`에서 글자 위치를 보정하고, 모바일 영문 모델명 때문에 한국어 본문의 줄 간격이 늘어나는 부분을 맞췄다. 보정 후 제목·소제목·본문·토글 글자 위치는 2배 캡처에서 맞았고 PC 규격 행의 세로 위치는 최대 0.5 CSS px 차이가 남았다.
+
 ## 상품 상세 일부 발볼 품절 상태 (2026-11-26)
 
 `/products/pdp-preview/width-double-sold-out`과 `/products/pdp-preview/width-triple-sold-out`은 각각 발볼 2개·3개 중 두 번째 Wide가 품절인 고정 화면이다. 기존 `productDetailPreviews` 목록을 통해 두 경로가 상품 상세 공통 IA의 STATE에 연결된다. 소스는 `productDetailPreviews.ts`와 `ProductDetailContent.tsx`의 작업 트리다. [품절 표현과 검증](ui.md#상품-상세-발볼-품절-표시-2026-11-26).

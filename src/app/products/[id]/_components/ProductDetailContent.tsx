@@ -2089,21 +2089,44 @@ const productInformationPreviewLines = 4;
 const productInformationStyles = {
   root: css({
     '& :is(h2, h3, p, dt, dd, button span)': { color: 'black.100', transform: 'none' },
+    '& h2': { translate: '0 0.5px', _mobile: { translate: '0 -0.5px' } },
+    '& :is(dt, dd)': { _mobile: { translate: '0 -0.5px' } },
   }),
-  subtitle: css(productInformationTrim, { '&&': { lineHeight: '1.3' } }),
+  subtitle: css(productInformationTrim, {
+    '&&': { lineHeight: '1.3' },
+    translate: '0 -0.5px',
+    _mobile: { translate: '0 0.5px' },
+  }),
   description: css(productInformationTrim, {
     wordBreak: 'keep-all',
     overflowWrap: 'anywhere',
-    _mobile: { '&&': { lineHeight: '23px' } },
+    translate: '0 -0.5px',
+    _mobile: { '&&': { lineHeight: '23px' }, translate: '0 0.5px' },
   }),
   clampedDescription: css({
     lineClamp: productInformationPreviewLines,
     // Keep glyphs that extend past the trimmed text box visible.
     '&&': { overflow: 'clip', overflowClipMargin: '3px' },
   }),
-  modelSuffix: css({ '&&': { transform: 'none' } }),
+  // Keep the English font's metrics from changing the mobile Korean line spacing.
+  modelSuffix: css({ '&&': { transform: 'none', _mobile: { lineHeight: '1' } } }),
+  // Preserve the group height after removing the extra leading in the mixed-font lines.
+  mixedDescription: css({ _mobile: { mb: '1px' } }),
+  expandedMixedDescription: css({ _mobile: { mb: '2px' } }),
+  feature: css({
+    translate: '0 -1px',
+    _mobile: {
+      translate: 'none',
+      '& h3': { translate: '0 -1.5px' },
+      '& p': { translate: '0 -0.5px' },
+    },
+  }),
   keepTogether: css({ whiteSpace: 'nowrap', _mobile: { whiteSpace: 'normal' } }),
-  toggleButton: css({ '&&': { textUnderlineOffset: '2px' } }),
+  toggleButton: css({
+    '&&': { textUnderlineOffset: '2px' },
+    translate: '0 -0.5px',
+    '&[aria-expanded="true"]': { translate: '0 -1.5px', _mobile: { translate: '0 -0.5px' } },
+  }),
   toggle: css(productInformationTrim, { display: 'block', '&&': { lineHeight: '1.3' } }),
 };
 
@@ -2160,6 +2183,10 @@ function ProductInformation({ id, sections, specifications }: ProductInformation
     className: [
       productInformationDescriptionProps.className,
       !expanded && productInformationStyles.clampedDescription,
+      description?.formatContent &&
+        (expanded
+          ? productInformationStyles.expandedMixedDescription
+          : productInformationStyles.mixedDescription),
     ]
       .filter(Boolean)
       .join(' '),
@@ -2241,6 +2268,7 @@ function ProductInformation({ id, sections, specifications }: ProductInformation
               features.map((section) => (
                 <ContentHeader
                   gap="5"
+                  className={productInformationStyles.feature}
                   key={section.title}
                   titleAs="h3"
                   title={section.title}
