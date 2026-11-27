@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-27T10:31:43+09:00'
+updated: '2026-11-27T10:36:50+09:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -3016,3 +3016,7 @@ Codex는 2026-11-27 KST에 PC 1427px와 모바일 375px에서 HOKA Run Hat 사�
 장바구니·상품 상세·주문서·주문 및 취소·반품 상세·신청·문의 주문 조회의 옵션 요약은 색상, 사이즈, 발볼 순서다. PC·모바일의 기존 수량 표시 위치를 따르며, 요약에 수량을 표시할 경우 옵션 뒤에 둔다. [공통 옵션 표시](ui.md#상품-옵션-요약-순서-2026-11-27).
 
 `/mypage/orders/preview-return-detail`의 회수 섹션 제목은 `상품 회수정보`, 고정 진행상태는 `환불완료`, 금액 라벨은 PC·모바일 모두 `총 환불금액`이다. PC 반품 상품 표에는 기존 `상품/옵션정보 · 수량 · 가격 · 진행상태` 헤더를 사용한다. 출처는 사용자 응답 주석과 `OrderDetails.tsx`, `orders.data.ts` 작업 트리다. Codex가 PC 1427px와 모바일 375px에서 장바구니, 주문서, 주문 목록·상세와 취소·반품 상세의 옵션 순서를 확인했다. 같은 두 해상도에서 반품 문구와 취소 상세 상태를 확인했고 PC에서 기존 표 헤더도 확인했다.
+
+## 결제와 환불 화면 문구 2026-11-27
+
+장바구니·주문서와 쿠폰 팝업에는 `총 결제금액`을 사용한다. 주문 상세와 PC 취소 상세에는 `결제금액`을 사용한다. 취소·반품 관련 화면과 퍼블리싱 가이드의 `취소 사유`, `단순 변심`, `환불 수단` 띄어쓰기를 정리하고 환불 소요기간 안내의 별표를 제거했다. 출처는 사용자 포함 지시와 `CartOrderActions.tsx`, `CheckoutCouponDialog.tsx`, `CheckoutDiscountSummary.tsx`, `CheckoutForm.tsx`, `OrderClaimRequest.tsx`, `OrderDetails.tsx`, `descriptionListExamples.tsx` 작업 트리다. 공용 상태 문구는 [주문 취소·반품 표시](ui.md#주문-취소반품-상태-문구-2026-11-27)를 참고한다.

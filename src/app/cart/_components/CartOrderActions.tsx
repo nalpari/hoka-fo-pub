@@ -47,7 +47,7 @@ export function CartOrderActions({ selectedPreview = false }: { selectedPreview?
         */}
       </Stack>
       <AmountRow
-        label="총 결제 금액"
+        label="총 결제금액"
         amount={cartPreviewAmounts.total}
         emphasizeLabel
         borderTop="2px solid var(--color-black-20)"

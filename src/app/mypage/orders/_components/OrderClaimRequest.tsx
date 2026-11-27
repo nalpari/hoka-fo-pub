@@ -126,7 +126,7 @@ export function OrderClaimRequest({
                   { value: 'missing', label: '구성품 누락' },
                 ]
               : []),
-            { value: 'mind', label: '상품이 마음에 들지 않음 (단순변심)' },
+            { value: 'mind', label: '상품이 마음에 들지 않음 (단순 변심)' },
             { value: 'size', label: '사이즈가 맞지 않음' },
             { value: 'delay', label: '배송 지연' },
             { value: 'other', label: '기타' },

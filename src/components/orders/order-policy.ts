@@ -10,7 +10,7 @@ export const orderStatusLabels: Record<OrderStatus, string> = {
   returned: '반품완료',
 };
 export const claimReasonLabels = {
-  mind: '단순변심',
+  mind: '단순 변심',
   size: '사이즈가 맞지 않음',
   damage: '상품불량/파손',
   wrong: '오배송',

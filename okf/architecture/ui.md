@@ -4,7 +4,7 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-27T10:31:43+09:00'
+updated: '2026-11-27T10:36:50+09:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -6444,3 +6444,7 @@ DataList.recipe.tsx의 thinTertiary는 목록과 상세 영역에서 공유하�
 ## 상품 옵션 요약 순서 2026-11-27
 
 `src/lib/formatProductOptions.ts`는 준비된 상품 옵션을 `색상, 사이즈, 발볼` 순서로 연결한다. 빈 값에는 구분자를 붙이지 않으며 화면에서 수량을 전달하면 마지막에 표시한다. `Black, 250, Regular`, 발볼이 없는 `Black, M, 2개`, 빈 옵션을 직접 검증했다. 퍼블리싱 가이드 예시와 주문서 쿠폰 표시 데이터에도 같은 순서를 사용한다. 출처는 사용자 응답 주석, `AGENTS.md`와 `formatProductOptions.ts` 작업 트리다. [적용 화면과 브라우저 검증](routing.md#상품-옵션-순서와-반품-상세-표시-2026-11-27).
+
+## 주문 취소·반품 상태 문구 2026-11-27
+
+주문 취소·반품의 사유 코드 `mind`와 관련 상세 예시는 `단순 변심`으로 표시한다. 반품 상세의 완료 예시는 두 플랫폼 모두 `환불완료`를 사용한다. 출처는 `src/components/orders/order-policy.ts`, `src/components/orders/orders.data.ts` 작업 트리와 사용자 확인이다.

@@ -346,7 +346,7 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
           >
             <HStack justifyContent="space-between" w="100%">
               <Typography variant="b6M" tone="subtle">
-                결제예정금액
+                결제금액
               </Typography>
               {mobile ? (
                 <Typography variant="b4S">{display.payableAmount.toLocaleString()}원</Typography>
@@ -700,9 +700,9 @@ export function OrderClaimDetail({
           />
         </ClaimSection>
       ) : null}
-      <ClaimSection title={mobile ? '취소 사유' : cancel ? '취소사유' : '환불사유'}>
+      <ClaimSection title={mobile ? '취소 사유' : cancel ? '취소 사유' : '환불사유'}>
         {!mobile && !cancel ? (
-          <ClaimInformation items={[{ term: '취소사유', description: reason }]} />
+          <ClaimInformation items={[{ term: '취소 사유', description: reason }]} />
         ) : (
           <Stack gap="0">
             <Stack
@@ -734,7 +734,7 @@ export function OrderClaimDetail({
           borderBottom="1px solid var(--colors-black-20)"
         >
           <Typography web="b4" mo="b6" tone="subtle" className={css({ w: '96px' })}>
-            환불수단
+            환불 수단
           </Typography>
           <Typography web="b4M" mo="b6M">
             {claim.refundMethod ?? '-'}
@@ -791,7 +791,7 @@ export function OrderClaimDetail({
               justifyContent="center"
               gap="24px"
             >
-              <Typography variant="b4M">{cancel ? '결제예정금액' : '총 환불금액'}</Typography>
+              <Typography variant="b4M">{cancel ? '결제금액' : '총 환불금액'}</Typography>
               <HStack gap="2px" alignItems="flex-end">
                 <Typography web="h8B" mo="h8" language="en">
                   {refund?.toLocaleString() ?? '-'}
@@ -806,7 +806,7 @@ export function OrderClaimDetail({
           tone="tertiary"
           className={css({ pt: { base: '16px', _mobile: '12px' } })}
         >
-          * 결제 취소 요청이 전달된 후 환불까지 영업일 기준 3~7일이 소요됩니다.
+          결제 취소 요청이 전달된 후 환불까지 영업일 기준 3~7일이 소요됩니다.
         </Typography>
       </ClaimSection>
       <Box
