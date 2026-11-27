@@ -2638,7 +2638,9 @@ LoginContent 제목의 들여쓰기와 약관 페이지 tabs 객체 줄바꿈만
 
 ## 상품정보 표시 데이터와 5줄 더보기 (2026-11-20)
 
-이 절은 앞선 모바일 상품정보16px 및 PC 의류 최초 펼침 기록을 대체하는 현행 규칙이다. ProductInformation은 고정 섹션명 '상품 정보'와 Product.detailTitle/detailDescription을 구분한다. 상품 상세 통합 소유자가 현재 상품의 제목·본문을 전달하며, 미제공 제목은 다른 상품 문구로 대체하거나 빈 heading으로 출력하지 않는다. Clifton과 EveryRun fixture에 제공된 시안의 제목을 각각 명시했다. 두 fixture의 제목 문구는 시안에서 동일하지만 화면 공통 하드코딩이 아니다. 실제 API·조회·재시도는 구현하지 않았고 현재 데이터 교체 및 오류 처리는 통합 소유자의 책임이다.
+현재 스타일과 본문 접힘 기준은 [상품 정보 PC·모바일 타이포와 간격](#상품-정보-pc모바일-타이포와-간격-2026-11-27)을 따른다.
+
+이 절은 2026-11-20 당시의 표시 데이터와 접힘 기준을 기록한다. ProductInformation은 고정 섹션명 '상품 정보'와 Product.detailTitle/detailDescription을 구분한다. 상품 상세 통합 소유자가 현재 상품의 제목·본문을 전달하며, 미제공 제목은 다른 상품 문구로 대체하거나 빈 heading으로 출력하지 않는다. Clifton과 EveryRun fixture에 제공된 시안의 제목을 각각 명시했다. 두 fixture의 제목 문구는 시안에서 동일하지만 화면 공통 하드코딩이 아니다. 실제 API·조회·재시도는 구현하지 않았고 현재 데이터 교체 및 오류 처리는 통합 소유자의 책임이다.
 
 모든 상품은 처음에 최대5줄로 접는다. 첫 본문 p의 scrollHeight와 계산 line-height×5를 비교하고 반올림 오차1px을 허용해 초과 시에만 더 보기/닫기를 표시한다. ResizeObserver는 본문과 기존 내용 Stack을 관찰하고 window resize 및 document.fonts.ready/loadingdone에서도 재측정한다. cleanup으로 observer·이벤트와 늦은 폰트 완료를 해제한다. 펼침 상태는 현재 본문에 연결하므로 본문이 교체되면 접히며, 기존 본문을 그대로 둔 제목 교체는 로컬 펼침을 유지한다. aria-expanded/aria-controls를 유지하고 더보기 없이 전체를 볼 수 있는 짧은 본문에서는 추가 설명도 바로 표시한다. 긴 본문의 추가 설명은 기존처럼 펼쳤을 때 표시한다.
 
@@ -2649,6 +2651,18 @@ LoginContent 제목의 들여쓰기와 약관 페이지 tabs 객체 줄바꿈만
 실행 검증:1920px/375px 의류의 최초 본문 높이120px(24px×5), 펼침144px/192px과 닫기를 확인했다. 임시 표시 데이터의4줄96px·5줄120px에는 버튼이 없고6줄은120px으로 접히며 버튼이 표시되는 것을 PC/MO에서 확인했다. 펼친6줄을4줄로 교체하면 버튼이 사라졌고 임시 본문은 복원했다. 별도 타이틀로 교체했을 때 현재 제목이 즉시 반영되고, 제목을 미제공하면 본문은 유지하면서 빈 제목 heading이 생성되지 않는 것을 확인했다. 임시 타이틀도 복원했다. 신발은2560px 본문96px·1920px120px에서 버튼이 없고375px144px 본문은120px으로 접혀 버튼이 표시돼 resize 재측정을 확인했다. 신발 유형/추천 활동 유지·러닝 유형 미표시와 펼친 후 새로운 특징을 확인했다. MO 실제 계산값은 섹션명22px·타이틀17px·본문16px/24px·padding40px 16px이다. 스크린샷 캡처는 개발서버의 미완료 navigation timeout으로 실패하여 시각 캡처 검증 완료로 기록하지 않는다.
 
 검사: 대상3개 소스 ESLint·Prettier, 전체 TypeScript, Panda 생성 및 OKF 작업 트리 관련 문서 매핑 검사를 통과했다. 커밋/푸시는 수행하지 않았다.
+
+## 상품 정보 PC·모바일 타이포와 간격 (2026-11-27)
+
+`ProductInformation`은 본문을 PC·모바일 모두 최대 4줄로 접고, 전체 본문이 넘칠 때 더 보기/닫기로 전환한다. 클리프턴에는 펼친 상태의 새로운 특징과 러닝 용도 행을 표시한다. PC 접힌 시안의 라벨은 ‘러닝 유형’, 그 외 상태는 ‘러닝 용도’이며 값은 현재 상품의 `runningType`을 사용한다.
+
+섹션 제목은 PC 22px/MO 20px Black(900), 소제목은 PC 16px/MO 15px Bold(700)와 130% 행간, 본문은 PC 16px/24px, MO 15px/23px Regular(400)다. 모바일 Figma 스타일의 명목 행간은 22.5px이며 내보낸 텍스트의 줄 간 실제 간격은 23px다. 소제목·본문·버튼 라벨·규격 행은 텍스트 상하 여백을 줄인다. 자간은 한글 Pretendard의 기존 −0.02em과 영문 `11 GTX`의 The Future HOKA 15px Regular 자간 0을 사용한다.
+
+섹션 제목에서 소제목까지 24px, 소제목에서 본문까지 20px, 설명 그룹과 버튼 사이 간격은 PC 24px/MO 28px다. 규격 목록 앞은 40px, 행 간격은 24px, 열 간격은 12px이다. 라벨 열은 PC 80px/MO 76px이며 라벨과 값은 PC 15px/MO 14px다. PC 패딩은 위/좌우 32px·아래 40px, MO는 상하 32px·좌우 16px다.
+
+작업 트리 출처는 `src/app/products/[id]/_components/ProductDetailContent.tsx`다. 네 상태의 프레임 좌표·글꼴·내보낸 이미지와 사용자 첨부를 대조했다. [상품 상세 Figma](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design).
+
+Codex는 2026-11-27에 `/products/shoe-1`을 1920px PC와 375px MO에서 펼치고 다시 접었다. PC 484px·MO 375px 상품 정보 패널에서 Figma의 본문 줄바꿈, 글자 계산 스타일, 네 줄 말줄임, 러닝 라벨, 열 간격과 각 상태의 전체 높이를 비교했다. Chrome의 텍스트 세로 좌표는 시안과 일부 소수점 차이가 있다.
 
 ## 상품 상세 일부 발볼 품절 상태 (2026-11-26)
 

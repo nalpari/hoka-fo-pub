@@ -2068,42 +2068,105 @@ type ProductInformationProps = {
   id?: string;
   sections: readonly {
     title?: string;
-    content: ReactNode;
+    content: string;
+    formatContent?: (content: string) => ReactNode;
   }[];
   specifications: readonly {
     label: string;
+    collapsedLabel?: string;
     value: ReactNode;
   }[];
 };
 
+// These Figma text layers trim the outer leading while retaining the line spacing inside paragraphs.
+const productInformationTrim = css.raw({
+  textBoxTrim: 'trim-both',
+  textBoxEdge: 'cap alphabetic',
+});
+
+const productInformationPreviewLines = 4;
+
+const productInformationStyles = {
+  root: css({
+    '& :is(h2, h3, p, dt, dd, button span)': { color: 'black.100', transform: 'none' },
+  }),
+  subtitle: css(productInformationTrim, { '&&': { lineHeight: '1.3' } }),
+  description: css(productInformationTrim, {
+    wordBreak: 'keep-all',
+    overflowWrap: 'anywhere',
+    _mobile: { '&&': { lineHeight: '23px' } },
+  }),
+  clampedDescription: css({
+    lineClamp: productInformationPreviewLines,
+    // Keep glyphs that extend past the trimmed text box visible.
+    '&&': { overflow: 'clip', overflowClipMargin: '3px' },
+  }),
+  modelSuffix: css({ '&&': { transform: 'none' } }),
+  keepTogether: css({ whiteSpace: 'nowrap', _mobile: { whiteSpace: 'normal' } }),
+  toggleButton: css({ '&&': { textUnderlineOffset: '2px' } }),
+  toggle: css(productInformationTrim, { display: 'block', '&&': { lineHeight: '1.3' } }),
+};
+
 const productInformationTitleProps = {
-  variant: 'b4B',
+  web: 'b4B',
+  mo: 'b5B',
   language: 'ko',
-  className: css({ '&&': { _mobile: { fontSize: 'body.16' } } }),
+  className: productInformationStyles.subtitle,
 } as const;
 
 const productInformationDescriptionProps = {
   web: 'b4',
   mo: 'b5',
   language: 'ko',
-  className: css({ '&&': { _mobile: { fontSize: 'body.16', lineHeight: 'body' } } }),
+  className: productInformationStyles.description,
 } as const;
+
+function formatCliftonDescription(content: string) {
+  return content.split(/(11 GTX|착용할 수 있고,)/).map((part, index) => {
+    if (part === '11 GTX') {
+      return (
+        <Typography
+          key={index}
+          as="span"
+          variant="b5"
+          language="en"
+          className={productInformationStyles.modelSuffix}
+        >
+          {part}
+        </Typography>
+      );
+    }
+    if (part === '착용할 수 있고,') {
+      return (
+        <span key={index} className={productInformationStyles.keepTogether}>
+          {part}
+        </span>
+      );
+    }
+    return part;
+  });
+}
+
 /** 상품 설명 섹션과 규격 정보를 의미 있는 목록으로 표시합니다. (Displays product description sections and specifications as a semantic list.) */
 function ProductInformation({ id, sections, specifications }: ProductInformationProps) {
   const [description, ...features] = sections;
-  const [expansion, setExpansion] = useState<{ content: ReactNode; expanded: boolean } | null>(
-    null,
-  );
+  const [expansion, setExpansion] = useState<{ content: string; expanded: boolean } | null>(null);
   const expanded = expansion?.content === description?.content && expansion?.expanded === true;
   const [overflows, setOverflows] = useState<boolean | null>(null);
   const descriptionRoot = useRef<HTMLDivElement>(null);
   const contentId = useId();
   const descriptionProps = {
     ...productInformationDescriptionProps,
-    className: [productInformationDescriptionProps.className, !expanded && css({ lineClamp: 5 })]
+    className: [
+      productInformationDescriptionProps.className,
+      !expanded && productInformationStyles.clampedDescription,
+    ]
       .filter(Boolean)
       .join(' '),
   };
+  const descriptionContent = description?.content
+    ? (description.formatContent?.(description.content) ?? description.content)
+    : null;
 
   useEffect(() => {
     const root = descriptionRoot.current;
@@ -2116,7 +2179,7 @@ function ProductInformation({ id, sections, specifications }: ProductInformation
     const measure = () => {
       if (!active) return;
       const lineHeight = Number.parseFloat(getComputedStyle(paragraph).lineHeight);
-      setOverflows(paragraph.scrollHeight > lineHeight * 5 + 1);
+      setOverflows(paragraph.scrollHeight > lineHeight * productInformationPreviewLines + 1);
     };
     const observer = new ResizeObserver(measure);
     observer.observe(root);
@@ -2141,7 +2204,8 @@ function ProductInformation({ id, sections, specifications }: ProductInformation
       pt="8"
       pb="10"
       bg="var(--color-black-10)"
-      _mobile={{ px: '4', py: '10', w: 'calc(100% + 32px)', ml: '-16px' }}
+      className={productInformationStyles.root}
+      _mobile={{ px: '4', py: '8', w: 'calc(100% + 32px)', ml: '-16px' }}
       css={{
         '--product-information-label-width': '80px',
         _mobile: { '--product-information-label-width': '76px' },
@@ -2153,25 +2217,24 @@ function ProductInformation({ id, sections, specifications }: ProductInformation
         titleProps: {
           web: 'h10B',
           mo: 'h8B',
-          className: css({ '&&': { _mobile: { fontSize: 'body.20' } } }),
         },
       }}
     >
       <Stack gap="10">
-        <Stack gap="6" _mobile={{ gap: '4' }} alignItems="start">
-          <Stack id={contentId} gap="6" w="100%" ref={descriptionRoot}>
+        <Stack gap="6" _mobile={{ gap: '7' }} alignItems="start">
+          <Stack id={contentId} gap="6" _mobile={{ gap: '7' }} w="100%" ref={descriptionRoot}>
             {description?.title ? (
               <ContentHeader
                 gap="5"
                 titleAs="h3"
                 title={description.title}
                 titleProps={productInformationTitleProps}
-                description={<>{description.content}</>}
+                description={descriptionContent}
                 descriptionProps={descriptionProps}
               />
             ) : description?.content ? (
               <Typography as="p" {...descriptionProps}>
-                {description.content}
+                {descriptionContent}
               </Typography>
             ) : null}
             {(expanded || overflows === false) &&
@@ -2192,33 +2255,33 @@ function ProductInformation({ id, sections, specifications }: ProductInformation
               variant="link"
               colorway="black"
               size="md"
+              className={productInformationStyles.toggleButton}
               aria-expanded={expanded}
               aria-controls={contentId}
               onClick={() => setExpansion({ content: description.content, expanded: !expanded })}
             >
-              <Typography as="span" variant="b6S">
+              <Typography as="span" variant="b6S" className={productInformationStyles.toggle}>
                 {expanded ? '닫기' : '더 보기'}
               </Typography>
             </Button>
           )}
         </Stack>
         <DescriptionList
-          items={specifications.map(({ label, value }) => ({ term: label, description: value }))}
+          items={specifications.map(({ label, collapsedLabel, value }) => ({
+            term: expanded ? label : (collapsedLabel ?? label),
+            description: value,
+          }))}
           labelWidth="var(--product-information-label-width)"
           termProps={{
-            variant: 'b6S',
+            web: 'b5S',
+            mo: 'b6S',
+            language: 'ko',
           }}
-          descriptionProps={{ variant: 'b6' }}
+          descriptionProps={{ web: 'b5', mo: 'b6', language: 'ko' }}
           slotStyles={{
             root: css.raw({ columnGap: '3', rowGap: '6', alignItems: 'center' }),
-            term: css.raw({
-              '&&': { fontFamily: 'ko', fontSize: 'body.15' },
-              _mobile: { '&&': { fontSize: 'body.14' } },
-            }),
-            description: css.raw({
-              '&&': { fontFamily: 'ko', fontSize: 'body.15', lineHeight: 'body' },
-              _mobile: { '&&': { fontSize: 'body.14' } },
-            }),
+            term: css.raw(productInformationTrim, { '&&': { lineHeight: '1.3' } }),
+            description: productInformationTrim,
           }}
         />
       </Stack>
@@ -2391,7 +2454,11 @@ function ProductDetailContent({
       <ProductInformation
         id="product-information"
         sections={[
-          { title: product.detailTitle, content: product.detailDescription },
+          {
+            title: product.detailTitle,
+            content: product.detailDescription ?? '',
+            formatContent: isClifton ? formatCliftonDescription : undefined,
+          },
           ...(isClifton
             ? [
                 {
@@ -2407,6 +2474,11 @@ function ProductDetailContent({
             ? [
                 { label: '신발 유형', value: '안정화' },
                 { label: '추천 활동', value: '로드 러닝, 워킹, 라이프 스타일' },
+                {
+                  label: '러닝 용도',
+                  collapsedLabel: platform === 'web' ? '러닝 유형' : undefined,
+                  value: product.runningType,
+                },
               ]
             : apparel
               ? [{ label: '추천 활동', value: '데일리 러닝, 트레일 러닝' }]
