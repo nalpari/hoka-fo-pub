@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-27T11:11:39+09:00'
+updated: '2026-11-27T11:15:34+09:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -3047,3 +3047,7 @@ Codex는 PC 1424px와 모바일 375px에서 두 목록의 링크 243개, 트리 
 ## IA 공통 관리 자료와 문의 첨부 진입점 2026-11-27
 
 상품 상세의 공통 작업 파일은 유형별 관리 문구를 실제로 제공하는 productDetailCare.ts를 표시한다. 고객센터 관리 안내 데이터는 별도 소유다. 모바일 첨부 방법 선택 페이지는 고객센터와 마이페이지 문의 등록의 고정 상태 URL 및 소스 진입점 양쪽에 연결된다. 출처는 productDetailCare.ts와 screenConnections.ts 작업 트리다.
+
+## 상품내역 빈 화면 구분선 제거 2026-11-27
+
+관심상품·최근 본 상품·재입고 알림 상품의 빈 목록에는 제목 아래 구분선을 표시하지 않는다. 최근 본 상품의 빈 화면 하단 안내 앞 선도 제거했으며 일반 최근 본 상품의 PC 하단 안내에는 기존 선을 적용한다. 출처는 사용자 브라우저 코멘트와 MyPageProductHistory.tsx 작업 트리다. Codex는 Chromium PC 1414px 및 모바일 375px에서 세 빈 목록의 경계선과 PC 일반 최근 본 상품 안내의 경계선을 확인했다.

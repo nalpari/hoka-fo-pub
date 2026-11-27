@@ -207,7 +207,7 @@ function MyPageProductHistoryNote({
   if (recent) {
     return (
       <Box
-        borderTop="1px solid var(--colors-black-10)"
+        borderTop={empty ? undefined : '1px solid var(--colors-black-10)'}
         pt="16px"
         _mobile={{
           mt: '0',
@@ -417,7 +417,6 @@ export function MyPageProductHistory({
           gap="0"
           pb={items.length ? '0' : '40px'}
           pr={recent && !isEmpty ? { _web: '32px' } : undefined}
-          borderBottom={isEmpty && restock ? '2px solid var(--color-black-20)' : undefined}
           _mobile={{
             px: !restock && items.length ? '16px' : '0',
             pt: '0',
