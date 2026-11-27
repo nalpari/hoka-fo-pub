@@ -4,10 +4,10 @@ import { useState } from 'react';
 import { usePlatform } from '@/context/platform';
 
 import { css } from 'styled-system/css';
-import { Box, Flex, HStack, Stack, VStack } from 'styled-system/jsx';
+import { Box, Flex, Grid, HStack, Stack, VStack } from 'styled-system/jsx';
 
 import { Button } from '@/components/common/atoms/Button';
-import { dataListRecipe } from '@/components/common/atoms/DataList.recipe';
+import { dataListBoundaryRecipe, dataListRecipe } from '@/components/common/atoms/DataList.recipe';
 import { Dropdown } from '@/components/common/atoms/Dropdown';
 import { EmptyState } from '@/components/common/atoms/EmptyState';
 import { FormField } from '@/components/common/atoms/FormField';
@@ -98,30 +98,68 @@ function ReviewDialog({
 
 const styles = {
   action: css({ flexShrink: '0', '& > span > span': { lineHeight: '1.3' } }),
-  stars: css({ '&&': { gap: '4px' } }),
-  reviewText: css({ lineClamp: 1 }),
+  writtenAction: css({ '& > span > span': { lineHeight: '1.3' } }),
 };
 
 type ReviewItemProps = {
   entry: ReviewListEntry;
-  tab: ReviewTab;
   onEdit?: () => void;
 };
 
-function ReviewItem({ entry: { product, purchasedAt, review }, tab, onEdit }: ReviewItemProps) {
+function WrittenReviewItem({ entry: { product, purchasedAt, review }, onEdit }: ReviewItemProps) {
   const mobile = usePlatform() === 'mobile';
-  const written = tab === 'written';
-  const productRating = written ? product.rating : undefined;
+
+  return (
+    <Flex
+      as="li"
+      alignItems="center"
+      rowGap="0"
+      py="16px"
+      _mobile={{ flexDirection: 'column', alignItems: 'stretch', rowGap: '12px' }}
+    >
+      <Box flex="1" minW="0">
+        <OrderProductSummary
+          variant="review"
+          name={product.name}
+          image={product.imageSrc}
+          imageSize={{ web: 96, mobile: 96 }}
+          orderDate={purchasedAt}
+          optionText={product.optionLabel}
+          rating={review?.rating ?? 0}
+          review={review?.body}
+        />
+      </Box>
+      <Flex flex="0 0 84px" justify="flex-end" _mobile={{ flex: '0 0 auto' }}>
+        <Button
+          variant={mobile ? 'primary' : 'secondary'}
+          size="short"
+          fullWidth={mobile}
+          className={styles.writtenAction}
+          onClick={onEdit}
+        >
+          수정하기
+        </Button>
+      </Flex>
+    </Flex>
+  );
+}
+
+function ReadyReviewItem({ entry: { product, purchasedAt }, onEdit }: ReviewItemProps) {
+  const mobile = usePlatform() === 'mobile';
   const [favorite, setFavorite] = useState(false);
   const date = (
-    <>
+    <HStack
+      gap="2px"
+      flex={mobile ? undefined : '0 0 200px'}
+      justify={mobile ? undefined : 'center'}
+    >
       <Typography web="b6M" mo="b7M" language="en">
         {purchasedAt}
       </Typography>
       <Typography web="b6M" mo="b7M">
         구매
       </Typography>
-    </>
+    </HStack>
   );
 
   return (
@@ -137,51 +175,16 @@ function ReviewItem({ entry: { product, purchasedAt, review }, tab, onEdit }: Re
           name={product.name}
           image={product.imageSrc}
           content={
-            <Stack
-              flex="1"
-              minW="0"
-              gap="6px"
-              minH={written ? { base: '98px', _mobile: '128px' } : undefined}
-            >
-              {mobile && <HStack gap="2px">{date}</HStack>}
+            <Stack flex="1" minW="0" gap="6px">
+              {mobile && date}
               <Stack gap="4px">
                 <Typography web="b4M" mo="b7M">
                   {product.name}
                 </Typography>
-                {written && !mobile ? (
-                  product.price && (
-                    <Typography variant="b3B" language="en">
-                      {product.price}
-                    </Typography>
-                  )
-                ) : (
-                  <Typography web="b4" mo="b8" tone="subtle">
-                    {product.optionLabel}
-                  </Typography>
-                )}
+                <Typography web="b4" mo="b8" tone="subtle">
+                  {product.optionLabel}
+                </Typography>
               </Stack>
-              {written && (
-                <Stack gap="8px" pt={{ base: '12px', _mobile: '4px' }} maxW={{ _mobile: '190px' }}>
-                  {productRating && (
-                    <HStack gap="8px">
-                      <RatingStars
-                        value={productRating.value}
-                        size="16px"
-                        color={mobile ? 'var(--color-black-100)' : undefined}
-                        className={styles.stars}
-                      />
-                      <Typography variant="b8" language="en">
-                        ({productRating.count})
-                      </Typography>
-                    </HStack>
-                  )}
-                  {mobile && review?.body && (
-                    <Typography as="p" variant="b8" className={styles.reviewText}>
-                      {review.body}
-                    </Typography>
-                  )}
-                </Stack>
-              )}
             </Stack>
           }
         />
@@ -195,22 +198,7 @@ function ReviewItem({ entry: { product, purchasedAt, review }, tab, onEdit }: Re
           />
         </Box>
       </Box>
-      {!mobile && (
-        <>
-          {written && (
-            <Box flex="0 1 300px" minW="0" px="16px">
-              {review?.body && (
-                <Typography as="p" variant="b6" className={styles.reviewText}>
-                  {review.body}
-                </Typography>
-              )}
-            </Box>
-          )}
-          <HStack flex={written ? '0 0 160px' : '0 0 200px'} justify="center" gap="2px">
-            {date}
-          </HStack>
-        </>
-      )}
+      {!mobile && date}
       <Button
         variant="primary"
         size="short"
@@ -218,14 +206,14 @@ function ReviewItem({ entry: { product, purchasedAt, review }, tab, onEdit }: Re
         className={styles.action}
         onClick={onEdit}
       >
-        {written ? '수정하기' : '리뷰 작성'}
+        리뷰 작성
       </Button>
     </Flex>
   );
 }
 
 /** 리뷰 목록·빈 상태와 작성·수정 오류를 고정 표시합니다. (Displays prepared review lists, empty states, and editing errors.)
- * [ 개발팀 바인딩 ] 디자인 목록·빈 결과·편집 오류 fixture이며 저장·조회·페이지 추가 요청은 실행하지 않습니다. 작성 가능한 리뷰의 더보기는 표시용 카운터입니다. 관심상품 토글은 화면 내 표시 상태이며 저장하지 않습니다. 목록 버튼은 고정 예시 팝업을 열며 실제 리뷰/구매 ID, 관심상품 상태와 요청·목록 갱신은 통합 소유자가 연결합니다. PC·모바일 목록과 총 건수는 시안별 fixture입니다. 이 preview의 편집은 저장 성공을 표시하거나 데이터를 갱신하지 않습니다.
+ * [ 개발팀 바인딩 ] 디자인 목록·빈 결과·편집 오류 fixture이며 저장·조회·페이지 추가 요청은 실행하지 않습니다. 두 목록의 더보기는 표시용 카운터입니다. 작성 가능한 리뷰의 관심상품 토글은 화면 내 표시 상태이며 저장하지 않습니다. 목록 버튼은 고정 예시 팝업을 열며 실제 리뷰/구매 ID, 관심상품 상태와 요청·목록 갱신은 통합 소유자가 연결합니다. PC·모바일 목록과 총 건수는 시안별 fixture입니다. 이 preview의 편집은 저장 성공을 표시하거나 데이터를 갱신하지 않습니다.
  */
 export function ReviewsContent({
   state,
@@ -238,6 +226,8 @@ export function ReviewsContent({
   const [tab, setTab] = useState<ReviewTab>(
     state === 'written-list' || state === 'written-empty' || state === 'edit' ? 'written' : 'ready',
   );
+  const written = tab === 'written';
+  const Item = written ? WrittenReviewItem : ReadyReviewItem;
   const [open, setOpen] = useState(!list && !empty);
   const [sort, setSort] = useState('recent');
   const [rating, setRating] = useState<RatingValue>(
@@ -304,40 +294,63 @@ export function ReviewsContent({
                       {totalCount}
                     </Typography>
                     <Typography variant="b6">
-                      {platform === 'mobile' && tab === 'ready' ? '개' : '건'}
+                      {platform === 'mobile' && !written ? '개' : '건'}
                     </Typography>
                   </HStack>
                 </HStack>
               </HStack>
               <Stack
-                as="ul"
                 gap="0"
-                aria-label={tab === 'ready' ? '작성 가능한 리뷰 목록' : '내가 작성한 리뷰'}
-                className={dataListRecipe({ top: 'thinSubtle' }).root}
+                className={
+                  written
+                    ? dataListRecipe({ top: 'thinSubtle', headerTypography: 'heading' }).root
+                    : undefined
+                }
               >
-                {items.map((entry) => (
-                  <ReviewItem
-                    key={entry.id}
-                    entry={entry}
-                    tab={tab}
-                    onEdit={() => {
-                      setRating(tab === 'written' ? demoWrittenReview.rating : 0);
-                      setBody(tab === 'written' ? demoWrittenReview.body : '');
-                      setOpen(true);
-                    }}
-                  />
-                ))}
+                {written && (
+                  <Grid
+                    display={{ base: 'grid', _mobile: 'none' }}
+                    gridTemplateColumns="minmax(0, 340fr) minmax(96px, 120fr) minmax(0, 300fr) 84px"
+                    gap="0"
+                    textAlign="center"
+                    data-list-header
+                    className={css(
+                      dataListRecipe.raw().header,
+                      dataListBoundaryRecipe.raw({ top: 'strong' }),
+                    )}
+                  >
+                    <span data-list-cell>상품정보</span>
+                    <span data-list-cell>평점</span>
+                    <span data-list-cell>리뷰</span>
+                  </Grid>
+                )}
+                <Stack
+                  as="ul"
+                  gap="0"
+                  aria-label={!written ? '작성 가능한 리뷰 목록' : '내가 작성한 리뷰'}
+                  className={dataListRecipe({ top: !written ? 'thinSubtle' : 'unchanged' }).root}
+                >
+                  {items.map((entry) => (
+                    <Item
+                      key={entry.id}
+                      entry={entry}
+                      onEdit={() => {
+                        setRating(written ? demoWrittenReview.rating : 0);
+                        setBody(written ? demoWrittenReview.body : '');
+                        setOpen(true);
+                      }}
+                    />
+                  ))}
+                </Stack>
               </Stack>
-              {tab === 'ready' && (
-                <VStack mt="24px">
-                  <Button
-                    variant="plain"
-                    size="lg"
-                    onClick={more.onLoadMore}
-                    loadMore={{ counter: more.counter }}
-                  />
-                </VStack>
-              )}
+              <VStack mt="24px">
+                <Button
+                  variant="plain"
+                  size="lg"
+                  onClick={more.onLoadMore}
+                  loadMore={{ counter: more.counter }}
+                />
+              </VStack>
             </>
           ) : (
             <EmptyState

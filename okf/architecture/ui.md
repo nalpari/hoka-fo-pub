@@ -1299,6 +1299,12 @@ Panda `fonts.hoka`는 `var(--font-hoka, 'The Future HOKA'), Pretendard, Arial, s
 
 검증 (2026-10-30, Codex): 변경 TSX/Panda 설정 ESLint·Prettier, 전체 타입 검사, Panda 생성과 최종 Next/Storybook production build를 통과했다. 앱과 production 서버에서 영문 제목의 계산 family가 `hoka`이며 CDP에서 커스텀 폰트의 실제 글리프 사용을 확인했다. 폰트 내부 family/PostScript 이름은 `.`으로 표시되어, 생성된 Regular·Medium·Bold·Black 파일을 제공된 HOKA 원본과 SHA-256으로 대조해 모두 일치함을 확인했다. Storybook의 명시적 PC/MO scale은 기존 `The Future HOKA` 등록으로 렌더링되며 H9 20/16px, H10 16/16px과 한글 H6 36px·900/20px·600·24px 행간을 확인했다. 실제 PLP와 production PLP에서 PC/MO 사이즈 32px·선택 스와치 외곽 38px·선 1px·내부 32px·PC 컨테이너 1532px을 측정했다. 상품 옵션 Detail·Cart story는 모두 기존 40px을 유지했다. 당시 남았던 전체 lint의 import 정렬 오류 8개는 후속 퍼블리싱 가이드 import 정렬 작업에서 해소했다. 라우트·상태·요청 계약 변경은 없다.
 
+## 작성한 리뷰 목록 원복과 탭 위치 통일 (2026-11-27)
+
+내가 작성한 리뷰의 상품명·구매일·옵션과 별점·리뷰, 2건 표시, 더보기 및 PC secondary·모바일 primary 수정 버튼을 시안 적용 전으로 복원했다. 행의 위아래 여백은 PC·모바일 16px을 사용한다. 작성 가능한 리뷰의 행과 데이터는 최근 시안 상태를 유지한다.
+
+두 탭은 상품리뷰 제목, breadcrumb, 정렬·건수 줄과 공통 SegmentedControl의 PC 54px·모바일 44px 높이를 함께 사용한다. 밑줄 스타일도 동일한 규칙으로 적용해 탭을 전환할 때 정렬 영역과 첫 행 시작 위치가 이동하지 않는다. Chromium PC 1462px·모바일 375px에서 양방향 탭 전환 시 제목·탭·정렬 줄·첫 행의 y 좌표가 같은 것을 확인했다. 작성한 리뷰의 16px 위아래 여백과 수정 팝업 닫기 후 포커스 복귀를 확인했으며, 직접 미리보기에서도 같은 행이 표시된다. 출처는 사용자 원복 요청·브라우저 코멘트와 `src/app/mypage/reviews/` 작업 트리다.
+
 ## 상품리뷰 목록 PC·모바일 시안 반영 (2026-11-27)
 
 화면 제목은 PC 32px·모바일 22px의 Bold 700이다. 공통 SegmentedControl의 리뷰 탭 높이는 PC 54px·모바일 44px이며 선택 700·미선택 400을 사용한다. 본문 상품 이미지는 96px 정사각형이다. PC 구매일은 오른쪽에 독립적으로 배치하고, 모바일 구매일은 상품명 위에 표시한다. 작성 리뷰는 PC에서 가격·상품 평점과 리뷰 요약을 분리하고 모바일에서는 옵션·상품 평점·한 줄 리뷰를 이미지 옆에 배치한다. ‘리뷰 작성’과 ‘수정하기’는 공통 primary 버튼이며 모바일에서는 행 너비를 채운다. 더보기는 작성 가능한 리뷰에 표시한다. 최신 브라우저 코멘트에 맞춰 PC 작성 리뷰 행의 위아래 여백을 16px로 적용한다.
