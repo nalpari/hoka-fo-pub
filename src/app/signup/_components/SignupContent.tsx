@@ -122,9 +122,10 @@ export function SignupMethodStep({ methods, onSelect }: SignupMethodStepProps) {
         header={
           <ContentHeader
             titleAs="h1"
-            titleProps={{ web: 'h8B', mo: 'h7B', id: 'signup-title' }}
+            titleProps={{ web: 'h7', mo: 'h8', id: 'signup-title' }}
             descriptionProps={{ variant: 'b4', tone: 'tertiary' }}
-            title="계정이 없으신가요?"
+            css={css.raw({ textAlign: 'center' })}
+            title="가입과 동시에 시작되는 혜택!"
             description="HOKA Korea 온라인 회원만을 위한 특별한 혜택!"
           />
         }

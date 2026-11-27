@@ -3127,3 +3127,7 @@ PC 주문/배송조회 목록의 주문 정보와 상태, 주문·취소·반품
 출처는 사용자 첨부 이미지, `ProductDetailContent.tsx`, `productDetailPreviews.ts`, `IaStructurePage.tsx` 작업 트리다. Codex가 2026-11-27 KST에 PC 1440px·모바일 375px에서 직접 진입, 새로고침, 취소 후 재열기, Escape 후 버튼 포커스 복귀, 회원정보 수정 이동을 확인했다. IA에서 모바일 상태명 검색과 보기 링크 이동, PC URL 검색과 `confirm` 표시를 확인했다.
 
 모바일 옵션 시트에서 품절 사이즈 선택 후 안내가 시트 위에 열리며 취소 시 시트의 입고 알림 버튼으로 포커스가 돌아왔다. 기존 재입고 신청 확인 팝업이 표시되는 것도 확인했다. TypeScript, 변경 파일 ESLint·Prettier, IA 관련 테스트 26개가 통과했다. 전체 ESLint는 이 작업에서 변경하지 않은 `tests/wh-file-summary.test.mjs`의 전역 이름 `no-undef` 오류 8건을 보고했다.
+
+회원가입 방식 선택의 제목은 ‘가입과 동시에 시작되는 혜택!’이며 PC·모바일에서 혜택 제목과 설명을 Bold(700)로 가운데 정렬한다. 출처는 `SignupContent.tsx`다.
+
+회원가입 회원정보의 아이디·이름·비밀번호·비밀번호 재확인·우편번호·주소·상세주소·이메일 필드 오류 문구에 PC·모바일 공통 error 토큰을 적용한다. 출처는 `RegistrationContent.tsx`다.
