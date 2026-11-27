@@ -4,7 +4,7 @@ title: '메인과 상품 상세 Figma 적용'
 description: '메인과 상품 상세의 PC·모바일 디자인 수치, 기존 데이터 경계와 실제 검증을 기록한다.'
 tags: [figma, home, product, responsive, panda-css]
 status: draft
-updated: '2026-11-25T17:44:20+09:00'
+updated: '2026-11-27T16:29:38+09:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-02T05:18:16Z'
@@ -54,11 +54,19 @@ IA 미리보기의 첫 장은 시안의 이미지 fill이다. 두 장은 전환 
 | 카테고리 카드 PC 371:494·MO 312:416, 간격 16px     | PC 카드 간격 16px와 제목 28px·MO 22px, 이미지와 제목 사이 PC 20px·MO 16px를 적용한다. MO에서 카드 312px와 시작점 16px를 측정했다.                                  |
 | 베스트셀러 제목→탭 24px, PC 탭→목록 40px·MO 16px   | MainSection에 선택적 `spacing="tight"` 24px를 추가한다. 기존 default 40px/24px와 compact 32px/24px는 유지한다. MO 상품 카드의 375px 기준 너비는 150px·간격 10px다. |
 | Explore 이미지 PC 500:667·MO 375:500               | 기존 표시 데이터의 비율과 메인 전용 className을 사용한다. 카드 제목 28px·내부 간격 및 MO overlay 하단 50px를 적용한다.                                             |
-| Find my HOKA 제목 28px·상단 간격 8px               | 기존 imagePill 변형에 메인 전용 className을 전달하고 음수 제목 겹침을 해제한다. PC 본문 간격 24px·MO 20px, 하단 40px/32px를 적용한다.                              |
+| Find my HOKA 카드                                  | [Find my HOKA 카드 실측](#find-my-hoka-카드-2026-11-27)을 따른다.                                                                                                  |
 
 HomeContentContext의 현재 상품·탭 조회·콘텐츠 슬롯, 기존 캐러셀 이동·배너 자동 재생/감소된 모션·키보드/포커스 소유권은 유지한다. 운영 결과에 시안용 반복을 추가하지 않았다. 기본 목 상품·순서·활성 탭은 기존 값이므로 원본 상품 조합과 다르다. 배너 사진과 카테고리/에디토리얼 자산을 임의 교체하지 않았다.
 
 > 2026-11-05 현행화: `HomeContentContext`은(는) 2026-11-02 [전체 화면 퍼블리싱 인계](state.md#전체-화면-퍼블리싱-인계-2026-11-02)에서 제거됐다. 현재는 준비된 표시 데이터와 로컬 UI 조작만 있으며 연결 경계는 [데이터 바인딩](data-binding.md#현재-연결-경계-2026-11-05)을 따른다.
+
+### Find my HOKA 카드 (2026-11-27)
+
+홈의 `imagePill` 카드에 PC 371×494px, 모바일 253×336.88px 시안 비율을 적용했다. 정사각형 이미지 위에 텍스트를 겹치고 제목은 PC The Future HOKA Black 28px, 모바일 Black 24px로 표시한다. 링크 글자는 Pretendard SemiBold 600으로 PC 16px, 모바일 14px를 사용한다. 캐러셀 내부 여백을 제외한 모바일 카드 폭은 375px 뷰포트에서 253px이며 카드 간격은 16px이다. [Main PC·모바일 시안][HOKA 디자인].
+
+Figma 원본과 브라우저를 2배로 캡처해 PC 1920px과 모바일 375px에서 카드 5종의 첫 글자 픽셀을 카드 상단 기준 CSS px로 비교했다. 보정 전 PC는 제목 4.5~5px, 설명 6.5~7px, 링크 8~8.5px 아래에 있었다. 모바일은 제목 2.5~3px, 설명 3.5px, 링크 1.5px 아래였으며, 설명이 두 줄인 Clifton·Bondi·Speedgoat는 링크가 22.5px 아래에 있었다. 세 카드의 표시 문구를 시안에 맞췄으며 Bondi는 PC와 모바일 설명을 각각 제공한다.
+
+보정 후 두 플랫폼의 제목·설명·링크 첫 글자 위치 차이는 5종 모두 0~0.5 CSS px다. 375px에서 설명이 모두 한 줄이고 카드 폭과 높이가 시안과 일치했다. 1200px PC와 320px 모바일에서는 설명 줄바꿈에 따라 카드가 높아지며 하단 링크 전체가 들어오는 것을 확인했다.
 
 ## 상품 상세
 

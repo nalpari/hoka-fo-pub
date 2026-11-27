@@ -695,26 +695,56 @@ function HomeHeroSection({ platform }: HomeHeroSectionProps) {
   );
 }
 const previewItems = createHomeCarouselPreviewItems(shoeFinderItems);
-// Keep the 375px design width without enlarging slides on wider mobile screens.
-// The existing 8px gutters stay inside the slide to retain the 16px card gap.
+
+// The slide width includes both 8px gutters. The card itself reaches 253px at 375px.
 const HomeShoeFinderSectionMobileSlide = css({
-  w: 'min(67.46666666666667vw, 253px)!',
+  w: 'calc(min(67.4667vw, 253px) + 16px)!',
   '& > *': { w: '100%' },
 });
+
 const shoeFinderCard = css({
-  '& h3': { fontSize: 'heading.28', lineHeight: 'hoka' },
-  '& .card__header': { mt: '0', pt: '8px', gap: '24px' },
+  '--shoe-finder-text-gap': '14px',
+  '--shoe-finder-text-inset': '28px',
+  aspectRatio: '371 / 494',
+  borderRadius: '10px',
+  overflow: 'clip',
+  // Allow longer descriptions to increase the height of a narrow card.
+  '&&.card': { h: 'auto' },
+  '& .card__content': { aspectRatio: '1 / 1', flexShrink: '0' },
+  // The Figma text starts inside the square image frame on both platforms.
+  '& .card__header': {
+    mt: '-4.32%',
+    pt: '0',
+    px: 'var(--shoe-finder-text-inset)',
+    gap: 'var(--shoe-finder-text-gap)',
+    flexShrink: '0',
+  },
+  '& h3': { textStyle: 'en-wide-h8B', lineHeight: '30.72px' },
   '& .card__header p': { minH: '0' },
-  '& .card__action': { pt: '24px', pb: '40px' },
+  '& .card__footer': { flexShrink: '0' },
+  '& .card__action': {
+    pt: '15.5px',
+    px: 'var(--shoe-finder-text-inset)',
+    pb: '4px',
+  },
+  '& .card__action a > span > span': { textStyle: 'ko-common-b4S', lineHeight: '1.3' },
   _mobile: {
-    '& .card__header': { gap: '20px', pr: '32px' },
-    '& .card__action': { pt: '20px', pb: '32px', pr: '32px' },
+    '--shoe-finder-text-gap': '11px',
+    '--shoe-finder-text-inset': '16px',
+    aspectRatio: '253 / 336.88',
+    borderRadius: '8px',
+    '& .card__header': { mt: '-10.39%', pt: '0', pr: '14px' },
+    '& h3': { textStyle: 'en-compact-h6B', lineHeight: '23.04px' },
+    '& .card__action': { pt: '10px' },
+    '& .card__action a > span > span': { textStyle: 'ko-common-b6S', lineHeight: '1.3' },
   },
 });
+
 type HomeShoeFinderSectionProps = {
   platform: Platform;
   variant?: HomeShoeFinderCardVariant;
 };
+
 function HomeShoeFinderSection({ platform, variant = 'imagePill' }: HomeShoeFinderSectionProps) {
   const isWeb = platform === 'web';
   return (
@@ -730,9 +760,10 @@ function HomeShoeFinderSection({ platform, variant = 'imagePill' }: HomeShoeFind
       titleVariant="d4"
       mobileTitleVariant="h5B"
     >
-      {previewItems.map(({ images, ...item }, index) => (
+      {previewItems.map(({ images, description, mobileDescription, ...item }, index) => (
         <MainContentCard
           className={variant === 'imagePill' ? shoeFinderCard : undefined}
+          description={isWeb ? description : (mobileDescription ?? description)}
           key={`${item.title}-${index}`}
           {...item}
           image={images[variant]}

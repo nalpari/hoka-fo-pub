@@ -1,3 +1,7 @@
+## 2026-11-27 Find my HOKA 카드 시안 반영
+
+- 홈 카드의 PC·모바일 크기와 모바일 24px Black 제목을 적용했다. 2배 캡처에서 제목·설명·링크 위치를 비교해 카드 5종의 첫 글자 세로 오차를 0.5 CSS px 이내로 보정했다. [카드 규격과 실측](architecture/home-product-design.md#find-my-hoka-카드-2026-11-27).
+
 ## 2026-11-27 양말 상품 상세와 사이즈 가이드
 
 - Merino Crew Sock 블랙 상세와 고객센터 양말 차트를 사용하는 팝업을 추가하고 MEN·WOMEN 양말 상세의 IA 43·100에 연결했다. [화면과 IA](architecture/routing.md#양말-상품-상세와-사이즈-가이드-2026-11-27).

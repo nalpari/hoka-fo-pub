@@ -121,6 +121,7 @@ export type HomeShoeFinder = {
   actions: readonly MainContentCardAction[];
   description: string;
   images: Record<HomeShoeFinderCardVariant, string>;
+  mobileDescription?: string;
   title: string;
 };
 
@@ -130,6 +131,12 @@ const shoeFinderActions: readonly MainContentCardAction[] = [
   { label: '상품 보러가기', to: '/explore/shoe-finder' },
 ];
 
+/**
+ * [ 개발팀 바인딩 ]
+ * 홈 콘텐츠 소유자는 제목·설명·이미지·링크를 준비된 표시 데이터로 전달합니다.
+ * `mobileDescription`은 모바일 문구가 다른 경우에만 지정하며, 생략 시 공통 설명을 표시합니다.
+ * 이 목록은 고정 시안 데이터이며 화면에서 조회 요청을 실행하지 않습니다.
+ */
 export const shoeFinderItems: readonly HomeShoeFinder[] = [
   {
     title: 'Arahi',
@@ -142,7 +149,7 @@ export const shoeFinderItems: readonly HomeShoeFinder[] = [
   },
   {
     title: 'Clifton',
-    description: '일상적인 러닝을 위해 가볍고 푹신한 착화감',
+    description: '일상적인 러닝을 위한 가벼운 착화감',
     images: {
       overlay: '/images/temp/@find-my-hoka-2.png',
       imagePill: '/images/temp/@find-my-hoka-7.png',
@@ -151,7 +158,8 @@ export const shoeFinderItems: readonly HomeShoeFinder[] = [
   },
   {
     title: 'Bondi',
-    description: '극강의 쿠셔닝으로 판도를 바꿀 혁신적인 제품',
+    description: '판도를 바꿀 혁신적인 제품',
+    mobileDescription: '극강의 쿠셔닝으로 판도를 바꿀 제품',
     images: {
       overlay: '/images/temp/@find-my-hoka-3.png',
       imagePill: '/images/temp/@find-my-hoka-8.png',
@@ -169,7 +177,7 @@ export const shoeFinderItems: readonly HomeShoeFinder[] = [
   },
   {
     title: 'Speedgoat',
-    description: '젖은 환경에서 제 역할을 톡톡히 해내는 만능 도구',
+    description: '젖은 환경에서 제 역할을 해내는 만능 도구',
     images: {
       overlay: '/images/temp/@find-my-hoka-5.png',
       imagePill: '/images/temp/@find-my-hoka-10.png',
