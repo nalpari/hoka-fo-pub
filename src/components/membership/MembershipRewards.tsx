@@ -131,7 +131,7 @@ const styles = {
     },
   }),
   accountBenefitDescription: css({ _mobile: { pl: '28px' } }),
-  accountMultilineTitle: css({ '&&': { lineHeight: '1.4' }, whiteSpace: 'pre-line' }),
+  accountCouponTitle: css({ _mobile: { '&&': { lineHeight: '1.4' }, whiteSpace: 'pre-line' } }),
   accountValidity: css({ color: '#707070' }),
   accountTooltip: css({
     textAlign: 'center',
@@ -339,7 +339,7 @@ function RewardBenefits({
                   <Typography
                     web="b2M"
                     mo={account ? 'b2B' : 'b4B'}
-                    className={mobile?.titleLines ? styles.accountMultilineTitle : undefined}
+                    className={account ? styles.accountCouponTitle : undefined}
                   >
                     {mobile?.titleLines?.join('\n') ?? benefit.title}
                   </Typography>
@@ -349,14 +349,18 @@ function RewardBenefits({
                   variant="b6"
                   className={account ? styles.accountBenefitDescription : undefined}
                 >
-                  {mobile?.descriptionLines[1] ? (
+                  {mobile ? (
                     <>
-                      {mobile.descriptionLines[0]}
-                      <br />
-                      <span className={styles.accountValidity}>{mobile.descriptionLines[1]}</span>
+                      {mobile.description ? (
+                        <>
+                          {mobile.description}
+                          <br />
+                        </>
+                      ) : null}
+                      <span className={styles.accountValidity}>{mobile.validity}</span>
                     </>
                   ) : (
-                    (mobile?.descriptionLines[0] ?? benefit.description)
+                    benefit.description
                   )}
                 </Typography>
               </Stack>
@@ -463,7 +467,11 @@ function RewardProgress({
           _mobile={{ w: 'full', minH: '24px' }}
         >
           {progress.currentAmount ? (
-            <Typography variant={account ? 'b6M' : 'b6'} mo="b6M">
+            <Typography
+              variant={account ? 'b6M' : 'b6'}
+              mo="b6M"
+              language={account ? 'en' : 'auto'}
+            >
               {progress.currentAmount}
               <Typography variant={account ? 'b6M' : 'b6'}>원</Typography>
             </Typography>
@@ -473,7 +481,7 @@ function RewardProgress({
               <Typography variant={account ? 'b4M' : 'b4'} language={account ? 'ko' : 'auto'}>
                 /
               </Typography>
-              <Typography variant="b6" tone="subtle">
+              <Typography variant="b6" tone="subtle" language={account ? 'en' : 'auto'}>
                 {progress.targetAmount}
                 <Typography variant="b6">원</Typography>
               </Typography>

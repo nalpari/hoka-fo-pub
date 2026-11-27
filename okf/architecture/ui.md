@@ -6441,6 +6441,10 @@ DataList.recipe.tsx의 thinTertiary는 목록과 상세 영역에서 공유하�
 
 출처는 [HOKA 마이페이지 회원등급 PC·모바일 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)과 `src/components/membership/MembershipRewards.tsx`, `src/components/membership/rewards-data.ts` 작업 트리다. 원본의 Regular·Medium·Bold·Black 스타일 및 숫자 굵기를 대응하는 기존 폰트로 매핑했다. 변수의 굵기 모드 이름은 확인하지 못했다. 2026-11-27 KST에 Chromium PC 1440px과 모바일 375px에서 계산 스타일과 배치, 모바일 쿠폰 줄 구성, Pretendard Medium·Regular·Bold의 실제 사용과 HOKA 900 face 로드를 확인했다. 모바일 320px에서 회원등급 본문은 가로 넘침이 없었고 상단 공용 배너 링크에서 약 3px 넘침이 관찰됐다.
 
+Figma 원본의 회원등급 본문 텍스트 레이어 82개(PC 42개, 모바일 40개)를 문자 구간 단위로 재확인했다. 같은 레이어 안의 글자별 굵기 변경은 없었다. 모바일 쿠폰 설명 세 곳의 유효 기간은 글자 구간 색상 `#707070`을 사용하며, 카카오 쿠폰은 유효 기간 레이어 전체가 같은 색상이다. 모두 14px/400이다. 모바일 쿠폰명 네 곳은 20px/700과 행간 140%를 사용한다. PC·모바일 진행 안내의 강조 금액 숫자는 Pretendard 14px/500이고, 뒤 문구는 14px/400이다. 진행률 현재 금액과 목표 금액에는 The Future HOKA 14px/500·400을 각각 사용하며, 뒤의 단위는 같은 크기·굵기의 Pretendard다.
+
+Chromium PC 1440px·모바일 375px에서 숫자와 단위의 계산 폰트·굵기를 각각 확인했다. 모바일에서 쿠폰명 네 곳의 28px 행간과 유효 기간 네 곳의 400 굵기 및 `#707070` 색상을 확인했다. 고객센터 모바일 기본 배치의 쿠폰명은 기존 16px/700과 24px 행간을 사용한다.
+
 ## 상품 옵션 요약 순서 2026-11-27
 
 `src/lib/formatProductOptions.ts`는 준비된 상품 옵션을 `색상, 사이즈, 발볼` 순서로 연결한다. 빈 값에는 구분자를 붙이지 않으며 화면에서 수량을 전달하면 마지막에 표시한다. `Black, 250, Regular`, 발볼이 없는 `Black, M, 2개`, 빈 옵션을 직접 검증했다. 퍼블리싱 가이드 예시와 주문서 쿠폰 표시 데이터에도 같은 순서를 사용한다. 출처는 사용자 응답 주석, `AGENTS.md`와 `formatProductOptions.ts` 작업 트리다. [적용 화면과 브라우저 검증](routing.md#상품-옵션-순서와-반품-상세-표시-2026-11-27).
