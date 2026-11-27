@@ -171,7 +171,7 @@ function MyPageProductHistoryGrid({
           textWeights={wishlist ? { identity: 'medium', promotion: 'medium' } : undefined}
           key={item.id}
           variant="history"
-          thumbnailVariant={wishlist && !entries && item.apparel ? 'listing' : undefined}
+          thumbnailVariant="listing"
           discountLabel={
             (recent || (wishlist && !item.apparel)) && !entries && platform === 'mobile'
               ? recent

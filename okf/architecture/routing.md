@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-27T10:07:31+09:00'
+updated: '2026-11-27T10:19:06+09:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -3006,3 +3006,7 @@ Codex는 2026-11-27 KST에 PC 1427px와 모바일 375px에서 HOKA Run Hat 사�
 ## 상품준비중 배송 조회 버튼 2026-11-27
 
 `/mypage/orders` 목록은 상품 그룹의 상태가 배송중·배송완료·구매확정일 때 배송 조회 버튼을 표시한다. 주문 상세는 선택 주문의 상태가 상품준비중이면 `OrdersContent`에서 배송 조회 콜백을 생략하며, `OrderDetail`은 해당 콜백이 있는 PC 화면에서 버튼을 표시한다. 출처는 사용자 지시와 `OrdersProducts.tsx`, `OrdersContent.tsx`, `OrderDetails.tsx` 작업 트리다. Codex가 PC 1427px과 모바일 375px에서 상품준비중 목록의 배송 조회 숨김과 주문 취소 표시를 확인했다. PC에서는 목록에서 상품준비중 상세로 들어가 배송 조회가 숨겨지는 것과 구매확정 상세의 버튼 표시를 확인했다.
+
+## 혼합 상품 목록 이미지 비율 2026-11-27
+
+신발·의류 등 상품 종류가 섞일 수 있는 카드 목록은 의류 기준 `371 / 464` 이미지 프레임을 목록 전체에 사용한다. `/mypage/wishlist`와 `/mypage/recent`는 고정 예시·연결 목록에 동일하게 공용 `ProductCard.thumbnailVariant="listing"`을 전달한다. 상품 카테고리와 조회 결과가 바뀌어도 같은 목록 비율을 사용한다. 출처는 사용자 브라우저 코멘트, `AGENTS.md`와 `MyPageProductHistory.tsx` 작업 트리다. Codex가 PC 1427px과 모바일 375px에서 두 목록의 카드 6개씩이 같은 비율과 높이를 사용하는 것을 확인했다.
