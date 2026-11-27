@@ -2780,6 +2780,8 @@ Codex는 PC 1440px·모바일 390px에서 두 URL을 직접 열어 도메인 컨
 
 `/signup/verify`는 HOKA Korea 온라인 회원가입 여부를 확인하기 위해 본인 인증이 필요하다고 안내한다. 화면에는 `휴대폰 인증하기`만 표시하며, 이 버튼은 `/signup/verify/phone`으로 이동한다. Codex가 2026-11-26에 `src/app/signup/verify/_components/IdentityVerificationContent.tsx` 작업 트리의 버튼 문구와 연결 경로를 확인했다.
 
+2026-11-27에 입력 정보를 본인 확인 용도로만 사용하며 별도로 저장하지 않는다는 안내 문구를 다듬었다. 출처는 `src/app/signup/verify/_components/IdentityVerificationContent.tsx`의 스테이징된 변경이다.
+
 인증 영역은 기존 한 열 너비로 유지하고 아이콘과 버튼을 가로 가운데에 배치한다. 병합 결과는 단일 `ButtonLink`로 이동하며 모바일 버튼의 최소 높이는 44px이다. 병합 전 `49ec13be`에서는 PC 1440px와 모바일 390px에서 가로 정렬과 인증 화면 진입을 확인했다. 출처는 사용자 브라우저 주석과 `IdentityVerificationContent.tsx`다.
 
 ## 러닝세션 상세 모바일 추가 영역 (2026-11-23)

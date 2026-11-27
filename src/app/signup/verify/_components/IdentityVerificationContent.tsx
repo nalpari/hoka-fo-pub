@@ -54,8 +54,7 @@ export function RouteContent() {
             </ButtonLink>
           </Stack>
           <Typography as="p" web="b6" mo="b7" tone="tertiary">
-            ※ 본인 인증 시 입력하신 정보는 본인 확인 용도 외에는 사용되지 않으며 별도 저장되지
-            않습니다.
+            ※ 본인 인증 시 입력하신 정보는 본인 확인 용도로만 사용되며, 별도로 저장되지 않습니다.
           </Typography>
         </Stack>
       </ContentSection>
