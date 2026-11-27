@@ -19,6 +19,7 @@ import { ModalDialog } from '@/components/common/layouts/ModalDialog';
 import { modalProductSelectionContentRecipe } from '@/components/common/layouts/ModalDialog.recipe';
 
 import type { OrderRecord } from '@/components/orders/orders.types';
+import { formatProductOptions } from '@/lib/formatProductOptions';
 
 const classes = modalProductSelectionContentRecipe();
 
@@ -89,7 +90,7 @@ export function OrderClaimRequest({
                   <Stack css={styles.productText}>
                     <Typography variant="b6M">{line.name}</Typography>
                     <Typography variant="b6" tone="subtle">
-                      {line.width}, {line.color}, {line.size}, 1개
+                      {formatProductOptions(line, 1)}
                     </Typography>
                     <NumberStepper
                       value={quantities[line.key] ?? 1}

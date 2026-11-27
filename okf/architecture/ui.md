@@ -4,12 +4,13 @@ title: '컴포넌트와 스타일'
 description: '공통 UI 계층, Panda CSS와 앱 화면 검증을 설명한다.'
 tags: [components, panda-css]
 status: draft
-updated: '2026-11-26T09:18:12Z'
+updated: '2026-11-27T10:31:43+09:00'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
 source_revision: b95a29fd90c627d33943280a133b1d428f4105d5
 working_tree_sources:
+  - src/lib/formatProductOptions.ts
   - src/types/component-contracts/app-signup-information-page.d.ts
   - src/app/products/[id]/_components/ProductDetailContent.tsx
   - src/app/products/[id]/productDetailPreviews.ts
@@ -6439,3 +6440,7 @@ DataList.recipe.tsx의 thinTertiary는 목록과 상세 영역에서 공유하�
 모바일 요약의 등급명은 36px/900이고 배지는 등급 안내 행 오른쪽에 배치한다. 등급명은 22px/900, 등급 조건은 16px/700, 혜택 설명은 14px/400이다. 등급 설명 목록의 세로 간격은 4px이다. 공통 혜택 제목과 쿠폰명은 20px/700이고 구분선 목록의 행 안쪽 여백은 20px이다. `rewards-data.ts`의 선택적 `accountMobile`은 쿠폰명과 유효 기간의 줄 구성을 제공한다. 생략하면 기본 제목과 설명을 사용한다.
 
 출처는 [HOKA 마이페이지 회원등급 PC·모바일 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql/-HOKA-Design)과 `src/components/membership/MembershipRewards.tsx`, `src/components/membership/rewards-data.ts` 작업 트리다. 원본의 Regular·Medium·Bold·Black 스타일 및 숫자 굵기를 대응하는 기존 폰트로 매핑했다. 변수의 굵기 모드 이름은 확인하지 못했다. 2026-11-27 KST에 Chromium PC 1440px과 모바일 375px에서 계산 스타일과 배치, 모바일 쿠폰 줄 구성, Pretendard Medium·Regular·Bold의 실제 사용과 HOKA 900 face 로드를 확인했다. 모바일 320px에서 회원등급 본문은 가로 넘침이 없었고 상단 공용 배너 링크에서 약 3px 넘침이 관찰됐다.
+
+## 상품 옵션 요약 순서 2026-11-27
+
+`src/lib/formatProductOptions.ts`는 준비된 상품 옵션을 `색상, 사이즈, 발볼` 순서로 연결한다. 빈 값에는 구분자를 붙이지 않으며 화면에서 수량을 전달하면 마지막에 표시한다. `Black, 250, Regular`, 발볼이 없는 `Black, M, 2개`, 빈 옵션을 직접 검증했다. 퍼블리싱 가이드 예시와 주문서 쿠폰 표시 데이터에도 같은 순서를 사용한다. 출처는 사용자 응답 주석, `AGENTS.md`와 `formatProductOptions.ts` 작업 트리다. [적용 화면과 브라우저 검증](routing.md#상품-옵션-순서와-반품-상세-표시-2026-11-27).

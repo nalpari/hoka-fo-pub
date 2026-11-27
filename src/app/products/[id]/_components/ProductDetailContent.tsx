@@ -93,6 +93,7 @@ import {
   type Unit,
 } from '@/app/support/size-guide/size-guide.data';
 import { InquiryCautions } from '@/components/support/InquiryCautions';
+import { formatProductOptions } from '@/lib/formatProductOptions';
 import {
   type Product,
   type ProductMeasurementChart,
@@ -3060,7 +3061,7 @@ function ProductSelectedOptions({
         }
       >
         {items.map((item, index) => {
-          const label = [item.color, item.size, item.width].filter(Boolean).join(', ');
+          const label = formatProductOptions(item);
           return (
             <li key={JSON.stringify([item.id, item.color, item.width, item.size])}>
               <Stack data-list-option>

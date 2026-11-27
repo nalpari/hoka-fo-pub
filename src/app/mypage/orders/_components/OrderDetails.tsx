@@ -21,6 +21,7 @@ import type {
   OrderDetailDisplay,
   OrderLine,
 } from '@/components/orders/orders.types';
+import { formatProductOptions } from '@/lib/formatProductOptions';
 
 /** 주문 상세의 구분선이 있는 항목별 정보를 표시합니다. (Displays ruled key-value information for an order.) */
 export function OrderInformationSection({
@@ -103,7 +104,7 @@ function DetailProduct({ line }: { line: OrderLine }) {
           variant="history"
           image={line.image}
           name={line.name}
-          optionText={`${line.width}, ${line.color}, ${line.size}`}
+          optionText={formatProductOptions(line)}
           cartAction
         />
       </Box>
@@ -195,7 +196,7 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
                       key={line.key}
                       image={line.image}
                       name={line.name}
-                      optionText={`${line.width}, ${line.color}, ${line.size}, ${mobile ? (line.mobileQuantity ?? line.quantity) : line.quantity}개`}
+                      optionText={formatProductOptions(line, line.mobileQuantity ?? line.quantity)}
                       amount={
                         line.displayAmount === undefined
                           ? undefined
@@ -264,7 +265,7 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
                       key={line.key}
                       image={line.image}
                       name={line.name}
-                      optionText={`${line.width}, ${line.color}, ${line.size}, ${mobile ? (line.mobileQuantity ?? line.quantity) : line.quantity}개`}
+                      optionText={formatProductOptions(line, line.mobileQuantity ?? line.quantity)}
                       amount={
                         line.displayAmount === undefined
                           ? undefined
@@ -394,7 +395,7 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
                       key={line.key}
                       image={line.image}
                       name={line.name}
-                      optionText={`${line.width}, ${line.color}, ${line.size}, ${mobile ? (line.mobileQuantity ?? line.quantity) : line.quantity}개`}
+                      optionText={formatProductOptions(line, line.mobileQuantity ?? line.quantity)}
                     />
                   ))}
                   <DetailAmountRow label="환불금액" amount={entry.refund} />
@@ -419,7 +420,7 @@ export function OrderDetail({ display, onList, ...actions }: OrderDetailProps) {
                           key={line.key}
                           image={line.image}
                           name={line.name}
-                          optionText={`${line.width}, ${line.color}, ${line.size}, ${mobile ? (line.mobileQuantity ?? line.quantity) : line.quantity}개`}
+                          optionText={formatProductOptions(line, line.quantity)}
                         />
                       ))}
                     </Stack>
@@ -605,7 +606,7 @@ export function OrderClaimDetail({
               key={line.key}
               image={line.image}
               name={line.name}
-              optionText={`${line.width}, ${line.color}, ${line.size}, ${mobile ? (line.mobileQuantity ?? line.quantity) : line.quantity}개`}
+              optionText={formatProductOptions(line, line.mobileQuantity ?? line.quantity)}
               amount={
                 line.displayAmount === undefined
                   ? undefined
@@ -639,7 +640,7 @@ export function OrderClaimDetail({
                   variant="history"
                   image={line.image}
                   name={line.name}
-                  optionText={`${line.width}, ${line.color}, ${line.size}`}
+                  optionText={formatProductOptions(line)}
                 />
               </Box>
               <Typography role="cell" variant="b4" className={css({ textAlign: 'center' })}>
@@ -686,7 +687,7 @@ export function OrderClaimDetail({
         />
       </ClaimSection>
       {!cancel ? (
-        <ClaimSection title="상세 회수 정보">
+        <ClaimSection title="상품 회수정보">
           <ClaimInformation
             items={[
               { term: '회수인', description: claim.collection?.name ?? '-' },
@@ -790,7 +791,7 @@ export function OrderClaimDetail({
               justifyContent="center"
               gap="24px"
             >
-              <Typography variant="b4M">결제예정금액</Typography>
+              <Typography variant="b4M">{cancel ? '결제예정금액' : '총 환불금액'}</Typography>
               <HStack gap="2px" alignItems="flex-end">
                 <Typography web="h8B" mo="h8" language="en">
                   {refund?.toLocaleString() ?? '-'}

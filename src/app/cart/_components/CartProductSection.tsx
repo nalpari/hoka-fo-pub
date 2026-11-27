@@ -17,6 +17,7 @@ import { Wishlist } from '@/components/common/atoms/Wishlist';
 
 import { itemKey } from '@/app/cart/cart-item';
 import { type CartPreviewRow } from '@/app/cart/cart-preview';
+import { formatProductOptions } from '@/lib/formatProductOptions';
 import { getCartImage } from '@/mocks/cartDisplay';
 
 import { CartDialogs } from './CartDialogs';
@@ -33,6 +34,7 @@ function CartProductItem({
   onOptions: () => void;
 }) {
   const { item, product, amount, soldOut } = row;
+  const colorAndSize = formatProductOptions({ color: item.color, size: item.size });
   const [quantity, setQuantity] = useState(item.quantity);
   const [favorite, setFavorite] = useState(row.initialFavorite ?? false);
   const price = (mobile = false) => (
@@ -102,10 +104,15 @@ function CartProductItem({
           <Typography variant="b6M">{product.gender}</Typography>
           <Typography variant="b6M">{product.name}</Typography>
           <Typography variant="b6" tone="subtle">
-            <Typography as="span" web="b6" mo="b6M">
-              {item.width}
-            </Typography>
-            , {item.color}, {item.size}
+            {colorAndSize}
+            {item.width?.trim() && (
+              <>
+                {colorAndSize && ', '}
+                <Typography as="span" web="b6" mo="b6M">
+                  {item.width}
+                </Typography>
+              </>
+            )}
           </Typography>
         </Stack>
         <Button

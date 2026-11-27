@@ -12,6 +12,7 @@ import { ContentSection } from '@/components/common/layouts/ContentSection';
 
 import { getClaimLines, orderStatusLabels } from '@/components/orders/order-policy';
 import type { OrderClaim, OrderLine, OrderRecord } from '@/components/orders/orders.types';
+import { formatProductOptions } from '@/lib/formatProductOptions';
 
 const styles = {
   orderAction: css({ minW: '107px', _mobile: { minW: '0', '&&': { '--button-height': '44px' } } }),
@@ -95,7 +96,10 @@ export function OrderClaimGroup({
             key={line.key}
             image={line.image}
             name={line.name}
-            optionText={`${line.width}, ${line.color}, ${line.size}, ${platform === 'mobile' ? (line.mobileQuantity ?? line.quantity) : line.quantity}개`}
+            optionText={formatProductOptions(
+              line,
+              platform === 'mobile' ? (line.mobileQuantity ?? line.quantity) : line.quantity,
+            )}
             amount={
               line.displayAmount === undefined
                 ? undefined
@@ -218,7 +222,7 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
                   key={line.key}
                   image={line.image}
                   name={line.name}
-                  optionText={`${line.width}, ${line.color}, ${line.size}, ${platform === 'mobile' ? (line.mobileQuantity ?? line.quantity) : line.quantity}개`}
+                  optionText={formatProductOptions(line, line.mobileQuantity ?? line.quantity)}
                   amount={
                     line.displayAmount === undefined
                       ? undefined
@@ -240,7 +244,7 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
                       variant="history"
                       image={line.image}
                       name={line.name}
-                      optionText={`${line.width}, ${line.color}, ${line.size}`}
+                      optionText={formatProductOptions(line)}
                       cartAction
                     />
                   </Box>
@@ -362,7 +366,7 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
                 key={line.key}
                 image={line.image}
                 name={line.name}
-                optionText={`${line.width}, ${line.color}, ${line.size}, ${platform === 'mobile' ? (line.mobileQuantity ?? line.quantity) : line.quantity}개`}
+                optionText={formatProductOptions(line, line.mobileQuantity ?? line.quantity)}
                 amount={
                   line.displayAmount === undefined
                     ? undefined
@@ -383,7 +387,7 @@ export function OrderCard({ order, ...actions }: { order: OrderRecord } & OrderC
                     variant="history"
                     image={line.image}
                     name={line.name}
-                    optionText={`${line.width}, ${line.color}, ${line.size}`}
+                    optionText={formatProductOptions(line)}
                   />
                 </Box>
                 <Typography variant="b4M" className={css({ textAlign: 'center' })}>

@@ -381,7 +381,7 @@ export const previewOrders: OrderRecord[] = [
           web: {
             orderDate: '2026. 12. 12',
             orderNumber: '202610290034518',
-            status: '취소완료',
+            status: '환불완료',
             requestedAt: '2026. 10. 12',
             claimNumber: '202610290034518',
             completedAt: '2026. 10. 12',

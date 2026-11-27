@@ -20,6 +20,8 @@ import { modalOrderLookupContentRecipe } from '@/components/common/layouts/Modal
 
 import { type InquiryOrder, inquiryOrders } from '@/app/support/inquiries/new/inquiryOrders.data';
 import { type InquiryOrderSelection } from '@/app/support/inquiries/new/inquiryOrders.data';
+import { formatProductOptions } from '@/lib/formatProductOptions';
+
 const classes = modalOrderLookupContentRecipe();
 
 const styles = modalOrderLookupContentRecipe.raw();
@@ -217,7 +219,9 @@ export function InquiryOrderLookup({
                                       variant="b8"
                                       language="ko"
                                       className={classes.productOptions}
-                                    >{`${item.color}, ${item.size}, ${item.quantity}개`}</Typography>
+                                    >
+                                      {formatProductOptions(item, item.quantity)}
+                                    </Typography>
                                   </div>
                                 }
                               />
