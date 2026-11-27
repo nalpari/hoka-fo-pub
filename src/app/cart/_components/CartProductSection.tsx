@@ -90,12 +90,13 @@ function CartProductItem({
             </Typography>
           </Box>
         ) : null}
-        <Box pos="absolute" top="8px" right="8px">
+        <Box pos="absolute" top="0" right="0">
           <Wishlist
             active={favorite}
             ariaLabel={`${item.id} 관심상품`}
-            iconSize="20px"
+            iconSize="16px"
             onActiveChange={setFavorite}
+            size="32px"
           />
         </Box>
       </Box>

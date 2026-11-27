@@ -4,7 +4,7 @@ title: '라우팅과 플랫폼'
 description: 'App Router 경로, 페이지 경계와 PC·모바일 선택을 설명한다.'
 tags: [nextjs, routing, platform]
 status: draft
-updated: '2026-11-27T06:49:57Z'
+updated: '2026-11-27T07:36:44Z'
 generated:
   by: codex/gpt-6
   at: '2026-11-03T06:11:12Z'
@@ -442,6 +442,12 @@ IA 166의 원본/보정 비고는 `[ 11/16 기획 원복 ] 기획전 목록 페�
 상품 상세 공유 팝업 등 `ModalDialog`를 사용하는 화면에 [공통 오버레이 기준](ui.md#공통-모달-오버레이-2026-11-27)을 적용했다. 기존 `blurBackdrop={false}` 지정은 장바구니, 주문서, 출시 캘린더, 마이페이지, 상품 상세와 고객센터 호출부에서 제거했다. 퍼블리싱 가이드의 흰색 오버레이 예시는 PC와 모바일 모두 30%로 표기한다. 화면 주소, 고정 미리보기 상태와 연결 흐름은 기존과 같다.
 
 작업 트리 출처는 위 화면의 `ModalDialog` 호출부와 `src/app/publishing-guide/_components/ModalGuide.tsx`다.
+
+## 장바구니 썸네일 하트 (2026-11-27)
+
+장바구니 기본 화면의 상품 행은 PC·모바일 모두 썸네일의 위·오른쪽에서 각각 8px 안쪽에 16×16px 하트를 표시한다. 기존 Wishlist에 32×32px 버튼 크기를 지정하고, 썸네일 우상단에 배치해 하트를 중앙 정렬한다. 출처는 [HOKA 시안](https://www.figma.com/design/qyXJp4bnoeYSQxQULV8Wql)의 PC·모바일 장바구니 상품 타일과 [CartProductSection.tsx](../../src/app/cart/_components/CartProductSection.tsx)다.
+
+1440px PC와 375px 모바일에서 상품 5개 행의 아이콘 프레임, 위·오른쪽 간격과 버튼 크기를 실측했다. Figma 상품 타일과 브라우저 첫 행을 2배로 캡처했고 두 플랫폼에서 첫 행의 Space 키와 클릭으로 관심상품 토글을 확인했다.
 
 ## 장바구니·주문하기·주문내역 상품 구분선 (2026-11-26)
 
