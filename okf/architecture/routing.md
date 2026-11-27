@@ -3074,3 +3074,5 @@ Codex는 PC 1424px와 모바일 375px에서 두 목록의 링크 243개, 트리 
 /mypage/rewards의 RewardsContent는 display가 생략된 경우에 PC·모바일 요약 예시를 선택한다. 전달받은 OverviewView는 그대로 표시하고, 기존 조회 중·실패 경로는 개인 진행률을 숨긴다. 출처는 RewardsContent.tsx와 rewards-data.ts 작업 트리다. [혜택과 검증](ui.md#회원등급-최신-혜택-문구-2026-11-27).
 
 1:1 문의 파일 첨부 헤더의 파일 찾기 버튼은 PC·모바일 공통 Secondary Short를 사용한다. 출처는 `InquiryFormContent.tsx`다.
+
+공지사항 목록의 PC 행은 왼쪽 패딩 없이 제목을 목록 시작선에 맞추고 오른쪽 패딩은 16px을 사용한다. 출처는 `NoticesList.tsx`다.

@@ -20,9 +20,9 @@ const noticeLink = css({
   display: 'flex',
   alignItems: 'flex-start',
   gap: '24px',
-  px: '16px',
+  pr: '16px',
   py: '24px',
-  _mobile: { minH: '56px', px: '0', py: '16px', gap: '16px' },
+  _mobile: { minH: '56px', pr: '0', py: '16px', gap: '16px' },
   _focusVisible: {
     outline: '2px solid var(--color-focus-ring)',
     outlineOffset: '-2px',
