@@ -782,6 +782,7 @@ export const modalDialogRecipe = sva({
     },
     backdrop: { position: 'fixed', inset: '0', zIndex: '99' },
     popup: {
+      outline: 'none',
       w: '100%',
       maxW: '640px',
       maxH: 'calc(100dvh - 48px)',
