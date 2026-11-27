@@ -3082,3 +3082,5 @@ Codex는 PC 1424px와 모바일 375px에서 두 목록의 링크 243개, 트리 
 비밀번호 재설정 기본 화면에서 확인값을 입력하면 새 비밀번호와 비교해 불일치 오류를 확인 입력란 아래에 표시한다. 두 값이 일치하거나 확인값을 지우면 오류를 숨긴다. 출처는 `PasswordResetStatePreview.tsx`다.
 
 비밀번호 재설정 기본 화면에서는 새 비밀번호 입력값이 영문·숫자·특수문자를 모두 포함한 10~20자 조건을 충족하지 않으면 새 비밀번호 입력란 아래에 안내를 표시한다. 출처는 `PasswordResetStatePreview.tsx`와 `src/lib/passwordValidation.ts`다.
+
+비밀번호 재설정의 새 비밀번호 조건과 확인 불일치 오류 문구는 PC·모바일에서 red80으로 표시한다. 출처는 `PasswordResetContent.tsx`다.
