@@ -29,6 +29,11 @@ type Props = {
   items: readonly HistoryItem[];
 };
 
+const productHistoryGridMetrics = css({
+  '--history-card-max-width': '260px',
+  '--history-card-column-gap': '16px',
+});
+
 const restockListStyles = {
   mobileDate: css({ display: 'none', _mobile: { display: 'block', mt: '6px' } }),
   dateCell: css({ textAlign: 'center', _mobile: { srOnly: true } }),
@@ -164,11 +169,11 @@ function MyPageProductHistoryGrid({
   return (
     <Grid
       gridTemplateColumns={{
-        base: 'repeat(3, minmax(0, 260px))',
+        base: 'repeat(3, minmax(0, var(--history-card-max-width)))',
         _mobile: 'repeat(2, minmax(0, 1fr))',
       }}
       justifyContent={{ _web: 'start' }}
-      columnGap="16px"
+      columnGap="var(--history-card-column-gap)"
       rowGap="48px"
       _mobile={{ columnGap: '8px', rowGap: '40px' }}
     >
@@ -400,7 +405,15 @@ export function MyPageProductHistory({
       breadcrumbs={[{ label: '상품내역', href: '/mypage' }, { label: current.title }]}
     >
       <Stack
+        className={productHistoryGridMetrics}
         flex={!items.length ? '1' : undefined}
+        maxW={
+          recent && !isEmpty
+            ? {
+                _web: 'calc(3 * var(--history-card-max-width) + 2 * var(--history-card-column-gap))',
+              }
+            : undefined
+        }
         gap={items.length ? '40px' : '0'}
         mx={!restock && items.length > 0 ? { _mobile: '-16px' } : undefined}
         _mobile={{
@@ -423,7 +436,6 @@ export function MyPageProductHistory({
           }
           gap="0"
           pb={items.length ? '0' : '40px'}
-          pr={recent && !isEmpty ? { _web: '32px' } : undefined}
           _mobile={{
             px: !restock && items.length ? '16px' : '0',
             pt: '0',

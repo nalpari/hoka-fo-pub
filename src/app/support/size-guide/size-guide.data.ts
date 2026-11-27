@@ -20,11 +20,12 @@ export type GuideCategory = {
   measurement?: {
     image: string;
     womenImage?: string;
+    stepTitles: readonly string[];
     steps: readonly string[];
   };
   charts: Partial<Record<Gender, Partial<Record<Unit, GuideChart>>>>;
-  genders: readonly Gender[];
-  units: readonly Unit[];
+  genders: readonly [Gender, ...Gender[]];
+  units: readonly [Unit, ...Unit[]];
 };
 
 export const genderOptions = [
@@ -33,21 +34,26 @@ export const genderOptions = [
   { value: 'unisex', label: '공용' },
 ] as const;
 
+const shoeHeaders = ['한국(KR)', '발길이', '미국(US)'] as const;
+
+const apparelHeaders = ['미국(US)', '한국(KR)', '가슴', '허리', '엉덩이'] as const;
+
 export const shoeGuide = {
   value: 'shoes',
   label: '신발',
   measurement: {
-    image: 'shoes-measurement',
+    image: 'support-size-shoes',
+    stepTitles: ['윤곽 그리기', '길이 측정', '사이즈 선택'],
     steps: [
       '종이 위에 양발의 윤곽을 따라 그려주세요.',
-      '뒤꿈치 중앙부터 가장 긴 발가락 끝까지 직선으로 길이를 측정해 주세요.',
+      '뒤꿈치 중앙부터 가장 긴 발가락 끝까지 직선으로 길이를 측정해주세요.',
       '양발 중 더 긴 발을 기준으로 사이즈표에서 가장 가까운 사이즈를 선택해 주세요.',
     ],
   },
   charts: {
     men: {
       cm: {
-        headers: ['한국 (KR)', '발길이', '미국 (US)'],
+        headers: shoeHeaders,
         rows: [
           ['250', '25', '7'],
           ['255', '25.5', '7.5'],
@@ -63,7 +69,7 @@ export const shoeGuide = {
         ],
       },
       inch: {
-        headers: ['한국 (KR)', '발길이', '미국 (US)'],
+        headers: shoeHeaders,
         rows: [
           ['250', '9.84', '7'],
           ['255', '10.04', '7.5'],
@@ -81,7 +87,7 @@ export const shoeGuide = {
     },
     women: {
       cm: {
-        headers: ['한국 (KR)', '발길이', '미국 (US)'],
+        headers: shoeHeaders,
         rows: [
           ['220', '22', '5'],
           ['225', '22.5', '5.5'],
@@ -95,7 +101,7 @@ export const shoeGuide = {
         ],
       },
       inch: {
-        headers: ['한국 (KR)', '발길이', '미국 (US)'],
+        headers: shoeHeaders,
         rows: [
           ['220', '8.66', '5'],
           ['225', '8.86', '5.5'],
@@ -111,7 +117,7 @@ export const shoeGuide = {
     },
     unisex: {
       cm: {
-        headers: ['한국 (KR)', '발길이', '미국 (US) 남성/여성'],
+        headers: shoeHeaders,
         rows: [
           ['220', '22', '4/5'],
           ['225', '22.5', '4.5/5.5'],
@@ -133,7 +139,7 @@ export const shoeGuide = {
         ],
       },
       inch: {
-        headers: ['한국 (KR)', '발길이', '미국 (US) 남성/여성'],
+        headers: shoeHeaders,
         rows: [
           ['220', '8.66', '4/5'],
           ['225', '8.86', '4.5/5.5'],
@@ -160,14 +166,15 @@ export const shoeGuide = {
   units: ['cm', 'inch'],
 } as const satisfies GuideCategory;
 
-export const guideCategories: readonly GuideCategory[] = [
+export const guideCategories: readonly [GuideCategory, ...GuideCategory[]] = [
   shoeGuide,
   {
     value: 'apparel',
     label: '의류',
     measurement: {
-      image: 'tops-measurement',
-      womenImage: 'tops-women',
+      image: 'support-size-apparel-men',
+      womenImage: 'support-size-apparel-women',
+      stepTitles: ['가슴 둘레', '허리 둘레', '엉덩이 둘레'],
       steps: [
         '가슴의 가장 넓은 부분을 따라 줄자를 수평으로 둘러 측정해 주세요.',
         '허리의 가장 잘록한 부분을 따라 줄자를 둘러 측정해 주세요.',
@@ -177,7 +184,7 @@ export const guideCategories: readonly GuideCategory[] = [
     charts: {
       men: {
         cm: {
-          headers: ['US 사이즈', 'KR 사이즈', '가슴', '허리', '엉덩이'],
+          headers: apparelHeaders,
           rows: [
             ['XS', 'S', '89-94', '72.5-77.5', '87.5-93'],
             ['S', 'M', '94-99', '77.5-82.5', '93-98'],
@@ -187,7 +194,7 @@ export const guideCategories: readonly GuideCategory[] = [
           ],
         },
         inch: {
-          headers: ['US 사이즈', 'KR 사이즈', '가슴', '허리', '엉덩이'],
+          headers: apparelHeaders,
           rows: [
             ['XS', 'S', '35-37', '28.5-30.5', '34.4-36.6'],
             ['S', 'M', '37-39', '30.5-32.5', '36.6-38.6'],
@@ -199,7 +206,7 @@ export const guideCategories: readonly GuideCategory[] = [
       },
       women: {
         cm: {
-          headers: ['US 사이즈', 'KR 사이즈', '가슴', '허리', '엉덩이'],
+          headers: apparelHeaders,
           rows: [
             ['-', 'XS', '79-81', '59-61', '84-86'],
             ['XS', 'S', '84-87', '64-66', '89-91'],
@@ -210,7 +217,7 @@ export const guideCategories: readonly GuideCategory[] = [
           ],
         },
         inch: {
-          headers: ['US 사이즈', 'KR 사이즈', '가슴', '허리', '엉덩이'],
+          headers: apparelHeaders,
           rows: [
             ['-', 'XS', '31.1-31.9', '23.2-24', '33.1-33.9'],
             ['XS', 'S', '33.1-34.3', '25.2-26', '35-35.8'],
@@ -223,7 +230,7 @@ export const guideCategories: readonly GuideCategory[] = [
       },
       unisex: {
         cm: {
-          headers: ['US  사이즈', 'KR 사이즈', '가슴', '허리', '엉덩이'],
+          headers: apparelHeaders,
           rows: [
             ['XXS', 'XS', '84-89', '67-72', '82-88'],
             ['XS', 'S', '89-94', '72-77', '88-93'],
@@ -234,7 +241,7 @@ export const guideCategories: readonly GuideCategory[] = [
           ],
         },
         inch: {
-          headers: ['US  사이즈', 'KR 사이즈', '가슴', '허리', '엉덩이'],
+          headers: apparelHeaders,
           rows: [
             ['XXS', 'XS', '33.1-35', '26.4-28.3', '32.3-34.6'],
             ['XS', 'S', '35-37', '28.3-30.3', '34.6-36.6'],
@@ -252,11 +259,11 @@ export const guideCategories: readonly GuideCategory[] = [
   {
     value: 'accessories',
     label: '용품',
-    chartTitle: '양말',
+    chartTitle: '양말 사이즈 차트',
     charts: {
       unisex: {
         cm: {
-          headers: ['사이즈', '신발 사이즈'],
+          headers: ['사이즈', '발 사이즈'],
           rows: [
             ['S', '210-230'],
             ['M', '230-250'],

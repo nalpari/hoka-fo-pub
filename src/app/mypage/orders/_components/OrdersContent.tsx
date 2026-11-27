@@ -88,3 +88,17 @@ export function OrdersContent({
                   ? undefined
                   : () => props.onTracking(selectedOrder)
               }
+              onClaimDetail={(claimId) => {
+                const claim = selectedOrder.claims.find((item) => item.id === claimId);
+                if (claim) props.onClaimDetail(selectedOrder, claim);
+              }}
+            />
+          ) : (
+            <OrdersListContent {...props} returns={returns} />
+          )}
+          {dialogs}
+        </ContentSection>
+      </Stack>
+    </MyPageFrame>
+  );
+}
