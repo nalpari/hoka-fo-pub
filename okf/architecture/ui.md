@@ -5549,7 +5549,7 @@ EmptyState.recipe.tsx의 orders layout만 PC 높이267px·가로/세로 중앙 �
 
 ## 공용 기간·날짜 조회 UI (2026-11-18)
 
-DateRangeSearch는 기간 버튼(1년·6개월·3개월·1개월·직접설정), 상시 날짜 입력과 조회 버튼을 함께 소유한다. 주문/취소 목록과 문의 주문 상품 조회 모달이 직접 사용하며 OrdersStatus의 전달용 OrdersFilters는 제거했다. 모달 recipe의 tabs/tab 스타일은 공용 소유자로 이동했다. PC inline 배치와 PC/MO stacked 배치를 지원하며 layout 생략·undefined의 기본값은 inline(PC 한 줄/MO 두 줄)이다. 함수 매개변수와 Panda cva defaultVariants에 같은 기본값을 선언한다. 모달은 stacked를 명시한다. 모바일에도 기간 순서는1년·6개월·3개월·1개월·직접설정이고 날짜·조회가 항상 보인다. 날짜130×36px, 날짜 사이6px·조회와24px, 세로 배치는24px 간격을 사용한다. 조회 버튼과 날짜는 모든 플랫폼에서 수직 중앙 정렬한다.
+DateRangeSearch는 기간 버튼, 상시 날짜 입력과 조회 버튼을 함께 소유한다. 2026-11-27부터 PC·모바일 공통 기간 순서는 1개월·3개월·6개월·1년·직접설정이다. 순서의 출처는 `src/components/common/molecules/DateRangeSearch.tsx`의 `periodOptions`다. 주문/취소 목록과 문의 주문 상품 조회 모달이 직접 사용하며 OrdersStatus의 전달용 OrdersFilters는 제거했다. 모달 recipe의 tabs/tab 스타일은 공용 소유자로 이동했다. PC inline 배치와 PC/MO stacked 배치를 지원하며 layout 생략·undefined의 기본값은 inline(PC 한 줄/MO 두 줄)이다. 함수 매개변수와 Panda cva defaultVariants에 같은 기본값을 선언한다. 모달은 stacked를 명시한다. 날짜130×36px, 날짜 사이6px·조회와24px, 세로 배치는24px 간격을 사용한다. 조회 버튼과 날짜는 모든 플랫폼에서 수직 중앙 정렬한다.
 
 화면 소유자가 DateRangeValue { period, start, end } 초안을 소유하며 onValueChange가 값을 원자적으로 교체한다. period는1/3/6/12/custom이다. preset은 클릭 시점의 로컬 오늘을 종료일로 사용하고 달력 월 단위로 시작일을 구하며 월말·윤년을 보정한다. referenceDate로 명시적 기준일을 전달할 수 있다. custom 클릭은 날짜를 유지하고, 텍스트/네이티브 date 입력 편집은 날짜와custom을 함께 전달한다. 외부 교체 데이터는 현재 props에서 읽으며 effect로 편집값을 동기화하지 않는다.
 
