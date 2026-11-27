@@ -12,9 +12,7 @@ import {
 } from 'react';
 import { type Platform, usePlatform } from '@/context/platform';
 
-import { css } from 'styled-system/css';
 import { Box, Flex, Grid, HStack, VStack } from 'styled-system/jsx';
-import { contentFrame } from 'styled-system/patterns';
 
 import { Button, ButtonLink } from '@/components/common/atoms/Button';
 import { type FilterTabOption, FilterTabs } from '@/components/common/atoms/FilterTabs';
@@ -37,6 +35,7 @@ import {
 } from '@/app/homeContent';
 import { products } from '@/mocks/products';
 
+import { homeStyles } from './home.recipe';
 import { HomePromotionDialog, type HomePromotionDialogProps } from './HomePromotionDialog';
 
 type HomeContentProps = {
@@ -69,30 +68,13 @@ function HomeLayout({ platform, children }: { platform: Platform; children: Reac
       as="main"
       id="home-content"
       tabIndex={-1}
-      className={`home-page-${platform}`}
+      className={`home-page-${platform} ${homeStyles.layout}`}
       overflow="hidden"
       color="var(--color-text-primary)"
       bg="var(--color-surface-default)"
       fontFamily="var(--font-family-base)"
       pb="24"
       _mobile={{ pb: '72px' }}
-      css={{
-        _mobile: {
-          // Linear 375–768px interpolation; rem bounds preserve user font preferences.
-          '--home-title-20': 'clamp(1.25rem, calc(0.65362595rem + 2.54452926vw), 1.875rem)',
-          '--home-title-24': 'clamp(1.5rem, calc(0.78435115rem + 3.05343511vw), 2.25rem)',
-          '--home-title-30': 'clamp(1.875rem, calc(0.98043893rem + 3.81679389vw), 2.8125rem)',
-          '--home-title-40': 'clamp(2.5rem, calc(1.30725191rem + 5.08905852vw), 3.75rem)',
-          '--home-body-12': 'clamp(0.75rem, calc(0.57108779rem + 0.76335878vw), 0.9375rem)',
-          '--home-body-13': 'clamp(0.8125rem, calc(0.61867844rem + 0.82697201vw), 1.015625rem)',
-          '--home-body-16': 'clamp(1rem, calc(0.76145038rem + 1.0178117vw), 1.25rem)',
-          '--home-body-30': 'clamp(1.875rem, calc(1.42771947rem + 1.90839695vw), 2.34375rem)',
-          '--home-body-40': 'clamp(2.5rem, calc(1.90362595rem + 2.54452926vw), 3.125rem)',
-          '--home-pagination-dot': 'clamp(0.375rem, calc(0.19608779rem + 0.76335878vw), 0.5625rem)',
-          '--home-pagination-active': 'clamp(2rem, calc(1.04580153rem + 4.07124682vw), 3rem)',
-          '--home-pagination-gap': 'clamp(0.4375rem, calc(0.139313rem + 1.272265vw), 0.75rem)',
-        },
-      }}
     >
       <VStack alignItems="flex-start" gap={{ base: '96px', _mobile: '72px' }}>
         {children}
@@ -100,49 +82,6 @@ function HomeLayout({ platform, children }: { platform: Platform; children: Reac
     </Box>
   );
 }
-
-const mobileRail = css({
-  w: '100vw',
-  pr: '16px !important',
-  overflow: 'visible!',
-  '& .swiper-wrapper': { px: '11px' },
-});
-
-const mobileSlide = css({
-  // The 375px frame has 151px cards and 10px gaps.
-  w: 'calc(40.2667vw + 10px)!',
-  px: '5px!',
-  '& > *': { w: '100%!' },
-});
-
-const bestSellerSection = css({
-  '& > div': { gap: '20px' },
-  '& h2': { lineHeight: '33.5px' },
-  '& article.card': { gap: '12px' },
-  '& article div:has(> [data-product-gender])': { gap: '0' },
-  '& article div:has(> [data-product-price])': { gap: '10px' },
-  '& [data-product-gender], & [data-product-name]': { lineHeight: '1.3' },
-  '& [data-product-price] span': { lineHeight: '1.3', fontWeight: 'medium' },
-  _mobile: {
-    '& > div': { gap: '16px' },
-    '& h2': { lineHeight: '31px', transform: 'translateY(-3px)' },
-    '& article.card': { gap: '8px' },
-    '& article div:has(> [data-product-gender])': { gap: '2px' },
-    '& article div:has(> [data-product-price])': { gap: '4px' },
-    '& [data-product-price] span': { fontSize: 'body.14' },
-  },
-});
-
-const bestSellerTabRail = css({ '&&': { gap: '8px', _mobile: { gap: '6px' } } });
-
-const bestSellerTab = css({
-  '&&': { height: '35px' },
-  '& > span': { fontSize: 'body.16', lineHeight: '1.3' },
-  _mobile: {
-    '&&': { height: '30px', px: '15px' },
-    '& > span': { fontSize: 'body.12' },
-  },
-});
 
 type BestSellerTab = (typeof bestSellerTabs)[number];
 
@@ -178,14 +117,14 @@ function HomeBestSellerSection() {
   );
   return (
     <CarouselSection
-      className={bestSellerSection}
+      className={homeStyles.bestSellerSection}
       tabs={
         <FilterTabs
           ariaLabel="베스트셀러 카테고리 필터"
-          itemClassName={() => bestSellerTab}
+          itemClassName={() => homeStyles.bestSellerTab}
           onValueChange={setSelectedTab}
           options={isWeb ? bestSellerFilterTabs : mobileBestSellerFilterTabs}
-          railClassName={bestSellerTabRail}
+          railClassName={homeStyles.bestSellerTabRail}
           value={selectedTab}
           variant="fill"
         />
@@ -195,8 +134,8 @@ function HomeBestSellerSection() {
       itemCount={bestSellerProducts.length}
       mobileItemGutter={5}
       platform={platform}
-      railClassName={isWeb ? undefined : mobileRail}
-      slideClassName={isWeb ? undefined : mobileSlide}
+      railClassName={isWeb ? undefined : homeStyles.bestSellerMobileRail}
+      slideClassName={isWeb ? undefined : homeStyles.bestSellerMobileSlide}
       spacing="tight"
       title="Best sellers"
       titleVariant="h1B"
@@ -216,100 +155,40 @@ function HomeBestSellerSection() {
     </CarouselSection>
   );
 }
-// 312px at a 375px viewport. The slide adds 8px gutters on both sides,
-// leaving a deliberate preview of the following card.
-const HomeCategorySectionMobileSlide = css({
-  w: 'calc(83.2vw + var(--spacing-4))!',
-  '& > *': { w: '100%' },
-});
+
 type HomeCategorySectionProps = {
   platform: Platform;
 };
 
-const categorySection = css({
-  '& h2': { lineHeight: '38.4px', transform: 'translateY(5.5px)' },
-  _mobile: {
-    '& > div': { gap: '16px' },
-    '& h2': { lineHeight: '31px', transform: 'translateY(-3px)' },
-  },
-});
-
-const categoryCard = css({
-  '&&': { gap: '0' },
-  '& h3': { textStyle: 'en-wide-h8B', lineHeight: '28px' },
-  '& .card__header': { gap: '0', mt: '17px' },
-  '& .card__footer': { mt: '18px' },
-  '& .card__action a > span > span': { textStyle: 'ko-common-b4S', lineHeight: '1.3' },
-  _mobile: {
-    '& h3': { textStyle: 'en-compact-h6B', lineHeight: '23.04px' },
-    '& .card__header': { mt: '16px' },
-    '& .card__footer': { mt: '12.5px' },
-    '& .card__action a > span > span': { textStyle: 'ko-common-b6S', lineHeight: '1.3' },
-  },
-});
 function HomeCategorySection({ platform }: HomeCategorySectionProps) {
   const isWeb = platform === 'web';
   return (
     <CarouselSection
-      className={categorySection}
+      className={homeStyles.categorySection}
       desktopCenteredItemCount={4}
       desktopItemGutter={8}
       itemCount={homeCategories.length}
       mobileItemGutter={8}
       platform={platform}
       mobileRail="bleed"
-      slideClassName={isWeb ? undefined : HomeCategorySectionMobileSlide}
+      slideClassName={isWeb ? undefined : homeStyles.categoryMobileSlide}
       title="Shop by category"
       titleVariant="h1B"
       mobileTitleVariant="h4B"
     >
       {homeCategories.map((category) => (
-        <MainContentCard className={categoryCard} key={category.title} {...category} />
+        <MainContentCard className={homeStyles.categoryCard} key={category.title} {...category} />
       ))}
     </CarouselSection>
   );
 }
-
-const exploreSection = css({
-  '& h2': { lineHeight: '34px' },
-  _mobile: {
-    '& > div': { gap: '16px' },
-    '& h2': { lineHeight: '31px', transform: 'translateY(-3px)' },
-  },
-});
-
-const exploreCard = css({
-  '&&': { gap: '0' },
-  '& h3': { textStyle: 'en-wide-h8B', lineHeight: '28px' },
-  '& .card__header': { gap: '16px', mt: '17px' },
-  '& .card__header p': { minH: '0' },
-  '& .card__footer': { mt: '14.5px' },
-  '& .card__action a > span > span': { textStyle: 'ko-common-b4S', lineHeight: '1.3' },
-  _mobile: {
-    '&&': { aspectRatio: '375 / 500', p: '16px 16px 50px' },
-    // The mobile photo exports already include the designed gradient.
-    '& .card__content > div[aria-hidden="true"]': { display: 'none' },
-    '& h3': { textStyle: 'en-compact-h6B', lineHeight: '23.04px' },
-    '& .card__header': { gap: '12.5px', mt: '0' },
-    '& .card__header p': { lineHeight: '18.2px', whiteSpace: 'pre-line' },
-    '& .card__footer': { mt: '16.5px' },
-    '& .card__action': { gap: '8px' },
-    '& .card__action a': {
-      minH: 'var(--home-body-40, 40px)',
-      '--button-padding-x': 'var(--home-body-16, 16px)',
-    },
-    '& .card__action a > span > span': { textStyle: 'ko-common-b6B', lineHeight: '1.3' },
-  },
-});
-
-const exploreMobileCopy = css({ fontWeight: 'medium' });
 
 function HomeExploreSection() {
   const platform = usePlatform();
   const isMobile = platform === 'mobile';
   return (
     <MainSection
-      className={exploreSection}
+      className={homeStyles.exploreSection}
       title="Explore"
       titleVariant="h1B"
       mobileTitleVariant="h4B"
@@ -321,13 +200,13 @@ function HomeExploreSection() {
       >
         {homeExplores.map(({ mobileImage, mobileDescription, ...explore }) => (
           <MainContentCard
-            className={exploreCard}
+            className={homeStyles.exploreCard}
             key={explore.title}
             {...explore}
             image={isMobile ? mobileImage : explore.image}
             description={
               isMobile && mobileDescription ? (
-                <span className={exploreMobileCopy}>{mobileDescription}</span>
+                <span className={homeStyles.exploreMobileCopy}>{mobileDescription}</span>
               ) : (
                 explore.description
               )
@@ -357,41 +236,6 @@ type HeroCopyProps = {
   platform: Platform;
 };
 
-const title = css({
-  '--hero-title-leading': '76.8px',
-  m: '0',
-  '&&': {
-    fontSize: '80px',
-    lineHeight: 'var(--hero-title-leading)',
-    transform: 'translateY(-5.5px)',
-  },
-  _mobile: {
-    '--hero-title-leading': '0.96',
-    '&&': { fontSize: 'var(--home-title-40, 40px)', transform: 'translateY(-2.5px)' },
-  },
-});
-
-const description = css({
-  '--hero-description-offset': '-1px',
-  m: '0',
-  w: 'auto',
-  transform: 'translateY(var(--hero-description-offset))',
-  _mobile: {
-    '--hero-description-offset': '2px',
-    w: '100%',
-    maxW: '100%',
-    overflowWrap: 'anywhere',
-    '&&': { lineHeight: '1.3' },
-  },
-});
-
-const heroTechnology = css({ fontFamily: 'en' });
-
-const heroAction = css({
-  '& > span > span': { textStyle: 'ko-common-b4S', lineHeight: '1.3' },
-  _mobile: { '& > span > span': { textStyle: 'ko-common-b6B', lineHeight: '1.3' } },
-});
-
 /** 홈 Hero의 제목·설명·행동 링크를 배치합니다. (Arranges the home hero title, description, and action links.) */
 function HeroCopy({ content, actions, platform }: HeroCopyProps) {
   return (
@@ -401,9 +245,7 @@ function HeroCopy({ content, actions, platform }: HeroCopyProps) {
       zIndex="1"
       top="calc(50% - 2px)"
       left="50%"
-      className={contentFrame({
-        mobileWidth: 'calc(100% - var(--layout-mobile-content-inline-space))',
-      })}
+      className={homeStyles.heroCopyFrame}
       transform="translate(-50%, -50%)"
       _mobile={{
         top: 'auto',
@@ -420,7 +262,7 @@ function HeroCopy({ content, actions, platform }: HeroCopyProps) {
         maxW="100%"
         gap={{ base: '14px', _mobile: '10px' }}
         titleProps={{
-          className: title,
+          className: homeStyles.heroTitle,
           tone: 'inverse',
           web: 'd1',
           mo: 'd4',
@@ -428,7 +270,7 @@ function HeroCopy({ content, actions, platform }: HeroCopyProps) {
         description={content.description}
         descriptionAs="div"
         descriptionProps={{
-          className: description,
+          className: homeStyles.heroDescription,
           tone: 'inverse',
           web: 'b1',
           mo: 'b4M',
@@ -437,7 +279,7 @@ function HeroCopy({ content, actions, platform }: HeroCopyProps) {
       <HStack alignItems="flex-start" flexWrap="wrap" maxW="100%" gap="8px">
         {actions.map((action) => (
           <ButtonLink
-            className={heroAction}
+            className={homeStyles.heroAction}
             key={`${action.to}-${action.label}`}
             size={platform === 'mobile' ? 'short' : 'tall'}
             variant="primary"
@@ -463,39 +305,7 @@ type HeroPaginationProps = {
   progressDuration: number;
   slides: readonly HeroPaginationSlide[];
 };
-const paginationButton = css({
-  '--hero-pagination-dot': '8px',
-  '--hero-pagination-active-size': '42px',
-  w: 'var(--hero-pagination-dot)',
-  h: 'var(--hero-pagination-dot)',
-  p: '0',
-  border: '0',
-  borderRadius: '50px',
-  position: 'relative',
-  overflow: 'hidden',
-  bg: 'color-mix(in srgb, var(--color-white-000) 70%, transparent)',
-  cursor: 'pointer',
-  transition: 'width 200ms ease',
-  '&[aria-pressed="true"]': {
-    w: 'var(--hero-pagination-active-size)',
-    bg: 'color-mix(in srgb, var(--color-white-000) 50%, transparent)',
-  },
-  _mobile: {
-    '--hero-pagination-dot': 'var(--home-pagination-dot, 6px)',
-    '--hero-pagination-active-size': 'var(--home-pagination-active, 32px)',
-  },
-  _focusVisible: { outline: '2px solid var(--color-text-inverse)', outlineOffset: '3px' },
-});
-const progressBar = css({
-  position: 'absolute',
-  top: '0',
-  bottom: '0',
-  left: '0',
-  borderRadius: 'inherit',
-  bg: 'var(--color-white-000)',
-  transitionProperty: 'width',
-  transitionTimingFunction: 'linear',
-});
+
 function getProgressWidth(progress: number) {
   return `calc(var(--hero-pagination-dot) * ${1 - progress} + ${progress * 100}%)`;
 }
@@ -526,7 +336,7 @@ function HeroPagination({
           variant="unstyled"
           aria-label={`${slide.title} 슬라이드`}
           aria-pressed={activeSlide === index}
-          className={paginationButton}
+          className={homeStyles.heroPaginationButton}
           key={slide.id}
           onClick={() => onSlideChange(index)}
           type="button"
@@ -534,7 +344,7 @@ function HeroPagination({
           {activeSlide === index ? (
             <span
               aria-hidden="true"
-              className={progressBar}
+              className={homeStyles.heroProgressBar}
               style={{
                 transitionDuration: `${progressDuration}ms`,
                 transitionProperty: isProgressPaused ? 'none' : 'width',
@@ -553,14 +363,14 @@ type HeroSlideProps = {
   mobileImage: string;
   platform?: Platform;
 };
-const image = css({ w: '100%', h: '100%', objectFit: 'cover' });
+
 /** 홈 배너 이미지를 화면 크기와 첫 슬라이드의 로딩 우선순위에 맞춰 표시합니다. (Displays a responsive hero image with loading priority for the first slide.) */
 function HeroSlide({ desktopImage, mobileImage, platform = 'web', first = false }: HeroSlideProps) {
   const imageSource = platform === 'mobile' ? mobileImage : desktopImage;
   return (
     <Box pos="relative" flex="0 0 100%" w="100%" h="100%">
       <Image
-        className={image}
+        className={homeStyles.heroImage}
         src={imageSource}
         alt=""
         aria-hidden="true"
@@ -743,7 +553,7 @@ function Hero({ ariaLabel, platform = 'web', slides }: HeroProps) {
           pos="absolute"
           inset="0"
           pointerEvents="none"
-          background="linear-gradient(180deg, color-mix(in srgb, var(--color-black-100) 0%, transparent) 41.11%, color-mix(in srgb, var(--color-black-100) 30%, transparent) 76.91%)"
+          className={homeStyles.heroMobileGradient}
           aria-hidden="true"
         />
       )}
@@ -776,7 +586,8 @@ function HomeHeroSection({ platform }: HomeHeroSectionProps) {
             title: 'TECTON X 4',
             description: (
               <>
-                새롭게 선보이는 초고속 <span className={heroTechnology}>ProFly X</span> 기술로
+                새롭게 선보이는 초고속 <span className={homeStyles.heroTechnology}>ProFly X</span>{' '}
+                기술로
                 <br />
                 당신의 최고 기록에 도전하세요.
               </>
@@ -826,50 +637,6 @@ function HomeHeroSection({ platform }: HomeHeroSectionProps) {
 }
 const previewItems = createHomeCarouselPreviewItems(shoeFinderItems);
 
-// The slide width includes both 8px gutters. The card itself reaches 253px at 375px.
-const HomeShoeFinderSectionMobileSlide = css({
-  w: 'calc(min(67.4667vw, 253px) + 16px)!',
-  '& > *': { w: '100%' },
-});
-
-const shoeFinderCard = css({
-  '--shoe-finder-text-gap': '14px',
-  '--shoe-finder-text-inset': '28px',
-  aspectRatio: '371 / 494',
-  borderRadius: '10px',
-  overflow: 'clip',
-  // Allow longer descriptions to increase the height of a narrow card.
-  '&&.card': { h: 'auto' },
-  '& .card__content': { aspectRatio: '1 / 1', flexShrink: '0' },
-  // The Figma text starts inside the square image frame on both platforms.
-  '& .card__header': {
-    mt: '-4.32%',
-    pt: '0',
-    px: 'var(--shoe-finder-text-inset)',
-    gap: 'var(--shoe-finder-text-gap)',
-    flexShrink: '0',
-  },
-  '& h3': { textStyle: 'en-wide-h8B', lineHeight: '30.72px' },
-  '& .card__header p': { minH: '0' },
-  '& .card__footer': { flexShrink: '0' },
-  '& .card__action': {
-    pt: '15.5px',
-    px: 'var(--shoe-finder-text-inset)',
-    pb: '4px',
-  },
-  '& .card__action a > span > span': { textStyle: 'ko-common-b4S', lineHeight: '1.3' },
-  _mobile: {
-    '--shoe-finder-text-gap': '11px',
-    '--shoe-finder-text-inset': '16px',
-    aspectRatio: '253 / 336.88',
-    borderRadius: '8px',
-    '& .card__header': { mt: '-10.39%', pt: '0', pr: '14px' },
-    '& h3': { textStyle: 'en-compact-h6B', lineHeight: '23.04px' },
-    '& .card__action': { pt: '10px' },
-    '& .card__action a > span > span': { textStyle: 'ko-common-b6S', lineHeight: '1.3' },
-  },
-});
-
 type HomeShoeFinderSectionProps = {
   platform: Platform;
   variant?: HomeShoeFinderCardVariant;
@@ -885,14 +652,14 @@ function HomeShoeFinderSection({ platform, variant = 'imagePill' }: HomeShoeFind
       mobileItemGutter={8}
       platform={platform}
       mobileRail="bleed"
-      slideClassName={isWeb ? undefined : HomeShoeFinderSectionMobileSlide}
+      slideClassName={isWeb ? undefined : homeStyles.shoeFinderMobileSlide}
       title="Find my HOKA"
       titleVariant="d4"
       mobileTitleVariant="h5B"
     >
       {previewItems.map(({ images, description, mobileDescription, ...item }, index) => (
         <MainContentCard
-          className={variant === 'imagePill' ? shoeFinderCard : undefined}
+          className={variant === 'imagePill' ? homeStyles.shoeFinderCard : undefined}
           description={isWeb ? description : (mobileDescription ?? description)}
           key={`${item.title}-${index}`}
           {...item}

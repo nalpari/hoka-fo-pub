@@ -11,6 +11,7 @@ generated:
 source_revision: cc691836be2cb041fd7a20787336c765463ba97e
 working_tree_sources:
   - src/app/_components/HomeContent.tsx
+  - src/app/_components/home.recipe.tsx
   - src/app/_components/HomePromotionDialog.tsx
   - public/images/temp/home-promotion.webp
   - src/app/homeContent.ts
@@ -57,7 +58,7 @@ IA 미리보기의 첫 장은 시안의 이미지 fill이다. 두 장은 전환 
 
 ### 메인 섹션 실측 (2026-11-27)
 
-`HomeContent.tsx`가 홈 전용 Panda 스타일, 플랫폼별 섹션 순서, Hero 진행 상태, 캐러셀과 탭 조작을 소유한다. 트레일 러닝 탭의 고정 상품 순서·가격·이미지와 모바일 Explore 문구는 `homeContent.ts`에 둔다. 상품 상세 ID가 없는 트레일 러닝 시안 카드는 카테고리 상품 목록을 열며, 다른 탭은 기존 상품 데이터를 사용한다. 연결 경계는 [데이터 바인딩](data-binding.md#현재-연결-경계-2026-11-05)을 따른다.
+홈 전용 Panda 클래스와 반응형 변수는 `src/app/_components/home.recipe.tsx`에 둔다. `HomeContent.tsx`는 플랫폼별 섹션 순서, Hero 진행 상태, 캐러셀과 탭 조작을 소유한다. 트레일 러닝 탭의 고정 상품 순서·가격·이미지와 모바일 Explore 문구는 `homeContent.ts`에 둔다. 상품 상세 ID가 없는 트레일 러닝 시안 카드는 카테고리 상품 목록을 열며, 다른 탭은 기존 상품 데이터를 사용한다. 연결 경계는 [데이터 바인딩](data-binding.md#현재-연결-경계-2026-11-05)을 따른다.
 
 PC 1920px·MO 375px에서 Figma와 브라우저를 2배로 캡처했다. Hero 제목·설명 시작 위치는 시안과 일치했고, 나머지 섹션 제목과 첫 카드의 텍스트 시작점 차이는 최대 1.5 CSS px였다. 모바일에서는 Hero 슬라이드 선택과 카테고리 스와이프를, PC에서는 카테고리 다음 버튼을 확인했다. 1024·1025·1199·1200px에서 플랫폼별 본문 순서, PC 최소 캔버스, 리사이즈 시 Best sellers 탭 선택을 확인했다.
 

@@ -2,7 +2,7 @@
 
 - [주요 PC 화면 제목의 Bold 적용](routing.md#주요-pc-화면-제목의-bold-적용-2026-11-27) - 고객센터·주문/결제 및 관련 화면의 700 제목.
 
-- [메인 PC·모바일 시안](home-product-design.md#메인-섹션-실측-2026-11-27) - Hero, 카테고리, Explore, Best sellers 실측.
+- [메인 PC·모바일 시안과 스타일](home-product-design.md#메인-섹션-실측-2026-11-27) - Hero, 카테고리, Explore, Best sellers 실측과 홈 전용 Panda 스타일.
 
 - [메인 Find my HOKA 카드](home-product-design.md#find-my-hoka-카드-2026-11-27) - PC·모바일 카드 크기, 이미지 대비 제목 위치와 모바일 Black 제목.
 
